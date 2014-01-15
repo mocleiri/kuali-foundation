@@ -7,11 +7,11 @@ import java.util.ServiceLoader;
 
 public class Binding {
 
-	public static BinderFactory buildDefaultBinderFactory() {
-		ServiceLoader<BindingProvider> loader = ServiceLoader.load(BindingProvider.class);
-		Iterator<BindingProvider> itr = loader.iterator();
-		checkState(itr.hasNext(), "No impl for [%s]", BindingProvider.class.getCanonicalName());
-		BindingProvider provider = itr.next();
-		return provider.buildBinderFactory();
+	public static BinderService buildDefaultBinderFactory() {
+		ServiceLoader<BinderService> loader = ServiceLoader.load(BinderService.class);
+		Iterator<BinderService> itr = loader.iterator();
+		checkState(itr.hasNext(), "No impl for [%s]", BinderService.class.getCanonicalName());
+		BinderService service = itr.next();
+		return service;
 	}
 }

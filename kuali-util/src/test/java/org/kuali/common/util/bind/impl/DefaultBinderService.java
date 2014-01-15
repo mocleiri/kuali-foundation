@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.bind.api.Binder;
+import org.kuali.common.util.bind.api.BinderService;
 import org.kuali.common.util.spring.binder.BytesFormatAnnotationFormatterFactory;
 import org.kuali.common.util.spring.binder.TimeFormatAnnotationFormatterFactory;
 import org.springframework.beans.MutablePropertyValues;
@@ -14,7 +14,7 @@ import org.springframework.validation.DataBinder;
 
 import com.google.common.collect.Maps;
 
-public class DefaultBinder implements Binder {
+public class DefaultBinderService implements BinderService {
 
 	@Override
 	public <T> BindingResult bind(T object) {
