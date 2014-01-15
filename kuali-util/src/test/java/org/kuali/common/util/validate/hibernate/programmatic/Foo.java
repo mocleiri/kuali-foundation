@@ -18,11 +18,11 @@ import org.hibernate.validator.cfg.ConstraintDef;
 import org.hibernate.validator.cfg.ConstraintMapping;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.validate.IdiotProofBuilder;
-import org.kuali.common.util.validate.IdiotProof;
+import org.kuali.common.util.validate.IdiotProofImmutable;
 import org.kuali.common.util.validate.hibernate.factory.ConstraintDefService;
 import org.kuali.common.util.validate.hibernate.factory.DefaultConstraintDefService;
 
-@IdiotProof
+@IdiotProofImmutable
 public class Foo {
 
 	@Size(min = 12)

@@ -19,7 +19,7 @@ import javax.validation.Payload;
 @ImmutableGuavaMaps
 @ImmutableGuavaCollections
 @Documented
-public @interface IdiotProof {
+public @interface IdiotProofImmutable {
 
 	String message() default "idiot proofing failed";
 
