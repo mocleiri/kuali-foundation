@@ -29,7 +29,7 @@ public class DefaultBinderService implements BinderService {
 		Optional<Bind> bind = ReflectionUtils.getAnnotation(object.getClass(), Bind.class);
 		if (bind.isPresent()) {
 			Optional<String> prefix = Optional.fromNullable(bind.get().prefix());
-			Map<String, String> map = prefix.isPresent() ? getMap(prefix.get(), global) : global;
+			ImmutableMap<String, String> map = prefix.isPresent() ? getMap(prefix.get(), global) : global;
 			DataBinder binder = new DataBinder(object);
 			MutablePropertyValues pvs = new MutablePropertyValues(map);
 			binder.setConversionService(service);
@@ -41,7 +41,7 @@ public class DefaultBinderService implements BinderService {
 
 	}
 
-	protected Map<String, String> getMap(String prefix, Map<String, String> map) {
+	protected ImmutableMap<String, String> getMap(String prefix, Map<String, String> map) {
 		Map<String, String> newMap = Maps.newHashMap();
 		for (String key : map.keySet()) {
 			if (key.startsWith(prefix)) {
