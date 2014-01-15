@@ -11,7 +11,7 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 /**
- * The annotated class must be declared final, and all fields declared in the class must be declared as final.
+ * The annotated class must be declared final, and all fields declared in the class must be final.
  */
 @Target({ TYPE })
 @Retention(RUNTIME)
