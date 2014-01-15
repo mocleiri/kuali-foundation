@@ -8,7 +8,7 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.bind.api.Bind;
+import org.kuali.common.util.bind.api.Bound;
 import org.kuali.common.util.bind.api.BindMappings;
 import org.kuali.common.util.bind.api.BinderService;
 import org.kuali.common.util.spring.binder.BytesFormatAnnotationFormatterFactory;
@@ -32,7 +32,7 @@ public class DefaultBinderService implements BinderService {
 
 	@Override
 	public <T> Optional<BindingResult> bind(T object) {
-		Optional<Bind> bind = ReflectionUtils.getAnnotation(object.getClass(), Bind.class);
+		Optional<Bound> bind = ReflectionUtils.getAnnotation(object.getClass(), Bound.class);
 		if (bind.isPresent()) {
 			Optional<String> prefix = getPrefix(bind.get(), object.getClass());
 			ImmutableMap<String, String> map = getMap(prefix, global);
@@ -47,7 +47,7 @@ public class DefaultBinderService implements BinderService {
 
 	}
 
-	protected Set<String> getKeys(Class<?> type, Bind annotation) {
+	protected Set<String> getKeys(Class<?> type, Bound annotation) {
 		Optional<String> prefix = getPrefix(annotation, type);
 		Set<Field> fields = ReflectionUtils.getFields(type);
 		Set<String> keys = Sets.newTreeSet();
@@ -101,7 +101,7 @@ public class DefaultBinderService implements BinderService {
 		return ImmutableSet.copyOf(names);
 	}
 
-	protected Optional<String> getPrefix(Bind bind, Class<?> type) {
+	protected Optional<String> getPrefix(Bound bind, Class<?> type) {
 		if (!bind.prefix()) {
 			return Optional.absent();
 		}

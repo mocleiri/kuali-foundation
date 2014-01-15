@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 @Target({ TYPE })
 @Retention(RUNTIME)
 @Documented
-public @interface Bind {
+public @interface Bound {
 
 	String value() default "";
 

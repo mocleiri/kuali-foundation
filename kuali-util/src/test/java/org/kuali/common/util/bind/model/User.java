@@ -3,10 +3,10 @@ package org.kuali.common.util.bind.model;
 import java.io.File;
 import java.util.TimeZone;
 
-import org.kuali.common.util.bind.api.Bind;
+import org.kuali.common.util.bind.api.Bound;
 import org.kuali.common.util.bind.api.BindMappings;
 
-@Bind
+@Bound
 public class User {
 
 	String country;
