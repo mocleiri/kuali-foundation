@@ -15,6 +15,7 @@ import javax.validation.Payload;
 @Constraint(validatedBy = {})
 @StronglyImmutable
 @NoNullFields
+@NoBlanks
 @ImmutableGuavaMaps
 @ImmutableGuavaCollections
 @Documented
