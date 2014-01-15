@@ -40,10 +40,16 @@ import com.google.common.collect.ImmutableSet;
 
 public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 
+	/**
+	 * Return true if this class is declared as final
+	 */
 	public static boolean isFinal(Class<?> type) {
 		return Modifier.isFinal(type.getModifiers());
 	}
 
+	/**
+	 * Return true if this field is declared as final
+	 */
 	public static boolean isFinal(Field field) {
 		return Modifier.isFinal(field.getModifiers());
 	}
