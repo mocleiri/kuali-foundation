@@ -11,7 +11,7 @@ public class User {
 	String country;
 	File home;
 	File dir;
-	TimeZone timezone;
+	TimeZone timeZone;
 	String name;
 
 	public String getCountry() {
@@ -38,12 +38,12 @@ public class User {
 		this.dir = dir;
 	}
 
-	public TimeZone getTimezone() {
-		return timezone;
+	public TimeZone getTimeZone() {
+		return timeZone;
 	}
 
-	public void setTimezone(TimeZone timezone) {
-		this.timezone = timezone;
+	public void setTimeZone(TimeZone timeZone) {
+		this.timeZone = timeZone;
 	}
 
 	public String getName() {

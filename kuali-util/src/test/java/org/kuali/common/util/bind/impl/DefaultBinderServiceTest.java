@@ -18,7 +18,7 @@ public class DefaultBinderServiceTest {
 			service.bind(user);
 			logger.info(String.format("name=%s", user.getName()));
 			logger.info(String.format("home=%s", user.getHome()));
-			logger.info(String.format("timeZone=%s", user.getTimezone().getDisplayName()));
+			logger.info(String.format("timeZone=%s", user.getTimeZone().getDisplayName()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
