@@ -10,6 +10,9 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+/**
+ * The annotated class must be declared final, and all fields declared in the class must be declared as final.
+ */
 @Target({ TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = {})
