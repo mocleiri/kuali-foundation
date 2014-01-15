@@ -11,7 +11,7 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 /**
- * The annotated class must not contain any fields whose value is {@code null}
+ * The annotated class must not contain any fields whose runtime value is {@code null}
  */
 @Target({ TYPE })
 @Retention(RUNTIME)
