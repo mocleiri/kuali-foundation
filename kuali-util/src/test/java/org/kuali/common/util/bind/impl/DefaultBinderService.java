@@ -71,7 +71,8 @@ public class DefaultBinderService implements BinderService {
 		if (prefix.isPresent()) {
 			Set<String> newKeys = Sets.newHashSet();
 			for (String key : keys) {
-				keys.add(getKey(prefix.get(), key));
+				String newKey = getKey(prefix.get(), key);
+				keys.add(newKey);
 			}
 			return newKeys;
 		} else {
@@ -81,6 +82,14 @@ public class DefaultBinderService implements BinderService {
 
 	protected String getKey(String prefix, String key) {
 		return prefix + "." + key;
+	}
+
+	protected String getKey(Optional<String> prefix, String key) {
+		if (prefix.isPresent()) {
+			return getKey(prefix.get(), key);
+		} else {
+			return key;
+		}
 	}
 
 	protected Set<String> getFieldNames(Class<?> type) {
