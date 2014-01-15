@@ -3,6 +3,7 @@ package org.kuali.common.util.bind.impl;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.Bind;
@@ -28,7 +29,7 @@ public class DefaultBinderService implements BinderService {
 	public <T> Optional<BindingResult> bind(T object) {
 		Optional<Bind> bind = ReflectionUtils.getAnnotation(object.getClass(), Bind.class);
 		if (bind.isPresent()) {
-			Optional<String> prefix = Optional.fromNullable(bind.get().prefix());
+			Optional<String> prefix = Optional.fromNullable(StringUtils.trimToNull(bind.get().prefix()));
 			ImmutableMap<String, String> map = prefix.isPresent() ? getMap(prefix.get() + ".", global) : global;
 			DataBinder binder = new DataBinder(object);
 			MutablePropertyValues pvs = new MutablePropertyValues(map);
