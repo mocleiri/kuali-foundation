@@ -12,6 +12,6 @@ import java.lang.annotation.Target;
 @Documented
 public @interface Bind {
 
-	String prefix() default "";
+	String prefix();
 
 }
