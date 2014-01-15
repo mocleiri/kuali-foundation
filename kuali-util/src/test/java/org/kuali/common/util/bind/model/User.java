@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.TimeZone;
 
 import org.kuali.common.util.bind.api.Bind;
+import org.kuali.common.util.bind.api.BindMapping;
 
 @Bind
 public class User {
@@ -11,7 +12,10 @@ public class User {
 	String country;
 	File home;
 	File dir;
+
+	@BindMapping("timezone")
 	TimeZone timeZone;
+
 	String name;
 
 	public String getCountry() {
