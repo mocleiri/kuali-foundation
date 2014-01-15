@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.Bound;
-import org.kuali.common.util.bind.api.BindMappings;
+import org.kuali.common.util.bind.api.BindMapping;
 import org.kuali.common.util.bind.api.BinderService;
 import org.kuali.common.util.spring.binder.BytesFormatAnnotationFormatterFactory;
 import org.kuali.common.util.spring.binder.TimeFormatAnnotationFormatterFactory;
@@ -58,7 +58,7 @@ public class DefaultBinderService implements BinderService {
 	}
 
 	protected Set<String> getKeys(Optional<String> prefix, Field field) {
-		Optional<BindMappings> annotation = ReflectionUtils.getAnnotation(field.getType(), BindMappings.class);
+		Optional<BindMapping> annotation = ReflectionUtils.getAnnotation(field.getType(), BindMapping.class);
 		if (annotation.isPresent()) {
 			String[] mappings = annotation.get().value();
 			return getKeys(prefix, ImmutableSet.copyOf(mappings));
