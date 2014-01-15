@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.TimeZone;
 
 import org.kuali.common.util.bind.api.Bind;
-import org.kuali.common.util.bind.api.BindMapping;
+import org.kuali.common.util.bind.api.BindMappings;
 
 @Bind
 public class User {
@@ -13,7 +13,7 @@ public class User {
 	File home;
 	File dir;
 
-	@BindMapping("timezone")
+	@BindMappings("timezone")
 	TimeZone timeZone;
 
 	String name;

@@ -1,12 +1,15 @@
 package org.kuali.common.util.bind.impl;
 
+import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.Bind;
+import org.kuali.common.util.bind.api.BindMappings;
 import org.kuali.common.util.bind.api.BinderService;
 import org.kuali.common.util.spring.binder.BytesFormatAnnotationFormatterFactory;
 import org.kuali.common.util.spring.binder.TimeFormatAnnotationFormatterFactory;
@@ -18,7 +21,9 @@ import org.springframework.validation.DataBinder;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 public class DefaultBinderService implements BinderService {
 
@@ -40,6 +45,51 @@ public class DefaultBinderService implements BinderService {
 			return Optional.absent();
 		}
 
+	}
+
+	protected Set<String> getKeys(Class<?> type, Bind annotation) {
+		Optional<String> prefix = getPrefix(annotation, type);
+		Set<Field> fields = ReflectionUtils.getFields(type);
+		Set<String> keys = Sets.newTreeSet();
+		for (Field field : fields) {
+			keys.addAll(getKeys(prefix, field));
+		}
+		return ImmutableSet.copyOf(keys);
+	}
+
+	protected Set<String> getKeys(Optional<String> prefix, Field field) {
+		Optional<BindMappings> annotation = ReflectionUtils.getAnnotation(field.getType(), BindMappings.class);
+		if (annotation.isPresent()) {
+			String[] mappings = annotation.get().value();
+			return getKeys(prefix, ImmutableSet.copyOf(mappings));
+		} else {
+			return getKeys(prefix, ImmutableSet.of(field.getName()));
+		}
+	}
+
+	protected Set<String> getKeys(Optional<String> prefix, Set<String> keys) {
+		if (prefix.isPresent()) {
+			Set<String> newKeys = Sets.newHashSet();
+			for (String key : keys) {
+				keys.add(getKey(prefix.get(), key));
+			}
+			return newKeys;
+		} else {
+			return keys;
+		}
+	}
+
+	protected String getKey(String prefix, String key) {
+		return prefix + "." + key;
+	}
+
+	protected Set<String> getFieldNames(Class<?> type) {
+		Set<Field> fields = ReflectionUtils.getFields(type);
+		Set<String> names = Sets.newTreeSet();
+		for (Field field : fields) {
+			names.add(field.getName());
+		}
+		return ImmutableSet.copyOf(names);
 	}
 
 	protected Optional<String> getPrefix(Bind bind, Class<?> type) {
