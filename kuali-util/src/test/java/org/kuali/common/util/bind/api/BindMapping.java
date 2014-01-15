@@ -12,6 +12,6 @@ import java.lang.annotation.Target;
 @Documented
 public @interface BindMapping {
 
-	String[] value() default {};
+	String[] value();
 
 }
