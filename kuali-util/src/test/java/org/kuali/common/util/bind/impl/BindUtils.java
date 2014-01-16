@@ -3,6 +3,7 @@ package org.kuali.common.util.bind.impl;
 import static com.google.common.base.Preconditions.checkState;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.TypeVariable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -93,7 +94,10 @@ public class BindUtils {
 	protected static Class<?> getPrefixClass(Class<?> type) {
 		Optional<Class<?>> declaringClass = Optional.<Class<?>> of(type.getDeclaringClass());
 		if (isBuilder(type)) {
-			checkState(declaringClass.isPresent(), "[%s] is a builder but has no declaring class", type.getCanonicalName());
+			TypeVariable<?>[] array = type.getTypeParameters();
+			checkState(array.length==1, "[%s] is a builder but has more than 1 type parameter", type.getCanonicalName());
+			TypeVariable<?> element = array[0];
+			element.getGenericDeclaration();
 			return declaringClass.get();
 		} else {
 			return type;
