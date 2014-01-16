@@ -12,13 +12,13 @@ import org.kuali.common.util.bind.api.BindMapping;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
-public final class BoundField {
+public final class BoundFieldDescriptor {
 
 	private final Field field;
 	private final ImmutableList<String> keys;
 	private final Optional<BindMapping> mapping;
 
-	public static BoundField create(Field field) {
+	public static BoundFieldDescriptor create(Field field) {
 		return builder(field).build();
 	}
 
@@ -26,7 +26,7 @@ public final class BoundField {
 		return new Builder(field);
 	}
 
-	private BoundField(Builder builder) {
+	private BoundFieldDescriptor(Builder builder) {
 		this.field = builder.field;
 		this.keys = ImmutableList.copyOf(builder.keys);
 		this.mapping = builder.mapping;
@@ -63,13 +63,13 @@ public final class BoundField {
 			return this;
 		}
 
-		public BoundField build() {
-			BoundField instance = new BoundField(this);
+		public BoundFieldDescriptor build() {
+			BoundFieldDescriptor instance = new BoundFieldDescriptor(this);
 			validate(instance);
 			return instance;
 		}
 
-		private static void validate(BoundField instance) {
+		private static void validate(BoundFieldDescriptor instance) {
 			checkNotNull(instance.field, "'field' cannot be null");
 			checkNotNull(instance.mapping, "'mapping' cannot be null");
 			checkNotNull(instance.keys, "'keys' cannot be null");

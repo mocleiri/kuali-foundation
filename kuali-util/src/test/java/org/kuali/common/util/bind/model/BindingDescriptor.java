@@ -16,7 +16,7 @@ public final class BindingDescriptor {
 
 	private final Optional<String> prefix;
 	private final Class<?> type;
-	private final ImmutableMap<Field, BoundField> fields;
+	private final ImmutableMap<Field, BoundFieldDescriptor> fields;
 
 	private BindingDescriptor(Builder builder) {
 		this.prefix = builder.prefix;
@@ -35,7 +35,7 @@ public final class BindingDescriptor {
 
 		// Optional
 		private Optional<String> prefix = Optional.absent();
-		private Map<Field, BoundField> fields = Maps.newHashMap();
+		private Map<Field, BoundFieldDescriptor> fields = Maps.newHashMap();
 
 		private Builder(Class<?> type) {
 			this.type = type;
@@ -46,7 +46,7 @@ public final class BindingDescriptor {
 			return this;
 		}
 
-		public Builder fields(Map<Field, BoundField> fields) {
+		public Builder fields(Map<Field, BoundFieldDescriptor> fields) {
 			this.fields = fields;
 			return this;
 		}
@@ -78,11 +78,11 @@ public final class BindingDescriptor {
 			this.prefix = prefix;
 		}
 
-		public Map<Field, BoundField> getFields() {
+		public Map<Field, BoundFieldDescriptor> getFields() {
 			return fields;
 		}
 
-		public void setFields(Map<Field, BoundField> fieldKeys) {
+		public void setFields(Map<Field, BoundFieldDescriptor> fieldKeys) {
 			this.fields = fieldKeys;
 		}
 
@@ -96,7 +96,7 @@ public final class BindingDescriptor {
 		return type;
 	}
 
-	public ImmutableMap<Field, BoundField> getFields() {
+	public ImmutableMap<Field, BoundFieldDescriptor> getFields() {
 		return fields;
 	}
 

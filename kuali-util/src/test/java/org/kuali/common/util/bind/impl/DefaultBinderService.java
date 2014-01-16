@@ -16,8 +16,8 @@ import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.BindMapping;
 import org.kuali.common.util.bind.api.BinderService;
 import org.kuali.common.util.bind.api.Bound;
-import org.kuali.common.util.bind.model.BoundField;
 import org.kuali.common.util.bind.model.BindingDescriptor;
+import org.kuali.common.util.bind.model.BoundFieldDescriptor;
 import org.kuali.common.util.spring.binder.BytesFormatAnnotationFormatterFactory;
 import org.kuali.common.util.spring.binder.TimeFormatAnnotationFormatterFactory;
 import org.springframework.beans.MutablePropertyValues;
@@ -41,6 +41,7 @@ public class DefaultBinderService implements BinderService {
 	@Override
 	public <T> Optional<BindingResult> bind(T object) {
 		if (object.getClass().isAnnotationPresent(Bound.class)) {
+			BindingDescriptor descriptor = getBindingDescriptor(object.getClass());
 			Bound bound = object.getClass().getAnnotation(Bound.class);
 			Optional<String> prefix = getPrefix(bound, object.getClass());
 			ImmutableMap<String, String> map = getMap(prefix, global);
@@ -55,15 +56,15 @@ public class DefaultBinderService implements BinderService {
 
 	}
 
-	protected BindingDescriptor getBoundType(Class<?> type) {
+	protected BindingDescriptor getBindingDescriptor(Class<?> type) {
 		Bound bound = type.getAnnotation(Bound.class);
 		Optional<String> prefix = getPrefix(bound, type);
-		Map<Field, BoundField> fields = getFields(type, prefix);
+		Map<Field, BoundFieldDescriptor> fields = getFields(type, prefix);
 		return BindingDescriptor.builder(type).fields(fields).build();
 	}
 
-	protected ImmutableMap<Field, BoundField> getFields(Class<?> type, Optional<String> prefix) {
-		Map<Field, BoundField> map = Maps.newHashMap();
+	protected ImmutableMap<Field, BoundFieldDescriptor> getFields(Class<?> type, Optional<String> prefix) {
+		Map<Field, BoundFieldDescriptor> map = Maps.newHashMap();
 		Set<Field> fields = ReflectionUtils.getFields(type);
 		for (Field field : fields) {
 			map.put(field, getFieldKeys(field, prefix));
@@ -71,13 +72,13 @@ public class DefaultBinderService implements BinderService {
 		return ImmutableMap.copyOf(map);
 	}
 
-	protected BoundField getFieldKeys(Field field, Optional<String> prefix) {
+	protected BoundFieldDescriptor getFieldKeys(Field field, Optional<String> prefix) {
 		List<String> keys = getKeys(prefix, ImmutableList.of(field.getName()));
 		Optional<BindMapping> annotation = Optional.fromNullable(field.getAnnotation(BindMapping.class));
 		if (annotation.isPresent()) {
 			keys = getKeys(prefix, getMappings(field, annotation.get()));
 		}
-		return BoundField.builder(field).mapping(annotation.orNull()).keys(Lists.newArrayList(Sets.newLinkedHashSet(keys))).build();
+		return BoundFieldDescriptor.builder(field).mapping(annotation.orNull()).keys(Lists.newArrayList(Sets.newLinkedHashSet(keys))).build();
 	}
 
 	protected List<String> getMappings(Field field, BindMapping annotation) {
@@ -111,6 +112,11 @@ public class DefaultBinderService implements BinderService {
 
 		// Return an optional containing the value
 		return Optional.of(bound.value());
+	}
+
+	protected ImmutableMap<String, String> getMap(BindingDescriptor descriptor, Map<String, String> provided) {
+		Map<Field,BoundFieldDescriptor> fields = descriptor.getFields();
+		return null;
 	}
 
 	protected ImmutableMap<String, String> getMap(Optional<String> prefix, Map<String, String> provided) {
