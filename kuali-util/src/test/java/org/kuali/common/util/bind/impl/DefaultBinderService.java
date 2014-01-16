@@ -36,23 +36,19 @@ import com.google.common.collect.Sets;
 
 public class DefaultBinderService implements BinderService {
 
-	private final ImmutableMap<String, String> global = getMap(PropertyUtils.getGlobalProperties());
+	private final ImmutableMap<String, String> global = of(PropertyUtils.getGlobalProperties());
 	private final ConversionService service = getConversionService();
 
 	@Override
-	public <T> Optional<BindingResult> bind(T object) {
-		if (object.getClass().isAnnotationPresent(Bound.class)) {
-			BoundTypeDescriptor descriptor = getBindingDescriptor(object.getClass());
-			ImmutableMap<String, String> map = getMap(descriptor, global);
-			MutablePropertyValues values = new MutablePropertyValues(map);
-			DataBinder binder = new DataBinder(object);
-			binder.setConversionService(service);
-			binder.bind(values);
-			return Optional.of(binder.getBindingResult());
-		} else {
-			return Optional.absent();
-		}
-
+	public <T> BindingResult bind(T object) {
+		checkState(object.getClass().isAnnotationPresent(Bound.class), "[%s] is not bound", object.getClass().getCanonicalName());
+		BoundTypeDescriptor descriptor = getBindingDescriptor(object.getClass());
+		ImmutableMap<String, String> map = getMap(descriptor, global);
+		MutablePropertyValues values = new MutablePropertyValues(map);
+		DataBinder binder = new DataBinder(object);
+		binder.setConversionService(service);
+		binder.bind(values);
+		return binder.getBindingResult();
 	}
 
 	protected BoundTypeDescriptor getBindingDescriptor(Class<?> type) {
@@ -182,7 +178,7 @@ public class DefaultBinderService implements BinderService {
 		return service;
 	}
 
-	protected ImmutableMap<String, String> getMap(Properties properties) {
+	protected ImmutableMap<String, String> of(Properties properties) {
 		Map<String, String> map = Maps.newHashMap();
 		for (String key : properties.stringPropertyNames()) {
 			map.put(key, properties.getProperty(key));
