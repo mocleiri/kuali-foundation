@@ -42,9 +42,7 @@ public class DefaultBinderService implements BinderService {
 	public <T> Optional<BindingResult> bind(T object) {
 		if (object.getClass().isAnnotationPresent(Bound.class)) {
 			BoundTypeDescriptor descriptor = getBindingDescriptor(object.getClass());
-			Bound bound = object.getClass().getAnnotation(Bound.class);
-			Optional<String> prefix = getPrefix(bound, object.getClass());
-			ImmutableMap<String, String> map = getMap(prefix, global);
+			ImmutableMap<String, String> map = getMap(descriptor, global);
 			MutablePropertyValues values = new MutablePropertyValues(map);
 			DataBinder binder = new DataBinder(object);
 			binder.setConversionService(service);
@@ -123,10 +121,24 @@ public class DefaultBinderService implements BinderService {
 		Map<Field, BoundFieldDescriptor> fields = descriptor.getFields();
 		Map<String, String> map = Maps.newHashMap();
 		for (BoundFieldDescriptor bfd : fields.values()) {
-			String value = ""; // Add code to get the right value
-			map.put(bfd.getField().getName(), value);
+			Optional<String> value = getValue(bfd, provided);
+			if (value.isPresent()) {
+				map.put(bfd.getField().getName(), value.get());
+			}
 		}
 		return ImmutableMap.copyOf(map);
+	}
+
+	protected Optional<String> getValue(BoundFieldDescriptor descriptor, Map<String, String> provided) {
+		List<String> keys = descriptor.getKeys();
+		for (String key : keys) {
+			Optional<String> value = Optional.of(provided.get(key));
+			if (value.isPresent()) {
+				return value;
+			}
+		}
+		return Optional.absent();
+
 	}
 
 	protected ImmutableMap<String, String> getMap(Optional<String> prefix, Map<String, String> provided) {
