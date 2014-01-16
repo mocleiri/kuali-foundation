@@ -147,7 +147,7 @@ public class DefaultBinderService implements BinderService {
 	protected Optional<String> getValue(BoundFieldDescriptor descriptor, Map<String, String> provided) {
 		List<String> keys = descriptor.getKeys();
 		for (String key : keys) {
-			Optional<String> value = Optional.of(provided.get(key));
+			Optional<String> value = Optional.fromNullable(provided.get(key));
 			if (value.isPresent()) {
 				return value;
 			}
