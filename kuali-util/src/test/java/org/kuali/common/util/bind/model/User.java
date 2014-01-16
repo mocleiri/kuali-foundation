@@ -11,7 +11,7 @@ public class User {
 	String name;
 	File home;
 
-	@BindMapping({ "directory", "dir" })
+	@BindMapping({ "directory" })
 	File dir;
 
 	public String getName() {
