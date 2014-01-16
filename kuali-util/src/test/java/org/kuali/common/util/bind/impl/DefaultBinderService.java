@@ -78,7 +78,7 @@ public class DefaultBinderService implements BinderService {
 		if (annotation.isPresent()) {
 			keys = getKeys(prefix, getKeys(field, annotation.get()));
 		}
-		// Uniquify the keys
+		// Ensure the keys are unique
 		keys = Lists.newArrayList(Sets.newLinkedHashSet(keys));
 		return BoundFieldDescriptor.builder(field).mapping(annotation).keys(keys).build();
 	}
