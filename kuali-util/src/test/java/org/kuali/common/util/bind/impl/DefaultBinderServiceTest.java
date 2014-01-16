@@ -16,8 +16,9 @@ public class DefaultBinderServiceTest {
 		try {
 			System.setProperty("user.directory", "/tmp");
 			BinderService service = new DefaultBinderService();
-			User user = new User();
-			service.bind(user);
+			User.Builder builder = User.builder();
+			service.bind(builder);
+			User user = builder.build();
 			String prefix = StringUtils.uncapitalise(User.class.getSimpleName());
 			logger.info(String.format("%s.name=%s", prefix, user.getName()));
 			logger.info(String.format("%s.home=%s", prefix, user.getHome()));
