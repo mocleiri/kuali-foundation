@@ -16,12 +16,12 @@ public final class BoundType {
 
 	private final Optional<String> prefix;
 	private final Class<?> type;
-	private final ImmutableMap<Field, BoundField> fieldKeys;
+	private final ImmutableMap<Field, BoundField> fields;
 
 	private BoundType(Builder builder) {
 		this.prefix = builder.prefix;
 		this.type = builder.type;
-		this.fieldKeys = ImmutableMap.copyOf(builder.fieldKeys);
+		this.fields = ImmutableMap.copyOf(builder.fields);
 	}
 
 	public static Builder builder(Class<?> type) {
@@ -35,7 +35,7 @@ public final class BoundType {
 
 		// Optional
 		private Optional<String> prefix = Optional.absent();
-		private Map<Field, BoundField> fieldKeys = Maps.newHashMap();
+		private Map<Field, BoundField> fields = Maps.newHashMap();
 
 		private Builder(Class<?> type) {
 			this.type = type;
@@ -46,8 +46,8 @@ public final class BoundType {
 			return this;
 		}
 
-		public Builder fieldKeys(Map<Field, BoundField> fieldKeys) {
-			this.fieldKeys = fieldKeys;
+		public Builder fields(Map<Field, BoundField> fields) {
+			this.fields = fields;
 			return this;
 		}
 
@@ -59,7 +59,7 @@ public final class BoundType {
 
 		private static void validate(BoundType instance) {
 			checkNotNull(instance.type, "'type' cannot be null");
-			checkNotNull(instance.fieldKeys, "'fieldKeys' cannot be null");
+			checkNotNull(instance.fields, "'fields' cannot be null");
 			checkNotNull(instance.prefix, "'prefix' cannot be null");
 			if (instance.prefix.isPresent()) {
 				checkArgument(!StringUtils.isBlank(instance.prefix.get()), "'prefix' cannot be blank");
@@ -78,12 +78,12 @@ public final class BoundType {
 			this.prefix = prefix;
 		}
 
-		public Map<Field, BoundField> getFieldKeys() {
-			return fieldKeys;
+		public Map<Field, BoundField> getFields() {
+			return fields;
 		}
 
-		public void setFieldKeys(Map<Field, BoundField> fieldKeys) {
-			this.fieldKeys = fieldKeys;
+		public void setFields(Map<Field, BoundField> fieldKeys) {
+			this.fields = fieldKeys;
 		}
 
 	}
@@ -96,8 +96,8 @@ public final class BoundType {
 		return type;
 	}
 
-	public ImmutableMap<Field, BoundField> getFieldKeys() {
-		return fieldKeys;
+	public ImmutableMap<Field, BoundField> getFields() {
+		return fields;
 	}
 
 }
