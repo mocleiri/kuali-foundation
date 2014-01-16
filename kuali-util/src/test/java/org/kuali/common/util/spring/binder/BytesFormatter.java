@@ -28,6 +28,7 @@ public final class BytesFormatter implements Formatter<Number> {
 		try {
 			return Numbers.narrow(FormatUtils.getBytes(size));
 		} catch (Exception e) {
+			// TODO This masks the original exception, be smarter somehow
 			throw new ParseException("Unexpected parse error: [" + e.getMessage() + "]", -1);
 		}
 	}
