@@ -6,7 +6,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.io.File;
 
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.util.bind.api.BindMapping;
+import org.kuali.common.util.bind.api.BindAlias;
 import org.kuali.common.util.bind.api.Bound;
 
 public class User {
@@ -30,7 +30,7 @@ public class User {
 
 		private String name;
 		private File home;
-		@BindMapping("directory")
+		@BindAlias("directory")
 		private File dir;
 
 		public Builder name(String name) {

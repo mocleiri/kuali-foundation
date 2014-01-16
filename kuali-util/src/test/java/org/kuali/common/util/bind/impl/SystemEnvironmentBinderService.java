@@ -13,7 +13,7 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.bind.api.BindMapping;
+import org.kuali.common.util.bind.api.BindAlias;
 import org.kuali.common.util.bind.api.BinderService;
 import org.kuali.common.util.bind.api.Bound;
 import org.kuali.common.util.bind.model.BoundFieldDescriptor;
@@ -69,7 +69,7 @@ public class SystemEnvironmentBinderService implements BinderService {
 
 	protected BoundFieldDescriptor getFieldKeys(Field field, Optional<String> prefix) {
 		List<String> keys = getKeys(prefix, ImmutableList.of(field.getName()));
-		Optional<BindMapping> mapping = ReflectionUtils.getAnnotation(field, BindMapping.class);
+		Optional<BindAlias> mapping = ReflectionUtils.getAnnotation(field, BindAlias.class);
 		if (mapping.isPresent()) {
 			keys = getKeys(prefix, getKeys(field, mapping.get()));
 		}
@@ -78,7 +78,7 @@ public class SystemEnvironmentBinderService implements BinderService {
 		return BoundFieldDescriptor.builder(field).mapping(mapping).keys(keys).build();
 	}
 
-	protected List<String> getKeys(Field field, BindMapping annotation) {
+	protected List<String> getKeys(Field field, BindAlias annotation) {
 		List<String> mappings = ImmutableList.copyOf(annotation.value());
 		int blanks = CollectionUtils.getBlanks(mappings).size();
 		checkState(blanks == 0, "[%s.%s] contains %s bind mappings that are blank", field.getDeclaringClass().getCanonicalName(), field.getName(), blanks);
