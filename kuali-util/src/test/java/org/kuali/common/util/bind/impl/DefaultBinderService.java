@@ -2,12 +2,18 @@ package org.kuali.common.util.bind.impl;
 
 import static com.google.common.base.Preconditions.checkState;
 
+import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.bind.api.BindMapping;
 import org.kuali.common.util.bind.api.BinderService;
 import org.kuali.common.util.bind.api.Bound;
 import org.kuali.common.util.spring.binder.BytesFormatAnnotationFormatterFactory;
@@ -19,6 +25,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
@@ -42,6 +49,30 @@ public class DefaultBinderService implements BinderService {
 			return Optional.absent();
 		}
 
+	}
+
+	protected ImmutableMap<Field, FieldKeys> getFieldKeys(Class<?> type, Optional<String> prefix) {
+		Map<Field, FieldKeys> map = Maps.newHashMap();
+		Set<Field> fields = ReflectionUtils.getFields(type);
+		for (Field field : fields) {
+			FieldKeys fk = getFieldKeys(field, prefix);
+			map.put(field, fk);
+		}
+		return ImmutableMap.copyOf(map);
+	}
+
+	protected FieldKeys getFieldKeys(Field field, Optional<String> prefix) {
+		String actualPrefix = prefix.isPresent() ? prefix.get() + "." : "";
+		Optional<BindMapping> annotation = Optional.fromNullable(field.getAnnotation(BindMapping.class));
+		if (annotation.isPresent()) {
+			List<String> mappings = ImmutableList.copyOf(annotation.get().value());
+			int blanks = CollectionUtils.getBlanks(mappings).size();
+			checkState(blanks == 0, "[%s.%s] contains %s bind mappings that are blank", field.getDeclaringClass().getSimpleName(), field.getName(), blanks);
+			List<String> prefixed = ListUtils.prefix(actualPrefix, mappings);
+			return FieldKeys.builder(field).keys(prefixed).build();
+		} else {
+			return FieldKeys.builder(field).key(actualPrefix + field.getName()).build();
+		}
 	}
 
 	protected Optional<String> getPrefix(Bound bound, Class<?> type) {
