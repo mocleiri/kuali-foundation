@@ -3,39 +3,46 @@ package org.kuali.common.util.bind.model;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.lang.reflect.Field;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
 
 public final class BoundType {
 
 	private final Optional<String> prefix;
 	private final Class<?> type;
-	private final FieldKeys fieldKeys;
+	private final ImmutableMap<Field, FieldKeys> fieldKeys;
 
 	private BoundType(Builder builder) {
 		this.prefix = builder.prefix;
 		this.type = builder.type;
-		this.fieldKeys = builder.fieldKeys;
+		this.fieldKeys = ImmutableMap.copyOf(builder.fieldKeys);
 	}
 
 	public static class Builder {
 
-		private Class<?> type;
-		private Optional<String> prefix;
-		private FieldKeys fieldKeys;
+		// Required
+		private final Class<?> type;
+
+		// Optional
+		private Optional<String> prefix = Optional.absent();
+		private Map<Field, FieldKeys> fieldKeys = Maps.newHashMap();
+
+		private Builder(Class<?> type) {
+			this.type = type;
+		}
 
 		public Builder prefix(String prefix) {
 			this.prefix = Optional.of(prefix);
 			return this;
 		}
 
-		public Builder type(Class<?> type) {
-			this.type = type;
-			return this;
-		}
-
-		public Builder fieldKeys(FieldKeys fieldKeys) {
+		public Builder fieldKeys(Map<Field, FieldKeys> fieldKeys) {
 			this.fieldKeys = fieldKeys;
 			return this;
 		}
@@ -59,10 +66,6 @@ public final class BoundType {
 			return type;
 		}
 
-		public void setType(Class<?> type) {
-			this.type = type;
-		}
-
 		public Optional<String> getPrefix() {
 			return prefix;
 		}
@@ -71,13 +74,6 @@ public final class BoundType {
 			this.prefix = prefix;
 		}
 
-		public FieldKeys getFieldKeys() {
-			return fieldKeys;
-		}
-
-		public void setFieldKeys(FieldKeys fieldKeys) {
-			this.fieldKeys = fieldKeys;
-		}
 	}
 
 	public Optional<String> getPrefix() {
@@ -86,10 +82,6 @@ public final class BoundType {
 
 	public Class<?> getType() {
 		return type;
-	}
-
-	public FieldKeys getFieldKeys() {
-		return fieldKeys;
 	}
 
 }
