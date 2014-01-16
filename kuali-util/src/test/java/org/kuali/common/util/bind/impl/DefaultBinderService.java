@@ -56,24 +56,33 @@ public class DefaultBinderService implements BinderService {
 		Map<Field, FieldKeys> map = Maps.newHashMap();
 		Set<Field> fields = ReflectionUtils.getFields(type);
 		for (Field field : fields) {
-			FieldKeys fk = getFieldKeys(field, prefix);
-			map.put(field, fk);
+			map.put(field, getFieldKeys(field, prefix));
 		}
 		return ImmutableMap.copyOf(map);
 	}
 
-	protected FieldKeys getFieldKeys(Field field, Optional<String> prefix) {
-		String actualPrefix = prefix.isPresent() ? prefix.get() + "." : "";
-		Optional<BindMapping> annotation = Optional.fromNullable(field.getAnnotation(BindMapping.class));
-		if (annotation.isPresent()) {
-			List<String> mappings = ImmutableList.copyOf(annotation.get().value());
-			int blanks = CollectionUtils.getBlanks(mappings).size();
-			checkState(blanks == 0, "[%s.%s] contains %s bind mappings that are blank", field.getDeclaringClass().getSimpleName(), field.getName(), blanks);
-			List<String> prefixed = ListUtils.prefix(actualPrefix, mappings);
-			return FieldKeys.builder(field).keys(prefixed).build();
+	protected List<String> getKeys(Optional<String> prefix, List<String> keys) {
+		if (prefix.isPresent()) {
+			return ListUtils.prefix(prefix.get(), ".", keys);
 		} else {
-			return FieldKeys.builder(field).key(actualPrefix + field.getName()).build();
+			return keys;
 		}
+	}
+
+	protected FieldKeys getFieldKeys(Field field, Optional<String> prefix) {
+		Optional<BindMapping> annotation = Optional.fromNullable(field.getAnnotation(BindMapping.class));
+		List<String> keys = getKeys(prefix, ImmutableList.of(field.getName()));
+		if (annotation.isPresent()) {
+			keys = getKeys(prefix, getMappings(field, annotation.get()));
+		}
+		return FieldKeys.builder(field).keys(keys).build();
+	}
+
+	protected List<String> getMappings(Field field, BindMapping annotation) {
+		List<String> mappings = ImmutableList.copyOf(annotation.value());
+		int blanks = CollectionUtils.getBlanks(mappings).size();
+		checkState(blanks == 0, "[%s.%s] contains %s bind mappings that are blank", field.getDeclaringClass().getSimpleName(), field.getName(), blanks);
+		return mappings;
 	}
 
 	protected Optional<String> getPrefix(Bound bound, Class<?> type) {
