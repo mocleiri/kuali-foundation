@@ -5,7 +5,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.lang.reflect.Field;
 import java.util.List;
-import java.util.SortedSet;
 
 import org.kuali.common.util.CollectionUtils;
 
@@ -65,12 +64,12 @@ public final class FieldKeys {
 			checkArgument(blanks == 0, "'keys' contains %s blanks", blanks);
 		}
 
-		public SortedSet<String> getKeys() {
+		public List<String> getKeys() {
 			return keys;
 		}
 
-		public void setKeys(SortedSet<String> mappings) {
-			this.keys = mappings;
+		public void setKeys(List<String> keys) {
+			this.keys = keys;
 		}
 
 		public Field getField() {
