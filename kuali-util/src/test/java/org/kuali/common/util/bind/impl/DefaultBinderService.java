@@ -1,5 +1,7 @@
 package org.kuali.common.util.bind.impl;
 
+import static com.google.common.base.Preconditions.checkState;
+
 import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Properties;
@@ -8,9 +10,9 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.bind.api.Bound;
 import org.kuali.common.util.bind.api.BindMapping;
 import org.kuali.common.util.bind.api.BinderService;
+import org.kuali.common.util.bind.api.Bound;
 import org.kuali.common.util.spring.binder.BytesFormatAnnotationFormatterFactory;
 import org.kuali.common.util.spring.binder.TimeFormatAnnotationFormatterFactory;
 import org.springframework.beans.MutablePropertyValues;
@@ -101,16 +103,22 @@ public class DefaultBinderService implements BinderService {
 		return ImmutableSet.copyOf(names);
 	}
 
-	protected Optional<String> getPrefix(Bound bind, Class<?> type) {
-		if (!bind.prefix()) {
+	protected Optional<String> getPrefix(Bound bound, Class<?> type) {
+		// Do not use a prefix of any kind
+		if (!bound.prefix()) {
 			return Optional.absent();
 		}
-		Optional<String> prefix = Optional.fromNullable(StringUtils.trimToNull(bind.value()));
-		if (prefix.isPresent()) {
-			return prefix;
-		} else {
+
+		// Use the name of the class as a prefix if the value is the empty string (the default)
+		if (bound.value().equals("")) {
 			return Optional.of(StringUtils.uncapitalize(type.getSimpleName()));
 		}
+
+		// If they supplied a value, it cannot be blank
+		checkState(!StringUtils.isBlank(bound.value()), "'value' cannot be blank");
+
+		// Return an optional containing the value
+		return Optional.of(bound.value());
 	}
 
 	protected ImmutableMap<String, String> getMap(Optional<String> prefix, Map<String, String> provided) {
