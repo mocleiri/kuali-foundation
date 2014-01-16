@@ -2,6 +2,8 @@ package org.kuali.common.util.bind.impl;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Map;
+
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.core.env.Environment;
 
@@ -19,7 +21,7 @@ public final class EnvironmentPropertyValues<T> extends MutablePropertyValues {
 		super(builder.values);
 		this.target = builder.target;
 		this.env = builder.env;
-		this.values = builder.values;
+		this.values = ImmutableMap.copyOf(builder.values);
 	}
 
 	public static <T> EnvironmentPropertyValues<T> create(Class<T> target, Environment env) {
@@ -37,7 +39,7 @@ public final class EnvironmentPropertyValues<T> extends MutablePropertyValues {
 		private final Environment env;
 
 		// Filled in by the build() method
-		private ImmutableMap<String, String> values;
+		private Map<String, String> values;
 
 		public Builder(Class<T> target, Environment env) {
 			this.target = target;
