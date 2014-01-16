@@ -4,20 +4,21 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.SortedSet;
 
 import org.kuali.common.util.CollectionUtils;
 
-import com.google.common.collect.ImmutableSortedSet;
+import com.google.common.collect.ImmutableList;
 
 public final class FieldKeys {
 
 	private final Field field;
-	private final ImmutableSortedSet<String> keys;
+	private final ImmutableList<String> keys;
 
 	private FieldKeys(Builder builder) {
 		this.field = builder.field;
-		this.keys = ImmutableSortedSet.copyOf(builder.keys);
+		this.keys = ImmutableList.copyOf(builder.keys);
 	}
 
 	public static FieldKeys create(Field field) {
@@ -34,7 +35,7 @@ public final class FieldKeys {
 		private final Field field;
 
 		// Defaults to field.getName()
-		private SortedSet<String> keys;
+		private List<String> keys;
 
 		public Builder(Field field) {
 			this.field = field;
@@ -42,10 +43,10 @@ public final class FieldKeys {
 		}
 
 		public Builder key(String key) {
-			return keys(ImmutableSortedSet.of(key));
+			return keys(ImmutableList.of(key));
 		}
 
-		public Builder keys(SortedSet<String> keys) {
+		public Builder keys(List<String> keys) {
 			this.keys = keys;
 			return this;
 		}
@@ -81,7 +82,7 @@ public final class FieldKeys {
 		return field;
 	}
 
-	public ImmutableSortedSet<String> getKeys() {
+	public ImmutableList<String> getKeys() {
 		return keys;
 	}
 
