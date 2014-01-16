@@ -28,7 +28,7 @@ public final class BoundTypeDescriptor {
 		return new Builder(type);
 	}
 
-	public static class Builder {
+	public static class Builder implements org.kuali.common.util.builder.Builder<BoundTypeDescriptor> {
 
 		// Required
 		private final Class<?> type;
@@ -51,6 +51,7 @@ public final class BoundTypeDescriptor {
 			return this;
 		}
 
+		@Override
 		public BoundTypeDescriptor build() {
 			BoundTypeDescriptor instance = new BoundTypeDescriptor(this);
 			validate(instance);
