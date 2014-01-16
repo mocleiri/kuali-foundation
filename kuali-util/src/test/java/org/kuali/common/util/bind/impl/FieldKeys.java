@@ -1,9 +1,12 @@
 package org.kuali.common.util.bind.impl;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.lang.reflect.Field;
 import java.util.SortedSet;
+
+import org.kuali.common.util.CollectionUtils;
 
 import com.google.common.collect.ImmutableSortedSet;
 import com.google.common.collect.Sets;
@@ -51,7 +54,10 @@ public final class FieldKeys {
 
 		private static void validate(FieldKeys instance) {
 			checkNotNull(instance.field, "'field' cannot be null");
-			checkNotNull(instance.keys, "'mappings' cannot be null");
+			checkNotNull(instance.keys, "'keys' cannot be null");
+			checkArgument(instance.keys.size() > 0, "'keys' must contain at least one value");
+			int blanks = CollectionUtils.getBlanks(instance.keys).size();
+			checkArgument(blanks == 0, "'keys' contains %s blanks", blanks);
 		}
 
 		public SortedSet<String> getKeys() {
