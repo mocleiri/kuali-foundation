@@ -28,15 +28,15 @@ public final class FieldMapping {
 
 	public static class Builder {
 
-		public Builder(Field field) {
-			this.field = field;
-		}
-
 		// Required
 		private final Field field;
 
 		// Optional
 		private SortedSet<String> mappings = Sets.newTreeSet();
+
+		public Builder(Field field) {
+			this.field = field;
+		}
 
 		public Builder mappings(SortedSet<String> mappings) {
 			this.mappings = mappings;
