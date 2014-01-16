@@ -16,7 +16,6 @@
 package org.kuali.common.util.reflection;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Set;
@@ -24,7 +23,6 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.builder.Builder;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 
@@ -42,15 +40,6 @@ public class ReflectionUtilsTest {
 			List<Type> list = getAllInterfaces(type);
 			for (Type element : list) {
 				System.out.println(element.getClass().getCanonicalName());
-			}
-
-			Type[] genericInterfaces = Foo.Builder2.class.getGenericInterfaces();
-			for (Type genericInterface : genericInterfaces) {
-				if (genericInterface instanceof ParameterizedType) {
-					ParameterizedType pt = (ParameterizedType) genericInterface;
-					Type raw = pt.getRawType();
-					System.out.println(raw == Builder.class);
-				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -70,7 +59,7 @@ public class ReflectionUtilsTest {
 		List<Class<?>> path = getPath(type);
 		List<Type> list = Lists.newArrayList();
 		for (Class<?> element : path) {
-			Type[] interfaces = element.getInterfaces();
+			Type[] interfaces = element.getGenericInterfaces();
 			list.addAll(ImmutableList.copyOf(interfaces));
 		}
 		return list;
