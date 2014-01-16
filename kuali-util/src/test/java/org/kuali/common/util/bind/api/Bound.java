@@ -11,8 +11,10 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Documented
 public @interface Bound {
+	
+	public static final String DEFAULT = "";
 
-	String value() default "";
+	String value() default DEFAULT;
 
 	boolean prefix() default true;
 

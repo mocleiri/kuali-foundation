@@ -72,8 +72,12 @@ public class BindUtils {
 			return Optional.absent();
 		}
 
-		// Use the name of the class as a prefix if the value is the empty string (the default)
-		if (bound.value().equals("")) {
+		// There can be 2 reasons why value() is the empty string
+		// 1 - They didn't supply value() and so it is still at the default
+		// 2 - They did supply value() but they supplied it as ""
+		// In either case, we ignore value() and use the uncapitalized class name instead
+		// They can use prefix=false to skip using a prefix entirely
+		if (bound.value().equals(Bound.DEFAULT)) {
 			Class<?> prefixClass = getPrefixClass(type);
 			return Optional.of(StringUtils.uncapitalize(prefixClass.getSimpleName()));
 		}
