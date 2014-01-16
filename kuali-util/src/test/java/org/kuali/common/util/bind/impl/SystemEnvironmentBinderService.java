@@ -34,7 +34,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
-public class SystemBinderService implements BinderService {
+public class SystemEnvironmentBinderService implements BinderService {
 
 	private final ImmutableMap<String, String> global = of(PropertyUtils.getGlobalProperties());
 	private final ConversionService service = getConversionService();
