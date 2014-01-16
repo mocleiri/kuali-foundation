@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.bind.api.BindAlias;
 import org.kuali.common.util.bind.api.Bound;
 
-public class User {
+public final class User {
 
 	private final String name;
 	private final File home;
