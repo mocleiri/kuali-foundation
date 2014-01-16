@@ -53,6 +53,18 @@ public final class FieldMapping {
 			checkNotNull(instance.field, "'field' cannot be null");
 			checkNotNull(instance.mappings, "'mappings' cannot be null");
 		}
+
+		public SortedSet<String> getMappings() {
+			return mappings;
+		}
+
+		public void setMappings(SortedSet<String> mappings) {
+			this.mappings = mappings;
+		}
+
+		public Field getField() {
+			return field;
+		}
 	}
 
 	public Field getField() {
