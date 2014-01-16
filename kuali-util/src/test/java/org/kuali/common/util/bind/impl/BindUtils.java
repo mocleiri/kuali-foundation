@@ -74,8 +74,8 @@ public class BindUtils {
 		}
 
 		// There can be 2 reasons why value() is the empty string
-		// 1 - They didn't supply value() and so it is still at the default
-		// 2 - They did supply value() but they supplied it as ""
+		// 1 - They didn't supply it so it is still at the default
+		// 2 - They did supply it but they supplied it as ""
 		// In either case, we ignore value() and use the uncapitalized class name instead
 		// They can use prefix=false to skip using a prefix entirely
 		if (bound.value().equals(Bound.DEFAULT)) {
