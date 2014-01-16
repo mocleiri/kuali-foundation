@@ -26,7 +26,7 @@ public class User {
 	}
 
 	@Bound
-	public static class Builder {
+	public static class Builder implements org.kuali.common.util.builder.Builder<User> {
 
 		private String name;
 		private File home;
@@ -48,6 +48,7 @@ public class User {
 			return this;
 		}
 
+		@Override
 		public User build() {
 			User instance = new User(this);
 			validate(instance);

@@ -32,6 +32,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.google.common.escape.Escapers.Builder;
 
 public class DefaultBinderService implements BinderService {
 
@@ -107,7 +108,8 @@ public class DefaultBinderService implements BinderService {
 
 		// Use the name of the class as a prefix if the value is the empty string (the default)
 		if (bound.value().equals("")) {
-			return Optional.of(StringUtils.uncapitalize(type.getSimpleName()));
+			Class<?> prefixClass = getPrefixClass(type);
+			return Optional.of(StringUtils.uncapitalize(prefixClass.getSimpleName()));
 		}
 
 		// If they supplied a value, it cannot be blank
@@ -115,6 +117,19 @@ public class DefaultBinderService implements BinderService {
 
 		// Return an optional containing the value
 		return Optional.of(bound.value());
+	}
+
+	protected boolean isBuilder(Class<?> type) {
+		return Builder.class.isAssignableFrom(type);
+	}
+
+	protected Class<?> getPrefixClass(Class<?> type) {
+		Optional<Class<?>> declaringClass = Optional.<Class<?>> of(type.getDeclaringClass());
+		if (isBuilder(type) && declaringClass.isPresent()) {
+			return declaringClass.get();
+		} else {
+			return type;
+		}
 	}
 
 	protected ImmutableMap<String, String> getMap(BoundTypeDescriptor descriptor, Map<String, String> provided) {
