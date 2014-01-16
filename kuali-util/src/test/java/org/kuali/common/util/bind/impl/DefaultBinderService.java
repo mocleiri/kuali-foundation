@@ -125,7 +125,8 @@ public class DefaultBinderService implements BinderService {
 
 	protected Class<?> getPrefixClass(Class<?> type) {
 		Optional<Class<?>> declaringClass = Optional.<Class<?>> of(type.getDeclaringClass());
-		if (isBuilder(type) && declaringClass.isPresent()) {
+		if (isBuilder(type)) {
+			checkState(declaringClass.isPresent(), "[%s] is a builder but has no declaring class", type.getCanonicalName());
 			return declaringClass.get();
 		} else {
 			return type;
