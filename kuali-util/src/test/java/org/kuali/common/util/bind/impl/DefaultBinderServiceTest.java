@@ -14,6 +14,7 @@ public class DefaultBinderServiceTest {
 	@Test
 	public void test() {
 		try {
+			System.setProperty("user.directory", "/tmp");
 			BinderService service = new DefaultBinderService();
 			User user = new User();
 			service.bind(user);

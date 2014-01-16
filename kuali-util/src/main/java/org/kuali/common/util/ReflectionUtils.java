@@ -205,6 +205,10 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 		return Optional.fromNullable(type.getAnnotation(annotationClass));
 	}
 
+	public static <T extends Annotation> Optional<T> getAnnotation(Field field, Class<T> annotationClass) {
+		return Optional.fromNullable(field.getAnnotation(annotationClass));
+	}
+
 	public static List<Class<?>> getDeclarationHierarchy(Class<?> type) {
 		List<Class<?>> hierarchy = new ArrayList<Class<?>>();
 		Class<?> declaringClass = type.getDeclaringClass();

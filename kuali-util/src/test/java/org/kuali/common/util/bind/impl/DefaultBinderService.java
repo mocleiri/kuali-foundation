@@ -72,7 +72,7 @@ public class DefaultBinderService implements BinderService {
 
 	protected BoundFieldDescriptor getFieldKeys(Field field, Optional<String> prefix) {
 		List<String> keys = getKeys(prefix, ImmutableList.of(field.getName()));
-		Optional<BindMapping> mapping = ReflectionUtils.getAnnotation(field.getType(), BindMapping.class);
+		Optional<BindMapping> mapping = ReflectionUtils.getAnnotation(field, BindMapping.class);
 		if (mapping.isPresent()) {
 			keys = getKeys(prefix, getKeys(field, mapping.get()));
 		}
