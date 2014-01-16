@@ -24,6 +24,10 @@ public final class BoundType {
 		this.fieldKeys = ImmutableMap.copyOf(builder.fieldKeys);
 	}
 
+	public static Builder builder(Class<?> type) {
+		return new Builder(type);
+	}
+
 	public static class Builder {
 
 		// Required
