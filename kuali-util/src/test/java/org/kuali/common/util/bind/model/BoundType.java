@@ -54,6 +54,42 @@ public final class BoundType {
 				checkArgument(!StringUtils.isBlank(instance.prefix.get()), "'prefix' cannot be blank");
 			}
 		}
+
+		public Class<?> getType() {
+			return type;
+		}
+
+		public void setType(Class<?> type) {
+			this.type = type;
+		}
+
+		public Optional<String> getPrefix() {
+			return prefix;
+		}
+
+		public void setPrefix(Optional<String> prefix) {
+			this.prefix = prefix;
+		}
+
+		public FieldKeys getFieldKeys() {
+			return fieldKeys;
+		}
+
+		public void setFieldKeys(FieldKeys fieldKeys) {
+			this.fieldKeys = fieldKeys;
+		}
+	}
+
+	public Optional<String> getPrefix() {
+		return prefix;
+	}
+
+	public Class<?> getType() {
+		return type;
+	}
+
+	public FieldKeys getFieldKeys() {
+		return fieldKeys;
 	}
 
 }
