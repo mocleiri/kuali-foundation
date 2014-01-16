@@ -59,7 +59,7 @@ public final class FieldMapping {
 		return field;
 	}
 
-	public SortedSet<String> getMappings() {
+	public ImmutableSortedSet<String> getMappings() {
 		return mappings;
 	}
 
