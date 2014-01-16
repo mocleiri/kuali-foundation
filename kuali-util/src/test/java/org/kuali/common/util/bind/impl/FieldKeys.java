@@ -8,17 +8,17 @@ import java.util.SortedSet;
 import com.google.common.collect.ImmutableSortedSet;
 import com.google.common.collect.Sets;
 
-public final class FieldMapping {
+public final class FieldKeys {
 
 	private final Field field;
-	private final ImmutableSortedSet<String> mappings;
+	private final ImmutableSortedSet<String> keys;
 
-	private FieldMapping(Builder builder) {
+	private FieldKeys(Builder builder) {
 		this.field = builder.field;
-		this.mappings = ImmutableSortedSet.copyOf(builder.mappings);
+		this.keys = ImmutableSortedSet.copyOf(builder.keys);
 	}
 
-	public static FieldMapping create(Field field) {
+	public static FieldKeys create(Field field) {
 		return builder(field).build();
 	}
 
@@ -32,34 +32,34 @@ public final class FieldMapping {
 		private final Field field;
 
 		// Optional
-		private SortedSet<String> mappings = Sets.newTreeSet();
+		private SortedSet<String> keys = Sets.newTreeSet();
 
 		public Builder(Field field) {
 			this.field = field;
 		}
 
-		public Builder mappings(SortedSet<String> mappings) {
-			this.mappings = mappings;
+		public Builder keys(SortedSet<String> keys) {
+			this.keys = keys;
 			return this;
 		}
 
-		public FieldMapping build() {
-			FieldMapping instance = new FieldMapping(this);
+		public FieldKeys build() {
+			FieldKeys instance = new FieldKeys(this);
 			validate(instance);
 			return instance;
 		}
 
-		private static void validate(FieldMapping instance) {
+		private static void validate(FieldKeys instance) {
 			checkNotNull(instance.field, "'field' cannot be null");
-			checkNotNull(instance.mappings, "'mappings' cannot be null");
+			checkNotNull(instance.keys, "'mappings' cannot be null");
 		}
 
-		public SortedSet<String> getMappings() {
-			return mappings;
+		public SortedSet<String> getKeys() {
+			return keys;
 		}
 
-		public void setMappings(SortedSet<String> mappings) {
-			this.mappings = mappings;
+		public void setKeys(SortedSet<String> mappings) {
+			this.keys = mappings;
 		}
 
 		public Field getField() {
@@ -71,8 +71,8 @@ public final class FieldMapping {
 		return field;
 	}
 
-	public ImmutableSortedSet<String> getMappings() {
-		return mappings;
+	public ImmutableSortedSet<String> getKeys() {
+		return keys;
 	}
 
 }
