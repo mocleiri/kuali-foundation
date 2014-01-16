@@ -16,7 +16,7 @@ public final class BoundType {
 
 	private final Optional<String> prefix;
 	private final Class<?> type;
-	private final ImmutableMap<Field, FieldKeys> fieldKeys;
+	private final ImmutableMap<Field, BoundField> fieldKeys;
 
 	private BoundType(Builder builder) {
 		this.prefix = builder.prefix;
@@ -35,7 +35,7 @@ public final class BoundType {
 
 		// Optional
 		private Optional<String> prefix = Optional.absent();
-		private Map<Field, FieldKeys> fieldKeys = Maps.newHashMap();
+		private Map<Field, BoundField> fieldKeys = Maps.newHashMap();
 
 		private Builder(Class<?> type) {
 			this.type = type;
@@ -46,7 +46,7 @@ public final class BoundType {
 			return this;
 		}
 
-		public Builder fieldKeys(Map<Field, FieldKeys> fieldKeys) {
+		public Builder fieldKeys(Map<Field, BoundField> fieldKeys) {
 			this.fieldKeys = fieldKeys;
 			return this;
 		}
@@ -78,11 +78,11 @@ public final class BoundType {
 			this.prefix = prefix;
 		}
 
-		public Map<Field, FieldKeys> getFieldKeys() {
+		public Map<Field, BoundField> getFieldKeys() {
 			return fieldKeys;
 		}
 
-		public void setFieldKeys(Map<Field, FieldKeys> fieldKeys) {
+		public void setFieldKeys(Map<Field, BoundField> fieldKeys) {
 			this.fieldKeys = fieldKeys;
 		}
 
@@ -96,7 +96,7 @@ public final class BoundType {
 		return type;
 	}
 
-	public ImmutableMap<Field, FieldKeys> getFieldKeys() {
+	public ImmutableMap<Field, BoundField> getFieldKeys() {
 		return fieldKeys;
 	}
 

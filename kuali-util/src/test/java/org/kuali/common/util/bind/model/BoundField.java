@@ -7,20 +7,17 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.bind.api.BindMapping;
 
 import com.google.common.collect.ImmutableList;
 
-public final class FieldKeys {
+public final class BoundField {
 
 	private final Field field;
 	private final ImmutableList<String> keys;
+	private final BindMapping mapping;
 
-	private FieldKeys(Builder builder) {
-		this.field = builder.field;
-		this.keys = ImmutableList.copyOf(builder.keys);
-	}
-
-	public static FieldKeys create(Field field) {
+	public static BoundField create(Field field) {
 		return builder(field).build();
 	}
 
@@ -28,13 +25,19 @@ public final class FieldKeys {
 		return new Builder(field);
 	}
 
+	private BoundField(Builder builder) {
+		this.field = builder.field;
+		this.keys = ImmutableList.copyOf(builder.keys);
+		this.mapping = builder.mapping;
+	}
+
 	public static class Builder {
 
 		// Required
 		private final Field field;
 
-		// Defaults to field.getName()
 		private List<String> keys;
+		private BindMapping mapping;
 
 		public Builder(Field field) {
 			this.field = field;
@@ -50,14 +53,20 @@ public final class FieldKeys {
 			return this;
 		}
 
-		public FieldKeys build() {
-			FieldKeys instance = new FieldKeys(this);
+		public Builder mapping(BindMapping mapping) {
+			this.mapping = mapping;
+			return this;
+		}
+
+		public BoundField build() {
+			BoundField instance = new BoundField(this);
 			validate(instance);
 			return instance;
 		}
 
-		private static void validate(FieldKeys instance) {
+		private static void validate(BoundField instance) {
 			checkNotNull(instance.field, "'field' cannot be null");
+			checkNotNull(instance.mapping, "'mapping' cannot be null");
 			checkNotNull(instance.keys, "'keys' cannot be null");
 			checkArgument(instance.keys.size() > 0, "'keys' must contain at least one value");
 			int blanks = CollectionUtils.getBlanks(instance.keys).size();
@@ -75,6 +84,14 @@ public final class FieldKeys {
 		public Field getField() {
 			return field;
 		}
+
+		public BindMapping getMapping() {
+			return mapping;
+		}
+
+		public void setMapping(BindMapping mapping) {
+			this.mapping = mapping;
+		}
 	}
 
 	public Field getField() {
@@ -83,6 +100,10 @@ public final class FieldKeys {
 
 	public ImmutableList<String> getKeys() {
 		return keys;
+	}
+
+	public BindMapping getMapping() {
+		return mapping;
 	}
 
 }

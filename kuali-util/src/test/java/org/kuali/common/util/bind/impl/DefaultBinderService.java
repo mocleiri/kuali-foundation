@@ -16,7 +16,7 @@ import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.BindMapping;
 import org.kuali.common.util.bind.api.BinderService;
 import org.kuali.common.util.bind.api.Bound;
-import org.kuali.common.util.bind.model.FieldKeys;
+import org.kuali.common.util.bind.model.BoundField;
 import org.kuali.common.util.spring.binder.BytesFormatAnnotationFormatterFactory;
 import org.kuali.common.util.spring.binder.TimeFormatAnnotationFormatterFactory;
 import org.springframework.beans.MutablePropertyValues;
@@ -54,8 +54,8 @@ public class DefaultBinderService implements BinderService {
 
 	}
 
-	protected ImmutableMap<Field, FieldKeys> getFieldKeys(Class<?> type, Optional<String> prefix) {
-		Map<Field, FieldKeys> map = Maps.newHashMap();
+	protected ImmutableMap<Field, BoundField> getFieldKeys(Class<?> type, Optional<String> prefix) {
+		Map<Field, BoundField> map = Maps.newHashMap();
 		Set<Field> fields = ReflectionUtils.getFields(type);
 		for (Field field : fields) {
 			map.put(field, getFieldKeys(field, prefix));
@@ -63,13 +63,13 @@ public class DefaultBinderService implements BinderService {
 		return ImmutableMap.copyOf(map);
 	}
 
-	protected FieldKeys getFieldKeys(Field field, Optional<String> prefix) {
+	protected BoundField getFieldKeys(Field field, Optional<String> prefix) {
 		List<String> keys = getKeys(prefix, ImmutableList.of(field.getName()));
 		Optional<BindMapping> annotation = Optional.fromNullable(field.getAnnotation(BindMapping.class));
 		if (annotation.isPresent()) {
 			keys = getKeys(prefix, getMappings(field, annotation.get()));
 		}
-		return FieldKeys.builder(field).keys(Lists.newArrayList(Sets.newLinkedHashSet(keys))).build();
+		return BoundField.builder(field).keys(Lists.newArrayList(Sets.newLinkedHashSet(keys))).build();
 	}
 
 	protected List<String> getMappings(Field field, BindMapping annotation) {
