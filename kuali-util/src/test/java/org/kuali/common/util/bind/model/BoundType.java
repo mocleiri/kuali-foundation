@@ -74,6 +74,14 @@ public final class BoundType {
 			this.prefix = prefix;
 		}
 
+		public Map<Field, FieldKeys> getFieldKeys() {
+			return fieldKeys;
+		}
+
+		public void setFieldKeys(Map<Field, FieldKeys> fieldKeys) {
+			this.fieldKeys = fieldKeys;
+		}
+
 	}
 
 	public Optional<String> getPrefix() {
@@ -82,6 +90,10 @@ public final class BoundType {
 
 	public Class<?> getType() {
 		return type;
+	}
+
+	public ImmutableMap<Field, FieldKeys> getFieldKeys() {
+		return fieldKeys;
 	}
 
 }
