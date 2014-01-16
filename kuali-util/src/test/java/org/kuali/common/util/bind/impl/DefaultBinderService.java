@@ -39,9 +39,9 @@ public class DefaultBinderService implements BinderService {
 
 	@Override
 	public <T> Optional<BindingResult> bind(T object) {
-		Optional<Bound> bound = ReflectionUtils.getAnnotation(object.getClass(), Bound.class);
-		if (bound.isPresent()) {
-			Optional<String> prefix = getPrefix(bound.get(), object.getClass());
+		if (object.getClass().isAnnotationPresent(Bound.class)) {
+			Bound bound = object.getClass().getAnnotation(Bound.class);
+			Optional<String> prefix = getPrefix(bound, object.getClass());
 			ImmutableMap<String, String> map = getMap(prefix, global);
 			MutablePropertyValues values = new MutablePropertyValues(map);
 			DataBinder binder = new DataBinder(object);
@@ -52,6 +52,10 @@ public class DefaultBinderService implements BinderService {
 			return Optional.absent();
 		}
 
+	}
+
+	protected boolean isBound(Class<?> type) {
+		return type.isAnnotationPresent(Bound.class);
 	}
 
 	protected ImmutableMap<Field, FieldKeys> getFieldKeys(Class<?> type, Optional<String> prefix) {
