@@ -86,7 +86,7 @@ public class DefaultBinderService implements BinderService {
 	protected List<String> getKeys(Field field, BindMapping annotation) {
 		List<String> mappings = ImmutableList.copyOf(annotation.value());
 		int blanks = CollectionUtils.getBlanks(mappings).size();
-		checkState(blanks == 0, "[%s.%s] contains %s bind mappings that are blank", field.getDeclaringClass().getSimpleName(), field.getName(), blanks);
+		checkState(blanks == 0, "[%s.%s] contains %s bind mappings that are blank", field.getDeclaringClass().getCanonicalName(), field.getName(), blanks);
 		List<String> keys = Lists.newArrayList();
 		keys.addAll(mappings);
 		keys.add(field.getName());
