@@ -5,16 +5,17 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.lang.reflect.Field;
 import java.util.SortedSet;
 
+import com.google.common.collect.ImmutableSortedSet;
 import com.google.common.collect.Sets;
 
 public final class FieldMapping {
 
 	private final Field field;
-	private final SortedSet<String> mappings;
+	private final ImmutableSortedSet<String> mappings;
 
 	private FieldMapping(Builder builder) {
 		this.field = builder.field;
-		this.mappings = builder.mappings;
+		this.mappings = ImmutableSortedSet.copyOf(builder.mappings);
 	}
 
 	public static FieldMapping create(Field field) {
