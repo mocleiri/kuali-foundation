@@ -33,4 +33,7 @@ public class Foo {
 		}
 	}
 
+	public static class Builder2 extends Builder implements Simple<C> {
+	}
+
 }

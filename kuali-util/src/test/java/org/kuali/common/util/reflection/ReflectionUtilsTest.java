@@ -16,17 +16,65 @@
 package org.kuali.common.util.reflection;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.builder.Builder;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 public class ReflectionUtilsTest {
 
 	private static final Logger logger = LoggerUtils.make();
+
+	@Test
+	public void extractBuilderType() {
+		try {
+			Class<?> type = Foo.Builder2.class;
+			List<Type> list = getAllInterfaces(type);
+			for (Type element : list) {
+				System.out.println(element.getClass().getCanonicalName());
+			}
+
+			Type[] genericInterfaces = Foo.Builder2.class.getGenericInterfaces();
+			for (Type genericInterface : genericInterfaces) {
+				if (genericInterface instanceof ParameterizedType) {
+					ParameterizedType pt = (ParameterizedType) genericInterface;
+					Type raw = pt.getRawType();
+					System.out.println(raw == Builder.class);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public List<Class<?>> getPath(Class<?> type) {
+		List<Class<?>> list = Lists.newArrayList();
+		if (type.getSuperclass() != null) {
+			list.addAll(getPath(type.getSuperclass()));
+		}
+		list.add(type);
+		return list;
+	}
+
+	public List<Type> getAllInterfaces(Class<?> type) {
+		List<Class<?>> path = getPath(type);
+		List<Type> list = Lists.newArrayList();
+		for (Class<?> element : path) {
+			Type[] interfaces = element.getInterfaces();
+			list.addAll(ImmutableList.copyOf(interfaces));
+		}
+		return list;
+	}
 
 	@Test
 	public void testHasMatchingParameterizedArgTypes1() throws Exception {
