@@ -7,15 +7,15 @@ import org.kuali.common.util.bind.model.User;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 
-public class DefaultBinderServiceTest {
+public class SystemBinderServiceTest {
 
 	private static final Logger logger = LoggerUtils.make();
 
 	@Test
 	public void test() {
 		try {
-			System.setProperty("user.directory", "/tmp");
-			BinderService service = new DefaultBinderService();
+			// System.setProperty("user.directory", "/tmp");
+			BinderService service = new SystemBinderService();
 			User.Builder builder = User.builder();
 			service.bind(builder);
 			User user = builder.build();
