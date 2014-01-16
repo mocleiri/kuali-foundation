@@ -54,10 +54,6 @@ public class DefaultBinderService implements BinderService {
 
 	}
 
-	protected boolean isBound(Class<?> type) {
-		return type.isAnnotationPresent(Bound.class);
-	}
-
 	protected ImmutableMap<Field, FieldKeys> getFieldKeys(Class<?> type, Optional<String> prefix) {
 		Map<Field, FieldKeys> map = Maps.newHashMap();
 		Set<Field> fields = ReflectionUtils.getFields(type);
