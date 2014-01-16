@@ -16,8 +16,8 @@ import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.BindMapping;
 import org.kuali.common.util.bind.api.BinderService;
 import org.kuali.common.util.bind.api.Bound;
-import org.kuali.common.util.bind.model.BoundTypeDescriptor;
 import org.kuali.common.util.bind.model.BoundFieldDescriptor;
+import org.kuali.common.util.bind.model.BoundTypeDescriptor;
 import org.kuali.common.util.spring.binder.BytesFormatAnnotationFormatterFactory;
 import org.kuali.common.util.spring.binder.TimeFormatAnnotationFormatterFactory;
 import org.springframework.beans.MutablePropertyValues;
@@ -76,16 +76,19 @@ public class DefaultBinderService implements BinderService {
 		List<String> keys = getKeys(prefix, ImmutableList.of(field.getName()));
 		Optional<BindMapping> annotation = Optional.fromNullable(field.getAnnotation(BindMapping.class));
 		if (annotation.isPresent()) {
-			keys = getKeys(prefix, getMappings(field, annotation.get()));
+			keys = getKeys(prefix, getKeys(field, annotation.get()));
 		}
 		return BoundFieldDescriptor.builder(field).mapping(annotation.orNull()).keys(Lists.newArrayList(Sets.newLinkedHashSet(keys))).build();
 	}
 
-	protected List<String> getMappings(Field field, BindMapping annotation) {
+	protected List<String> getKeys(Field field, BindMapping annotation) {
 		List<String> mappings = ImmutableList.copyOf(annotation.value());
 		int blanks = CollectionUtils.getBlanks(mappings).size();
 		checkState(blanks == 0, "[%s.%s] contains %s bind mappings that are blank", field.getDeclaringClass().getSimpleName(), field.getName(), blanks);
-		return mappings;
+		List<String> keys = Lists.newArrayList();
+		keys.addAll(mappings);
+		keys.add(field.getName());
+		return keys;
 	}
 
 	protected List<String> getKeys(Optional<String> prefix, List<String> keys) {
@@ -115,7 +118,7 @@ public class DefaultBinderService implements BinderService {
 	}
 
 	protected ImmutableMap<String, String> getMap(BoundTypeDescriptor descriptor, Map<String, String> provided) {
-		Map<Field,BoundFieldDescriptor> fields = descriptor.getFields();
+		Map<Field, BoundFieldDescriptor> fields = descriptor.getFields();
 		return null;
 	}
 
