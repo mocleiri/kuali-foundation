@@ -201,8 +201,8 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 		return superType.isAssignableFrom(type);
 	}
 
-	public static <T extends Annotation> Optional<T> getAnnotation(Class<?> instanceClass, Class<T> annotationClass) {
-		return Optional.fromNullable(instanceClass.getAnnotation(annotationClass));
+	public static <T extends Annotation> Optional<T> getAnnotation(Class<?> type, Class<T> annotationClass) {
+		return Optional.fromNullable(type.getAnnotation(annotationClass));
 	}
 
 	public static List<Class<?>> getDeclarationHierarchy(Class<?> type) {

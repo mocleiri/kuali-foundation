@@ -74,11 +74,13 @@ public class DefaultBinderService implements BinderService {
 
 	protected BoundFieldDescriptor getFieldKeys(Field field, Optional<String> prefix) {
 		List<String> keys = getKeys(prefix, ImmutableList.of(field.getName()));
-		Optional<BindMapping> annotation = Optional.fromNullable(field.getAnnotation(BindMapping.class));
+		Optional<BindMapping> annotation = ReflectionUtils.getAnnotation(field.getType(), BindMapping.class);
 		if (annotation.isPresent()) {
 			keys = getKeys(prefix, getKeys(field, annotation.get()));
 		}
-		return BoundFieldDescriptor.builder(field).mapping(annotation.orNull()).keys(Lists.newArrayList(Sets.newLinkedHashSet(keys))).build();
+		// Uniquify the keys
+		keys = Lists.newArrayList(Sets.newLinkedHashSet(keys));
+		return BoundFieldDescriptor.builder(field).mapping(annotation).keys(keys).build();
 	}
 
 	protected List<String> getKeys(Field field, BindMapping annotation) {
