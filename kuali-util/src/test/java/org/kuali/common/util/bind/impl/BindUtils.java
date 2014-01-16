@@ -57,14 +57,14 @@ public class BindUtils {
 	}
 
 	protected static BoundTypeDescriptor getDescriptor(Class<?> type) {
-		Optional<BoundTypeDescriptor> descriptor = Optional.fromNullable(CACHE.get(type));
-		if (descriptor.isPresent()) {
-			return descriptor.get();
+		BoundTypeDescriptor descriptor = CACHE.get(type);
+		if (descriptor == null) {
+			Bound bound = type.getAnnotation(Bound.class);
+			Optional<String> prefix = getPrefix(bound, type);
+			Map<Field, BoundFieldDescriptor> fields = getFields(type, prefix);
+			descriptor = BoundTypeDescriptor.builder(type).fields(fields).build();
 		}
-		Bound bound = type.getAnnotation(Bound.class);
-		Optional<String> prefix = getPrefix(bound, type);
-		Map<Field, BoundFieldDescriptor> fields = getFields(type, prefix);
-		return CACHE.put(type, BoundTypeDescriptor.builder(type).fields(fields).build());
+		return descriptor;
 	}
 
 	protected static Optional<String> getPrefix(Bound bound, Class<?> type) {
