@@ -9,7 +9,6 @@ import java.util.SortedSet;
 import org.kuali.common.util.CollectionUtils;
 
 import com.google.common.collect.ImmutableSortedSet;
-import com.google.common.collect.Sets;
 
 public final class FieldKeys {
 
@@ -34,11 +33,16 @@ public final class FieldKeys {
 		// Required
 		private final Field field;
 
-		// Optional
-		private SortedSet<String> keys = Sets.newTreeSet();
+		// Defaults to field.getName()
+		private SortedSet<String> keys;
 
 		public Builder(Field field) {
 			this.field = field;
+			key(field.getName());
+		}
+
+		public Builder key(String key) {
+			return keys(ImmutableSortedSet.of(key));
 		}
 
 		public Builder keys(SortedSet<String> keys) {
