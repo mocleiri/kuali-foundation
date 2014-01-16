@@ -17,7 +17,7 @@ import org.kuali.common.util.bind.api.BindMapping;
 import org.kuali.common.util.bind.api.BinderService;
 import org.kuali.common.util.bind.api.Bound;
 import org.kuali.common.util.bind.model.BoundField;
-import org.kuali.common.util.bind.model.BoundType;
+import org.kuali.common.util.bind.model.BindingDescriptor;
 import org.kuali.common.util.spring.binder.BytesFormatAnnotationFormatterFactory;
 import org.kuali.common.util.spring.binder.TimeFormatAnnotationFormatterFactory;
 import org.springframework.beans.MutablePropertyValues;
@@ -55,11 +55,11 @@ public class DefaultBinderService implements BinderService {
 
 	}
 
-	protected BoundType getBoundType(Class<?> type) {
+	protected BindingDescriptor getBoundType(Class<?> type) {
 		Bound bound = type.getAnnotation(Bound.class);
 		Optional<String> prefix = getPrefix(bound, type);
 		Map<Field, BoundField> fields = getFields(type, prefix);
-		return BoundType.builder(type).fields(fields).build();
+		return BindingDescriptor.builder(type).fields(fields).build();
 	}
 
 	protected ImmutableMap<Field, BoundField> getFields(Class<?> type, Optional<String> prefix) {

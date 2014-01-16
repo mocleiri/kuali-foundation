@@ -12,13 +12,13 @@ import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
-public final class BoundType {
+public final class BindingDescriptor {
 
 	private final Optional<String> prefix;
 	private final Class<?> type;
 	private final ImmutableMap<Field, BoundField> fields;
 
-	private BoundType(Builder builder) {
+	private BindingDescriptor(Builder builder) {
 		this.prefix = builder.prefix;
 		this.type = builder.type;
 		this.fields = ImmutableMap.copyOf(builder.fields);
@@ -51,13 +51,13 @@ public final class BoundType {
 			return this;
 		}
 
-		public BoundType build() {
-			BoundType instance = new BoundType(this);
+		public BindingDescriptor build() {
+			BindingDescriptor instance = new BindingDescriptor(this);
 			validate(instance);
 			return instance;
 		}
 
-		private static void validate(BoundType instance) {
+		private static void validate(BindingDescriptor instance) {
 			checkNotNull(instance.type, "'type' cannot be null");
 			checkNotNull(instance.fields, "'fields' cannot be null");
 			checkNotNull(instance.prefix, "'prefix' cannot be null");
