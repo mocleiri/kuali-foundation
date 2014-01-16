@@ -28,7 +28,9 @@ import org.springframework.validation.DataBinder;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 public class DefaultBinderService implements BinderService {
 
@@ -61,21 +63,13 @@ public class DefaultBinderService implements BinderService {
 		return ImmutableMap.copyOf(map);
 	}
 
-	protected List<String> getKeys(Optional<String> prefix, List<String> keys) {
-		if (prefix.isPresent()) {
-			return ListUtils.prefix(prefix.get(), ".", keys);
-		} else {
-			return keys;
-		}
-	}
-
 	protected FieldKeys getFieldKeys(Field field, Optional<String> prefix) {
-		Optional<BindMapping> annotation = Optional.fromNullable(field.getAnnotation(BindMapping.class));
 		List<String> keys = getKeys(prefix, ImmutableList.of(field.getName()));
+		Optional<BindMapping> annotation = Optional.fromNullable(field.getAnnotation(BindMapping.class));
 		if (annotation.isPresent()) {
 			keys = getKeys(prefix, getMappings(field, annotation.get()));
 		}
-		return FieldKeys.builder(field).keys(keys).build();
+		return FieldKeys.builder(field).keys(Lists.newArrayList(Sets.newLinkedHashSet(keys))).build();
 	}
 
 	protected List<String> getMappings(Field field, BindMapping annotation) {
@@ -83,6 +77,14 @@ public class DefaultBinderService implements BinderService {
 		int blanks = CollectionUtils.getBlanks(mappings).size();
 		checkState(blanks == 0, "[%s.%s] contains %s bind mappings that are blank", field.getDeclaringClass().getSimpleName(), field.getName(), blanks);
 		return mappings;
+	}
+
+	protected List<String> getKeys(Optional<String> prefix, List<String> keys) {
+		if (prefix.isPresent()) {
+			return ListUtils.prefix(prefix.get(), ".", keys);
+		} else {
+			return keys;
+		}
 	}
 
 	protected Optional<String> getPrefix(Bound bound, Class<?> type) {
