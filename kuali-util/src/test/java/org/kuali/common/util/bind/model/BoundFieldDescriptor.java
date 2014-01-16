@@ -2,13 +2,14 @@ package org.kuali.common.util.bind.model;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.collect.ImmutableList.copyOf;
 import static com.google.common.collect.ImmutableList.of;
 import static com.google.common.collect.Lists.newArrayList;
+import static org.kuali.common.util.CollectionUtils.getBlanks;
 
 import java.lang.reflect.Field;
 import java.util.List;
 
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.bind.api.BindMapping;
 
 import com.google.common.base.Optional;
@@ -30,7 +31,7 @@ public final class BoundFieldDescriptor {
 
 	private BoundFieldDescriptor(Builder builder) {
 		this.field = builder.field;
-		this.keys = ImmutableList.copyOf(builder.keys);
+		this.keys = copyOf(builder.keys);
 		this.mapping = builder.mapping;
 	}
 
@@ -76,7 +77,7 @@ public final class BoundFieldDescriptor {
 			checkNotNull(instance.mapping, "'mapping' cannot be null");
 			checkNotNull(instance.keys, "'keys' cannot be null");
 			checkArgument(instance.keys.size() > 0, "'keys' must contain at least one value");
-			int blanks = CollectionUtils.getBlanks(instance.keys).size();
+			int blanks = getBlanks(instance.keys).size();
 			checkArgument(blanks == 0, "'keys' contains %s blanks", blanks);
 		}
 
