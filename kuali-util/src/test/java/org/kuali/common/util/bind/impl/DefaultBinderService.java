@@ -121,7 +121,12 @@ public class DefaultBinderService implements BinderService {
 
 	protected ImmutableMap<String, String> getMap(BoundTypeDescriptor descriptor, Map<String, String> provided) {
 		Map<Field, BoundFieldDescriptor> fields = descriptor.getFields();
-		return null;
+		Map<String, String> map = Maps.newHashMap();
+		for (BoundFieldDescriptor bfd : fields.values()) {
+			String value = ""; // Add code to get the right value
+			map.put(bfd.getField().getName(), value);
+		}
+		return ImmutableMap.copyOf(map);
 	}
 
 	protected ImmutableMap<String, String> getMap(Optional<String> prefix, Map<String, String> provided) {
