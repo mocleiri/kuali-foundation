@@ -16,7 +16,7 @@ import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.BindMapping;
 import org.kuali.common.util.bind.api.BinderService;
 import org.kuali.common.util.bind.api.Bound;
-import org.kuali.common.util.bind.model.BindingDescriptor;
+import org.kuali.common.util.bind.model.BoundTypeDescriptor;
 import org.kuali.common.util.bind.model.BoundFieldDescriptor;
 import org.kuali.common.util.spring.binder.BytesFormatAnnotationFormatterFactory;
 import org.kuali.common.util.spring.binder.TimeFormatAnnotationFormatterFactory;
@@ -41,7 +41,7 @@ public class DefaultBinderService implements BinderService {
 	@Override
 	public <T> Optional<BindingResult> bind(T object) {
 		if (object.getClass().isAnnotationPresent(Bound.class)) {
-			BindingDescriptor descriptor = getBindingDescriptor(object.getClass());
+			BoundTypeDescriptor descriptor = getBindingDescriptor(object.getClass());
 			Bound bound = object.getClass().getAnnotation(Bound.class);
 			Optional<String> prefix = getPrefix(bound, object.getClass());
 			ImmutableMap<String, String> map = getMap(prefix, global);
@@ -56,11 +56,11 @@ public class DefaultBinderService implements BinderService {
 
 	}
 
-	protected BindingDescriptor getBindingDescriptor(Class<?> type) {
+	protected BoundTypeDescriptor getBindingDescriptor(Class<?> type) {
 		Bound bound = type.getAnnotation(Bound.class);
 		Optional<String> prefix = getPrefix(bound, type);
 		Map<Field, BoundFieldDescriptor> fields = getFields(type, prefix);
-		return BindingDescriptor.builder(type).fields(fields).build();
+		return BoundTypeDescriptor.builder(type).fields(fields).build();
 	}
 
 	protected ImmutableMap<Field, BoundFieldDescriptor> getFields(Class<?> type, Optional<String> prefix) {
@@ -114,7 +114,7 @@ public class DefaultBinderService implements BinderService {
 		return Optional.of(bound.value());
 	}
 
-	protected ImmutableMap<String, String> getMap(BindingDescriptor descriptor, Map<String, String> provided) {
+	protected ImmutableMap<String, String> getMap(BoundTypeDescriptor descriptor, Map<String, String> provided) {
 		Map<Field,BoundFieldDescriptor> fields = descriptor.getFields();
 		return null;
 	}
