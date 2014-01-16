@@ -9,13 +9,14 @@ import java.util.List;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.bind.api.BindMapping;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public final class BoundField {
 
 	private final Field field;
 	private final ImmutableList<String> keys;
-	private final BindMapping mapping;
+	private final Optional<BindMapping> mapping;
 
 	public static BoundField create(Field field) {
 		return builder(field).build();
@@ -37,7 +38,7 @@ public final class BoundField {
 		private final Field field;
 
 		private List<String> keys;
-		private BindMapping mapping;
+		private Optional<BindMapping> mapping;
 
 		public Builder(Field field) {
 			this.field = field;
@@ -54,6 +55,10 @@ public final class BoundField {
 		}
 
 		public Builder mapping(BindMapping mapping) {
+			return mapping(Optional.of(mapping));
+		}
+
+		public Builder mapping(Optional<BindMapping> mapping) {
 			this.mapping = mapping;
 			return this;
 		}
@@ -85,13 +90,14 @@ public final class BoundField {
 			return field;
 		}
 
-		public BindMapping getMapping() {
+		public Optional<BindMapping> getMapping() {
 			return mapping;
 		}
 
-		public void setMapping(BindMapping mapping) {
+		public void setMapping(Optional<BindMapping> mapping) {
 			this.mapping = mapping;
 		}
+
 	}
 
 	public Field getField() {
@@ -102,7 +108,7 @@ public final class BoundField {
 		return keys;
 	}
 
-	public BindMapping getMapping() {
+	public Optional<BindMapping> getMapping() {
 		return mapping;
 	}
 
