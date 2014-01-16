@@ -1,4 +1,4 @@
-package org.kuali.common.util.bind.impl;
+package org.kuali.common.util;
 
 import java.util.SortedSet;
 import java.util.TreeSet;
