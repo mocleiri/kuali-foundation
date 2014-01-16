@@ -2,6 +2,8 @@ package org.kuali.common.util.bind.model;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.collect.ImmutableList.of;
+import static com.google.common.collect.Lists.newArrayList;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -11,7 +13,6 @@ import org.kuali.common.util.bind.api.BindMapping;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 public final class BoundFieldDescriptor {
 
@@ -47,7 +48,7 @@ public final class BoundFieldDescriptor {
 		}
 
 		public Builder key(String key) {
-			return keys(Lists.newArrayList(ImmutableList.of(key)));
+			return keys(newArrayList(of(key)));
 		}
 
 		public Builder keys(List<String> keys) {
