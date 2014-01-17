@@ -40,7 +40,7 @@ public class SystemEnvPropertySource extends SystemEnvironmentPropertySource {
 
 	protected String getActualName(String name, Set<String> aliases) {
 		for (String alias : aliases) {
-			if (containsProperty(alias)) {
+			if (super.containsProperty(alias)) {
 				return alias;
 			}
 		}
