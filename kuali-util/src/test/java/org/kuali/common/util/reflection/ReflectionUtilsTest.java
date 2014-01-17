@@ -15,26 +15,15 @@
  */
 package org.kuali.common.util.reflection;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkState;
-
 import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.lang.reflect.TypeVariable;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.builder.Builder;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 public class ReflectionUtilsTest {
 
@@ -44,57 +33,11 @@ public class ReflectionUtilsTest {
 	public void extractBuilderType() {
 		try {
 			Class<?> type = Foo.Builder2.class;
-			Class<?> builderType = getFirstParameterizedTypeArgumentAsClass(type, Simple.class);
+			Class<?> builderType = ReflectionUtils.getFirstParameterizedTypeArgumentAsClass(type, Builder.class);
 			System.out.println(builderType.getCanonicalName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	public List<Class<?>> getPath(Class<?> type) {
-		List<Class<?>> list = Lists.newArrayList();
-		if (type.getSuperclass() != null) {
-			list.addAll(getPath(type.getSuperclass()));
-		}
-		list.add(type);
-		return list;
-	}
-
-	public Class<?> getFirstParameterizedTypeArgumentAsClass(Class<?> type, Class<?> parameterizedInterface) {
-		checkArgument(parameterizedInterface.isInterface(), "[%s] is not an interface", parameterizedInterface.getCanonicalName());
-		TypeVariable<?>[] params = parameterizedInterface.getTypeParameters();
-		checkArgument(params.length > 0, "[%s] has no type parameters", parameterizedInterface.getCanonicalName());
-		Map<Class<?>, ParameterizedType> interfaces = getAllParameterizedInterfaces(type);
-		ParameterizedType parameterizedType = interfaces.get(parameterizedInterface);
-		checkState(parameterizedType != null, "[%s] does not implement [%s]", type.getCanonicalName(), parameterizedInterface.getCanonicalName());
-		Type[] args = parameterizedType.getActualTypeArguments();
-		checkState(args.length > 0, "[%s] has no actual type arguments", parameterizedInterface.getCanonicalName());
-		Type firstTypeArgument = args[0];
-		checkState(firstTypeArgument instanceof Class<?>, "First actual type argument of [%s] is not a class [%s]", parameterizedInterface.getCanonicalName(), firstTypeArgument);
-		return (Class<?>) firstTypeArgument;
-	}
-
-	public Map<Class<?>, ParameterizedType> getAllParameterizedInterfaces(Class<?> type) {
-		List<Type> list = getAllGenericInterfaces(type);
-		Map<Class<?>, ParameterizedType> map = Maps.newHashMap();
-		for (Type element : list) {
-			if (element instanceof ParameterizedType) {
-				ParameterizedType pType = (ParameterizedType) element;
-				Class<?> interfaceClass = (Class<?>) pType.getRawType();
-				map.put(interfaceClass, pType);
-			}
-		}
-		return map;
-	}
-
-	public List<Type> getAllGenericInterfaces(Class<?> type) {
-		List<Class<?>> path = getPath(type);
-		List<Type> list = Lists.newArrayList();
-		for (Class<?> element : path) {
-			Type[] interfaces = element.getGenericInterfaces();
-			list.addAll(ImmutableList.copyOf(interfaces));
-		}
-		return list;
 	}
 
 	@Test

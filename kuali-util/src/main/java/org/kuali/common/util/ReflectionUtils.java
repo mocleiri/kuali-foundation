@@ -15,12 +15,16 @@
  */
 package org.kuali.common.util;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkState;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -35,10 +39,86 @@ import org.springframework.util.MethodInvoker;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableCollection;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
+
+	/**
+	 * Returns the path from {@code java.lang.Object}, to {@code type}. The last element in the list is {@code type}.
+	 */
+	public static List<Class<?>> getTypeHierarchy(Class<?> type) {
+		List<Class<?>> list = Lists.newArrayList();
+		if (type.getSuperclass() != null) {
+			list.addAll(getTypeHierarchy(type.getSuperclass()));
+		}
+		list.add(type);
+		return list;
+	}
+
+	/**
+	 * <p>
+	 * Given a class that implements a parameterized interface, return the actual type of the first parameterized argument of the implementing class.
+	 * </p>
+	 * 
+	 * Given:
+	 * 
+	 * <pre>
+	 * interface Foo&lt;T&gt; 
+	 * 
+	 * class Bar implements Foo&lt;String&gt;
+	 * </pre>
+	 * 
+	 * <p>
+	 * This method returns {@code String.class}
+	 * </p>
+	 */
+	public static Class<?> getFirstParameterizedTypeArgumentAsClass(Class<?> type, Class<?> parameterizedInterface) {
+		checkArgument(parameterizedInterface.isInterface(), "[%s] is not an interface", parameterizedInterface.getCanonicalName());
+		TypeVariable<?>[] params = parameterizedInterface.getTypeParameters();
+		checkArgument(params.length > 0, "[%s] has no type parameters", parameterizedInterface.getCanonicalName());
+		Map<Class<?>, ParameterizedType> interfaces = getAllParameterizedInterfaces(type);
+		ParameterizedType parameterizedType = interfaces.get(parameterizedInterface);
+		checkState(parameterizedType != null, "[%s] does not implement [%s]", type.getCanonicalName(), parameterizedInterface.getCanonicalName());
+		Type[] args = parameterizedType.getActualTypeArguments();
+		checkState(args.length > 0, "[%s] has no actual type arguments", parameterizedInterface.getCanonicalName());
+		Type firstTypeArgument = args[0];
+		checkState(firstTypeArgument instanceof Class<?>, "First actual type argument of [%s] is not a class [%s]", parameterizedInterface.getCanonicalName(), firstTypeArgument);
+		return (Class<?>) firstTypeArgument;
+	}
+
+	/**
+	 * Return a map containing every parameterized interface implemented by {@code type}, includes interfaces implemented by super classes
+	 */
+	public static Map<Class<?>, ParameterizedType> getAllParameterizedInterfaces(Class<?> type) {
+		List<Type> list = getAllGenericInterfaces(type);
+		Map<Class<?>, ParameterizedType> map = Maps.newHashMap();
+		for (Type element : list) {
+			if (element instanceof ParameterizedType) {
+				ParameterizedType pType = (ParameterizedType) element;
+				Class<?> interfaceClass = (Class<?>) pType.getRawType();
+				map.put(interfaceClass, pType);
+			}
+		}
+		return map;
+	}
+
+	/**
+	 * Return a list containing every interface implemented by {@code type}, includes interfaces implemented by super classes. Type objects returned accurately reflect the actual
+	 * type parameters used in the source code.
+	 */
+	public static List<Type> getAllGenericInterfaces(Class<?> type) {
+		List<Class<?>> path = getTypeHierarchy(type);
+		List<Type> list = Lists.newArrayList();
+		for (Class<?> element : path) {
+			Type[] interfaces = element.getGenericInterfaces();
+			list.addAll(ImmutableList.copyOf(interfaces));
+		}
+		return list;
+	}
 
 	/**
 	 * Return true if this class is declared as final
