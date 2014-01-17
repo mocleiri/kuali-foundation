@@ -19,6 +19,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.junit.Assert;
@@ -29,6 +30,7 @@ import org.slf4j.Logger;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class ReflectionUtilsTest {
 
@@ -38,10 +40,12 @@ public class ReflectionUtilsTest {
 	public void extractBuilderType() {
 		try {
 			Class<?> type = Foo.Builder2.class;
-			List<ParameterizedType> list = getAllParameterizedInterfaces(type);
-			for (ParameterizedType element : list) {
-				Class<?> interfaceClass = (Class<?>) element.getRawType();
-				System.out.println(interfaceClass.getCanonicalName());
+			Map<Class<?>, ParameterizedType> interfaces = getAllParameterizedInterfaces(type);
+			for (ParameterizedType element : interfaces.values()) {
+				Type[] args = element.getActualTypeArguments();
+				for (Type arg : args) {
+					System.out.println(arg);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -57,15 +61,17 @@ public class ReflectionUtilsTest {
 		return list;
 	}
 
-	public List<ParameterizedType> getAllParameterizedInterfaces(Class<?> type) {
+	public Map<Class<?>, ParameterizedType> getAllParameterizedInterfaces(Class<?> type) {
 		List<Type> list = getAllGenericInterfaces(type);
-		List<ParameterizedType> types = Lists.newArrayList();
+		Map<Class<?>, ParameterizedType> map = Maps.newHashMap();
 		for (Type element : list) {
 			if (element instanceof ParameterizedType) {
-				types.add((ParameterizedType) element);
+				ParameterizedType pType = (ParameterizedType) element;
+				Class<?> interfaceClass = (Class<?>) pType.getRawType();
+				map.put(interfaceClass, pType);
 			}
 		}
-		return types;
+		return map;
 	}
 
 	public List<Type> getAllGenericInterfaces(Class<?> type) {

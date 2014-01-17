@@ -33,7 +33,7 @@ public class Foo {
 		}
 	}
 
-	public static class Builder2 extends Builder implements Simple {
+	public static class Builder2 extends Builder implements org.kuali.common.util.builder.Builder<Foo> {
 	}
 
 }
