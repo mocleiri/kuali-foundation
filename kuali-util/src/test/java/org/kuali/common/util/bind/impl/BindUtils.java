@@ -84,7 +84,7 @@ public class BindUtils {
 		}
 
 		// If they supplied a value, it cannot be blank
-		checkState(!StringUtils.isBlank(bound.value()), "'value' cannot be blank");
+		checkState(!StringUtils.isBlank(bound.value()), "'value' cannot be blank.");
 
 		// Return an optional containing the value
 		return Optional.of(bound.value());
