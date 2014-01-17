@@ -1,17 +1,10 @@
 package org.kuali.common.util.bind.api;
 
-import static com.google.common.base.Preconditions.checkState;
-
-import java.util.Iterator;
-import java.util.ServiceLoader;
+import org.kuali.common.util.serviceloader.ServiceLoaderUtils;
 
 public class Binding {
 
 	public static BinderService getDefaultBinderService() {
-		ServiceLoader<BinderService> loader = ServiceLoader.load(BinderService.class);
-		Iterator<BinderService> itr = loader.iterator();
-		checkState(itr.hasNext(), "No impl for [%s]", BinderService.class.getCanonicalName());
-		BinderService service = itr.next();
-		return service;
+		return ServiceLoaderUtils.getFirst(BinderService.class);
 	}
 }
