@@ -3,7 +3,6 @@ package org.kuali.common.util.spring.env;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import java.util.concurrent.ConcurrentMap;
 
 import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.util.Assert;
@@ -13,7 +12,7 @@ import com.google.common.collect.Maps;
 
 public class SystemEnvPropertySource extends SystemEnvironmentPropertySource {
 
-	private final ConcurrentMap<String, ImmutableSet<String>> cache = Maps.newConcurrentMap();
+	private final Map<String, ImmutableSet<String>> cache = Maps.newConcurrentMap();
 
 	public SystemEnvPropertySource(String name, Properties properties) {
 		this(name, convert(properties));
