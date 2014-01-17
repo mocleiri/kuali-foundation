@@ -28,17 +28,18 @@ import com.google.common.collect.Maps;
 public class SysEnvPropertySource extends MapPropertySource {
 
 	private final Map<String, ImmutableSet<String>> aliasCache = Maps.newConcurrentMap();
+	private static final String GLOBAL_PROPERTIES_PROPERTY_SOURCE_NAME = "systemPropertiesAndEnvironmentVariables";
 
 	public SysEnvPropertySource() {
-		this(PropertyUtils.getGlobalProperties());
+		this(GLOBAL_PROPERTIES_PROPERTY_SOURCE_NAME, PropertyUtils.getGlobalProperties());
 	}
 
-	public SysEnvPropertySource(Properties properties) {
-		this("sys-env", properties);
+	public SysEnvPropertySource(String name, Properties source) {
+		this(name, convert(source));
 	}
 
-	public SysEnvPropertySource(String name, Properties properties) {
-		super(name, convert(properties));
+	public SysEnvPropertySource(String name, Map<String, Object> source) {
+		super(name, source);
 	}
 
 	/**
