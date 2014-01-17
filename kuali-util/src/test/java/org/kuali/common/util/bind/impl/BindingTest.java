@@ -8,7 +8,7 @@ import org.kuali.common.util.bind.model.User;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 
-public class BinderServiceTest {
+public class BindingTest {
 
 	private static final Logger logger = LoggerUtils.make();
 
