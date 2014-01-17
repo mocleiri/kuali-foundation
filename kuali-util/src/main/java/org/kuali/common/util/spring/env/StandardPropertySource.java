@@ -11,18 +11,21 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 
 /**
- * Automatically convert keys into their environment variable equivalent if the normal key is not found.
+ * Automatically check the environment variable equivalent if a normal key is not found.
  */
 public class StandardPropertySource extends SystemEnvironmentPropertySource {
 
 	private final Map<String, ImmutableSet<String>> cache = Maps.newConcurrentMap();
 
-	public StandardPropertySource(String name, Properties properties) {
-		this(name, convert(properties));
+	/**
+	 * Automatically check the environment variable equivalent if a normal key is not found.
+	 */
+	public StandardPropertySource(Properties properties) {
+		this("standard", properties);
 	}
 
-	public StandardPropertySource(String name, Map<String, Object> source) {
-		super(name, source);
+	public StandardPropertySource(String name, Properties properties) {
+		super(name, convert(properties));
 	}
 
 	/**
@@ -31,8 +34,11 @@ public class StandardPropertySource extends SystemEnvironmentPropertySource {
 	@Override
 	public Object getProperty(String name) {
 		Assert.notNull(name, "property name must not be null");
+		System.out.println("yo1");
 		Set<String> aliases = getAliases(name);
+		System.out.println("yo2");
 		String actualName = getActualName(name, aliases);
+		System.out.println("yo3");
 		if (logger.isDebugEnabled() && !name.equals(actualName)) {
 			logger.debug(String.format("PropertySource [%s] does not contain '%s', but found equivalent '%s'", this.getName(), name, actualName));
 		}
