@@ -13,7 +13,7 @@ import org.springframework.validation.MapBindingResult;
 
 import com.google.common.collect.Maps;
 
-public class EnvironmentBinderService implements BinderService {
+public class StandardBinderService implements BinderService {
 
 	private final StandardEnvironment environment = new StandardEnvironment();
 	private final ConversionService service = getConversionService();
