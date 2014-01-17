@@ -1,11 +1,12 @@
 package org.kuali.common.util.spring.env;
 
+import static org.springframework.util.Assert.notNull;
+
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
 import org.springframework.core.env.SystemEnvironmentPropertySource;
-import org.springframework.util.Assert;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
@@ -33,7 +34,7 @@ public class StandardPropertySource extends SystemEnvironmentPropertySource {
 	 */
 	@Override
 	public Object getProperty(String name) {
-		Assert.notNull(name, "property name must not be null");
+		notNull(name, "property name must not be null");
 		Set<String> aliases = getAliases(name);
 		String actualName = getActualName(name, aliases);
 		if (logger.isDebugEnabled() && !name.equals(actualName)) {
