@@ -61,7 +61,7 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 
 	/**
 	 * <p>
-	 * Given a class that implements a parameterized interface, return the actual type of the first parameterized argument of the implementing class.
+	 * Given a class that implements a parameterized interface, return the actual type of the first parameterized argument for the interface
 	 * </p>
 	 * 
 	 * Given:
