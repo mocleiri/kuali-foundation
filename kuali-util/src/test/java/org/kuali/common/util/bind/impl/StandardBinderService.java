@@ -33,6 +33,7 @@ public final class StandardBinderService implements BinderService {
 
 	public StandardBinderService() {
 		this(builder());
+		Builder.validate(this);
 	}
 
 	private StandardBinderService(Builder builder) {
