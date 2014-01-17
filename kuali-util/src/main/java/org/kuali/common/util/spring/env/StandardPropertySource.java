@@ -34,11 +34,8 @@ public class StandardPropertySource extends SystemEnvironmentPropertySource {
 	@Override
 	public Object getProperty(String name) {
 		Assert.notNull(name, "property name must not be null");
-		System.out.println("yo1");
 		Set<String> aliases = getAliases(name);
-		System.out.println("yo2");
 		String actualName = getActualName(name, aliases);
-		System.out.println("yo3");
 		if (logger.isDebugEnabled() && !name.equals(actualName)) {
 			logger.debug(String.format("PropertySource [%s] does not contain '%s', but found equivalent '%s'", this.getName(), name, actualName));
 		}
@@ -75,8 +72,11 @@ public class StandardPropertySource extends SystemEnvironmentPropertySource {
 	}
 
 	protected String getActualName(String name, Set<String> aliases) {
+		if (super.getProperty(name) != null) {
+			return name;
+		}
 		for (String alias : aliases) {
-			if (super.containsProperty(alias)) {
+			if (super.getProperty(alias) != null) {
 				return alias;
 			}
 		}
