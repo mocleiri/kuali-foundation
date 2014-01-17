@@ -55,6 +55,17 @@ public class EnvUtils {
 	 */
 	public static String getEnvironmentVariableKey(String key) {
 		Assert.noBlanks(key);
+		// Add a prefix, change to upper case and return
+		return ENV_PREFIX + "." + toUnderscore(key).toUpperCase();
+	}
+	
+	/**
+	 * <pre>
+	 *  foo.bar    -> foo_bar
+	 *  foo.barBaz -> foo_bar_baz
+	 * </pre>
+	 */
+	public static String toUnderscore(String key) {
 		char[] chars = key.toCharArray();
 		StringBuilder sb = new StringBuilder();
 		char prevChar = 0;
@@ -73,8 +84,7 @@ public class EnvUtils {
 			// Keep track of the previous char
 			prevChar = c;
 		}
-		// Add a prefix, change to upper case and return
-		return ENV_PREFIX + "." + sb.toString().toUpperCase();
+		return sb.toString();
 	}
 
 }
