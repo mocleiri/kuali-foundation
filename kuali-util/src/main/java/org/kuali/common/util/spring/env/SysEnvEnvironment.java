@@ -1,6 +1,8 @@
 package org.kuali.common.util.spring.env;
 
+import org.kohsuke.MetaInfServices;
 import org.springframework.core.env.AbstractEnvironment;
+import org.springframework.core.env.Environment;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertySource;
 
@@ -14,6 +16,7 @@ import org.springframework.core.env.PropertySource;
  *                 foo_bar_baz
  * </pre>
  */
+@MetaInfServices(Environment.class)
 public class SysEnvEnvironment extends AbstractEnvironment {
 
 	public SysEnvEnvironment() {
