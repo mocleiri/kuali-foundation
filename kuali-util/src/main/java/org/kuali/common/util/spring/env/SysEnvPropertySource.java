@@ -14,8 +14,8 @@ import com.google.common.collect.Maps;
 
 /**
  * <p>
- * When {@code getProperty(name)} is called, the exact name is checked. If no value is found, the name is then converted into several aliases representing a few different ways the
- * name might be represented as an environment variable. All of the aliases are then also checked.
+ * When {@code getProperty(name)} is called, {@code name} is checked. If no value is found, {@code name} is then converted into several aliases representing a few different ways it
+ * might be represented as an environment variable. All of the aliases are then also checked.
  * </p>
  * 
  * <pre>
