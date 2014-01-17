@@ -15,11 +15,13 @@
  */
 package org.kuali.common.util.reflection;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -27,7 +29,6 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.builder.Builder;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 
@@ -43,7 +44,7 @@ public class ReflectionUtilsTest {
 	public void extractBuilderType() {
 		try {
 			Class<?> type = Foo.Builder2.class;
-			Class<?> builderType = getFirstTypeArgumentAsClass(type, Builder.class);
+			Class<?> builderType = getFirstParameterizedTypeArgumentAsClass(type, Simple.class);
 			System.out.println(builderType.getCanonicalName());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -59,14 +60,17 @@ public class ReflectionUtilsTest {
 		return list;
 	}
 
-	public Class<?> getFirstTypeArgumentAsClass(Class<?> type, Class<?> parameterizedInterface) {
+	public Class<?> getFirstParameterizedTypeArgumentAsClass(Class<?> type, Class<?> parameterizedInterface) {
+		checkArgument(parameterizedInterface.isInterface(), "[%s] is not an interface", parameterizedInterface.getCanonicalName());
+		TypeVariable<?>[] params = parameterizedInterface.getTypeParameters();
+		checkArgument(params.length > 0, "[%s] has no type parameters", parameterizedInterface.getCanonicalName());
 		Map<Class<?>, ParameterizedType> interfaces = getAllParameterizedInterfaces(type);
-		ParameterizedType pType = interfaces.get(parameterizedInterface);
-		checkState(pType != null, "[%s] does not implement [%s]", type.getCanonicalName(), parameterizedInterface.getCanonicalName());
-		Type[] args = pType.getActualTypeArguments();
-		checkState(args.length > 0, "[%s] has no type arguments", parameterizedInterface.getCanonicalName());
+		ParameterizedType parameterizedType = interfaces.get(parameterizedInterface);
+		checkState(parameterizedType != null, "[%s] does not implement [%s]", type.getCanonicalName(), parameterizedInterface.getCanonicalName());
+		Type[] args = parameterizedType.getActualTypeArguments();
+		checkState(args.length > 0, "[%s] has no actual type arguments", parameterizedInterface.getCanonicalName());
 		Type firstTypeArgument = args[0];
-		checkState(firstTypeArgument instanceof Class<?>, "[%s] is not a Class<?>", firstTypeArgument);
+		checkState(firstTypeArgument instanceof Class<?>, "First actual type argument of [%s] is not a class [%s]", parameterizedInterface.getCanonicalName(), firstTypeArgument);
 		return (Class<?>) firstTypeArgument;
 	}
 
