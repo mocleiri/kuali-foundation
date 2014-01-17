@@ -7,6 +7,8 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.log.LoggerUtils;
+import org.slf4j.Logger;
 import org.springframework.core.env.MapPropertySource;
 
 import com.google.common.collect.ImmutableSet;
@@ -29,6 +31,7 @@ public class SysEnvPropertySource extends MapPropertySource {
 
 	private static final Map<String, ImmutableSet<String>> ALIAS_CACHE = Maps.newConcurrentMap();
 	private static final String GLOBAL_PROPERTIES_PROPERTY_SOURCE_NAME = "systemPropertiesAndEnvironmentVariables";
+	private static final Logger logger = LoggerUtils.make();
 
 	public SysEnvPropertySource() {
 		this(GLOBAL_PROPERTIES_PROPERTY_SOURCE_NAME, PropertyUtils.getGlobalProperties());
