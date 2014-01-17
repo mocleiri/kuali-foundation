@@ -3,11 +3,12 @@ package org.kuali.common.util.bind.impl;
 import org.codehaus.plexus.util.StringUtils;
 import org.junit.Test;
 import org.kuali.common.util.bind.api.BinderService;
+import org.kuali.common.util.bind.api.Binding;
 import org.kuali.common.util.bind.model.User;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 
-public class StandardBinderServiceTest {
+public class BinderServiceTest {
 
 	private static final Logger logger = LoggerUtils.make();
 
@@ -15,7 +16,7 @@ public class StandardBinderServiceTest {
 	public void test() {
 		try {
 			System.setProperty("user.directory", "/tmp");
-			BinderService service = new DefaultBinderService();
+			BinderService service = Binding.getDefaultBinderService();
 			User.Builder builder = User.builder();
 			service.bind(builder);
 			User user = builder.build();
