@@ -10,12 +10,22 @@ import com.google.common.collect.Lists;
 
 public class ServiceLoaderUtils {
 
+	/**
+	 * Return the first service in the list
+	 * 
+	 * @throws IllegalStateException
+	 *             If no service can be found
+	 */
 	public static <T> T getFirst(Class<T> type) {
-		List<T> list = getAll(type);
-		checkState(list.size() > 0, "ServiceLoader could not find service for type [%s]", type.getCanonicalName());
-		return list.get(0);
+		ServiceLoader<T> loader = ServiceLoader.load(type);
+		Iterator<T> itr = loader.iterator();
+		checkState(itr.hasNext(), "ServiceLoader could not find a service for type [%s]", type.getCanonicalName());
+		return itr.next();
 	}
 
+	/**
+	 * Return all service implementations located by ServiceLoader
+	 */
 	public static <T> List<T> getAll(Class<T> type) {
 		ServiceLoader<T> loader = ServiceLoader.load(type);
 		Iterator<T> itr = loader.iterator();
