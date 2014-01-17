@@ -10,15 +10,18 @@ import org.springframework.util.Assert;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 
-public class SystemEnvPropertySource extends SystemEnvironmentPropertySource {
+/**
+ * Automatically convert keys into their environment variable equivalent if the normal key is not found.
+ */
+public class StandardPropertySource extends SystemEnvironmentPropertySource {
 
 	private final Map<String, ImmutableSet<String>> cache = Maps.newConcurrentMap();
 
-	public SystemEnvPropertySource(String name, Properties properties) {
+	public StandardPropertySource(String name, Properties properties) {
 		this(name, convert(properties));
 	}
 
-	public SystemEnvPropertySource(String name, Map<String, Object> source) {
+	public StandardPropertySource(String name, Map<String, Object> source) {
 		super(name, source);
 	}
 
