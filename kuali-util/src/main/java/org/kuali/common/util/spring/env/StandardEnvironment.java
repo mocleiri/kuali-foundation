@@ -8,10 +8,13 @@ import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertySource;
 
 /**
- * Automatically checks both system properties and environment variables for values
+ * Automatically check both system properties and environment variables for values
  */
 public class StandardEnvironment extends AbstractEnvironment {
 
+	/**
+	 * Automatically check both system properties and environment variables for values
+	 */
 	public StandardEnvironment() {
 		Properties global = PropertyUtils.getGlobalProperties();
 		PropertySource<?> source = new StandardPropertySource(global);
