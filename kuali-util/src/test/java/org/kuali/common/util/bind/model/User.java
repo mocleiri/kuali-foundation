@@ -8,6 +8,7 @@ import java.io.File;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.bind.api.BindAlias;
 import org.kuali.common.util.bind.api.Bound;
+import org.kuali.common.util.spring.binder.CanonicalFileFormat;
 
 public final class User {
 
@@ -31,6 +32,7 @@ public final class User {
 		private String name;
 		private File home;
 		@BindAlias("directory")
+		@CanonicalFileFormat
 		private File dir;
 
 		public Builder name(String name) {
