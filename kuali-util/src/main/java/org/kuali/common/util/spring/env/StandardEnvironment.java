@@ -17,7 +17,7 @@ public class StandardEnvironment extends AbstractEnvironment {
 	 */
 	public StandardEnvironment() {
 		Properties global = PropertyUtils.getGlobalProperties();
-		PropertySource<?> source = new StandardPropertySource(global);
+		PropertySource<?> source = new SysEnvPropertySource(global);
 		MutablePropertySources sources = getPropertySources();
 		sources.addFirst(source);
 	}
