@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util.reflection;
 
+import static com.google.common.base.Preconditions.checkState;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -25,6 +27,7 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.builder.Builder;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 
@@ -40,13 +43,8 @@ public class ReflectionUtilsTest {
 	public void extractBuilderType() {
 		try {
 			Class<?> type = Foo.Builder2.class;
-			Map<Class<?>, ParameterizedType> interfaces = getAllParameterizedInterfaces(type);
-			for (ParameterizedType element : interfaces.values()) {
-				Type[] args = element.getActualTypeArguments();
-				for (Type arg : args) {
-					System.out.println(arg);
-				}
-			}
+			Class<?> builderType = getFirstTypeArgumentAsClass(type, Builder.class);
+			System.out.println(builderType.getCanonicalName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -59,6 +57,17 @@ public class ReflectionUtilsTest {
 		}
 		list.add(type);
 		return list;
+	}
+
+	public Class<?> getFirstTypeArgumentAsClass(Class<?> type, Class<?> parameterizedInterface) {
+		Map<Class<?>, ParameterizedType> interfaces = getAllParameterizedInterfaces(type);
+		ParameterizedType pType = interfaces.get(parameterizedInterface);
+		checkState(pType != null, "[%s] does not implement [%s]", type.getCanonicalName(), parameterizedInterface.getCanonicalName());
+		Type[] args = pType.getActualTypeArguments();
+		checkState(args.length > 0, "[%s] has no type arguments", parameterizedInterface.getCanonicalName());
+		Type firstTypeArgument = args[0];
+		checkState(firstTypeArgument instanceof Class<?>, "[%s] is not a Class<?>", firstTypeArgument);
+		return (Class<?>) firstTypeArgument;
 	}
 
 	public Map<Class<?>, ParameterizedType> getAllParameterizedInterfaces(Class<?> type) {
