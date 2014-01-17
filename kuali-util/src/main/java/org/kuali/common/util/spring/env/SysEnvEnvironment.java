@@ -17,7 +17,7 @@ public class SysEnvEnvironment extends AbstractEnvironment {
 
 	public SysEnvEnvironment() {
 		SysEnvPropertySource source = new SysEnvPropertySource();
-		MutablePropertySources sources = getPropertySources();
+		MutablePropertySources sources = super.getPropertySources();
 		sources.addFirst(source);
 	}
 
