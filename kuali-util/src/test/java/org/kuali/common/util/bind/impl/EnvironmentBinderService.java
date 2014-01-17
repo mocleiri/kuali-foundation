@@ -6,7 +6,6 @@ import org.kuali.common.util.spring.binder.BytesFormatAnnotationFormatterFactory
 import org.kuali.common.util.spring.binder.TimeFormatAnnotationFormatterFactory;
 import org.kuali.common.util.spring.env.StandardEnvironment;
 import org.springframework.core.convert.ConversionService;
-import org.springframework.core.env.Environment;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
@@ -16,7 +15,7 @@ import com.google.common.collect.Maps;
 
 public class EnvironmentBinderService implements BinderService {
 
-	private final Environment environment = new StandardEnvironment();
+	private final StandardEnvironment environment = new StandardEnvironment();
 	private final ConversionService service = getConversionService();
 
 	@Override
