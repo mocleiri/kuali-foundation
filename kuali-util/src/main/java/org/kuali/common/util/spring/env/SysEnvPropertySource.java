@@ -27,7 +27,7 @@ import com.google.common.collect.Maps;
  */
 public class SysEnvPropertySource extends MapPropertySource {
 
-	private final Map<String, ImmutableSet<String>> aliasCache = Maps.newConcurrentMap();
+	private static final Map<String, ImmutableSet<String>> ALIAS_CACHE = Maps.newConcurrentMap();
 	private static final String GLOBAL_PROPERTIES_PROPERTY_SOURCE_NAME = "systemPropertiesAndEnvironmentVariables";
 
 	public SysEnvPropertySource() {
@@ -77,7 +77,7 @@ public class SysEnvPropertySource extends MapPropertySource {
 	 * </pre>
 	 */
 	protected ImmutableSet<String> getAliases(String name) {
-		ImmutableSet<String> aliases = aliasCache.get(name);
+		ImmutableSet<String> aliases = ALIAS_CACHE.get(name);
 		if (aliases == null) {
 			// foo.barBaz -> env.FOO_BAR_BAZ
 			String env1 = EnvUtils.getEnvironmentVariableKey(name);
@@ -88,7 +88,7 @@ public class SysEnvPropertySource extends MapPropertySource {
 			// foo.barBaz -> foo_bar_baz
 			String env4 = env2.toLowerCase();
 			aliases = ImmutableSet.of(env1, env2, env3, env4);
-			aliasCache.put(name, aliases);
+			ALIAS_CACHE.put(name, aliases);
 		}
 		return aliases;
 	}
@@ -102,7 +102,7 @@ public class SysEnvPropertySource extends MapPropertySource {
 	}
 
 	public void clearAliasCache() {
-		aliasCache.clear();
+		ALIAS_CACHE.clear();
 	}
 
 }
