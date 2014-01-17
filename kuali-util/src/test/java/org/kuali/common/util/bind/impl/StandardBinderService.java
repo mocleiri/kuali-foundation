@@ -1,5 +1,7 @@
 package org.kuali.common.util.bind.impl;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import org.kuali.common.util.bind.api.BinderService;
 import org.kuali.common.util.bind.api.Bound;
 import org.kuali.common.util.spring.binder.BytesFormatAnnotationFormatterFactory;
@@ -15,8 +17,8 @@ import com.google.common.collect.Maps;
 
 public class StandardBinderService implements BinderService {
 
-	private final StandardEnvironment environment = new StandardEnvironment();
-	private final ConversionService service = getConversionService();
+	private final StandardEnvironment environment;
+	private final ConversionService service;
 
 	@Override
 	public <T> BindingResult bind(T target) {
@@ -29,11 +31,56 @@ public class StandardBinderService implements BinderService {
 		return binder.getBindingResult();
 	}
 
-	protected ConversionService getConversionService() {
-		DefaultFormattingConversionService service = new DefaultFormattingConversionService();
-		service.addFormatterForFieldAnnotation(new BytesFormatAnnotationFormatterFactory());
-		service.addFormatterForFieldAnnotation(new TimeFormatAnnotationFormatterFactory());
-		return service;
+	public StandardBinderService() {
+		this(builder());
+	}
+
+	private StandardBinderService(Builder builder) {
+		this.environment = builder.environment;
+		this.service = builder.service;
+	}
+
+	public static StandardBinderService create() {
+		return builder().build();
+	}
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
+	public static class Builder {
+
+		private StandardEnvironment environment = new StandardEnvironment();
+		private ConversionService service = getConversionService();
+
+		public Builder environment(StandardEnvironment environment) {
+			this.environment = environment;
+			return this;
+		}
+
+		public Builder service(ConversionService service) {
+			this.service = service;
+			return this;
+		}
+
+		public StandardBinderService build() {
+			StandardBinderService instance = new StandardBinderService(this);
+			validate(instance);
+			return instance;
+		}
+
+		private static void validate(StandardBinderService instance) {
+			checkNotNull(instance.environment, "'environment' cannot be null");
+			checkNotNull(instance.service, "'service' cannot be null");
+		}
+
+		protected ConversionService getConversionService() {
+			DefaultFormattingConversionService service = new DefaultFormattingConversionService();
+			service.addFormatterForFieldAnnotation(new BytesFormatAnnotationFormatterFactory());
+			service.addFormatterForFieldAnnotation(new TimeFormatAnnotationFormatterFactory());
+			return service;
+		}
+
 	}
 
 }
