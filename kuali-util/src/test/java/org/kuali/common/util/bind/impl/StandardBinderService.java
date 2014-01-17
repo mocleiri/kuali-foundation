@@ -15,7 +15,7 @@ import org.springframework.validation.MapBindingResult;
 
 import com.google.common.collect.Maps;
 
-public class StandardBinderService implements BinderService {
+public final class StandardBinderService implements BinderService {
 
 	private final StandardEnvironment environment;
 	private final ConversionService service;
