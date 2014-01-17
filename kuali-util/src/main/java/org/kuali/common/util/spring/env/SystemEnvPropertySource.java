@@ -1,6 +1,7 @@
 package org.kuali.common.util.spring.env;
 
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
 
@@ -14,14 +15,16 @@ public class SystemEnvPropertySource extends SystemEnvironmentPropertySource {
 
 	private final ConcurrentMap<String, ImmutableSet<String>> cache = Maps.newConcurrentMap();
 
+	public SystemEnvPropertySource(String name, Properties properties) {
+		this(name, convert(properties));
+	}
+
 	public SystemEnvPropertySource(String name, Map<String, Object> source) {
 		super(name, source);
 	}
 
 	/**
 	 * {@inheritDoc}
-	 * <p>
-	 * This implementation returns {@code true} if a property with the given name or any underscore/uppercase variant thereof exists in this property source.
 	 */
 	@Override
 	public Object getProperty(String name) {
@@ -32,19 +35,6 @@ public class SystemEnvPropertySource extends SystemEnvironmentPropertySource {
 			logger.debug(String.format("PropertySource [%s] does not contain '%s', but found equivalent '%s'", this.getName(), name, actualName));
 		}
 		return super.getProperty(actualName);
-	}
-
-	protected void clearCache() {
-		cache.clear();
-	}
-
-	protected String getActualName(String name, Set<String> aliases) {
-		for (String alias : aliases) {
-			if (super.containsProperty(alias)) {
-				return alias;
-			}
-		}
-		return name;
 	}
 
 	/**
@@ -71,4 +61,26 @@ public class SystemEnvPropertySource extends SystemEnvironmentPropertySource {
 		}
 		return aliases;
 	}
+
+	public void clearCache() {
+		cache.clear();
+	}
+
+	protected String getActualName(String name, Set<String> aliases) {
+		for (String alias : aliases) {
+			if (super.containsProperty(alias)) {
+				return alias;
+			}
+		}
+		return name;
+	}
+
+	protected static Map<String, Object> convert(Properties properties) {
+		Map<String, Object> map = Maps.newHashMap();
+		for (String key : properties.stringPropertyNames()) {
+			map.put(key, properties.getProperty(key));
+		}
+		return map;
+	}
+
 }
