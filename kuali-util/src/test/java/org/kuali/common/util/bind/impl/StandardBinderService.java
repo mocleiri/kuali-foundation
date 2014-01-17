@@ -6,6 +6,7 @@ import org.kuali.common.util.bind.api.BinderService;
 import org.kuali.common.util.bind.api.Bound;
 import org.kuali.common.util.spring.binder.BytesFormatAnnotationFormatterFactory;
 import org.kuali.common.util.spring.binder.TimeFormatAnnotationFormatterFactory;
+import org.kuali.common.util.spring.convert.Conversion;
 import org.kuali.common.util.spring.env.Environments;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
@@ -53,7 +54,7 @@ public final class StandardBinderService implements BinderService {
 	public static class Builder {
 
 		private Environment environment = Environments.getDefaultEnvironment();
-		private ConversionService service = getConversionService();
+		private ConversionService service = Conversion.getDefaultConversionService();
 
 		public Builder environment(Environment environment) {
 			this.environment = environment;
