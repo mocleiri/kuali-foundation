@@ -2,6 +2,7 @@ package org.kuali.common.util.spring.env;
 
 import org.springframework.core.env.AbstractEnvironment;
 import org.springframework.core.env.MutablePropertySources;
+import org.springframework.core.env.PropertySource;
 
 /**
  * This environment contains both system properties and environment variables and automatically checks both whenever a property is requested.
@@ -16,7 +17,7 @@ import org.springframework.core.env.MutablePropertySources;
 public class SysEnvEnvironment extends AbstractEnvironment {
 
 	public SysEnvEnvironment() {
-		SysEnvPropertySource source = new SysEnvPropertySource();
+		PropertySource<?> source = new SysEnvPropertySource();
 		MutablePropertySources sources = super.getPropertySources();
 		sources.addFirst(source);
 	}
