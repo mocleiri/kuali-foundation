@@ -16,6 +16,7 @@
 package org.kuali.common.util.reflection;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Set;
@@ -37,9 +38,10 @@ public class ReflectionUtilsTest {
 	public void extractBuilderType() {
 		try {
 			Class<?> type = Foo.Builder2.class;
-			List<Type> list = getAllInterfaces(type);
-			for (Type element : list) {
-				System.out.println(element.getClass().getCanonicalName());
+			List<ParameterizedType> list = getAllParameterizedInterfaces(type);
+			for (ParameterizedType element : list) {
+				Class<?> interfaceClass = (Class<?>) element.getRawType();
+				System.out.println(interfaceClass.getCanonicalName());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -55,7 +57,18 @@ public class ReflectionUtilsTest {
 		return list;
 	}
 
-	public List<Type> getAllInterfaces(Class<?> type) {
+	public List<ParameterizedType> getAllParameterizedInterfaces(Class<?> type) {
+		List<Type> list = getAllGenericInterfaces(type);
+		List<ParameterizedType> types = Lists.newArrayList();
+		for (Type element : list) {
+			if (element instanceof ParameterizedType) {
+				types.add((ParameterizedType) element);
+			}
+		}
+		return types;
+	}
+
+	public List<Type> getAllGenericInterfaces(Class<?> type) {
 		List<Class<?>> path = getPath(type);
 		List<Type> list = Lists.newArrayList();
 		for (Class<?> element : path) {
