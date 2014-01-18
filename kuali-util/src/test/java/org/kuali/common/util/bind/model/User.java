@@ -32,8 +32,10 @@ public final class User {
 	public static class Builder extends AwesomeBuilder<User> {
 
 		private String name;
+
 		@CanonicalFileFormat
 		private File home;
+
 		@CanonicalFileFormat
 		private File dir;
 
