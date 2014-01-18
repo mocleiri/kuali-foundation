@@ -1,9 +1,10 @@
 package org.kuali.common.util.bind.impl;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import org.kohsuke.MetaInfServices;
 import org.kuali.common.util.bind.api.BinderService;
 import org.kuali.common.util.bind.api.Bound;
-import org.kuali.common.util.builder.AwesomeBuilder;
 import org.kuali.common.util.spring.convert.Conversion;
 import org.kuali.common.util.spring.env.Environments;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -35,7 +36,7 @@ public final class DefaultBinderService implements BinderService {
 
 	public DefaultBinderService() {
 		this(builder());
-		builder().validate(this);
+		Builder.validate(this);
 	}
 
 	private DefaultBinderService(Builder builder) {
@@ -51,7 +52,7 @@ public final class DefaultBinderService implements BinderService {
 		return new Builder();
 	}
 
-	public static final class Builder extends AwesomeBuilder<DefaultBinderService> {
+	public static final class Builder implements org.kuali.common.util.builder.Builder<DefaultBinderService> {
 
 		private Environment environment = Environments.getDefaultEnvironment();
 		private ConversionService service = Conversion.getDefaultConversionService();
@@ -67,8 +68,15 @@ public final class DefaultBinderService implements BinderService {
 		}
 
 		@Override
-		protected DefaultBinderService getInstance() {
-			return new DefaultBinderService(this);
+		public DefaultBinderService build() {
+			DefaultBinderService instance = new DefaultBinderService(this);
+			validate(instance);
+			return instance;
+		}
+
+		private static void validate(DefaultBinderService instance) {
+			checkNotNull(instance.environment, "'environment' cannot be null");
+			checkNotNull(instance.service, "'service' cannot be null");
 		}
 
 	}
