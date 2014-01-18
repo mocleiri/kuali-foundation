@@ -13,7 +13,7 @@ public class BindingTest {
 	@Test
 	public void test() {
 		try {
-			System.setProperty("user.home", " ");
+			System.setProperty("user.name", " ");
 			User user = User.create();
 			String prefix = StringUtils.uncapitalise(User.class.getSimpleName());
 			logger.info(String.format("%s.name=[%s]", prefix, user.getName()));
