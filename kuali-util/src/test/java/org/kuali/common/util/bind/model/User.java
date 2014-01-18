@@ -33,6 +33,7 @@ public final class User {
 	public static class Builder extends AwesomeBuilder<User> {
 
 		private String name;
+		@CanonicalFileFormat
 		private File home;
 		@BindAlias("directory")
 		@CanonicalFileFormat
