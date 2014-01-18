@@ -13,12 +13,12 @@ public class BindingTest {
 	@Test
 	public void test() {
 		try {
-			System.setProperty("user.directory", "/tmp");
+			System.setProperty("user.home", " ");
 			User user = User.create();
 			String prefix = StringUtils.uncapitalise(User.class.getSimpleName());
-			logger.info(String.format("%s.name=%s", prefix, user.getName()));
-			logger.info(String.format("%s.home=%s", prefix, user.getHome()));
-			logger.info(String.format("%s.dir=%s", prefix, user.getDir()));
+			logger.info(String.format("%s.name=[%s]", prefix, user.getName()));
+			logger.info(String.format("%s.home=[%s]", prefix, user.getHome()));
+			logger.info(String.format("%s.dir=[%s]", prefix, user.getDir()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
