@@ -18,4 +18,6 @@ public @interface Bound {
 
 	boolean prefix() default true;
 
+	Class<?> prefixClass() default void.class;
+
 }
