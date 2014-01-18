@@ -55,8 +55,7 @@ public final class CanonicalFile extends File {
 
 	protected static String getCanonicalPath(File file) {
 		try {
-			String path = file.getCanonicalPath();
-			return path;
+			return file.getCanonicalPath();
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		}
