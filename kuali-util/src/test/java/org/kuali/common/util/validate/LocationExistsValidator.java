@@ -16,7 +16,13 @@ public class LocationExistsValidator implements ConstraintValidator<Exists, Stri
 		if (resource == null) {
 			return true;
 		} else {
-			return LocationUtils.exists(resource);
+			boolean valid = LocationUtils.exists(resource);
+			if (!valid) {
+				String error = String.format("[%s] does not exist", resource);
+				context.disableDefaultConstraintViolation();
+				context.buildConstraintViolationWithTemplate(error).addConstraintViolation();
+			}
+			return valid;
 		}
 	}
 

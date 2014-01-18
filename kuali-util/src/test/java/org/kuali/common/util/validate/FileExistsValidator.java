@@ -16,7 +16,13 @@ public class FileExistsValidator implements ConstraintValidator<Exists, File> {
 		if (file == null) {
 			return true;
 		} else {
-			return file.exists();
+			boolean valid = file.exists();
+			if (!valid) {
+				String error = String.format("[%s] does not exist", file.getPath());
+				context.disableDefaultConstraintViolation();
+				context.buildConstraintViolationWithTemplate(error).addConstraintViolation();
+			}
+			return valid;
 		}
 	}
 
