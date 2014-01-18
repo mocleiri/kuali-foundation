@@ -21,14 +21,18 @@ public abstract class AwesomeBuilder<T> implements Builder<T> {
 
 	@Override
 	public final T build() {
-		BindingResult result = binder.bind(this);
-		checkState(!result.hasErrors(), "Binding failed with %s errors", result.getAllErrors().size());
+		bind(this);
 		T instance = getInstance();
 		validate(instance);
 		return instance;
 	}
 
-	public void validate(T instance) {
+	private void bind(AwesomeBuilder<T> builder) {
+		BindingResult result = binder.bind(this);
+		checkState(!result.hasErrors(), "Binding failed with %s errors", result.getAllErrors().size());
+	}
+
+	private void validate(T instance) {
 		Set<ConstraintViolation<T>> violations = validator.validate(instance);
 		Validation.check(violations);
 	}
