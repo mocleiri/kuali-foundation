@@ -8,7 +8,7 @@ import java.util.ServiceLoader;
 
 import com.google.common.collect.Lists;
 
-public class ServiceLoaderUtils {
+public class ServiceProvider {
 
 	/**
 	 * Return the first service located by ServiceLoader

@@ -1,6 +1,6 @@
 package org.kuali.common.util.bind.api;
 
-import org.kuali.common.util.serviceloader.ServiceLoaderUtils;
+import org.kuali.common.util.serviceloader.ServiceProvider;
 
 public class Binding {
 
@@ -8,7 +8,7 @@ public class Binding {
 
 	public synchronized static BinderService getDefaultBinderService() {
 		if (instance == null) {
-			instance = ServiceLoaderUtils.getFirst(BinderService.class);
+			instance = ServiceProvider.getFirst(BinderService.class);
 		}
 		return instance;
 	}

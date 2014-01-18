@@ -1,6 +1,6 @@
 package org.kuali.common.util.spring.convert;
 
-import org.kuali.common.util.serviceloader.ServiceLoaderUtils;
+import org.kuali.common.util.serviceloader.ServiceProvider;
 import org.springframework.core.convert.ConversionService;
 
 public class Conversion {
@@ -9,7 +9,7 @@ public class Conversion {
 
 	public synchronized static ConversionService getDefaultConversionService() {
 		if (instance == null) {
-			instance = ServiceLoaderUtils.getFirst(ConversionService.class);
+			instance = ServiceProvider.getFirst(ConversionService.class);
 		}
 		return instance;
 	}
