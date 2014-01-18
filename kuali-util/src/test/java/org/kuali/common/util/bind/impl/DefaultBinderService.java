@@ -1,12 +1,12 @@
 package org.kuali.common.util.bind.impl;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import org.kohsuke.MetaInfServices;
 import org.kuali.common.util.bind.api.BinderService;
 import org.kuali.common.util.bind.api.Bound;
+import org.kuali.common.util.builder.AwesomeBuilder;
 import org.kuali.common.util.spring.convert.Conversion;
 import org.kuali.common.util.spring.env.Environments;
+import org.kuali.common.util.validate.IdiotProofImmutable;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
 import org.springframework.validation.BindingResult;
@@ -16,6 +16,7 @@ import org.springframework.validation.MapBindingResult;
 import com.google.common.collect.Maps;
 
 @MetaInfServices(BinderService.class)
+@IdiotProofImmutable
 public final class DefaultBinderService implements BinderService {
 
 	private final Environment environment;
@@ -34,7 +35,7 @@ public final class DefaultBinderService implements BinderService {
 
 	public DefaultBinderService() {
 		this(builder());
-		Builder.validate(this);
+		builder().validate(this);
 	}
 
 	private DefaultBinderService(Builder builder) {
@@ -50,7 +51,7 @@ public final class DefaultBinderService implements BinderService {
 		return new Builder();
 	}
 
-	public static class Builder {
+	public static final class Builder extends AwesomeBuilder<DefaultBinderService> {
 
 		private Environment environment = Environments.getDefaultEnvironment();
 		private ConversionService service = Conversion.getDefaultConversionService();
@@ -65,15 +66,9 @@ public final class DefaultBinderService implements BinderService {
 			return this;
 		}
 
-		public DefaultBinderService build() {
-			DefaultBinderService instance = new DefaultBinderService(this);
-			validate(instance);
-			return instance;
-		}
-
-		private static void validate(DefaultBinderService instance) {
-			checkNotNull(instance.environment, "'environment' cannot be null");
-			checkNotNull(instance.service, "'service' cannot be null");
+		@Override
+		protected DefaultBinderService getInstance() {
+			return new DefaultBinderService(this);
 		}
 
 	}

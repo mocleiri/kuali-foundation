@@ -24,13 +24,13 @@ public abstract class AwesomeBuilder<T> implements Builder<T> {
 		BindingResult result = binder.bind(this);
 		checkState(!result.hasErrors(), "Binding failed with %s errors", result.getAllErrors().size());
 		T instance = getInstance();
-		Set<ConstraintViolation<T>> violations = validate(instance);
-		Validation.check(violations);
+		validate(instance);
 		return instance;
 	}
 
-	public Set<ConstraintViolation<T>> validate(T instance) {
-		return validator.validate(instance);
+	public void validate(T instance) {
+		Set<ConstraintViolation<T>> violations = validator.validate(instance);
+		Validation.check(violations);
 	}
 
 	public Validator getValidator() {
