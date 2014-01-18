@@ -2,7 +2,6 @@ package org.kuali.common.util.bind.model;
 
 import java.io.File;
 
-import org.kuali.common.util.bind.api.BindAlias;
 import org.kuali.common.util.bind.api.Bound;
 import org.kuali.common.util.builder.AwesomeBuilder;
 import org.kuali.common.util.spring.binder.CanonicalFileFormat;
@@ -35,7 +34,6 @@ public final class User {
 		private String name;
 		@CanonicalFileFormat
 		private File home;
-		@BindAlias("directory")
 		@CanonicalFileFormat
 		private File dir;
 

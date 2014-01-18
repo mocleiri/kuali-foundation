@@ -15,7 +15,14 @@
  */
 package org.kuali.common.util.reflection;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkState;
+
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
+import java.util.Map;
 import java.util.Set;
 
 import org.junit.Assert;
@@ -29,11 +36,42 @@ public class ReflectionUtilsTest {
 
 	private static final Logger logger = LoggerUtils.make();
 
+	/**
+	 * <p>
+	 * Given a class that implements a parameterized interface, return the actual type of the first parameterized argument for the interface
+	 * </p>
+	 * 
+	 * Given:
+	 * 
+	 * <pre>
+	 * interface Foo&lt;T&gt; 
+	 * 
+	 * class Bar implements Foo&lt;String&gt;
+	 * </pre>
+	 * 
+	 * <p>
+	 * This method returns {@code String.class}
+	 * </p>
+	 */
+	public static Class<?> getFirstParameterizedTypeArgumentAsClass(Class<?> type, Class<?> parameterizedInterface) {
+		checkArgument(parameterizedInterface.isInterface(), "[%s] is not an interface", parameterizedInterface.getCanonicalName());
+		TypeVariable<?>[] params = parameterizedInterface.getTypeParameters();
+		checkArgument(params.length > 0, "[%s] has no type parameters", parameterizedInterface.getCanonicalName());
+		Map<Class<?>, ParameterizedType> interfaces = ReflectionUtils.getAllParameterizedInterfaces(type);
+		ParameterizedType parameterizedType = interfaces.get(parameterizedInterface);
+		checkState(parameterizedType != null, "[%s] does not implement [%s]", type.getCanonicalName(), parameterizedInterface.getCanonicalName());
+		Type[] args = parameterizedType.getActualTypeArguments();
+		checkState(args.length > 0, "[%s] has no actual type arguments", parameterizedInterface.getCanonicalName());
+		Type firstTypeArgument = args[0];
+		checkState(firstTypeArgument instanceof Class<?>, "First actual type argument of [%s] is not a class [%s]", parameterizedInterface.getCanonicalName(), firstTypeArgument);
+		return (Class<?>) firstTypeArgument;
+	}
+
 	@Test
 	public void extractBuilderType() {
 		try {
 			Class<?> type = Foo.Builder2.class;
-			Class<?> builderType = ReflectionUtils.getFirstParameterizedTypeArgumentAsClass(type, Builder.class);
+			Class<?> builderType = getFirstParameterizedTypeArgumentAsClass(type, Builder.class);
 			System.out.println(builderType.getCanonicalName());
 		} catch (Exception e) {
 			e.printStackTrace();
