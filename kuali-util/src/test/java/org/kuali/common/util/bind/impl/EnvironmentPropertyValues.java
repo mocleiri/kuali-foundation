@@ -61,4 +61,16 @@ public final class EnvironmentPropertyValues<T> extends MutablePropertyValues {
 		}
 	}
 
+	public Class<T> getType() {
+		return type;
+	}
+
+	public Environment getEnv() {
+		return env;
+	}
+
+	public ImmutableMap<String, String> getValues() {
+		return values;
+	}
+
 }
