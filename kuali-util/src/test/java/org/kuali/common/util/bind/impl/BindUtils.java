@@ -96,8 +96,8 @@ public class BindUtils {
 	}
 
 	protected static Class<?> getPrefixClass(Class<?> type) {
-		if (isBuilder(type)) {
-			return ReflectionUtils.getFirstParameterizedTypeArgumentAsClass(type, Builder.class);
+		if (isBuilder(type) && type.getDeclaringClass() != null) {
+			return type.getDeclaringClass();
 		} else {
 			return type;
 		}
