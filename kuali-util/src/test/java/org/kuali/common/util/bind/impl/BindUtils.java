@@ -84,7 +84,7 @@ public class BindUtils {
 		// In either case, we ignore value() and use the uncapitalized class name instead
 		// They can use prefix=false to skip using a prefix entirely
 		if (bound.value().equals(Bound.DEFAULT)) {
-			Class<?> prefixClass = getPrefixClass(type);
+			Class<?> prefixClass = getPrefixClass(type, bound);
 			return Optional.of(StringUtils.uncapitalize(prefixClass.getSimpleName()));
 		}
 
@@ -95,7 +95,10 @@ public class BindUtils {
 		return Optional.of(bound.value());
 	}
 
-	protected static Class<?> getPrefixClass(Class<?> type) {
+	protected static Class<?> getPrefixClass(Class<?> type, Bound bound) {
+		if (bound.prefixClass() != void.class) {
+			return bound.prefixClass();
+		}
 		if (isBuilder(type) && type.getDeclaringClass() != null) {
 			return type.getDeclaringClass();
 		} else {
