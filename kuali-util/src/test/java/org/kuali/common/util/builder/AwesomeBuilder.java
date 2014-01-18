@@ -16,8 +16,8 @@ public abstract class AwesomeBuilder<T> implements Builder<T> {
 
 	protected abstract T getInstance();
 
-	protected Validator validator = Validation.getDefaultValidator();
-	protected BinderService binder = Binding.getDefaultBinderService();
+	private Validator validator = Validation.getDefaultValidator();
+	private BinderService binder = Binding.getDefaultBinderService();
 
 	@Override
 	public final T build() {

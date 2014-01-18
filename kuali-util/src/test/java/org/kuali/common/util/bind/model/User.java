@@ -6,16 +6,13 @@ import org.kuali.common.util.bind.api.BindAlias;
 import org.kuali.common.util.bind.api.Bound;
 import org.kuali.common.util.builder.AwesomeBuilder;
 import org.kuali.common.util.spring.binder.CanonicalFileFormat;
-import org.kuali.common.util.validate.Exists;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
 public final class User {
 
 	private final String name;
-	@Exists
 	private final File home;
-	@Exists
 	private final File dir;
 
 	private User(Builder builder) {
@@ -36,6 +33,7 @@ public final class User {
 	public static class Builder extends AwesomeBuilder<User> {
 
 		private String name;
+		@CanonicalFileFormat
 		private File home;
 		@BindAlias("directory")
 		@CanonicalFileFormat
