@@ -1,15 +1,14 @@
 package org.kuali.common.util.bind.model;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import java.io.File;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.bind.api.BindAlias;
 import org.kuali.common.util.bind.api.Bound;
+import org.kuali.common.util.builder.AwesomeBuilder;
 import org.kuali.common.util.spring.binder.CanonicalFileFormat;
+import org.kuali.common.util.validate.IdiotProofImmutable;
 
+@IdiotProofImmutable
 public final class User {
 
 	private final String name;
@@ -27,7 +26,7 @@ public final class User {
 	}
 
 	@Bound
-	public static class Builder implements org.kuali.common.util.builder.Builder<User> {
+	public static class Builder extends AwesomeBuilder<User> {
 
 		private String name;
 		private File home;
@@ -51,16 +50,8 @@ public final class User {
 		}
 
 		@Override
-		public User build() {
-			User instance = new User(this);
-			validate(instance);
-			return instance;
-		}
-
-		private static void validate(User instance) {
-			checkArgument(!StringUtils.isBlank(instance.name), "'name' cannot be blank");
-			checkNotNull(instance.home, "'home' cannot be null");
-			checkNotNull(instance.dir, "'dir' cannot be null");
+		public User getInstance() {
+			return new User(this);
 		}
 
 		public String getName() {
