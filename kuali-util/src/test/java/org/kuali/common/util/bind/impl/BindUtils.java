@@ -35,6 +35,10 @@ public class BindUtils {
 		return getMap(descriptor, env);
 	}
 
+	public static void clearDescriptorCache() {
+		CACHE.clear();
+	}
+
 	protected static ImmutableMap<String, String> getMap(BoundTypeDescriptor descriptor, Environment env) {
 		Map<Field, BoundFieldDescriptor> fields = descriptor.getFields();
 		Map<String, String> map = Maps.newHashMap();
@@ -63,6 +67,7 @@ public class BindUtils {
 			Optional<String> prefix = getPrefix(bound, type);
 			Map<Field, BoundFieldDescriptor> fields = getFields(type, prefix);
 			descriptor = BoundTypeDescriptor.builder(type).fields(fields).build();
+			CACHE.put(type, descriptor);
 		}
 		return descriptor;
 	}
