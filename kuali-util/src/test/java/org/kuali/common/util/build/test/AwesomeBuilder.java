@@ -1,4 +1,4 @@
-package org.kuali.common.util.build;
+package org.kuali.common.util.build.test;
 
 import static com.google.common.base.Preconditions.checkState;
 

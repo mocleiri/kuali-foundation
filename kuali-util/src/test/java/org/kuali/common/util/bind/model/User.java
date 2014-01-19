@@ -3,7 +3,7 @@ package org.kuali.common.util.bind.model;
 import java.io.File;
 
 import org.kuali.common.util.bind.api.Bound;
-import org.kuali.common.util.build.AwesomeBuilder;
+import org.kuali.common.util.build.test.AwesomeBuilder;
 import org.kuali.common.util.spring.binder.CanonicalFileFormat;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 

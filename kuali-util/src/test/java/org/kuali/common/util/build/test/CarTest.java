@@ -1,4 +1,4 @@
-package org.kuali.common.util.build;
+package org.kuali.common.util.build.test;
 
 import org.junit.Test;
 import org.kuali.common.util.nullify.NullUtils;

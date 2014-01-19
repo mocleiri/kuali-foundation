@@ -1,4 +1,4 @@
-package org.kuali.common.util.build;
+package org.kuali.common.util.build.test;
 
 public interface Builder<T> {
 
