@@ -1,13 +1,13 @@
 package org.kuali.common.util.create.spi;
 
-import org.kuali.common.util.create.BuildServiceFactory;
+import org.kuali.common.util.create.CreatorFactory;
 import org.kuali.common.util.create.Configuration;
 
-public interface BuildProvider<T extends Configuration<T>> {
+public interface CreationProvider<T extends Configuration<T>> {
 
 	T createSpecializedConfiguration(BootstrapState state);
 
 	Configuration<?> createGenericConfiguration(BootstrapState state);
 
-	BuildServiceFactory buildBuilderFactory(ConfigurationState configurationState);
+	CreatorFactory buildBuilderFactory(ConfigurationState configurationState);
 }

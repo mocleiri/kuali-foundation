@@ -1,5 +1,5 @@
 package org.kuali.common.util.create;
 
-public interface BuildService {
+public interface Creator {
 
 }
