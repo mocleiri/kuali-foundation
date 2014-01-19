@@ -1,6 +1,6 @@
 package org.kuali.common.util.build.spi;
 
-import org.kuali.common.util.build.BuilderFactory;
+import org.kuali.common.util.build.BuildServiceFactory;
 import org.kuali.common.util.build.Configuration;
 
 public interface BuildProvider<T extends Configuration<T>> {
@@ -9,5 +9,5 @@ public interface BuildProvider<T extends Configuration<T>> {
 
 	Configuration<?> createGenericConfiguration(BootstrapState state);
 
-	BuilderFactory buildBuilderFactory(ConfigurationState configurationState);
+	BuildServiceFactory buildBuilderFactory(ConfigurationState configurationState);
 }
