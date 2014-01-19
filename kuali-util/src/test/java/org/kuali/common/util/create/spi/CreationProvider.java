@@ -10,4 +10,5 @@ public interface CreationProvider<T extends Configuration<T>> {
 	Configuration<?> createGenericConfiguration(BootstrapState state);
 
 	CreatorFactory buildCreatorFactory(ConfigurationState state);
+
 }
