@@ -6,6 +6,6 @@ import org.kuali.common.util.create.spi.CreationProvider;
 
 public interface CreationProviderResolver {
 
-	List<CreationProvider<?>> getBuildProviders();
+	List<CreationProvider<?>> getCreationProviders();
 
 }
