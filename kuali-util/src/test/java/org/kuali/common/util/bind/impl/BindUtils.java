@@ -16,7 +16,7 @@ import org.kuali.common.util.bind.api.BindAlias;
 import org.kuali.common.util.bind.api.Bound;
 import org.kuali.common.util.bind.model.BoundFieldDescriptor;
 import org.kuali.common.util.bind.model.BoundTypeDescriptor;
-import org.kuali.common.util.builder.Builder;
+import org.kuali.common.util.build.Builder;
 import org.springframework.core.env.Environment;
 
 import com.google.common.base.Optional;

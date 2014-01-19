@@ -1,4 +1,4 @@
-package org.kuali.common.util.builder;
+package org.kuali.common.util.build;
 
 import java.util.List;
 

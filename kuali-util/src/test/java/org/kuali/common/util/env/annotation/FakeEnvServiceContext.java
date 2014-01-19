@@ -3,7 +3,7 @@ package org.kuali.common.util.env.annotation;
 import java.util.List;
 
 import org.kuali.common.util.Mode;
-import org.kuali.common.util.builder.AbstractBuilder;
+import org.kuali.common.util.build.AbstractBuilder;
 import org.kuali.common.util.env.adapter.CSVToListAdapter;
 import org.kuali.common.util.env.adapter.OptionalStringAdapter;
 import org.kuali.common.util.validate.NoBlanks;
