@@ -32,23 +32,6 @@ public class Creation {
 		return new GenericBootstrapImpl();
 	}
 
-	private static class DefaultCreationProviderResolver implements CreationProviderResolver {
-
-		private List<CreationProvider<?>> providers;
-
-		@Override
-		public synchronized List<CreationProvider<?>> getCreationProviders() {
-			if (this.providers == null) {
-				List<CreationProvider<?>> providers = Lists.newArrayList();
-				for (CreationProvider<?> provider : ServiceProvider.getAll(CreationProvider.class)) {
-					providers.add(provider);
-				}
-				this.providers = providers;
-			}
-			return this.providers;
-		}
-	}
-
 	private static class GenericBootstrapImpl implements GenericBootstrap, BootstrapState {
 
 		private CreationProviderResolver resolver = new DefaultCreationProviderResolver();
@@ -74,4 +57,22 @@ public class Creation {
 		}
 
 	}
+
+	private static class DefaultCreationProviderResolver implements CreationProviderResolver {
+
+		private List<CreationProvider<?>> providers;
+
+		@Override
+		public synchronized List<CreationProvider<?>> getCreationProviders() {
+			if (this.providers == null) {
+				List<CreationProvider<?>> providers = Lists.newArrayList();
+				for (CreationProvider<?> provider : ServiceProvider.getAll(CreationProvider.class)) {
+					providers.add(provider);
+				}
+				this.providers = providers;
+			}
+			return this.providers;
+		}
+	}
+
 }
