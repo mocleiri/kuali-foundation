@@ -34,13 +34,18 @@ public class Creation {
 
 	private static class DefaultCreationProviderResolver implements CreationProviderResolver {
 
+		private List<CreationProvider<?>> providers;
+
 		@Override
-		public List<CreationProvider<?>> getCreationProviders() {
-			List<CreationProvider<?>> providers = Lists.newArrayList();
-			for (CreationProvider<?> provider : ServiceProvider.getAll(CreationProvider.class)) {
-				providers.add(provider);
+		public synchronized List<CreationProvider<?>> getCreationProviders() {
+			if (this.providers == null) {
+				List<CreationProvider<?>> providers = Lists.newArrayList();
+				for (CreationProvider<?> provider : ServiceProvider.getAll(CreationProvider.class)) {
+					providers.add(provider);
+				}
+				this.providers = providers;
 			}
-			return providers;
+			return this.providers;
 		}
 	}
 
