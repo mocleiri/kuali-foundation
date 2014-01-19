@@ -4,6 +4,6 @@ import org.kuali.common.util.build.test.Builder;
 
 public interface Creator {
 
-	<T> void create(Builder<T> builder, T instance);
+	<T> T create(Builder<T> builder);
 
 }
