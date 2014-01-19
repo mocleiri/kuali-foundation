@@ -8,4 +8,5 @@ public interface GenericBootstrap {
 	GenericBootstrap providerResolver(CreationProviderResolver resolver);
 
 	Configuration<?> configure();
+
 }
