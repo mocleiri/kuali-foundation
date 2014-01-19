@@ -46,8 +46,8 @@ public class Creation {
 
 	private static class GenericBootstrapImpl implements GenericBootstrap, BootstrapState {
 
-		private Optional<CreationProviderResolver> resolver;
-		private CreationProviderResolver defaultResolver;
+		private Optional<CreationProviderResolver> resolver = Optional.absent();
+		private CreationProviderResolver defaultResolver = new DefaultCreationProviderResolver();
 
 		@Override
 		public GenericBootstrap providerResolver(CreationProviderResolver resolver) {
@@ -62,15 +62,12 @@ public class Creation {
 
 		@Override
 		public CreationProviderResolver getDefaultCreationProviderResolver() {
-			if (defaultResolver == null) {
-				defaultResolver = new DefaultCreationProviderResolver();
-			}
 			return defaultResolver;
 		}
 
 		@Override
 		public Configuration<?> configure() {
-			CreationProviderResolver resolver = this.resolver.isPresent() ? this.resolver.get() : getDefaultCreationProviderResolver();
+			CreationProviderResolver resolver = getCreationProviderResolver().isPresent() ? getCreationProviderResolver().get() : getDefaultCreationProviderResolver();
 			List<CreationProvider<?>> providers = resolver.getCreationProviders();
 			checkState(providers.size() > 0, "Unable to create a Configuration. No creation provider was found.  Add a provider to your classpath.");
 			CreationProvider<?> provider = providers.get(0);
