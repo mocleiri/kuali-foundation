@@ -37,8 +37,8 @@ public class Creation {
 		@Override
 		public List<CreationProvider<?>> getCreationProviders() {
 			List<CreationProvider<?>> providers = Lists.newArrayList();
-			for (CreationProvider<?> element : ServiceProvider.getAll(CreationProvider.class)) {
-				providers.add(element);
+			for (CreationProvider<?> provider : ServiceProvider.getAll(CreationProvider.class)) {
+				providers.add(provider);
 			}
 			return providers;
 		}
