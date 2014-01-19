@@ -65,11 +65,11 @@ public class Creation {
 		@Override
 		public synchronized List<CreationProvider<?>> getCreationProviders() {
 			if (this.providers == null) {
-				List<CreationProvider<?>> providers = Lists.newArrayList();
+				List<CreationProvider<?>> providerList = Lists.newArrayList();
 				for (CreationProvider<?> provider : ServiceProvider.getAll(CreationProvider.class)) {
-					providers.add(provider);
+					providerList.add(provider);
 				}
-				this.providers = providers;
+				this.providers = providerList;
 			}
 			return this.providers;
 		}
