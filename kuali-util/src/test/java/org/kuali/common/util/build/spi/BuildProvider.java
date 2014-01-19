@@ -1,5 +1,7 @@
 package org.kuali.common.util.build.spi;
 
-public interface BuildProvider {
+import org.kuali.common.util.build.Configuration;
+
+public interface BuildProvider<T extends Configuration<T>> {
 
 }
