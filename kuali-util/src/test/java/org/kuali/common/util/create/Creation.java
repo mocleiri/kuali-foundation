@@ -1,5 +1,6 @@
 package org.kuali.common.util.create;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 
 import java.util.List;
@@ -9,7 +10,6 @@ import org.kuali.common.util.create.spi.BootstrapState;
 import org.kuali.common.util.create.spi.CreationProvider;
 import org.kuali.common.util.serviceloader.ServiceProvider;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 
 public class Creation {
@@ -51,32 +51,27 @@ public class Creation {
 
 	private static class GenericBootstrapImpl implements GenericBootstrap, BootstrapState {
 
-		private Optional<CreationProviderResolver> resolver = Optional.absent();
-		private CreationProviderResolver defaultResolver = new DefaultCreationProviderResolver();
+		private CreationProviderResolver resolver = new DefaultCreationProviderResolver();
 
 		@Override
-		public GenericBootstrap providerResolver(CreationProviderResolver resolver) {
-			this.resolver = Optional.of(resolver);
-			return this;
-		}
-
-		@Override
-		public Optional<CreationProviderResolver> getCreationProviderResolver() {
+		public CreationProviderResolver getCreationProviderResolver() {
 			return resolver;
 		}
 
 		@Override
-		public CreationProviderResolver getDefaultCreationProviderResolver() {
-			return defaultResolver;
+		public GenericBootstrap providerResolver(CreationProviderResolver resolver) {
+			this.resolver = resolver;
+			return this;
 		}
 
 		@Override
 		public Configuration<?> configure() {
-			CreationProviderResolver resolver = getCreationProviderResolver().isPresent() ? getCreationProviderResolver().get() : getDefaultCreationProviderResolver();
-			List<CreationProvider<?>> providers = resolver.getCreationProviders();
+			checkNotNull(resolver, "'resolver' cannot be null");
+			List<CreationProvider<?>> providers = getCreationProviderResolver().getCreationProviders();
 			checkState(providers.size() > 0, "Unable to create a Configuration. No creation provider was found.  Add a provider to your classpath.");
 			CreationProvider<?> provider = providers.get(0);
 			return provider.createGenericConfiguration(this);
 		}
+
 	}
 }
