@@ -29,7 +29,7 @@ public class Creation {
 	}
 
 	public static GenericBootstrap byDefaultProvider() {
-		return null;
+		return new GenericBootstrapImpl();
 	}
 
 	private static class DefaultCreationProviderResolver implements CreationProviderResolver {
