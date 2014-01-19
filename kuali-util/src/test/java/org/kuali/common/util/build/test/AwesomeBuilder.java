@@ -7,10 +7,7 @@ import org.kuali.common.util.create.Creator;
 
 public abstract class AwesomeBuilder<T> implements InstanceBuilder<T> {
 
-	@Override
-	public abstract T getInstance();
-
-	Creator creator = Creation.getDefaultCreator();
+	protected Creator creator = Creation.getDefaultCreator();
 
 	@Override
 	public final T build() {
