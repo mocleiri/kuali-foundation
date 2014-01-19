@@ -1,56 +1,29 @@
 package org.kuali.common.util.build.test;
 
-import static com.google.common.base.Preconditions.checkState;
+import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Set;
+import org.kuali.common.util.create.Creation;
+import org.kuali.common.util.create.Creator;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
+public abstract class AwesomeBuilder<T> implements InstanceBuilder<T> {
 
-import org.kuali.common.util.bind.api.BinderService;
-import org.kuali.common.util.bind.api.Binding;
-import org.kuali.common.util.validate.Validation;
-import org.springframework.validation.BindingResult;
+	@Override
+	public abstract T getInstance();
 
-public abstract class AwesomeBuilder<T> implements Builder<T> {
-
-	protected abstract T getInstance();
-
-	private Validator validator = Validation.getDefaultValidator();
-	private BinderService binder = Binding.getDefaultBinderService();
+	Creator creator = Creation.getDefaultCreator();
 
 	@Override
 	public final T build() {
-		bind(this);
-		T instance = getInstance();
-		validate(instance);
-		return instance;
+		checkNotNull(creator, "'creator' cannot be null'");
+		return creator.create(this);
 	}
 
-	private void bind(AwesomeBuilder<T> builder) {
-		BindingResult result = binder.bind(this);
-		checkState(!result.hasErrors(), "Binding failed with %s errors", result.getAllErrors().size());
+	public Creator getCreator() {
+		return creator;
 	}
 
-	private void validate(T instance) {
-		Set<ConstraintViolation<T>> violations = validator.validate(instance);
-		Validation.check(violations);
-	}
-
-	public Validator getValidator() {
-		return validator;
-	}
-
-	public void setValidator(Validator validator) {
-		this.validator = validator;
-	}
-
-	public BinderService getBinder() {
-		return binder;
-	}
-
-	public void setBinder(BinderService binder) {
-		this.binder = binder;
+	public void setCreator(Creator creator) {
+		this.creator = creator;
 	}
 
 }
