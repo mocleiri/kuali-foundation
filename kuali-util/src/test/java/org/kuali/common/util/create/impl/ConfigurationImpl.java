@@ -6,6 +6,7 @@ import javax.validation.Validator;
 
 import org.kuali.common.util.bind.api.BinderService;
 import org.kuali.common.util.bind.api.Binding;
+import org.kuali.common.util.create.Creation;
 import org.kuali.common.util.create.CreatorFactory;
 import org.kuali.common.util.create.spi.ConfigurationState;
 import org.kuali.common.util.validate.Validation;
@@ -17,7 +18,7 @@ public final class ConfigurationImpl implements KualiCreationConfiguration, Conf
 
 	@Override
 	public CreatorFactory buildCreatorFactory() {
-		return null;
+		return Creation.buildDefaultCreatorFactory();
 	}
 
 	@Override
