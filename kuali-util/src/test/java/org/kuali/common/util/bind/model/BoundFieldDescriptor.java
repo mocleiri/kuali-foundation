@@ -35,7 +35,7 @@ public final class BoundFieldDescriptor {
 		this.mapping = builder.mapping;
 	}
 
-	public static class Builder {
+	public static class Builder implements org.kuali.common.util.build.Builder<BoundFieldDescriptor> {
 
 		// Required
 		private final Field field;
@@ -66,6 +66,7 @@ public final class BoundFieldDescriptor {
 			return this;
 		}
 
+		@Override
 		public BoundFieldDescriptor build() {
 			BoundFieldDescriptor instance = new BoundFieldDescriptor(this);
 			validate(instance);
