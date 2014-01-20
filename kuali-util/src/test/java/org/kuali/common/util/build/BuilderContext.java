@@ -1,5 +1,7 @@
 package org.kuali.common.util.build;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import javax.validation.Validator;
 
 import org.kuali.common.util.enc.EncryptionService;
@@ -8,7 +10,6 @@ import org.kuali.common.util.env.OverrideService;
 import org.kuali.common.util.validate.Validation;
 
 import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 
 public final class BuilderContext {
 
@@ -68,9 +69,9 @@ public final class BuilderContext {
 		}
 
 		private void validate(BuilderContext instance) {
-			Preconditions.checkNotNull(instance.validator, "'validator' cannot be null");
-			Preconditions.checkNotNull(instance.overrider, "'overrider' cannot be null");
-			Preconditions.checkNotNull(instance.enc, "'enc' cannot be null");
+			checkNotNull(instance.validator, "'validator' cannot be null");
+			checkNotNull(instance.overrider, "'overrider' cannot be null");
+			checkNotNull(instance.enc, "'enc' cannot be null");
 		}
 	}
 
