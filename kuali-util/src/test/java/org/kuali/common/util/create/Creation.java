@@ -10,6 +10,7 @@ import org.kuali.common.util.create.spi.BootstrapState;
 import org.kuali.common.util.create.spi.CreationProvider;
 import org.kuali.common.util.serviceloader.ServiceProvider;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 
 public class Creation {
@@ -34,23 +35,31 @@ public class Creation {
 
 	private static class GenericBootstrapImpl implements GenericBootstrap, BootstrapState {
 
-		private CreationProviderResolver resolver = new DefaultCreationProviderResolver();
+		private Optional<CreationProviderResolver> resolver = Optional.absent();
+		private CreationProviderResolver defaultResolver = new DefaultCreationProviderResolver();
 
 		@Override
-		public CreationProviderResolver getCreationProviderResolver() {
+		public GenericBootstrap providerResolver(CreationProviderResolver resolver) {
+			this.resolver = Optional.of(resolver);
+			return this;
+		}
+
+		@Override
+		public Optional<CreationProviderResolver> getCreationProviderResolver() {
 			return resolver;
 		}
 
 		@Override
-		public GenericBootstrap providerResolver(CreationProviderResolver resolver) {
-			this.resolver = resolver;
-			return this;
+		public CreationProviderResolver getDefaultCreationProviderResolver() {
+			return defaultResolver;
 		}
 
 		@Override
 		public Configuration<?> configure() {
 			checkNotNull(resolver, "'resolver' cannot be null");
-			List<CreationProvider<?>> providers = getCreationProviderResolver().getCreationProviders();
+			checkNotNull(defaultResolver, "'defaultResolver' cannot be null");
+			CreationProviderResolver resolver = this.resolver.isPresent() ? this.resolver.get() : defaultResolver;
+			List<CreationProvider<?>> providers = resolver.getCreationProviders();
 			checkState(providers.size() > 0, "Unable to create a Configuration. No creation provider was found.  Add a provider to your classpath.");
 			CreationProvider<?> provider = providers.get(0);
 			return provider.createGenericConfiguration(this);
