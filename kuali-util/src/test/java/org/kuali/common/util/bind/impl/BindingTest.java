@@ -2,8 +2,8 @@ package org.kuali.common.util.bind.impl;
 
 import org.codehaus.plexus.util.StringUtils;
 import org.junit.Test;
-import org.kuali.common.util.bind.model.User;
 import org.kuali.common.util.log.LoggerUtils;
+import org.kuali.common.util.system.User;
 import org.slf4j.Logger;
 
 public class BindingTest {
