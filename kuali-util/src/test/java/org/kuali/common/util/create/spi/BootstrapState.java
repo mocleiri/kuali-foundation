@@ -6,8 +6,14 @@ import com.google.common.base.Optional;
 
 public interface BootstrapState {
 
+	/**
+	 * Optional user defined {@code CreationProviderResolver} strategy instance.
+	 */
 	Optional<CreationProviderResolver> getCreationProviderResolver();
 
+	/**
+	 * Specification default {@code CreationProviderResolver} strategy instance.
+	 */
 	CreationProviderResolver getDefaultCreationProviderResolver();
 
 }
