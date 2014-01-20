@@ -107,7 +107,7 @@ public class BindUtils {
 	}
 
 	protected static boolean isBuilder(Class<?> type) {
-		return Builder.class.isAssignableFrom(type);
+		return Builder.class.isAssignableFrom(type) || org.apache.commons.lang3.builder.Builder.class.isAssignableFrom(type);
 	}
 
 	protected static ImmutableMap<Field, BoundFieldDescriptor> getFields(Class<?> type, Optional<String> prefix) {
