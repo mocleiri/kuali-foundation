@@ -68,7 +68,7 @@ public final class BuilderContext {
 			return instance;
 		}
 
-		private void validate(BuilderContext instance) {
+		private static void validate(BuilderContext instance) {
 			checkNotNull(instance.validator, "'validator' cannot be null");
 			checkNotNull(instance.overrider, "'overrider' cannot be null");
 			checkNotNull(instance.enc, "'enc' cannot be null");
