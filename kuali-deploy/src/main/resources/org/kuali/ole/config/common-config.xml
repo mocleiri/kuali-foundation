@@ -28,7 +28,6 @@
   <kdo.environment>${kdo.environment}</kdo.environment>
   <param name="ole.docstore.url.base">${${kdo.environment}.ole.docstore.url.base}</param>
   <param name="ole.fs.url.base">${${kdo.environment}.ole.fs.url.base}</param>
-  <param name="ole.rice2.url.base">${${kdo.environment}.ole.rice2.url.base}</param>
 
   <!-- Database -->
   <param name="db.vendor">${db.vendor}</param>
