@@ -5,7 +5,7 @@ import java.util.List;
 import javax.validation.constraints.Min;
 
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.build.test.AbstractBuilder;
+import org.kuali.common.util.build.AbstractBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 import org.kuali.common.util.validate.ImmutableGuavaCollections;
 import org.kuali.common.util.validate.MatchDeclaringClassFields;

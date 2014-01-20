@@ -52,7 +52,7 @@ public final class DefaultBinderService implements BinderService {
 		return new Builder();
 	}
 
-	public static final class Builder implements org.kuali.common.util.build.test.Builder<DefaultBinderService> {
+	public static final class Builder implements org.kuali.common.util.build.Builder<DefaultBinderService> {
 
 		private Environment environment = Environments.getDefaultEnvironment();
 		private ConversionService service = Conversion.getDefaultConversionService();

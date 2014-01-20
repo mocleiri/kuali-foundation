@@ -2,6 +2,7 @@ package org.kuali.common.util.build.test;
 
 import javax.validation.constraints.Min;
 
+import org.kuali.common.util.build.AbstractBuilder;
 import org.kuali.common.util.env.annotation.Env;
 import org.kuali.common.util.validate.NoBlanks;
 import org.kuali.common.util.validate.NoNullFields;

@@ -28,7 +28,7 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.build.test.Builder;
+import org.kuali.common.util.build.Builder;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 
