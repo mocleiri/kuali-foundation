@@ -7,7 +7,6 @@ import org.kuali.common.util.bind.api.BinderService;
 import org.kuali.common.util.bind.api.Bound;
 import org.kuali.common.util.spring.convert.Conversion;
 import org.kuali.common.util.spring.env.Environments;
-import org.kuali.common.util.validate.IdiotProofImmutable;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
 import org.springframework.validation.BindingResult;
@@ -17,7 +16,6 @@ import org.springframework.validation.MapBindingResult;
 import com.google.common.collect.Maps;
 
 @MetaInfServices(BinderService.class)
-@IdiotProofImmutable
 public final class DefaultBinderService implements BinderService {
 
 	private final Environment environment;
