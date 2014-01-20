@@ -69,18 +69,18 @@ public class Creation {
 
 	private static class DefaultCreationProviderResolver implements CreationProviderResolver {
 
-		private static List<CreationProvider<?>> providers;
+		private static List<CreationProvider<?>> PROVIDERS;
 
 		@Override
 		public synchronized List<CreationProvider<?>> getCreationProviders() {
-			if (providers == null) {
-				List<CreationProvider<?>> providerList = Lists.newArrayList();
+			if (PROVIDERS == null) {
+				List<CreationProvider<?>> providers = Lists.newArrayList();
 				for (CreationProvider<?> provider : ServiceProvider.getAll(CreationProvider.class)) {
-					providerList.add(provider);
+					providers.add(provider);
 				}
-				providers = providerList;
+				PROVIDERS = providers;
 			}
-			return providers;
+			return PROVIDERS;
 		}
 	}
 
