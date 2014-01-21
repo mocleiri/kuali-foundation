@@ -6,11 +6,19 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
 public final class Sys {
-
+	
 	private final User user;
 
 	private Sys(Builder builder) {
 		this.user = builder.user;
+	}
+
+	public static Sys create() {
+		return builder().build();
+	}
+
+	public static Builder builder() {
+		return new Builder();
 	}
 
 	@Bound(prefix = false)
