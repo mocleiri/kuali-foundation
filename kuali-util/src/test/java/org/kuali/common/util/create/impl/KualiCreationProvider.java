@@ -10,7 +10,7 @@ public class KualiCreationProvider implements CreationProvider<KualiCreationConf
 
 	@Override
 	public KualiCreationConfiguration createSpecializedConfiguration(BootstrapState state) {
-		return null;
+		return null; // KualiCreationConfiguration.class.cast(new ConfigurationImpl(this));
 	}
 
 	@Override
