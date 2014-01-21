@@ -5,15 +5,15 @@ import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
-public final class Sys {
+public final class VirtualMachine {
 	
 	private final User user;
 
-	private Sys(Builder builder) {
+	private VirtualMachine(Builder builder) {
 		this.user = builder.user;
 	}
 
-	public static Sys create() {
+	public static VirtualMachine create() {
 		return builder().build();
 	}
 
@@ -22,13 +22,13 @@ public final class Sys {
 	}
 
 	@Bound(prefix = false)
-	public static class Builder extends AwesomeBuilder<Sys> {
+	public static class Builder extends AwesomeBuilder<VirtualMachine> {
 
 		private User user = User.create();
 
 		@Override
-		public Sys getInstance() {
-			return new Sys(this);
+		public VirtualMachine getInstance() {
+			return new VirtualMachine(this);
 		}
 
 	}
