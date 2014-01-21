@@ -6,7 +6,7 @@ import org.kuali.common.util.create.spi.BootstrapState;
 import org.kuali.common.util.create.spi.ConfigurationState;
 import org.kuali.common.util.create.spi.CreationProvider;
 
-public class KualiCreationProvider implements CreationProvider<KualiCreationConfiguration> {
+public class KualiCreator implements CreationProvider<KualiCreationConfiguration> {
 
 	@Override
 	public KualiCreationConfiguration createSpecializedConfiguration(BootstrapState state) {
