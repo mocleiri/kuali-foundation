@@ -15,7 +15,7 @@ public class KualiCreator implements CreationProvider<KualiCreationConfiguration
 
 	@Override
 	public Configuration<?> createGenericConfiguration(BootstrapState state) {
-		return null;
+		return ConfigurationImpl.create(state);
 	}
 
 	@Override
