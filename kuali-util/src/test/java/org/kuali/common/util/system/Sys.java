@@ -1,29 +1,26 @@
 package org.kuali.common.util.system;
 
+import org.kuali.common.util.bind.api.Bound;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
-public final class SystemProperties {
+public final class Sys {
 
 	private final User user;
 
-	private SystemProperties(Builder builder) {
+	private Sys(Builder builder) {
 		this.user = builder.user;
 	}
 
-	public static class Builder extends AwesomeBuilder<SystemProperties> {
+	@Bound(prefix = false)
+	public static class Builder extends AwesomeBuilder<Sys> {
 
 		private User user = User.create();
 
-		public Builder user(User user) {
-			this.user = user;
-			return this;
-		}
-
 		@Override
-		public SystemProperties getInstance() {
-			return new SystemProperties(this);
+		public Sys getInstance() {
+			return new Sys(this);
 		}
 
 	}
