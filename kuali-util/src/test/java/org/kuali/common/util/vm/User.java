@@ -29,10 +29,7 @@ public final class User {
 	}
 
 	@Bound
-	static class Builder extends AwesomeBuilder<User> {
-
-		Builder() {
-		}
+	public static class Builder extends AwesomeBuilder<User> {
 
 		private String name;
 
