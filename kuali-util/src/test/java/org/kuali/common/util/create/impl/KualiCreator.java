@@ -1,11 +1,13 @@
 package org.kuali.common.util.create.impl;
 
+import org.kohsuke.MetaInfServices;
 import org.kuali.common.util.create.Configuration;
 import org.kuali.common.util.create.CreatorFactory;
 import org.kuali.common.util.create.spi.BootstrapState;
 import org.kuali.common.util.create.spi.ConfigurationState;
 import org.kuali.common.util.create.spi.CreationProvider;
 
+@MetaInfServices
 public class KualiCreator implements CreationProvider<KualiCreationConfiguration> {
 
 	@Override
