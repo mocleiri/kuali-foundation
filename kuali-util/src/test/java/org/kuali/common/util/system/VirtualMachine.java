@@ -6,14 +6,14 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
 public final class VirtualMachine {
-	
+
 	private final User user;
 
 	private VirtualMachine(Builder builder) {
 		this.user = builder.user;
 	}
 
-	public static VirtualMachine create() {
+	public static VirtualMachine build() {
 		return builder().build();
 	}
 
