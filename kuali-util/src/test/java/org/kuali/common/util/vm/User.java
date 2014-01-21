@@ -20,11 +20,11 @@ public final class User {
 		this.dir = builder.dir;
 	}
 
-	static User create() {
+	public static User create() {
 		return builder().build();
 	}
 
-	static Builder builder() {
+	public static Builder builder() {
 		return new Builder();
 	}
 
