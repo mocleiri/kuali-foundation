@@ -17,12 +17,12 @@ public final class VirtualMachine {
 		return builder().build();
 	}
 
-	public static Builder builder() {
+	private static Builder builder() {
 		return new Builder();
 	}
 
 	@Bound(prefix = false)
-	public static class Builder extends AwesomeBuilder<VirtualMachine> {
+	private static class Builder extends AwesomeBuilder<VirtualMachine> {
 
 		private User user = User.create();
 

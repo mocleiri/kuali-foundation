@@ -14,6 +14,7 @@ public class BindingTest {
 	@Test
 	public void test() {
 		try {
+
 			VirtualMachine vm = VirtualMachine.build();
 			User user = vm.getUser();
 			String prefix = StringUtils.uncapitalise(User.class.getSimpleName());
