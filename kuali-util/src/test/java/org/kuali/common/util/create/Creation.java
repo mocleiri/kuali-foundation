@@ -26,7 +26,9 @@ public class Creation {
 	}
 
 	public static CreatorFactory buildDefaultCreatorFactory() {
-		return byDefaultProvider().configure().buildCreatorFactory();
+		GenericBootstrap genericBootstrap = byDefaultProvider();
+		Configuration<?> configuration = genericBootstrap.configure();
+		return configuration.buildCreatorFactory();
 	}
 
 	public static GenericBootstrap byDefaultProvider() {
