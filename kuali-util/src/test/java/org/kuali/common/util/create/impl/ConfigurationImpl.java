@@ -1,16 +1,19 @@
 package org.kuali.common.util.create.impl;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
+
+import java.util.List;
 
 import javax.validation.Validator;
 
 import org.kuali.common.util.bind.api.BinderService;
 import org.kuali.common.util.bind.api.Binding;
-import org.kuali.common.util.create.Creation;
 import org.kuali.common.util.create.CreationProviderResolver;
 import org.kuali.common.util.create.CreatorFactory;
 import org.kuali.common.util.create.spi.BootstrapState;
 import org.kuali.common.util.create.spi.ConfigurationState;
+import org.kuali.common.util.create.spi.CreationProvider;
 import org.kuali.common.util.validate.Validation;
 
 public final class ConfigurationImpl implements KualiCreationConfiguration, ConfigurationState {
@@ -21,7 +24,10 @@ public final class ConfigurationImpl implements KualiCreationConfiguration, Conf
 
 	@Override
 	public CreatorFactory buildCreatorFactory() {
-		return Creation.buildDefaultCreatorFactory();
+		List<CreationProvider<?>> providers = providerResolver.getCreationProviders();
+		checkState(providers.size() > 0, "No providers were found");
+		CreationProvider<?> provider = providers.get(0);
+		return provider.buildCreatorFactory(this);
 	}
 
 	@Override
