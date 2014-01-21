@@ -20,16 +20,19 @@ public final class User {
 		this.dir = builder.dir;
 	}
 
-	public static User create() {
+	static User create() {
 		return builder().build();
 	}
 
-	public static Builder builder() {
+	static Builder builder() {
 		return new Builder();
 	}
 
 	@Bound
-	public static class Builder extends AwesomeBuilder<User> {
+	static class Builder extends AwesomeBuilder<User> {
+
+		Builder() {
+		}
 
 		private String name;
 
