@@ -1,4 +1,4 @@
-package org.kuali.common.util.system;
+package org.kuali.common.util.vm;
 
 import java.io.File;
 
