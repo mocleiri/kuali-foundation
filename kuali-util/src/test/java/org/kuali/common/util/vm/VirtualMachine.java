@@ -1,6 +1,5 @@
 package org.kuali.common.util.vm;
 
-import org.kuali.common.util.bind.api.Bound;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -21,7 +20,6 @@ public final class VirtualMachine {
 		return new Builder();
 	}
 
-	@Bound(prefix = false)
 	private static class Builder extends AwesomeBuilder<VirtualMachine> {
 
 		private User user = User.create();
