@@ -3,8 +3,8 @@ package org.kuali.common.util.bind.impl;
 import org.codehaus.plexus.util.StringUtils;
 import org.junit.Test;
 import org.kuali.common.util.log.LoggerUtils;
-import org.kuali.common.util.system.VirtualMachine;
 import org.kuali.common.util.system.User;
+import org.kuali.common.util.system.VirtualMachine;
 import org.slf4j.Logger;
 
 public class BindingTest {
@@ -14,8 +14,8 @@ public class BindingTest {
 	@Test
 	public void test() {
 		try {
-			VirtualMachine sys = VirtualMachine.create();
-			User user = sys.getUser();
+			VirtualMachine vm = VirtualMachine.create();
+			User user = vm.getUser();
 			String prefix = StringUtils.uncapitalise(User.class.getSimpleName());
 			logger.info(String.format("%s.name=[%s]", prefix, user.getName()));
 			logger.info(String.format("%s.home=[%s]", prefix, user.getHome()));
