@@ -4,12 +4,12 @@ import static java.lang.String.format;
 
 import org.junit.Test;
 import org.kuali.common.util.log.LoggerUtils;
+import org.kuali.common.util.system.OperatingSystem;
+import org.kuali.common.util.system.Specification;
+import org.kuali.common.util.system.SystemProperties;
+import org.kuali.common.util.system.User;
 import org.slf4j.Logger;
 
-import system.OperatingSystem;
-import system.Specification;
-import system.SystemProperties;
-import system.User;
 
 public class BindingTest {
 

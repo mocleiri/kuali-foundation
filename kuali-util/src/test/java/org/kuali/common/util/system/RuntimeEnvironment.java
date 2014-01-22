@@ -1,37 +1,32 @@
-package system;
+package org.kuali.common.util.system;
 
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
-public final class VirtualMachine {
+public class RuntimeEnvironment {
 
-	private final String name;
 	private final String vendor;
 	private final String version;
+	private final String url;
 	private final Specification specification;
 
-	private VirtualMachine(Builder builder) {
+	private RuntimeEnvironment(Builder builder) {
 		this.specification = builder.specification;
-		this.name = builder.name;
 		this.vendor = builder.vendor;
 		this.version = builder.version;
+		this.url = builder.url;
 	}
 
-	public static class Builder extends AwesomeBuilder<VirtualMachine> {
+	public static class Builder extends AwesomeBuilder<RuntimeEnvironment> {
 
-		private Specification specification;
-		private String name;
 		private String vendor;
 		private String version;
+		private String url;
+		private Specification specification;
 
 		public Builder specification(Specification specification) {
 			this.specification = specification;
-			return this;
-		}
-
-		public Builder name(String name) {
-			this.name = name;
 			return this;
 		}
 
@@ -45,9 +40,14 @@ public final class VirtualMachine {
 			return this;
 		}
 
+		public Builder url(String url) {
+			this.url = url;
+			return this;
+		}
+
 		@Override
-		public VirtualMachine getInstance() {
-			return new VirtualMachine(this);
+		public RuntimeEnvironment getInstance() {
+			return new RuntimeEnvironment(this);
 		}
 
 		public Specification getSpecification() {
@@ -56,14 +56,6 @@ public final class VirtualMachine {
 
 		public void setSpecification(Specification specification) {
 			this.specification = specification;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
 		}
 
 		public String getVendor() {
@@ -82,14 +74,18 @@ public final class VirtualMachine {
 			this.version = version;
 		}
 
+		public String getUrl() {
+			return url;
+		}
+
+		public void setUrl(String url) {
+			this.url = url;
+		}
+
 	}
 
 	public Specification getSpecification() {
 		return specification;
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	public String getVendor() {
@@ -98,6 +94,10 @@ public final class VirtualMachine {
 
 	public String getVersion() {
 		return version;
+	}
+
+	public String getUrl() {
+		return url;
 	}
 
 }

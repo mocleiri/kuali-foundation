@@ -1,4 +1,4 @@
-package system;
+package org.kuali.common.util.system;
 
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;

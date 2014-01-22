@@ -1,4 +1,4 @@
-package system;
+package org.kuali.common.util.system;
 
 import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.build.AwesomeBuilder;
