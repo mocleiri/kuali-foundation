@@ -18,6 +18,7 @@ public final class SystemProperties {
 
 	@Valid
 	private final Java java;
+
 	private final String lineSeparator;
 	private final String pathSeparator;
 	private final String fileSeparator;
@@ -40,18 +41,18 @@ public final class SystemProperties {
 
 		@Bind
 		private User user;
-		
+
 		@Bind
 		private OperatingSystem operatingSystem;
-		
+
 		@Bind
 		private Java java;
-		
+
 		@Alias("path.separator")
 		private String pathSeparator;
 
 		private String lineSeparator;
-		
+
 		private String fileSeparator;
 
 		public Builder user(User user) {
