@@ -46,6 +46,16 @@ public final class DefaultBinder implements Binder {
 			return ImmutableList.of();
 		}
 
+		List<String> errors = bindFields(target);
+		Bind bind = target.getClass().getAnnotation(Bind.class);
+		EnvironmentDataBinder binder = new EnvironmentDataBinder(target, bind);
+		binder.setConversionService(service);
+		binder.bind(environment);
+		errors.addAll(getErrors(binder.getBindingResult()));
+		return ImmutableList.copyOf(errors);
+	}
+
+	protected List<String> bindFields(Object target) {
 		List<String> errors = Lists.newArrayList();
 		Set<Field> fields = getBindFields(target.getClass());
 		for (Field field : fields) {
@@ -61,12 +71,7 @@ public final class DefaultBinder implements Binder {
 			Object value = builder.build();
 			ReflectionUtils.set(target, field, value);
 		}
-		Bind bind = target.getClass().getAnnotation(Bind.class);
-		EnvironmentDataBinder binder = new EnvironmentDataBinder(target, bind);
-		binder.setConversionService(service);
-		binder.bind(environment);
-		errors.addAll(getErrors(binder.getBindingResult()));
-		return ImmutableList.copyOf(errors);
+		return errors;
 	}
 
 	protected List<String> getErrors(BindingResult result) {
