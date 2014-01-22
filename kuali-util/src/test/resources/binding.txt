@@ -3,9 +3,9 @@ java.vm.name                  JVM name
 java.vm.vendor                JVM vendor
 java.vm.version               JVM version
 
-java.vm.specification.version JVM specification version
-java.vm.specification.vendor  JVM specification vendor
-java.vm.specification.name    JVM specification name
+java.vm.specification.version JVM spec version
+java.vm.specification.vendor  JVM spec vendor
+java.vm.specification.name    JVM spec name
 
 
 
@@ -14,6 +14,6 @@ java.vendor.url               JRE vendor url
 java.vendor                   JRE vendor
 java.version                  JRE version
 
-java.specification.version    JRE specification version
-java.specification.vendor     JRE specification vendor
-java.specification.name       JRE specification name
+java.specification.version    JRE spec version
+java.specification.vendor     JRE spec vendor
+java.specification.name       JRE spec name
