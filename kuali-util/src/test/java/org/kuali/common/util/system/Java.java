@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -15,11 +16,17 @@ import com.google.common.collect.ImmutableList;
 public final class Java {
 
 	private final File home;
+	@Alias("io.tmpdir")
 	private final File temporaryDirectory;
+	@Alias("compiler")
 	private final Optional<String> jitCompiler;
+	@Alias("class.version")
 	private final String classVersion;
+	@Alias("class.path")
 	private final ImmutableList<String> classPaths;
+	@Alias("library.path")
 	private final ImmutableList<String> libraryPaths;
+	@Alias("ext.dirs")
 	private final ImmutableList<String> extensionDirectories;
 
 	@Valid

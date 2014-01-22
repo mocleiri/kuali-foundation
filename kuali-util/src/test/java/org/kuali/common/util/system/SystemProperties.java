@@ -8,19 +8,28 @@ import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
+@Bind
 public final class SystemProperties {
 
 	@Valid
+	@Bind
 	private final User user;
 
 	@Valid
+	@Bind("os")
 	private final OperatingSystem operatingSystem;
 
 	@Valid
+	@Bind
 	private final Java java;
 
+	@Alias("line.separator")
 	private final String lineSeparator;
+
+	@Alias("path.separator")
 	private final String pathSeparator;
+
+	@Alias("file.separator")
 	private final String fileSeparator;
 
 	private SystemProperties(Builder builder) {
@@ -39,10 +48,8 @@ public final class SystemProperties {
 	@Bind(noPrefix = true)
 	public static class Builder extends AwesomeBuilder<SystemProperties> {
 
-		@Bind("user")
 		private User user;
 
-		@Bind("os")
 		private OperatingSystem operatingSystem;
 
 		@Bind
