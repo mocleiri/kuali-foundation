@@ -1,5 +1,7 @@
 package org.kuali.common.util.bind.impl;
 
+import static java.lang.String.format;
+
 import org.junit.Test;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.vm.OperatingSystem;
@@ -17,14 +19,14 @@ public class BindingTest {
 			VirtualMachine vm = VirtualMachine.build();
 			User user = vm.getUser();
 			OperatingSystem os = vm.getOperatingSystem();
-			logger.info(String.format("user.name=[%s]", user.getName()));
-			logger.info(String.format("user.home=[%s]", user.getHome()));
-			logger.info(String.format("user.dir=[%s]", user.getDir()));
-			logger.info(String.format("os.name=[%s]", os.getName()));
-			logger.info(String.format("os.arch=[%s]", os.getArchitecture()));
-			logger.info(String.format("os.version=[%s]", os.getVersion()));
-			logger.info(String.format("java.io.tmpdir=[%s]", vm.getTempDirectory()));
-			logger.info(String.format("java.home=[%s]", vm.getHome()));
+			logger.info(format("user.name=[%s]", user.getName()));
+			logger.info(format("user.home=[%s]", user.getHome()));
+			logger.info(format("user.dir=[%s]", user.getDir()));
+			logger.info(format("os.name=[%s]", os.getName()));
+			logger.info(format("os.arch=[%s]", os.getArchitecture()));
+			logger.info(format("os.version=[%s]", os.getVersion()));
+			logger.info(format("java.io.tmpdir=[%s]", vm.getTempDirectory()));
+			logger.info(format("java.home=[%s]", vm.getHome()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
