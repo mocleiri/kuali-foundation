@@ -2,7 +2,7 @@ package org.kuali.common.util.system;
 
 import javax.validation.Valid;
 
-import org.kuali.common.util.build.ValidatingInstanceBuilder;
+import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -34,7 +34,7 @@ public final class SystemProperties {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingInstanceBuilder<SystemProperties> {
+	public static class Builder extends AwesomeBuilder<SystemProperties> {
 
 		private User user;
 		private OperatingSystem operatingSystem;

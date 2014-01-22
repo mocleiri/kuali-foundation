@@ -15,6 +15,11 @@ public abstract class AwesomeBuilder<T> implements InstanceBuilder<T> {
 		return creator.create(this);
 	}
 
+	public AwesomeBuilder<T> creator(Creator creator) {
+		this.creator = creator;
+		return this;
+	}
+
 	public Creator getCreator() {
 		return creator;
 	}
