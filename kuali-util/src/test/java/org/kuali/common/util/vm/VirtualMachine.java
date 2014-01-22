@@ -3,6 +3,7 @@ package org.kuali.common.util.vm;
 import java.io.File;
 
 import org.kuali.common.util.bind.api.BindAlias;
+import org.kuali.common.util.bind.api.BindPrefix;
 import org.kuali.common.util.bind.api.Bound;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.spring.binder.CanonicalFileFormat;
@@ -15,12 +16,16 @@ public final class VirtualMachine {
 	private final OperatingSystem operatingSystem;
 	private final File tempDirectory;
 	private final File home;
+	private final Specification jre;
+	private final Specification vm;
 
 	private VirtualMachine(Builder builder) {
 		this.user = builder.user;
 		this.operatingSystem = builder.operatingSystem;
 		this.tempDirectory = builder.tempDirectory;
 		this.home = builder.home;
+		this.jre = builder.jre;
+		this.vm = builder.vm;
 	}
 
 	public static VirtualMachine build() {
@@ -44,6 +49,12 @@ public final class VirtualMachine {
 		@BindAlias("java.home")
 		@CanonicalFileFormat
 		private File home;
+
+		@BindPrefix("java.specification")
+		private Specification jre;
+
+		@BindPrefix("java.vm.specification")
+		private Specification vm;
 
 		@Override
 		public VirtualMachine getInstance() {
@@ -82,6 +93,22 @@ public final class VirtualMachine {
 			this.home = home;
 		}
 
+		public Specification getJre() {
+			return jre;
+		}
+
+		public void setJre(Specification jre) {
+			this.jre = jre;
+		}
+
+		public Specification getVm() {
+			return vm;
+		}
+
+		public void setVm(Specification vm) {
+			this.vm = vm;
+		}
+
 	}
 
 	public OperatingSystem getOperatingSystem() {
@@ -98,6 +125,14 @@ public final class VirtualMachine {
 
 	public File getHome() {
 		return home;
+	}
+
+	public Specification getJre() {
+		return jre;
+	}
+
+	public Specification getVm() {
+		return vm;
 	}
 
 }
