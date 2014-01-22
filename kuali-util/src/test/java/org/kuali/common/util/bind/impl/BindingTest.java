@@ -14,7 +14,6 @@ public class BindingTest {
 	@Test
 	public void test() {
 		try {
-			System.setProperty("user.dir", "/tmp");
 			VirtualMachine vm = VirtualMachine.build();
 			User user = vm.getUser();
 			OperatingSystem os = vm.getOperatingSystem();
