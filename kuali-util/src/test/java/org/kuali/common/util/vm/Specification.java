@@ -6,13 +6,13 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 @IdiotProofImmutable
 public final class Specification {
 
-	private final String version;
 	private final String vendor;
+	private final String version;
 	private final String name;
 
 	private Specification(Builder builder) {
-		this.version = builder.version;
 		this.vendor = builder.vendor;
+		this.version = builder.version;
 		this.name = builder.name;
 	}
 
@@ -22,17 +22,17 @@ public final class Specification {
 
 	public static class Builder extends AwesomeBuilder<Specification> {
 
-		private String version;
 		private String vendor;
+		private String version;
 		private String name;
-
-		public Builder version(String version) {
-			this.version = version;
-			return this;
-		}
 
 		public Builder vendor(String vendor) {
 			this.vendor = vendor;
+			return this;
+		}
+
+		public Builder version(String version) {
+			this.version = version;
 			return this;
 		}
 
