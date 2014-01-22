@@ -50,11 +50,11 @@ public final class VirtualMachine {
 		@CanonicalFileFormat
 		private File home;
 
-		@BindPrefix("java.specification")
-		private Specification jre;
-
 		@BindPrefix("java.vm.specification")
 		private Specification vm;
+
+		@BindPrefix("java.specification")
+		private Specification jre;
 
 		@Override
 		public VirtualMachine getInstance() {
