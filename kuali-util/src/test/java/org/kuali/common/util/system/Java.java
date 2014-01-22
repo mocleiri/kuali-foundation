@@ -15,7 +15,6 @@ public final class Java {
 		this.virtualMachine = builder.virtualMachine;
 	}
 
-	@Bind
 	public static class Builder extends AwesomeBuilder<Java> {
 
 		@Bind
