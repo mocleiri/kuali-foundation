@@ -20,7 +20,7 @@ public class BindingTest {
 			VirtualMachine vm = VirtualMachine.build();
 			User user = vm.getUser();
 			OperatingSystem os = vm.getOperatingSystem();
-			Specification jre = vm.getJre();
+			Specification jre = vm.getJreSpecification();
 			logger.info(format("user.name=[%s]", user.getName()));
 			logger.info(format("user.home=[%s]", user.getHome()));
 			logger.info(format("user.dir=[%s]", user.getDir()));

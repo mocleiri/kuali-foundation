@@ -15,16 +15,16 @@ public final class VirtualMachine {
 	private final OperatingSystem operatingSystem;
 	private final File tempDirectory;
 	private final File home;
-	private final Specification jre;
-	private final Specification vm;
+	private final Specification jreSpecification;
+	private final Specification jvmSpecification;
 
 	private VirtualMachine(Builder builder) {
 		this.user = builder.user;
 		this.operatingSystem = builder.operatingSystem;
 		this.tempDirectory = builder.tempDirectory;
 		this.home = builder.home;
-		this.jre = builder.jreSpecification;
-		this.vm = builder.jvmSpecification;
+		this.jreSpecification = builder.jreSpecification;
+		this.jvmSpecification = builder.jvmSpecification;
 	}
 
 	public static VirtualMachine build() {
@@ -129,12 +129,12 @@ public final class VirtualMachine {
 		return home;
 	}
 
-	public Specification getJre() {
-		return jre;
+	public Specification getJreSpecification() {
+		return jreSpecification;
 	}
 
-	public Specification getVm() {
-		return vm;
+	public Specification getJvmSpecification() {
+		return jvmSpecification;
 	}
 
 }
