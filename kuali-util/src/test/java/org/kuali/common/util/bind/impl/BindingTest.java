@@ -23,6 +23,7 @@ public class BindingTest {
 			logger.info(String.format("os.name=[%s]", os.getName()));
 			logger.info(String.format("os.arch=[%s]", os.getArchitecture()));
 			logger.info(String.format("os.version=[%s]", os.getVersion()));
+			logger.info(String.format("java.io.tmpdir=[%s]", vm.getTempDirectory()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
