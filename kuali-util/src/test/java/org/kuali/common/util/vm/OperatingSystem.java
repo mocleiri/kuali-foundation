@@ -6,7 +6,7 @@ import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
-public class OperatingSystem {
+public final class OperatingSystem {
 
 	private final String name;
 	private final String architecture;
