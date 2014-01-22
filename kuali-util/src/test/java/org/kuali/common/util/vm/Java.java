@@ -1,5 +1,6 @@
 package org.kuali.common.util.vm;
 
+import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -14,9 +15,13 @@ public final class Java {
 		this.virtualMachine = builder.virtualMachine;
 	}
 
+	@Bind
 	public static class Builder extends AwesomeBuilder<Java> {
 
+		@Bind
 		private RuntimeEnvironment runtimeEnvironment;
+
+		@Bind
 		private VirtualMachine virtualMachine;
 
 		public Builder runtimeEnvironment(RuntimeEnvironment runtimeEnvironment) {
