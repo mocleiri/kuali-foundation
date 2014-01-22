@@ -1,6 +1,5 @@
 package org.kuali.common.util.bind.impl;
 
-import org.codehaus.plexus.util.StringUtils;
 import org.junit.Test;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.vm.User;
@@ -17,10 +16,10 @@ public class BindingTest {
 			System.setProperty("user.dir", "/tmp");
 			VirtualMachine vm = VirtualMachine.build();
 			User user = vm.getUser();
-			String prefix = StringUtils.uncapitalise(User.class.getSimpleName());
-			logger.info(String.format("%s.name=[%s]", prefix, user.getName()));
-			logger.info(String.format("%s.home=[%s]", prefix, user.getHome()));
-			logger.info(String.format("%s.dir=[%s]", prefix, user.getDir()));
+			logger.info(String.format("user.name=[%s]", user.getName()));
+			logger.info(String.format("user.home=[%s]", user.getHome()));
+			logger.info(String.format("user.dir=[%s]", user.getDir()));
+			logger.info(String.format("user.dir=[%s]", user.getDir()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
