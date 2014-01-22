@@ -1,7 +1,9 @@
 package org.kuali.common.util.vm;
 
 import org.kuali.common.util.build.AwesomeBuilder;
+import org.kuali.common.util.validate.IdiotProofImmutable;
 
+@IdiotProofImmutable
 public final class Specification {
 
 	private final String version;
