@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Target({ TYPE, FIELD })
 @Retention(RUNTIME)
 @Documented
-public @interface Bound {
+public @interface Bind {
 
 	public static final String DEFAULT = "";
 

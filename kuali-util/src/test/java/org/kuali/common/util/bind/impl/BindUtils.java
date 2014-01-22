@@ -13,7 +13,7 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.BindAlias;
-import org.kuali.common.util.bind.api.Bound;
+import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.model.BoundFieldDescriptor;
 import org.kuali.common.util.bind.model.BoundTypeDescriptor;
 import org.kuali.common.util.build.Builder;
@@ -63,7 +63,7 @@ public class BindUtils {
 	protected static BoundTypeDescriptor getDescriptor(Class<?> type) {
 		BoundTypeDescriptor descriptor = CACHE.get(type);
 		if (descriptor == null) {
-			Bound bound = type.getAnnotation(Bound.class);
+			Bind bound = type.getAnnotation(Bind.class);
 			Optional<String> prefix = getPrefix(bound, type);
 			Map<Field, BoundFieldDescriptor> fields = getFields(type, prefix);
 			descriptor = BoundTypeDescriptor.builder(type).fields(fields).build();
@@ -72,7 +72,7 @@ public class BindUtils {
 		return descriptor;
 	}
 
-	protected static Optional<String> getPrefix(Bound bound, Class<?> type) {
+	protected static Optional<String> getPrefix(Bind bound, Class<?> type) {
 		// Do not use a prefix of any kind
 		if (!bound.prefix()) {
 			return Optional.absent();
@@ -83,7 +83,7 @@ public class BindUtils {
 		// 2 - They did supply it but they supplied it as ""
 		// In either case, we ignore value() and use the uncapitalized class name instead
 		// They can use prefix=false to skip using a prefix entirely
-		if (bound.value().equals(Bound.DEFAULT)) {
+		if (bound.value().equals(Bind.DEFAULT)) {
 			Class<?> prefixClass = getPrefixClass(type, bound);
 			return Optional.of(StringUtils.uncapitalize(prefixClass.getSimpleName()));
 		}
@@ -95,7 +95,7 @@ public class BindUtils {
 		return Optional.of(bound.value());
 	}
 
-	protected static Class<?> getPrefixClass(Class<?> type, Bound bound) {
+	protected static Class<?> getPrefixClass(Class<?> type, Bind bound) {
 		if (bound.prefixClass() != void.class) {
 			return bound.prefixClass();
 		}

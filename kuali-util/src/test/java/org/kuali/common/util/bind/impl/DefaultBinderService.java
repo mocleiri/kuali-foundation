@@ -4,7 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import org.kohsuke.MetaInfServices;
 import org.kuali.common.util.bind.api.BinderService;
-import org.kuali.common.util.bind.api.Bound;
+import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.spring.convert.Conversion;
 import org.kuali.common.util.spring.env.Environments;
 import org.springframework.core.convert.ConversionService;
@@ -23,7 +23,7 @@ public final class DefaultBinderService implements BinderService {
 
 	@Override
 	public <T> BindingResult bind(T target) {
-		if (!target.getClass().isAnnotationPresent(Bound.class)) {
+		if (!target.getClass().isAnnotationPresent(Bind.class)) {
 			return new MapBindingResult(Maps.newHashMap(), DataBinder.DEFAULT_OBJECT_NAME);
 		}
 		EnvironmentDataBinder binder = new EnvironmentDataBinder(target);
