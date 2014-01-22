@@ -7,12 +7,12 @@ import org.kuali.common.util.create.Creator;
 import org.kuali.common.util.create.CreatorFactory;
 import org.kuali.common.util.create.spi.ConfigurationState;
 
-public class CreatorFactoryImpl implements CreatorFactory {
+public class DefaultCreatorFactory implements CreatorFactory {
 
 	private final Validator validator;
 	private final Binder binder;
 
-	public CreatorFactoryImpl(ConfigurationState state) {
+	public DefaultCreatorFactory(ConfigurationState state) {
 		this.validator = state.getValidator();
 		this.binder = state.getBinderService();
 	}

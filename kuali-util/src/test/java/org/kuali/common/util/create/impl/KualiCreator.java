@@ -22,7 +22,7 @@ public class KualiCreator implements CreationProvider<KualiCreationConfiguration
 
 	@Override
 	public CreatorFactory buildCreatorFactory(ConfigurationState state) {
-		return new CreatorFactoryImpl(state);
+		return new DefaultCreatorFactory(state);
 	}
 
 }
