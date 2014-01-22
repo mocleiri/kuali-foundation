@@ -7,6 +7,7 @@ import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 
 @IdiotProofImmutable
 public final class Java {
@@ -15,9 +16,9 @@ public final class Java {
 	private final File temporaryDirectory;
 	private final Optional<String> jitCompiler;
 	private final String classVersion;
-	private final List<String> classPaths;
-	private final List<String> libraryPaths;
-	private final List<String> extensionDirectories;
+	private final ImmutableList<String> classPaths;
+	private final ImmutableList<String> libraryPaths;
+	private final ImmutableList<String> extensionDirectories;
 	private final RuntimeEnvironment runtimeEnvironment;
 	private final VirtualMachine virtualMachine;
 	private final String lineSeparator;
@@ -29,9 +30,9 @@ public final class Java {
 		this.temporaryDirectory = builder.temporaryDirectory;
 		this.jitCompiler = builder.jitCompiler;
 		this.classVersion = builder.classVersion;
-		this.classPaths = builder.classPaths;
-		this.libraryPaths = builder.libraryPaths;
-		this.extensionDirectories = builder.extensionDirectories;
+		this.classPaths = ImmutableList.copyOf(builder.classPaths);
+		this.libraryPaths = ImmutableList.copyOf(builder.libraryPaths);
+		this.extensionDirectories = ImmutableList.copyOf(builder.extensionDirectories);
 		this.runtimeEnvironment = builder.runtimeEnvironment;
 		this.virtualMachine = builder.virtualMachine;
 		this.lineSeparator = builder.lineSeparator;
@@ -233,15 +234,15 @@ public final class Java {
 		return classVersion;
 	}
 
-	public List<String> getClassPaths() {
+	public ImmutableList<String> getClassPaths() {
 		return classPaths;
 	}
 
-	public List<String> getLibraryPaths() {
+	public ImmutableList<String> getLibraryPaths() {
 		return libraryPaths;
 	}
 
-	public List<String> getExtensionDirectories() {
+	public ImmutableList<String> getExtensionDirectories() {
 		return extensionDirectories;
 	}
 
