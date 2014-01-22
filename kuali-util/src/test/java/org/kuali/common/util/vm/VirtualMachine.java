@@ -23,8 +23,8 @@ public final class VirtualMachine {
 		this.operatingSystem = builder.operatingSystem;
 		this.tempDirectory = builder.tempDirectory;
 		this.home = builder.home;
-		this.jre = builder.jre;
-		this.vm = builder.vm;
+		this.jre = builder.jreSpecification;
+		this.vm = builder.jvmSpecification;
 	}
 
 	public static VirtualMachine build() {
@@ -38,7 +38,7 @@ public final class VirtualMachine {
 	@Bind(prefix = false)
 	public static class Builder extends AwesomeBuilder<VirtualMachine> {
 
-		@Bind("user")
+		@Bind
 		private User user;
 
 		@Bind("os")
@@ -53,10 +53,10 @@ public final class VirtualMachine {
 		private File home;
 
 		@Bind("java.vm.specification")
-		private Specification vm;
+		private Specification jvmSpecification;
 
 		@Bind("java.specification")
-		private Specification jre;
+		private Specification jreSpecification;
 
 		@Override
 		public VirtualMachine getInstance() {
@@ -95,20 +95,20 @@ public final class VirtualMachine {
 			this.home = home;
 		}
 
-		public Specification getJre() {
-			return jre;
+		public Specification getJreSpecification() {
+			return jreSpecification;
 		}
 
-		public void setJre(Specification jre) {
-			this.jre = jre;
+		public void setJreSpecification(Specification jre) {
+			this.jreSpecification = jre;
 		}
 
-		public Specification getVm() {
-			return vm;
+		public Specification getJvmSpecification() {
+			return jvmSpecification;
 		}
 
-		public void setVm(Specification vm) {
-			this.vm = vm;
+		public void setJvmSpecification(Specification vm) {
+			this.jvmSpecification = vm;
 		}
 
 	}
