@@ -49,8 +49,8 @@ public final class VirtualMachine {
 		@CanonicalFileFormat
 		private File home;
 
-		private Specification vm;
-		private Specification jre;
+		private Specification vm = Specification.create();
+		private Specification jre = Specification.create();
 
 		@Override
 		public VirtualMachine getInstance() {
