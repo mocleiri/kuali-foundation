@@ -38,7 +38,7 @@ public final class DefaultBinder implements Binder {
 
 	@Override
 	public <T> List<String> bind(T target) {
-		return bind(Optional.<String> absent());
+		return bind(Optional.<String> absent(), target);
 	}
 
 	protected <T> List<String> bind(Optional<String> prefix, T target) {

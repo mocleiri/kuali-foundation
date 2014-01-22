@@ -2,9 +2,9 @@ package org.kuali.common.util.system;
 
 import javax.validation.Valid;
 
+import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
-import org.springframework.beans.factory.annotation.Value;
 
 @IdiotProofImmutable
 public final class SystemProperties {
@@ -34,13 +34,13 @@ public final class SystemProperties {
 		return new Builder();
 	}
 
+	@Bind
 	public static class Builder extends AwesomeBuilder<SystemProperties> {
 
 		private User user;
 		private OperatingSystem operatingSystem;
 		private Java java;
 		private String lineSeparator;
-		@Value("${path.separator}")
 		private String pathSeparator;
 		private String fileSeparator;
 
