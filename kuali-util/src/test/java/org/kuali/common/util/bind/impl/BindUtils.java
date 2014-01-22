@@ -1,5 +1,6 @@
 package org.kuali.common.util.bind.impl;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 
 import java.lang.reflect.Field;
@@ -12,7 +13,7 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.Bind;
-import org.kuali.common.util.bind.api.BindAlias;
+import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.bind.model.BoundFieldDescriptor;
 import org.kuali.common.util.bind.model.BoundTypeDescriptor;
 import org.kuali.common.util.build.Builder;
@@ -28,6 +29,9 @@ import com.google.common.collect.Sets;
 public class BindUtils {
 
 	public static ImmutableMap<String, String> getMap(Class<?> type, Bind bind, Environment env) {
+		checkNotNull(type, "'type' cannot be null");
+		checkNotNull(bind, "'bind' cannot be null");
+		checkNotNull(env, "'env' cannot be null");
 		BoundTypeDescriptor descriptor = getDescriptor(type, bind);
 		return getMap(descriptor, env);
 	}
@@ -108,7 +112,7 @@ public class BindUtils {
 
 	protected static BoundFieldDescriptor getFieldKeys(Field field, Optional<String> prefix) {
 		List<String> keys = getKeys(prefix, ImmutableList.of(field.getName()));
-		Optional<BindAlias> mapping = ReflectionUtils.getAnnotation(field, BindAlias.class);
+		Optional<Alias> mapping = ReflectionUtils.getAnnotation(field, Alias.class);
 		if (mapping.isPresent()) {
 			keys = getKeys(prefix, getKeys(field, mapping.get()));
 		}
@@ -117,7 +121,7 @@ public class BindUtils {
 		return BoundFieldDescriptor.builder(field).mapping(mapping).keys(keys).build();
 	}
 
-	protected static List<String> getKeys(Field field, BindAlias annotation) {
+	protected static List<String> getKeys(Field field, Alias annotation) {
 		List<String> mappings = ImmutableList.copyOf(annotation.value());
 		int blanks = CollectionUtils.getBlanks(mappings).size();
 		checkState(blanks == 0, "[%s.%s] contains %s bind mappings that are blank", field.getDeclaringClass().getCanonicalName(), field.getName(), blanks);

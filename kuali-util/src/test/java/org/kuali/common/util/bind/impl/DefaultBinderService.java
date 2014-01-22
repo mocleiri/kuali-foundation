@@ -36,18 +36,32 @@ public final class DefaultBinderService implements BinderService {
 		Set<Field> fields = getBindFields(target.getClass());
 		for (Field field : fields) {
 			Class<?> fieldType = field.getType();
-			Bind bind = fieldType.getAnnotation(Bind.class);
-			org.kuali.common.util.build.Builder<?> builder = (org.kuali.common.util.build.Builder<?>) ReflectionUtils.newInstance(fieldType);
+			Class<? extends org.kuali.common.util.build.Builder<?>> builderType = getBuilder(fieldType);
+			Bind bind = field.getAnnotation(Bind.class);
+			org.kuali.common.util.build.Builder<?> builder = (org.kuali.common.util.build.Builder<?>) ReflectionUtils.newInstance(builderType);
 			EnvironmentDataBinder binder = new EnvironmentDataBinder(builder, bind);
 			binder.setConversionService(service);
 			binder.bind(environment);
-			ReflectionUtils.setField(field, target, builder.build());
+			Object value = builder.build();
+			ReflectionUtils.set(target, field, value);
 		}
 		Bind bind = target.getClass().getAnnotation(Bind.class);
 		EnvironmentDataBinder binder = new EnvironmentDataBinder(target, bind);
 		binder.setConversionService(service);
 		binder.bind(environment);
 		return binder.getBindingResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	protected Class<? extends org.kuali.common.util.build.Builder<?>> getBuilder(Class<?> type) {
+		Class<?>[] declaredClasses = type.getDeclaredClasses();
+		for (Class<?> declaredClass : declaredClasses) {
+			String name = declaredClass.getCanonicalName();
+			if (name.endsWith("Builder")) {
+				return (Class<? extends org.kuali.common.util.build.Builder<?>>) declaredClass;
+			}
+		}
+		return null;
 	}
 
 	protected Set<Field> getBindFields(Class<?> type) {

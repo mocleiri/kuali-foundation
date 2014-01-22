@@ -1,6 +1,6 @@
 package org.kuali.common.util.vm;
 
-import org.kuali.common.util.bind.api.BindAlias;
+import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -28,7 +28,7 @@ public final class OperatingSystem {
 	public static class Builder extends AwesomeBuilder<OperatingSystem> {
 
 		private String name;
-		@BindAlias("arch")
+		@Alias("arch")
 		private String architecture;
 		private String version;
 

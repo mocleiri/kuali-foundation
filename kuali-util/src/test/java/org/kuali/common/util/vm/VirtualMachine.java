@@ -3,7 +3,7 @@ package org.kuali.common.util.vm;
 import java.io.File;
 
 import org.kuali.common.util.bind.api.Bind;
-import org.kuali.common.util.bind.api.BindAlias;
+import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.spring.binder.CanonicalFileFormat;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -44,11 +44,11 @@ public final class VirtualMachine {
 		@Bind("os")
 		private OperatingSystem operatingSystem;
 
-		@BindAlias("java.io.tmpdir")
+		@Alias("java.io.tmpdir")
 		@CanonicalFileFormat
 		private File tempDirectory;
 
-		@BindAlias("java.home")
+		@Alias("java.home")
 		@CanonicalFileFormat
 		private File home;
 

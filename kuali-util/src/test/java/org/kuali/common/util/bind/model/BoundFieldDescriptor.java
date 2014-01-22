@@ -10,7 +10,7 @@ import static org.kuali.common.util.CollectionUtils.getBlanks;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import org.kuali.common.util.bind.api.BindAlias;
+import org.kuali.common.util.bind.api.Alias;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
@@ -19,7 +19,7 @@ public final class BoundFieldDescriptor {
 
 	private final Field field;
 	private final ImmutableList<String> keys;
-	private final Optional<BindAlias> mapping;
+	private final Optional<Alias> mapping;
 
 	public static BoundFieldDescriptor create(Field field) {
 		return builder(field).build();
@@ -41,7 +41,7 @@ public final class BoundFieldDescriptor {
 		private final Field field;
 
 		private List<String> keys;
-		private Optional<BindAlias> mapping;
+		private Optional<Alias> mapping;
 
 		public Builder(Field field) {
 			this.field = field;
@@ -57,11 +57,11 @@ public final class BoundFieldDescriptor {
 			return this;
 		}
 
-		public Builder mapping(BindAlias mapping) {
+		public Builder mapping(Alias mapping) {
 			return mapping(Optional.of(mapping));
 		}
 
-		public Builder mapping(Optional<BindAlias> mapping) {
+		public Builder mapping(Optional<Alias> mapping) {
 			this.mapping = mapping;
 			return this;
 		}
@@ -94,11 +94,11 @@ public final class BoundFieldDescriptor {
 			return field;
 		}
 
-		public Optional<BindAlias> getMapping() {
+		public Optional<Alias> getMapping() {
 			return mapping;
 		}
 
-		public void setMapping(Optional<BindAlias> mapping) {
+		public void setMapping(Optional<Alias> mapping) {
 			this.mapping = mapping;
 		}
 
@@ -112,7 +112,7 @@ public final class BoundFieldDescriptor {
 		return keys;
 	}
 
-	public Optional<BindAlias> getMapping() {
+	public Optional<Alias> getMapping() {
 		return mapping;
 	}
 
