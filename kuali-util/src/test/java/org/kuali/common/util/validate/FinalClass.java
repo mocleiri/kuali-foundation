@@ -15,7 +15,7 @@ import javax.validation.Payload;
  */
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = FinalFieldsValidator.class)
+@Constraint(validatedBy = FinalClassValidator.class)
 @Documented
 public @interface FinalClass {
 
