@@ -19,3 +19,10 @@ executing [classpath:upgrades/M6/2013-05-16-KSEN-STATE-CNSTRNT-constrain-ao-offe
 executing [classpath:upgrades/M7/2013-06-12-Fix-constraint-names.sql]
 executing [classpath:upgrades/M6/2013-02-21-KRIM-fix-KS-SYS-perm-srvc_nm.sql]
 executing [classpath:upgrades/M7/2013-06-12-Fix-constraint-names.sql]
+
+
+java.version 	              JRE version
+java.specification.version 	  JRE specification version
+
+java.vm.version 	          JVM version
+java.vm.specification.version JVM specification version
