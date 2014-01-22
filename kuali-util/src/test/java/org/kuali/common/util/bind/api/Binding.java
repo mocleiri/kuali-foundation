@@ -4,11 +4,11 @@ import org.kuali.common.util.serviceloader.ServiceProvider;
 
 public class Binding {
 
-	private static BinderService instance;
+	private static Binder instance;
 
-	public synchronized static BinderService getDefaultBinderService() {
+	public synchronized static Binder getDefaultBinderService() {
 		if (instance == null) {
-			instance = ServiceProvider.getFirst(BinderService.class);
+			instance = ServiceProvider.getFirst(Binder.class);
 		}
 		return instance;
 	}

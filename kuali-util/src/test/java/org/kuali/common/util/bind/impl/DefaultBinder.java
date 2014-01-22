@@ -11,7 +11,7 @@ import java.util.Set;
 import org.kohsuke.MetaInfServices;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.Bind;
-import org.kuali.common.util.bind.api.BinderService;
+import org.kuali.common.util.bind.api.Binder;
 import org.kuali.common.util.spring.convert.Conversion;
 import org.kuali.common.util.spring.env.Environments;
 import org.springframework.core.convert.ConversionService;
@@ -25,8 +25,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
-@MetaInfServices(BinderService.class)
-public final class DefaultBinderService implements BinderService {
+@MetaInfServices(Binder.class)
+public final class DefaultBinder implements Binder {
 
 	private final Environment environment;
 	private final ConversionService service;
@@ -114,17 +114,17 @@ public final class DefaultBinderService implements BinderService {
 		return fields;
 	}
 
-	public DefaultBinderService() {
+	public DefaultBinder() {
 		this(builder());
 		Builder.validate(this);
 	}
 
-	private DefaultBinderService(Builder builder) {
+	private DefaultBinder(Builder builder) {
 		this.environment = builder.environment;
 		this.service = builder.service;
 	}
 
-	public static DefaultBinderService create() {
+	public static DefaultBinder create() {
 		return builder().build();
 	}
 
@@ -132,7 +132,7 @@ public final class DefaultBinderService implements BinderService {
 		return new Builder();
 	}
 
-	public static final class Builder implements org.kuali.common.util.build.Builder<DefaultBinderService> {
+	public static final class Builder implements org.kuali.common.util.build.Builder<DefaultBinder> {
 
 		private Environment environment = Environments.getDefaultEnvironment();
 		private ConversionService service = Conversion.getDefaultConversionService();
@@ -148,13 +148,13 @@ public final class DefaultBinderService implements BinderService {
 		}
 
 		@Override
-		public DefaultBinderService build() {
-			DefaultBinderService instance = new DefaultBinderService(this);
+		public DefaultBinder build() {
+			DefaultBinder instance = new DefaultBinder(this);
 			validate(instance);
 			return instance;
 		}
 
-		private static void validate(DefaultBinderService instance) {
+		private static void validate(DefaultBinder instance) {
 			checkNotNull(instance.environment, "'environment' cannot be null");
 			checkNotNull(instance.service, "'service' cannot be null");
 		}

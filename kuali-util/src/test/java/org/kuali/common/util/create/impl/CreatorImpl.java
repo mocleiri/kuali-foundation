@@ -9,7 +9,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
-import org.kuali.common.util.bind.api.BinderService;
+import org.kuali.common.util.bind.api.Binder;
 import org.kuali.common.util.build.InstanceBuilder;
 import org.kuali.common.util.create.Creator;
 import org.kuali.common.util.validate.Validation;
@@ -17,7 +17,7 @@ import org.kuali.common.util.validate.Validation;
 public class CreatorImpl implements Creator {
 
 	private final Validator validator;
-	private final BinderService binder;
+	private final Binder binder;
 
 	@Override
 	public <T> T create(InstanceBuilder<T> builder) {
@@ -34,7 +34,7 @@ public class CreatorImpl implements Creator {
 		this.binder = builder.binder;
 	}
 
-	public static CreatorImpl create(Validator validator, BinderService binder) {
+	public static CreatorImpl create(Validator validator, Binder binder) {
 		return builder().validator(validator).binder(binder).build();
 	}
 
@@ -45,14 +45,14 @@ public class CreatorImpl implements Creator {
 	public static class Builder {
 
 		private Validator validator;
-		private BinderService binder;
+		private Binder binder;
 
 		public Builder validator(Validator validator) {
 			this.validator = validator;
 			return this;
 		}
 
-		public Builder binder(BinderService binder) {
+		public Builder binder(Binder binder) {
 			this.binder = binder;
 			return this;
 		}

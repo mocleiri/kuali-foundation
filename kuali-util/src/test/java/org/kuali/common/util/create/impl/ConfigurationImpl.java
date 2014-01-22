@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.validation.Validator;
 
-import org.kuali.common.util.bind.api.BinderService;
+import org.kuali.common.util.bind.api.Binder;
 import org.kuali.common.util.bind.api.Binding;
 import org.kuali.common.util.create.CreationProviderResolver;
 import org.kuali.common.util.create.CreatorFactory;
@@ -19,7 +19,7 @@ import org.kuali.common.util.validate.Validation;
 public final class ConfigurationImpl implements KualiCreationConfiguration, ConfigurationState {
 
 	private final Validator validator;
-	private final BinderService binder;
+	private final Binder binder;
 	private final CreationProviderResolver providerResolver;
 
 	@Override
@@ -36,7 +36,7 @@ public final class ConfigurationImpl implements KualiCreationConfiguration, Conf
 	}
 
 	@Override
-	public BinderService getBinderService() {
+	public Binder getBinderService() {
 		return binder;
 	}
 
@@ -58,7 +58,7 @@ public final class ConfigurationImpl implements KualiCreationConfiguration, Conf
 
 		private final CreationProviderResolver providerResolver;
 		private Validator validator = Validation.getDefaultValidator();
-		private BinderService binder = Binding.getDefaultBinderService();
+		private Binder binder = Binding.getDefaultBinderService();
 
 		public Builder(BootstrapState state) {
 			if (state.getCreationProviderResolver().isPresent()) {
@@ -73,7 +73,7 @@ public final class ConfigurationImpl implements KualiCreationConfiguration, Conf
 			return this;
 		}
 
-		public Builder binder(BinderService binder) {
+		public Builder binder(Binder binder) {
 			this.binder = binder;
 			return this;
 		}
@@ -98,11 +98,11 @@ public final class ConfigurationImpl implements KualiCreationConfiguration, Conf
 			this.validator = validator;
 		}
 
-		public BinderService getBinder() {
+		public Binder getBinder() {
 			return binder;
 		}
 
-		public void setBinder(BinderService binder) {
+		public void setBinder(Binder binder) {
 			this.binder = binder;
 		}
 
@@ -111,7 +111,7 @@ public final class ConfigurationImpl implements KualiCreationConfiguration, Conf
 		}
 	}
 
-	public BinderService getBinder() {
+	public Binder getBinder() {
 		return binder;
 	}
 
