@@ -49,7 +49,10 @@ public final class VirtualMachine {
 		@CanonicalFileFormat
 		private File home;
 
+		@Bound("java.vm")
 		private Specification vm = Specification.create();
+
+		@Bound("java")
 		private Specification jre = Specification.create();
 
 		@Override
