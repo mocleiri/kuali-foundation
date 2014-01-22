@@ -32,7 +32,16 @@ public final class DefaultBinder implements Binder {
 	private final ConversionService service;
 
 	@Override
+	public <T> List<String> bind(String prefix, T target) {
+		return bind(Optional.of(prefix), target);
+	}
+
+	@Override
 	public <T> List<String> bind(T target) {
+		return bind(Optional.<String> absent());
+	}
+
+	protected <T> List<String> bind(Optional<String> prefix, T target) {
 		if (!target.getClass().isAnnotationPresent(Bind.class)) {
 			return ImmutableList.of();
 		}
