@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.kuali.common.util.build.ValidatingInstanceBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
+import org.springframework.beans.factory.annotation.Value;
 
 @IdiotProofImmutable
 public final class SystemProperties {
@@ -39,6 +40,7 @@ public final class SystemProperties {
 		private OperatingSystem operatingSystem;
 		private Java java;
 		private String lineSeparator;
+		@Value("${path.separator}")
 		private String pathSeparator;
 		private String fileSeparator;
 

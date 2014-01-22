@@ -15,8 +15,8 @@ public class DefaultSystemConfig implements SystemConfig {
 	@Override
 	@Bean
 	public SystemProperties systemProperties() {
-		String pathSeparator = env.getProperty("path.separator");
-		return SystemProperties.builder().pathSeparator(pathSeparator).build();
+		// String pathSeparator = env.getProperty("path.separator");
+		return SystemProperties.builder().build();
 	}
 
 }

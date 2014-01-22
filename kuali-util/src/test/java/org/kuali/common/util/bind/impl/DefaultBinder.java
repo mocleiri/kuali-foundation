@@ -128,6 +128,10 @@ public final class DefaultBinder implements Binder {
 		return builder().build();
 	}
 
+	public static DefaultBinder create(Environment env, ConversionService service) {
+		return builder().environment(env).service(service).build();
+	}
+
 	public static Builder builder() {
 		return new Builder();
 	}
