@@ -17,6 +17,14 @@ public final class Specification {
 		this.name = builder.name;
 	}
 
+	public static Specification create() {
+		return builder().build();
+	}
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	@Bound("java.specification")
 	public static class Builder extends AwesomeBuilder<Specification> {
 
