@@ -21,6 +21,8 @@ public class BindingTest {
 			logger.info(String.format("user.home=[%s]", user.getHome()));
 			logger.info(String.format("user.dir=[%s]", user.getDir()));
 			logger.info(String.format("os.name=[%s]", os.getName()));
+			logger.info(String.format("os.arch=[%s]", os.getArchitecture()));
+			logger.info(String.format("os.version=[%s]", os.getVersion()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -54,6 +54,30 @@ public class OperatingSystem {
 			return new OperatingSystem(this);
 		}
 
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public String getArchitecture() {
+			return architecture;
+		}
+
+		public void setArchitecture(String architecture) {
+			this.architecture = architecture;
+		}
+
+		public String getVersion() {
+			return version;
+		}
+
+		public void setVersion(String version) {
+			this.version = version;
+		}
+
 	}
 
 	public String getName() {
