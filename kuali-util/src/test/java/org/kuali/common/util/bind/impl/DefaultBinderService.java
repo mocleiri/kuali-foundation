@@ -74,7 +74,7 @@ public final class DefaultBinderService implements BinderService {
 			if (message.isPresent()) {
 				errors.add(message.get());
 			} else {
-				errors.add("Global binding error with no default message was encountered.");
+				errors.add("Global binding error.  No default message was supplied.");
 			}
 		}
 		return errors;
