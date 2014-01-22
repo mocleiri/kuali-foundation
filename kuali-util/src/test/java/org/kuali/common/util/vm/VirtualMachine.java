@@ -3,7 +3,6 @@ package org.kuali.common.util.vm;
 import java.io.File;
 
 import org.kuali.common.util.bind.api.BindAlias;
-import org.kuali.common.util.bind.api.BindPrefix;
 import org.kuali.common.util.bind.api.Bound;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.spring.binder.CanonicalFileFormat;
@@ -50,10 +49,7 @@ public final class VirtualMachine {
 		@CanonicalFileFormat
 		private File home;
 
-		@BindPrefix("java.vm.specification")
 		private Specification vm;
-
-		@BindPrefix("java.specification")
 		private Specification jre;
 
 		@Override
