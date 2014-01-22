@@ -14,7 +14,7 @@ import org.kuali.common.util.build.InstanceBuilder;
 import org.kuali.common.util.create.Creator;
 import org.kuali.common.util.validate.Validation;
 
-public class CreatorImpl implements Creator {
+public class DefaultCreator implements Creator {
 
 	private final Validator validator;
 	private final Binder binder;
@@ -29,12 +29,12 @@ public class CreatorImpl implements Creator {
 		return instance;
 	}
 
-	private CreatorImpl(Builder builder) {
+	private DefaultCreator(Builder builder) {
 		this.validator = builder.validator;
 		this.binder = builder.binder;
 	}
 
-	public static CreatorImpl create(Validator validator, Binder binder) {
+	public static DefaultCreator create(Validator validator, Binder binder) {
 		return builder().validator(validator).binder(binder).build();
 	}
 
@@ -57,13 +57,13 @@ public class CreatorImpl implements Creator {
 			return this;
 		}
 
-		public CreatorImpl build() {
-			CreatorImpl instance = new CreatorImpl(this);
+		public DefaultCreator build() {
+			DefaultCreator instance = new DefaultCreator(this);
 			validate(instance);
 			return instance;
 		}
 
-		private static void validate(CreatorImpl instance) {
+		private static void validate(DefaultCreator instance) {
 			checkNotNull(instance.validator, "'validator' cannot be null");
 			checkNotNull(instance.binder, "'binder' cannot be null");
 		}

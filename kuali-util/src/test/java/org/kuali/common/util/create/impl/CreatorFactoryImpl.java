@@ -19,7 +19,7 @@ public class CreatorFactoryImpl implements CreatorFactory {
 
 	@Override
 	public Creator getCreator() {
-		return CreatorImpl.create(validator, binder);
+		return DefaultCreator.create(validator, binder);
 	}
 
 }
