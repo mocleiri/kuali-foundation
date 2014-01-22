@@ -1,4 +1,4 @@
-package org.kuali.common.util.vm;
+package system;
 
 import java.io.File;
 
@@ -17,10 +17,6 @@ public final class User {
 		this.name = builder.name;
 		this.home = builder.home;
 		this.dir = builder.dir;
-	}
-
-	public static User create() {
-		return builder().build();
 	}
 
 	public static Builder builder() {
