@@ -10,7 +10,7 @@ java.vm.specification.name    JVM specification name
 
 
 
-java.vendor.url
+java.vendor.url               JRE vendor url
 java.vendor                   JRE vendor
 java.version                  JRE version
 
