@@ -9,7 +9,7 @@ import org.kuali.common.util.spring.binder.CanonicalFileFormat;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
-public final class VirtualMachine {
+public final class SystemProperties {
 
 	private final User user;
 	private final OperatingSystem operatingSystem;
@@ -18,7 +18,7 @@ public final class VirtualMachine {
 	private final Specification jreSpecification;
 	private final Specification jvmSpecification;
 
-	private VirtualMachine(Builder builder) {
+	private SystemProperties(Builder builder) {
 		this.user = builder.user;
 		this.operatingSystem = builder.operatingSystem;
 		this.tempDirectory = builder.tempDirectory;
@@ -27,7 +27,7 @@ public final class VirtualMachine {
 		this.jvmSpecification = builder.jvmSpecification;
 	}
 
-	public static VirtualMachine build() {
+	public static SystemProperties build() {
 		return builder().build();
 	}
 
@@ -36,7 +36,7 @@ public final class VirtualMachine {
 	}
 
 	@Bind(prefix = false)
-	public static class Builder extends AwesomeBuilder<VirtualMachine> {
+	public static class Builder extends AwesomeBuilder<SystemProperties> {
 
 		@Bind
 		private User user;
@@ -59,8 +59,8 @@ public final class VirtualMachine {
 		private Specification jreSpecification;
 
 		@Override
-		public VirtualMachine getInstance() {
-			return new VirtualMachine(this);
+		public SystemProperties getInstance() {
+			return new SystemProperties(this);
 		}
 
 		public User getUser() {

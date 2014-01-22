@@ -7,7 +7,7 @@ import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.vm.OperatingSystem;
 import org.kuali.common.util.vm.Specification;
 import org.kuali.common.util.vm.User;
-import org.kuali.common.util.vm.VirtualMachine;
+import org.kuali.common.util.vm.SystemProperties;
 import org.slf4j.Logger;
 
 public class BindingTest {
@@ -17,7 +17,7 @@ public class BindingTest {
 	@Test
 	public void test() {
 		try {
-			VirtualMachine vm = VirtualMachine.build();
+			SystemProperties vm = SystemProperties.build();
 			User user = vm.getUser();
 			OperatingSystem os = vm.getOperatingSystem();
 			Specification jre = vm.getJreSpecification();
