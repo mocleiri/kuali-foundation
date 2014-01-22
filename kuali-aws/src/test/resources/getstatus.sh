@@ -3,7 +3,6 @@
 numENV=15
 GROUP=rice
 
-
 echo
 echo > scrape.out
 
