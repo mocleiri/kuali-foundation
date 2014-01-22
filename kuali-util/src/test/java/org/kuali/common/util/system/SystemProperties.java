@@ -1,11 +1,6 @@
 package org.kuali.common.util.system;
 
-import java.io.File;
-
-import org.kuali.common.util.bind.api.Alias;
-import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.build.AwesomeBuilder;
-import org.kuali.common.util.spring.binder.CanonicalFileFormat;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
@@ -13,50 +8,58 @@ public final class SystemProperties {
 
 	private final User user;
 	private final OperatingSystem operatingSystem;
-	private final File tempDirectory;
-	private final File home;
-	private final Specification jreSpecification;
-	private final Specification jvmSpecification;
+	private final Java java;
+	private final String lineSeparator;
+	private final String pathSeparator;
+	private final String fileSeparator;
 
 	private SystemProperties(Builder builder) {
 		this.user = builder.user;
 		this.operatingSystem = builder.operatingSystem;
-		this.tempDirectory = builder.tempDirectory;
-		this.home = builder.home;
-		this.jreSpecification = builder.jreSpecification;
-		this.jvmSpecification = builder.jvmSpecification;
+		this.java = builder.java;
+		this.lineSeparator = builder.lineSeparator;
+		this.pathSeparator = builder.pathSeparator;
+		this.fileSeparator = builder.fileSeparator;
 	}
 
-	public static SystemProperties build() {
-		return builder().build();
-	}
-
-	private static Builder builder() {
-		return new Builder();
-	}
-
-	@Bind(prefix = false)
 	public static class Builder extends AwesomeBuilder<SystemProperties> {
 
-		@Bind("user")
 		private User user;
-
-		@Bind("os")
 		private OperatingSystem operatingSystem;
+		private Java java;
+		private String lineSeparator;
+		private String pathSeparator;
+		private String fileSeparator;
 
-		@Alias("java.io.tmpdir")
-		@CanonicalFileFormat
-		private File tempDirectory;
+		public Builder user(User user) {
+			this.user = user;
+			return this;
+		}
 
-		@Alias("java.home")
-		@CanonicalFileFormat
-		private File home;
+		public Builder operatingSystem(OperatingSystem operatingSystem) {
+			this.operatingSystem = operatingSystem;
+			return this;
+		}
 
-		@Bind("java.vm.specification")
-		private Specification jvmSpecification;
+		public Builder java(Java java) {
+			this.java = java;
+			return this;
+		}
 
-		@Bind("java.specification")
-		private Specification jreSpecification;
+		public Builder lineSeparator(String lineSeparator) {
+			this.lineSeparator = lineSeparator;
+			return this;
+		}
+
+		public Builder pathSeparator(String pathSeparator) {
+			this.pathSeparator = pathSeparator;
+			return this;
+		}
+
+		public Builder fileSeparator(String fileSeparator) {
+			this.fileSeparator = fileSeparator;
+			return this;
+		}
 
 		@Override
 		public SystemProperties getInstance() {
@@ -79,62 +82,62 @@ public final class SystemProperties {
 			this.operatingSystem = operatingSystem;
 		}
 
-		public File getTempDirectory() {
-			return tempDirectory;
+		public Java getJava() {
+			return java;
 		}
 
-		public void setTempDirectory(File tempDirectory) {
-			this.tempDirectory = tempDirectory;
+		public void setJava(Java java) {
+			this.java = java;
 		}
 
-		public File getHome() {
-			return home;
+		public String getLineSeparator() {
+			return lineSeparator;
 		}
 
-		public void setHome(File home) {
-			this.home = home;
+		public void setLineSeparator(String lineSeparator) {
+			this.lineSeparator = lineSeparator;
 		}
 
-		public Specification getJreSpecification() {
-			return jreSpecification;
+		public String getPathSeparator() {
+			return pathSeparator;
 		}
 
-		public void setJreSpecification(Specification jre) {
-			this.jreSpecification = jre;
+		public void setPathSeparator(String pathSeparator) {
+			this.pathSeparator = pathSeparator;
 		}
 
-		public Specification getJvmSpecification() {
-			return jvmSpecification;
+		public String getFileSeparator() {
+			return fileSeparator;
 		}
 
-		public void setJvmSpecification(Specification vm) {
-			this.jvmSpecification = vm;
+		public void setFileSeparator(String fileSeparator) {
+			this.fileSeparator = fileSeparator;
 		}
 
-	}
-
-	public OperatingSystem getOperatingSystem() {
-		return operatingSystem;
 	}
 
 	public User getUser() {
 		return user;
 	}
 
-	public File getTempDirectory() {
-		return tempDirectory;
+	public OperatingSystem getOperatingSystem() {
+		return operatingSystem;
 	}
 
-	public File getHome() {
-		return home;
+	public Java getJava() {
+		return java;
 	}
 
-	public Specification getJreSpecification() {
-		return jreSpecification;
+	public String getLineSeparator() {
+		return lineSeparator;
 	}
 
-	public Specification getJvmSpecification() {
-		return jvmSpecification;
+	public String getPathSeparator() {
+		return pathSeparator;
+	}
+
+	public String getFileSeparator() {
+		return fileSeparator;
 	}
 
 }
