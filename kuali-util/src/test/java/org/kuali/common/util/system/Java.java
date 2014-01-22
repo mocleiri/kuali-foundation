@@ -3,6 +3,8 @@ package org.kuali.common.util.system;
 import java.io.File;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -19,7 +21,11 @@ public final class Java {
 	private final ImmutableList<String> classPaths;
 	private final ImmutableList<String> libraryPaths;
 	private final ImmutableList<String> extensionDirectories;
+
+	@Valid
 	private final RuntimeEnvironment runtimeEnvironment;
+
+	@Valid
 	private final VirtualMachine virtualMachine;
 
 	private Java(Builder builder) {

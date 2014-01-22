@@ -1,5 +1,7 @@
 package org.kuali.common.util.system;
 
+import javax.validation.Valid;
+
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -9,6 +11,8 @@ public final class VirtualMachine {
 	private final String name;
 	private final String vendor;
 	private final String version;
+
+	@Valid
 	private final Specification specification;
 
 	private VirtualMachine(Builder builder) {

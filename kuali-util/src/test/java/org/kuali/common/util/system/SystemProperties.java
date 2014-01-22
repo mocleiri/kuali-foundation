@@ -1,13 +1,20 @@
 package org.kuali.common.util.system;
 
+import javax.validation.Valid;
+
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
 public final class SystemProperties {
 
+	@Valid
 	private final User user;
+
+	@Valid
 	private final OperatingSystem operatingSystem;
+
+	@Valid
 	private final Java java;
 	private final String lineSeparator;
 	private final String pathSeparator;
