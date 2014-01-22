@@ -15,7 +15,8 @@ public class DefaultSystemConfig implements SystemConfig {
 	@Override
 	@Bean
 	public SystemProperties systemProperties() {
-		return SystemProperties.builder().build();
+		String lineSeparator = env.getProperty("line.separator");
+		return SystemProperties.builder().lineSeparator(lineSeparator).build();
 	}
 
 }
