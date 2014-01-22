@@ -2,7 +2,6 @@ package org.kuali.common.util.vm;
 
 import java.io.File;
 
-import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.spring.binder.CanonicalFileFormat;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -28,7 +27,6 @@ public final class User {
 		return new Builder();
 	}
 
-	@Bind
 	public static class Builder extends AwesomeBuilder<User> {
 
 		private String name;

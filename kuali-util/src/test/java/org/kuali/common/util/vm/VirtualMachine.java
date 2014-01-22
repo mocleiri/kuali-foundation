@@ -35,11 +35,14 @@ public final class VirtualMachine {
 		return new Builder();
 	}
 
-	@Bind(prefix = false)
+	@Bind
 	public static class Builder extends AwesomeBuilder<VirtualMachine> {
 
-		private User user = User.create();
-		private OperatingSystem operatingSystem = OperatingSystem.create();
+		@Bind("user")
+		private User user;
+
+		@Bind("os")
+		private OperatingSystem operatingSystem;
 
 		@BindAlias("java.io.tmpdir")
 		@CanonicalFileFormat
