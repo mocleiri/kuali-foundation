@@ -3,6 +3,7 @@ package org.kuali.common.util.create.impl;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -12,7 +13,6 @@ import org.kuali.common.util.bind.api.BinderService;
 import org.kuali.common.util.build.InstanceBuilder;
 import org.kuali.common.util.create.Creator;
 import org.kuali.common.util.validate.Validation;
-import org.springframework.validation.BindingResult;
 
 public class CreatorImpl implements Creator {
 
@@ -21,8 +21,8 @@ public class CreatorImpl implements Creator {
 
 	@Override
 	public <T> T create(InstanceBuilder<T> builder) {
-		BindingResult result = binder.bind(builder);
-		checkState(result.getAllErrors().size() == 0, "There were %s binding errors", result.getAllErrors().size());
+		List<String> errors = binder.bind(builder);
+		checkState(errors.size() == 0, "There were %s binding errors", errors.size());
 		T instance = builder.getInstance();
 		Set<ConstraintViolation<T>> violations = validator.validate(instance);
 		Validation.check(violations);

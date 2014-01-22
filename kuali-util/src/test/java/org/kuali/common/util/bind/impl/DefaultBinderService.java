@@ -5,6 +5,7 @@ import static com.google.common.base.Preconditions.checkState;
 
 import java.lang.reflect.Field;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.kohsuke.MetaInfServices;
@@ -16,10 +17,12 @@ import org.kuali.common.util.spring.env.Environments;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.DataBinder;
-import org.springframework.validation.MapBindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 
-import com.google.common.collect.Maps;
+import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 @MetaInfServices(BinderService.class)
@@ -29,11 +32,12 @@ public final class DefaultBinderService implements BinderService {
 	private final ConversionService service;
 
 	@Override
-	public <T> BindingResult bind(T target) {
+	public <T> List<String> bind(T target) {
 		if (!target.getClass().isAnnotationPresent(Bind.class)) {
-			return new MapBindingResult(Maps.newHashMap(), DataBinder.DEFAULT_OBJECT_NAME);
+			return ImmutableList.of();
 		}
 
+		List<String> errors = Lists.newArrayList();
 		Set<Field> fields = getBindFields(target.getClass());
 		for (Field field : fields) {
 			Class<?> fieldType = field.getType();
@@ -43,6 +47,8 @@ public final class DefaultBinderService implements BinderService {
 			EnvironmentDataBinder binder = new EnvironmentDataBinder(builder, bind);
 			binder.setConversionService(service);
 			binder.bind(environment);
+			BindingResult result = binder.getBindingResult();
+			errors.addAll(getErrors(result));
 			Object value = builder.build();
 			ReflectionUtils.set(target, field, value);
 		}
@@ -50,7 +56,38 @@ public final class DefaultBinderService implements BinderService {
 		EnvironmentDataBinder binder = new EnvironmentDataBinder(target, bind);
 		binder.setConversionService(service);
 		binder.bind(environment);
-		return binder.getBindingResult();
+		errors.addAll(getErrors(binder.getBindingResult()));
+		return ImmutableList.copyOf(errors);
+	}
+
+	protected List<String> getErrors(BindingResult result) {
+		List<String> errors = Lists.newArrayList();
+		errors.addAll(getGlobalErrors(result.getGlobalErrors()));
+		errors.addAll(getFieldErrors(result.getFieldErrors()));
+		return errors;
+	}
+
+	protected List<String> getGlobalErrors(List<ObjectError> globalErrors) {
+		List<String> errors = Lists.newArrayList();
+		for (ObjectError globalError : globalErrors) {
+			Optional<String> message = Optional.fromNullable(globalError.getDefaultMessage());
+			if (message.isPresent()) {
+				errors.add(message.get());
+			} else {
+				errors.add("Global binding error with no default message was encountered.");
+			}
+		}
+		return errors;
+	}
+
+	protected List<String> getFieldErrors(List<FieldError> fieldErrors) {
+		List<String> errors = Lists.newArrayList();
+		for (FieldError fieldError : fieldErrors) {
+			String name = fieldError.getField();
+			Object rejectedValue = fieldError.getRejectedValue();
+			errors.add(String.format("Field level binding error.  Could not set [%s] to [%s]", name, rejectedValue));
+		}
+		return errors;
 	}
 
 	@SuppressWarnings("unchecked")

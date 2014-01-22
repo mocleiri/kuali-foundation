@@ -1,9 +1,9 @@
 package org.kuali.common.util.bind.api;
 
-import org.springframework.validation.BindingResult;
+import java.util.List;
 
 public interface BinderService {
 
-	<T> BindingResult bind(T object);
+	<T> List<String> bind(T object);
 
 }
