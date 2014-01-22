@@ -19,10 +19,6 @@ public final class User {
 		this.dir = builder.dir;
 	}
 
-	public static User create() {
-		return builder().build();
-	}
-
 	public static Builder builder() {
 		return new Builder();
 	}
