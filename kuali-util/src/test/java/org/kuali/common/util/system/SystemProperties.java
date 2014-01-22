@@ -8,7 +8,7 @@ import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
-@Bind
+@Bind(noPrefix = true)
 public final class SystemProperties {
 
 	@Valid
