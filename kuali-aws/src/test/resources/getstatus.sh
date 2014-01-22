@@ -1,5 +1,5 @@
 #!/bin/ksh
-
+  
 numENV=15
 GROUP=rice
 
