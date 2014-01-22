@@ -35,24 +35,24 @@ public final class VirtualMachine {
 		return new Builder();
 	}
 
-	@Bind("java")
+	@Bind(prefix = false)
 	public static class Builder extends AwesomeBuilder<VirtualMachine> {
 
 		private User user = User.create();
 		private OperatingSystem operatingSystem = OperatingSystem.create();
 
-		@BindAlias("io.tmpdir")
+		@BindAlias("java.io.tmpdir")
 		@CanonicalFileFormat
 		private File tempDirectory;
 
-		@BindAlias("home")
+		@BindAlias("java.home")
 		@CanonicalFileFormat
 		private File home;
 
-		@Bind("vm")
+		@Bind("java.vm.specification")
 		private Specification vm = Specification.create();
 
-		@Bind("java")
+		@Bind("java.specification")
 		private Specification jre = Specification.create();
 
 		@Override
