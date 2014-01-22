@@ -158,6 +158,7 @@
           <artifactId>commons-logging</artifactId>
         </exclusion>
       </exclusions>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
