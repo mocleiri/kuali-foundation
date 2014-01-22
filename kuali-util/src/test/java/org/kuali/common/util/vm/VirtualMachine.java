@@ -14,11 +14,13 @@ public final class VirtualMachine {
 	private final User user;
 	private final OperatingSystem operatingSystem;
 	private final File tempDirectory;
+	private final File home;
 
 	private VirtualMachine(Builder builder) {
 		this.user = builder.user;
 		this.operatingSystem = builder.operatingSystem;
 		this.tempDirectory = builder.tempDirectory;
+		this.home = builder.home;
 	}
 
 	public static VirtualMachine build() {
@@ -37,6 +39,9 @@ public final class VirtualMachine {
 		@BindAlias("java.io.tmpdir")
 		@CanonicalFileFormat
 		private File tempDirectory;
+		@BindAlias("java.home")
+		@CanonicalFileFormat
+		private File home;
 
 		@Override
 		public VirtualMachine getInstance() {
@@ -67,6 +72,14 @@ public final class VirtualMachine {
 			this.tempDirectory = tempDirectory;
 		}
 
+		public File getHome() {
+			return home;
+		}
+
+		public void setHome(File home) {
+			this.home = home;
+		}
+
 	}
 
 	public OperatingSystem getOperatingSystem() {
@@ -79,6 +92,10 @@ public final class VirtualMachine {
 
 	public File getTempDirectory() {
 		return tempDirectory;
+	}
+
+	public File getHome() {
+		return home;
 	}
 
 }
