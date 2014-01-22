@@ -12,8 +12,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.api.Alias;
+import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.model.BoundFieldDescriptor;
 import org.kuali.common.util.bind.model.BoundTypeDescriptor;
 import org.kuali.common.util.build.Builder;
@@ -64,32 +64,25 @@ public class BindUtils {
 	}
 
 	protected static Optional<String> getPrefix(Bind bound, Class<?> type) {
-		// Do not use a prefix of any kind
-		if (!bound.prefix()) {
+		if (bound.noPrefix()) {
 			return Optional.absent();
 		}
 
-		// There can be 2 reasons why value() is the empty string
-		// 1 - They didn't supply it so it is still at the default
-		// 2 - They did supply it but they supplied it as ""
-		// In either case, we ignore value() and use the uncapitalized class name instead
-		// They can use prefix=false to skip using a prefix entirely
-		if (bound.value().equals(Bind.DEFAULT)) {
-			Class<?> prefixClass = getPrefixClass(type, bound);
-			return Optional.of(StringUtils.uncapitalize(prefixClass.getSimpleName()));
+		if (!bound.prefix().equals(void.class)) {
+			return Optional.of(StringUtils.uncapitalize(bound.prefix().getSimpleName()));
 		}
 
-		// If they supplied a value, it cannot be blank
-		checkState(!StringUtils.isBlank(bound.value()), "'value' cannot be blank.");
-
-		// Return an optional containing the value
-		return Optional.of(bound.value());
+		if (bound.value().equals("")) {
+			Class<?> prefixClass = getPrefixClass(type, bound);
+			return Optional.of(StringUtils.uncapitalize(prefixClass.getSimpleName()));
+		} else {
+			// If they supplied a value, it cannot be blank
+			checkState(!StringUtils.isBlank(bound.value()), "'value' cannot be blank.");
+			return Optional.of(bound.value());
+		}
 	}
 
 	protected static Class<?> getPrefixClass(Class<?> type, Bind bound) {
-		if (bound.prefixClass() != void.class) {
-			return bound.prefixClass();
-		}
 		if (isBuilder(type) && type.getDeclaringClass() != null) {
 			return type.getDeclaringClass();
 		} else {
@@ -98,7 +91,7 @@ public class BindUtils {
 	}
 
 	protected static boolean isBuilder(Class<?> type) {
-		return Builder.class.isAssignableFrom(type) || org.apache.commons.lang3.builder.Builder.class.isAssignableFrom(type);
+		return Builder.class.isAssignableFrom(type);
 	}
 
 	protected static ImmutableMap<Field, BoundFieldDescriptor> getFields(Class<?> type, Optional<String> prefix) {

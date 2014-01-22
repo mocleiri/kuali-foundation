@@ -13,12 +13,10 @@ import java.lang.annotation.Target;
 @Documented
 public @interface Bind {
 
-	public static final String DEFAULT = "";
+	String value() default "";
 
-	String value() default DEFAULT;
+	Class<?> prefix() default void.class;
 
-	boolean prefix() default true;
-
-	Class<?> prefixClass() default void.class;
+	boolean noPrefix() default false;
 
 }

@@ -17,3 +17,11 @@ java.version                  JRE version
 java.specification.version    JRE spec version
 java.specification.vendor     JRE spec vendor
 java.specification.name       JRE spec name
+
+
+
+Please join me in welcoming Mike Alexander to the team.  Mike will be contributing as a Kuali Foundation DevOp's engineer.
+
+the Kuali DevOps Engineer is a key contributor helping drive Kuali Foundation towards better software engineering methods, processes, and practices
+
+His role is part of an overall effort focused on enabling Kuali teams to more rapidly produce high quality software products and services.
