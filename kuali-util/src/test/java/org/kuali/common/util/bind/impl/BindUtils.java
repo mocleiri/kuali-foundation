@@ -6,14 +6,13 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentMap;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.bind.api.BindAlias;
 import org.kuali.common.util.bind.api.Bind;
+import org.kuali.common.util.bind.api.BindAlias;
 import org.kuali.common.util.bind.model.BoundFieldDescriptor;
 import org.kuali.common.util.bind.model.BoundTypeDescriptor;
 import org.kuali.common.util.build.Builder;
@@ -28,15 +27,9 @@ import com.google.common.collect.Sets;
 
 public class BindUtils {
 
-	private static final ConcurrentMap<Class<?>, BoundTypeDescriptor> CACHE = Maps.newConcurrentMap();
-
-	public static ImmutableMap<String, String> getMap(Class<?> type, Environment env) {
-		BoundTypeDescriptor descriptor = getDescriptor(type);
+	public static ImmutableMap<String, String> getMap(Class<?> type, Bind bind, Environment env) {
+		BoundTypeDescriptor descriptor = getDescriptor(type, bind);
 		return getMap(descriptor, env);
-	}
-
-	public static void clearDescriptorCache() {
-		CACHE.clear();
 	}
 
 	protected static ImmutableMap<String, String> getMap(BoundTypeDescriptor descriptor, Environment env) {
@@ -60,16 +53,10 @@ public class BindUtils {
 		return Optional.absent();
 	}
 
-	protected static BoundTypeDescriptor getDescriptor(Class<?> type) {
-		BoundTypeDescriptor descriptor = CACHE.get(type);
-		if (descriptor == null) {
-			Bind bound = type.getAnnotation(Bind.class);
-			Optional<String> prefix = getPrefix(bound, type);
-			Map<Field, BoundFieldDescriptor> fields = getFields(type, prefix);
-			descriptor = BoundTypeDescriptor.builder(type).fields(fields).build();
-			CACHE.put(type, descriptor);
-		}
-		return descriptor;
+	protected static BoundTypeDescriptor getDescriptor(Class<?> type, Bind bind) {
+		Optional<String> prefix = getPrefix(bind, type);
+		Map<Field, BoundFieldDescriptor> fields = getFields(type, prefix);
+		return BoundTypeDescriptor.builder(type).fields(fields).build();
 	}
 
 	protected static Optional<String> getPrefix(Bind bound, Class<?> type) {
@@ -112,7 +99,7 @@ public class BindUtils {
 
 	protected static ImmutableMap<Field, BoundFieldDescriptor> getFields(Class<?> type, Optional<String> prefix) {
 		Map<Field, BoundFieldDescriptor> map = Maps.newHashMap();
-		Set<Field> fields = ReflectionUtils.getFields(type);
+		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		for (Field field : fields) {
 			map.put(field, getFieldKeys(field, prefix));
 		}

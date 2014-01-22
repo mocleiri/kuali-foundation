@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Map;
 
+import org.kuali.common.util.bind.api.Bind;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.core.env.Environment;
 
@@ -24,12 +25,12 @@ public final class EnvironmentPropertyValues<T> extends MutablePropertyValues {
 		this.values = ImmutableMap.copyOf(builder.values);
 	}
 
-	public static <T> EnvironmentPropertyValues<T> create(Class<T> target, Environment env) {
-		return builder(target, env).build();
+	public static <T> EnvironmentPropertyValues<T> create(Class<T> type, Bind bind, Environment env) {
+		return builder(type, bind, env).build();
 	}
 
-	public static <T> Builder<T> builder(Class<T> type, Environment env) {
-		return new Builder<T>(type, env);
+	public static <T> Builder<T> builder(Class<T> type, Bind bind, Environment env) {
+		return new Builder<T>(type, bind, env);
 	}
 
 	public static class Builder<T> implements org.kuali.common.util.build.Builder<EnvironmentPropertyValues<T>> {
@@ -37,18 +38,20 @@ public final class EnvironmentPropertyValues<T> extends MutablePropertyValues {
 		// Required
 		private final Class<T> type;
 		private final Environment env;
+		private final Bind bind;
 
 		// Filled in by the build() method
 		private Map<String, String> values;
 
-		public Builder(Class<T> target, Environment env) {
-			this.type = target;
+		public Builder(Class<T> type, Bind bind, Environment env) {
+			this.type = type;
 			this.env = env;
+			this.bind = bind;
 		}
 
 		@Override
 		public EnvironmentPropertyValues<T> build() {
-			this.values = BindUtils.getMap(type, env);
+			this.values = BindUtils.getMap(type, bind, env);
 			EnvironmentPropertyValues<T> instance = new EnvironmentPropertyValues<T>(this);
 			validate(instance);
 			return instance;

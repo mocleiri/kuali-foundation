@@ -2,9 +2,14 @@ package org.kuali.common.util.bind.impl;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.lang.reflect.Field;
+import java.util.Iterator;
+import java.util.Set;
+
 import org.kohsuke.MetaInfServices;
-import org.kuali.common.util.bind.api.BinderService;
+import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.Bind;
+import org.kuali.common.util.bind.api.BinderService;
 import org.kuali.common.util.spring.convert.Conversion;
 import org.kuali.common.util.spring.env.Environments;
 import org.springframework.core.convert.ConversionService;
@@ -26,10 +31,34 @@ public final class DefaultBinderService implements BinderService {
 		if (!target.getClass().isAnnotationPresent(Bind.class)) {
 			return new MapBindingResult(Maps.newHashMap(), DataBinder.DEFAULT_OBJECT_NAME);
 		}
-		EnvironmentDataBinder binder = new EnvironmentDataBinder(target);
+
+		Set<Field> fields = getBindFields(target.getClass());
+		for (Field field : fields) {
+			Class<?> fieldType = field.getType();
+			Bind bind = fieldType.getAnnotation(Bind.class);
+			org.kuali.common.util.build.Builder<?> builder = (org.kuali.common.util.build.Builder<?>) ReflectionUtils.newInstance(fieldType);
+			EnvironmentDataBinder binder = new EnvironmentDataBinder(builder, bind);
+			binder.setConversionService(service);
+			binder.bind(environment);
+			ReflectionUtils.setField(field, target, builder.build());
+		}
+		Bind bind = target.getClass().getAnnotation(Bind.class);
+		EnvironmentDataBinder binder = new EnvironmentDataBinder(target, bind);
 		binder.setConversionService(service);
 		binder.bind(environment);
 		return binder.getBindingResult();
+	}
+
+	protected Set<Field> getBindFields(Class<?> type) {
+		Set<Field> fields = ReflectionUtils.getAllFields(type);
+		Iterator<Field> itr = fields.iterator();
+		while (itr.hasNext()) {
+			Field field = itr.next();
+			if (!field.isAnnotationPresent(Bind.class)) {
+				itr.remove();
+			}
+		}
+		return fields;
 	}
 
 	public DefaultBinderService() {
