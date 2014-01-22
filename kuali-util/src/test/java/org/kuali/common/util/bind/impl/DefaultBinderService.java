@@ -19,6 +19,7 @@ import org.springframework.validation.DataBinder;
 import org.springframework.validation.MapBindingResult;
 
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 @MetaInfServices(BinderService.class)
 public final class DefaultBinderService implements BinderService {
@@ -50,7 +51,7 @@ public final class DefaultBinderService implements BinderService {
 	}
 
 	protected Set<Field> getBindFields(Class<?> type) {
-		Set<Field> fields = ReflectionUtils.getAllFields(type);
+		Set<Field> fields = Sets.newHashSet(ReflectionUtils.getAllFields(type));
 		Iterator<Field> itr = fields.iterator();
 		while (itr.hasNext()) {
 			Field field = itr.next();
