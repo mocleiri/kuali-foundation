@@ -15,7 +15,7 @@ public class DefaultSystemConfig implements SystemConfig {
 	@Override
 	@Bean
 	public SystemProperties systemProperties() {
-		return null;
+		return SystemProperties.builder().build();
 	}
 
 }
