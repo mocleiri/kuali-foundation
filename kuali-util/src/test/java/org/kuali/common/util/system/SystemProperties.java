@@ -22,6 +22,10 @@ public final class SystemProperties {
 		this.fileSeparator = builder.fileSeparator;
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder extends AwesomeBuilder<SystemProperties> {
 
 		private User user;
