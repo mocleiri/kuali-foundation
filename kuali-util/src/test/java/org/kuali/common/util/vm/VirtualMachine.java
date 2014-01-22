@@ -53,10 +53,10 @@ public final class VirtualMachine {
 		private File home;
 
 		@Bind("java.vm.specification")
-		private Specification vm = Specification.create();
+		private Specification vm;
 
 		@Bind("java.specification")
-		private Specification jre = Specification.create();
+		private Specification jre;
 
 		@Override
 		public VirtualMachine getInstance() {
