@@ -2,6 +2,7 @@ package org.kuali.common.util.system;
 
 import javax.validation.Valid;
 
+import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -34,13 +35,14 @@ public final class SystemProperties {
 		return new Builder();
 	}
 
-	@Bind
+	@Bind(prefix = false)
 	public static class Builder extends AwesomeBuilder<SystemProperties> {
 
 		private User user;
 		private OperatingSystem operatingSystem;
 		private Java java;
 		private String lineSeparator;
+		@Alias("path.separator")
 		private String pathSeparator;
 		private String fileSeparator;
 

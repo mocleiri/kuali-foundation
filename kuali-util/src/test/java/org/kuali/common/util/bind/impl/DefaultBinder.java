@@ -94,7 +94,7 @@ public final class DefaultBinder implements Binder {
 		for (FieldError fieldError : fieldErrors) {
 			String name = fieldError.getField();
 			Object rejectedValue = fieldError.getRejectedValue();
-			errors.add(String.format("Field level binding error.  Could not set [%s] to [%s]", name, rejectedValue));
+			errors.add(String.format("Field binding error.  Could not set [%s] to [%s]", name, rejectedValue));
 		}
 		return errors;
 	}
