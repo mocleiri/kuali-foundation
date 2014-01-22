@@ -8,7 +8,6 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 public final class OperatingSystem {
 
 	private final String name;
-	@Alias("arch")
 	private final String architecture;
 	private final String version;
 
@@ -29,6 +28,7 @@ public final class OperatingSystem {
 	public static class Builder extends AwesomeBuilder<OperatingSystem> {
 
 		private String name;
+		@Alias("arch")
 		private String architecture;
 		private String version;
 
