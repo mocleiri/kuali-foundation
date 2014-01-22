@@ -36,13 +36,13 @@ public final class SystemProperties {
 		return new Builder();
 	}
 
-	@Bind(prefix = false)
+	@Bind(noPrefix = true)
 	public static class Builder extends AwesomeBuilder<SystemProperties> {
 
-		@Bind
+		@Bind("user")
 		private User user;
 
-		@Bind
+		@Bind("os")
 		private OperatingSystem operatingSystem;
 
 		@Bind
