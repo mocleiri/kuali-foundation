@@ -21,9 +21,6 @@ public final class Java {
 	private final ImmutableList<String> extensionDirectories;
 	private final RuntimeEnvironment runtimeEnvironment;
 	private final VirtualMachine virtualMachine;
-	private final String lineSeparator;
-	private final String pathSeparator;
-	private final String fileSeparator;
 
 	private Java(Builder builder) {
 		this.home = builder.home;
@@ -35,9 +32,6 @@ public final class Java {
 		this.extensionDirectories = ImmutableList.copyOf(builder.extensionDirectories);
 		this.runtimeEnvironment = builder.runtimeEnvironment;
 		this.virtualMachine = builder.virtualMachine;
-		this.lineSeparator = builder.lineSeparator;
-		this.pathSeparator = builder.pathSeparator;
-		this.fileSeparator = builder.fileSeparator;
 	}
 
 	public static class Builder extends AwesomeBuilder<Java> {
@@ -51,9 +45,6 @@ public final class Java {
 		private List<String> extensionDirectories;
 		private RuntimeEnvironment runtimeEnvironment;
 		private VirtualMachine virtualMachine;
-		private String lineSeparator;
-		private String pathSeparator;
-		private String fileSeparator;
 
 		public Builder home(File home) {
 			this.home = home;
@@ -97,21 +88,6 @@ public final class Java {
 
 		public Builder virtualMachine(VirtualMachine virtualMachine) {
 			this.virtualMachine = virtualMachine;
-			return this;
-		}
-
-		public Builder lineSeparator(String lineSeparator) {
-			this.lineSeparator = lineSeparator;
-			return this;
-		}
-
-		public Builder pathSeparator(String pathSeparator) {
-			this.pathSeparator = pathSeparator;
-			return this;
-		}
-
-		public Builder fileSeparator(String fileSeparator) {
-			this.fileSeparator = fileSeparator;
 			return this;
 		}
 
@@ -192,30 +168,6 @@ public final class Java {
 			this.virtualMachine = virtualMachine;
 		}
 
-		public String getLineSeparator() {
-			return lineSeparator;
-		}
-
-		public void setLineSeparator(String lineSeparator) {
-			this.lineSeparator = lineSeparator;
-		}
-
-		public String getPathSeparator() {
-			return pathSeparator;
-		}
-
-		public void setPathSeparator(String pathSeparator) {
-			this.pathSeparator = pathSeparator;
-		}
-
-		public String getFileSeparator() {
-			return fileSeparator;
-		}
-
-		public void setFileSeparator(String fileSeparator) {
-			this.fileSeparator = fileSeparator;
-		}
-
 	}
 
 	public File getHome() {
@@ -252,18 +204,6 @@ public final class Java {
 
 	public VirtualMachine getVirtualMachine() {
 		return virtualMachine;
-	}
-
-	public String getLineSeparator() {
-		return lineSeparator;
-	}
-
-	public String getPathSeparator() {
-		return pathSeparator;
-	}
-
-	public String getFileSeparator() {
-		return fileSeparator;
 	}
 
 }
