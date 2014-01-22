@@ -1,6 +1,7 @@
 package org.kuali.common.util.bind.impl;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
 
 import java.lang.reflect.Field;
 import java.util.Iterator;
@@ -56,11 +57,11 @@ public final class DefaultBinderService implements BinderService {
 	protected Class<? extends org.kuali.common.util.build.Builder<?>> getBuilder(Class<?> type) {
 		Class<?>[] declaredClasses = type.getDeclaredClasses();
 		for (Class<?> declaredClass : declaredClasses) {
-			String name = declaredClass.getCanonicalName();
-			if (name.endsWith("Builder")) {
+			if (org.kuali.common.util.build.Builder.class.isAssignableFrom(declaredClass)) {
 				return (Class<? extends org.kuali.common.util.build.Builder<?>>) declaredClass;
 			}
 		}
+		checkState(false, "No builder declared in [%s]", type.getCanonicalName());
 		return null;
 	}
 
