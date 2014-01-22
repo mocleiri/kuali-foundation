@@ -38,7 +38,7 @@ public final class SystemProperties {
 	@Bind(prefix = false)
 	public static class Builder extends AwesomeBuilder<SystemProperties> {
 
-		@Bind
+		@Bind("user")
 		private User user;
 
 		@Bind("os")
