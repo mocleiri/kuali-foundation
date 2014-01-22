@@ -2,6 +2,7 @@ package org.kuali.common.util.system;
 
 import javax.validation.Valid;
 
+import org.kuali.common.util.build.ValidatingInstanceBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
@@ -32,7 +33,7 @@ public final class SystemProperties {
 		return new Builder();
 	}
 
-	public static class Builder extends AbstractInstanceBuilder<SystemProperties> {
+	public static class Builder extends ValidatingInstanceBuilder<SystemProperties> {
 
 		private User user;
 		private OperatingSystem operatingSystem;
