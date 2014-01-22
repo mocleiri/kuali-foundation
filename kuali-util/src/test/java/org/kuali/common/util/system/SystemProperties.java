@@ -38,7 +38,9 @@ public final class SystemProperties {
 	@Bind(prefix = false)
 	public static class Builder extends AwesomeBuilder<SystemProperties> {
 
+		@Bind
 		private User user;
+		@Bind
 		private OperatingSystem operatingSystem;
 		private Java java;
 		private String lineSeparator;
