@@ -1,6 +1,5 @@
 package org.kuali.common.util.vm;
 
-import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -25,7 +24,6 @@ public final class Specification {
 		return new Builder();
 	}
 
-	@Bind
 	public static class Builder extends AwesomeBuilder<Specification> {
 
 		private String version;
