@@ -36,9 +36,11 @@ public final class VirtualMachine {
 
 		private User user = User.create();
 		private OperatingSystem operatingSystem = OperatingSystem.create();
+
 		@BindAlias("java.io.tmpdir")
 		@CanonicalFileFormat
 		private File tempDirectory;
+
 		@BindAlias("java.home")
 		@CanonicalFileFormat
 		private File home;
