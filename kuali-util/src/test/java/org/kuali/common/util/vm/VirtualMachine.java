@@ -7,11 +7,11 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 public final class VirtualMachine {
 
 	private final User user;
-	private final OperatingSystem os;
+	private final OperatingSystem operatingSystem;
 
 	private VirtualMachine(Builder builder) {
 		this.user = builder.user;
-		this.os = builder.os;
+		this.operatingSystem = builder.operatingSystem;
 	}
 
 	public static VirtualMachine build() {
@@ -25,7 +25,7 @@ public final class VirtualMachine {
 	private static class Builder extends AwesomeBuilder<VirtualMachine> {
 
 		private User user = User.create();
-		private OperatingSystem os = OperatingSystem.create();
+		private OperatingSystem operatingSystem = OperatingSystem.create();
 
 		@Override
 		public VirtualMachine getInstance() {
@@ -34,8 +34,8 @@ public final class VirtualMachine {
 
 	}
 
-	public OperatingSystem os() {
-		return os;
+	public OperatingSystem getOperatingSystem() {
+		return operatingSystem;
 	}
 
 	public User getUser() {
