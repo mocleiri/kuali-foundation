@@ -6,10 +6,10 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 @IdiotProofImmutable
 public final class VirtualMachine {
 
-	private final Specification specification;
 	private final String name;
 	private final String vendor;
 	private final String version;
+	private final Specification specification;
 
 	private VirtualMachine(Builder builder) {
 		this.specification = builder.specification;

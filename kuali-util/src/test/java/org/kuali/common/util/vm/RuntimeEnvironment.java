@@ -1,21 +1,28 @@
 package org.kuali.common.util.vm;
 
-import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
 public class RuntimeEnvironment {
 
+	private final String vendor;
+	private final String version;
+	private final String url;
 	private final Specification specification;
 
 	private RuntimeEnvironment(Builder builder) {
 		this.specification = builder.specification;
+		this.vendor = builder.vendor;
+		this.version = builder.version;
+		this.url = builder.url;
 	}
 
-	@Bind
 	public static class Builder extends AwesomeBuilder<RuntimeEnvironment> {
 
+		private String vendor;
+		private String version;
+		private String url;
 		private Specification specification;
 
 		public Builder specification(Specification specification) {
@@ -36,10 +43,46 @@ public class RuntimeEnvironment {
 			this.specification = specification;
 		}
 
+		public String getVendor() {
+			return vendor;
+		}
+
+		public void setVendor(String vendor) {
+			this.vendor = vendor;
+		}
+
+		public String getVersion() {
+			return version;
+		}
+
+		public void setVersion(String version) {
+			this.version = version;
+		}
+
+		public String getUrl() {
+			return url;
+		}
+
+		public void setUrl(String url) {
+			this.url = url;
+		}
+
 	}
 
 	public Specification getSpecification() {
 		return specification;
+	}
+
+	public String getVendor() {
+		return vendor;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public String getUrl() {
+		return url;
 	}
 
 }
