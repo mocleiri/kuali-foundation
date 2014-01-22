@@ -30,6 +30,21 @@ public class RuntimeEnvironment {
 			return this;
 		}
 
+		public Builder vendor(String vendor) {
+			this.vendor = vendor;
+			return this;
+		}
+
+		public Builder version(String version) {
+			this.version = version;
+			return this;
+		}
+
+		public Builder url(String url) {
+			this.url = url;
+			return this;
+		}
+
 		@Override
 		public RuntimeEnvironment getInstance() {
 			return new RuntimeEnvironment(this);
