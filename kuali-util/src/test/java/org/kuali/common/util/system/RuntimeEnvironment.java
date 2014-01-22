@@ -1,5 +1,6 @@
 package org.kuali.common.util.system;
 
+import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -8,6 +9,7 @@ public class RuntimeEnvironment {
 
 	private final String vendor;
 	private final String version;
+	@Alias("vendor.url")
 	private final String url;
 	private final Specification specification;
 
