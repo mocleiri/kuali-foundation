@@ -2,8 +2,8 @@ package org.kuali.common.util.vm;
 
 import java.io.File;
 
-import org.kuali.common.util.bind.api.BindAlias;
 import org.kuali.common.util.bind.api.Bind;
+import org.kuali.common.util.bind.api.BindAlias;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.spring.binder.CanonicalFileFormat;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -35,25 +35,25 @@ public final class VirtualMachine {
 		return new Builder();
 	}
 
-	@Bind(prefix = false)
+	@Bind("java")
 	public static class Builder extends AwesomeBuilder<VirtualMachine> {
 
 		private User user = User.create();
 		private OperatingSystem operatingSystem = OperatingSystem.create();
 
-		@BindAlias("java.io.tmpdir")
+		@BindAlias("io.tmpdir")
 		@CanonicalFileFormat
 		private File tempDirectory;
 
-		@BindAlias("java.home")
+		@BindAlias("home")
 		@CanonicalFileFormat
 		private File home;
 
-		@Bind("java.vm")
-		private Specification vm;
+		@Bind("vm")
+		private Specification vm = Specification.create();
 
 		@Bind("java")
-		private Specification jre;
+		private Specification jre = Specification.create();
 
 		@Override
 		public VirtualMachine getInstance() {

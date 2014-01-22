@@ -25,7 +25,7 @@ public final class Specification {
 		return new Builder();
 	}
 
-	@Bind("java.specification")
+	@Bind
 	public static class Builder extends AwesomeBuilder<Specification> {
 
 		private String version;
