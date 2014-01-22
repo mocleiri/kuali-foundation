@@ -18,6 +18,14 @@ public class OperatingSystem {
 		this.version = builder.version;
 	}
 
+	public static OperatingSystem create() {
+		return builder().build();
+	}
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	@Bound("os")
 	public static class Builder extends AwesomeBuilder<OperatingSystem> {
 
