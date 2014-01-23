@@ -1,4 +1,4 @@
-package org.kuali.common.util.build.breakfast.pojo;
+package org.kuali.common.util.bind.breakfast.pojo;
 
 public class Bowl {
 
