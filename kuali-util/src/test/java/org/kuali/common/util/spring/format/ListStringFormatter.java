@@ -10,12 +10,12 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 
-public abstract class AbstractListStringFormatter implements Formatter<List<String>> {
+public abstract class ListStringFormatter implements Formatter<List<String>> {
 
 	private final Splitter splitter;
 	private final Joiner joiner;
 
-	public AbstractListStringFormatter(char separator) {
+	public ListStringFormatter(char separator) {
 		this.splitter = Splitter.on(separator);
 		this.joiner = Joiner.on(separator);
 	}
