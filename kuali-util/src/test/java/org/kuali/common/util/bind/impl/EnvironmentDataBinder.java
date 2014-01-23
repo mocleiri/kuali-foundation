@@ -1,15 +1,15 @@
 package org.kuali.common.util.bind.impl;
 
-import org.kuali.common.util.bind.api.Bind;
+import org.kuali.common.util.bind.api.BindPrefix;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.core.env.Environment;
 import org.springframework.validation.DataBinder;
 
 public class EnvironmentDataBinder extends DataBinder {
 
-	private final Bind bind;
+	private final BindPrefix bind;
 
-	public EnvironmentDataBinder(Object target, Bind bind) {
+	public EnvironmentDataBinder(Object target, BindPrefix bind) {
 		super(target);
 		this.bind = bind;
 	}

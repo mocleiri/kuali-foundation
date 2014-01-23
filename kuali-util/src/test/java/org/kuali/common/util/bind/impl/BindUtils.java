@@ -13,7 +13,7 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.BindAlias;
-import org.kuali.common.util.bind.api.Bind;
+import org.kuali.common.util.bind.api.BindPrefix;
 import org.kuali.common.util.bind.model.BoundFieldDescriptor;
 import org.kuali.common.util.bind.model.BoundTypeDescriptor;
 import org.kuali.common.util.build.Builder;
@@ -28,7 +28,7 @@ import com.google.common.collect.Sets;
 
 public class BindUtils {
 
-	public static ImmutableMap<String, String> getMap(Class<?> type, Bind bind, Environment env) {
+	public static ImmutableMap<String, String> getMap(Class<?> type, BindPrefix bind, Environment env) {
 		checkNotNull(type, "'type' cannot be null");
 		checkNotNull(bind, "'bind' cannot be null");
 		checkNotNull(env, "'env' cannot be null");
@@ -57,32 +57,32 @@ public class BindUtils {
 		return Optional.absent();
 	}
 
-	protected static BoundTypeDescriptor getDescriptor(Class<?> type, Bind bind) {
+	protected static BoundTypeDescriptor getDescriptor(Class<?> type, BindPrefix bind) {
 		Optional<String> prefix = getPrefix(bind, type);
 		Map<Field, BoundFieldDescriptor> fields = getFields(type, prefix);
 		return BoundTypeDescriptor.builder(type).fields(fields).build();
 	}
 
-	protected static Optional<String> getPrefix(Bind bound, Class<?> type) {
-		if (bound.noPrefix()) {
+	protected static Optional<String> getPrefix(BindPrefix annotation, Class<?> type) {
+		if (annotation.none()) {
 			return Optional.absent();
 		}
 
-		if (!bound.prefix().equals(void.class)) {
-			return Optional.of(StringUtils.uncapitalize(bound.prefix().getSimpleName()));
+		if (!annotation.type().equals(void.class)) {
+			return Optional.of(StringUtils.uncapitalize(annotation.type().getSimpleName()));
 		}
 
-		if (bound.value().equals("")) {
-			Class<?> prefixClass = getPrefixClass(type, bound);
+		if (annotation.value().equals("")) {
+			Class<?> prefixClass = getPrefixClass(type);
 			return Optional.of(StringUtils.uncapitalize(prefixClass.getSimpleName()));
 		} else {
 			// If they supplied a value, it cannot be blank
-			checkState(!StringUtils.isBlank(bound.value()), "'value' cannot be blank.");
-			return Optional.of(bound.value());
+			checkState(!StringUtils.isBlank(annotation.value()), "'value' cannot be blank.");
+			return Optional.of(annotation.value());
 		}
 	}
 
-	protected static Class<?> getPrefixClass(Class<?> type, Bind bound) {
+	protected static Class<?> getPrefixClass(Class<?> type) {
 		if (isBuilder(type) && type.getDeclaringClass() != null) {
 			return type.getDeclaringClass();
 		} else {
