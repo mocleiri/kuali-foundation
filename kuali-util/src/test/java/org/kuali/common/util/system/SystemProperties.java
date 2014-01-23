@@ -4,12 +4,12 @@ import javax.validation.Valid;
 
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.api.BindAlias;
-import org.kuali.common.util.bind.api.BindPrefix;
+import org.kuali.common.util.bind.api.BindingPrefix;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
-@BindPrefix(none = true)
+@BindingPrefix(none = true)
 public final class SystemProperties {
 
 	@Valid
@@ -18,7 +18,7 @@ public final class SystemProperties {
 
 	@Valid
 	@Bind
-	@BindPrefix("os")
+	@BindingPrefix("os")
 	private final OperatingSystem operatingSystem;
 
 	@Valid

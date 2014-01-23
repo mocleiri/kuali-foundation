@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.api.BindAlias;
-import org.kuali.common.util.bind.api.BindPrefix;
+import org.kuali.common.util.bind.api.BindingPrefix;
 import org.kuali.common.util.system.SystemProperties;
 
 import com.google.common.base.Function;
@@ -42,7 +42,7 @@ public class BindUtilsTest {
 
 	public Set<String> getKeys(Optional<String> prefix, Class<?> type) {
 		SortedSet<String> keys = Sets.newTreeSet();
-		Optional<BindPrefix> classPrefixAnnotation = Optional.fromNullable(type.getAnnotation(BindPrefix.class));
+		Optional<BindingPrefix> classPrefixAnnotation = Optional.fromNullable(type.getAnnotation(BindingPrefix.class));
 		Optional<String> actualPrefix = getPrefix(prefix, type, classPrefixAnnotation);
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		for (Field field : fields) {
@@ -54,7 +54,7 @@ public class BindUtilsTest {
 
 	protected Set<String> getKeys(Field field, Optional<String> prefix) {
 		if (field.isAnnotationPresent(Bind.class)) {
-			Optional<BindPrefix> fieldPrefixAnnotation = Optional.fromNullable(field.getAnnotation(BindPrefix.class));
+			Optional<BindingPrefix> fieldPrefixAnnotation = Optional.fromNullable(field.getAnnotation(BindingPrefix.class));
 			Optional<String> fieldPrefix = getPrefix(Optional.<String> absent(), field.getType(), fieldPrefixAnnotation);
 			Optional<String> newPrefix = combine(prefix, fieldPrefix, ".");
 			return getKeys(newPrefix, field.getType());
@@ -101,7 +101,7 @@ public class BindUtilsTest {
 		}
 	}
 
-	protected Optional<String> getPrefix(Optional<String> prefix, Class<?> type, Optional<BindPrefix> annotation) {
+	protected Optional<String> getPrefix(Optional<String> prefix, Class<?> type, Optional<BindingPrefix> annotation) {
 		// Explicit prefix. This overrides everything
 		if (prefix.isPresent()) {
 			return prefix;
@@ -111,7 +111,7 @@ public class BindUtilsTest {
 			return Optional.of(getPrefix(type));
 		}
 
-		BindPrefix bind = annotation.get();
+		BindingPrefix bind = annotation.get();
 
 		// They have specifically said, "don't use a prefix"
 		if (bind.none()) {

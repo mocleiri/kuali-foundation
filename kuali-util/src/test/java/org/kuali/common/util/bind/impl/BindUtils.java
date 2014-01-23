@@ -13,7 +13,7 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.BindAlias;
-import org.kuali.common.util.bind.api.BindPrefix;
+import org.kuali.common.util.bind.api.BindingPrefix;
 import org.kuali.common.util.bind.model.BoundFieldDescriptor;
 import org.kuali.common.util.bind.model.BoundTypeDescriptor;
 import org.kuali.common.util.build.Builder;
@@ -28,7 +28,7 @@ import com.google.common.collect.Sets;
 
 public class BindUtils {
 
-	public static ImmutableMap<String, String> getMap(Class<?> type, BindPrefix bind, Environment env) {
+	public static ImmutableMap<String, String> getMap(Class<?> type, BindingPrefix bind, Environment env) {
 		checkNotNull(type, "'type' cannot be null");
 		checkNotNull(bind, "'bind' cannot be null");
 		checkNotNull(env, "'env' cannot be null");
@@ -57,13 +57,13 @@ public class BindUtils {
 		return Optional.absent();
 	}
 
-	protected static BoundTypeDescriptor getDescriptor(Class<?> type, BindPrefix bind) {
+	protected static BoundTypeDescriptor getDescriptor(Class<?> type, BindingPrefix bind) {
 		Optional<String> prefix = getPrefix(bind, type);
 		Map<Field, BoundFieldDescriptor> fields = getFields(type, prefix);
 		return BoundTypeDescriptor.builder(type).fields(fields).build();
 	}
 
-	protected static Optional<String> getPrefix(BindPrefix annotation, Class<?> type) {
+	protected static Optional<String> getPrefix(BindingPrefix annotation, Class<?> type) {
 		if (annotation.none()) {
 			return Optional.absent();
 		}

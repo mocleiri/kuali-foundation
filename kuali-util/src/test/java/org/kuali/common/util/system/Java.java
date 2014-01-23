@@ -7,7 +7,7 @@ import javax.validation.Valid;
 
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.api.BindAlias;
-import org.kuali.common.util.bind.api.BindPrefix;
+import org.kuali.common.util.bind.api.BindingPrefix;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -33,12 +33,12 @@ public final class Java {
 
 	@Valid
 	@Bind
-	@BindPrefix(none = true)
+	@BindingPrefix(none = true)
 	private final RuntimeEnvironment runtimeEnvironment;
 
 	@Valid
 	@Bind
-	@BindPrefix("vm")
+	@BindingPrefix("vm")
 	private final VirtualMachine virtualMachine;
 
 	private Java(Builder builder) {
