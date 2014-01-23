@@ -56,7 +56,7 @@ public class BindUtilsTest {
 	protected Set<String> getKeys(Field field, Optional<String> prefix) {
 		if (field.isAnnotationPresent(Bind.class)) {
 			Optional<BindingPrefix> annotation = Annotations.get(field, BindingPrefix.class);
-			Optional<String> fieldPrefix = getPrefix(Optional.<String> absent(), field.getType(), annotation);
+			Optional<String> fieldPrefix = getPrefix(field.getType(), annotation);
 			Optional<String> newPrefix = combine(prefix, fieldPrefix, ".");
 			// Recurse to acquire more keys
 			return getKeys(newPrefix, field.getType());
@@ -105,6 +105,10 @@ public class BindUtilsTest {
 			}
 			return keys;
 		}
+	}
+
+	protected Optional<String> getPrefix(Class<?> type, Optional<BindingPrefix> annotation) {
+		return getPrefix(Optional.<String> absent(), type, annotation);
 	}
 
 	protected Optional<String> getPrefix(Optional<String> prefix, Class<?> type, Optional<BindingPrefix> annotation) {
