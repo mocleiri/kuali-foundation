@@ -17,7 +17,7 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 
 	private final boolean trim;
 	private final boolean omitEmpty;
-	private final Optional<String> magicString;
+	private final Optional<String> magicEmptyString;
 	private final char separator;
 
 	// Not exposed via getters/setters
@@ -26,7 +26,7 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 
 	@Override
 	public List<String> parse(String files, Locale locale) {
-		if (magicString.isPresent() && files.equals(magicString.get())) {
+		if (magicEmptyString.isPresent() && files.equals(magicEmptyString.get())) {
 			return Lists.newArrayList();
 		} else {
 			return Lists.newArrayList(splitter.split(files));
@@ -35,8 +35,8 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 
 	@Override
 	public String print(List<String> files, Locale locale) {
-		if (magicString.isPresent() && files.isEmpty()) {
-			return magicString.get();
+		if (magicEmptyString.isPresent() && files.isEmpty()) {
+			return magicEmptyString.get();
 		} else {
 			return joiner.join(files.iterator());
 		}
@@ -48,7 +48,7 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 		this.trim = builder.trim;
 		this.omitEmpty = builder.omitEmpty;
 		this.separator = builder.separator;
-		this.magicString = builder.magicString;
+		this.magicEmptyString = builder.magicEmptyString;
 	}
 
 	public static ListStringFormatter make(char separator) {
@@ -67,7 +67,7 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 		// Optional
 		private boolean trim = false;
 		private boolean omitEmpty = false;
-		private Optional<String> magicString = Optional.of(NullUtils.NONE);
+		private Optional<String> magicEmptyString = Optional.of(NullUtils.NONE);
 
 		// Filled in by the build method
 		private Splitter splitter;
@@ -79,6 +79,11 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 
 		public Builder trim(boolean trim) {
 			this.trim = trim;
+			return this;
+		}
+
+		public Builder magicEmptyString(String magicEmptyString) {
+			this.magicEmptyString = Optional.of(magicEmptyString);
 			return this;
 		}
 
