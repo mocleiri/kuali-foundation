@@ -28,7 +28,7 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 
 	@Override
 	public List<String> parse(String files, Locale locale) {
-		if (magicEmptyString.isPresent() && files.equals(magicEmptyString.get())) {
+		if (magicEmptyString.isPresent() && magicEmptyString.get().equals(files)) {
 			return Lists.newArrayList();
 		} else {
 			return Lists.newArrayList(splitter.split(files));
