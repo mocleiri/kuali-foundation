@@ -42,7 +42,7 @@ public class BindUtilsTest {
 
 	public Set<String> getKeys(Optional<String> prefix, Class<?> type) {
 		SortedSet<String> keys = Sets.newTreeSet();
-		Optional<BindingPrefix> annotation = Optional.fromNullable(type.getAnnotation(BindingPrefix.class));
+		Optional<BindingPrefix> annotation = ReflectionUtils.getAnnotation(type, BindingPrefix.class);
 		Optional<String> actualPrefix = getPrefix(prefix, type, annotation);
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		for (Field field : fields) {
