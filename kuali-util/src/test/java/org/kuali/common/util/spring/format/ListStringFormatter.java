@@ -85,7 +85,11 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 		}
 
 		public Builder magicEmptyString(String magicEmptyString) {
-			this.magicEmptyString = Optional.of(magicEmptyString);
+			return magicEmptyString(Optional.of(magicEmptyString));
+		}
+
+		public Builder magicEmptyString(Optional<String> magicEmptyString) {
+			this.magicEmptyString = magicEmptyString;
 			return this;
 		}
 
