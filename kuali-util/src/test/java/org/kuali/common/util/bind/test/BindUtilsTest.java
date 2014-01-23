@@ -111,10 +111,12 @@ public class BindUtilsTest {
 			return prefix;
 		}
 
+		// No annotation, use the uncapitalized form of the simple class name as a prefix
 		if (!annotation.isPresent()) {
 			return Optional.of(getPrefix(type));
 		}
 
+		// Extract the annotation
 		BindingPrefix bind = annotation.get();
 
 		// They have specifically said, "don't use a prefix"
@@ -122,18 +124,20 @@ public class BindUtilsTest {
 			return Optional.absent();
 		}
 
-		// An explicit prefix class has been configured on the annotation. This overrides value()
 		if (!bind.type().equals(void.class)) {
+			// An explicit prefix class has been configured on the annotation. This overrides value()
 			return Optional.of(getPrefix(bind.type()));
 		}
 
+		// Check the annotation to see if value() is still at its default value
 		if (bind.value().equals("")) {
 			// Use a prefix derived from the class type
 			return Optional.of(getPrefix(type));
 		} else {
-			// An explicit prefix value has been configured on the annotation.
+			// Make sure they haven't supplied a blank prefix
 			checkState(!StringUtils.isBlank(bind.value()), "[%s.value()] cannot be blank", bind.getClass().getCanonicalName());
-			return Optional.of(bind.value());
+			// An explicit prefix has been configured on the annotation.
+			return Optional.of(bind.value().trim());
 		}
 
 	}
