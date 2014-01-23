@@ -16,9 +16,9 @@ public @interface StringListFormat {
 
 	String separator() default ",";
 
-	boolean trim() default false;
+	boolean trim() default true;
 
-	boolean omitEmpty() default false;
+	boolean omitEmpty() default true;
 
 	String magicEmptyString() default NullUtils.NONE;
 
