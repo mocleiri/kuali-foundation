@@ -115,6 +115,7 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 		private static void validate(ListStringFormatter instance) {
 			checkNotNull(instance.splitter, "'splitter' cannot be null");
 			checkNotNull(instance.joiner, "'joiner' cannot be null");
+			checkNotNull(instance.magicEmptyString, "'magicEmptyString' cannot be null");
 		}
 
 		public boolean isTrim() {
