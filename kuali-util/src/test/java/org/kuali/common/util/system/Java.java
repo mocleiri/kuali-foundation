@@ -5,8 +5,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.kuali.common.util.bind.api.BindAlias;
 import org.kuali.common.util.bind.api.Bind;
+import org.kuali.common.util.bind.api.BindAlias;
+import org.kuali.common.util.bind.api.BindPrefix;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -31,11 +32,13 @@ public final class Java {
 	private final ImmutableList<String> extensionDirectories;
 
 	@Valid
-	@Bind(noPrefix = true)
+	@Bind
+	@BindPrefix(none = true)
 	private final RuntimeEnvironment runtimeEnvironment;
 
 	@Valid
-	@Bind("vm")
+	@Bind
+	@BindPrefix("vm")
 	private final VirtualMachine virtualMachine;
 
 	private Java(Builder builder) {

@@ -2,13 +2,14 @@ package org.kuali.common.util.system;
 
 import javax.validation.Valid;
 
-import org.kuali.common.util.bind.api.BindAlias;
 import org.kuali.common.util.bind.api.Bind;
+import org.kuali.common.util.bind.api.BindAlias;
+import org.kuali.common.util.bind.api.BindPrefix;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
-@Bind(noPrefix = true)
+@BindPrefix(none = true)
 public final class SystemProperties {
 
 	@Valid
@@ -16,7 +17,8 @@ public final class SystemProperties {
 	private final User user;
 
 	@Valid
-	@Bind("os")
+	@Bind
+	@BindPrefix("os")
 	private final OperatingSystem operatingSystem;
 
 	@Valid
@@ -45,21 +47,13 @@ public final class SystemProperties {
 		return new Builder();
 	}
 
-	@Bind(noPrefix = true)
 	public static class Builder extends AwesomeBuilder<SystemProperties> {
 
 		private User user;
-
 		private OperatingSystem operatingSystem;
-
-		@Bind
 		private Java java;
-
-		@BindAlias("path.separator")
 		private String pathSeparator;
-
 		private String lineSeparator;
-
 		private String fileSeparator;
 
 		public Builder user(User user) {
