@@ -12,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.bind.api.BindAlias;
+import org.kuali.common.util.bind.api.BindingAlias;
 import org.kuali.common.util.bind.api.BindingPrefix;
 import org.kuali.common.util.bind.model.BoundFieldDescriptor;
 import org.kuali.common.util.bind.model.BoundTypeDescriptor;
@@ -105,7 +105,7 @@ public class BindUtils {
 
 	protected static BoundFieldDescriptor getFieldKeys(Field field, Optional<String> prefix) {
 		List<String> keys = getKeys(prefix, ImmutableList.of(field.getName()));
-		Optional<BindAlias> mapping = ReflectionUtils.getAnnotation(field, BindAlias.class);
+		Optional<BindingAlias> mapping = ReflectionUtils.getAnnotation(field, BindingAlias.class);
 		if (mapping.isPresent()) {
 			keys = getKeys(prefix, getKeys(field, mapping.get()));
 		}
@@ -114,7 +114,7 @@ public class BindUtils {
 		return BoundFieldDescriptor.builder(field).mapping(mapping).keys(keys).build();
 	}
 
-	protected static List<String> getKeys(Field field, BindAlias annotation) {
+	protected static List<String> getKeys(Field field, BindingAlias annotation) {
 		List<String> mappings = ImmutableList.copyOf(annotation.value());
 		int blanks = CollectionUtils.getBlanks(mappings).size();
 		checkState(blanks == 0, "[%s.%s] contains %s bind mappings that are blank", field.getDeclaringClass().getCanonicalName(), field.getName(), blanks);

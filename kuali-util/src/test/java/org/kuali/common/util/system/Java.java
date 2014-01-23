@@ -6,7 +6,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.kuali.common.util.bind.api.Bind;
-import org.kuali.common.util.bind.api.BindAlias;
+import org.kuali.common.util.bind.api.BindingAlias;
 import org.kuali.common.util.bind.api.BindingPrefix;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -18,17 +18,17 @@ import com.google.common.collect.ImmutableList;
 public final class Java {
 
 	private final File home;
-	@BindAlias("io.tmpdir")
+	@BindingAlias("io.tmpdir")
 	private final File temporaryDirectory;
-	@BindAlias("compiler")
+	@BindingAlias("compiler")
 	private final Optional<String> jitCompiler;
-	@BindAlias("class.version")
+	@BindingAlias("class.version")
 	private final String classVersion;
-	@BindAlias("class.path")
+	@BindingAlias("class.path")
 	private final ImmutableList<String> classPaths;
-	@BindAlias("library.path")
+	@BindingAlias("library.path")
 	private final ImmutableList<String> libraryPaths;
-	@BindAlias("ext.dirs")
+	@BindingAlias("ext.dirs")
 	private final ImmutableList<String> extensionDirectories;
 
 	@Valid
