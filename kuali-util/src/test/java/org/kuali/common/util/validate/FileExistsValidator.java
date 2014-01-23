@@ -2,10 +2,9 @@ package org.kuali.common.util.validate;
 
 import java.io.File;
 
-import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class FileExistsValidator implements ConstraintValidator<Exists, File> {
+public class FileExistsValidator extends AbstractExistsValidator<File> {
 
 	@Override
 	public void initialize(Exists constraintAnnotation) {
@@ -17,11 +16,7 @@ public class FileExistsValidator implements ConstraintValidator<Exists, File> {
 			return true;
 		} else {
 			boolean valid = file.exists();
-			if (!valid) {
-				String error = String.format("[%s] does not exist", file.getPath());
-				context.disableDefaultConstraintViolation();
-				context.buildConstraintViolationWithTemplate(error).addConstraintViolation();
-			}
+			doValidCheck(valid, file.getAbsolutePath(), context);
 			return valid;
 		}
 	}
