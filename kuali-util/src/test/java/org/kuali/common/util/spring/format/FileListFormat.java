@@ -11,4 +11,9 @@ import java.lang.annotation.Target;
 @Target({ METHOD, FIELD, PARAMETER })
 @Retention(RUNTIME)
 public @interface FileListFormat {
+
+	boolean trim() default false;
+
+	boolean omitEmpty() default false;
+
 }
