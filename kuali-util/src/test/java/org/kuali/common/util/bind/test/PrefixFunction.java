@@ -71,6 +71,18 @@ public final class PrefixFunction implements Function<String, String> {
 				checkArgument(!StringUtils.isBlank(instance.separator.get()), "'separator' cannot be blank");
 			}
 		}
+
+		public Optional<String> getSeparator() {
+			return separator;
+		}
+
+		public void setSeparator(Optional<String> separator) {
+			this.separator = separator;
+		}
+
+		public String getPrefix() {
+			return prefix;
+		}
 	}
 
 }
