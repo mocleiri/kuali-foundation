@@ -31,7 +31,7 @@ function get_info {
     myDate=$(echo "$getDate" | sed -n 's/[^\:]*\://p' | sed -e 's/^[ \t]*//' | tr -d '\r')
     myVersion=$(echo "$getVersion" | sed -n 's/[^\:]*\://p' | sed -e 's/^[ \t]*//' | tr -d '\r')
     myJDK=$(echo "$getJDK" | sed -n 's/[^\:]*\://p' | sed -e 's/^[ \t]*//' | tr -d '\r')
-    myDB=$(echo "$getDB" | sed -n 's/[^\>]*\>//p' |sed -e 's/\<[^\<]*$//' | sed -e 's/^[ \t]*//' | tr -d '\r')
+    myDB=$(echo "$getDB" | sed -n 's/[^\>]*[\>]//p' |sed -e 's/[\<][^\<]*$//' | sed -e 's/^[ \t]*//' | tr -d '\r')
     myAPP=$(echo "$getAPP" | sed -n s/.*kuali.rice.//p | sed -e 's/^[ \t]*//' | tr -d '\r')
     #myMX=$(echo "$getMX" | sed -e 's/^[Xmx]//' |sed -e 's/[^\<]*$//' | sed -e 's/^[ \t]*//' | tr -d '\r')
 
@@ -50,6 +50,11 @@ function get_info {
 #while [[ $COUNT -lt $numENV ]];do
 while read URL;do
 ((COUNT=COUNT+1))
+
+#if [[ $COUNT -eq 2 ]];then 
+#exit 0
+#fi
+
 if [[ "$URL" == *rice.kuali.org* ]]; then
    myGroup="rice"
 elif [[ "$URL" == *ks.kuali.org* ]]; then
