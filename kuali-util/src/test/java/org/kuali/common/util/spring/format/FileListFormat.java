@@ -14,9 +14,9 @@ import org.kuali.common.util.nullify.NullUtils;
 @Retention(RUNTIME)
 public @interface FileListFormat {
 
-	boolean trim() default false;
+	boolean trim() default true;
 
-	boolean omitEmpty() default false;
+	boolean omitEmpty() default true;
 
 	String magicEmptyString() default NullUtils.NONE;
 
