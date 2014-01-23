@@ -126,7 +126,8 @@ public class BindUtilsTest {
 
 		if (!bindingPrefix.type().equals(void.class)) {
 			// An explicit prefix class has been configured on the annotation. This overrides value()
-			return Optional.of(getPrefix(bindingPrefix.type()));
+			String actualPrefix = getPrefix(bindingPrefix.type());
+			return Optional.of(actualPrefix);
 		}
 
 		// Check the annotation to see if value() is still at its default value
