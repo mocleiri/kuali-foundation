@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.format.Parser;
 import org.springframework.format.Printer;
 
-public final class FileListFormatAnnotationFormatterFactory extends ListStringFormatAnnotationFormatterFactory<FileListFormat> {
+public final class FileListFormatAnnotationFormatterFactory extends AbstractListStringFormatAnnotationFormatterFactory<FileListFormat> {
 
 	@Override
 	public Printer<List<String>> getPrinter(FileListFormat annotation, Class<?> fieldType) {

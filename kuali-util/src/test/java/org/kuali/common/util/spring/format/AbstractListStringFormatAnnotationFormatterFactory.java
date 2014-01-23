@@ -9,7 +9,7 @@ import org.springframework.format.Formatter;
 
 import com.google.common.collect.ImmutableSet;
 
-public abstract class ListStringFormatAnnotationFormatterFactory<A extends Annotation> implements AnnotationFormatterFactory<A> {
+public abstract class AbstractListStringFormatAnnotationFormatterFactory<A extends Annotation> implements AnnotationFormatterFactory<A> {
 
 	private static final Class<?>[] ARRAY = { List.class };
 	private static final Set<Class<?>> TYPES = ImmutableSet.copyOf(ARRAY);
