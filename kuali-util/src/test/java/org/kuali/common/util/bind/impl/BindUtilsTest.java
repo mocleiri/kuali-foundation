@@ -35,6 +35,7 @@ public class BindUtilsTest {
 		if (!type.isAnnotationPresent(Bind.class)) {
 			return Sets.newHashSet();
 		}
+		Optional<String> actualPrefix = getPrefix(prefix, type, type.getAnnotation(Bind.class));
 
 		return null;
 	}
