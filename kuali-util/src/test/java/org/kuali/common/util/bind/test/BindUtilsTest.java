@@ -40,11 +40,9 @@ public class BindUtilsTest {
 	}
 
 	public Set<String> getKeys(Optional<String> prefix, Class<?> type) {
-		if (!type.isAnnotationPresent(Bind.class)) {
-			return Sets.newHashSet();
-		}
 		SortedSet<String> keys = Sets.newTreeSet();
-		Optional<String> actualPrefix = getPrefix(prefix, type, type.getAnnotation(Bind.class));
+		Optional<Bind> classAnnotation = Optional.fromNullable(type.getAnnotation(Bind.class));
+		Optional<String> actualPrefix = getPrefix(prefix, type, classAnnotation);
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		for (Field field : fields) {
 			List<String> fieldKeys = getKeys(field);
@@ -77,11 +75,17 @@ public class BindUtilsTest {
 		}
 	}
 
-	protected Optional<String> getPrefix(Optional<String> prefix, Class<?> type, Bind bind) {
+	protected Optional<String> getPrefix(Optional<String> prefix, Class<?> type, Optional<Bind> annotation) {
 		// Explicit prefix. This overrides everything
 		if (prefix.isPresent()) {
 			return prefix;
 		}
+
+		if (!annotation.isPresent()) {
+			return Optional.of(getPrefix(type));
+		}
+
+		Bind bind = annotation.get();
 
 		// They have specifically said, "don't use a prefix"
 		if (bind.noPrefix()) {
