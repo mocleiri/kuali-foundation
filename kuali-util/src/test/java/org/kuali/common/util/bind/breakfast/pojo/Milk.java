@@ -2,10 +2,6 @@ package org.kuali.common.util.bind.breakfast.pojo;
 
 public class Milk {
 
-	public Milk() {
-		System.out.println("yo!");
-	}
-
 	double price;
 	String type;
 
