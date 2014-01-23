@@ -137,7 +137,7 @@ public class BindUtilsTest {
 			// Make sure they haven't supplied a blank prefix
 			checkState(!StringUtils.isBlank(bind.value()), "[%s.value()] cannot be blank", bind.getClass().getCanonicalName());
 			// An explicit prefix has been configured on the annotation.
-			return Optional.of(bind.value().trim());
+			return Optional.of(bind.value());
 		}
 
 	}
