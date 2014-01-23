@@ -18,16 +18,22 @@ import com.google.common.collect.ImmutableList;
 public final class Java {
 
 	private final File home;
+
 	@BindingAlias("io.tmpdir")
 	private final File temporaryDirectory;
+
 	@BindingAlias("compiler")
 	private final Optional<String> jitCompiler;
+
 	@BindingAlias("class.version")
 	private final String classVersion;
+
 	@BindingAlias("class.path")
 	private final ImmutableList<String> classPaths;
+
 	@BindingAlias("library.path")
 	private final ImmutableList<String> libraryPaths;
+
 	@BindingAlias("ext.dirs")
 	private final ImmutableList<String> extensionDirectories;
 
