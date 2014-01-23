@@ -46,19 +46,21 @@ public class BindUtilsTest {
 		Optional<String> actualPrefix = getPrefix(prefix, type, classPrefixAnnotation);
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		for (Field field : fields) {
-			if (field.isAnnotationPresent(Bind.class)) {
-				Optional<BindPrefix> fieldPrefixAnnotation = Optional.fromNullable(field.getAnnotation(BindPrefix.class));
-				Optional<String> fieldPrefix = getPrefix(Optional.<String> absent(), field.getType(), fieldPrefixAnnotation);
-				Optional<String> newPrefix = combine(prefix, fieldPrefix, ".");
-				Set<String> nestedKeys = getKeys(newPrefix, field.getType());
-				keys.addAll(nestedKeys);
-			} else {
-				List<String> fieldKeys = getKeys(field);
-				List<String> transformed = transform(fieldKeys, actualPrefix, ".");
-				keys.addAll(transformed);
-			}
+			keys.addAll(getKeys(field, actualPrefix));
 		}
 		return keys;
+	}
+
+	protected Set<String> getKeys(Field field, Optional<String> prefix) {
+		if (field.isAnnotationPresent(Bind.class)) {
+			Optional<BindPrefix> fieldPrefixAnnotation = Optional.fromNullable(field.getAnnotation(BindPrefix.class));
+			Optional<String> fieldPrefix = getPrefix(Optional.<String> absent(), field.getType(), fieldPrefixAnnotation);
+			Optional<String> newPrefix = combine(prefix, fieldPrefix, ".");
+			return getKeys(newPrefix, field.getType());
+		} else {
+			List<String> fieldKeys = getKeys(field);
+			return Sets.newHashSet(transform(fieldKeys, prefix, "."));
+		}
 	}
 
 	protected Optional<String> combine(Optional<String> s1, Optional<String> s2, String separator) {
