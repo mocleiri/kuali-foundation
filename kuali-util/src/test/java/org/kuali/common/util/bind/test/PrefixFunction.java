@@ -32,11 +32,11 @@ public final class PrefixFunction implements Function<String, String> {
 		this.separator = builder.separator;
 	}
 
-	public static PrefixFunction create(String prefix) {
+	public static PrefixFunction make(String prefix) {
 		return builder(prefix).build();
 	}
 
-	public static PrefixFunction create(String prefix, String separator) {
+	public static PrefixFunction make(String prefix, String separator) {
 		return builder(prefix).separator(separator).build();
 	}
 

@@ -58,7 +58,7 @@ public class BindUtilsTest {
 
 	protected List<String> transform(List<String> original, Optional<String> prefix) {
 		if (prefix.isPresent()) {
-			Function<String, String> prefixer = PrefixFunction.create(prefix.get(), ".");
+			Function<String, String> prefixer = PrefixFunction.make(prefix.get(), ".");
 			return Lists.transform(original, prefixer);
 		} else {
 			return original;
