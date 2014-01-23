@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 
-import org.codehaus.plexus.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.Alias;
@@ -50,7 +50,22 @@ public class BindUtilsTest {
 			keys.addAll(transformed);
 			Optional<Bind> fieldAnnotation = Optional.fromNullable(field.getAnnotation(Bind.class));
 			if (fieldAnnotation.isPresent()) {
-				keys.addAll(getKeys(prefix, field.getType()));
+				Optional<String> newPrefix = getPrefix(Optional.<String> absent(), field.getType(), fieldAnnotation);
+				StringBuilder sb = new StringBuilder();
+				if (prefix.isPresent()) {
+					sb.append(prefix.get());
+					if (newPrefix.isPresent()) {
+						sb.append(".");
+						sb.append(newPrefix.get());
+					}
+				} else {
+					if (newPrefix.isPresent()) {
+						sb.append(newPrefix.get());
+					}
+				}
+				String s = StringUtils.trimToNull(sb.toString());
+				Optional<String> nestedPrefix = Optional.fromNullable(s);
+				keys.addAll(getKeys(nestedPrefix, field.getType()));
 			}
 		}
 		return keys;
@@ -113,7 +128,7 @@ public class BindUtilsTest {
 	}
 
 	protected String getPrefix(Class<?> type) {
-		return StringUtils.uncapitalise(type.getSimpleName());
+		return StringUtils.uncapitalize(type.getSimpleName());
 	}
 
 }
