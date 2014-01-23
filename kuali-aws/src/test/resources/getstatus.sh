@@ -109,6 +109,8 @@ if [[ $HTTP_CODE != "302" ]] && [[ $HTTP_CODE != "200" ]];then
     print -n "," >> $myGroup.csv
     print -n $myDBtype >> $myGroup.csv
     print -n "," >> $myGroup.csv
+    print -n $myDB >> $myGroup.csv
+    print -n "," >> $myGroup.csv
     print -n $myDate >> $myGroup.csv
     print -n "," >> $myGroup.csv
     print -n "OK" >> $myGroup.csv
