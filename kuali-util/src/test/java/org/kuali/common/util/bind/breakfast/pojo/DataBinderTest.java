@@ -13,7 +13,6 @@ public class DataBinderTest {
 	@Test
 	public void test() {
 		try {
-
 			Map<String, String> original = Maps.newHashMap();
 			original.put("milk.type", "lowfat");
 			MutablePropertyValues mpvs = new MutablePropertyValues(original);
