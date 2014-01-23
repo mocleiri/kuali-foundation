@@ -142,7 +142,7 @@ public class BindUtilsTest {
 			// 1 - They didn't supply a value and thus the annotation is still at its default
 			// 2 - They did supply a value but the value they supplied was the default value
 			// In either case, we switch to using the uncapitalized version of the simple class name as the prefix
-			// They can use none = true to explicitly prevent a prefix from being used
+			// They can set the annotation attribute 'none=true' to explicitly prevent a prefix from being used
 			return Optional.of(getPrefix(type));
 		} else {
 			// Make sure they haven't supplied a blank prefix
