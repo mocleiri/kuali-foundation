@@ -21,7 +21,7 @@ public final class PrefixFunction implements Function<String, String> {
 		StringBuilder sb = new StringBuilder();
 		sb.append(prefix);
 		if (separator.isPresent()) {
-			sb.append(separator);
+			sb.append(separator.get());
 		}
 		sb.append(input);
 		return sb.toString();

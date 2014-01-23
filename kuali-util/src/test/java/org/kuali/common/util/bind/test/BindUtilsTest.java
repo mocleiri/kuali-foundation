@@ -48,6 +48,10 @@ public class BindUtilsTest {
 			List<String> fieldKeys = getKeys(field);
 			List<String> transformed = transform(fieldKeys, actualPrefix);
 			keys.addAll(transformed);
+			Optional<Bind> fieldAnnotation = Optional.fromNullable(field.getAnnotation(Bind.class));
+			if (fieldAnnotation.isPresent()) {
+				keys.addAll(getKeys(prefix, field.getType()));
+			}
 		}
 		return keys;
 	}
