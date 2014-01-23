@@ -55,14 +55,15 @@ public class BindUtilsTest {
 			return Optional.of(getPrefix(bind.prefix()));
 		}
 
-		// An explicit prefix value has been configured on the annotation.
-		if (!bind.value().equals("")) {
+		if (bind.value().equals("")) {
+			// Use a prefix derived from the class type
+			return Optional.of(getPrefix(type));
+		} else {
+			// An explicit prefix value has been configured on the annotation.
 			checkState(!StringUtils.isBlank(bind.value()), "[%s.value()] cannot be blank", bind.getClass().getCanonicalName());
 			return Optional.of(bind.value());
 		}
 
-		// Use a prefix derived from the class type
-		return Optional.of(getPrefix(type));
 	}
 
 	protected String getPrefix(Class<?> type) {
