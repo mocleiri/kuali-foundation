@@ -7,21 +7,64 @@
 ############################################################
 
 # Clear out existing csv files
-echo > ks.csv
-echo > rice.csv
-echo > ole.csv
+
+# Check to make sure an environment file containing URLs is specified.
+if [[ $# -eq 0 ]];then
+   print "No environments file specfified."
+   print "Example:"
+   print "    getstatus.sh rice.env"
+   print
+   exit 1
+fi
+
+# Check to make sure environment file exists.
+if [ ! -f $1 ]; then
+    echo "File not found! - $1"
+    exit 1
+fi
 
 ## Begin get_info()
 function get_info {
     #databaseURL=http://env$COUNT.$GROUP.kuali.org/home/kuali/main/dev/common-config.xml
     #versionURL=http://env$COUNT.$GROUP.kuali.org/tomcat/webapps/ROOT/META-INF/MANIFEST.MF
     versionURL=http://$URL/tomcat/webapps/ROOT/META-INF/MANIFEST.MF
-    databaseURL=http://$URL/home/kuali/main/dev/common-config.xml
-    tomcatURL=http://$URL/tomcat/logs/env.jsp
+    #tomcatURL=http://$URL/tomcat/logs/env.jsp
+    if [[ $myGroup == "ole" ]];then
+      if [[ $URL == *dev* ]];then
+        databaseURL=http://$URL/home/kuali/main/dev/common-config.xml
+      elif [[ $URL == *qa* ]];then
+        databaseURL=http://$URL/home/kuali/main/qa/common-config.xml
+      elif [[ $URL == *demo* ]];then
+        databaseURL=http://$URL/home/kuali/main/demo/common-config.xml
+      elif [[ $URL == *tst* ]];then
+        databaseURL=http://$URL/home/kuali/main/tst/common-config.xml
+      else
+        databaseURL=http://$URL/home/kuali/main/dev/common-config.xml
+      fi
+    elif [[ $myGroup == "ks" ]]; then
+      getAPP=$(curl -L -s $versionURL  | grep -i Bundle-SymbolicName|tr -d '\n')
+      if [[ $getAPP == *ks-with-rice-bundled* ]];then
+        databaseURL=http://$URL/home/kuali/main/dev/ks-with-rice-bundled-config.xml
+      elif [[ $getAPP == *ks-rice-standalone* ]];then
+        databaseURL=http://$URL/home/kuali/main/dev/ks-rice-standalone-config.xml
+      elif [[ $getAPP == *ks-with-rice-embedded* ]];then
+        databaseURL=http://$URL/home/kuali/main/dev/ks-with-rice-embedded-config.xml
+      else
+        databaseURL=http://$URL/home/kuali/main/dev/common-config.xml
+      fi
+    else
+      databaseURL=http://$URL/home/kuali/main/dev/common-config.xml
+    fi
+
 
     #VER=`curl -L -s $URL  | grep -i sample |grep -v viewId | grep -E "[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}" | grep -v style`
-    getDB=$(curl -L -s $databaseURL  | grep -i datasource.username|tr -d '\n')
-    getDBtype=$(curl -L -s $databaseURL  | grep -i datasource.url|tr -d '\n')
+    getDB=$(curl -L -s $databaseURL  | grep -i "\"datasource.username"|tr -d '\n')
+    #getDBcore=$(curl -L -s $databaseURL  | grep -i "\"core.datasource.username"|tr -d '\n')
+    getDBtype=""
+    getDBtype=$(curl -L -s $databaseURL  | grep -i db.vendor|tr -d '\n')
+    if [[ $getDBtype == "" ]];then
+      getDBtype=$(curl -L -s $databaseURL  | grep -i datasource.url|tr -d '\n')
+    fi
     getAPP=$(curl -L -s $versionURL  | grep -i Bundle-SymbolicName|tr -d '\n')
     getVersion=$(curl -L -s $versionURL  | grep -i Bundle-Version|tr -d '\n')
     getJDK=$(curl -L -s $versionURL  | grep -i Build-Jdk|tr -d '\n')
@@ -31,6 +74,7 @@ function get_info {
     myDate=$(echo "$getDate" | sed -n 's/[^\:]*\://p' | sed -e 's/^[ \t]*//' | tr -d '\r')
     myVersion=$(echo "$getVersion" | sed -n 's/[^\:]*\://p' | sed -e 's/^[ \t]*//' | tr -d '\r')
     myJDK=$(echo "$getJDK" | sed -n 's/[^\:]*\://p' | sed -e 's/^[ \t]*//' | tr -d '\r')
+    #myDB=$(echo "$getDB" | sed -n 's/[^\>]*[\>]//p' |sed -e 's/[\<][^\<]*$//' | sed -e 's/^[ \t]*//' | tr -d '\r')
     myDB=$(echo "$getDB" | sed -n 's/[^\>]*[\>]//p' |sed -e 's/[\<][^\<]*$//' | sed -e 's/^[ \t]*//' | tr -d '\r')
     myAPP=$(echo "$getAPP" | sed -n s/.*kuali.rice.//p | sed -e 's/^[ \t]*//' | tr -d '\r')
     #myMX=$(echo "$getMX" | sed -e 's/^[Xmx]//' |sed -e 's/[^\<]*$//' | sed -e 's/^[ \t]*//' | tr -d '\r')
@@ -51,9 +95,10 @@ function get_info {
 while read URL;do
 ((COUNT=COUNT+1))
 
-#if [[ $COUNT -eq 2 ]];then 
-#exit 0
-#fi
+# Clear out the existing csv file
+if [[ $COUNT -eq 1 ]];then 
+  echo > $myGroup.csv
+fi
 
 if [[ "$URL" == *rice.kuali.org* ]]; then
    myGroup="rice"
