@@ -50,25 +50,26 @@ public class BindUtilsTest {
 			keys.addAll(transformed);
 			Optional<Bind> fieldAnnotation = Optional.fromNullable(field.getAnnotation(Bind.class));
 			if (fieldAnnotation.isPresent()) {
-				Optional<String> newPrefix = getPrefix(Optional.<String> absent(), field.getType(), fieldAnnotation);
-				StringBuilder sb = new StringBuilder();
-				if (prefix.isPresent()) {
-					sb.append(prefix.get());
-					if (newPrefix.isPresent()) {
-						sb.append(".");
-						sb.append(newPrefix.get());
-					}
-				} else {
-					if (newPrefix.isPresent()) {
-						sb.append(newPrefix.get());
-					}
-				}
-				String s = StringUtils.trimToNull(sb.toString());
-				Optional<String> nestedPrefix = Optional.fromNullable(s);
-				keys.addAll(getKeys(nestedPrefix, field.getType()));
+				Optional<String> fieldPrefix = getPrefix(Optional.<String> absent(), field.getType(), fieldAnnotation);
+				Optional<String> newPrefix = combine(prefix, fieldPrefix, ".");
+				keys.addAll(getKeys(newPrefix, field.getType()));
 			}
 		}
 		return keys;
+	}
+
+	protected Optional<String> combine(Optional<String> s1, Optional<String> s2, String separator) {
+		StringBuilder sb = new StringBuilder();
+		if (s1.isPresent()) {
+			sb.append(s1.get());
+		}
+		if (s1.isPresent() && s2.isPresent()) {
+			sb.append(separator);
+		}
+		if (s2.isPresent()) {
+			sb.append(s2.get());
+		}
+		return Optional.fromNullable(StringUtils.trimToNull(sb.toString()));
 	}
 
 	protected List<String> transform(List<String> original, Optional<String> prefix) {
