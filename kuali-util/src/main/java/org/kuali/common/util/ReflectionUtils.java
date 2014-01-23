@@ -246,10 +246,20 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 		return superType.isAssignableFrom(type);
 	}
 
+	/**
+	 * 
+	 * @deprecated Use Annotations.get() instead
+	 */
+	@Deprecated
 	public static <T extends Annotation> Optional<T> getAnnotation(Class<?> type, Class<T> annotationClass) {
 		return Optional.fromNullable(type.getAnnotation(annotationClass));
 	}
 
+	/**
+	 * 
+	 * @deprecated Use Annotations.get() instead
+	 */
+	@Deprecated
 	public static <T extends Annotation> Optional<T> getAnnotation(Field field, Class<T> annotationClass) {
 		return Optional.fromNullable(field.getAnnotation(annotationClass));
 	}

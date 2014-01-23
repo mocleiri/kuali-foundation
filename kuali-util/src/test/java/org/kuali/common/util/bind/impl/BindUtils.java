@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.Annotations;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.ReflectionUtils;
@@ -105,7 +106,7 @@ public class BindUtils {
 
 	protected static BoundFieldDescriptor getFieldKeys(Field field, Optional<String> prefix) {
 		List<String> keys = getKeys(prefix, ImmutableList.of(field.getName()));
-		Optional<BindingAlias> mapping = ReflectionUtils.getAnnotation(field, BindingAlias.class);
+		Optional<BindingAlias> mapping = Annotations.get(field, BindingAlias.class);
 		if (mapping.isPresent()) {
 			keys = getKeys(prefix, getKeys(field, mapping.get()));
 		}
