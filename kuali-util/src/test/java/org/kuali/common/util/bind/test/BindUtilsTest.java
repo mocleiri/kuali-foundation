@@ -46,7 +46,8 @@ public class BindUtilsTest {
 		Optional<String> actualPrefix = getPrefix(prefix, type, classPrefixAnnotation);
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		for (Field field : fields) {
-			keys.addAll(getKeys(field, actualPrefix));
+			Set<String> fieldKeys = getKeys(field, actualPrefix);
+			keys.addAll(fieldKeys);
 		}
 		return keys;
 	}
