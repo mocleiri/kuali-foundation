@@ -75,7 +75,11 @@ public class BindUtilsTest {
 		if (s2.isPresent()) {
 			sb.append(s2.get());
 		}
-		return Optional.fromNullable(StringUtils.trimToNull(sb.toString()));
+		if (sb.length() == 0) {
+			return Optional.absent();
+		} else {
+			return Optional.fromNullable(sb.toString());
+		}
 	}
 
 	protected List<String> transform(List<String> original, Optional<String> prefix, String separator) {
