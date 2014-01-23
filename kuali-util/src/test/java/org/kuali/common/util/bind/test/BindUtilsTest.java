@@ -10,7 +10,7 @@ import java.util.SortedSet;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.bind.api.Alias;
+import org.kuali.common.util.bind.api.BindAlias;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.system.SystemProperties;
 
@@ -84,7 +84,7 @@ public class BindUtilsTest {
 	}
 
 	protected List<String> getKeys(Field field) {
-		Optional<Alias> alias = Optional.fromNullable(field.getAnnotation(Alias.class));
+		Optional<BindAlias> alias = Optional.fromNullable(field.getAnnotation(BindAlias.class));
 		if (!alias.isPresent()) {
 			return ImmutableList.of(field.getName());
 		} else {

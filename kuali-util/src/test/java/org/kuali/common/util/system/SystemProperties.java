@@ -2,7 +2,7 @@ package org.kuali.common.util.system;
 
 import javax.validation.Valid;
 
-import org.kuali.common.util.bind.api.Alias;
+import org.kuali.common.util.bind.api.BindAlias;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -23,13 +23,13 @@ public final class SystemProperties {
 	@Bind
 	private final Java java;
 
-	@Alias("line.separator")
+	@BindAlias("line.separator")
 	private final String lineSeparator;
 
-	@Alias("path.separator")
+	@BindAlias("path.separator")
 	private final String pathSeparator;
 
-	@Alias("file.separator")
+	@BindAlias("file.separator")
 	private final String fileSeparator;
 
 	private SystemProperties(Builder builder) {
@@ -55,7 +55,7 @@ public final class SystemProperties {
 		@Bind
 		private Java java;
 
-		@Alias("path.separator")
+		@BindAlias("path.separator")
 		private String pathSeparator;
 
 		private String lineSeparator;
