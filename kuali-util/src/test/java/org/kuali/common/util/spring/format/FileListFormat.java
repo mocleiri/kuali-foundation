@@ -16,4 +16,6 @@ public @interface FileListFormat {
 
 	boolean omitEmpty() default false;
 
+	String empty();
+
 }
