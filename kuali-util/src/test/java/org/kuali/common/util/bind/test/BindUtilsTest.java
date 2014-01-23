@@ -10,8 +10,9 @@ import java.util.SortedSet;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.bind.api.BindAlias;
 import org.kuali.common.util.bind.api.Bind;
+import org.kuali.common.util.bind.api.BindAlias;
+import org.kuali.common.util.bind.api.BindPrefix;
 import org.kuali.common.util.system.SystemProperties;
 
 import com.google.common.base.Function;
@@ -41,13 +42,13 @@ public class BindUtilsTest {
 
 	public Set<String> getKeys(Optional<String> prefix, Class<?> type) {
 		SortedSet<String> keys = Sets.newTreeSet();
-		Optional<Bind> classAnnotation = Optional.fromNullable(type.getAnnotation(Bind.class));
-		Optional<String> actualPrefix = getPrefix(prefix, type, classAnnotation);
+		Optional<BindPrefix> classPrefixAnnotation = Optional.fromNullable(type.getAnnotation(BindPrefix.class));
+		Optional<String> actualPrefix = getPrefix(prefix, type, classPrefixAnnotation);
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		for (Field field : fields) {
-			Optional<Bind> fieldAnnotation = Optional.fromNullable(field.getAnnotation(Bind.class));
-			if (fieldAnnotation.isPresent()) {
-				Optional<String> fieldPrefix = getPrefix(Optional.<String> absent(), field.getType(), fieldAnnotation);
+			if (field.isAnnotationPresent(Bind.class)) {
+				Optional<BindPrefix> fieldPrefixAnnotation = Optional.fromNullable(field.getAnnotation(BindPrefix.class));
+				Optional<String> fieldPrefix = getPrefix(Optional.<String> absent(), field.getType(), fieldPrefixAnnotation);
 				Optional<String> newPrefix = combine(prefix, fieldPrefix, ".");
 				Set<String> nestedKeys = getKeys(newPrefix, field.getType());
 				keys.addAll(nestedKeys);
@@ -97,7 +98,7 @@ public class BindUtilsTest {
 		}
 	}
 
-	protected Optional<String> getPrefix(Optional<String> prefix, Class<?> type, Optional<Bind> annotation) {
+	protected Optional<String> getPrefix(Optional<String> prefix, Class<?> type, Optional<BindPrefix> annotation) {
 		// Explicit prefix. This overrides everything
 		if (prefix.isPresent()) {
 			return prefix;
@@ -107,16 +108,16 @@ public class BindUtilsTest {
 			return Optional.of(getPrefix(type));
 		}
 
-		Bind bind = annotation.get();
+		BindPrefix bind = annotation.get();
 
 		// They have specifically said, "don't use a prefix"
-		if (bind.noPrefix()) {
+		if (bind.none()) {
 			return Optional.absent();
 		}
 
 		// An explicit prefix class has been configured on the annotation. This overrides value()
-		if (!bind.prefix().equals(void.class)) {
-			return Optional.of(getPrefix(bind.prefix()));
+		if (!bind.type().equals(void.class)) {
+			return Optional.of(getPrefix(bind.type()));
 		}
 
 		if (bind.value().equals("")) {
