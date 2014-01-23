@@ -46,7 +46,7 @@ public class BindUtilsTest {
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		for (Field field : fields) {
 			List<String> fieldKeys = getKeys(field);
-			List<String> transformed = transform(fieldKeys, actualPrefix);
+			List<String> transformed = transform(fieldKeys, actualPrefix, ".");
 			keys.addAll(transformed);
 			Optional<Bind> fieldAnnotation = Optional.fromNullable(field.getAnnotation(Bind.class));
 			if (fieldAnnotation.isPresent()) {
@@ -72,9 +72,9 @@ public class BindUtilsTest {
 		return Optional.fromNullable(StringUtils.trimToNull(sb.toString()));
 	}
 
-	protected List<String> transform(List<String> original, Optional<String> prefix) {
+	protected List<String> transform(List<String> original, Optional<String> prefix, String separator) {
 		if (prefix.isPresent()) {
-			Function<String, String> prefixer = PrefixFunction.make(prefix.get(), ".");
+			Function<String, String> prefixer = PrefixFunction.make(prefix.get(), separator);
 			return Lists.transform(original, prefixer);
 		} else {
 			return original;
