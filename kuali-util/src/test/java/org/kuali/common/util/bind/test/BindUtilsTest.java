@@ -27,7 +27,7 @@ public class BindUtilsTest {
 	public void test() {
 		try {
 			Set<String> keys = getKeys(SystemProperties.class);
-			System.out.println("----- Keys -----");
+			System.out.println(String.format("----- %s Keys -----", keys.size()));
 			for (String key : keys) {
 				System.out.println(key);
 			}
