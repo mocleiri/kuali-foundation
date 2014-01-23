@@ -42,7 +42,7 @@ public final class PrefixFunction implements Function<String, String> {
 		return new Builder(prefix);
 	}
 
-	public static class Builder {
+	public static class Builder implements org.kuali.common.util.build.Builder<PrefixFunction> {
 
 		private final String prefix;
 		private Optional<String> separator = Optional.absent();
@@ -56,6 +56,7 @@ public final class PrefixFunction implements Function<String, String> {
 			return this;
 		}
 
+		@Override
 		public PrefixFunction build() {
 			PrefixFunction instance = new PrefixFunction(this);
 			validate(instance);
