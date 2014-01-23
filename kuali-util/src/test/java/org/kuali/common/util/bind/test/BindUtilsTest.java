@@ -42,8 +42,8 @@ public class BindUtilsTest {
 
 	public Set<String> getKeys(Optional<String> prefix, Class<?> type) {
 		SortedSet<String> keys = Sets.newTreeSet();
-		Optional<BindingPrefix> classPrefixAnnotation = Optional.fromNullable(type.getAnnotation(BindingPrefix.class));
-		Optional<String> actualPrefix = getPrefix(prefix, type, classPrefixAnnotation);
+		Optional<BindingPrefix> bindingPrefix = Optional.fromNullable(type.getAnnotation(BindingPrefix.class));
+		Optional<String> actualPrefix = getPrefix(prefix, type, bindingPrefix);
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		for (Field field : fields) {
 			Set<String> fieldKeys = getKeys(field, actualPrefix);
@@ -54,8 +54,8 @@ public class BindUtilsTest {
 
 	protected Set<String> getKeys(Field field, Optional<String> prefix) {
 		if (field.isAnnotationPresent(Bind.class)) {
-			Optional<BindingPrefix> fieldPrefixAnnotation = Optional.fromNullable(field.getAnnotation(BindingPrefix.class));
-			Optional<String> fieldPrefix = getPrefix(Optional.<String> absent(), field.getType(), fieldPrefixAnnotation);
+			Optional<BindingPrefix> bindingPrefix = Optional.fromNullable(field.getAnnotation(BindingPrefix.class));
+			Optional<String> fieldPrefix = getPrefix(Optional.<String> absent(), field.getType(), bindingPrefix);
 			Optional<String> newPrefix = combine(prefix, fieldPrefix, ".");
 			return getKeys(newPrefix, field.getType());
 		} else {
