@@ -9,6 +9,7 @@ import java.util.SortedSet;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+import org.kuali.common.util.Annotations;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.api.BindingAlias;
@@ -42,7 +43,7 @@ public class BindUtilsTest {
 
 	public Set<String> getKeys(Optional<String> prefix, Class<?> type) {
 		SortedSet<String> keys = Sets.newTreeSet();
-		Optional<BindingPrefix> annotation = ReflectionUtils.getAnnotation(type, BindingPrefix.class);
+		Optional<BindingPrefix> annotation = Annotations.get(type, BindingPrefix.class);
 		Optional<String> actualPrefix = getPrefix(prefix, type, annotation);
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		for (Field field : fields) {
@@ -54,7 +55,7 @@ public class BindUtilsTest {
 
 	protected Set<String> getKeys(Field field, Optional<String> prefix) {
 		if (field.isAnnotationPresent(Bind.class)) {
-			Optional<BindingPrefix> annotation = Optional.fromNullable(field.getAnnotation(BindingPrefix.class));
+			Optional<BindingPrefix> annotation = Annotations.get(field, BindingPrefix.class);
 			Optional<String> fieldPrefix = getPrefix(Optional.<String> absent(), field.getType(), annotation);
 			Optional<String> newPrefix = combine(prefix, fieldPrefix, ".");
 			return getKeys(newPrefix, field.getType());
@@ -92,7 +93,7 @@ public class BindUtilsTest {
 	}
 
 	protected List<String> getKeys(Field field) {
-		Optional<BindingAlias> bindingAlias = Optional.fromNullable(field.getAnnotation(BindingAlias.class));
+		Optional<BindingAlias> bindingAlias = Annotations.get(field, BindingAlias.class);
 		if (!bindingAlias.isPresent()) {
 			return ImmutableList.of(field.getName());
 		} else {
