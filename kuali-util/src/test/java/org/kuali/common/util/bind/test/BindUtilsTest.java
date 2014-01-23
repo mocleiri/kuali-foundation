@@ -92,13 +92,13 @@ public class BindUtilsTest {
 	}
 
 	protected List<String> getKeys(Field field) {
-		Optional<BindingAlias> alias = Optional.fromNullable(field.getAnnotation(BindingAlias.class));
-		if (!alias.isPresent()) {
+		Optional<BindingAlias> bindingAlias = Optional.fromNullable(field.getAnnotation(BindingAlias.class));
+		if (!bindingAlias.isPresent()) {
 			return ImmutableList.of(field.getName());
 		} else {
 			List<String> keys = Lists.newArrayList();
-			keys.addAll(ImmutableList.copyOf(alias.get().value()));
-			if (alias.get().includeFieldName()) {
+			keys.addAll(ImmutableList.copyOf(bindingAlias.get().value()));
+			if (bindingAlias.get().includeFieldName()) {
 				keys.add(field.getName());
 			}
 			return keys;
