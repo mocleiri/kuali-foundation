@@ -14,4 +14,6 @@ public @interface Alias {
 
 	String[] value();
 
+	boolean includeFieldName() default false;
+
 }

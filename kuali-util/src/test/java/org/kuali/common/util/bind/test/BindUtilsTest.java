@@ -12,10 +12,9 @@ import org.junit.Test;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.bind.api.Bind;
-import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.system.SystemProperties;
-import org.slf4j.Logger;
 
+import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -23,14 +22,13 @@ import com.google.common.collect.Sets;
 
 public class BindUtilsTest {
 
-	private static final Logger logger = LoggerUtils.make();
-
 	@Test
 	public void test() {
 		try {
 			Set<String> keys = getKeys(SystemProperties.class);
+			System.out.println("----- Keys -----");
 			for (String key : keys) {
-				logger.info("key={}", key);
+				System.out.println(key);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -49,26 +47,33 @@ public class BindUtilsTest {
 		Optional<String> actualPrefix = getPrefix(prefix, type, type.getAnnotation(Bind.class));
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		for (Field field : fields) {
-			List<String> aliases = getAliases(field);
-			List<String> prefixed = Lists.transform(aliases, null);
-			String fieldName = field.getName();
-			if (actualPrefix.isPresent()) {
-				String key = actualPrefix.get() + "." + fieldName;
-				keys.add(key);
-			} else {
-				String key = fieldName;
-				keys.add(key);
-			}
+			List<String> fieldKeys = getKeys(field);
+			List<String> transformed = transform(fieldKeys, actualPrefix);
+			keys.addAll(transformed);
 		}
 		return keys;
 	}
 
-	protected List<String> getAliases(Field field) {
-		Optional<Alias> alias = Optional.of(field.getAnnotation(Alias.class));
-		if (!alias.isPresent()) {
-			return ImmutableList.of();
+	protected List<String> transform(List<String> original, Optional<String> prefix) {
+		if (prefix.isPresent()) {
+			Function<String, String> prefixer = PrefixFunction.create(prefix.get(), ".");
+			return Lists.transform(original, prefixer);
 		} else {
-			return ImmutableList.copyOf(alias.get().value());
+			return original;
+		}
+	}
+
+	protected List<String> getKeys(Field field) {
+		Optional<Alias> alias = Optional.fromNullable(field.getAnnotation(Alias.class));
+		if (!alias.isPresent()) {
+			return ImmutableList.of(field.getName());
+		} else {
+			List<String> keys = Lists.newArrayList();
+			keys.addAll(ImmutableList.copyOf(alias.get().value()));
+			if (alias.get().includeFieldName()) {
+				keys.add(field.getName());
+			}
+			return keys;
 		}
 	}
 
