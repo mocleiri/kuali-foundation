@@ -13,7 +13,9 @@ import java.lang.annotation.Target;
 @Documented
 public @interface BindingPrefix {
 
-	String value() default "";
+	public static final String DEFAULT = "";
+
+	String value() default DEFAULT;
 
 	Class<?> type() default void.class;
 

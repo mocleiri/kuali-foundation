@@ -131,8 +131,12 @@ public class BindUtilsTest {
 		}
 
 		// Check the annotation to see if value() is still at its default value
-		if (bindingPrefix.value().equals("")) {
-			// No string was supplied for the prefix, use a prefix derived from the class type
+		if (bindingPrefix.value().equals(BindingPrefix.DEFAULT)) {
+			// This can actually happen 2 different ways
+			// 1 - They didn't supply a value and thus the annotation is still at its default
+			// 2 - They did supply a value but the value they supplied was the default value
+			// In either case, we switch to using the uncapitalized version of the simple class name as the prefix
+			// They can use none = true to explicitly prevent a prefix from being used
 			return Optional.of(getPrefix(type));
 		} else {
 			// Make sure they haven't supplied a blank prefix
