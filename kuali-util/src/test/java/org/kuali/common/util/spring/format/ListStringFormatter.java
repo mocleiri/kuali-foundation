@@ -1,10 +1,12 @@
 package org.kuali.common.util.spring.format;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.nullify.NullUtils;
 import org.springframework.format.Formatter;
 
@@ -116,6 +118,9 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 			checkNotNull(instance.splitter, "'splitter' cannot be null");
 			checkNotNull(instance.joiner, "'joiner' cannot be null");
 			checkNotNull(instance.magicEmptyString, "'magicEmptyString' cannot be null");
+			if (instance.magicEmptyString.isPresent()) {
+				checkArgument(!StringUtils.isBlank(instance.magicEmptyString.get()), "'magicEmptyString' cannot be blank");
+			}
 		}
 
 		public boolean isTrim() {
