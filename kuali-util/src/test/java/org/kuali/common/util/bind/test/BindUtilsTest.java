@@ -132,7 +132,7 @@ public class BindUtilsTest {
 
 		// Check the annotation to see if value() is still at its default value
 		if (bindingPrefix.value().equals("")) {
-			// Use a prefix derived from the class type
+			// No string was supplied for the prefix, use a prefix derived from the class type
 			return Optional.of(getPrefix(type));
 		} else {
 			// Make sure they haven't supplied a blank prefix
