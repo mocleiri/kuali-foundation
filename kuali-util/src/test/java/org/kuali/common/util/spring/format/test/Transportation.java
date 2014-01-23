@@ -1,4 +1,4 @@
-package org.kuali.common.util.spring.format;
+package org.kuali.common.util.spring.format.test;
 
 public abstract class Transportation {
 

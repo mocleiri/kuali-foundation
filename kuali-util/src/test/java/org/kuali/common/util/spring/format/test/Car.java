@@ -1,4 +1,4 @@
-package org.kuali.common.util.spring.format;
+package org.kuali.common.util.spring.format.test;
 
 import java.util.List;
 
@@ -6,6 +6,8 @@ import javax.validation.constraints.Min;
 
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.build.AbstractBuilder;
+import org.kuali.common.util.spring.format.BytesFormat;
+import org.kuali.common.util.spring.format.TimeFormat;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 import org.kuali.common.util.validate.ImmutableGuavaCollections;
 import org.kuali.common.util.validate.MatchDeclaringClassFields;
