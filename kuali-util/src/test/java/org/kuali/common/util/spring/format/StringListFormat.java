@@ -8,6 +8,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import org.kuali.common.util.nullify.NullUtils;
+
 @Target({ METHOD, FIELD, PARAMETER })
 @Retention(RUNTIME)
 public @interface StringListFormat {
@@ -18,6 +20,6 @@ public @interface StringListFormat {
 
 	boolean omitEmpty() default false;
 
-	String magicEmptyString() default "";
+	String magicEmptyString() default NullUtils.NONE;
 
 }

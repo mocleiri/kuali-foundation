@@ -10,12 +10,12 @@ public final class FileListFormatAnnotationFormatterFactory extends ListStringFo
 
 	@Override
 	public Printer<List<String>> getPrinter(FileListFormat annotation, Class<?> fieldType) {
-		return getFormatter(File.separatorChar, annotation.trim(), annotation.omitEmpty());
+		return getFormatter(File.separatorChar, annotation.trim(), annotation.omitEmpty(), annotation.magicEmptyString());
 	}
 
 	@Override
 	public Parser<List<String>> getParser(FileListFormat annotation, Class<?> fieldType) {
-		return getFormatter(File.separatorChar, annotation.trim(), annotation.omitEmpty());
+		return getFormatter(File.separatorChar, annotation.trim(), annotation.omitEmpty(), annotation.magicEmptyString());
 	}
 
 }

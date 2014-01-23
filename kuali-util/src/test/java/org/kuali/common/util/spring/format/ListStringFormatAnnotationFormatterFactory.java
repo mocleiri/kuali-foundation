@@ -19,8 +19,8 @@ public abstract class ListStringFormatAnnotationFormatterFactory<A extends Annot
 		return TYPES;
 	}
 
-	protected Formatter<List<String>> getFormatter(char separator, boolean trim, boolean omitEmpty) {
-		return ListStringFormatter.builder(separator).trim(trim).omitEmpty(omitEmpty).build();
+	protected Formatter<List<String>> getFormatter(char separator, boolean trim, boolean omitEmpty, String magicEmptyString) {
+		return ListStringFormatter.builder(separator).trim(trim).omitEmpty(omitEmpty).magicEmptyString(magicEmptyString).build();
 	}
 
 }
