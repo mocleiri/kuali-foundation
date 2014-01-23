@@ -1,4 +1,4 @@
-package org.kuali.common.util.bind.impl;
+package org.kuali.common.util.bind.test;
 
 import static java.lang.String.format;
 
