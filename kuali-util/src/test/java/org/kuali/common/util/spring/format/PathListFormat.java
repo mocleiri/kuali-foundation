@@ -16,6 +16,6 @@ public @interface PathListFormat {
 
 	boolean omitEmpty() default false;
 
-	String empty();
+	String empty() default "";
 
 }

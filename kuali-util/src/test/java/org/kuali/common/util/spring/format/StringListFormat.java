@@ -10,7 +10,9 @@ import java.lang.annotation.Target;
 
 @Target({ METHOD, FIELD, PARAMETER })
 @Retention(RUNTIME)
-public @interface FileListFormat {
+public @interface StringListFormat {
+
+	String separator() default ",";
 
 	boolean trim() default false;
 
