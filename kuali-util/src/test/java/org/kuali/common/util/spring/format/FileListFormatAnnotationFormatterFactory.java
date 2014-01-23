@@ -1,5 +1,6 @@
 package org.kuali.common.util.spring.format;
 
+import java.io.File;
 import java.util.List;
 import java.util.Set;
 
@@ -31,6 +32,6 @@ public final class FileListFormatAnnotationFormatterFactory implements Annotatio
 	}
 
 	private Formatter<List<String>> configureFormatterFrom(FileListFormat annotation, Class<?> fieldType) {
-		return new FileListFormatter();
+		return ListStringFormatter.builder(File.separatorChar).trim(annotation.trim()).omitEmpty(annotation.omitEmpty()).build();
 	}
 }
