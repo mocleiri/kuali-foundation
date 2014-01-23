@@ -1,4 +1,4 @@
-package org.kuali.common.util.spring.binder;
+package org.kuali.common.util.spring.format;
 
 import java.util.List;
 

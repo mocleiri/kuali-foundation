@@ -1,9 +1,9 @@
 package org.kuali.common.util.spring.convert;
 
 import org.kohsuke.MetaInfServices;
-import org.kuali.common.util.spring.binder.BytesFormatAnnotationFormatterFactory;
-import org.kuali.common.util.spring.binder.CanonicalFileFormatAnnotationFormatterFactory;
-import org.kuali.common.util.spring.binder.TimeFormatAnnotationFormatterFactory;
+import org.kuali.common.util.spring.format.BytesFormatAnnotationFormatterFactory;
+import org.kuali.common.util.spring.format.CanonicalFileFormatAnnotationFormatterFactory;
+import org.kuali.common.util.spring.format.TimeFormatAnnotationFormatterFactory;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.format.support.DefaultFormattingConversionService;
 

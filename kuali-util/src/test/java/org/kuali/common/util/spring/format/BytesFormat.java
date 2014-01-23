@@ -1,4 +1,4 @@
-package org.kuali.common.util.spring.binder;
+package org.kuali.common.util.spring.format;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

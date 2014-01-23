@@ -1,4 +1,4 @@
-package org.kuali.common.util.spring.binder;
+package org.kuali.common.util.spring.format;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
