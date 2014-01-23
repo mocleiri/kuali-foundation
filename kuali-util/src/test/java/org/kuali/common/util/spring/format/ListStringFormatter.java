@@ -9,6 +9,7 @@ import org.kuali.common.util.nullify.NullUtils;
 import org.springframework.format.Formatter;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 
@@ -16,6 +17,7 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 
 	private final boolean trim;
 	private final boolean omitEmpty;
+	private final Optional<String> magicString;
 	private final char separator;
 
 	// Not exposed via getters/setters
@@ -24,7 +26,7 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 
 	@Override
 	public List<String> parse(String files, Locale locale) {
-		if (NullUtils.trimToNull(files) == null) {
+		if (magicString.isPresent() && files.equals(magicString.get())) {
 			return Lists.newArrayList();
 		} else {
 			return Lists.newArrayList(splitter.split(files));
@@ -33,7 +35,11 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 
 	@Override
 	public String print(List<String> files, Locale locale) {
-		return joiner.join(files.iterator());
+		if (magicString.isPresent() && files.isEmpty()) {
+			return magicString.get();
+		} else {
+			return joiner.join(files.iterator());
+		}
 	}
 
 	private ListStringFormatter(Builder builder) {
@@ -42,6 +48,7 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 		this.trim = builder.trim;
 		this.omitEmpty = builder.omitEmpty;
 		this.separator = builder.separator;
+		this.magicString = builder.magicString;
 	}
 
 	public static ListStringFormatter make(char separator) {
@@ -60,6 +67,7 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 		// Optional
 		private boolean trim = false;
 		private boolean omitEmpty = false;
+		private Optional<String> magicString = Optional.of(NullUtils.NONE);
 
 		// Filled in by the build method
 		private Splitter splitter;

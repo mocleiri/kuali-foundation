@@ -2,36 +2,20 @@ package org.kuali.common.util.spring.format;
 
 import java.io.File;
 import java.util.List;
-import java.util.Set;
 
-import org.springframework.format.AnnotationFormatterFactory;
-import org.springframework.format.Formatter;
 import org.springframework.format.Parser;
 import org.springframework.format.Printer;
 
-import com.google.common.collect.ImmutableSet;
-
-public final class FileListFormatAnnotationFormatterFactory implements AnnotationFormatterFactory<FileListFormat> {
-
-	private static final Class<?>[] ARRAY = { List.class };
-	private static final Set<Class<?>> TYPES = ImmutableSet.copyOf(ARRAY);
-
-	@Override
-	public Set<Class<?>> getFieldTypes() {
-		return TYPES;
-	}
+public final class FileListFormatAnnotationFormatterFactory extends ListStringFormatAnnotationFormatterFactory<FileListFormat> {
 
 	@Override
 	public Printer<List<String>> getPrinter(FileListFormat annotation, Class<?> fieldType) {
-		return configureFormatterFrom(annotation, fieldType);
+		return getFormatter(File.separatorChar, annotation.trim(), annotation.omitEmpty());
 	}
 
 	@Override
 	public Parser<List<String>> getParser(FileListFormat annotation, Class<?> fieldType) {
-		return configureFormatterFrom(annotation, fieldType);
+		return getFormatter(File.separatorChar, annotation.trim(), annotation.omitEmpty());
 	}
 
-	private Formatter<List<String>> configureFormatterFrom(FileListFormat annotation, Class<?> fieldType) {
-		return ListStringFormatter.builder(File.separatorChar).trim(annotation.trim()).omitEmpty(annotation.omitEmpty()).build();
-	}
 }
