@@ -3,8 +3,6 @@ package org.kuali.common.util.bind.test;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import javax.annotation.Nullable;
-
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.base.Function;
@@ -16,8 +14,8 @@ public final class PrefixFunction implements Function<String, String> {
 	private final Optional<String> separator;
 
 	@Override
-	@Nullable
-	public String apply(@Nullable String input) {
+	public String apply(String input) {
+		checkNotNull(input, "'input' cannot be null");
 		StringBuilder sb = new StringBuilder();
 		sb.append(prefix);
 		if (separator.isPresent()) {
