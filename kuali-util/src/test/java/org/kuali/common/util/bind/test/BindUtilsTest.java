@@ -45,14 +45,16 @@ public class BindUtilsTest {
 		Optional<String> actualPrefix = getPrefix(prefix, type, classAnnotation);
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		for (Field field : fields) {
-			List<String> fieldKeys = getKeys(field);
-			List<String> transformed = transform(fieldKeys, actualPrefix, ".");
-			keys.addAll(transformed);
 			Optional<Bind> fieldAnnotation = Optional.fromNullable(field.getAnnotation(Bind.class));
 			if (fieldAnnotation.isPresent()) {
 				Optional<String> fieldPrefix = getPrefix(Optional.<String> absent(), field.getType(), fieldAnnotation);
 				Optional<String> newPrefix = combine(prefix, fieldPrefix, ".");
-				keys.addAll(getKeys(newPrefix, field.getType()));
+				Set<String> nestedKeys = getKeys(newPrefix, field.getType());
+				keys.addAll(nestedKeys);
+			} else {
+				List<String> fieldKeys = getKeys(field);
+				List<String> transformed = transform(fieldKeys, actualPrefix, ".");
+				keys.addAll(transformed);
 			}
 		}
 		return keys;
