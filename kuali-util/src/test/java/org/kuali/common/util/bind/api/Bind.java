@@ -12,11 +12,4 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Documented
 public @interface Bind {
-
-	String value() default "";
-
-	Class<?> prefix() default void.class;
-
-	boolean noPrefix() default false;
-
 }
