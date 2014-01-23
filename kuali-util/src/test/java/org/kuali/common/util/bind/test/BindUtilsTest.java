@@ -54,6 +54,7 @@ public class BindUtilsTest {
 	}
 
 	protected Set<String> getKeys(Field field, Optional<String> prefix) {
+		// If the Bind annotation is present we'll need to recurse
 		if (field.isAnnotationPresent(Bind.class)) {
 			Optional<BindingPrefix> annotation = Annotations.get(field, BindingPrefix.class);
 			Optional<String> fieldPrefix = getPrefix(field.getType(), annotation);
@@ -61,6 +62,7 @@ public class BindUtilsTest {
 			// Recurse to acquire more keys
 			return getKeys(newPrefix, field.getType());
 		} else {
+			// Otherwise just get the keys for this field (including potential aliases)
 			List<String> fieldKeys = getKeys(field);
 			return Sets.newHashSet(transform(fieldKeys, prefix, "."));
 		}
