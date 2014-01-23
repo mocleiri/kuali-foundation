@@ -54,29 +54,27 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 	}
 
 	public static ListStringFormatter make(char separator) {
-		return builder(separator).build();
+		return builder().separator(separator).build();
 	}
 
-	public static Builder builder(char separator) {
-		return new Builder(separator);
+	public static Builder builder() {
+		return new Builder();
 	}
 
 	public static class Builder implements org.kuali.common.util.build.Builder<ListStringFormatter> {
 
-		// Required
-		private final char separator;
-
-		// Optional
-		private boolean trim = false;
-		private boolean omitEmpty = false;
+		private char separator = ',';
+		private boolean trim = true;
+		private boolean omitEmpty = true;
 		private Optional<String> magicEmptyString = Optional.of(NullUtils.NONE);
 
 		// Filled in by the build method
 		private Splitter splitter;
 		private Joiner joiner;
 
-		public Builder(char separator) {
+		public Builder separator(char separator) {
 			this.separator = separator;
+			return this;
 		}
 
 		public Builder trim(boolean trim) {

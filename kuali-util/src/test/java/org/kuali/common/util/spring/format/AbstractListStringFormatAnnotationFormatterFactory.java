@@ -20,7 +20,7 @@ public abstract class AbstractListStringFormatAnnotationFormatterFactory<A exten
 	}
 
 	protected Formatter<List<String>> getFormatter(char separator, boolean trim, boolean omitEmpty, String magicEmptyString) {
-		return ListStringFormatter.builder(separator).trim(trim).omitEmpty(omitEmpty).magicEmptyString(magicEmptyString).build();
+		return ListStringFormatter.builder().separator(separator).trim(trim).omitEmpty(omitEmpty).magicEmptyString(magicEmptyString).build();
 	}
 
 }
