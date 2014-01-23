@@ -1,6 +1,5 @@
 package org.kuali.common.util.spring.format;
 
-import java.text.ParseException;
 import java.util.Locale;
 
 import org.kuali.common.util.FormatUtils;
@@ -24,13 +23,8 @@ public final class BytesFormatter implements Formatter<Number> {
 	private final boolean printDecimalDigits;
 
 	@Override
-	public Number parse(String size, Locale locale) throws ParseException {
-		try {
-			return Numbers.narrow(FormatUtils.getBytes(size));
-		} catch (Exception e) {
-			// TODO This masks the original exception, be smarter somehow
-			throw new ParseException("Unexpected parse error: [" + e.getMessage() + "]", -1);
-		}
+	public Number parse(String size, Locale locale) {
+		return Numbers.narrow(FormatUtils.getBytes(size));
 	}
 
 	@Override

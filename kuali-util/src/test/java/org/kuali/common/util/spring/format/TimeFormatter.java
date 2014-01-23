@@ -1,6 +1,5 @@
 package org.kuali.common.util.spring.format;
 
-import java.text.ParseException;
 import java.util.Locale;
 
 import org.kuali.common.util.FormatUtils;
@@ -10,12 +9,8 @@ import org.springframework.format.Formatter;
 public final class TimeFormatter implements Formatter<Number> {
 
 	@Override
-	public Number parse(String time, Locale locale) throws ParseException {
-		try {
-			return Numbers.narrow(FormatUtils.getMillis(time));
-		} catch (Exception e) {
-			throw new ParseException("Unexpected parse error: [" + e.getMessage() + "]", -1);
-		}
+	public Number parse(String time, Locale locale) {
+		return Numbers.narrow(FormatUtils.getMillis(time));
 	}
 
 	@Override
