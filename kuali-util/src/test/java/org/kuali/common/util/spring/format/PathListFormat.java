@@ -14,9 +14,9 @@ import org.kuali.common.util.nullify.NullUtils;
 @Retention(RUNTIME)
 public @interface PathListFormat {
 
-	boolean trim() default true;
+	boolean trim() default false;
 
-	boolean omitEmpty() default true;
+	boolean omitEmpty() default false;
 
 	String magicEmptyString() default NullUtils.NONE;
 
