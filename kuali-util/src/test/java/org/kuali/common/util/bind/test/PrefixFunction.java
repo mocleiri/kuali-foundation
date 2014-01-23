@@ -67,6 +67,9 @@ public final class PrefixFunction implements Function<String, String> {
 		private static void validate(PrefixFunction instance) {
 			checkArgument(!StringUtils.isBlank(instance.prefix), "'prefix' cannot be blank");
 			checkNotNull(instance.separator, "'separator' cannot be null");
+			if (instance.separator.isPresent()) {
+				checkArgument(!StringUtils.isBlank(instance.separator.get()), "'separator' cannot be blank");
+			}
 		}
 	}
 
