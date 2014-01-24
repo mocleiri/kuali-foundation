@@ -19,7 +19,6 @@ public final class BoundFieldDescriptor {
 
 	private final Field field;
 	private final ImmutableList<String> keys;
-	private final Optional<BindingAlias> mapping;
 
 	public static BoundFieldDescriptor create(Field field) {
 		return builder(field).build();
@@ -32,7 +31,6 @@ public final class BoundFieldDescriptor {
 	private BoundFieldDescriptor(Builder builder) {
 		this.field = builder.field;
 		this.keys = copyOf(builder.keys);
-		this.mapping = builder.mapping;
 	}
 
 	public static class Builder implements org.kuali.common.util.build.Builder<BoundFieldDescriptor> {
@@ -75,7 +73,6 @@ public final class BoundFieldDescriptor {
 
 		private static void validate(BoundFieldDescriptor instance) {
 			checkNotNull(instance.field, "'field' cannot be null");
-			checkNotNull(instance.mapping, "'mapping' cannot be null");
 			checkNotNull(instance.keys, "'keys' cannot be null");
 			checkArgument(instance.keys.size() > 0, "'keys' must contain at least one value");
 			int blanks = getBlanks(instance.keys).size();
@@ -110,10 +107,6 @@ public final class BoundFieldDescriptor {
 
 	public ImmutableList<String> getKeys() {
 		return keys;
-	}
-
-	public Optional<BindingAlias> getMapping() {
-		return mapping;
 	}
 
 }
