@@ -59,7 +59,7 @@ public class BindKeysTest {
 			// Recurse to acquire more keys
 			return getKeys(newPrefix, field.getType());
 		} else {
-			// Otherwise just get the keys for this field (including potential aliases)
+			// Otherwise just get the keys for this field (including any aliases)
 			List<String> fieldKeys = getKeys(field);
 			return Sets.newHashSet(transform(fieldKeys, prefix, "."));
 		}
