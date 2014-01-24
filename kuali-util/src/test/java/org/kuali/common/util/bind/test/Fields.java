@@ -6,17 +6,21 @@ import java.util.Set;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.bind.api.Bind;
 
 public class Fields {
 
 	public static DefaultMutableTreeNode assemble(Class<?> type) {
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode();
+		DefaultMutableTreeNode parent = new DefaultMutableTreeNode();
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		for (Field field : fields) {
 			DefaultMutableTreeNode child = new DefaultMutableTreeNode(field);
-			root.add(child);
+			if (field.isAnnotationPresent(Bind.class)) {
+				child.add(assemble(field.getType()));
+			}
+			parent.add(child);
 		}
-		return root;
+		return parent;
 	}
 
 }
