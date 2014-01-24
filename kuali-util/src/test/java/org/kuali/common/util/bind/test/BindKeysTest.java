@@ -22,7 +22,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
-public class BindUtilsTest {
+public class BindKeysTest {
 
 	@Test
 	public void test() {
