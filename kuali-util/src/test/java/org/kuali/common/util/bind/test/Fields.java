@@ -14,16 +14,15 @@ import com.google.common.collect.Lists;
 public class Fields {
 
 	public static DefaultMutableTreeNode assemble(Class<?> type) {
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode(type.getSimpleName());
-		return assemble(root, type);
+		return assemble(type.getSimpleName(), type);
 	}
 
 	public static DefaultMutableTreeNode assemble(Field field) {
-		DefaultMutableTreeNode node = new DefaultMutableTreeNode(field.getName());
-		return assemble(node, field.getType());
+		return assemble(field.getName(), field.getType());
 	}
 
-	protected static DefaultMutableTreeNode assemble(DefaultMutableTreeNode node, Class<?> type) {
+	protected static DefaultMutableTreeNode assemble(String name, Class<?> type) {
+		DefaultMutableTreeNode node = new DefaultMutableTreeNode(name);
 		List<Field> fields = getFields(type);
 		for (Field field : fields) {
 			node.add(getChild(field));
