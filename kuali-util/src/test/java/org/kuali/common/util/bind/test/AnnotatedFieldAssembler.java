@@ -24,10 +24,6 @@ public final class AnnotatedFieldAssembler {
 		return Trees.children(assemble(type, type));
 	}
 
-	protected DefaultMutableTreeNode assemble(Field field) {
-		return assemble(field, field.getType());
-	}
-
 	protected DefaultMutableTreeNode assemble(Object object, Class<?> type) {
 		DefaultMutableTreeNode node = new DefaultMutableTreeNode(object);
 		List<Field> fields = getFields(type);
@@ -35,6 +31,10 @@ public final class AnnotatedFieldAssembler {
 			node.add(getChild(field));
 		}
 		return node;
+	}
+
+	protected DefaultMutableTreeNode assemble(Field field) {
+		return assemble(field, field.getType());
 	}
 
 	protected List<Field> getFields(Class<?> type) {
