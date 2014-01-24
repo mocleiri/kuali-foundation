@@ -15,21 +15,20 @@ public class Fields {
 
 	public static DefaultMutableTreeNode assemble(Class<?> type) {
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode(type.getSimpleName());
-		buildTree(root, type);
-		return root;
+		return assemble(root, type);
 	}
 
 	public static DefaultMutableTreeNode assemble(Field field) {
 		DefaultMutableTreeNode node = new DefaultMutableTreeNode(field.getName());
-		buildTree(node, field.getType());
-		return node;
+		return assemble(node, field.getType());
 	}
 
-	protected static void buildTree(DefaultMutableTreeNode node, Class<?> type) {
+	protected static DefaultMutableTreeNode assemble(DefaultMutableTreeNode node, Class<?> type) {
 		List<Field> fields = getFields(type);
 		for (Field field : fields) {
 			node.add(getChild(field));
 		}
+		return node;
 	}
 
 	protected static List<Field> getFields(Class<?> type) {
