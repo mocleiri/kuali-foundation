@@ -12,6 +12,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.kuali.common.util.ReflectionUtils;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 public final class AnnotatedFieldAssembler {
@@ -20,8 +21,10 @@ public final class AnnotatedFieldAssembler {
 	private final Class<?> type;
 	private final Comparator<Field> comparator;
 
-	public List<DefaultMutableTreeNode> assemble() {
-		return Trees.children(assemble(type, type));
+	public ImmutableList<DefaultMutableTreeNode> assemble() {
+		DefaultMutableTreeNode root = assemble(type, type);
+		List<DefaultMutableTreeNode> children = Trees.children(root);
+		return ImmutableList.copyOf(children);
 	}
 
 	protected DefaultMutableTreeNode assemble(Object object, Class<?> type) {
