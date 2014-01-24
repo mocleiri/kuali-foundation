@@ -2,6 +2,7 @@ package org.kuali.common.util.system;
 
 import java.io.File;
 
+import org.kuali.common.util.bind.api.BindingAlias;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.spring.format.CanonicalFileFormat;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -11,6 +12,7 @@ public final class User {
 
 	private final String name;
 	private final File home;
+	@BindingAlias(value = "directory", includeFieldName = true)
 	private final File dir;
 
 	private User(Builder builder) {
