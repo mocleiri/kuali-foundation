@@ -19,6 +19,8 @@ public class Prefixes {
 	}
 
 	public static Optional<String> get(BindingPrefix annotation) {
+
+		// They have explicitly said, "don't use a prefix"
 		if (annotation.none()) {
 			return Optional.absent();
 		}

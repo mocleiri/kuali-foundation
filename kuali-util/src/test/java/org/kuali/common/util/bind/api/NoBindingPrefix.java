@@ -11,8 +11,5 @@ import java.lang.annotation.Target;
 @Target({ TYPE, FIELD })
 @Retention(RUNTIME)
 @Documented
-public @interface BindingPrefix {
-
-	String value();
-
+public @interface NoBindingPrefix {
 }
