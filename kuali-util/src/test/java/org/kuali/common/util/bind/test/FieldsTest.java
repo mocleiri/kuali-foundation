@@ -18,7 +18,7 @@ public class FieldsTest {
 			Class<?> type = SystemProperties.class;
 			AnnotatedFieldAssembler assembler = AnnotatedFieldAssembler.make(type, Bind.class);
 			List<DefaultMutableTreeNode> nodes = assembler.assemble();
-			String html = Trees.html(type.getSimpleName(), nodes, new UserObjectFieldNameFunction());
+			String html = Trees.html(type.getSimpleName(), nodes, new UserObjectToFieldNameFunction());
 			FileUtils.write(new File("/tmp/fields.htm"), html);
 		} catch (Exception e) {
 			e.printStackTrace();
