@@ -7,7 +7,7 @@ import org.kuali.common.util.bind.api.BindingPrefix;
 
 import com.google.common.base.Optional;
 
-public class Prefixer {
+public class Prefixes {
 
 	public static Optional<String> get(Class<?> type, Optional<BindingPrefix> annotation) {
 		return get(Optional.<String> absent(), type, annotation);
