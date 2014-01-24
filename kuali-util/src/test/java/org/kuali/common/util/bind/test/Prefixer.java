@@ -21,7 +21,7 @@ public class Prefixer {
 
 		// No annotation, use the uncapitalized form of the simple class name as a prefix
 		if (!annotation.isPresent()) {
-			return Optional.of(get(type));
+			return Optional.of(getPrefix(type));
 		}
 
 		// Extract the annotation
@@ -34,7 +34,7 @@ public class Prefixer {
 
 		if (!bindingPrefix.type().equals(void.class)) {
 			// An explicit prefix class has been configured on the annotation. This overrides value()
-			String actualPrefix = get(bindingPrefix.type());
+			String actualPrefix = getPrefix(bindingPrefix.type());
 			return Optional.of(actualPrefix);
 		}
 
@@ -45,7 +45,7 @@ public class Prefixer {
 			// 2 - They did supply a value but the value they supplied was the default value
 			// In either case, we switch to using the uncapitalized version of the simple class name as the prefix
 			// They can set the annotation attribute 'none=true' to explicitly prevent a prefix from being used
-			return Optional.of(get(type));
+			return Optional.of(getPrefix(type));
 		} else {
 			// Make sure they haven't supplied a blank prefix
 			checkState(!StringUtils.isBlank(bindingPrefix.value()), "[%s.value()] cannot be blank", bindingPrefix.getClass().getCanonicalName());
@@ -55,7 +55,7 @@ public class Prefixer {
 
 	}
 
-	public static String get(Class<?> type) {
+	protected static String getPrefix(Class<?> type) {
 		return StringUtils.uncapitalize(type.getSimpleName());
 	}
 
