@@ -2,6 +2,7 @@ package org.kuali.common.util.bind.test;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.lang.reflect.Field;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -14,9 +15,10 @@ import com.google.common.collect.Lists;
 public class Trees {
 
 	public static String html(DefaultMutableTreeNode node) {
+		Class<?> type = (Class<?>) node.getUserObject();
 		StringBuilder sb = new StringBuilder();
 		sb.append("<table border=\"1\">\n");
-		sb.append(" <th>" + node.getUserObject().toString() + "</th>\n");
+		sb.append(" <th>" + type.getSimpleName() + "</th>\n");
 		sb.append(" <tr>\n");
 		sb.append("  <td>\n");
 		for (DefaultMutableTreeNode child : children(node)) {
@@ -29,11 +31,12 @@ public class Trees {
 	}
 
 	public static String html(DefaultMutableTreeNode node, int indent) {
+		Field field = (Field) node.getUserObject();
 		StringBuilder sb = new StringBuilder();
 		String prefix = StringUtils.repeat(" ", indent);
 		sb.append(prefix + "<table border=\"1\">\n");
 		sb.append(prefix + " <tr>\n");
-		sb.append(prefix + "  <td>" + node.getUserObject().toString() + "</td>\n");
+		sb.append(prefix + "  <td>" + field.getName() + "</td>\n");
 		List<DefaultMutableTreeNode> children = children(node);
 		if (!children.isEmpty()) {
 			sb.append(prefix + "  <td>\n");
