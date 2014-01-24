@@ -68,8 +68,8 @@ public final class AnnotatedFieldAssembler {
 	public static class Builder {
 
 		// Required
-		private final Class<? extends Annotation> annotation;
 		private final Class<?> type;
+		private final Class<? extends Annotation> annotation;
 
 		// Optional
 		private Comparator<Field> comparator = FieldNameComparator.INSTANCE;
