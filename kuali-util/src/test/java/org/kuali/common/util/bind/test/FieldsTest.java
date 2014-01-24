@@ -8,6 +8,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.kuali.common.util.bind.api.Bind;
+import org.kuali.common.util.bind.function.FieldNameFunction;
+import org.kuali.common.util.bind.function.UserObjectFunction;
 import org.kuali.common.util.system.SystemProperties;
 
 public class FieldsTest {
