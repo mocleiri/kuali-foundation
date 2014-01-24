@@ -30,7 +30,7 @@ public final class AnnotatedFieldAssembler {
 
 	protected DefaultMutableTreeNode assemble(Optional<Field> field, Class<?> type) {
 		DefaultMutableTreeNode node = getNode(field);
-		List<Field> children = getFields(type);
+		List<Field> children = getSortedFields(type);
 		for (Field child : children) {
 			node.add(getChild(child));
 		}
@@ -49,7 +49,7 @@ public final class AnnotatedFieldAssembler {
 		return assemble(Optional.of(field), field.getType());
 	}
 
-	protected List<Field> getFields(Class<?> type) {
+	protected List<Field> getSortedFields(Class<?> type) {
 		List<Field> fields = Lists.newArrayList(ReflectionUtils.getAllFields(type));
 		Collections.sort(fields, comparator);
 		return fields;
@@ -59,7 +59,7 @@ public final class AnnotatedFieldAssembler {
 		if (field.isAnnotationPresent(annotation)) {
 			return assemble(field);
 		} else {
-			return new DefaultMutableTreeNode(field);
+			return getNode(Optional.of(field));
 		}
 	}
 
