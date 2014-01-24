@@ -20,14 +20,6 @@ public class Fields {
 		return parent;
 	}
 
-	protected static DefaultMutableTreeNode getChild(Field field) {
-		if (field.isAnnotationPresent(Bind.class)) {
-			return assemble(field);
-		} else {
-			return new DefaultMutableTreeNode(field.getName());
-		}
-	}
-
 	public static DefaultMutableTreeNode assemble(Field field) {
 		DefaultMutableTreeNode parent = new DefaultMutableTreeNode(field.getName());
 		Set<Field> fields = ReflectionUtils.getAllFields(field.getType());
@@ -36,6 +28,14 @@ public class Fields {
 			parent.add(child);
 		}
 		return parent;
+	}
+
+	protected static DefaultMutableTreeNode getChild(Field field) {
+		if (field.isAnnotationPresent(Bind.class)) {
+			return assemble(field);
+		} else {
+			return new DefaultMutableTreeNode(field.getName());
+		}
 	}
 
 }
