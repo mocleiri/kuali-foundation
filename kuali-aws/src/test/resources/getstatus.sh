@@ -1,13 +1,23 @@
 #!/bin/ksh
 
-TargetTopDir="./target/"
+# Usage:
+# getstatus.sh file.env
+#
+# file.env contains FQDNs of servers/urls to scan.
+# ie:
+# env1.rice.kuali.edu
+# env2.rice.kuali.edu
+#
+# getstatus.sh will output to a csv file the following:
+# Number,URL,BuildVersion,BuildName,JDKversion,DBvendor,DBusername,BuildDate,Status
+#
+#  For instance:
+# 1,http://env1.rice.kuali.org,2.4.0-M4-r44288,rice-sampleapp,1.6.0_43,MySQL,RICEENV1,2014-01-23 06:55 UTC,OK
 
-# The TargetSubDir and contents gets removed each time the script is ran.
-TargetSubDir="env"
+# Location where to place the output files
+DropLocation="./target/env"
 
 ############################################################
-
-DropLocation=$TargetTopDir$TargetSubDir
 
 # Check to see if target directory exists.  If not, create it.
 if [ ! -d $DropLocation ]; then
@@ -120,7 +130,6 @@ function get_info {
 }
 ##  End get_info()
 
-#while [[ $COUNT -lt $numENV ]];do
 while read URL;do
 ((COUNT=COUNT+1))
 
