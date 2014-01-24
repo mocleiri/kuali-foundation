@@ -38,8 +38,7 @@ public class Trees {
 		if (!children.isEmpty()) {
 			sb.append(prefix + "  <td>\n");
 			for (DefaultMutableTreeNode child : children) {
-				String table = html(child, indent + 3);
-				sb.append(table);
+				sb.append(html(child, indent + 3));
 			}
 			sb.append(prefix + "  </td>\n");
 		}
