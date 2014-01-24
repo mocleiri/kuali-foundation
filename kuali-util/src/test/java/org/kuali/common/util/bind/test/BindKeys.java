@@ -19,11 +19,11 @@ import com.google.common.collect.Sets;
 
 public class BindKeys {
 
-	public static Set<String> getKeys(Class<?> type) {
-		return getKeys(Optional.<String> absent(), type);
+	public static Set<String> get(Class<?> type) {
+		return get(Optional.<String> absent(), type);
 	}
 
-	public static Set<String> getKeys(Optional<String> prefix, Class<?> type) {
+	public static Set<String> get(Optional<String> prefix, Class<?> type) {
 		SortedSet<String> keys = Sets.newTreeSet();
 		Optional<BindingPrefix> annotation = Annotations.get(type, BindingPrefix.class);
 		Optional<String> actualPrefix = Prefixer.get(prefix, type, annotation);
@@ -42,7 +42,7 @@ public class BindKeys {
 			Optional<String> fieldPrefix = Prefixer.get(field.getType(), annotation);
 			Optional<String> newPrefix = combine(prefix, fieldPrefix, ".");
 			// Recurse to acquire more keys
-			return getKeys(newPrefix, field.getType());
+			return get(newPrefix, field.getType());
 		} else {
 			// Otherwise just get the keys for this field (including any aliases)
 			List<String> fieldKeys = getKeys(field);
