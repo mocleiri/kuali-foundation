@@ -21,15 +21,15 @@ public final class AnnotatedFieldAssembler {
 	private final Comparator<Field> comparator;
 
 	public DefaultMutableTreeNode assemble() {
-		return assemble(type.getSimpleName(), type);
+		return assemble(type, type);
 	}
 
 	protected DefaultMutableTreeNode assemble(Field field) {
-		return assemble(field.getName(), field.getType());
+		return assemble(field, field.getType());
 	}
 
-	protected DefaultMutableTreeNode assemble(String name, Class<?> type) {
-		DefaultMutableTreeNode node = new DefaultMutableTreeNode(name);
+	protected DefaultMutableTreeNode assemble(Object object, Class<?> type) {
+		DefaultMutableTreeNode node = new DefaultMutableTreeNode(object);
 		List<Field> fields = getFields(type);
 		for (Field field : fields) {
 			node.add(getChild(field));
