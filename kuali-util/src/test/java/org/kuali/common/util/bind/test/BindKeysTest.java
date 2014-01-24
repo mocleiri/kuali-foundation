@@ -1,10 +1,13 @@
 package org.kuali.common.util.bind.test;
 
+import static com.google.common.base.Preconditions.checkState;
+
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.kuali.common.util.Annotations;
 import org.kuali.common.util.ReflectionUtils;
@@ -41,7 +44,7 @@ public class BindKeysTest {
 	public Set<String> getKeys(Optional<String> prefix, Class<?> type) {
 		SortedSet<String> keys = Sets.newTreeSet();
 		Optional<BindingPrefix> annotation = Annotations.get(type, BindingPrefix.class);
-		Optional<String> actualPrefix = Prefixer.get(prefix, type, annotation);
+		Optional<String> actualPrefix = getPrefix(prefix, type, annotation);
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		for (Field field : fields) {
 			Set<String> fieldKeys = getKeys(field, actualPrefix);
@@ -54,12 +57,12 @@ public class BindKeysTest {
 		// If the Bind annotation is present we'll need to recurse
 		if (field.isAnnotationPresent(Bind.class)) {
 			Optional<BindingPrefix> annotation = Annotations.get(field, BindingPrefix.class);
-			Optional<String> fieldPrefix = Prefixer.get(field.getType(), annotation);
+			Optional<String> fieldPrefix = getPrefix(field.getType(), annotation);
 			Optional<String> newPrefix = combine(prefix, fieldPrefix, ".");
 			// Recurse to acquire more keys
 			return getKeys(newPrefix, field.getType());
 		} else {
-			// Otherwise just get the keys for this field (including any aliases)
+			// Otherwise just get the keys for this field (including potential aliases)
 			List<String> fieldKeys = getKeys(field);
 			return Sets.newHashSet(transform(fieldKeys, prefix, "."));
 		}
@@ -104,6 +107,56 @@ public class BindKeysTest {
 			}
 			return keys;
 		}
+	}
+
+	protected Optional<String> getPrefix(Class<?> type, Optional<BindingPrefix> annotation) {
+		return getPrefix(Optional.<String> absent(), type, annotation);
+	}
+
+	protected Optional<String> getPrefix(Optional<String> prefix, Class<?> type, Optional<BindingPrefix> annotation) {
+		// Explicit prefix. This overrides everything
+		if (prefix.isPresent()) {
+			return prefix;
+		}
+
+		// No annotation, use the uncapitalized form of the simple class name as a prefix
+		if (!annotation.isPresent()) {
+			return Optional.of(getPrefix(type));
+		}
+
+		// Extract the annotation
+		BindingPrefix bindingPrefix = annotation.get();
+
+		// They have specifically said, "don't use a prefix"
+		if (bindingPrefix.none()) {
+			return Optional.absent();
+		}
+
+		if (!bindingPrefix.type().equals(void.class)) {
+			// An explicit prefix class has been configured on the annotation. This overrides value()
+			String actualPrefix = getPrefix(bindingPrefix.type());
+			return Optional.of(actualPrefix);
+		}
+
+		// Check the annotation to see if value() is still at its default value
+		if (bindingPrefix.value().equals(BindingPrefix.DEFAULT)) {
+			// This can actually happen 2 different ways
+			// 1 - They didn't supply a value and thus the annotation is still at its default
+			// 2 - They did supply a value but the value they supplied was the default value
+			// In either case, we switch to using the uncapitalized version of the simple class name as the prefix
+			// They can set the annotation attribute 'none=true' to explicitly prevent a prefix from being used
+			return Optional.of(getPrefix(type));
+		} else {
+			// Make sure they haven't supplied a blank prefix
+			checkState(!StringUtils.isBlank(bindingPrefix.value()), "[%s.value()] cannot be blank", bindingPrefix.getClass().getCanonicalName());
+			// An explicit prefix has been configured on the annotation.
+			return Optional.of(bindingPrefix.value());
+		}
+
+	}
+
+	protected String getPrefix(Class<?> type) {
+		return StringUtils.uncapitalize(type.getSimpleName());
 	}
 
 }
