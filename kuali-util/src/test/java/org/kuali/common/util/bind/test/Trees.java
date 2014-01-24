@@ -7,9 +7,29 @@ import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.google.common.collect.Lists;
 
 public class Trees {
+
+	public static String html(DefaultMutableTreeNode node) {
+		int level = node.getLevel();
+		String prefix = StringUtils.repeat(" ", level);
+		StringBuilder sb = new StringBuilder();
+		sb.append(prefix + "<table border=1>\n");
+		sb.append(prefix + " <tr>\n");
+		sb.append(prefix + "  <td>" + node.getUserObject().toString() + "</td>\n");
+		List<DefaultMutableTreeNode> children = children(node);
+		for (DefaultMutableTreeNode child : children) {
+			sb.append(prefix + "  <td>");
+			sb.append(prefix + "   " + html(child));
+			sb.append(prefix + "  </td>\n");
+		}
+		sb.append(prefix + " </tr>\n");
+		sb.append(prefix + "</table>\n");
+		return sb.toString();
+	}
 
 	@SuppressWarnings("unchecked")
 	public static List<DefaultMutableTreeNode> children(DefaultMutableTreeNode node) {
