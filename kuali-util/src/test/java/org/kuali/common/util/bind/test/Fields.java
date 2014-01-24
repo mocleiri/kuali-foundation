@@ -14,7 +14,7 @@ import com.google.common.collect.Lists;
 public class Fields {
 
 	public static DefaultMutableTreeNode assemble(Class<?> type) {
-		DefaultMutableTreeNode parent = new DefaultMutableTreeNode(type.getSimpleName());
+		DefaultMutableTreeNode parent = new DefaultMutableTreeNode(type.getCanonicalName());
 		List<Field> fields = getFields(type);
 		for (Field field : fields) {
 			parent.add(getChild(field));
