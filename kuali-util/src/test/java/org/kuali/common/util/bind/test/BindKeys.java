@@ -64,7 +64,7 @@ public class BindKeys {
 		if (sb.length() == 0) {
 			return Optional.absent();
 		} else {
-			return Optional.fromNullable(sb.toString());
+			return Optional.of(sb.toString());
 		}
 	}
 
