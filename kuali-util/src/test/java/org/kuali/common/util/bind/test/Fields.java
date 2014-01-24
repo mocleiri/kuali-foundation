@@ -11,10 +11,10 @@ import org.kuali.common.util.bind.api.Bind;
 public class Fields {
 
 	public static DefaultMutableTreeNode assemble(Class<?> type) {
-		DefaultMutableTreeNode parent = new DefaultMutableTreeNode();
+		DefaultMutableTreeNode parent = new DefaultMutableTreeNode(type.getSimpleName());
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		for (Field field : fields) {
-			DefaultMutableTreeNode child = new DefaultMutableTreeNode(field);
+			DefaultMutableTreeNode child = new DefaultMutableTreeNode(field.getName() + "[" + field.getType().getSimpleName() + "]");
 			if (field.isAnnotationPresent(Bind.class)) {
 				child.add(assemble(field.getType()));
 			}

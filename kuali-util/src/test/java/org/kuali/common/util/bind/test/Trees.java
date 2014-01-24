@@ -23,6 +23,12 @@ public class Trees {
 		return asList(node.breadthFirstEnumeration());
 	}
 
+	@SuppressWarnings("unchecked")
+	public static List<DefaultMutableTreeNode> depthFirst(DefaultMutableTreeNode node) {
+		checkNotNull(node, "'node' cannot be null");
+		return asList(node.depthFirstEnumeration());
+	}
+
 	public static List<DefaultMutableTreeNode> asList(Enumeration<DefaultMutableTreeNode> enumeration) {
 		checkNotNull(enumeration, "'enumeration' cannot be null");
 		List<DefaultMutableTreeNode> nodes = Lists.newArrayList();
