@@ -8,16 +8,16 @@ import com.google.common.base.Function;
 
 public final class UserObjectFunction<T> implements Function<DefaultMutableTreeNode, String> {
 
-	public UserObjectFunction(Function<T, String> userObjectFunction) {
-		checkNotNull(userObjectFunction, "'userObjectFunction' cannot be null");
-		this.userObjectFunction = userObjectFunction;
+	public UserObjectFunction(Function<T, String> function) {
+		checkNotNull(function, "'function' cannot be null");
+		this.function = function;
 	}
 
-	public static <T> UserObjectFunction<T> make(Function<T, String> userObjectFunction) {
-		return new UserObjectFunction<T>(userObjectFunction);
+	public static <T> UserObjectFunction<T> make(Function<T, String> function) {
+		return new UserObjectFunction<T>(function);
 	}
 
-	private final Function<T, String> userObjectFunction;
+	private final Function<T, String> function;
 
 	@Override
 	public String apply(DefaultMutableTreeNode node) {
@@ -25,7 +25,7 @@ public final class UserObjectFunction<T> implements Function<DefaultMutableTreeN
 		checkNotNull(node.getUserObject(), "'node.getUserObject()' cannot be null'");
 		@SuppressWarnings("unchecked")
 		T userObject = (T) node.getUserObject();
-		return userObjectFunction.apply(userObject);
+		return function.apply(userObject);
 	}
 
 }
