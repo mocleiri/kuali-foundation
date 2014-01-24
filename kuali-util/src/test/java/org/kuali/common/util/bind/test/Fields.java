@@ -14,10 +14,25 @@ public class Fields {
 		DefaultMutableTreeNode parent = new DefaultMutableTreeNode(type.getSimpleName());
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		for (Field field : fields) {
-			DefaultMutableTreeNode child = new DefaultMutableTreeNode(field.getName());
-			if (field.isAnnotationPresent(Bind.class)) {
-				child.add(assemble(field.getType()));
-			}
+			DefaultMutableTreeNode child = getChild(field);
+			parent.add(child);
+		}
+		return parent;
+	}
+
+	protected static DefaultMutableTreeNode getChild(Field field) {
+		if (field.isAnnotationPresent(Bind.class)) {
+			return assemble(field);
+		} else {
+			return new DefaultMutableTreeNode(field.getName());
+		}
+	}
+
+	public static DefaultMutableTreeNode assemble(Field field) {
+		DefaultMutableTreeNode parent = new DefaultMutableTreeNode(field.getName());
+		Set<Field> fields = ReflectionUtils.getAllFields(field.getType());
+		for (Field childField : fields) {
+			DefaultMutableTreeNode child = getChild(childField);
 			parent.add(child);
 		}
 		return parent;
