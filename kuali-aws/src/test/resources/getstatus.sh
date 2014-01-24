@@ -1,12 +1,20 @@
 #!/bin/ksh
 
-#numENV=15
-#GROUP=rice
+TargetTopDir="./target/"
 
+# The TargetSubDir and contents gets removed each time the script is ran.
+TargetSubDir="env"
 
 ############################################################
 
-# Clear out existing csv files
+DropLocation=$TargetTopDir$TargetSubDir
+
+# Check to see if target directory exists.  If not, create it.
+if [ ! -d $DropLocation ]; then
+    print "$DropLocation does not exist!"
+    print "Making dir:  $DropLocation"
+    mkdir -p $DropLocation
+fi
 
 # Check to make sure an environment file containing URLs is specified.
 if [[ $# -eq 0 ]];then
@@ -25,10 +33,13 @@ fi
 
 ## Begin get_info()
 function get_info {
-    #databaseURL=http://env$COUNT.$GROUP.kuali.org/home/kuali/main/dev/common-config.xml
-    #versionURL=http://env$COUNT.$GROUP.kuali.org/tomcat/webapps/ROOT/META-INF/MANIFEST.MF
+    # MANIFEST.MF contains app/jdk versioning information
     versionURL=http://$URL/tomcat/webapps/ROOT/META-INF/MANIFEST.MF
+
+    # env.jsp contains Tomcat information
     #tomcatURL=http://$URL/tomcat/logs/env.jsp
+
+    # *-config.xml contains DB information
     if [[ $myGroup == "ole" ]];then
       if [[ $URL == *dev* ]];then
         databaseURL=http://$URL/home/kuali/main/dev/common-config.xml
@@ -56,29 +67,47 @@ function get_info {
       databaseURL=http://$URL/home/kuali/main/dev/common-config.xml
     fi
 
-
-    #VER=`curl -L -s $URL  | grep -i sample |grep -v viewId | grep -E "[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}" | grep -v style`
+    # Find Database username
     getDB=$(curl -L -s $databaseURL  | grep -i "\"datasource.username"|tr -d '\n')
-    #getDBcore=$(curl -L -s $databaseURL  | grep -i "\"core.datasource.username"|tr -d '\n')
+    if [[ $myGroup == "ole" ]];then
+      getDB=$(curl -L -s $databaseURL  | grep -i "\"jdbc.username"|tr -d '\n')
+    else
+      getDB=$(curl -L -s $databaseURL  | grep -i "\"datasource.username"|tr -d '\n')
+    fi
+      myDB=$(echo "$getDB" | sed -n 's/[^\>]*[\>]//p' |sed -e 's/[\<][^\<]*$//' | sed -e 's/^[ \t]*//' | tr -d '\r')
+
+    # Find Database type (Oracle, MySQL, etc)
     getDBtype=""
     getDBtype=$(curl -L -s $databaseURL  | grep -i db.vendor|tr -d '\n')
     if [[ $getDBtype == "" ]];then
       getDBtype=$(curl -L -s $databaseURL  | grep -i datasource.url|tr -d '\n')
     fi
+
+    # Find Application name
     getAPP=$(curl -L -s $versionURL  | grep -i Bundle-SymbolicName|tr -d '\n')
+    if [[ $myGroup == "ks" ]];then
+      myAPP=$(echo "$getAPP" | sed -n s/.*kuali.student.web.//p | sed -e 's/^[ \t]*//' | tr -d '\r')
+    else
+      myAPP=$(echo "$getAPP" | sed -n s/.*kuali.$myGroup.//p | sed -e 's/^[ \t]*//' | tr -d '\r')
+    fi
+
+    # Find Application Build version
     getVersion=$(curl -L -s $versionURL  | grep -i Bundle-Version|tr -d '\n')
-    getJDK=$(curl -L -s $versionURL  | grep -i Build-Jdk|tr -d '\n')
-    getDate=$(curl -L -s $versionURL  | grep -i Bundle-Timestamp|tr -d '\n')
-    #getMX=$(curl -L -s $tomcatURL  | grep -i Xmx|tr -d '\n')
-    
-    myDate=$(echo "$getDate" | sed -n 's/[^\:]*\://p' | sed -e 's/^[ \t]*//' | tr -d '\r')
     myVersion=$(echo "$getVersion" | sed -n 's/[^\:]*\://p' | sed -e 's/^[ \t]*//' | tr -d '\r')
+
+    # Find JDK Version
+    getJDK=$(curl -L -s $versionURL  | grep -i Build-Jdk|tr -d '\n')
     myJDK=$(echo "$getJDK" | sed -n 's/[^\:]*\://p' | sed -e 's/^[ \t]*//' | tr -d '\r')
-    #myDB=$(echo "$getDB" | sed -n 's/[^\>]*[\>]//p' |sed -e 's/[\<][^\<]*$//' | sed -e 's/^[ \t]*//' | tr -d '\r')
-    myDB=$(echo "$getDB" | sed -n 's/[^\>]*[\>]//p' |sed -e 's/[\<][^\<]*$//' | sed -e 's/^[ \t]*//' | tr -d '\r')
-    myAPP=$(echo "$getAPP" | sed -n s/.*kuali.rice.//p | sed -e 's/^[ \t]*//' | tr -d '\r')
+
+    # Find Build date
+    getDate=$(curl -L -s $versionURL  | grep -i Bundle-Timestamp|tr -d '\n')
+    myDate=$(echo "$getDate" | sed -n 's/[^\:]*\://p' | sed -e 's/^[ \t]*//' | tr -d '\r')
+
+    # Find Tomcat Max Mem
+    #getMX=$(curl -L -s $tomcatURL  | grep -i Xmx|tr -d '\n')
     #myMX=$(echo "$getMX" | sed -e 's/^[Xmx]//' |sed -e 's/[^\<]*$//' | sed -e 's/^[ \t]*//' | tr -d '\r')
 
+    # Determine if DB type is Oracle or MySQL (add more elif, if additional types (ie: postgres, sqlserver)
     dbType01="oracle"
     dbType02="mysql"
     if [[ "$getDBtype" == *${dbType01}* ]]; then
@@ -95,46 +124,54 @@ function get_info {
 while read URL;do
 ((COUNT=COUNT+1))
 
-# Clear out the existing csv file
-if [[ $COUNT -eq 1 ]];then 
-  echo > $myGroup.csv
-fi
+#if [[ $COUNT == "2" ]];then 
+#echo "Stopping after 1 run."
+#exit
+#fi
 
 if [[ "$URL" == *rice.kuali.org* ]]; then
    myGroup="rice"
+   myFile="$DropLocation/$myGroup.csv"
 elif [[ "$URL" == *ks.kuali.org* ]]; then
    myGroup="ks"
+   myFile="$DropLocation/$myGroup.csv"
 elif [[ "$URL" == *ole.kuali.org* ]]; then
    myGroup="ole"
+   myFile="$DropLocation/$myGroup.csv"
 else
+   print "Unknown URL - exiting"
    exit 1
 fi
 
-#URL="http://env$COUNT.$GROUP.kuali.org"
-#URL="http://$URL"
+# Zero out the csv output file
+if [[ $COUNT == "1" ]];then
+#echo "my count = 1.   Clearing out $myFile"
+> $myFile
+fi
 
+# Get the HTTP CODE of the URL
 HTTP_CODE=$(curl -m 10 -Is $URL | grep HTTP | cut -d ' ' -f2|tr -d '\n')
-#HTTP_CODE="302"
 
+# Check to see if get a 302 or 200 error code.  If do, then proceed.
 if [[ $HTTP_CODE != "302" ]] && [[ $HTTP_CODE != "200" ]];then
     echo "$URL - Not Available - HTTP Code: $HTTP_CODE"
     print "No versioning available"
-    print -n $COUNT >> $myGroup.csv
-    print -n "," >> $myGroup.csv
-    print -n http://$URL >> $myGroup.csv
-    print -n "," >> $myGroup.csv
-    #print -n $myVersion >> $myGroup.csv
-    print -n "," >> $myGroup.csv
-    #print -n $myAPP >> $myGroup.csv
-    print -n "," >> $myGroup.csv
-    #print -n $myJDK >> $myGroup.csv
-    print -n "," >> $myGroup.csv
-    #print -n $myDBtype >> $myGroup.csv
-    print -n "," >> $myGroup.csv
-    #print -n $myDate >> $myGroup.csv
-    print -n "," >> $myGroup.csv
-    print -n "NA" >> $myGroup.csv
-    print >> $myGroup.csv
+    print -n $COUNT >> $myFile
+    print -n "," >> $myFile
+    print -n http://$URL >> $myFile
+    print -n "," >> $myFile
+    #print -n $myVersion >> $myFile
+    print -n "," >> $myFile
+    #print -n $myAPP >> $myFile
+    print -n "," >> $myFile
+    #print -n $myJDK >> $myFile
+    print -n "," >> $myFile
+    #print -n $myDBtype >> $myFile
+    print -n "," >> $myFile
+    #print -n $myDate >> $myFile
+    print -n "," >> $myFile
+    print -n "NA" >> $myFile
+    print >> $myFile
   else
     get_info
     print "Number      = $COUNT"
@@ -144,27 +181,27 @@ if [[ $HTTP_CODE != "302" ]] && [[ $HTTP_CODE != "200" ]];then
     print "Version     = $myVersion"
     print "JDK         = $myJDK"
     print "DB Type     = $myDBtype"
-    print "DB Name     = $myDB"
+    print "DB Username = $myDB"
     print "Date        = $myDate"
     print "Status      = OK"
-    print -n $COUNT >> $myGroup.csv
-    print -n "," >> $myGroup.csv
-    print -n http://$URL >> $myGroup.csv
-    print -n "," >> $myGroup.csv
-    print -n $myVersion >> $myGroup.csv
-    print -n "," >> $myGroup.csv
-    print -n $myAPP >> $myGroup.csv
-    print -n "," >> $myGroup.csv
-    print -n $myJDK >> $myGroup.csv
-    print -n "," >> $myGroup.csv
-    print -n $myDBtype >> $myGroup.csv
-    print -n "," >> $myGroup.csv
-    print -n $myDB >> $myGroup.csv
-    print -n "," >> $myGroup.csv
-    print -n $myDate >> $myGroup.csv
-    print -n "," >> $myGroup.csv
-    print -n "OK" >> $myGroup.csv
-    print >> $myGroup.csv
+    print -n $COUNT >> $myFile
+    print -n "," >> $myFile
+    print -n http://$URL >> $myFile
+    print -n "," >> $myFile
+    print -n $myVersion >> $myFile
+    print -n "," >> $myFile
+    print -n $myAPP >> $myFile
+    print -n "," >> $myFile
+    print -n $myJDK >> $myFile
+    print -n "," >> $myFile
+    print -n $myDBtype >> $myFile
+    print -n "," >> $myFile
+    print -n $myDB >> $myFile
+    print -n "," >> $myFile
+    print -n $myDate >> $myFile
+    print -n "," >> $myFile
+    print -n "OK" >> $myFile
+    print >> $myFile
 fi
 echo
 done <"$1"
