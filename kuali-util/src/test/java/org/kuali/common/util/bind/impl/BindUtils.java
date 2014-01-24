@@ -69,10 +69,6 @@ public class BindUtils {
 			return Optional.absent();
 		}
 
-		if (!annotation.type().equals(void.class)) {
-			return Optional.of(StringUtils.uncapitalize(annotation.type().getSimpleName()));
-		}
-
 		if (annotation.value().equals("")) {
 			Class<?> prefixClass = getPrefixClass(type);
 			return Optional.of(StringUtils.uncapitalize(prefixClass.getSimpleName()));

@@ -17,8 +17,6 @@ public @interface BindingPrefix {
 
 	String value() default DEFAULT;
 
-	Class<?> type() default void.class;
-
 	boolean none() default false;
 
 }

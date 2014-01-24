@@ -23,12 +23,6 @@ public class Prefixes {
 			return Optional.absent();
 		}
 
-		if (!annotation.type().equals(void.class)) {
-			// An explicit prefix class has been configured on the annotation. This overrides value()
-			String actualPrefix = getPrefix(annotation.type());
-			return Optional.of(actualPrefix);
-		}
-
 		// Check the annotation to see if value() is still at its default value
 		if (annotation.value().equals(BindingPrefix.DEFAULT)) {
 			// This can happen 2 different ways
@@ -63,8 +57,13 @@ public class Prefixes {
 		// Extract the annotation
 		BindingPrefix bindingPrefix = annotation.get();
 
-		// If there is a prefix on the annotation, use it
+		if (bindingPrefix.none()) {
+			return Optional.absent();
+		}
+
+		// Get a prefix from the annotation
 		Optional<String> annotationPrefix = get(bindingPrefix);
+
 		if (annotationPrefix.isPresent()) {
 			return annotationPrefix;
 		} else {
