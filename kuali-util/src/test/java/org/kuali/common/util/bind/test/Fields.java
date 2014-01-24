@@ -1,33 +1,40 @@
 package org.kuali.common.util.bind.test;
 
 import java.lang.reflect.Field;
-import java.util.Set;
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.Bind;
 
+import com.google.common.collect.Lists;
+
 public class Fields {
 
 	public static DefaultMutableTreeNode assemble(Class<?> type) {
 		DefaultMutableTreeNode parent = new DefaultMutableTreeNode(type.getSimpleName());
-		Set<Field> fields = ReflectionUtils.getAllFields(type);
+		List<Field> fields = getFields(type);
 		for (Field field : fields) {
-			DefaultMutableTreeNode child = getChild(field);
-			parent.add(child);
+			parent.add(getChild(field));
 		}
 		return parent;
 	}
 
 	public static DefaultMutableTreeNode assemble(Field field) {
 		DefaultMutableTreeNode parent = new DefaultMutableTreeNode(field.getName());
-		Set<Field> fields = ReflectionUtils.getAllFields(field.getType());
+		List<Field> fields = getFields(field.getType());
 		for (Field childField : fields) {
-			DefaultMutableTreeNode child = getChild(childField);
-			parent.add(child);
+			parent.add(getChild(childField));
 		}
 		return parent;
+	}
+
+	protected static List<Field> getFields(Class<?> type) {
+		List<Field> fields = Lists.newArrayList(ReflectionUtils.getAllFields(type));
+		Collections.sort(fields, FieldNameComparator.INSTANCE);
+		return fields;
 	}
 
 	protected static DefaultMutableTreeNode getChild(Field field) {
