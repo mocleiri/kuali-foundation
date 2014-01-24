@@ -112,7 +112,7 @@ public class BindUtils {
 		}
 		// Ensure the keys are unique
 		keys = Lists.newArrayList(Sets.newLinkedHashSet(keys));
-		return BoundFieldDescriptor.builder(field).mapping(mapping).keys(keys).build();
+		return BoundFieldDescriptor.builder(field).keys(keys).build();
 	}
 
 	protected static List<String> getKeys(Field field, BindingAlias annotation) {
