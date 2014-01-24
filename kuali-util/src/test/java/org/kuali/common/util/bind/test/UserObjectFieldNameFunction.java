@@ -9,7 +9,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import com.google.common.base.Function;
 
-public class FieldNameFunction implements Function<DefaultMutableTreeNode, String> {
+public class UserObjectFieldNameFunction implements Function<DefaultMutableTreeNode, String> {
 
 	@Override
 	public String apply(DefaultMutableTreeNode node) {
