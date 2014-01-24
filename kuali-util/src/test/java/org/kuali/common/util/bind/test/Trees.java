@@ -14,7 +14,18 @@ import com.google.common.collect.Lists;
 public class Trees {
 
 	public static String html(DefaultMutableTreeNode node) {
-		return html(node, 0);
+		StringBuilder sb = new StringBuilder();
+		sb.append("<table border=\"1\">\n");
+		sb.append(" <th>" + node.getUserObject().toString() + "</th>\n");
+		sb.append(" <tr>\n");
+		sb.append("  <td>\n");
+		for (DefaultMutableTreeNode child : children(node)) {
+			sb.append(html(child, 3));
+		}
+		sb.append("  </td>\n");
+		sb.append(" </tr>\n");
+		sb.append("</table>\n");
+		return sb.toString();
 	}
 
 	public static String html(DefaultMutableTreeNode node, int indent) {
@@ -59,8 +70,7 @@ public class Trees {
 		checkNotNull(enumeration, "'enumeration' cannot be null");
 		List<DefaultMutableTreeNode> nodes = Lists.newArrayList();
 		while (enumeration.hasMoreElements()) {
-			DefaultMutableTreeNode element = enumeration.nextElement();
-			nodes.add(element);
+			nodes.add(enumeration.nextElement());
 		}
 		return nodes;
 	}
