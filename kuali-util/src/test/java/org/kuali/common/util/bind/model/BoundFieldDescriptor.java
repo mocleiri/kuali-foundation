@@ -10,10 +10,8 @@ import static org.kuali.common.util.CollectionUtils.getBlanks;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import org.kuali.common.util.bind.api.BindingAlias;
-
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 public final class BoundFieldDescriptor {
 
@@ -37,9 +35,7 @@ public final class BoundFieldDescriptor {
 
 		// Required
 		private final Field field;
-
-		private List<String> keys;
-		private Optional<BindingAlias> mapping;
+		private List<String> keys = Lists.newArrayList();
 
 		public Builder(Field field) {
 			this.field = field;
@@ -52,15 +48,6 @@ public final class BoundFieldDescriptor {
 
 		public Builder keys(List<String> keys) {
 			this.keys = keys;
-			return this;
-		}
-
-		public Builder mapping(BindingAlias mapping) {
-			return mapping(Optional.of(mapping));
-		}
-
-		public Builder mapping(Optional<BindingAlias> mapping) {
-			this.mapping = mapping;
 			return this;
 		}
 
@@ -89,14 +76,6 @@ public final class BoundFieldDescriptor {
 
 		public Field getField() {
 			return field;
-		}
-
-		public Optional<BindingAlias> getMapping() {
-			return mapping;
-		}
-
-		public void setMapping(Optional<BindingAlias> mapping) {
-			this.mapping = mapping;
 		}
 
 	}
