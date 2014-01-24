@@ -2,76 +2,49 @@ package org.kuali.common.util.bind.test;
 
 import static com.google.common.base.Preconditions.checkState;
 
+import java.lang.reflect.Field;
+
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Annotations;
 import org.kuali.common.util.bind.api.BindingPrefix;
+import org.kuali.common.util.bind.api.NoBindingPrefix;
 
 import com.google.common.base.Optional;
 
 public class Prefixes {
 
 	public static Optional<String> get(Class<?> type) {
-		Optional<BindingPrefix> annotation = Annotations.get(type, BindingPrefix.class);
-		if (!annotation.isPresent()) {
-			return Optional.of(getPrefix(type));
-		}
-		return null;
-	}
-
-	public static Optional<String> get(BindingPrefix annotation) {
-
-		// They have explicitly said, "don't use a prefix"
-		if (annotation.none()) {
-			return Optional.absent();
-		}
-
-		// Check the annotation to see if value() is still at its default value
-		if (annotation.value().equals(BindingPrefix.DEFAULT)) {
-			// This can happen 2 different ways
-			// 1 - They didn't supply a value and thus the annotation is still at its default
-			// 2 - They did supply a value but the value they supplied was the default value
-			// In either case, we return the absence of a prefix
-			return Optional.absent();
-		} else {
-			// Make sure they haven't supplied a blank prefix
-			checkState(!StringUtils.isBlank(annotation.value()), "[%s.value()] cannot be blank", annotation.getClass().getCanonicalName());
-			// An explicit prefix has been configured on the annotation.
-			return Optional.of(annotation.value());
-		}
-
-	}
-
-	public static Optional<String> get(Class<?> type, Optional<BindingPrefix> annotation) {
-		return get(Optional.<String> absent(), type, annotation);
-	}
-
-	public static Optional<String> get(Optional<String> prefix, Class<?> type, Optional<BindingPrefix> annotation) {
-		// Explicit prefix. This overrides everything
+		Optional<String> prefix = getPrefix(Annotations.get(type, BindingPrefix.class));
 		if (prefix.isPresent()) {
 			return prefix;
 		}
-
-		// No annotation, use the uncapitalized form of the simple class name as a prefix
-		if (!annotation.isPresent()) {
-			return Optional.of(getPrefix(type));
-		}
-
-		// Extract the annotation
-		BindingPrefix bindingPrefix = annotation.get();
-
-		if (bindingPrefix.none()) {
+		if (type.isAnnotationPresent(NoBindingPrefix.class)) {
 			return Optional.absent();
-		}
-
-		// Get a prefix from the annotation
-		Optional<String> annotationPrefix = get(bindingPrefix);
-
-		if (annotationPrefix.isPresent()) {
-			return annotationPrefix;
 		} else {
 			return Optional.of(getPrefix(type));
 		}
+	}
 
+	public static Optional<String> get(Field field) {
+		Optional<String> prefix = getPrefix(Annotations.get(field, BindingPrefix.class));
+		if (prefix.isPresent()) {
+			return prefix;
+		}
+		if (field.isAnnotationPresent(NoBindingPrefix.class)) {
+			return Optional.absent();
+		} else {
+			return Optional.of(field.getName());
+		}
+	}
+
+	protected static Optional<String> getPrefix(Optional<BindingPrefix> annotation) {
+		if (annotation.isPresent()) {
+			String value = annotation.get().value();
+			checkState(!StringUtils.isBlank(value), "[%s.value()] cannot be blank", BindingPrefix.class.getCanonicalName());
+			return Optional.of(value);
+		} else {
+			return Optional.absent();
+		}
 	}
 
 	protected static String getPrefix(Class<?> type) {
