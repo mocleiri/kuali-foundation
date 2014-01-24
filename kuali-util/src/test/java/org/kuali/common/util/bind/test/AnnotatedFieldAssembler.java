@@ -65,7 +65,7 @@ public final class AnnotatedFieldAssembler {
 		return new Builder(type, annotation);
 	}
 
-	public static class Builder {
+	public static class Builder implements org.kuali.common.util.build.Builder<AnnotatedFieldAssembler> {
 
 		// Required
 		private final Class<?> type;
@@ -84,6 +84,7 @@ public final class AnnotatedFieldAssembler {
 			return this;
 		}
 
+		@Override
 		public AnnotatedFieldAssembler build() {
 			AnnotatedFieldAssembler instance = new AnnotatedFieldAssembler(this);
 			validate(instance);
