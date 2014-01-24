@@ -17,17 +17,17 @@ public class Fields {
 		return assemble(type.getSimpleName(), type);
 	}
 
-	public static DefaultMutableTreeNode assemble(Field field) {
-		return assemble(field.getName(), field.getType());
-	}
-
-	protected static DefaultMutableTreeNode assemble(String name, Class<?> type) {
+	public static DefaultMutableTreeNode assemble(String name, Class<?> type) {
 		DefaultMutableTreeNode node = new DefaultMutableTreeNode(name);
 		List<Field> fields = getFields(type);
 		for (Field field : fields) {
 			node.add(getChild(field));
 		}
 		return node;
+	}
+
+	protected static DefaultMutableTreeNode assemble(Field field) {
+		return assemble(field.getName(), field.getType());
 	}
 
 	protected static List<Field> getFields(Class<?> type) {
