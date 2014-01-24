@@ -1,6 +1,7 @@
 package org.kuali.common.util.bind.test;
 
 import java.io.File;
+import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -14,11 +15,11 @@ public class FieldsTest {
 	@Test
 	public void test() {
 		try {
-			AnnotatedFieldAssembler assembler = AnnotatedFieldAssembler.make(SystemProperties.class, Bind.class);
-			DefaultMutableTreeNode tree = assembler.assemble();
-			String html = Trees.html(tree);
+			Class<?> type = SystemProperties.class;
+			AnnotatedFieldAssembler assembler = AnnotatedFieldAssembler.make(type, Bind.class);
+			List<DefaultMutableTreeNode> nodes = assembler.assemble();
+			String html = Trees.html(type.getSimpleName(), nodes);
 			FileUtils.write(new File("/tmp/fields.htm"), html);
-			System.out.println(Trees.breadthFirst(tree).size());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

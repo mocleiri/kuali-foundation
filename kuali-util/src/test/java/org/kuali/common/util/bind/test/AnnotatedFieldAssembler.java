@@ -20,8 +20,8 @@ public final class AnnotatedFieldAssembler {
 	private final Class<?> type;
 	private final Comparator<Field> comparator;
 
-	public DefaultMutableTreeNode assemble() {
-		return assemble(type, type);
+	public List<DefaultMutableTreeNode> assemble() {
+		return Trees.children(assemble(type, type));
 	}
 
 	protected DefaultMutableTreeNode assemble(Field field) {

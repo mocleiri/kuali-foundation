@@ -14,15 +14,14 @@ import com.google.common.collect.Lists;
 
 public class Trees {
 
-	public static String html(DefaultMutableTreeNode node) {
-		Class<?> type = (Class<?>) node.getUserObject();
+	public static String html(String title, List<DefaultMutableTreeNode> nodes) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<table border=\"1\">\n");
-		sb.append(" <th>" + type.getSimpleName() + "</th>\n");
+		sb.append(" <th>" + title + "</th>\n");
 		sb.append(" <tr>\n");
 		sb.append("  <td>\n");
-		for (DefaultMutableTreeNode child : children(node)) {
-			sb.append(html(child, 3));
+		for (DefaultMutableTreeNode node : nodes) {
+			sb.append(html(node, 3));
 		}
 		sb.append("  </td>\n");
 		sb.append(" </tr>\n");
