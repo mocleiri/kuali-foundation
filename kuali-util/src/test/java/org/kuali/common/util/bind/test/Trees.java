@@ -14,21 +14,25 @@ import com.google.common.collect.Lists;
 public class Trees {
 
 	public static String html(DefaultMutableTreeNode node) {
-		int level = node.getLevel();
-		String prefix = StringUtils.repeat(" ", level);
+		return html(node, 0);
+	}
+
+	public static String html(DefaultMutableTreeNode node, int indent) {
 		StringBuilder sb = new StringBuilder();
+		String prefix = StringUtils.repeat(" ", indent);
 		sb.append(prefix + "<table border=\"1\">\n");
-		sb.append(prefix + "<tr>\n");
-		sb.append(prefix + "<td>" + node.getUserObject().toString() + "</td>\n");
+		sb.append(prefix + " <tr>\n");
+		sb.append(prefix + "  <td>" + node.getUserObject().toString() + "</td>\n");
 		List<DefaultMutableTreeNode> children = children(node);
 		if (!children.isEmpty()) {
-			sb.append(prefix + "<td>\n");
+			sb.append(prefix + "  <td>\n");
 			for (DefaultMutableTreeNode child : children) {
-				sb.append(prefix + html(child));
+				String table = html(child, indent + 3);
+				sb.append(table);
 			}
-			sb.append(prefix + "</td>\n");
+			sb.append(prefix + "  </td>\n");
 		}
-		sb.append(prefix + "</tr>\n");
+		sb.append(prefix + " </tr>\n");
 		sb.append(prefix + "</table>\n");
 		return sb.toString();
 	}
