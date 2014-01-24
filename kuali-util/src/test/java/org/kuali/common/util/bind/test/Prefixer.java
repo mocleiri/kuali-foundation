@@ -40,7 +40,7 @@ public class Prefixer {
 
 		// Check the annotation to see if value() is still at its default value
 		if (bindingPrefix.value().equals(BindingPrefix.DEFAULT)) {
-			// This can actually happen 2 different ways
+			// This can happen 2 different ways
 			// 1 - They didn't supply a value and thus the annotation is still at its default
 			// 2 - They did supply a value but the value they supplied was the default value
 			// In either case, we switch to using the uncapitalized version of the simple class name as the prefix
