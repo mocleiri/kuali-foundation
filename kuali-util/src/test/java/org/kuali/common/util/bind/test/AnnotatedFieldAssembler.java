@@ -47,7 +47,7 @@ public final class AnnotatedFieldAssembler {
 		if (field.isAnnotationPresent(annotation)) {
 			return assemble(field);
 		} else {
-			return new DefaultMutableTreeNode(field.getName());
+			return new DefaultMutableTreeNode(field);
 		}
 	}
 
