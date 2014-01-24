@@ -5,10 +5,12 @@ import javax.validation.Valid;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.api.BindingAlias;
 import org.kuali.common.util.bind.api.BindingPrefix;
+import org.kuali.common.util.bind.api.NoBindingPrefix;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
+@NoBindingPrefix
 public final class SystemProperties {
 
 	@Valid

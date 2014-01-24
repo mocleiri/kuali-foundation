@@ -25,6 +25,9 @@ public final class AnnotatedFieldAssembler {
 	public ImmutableList<DefaultMutableTreeNode> assemble() {
 		DefaultMutableTreeNode root = assemble(Optional.<Field> absent(), type);
 		List<DefaultMutableTreeNode> children = Trees.children(root);
+		for (DefaultMutableTreeNode child : children) {
+			child.removeFromParent();
+		}
 		return ImmutableList.copyOf(children);
 	}
 
