@@ -75,4 +75,21 @@ public class Trees {
 		return nodes;
 	}
 
+	public static List<DefaultMutableTreeNode> getLeafNodes(List<DefaultMutableTreeNode> nodes) {
+		List<DefaultMutableTreeNode> leaves = Lists.newArrayList();
+		for (DefaultMutableTreeNode node : nodes) {
+			if (node.isLeaf()) {
+				leaves.add(node);
+			}
+		}
+		return leaves;
+	}
+
+	public static List<DefaultMutableTreeNode> combine(List<DefaultMutableTreeNode> nodes) {
+		List<DefaultMutableTreeNode> combined = Lists.newArrayList();
+		for (DefaultMutableTreeNode node : nodes) {
+			combined.addAll(Trees.breadthFirst(node));
+		}
+		return combined;
+	}
 }

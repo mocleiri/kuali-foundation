@@ -12,6 +12,7 @@ import javax.swing.tree.TreeNode;
 
 import org.kuali.common.util.bind.api.BindingAlias;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -28,39 +29,46 @@ public final class KeyAssembler {
 
 	public Set<String> assemble() {
 		Optional<String> prefix = Prefixes.get(type);
-		List<DefaultMutableTreeNode> combined = combine(nodes);
+		List<DefaultMutableTreeNode> combined = Trees.combine(nodes);
+		List<DefaultMutableTreeNode> leaves = Trees.getLeafNodes(combined);
 		SortedSet<String> keys = Sets.newTreeSet();
-		for (DefaultMutableTreeNode node : combined) {
-			List<Field> fields = getFieldPath(node);
+		for (DefaultMutableTreeNode leaf : leaves) {
+			List<Field> fields = getFieldPath(leaf);
 			keys.addAll(getKeys(prefix, fields));
 		}
 		return keys;
 	}
 
 	protected List<String> getKeys(Optional<String> prefix, List<Field> fields) {
-		List<String> keys = Lists.newArrayList();
-		StringBuilder sb = new StringBuilder();
+		List<String> tokens = Lists.newArrayList();
 		if (prefix.isPresent()) {
-			sb.append(prefix.get());
+			tokens.add(prefix.get());
 		}
 		for (int i = 0; i < fields.size() - 1; i++) {
 			Optional<String> fieldPrefix = Prefixes.get(fields.get(i));
 			if (fieldPrefix.isPresent()) {
-				sb.append(".");
-				sb.append(fieldPrefix.get());
+				tokens.add(fieldPrefix.get());
 			}
 		}
 		Field field = fields.get(fields.size() - 1);
+		List<String> keys = Lists.newArrayList();
+		Joiner joiner = Joiner.on('.');
 		if (field.isAnnotationPresent(BindingAlias.class)) {
 			String[] aliases = field.getAnnotation(BindingAlias.class).value();
 			for (String alias : aliases) {
-				keys.add(sb.toString() + "." + alias);
+				List<String> strings = Lists.newArrayList(tokens);
+				strings.add(alias);
+				keys.add(joiner.join(strings));
 			}
 			if (field.getAnnotation(BindingAlias.class).includeFieldName()) {
-				keys.add(sb.toString() + "." + field.getName());
+				List<String> strings = Lists.newArrayList(tokens);
+				strings.add(field.getName());
+				keys.add(joiner.join(strings));
 			}
 		} else {
-			keys.add(sb.toString() + "." + field.getName());
+			List<String> strings = Lists.newArrayList(tokens);
+			strings.add(field.getName());
+			keys.add(joiner.join(strings));
 		}
 		return keys;
 	}
@@ -78,14 +86,6 @@ public final class KeyAssembler {
 
 	protected String getKey(Optional<String> prefix, DefaultMutableTreeNode node) {
 		return null;
-	}
-
-	protected List<DefaultMutableTreeNode> combine(List<DefaultMutableTreeNode> nodes) {
-		List<DefaultMutableTreeNode> combined = Lists.newArrayList();
-		for (DefaultMutableTreeNode node : nodes) {
-			combined.addAll(Trees.breadthFirst(node));
-		}
-		return combined;
 	}
 
 	public static KeyAssembler make(Class<?> type, List<DefaultMutableTreeNode> nodes) {
