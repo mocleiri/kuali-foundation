@@ -17,16 +17,18 @@ public class Trees {
 		int level = node.getLevel();
 		String prefix = StringUtils.repeat(" ", level);
 		StringBuilder sb = new StringBuilder();
-		sb.append(prefix + "<table border=1>\n");
-		sb.append(prefix + " <tr>\n");
-		sb.append(prefix + "  <td>" + node.getUserObject().toString() + "</td>\n");
+		sb.append(prefix + "<table border=\"1\">\n");
+		sb.append(prefix + "<tr>\n");
+		sb.append(prefix + "<td>" + node.getUserObject().toString() + "</td>\n");
 		List<DefaultMutableTreeNode> children = children(node);
-		for (DefaultMutableTreeNode child : children) {
-			sb.append(prefix + "  <td>");
-			sb.append(prefix + "   " + html(child));
-			sb.append(prefix + "  </td>\n");
+		if (!children.isEmpty()) {
+			sb.append(prefix + "<td>\n");
+			for (DefaultMutableTreeNode child : children) {
+				sb.append(prefix + html(child));
+			}
+			sb.append(prefix + "</td>\n");
 		}
-		sb.append(prefix + " </tr>\n");
+		sb.append(prefix + "</tr>\n");
 		sb.append(prefix + "</table>\n");
 		return sb.toString();
 	}

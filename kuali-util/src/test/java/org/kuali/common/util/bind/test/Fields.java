@@ -14,7 +14,7 @@ public class Fields {
 		DefaultMutableTreeNode parent = new DefaultMutableTreeNode(type.getSimpleName());
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		for (Field field : fields) {
-			DefaultMutableTreeNode child = new DefaultMutableTreeNode(field.getName() + "[" + field.getType().getSimpleName() + "]");
+			DefaultMutableTreeNode child = new DefaultMutableTreeNode(field.getName());
 			if (field.isAnnotationPresent(Bind.class)) {
 				child.add(assemble(field.getType()));
 			}
