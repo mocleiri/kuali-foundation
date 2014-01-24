@@ -7,9 +7,6 @@ public final class FieldNameComparator implements Comparator<Field> {
 
 	public static final FieldNameComparator INSTANCE = new FieldNameComparator();
 
-	private FieldNameComparator() {
-	}
-
 	@Override
 	public int compare(Field one, Field two) {
 		return one.getName().compareTo(two.getName());

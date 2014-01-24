@@ -2,7 +2,6 @@ package org.kuali.common.util.bind.test;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.lang.reflect.Field;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -10,18 +9,19 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
 public class Trees {
 
-	public static String html(String title, List<DefaultMutableTreeNode> nodes) {
+	public static String html(String title, List<DefaultMutableTreeNode> nodes, Function<DefaultMutableTreeNode, String> converter) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<table border=\"1\">\n");
 		sb.append(" <th>" + title + "</th>\n");
 		sb.append(" <tr>\n");
 		sb.append("  <td>\n");
 		for (DefaultMutableTreeNode node : nodes) {
-			sb.append(html(node, 3));
+			sb.append(html(node, 3, converter));
 		}
 		sb.append("  </td>\n");
 		sb.append(" </tr>\n");
@@ -29,18 +29,17 @@ public class Trees {
 		return sb.toString();
 	}
 
-	public static String html(DefaultMutableTreeNode node, int indent) {
-		Field field = (Field) node.getUserObject();
+	public static String html(DefaultMutableTreeNode node, int indent, Function<DefaultMutableTreeNode, String> converter) {
 		StringBuilder sb = new StringBuilder();
 		String prefix = StringUtils.repeat(" ", indent);
 		sb.append(prefix + "<table border=\"1\">\n");
 		sb.append(prefix + " <tr>\n");
-		sb.append(prefix + "  <td>" + field.getName() + "</td>\n");
+		sb.append(prefix + "  <td>" + converter.apply(node) + "</td>\n");
 		List<DefaultMutableTreeNode> children = children(node);
 		if (!children.isEmpty()) {
 			sb.append(prefix + "  <td>\n");
 			for (DefaultMutableTreeNode child : children) {
-				sb.append(html(child, indent + 3));
+				sb.append(html(child, indent + 3, converter));
 			}
 			sb.append(prefix + "  </td>\n");
 		}
