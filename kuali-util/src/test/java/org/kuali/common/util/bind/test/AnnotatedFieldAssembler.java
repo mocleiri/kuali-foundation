@@ -28,16 +28,21 @@ public final class AnnotatedFieldAssembler {
 		return ImmutableList.copyOf(children);
 	}
 
-	protected DefaultMutableTreeNode assemble(Optional<Field> userObject, Class<?> type) {
-		DefaultMutableTreeNode node = new DefaultMutableTreeNode();
-		if (userObject.isPresent()) {
-			node.setUserObject(userObject.get());
-		}
-		List<Field> fields = getFields(type);
-		for (Field field : fields) {
-			node.add(getChild(field));
+	protected DefaultMutableTreeNode assemble(Optional<Field> field, Class<?> type) {
+		DefaultMutableTreeNode node = getNode(field);
+		List<Field> children = getFields(type);
+		for (Field child : children) {
+			node.add(getChild(child));
 		}
 		return node;
+	}
+
+	protected DefaultMutableTreeNode getNode(Optional<Field> field) {
+		if (field.isPresent()) {
+			return new DefaultMutableTreeNode(field.get());
+		} else {
+			return new DefaultMutableTreeNode();
+		}
 	}
 
 	protected DefaultMutableTreeNode assemble(Field field) {
