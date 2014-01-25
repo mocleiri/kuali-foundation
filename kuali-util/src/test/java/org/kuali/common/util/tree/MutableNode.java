@@ -66,20 +66,21 @@ public class MutableNode<T> extends AbstractNode<T> {
 
 	public void add(MutableNode<T> child) {
 		checkNotNull(child, "'child' cannot be null");
-		// If it's already a child of this node, it will get removed from it's current spot and added to the end of the list
-		// Thus children.size() - 1
-		int index = isChild(child) ? children.size() - 1 : children.size();
-		insert(index, child);
+		insert(children.size(), child);
 	}
 
-	public void insert(int index, MutableNode<T> child) {
+	public void insert(final int index, MutableNode<T> child) {
 		// Can't be null
 		checkNotNull(child, "'child' cannot be null");
 
 		// Can't be us, our parent, our grandparent, etc
 		checkState(!isAncestor(child), "'child' is an ancestor");
 
+		// Quietly handle the case where we already have this child in our list of children
+		int actualIndex = isChild(child) ? index - 1 : index;
+
 		// Remove this child from it's current parent
+		// If the child's parent is us, this decreases our child count by 1 (temporarily)
 		if (child.getParent().isPresent()) {
 			child.getParent().get().remove(child);
 		}
@@ -88,10 +89,10 @@ public class MutableNode<T> extends AbstractNode<T> {
 		child.setParent(this);
 
 		// Add the child
-		if (index == children.size()) {
+		if (actualIndex == children.size()) {
 			children.add(child);
 		} else {
-			children.set(index, child);
+			children.set(actualIndex, child);
 		}
 	}
 

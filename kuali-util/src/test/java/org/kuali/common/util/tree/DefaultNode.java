@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.google.common.base.Optional;
 
-public final class DefaultNode<T> implements Node<T> {
+public final class DefaultNode<T> extends AbstractNode<T> {
 
 	private final Optional<DefaultNode<T>> parent;
 	private final List<DefaultNode<T>> children;
@@ -90,31 +90,6 @@ public final class DefaultNode<T> implements Node<T> {
 	@Override
 	public T getUserObject() {
 		return userObject;
-	}
-
-	@Override
-	public int getLevel() {
-		return 0;
-	}
-
-	@Override
-	public List<? extends Node<T>> getPath() {
-		return null;
-	}
-
-	@Override
-	public List<T> getUserObjectPath() {
-		return null;
-	}
-
-	@Override
-	public boolean isRoot() {
-		return !parent.isPresent();
-	}
-
-	@Override
-	public boolean isLeaf() {
-		return children.isEmpty();
 	}
 
 }
