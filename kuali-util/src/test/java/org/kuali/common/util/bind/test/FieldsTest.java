@@ -19,14 +19,14 @@ public class FieldsTest {
 	public void test() {
 		try {
 			Class<?> type = SystemProperties.class;
-			AnnotatedFieldAssembler assembler = AnnotatedFieldAssembler.make(type, Bind.class);
-			List<DefaultMutableTreeNode> nodes = assembler.assemble();
-			KeyAssembler ass = KeyAssembler.make(type, nodes);
-			Set<String> keys = ass.assemble();
+			AnnotatedFieldAssembler fieldAssembler = AnnotatedFieldAssembler.make(type, Bind.class);
+			List<DefaultMutableTreeNode> fields = fieldAssembler.assemble();
+			KeyAssembler keyAssembler = KeyAssembler.make(type, fields);
+			Set<String> keys = keyAssembler.assemble();
 			for (String key : keys) {
 				System.out.println(key);
 			}
-			String html = Trees.html(type.getSimpleName(), nodes, UserObjectFunction.make(new FieldNameFunction()));
+			String html = Trees.html(type.getSimpleName(), fields, UserObjectFunction.make(new FieldNameFunction()));
 			FileUtils.write(new File("/tmp/fields.htm"), html);
 		} catch (Exception e) {
 			e.printStackTrace();
