@@ -14,7 +14,7 @@ public interface Node<T> {
 
 	List<? extends Node<T>> getChildren();
 
-	List<? extends Node<T>> getPath();
+	List<Node<T>> getPath();
 
 	List<T> getUserObjectPath();
 
