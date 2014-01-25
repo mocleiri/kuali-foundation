@@ -23,6 +23,14 @@ public final class ImmutableNode<T> extends AbstractNode<T> {
 		return builder(userObject).build();
 	}
 
+	public static <T> ImmutableNode<T> make(T userObject, List<ImmutableNode<T>> children) {
+		return builder(userObject).children(children).build();
+	}
+
+	public static <T> ImmutableNode<T> make(ImmutableNode<T> parent, T userObject, List<ImmutableNode<T>> children) {
+		return builder(userObject).parent(parent).children(children).build();
+	}
+
 	public static <T> Builder<T> builder(T userObject) {
 		return new Builder<T>(userObject);
 	}
@@ -43,6 +51,10 @@ public final class ImmutableNode<T> extends AbstractNode<T> {
 		public Builder<T> parent(Optional<ImmutableNode<T>> parent) {
 			this.parent = parent;
 			return this;
+		}
+
+		public Builder<T> parent(ImmutableNode<T> parent) {
+			return parent(Optional.of(parent));
 		}
 
 		public Builder<T> children(List<ImmutableNode<T>> children) {
