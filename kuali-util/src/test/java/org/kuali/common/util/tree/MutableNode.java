@@ -4,25 +4,31 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.List;
 
-import com.google.common.base.Function;
+import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 
-public class MutableNode<T> {
+public class MutableNode<T> implements Node<T> {
 
-	MutableNode<T> parent;
-	List<MutableNode<T>> children = Lists.newArrayList();
-	T userObject;
+	protected Optional<MutableNode<T>> parent = Optional.absent();
+	protected List<MutableNode<T>> children = Lists.newArrayList();
+	protected T userObject;
 
 	public MutableNode(T userObject) {
-		this.userObject = userObject;
+		setUserObject(userObject);
 	}
 
 	public void add(MutableNode<T> node) {
 		children.add(node);
 	}
 
-	public void removeFromParent() {
-		this.parent = null;
+	@Override
+	public boolean isRoot() {
+		return !parent.isPresent();
+	}
+
+	@Override
+	public boolean isLeaf() {
+		return children.isEmpty();
 	}
 
 	/**
@@ -31,73 +37,66 @@ public class MutableNode<T> {
 	 * @see #getDepth
 	 * @return the number of levels above this node
 	 */
+	@Override
 	public int getLevel() {
 		int level = 0;
 		MutableNode<T> ancestor = this;
-		while ((ancestor = ancestor.getParent()) != null) {
+		while (ancestor.getParent().isPresent()) {
+			ancestor = ancestor.getParent().get();
 			level++;
 		}
 		return level;
 	}
 
+	@Override
 	public List<MutableNode<T>> getPath() {
 		MutableNode<T> ancestor = this;
 		List<MutableNode<T>> list = Lists.newArrayList();
-		while ((ancestor = ancestor.getParent()) != null) {
+		while (ancestor.getParent().isPresent()) {
 			list.add(ancestor);
+			ancestor = ancestor.getParent().get();
 		}
 		return Lists.reverse(list);
 	}
 
+	@Override
 	public List<T> getUserObjectPath() {
 		return Lists.transform(getPath(), new UserObjectFunction<T>());
 	}
 
 	public boolean isChildNode(MutableNode<T> node) {
-		if (node == null) {
+		if (children.isEmpty()) {
 			return false;
 		}
-		if (getChildCount() == 0) {
-			return false;
-		}
-		return node.getParent() == this;
+		return parent.isPresent() && parent.get() == this;
 	}
 
-	public int getChildCount() {
-		return children == null ? 0 : children.size();
+	public void setUserObject(T userObject) {
+		checkNotNull(userObject, "'userObject' cannot be null");
+		this.userObject = userObject;
 	}
 
-	private static class UserObjectFunction<T> implements Function<MutableNode<T>, T> {
-
-		@Override
-		public T apply(MutableNode<T> node) {
-			checkNotNull(node, "'node' cannot be null");
-			return node.getUserObject();
-		}
-
-	}
-
-	public void setUserObject(T element) {
-		this.userObject = element;
-	}
-
+	@Override
 	public T getUserObject() {
 		return userObject;
 	}
 
-	public MutableNode<T> getParent() {
+	@Override
+	public Optional<MutableNode<T>> getParent() {
 		return parent;
 	}
 
 	public void setParent(MutableNode<T> parent) {
-		this.parent = parent;
+		this.parent = Optional.of(parent);
 	}
 
+	@Override
 	public List<MutableNode<T>> getChildren() {
 		return children;
 	}
 
 	public void setChildren(List<MutableNode<T>> children) {
+		checkNotNull(children, "'children' cannot be null");
 		this.children = children;
 	}
 
