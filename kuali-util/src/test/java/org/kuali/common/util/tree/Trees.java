@@ -14,6 +14,40 @@ import com.google.common.collect.Lists;
 
 public class Trees {
 
+	public static <T> String html2(String title, List<Node<T>> nodes, Function<Node<T>, String> converter) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<table border=\"1\">\n");
+		sb.append(" <th>" + title + "</th>\n");
+		sb.append(" <tr>\n");
+		sb.append("  <td>\n");
+		for (Node<T> node : nodes) {
+			sb.append(html2(node, 3, converter));
+		}
+		sb.append("  </td>\n");
+		sb.append(" </tr>\n");
+		sb.append("</table>\n");
+		return sb.toString();
+	}
+
+	public static <T> String html2(Node<T> node, int indent, Function<Node<T>, String> converter) {
+		StringBuilder sb = new StringBuilder();
+		String prefix = StringUtils.repeat(" ", indent);
+		sb.append(prefix + "<table border=\"1\">\n");
+		sb.append(prefix + " <tr>\n");
+		sb.append(prefix + "  <td>" + converter.apply(node) + "</td>\n");
+		List<? extends Node<T>> children = node.getChildren();
+		if (!children.isEmpty()) {
+			sb.append(prefix + "  <td>\n");
+			for (Node<T> child : children) {
+				sb.append(html2(child, indent + 3, converter));
+			}
+			sb.append(prefix + "  </td>\n");
+		}
+		sb.append(prefix + " </tr>\n");
+		sb.append(prefix + "</table>\n");
+		return sb.toString();
+	}
+
 	public static String html(String title, List<DefaultMutableTreeNode> nodes, Function<DefaultMutableTreeNode, String> converter) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<table border=\"1\">\n");

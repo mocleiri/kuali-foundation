@@ -32,18 +32,18 @@ public final class ImmutableNode<T> extends AbstractNode<T> {
 		return builder(userObject).parent(parent).children(children).build();
 	}
 
-	public static <T> ImmutableNode<T> of(Node<T> root) {
+	public static <T> ImmutableNode<T> copyOf(Node<T> root) {
 		if (root instanceof ImmutableNode) {
 			return (ImmutableNode<T>) root;
 		} else {
-			return of(root.getUserObject(), of(root.getChildren()));
+			return of(root.getUserObject(), copyOf(root.getChildren()));
 		}
 	}
 
-	public static <T> List<ImmutableNode<T>> of(List<? extends Node<T>> list) {
+	public static <T> List<ImmutableNode<T>> copyOf(List<? extends Node<T>> list) {
 		List<ImmutableNode<T>> immutable = Lists.newArrayList();
 		for (Node<T> element : list) {
-			immutable.add(of(element));
+			immutable.add(copyOf(element));
 		}
 		return immutable;
 	}

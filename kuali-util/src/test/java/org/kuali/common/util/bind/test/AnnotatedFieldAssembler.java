@@ -8,62 +8,43 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.tree.Trees;
+import org.kuali.common.util.tree.MutableNode;
+import org.kuali.common.util.tree.Node;
 
-import com.google.common.base.Optional;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
-public final class AnnotatedFieldAssembler implements Assembler<List<DefaultMutableTreeNode>> {
+public final class AnnotatedFieldAssembler implements Assembler<List<Node<Field>>> {
 
 	private final Class<? extends Annotation> annotation;
 	private final Class<?> type;
 	private final Comparator<Field> comparator;
 
 	@Override
-	public ImmutableList<DefaultMutableTreeNode> assemble() {
-		DefaultMutableTreeNode root = assemble(type);
-		List<DefaultMutableTreeNode> children = Trees.children(root);
-		for (DefaultMutableTreeNode child : children) {
-			child.removeFromParent();
+	public List<Node<Field>> assemble() {
+		List<MutableNode<Field>> mutables = assemble(type);
+		List<Node<Field>> list = Lists.newArrayList();
+		for (MutableNode<Field> field : mutables) {
+			list.add(field);
 		}
-		return ImmutableList.copyOf(children);
+		return list;
 	}
 
-	protected DefaultMutableTreeNode assemble(Class<?> type) {
-		return assemble(Optional.<Field> absent(), type);
+	protected List<MutableNode<Field>> assemble(Class<?> type) {
+		List<Field> fields = getSortedFields(type);
+		List<MutableNode<Field>> list = Lists.newArrayList();
+		for (Field field : fields) {
+			list.add(getNode(field));
+		}
+		return list;
 	}
 
-	protected DefaultMutableTreeNode assemble(Optional<Field> field, Class<?> type) {
-		DefaultMutableTreeNode node = getNode(field);
-		List<Field> children = getSortedFields(type);
-		for (Field child : children) {
-			node.add(getChild(child));
+	protected MutableNode<Field> getNode(Field field) {
+		MutableNode<Field> node = new MutableNode<Field>(field);
+		if (field.isAnnotationPresent(annotation)) {
+			node.setChildren(assemble(field.getType()));
 		}
 		return node;
-	}
-
-	protected DefaultMutableTreeNode getNode(Field field) {
-		return getNode(Optional.of(field));
-	}
-
-	protected DefaultMutableTreeNode getEmptyNode() {
-		return getNode(Optional.<Field> absent());
-	}
-
-	protected DefaultMutableTreeNode getNode(Optional<Field> field) {
-		if (field.isPresent()) {
-			return new DefaultMutableTreeNode(field.get());
-		} else {
-			return new DefaultMutableTreeNode();
-		}
-	}
-
-	protected DefaultMutableTreeNode assemble(Field field) {
-		return assemble(Optional.of(field), field.getType());
 	}
 
 	protected List<Field> getSortedFields(Class<?> type) {
@@ -72,21 +53,13 @@ public final class AnnotatedFieldAssembler implements Assembler<List<DefaultMuta
 		return fields;
 	}
 
-	protected DefaultMutableTreeNode getChild(Field field) {
-		if (field.isAnnotationPresent(annotation)) {
-			return assemble(field);
-		} else {
-			return getNode(field);
-		}
-	}
-
 	private AnnotatedFieldAssembler(Builder builder) {
 		this.annotation = builder.annotation;
 		this.type = builder.type;
 		this.comparator = builder.comparator;
 	}
 
-	public static AnnotatedFieldAssembler make(Class<?> type, Class<? extends Annotation> annotation) {
+	public static AnnotatedFieldAssembler of(Class<?> type, Class<? extends Annotation> annotation) {
 		return builder(type, annotation).build();
 	}
 

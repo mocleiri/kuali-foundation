@@ -43,7 +43,7 @@ public class MutableNode<T> extends AbstractNode<T> {
 	}
 
 	@Override
-	public List<? extends Node<T>> getChildren() {
+	public List<MutableNode<T>> getChildren() {
 		return children;
 	}
 
