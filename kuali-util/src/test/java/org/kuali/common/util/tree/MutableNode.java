@@ -53,6 +53,20 @@ public class MutableNode<T> {
 		return Lists.transform(getPath(), new UserObjectFunction<T>());
 	}
 
+	public boolean isChildNode(MutableNode<T> node) {
+		if (node == null) {
+			return false;
+		}
+		if (getChildCount() == 0) {
+			return false;
+		}
+		return node.getParent() == this;
+	}
+
+	public int getChildCount() {
+		return children == null ? 0 : children.size();
+	}
+
 	private static class UserObjectFunction<T> implements Function<MutableNode<T>, T> {
 
 		@Override
