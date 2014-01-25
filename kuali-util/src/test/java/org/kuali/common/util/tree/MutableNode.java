@@ -21,6 +21,10 @@ public class MutableNode<T> {
 		children.add(node);
 	}
 
+	public void removeFromParent() {
+		this.parent = null;
+	}
+
 	/**
 	 * Returns the number of levels above this node -- the distance from the root to this node. If this node is the root, returns 0.
 	 * 
@@ -28,12 +32,12 @@ public class MutableNode<T> {
 	 * @return the number of levels above this node
 	 */
 	public int getLevel() {
-		int levels = 0;
+		int level = 0;
 		MutableNode<T> ancestor = this;
 		while ((ancestor = ancestor.getParent()) != null) {
-			levels++;
+			level++;
 		}
-		return levels;
+		return level;
 	}
 
 	public List<MutableNode<T>> getPath() {
@@ -46,10 +50,10 @@ public class MutableNode<T> {
 	}
 
 	public List<T> getUserObjectPath() {
-		return Lists.transform(getPath(), new UserObjectFunction());
+		return Lists.transform(getPath(), new UserObjectFunction<T>());
 	}
 
-	private class UserObjectFunction implements Function<MutableNode<T>, T> {
+	private static class UserObjectFunction<T> implements Function<MutableNode<T>, T> {
 
 		@Override
 		public T apply(MutableNode<T> node) {
