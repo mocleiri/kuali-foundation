@@ -35,13 +35,17 @@ public abstract class AbstractNode<T> implements Node<T> {
 		return level;
 	}
 
+	/**
+	 * Returns the path from the root, to get to this node. The last element in the path is this node.
+	 */
 	@Override
 	public List<Node<T>> getPath() {
 		Node<T> ancestor = this;
 		List<Node<T>> list = Lists.newArrayList();
+		list.add(ancestor);
 		while (ancestor.getParent().isPresent()) {
-			list.add(ancestor);
 			ancestor = ancestor.getParent().get();
+			list.add(ancestor);
 		}
 		return Lists.reverse(list);
 	}
