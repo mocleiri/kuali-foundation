@@ -128,4 +128,20 @@ public class MutableNode<T> implements Node<T> {
 		child.setParent(Optional.<MutableNode<T>> absent());
 	}
 
+	public boolean isAncestorNode(MutableNode<T> node) {
+		checkNotNull(node, "'node' cannot be null");
+		MutableNode<T> ancestor = this;
+		for (;;) {
+			if (ancestor == node) {
+				return true;
+			}
+			if (ancestor.getParent().isPresent()) {
+				ancestor = parent.get();
+			} else {
+				break;
+			}
+		}
+		return false;
+	}
+
 }
