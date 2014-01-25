@@ -24,7 +24,6 @@ public class Counter {
 	}
 
 	public Counter(int startValue) {
-		super();
 		this.count = startValue;
 	}
 
