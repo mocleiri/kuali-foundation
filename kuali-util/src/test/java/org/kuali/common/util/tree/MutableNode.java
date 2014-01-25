@@ -18,10 +18,6 @@ public class MutableNode<T> implements Node<T> {
 		setUserObject(userObject);
 	}
 
-	public void add(MutableNode<T> node) {
-		children.add(node);
-	}
-
 	@Override
 	public boolean isRoot() {
 		return !parent.isPresent();
@@ -99,7 +95,7 @@ public class MutableNode<T> implements Node<T> {
 		this.children = children;
 	}
 
-	public boolean isChildNode(MutableNode<T> child) {
+	public boolean isChild(MutableNode<T> child) {
 		checkNotNull(child, "'child' cannot be null");
 		if (children.isEmpty()) {
 			return false;
@@ -108,18 +104,10 @@ public class MutableNode<T> implements Node<T> {
 		}
 	}
 
-	public int getIndex(MutableNode<T> child) {
-		checkNotNull(child, "'child' cannot be null");
-		if (!isChildNode(child)) {
-			return -1;
-		}
-		return children.indexOf(child); // linear search
-	}
-
 	public void remove(MutableNode<T> child) {
 		checkNotNull(child, "'child' cannot be null");
-		checkState(isChildNode(child), "'child' is not a child of this node");
-		remove(getIndex(child)); // linear search
+		checkState(isChild(child), "'child' is not a child of this node");
+		remove(children.indexOf(child));
 	}
 
 	public void remove(int index) {
@@ -128,20 +116,35 @@ public class MutableNode<T> implements Node<T> {
 		child.setParent(Optional.<MutableNode<T>> absent());
 	}
 
-	public boolean isAncestorNode(MutableNode<T> node) {
+	public boolean isAncestor(MutableNode<T> node) {
 		checkNotNull(node, "'node' cannot be null");
-		MutableNode<T> ancestor = this;
-		for (;;) {
-			if (ancestor == node) {
-				return true;
-			}
-			if (ancestor.getParent().isPresent()) {
-				ancestor = parent.get();
-			} else {
-				break;
-			}
+		return getPath().contains(node);
+	}
+
+	public void add(MutableNode<T> child) {
+		checkNotNull(child, "'child' cannot be null");
+		insert(children.size(), child);
+	}
+
+	public void insert(int index, MutableNode<T> child) {
+		checkNotNull(child, "'child' cannot be null");
+		checkState(!isAncestor(child), "'child' is an ancestor");
+		checkState(!isChild(child), "'child' is already a child");
+
+		// Remove this child from it's current parent
+		if (child.getParent().isPresent()) {
+			child.getParent().get().remove(child);
 		}
-		return false;
+
+		// Make the childs parent this node
+		child.setParent(this);
+
+		// Add the child
+		if (index == children.size()) {
+			children.add(child);
+		} else {
+			children.set(index, child);
+		}
 	}
 
 }
