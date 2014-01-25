@@ -32,7 +32,7 @@ public final class KeyAssembler implements Assembler<Set<String>> {
 	public Set<String> assemble() {
 		Optional<String> prefix = Prefixes.get(type);
 		List<DefaultMutableTreeNode> combined = Trees.combine(nodes);
-		List<DefaultMutableTreeNode> leaves = Trees.getLeafNodes(combined);
+		List<DefaultMutableTreeNode> leaves = Trees.getLeaves(combined);
 		SortedSet<String> keys = Sets.newTreeSet();
 		for (DefaultMutableTreeNode leaf : leaves) {
 			List<Field> fields = getFieldPath(leaf);

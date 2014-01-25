@@ -75,7 +75,7 @@ public class Trees {
 		return nodes;
 	}
 
-	public static List<DefaultMutableTreeNode> getLeafNodes(List<DefaultMutableTreeNode> nodes) {
+	public static List<DefaultMutableTreeNode> getLeaves(List<DefaultMutableTreeNode> nodes) {
 		List<DefaultMutableTreeNode> leaves = Lists.newArrayList();
 		for (DefaultMutableTreeNode node : nodes) {
 			if (node.isLeaf()) {
