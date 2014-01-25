@@ -88,7 +88,7 @@ public class Trees {
 	public static List<DefaultMutableTreeNode> combine(List<DefaultMutableTreeNode> nodes) {
 		List<DefaultMutableTreeNode> combined = Lists.newArrayList();
 		for (DefaultMutableTreeNode node : nodes) {
-			combined.addAll(Trees.breadthFirst(node));
+			combined.addAll(breadthFirst(node));
 		}
 		return combined;
 	}
