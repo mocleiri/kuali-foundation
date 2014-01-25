@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.tree.Trees;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;

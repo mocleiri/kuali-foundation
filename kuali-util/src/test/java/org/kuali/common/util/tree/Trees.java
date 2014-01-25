@@ -1,4 +1,4 @@
-package org.kuali.common.util.bind.test;
+package org.kuali.common.util.tree;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

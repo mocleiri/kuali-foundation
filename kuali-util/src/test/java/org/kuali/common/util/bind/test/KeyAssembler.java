@@ -11,6 +11,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 
 import org.kuali.common.util.bind.api.BindingAlias;
+import org.kuali.common.util.tree.Trees;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
