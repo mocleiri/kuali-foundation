@@ -1,6 +1,7 @@
 package org.kuali.common.util.tree;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
 
 import java.util.List;
 
@@ -64,13 +65,6 @@ public class MutableNode<T> implements Node<T> {
 		return Lists.transform(getPath(), new UserObjectFunction<T>());
 	}
 
-	public boolean isChildNode(MutableNode<T> node) {
-		if (children.isEmpty()) {
-			return false;
-		}
-		return parent.isPresent() && parent.get() == this;
-	}
-
 	public void setUserObject(T userObject) {
 		checkNotNull(userObject, "'userObject' cannot be null");
 		this.userObject = userObject;
@@ -86,8 +80,13 @@ public class MutableNode<T> implements Node<T> {
 		return parent;
 	}
 
+	public void setParent(Optional<MutableNode<T>> parent) {
+		this.parent = parent;
+	}
+
 	public void setParent(MutableNode<T> parent) {
-		this.parent = Optional.of(parent);
+		checkNotNull(parent, "'parent' cannot be null");
+		setParent(Optional.of(parent));
 	}
 
 	@Override
@@ -98,6 +97,35 @@ public class MutableNode<T> implements Node<T> {
 	public void setChildren(List<MutableNode<T>> children) {
 		checkNotNull(children, "'children' cannot be null");
 		this.children = children;
+	}
+
+	public boolean isChildNode(MutableNode<T> child) {
+		checkNotNull(child, "'child' cannot be null");
+		if (children.isEmpty()) {
+			return false;
+		} else {
+			return child.getParent().isPresent() && child.getParent().get() == this;
+		}
+	}
+
+	public int getIndex(MutableNode<T> child) {
+		checkNotNull(child, "'child' cannot be null");
+		if (!isChildNode(child)) {
+			return -1;
+		}
+		return children.indexOf(child); // linear search
+	}
+
+	public void remove(MutableNode<T> child) {
+		checkNotNull(child, "'child' cannot be null");
+		checkState(isChildNode(child), "'child' is not a child of this node");
+		remove(getIndex(child)); // linear search
+	}
+
+	public void remove(int index) {
+		MutableNode<T> child = children.get(index);
+		children.remove(index);
+		child.setParent(Optional.<MutableNode<T>> absent());
 	}
 
 }
