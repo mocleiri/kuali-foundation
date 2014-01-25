@@ -65,10 +65,6 @@ public class BindUtils {
 	}
 
 	protected static Optional<String> getPrefix(BindingPrefix annotation, Class<?> type) {
-		if (annotation.none()) {
-			return Optional.absent();
-		}
-
 		if (annotation.value().equals("")) {
 			Class<?> prefixClass = getPrefixClass(type);
 			return Optional.of(StringUtils.uncapitalize(prefixClass.getSimpleName()));
