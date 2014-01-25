@@ -127,8 +127,13 @@ public class MutableNode<T> implements Node<T> {
 	}
 
 	public void insert(int index, MutableNode<T> child) {
+		// Can't be null
 		checkNotNull(child, "'child' cannot be null");
+
+		// Can't be us, our parent, our grandparent, etc
 		checkState(!isAncestor(child), "'child' is an ancestor");
+
+		// Can't already be a child
 		checkState(!isChild(child), "'child' is already a child");
 
 		// Remove this child from it's current parent
