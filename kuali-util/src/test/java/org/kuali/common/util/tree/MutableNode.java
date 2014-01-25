@@ -96,4 +96,16 @@ public class MutableNode<T> extends AbstractNode<T> {
 		}
 	}
 
+	public void removeAllChildren() {
+		for (int i = 0; i < children.size(); i++) {
+			remove(i);
+		}
+	}
+
+	public void removeFromParent() {
+		Optional<MutableNode<T>> parent = getParent();
+		if (parent.isPresent()) {
+			parent.get().remove(this);
+		}
+	}
 }
