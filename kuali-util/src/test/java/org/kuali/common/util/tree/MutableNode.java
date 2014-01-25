@@ -1,20 +1,46 @@
 package org.kuali.common.util.tree;
 
-import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.List;
 
-public class MutableNode<T> extends DefaultMutableTreeNode {
+import com.google.common.collect.Lists;
 
-	private static final long serialVersionUID = 641115050054682465L;
+public class MutableNode<T> {
 
-	public MutableNode() {
+	protected MutableNode<T> parent;
+	protected List<MutableNode<T>> children = Lists.newArrayList();
+	protected T element;
+
+	public MutableNode(T element) {
+		this.parent = null;
+		this.element = element;
 	}
 
-	public MutableNode(T userObject, boolean allowsChildren) {
-		super(userObject, allowsChildren);
+	public void add(MutableNode<T> node) {
+		children.add(node);
 	}
 
-	public MutableNode(T userObject) {
-		super(userObject);
+	public void setElement(T element) {
+		this.element = element;
+	}
+
+	public T getElement() {
+		return element;
+	}
+
+	public MutableNode<T> getParent() {
+		return parent;
+	}
+
+	public void setParent(MutableNode<T> parent) {
+		this.parent = parent;
+	}
+
+	public List<MutableNode<T>> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<MutableNode<T>> children) {
+		this.children = children;
 	}
 
 }
