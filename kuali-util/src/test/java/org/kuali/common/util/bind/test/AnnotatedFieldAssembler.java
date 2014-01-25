@@ -16,12 +16,13 @@ import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
-public final class AnnotatedFieldAssembler {
+public final class AnnotatedFieldAssembler implements Assembler<List<DefaultMutableTreeNode>> {
 
 	private final Class<? extends Annotation> annotation;
 	private final Class<?> type;
 	private final Comparator<Field> comparator;
 
+	@Override
 	public ImmutableList<DefaultMutableTreeNode> assemble() {
 		DefaultMutableTreeNode root = assemble(type);
 		List<DefaultMutableTreeNode> children = Trees.children(root);

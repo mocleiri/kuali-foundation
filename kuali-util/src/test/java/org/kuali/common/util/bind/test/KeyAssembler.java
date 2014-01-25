@@ -17,7 +17,7 @@ import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
-public final class KeyAssembler {
+public final class KeyAssembler implements Assembler<Set<String>> {
 
 	private final Class<?> type;
 	private final List<DefaultMutableTreeNode> nodes;
@@ -27,6 +27,7 @@ public final class KeyAssembler {
 		this.nodes = builder.nodes;
 	}
 
+	@Override
 	public Set<String> assemble() {
 		Optional<String> prefix = Prefixes.get(type);
 		List<DefaultMutableTreeNode> combined = Trees.combine(nodes);
