@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 public final class ImmutableNode<T> extends AbstractNode<T> {
 
@@ -19,16 +20,28 @@ public final class ImmutableNode<T> extends AbstractNode<T> {
 		this.userObject = builder.userObject;
 	}
 
-	public static <T> ImmutableNode<T> make(T userObject) {
+	public static <T> ImmutableNode<T> of(T userObject) {
 		return builder(userObject).build();
 	}
 
-	public static <T> ImmutableNode<T> make(T userObject, List<ImmutableNode<T>> children) {
+	public static <T> ImmutableNode<T> of(T userObject, List<ImmutableNode<T>> children) {
 		return builder(userObject).children(children).build();
 	}
 
-	public static <T> ImmutableNode<T> make(ImmutableNode<T> parent, T userObject, List<ImmutableNode<T>> children) {
+	public static <T> ImmutableNode<T> of(ImmutableNode<T> parent, T userObject, List<ImmutableNode<T>> children) {
 		return builder(userObject).parent(parent).children(children).build();
+	}
+
+	public static <T> ImmutableNode<T> of(Node<T> root) {
+		if (root instanceof ImmutableNode) {
+			return (ImmutableNode<T>) root;
+		} else {
+			List<ImmutableNode<T>> children = Lists.newArrayList();
+			for (Node<T> child : root.getChildren()) {
+				children.add(of(child));
+			}
+			return of(root.getUserObject(), children);
+		}
 	}
 
 	public static <T> Builder<T> builder(T userObject) {
