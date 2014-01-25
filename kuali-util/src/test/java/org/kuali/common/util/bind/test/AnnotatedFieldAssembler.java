@@ -23,12 +23,16 @@ public final class AnnotatedFieldAssembler {
 	private final Comparator<Field> comparator;
 
 	public ImmutableList<DefaultMutableTreeNode> assemble() {
-		DefaultMutableTreeNode root = assemble(Optional.<Field> absent(), type);
+		DefaultMutableTreeNode root = assemble(type);
 		List<DefaultMutableTreeNode> children = Trees.children(root);
 		for (DefaultMutableTreeNode child : children) {
 			child.removeFromParent();
 		}
 		return ImmutableList.copyOf(children);
+	}
+
+	protected DefaultMutableTreeNode assemble(Class<?> type) {
+		return assemble(Optional.<Field> absent(), type);
 	}
 
 	protected DefaultMutableTreeNode assemble(Optional<Field> field, Class<?> type) {
@@ -38,6 +42,14 @@ public final class AnnotatedFieldAssembler {
 			node.add(getChild(child));
 		}
 		return node;
+	}
+
+	protected DefaultMutableTreeNode getNode(Field field) {
+		return getNode(Optional.of(field));
+	}
+
+	protected DefaultMutableTreeNode getEmptyNode() {
+		return getNode(Optional.<Field> absent());
 	}
 
 	protected DefaultMutableTreeNode getNode(Optional<Field> field) {
@@ -62,7 +74,7 @@ public final class AnnotatedFieldAssembler {
 		if (field.isAnnotationPresent(annotation)) {
 			return assemble(field);
 		} else {
-			return getNode(Optional.of(field));
+			return getNode(field);
 		}
 	}
 

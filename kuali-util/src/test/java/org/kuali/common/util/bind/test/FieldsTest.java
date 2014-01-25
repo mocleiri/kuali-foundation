@@ -28,7 +28,7 @@ public class FieldsTest {
 			}
 			String html = Trees.html(type.getSimpleName(), fields, UserObjectFunction.make(new FieldNameFunction()));
 			FileUtils.write(new File("/tmp/fields.htm"), html);
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
