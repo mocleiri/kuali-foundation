@@ -14,7 +14,7 @@ import com.google.common.collect.Lists;
 
 public class Trees {
 
-	public static <T> String html2(String title, List<Node<T>> nodes, Function<Node<T>, String> converter) {
+	public static <T> String html2(String title, List<? extends Node<T>> nodes, Function<Node<T>, String> converter) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<table border=\"1\">\n");
 		sb.append(" <th>" + title + "</th>\n");

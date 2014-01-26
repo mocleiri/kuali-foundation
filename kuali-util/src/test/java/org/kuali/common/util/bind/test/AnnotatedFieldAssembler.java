@@ -14,20 +14,15 @@ import org.kuali.common.util.tree.Node;
 
 import com.google.common.collect.Lists;
 
-public final class AnnotatedFieldAssembler implements Assembler<List<Node<Field>>> {
+public final class AnnotatedFieldAssembler implements Assembler<List<? extends Node<Field>>> {
 
 	private final Class<? extends Annotation> annotation;
 	private final Class<?> type;
 	private final Comparator<Field> comparator;
 
 	@Override
-	public List<Node<Field>> assemble() {
-		List<MutableNode<Field>> mutables = assemble(type);
-		List<Node<Field>> list = Lists.newArrayList();
-		for (MutableNode<Field> field : mutables) {
-			list.add(field);
-		}
-		return list;
+	public List<? extends Node<Field>> assemble() {
+		return assemble(type);
 	}
 
 	protected List<MutableNode<Field>> assemble(Class<?> type) {
