@@ -7,19 +7,27 @@ import org.kuali.common.util.tree.MutableNode;
 public class MutableNodeTest {
 
 	@Test
-	public void testMutable() {
+	public void testMutableBasics() {
+		MutableNode<String> root = new MutableNode<String>("root");
 		MutableNode<String> a = new MutableNode<String>("a");
 		MutableNode<String> b = new MutableNode<String>("b");
-		MutableNode<String> c = new MutableNode<String>("c");
 		MutableNode<String> one = new MutableNode<String>("1");
 		MutableNode<String> two = new MutableNode<String>("2");
-		b.add(one, two);
-		a.add(b, c);
-		Assert.assertFalse(a.getParent().isPresent());
+		a.add(one, two);
+		root.add(a,b);
+		Assert.assertFalse(root.getParent().isPresent());
+		Assert.assertTrue(a.getParent().isPresent());
 		Assert.assertTrue(b.getParent().isPresent());
-		Assert.assertTrue(c.getParent().isPresent());
 		Assert.assertTrue(one.getParent().isPresent());
 		Assert.assertTrue(two.getParent().isPresent());
+		Assert.assertEquals(a.getParent().get(), b.getParent().get());
+		Assert.assertTrue(root.isRoot());
+		Assert.assertFalse(root.isLeaf());
+		Assert.assertFalse(a.isLeaf());
+		Assert.assertFalse(a.isRoot());
+		Assert.assertTrue(b.isLeaf());
+		Assert.assertEquals(0, root.getLevel());
+		Assert.assertEquals(1, root.getPath().size());
 	}
 
 }
