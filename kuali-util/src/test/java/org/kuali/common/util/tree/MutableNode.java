@@ -33,11 +33,11 @@ public class MutableNode<T> extends AbstractNode<T> {
 		return parent;
 	}
 
-	public void setParent(Optional<MutableNode<T>> parent) {
+	protected void setParent(Optional<MutableNode<T>> parent) {
 		this.parent = parent;
 	}
 
-	public void setParent(MutableNode<T> parent) {
+	protected void setParent(MutableNode<T> parent) {
 		checkNotNull(parent, "'parent' cannot be null");
 		setParent(Optional.of(parent));
 	}
@@ -45,11 +45,6 @@ public class MutableNode<T> extends AbstractNode<T> {
 	@Override
 	public List<MutableNode<T>> getChildren() {
 		return children;
-	}
-
-	public void setChildren(List<MutableNode<T>> children) {
-		checkNotNull(children, "'children' cannot be null");
-		this.children = children;
 	}
 
 	public void remove(MutableNode<T> child) {
@@ -62,6 +57,13 @@ public class MutableNode<T> extends AbstractNode<T> {
 		MutableNode<T> child = children.get(index);
 		children.remove(index);
 		child.setParent(Optional.<MutableNode<T>> absent());
+	}
+
+	public void add(List<MutableNode<T>> children) {
+		checkNotNull(children, "'children' cannot be null");
+		for (MutableNode<T> child:children) {
+			add(child);
+		}
 	}
 
 	public void add(MutableNode<T> child) {
