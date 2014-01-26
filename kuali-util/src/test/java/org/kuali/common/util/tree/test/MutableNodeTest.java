@@ -36,4 +36,17 @@ public class MutableNodeTest {
 		Assert.assertTrue(one.isChild(a));
 	}
 
+	@Test
+	public void testMutableIdentity() {
+		MutableNode<String> root = new MutableNode<String>("root");
+		MutableNode<String> a = new MutableNode<String>("a");
+		MutableNode<String> b = new MutableNode<String>("b");
+		MutableNode<String> one = new MutableNode<String>("1");
+		MutableNode<String> two = new MutableNode<String>("2");
+		a.add(one, two);
+		root.add(a, b);
+		Assert.assertTrue(a.getParent().get() == root);
+		Assert.assertTrue(two.getParent().get() == a);
+	}
+
 }
