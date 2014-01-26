@@ -26,7 +26,7 @@ public final class NodeElementFunction<T> implements Function<Node<T>, String> {
 	@Override
 	public String apply(Node<T> node) {
 		checkNotNull(node, "'node' cannot be null'");
-		checkNotNull(node.getElement(), "'node.getUserObject()' cannot be null'");
+		checkNotNull(node.getElement(), "'node.getElement()' cannot be null'");
 		return function.apply(node.getElement());
 	}
 
