@@ -8,7 +8,7 @@ import com.google.common.base.Function;
 
 public class FieldNameFunction implements Function<Field, String> {
 
-	public static FieldNameFunction of() {
+	public static FieldNameFunction make() {
 		return new FieldNameFunction();
 	}
 
