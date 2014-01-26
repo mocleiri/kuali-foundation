@@ -13,11 +13,11 @@ public final class NodeElementFunction<T> implements Function<Node<T>, String> {
 		this.function = function;
 	}
 
-	public static <T> NodeElementFunction<T> of() {
-		return of(new ToStringFunction<T>());
+	public static <T> NodeElementFunction<T> make() {
+		return make(new ToStringFunction<T>());
 	}
 
-	public static <T> NodeElementFunction<T> of(Function<T, String> function) {
+	public static <T> NodeElementFunction<T> make(Function<T, String> function) {
 		return new NodeElementFunction<T>(function);
 	}
 

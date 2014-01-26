@@ -5,8 +5,18 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
 
 public class Trees {
+
+	public static <T> String html(String title, Node<T> node) {
+		Function<Node<T>, String> converter = org.kuali.common.util.bind.function.NodeElementFunction.make();
+		return html(title, ImmutableList.of(node), converter);
+	}
+
+	public static <T> String html(String title, Node<T> node, Function<Node<T>, String> converter) {
+		return html(title, ImmutableList.of(node), converter);
+	}
 
 	public static <T> String html(String title, List<? extends Node<T>> nodes, Function<Node<T>, String> converter) {
 		StringBuilder sb = new StringBuilder();
@@ -21,6 +31,15 @@ public class Trees {
 		sb.append(" </tr>\n");
 		sb.append("</table>\n");
 		return sb.toString();
+	}
+
+	public static <T> String html(Node<T> node) {
+		Function<Node<T>, String> converter = org.kuali.common.util.bind.function.NodeElementFunction.make();
+		return html(node, 0, converter);
+	}
+
+	public static <T> String html(Node<T> node, Function<Node<T>, String> converter) {
+		return html(node, 0, converter);
 	}
 
 	public static <T> String html(Node<T> node, int indent, Function<Node<T>, String> converter) {

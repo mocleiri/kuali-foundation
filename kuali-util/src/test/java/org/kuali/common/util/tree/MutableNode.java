@@ -6,6 +6,7 @@ import static com.google.common.base.Preconditions.checkState;
 import java.util.List;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 public class MutableNode<T> extends AbstractNode<T> {
@@ -13,6 +14,10 @@ public class MutableNode<T> extends AbstractNode<T> {
 	protected Optional<MutableNode<T>> parent = Optional.absent();
 	protected List<MutableNode<T>> children = Lists.newArrayList();
 	protected T element;
+
+	public static <T> MutableNode<T> of(T element) {
+		return new MutableNode<T>(element);
+	}
 
 	public MutableNode(T element) {
 		setElement(element);
@@ -64,6 +69,14 @@ public class MutableNode<T> extends AbstractNode<T> {
 		for (MutableNode<T> child : children) {
 			add(child);
 		}
+	}
+
+	public void add(MutableNode<T> child1, MutableNode<T> child2) {
+		add(ImmutableList.of(child1, child2));
+	}
+
+	public void add(MutableNode<T> child1, MutableNode<T> child2, MutableNode<T> child3) {
+		add(ImmutableList.of(child1, child2, child3));
 	}
 
 	public void add(MutableNode<T> child) {
