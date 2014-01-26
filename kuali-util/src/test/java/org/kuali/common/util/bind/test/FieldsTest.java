@@ -21,7 +21,7 @@ public class FieldsTest {
 			Class<?> type = SystemProperties.class;
 			AnnotatedFieldAssembler fieldAssembler = AnnotatedFieldAssembler.of(type, Bind.class);
 			List<Node<Field>> fields = fieldAssembler.assemble();
-			String html = Trees.html2(type.getSimpleName(), fields, UserObjectFunction.of(new FieldNameFunction()));
+			String html = Trees.html2(type.getSimpleName(), fields, UserObjectFunction.of(FieldNameFunction.of()));
 			FileUtils.write(new File("/tmp/fields.htm"), html);
 		} catch (Throwable e) {
 			e.printStackTrace();

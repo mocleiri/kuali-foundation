@@ -8,6 +8,10 @@ import com.google.common.base.Function;
 
 public class FieldNameFunction implements Function<Field, String> {
 
+	public static FieldNameFunction of() {
+		return new FieldNameFunction();
+	}
+
 	@Override
 	public String apply(Field field) {
 		checkNotNull(field, "'field' cannot be null'");
