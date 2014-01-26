@@ -13,6 +13,10 @@ public final class NodeElementFunction<T> implements Function<Node<T>, String> {
 		this.function = function;
 	}
 
+	public static <T> NodeElementFunction<T> of() {
+		return of(new ToStringFunction<T>());
+	}
+
 	public static <T> NodeElementFunction<T> of(Function<T, String> function) {
 		return new NodeElementFunction<T>(function);
 	}
@@ -24,6 +28,15 @@ public final class NodeElementFunction<T> implements Function<Node<T>, String> {
 		checkNotNull(node, "'node' cannot be null'");
 		checkNotNull(node.getElement(), "'node.getUserObject()' cannot be null'");
 		return function.apply(node.getElement());
+	}
+
+	private static class ToStringFunction<T> implements Function<T, String> {
+
+		@Override
+		public String apply(T element) {
+			checkNotNull(element, "'element' cannot be null'");
+			return element.toString();
+		}
 	}
 
 }
