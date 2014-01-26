@@ -4,16 +4,16 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.google.common.base.Function;
 
-public class UserObjectFunction<T> implements Function<Node<T>, T> {
+public class NodeElementFunction<T> implements Function<Node<T>, T> {
 
-	public static <T> UserObjectFunction<T> make() {
-		return new UserObjectFunction<T>();
+	public static <T> NodeElementFunction<T> make() {
+		return new NodeElementFunction<T>();
 	}
 
 	@Override
 	public T apply(Node<T> node) {
 		checkNotNull(node, "'node' cannot be null");
-		return node.getUserObject();
+		return node.getElement();
 	}
 
 }

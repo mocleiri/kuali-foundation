@@ -12,20 +12,20 @@ public class MutableNode<T> extends AbstractNode<T> {
 
 	protected Optional<MutableNode<T>> parent = Optional.absent();
 	protected List<MutableNode<T>> children = Lists.newArrayList();
-	protected T userObject;
+	protected T element;
 
-	public MutableNode(T userObject) {
-		setUserObject(userObject);
+	public MutableNode(T element) {
+		setElement(element);
 	}
 
-	public void setUserObject(T userObject) {
-		checkNotNull(userObject, "'userObject' cannot be null");
-		this.userObject = userObject;
+	public void setElement(T element) {
+		checkNotNull(element, "'element' cannot be null");
+		this.element = element;
 	}
 
 	@Override
-	public T getUserObject() {
-		return userObject;
+	public T getElement() {
+		return element;
 	}
 
 	@Override

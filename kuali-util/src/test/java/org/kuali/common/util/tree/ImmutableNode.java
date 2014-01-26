@@ -11,11 +11,11 @@ import com.google.common.collect.Lists;
 public final class ImmutableNode<T> extends AbstractNode<T> {
 
 	private final Optional<ImmutableNode<T>> parent;
-	private final ImmutableList<ImmutableNode<T>> children;
 	private final T userObject;
+	private final ImmutableList<ImmutableNode<T>> children;
 
 	private ImmutableNode(Builder<T> builder) {
-		this.parent = builder.parent;
+		this.parent = builder.node.getParent();
 		this.children = ImmutableList.copyOf(builder.children);
 		this.userObject = builder.userObject;
 	}
@@ -26,10 +26,6 @@ public final class ImmutableNode<T> extends AbstractNode<T> {
 
 	public static <T> ImmutableNode<T> of(T userObject, List<ImmutableNode<T>> children) {
 		return builder(userObject).children(children).build();
-	}
-
-	public static <T> ImmutableNode<T> of(ImmutableNode<T> parent, T userObject, List<ImmutableNode<T>> children) {
-		return builder(userObject).parent(parent).children(children).build();
 	}
 
 	public static <T> ImmutableNode<T> copyOf(Node<T> root) {
@@ -49,33 +45,28 @@ public final class ImmutableNode<T> extends AbstractNode<T> {
 	}
 
 	public static <T> Builder<T> builder(T userObject) {
-		return new Builder<T>(userObject);
+		return builder(new MutableNode<T>(userObject));
+	}
+
+	public static <T> Builder<T> builder(MutableNode<T> node) {
+		return new Builder<T>(node);
 	}
 
 	public static class Builder<T> implements org.kuali.common.util.build.Builder<ImmutableNode<T>> {
 
 		// Required
-		private final T userObject;
+		private final MutableNode<T> node;
 
-		// Optional
-		private Optional<ImmutableNode<T>> parent = Optional.absent();
-		private List<ImmutableNode<T>> children = ImmutableList.of();
-
-		public Builder(T userObject) {
-			this.userObject = userObject;
+		public Builder(MutableNode<T> node) {
+			this.node = node;
 		}
 
-		public Builder<T> parent(Optional<ImmutableNode<T>> parent) {
-			this.parent = parent;
-			return this;
+		public Builder<T> add(MutableNode<T> child) {
+			return add(ImmutableList.of(child));
 		}
 
-		public Builder<T> parent(ImmutableNode<T> parent) {
-			return parent(Optional.of(parent));
-		}
-
-		public Builder<T> children(List<ImmutableNode<T>> children) {
-			this.children = children;
+		public Builder<T> add(List<MutableNode<T>> children) {
+			node.add(children);
 			return this;
 		}
 
@@ -90,26 +81,6 @@ public final class ImmutableNode<T> extends AbstractNode<T> {
 			checkNotNull(instance.parent, "'parent' cannot be null");
 			checkNotNull(instance.children, "'children' cannot be null");
 			checkNotNull(instance.userObject, "'userObject' cannot be null");
-		}
-
-		public Optional<ImmutableNode<T>> getParent() {
-			return parent;
-		}
-
-		public void setParent(Optional<ImmutableNode<T>> parent) {
-			this.parent = parent;
-		}
-
-		public List<ImmutableNode<T>> getChildren() {
-			return children;
-		}
-
-		public void setChildren(List<ImmutableNode<T>> children) {
-			this.children = children;
-		}
-
-		public T getUserObject() {
-			return userObject;
 		}
 
 	}

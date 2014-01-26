@@ -6,15 +6,15 @@ import org.kuali.common.util.tree.Node;
 
 import com.google.common.base.Function;
 
-public final class UserObjectFunction<T> implements Function<Node<T>, String> {
+public final class NodeElementFunction<T> implements Function<Node<T>, String> {
 
-	public UserObjectFunction(Function<T, String> function) {
+	public NodeElementFunction(Function<T, String> function) {
 		checkNotNull(function, "'function' cannot be null");
 		this.function = function;
 	}
 
-	public static <T> UserObjectFunction<T> of(Function<T, String> function) {
-		return new UserObjectFunction<T>(function);
+	public static <T> NodeElementFunction<T> of(Function<T, String> function) {
+		return new NodeElementFunction<T>(function);
 	}
 
 	private final Function<T, String> function;
@@ -22,8 +22,8 @@ public final class UserObjectFunction<T> implements Function<Node<T>, String> {
 	@Override
 	public String apply(Node<T> node) {
 		checkNotNull(node, "'node' cannot be null'");
-		checkNotNull(node.getUserObject(), "'node.getUserObject()' cannot be null'");
-		return function.apply(node.getUserObject());
+		checkNotNull(node.getElement(), "'node.getUserObject()' cannot be null'");
+		return function.apply(node.getElement());
 	}
 
 }

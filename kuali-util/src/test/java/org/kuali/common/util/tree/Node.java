@@ -8,15 +8,15 @@ public interface Node<T> {
 
 	Optional<? extends Node<T>> getParent();
 
-	T getUserObject();
+	T getElement();
 
 	int getLevel();
 
 	List<? extends Node<T>> getChildren();
 
-	List<Node<T>> getPath();
+	List<? extends Node<T>> getPath();
 
-	List<T> getUserObjectPath();
+	List<T> getElementPath();
 
 	boolean isRoot();
 

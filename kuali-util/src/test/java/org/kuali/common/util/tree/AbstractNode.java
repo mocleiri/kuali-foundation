@@ -54,15 +54,15 @@ public abstract class AbstractNode<T> implements Node<T> {
 	}
 
 	/**
-	 * Returns the user objects in the path from the root, to get to this node. The last element is the user object from this node
+	 * Returns the node elements in the path from the root, to get to this node. The last entry is the element from this node
 	 */
 	@Override
-	public List<T> getUserObjectPath() {
-		return Lists.transform(getPath(), new UserObjectFunction<T>());
+	public List<T> getElementPath() {
+		return Lists.transform(getPath(), new NodeElementFunction<T>());
 	}
 
 	/**
-	 * Return true if this node is a parent of {@code child}
+	 * Return true if {@code child} is a child of this node
 	 */
 	public boolean isChild(AbstractNode<T> child) {
 		checkNotNull(child, "'child' cannot be null");
