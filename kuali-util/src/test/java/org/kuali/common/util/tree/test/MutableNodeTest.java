@@ -28,6 +28,8 @@ public class MutableNodeTest {
 		Assert.assertTrue(b.isLeaf());
 		Assert.assertEquals(0, root.getLevel());
 		Assert.assertEquals(1, root.getPath().size());
+		Assert.assertEquals(3, two.getPath().size());
+		Assert.assertEquals(two.getElement(), two.getElementPath().get(two.getPath().size() - 1));
 		Assert.assertEquals(1, root.getElementPath().size());
 		Assert.assertEquals(root.getElement(), root.getElementPath().get(0));
 		Assert.assertTrue(two.isAncestor(a));
