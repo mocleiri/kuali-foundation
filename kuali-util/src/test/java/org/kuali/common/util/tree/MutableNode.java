@@ -47,9 +47,12 @@ public class MutableNode<T> extends AbstractNode<T> {
 		setParent(Optional.of(parent));
 	}
 
+	/**
+	 * Immutable because changes to the list of children must go through the add/remove methods
+	 */
 	@Override
-	public List<MutableNode<T>> getChildren() {
-		return children;
+	public ImmutableList<MutableNode<T>> getChildren() {
+		return ImmutableList.copyOf(children);
 	}
 
 	public void remove(MutableNode<T> child) {
@@ -114,6 +117,9 @@ public class MutableNode<T> extends AbstractNode<T> {
 		}
 	}
 
+	/**
+	 * Removes the subtree rooted at this node from the tree, giving this node an absent parent. Does nothing if this node is the root of its tree.
+	 */
 	public void removeFromParent() {
 		Optional<MutableNode<T>> parent = getParent();
 		if (parent.isPresent()) {
