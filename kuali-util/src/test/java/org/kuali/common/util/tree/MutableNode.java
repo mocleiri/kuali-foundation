@@ -68,10 +68,8 @@ public class MutableNode<T> extends AbstractNode<T> {
 
 	public void add(MutableNode<T> child) {
 		checkNotNull(child, "'child' cannot be null");
-		int index = children.size();
-		if (isChild(child)) {
-			index--;
-		}
+		// If it's already a child, it gets removed from it's current position and then added to the end
+		int index = isChild(child) ? children.size() - 1 : children.size();
 		add(index, child);
 	}
 
