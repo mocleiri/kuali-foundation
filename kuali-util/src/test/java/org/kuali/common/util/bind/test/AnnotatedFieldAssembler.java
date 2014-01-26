@@ -42,7 +42,7 @@ public final class AnnotatedFieldAssembler implements Assembler<List<Node<Field>
 	protected MutableNode<Field> getNode(Field field) {
 		MutableNode<Field> node = new MutableNode<Field>(field);
 		if (field.isAnnotationPresent(annotation)) {
-			node.setChildren(assemble(field.getType()));
+			node.add(assemble(field.getType()));
 		}
 		return node;
 	}
