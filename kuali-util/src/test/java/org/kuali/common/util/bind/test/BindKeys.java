@@ -71,7 +71,7 @@ public class BindKeys {
 
 	protected static List<String> transform(List<String> original, Optional<String> prefix, String separator) {
 		if (prefix.isPresent()) {
-			Function<String, String> prefixer = PrefixFunction.make(prefix.get(), separator);
+			Function<String, String> prefixer = PrefixFunction.of(prefix.get(), separator);
 			return Lists.transform(original, prefixer);
 		} else {
 			return original;
