@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
+import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.tree.ImmutableNode;
 import org.kuali.common.util.tree.MutableNode;
 import org.kuali.common.util.tree.Trees;
@@ -22,7 +23,9 @@ public class ImmutableNodeTest {
 			a.add(b, c);
 			ImmutableNode<String> immutable = ImmutableNode.copyOf(a);
 			String html = Trees.html("Unit Test", immutable);
-			FileUtils.write(new File("/tmp/nodes.htm"), html);
+			File file = new CanonicalFile(System.getProperty("java.io.tmpdir"), "nodes.htm");
+			FileUtils.write(file, html);
+			System.out.println(file);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
