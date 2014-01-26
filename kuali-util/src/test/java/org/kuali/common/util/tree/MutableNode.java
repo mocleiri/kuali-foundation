@@ -82,6 +82,14 @@ public class MutableNode<T> extends AbstractNode<T> {
 		add(ImmutableList.of(child1, child2, child3));
 	}
 
+	public void add(MutableNode<T> child1, MutableNode<T> child2, MutableNode<T> child3, MutableNode<T> child4) {
+		add(ImmutableList.of(child1, child2, child3, child4));
+	}
+
+	public void add(MutableNode<T> child1, MutableNode<T> child2, MutableNode<T> child3, MutableNode<T> child4, MutableNode<T> child5) {
+		add(ImmutableList.of(child1, child2, child3, child4, child5));
+	}
+
 	public void add(MutableNode<T> child) {
 		checkNotNull(child, "'child' cannot be null");
 		// If it's already a child, it gets removed from it's current position and then added to the end

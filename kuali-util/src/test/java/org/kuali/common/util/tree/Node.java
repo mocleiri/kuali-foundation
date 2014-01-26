@@ -22,4 +22,8 @@ public interface Node<T> {
 
 	boolean isLeaf();
 
+	boolean isChild(Node<T> child);
+
+	boolean isAncestor(Node<T> parent);
+
 }
