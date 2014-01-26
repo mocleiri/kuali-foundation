@@ -5,18 +5,15 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Set;
-import java.util.SortedSet;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 
 import org.kuali.common.util.bind.api.BindingAlias;
-import org.kuali.common.util.tree.Trees;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 public final class KeyAssembler implements Assembler<Set<String>> {
 
@@ -30,6 +27,7 @@ public final class KeyAssembler implements Assembler<Set<String>> {
 
 	@Override
 	public Set<String> assemble() {
+		/*
 		Optional<String> prefix = Prefixes.get(type);
 		List<DefaultMutableTreeNode> combined = Trees.combine(nodes);
 		List<DefaultMutableTreeNode> leaves = Trees.getLeaves(combined);
@@ -39,6 +37,8 @@ public final class KeyAssembler implements Assembler<Set<String>> {
 			keys.addAll(getKeys(prefix, fields));
 		}
 		return keys;
+		*/
+		return null;
 	}
 
 	protected List<String> getKeys(Optional<String> prefix, List<Field> fields) {
