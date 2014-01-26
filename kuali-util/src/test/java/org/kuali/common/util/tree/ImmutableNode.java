@@ -11,7 +11,7 @@ public final class ImmutableNode<T> extends MutableNode<T> {
 	}
 
 	private ImmutableNode(Node<T> node) {
-		super(node.getElement());
+		super.setElement(node.getElement());
 		List<? extends Node<T>> children = super.getChildren();
 		super.removeAllChildren();
 		for (Node<T> child : children) {

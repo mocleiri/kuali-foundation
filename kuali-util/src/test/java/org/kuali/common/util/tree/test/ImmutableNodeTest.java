@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.kuali.common.util.tree.ImmutableNode;
 import org.kuali.common.util.tree.MutableNode;
+import org.kuali.common.util.tree.Node;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
@@ -21,10 +22,10 @@ public class ImmutableNodeTest {
 		root.add(a, b);
 		ImmutableNode<String> immutable = ImmutableNode.of(root);
 		Assert.assertEquals(immutable.getElement(), root.getElement());
-		ImmutableList<ImmutableNode<String>> children = immutable.getChildren();
-		ImmutableNode<String> newA = children.get(0);
-		Optional<ImmutableNode<String>> parent = newA.getParent();
-		ImmutableNode<String> newRoot = parent.get();
+		ImmutableList<? extends Node<String>> children = immutable.getChildren();
+		Node<String> newA = children.get(0);
+		Optional<? extends Node<String>> parent = newA.getParent();
+		Node<String> newRoot = parent.get();
 		System.out.println(immutable);
 		System.out.println(newRoot);
 		Assert.assertTrue(newRoot == immutable);
