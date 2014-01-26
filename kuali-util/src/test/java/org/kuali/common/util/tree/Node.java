@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.google.common.base.Optional;
 
+/**
+ * Object to hold data structured as a tree
+ */
 public interface Node<T> {
 
 	Optional<? extends Node<T>> getParent();
