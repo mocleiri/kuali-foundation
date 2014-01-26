@@ -19,7 +19,7 @@ public class MutableNode<T> extends AbstractNode<T> {
 		return new MutableNode<T>(element);
 	}
 
-	public MutableNode() {
+	protected MutableNode() {
 	}
 
 	public MutableNode(T element) {

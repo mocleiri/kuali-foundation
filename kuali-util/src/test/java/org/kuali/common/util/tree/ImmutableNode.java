@@ -2,20 +2,17 @@ package org.kuali.common.util.tree;
 
 import java.util.List;
 
-import com.google.common.collect.Lists;
-
 public final class ImmutableNode<T> extends MutableNode<T> {
 
 	private static final String UOE_MSG = "Operation not supported for immutable node";
 
-	public static <T> ImmutableNode<T> of(Node<T> node) {
+	public static <T> ImmutableNode<T> copyOf(Node<T> node) {
 		return new ImmutableNode<T>(node);
 	}
 
 	private ImmutableNode(Node<T> node) {
 		super.setElement(node.getElement());
-		List<? extends Node<T>> children = Lists.newArrayList(node.getChildren());
-		super.removeAllChildren();
+		List<? extends Node<T>> children = node.getChildren();
 		for (Node<T> child : children) {
 			super.add(children.size(), new ImmutableNode<T>(child));
 		}
