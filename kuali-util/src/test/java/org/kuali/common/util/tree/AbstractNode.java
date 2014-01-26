@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.List;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 public abstract class AbstractNode<T> implements Node<T> {
@@ -42,7 +43,7 @@ public abstract class AbstractNode<T> implements Node<T> {
 	 * Returns the path from the root, to get to this node. The last element in the path is this node.
 	 */
 	@Override
-	public List<Node<T>> getPath() {
+	public ImmutableList<Node<T>> getPath() {
 		Node<T> ancestor = this;
 		List<Node<T>> list = Lists.newArrayList();
 		list.add(ancestor);
@@ -50,15 +51,15 @@ public abstract class AbstractNode<T> implements Node<T> {
 			ancestor = ancestor.getParent().get();
 			list.add(ancestor);
 		}
-		return Lists.reverse(list);
+		return ImmutableList.copyOf(Lists.reverse(list));
 	}
 
 	/**
 	 * Returns the node elements in the path from the root, to get to this node. The last entry is the element from this node
 	 */
 	@Override
-	public List<T> getElementPath() {
-		return Lists.transform(getPath(), new NodeElementFunction<T>());
+	public ImmutableList<T> getElementPath() {
+		return ImmutableList.copyOf(Lists.transform(getPath(), new NodeElementFunction<T>()));
 	}
 
 	/**
