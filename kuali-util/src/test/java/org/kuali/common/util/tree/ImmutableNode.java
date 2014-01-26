@@ -4,11 +4,20 @@ import java.util.List;
 
 public final class ImmutableNode<T> extends MutableNode<T> {
 
-	public ImmutableNode(T element) {
-		super(element);
+	private static final String UOE_MSG = "Operation not supported for immutable node";
+
+	public static <T> ImmutableNode<T> of(Node<T> node) {
+		return new ImmutableNode<T>(node);
 	}
 
-	private static final String UOE_MSG = "Operation not supported for immutable node";
+	private ImmutableNode(Node<T> node) {
+		super(node.getElement());
+		List<? extends Node<T>> children = super.getChildren();
+		super.removeAllChildren();
+		for (Node<T> child : children) {
+			super.add(new ImmutableNode<T>(child));
+		}
+	}
 
 	@Override
 	public void setElement(T element) {

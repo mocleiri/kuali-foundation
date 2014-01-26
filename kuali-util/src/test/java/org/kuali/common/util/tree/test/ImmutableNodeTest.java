@@ -19,7 +19,7 @@ public class ImmutableNodeTest {
 		MutableNode<String> two = new MutableNode<String>("2");
 		a.add(one, two);
 		root.add(a, b);
-		ImmutableNode<String> immutable = ImmutableNode.copyOf(root);
+		ImmutableNode<String> immutable = ImmutableNode.of(root);
 		Assert.assertEquals(immutable.getElement(), root.getElement());
 		ImmutableList<ImmutableNode<String>> children = immutable.getChildren();
 		ImmutableNode<String> newA = children.get(0);
