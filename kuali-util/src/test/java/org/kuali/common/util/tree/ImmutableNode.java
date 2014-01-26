@@ -15,9 +15,18 @@ public final class ImmutableNode<T> extends AbstractNode<T> {
 	private final ImmutableList<ImmutableNode<T>> children;
 
 	private ImmutableNode(Builder<T> builder) {
-		this.parent = Optional.fromNullable(copyOf(builder.parent.orNull()));
+		this.parent = getParent(builder.parent);
 		this.children = ImmutableList.copyOf(copyOf(builder.children));
 		this.element = builder.element;
+	}
+
+	private static <T> Optional<ImmutableNode<T>> getParent(Optional<? extends Node<T>> parent) {
+		if (parent.isPresent()) {
+			ImmutableNode<T> copy = copyOf(parent.get());
+			return Optional.of(copy);
+		} else {
+			return Optional.absent();
+		}
 	}
 
 	public static <T> ImmutableNode<T> of(T element) {
