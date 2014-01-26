@@ -79,13 +79,14 @@ public class BindKeys {
 	}
 
 	protected static List<String> getKeys(Field field) {
-		Optional<BindingAlias> bindingAlias = Annotations.get(field, BindingAlias.class);
-		if (!bindingAlias.isPresent()) {
+		Optional<BindingAlias> optional = Annotations.get(field, BindingAlias.class);
+		if (!optional.isPresent()) {
 			return ImmutableList.of(field.getName());
 		} else {
+			BindingAlias annotation = optional.get();
 			List<String> keys = Lists.newArrayList();
-			keys.addAll(ImmutableList.copyOf(bindingAlias.get().value()));
-			if (bindingAlias.get().includeFieldName()) {
+			keys.addAll(ImmutableList.copyOf(annotation.value()));
+			if (annotation.includeFieldName()) {
 				keys.add(field.getName());
 			}
 			return keys;
