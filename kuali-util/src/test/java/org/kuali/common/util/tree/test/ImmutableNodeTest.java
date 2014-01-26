@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.tree.ImmutableNode;
 import org.kuali.common.util.tree.MutableNode;
+import org.kuali.common.util.tree.Node;
 import org.kuali.common.util.tree.Trees;
 
 public class ImmutableNodeTest {
@@ -26,6 +27,8 @@ public class ImmutableNodeTest {
 			File file = new CanonicalFile(System.getProperty("java.io.tmpdir"), "nodes.htm");
 			FileUtils.write(file, html);
 			System.out.println(file);
+			Node<String> node1 = immutable.getChildren().get(0);
+			System.out.println(node1 + " " + node1.getElement());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
