@@ -62,12 +62,12 @@ public abstract class AbstractNode<T> implements Node<T> {
 	}
 
 	/**
-	 * Return true if {@code child} is a child of this node
+	 * Return true if this node is a child of parent
 	 */
 	@Override
-	public boolean isChild(Node<T> child) {
-		checkNotNull(child, "'child' cannot be null");
-		return child.getParent().isPresent() && child.getParent().get() == this;
+	public boolean isChild(Node<T> parent) {
+		checkNotNull(parent, "'parent' cannot be null");
+		return parent.getChildren().contains(this);
 	}
 
 	/**
