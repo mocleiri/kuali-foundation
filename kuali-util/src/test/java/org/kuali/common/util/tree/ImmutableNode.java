@@ -2,6 +2,8 @@ package org.kuali.common.util.tree;
 
 import java.util.List;
 
+import com.google.common.collect.Lists;
+
 public final class ImmutableNode<T> extends MutableNode<T> {
 
 	private static final String UOE_MSG = "Operation not supported for immutable node";
@@ -12,10 +14,10 @@ public final class ImmutableNode<T> extends MutableNode<T> {
 
 	private ImmutableNode(Node<T> node) {
 		super.setElement(node.getElement());
-		List<? extends Node<T>> children = super.getChildren();
+		List<? extends Node<T>> children = Lists.newArrayList(node.getChildren());
 		super.removeAllChildren();
 		for (Node<T> child : children) {
-			super.add(new ImmutableNode<T>(child));
+			super.add(children.size(), new ImmutableNode<T>(child));
 		}
 	}
 
