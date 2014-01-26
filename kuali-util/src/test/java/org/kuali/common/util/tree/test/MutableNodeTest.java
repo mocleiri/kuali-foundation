@@ -14,7 +14,7 @@ public class MutableNodeTest {
 		MutableNode<String> one = new MutableNode<String>("1");
 		MutableNode<String> two = new MutableNode<String>("2");
 		a.add(one, two);
-		root.add(a,b);
+		root.add(a, b);
 		Assert.assertFalse(root.getParent().isPresent());
 		Assert.assertTrue(a.getParent().isPresent());
 		Assert.assertTrue(b.getParent().isPresent());
@@ -28,6 +28,8 @@ public class MutableNodeTest {
 		Assert.assertTrue(b.isLeaf());
 		Assert.assertEquals(0, root.getLevel());
 		Assert.assertEquals(1, root.getPath().size());
+		Assert.assertEquals(1, root.getElementPath().size());
+		Assert.assertEquals(root.getElement(), root.getElementPath().get(0));
 	}
 
 }

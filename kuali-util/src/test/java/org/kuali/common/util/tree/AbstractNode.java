@@ -64,7 +64,8 @@ public abstract class AbstractNode<T> implements Node<T> {
 	/**
 	 * Return true if {@code child} is a child of this node
 	 */
-	public boolean isChild(AbstractNode<T> child) {
+	@Override
+	public boolean isChild(Node<T> child) {
 		checkNotNull(child, "'child' cannot be null");
 		return child.getParent().isPresent() && child.getParent().get() == this;
 	}
@@ -72,7 +73,8 @@ public abstract class AbstractNode<T> implements Node<T> {
 	/**
 	 * Return true if this node descends from parent OR is parent
 	 */
-	public boolean isAncestor(AbstractNode<T> parent) {
+	@Override
+	public boolean isAncestor(Node<T> parent) {
 		checkNotNull(parent, "'parent' cannot be null");
 		return getPath().contains(parent);
 	}
