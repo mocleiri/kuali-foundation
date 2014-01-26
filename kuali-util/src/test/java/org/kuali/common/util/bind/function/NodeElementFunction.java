@@ -13,10 +13,16 @@ public final class NodeElementFunction<T> implements Function<Node<T>, String> {
 		this.function = function;
 	}
 
+	/**
+	 * Convert the element contained in each node to a string by calling it's toString() method
+	 */
 	public static <T> NodeElementFunction<T> make() {
 		return make(new ToStringFunction<T>());
 	}
 
+	/**
+	 * Convert the element contained in each node to a string by invoking {@code function} on it
+	 */
 	public static <T> NodeElementFunction<T> make(Function<T, String> function) {
 		return new NodeElementFunction<T>(function);
 	}
