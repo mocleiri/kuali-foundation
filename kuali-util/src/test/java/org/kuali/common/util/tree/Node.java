@@ -9,7 +9,7 @@ import com.google.common.base.Optional;
  */
 public interface Node<T> {
 
-	Optional<? extends Node<T>> getParent();
+	Optional<Node<T>> getParent();
 
 	T getElement();
 

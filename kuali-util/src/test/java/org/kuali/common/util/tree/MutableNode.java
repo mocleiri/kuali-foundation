@@ -37,7 +37,11 @@ public class MutableNode<T> extends AbstractNode<T> {
 	}
 
 	@Override
-	public Optional<MutableNode<T>> getParent() {
+	public Optional<Node<T>> getParent() {
+		return Optional.<Node<T>> fromNullable(this.parent.orNull());
+	}
+
+	public Optional<MutableNode<T>> getMutableParent() {
 		return parent;
 	}
 
@@ -116,8 +120,8 @@ public class MutableNode<T> extends AbstractNode<T> {
 
 		// Remove this child from it's current parent
 		// If the child's parent is us, this decreases our child count by 1 (temporarily)
-		if (child.getParent().isPresent()) {
-			child.getParent().get().remove(child);
+		if (child.getMutableParent().isPresent()) {
+			child.getMutableParent().get().remove(child);
 		}
 
 		// Make the child's parent this node
@@ -137,7 +141,7 @@ public class MutableNode<T> extends AbstractNode<T> {
 	 * Removes the subtree rooted at this node from the tree, giving this node an absent parent. Does nothing if this node is the root of its tree.
 	 */
 	public void removeFromParent() {
-		Optional<MutableNode<T>> parent = getParent();
+		Optional<MutableNode<T>> parent = getMutableParent();
 		if (parent.isPresent()) {
 			parent.get().remove(this);
 		}
