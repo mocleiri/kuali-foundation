@@ -12,7 +12,7 @@ import com.google.common.collect.Lists;
 public class MutableNode<T> extends AbstractNode<T> {
 
 	protected Optional<MutableNode<T>> mutableParent = Optional.absent();
-	protected List<MutableNode<T>> children = Lists.newArrayList();
+	protected List<MutableNode<T>> mutableChildren = Lists.newArrayList();
 	protected T element;
 
 	public static <T> MutableNode<T> of(T element) {
@@ -60,7 +60,7 @@ public class MutableNode<T> extends AbstractNode<T> {
 	@Override
 	public List<Node<T>> getChildren() {
 		List<Node<T>> list = Lists.newArrayList();
-		for (Node<T> child : children) {
+		for (Node<T> child : mutableChildren) {
 			list.add(child);
 		}
 		return ImmutableList.copyOf(list);
@@ -69,12 +69,12 @@ public class MutableNode<T> extends AbstractNode<T> {
 	public void remove(MutableNode<T> child) {
 		checkNotNull(child, "'child' cannot be null");
 		checkState(isChild(child), "'child' is not a child of this node");
-		remove(children.indexOf(child));
+		remove(mutableChildren.indexOf(child));
 	}
 
 	public void remove(int index) {
-		MutableNode<T> child = children.get(index);
-		children.remove(index);
+		MutableNode<T> child = mutableChildren.get(index);
+		mutableChildren.remove(index);
 		child.setMutableParent(Optional.<MutableNode<T>> absent());
 	}
 
@@ -103,7 +103,7 @@ public class MutableNode<T> extends AbstractNode<T> {
 
 	public void add(MutableNode<T> child) {
 		checkNotNull(child, "'child' cannot be null");
-		add(children.size(), child);
+		add(mutableChildren.size(), child);
 	}
 
 	public void add(int index, MutableNode<T> child) {
@@ -113,7 +113,7 @@ public class MutableNode<T> extends AbstractNode<T> {
 		// If it's already a child, it gets removed from it's current position and then added to the end
 		// Thus, index needs to be children.size() - 1 if it's already a child because of how the add method works
 		// It removes the child first, (thus decreasing the size of the list by 1 if this node is already a child)
-		int actualIndex = isChild(child) ? children.size() - 1 : children.size();
+		int actualIndex = isChild(child) ? mutableChildren.size() - 1 : mutableChildren.size();
 
 		// Can't be us, our parent, our grandparent, etc
 		checkState(!isAncestor(child), "'child' is an ancestor");
@@ -128,11 +128,11 @@ public class MutableNode<T> extends AbstractNode<T> {
 		child.setParent(this);
 
 		// Add the child
-		children.add(actualIndex, child);
+		mutableChildren.add(actualIndex, child);
 	}
 
 	public void removeAllChildren() {
-		for (int i = 0; i < children.size(); i++) {
+		for (int i = 0; i < mutableChildren.size(); i++) {
 			remove(i);
 		}
 	}
