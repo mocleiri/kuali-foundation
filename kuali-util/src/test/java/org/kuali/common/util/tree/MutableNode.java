@@ -11,7 +11,7 @@ import com.google.common.collect.Lists;
 
 public class MutableNode<T> extends AbstractNode<T> {
 
-	protected Optional<MutableNode<T>> parent = Optional.absent();
+	protected Optional<MutableNode<T>> mutableParent = Optional.absent();
 	protected List<MutableNode<T>> children = Lists.newArrayList();
 	protected T element;
 
@@ -42,16 +42,16 @@ public class MutableNode<T> extends AbstractNode<T> {
 	}
 
 	public Optional<MutableNode<T>> getMutableParent() {
-		return parent;
+		return mutableParent;
 	}
 
-	protected void setParent(Optional<MutableNode<T>> parent) {
-		this.parent = parent;
+	protected void setMutableParent(Optional<MutableNode<T>> parent) {
+		this.mutableParent = parent;
 	}
 
 	protected void setParent(MutableNode<T> parent) {
 		checkNotNull(parent, "'parent' cannot be null");
-		setParent(Optional.of(parent));
+		setMutableParent(Optional.of(parent));
 	}
 
 	/**
@@ -75,7 +75,7 @@ public class MutableNode<T> extends AbstractNode<T> {
 	public void remove(int index) {
 		MutableNode<T> child = children.get(index);
 		children.remove(index);
-		child.setParent(Optional.<MutableNode<T>> absent());
+		child.setMutableParent(Optional.<MutableNode<T>> absent());
 	}
 
 	public void add(List<MutableNode<T>> children) {
