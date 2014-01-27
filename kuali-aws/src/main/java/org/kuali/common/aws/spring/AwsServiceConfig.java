@@ -18,7 +18,6 @@ package org.kuali.common.aws.spring;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
-import org.kuali.common.aws.ec2.util.LaunchUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.kuali.common.util.wait.WaitService;
@@ -45,7 +44,7 @@ public class AwsServiceConfig {
 
 	@Bean
 	public EC2ServiceContext ec2ServiceContext() {
-		return LaunchUtils.getEC2ServiceContext(env, credentials);
+		return null; // LaunchUtils.getEC2ServiceContext(env, credentials);
 	}
 
 	@Bean
