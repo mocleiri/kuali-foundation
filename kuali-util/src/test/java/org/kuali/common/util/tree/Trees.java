@@ -18,7 +18,12 @@ public class Trees {
 		return html(title, ImmutableList.of(node), converter);
 	}
 
-	public static <T> String html(String title, List<? extends Node<T>> nodes, Function<Node<T>, String> converter) {
+	public static <T> String html(String title, List<Node<T>> nodes) {
+		Function<Node<T>, String> converter = org.kuali.common.util.bind.function.NodeElementFunction.make();
+		return html(title, nodes, converter);
+	}
+
+	public static <T> String html(String title, List<Node<T>> nodes, Function<Node<T>, String> converter) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<table border=\"0\">\n");
 		sb.append(" <th>" + title + "</th>\n");
