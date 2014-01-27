@@ -27,16 +27,6 @@ public final class ImmutableNode<T> extends MutableNode<T> {
 	}
 
 	@Override
-	public void remove(MutableNode<T> child) {
-		throw new UnsupportedOperationException(UOE_MSG);
-	}
-
-	@Override
-	public void remove(int index) {
-		throw new UnsupportedOperationException(UOE_MSG);
-	}
-
-	@Override
 	public void add(List<MutableNode<T>> children) {
 		throw new UnsupportedOperationException(UOE_MSG);
 	}
@@ -68,6 +58,16 @@ public final class ImmutableNode<T> extends MutableNode<T> {
 
 	@Override
 	public void add(int index, MutableNode<T> child) {
+		throw new UnsupportedOperationException(UOE_MSG);
+	}
+
+	@Override
+	public void remove(MutableNode<T> child) {
+		throw new UnsupportedOperationException(UOE_MSG);
+	}
+
+	@Override
+	public void remove(int index) {
 		throw new UnsupportedOperationException(UOE_MSG);
 	}
 
