@@ -44,7 +44,10 @@ public final class PrefixFunction implements Function<String, String> {
 
 	public static class Builder implements org.kuali.common.util.build.Builder<PrefixFunction> {
 
+		// Required
 		private final String prefix;
+
+		// Optional
 		private Optional<String> separator = Optional.absent();
 
 		public Builder(String prefix) {
