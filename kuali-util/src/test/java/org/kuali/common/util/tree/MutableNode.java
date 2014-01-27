@@ -111,8 +111,7 @@ public class MutableNode<T> extends AbstractNode<T> {
 		checkNotNull(child, "'child' cannot be null");
 
 		// If it's already a child, it gets removed from it's current position and then added to the end
-		// Thus, index needs to be children.size() - 1 if it's already a child because of how the add method works
-		// It removes the child first, (thus decreasing the size of the list by 1 if this node is already a child)
+		// Thus, index needs to be children.size() - 1 if it's already a child
 		int actualIndex = isChild(child) ? mutableChildren.size() - 1 : mutableChildren.size();
 
 		// Can't be us, our parent, our grandparent, etc
