@@ -27,7 +27,7 @@ public final class AnnotatedFieldAssembler implements Assembler<List<Node<Field>
 		List<MutableNode<Field>> assembled = assemble(type);
 		List<Node<Field>> list = Lists.newArrayList();
 		for (Node<Field> element : assembled) {
-			list.add(ImmutableNode.<Field> copyOf(element));
+			list.add(ImmutableNode.copyOf(element));
 		}
 		return ImmutableList.copyOf(list);
 	}
