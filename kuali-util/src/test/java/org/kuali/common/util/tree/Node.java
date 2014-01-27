@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.common.base.Optional;
 
 /**
- * Object to hold data structured as a tree
+ * Type safe tree data structure
  */
 public interface Node<T> {
 
