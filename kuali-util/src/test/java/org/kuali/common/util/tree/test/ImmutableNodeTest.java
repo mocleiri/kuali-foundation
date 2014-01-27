@@ -46,6 +46,13 @@ public class ImmutableNodeTest {
 		Optional<Node<String>> parent = newA.getParent();
 		Node<String> newRoot = parent.get();
 		Assert.assertTrue(newRoot == immutable);
+		try {
+			MutableNode<String> mutable = (MutableNode<String>) immutable;
+			mutable.add(a);
+			Assert.fail("Cannot mutate an immutable");
+		} catch (UnsupportedOperationException e) {
+			; // Nothing to do
+		}
 	}
 
 }
