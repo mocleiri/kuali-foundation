@@ -8,10 +8,10 @@ import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.function.FieldNameFunction;
-import org.kuali.common.util.bind.function.NodeStringFunction;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.system.SystemProperties;
 import org.kuali.common.util.tree.Node;
+import org.kuali.common.util.tree.NodeStringFunction;
 import org.kuali.common.util.tree.Trees;
 
 public class FieldsTest {

@@ -1,8 +1,7 @@
-package org.kuali.common.util.bind.function;
+package org.kuali.common.util.tree;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import org.kuali.common.util.tree.Node;
 
 import com.google.common.base.Function;
 
