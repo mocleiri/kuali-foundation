@@ -15,7 +15,7 @@ public final class ImmutableNode<T> extends MutableNode<T> {
 	private ImmutableNode(Node<T> node) {
 		checkNotNull(node, "'node' cannot be null");
 		super.setElement(node.getElement());
-		List<? extends Node<T>> children = node.getChildren();
+		List<Node<T>> children = node.getChildren();
 		for (Node<T> child : children) {
 			super.add(children.size(), new ImmutableNode<T>(child));
 		}
