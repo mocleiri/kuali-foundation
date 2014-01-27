@@ -15,9 +15,9 @@ public interface Node<T> {
 
 	int getLevel();
 
-	List<? extends Node<T>> getChildren();
+	List<Node<T>> getChildren();
 
-	List<? extends Node<T>> getPath();
+	List<Node<T>> getPath();
 
 	List<T> getElementPath();
 
