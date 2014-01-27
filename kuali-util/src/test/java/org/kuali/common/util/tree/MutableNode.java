@@ -38,7 +38,7 @@ public class MutableNode<T> extends AbstractNode<T> {
 
 	@Override
 	public Optional<Node<T>> getParent() {
-		return Optional.<Node<T>> fromNullable(this.parent.orNull());
+		return Optional.<Node<T>> fromNullable(getMutableParent().orNull());
 	}
 
 	public Optional<MutableNode<T>> getMutableParent() {
