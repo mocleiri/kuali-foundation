@@ -45,7 +45,7 @@ public class ImmutableNodeTest {
 		Assert.assertEquals(immutable.getElement(), root.getElement());
 		List<Node<String>> children = immutable.getChildren();
 		Node<String> newA = children.get(0);
-		Optional<? extends Node<String>> parent = newA.getParent();
+		Optional<Node<String>> parent = newA.getParent();
 		Node<String> newRoot = parent.get();
 		System.out.println(immutable);
 		System.out.println(newRoot);
