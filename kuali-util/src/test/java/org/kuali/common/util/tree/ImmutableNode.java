@@ -12,7 +12,7 @@ public final class ImmutableNode<T> extends MutableNode<T> {
 		return new ImmutableNode<T>(node);
 	}
 
-	private ImmutableNode(Node<T> node) {
+	public ImmutableNode(Node<T> node) {
 		checkNotNull(node, "'node' cannot be null");
 		super.setElement(node.getElement());
 		List<Node<T>> children = node.getChildren();
