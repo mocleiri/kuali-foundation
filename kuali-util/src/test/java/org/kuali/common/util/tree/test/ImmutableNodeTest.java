@@ -47,6 +47,7 @@ public class ImmutableNodeTest {
 		Node<String> newRoot = parent.get();
 		Assert.assertTrue(newRoot == immutable);
 		try {
+			Assert.assertTrue(newRoot instanceof ImmutableNode);
 			MutableNode<String> mutable = (MutableNode<String>) immutable;
 			mutable.add(a);
 			Assert.fail("Cannot mutate an immutable");
