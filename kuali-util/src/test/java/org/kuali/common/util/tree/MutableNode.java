@@ -54,8 +54,12 @@ public class MutableNode<T> extends AbstractNode<T> {
 	 * Immutable because changes to the list of children must go through the add/remove methods
 	 */
 	@Override
-	public ImmutableList<? extends Node<T>> getChildren() {
-		return ImmutableList.copyOf(children);
+	public List<Node<T>> getChildren() {
+		List<Node<T>> list = Lists.newArrayList();
+		for (Node<T> child : children) {
+			list.add(child);
+		}
+		return ImmutableList.copyOf(list);
 	}
 
 	public void remove(MutableNode<T> child) {

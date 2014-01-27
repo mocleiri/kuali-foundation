@@ -1,5 +1,7 @@
 package org.kuali.common.util.tree.test;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.kuali.common.util.tree.ImmutableNode;
@@ -7,7 +9,6 @@ import org.kuali.common.util.tree.MutableNode;
 import org.kuali.common.util.tree.Node;
 
 import com.google.common.base.Optional;
-import com.google.common.collect.ImmutableList;
 
 public class ImmutableNodeTest {
 
@@ -22,7 +23,7 @@ public class ImmutableNodeTest {
 		root.add(a, b);
 		ImmutableNode<String> immutable = ImmutableNode.copyOf(root);
 		Assert.assertEquals(immutable.getElement(), root.getElement());
-		ImmutableList<? extends Node<String>> children = immutable.getChildren();
+		List<Node<String>> children = immutable.getChildren();
 		Node<String> newA = children.get(0);
 		Optional<? extends Node<String>> parent = newA.getParent();
 		Node<String> newRoot = parent.get();

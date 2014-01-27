@@ -1,5 +1,7 @@
 package org.kuali.common.util.tree;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.List;
 
 public final class ImmutableNode<T> extends MutableNode<T> {
@@ -11,6 +13,7 @@ public final class ImmutableNode<T> extends MutableNode<T> {
 	}
 
 	private ImmutableNode(Node<T> node) {
+		checkNotNull(node, "'node' cannot be null");
 		super.setElement(node.getElement());
 		List<? extends Node<T>> children = node.getChildren();
 		for (Node<T> child : children) {
