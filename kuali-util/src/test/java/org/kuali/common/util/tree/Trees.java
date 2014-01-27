@@ -25,7 +25,7 @@ public class Trees {
 
 	public static <T> String html(String title, List<Node<T>> nodes, Function<Node<T>, String> converter) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<table border=\"0\">\n");
+		sb.append("<table border=\"1\">\n");
 		sb.append(" <th>" + title + "</th>\n");
 		sb.append(" <tr>\n");
 		sb.append("  <td>\n");
