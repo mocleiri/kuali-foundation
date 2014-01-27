@@ -9,20 +9,27 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.tree.ImmutableNode;
 import org.kuali.common.util.tree.MutableNode;
 import org.kuali.common.util.tree.Node;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
-public final class AnnotatedFieldAssembler implements Assembler<List<? extends Node<Field>>> {
+public final class AnnotatedFieldAssembler implements Assembler<List<Node<Field>>> {
 
 	private final Class<? extends Annotation> annotation;
 	private final Class<?> type;
 	private final Comparator<Field> comparator;
 
 	@Override
-	public List<? extends Node<Field>> assemble() {
-		return assemble(type);
+	public List<Node<Field>> assemble() {
+		List<MutableNode<Field>> assembled = assemble(type);
+		List<Node<Field>> list = Lists.newArrayList();
+		for (Node<Field> element : assembled) {
+			list.add(ImmutableNode.<Field> copyOf(element));
+		}
+		return ImmutableList.copyOf(list);
 	}
 
 	protected List<MutableNode<Field>> assemble(Class<?> type) {
