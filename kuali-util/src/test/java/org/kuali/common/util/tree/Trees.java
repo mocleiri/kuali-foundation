@@ -53,7 +53,7 @@ public class Trees {
 		sb.append(prefix + "<table border=\"1\">\n");
 		sb.append(prefix + " <tr>\n");
 		sb.append(prefix + "  <td>" + converter.apply(node) + "</td>\n");
-		List<? extends Node<T>> children = node.getChildren();
+		List<Node<T>> children = node.getChildren();
 		if (!children.isEmpty()) {
 			sb.append(prefix + "  <td>\n");
 			for (Node<T> child : children) {
