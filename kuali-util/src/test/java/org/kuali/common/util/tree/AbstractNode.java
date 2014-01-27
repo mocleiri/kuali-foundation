@@ -71,6 +71,15 @@ public abstract class AbstractNode<T> implements Node<T> {
 	}
 
 	/**
+	 * Return true if this node is a parent of child
+	 */
+	@Override
+	public boolean isParent(Node<T> child) {
+		checkNotNull(child, "'child' cannot be null");
+		return getChildren().contains(child);
+	}
+
+	/**
 	 * Return true if this node descends from parent OR is parent
 	 */
 	@Override
