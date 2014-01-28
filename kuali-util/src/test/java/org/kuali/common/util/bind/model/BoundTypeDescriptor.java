@@ -4,54 +4,47 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.lang.reflect.Field;
-import java.util.Map;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.tree.Node;
 
 import com.google.common.base.Optional;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
+import com.google.common.collect.ImmutableList;
 
 public final class BoundTypeDescriptor {
 
 	private final Optional<String> prefix;
 	private final Class<?> type;
-	private final ImmutableMap<Field, BoundFieldDescriptor> fields;
+	private final ImmutableList<Node<Field>> fields;
 
 	private BoundTypeDescriptor(Builder builder) {
 		this.prefix = builder.prefix;
 		this.type = builder.type;
-		this.fields = ImmutableMap.copyOf(builder.fields);
+		this.fields = ImmutableList.copyOf(builder.fields);
 	}
 
-	public static Builder builder(Class<?> type) {
-		return new Builder(type);
-	}
+	public static class Builder {
 
-	public static class Builder implements org.kuali.common.util.build.Builder<BoundTypeDescriptor> {
+		private Optional<String> prefix;
+		private Class<?> type;
+		private List<Node<Field>> fields;
 
-		// Required
-		private final Class<?> type;
-
-		// Optional
-		private Optional<String> prefix = Optional.absent();
-		private Map<Field, BoundFieldDescriptor> fields = Maps.newHashMap();
-
-		private Builder(Class<?> type) {
-			this.type = type;
-		}
-
-		public Builder prefix(String prefix) {
-			this.prefix = Optional.of(prefix);
+		public Builder prefix(Optional<String> prefix) {
+			this.prefix = prefix;
 			return this;
 		}
 
-		public Builder fields(Map<Field, BoundFieldDescriptor> fields) {
+		public Builder type(Class<?> type) {
+			this.type = type;
+			return this;
+		}
+
+		public Builder fields(List<Node<Field>> fields) {
 			this.fields = fields;
 			return this;
 		}
 
-		@Override
 		public BoundTypeDescriptor build() {
 			BoundTypeDescriptor instance = new BoundTypeDescriptor(this);
 			validate(instance);
@@ -60,33 +53,9 @@ public final class BoundTypeDescriptor {
 
 		private static void validate(BoundTypeDescriptor instance) {
 			checkNotNull(instance.type, "'type' cannot be null");
-			checkNotNull(instance.fields, "'fields' cannot be null");
 			checkNotNull(instance.prefix, "'prefix' cannot be null");
-			if (instance.prefix.isPresent()) {
-				checkArgument(!StringUtils.isBlank(instance.prefix.get()), "'prefix' cannot be blank");
-			}
+			checkArgument(!StringUtils.isBlank(instance.prefix.get()), "'prefix' cannot be blank");
 		}
-
-		public Class<?> getType() {
-			return type;
-		}
-
-		public Optional<String> getPrefix() {
-			return prefix;
-		}
-
-		public void setPrefix(Optional<String> prefix) {
-			this.prefix = prefix;
-		}
-
-		public Map<Field, BoundFieldDescriptor> getFields() {
-			return fields;
-		}
-
-		public void setFields(Map<Field, BoundFieldDescriptor> fieldKeys) {
-			this.fields = fieldKeys;
-		}
-
 	}
 
 	public Optional<String> getPrefix() {
@@ -97,7 +66,7 @@ public final class BoundTypeDescriptor {
 		return type;
 	}
 
-	public ImmutableMap<Field, BoundFieldDescriptor> getFields() {
+	public ImmutableList<Node<Field>> getFields() {
 		return fields;
 	}
 
