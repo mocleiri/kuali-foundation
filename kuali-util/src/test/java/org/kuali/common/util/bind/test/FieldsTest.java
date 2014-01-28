@@ -14,6 +14,8 @@ import org.kuali.common.util.tree.Node;
 import org.kuali.common.util.tree.NodeStringFunction;
 import org.kuali.common.util.tree.Trees;
 
+import com.google.common.collect.Lists;
+
 public class FieldsTest {
 
 	@Test
@@ -26,6 +28,13 @@ public class FieldsTest {
 			File file = new CanonicalFile(System.getProperty("java.io.tmpdir"), "fields.htm");
 			FileUtils.write(file, html);
 			System.out.println(file);
+			List<Node<Field>> nodes = Lists.newArrayList();
+			for (Node<Field> field : fields) {
+				nodes.addAll(Trees.breadthFirst(field));
+			}
+			for (Node<Field> node : nodes) {
+				System.out.println(node.getClass().getCanonicalName());
+			}
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}

@@ -16,7 +16,7 @@ public final class BoundTypeDescriptor {
 
 	private final Optional<String> prefix;
 	private final Class<?> type;
-	private final ImmutableList<Node<Field>> fields;
+	private final List<Node<Field>> fields;
 
 	private BoundTypeDescriptor(Builder builder) {
 		this.prefix = builder.prefix;
@@ -66,7 +66,7 @@ public final class BoundTypeDescriptor {
 		return type;
 	}
 
-	public ImmutableList<Node<Field>> getFields() {
+	public List<Node<Field>> getFields() {
 		return fields;
 	}
 
