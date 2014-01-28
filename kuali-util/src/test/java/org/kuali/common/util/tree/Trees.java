@@ -10,6 +10,10 @@ import com.google.common.collect.Lists;
 
 public class Trees {
 
+	public static <T> List<T> breadthFirstElements(Node<T> node) {
+		return Lists.transform(breadthFirst(node), new NodeElementFunction<T>());
+	}
+
 	public static <T> List<Node<T>> breadthFirst(Node<T> node) {
 		NodeTraverser<T> nt = NodeTraverser.create();
 		Iterable<Node<T>> itr = nt.breadthFirstTraversal(node);
