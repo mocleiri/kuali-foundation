@@ -6,8 +6,27 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 public class Trees {
+
+	public static <T> List<Node<T>> breadthFirst(Node<T> node) {
+		NodeTraverser<T> nt = new NodeTraverser<T>();
+		Iterable<Node<T>> itr = nt.breadthFirstTraversal(node);
+		return Lists.newArrayList(itr);
+	}
+
+	public static <T> List<Node<T>> postOrder(Node<T> node) {
+		NodeTraverser<T> nt = new NodeTraverser<T>();
+		Iterable<Node<T>> itr = nt.postOrderTraversal(node);
+		return Lists.newArrayList(itr);
+	}
+
+	public static <T> List<Node<T>> preOrder(Node<T> node) {
+		NodeTraverser<T> nt = new NodeTraverser<T>();
+		Iterable<Node<T>> itr = nt.preOrderTraversal(node);
+		return Lists.newArrayList(itr);
+	}
 
 	public static <T> String html(String title, Node<T> node) {
 		Function<Node<T>, String> converter = NodeStringFunction.create();
