@@ -11,8 +11,8 @@ import com.google.common.collect.Lists;
 public class Trees {
 
 	public static <T> List<Node<T>> getLeaves(Node<T> root) {
-		List<Node<T>> nodes = breadthFirst(root);
 		List<Node<T>> leaves = Lists.newArrayList();
+		List<Node<T>> nodes = breadthFirst(root);
 		for (Node<T> node : nodes) {
 			if (node.isLeaf()) {
 				leaves.add(node);
