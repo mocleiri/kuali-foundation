@@ -16,7 +16,7 @@ import com.google.common.collect.Sets;
 public final class KeyAssembler implements Assembler<Set<String>> {
 
 	private final BoundTypeDescriptor descriptor;
-
+	
 	@Override
 	public Set<String> assemble() {
 		List<Node<Field>> fields = descriptor.getFields();
