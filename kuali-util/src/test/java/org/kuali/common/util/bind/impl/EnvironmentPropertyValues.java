@@ -51,7 +51,7 @@ public final class EnvironmentPropertyValues<T> extends MutablePropertyValues {
 
 		@Override
 		public EnvironmentPropertyValues<T> build() {
-			this.values = BoundTypes.getMap(type, bind, env);
+			this.values = null;// BoundTypes.getMap(type, bind, env);
 			EnvironmentPropertyValues<T> instance = new EnvironmentPropertyValues<T>(this);
 			validate(instance);
 			return instance;
