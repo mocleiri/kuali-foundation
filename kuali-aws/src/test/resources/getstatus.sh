@@ -140,12 +140,15 @@ while read URL;do
 
 if [[ "$URL" == *rice.kuali.org* ]]; then
    myGroup="rice"
+   myGroupDisplay="Rice"
    myFile="$DropLocation/$myGroup.csv"
 elif [[ "$URL" == *ks.kuali.org* ]]; then
    myGroup="ks"
+   myGroupDisplay="Student"
    myFile="$DropLocation/$myGroup.csv"
 elif [[ "$URL" == *ole.kuali.org* ]]; then
    myGroup="ole"
+   myGoupDisplay="OLE"
    myFile="$DropLocation/$myGroup.csv"
 else
    print "Unknown URL - exiting"
@@ -164,8 +167,10 @@ HTTP_CODE=$(curl -m 10 -Is $URL | grep HTTP | cut -d ' ' -f2|tr -d '\n')
 # Check to see if get a 302 or 200 error code.  If do, then proceed.
 if [[ $HTTP_CODE != "302" ]] && [[ $HTTP_CODE != "200" ]];then
     echo "$URL - Not Available - HTTP Code: $HTTP_CODE"
-    print "No versioning available"
     print -n $COUNT >> $myFile
+    print "No versioning available"
+    print -n "," >> $myFile
+    print -n $myGroupDisplay >> $myFile
     print -n "," >> $myFile
     print -n http://$URL >> $myFile
     print -n "," >> $myFile
@@ -176,6 +181,8 @@ if [[ $HTTP_CODE != "302" ]] && [[ $HTTP_CODE != "200" ]];then
     #print -n $myJDK >> $myFile
     print -n "," >> $myFile
     #print -n $myDBtype >> $myFile
+    print -n "," >> $myFile
+    #print -n $myDB >> $myFile
     print -n "," >> $myFile
     #print -n $myDate >> $myFile
     print -n "," >> $myFile
@@ -194,6 +201,8 @@ if [[ $HTTP_CODE != "302" ]] && [[ $HTTP_CODE != "200" ]];then
     print "Date        = $myDate"
     print "Status      = OK"
     print -n $COUNT >> $myFile
+    print -n "," >> $myFile
+    print -n $myGroupDisplay >> $myFile
     print -n "," >> $myFile
     print -n http://$URL >> $myFile
     print -n "," >> $myFile
