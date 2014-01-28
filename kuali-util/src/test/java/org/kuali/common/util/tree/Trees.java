@@ -10,6 +10,17 @@ import com.google.common.collect.Lists;
 
 public class Trees {
 
+	public static <T> List<Node<T>> getLeaves(Node<T> root) {
+		List<Node<T>> nodes = breadthFirst(root);
+		List<Node<T>> leaves = Lists.newArrayList();
+		for (Node<T> node : nodes) {
+			if (node.isLeaf()) {
+				leaves.add(node);
+			}
+		}
+		return leaves;
+	}
+
 	public static <T> List<T> breadthFirstElements(Node<T> node) {
 		return Lists.transform(breadthFirst(node), new NodeElementFunction<T>());
 	}
