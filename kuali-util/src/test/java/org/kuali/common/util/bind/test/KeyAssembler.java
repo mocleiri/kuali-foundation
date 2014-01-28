@@ -2,9 +2,16 @@ package org.kuali.common.util.bind.test;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Set;
 
 import org.kuali.common.util.bind.model.BoundTypeDescriptor;
+import org.kuali.common.util.tree.Node;
+import org.kuali.common.util.tree.Trees;
+
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 
 public final class KeyAssembler implements Assembler<Set<String>> {
 
@@ -12,7 +19,26 @@ public final class KeyAssembler implements Assembler<Set<String>> {
 
 	@Override
 	public Set<String> assemble() {
-		return null;
+		List<Node<Field>> fields = descriptor.getFields();
+		List<Node<Field>> leaves = Trees.getLeaves(fields);
+		Set<String> keys = Sets.newHashSet();
+		for (Node<Field> leaf : leaves) {
+			String key = getKey(leaf);
+			keys.add(key);
+		}
+		return ImmutableSet.copyOf(keys);
+	}
+
+	protected String getKey(Node<Field> field) {
+		List<Field> path = field.getElementPath();
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < path.size(); i++) {
+			if (i != 0) {
+				sb.append(".");
+			}
+			sb.append(path.get(i).getName());
+		}
+		return sb.toString();
 	}
 
 	private KeyAssembler(Builder builder) {
