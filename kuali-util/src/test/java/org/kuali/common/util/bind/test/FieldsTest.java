@@ -3,7 +3,7 @@ package org.kuali.common.util.bind.test;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Set;
+import java.util.SortedSet;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class FieldsTest {
 			List<Node<Field>> fields = assembler.assemble();
 			BoundTypeDescriptor descriptor = BoundTypeDescriptor.builder().fields(fields).type(type).build();
 			KeyAssembler ka = new KeyAssembler.Builder().descriptor(descriptor).build();
-			Set<String> keys = Sets.newTreeSet(ka.assemble());
+			SortedSet<String> keys = Sets.newTreeSet(ka.assemble());
 			String html = Trees.html(type.getSimpleName(), fields, NodeStringFunction.create(new FieldNameFunction()));
 			File file = new CanonicalFile(System.getProperty("java.io.tmpdir"), "fields.htm");
 			FileUtils.write(file, html);
