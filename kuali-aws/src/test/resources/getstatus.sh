@@ -148,7 +148,7 @@ elif [[ "$URL" == *ks.kuali.org* ]]; then
    myFile="$DropLocation/$myGroup.csv"
 elif [[ "$URL" == *ole.kuali.org* ]]; then
    myGroup="ole"
-   myGoupDisplay="OLE"
+   myGroupDisplay="OLE"
    myFile="$DropLocation/$myGroup.csv"
 else
    print "Unknown URL - exiting"
