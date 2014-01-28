@@ -6,7 +6,7 @@ import com.google.common.base.Function;
 
 public class NodeElementFunction<T> implements Function<Node<T>, T> {
 
-	public static <T> NodeElementFunction<T> make() {
+	public static <T> NodeElementFunction<T> create() {
 		return new NodeElementFunction<T>();
 	}
 
