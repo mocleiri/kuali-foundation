@@ -10,7 +10,7 @@ import com.google.common.collect.ImmutableList;
 public class Trees {
 
 	public static <T> String html(String title, Node<T> node) {
-		Function<Node<T>, String> converter = NodeStringFunction.make();
+		Function<Node<T>, String> converter = NodeStringFunction.create();
 		return html(title, ImmutableList.of(node), converter);
 	}
 
@@ -19,7 +19,7 @@ public class Trees {
 	}
 
 	public static <T> String html(String title, List<Node<T>> nodes) {
-		Function<Node<T>, String> converter = NodeStringFunction.make();
+		Function<Node<T>, String> converter = NodeStringFunction.create();
 		return html(title, nodes, converter);
 	}
 
@@ -39,7 +39,7 @@ public class Trees {
 	}
 
 	public static <T> String html(Node<T> node) {
-		Function<Node<T>, String> converter = NodeStringFunction.make();
+		Function<Node<T>, String> converter = NodeStringFunction.create();
 		return html(node, 0, converter);
 	}
 
