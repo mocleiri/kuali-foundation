@@ -57,6 +57,11 @@ public final class SystemProperties {
 		private String lineSeparator;
 		private String fileSeparator;
 
+		@Override
+		public SystemProperties getInstance() {
+			return new SystemProperties(this);
+		}
+
 		public Builder user(User user) {
 			this.user = user;
 			return this;
@@ -85,11 +90,6 @@ public final class SystemProperties {
 		public Builder fileSeparator(String fileSeparator) {
 			this.fileSeparator = fileSeparator;
 			return this;
-		}
-
-		@Override
-		public SystemProperties getInstance() {
-			return new SystemProperties(this);
 		}
 
 		public User getUser() {
