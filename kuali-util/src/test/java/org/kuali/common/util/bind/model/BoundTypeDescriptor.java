@@ -24,11 +24,16 @@ public final class BoundTypeDescriptor {
 		this.fields = ImmutableList.copyOf(builder.fields);
 	}
 
-	public static class Builder {
+	public static Builder builder() {
+		return new Builder();
+	}
 
-		private Optional<String> prefix;
+	public static class Builder implements org.kuali.common.util.build.Builder<BoundTypeDescriptor> {
+
 		private Class<?> type;
 		private List<Node<Field>> fields;
+
+		private Optional<String> prefix = Optional.absent();
 
 		public Builder prefix(Optional<String> prefix) {
 			this.prefix = prefix;
@@ -45,6 +50,7 @@ public final class BoundTypeDescriptor {
 			return this;
 		}
 
+		@Override
 		public BoundTypeDescriptor build() {
 			BoundTypeDescriptor instance = new BoundTypeDescriptor(this);
 			validate(instance);
@@ -54,7 +60,9 @@ public final class BoundTypeDescriptor {
 		private static void validate(BoundTypeDescriptor instance) {
 			checkNotNull(instance.type, "'type' cannot be null");
 			checkNotNull(instance.prefix, "'prefix' cannot be null");
-			checkArgument(!StringUtils.isBlank(instance.prefix.get()), "'prefix' cannot be blank");
+			if (instance.prefix.isPresent()) {
+				checkArgument(!StringUtils.isBlank(instance.prefix.get()), "'prefix' cannot be blank");
+			}
 		}
 	}
 
