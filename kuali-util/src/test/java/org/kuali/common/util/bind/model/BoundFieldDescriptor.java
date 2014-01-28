@@ -11,7 +11,6 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 public final class BoundFieldDescriptor {
 
@@ -35,7 +34,9 @@ public final class BoundFieldDescriptor {
 
 		// Required
 		private final Field field;
-		private List<String> keys = Lists.newArrayList();
+
+		// Optional
+		private List<String> keys = ImmutableList.of();
 
 		public Builder(Field field) {
 			this.field = field;
