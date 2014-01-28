@@ -20,7 +20,7 @@ public class FieldsTest {
 	public void test() {
 		try {
 			Class<?> type = SystemProperties.class;
-			AnnotatedFieldAssembler fieldAssembler = AnnotatedFieldAssembler.of(type, Bind.class);
+			AnnotatedFieldAssembler fieldAssembler = AnnotatedFieldAssembler.create(type, Bind.class);
 			List<Node<Field>> fields = fieldAssembler.assemble();
 			String html = Trees.html(type.getSimpleName(), fields, NodeStringFunction.make(new FieldNameFunction()));
 			File file = new CanonicalFile(System.getProperty("java.io.tmpdir"), "fields.htm");
