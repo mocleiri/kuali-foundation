@@ -12,9 +12,10 @@ import com.google.common.collect.Lists;
 
 public final class RecordNameComparator implements Comparator<Record> {
 
-	private static final Splitter SPLITTER = Splitter.on('.');
-	private static final Joiner JOINER = Joiner.on('.');
-	
+	private static final char SEPARATOR = '.';
+	private static final Splitter SPLITTER = Splitter.on(SEPARATOR);
+	private static final Joiner JOINER = Joiner.on(SEPARATOR);
+
 	@Override
 	public int compare(Record one, Record two) {
 		return compareStrings(one.getName(), two.getName());
