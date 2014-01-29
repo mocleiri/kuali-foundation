@@ -31,19 +31,18 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
-public class GetStatusTest {
+public class MergeTest {
 
 	private static final Logger logger = LoggerUtils.make();
 	private static final Joiner JOINER = Joiner.on(',');
 	private static final Joiner LINES = Joiner.on('\n');
-	public static final String OUTPUT_PATH = "./target/env/aws.csv";
 
 	@Test
 	public void test() {
 		try {
 			Map<String, List<Instance>> map = getMap();
 			List<String> lines = getLines(map);
-			File file = new CanonicalFile(OUTPUT_PATH);
+			File file = new CanonicalFile("./target/env/aws.csv");
 			FileUtils.write(file, LINES.join(lines));
 			logger.info(String.format("created -> %s", file));
 		} catch (Exception e) {
