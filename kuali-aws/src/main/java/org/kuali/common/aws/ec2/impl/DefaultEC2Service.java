@@ -73,6 +73,7 @@ import com.amazonaws.services.ec2.model.Tag;
 import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 /**
  * This service implementation performs operations using a single set of AWS credentials on a single EC2 region.
@@ -256,10 +257,12 @@ public final class DefaultEC2Service implements EC2Service {
 			request.setInstanceIds(instances);
 		}
 		DescribeInstancesResult result = client.describeInstances(request);
+		List<Instance> list = Lists.newArrayList();
 		List<Reservation> reservations = result.getReservations();
-		checkState(reservations.size() == 1, "Expected exactly 1 reservation but there were %s instead", reservations.size());
-		Reservation reservation = reservations.get(0);
-		return ImmutableList.copyOf(reservation.getInstances());
+		for (Reservation reservation : reservations) {
+			list.addAll(reservation.getInstances());
+		}
+		return ImmutableList.copyOf(list);
 	}
 
 	@Override
