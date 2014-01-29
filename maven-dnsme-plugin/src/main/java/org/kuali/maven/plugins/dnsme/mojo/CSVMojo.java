@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.maven.plugins.dnsme.beans.Record;
 
 import com.google.common.base.Joiner;
@@ -39,6 +40,13 @@ public class CSVMojo extends AbstractRecordsMojo {
 	 * @parameter expression="${dnsme.outputFile}" default-value="${project.build.directory}/dnsme/records.csv"
 	 */
 	File outputFile;
+
+	/**
+	 * By default DNSME appends a dot to the end of fully qualified CNAME record values. This plugin removes that dot by default.
+	 * 
+	 * @parameter expression="${dnsme.removeTrailingDot}" default-value="true"
+	 */
+	boolean removeTrailingDot;
 
 	@Override
 	protected void doRecords(List<Record> records) {
@@ -74,7 +82,11 @@ public class CSVMojo extends AbstractRecordsMojo {
 	protected List<String> getTokens(Record record) {
 		List<String> strings = Lists.newArrayList();
 		strings.add(record.getName());
-		strings.add(record.getData());
+		String data = record.getData();
+		if (this.removeTrailingDot && StringUtils.endsWith(data, ".")) {
+			data = StringUtils.substring(data, 0, data.length() - 1);
+		}
+		strings.add(data);
 		strings.add(record.getType().name());
 		strings.add(record.getTtl() + "");
 		return strings;
