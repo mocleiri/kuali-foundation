@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
@@ -21,12 +22,12 @@ public class Passwords {
 		Optional<String> sys = getSystemPassword();
 		if (sys.isPresent()) {
 			logger.info(String.format("Located [%s] in system properties", KEY));
-			return sys.get();
+			return Str.reveal(sys.get());
 		}
 		Optional<String> settings = getSettingsXmlPassword();
 		if (settings.isPresent()) {
 			logger.info(String.format("Located [%s] in [%s]", KEY, SETTINGS));
-			return settings.get();
+			return Str.reveal(settings.get());
 		} else {
 			throw new IllegalStateException(String.format("[%s] was not found in system properties or [%s]", KEY, SETTINGS));
 		}
