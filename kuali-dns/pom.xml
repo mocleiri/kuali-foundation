@@ -39,6 +39,7 @@
     <kuali-util.version>4.4.8-SNAPSHOT</kuali-util.version>
     <junit.version>4.11</junit.version>
     <slf4j.version>1.7.5</slf4j.version>
+    <plugin.dnsme.version>1.0.5</plugin.dnsme.version>
   </properties>
   <dependencies>
     <dependency>
@@ -117,7 +118,7 @@
           -->
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>maven-dnsme-plugin</artifactId>
-          <version>1.0.5</version>
+          <version>${plugin.dnsme.version}</version>
           <configuration>
             <apiKey>${dnsme.apiKey}</apiKey>
             <secretKey>${dnsme.secretKey}</secretKey>
