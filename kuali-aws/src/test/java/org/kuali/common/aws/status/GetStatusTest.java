@@ -30,8 +30,9 @@ public class GetStatusTest {
 			for (AWSCredentials credentials : creds) {
 				EC2ServiceContext context = EC2ServiceContext.create(credentials);
 				EC2Service service = new DefaultEC2Service(context, ws);
-				instances.put(credentials.getAWSAccessKeyId(), service.getInstances());
-				logger.info(String.format("Located %s instances for %s", instances.size(), credentials.getAWSAccessKeyId()));
+				List<Instance> list = service.getInstances();
+				instances.put(credentials.getAWSAccessKeyId(), list);
+				logger.info(String.format("Located %s instances for %s", list.size(), credentials.getAWSAccessKeyId()));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
