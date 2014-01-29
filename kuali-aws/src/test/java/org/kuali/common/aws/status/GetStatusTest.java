@@ -5,6 +5,7 @@ import static com.google.common.base.Preconditions.checkState;
 import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
@@ -98,7 +99,8 @@ public class GetStatusTest {
 	protected List<Instance> filter(List<Instance> instances) {
 		List<Instance> filtered = Lists.newArrayList();
 		for (Instance instance : instances) {
-			if (isDeployEnvironment(instance)) {
+			boolean env = isDeployEnvironment(instance);
+			if (env) {
 				filtered.add(instance);
 			}
 		}
@@ -147,7 +149,14 @@ public class GetStatusTest {
 		for (AWSCredentials credentials : creds) {
 			EC2ServiceContext context = EC2ServiceContext.create(credentials);
 			EC2Service service = new DefaultEC2Service(context, ws);
-			List<Instance> list = service.getInstances();
+			List<Instance> list = Lists.newArrayList(service.getInstances());
+			Iterator<Instance> itr = list.iterator();
+			while (itr.hasNext()) {
+				Instance i = itr.next();
+				if (!service.isOnline(i.getInstanceId())) {
+					itr.remove();
+				}
+			}
 			String projectName = getProjectName(credentials.getAWSAccessKeyId());
 			instances.put(projectName, list);
 			logger.debug(String.format("Located %s instances for %s", list.size(), projectName));
