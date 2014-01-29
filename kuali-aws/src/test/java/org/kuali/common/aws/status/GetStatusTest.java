@@ -37,12 +37,6 @@ public class GetStatusTest {
 	public void test() {
 		try {
 			Map<String, List<Instance>> map = getMap();
-			for (String key : map.keySet()) {
-				List<Instance> instances = map.get(key);
-				List<Instance> filtered = filter(instances);
-				logger.info(String.format("Located %s instances hosting deployed environments", filtered.size()));
-				map.put(key, filtered);
-			}
 			List<String> lines = getLines(map);
 			File file = new CanonicalFile("./target/env/aws.csv");
 			FileUtils.write(file, LINES.join(lines));
@@ -137,6 +131,12 @@ public class GetStatusTest {
 			String projectName = getProjectName(credentials.getAWSAccessKeyId());
 			instances.put(projectName, list);
 			logger.info(String.format("Located %s instances for %s", list.size(), projectName));
+		}
+		for (String key : instances.keySet()) {
+			List<Instance> list = instances.get(key);
+			List<Instance> filtered = filter(list);
+			logger.info(String.format("Located %s instances hosting deployed environments", filtered.size()));
+			instances.put(key, filtered);
 		}
 		return instances;
 	}
