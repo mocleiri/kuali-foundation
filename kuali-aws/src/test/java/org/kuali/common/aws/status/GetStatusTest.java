@@ -2,9 +2,11 @@ package org.kuali.common.aws.status;
 
 import static com.google.common.base.Preconditions.checkState;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.kuali.common.aws.Credentials;
 import org.kuali.common.aws.ec2.api.EC2Service;
@@ -27,6 +29,7 @@ public class GetStatusTest {
 
 	private static final Logger logger = LoggerUtils.make();
 	private static final Joiner JOINER = Joiner.on(',');
+	private static final Joiner LINES = Joiner.on('\n');
 
 	@Test
 	public void test() {
@@ -38,9 +41,28 @@ public class GetStatusTest {
 				logger.info(String.format("Located %s instances hosting deployed environments", filtered.size()));
 				map.put(key, filtered);
 			}
+			List<String> lines = getLines(map);
+			FileUtils.write(new File("/tmp/envs.csv"), LINES.join(lines));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected List<String> getLines(Map<String, List<Instance>> map) {
+		List<String> lines = Lists.newArrayList();
+		for (String project : map.keySet()) {
+			List<Instance> instances = map.get(project);
+			lines.addAll(getLines(project, instances));
+		}
+		return lines;
+	}
+
+	protected List<String> getLines(String project, List<Instance> instances) {
+		List<String> lines = Lists.newArrayList();
+		for (Instance instance : instances) {
+			lines.add(getLine(project, instance));
+		}
+		return lines;
 	}
 
 	protected String getLine(String project, Instance instance) {
