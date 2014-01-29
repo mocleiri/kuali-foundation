@@ -15,9 +15,15 @@
  */
 package org.kuali.maven.plugins.dnsme.mojo;
 
+import static com.google.common.base.Preconditions.checkState;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.jasypt.util.text.TextEncryptor;
+import org.kuali.common.util.Str;
+import org.kuali.common.util.enc.EncUtils;
 import org.kuali.maven.plugins.dnsme.DNSMEClient;
 import org.kuali.maven.plugins.dnsme.beans.Account;
 
@@ -25,62 +31,85 @@ import org.kuali.maven.plugins.dnsme.beans.Account;
  *
  */
 public abstract class BaseDNSMEMojo extends AbstractMojo {
-    /**
-     * The url for the DNSME Rest API
-     *
-     * @parameter expression="${dnsme.restApiUrl}" default-value="http://api.dnsmadeeasy.com/V1.2"
-     * @required
-     */
-    String restApiUrl;
+	/**
+	 * The url for the DNSME Rest API
+	 * 
+	 * @parameter expression="${dnsme.restApiUrl}" default-value="http://api.dnsmadeeasy.com/V1.2"
+	 * @required
+	 */
+	String restApiUrl;
 
-    /**
-     * The REST api key for a DNSME account
-     *
-     * @parameter expression="${dnsme.apiKey}"
-     * @required
-     */
-    String apiKey;
+	/**
+	 * The REST api key for a DNSME account
+	 * 
+	 * @parameter expression="${dnsme.apiKey}"
+	 * @required
+	 */
+	String apiKey;
 
-    /**
-     * The REST secret key for a DNSME account
-     *
-     * @parameter expression="${dnsme.secretKey}"
-     * @required
-     */
-    String secretKey;
+	/**
+	 * The REST secret key for a DNSME account
+	 * 
+	 * @parameter expression="${dnsme.secretKey}"
+	 * @required
+	 */
+	String secretKey;
 
-    @Override
-    public void execute() throws MojoExecutionException, MojoFailureException {
-        Account account = new Account();
-        account.setApiKey(apiKey);
-        account.setSecretKey(secretKey);
-        DNSMEClient client = DNSMEClient.getInstance(account, restApiUrl);
-        performTasks(client);
-    }
+	/**
+	 * @parameter expression="${enc.password}"
+	 */
+	String encryptionPassword;
 
-    protected abstract void performTasks(DNSMEClient client) throws MojoExecutionException, MojoFailureException;
+	@Override
+	public void execute() throws MojoExecutionException, MojoFailureException {
+		Account account = getAccount();
+		DNSMEClient client = DNSMEClient.getInstance(account, restApiUrl);
+		performTasks(client);
+	}
 
-    public String getRestApiUrl() {
-        return restApiUrl;
-    }
+	protected Account getAccount() {
+		Account account = new Account();
+		account.setApiKey(demystify(apiKey));
+		account.setSecretKey(demystify(secretKey));
+		return account;
+	}
 
-    public void setRestApiUrl(String restApiUrl) {
-        this.restApiUrl = restApiUrl;
-    }
+	protected String demystify(final String string) {
+		String demystified = string;
+		if (Str.isConcealed(demystified)) {
+			demystified = Str.reveal(demystified);
+		}
+		if (EncUtils.isEncrypted(string)) {
+			checkState(!StringUtils.isBlank(encryptionPassword), "[%s] is encrypted but no encryption password was supplied");
+			TextEncryptor enc = EncUtils.getTextEncryptor(encryptionPassword);
+			demystified = enc.decrypt(demystified);
+		}
+		return demystified;
+	}
 
-    public String getApiKey() {
-        return apiKey;
-    }
+	protected abstract void performTasks(DNSMEClient client) throws MojoExecutionException, MojoFailureException;
 
-    public void setApiKey(String apiKey) {
-        this.apiKey = apiKey;
-    }
+	public String getRestApiUrl() {
+		return restApiUrl;
+	}
 
-    public String getSecretKey() {
-        return secretKey;
-    }
+	public void setRestApiUrl(String restApiUrl) {
+		this.restApiUrl = restApiUrl;
+	}
 
-    public void setSecretKey(String secretKey) {
-        this.secretKey = secretKey;
-    }
+	public String getApiKey() {
+		return apiKey;
+	}
+
+	public void setApiKey(String apiKey) {
+		this.apiKey = apiKey;
+	}
+
+	public String getSecretKey() {
+		return secretKey;
+	}
+
+	public void setSecretKey(String secretKey) {
+		this.secretKey = secretKey;
+	}
 }
