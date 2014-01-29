@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
+import org.kuali.common.aws.Credentials;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
@@ -24,6 +25,13 @@ import com.google.common.collect.Maps;
 public class GetStatusTest {
 
 	private static final Logger logger = LoggerUtils.make();
+	private static final Map<String, String> MAPPING = getMapping();
+
+	private static final Map<String, String> getMapping() {
+		Map<String, String> map = Maps.newHashMap();
+		map.put("AKIAJFD5IM7IPVVUEBNA", "foundation");
+		return map;
+	}
 
 	@Test
 	public void test() {
@@ -79,6 +87,15 @@ public class GetStatusTest {
 		return value.startsWith("env");
 	}
 
+	protected String getProjectName(String accessKey) {
+		for (Credentials credentials : Credentials.values()) {
+			if (accessKey.equals(credentials.getAWSAccessKeyId())) {
+				return credentials.name().toLowerCase();
+			}
+		}
+		throw new IllegalArgumentException(String.format("Unable to locate a name for [%s]", accessKey));
+	}
+
 	protected Map<String, List<Instance>> getMap() {
 		List<AWSCredentials> creds = Auth.getCredentials();
 		logger.info(String.format("Located %s sets of credentials", creds.size()));
@@ -88,8 +105,9 @@ public class GetStatusTest {
 			EC2ServiceContext context = EC2ServiceContext.create(credentials);
 			EC2Service service = new DefaultEC2Service(context, ws);
 			List<Instance> list = service.getInstances();
-			instances.put(credentials.getAWSAccessKeyId(), list);
-			logger.info(String.format("Located %s instances for %s", list.size(), credentials.getAWSAccessKeyId()));
+			String projectName = getProjectName(credentials.getAWSAccessKeyId());
+			instances.put(projectName, list);
+			logger.info(String.format("Located %s instances for %s", list.size(), projectName));
 		}
 		return instances;
 	}
