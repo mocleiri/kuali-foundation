@@ -92,7 +92,7 @@ public class CSVMojo extends BaseDNSMEMojo {
 	/**
 	 * Matches any record with a value that contains this value
 	 * 
-	 * @parameter expression="${dnsme.outputFile}"
+	 * @parameter expression="${dnsme.outputFile}" default-value="${project.build.directory}/dnsme/records.csv"
 	 */
 	File outputFile;
 
