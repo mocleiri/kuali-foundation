@@ -3,6 +3,7 @@ package org.kuali.common.aws.status;
 import static com.google.common.base.Preconditions.checkState;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -62,6 +63,7 @@ public class GetStatusTest {
 		for (Instance instance : instances) {
 			lines.add(getLine(project, instance));
 		}
+		Collections.sort(lines);
 		return lines;
 	}
 
