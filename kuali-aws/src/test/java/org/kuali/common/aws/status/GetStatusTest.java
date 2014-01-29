@@ -13,6 +13,7 @@ import org.kuali.common.aws.Credentials;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
+import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitService;
@@ -43,7 +44,9 @@ public class GetStatusTest {
 				map.put(key, filtered);
 			}
 			List<String> lines = getLines(map);
-			FileUtils.write(new File("/tmp/envs.csv"), LINES.join(lines));
+			File file = new CanonicalFile("./target/env/aws.csv");
+			FileUtils.write(file, LINES.join(lines));
+			logger.info(String.format("created -> %s", file));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
