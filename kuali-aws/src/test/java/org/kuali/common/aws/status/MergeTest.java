@@ -15,12 +15,14 @@ import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 
 public class MergeTest {
 
 	private static final Splitter SPLITTER = Splitter.on(',');
+	private static final Joiner JOINER = Joiner.on(',');
 
 	private static final String DNSME = "./target/dnsme/records.csv";
 	private static final String AWS = GetStatusTest.OUTPUT_PATH;
@@ -44,6 +46,23 @@ public class MergeTest {
 			e.printStackTrace();
 		}
 
+	}
+
+	protected List<String> getLines(List<Environment> envs) {
+		List<String> lines = Lists.newArrayList();
+		for (Environment env : envs) {
+			lines.add(getLine(env));
+		}
+		return lines;
+	}
+
+	protected String getLine(Environment env) {
+		List<String> tokens = Lists.newArrayList();
+		tokens.add(env.getProject());
+		tokens.add(env.getId());
+		tokens.add(env.getDns());
+		tokens.add(env.getType());
+		return JOINER.join(tokens);
 	}
 
 	protected List<Environment> merge(List<DnsmeRecord> drecs, List<AwsRecord> arecs) {
