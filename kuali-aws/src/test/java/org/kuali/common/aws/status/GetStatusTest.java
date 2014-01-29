@@ -14,6 +14,8 @@ import org.slf4j.Logger;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.ec2.model.Instance;
+import com.amazonaws.services.ec2.model.Tag;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 public class GetStatusTest {
@@ -23,13 +25,40 @@ public class GetStatusTest {
 	@Test
 	public void test() {
 		try {
-			Map<String, List<Instance>> instances = Maps.newHashMap();
+			Map<String, List<Instance>> map = getMap();
+			for (String key : map.keySet()) {
+				List<Instance> instances = map.get(key);
+				List<Instance> filtered = filter(instances);
+				logger.info(String.format("Located %s instances hosting deployed environments", filtered.size()));
+				map.put(key, filtered);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public Map<String, List<Instance>> getMap() {
+	protected List<Instance> filter(List<Instance> instances) {
+		List<Instance> filtered = Lists.newArrayList();
+		for (Instance instance : instances) {
+			if (isDeployEnvironment(instance)) {
+				filtered.add(instance);
+			}
+		}
+		return filtered;
+	}
+
+	protected boolean isDeployEnvironment(Instance instance) {
+		List<Tag> tags = instance.getTags();
+		for (Tag tag : tags) {
+			String key = tag.getKey();
+			if (key.equals("Name")) {
+				return tag.getValue().startsWith("env");
+			}
+		}
+		return false;
+	}
+
+	protected Map<String, List<Instance>> getMap() {
 		List<AWSCredentials> creds = Auth.getCredentials();
 		logger.info(String.format("Located %s sets of credentials", creds.size()));
 		WaitService ws = new DefaultWaitService();
