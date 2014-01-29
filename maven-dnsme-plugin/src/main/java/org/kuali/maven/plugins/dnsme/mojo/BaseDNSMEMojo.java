@@ -75,16 +75,26 @@ public abstract class BaseDNSMEMojo extends AbstractMojo {
 	}
 
 	protected String demystify(final String string) {
-		String demystified = string;
-		if (Str.isConcealed(demystified)) {
-			demystified = Str.reveal(demystified);
-		}
+		String demystified = reveal(string);
+		return decrypt(demystified);
+	}
+
+	protected String decrypt(String string) {
 		if (EncUtils.isEncrypted(string)) {
 			checkState(!StringUtils.isBlank(encryptionPassword), "[%s] is encrypted but no encryption password was supplied");
 			TextEncryptor enc = EncUtils.getTextEncryptor(encryptionPassword);
-			demystified = enc.decrypt(demystified);
+			return enc.decrypt(EncUtils.unwrap(string));
+		} else {
+			return string;
 		}
-		return demystified;
+	}
+
+	protected String reveal(String string) {
+		if (Str.isConcealed(string)) {
+			return Str.reveal(string);
+		} else {
+			return string;
+		}
 	}
 
 	protected abstract void performTasks(DNSMEClient client) throws MojoExecutionException, MojoFailureException;
