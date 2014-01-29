@@ -28,7 +28,7 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 
 /**
- * Show records for the domain indicated. By default, all records are shown. Search criteria can be used to restrict the display
+ * Create a CSV file containing dns records. By default, the CSV file contains all records.
  * 
  * @author Jeff Caddel
  * @goal csv
