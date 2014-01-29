@@ -15,6 +15,7 @@
  */
 package org.kuali.maven.plugins.dnsme.mojo;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
@@ -23,6 +24,7 @@ import org.kuali.maven.plugins.dnsme.DNSMEClient;
 import org.kuali.maven.plugins.dnsme.beans.Domain;
 import org.kuali.maven.plugins.dnsme.beans.GTDLocation;
 import org.kuali.maven.plugins.dnsme.beans.Record;
+import org.kuali.maven.plugins.dnsme.beans.RecordNameComparator;
 import org.kuali.maven.plugins.dnsme.beans.RecordType;
 import org.kuali.maven.plugins.dnsme.beans.Search;
 
@@ -92,6 +94,8 @@ public abstract class AbstractRecordsMojo extends BaseDNSMEMojo {
 
 		Domain domain = client.getDomain(domainName);
 		List<Record> records = client.getRecords(domain, search);
+
+		Collections.sort(records, new RecordNameComparator());
 
 		doRecords(records);
 	}
