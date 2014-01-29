@@ -39,7 +39,7 @@ public class MergeTest {
 			List<DnsmeRecord> drecs = getDnsmeRecords(dnsme);
 			List<AwsRecord> arecs = getAwsRecords(aws);
 			List<Environment> envs = merge(drecs, arecs);
-			logger.info("Merged %s records", envs.size());
+			logger.info(String.format("Merged %s records", envs.size()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
