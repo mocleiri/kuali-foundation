@@ -1,5 +1,7 @@
 package org.kuali.common.aws.status;
 
+import static com.google.common.base.Preconditions.checkState;
+
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +17,7 @@ import org.slf4j.Logger;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Tag;
+import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
@@ -37,6 +40,10 @@ public class GetStatusTest {
 		}
 	}
 
+	protected String getLine(Instance instance) {
+		return null;
+	}
+
 	protected List<Instance> filter(List<Instance> instances) {
 		List<Instance> filtered = Lists.newArrayList();
 		for (Instance instance : instances) {
@@ -47,15 +54,29 @@ public class GetStatusTest {
 		return filtered;
 	}
 
-	protected boolean isDeployEnvironment(Instance instance) {
+	protected Tag getRequiredTag(Instance instance, String key) {
+		Optional<Tag> optional = getTag(instance, key);
+		checkState(optional.isPresent(), "Required tag [%s] is not present for instance [%s]", key, instance.getInstanceId());
+		return optional.get();
+	}
+
+	protected Optional<Tag> getTag(Instance instance, String key) {
 		List<Tag> tags = instance.getTags();
 		for (Tag tag : tags) {
-			String key = tag.getKey();
-			if (key.equals("Name")) {
-				return tag.getValue().startsWith("env");
+			if (key.equals(tag.getKey())) {
+				return Optional.of(tag);
 			}
 		}
-		return false;
+		return Optional.absent();
+	}
+
+	protected boolean isDeployEnvironment(Instance instance) {
+		Optional<Tag> tag = getTag(instance, "Name");
+		if (!tag.isPresent()) {
+			return false;
+		}
+		String value = tag.get().getValue();
+		return value.startsWith("env");
 	}
 
 	protected Map<String, List<Instance>> getMap() {
