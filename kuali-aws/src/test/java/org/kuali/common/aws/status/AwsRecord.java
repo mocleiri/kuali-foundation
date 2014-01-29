@@ -1,9 +1,9 @@
 package org.kuali.common.aws.status;
 
-public class Environment {
+public class AwsRecord {
 
 	String project;
-	String id;
+	String env;
 	String dns;
 	String type;
 
@@ -15,12 +15,12 @@ public class Environment {
 		this.project = project;
 	}
 
-	public String getId() {
-		return id;
+	public String getEnv() {
+		return env;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setEnv(String env) {
+		this.env = env;
 	}
 
 	public String getDns() {

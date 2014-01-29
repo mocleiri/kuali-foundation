@@ -1,27 +1,11 @@
 package org.kuali.common.aws.status;
 
-public class Environment {
+public class DnsmeRecord {
 
-	String project;
-	String id;
 	String dns;
+	String alias;
 	String type;
-
-	public String getProject() {
-		return project;
-	}
-
-	public void setProject(String project) {
-		this.project = project;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
+	String ttl;
 
 	public String getDns() {
 		return dns;
@@ -31,12 +15,28 @@ public class Environment {
 		this.dns = dns;
 	}
 
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+
 	public String getType() {
 		return type;
 	}
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getTtl() {
+		return ttl;
+	}
+
+	public void setTtl(String ttl) {
+		this.ttl = ttl;
 	}
 
 }
