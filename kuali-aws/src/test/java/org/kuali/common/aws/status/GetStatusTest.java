@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
+import org.codehaus.plexus.util.StringUtils;
 import org.junit.Test;
 import org.kuali.common.aws.Credentials;
 import org.kuali.common.aws.ec2.api.EC2Service;
@@ -121,7 +122,7 @@ public class GetStatusTest {
 
 	protected Map<String, List<Instance>> getMap() {
 		List<AWSCredentials> creds = Auth.getCredentials();
-		logger.info(String.format("Located %s sets of credentials", creds.size()));
+		logger.info(String.format("Using %s sets of AWS credentials", creds.size()));
 		WaitService ws = new DefaultWaitService();
 		Map<String, List<Instance>> instances = Maps.newHashMap();
 		for (AWSCredentials credentials : creds) {
@@ -130,12 +131,12 @@ public class GetStatusTest {
 			List<Instance> list = service.getInstances();
 			String projectName = getProjectName(credentials.getAWSAccessKeyId());
 			instances.put(projectName, list);
-			logger.info(String.format("Located %s instances for %s", list.size(), projectName));
+			logger.debug(String.format("Located %s instances for %s", list.size(), projectName));
 		}
 		for (String key : instances.keySet()) {
 			List<Instance> list = instances.get(key);
 			List<Instance> filtered = filter(list);
-			logger.info(String.format("Located %s instances hosting deployed environments", filtered.size()));
+			logger.info(String.format("%s -> %s environments", StringUtils.rightPad(key, 12), filtered.size()));
 			instances.put(key, filtered);
 		}
 		return instances;
