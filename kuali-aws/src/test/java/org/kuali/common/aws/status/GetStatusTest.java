@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Tag;
+import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -25,13 +26,7 @@ import com.google.common.collect.Maps;
 public class GetStatusTest {
 
 	private static final Logger logger = LoggerUtils.make();
-	private static final Map<String, String> MAPPING = getMapping();
-
-	private static final Map<String, String> getMapping() {
-		Map<String, String> map = Maps.newHashMap();
-		map.put("AKIAJFD5IM7IPVVUEBNA", "foundation");
-		return map;
-	}
+	private static final Joiner JOINER = Joiner.on(',');
 
 	@Test
 	public void test() {
@@ -48,8 +43,14 @@ public class GetStatusTest {
 		}
 	}
 
-	protected String getLine(Instance instance) {
-		return null;
+	protected String getLine(String project, Instance instance) {
+		Tag name = getRequiredTag(instance, "Name");
+		List<String> tokens = Lists.newArrayList();
+		tokens.add(project);
+		tokens.add(name.getValue());
+		tokens.add(instance.getPublicDnsName());
+		tokens.add(instance.getInstanceType());
+		return JOINER.join(tokens);
 	}
 
 	protected List<Instance> filter(List<Instance> instances) {
