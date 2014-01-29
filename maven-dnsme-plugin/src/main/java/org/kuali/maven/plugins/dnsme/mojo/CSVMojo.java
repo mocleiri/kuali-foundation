@@ -17,7 +17,6 @@ package org.kuali.maven.plugins.dnsme.mojo;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -66,7 +65,6 @@ public class CSVMojo extends AbstractRecordsMojo {
 			String line = joiner.join(tokens.iterator());
 			lines.add(line);
 		}
-		Collections.sort(lines);
 		lines.add(0, header);
 		return lines;
 	}
