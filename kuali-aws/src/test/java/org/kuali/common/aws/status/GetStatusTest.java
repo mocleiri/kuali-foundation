@@ -23,19 +23,24 @@ public class GetStatusTest {
 	@Test
 	public void test() {
 		try {
-			List<AWSCredentials> creds = Auth.getCredentials();
-			logger.info(String.format("Located %s sets of credentials", creds.size()));
-			WaitService ws = new DefaultWaitService();
 			Map<String, List<Instance>> instances = Maps.newHashMap();
-			for (AWSCredentials credentials : creds) {
-				EC2ServiceContext context = EC2ServiceContext.create(credentials);
-				EC2Service service = new DefaultEC2Service(context, ws);
-				List<Instance> list = service.getInstances();
-				instances.put(credentials.getAWSAccessKeyId(), list);
-				logger.info(String.format("Located %s instances for %s", list.size(), credentials.getAWSAccessKeyId()));
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public Map<String, List<Instance>> getMap() {
+		List<AWSCredentials> creds = Auth.getCredentials();
+		logger.info(String.format("Located %s sets of credentials", creds.size()));
+		WaitService ws = new DefaultWaitService();
+		Map<String, List<Instance>> instances = Maps.newHashMap();
+		for (AWSCredentials credentials : creds) {
+			EC2ServiceContext context = EC2ServiceContext.create(credentials);
+			EC2Service service = new DefaultEC2Service(context, ws);
+			List<Instance> list = service.getInstances();
+			instances.put(credentials.getAWSAccessKeyId(), list);
+			logger.info(String.format("Located %s instances for %s", list.size(), credentials.getAWSAccessKeyId()));
+		}
+		return instances;
 	}
 }
