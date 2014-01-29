@@ -20,14 +20,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
-import org.kuali.maven.plugins.dnsme.DNSMEClient;
-import org.kuali.maven.plugins.dnsme.beans.Domain;
-import org.kuali.maven.plugins.dnsme.beans.GTDLocation;
 import org.kuali.maven.plugins.dnsme.beans.Record;
-import org.kuali.maven.plugins.dnsme.beans.RecordType;
-import org.kuali.maven.plugins.dnsme.beans.Search;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
@@ -38,76 +31,24 @@ import com.google.common.collect.Lists;
  * @author Jeff Caddel
  * @goal csv
  */
-public class CSVMojo extends BaseDNSMEMojo {
-	/**
-	 * The domain to show records for
-	 * 
-	 * @parameter expression="${dnsme.domainName}"
-	 * @required
-	 */
-	String domainName;
+public class CSVMojo extends AbstractRecordsMojo {
 
 	/**
-	 * DEFAULT, US_EAST, US_WEST, ASIA
-	 * 
-	 * @parameter expression="${dnsme.gtdLocation}"
-	 */
-	GTDLocation gtdLocation;
-
-	/**
-	 * A, CNAME, MX, NS, PTR, SRV, AAAA, HTTPRED, TXT
-	 * 
-	 * @parameter expression="${dnsme.recordType}"
-	 */
-	RecordType recordType;
-
-	/**
-	 * Matches a single record with this exact name
-	 * 
-	 * @parameter expression="${dnsme.recordName}"
-	 */
-	String recordName;
-
-	/**
-	 * Matches any record with a name that contains this value
-	 * 
-	 * @parameter expression="${dnsme.recordNameContains}"
-	 */
-	String recordNameContains;
-
-	/**
-	 * Matches any record with this exact value
-	 * 
-	 * @parameter expression="${dnsme.recordValue}"
-	 */
-	String recordValue;
-
-	/**
-	 * Matches any record with a value that contains this value
-	 * 
-	 * @parameter expression="${dnsme.recordValueContains}"
-	 */
-	String recordValueContains;
-
-	/**
-	 * Matches any record with a value that contains this value
+	 * Where the CSV file gets written
 	 * 
 	 * @parameter expression="${dnsme.outputFile}" default-value="${project.build.directory}/dnsme/records.csv"
 	 */
 	File outputFile;
 
 	@Override
-	public void performTasks(DNSMEClient client) throws MojoExecutionException, MojoFailureException {
-		Search search = new Search();
-		search.setGtdLocation(gtdLocation);
-		search.setType(recordType);
-		search.setName(recordName);
-		search.setNameContains(recordNameContains);
-		search.setValue(recordValue);
-		search.setValueContains(recordValueContains);
+	protected void doRecords(List<Record> records) {
+		List<String> lines = getLines(records);
+		getLog().info(String.format("located %s records", lines.size() - 1));
+		String path = writeFile(outputFile, lines);
+		getLog().info(String.format("created -> %s", path));
+	}
 
-		Domain domain = client.getDomain(domainName);
-		List<Record> records = client.getRecords(domain, search);
+	protected List<String> getLines(List<Record> records) {
 		Joiner joiner = Joiner.on(',');
 		List<String> lines = Lists.newArrayList();
 		String header = "name,data,type,ttl";
@@ -117,10 +58,14 @@ public class CSVMojo extends BaseDNSMEMojo {
 			String line = joiner.join(tokens.iterator());
 			lines.add(line);
 		}
+		return lines;
+	}
+
+	protected String writeFile(File file, List<String> lines) {
 		try {
-			String path = outputFile.getCanonicalPath();
+			String path = file.getCanonicalPath();
 			FileUtils.writeLines(outputFile, lines);
-			getLog().info("created -> [" + path + "]");
+			return path;
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		}
@@ -134,5 +79,4 @@ public class CSVMojo extends BaseDNSMEMojo {
 		strings.add(record.getTtl() + "");
 		return strings;
 	}
-
 }
