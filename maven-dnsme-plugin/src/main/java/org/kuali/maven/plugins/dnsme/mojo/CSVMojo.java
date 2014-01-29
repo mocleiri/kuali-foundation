@@ -74,7 +74,7 @@ public class CSVMojo extends AbstractRecordsMojo {
 	protected String writeFile(File file, List<String> lines) {
 		try {
 			String path = file.getCanonicalPath();
-			FileUtils.writeLines(outputFile, lines);
+			FileUtils.writeLines(file, lines);
 			return path;
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
