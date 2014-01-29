@@ -120,7 +120,7 @@ public class CSVMojo extends BaseDNSMEMojo {
 		try {
 			String path = outputFile.getCanonicalPath();
 			FileUtils.writeLines(outputFile, lines);
-			getLog().info("Created; " + path);
+			getLog().info("created -> [" + path + "]");
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		}
