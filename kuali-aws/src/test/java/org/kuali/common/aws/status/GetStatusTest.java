@@ -15,32 +15,34 @@ import com.google.common.base.Optional;
 public class GetStatusTest {
 
 	private static final String KEY = "enc.password";
+	private static final File SETTINGS = getSettingsXmlFile();
 	private static final Logger logger = LoggerUtils.make();
 
 	@Test
 	public void test() {
 		try {
-			String password = getEncPassword();
-			logger.info(password);
+			getEncPassword();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected String getEncPassword() {
+	protected static String getEncPassword() {
 		Optional<String> sys = getSystemPassword();
 		if (sys.isPresent()) {
+			logger.info(String.format("Located [%s] in system properties", KEY));
 			return sys.get();
 		}
 		Optional<String> settings = getSettingsXmlPassword();
 		if (settings.isPresent()) {
+			logger.info(String.format("Located [%s] in [%s]", KEY, SETTINGS));
 			return settings.get();
 		} else {
-			throw new IllegalStateException(String.format("[%s] was not found in system properties or [%s]", KEY, getSettingsXmlFile()));
+			throw new IllegalStateException(String.format("[%s] was not found in system properties or [%s]", KEY, SETTINGS));
 		}
 	}
 
-	protected Optional<String> getSystemPassword() {
+	protected static Optional<String> getSystemPassword() {
 		if (System.getProperty(KEY) != null) {
 			return Optional.of(System.getProperty(KEY).trim());
 		} else {
@@ -48,12 +50,12 @@ public class GetStatusTest {
 		}
 	}
 
-	protected File getSettingsXmlFile() {
+	protected static File getSettingsXmlFile() {
 		String path = System.getProperty("user.home") + "/.m2/settings.xml";
 		return new CanonicalFile(path);
 	}
 
-	protected Optional<String> getSettingsXmlPassword() {
+	protected static Optional<String> getSettingsXmlPassword() {
 		File file = getSettingsXmlFile();
 		if (!file.exists()) {
 			return Optional.absent();
