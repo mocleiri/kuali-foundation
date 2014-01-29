@@ -1,6 +1,7 @@
 package org.kuali.common.aws.status;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
@@ -13,7 +14,7 @@ import org.slf4j.Logger;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.ec2.model.Instance;
-import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class GetStatusTest {
 
@@ -25,19 +26,15 @@ public class GetStatusTest {
 			List<AWSCredentials> creds = Auth.getCredentials();
 			logger.info(String.format("Located %s sets of credentials", creds.size()));
 			WaitService ws = new DefaultWaitService();
-			List<Instance> instances = Lists.newArrayList();
+			Map<String, List<Instance>> instances = Maps.newHashMap();
 			for (AWSCredentials credentials : creds) {
 				EC2ServiceContext context = EC2ServiceContext.create(credentials);
 				EC2Service service = new DefaultEC2Service(context, ws);
-				instances.addAll(service.getInstances());
+				instances.put(credentials.getAWSAccessKeyId(), service.getInstances());
 				logger.info(String.format("Located %s instances for %s", instances.size(), credentials.getAWSAccessKeyId()));
-			}
-			for (Instance instance : instances) {
-				instance.getTags();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 }
