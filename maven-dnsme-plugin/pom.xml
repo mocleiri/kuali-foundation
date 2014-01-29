@@ -25,15 +25,15 @@
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>maven-dnsme-plugin</artifactId>
-  <version>1.0.7</version>
+  <version>1.0.8-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>Maven DNSME Plugin</name>
   <description>Tools for allowing Maven to interact with DNS made easy</description>
   <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/maven-dnsme-plugin-1.0.7</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/maven-dnsme-plugin-1.0.7</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/tags/maven-dnsme-plugin-1.0.7</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-dnsme-plugin</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-dnsme-plugin</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/trunk/maven-dnsme-plugin</url>
   </scm>
   <properties>
     <guava.version>15.0</guava.version>
