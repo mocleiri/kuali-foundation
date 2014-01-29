@@ -23,6 +23,7 @@ public class MergeTest {
 	@Test
 	public void test() {
 		try {
+			System.setProperty("dnsme.input", "/Users/jcaddel/sts/3.1.0.RELEASE/workspace/kuali-dns/target/dnsme/records.csv");
 			File dnsme = new CanonicalFile(System.getProperty("dnsme.input", DNSME));
 			File aws = new CanonicalFile(System.getProperty("aws.input", AWS));
 			checkArgument(dnsme.exists(), "[%s] does not exist", dnsme);
