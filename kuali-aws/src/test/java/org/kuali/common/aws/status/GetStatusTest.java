@@ -53,11 +53,13 @@ public class GetStatusTest {
 
 	protected List<String> getLines(Map<String, List<Instance>> map) {
 		SortedSet<String> projects = Sets.newTreeSet(map.keySet());
+		String header = "project,env,dns,type";
 		List<String> lines = Lists.newArrayList();
 		for (String project : projects) {
 			List<Instance> instances = map.get(project);
 			lines.addAll(getLines(project, instances));
 		}
+		lines.add(0, header);
 		return lines;
 	}
 
