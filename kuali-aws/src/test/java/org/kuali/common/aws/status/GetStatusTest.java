@@ -22,7 +22,7 @@ public class GetStatusTest {
 		try {
 			String password = Passwords.getEncPassword();
 			List<AWSCredentials> creds = getCredentials(password);
-			logger.info("Located %s sets of credentials", creds.size());
+			logger.info(String.format("Located %s sets of credentials", creds.size()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
