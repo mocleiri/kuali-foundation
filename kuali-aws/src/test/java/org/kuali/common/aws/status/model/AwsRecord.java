@@ -1,4 +1,4 @@
-package org.kuali.common.aws.status;
+package org.kuali.common.aws.status.model;
 
 public class AwsRecord {
 
