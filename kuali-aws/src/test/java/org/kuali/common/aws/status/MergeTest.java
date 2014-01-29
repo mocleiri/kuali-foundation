@@ -66,7 +66,7 @@ public class MergeTest {
 				return drec;
 			}
 		}
-		throw new IllegalStateException(String.format("No corresponding DNSME entry for [%s=%s]", arec.getEnv(), arec.getDns()));
+		throw new IllegalStateException(String.format("No corresponding DNSME entry for %s - [%s=%s]", arec.getProject(), arec.getEnv(), arec.getDns()));
 	}
 
 	protected List<AwsRecord> getAwsRecords(File file) throws IOException {
