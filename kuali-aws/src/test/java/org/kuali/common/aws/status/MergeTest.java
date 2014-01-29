@@ -33,15 +33,19 @@ public class MergeTest {
 	@Test
 	public void test() {
 		try {
-			System.setProperty("dnsme.input", "/Users/jcaddel/sts/3.1.0.RELEASE/workspace/kuali-dns/target/dnsme/records.csv");
-			File dnsme = new CanonicalFile(System.getProperty("dnsme.input", DNSME));
-			File aws = new CanonicalFile(System.getProperty("aws.input", AWS));
+			System.setProperty("dnsme.in", "/Users/jcaddel/sts/3.1.0.RELEASE/workspace/kuali-dns/target/dnsme/records.csv");
+			File dnsme = new CanonicalFile(System.getProperty("dnsme.in", DNSME));
+			File aws = new CanonicalFile(System.getProperty("aws.in", AWS));
+			File kuali = new CanonicalFile(System.getProperty("kuali.out", KUALI));
 			checkArgument(dnsme.exists(), "[%s] does not exist", dnsme);
 			checkArgument(aws.exists(), "[%s] does not exist", aws);
 			List<DnsmeRecord> drecs = getDnsmeRecords(dnsme);
 			List<AwsRecord> arecs = getAwsRecords(aws);
 			List<Environment> envs = merge(drecs, arecs);
 			logger.info(String.format("Merged %s records", envs.size()));
+			List<String> lines = getLines(envs);
+			FileUtils.writeLines(kuali, lines);
+			logger.info(String.format("created -> [%s]", kuali));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
