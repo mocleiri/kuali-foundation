@@ -55,6 +55,7 @@ public class GetStatusTest {
 			List<Instance> instances = map.get(project);
 			lines.addAll(getLines(project, instances));
 		}
+		Collections.sort(lines);
 		return lines;
 	}
 
