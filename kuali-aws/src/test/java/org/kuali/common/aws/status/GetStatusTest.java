@@ -4,8 +4,10 @@ import static com.google.common.base.Preconditions.checkState;
 
 import java.io.File;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
 
 import org.apache.commons.io.FileUtils;
 import org.codehaus.plexus.util.StringUtils;
@@ -27,6 +29,7 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 public class GetStatusTest {
 
@@ -48,21 +51,21 @@ public class GetStatusTest {
 	}
 
 	protected List<String> getLines(Map<String, List<Instance>> map) {
+		SortedSet<String> projects = Sets.newTreeSet(map.keySet());
 		List<String> lines = Lists.newArrayList();
-		for (String project : map.keySet()) {
+		for (String project : projects) {
 			List<Instance> instances = map.get(project);
 			lines.addAll(getLines(project, instances));
 		}
-		Collections.sort(lines);
 		return lines;
 	}
 
 	protected List<String> getLines(String project, List<Instance> instances) {
+		Collections.sort(instances, new InstanceComparator());
 		List<String> lines = Lists.newArrayList();
 		for (Instance instance : instances) {
 			lines.add(getLine(project, instance));
 		}
-		Collections.sort(lines);
 		return lines;
 	}
 
@@ -76,6 +79,19 @@ public class GetStatusTest {
 		return JOINER.join(tokens);
 	}
 
+	private class InstanceComparator implements Comparator<Instance> {
+
+		@Override
+		public int compare(Instance one, Instance two) {
+			Tag t1 = getRequiredTag(one, "Name");
+			Tag t2 = getRequiredTag(two, "Name");
+			Integer i1 = Integer.parseInt(t1.getValue().substring(3));
+			Integer i2 = Integer.parseInt(t2.getValue().substring(3));
+			return Double.compare(i1, i2);
+		}
+
+	}
+
 	protected List<Instance> filter(List<Instance> instances) {
 		List<Instance> filtered = Lists.newArrayList();
 		for (Instance instance : instances) {
@@ -86,13 +102,13 @@ public class GetStatusTest {
 		return filtered;
 	}
 
-	protected Tag getRequiredTag(Instance instance, String key) {
+	protected static Tag getRequiredTag(Instance instance, String key) {
 		Optional<Tag> optional = getTag(instance, key);
 		checkState(optional.isPresent(), "Required tag [%s] is not present for instance [%s]", key, instance.getInstanceId());
 		return optional.get();
 	}
 
-	protected Optional<Tag> getTag(Instance instance, String key) {
+	protected static Optional<Tag> getTag(Instance instance, String key) {
 		List<Tag> tags = instance.getTags();
 		for (Tag tag : tags) {
 			if (key.equals(tag.getKey())) {
