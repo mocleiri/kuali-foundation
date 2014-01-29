@@ -12,22 +12,23 @@ import com.google.common.collect.Lists;
 
 public final class RecordNameComparator implements Comparator<Record> {
 
+	private static final Splitter SPLITTER = Splitter.on('.');
+	private static final Joiner JOINER = Joiner.on('.');
+	
 	@Override
 	public int compare(Record one, Record two) {
 		return compareStrings(one.getName(), two.getName());
 	}
 
 	protected int compareStrings(String one, String two) {
-		Splitter splitter = Splitter.on('.');
-		Joiner joiner = Joiner.on('.');
-		List<String> t1 = Lists.newArrayList(splitter.split(one));
-		List<String> t2 = Lists.newArrayList(splitter.split(two));
+		List<String> t1 = Lists.newArrayList(SPLITTER.split(one));
+		List<String> t2 = Lists.newArrayList(SPLITTER.split(two));
 		padEnvString(t1);
 		padEnvString(t2);
 		Collections.reverse(t1);
 		Collections.reverse(t2);
-		String c1 = joiner.join(t1);
-		String c2 = joiner.join(t2);
+		String c1 = JOINER.join(t1);
+		String c2 = JOINER.join(t2);
 		return c1.compareTo(c2);
 	}
 
