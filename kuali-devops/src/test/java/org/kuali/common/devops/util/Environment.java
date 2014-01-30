@@ -10,10 +10,8 @@ public class Environment {
 	String id;
 	String dns;
 	String type;
-	String tomcat;
+	Tomcat tomcat;
 	String java;
-	String startup;
-	String uptime;
 	Optional<Project> application;
 
 	public String getProject() {
@@ -48,14 +46,6 @@ public class Environment {
 		this.type = type;
 	}
 
-	public String getTomcat() {
-		return tomcat;
-	}
-
-	public void setTomcat(String tomcat) {
-		this.tomcat = tomcat;
-	}
-
 	public String getJava() {
 		return java;
 	}
@@ -64,28 +54,20 @@ public class Environment {
 		this.java = java;
 	}
 
-	public String getStartup() {
-		return startup;
-	}
-
-	public void setStartup(String startup) {
-		this.startup = startup;
-	}
-
-	public String getUptime() {
-		return uptime;
-	}
-
-	public void setUptime(String uptime) {
-		this.uptime = uptime;
-	}
-
 	public Optional<Project> getApplication() {
 		return application;
 	}
 
 	public void setApplication(Optional<Project> application) {
 		this.application = application;
+	}
+
+	public Tomcat getTomcat() {
+		return tomcat;
+	}
+
+	public void setTomcat(Tomcat tomcat) {
+		this.tomcat = tomcat;
 	}
 
 }

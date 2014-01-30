@@ -22,6 +22,7 @@ import org.kuali.common.devops.util.AwsRecord;
 import org.kuali.common.devops.util.Environment;
 import org.kuali.common.devops.util.Fqdns;
 import org.kuali.common.devops.util.Instances;
+import org.kuali.common.devops.util.Tomcat;
 import org.kuali.common.util.Encodings;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
@@ -67,20 +68,10 @@ public class StatusTest {
 	protected void fillIn(Environment env) {
 		logger.info(format("examining -> %s", env.getDns()));
 		String fqdn = env.getDns();
-		String tomcat = getTomcatVersion(fqdn);
 		String java = getJavaVersion(fqdn);
-		// 2014-01-06T21:23:15.299+0000: 0.957: [GC
-		SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
-		long startup = getTomcatStartupTime(fqdn, parser);
+		Tomcat tomcat = getTomcat(fqdn);
 		env.setTomcat(tomcat);
 		env.setJava(java);
-		if (startup != -1) {
-			env.setStartup(new Date(startup).toString());
-			env.setUptime(FormatUtils.getTime(System.currentTimeMillis() - startup));
-		} else {
-			env.setStartup("na");
-			env.setUptime("na");
-		}
 		Map<String, String> manifest = getManifest(fqdn);
 		Properties properties = getProjectProperties(fqdn, manifest);
 		String artifactId = properties.getProperty("project.artifactId");
@@ -90,6 +81,24 @@ public class StatusTest {
 		} else {
 			env.setApplication(Optional.<Project> absent());
 		}
+	}
+
+	protected Tomcat getTomcat(String fqdn) {
+		String version = getTomcatVersion(fqdn);
+		// 2014-01-06T21:23:15.299+0000: 0.957: [GC
+		SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
+		long startup = getTomcatStartupTime(fqdn, parser);
+		Tomcat tomcat = new Tomcat();
+		if (startup != -1) {
+			tomcat.setStartup(new Date(startup).toString());
+			tomcat.setUptime(FormatUtils.getTime(System.currentTimeMillis() - startup));
+		} else {
+			tomcat.setStartup("na");
+			tomcat.setUptime("na");
+		}
+
+		tomcat.setVersion(version);
+		return tomcat;
 	}
 
 	protected long getTomcatStartupTime(String fqdn, SimpleDateFormat parser) {
