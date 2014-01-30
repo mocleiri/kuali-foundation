@@ -1,7 +1,6 @@
 package org.kuali.common.devops.dnsme;
 
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
-import org.kuali.common.util.Assert;
 
 public enum Credentials {
 
@@ -12,7 +11,6 @@ public enum Credentials {
 	private final DNSMadeEasyCredentials credentials;
 
 	private Credentials(String apiKey, String secretKey) {
-		Assert.noBlanks(apiKey, secretKey);
 		this.credentials = DNSMadeEasyCredentials.create(apiKey, secretKey);
 	}
 
