@@ -151,7 +151,14 @@ public class StatusTest {
 		Tomcat tomcat = new Tomcat();
 		if (startup != -1) {
 			tomcat.setStartup(SDF.format(new Date(startup)));
-			tomcat.setUptime(FormatUtils.getTime(System.currentTimeMillis() - startup));
+			String uptime = FormatUtils.getTime(System.currentTimeMillis() - startup);
+			int pos = uptime.indexOf('.');
+			if (pos != -1) {
+				String original = uptime;
+				uptime = uptime.substring(0, pos - 1);
+				uptime = uptime + original.substring(original.length() - 1);
+			}
+			tomcat.setUptime(uptime);
 		} else {
 			tomcat.setStartup("na");
 			tomcat.setUptime("na");
