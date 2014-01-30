@@ -19,6 +19,8 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.kuali.common.devops.util.AwsRecord;
 import org.kuali.common.devops.util.Environment;
+import org.kuali.common.devops.util.Fqdns;
+import org.kuali.common.devops.util.Instances;
 import org.kuali.common.util.Encodings;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
@@ -29,6 +31,7 @@ import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
 import org.slf4j.Logger;
 
+import com.amazonaws.services.ec2.model.Instance;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
@@ -45,31 +48,20 @@ public class StatusTest {
 	@Test
 	public void test() {
 		try {
-			// Map<String, String> fqdns = Fqdns.getMap();
-			// Map<String, List<Instance>> instances = Instances.getMap();
-			// List<AwsRecord> records = Instances.getRecords(instances);
-			// List<Environment> envs = merge(records, fqdns);
-			// logger.info("Located {} managed environments", envs.size());
-			String fqdn = "env1.ks.kuali.org";
-			String tomcat = getTomcatVersion(fqdn);
-			String java = getJavaVersion(fqdn);
-			// 2014-01-06T21:23:15.299+0000: 0.957: [GC
-			SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
-			long startup = getTomcatStartupTime(fqdn, parser);
-			Map<String, String> manifest = getManifest(fqdn);
-			Properties properties = getProjectProperties(fqdn, manifest);
-			Project project = ProjectUtils.getProject(properties);
-			logger.info(project.getGroupId() + ":" + project.getArtifactId() + ":" + project.getVersion());
-			logger.info(String.format("tomcat  -> %s", tomcat));
-			logger.info(String.format("java    -> %s", java));
-			logger.info(String.format("startup -> %s", new Date(startup)));
-			logger.info(String.format("uptime  -> %s", FormatUtils.getTime(System.currentTimeMillis() - startup)));
+			Map<String, String> fqdns = Fqdns.getMap();
+			Map<String, List<Instance>> instances = Instances.getMap();
+			List<AwsRecord> records = Instances.getRecords(instances);
+			List<Environment> envs = merge(records, fqdns);
+			for (Environment env : envs) {
+				fillIn(env);
+			}
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
 
 	protected void fillIn(Environment env) {
+		logger.info(String.format("filling in -> %s", env.getDns()));
 		String fqdn = env.getDns();
 		String tomcat = getTomcatVersion(fqdn);
 		String java = getJavaVersion(fqdn);
@@ -85,6 +77,9 @@ public class StatusTest {
 			env.setStartup("na");
 			env.setUptime("na");
 		}
+		Map<String, String> manifest = getManifest(fqdn);
+		Properties properties = getProjectProperties(fqdn, manifest);
+		Project project = ProjectUtils.getProject(properties);
 	}
 
 	protected long getTomcatStartupTime(String fqdn, SimpleDateFormat parser) {
@@ -146,15 +141,19 @@ public class StatusTest {
 		String protocol = "http://";
 		String fragment = "/tomcat/logs/env.jsp";
 		String location = protocol + fqdn + fragment;
-		List<String> lines = LocationUtils.readLines(location);
-		String token = "java.version";
-		for (String line : lines) {
-			if (line.contains(token)) {
-				int pos = line.indexOf(token) + token.length();
-				String substring = line.substring(pos);
-				String version = StringUtils.substringBetween(substring, "<td>", "</td>");
-				return StringUtils.trim(version);
+		try {
+			List<String> lines = LocationUtils.readLines(location);
+			String token = "java.version";
+			for (String line : lines) {
+				if (line.contains(token)) {
+					int pos = line.indexOf(token) + token.length();
+					String substring = line.substring(pos);
+					String version = StringUtils.substringBetween(substring, "<td>", "</td>");
+					return StringUtils.trim(version);
+				}
 			}
+		} catch (Exception e) {
+			logger.warn(String.format("error getting java version -> [%s]", fqdn));
 		}
 		return "na";
 	}
@@ -163,14 +162,18 @@ public class StatusTest {
 		String protocol = "http://";
 		String fragment = "/tomcat/RELEASE-NOTES";
 		String location = protocol + fqdn + fragment;
-		List<String> lines = LocationUtils.readLines(location);
-		String token = "Apache Tomcat Version";
-		for (String line : lines) {
-			if (line.contains(token)) {
-				int pos = line.indexOf(token) + token.length();
-				String version = line.substring(pos);
-				return StringUtils.trim(version);
+		try {
+			List<String> lines = LocationUtils.readLines(location);
+			String token = "Apache Tomcat Version";
+			for (String line : lines) {
+				if (line.contains(token)) {
+					int pos = line.indexOf(token) + token.length();
+					String version = line.substring(pos);
+					return StringUtils.trim(version);
+				}
 			}
+		} catch (Exception e) {
+			logger.warn(String.format("error getting tomcat version -> [%s]", fqdn));
 		}
 		return "na";
 	}
