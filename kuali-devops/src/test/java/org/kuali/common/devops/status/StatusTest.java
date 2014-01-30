@@ -52,12 +52,31 @@ public class StatusTest {
 				properties.setProperty("project.scm.revision", revision);
 			}
 			Project project = ProjectUtils.getProject(properties);
-			logger.info(project.getGroupId() + ":" + project.getArtifactId() + ":" + project.getVersion());
 			String tomcat = getTomcatVersion(fqdn);
+			String java = getJavaVersion(fqdn);
+			logger.info(project.getGroupId() + ":" + project.getArtifactId() + ":" + project.getVersion());
 			logger.info(String.format("tomcat -> %s", tomcat));
+			logger.info(String.format("java   -> %s", java));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected String getJavaVersion(String fqdn) {
+		String protocol = "http://";
+		String fragment = "/tomcat/logs/env.jsp";
+		String location = protocol + fqdn + fragment;
+		List<String> lines = LocationUtils.readLines(location);
+		String token = "java.version";
+		for (String line : lines) {
+			if (line.contains(token)) {
+				int pos = line.indexOf(token) + token.length();
+				String substring = line.substring(pos);
+				String version = StringUtils.substringBetween(substring, "<td>", "</td>");
+				return StringUtils.trim(version);
+			}
+		}
+		return "unknown";
 	}
 
 	protected String getTomcatVersion(String fqdn) {
