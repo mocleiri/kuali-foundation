@@ -27,6 +27,28 @@ public class Instances {
 
 	private static final Logger logger = LoggerUtils.make();
 
+	protected static List<AwsRecord> getRecords(Map<String, List<Instance>> instances) {
+		List<AwsRecord> records = Lists.newArrayList();
+		for (String project : instances.keySet()) {
+			List<Instance> envs = instances.get(project);
+			for (Instance env : envs) {
+				AwsRecord record = getRecord(project, env);
+				records.add(record);
+			}
+		}
+		return records;
+	}
+
+	protected static AwsRecord getRecord(String project, Instance instance) {
+		Tag name = getRequiredTag(instance, "Name");
+		AwsRecord record = new AwsRecord();
+		record.setDns(instance.getPublicDnsName());
+		record.setProject(project);
+		record.setType(instance.getInstanceType());
+		record.setEnv(name.getValue());
+		return record;
+	}
+
 	public static Map<String, List<Instance>> getMap() {
 		List<AWSCredentials> creds = Auth.getCredentials();
 		logger.info(String.format("Using %s sets of AWS credentials", creds.size()));
