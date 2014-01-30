@@ -12,6 +12,7 @@ public class Environment {
 	String type;
 	Tomcat tomcat;
 	String java;
+	Database database;
 	Optional<Project> application;
 
 	public String getProject() {
@@ -68,6 +69,14 @@ public class Environment {
 
 	public void setTomcat(Tomcat tomcat) {
 		this.tomcat = tomcat;
+	}
+
+	public Database getDatabase() {
+		return database;
+	}
+
+	public void setDatabase(Database database) {
+		this.database = database;
 	}
 
 }
