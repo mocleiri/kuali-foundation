@@ -55,6 +55,7 @@ public class Instances {
 		WaitService ws = new DefaultWaitService();
 		Map<String, List<Instance>> instances = Maps.newHashMap();
 		for (AWSCredentials credentials : creds) {
+			String projectName = getProjectName(credentials.getAWSAccessKeyId());
 			EC2ServiceContext context = EC2ServiceContext.create(credentials);
 			EC2Service service = new DefaultEC2Service(context, ws);
 			List<Instance> list = Lists.newArrayList(service.getInstances());
@@ -65,7 +66,6 @@ public class Instances {
 					itr.remove();
 				}
 			}
-			String projectName = getProjectName(credentials.getAWSAccessKeyId());
 			instances.put(projectName, list);
 			logger.info(String.format("%s -> %s instances", StringUtils.rightPad(projectName, 12), list.size()));
 		}
