@@ -2,7 +2,7 @@ package org.kuali.common.devops.dnsme;
 
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
 
-public enum Credentials {
+public enum DNSMadeEasyCreds {
 
 	// Sandbox credentials expire after 90 days or so
 	SANDBOX("cce722ad-25a7-4a6d-a6d7-fceae7c0bc0c", "enc--9jpu7hzzCx7rDbp8qxqH9GGX1bTTCkJuRuaKYWGpVpYV45IMO3SSFwXmNreQ/btT"), //
@@ -10,7 +10,7 @@ public enum Credentials {
 
 	private final DNSMadeEasyCredentials credentials;
 
-	private Credentials(String apiKey, String secretKey) {
+	private DNSMadeEasyCreds(String apiKey, String secretKey) {
 		this.credentials = DNSMadeEasyCredentials.create(apiKey, secretKey);
 	}
 
