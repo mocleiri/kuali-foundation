@@ -147,7 +147,7 @@
             <plugin>
               <groupId>org.kuali.maven.plugins</groupId>
               <artifactId>maven-dnsme-plugin</artifactId>
-              <version>1.0.5</version>
+              <version>${plugin.dnsme.version}</version>
               <configuration>
                 <apiKey>${dnsme.apiKey}</apiKey>
                 <secretKey>${dnsme.secretKey}</secretKey>
