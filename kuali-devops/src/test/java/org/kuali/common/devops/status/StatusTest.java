@@ -3,6 +3,7 @@ package org.kuali.common.devops.status;
 import static com.google.common.base.Preconditions.checkState;
 import static java.lang.String.format;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -15,6 +16,7 @@ import java.util.SortedSet;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -28,12 +30,14 @@ import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
 import org.slf4j.Logger;
 
 import com.amazonaws.services.ec2.model.Instance;
+import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
@@ -43,7 +47,9 @@ import com.google.common.collect.Sets;
 public class StatusTest {
 
 	private static final Splitter SPLITTER = Splitter.on('.');
+	private static final Joiner JOINER = Joiner.on(',');
 	private static final Splitter LINE_SPLITTER = Splitter.on('\n');
+	private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
 
 	private static final Logger logger = LoggerUtils.make();
 
@@ -60,9 +66,64 @@ public class StatusTest {
 			}
 			long elapsed = System.currentTimeMillis() - start;
 			logger.info(format("elapsed -> %s", FormatUtils.getTime(elapsed)));
+			write(envs);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected void write(List<Environment> envs) throws IOException {
+		List<String> lines = Lists.newArrayList();
+		for (Environment env : envs) {
+			lines.add(asCSV(env));
+		}
+		String path = System.getProperty("env.out", "./target/env/devops.csv");
+		File file = new CanonicalFile(path);
+		FileUtils.writeLines(file, lines);
+		logger.info(format("created -> %s", file));
+	}
+
+	protected String asCSV(Environment env) {
+		List<String> tokens = Lists.newArrayList();
+		tokens.add(env.getProject());
+		tokens.add(env.getId());
+		tokens.add(env.getDns());
+		tokens.add(env.getType());
+		tokens.add(env.getJava());
+		tokens.add(env.getTomcat().getVersion());
+		tokens.add(env.getTomcat().getStartup());
+		tokens.add(env.getTomcat().getUptime());
+		tokens.addAll(getTokens(env.getApplication()));
+		return JOINER.join(tokens.iterator());
+	}
+
+	protected List<String> getTokens(Optional<Project> project) {
+		List<String> tokens = Lists.newArrayList();
+		if (project.isPresent()) {
+			Project p = project.get();
+			tokens.add(p.getGroupId());
+			tokens.add(p.getArtifactId());
+			tokens.add(p.getVersion());
+			tokens.add(toString(p.getProperties()));
+		} else {
+			tokens.add("na");
+			tokens.add("na");
+			tokens.add("na");
+			tokens.add("na");
+		}
+		return tokens;
+	}
+
+	protected String toString(Properties properties) {
+		StringBuilder sb = new StringBuilder();
+		SortedSet<String> keys = Sets.newTreeSet(properties.stringPropertyNames());
+		for (String key : keys) {
+			String value = properties.getProperty(key);
+			String flattened = Str.flatten(value);
+			String safe = flattened.replace(",", "${comma}");
+			sb.append(key + "=" + safe);
+		}
+		return sb.toString();
 	}
 
 	protected void fillIn(Environment env) {
@@ -86,11 +147,10 @@ public class StatusTest {
 	protected Tomcat getTomcat(String fqdn) {
 		String version = getTomcatVersion(fqdn);
 		// 2014-01-06T21:23:15.299+0000: 0.957: [GC
-		SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
-		long startup = getTomcatStartupTime(fqdn, parser);
+		long startup = getTomcatStartupTime(fqdn, SDF);
 		Tomcat tomcat = new Tomcat();
 		if (startup != -1) {
-			tomcat.setStartup(new Date(startup).toString());
+			tomcat.setStartup(SDF.format(new Date(startup)));
 			tomcat.setUptime(FormatUtils.getTime(System.currentTimeMillis() - startup));
 		} else {
 			tomcat.setStartup("na");
