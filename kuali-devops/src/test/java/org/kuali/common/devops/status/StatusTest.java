@@ -35,6 +35,9 @@ public class StatusTest {
 		}
 	}
 
+	/**
+	 * The keys are FQDN's as known to Amazon, the values are DNSME aliased CNAME records containing the friendly name
+	 */
 	protected Map<String, String> getFQDNs() {
 		DNSMadeEasyServiceContext context = new DNSMadeEasyServiceContext(Auth.getDnsmeCredentials(), URLS.PRODUCTION, DOMAIN);
 		DnsService dns = new DNSMadeEasyDnsService(context);
