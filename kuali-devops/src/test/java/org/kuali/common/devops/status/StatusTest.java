@@ -45,9 +45,6 @@ public class StatusTest {
 		try {
 			Map<String, String> fqdns = Fqdns.getMap();
 			Map<String, List<Instance>> instances = Instances.getMap();
-			for (String key : fqdns.keySet()) {
-				logger.info(String.format("[%s]=[%s]", key, fqdns.get(key)));
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
