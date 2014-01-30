@@ -26,16 +26,16 @@ public class StatusTest {
 	@Test
 	public void test() {
 		try {
-			Map<String, String> dns = getDnsMap();
-			for (String key : dns.keySet()) {
-				logger.info(String.format("[%s]=[%s]", key, dns.get(key)));
+			Map<String, String> fqdns = getFQDNs();
+			for (String key : fqdns.keySet()) {
+				logger.info(String.format("[%s]=[%s]", key, fqdns.get(key)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected Map<String, String> getDnsMap() {
+	protected Map<String, String> getFQDNs() {
 		DNSMadeEasyServiceContext context = new DNSMadeEasyServiceContext(Auth.getDnsmeCredentials(), URLS.PRODUCTION, DOMAIN);
 		DnsService dns = new DNSMadeEasyDnsService(context);
 		DnsRecordSearchCriteria criteria = new DnsRecordSearchCriteria(DnsRecordType.CNAME);
