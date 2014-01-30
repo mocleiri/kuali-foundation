@@ -1,14 +1,10 @@
 package org.kuali.common.devops.util;
 
-import java.io.Serializable;
-
 import org.kuali.common.util.project.model.Project;
 
 import com.google.common.base.Optional;
 
-public class Environment implements Serializable {
-
-	private static final long serialVersionUID = -8973641077371212241L;
+public class Environment {
 
 	String project;
 	String id;
