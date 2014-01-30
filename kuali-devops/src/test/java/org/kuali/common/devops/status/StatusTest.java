@@ -65,7 +65,7 @@ public class StatusTest {
 	}
 
 	protected void fillIn(Environment env) {
-		logger.info(String.format("examining -> %s", env.getDns()));
+		logger.info(format("examining -> %s", env.getDns()));
 		String fqdn = env.getDns();
 		String tomcat = getTomcatVersion(fqdn);
 		String java = getJavaVersion(fqdn);
