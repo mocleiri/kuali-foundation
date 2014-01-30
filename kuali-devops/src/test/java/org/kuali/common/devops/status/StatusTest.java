@@ -47,10 +47,6 @@ public class StatusTest {
 			String fqdn = "env1.ks.kuali.org";
 			Map<String, String> manifest = getManifest(fqdn);
 			Properties properties = getProjectProperties(fqdn, manifest);
-			String revision = manifest.get("SVN-Revision");
-			if (revision != null) {
-				properties.setProperty("project.scm.revision", revision);
-			}
 			Project project = ProjectUtils.getProject(properties);
 			String tomcat = getTomcatVersion(fqdn);
 			String java = getJavaVersion(fqdn);
@@ -101,7 +97,12 @@ public class StatusTest {
 			return new Properties();
 		} else {
 			String location = getProjectPropertiesPath(fqdn, bundleSymbolicName.get());
-			return PropertyUtils.loadOrCreateSilently(location);
+			Properties properties = PropertyUtils.loadOrCreateSilently(location);
+			String revision = manifest.get("SVN-Revision");
+			if (revision != null) {
+				properties.setProperty("project.scm.revision", revision);
+			}
+			return properties;
 		}
 	}
 
