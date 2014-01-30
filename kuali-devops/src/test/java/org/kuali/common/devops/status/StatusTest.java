@@ -27,8 +27,6 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.log.LoggerUtils;
-import org.kuali.common.util.project.ProjectUtils;
-import org.kuali.common.util.project.model.Project;
 import org.slf4j.Logger;
 
 import com.amazonaws.services.ec2.model.Instance;
@@ -61,7 +59,7 @@ public class StatusTest {
 	}
 
 	protected void fillIn(Environment env) {
-		logger.info(String.format("filling in -> %s", env.getDns()));
+		logger.info(String.format("examining -> %s", env.getDns()));
 		String fqdn = env.getDns();
 		String tomcat = getTomcatVersion(fqdn);
 		String java = getJavaVersion(fqdn);
@@ -79,7 +77,7 @@ public class StatusTest {
 		}
 		Map<String, String> manifest = getManifest(fqdn);
 		Properties properties = getProjectProperties(fqdn, manifest);
-		Project project = ProjectUtils.getProject(properties);
+		// Project project = ProjectUtils.getProject(properties);
 	}
 
 	protected long getTomcatStartupTime(String fqdn, SimpleDateFormat parser) {
@@ -102,8 +100,11 @@ public class StatusTest {
 		String protocol = "http://";
 		String fragment = "/tomcat/logs/heap.log";
 		String location = protocol + fqdn + fragment;
-		String partial = read(location, 4096);
-		String gc = StringUtils.substringBetween(partial, "{", "}");
+		Optional<String> heap = read(location, 4096);
+		if (!heap.isPresent()) {
+			return Optional.absent();
+		}
+		String gc = StringUtils.substringBetween(heap.get(), "{", "}");
 		List<String> lines = LINE_SPLITTER.splitToList(gc);
 		for (String line : lines) {
 			if (line.startsWith("201")) { // This will work for the next 6 years :)
@@ -113,10 +114,10 @@ public class StatusTest {
 		return Optional.absent();
 	}
 
-	protected String read(String location, int maxBytes) {
+	protected Optional<String> read(String location, int maxBytes) {
 		InputStream in = null;
-		StringBuilder sb = new StringBuilder();
 		try {
+			StringBuilder sb = new StringBuilder();
 			in = LocationUtils.getInputStream(location);
 			byte[] buffer = new byte[4096];
 			int len = -1;
@@ -129,12 +130,13 @@ public class StatusTest {
 				}
 				len = in.read(buffer);
 			}
+			return Optional.of(sb.toString());
 		} catch (IOException e) {
 			logger.warn(String.format("error reading -> [%s]", location));
 		} finally {
 			IOUtils.closeQuietly(in);
 		}
-		return sb.toString();
+		return Optional.absent();
 	}
 
 	protected String getJavaVersion(String fqdn) {
@@ -250,7 +252,7 @@ public class StatusTest {
 				map.put(key, value);
 			}
 		} catch (IOException e) {
-			logger.warn(String.format("cannot access -> [%s]", location));
+			logger.warn(String.format("cannot getting manifest -> [%s]", location));
 		} finally {
 			IOUtils.closeQuietly(in);
 		}
