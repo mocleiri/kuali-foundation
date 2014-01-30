@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.codehaus.plexus.util.StringUtils;
-import org.kuali.common.aws.Credentials;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
+import org.kuali.common.devops.aws.Credentials;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitService;
