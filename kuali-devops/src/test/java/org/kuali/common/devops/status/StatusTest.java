@@ -82,7 +82,9 @@ public class StatusTest {
 		String artifactId = properties.getProperty("project.artifactId");
 		if (artifactId != null) {
 			Project application = ProjectUtils.getProject(properties);
-			env.setApplication(application);
+			env.setApplication(Optional.of(application));
+		} else {
+			env.setApplication(Optional.<Project> absent());
 		}
 	}
 

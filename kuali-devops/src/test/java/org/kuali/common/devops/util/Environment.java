@@ -2,6 +2,8 @@ package org.kuali.common.devops.util;
 
 import org.kuali.common.util.project.model.Project;
 
+import com.google.common.base.Optional;
+
 public class Environment {
 
 	String project;
@@ -12,7 +14,7 @@ public class Environment {
 	String java;
 	String startup;
 	String uptime;
-	Project application;
+	Optional<Project> application;
 
 	public String getProject() {
 		return project;
@@ -78,11 +80,11 @@ public class Environment {
 		this.uptime = uptime;
 	}
 
-	public Project getApplication() {
+	public Optional<Project> getApplication() {
 		return application;
 	}
 
-	public void setApplication(Project application) {
+	public void setApplication(Optional<Project> application) {
 		this.application = application;
 	}
 
