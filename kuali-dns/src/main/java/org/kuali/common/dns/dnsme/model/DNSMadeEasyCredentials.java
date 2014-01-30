@@ -37,6 +37,14 @@ public final class DNSMadeEasyCredentials {
 		this.secretKey = builder.secretKey;
 	}
 
+	public static DNSMadeEasyCredentials create(String apiKey, String secretKey) {
+		return builder().apiKey(apiKey).secretKey(secretKey).build();
+	}
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder {
 
 		private String apiKey;
