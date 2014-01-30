@@ -66,11 +66,11 @@ public class StatusTest {
 		String protocol = "http://";
 		String fragment = "/tomcat/logs/heap.log";
 		String location = protocol + fqdn + fragment;
-		String partial = read(location, 1024 * 5);
+		String partial = read(location, 1024);
 		String gc = StringUtils.substringBetween(partial, "{", "}");
 		List<String> lines = LINE_SPLITTER.splitToList(gc);
 		for (String line : lines) {
-			if (line.startsWith("201")) {
+			if (line.startsWith("201")) { // This will work for the next 6 years :)
 				logger.info(line);
 				break;
 			}
@@ -92,7 +92,7 @@ public class StatusTest {
 				sb.append(string);
 				len = in.read(buffer);
 				total += len;
-				if (total > maxBytes) {
+				if (total >= maxBytes) {
 					break;
 				}
 			}
