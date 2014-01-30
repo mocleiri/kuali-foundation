@@ -155,7 +155,7 @@ public class StatusTest {
 			int pos = uptime.indexOf('.');
 			if (pos != -1) {
 				String original = uptime;
-				uptime = uptime.substring(0, pos - 1);
+				uptime = uptime.substring(0, pos);
 				uptime = uptime + original.substring(original.length() - 1);
 			}
 			tomcat.setUptime(uptime);
