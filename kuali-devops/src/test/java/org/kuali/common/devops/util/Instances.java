@@ -53,7 +53,7 @@ public class Instances {
 		List<AWSCredentials> creds = Auth.getCredentials();
 		logger.info(String.format("Using %s sets of AWS credentials", creds.size()));
 		WaitService ws = new DefaultWaitService();
-		Map<String, List<Instance>> instances = Maps.newHashMap();
+		Map<String, List<Instance>> instances = Maps.newTreeMap();
 		for (AWSCredentials credentials : creds) {
 			String projectName = getProjectName(credentials.getAWSAccessKeyId());
 			EC2ServiceContext context = EC2ServiceContext.create(credentials);
