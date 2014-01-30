@@ -194,7 +194,7 @@ public class StatusTest {
 		String gc = StringUtils.substringBetween(heap.get(), "{", "}");
 		List<String> lines = LINE_SPLITTER.splitToList(gc);
 		for (String line : lines) {
-			if (line.startsWith("201")) { // This will work for the next 6 years :)
+			if (line.startsWith("201")) { // This will only work for the next 6 years :)
 				return Optional.of(line);
 			}
 		}
