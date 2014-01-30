@@ -1,5 +1,6 @@
 package org.kuali.common.devops.status;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 import static java.lang.String.format;
 
@@ -49,6 +50,9 @@ public class StatusTest {
 	private static final Splitter SPLITTER = Splitter.on('.');
 	private static final Joiner JOINER = Joiner.on(',');
 	private static final Splitter LINE_SPLITTER = Splitter.on('\n');
+	private static final Splitter CSV_SPLITTER = Splitter.on(',');
+	private static final Splitter PIPE_SPLITTER = Splitter.on('|');
+	private static final Splitter EQUALS_SPLITTER = Splitter.on('=');
 	private static final SimpleDateFormat PARSER = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
 
 	private static final Logger logger = LoggerUtils.make();
@@ -70,6 +74,71 @@ public class StatusTest {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected List<Environment> getEnvironments(File file) throws IOException {
+		List<Environment> envs = Lists.newArrayList();
+		checkState(file.exists(), "[%s] does not exist", file);
+		List<String> lines = FileUtils.readLines(file);
+		for (String line : lines) {
+			Environment env = getEnvironment(line);
+			envs.add(env);
+		}
+		return envs;
+	}
+
+	protected Environment getEnvironment(String csv) {
+		List<String> tokens = CSV_SPLITTER.splitToList(csv);
+		Environment env = new Environment();
+		env.setProject(tokens.get(0));
+		env.setId(tokens.get(1));
+		env.setDns(tokens.get(2));
+		env.setType(tokens.get(3));
+		env.setJava(tokens.get(4));
+		// group,env,fqdn,type,java,tomcat,startup,uptime,groupId,artifactId,version,properties
+		env.setTomcat(getTomcat(tokens));
+		env.setApplication(Optional.of(getProject(tokens)));
+		return env;
+	}
+
+	protected Project getProject(List<String> tokens) {
+		Properties props = getProperties(tokens);
+		return ProjectUtils.getProject(props);
+	}
+
+	protected Properties getProperties(List<String> tokens) {
+		String psv = tokens.get(11);
+		List<String> values = PIPE_SPLITTER.splitToList(psv);
+		List<String> list = Lists.newArrayList();
+		for (String value : values) {
+			String inflated = inflate(value);
+			list.add(inflated);
+		}
+		Properties props = new Properties();
+		for (String element : list) {
+			List<String> propTokens = EQUALS_SPLITTER.splitToList(element);
+			checkArgument(propTokens.size() == 2, "Must always be exactly 2 tokens");
+			String key = propTokens.get(0);
+			String value = propTokens.get(1);
+			props.setProperty(key, value);
+		}
+		return props;
+	}
+
+	protected String deflate(String s) {
+		return s.replace("\r", "${cr}").replace("\n", "${lf}").replace(",", "${comma}").replace("|", "${pipe}");
+	}
+
+	protected String inflate(String s) {
+		return s.replace("${cr}", "\r").replace("${lf}", "\n").replace("${comma}", ",");
+	}
+
+	protected Tomcat getTomcat(List<String> tokens) {
+		Tomcat tomcat = new Tomcat();
+		tomcat.setVersion(tokens.get(5));
+		tomcat.setStartup(tokens.get(6));
+		tomcat.setUptime(tokens.get(7));
+		return tomcat;
 	}
 
 	protected void write(List<Environment> envs) throws IOException {
@@ -120,8 +189,8 @@ public class StatusTest {
 		SortedSet<String> keys = Sets.newTreeSet(properties.stringPropertyNames());
 		for (String key : keys) {
 			String value = properties.getProperty(key);
-			String safe = Str.flatten(value, "${cr}", "${lf}").replace(",", "${comma}").replace("|", "${pipe}");
-			sb.append(key + "=" + safe + "|");
+			String deflated = deflate(value);
+			sb.append(key + "=" + deflated + "|");
 		}
 		return sb.substring(0, sb.length() - 1); // Remove the trailing "|"
 	}
