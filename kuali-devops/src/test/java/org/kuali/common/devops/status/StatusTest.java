@@ -69,6 +69,24 @@ public class StatusTest {
 		}
 	}
 
+	protected void fillIn(Environment env) {
+		String fqdn = env.getDns();
+		String tomcat = getTomcatVersion(fqdn);
+		String java = getJavaVersion(fqdn);
+		// 2014-01-06T21:23:15.299+0000: 0.957: [GC
+		SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
+		long startup = getTomcatStartupTime(fqdn, parser);
+		env.setTomcat(tomcat);
+		env.setJava(java);
+		if (startup != -1) {
+			env.setStartup(new Date(startup).toString());
+			env.setUptime(FormatUtils.getTime(System.currentTimeMillis() - startup));
+		} else {
+			env.setStartup("na");
+			env.setUptime("na");
+		}
+	}
+
 	protected long getTomcatStartupTime(String fqdn, SimpleDateFormat parser) {
 		Optional<String> string = getTomcatStartupString(fqdn);
 		if (!string.isPresent()) {
@@ -138,7 +156,7 @@ public class StatusTest {
 				return StringUtils.trim(version);
 			}
 		}
-		return "unknown";
+		return "na";
 	}
 
 	protected String getTomcatVersion(String fqdn) {
@@ -154,7 +172,7 @@ public class StatusTest {
 				return StringUtils.trim(version);
 			}
 		}
-		return "unknown";
+		return "na";
 	}
 
 	protected Properties getProjectProperties(String fqdn, Map<String, String> manifest) {
