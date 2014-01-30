@@ -20,6 +20,7 @@ import java.util.jar.Manifest;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.devops.util.AwsRecord;
 import org.kuali.common.devops.util.Environment;
@@ -58,6 +59,19 @@ public class StatusTest {
 	private static final Logger logger = LoggerUtils.make();
 
 	@Test
+	public void test1() {
+		try {
+			String path = "/Users/jcaddel/sts/3.1.0.RELEASE/workspace/kuali-devops/target/env/environments.txt";
+			File file = new CanonicalFile(path);
+			List<Environment> envs = getEnvironments(file);
+			logger.info(format("%s envs", envs.size()));
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	@Ignore
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
@@ -80,7 +94,8 @@ public class StatusTest {
 		List<Environment> envs = Lists.newArrayList();
 		checkState(file.exists(), "[%s] does not exist", file);
 		List<String> lines = FileUtils.readLines(file);
-		for (String line : lines) {
+		for (int i = 1; i < lines.size(); i++) {
+			String line = lines.get(i);
 			Environment env = getEnvironment(line);
 			envs.add(env);
 		}
@@ -97,13 +112,17 @@ public class StatusTest {
 		env.setJava(tokens.get(4));
 		// group,env,fqdn,type,java,tomcat,startup,uptime,groupId,artifactId,version,properties
 		env.setTomcat(getTomcat(tokens));
-		env.setApplication(Optional.of(getProject(tokens)));
+		env.setApplication(getProject(tokens));
 		return env;
 	}
 
-	protected Project getProject(List<String> tokens) {
+	protected Optional<Project> getProject(List<String> tokens) {
 		Properties props = getProperties(tokens);
-		return ProjectUtils.getProject(props);
+		if (props.isEmpty()) {
+			return Optional.absent();
+		} else {
+			return Optional.of(ProjectUtils.getProject(props));
+		}
 	}
 
 	protected Properties getProperties(List<String> tokens) {
@@ -116,7 +135,13 @@ public class StatusTest {
 		}
 		Properties props = new Properties();
 		for (String element : list) {
+			if (element.equals("na")) {
+				return props;
+			}
 			List<String> propTokens = EQUALS_SPLITTER.splitToList(element);
+			if (propTokens.size() != 2) {
+				System.out.println("wtf!!!");
+			}
 			checkArgument(propTokens.size() == 2, "Must always be exactly 2 tokens");
 			String key = propTokens.get(0);
 			String value = propTokens.get(1);
