@@ -27,6 +27,8 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.log.LoggerUtils;
+import org.kuali.common.util.project.ProjectUtils;
+import org.kuali.common.util.project.model.Project;
 import org.slf4j.Logger;
 
 import com.amazonaws.services.ec2.model.Instance;
@@ -77,7 +79,11 @@ public class StatusTest {
 		}
 		Map<String, String> manifest = getManifest(fqdn);
 		Properties properties = getProjectProperties(fqdn, manifest);
-		// Project project = ProjectUtils.getProject(properties);
+		String artifactId = properties.getProperty("project.artifactId");
+		if (artifactId != null) {
+			Project application = ProjectUtils.getProject(properties);
+			env.setApplication(application);
+		}
 	}
 
 	protected long getTomcatStartupTime(String fqdn, SimpleDateFormat parser) {

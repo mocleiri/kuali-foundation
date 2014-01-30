@@ -1,5 +1,7 @@
 package org.kuali.common.devops.util;
 
+import org.kuali.common.util.project.model.Project;
+
 public class Environment {
 
 	String project;
@@ -10,6 +12,7 @@ public class Environment {
 	String java;
 	String startup;
 	String uptime;
+	Project application;
 
 	public String getProject() {
 		return project;
@@ -73,6 +76,14 @@ public class Environment {
 
 	public void setUptime(String uptime) {
 		this.uptime = uptime;
+	}
+
+	public Project getApplication() {
+		return application;
+	}
+
+	public void setApplication(Project application) {
+		this.application = application;
 	}
 
 }
