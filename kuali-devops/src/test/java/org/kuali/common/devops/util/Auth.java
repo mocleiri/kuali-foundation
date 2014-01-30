@@ -3,7 +3,7 @@ package org.kuali.common.devops.util;
 import java.util.List;
 
 import org.jasypt.util.text.TextEncryptor;
-import org.kuali.common.aws.Credentials;
+import org.kuali.common.devops.aws.Credentials;
 import org.kuali.common.devops.dnsme.DNSMadeEasyCreds;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
 import org.kuali.common.util.enc.EncUtils;
