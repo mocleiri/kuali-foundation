@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
 
 import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.aws.ec2.api.EC2Service;
@@ -24,6 +25,7 @@ import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 public class Instances {
 
@@ -84,7 +86,8 @@ public class Instances {
 			instances.put(projectName, list);
 			logger.info(String.format("%s -> %s instances", StringUtils.rightPad(projectName, 12), StringUtils.leftPad(list.size() + "", 2)));
 		}
-		for (String key : instances.keySet()) {
+		SortedSet<String> keys = Sets.newTreeSet(instances.keySet());
+		for (String key : keys) {
 			List<Instance> list = instances.get(key);
 			List<Instance> filtered = filter(list);
 			Collections.sort(filtered, new InstanceComparator());
