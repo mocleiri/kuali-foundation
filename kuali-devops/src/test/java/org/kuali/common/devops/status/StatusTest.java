@@ -242,7 +242,7 @@ public class StatusTest {
 				}
 			}
 		} catch (Exception e) {
-			logger.warn(String.format("error getting java version -> [%s]", fqdn));
+			logger.warn(String.format("error getting java version -> [%s]", location));
 		}
 		return "na";
 	}
@@ -262,7 +262,7 @@ public class StatusTest {
 				}
 			}
 		} catch (Exception e) {
-			logger.warn(String.format("error getting tomcat version -> [%s]", fqdn));
+			logger.warn(String.format("error getting tomcat version -> [%s]", location));
 		}
 		return "na";
 	}
