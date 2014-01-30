@@ -1,6 +1,7 @@
 package org.kuali.common.devops.status;
 
 import static com.google.common.base.Preconditions.checkState;
+import static java.lang.String.format;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,6 +49,7 @@ public class StatusTest {
 	@Test
 	public void test() {
 		try {
+			long start = System.currentTimeMillis();
 			Map<String, String> fqdns = Fqdns.getMap();
 			Map<String, List<Instance>> instances = Instances.getMap();
 			List<AwsRecord> records = Instances.getRecords(instances);
@@ -55,6 +57,8 @@ public class StatusTest {
 			for (Environment env : envs) {
 				fillIn(env);
 			}
+			long elapsed = System.currentTimeMillis() - start;
+			logger.info(format("elapsed -> %s", FormatUtils.getTime(elapsed)));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
