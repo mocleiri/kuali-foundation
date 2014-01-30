@@ -13,7 +13,7 @@ public enum Credentials {
 
 	private Credentials(String apiKey, String secretKey) {
 		Assert.noBlanks(apiKey, secretKey);
-		this.credentials = new DNSMadeEasyCredentials(apiKey, secretKey);
+		this.credentials = DNSMadeEasyCredentials.create(apiKey, secretKey);
 	}
 
 	public DNSMadeEasyCredentials getCredentials() {
