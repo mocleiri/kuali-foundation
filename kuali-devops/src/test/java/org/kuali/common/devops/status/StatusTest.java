@@ -275,9 +275,10 @@ public class StatusTest {
 			String location = getProjectPropertiesPath(fqdn, bundleSymbolicName.get());
 			Properties properties = PropertyUtils.loadOrCreateSilently(location);
 			String revision = manifest.get("SVN-Revision");
-			if (revision != null) {
-				properties.setProperty("project.scm.revision", revision);
+			if (revision == null) {
+				revision = "na";
 			}
+			properties.setProperty("project.scm.revision", revision);
 			return properties;
 		}
 	}
