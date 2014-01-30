@@ -27,7 +27,7 @@ public class Instances {
 
 	private static final Logger logger = LoggerUtils.make();
 
-	protected static List<AwsRecord> getRecords(Map<String, List<Instance>> instances) {
+	public static List<AwsRecord> getRecords(Map<String, List<Instance>> instances) {
 		List<AwsRecord> records = Lists.newArrayList();
 		for (String project : instances.keySet()) {
 			List<Instance> envs = instances.get(project);
