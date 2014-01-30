@@ -149,6 +149,7 @@ public class StatusTest {
 		// 2014-01-06T21:23:15.299+0000: 0.957: [GC
 		long startup = getTomcatStartupTime(fqdn, PARSER);
 		Tomcat tomcat = new Tomcat();
+		tomcat.setVersion(version);
 		if (startup != -1) {
 			tomcat.setStartup(PARSER.format(new Date(startup)));
 			String uptime = FormatUtils.getTime(System.currentTimeMillis() - startup);
@@ -163,8 +164,6 @@ public class StatusTest {
 			tomcat.setStartup("na");
 			tomcat.setUptime("na");
 		}
-
-		tomcat.setVersion(version);
 		return tomcat;
 	}
 
