@@ -333,7 +333,7 @@ public class StatusTest {
 				map.put(key, value);
 			}
 		} catch (IOException e) {
-			logger.warn(String.format("cannot getting manifest -> [%s]", location));
+			logger.warn(String.format("error getting manifest -> [%s]", location));
 		} finally {
 			IOUtils.closeQuietly(in);
 		}
