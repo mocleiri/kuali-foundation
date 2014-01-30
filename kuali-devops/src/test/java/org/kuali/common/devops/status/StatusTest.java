@@ -123,6 +123,7 @@ public class StatusTest {
 			String safe = Str.flatten(value, "${cr}", "${lf}").replace(",", "${comma}").replace("|", "${pipe}");
 			sb.append(key + "=" + safe + "|");
 		}
+		sb.substring(0, sb.length() - 1); // Remove the trailing "|"
 		return sb.toString();
 	}
 
