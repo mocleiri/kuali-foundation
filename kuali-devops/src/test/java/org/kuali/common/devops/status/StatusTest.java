@@ -44,7 +44,7 @@ public class StatusTest {
 			// List<Environment> envs = merge(records, fqdns);
 			// logger.info("Located {} managed environments", envs.size());
 			String fqdn = "env1.ks.kuali.org";
-			Map<String, String> manifest = getManifestAttributes(fqdn);
+			Map<String, String> manifest = getManifest(fqdn);
 			Properties properties = getProjectProperties(fqdn, manifest);
 			String revision = manifest.get("SVN-Revision");
 			if (revision != null) {
@@ -108,7 +108,7 @@ public class StatusTest {
 		return sb.toString();
 	}
 
-	protected Map<String, String> getManifestAttributes(String fqdn) {
+	protected Map<String, String> getManifest(String fqdn) {
 		String protocol = "http://";
 		String fragment = "/tomcat/webapps/ROOT/META-INF/MANIFEST.MF";
 		String location = protocol + fqdn + fragment;
