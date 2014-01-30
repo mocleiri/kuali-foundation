@@ -74,6 +74,7 @@ public class StatusTest {
 
 	protected void write(List<Environment> envs) throws IOException {
 		List<String> lines = Lists.newArrayList();
+		lines.add("group,env,fqdn,type,java,tomcat,start,uptime,groupId,artifactId,version,properties");
 		for (Environment env : envs) {
 			lines.add(asCSV(env));
 		}
