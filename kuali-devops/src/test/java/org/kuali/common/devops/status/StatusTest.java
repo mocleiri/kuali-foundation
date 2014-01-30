@@ -49,7 +49,7 @@ public class StatusTest {
 	private static final Splitter SPLITTER = Splitter.on('.');
 	private static final Joiner JOINER = Joiner.on(',');
 	private static final Splitter LINE_SPLITTER = Splitter.on('\n');
-	private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
+	private static final SimpleDateFormat PARSER = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
 
 	private static final Logger logger = LoggerUtils.make();
 
@@ -147,10 +147,10 @@ public class StatusTest {
 	protected Tomcat getTomcat(String fqdn) {
 		String version = getTomcatVersion(fqdn);
 		// 2014-01-06T21:23:15.299+0000: 0.957: [GC
-		long startup = getTomcatStartupTime(fqdn, SDF);
+		long startup = getTomcatStartupTime(fqdn, PARSER);
 		Tomcat tomcat = new Tomcat();
 		if (startup != -1) {
-			tomcat.setStartup(SDF.format(new Date(startup)));
+			tomcat.setStartup(PARSER.format(new Date(startup)));
 			String uptime = FormatUtils.getTime(System.currentTimeMillis() - startup);
 			int pos = uptime.indexOf('.');
 			if (pos != -1) {
