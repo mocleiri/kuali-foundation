@@ -151,7 +151,7 @@ public class StatusTest {
 		Tomcat tomcat = new Tomcat();
 		tomcat.setVersion(version);
 		if (startup != -1) {
-			tomcat.setStartup(PARSER.format(new Date(startup)));
+			tomcat.setStartup(new Date(startup).toString());
 			String uptime = FormatUtils.getTime(System.currentTimeMillis() - startup);
 			int pos = uptime.indexOf('.');
 			if (pos != -1) {
