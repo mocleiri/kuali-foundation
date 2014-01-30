@@ -67,12 +67,12 @@ public class Instances {
 				}
 			}
 			instances.put(projectName, list);
-			logger.info(String.format("%s -> %s instances", StringUtils.rightPad(projectName, 12), list.size()));
+			logger.info(String.format("%s -> %s instances", StringUtils.rightPad(projectName, 12), StringUtils.leftPad(list.size() + "", 2)));
 		}
 		for (String key : instances.keySet()) {
 			List<Instance> list = instances.get(key);
 			List<Instance> filtered = filter(list);
-			logger.info(String.format("%s -> %s environments", StringUtils.rightPad(key, 12), filtered.size()));
+			logger.info(String.format("%s -> %s environments", StringUtils.rightPad(key, 12), StringUtils.leftPad(filtered.size() + "", 2)));
 			instances.put(key, filtered);
 		}
 		return instances;
