@@ -15,15 +15,11 @@
  */
 package org.kuali.common.dns.dnsme.model;
 
-import org.kuali.common.util.Assert;
+import static com.google.common.base.Preconditions.checkArgument;
+
+import org.apache.commons.lang3.StringUtils;
 
 public final class DNSMadeEasyCredentials {
-
-	public DNSMadeEasyCredentials(String apiKey, String secretKey) {
-		Assert.noBlanks(apiKey, secretKey);
-		this.apiKey = apiKey;
-		this.secretKey = secretKey;
-	}
 
 	private final String apiKey;
 	private final String secretKey;
@@ -34,6 +30,54 @@ public final class DNSMadeEasyCredentials {
 
 	public String getSecretKey() {
 		return secretKey;
+	}
+
+	private DNSMadeEasyCredentials(Builder builder) {
+		this.apiKey = builder.apiKey;
+		this.secretKey = builder.secretKey;
+	}
+
+	public static class Builder {
+
+		private String apiKey;
+		private String secretKey;
+
+		public Builder apiKey(String apiKey) {
+			this.apiKey = apiKey;
+			return this;
+		}
+
+		public Builder secretKey(String secretKey) {
+			this.secretKey = secretKey;
+			return this;
+		}
+
+		public DNSMadeEasyCredentials build() {
+			DNSMadeEasyCredentials instance = new DNSMadeEasyCredentials(this);
+			validate(instance);
+			return instance;
+		}
+
+		private static void validate(DNSMadeEasyCredentials instance) {
+			checkArgument(!StringUtils.isBlank(instance.apiKey), "'apiKey' cannot be blank");
+			checkArgument(!StringUtils.isBlank(instance.secretKey), "'secretKey' cannot be blank");
+		}
+
+		public String getApiKey() {
+			return apiKey;
+		}
+
+		public void setApiKey(String apiKey) {
+			this.apiKey = apiKey;
+		}
+
+		public String getSecretKey() {
+			return secretKey;
+		}
+
+		public void setSecretKey(String secretKey) {
+			this.secretKey = secretKey;
+		}
 	}
 
 }
