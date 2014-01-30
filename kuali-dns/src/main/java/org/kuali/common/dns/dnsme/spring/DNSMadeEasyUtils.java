@@ -17,7 +17,8 @@ public class DNSMadeEasyUtils {
 	private static final String URL_KEY = "dnsme.url";
 	private static final String DOMAIN_KEY = "dnsme.domain";
 
-	private static final DNSMadeEasyServiceContext NONE = new DNSMadeEasyServiceContext(new DNSMadeEasyCredentials(NullUtils.NONE, NullUtils.NONE), URLS.PRODUCTION, NullUtils.NONE);
+	private static final DNSMadeEasyServiceContext NONE = new DNSMadeEasyServiceContext(DNSMadeEasyCredentials.create(NullUtils.NONE, NullUtils.NONE), URLS.PRODUCTION,
+			NullUtils.NONE);
 
 	public static DnsService getService(EnvironmentService env, EncryptionService enc) {
 		DNSMadeEasyServiceContext context = getServiceContext(env, enc, NONE);
@@ -33,7 +34,7 @@ public class DNSMadeEasyUtils {
 		if (EncUtils.isEncrypted(secretKey)) {
 			secretKey = enc.decrypt(secretKey);
 		}
-		DNSMadeEasyCredentials credentials = new DNSMadeEasyCredentials(apiKey, secretKey);
+		DNSMadeEasyCredentials credentials = DNSMadeEasyCredentials.create(apiKey, secretKey);
 		return new DNSMadeEasyServiceContext(credentials, url, domainName);
 	}
 }
