@@ -54,6 +54,7 @@ public class MergeTest {
 
 	protected List<String> getLines(List<Environment> envs) {
 		List<String> lines = Lists.newArrayList();
+		lines.add("project,env,fqdn,type");
 		for (Environment env : envs) {
 			lines.add(getLine(env));
 		}
