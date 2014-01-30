@@ -16,6 +16,7 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.kuali.common.devops.util.AwsRecord;
 import org.kuali.common.devops.util.Environment;
+import org.kuali.common.util.Encodings;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
@@ -33,6 +34,7 @@ import com.google.common.collect.Sets;
 public class StatusTest {
 
 	private static final Splitter SPLITTER = Splitter.on('.');
+	private static final Splitter LINE_SPLITTER = Splitter.on('\n');
 
 	private static final Logger logger = LoggerUtils.make();
 
@@ -50,12 +52,56 @@ public class StatusTest {
 			Project project = ProjectUtils.getProject(properties);
 			String tomcat = getTomcatVersion(fqdn);
 			String java = getJavaVersion(fqdn);
+			long startup = getTomcatStartupTime(fqdn);
 			logger.info(project.getGroupId() + ":" + project.getArtifactId() + ":" + project.getVersion());
-			logger.info(String.format("tomcat -> %s", tomcat));
-			logger.info(String.format("java   -> %s", java));
+			logger.info(String.format("tomcat  -> %s", tomcat));
+			logger.info(String.format("java    -> %s", java));
+			logger.info(String.format("startup -> %s", startup));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected long getTomcatStartupTime(String fqdn) {
+		String protocol = "http://";
+		String fragment = "/tomcat/logs/heap.log";
+		String location = protocol + fqdn + fragment;
+		String partial = read(location, 1024 * 5);
+		String gc = StringUtils.substringBetween(partial, "{", "}");
+		List<String> lines = LINE_SPLITTER.splitToList(gc);
+		for (String line : lines) {
+			if (line.startsWith("201")) {
+				logger.info(line);
+				break;
+			}
+		}
+		return 0;
+	}
+
+	protected String read(String location, int maxBytes) {
+		InputStream in = null;
+		StringBuilder sb = new StringBuilder();
+		try {
+			in = LocationUtils.getInputStream(location);
+			byte[] buffer = new byte[1024];
+			int len = -1;
+			len = in.read(buffer);
+			int total = len;
+			while (len != -1) {
+				String string = new String(buffer, 0, len, Encodings.UTF8);
+				sb.append(string);
+				len = in.read(buffer);
+				total += len;
+				if (total > maxBytes) {
+					break;
+				}
+			}
+		} catch (IOException e) {
+			logger.warn(String.format("error reading -> [%s]", location));
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+		return sb.toString();
 	}
 
 	protected String getJavaVersion(String fqdn) {
