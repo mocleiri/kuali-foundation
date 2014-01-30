@@ -4,6 +4,9 @@ import static com.google.common.base.Preconditions.checkState;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -17,6 +20,7 @@ import org.junit.Test;
 import org.kuali.common.devops.util.AwsRecord;
 import org.kuali.common.devops.util.Environment;
 import org.kuali.common.util.Encodings;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
@@ -52,30 +56,48 @@ public class StatusTest {
 			Project project = ProjectUtils.getProject(properties);
 			String tomcat = getTomcatVersion(fqdn);
 			String java = getJavaVersion(fqdn);
-			long startup = getTomcatStartupTime(fqdn);
+			// 2014-01-06T21:23:15.299+0000: 0.957: [GC
+			SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
+			long startup = getTomcatStartupTime(fqdn, parser);
 			logger.info(project.getGroupId() + ":" + project.getArtifactId() + ":" + project.getVersion());
 			logger.info(String.format("tomcat  -> %s", tomcat));
 			logger.info(String.format("java    -> %s", java));
-			logger.info(String.format("startup -> %s", startup));
+			logger.info(String.format("startup -> %s", new Date(startup)));
+			logger.info(String.format("uptime  -> %s", FormatUtils.getTime(System.currentTimeMillis() - startup)));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected long getTomcatStartupTime(String fqdn) {
+	protected long getTomcatStartupTime(String fqdn, SimpleDateFormat sdf) {
+		Optional<String> string = getTomcatStartupString(fqdn);
+		if (!string.isPresent()) {
+			return -1;
+		}
+		String s = string.get();
+		int pos = s.indexOf(' ');
+		String time = s.substring(0, pos - 1);
+		try {
+			Date date = sdf.parse(time);
+			return date.getTime();
+		} catch (ParseException e) {
+			throw new IllegalStateException(String.format("Unexpected date parse error -> [%s]", time));
+		}
+	}
+
+	protected Optional<String> getTomcatStartupString(String fqdn) {
 		String protocol = "http://";
 		String fragment = "/tomcat/logs/heap.log";
 		String location = protocol + fqdn + fragment;
-		String partial = read(location, 1024);
+		String partial = read(location, 4096);
 		String gc = StringUtils.substringBetween(partial, "{", "}");
 		List<String> lines = LINE_SPLITTER.splitToList(gc);
 		for (String line : lines) {
 			if (line.startsWith("201")) { // This will work for the next 6 years :)
-				logger.info(line);
-				break;
+				return Optional.of(line);
 			}
 		}
-		return 0;
+		return Optional.absent();
 	}
 
 	protected String read(String location, int maxBytes) {
@@ -83,18 +105,16 @@ public class StatusTest {
 		StringBuilder sb = new StringBuilder();
 		try {
 			in = LocationUtils.getInputStream(location);
-			byte[] buffer = new byte[1024];
+			byte[] buffer = new byte[4096];
 			int len = -1;
 			len = in.read(buffer);
-			int total = len;
 			while (len != -1) {
 				String string = new String(buffer, 0, len, Encodings.UTF8);
 				sb.append(string);
-				len = in.read(buffer);
-				total += len;
-				if (total >= maxBytes) {
+				if (sb.length() >= maxBytes) {
 					break;
 				}
+				len = in.read(buffer);
 			}
 		} catch (IOException e) {
 			logger.warn(String.format("error reading -> [%s]", location));
