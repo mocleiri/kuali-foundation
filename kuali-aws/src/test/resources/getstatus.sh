@@ -5,8 +5,8 @@
 #
 # file.env contains FQDNs of servers/urls to scan.
 # ie:
-# env1.rice.kuali.edu
-# env2.rice.kuali.edu
+# env1.rice.kuali.org
+# env2.rice.kuali.org
 #
 # getstatus.sh will output to a csv file the following:
 # Number,URL,BuildVersion,BuildName,JDKversion,DBvendor,DBusername,BuildDate,Status
