@@ -67,7 +67,7 @@ public class Instances {
 			}
 			String projectName = getProjectName(credentials.getAWSAccessKeyId());
 			instances.put(projectName, list);
-			logger.debug(String.format("Located %s instances for %s", list.size(), projectName));
+			logger.info(String.format("%s -> %s instances", StringUtils.rightPad(projectName, 12), list.size()));
 		}
 		for (String key : instances.keySet()) {
 			List<Instance> list = instances.get(key);
