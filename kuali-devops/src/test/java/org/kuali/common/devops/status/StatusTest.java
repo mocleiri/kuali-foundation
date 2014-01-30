@@ -22,7 +22,7 @@ public class StatusTest {
 			Map<String, List<Instance>> instances = Instances.getMap();
 			List<AwsRecord> records = Instances.getRecords(instances);
 			logger.info("Located {} records", records.size());
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
