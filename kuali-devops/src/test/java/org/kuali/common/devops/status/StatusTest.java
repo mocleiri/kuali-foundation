@@ -51,14 +51,14 @@ public class StatusTest {
 			// List<Environment> envs = merge(records, fqdns);
 			// logger.info("Located {} managed environments", envs.size());
 			String fqdn = "env1.ks.kuali.org";
-			Map<String, String> manifest = getManifest(fqdn);
-			Properties properties = getProjectProperties(fqdn, manifest);
-			Project project = ProjectUtils.getProject(properties);
 			String tomcat = getTomcatVersion(fqdn);
 			String java = getJavaVersion(fqdn);
 			// 2014-01-06T21:23:15.299+0000: 0.957: [GC
 			SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
 			long startup = getTomcatStartupTime(fqdn, parser);
+			Map<String, String> manifest = getManifest(fqdn);
+			Properties properties = getProjectProperties(fqdn, manifest);
+			Project project = ProjectUtils.getProject(properties);
 			logger.info(project.getGroupId() + ":" + project.getArtifactId() + ":" + project.getVersion());
 			logger.info(String.format("tomcat  -> %s", tomcat));
 			logger.info(String.format("java    -> %s", java));
@@ -69,7 +69,7 @@ public class StatusTest {
 		}
 	}
 
-	protected long getTomcatStartupTime(String fqdn, SimpleDateFormat sdf) {
+	protected long getTomcatStartupTime(String fqdn, SimpleDateFormat parser) {
 		Optional<String> string = getTomcatStartupString(fqdn);
 		if (!string.isPresent()) {
 			return -1;
@@ -78,10 +78,10 @@ public class StatusTest {
 		int pos = s.indexOf(' ');
 		String time = s.substring(0, pos - 1);
 		try {
-			Date date = sdf.parse(time);
+			Date date = parser.parse(time);
 			return date.getTime();
 		} catch (ParseException e) {
-			throw new IllegalStateException(String.format("Unexpected date parse error -> [%s]", time));
+			throw new IllegalStateException(String.format("date parse error -> [%s]", time), e);
 		}
 	}
 
