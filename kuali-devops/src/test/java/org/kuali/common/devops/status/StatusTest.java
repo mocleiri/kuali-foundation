@@ -41,7 +41,7 @@ public class StatusTest {
 		DnsRecordSearchCriteria criteria = new DnsRecordSearchCriteria(DnsRecordType.CNAME);
 		List<DnsRecord> records = dns.getRecords(criteria);
 		logger.info(String.format("Located %s dns records for [%s]", records.size(), DOMAIN));
-		Map<String, String> map = Maps.newHashMap();
+		Map<String, String> map = Maps.newTreeMap();
 		for (DnsRecord record : records) {
 			String key = record.getValue();
 			if (key.endsWith(".")) {
