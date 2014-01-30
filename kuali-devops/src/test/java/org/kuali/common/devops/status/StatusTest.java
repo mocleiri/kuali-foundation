@@ -12,6 +12,7 @@ import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.kuali.common.devops.util.AwsRecord;
 import org.kuali.common.devops.util.Environment;
@@ -52,9 +53,27 @@ public class StatusTest {
 			}
 			Project project = ProjectUtils.getProject(properties);
 			logger.info(project.getGroupId() + ":" + project.getArtifactId() + ":" + project.getVersion());
+			String tomcat = getTomcatVersion(fqdn);
+			logger.info(String.format("tomcat -> %s", tomcat));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected String getTomcatVersion(String fqdn) {
+		String protocol = "http://";
+		String fragment = "/tomcat/RELEASE-NOTES";
+		String location = protocol + fqdn + fragment;
+		List<String> lines = LocationUtils.readLines(location);
+		String token = "Apache Tomcat Version";
+		for (String line : lines) {
+			if (line.contains(token)) {
+				int pos = line.indexOf(token) + token.length();
+				String version = line.substring(pos);
+				return StringUtils.trim(version);
+			}
+		}
+		return "unknown";
 	}
 
 	protected Properties getProjectProperties(String fqdn, Map<String, String> manifest) {
