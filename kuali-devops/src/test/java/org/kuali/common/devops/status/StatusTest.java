@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.SortedSet;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
@@ -15,14 +16,22 @@ import org.junit.Test;
 import org.kuali.common.devops.util.AwsRecord;
 import org.kuali.common.devops.util.Environment;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.log.LoggerUtils;
+import org.kuali.common.util.project.ProjectUtils;
+import org.kuali.common.util.project.model.Project;
 import org.slf4j.Logger;
 
+import com.google.common.base.Optional;
+import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 public class StatusTest {
+
+	private static final Splitter SPLITTER = Splitter.on('.');
 
 	private static final Logger logger = LoggerUtils.make();
 
@@ -35,10 +44,68 @@ public class StatusTest {
 			// List<Environment> envs = merge(records, fqdns);
 			// logger.info("Located {} managed environments", envs.size());
 			String fqdn = "env1.ks.kuali.org";
-			Map<String, String> map = getManifestAttributes(fqdn);
+			Map<String, String> manifest = getManifestAttributes(fqdn);
+			Properties properties = getProjectProperties(fqdn, manifest);
+			String revision = manifest.get("SVN-Revision");
+			if (revision != null) {
+				properties.setProperty("project.scm.revision", revision);
+			}
+			Project project = ProjectUtils.getProject(properties);
+			logger.info(project.getGroupId() + ":" + project.getArtifactId() + ":" + project.getVersion());
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected Properties getProjectProperties(String fqdn, Map<String, String> manifest) {
+		Optional<String> bundleSymbolicName = Optional.fromNullable(manifest.get("Bundle-SymbolicName"));
+		if (!bundleSymbolicName.isPresent()) {
+			return new Properties();
+		} else {
+			String location = getProjectPropertiesPath(fqdn, bundleSymbolicName.get());
+			return PropertyUtils.loadOrCreateSilently(location);
+		}
+	}
+
+	protected String getProjectPropertiesPath(String fqdn, String bundleSymbolicName) {
+		String protocol = "http://";
+		String fragment = "/tomcat/webapps/ROOT/WEB-INF/classes/META-INF";
+		String groupId = getGroupId(bundleSymbolicName);
+		String artifactId = getArtifactId(bundleSymbolicName);
+		String filename = "project.properties";
+		StringBuilder sb = new StringBuilder();
+		sb.append(protocol);
+		sb.append(fqdn);
+		sb.append(fragment);
+		sb.append("/");
+		sb.append(Str.getPath(groupId));
+		sb.append("/");
+		sb.append(artifactId);
+		sb.append("/");
+		sb.append(filename);
+		return sb.toString();
+	}
+
+	protected String getArtifactId(String bundleSymbolicName) {
+		List<String> tokens = SPLITTER.splitToList(bundleSymbolicName);
+		return tokens.get(tokens.size() - 1);
+	}
+
+	protected String getGroupId(String bundleSymbolicName) {
+		List<String> tokens = SPLITTER.splitToList(bundleSymbolicName);
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < tokens.size() - 1; i++) {
+			if (i != 0) {
+				sb.append(".");
+			}
+			String token = tokens.get(i);
+			sb.append(token);
+			// Make sure to shorten "org.kuali.student.web" -> "org.kuali.student"
+			if (token.equals("student")) {
+				break;
+			}
+		}
+		return sb.toString();
 	}
 
 	protected Map<String, String> getManifestAttributes(String fqdn) {
