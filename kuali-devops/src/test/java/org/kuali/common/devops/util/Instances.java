@@ -2,6 +2,8 @@ package org.kuali.common.devops.util;
 
 import static com.google.common.base.Preconditions.checkState;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,19 @@ import com.google.common.collect.Maps;
 public class Instances {
 
 	private static final Logger logger = LoggerUtils.make();
+
+	private static class InstanceComparator implements Comparator<Instance> {
+
+		@Override
+		public int compare(Instance one, Instance two) {
+			Tag t1 = getRequiredTag(one, "Name");
+			Tag t2 = getRequiredTag(two, "Name");
+			Integer i1 = Integer.parseInt(t1.getValue().substring(3));
+			Integer i2 = Integer.parseInt(t2.getValue().substring(3));
+			return Double.compare(i1, i2);
+		}
+
+	}
 
 	public static List<AwsRecord> getRecords(Map<String, List<Instance>> instances) {
 		List<AwsRecord> records = Lists.newArrayList();
@@ -72,6 +87,7 @@ public class Instances {
 		for (String key : instances.keySet()) {
 			List<Instance> list = instances.get(key);
 			List<Instance> filtered = filter(list);
+			Collections.sort(filtered, new InstanceComparator());
 			logger.info(String.format("%s -> %s environments", StringUtils.rightPad(key, 12), StringUtils.leftPad(filtered.size() + "", 2)));
 			instances.put(key, filtered);
 		}
