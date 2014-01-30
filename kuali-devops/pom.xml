@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>3.3.30</version>
+    <version>3.3.43</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-devops</artifactId>
@@ -35,7 +35,6 @@
     <url>https://svn.kuali.org/repos/foundation/trunk/kuali-devops</url>
   </scm>
   <properties>
-    <kuali-util.version>4.4.8-SNAPSHOT</kuali-util.version>
     <kuali-aws.version>1.0.0-SNAPSHOT</kuali-aws.version>
     <kuali-dns.version>1.0.0-SNAPSHOT</kuali-dns.version>
     <junit.version>4.11</junit.version>

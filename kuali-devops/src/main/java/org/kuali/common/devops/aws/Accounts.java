@@ -6,8 +6,6 @@ import java.util.Map;
 import org.kuali.common.aws.model.AwsAccount;
 import org.kuali.common.util.Assert;
 
-import com.google.common.base.Optional;
-
 public enum Accounts {
 
 	FOUNDATION("foundation", "3627-3510-8948", "The Kuali Foundation Inc."), //
@@ -19,7 +17,7 @@ public enum Accounts {
 
 	private Accounts(String name, String accountNumber, String description) {
 		Assert.noBlanks(name, accountNumber, description);
-		this.account = new AwsAccount(name, accountNumber, Optional.of(description));
+		this.account = new AwsAccount.Builder(name, accountNumber).description(description).build();
 	}
 
 	public AwsAccount getAccount() {

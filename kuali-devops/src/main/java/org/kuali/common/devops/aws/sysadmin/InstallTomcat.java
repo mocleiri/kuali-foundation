@@ -63,7 +63,7 @@ public final class InstallTomcat implements Executable {
 			ChannelContext cc = context.getContext();
 			channel = service.openChannel(cc);
 
-			String command = "yum --assumeyes " + context.getPackageName();
+			String command = "yum --assumeyes " + null; // context.getPackageName();
 			channel.exec(command);
 
 		} catch (IOException e) {
@@ -75,7 +75,7 @@ public final class InstallTomcat implements Executable {
 	}
 
 	protected void customizeTomcat(SecureChannel channel) {
-		String installDir = context.getSharedDir() + "/" + context.getPackageName();
+		String installDir = context.getSharedDir() + "/" + null; // context.getPackageName();
 
 		// Add, update, and delete configuration files as needed (server.xml, web.xml, cleanup.sh, forced-shutdown.sh, custom JSP's, etc)
 		List<FileResource> deployables = TomcatConfig.getDeployables(installDir, context.getVersion().getValue());
