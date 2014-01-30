@@ -139,9 +139,6 @@ public class StatusTest {
 				return props;
 			}
 			List<String> propTokens = EQUALS_SPLITTER.splitToList(element);
-			if (propTokens.size() != 2) {
-				System.out.println("wtf!!!");
-			}
 			checkArgument(propTokens.size() == 2, "Must always be exactly 2 tokens");
 			String key = propTokens.get(0);
 			String value = propTokens.get(1);
