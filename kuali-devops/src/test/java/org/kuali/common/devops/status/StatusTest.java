@@ -119,9 +119,8 @@ public class StatusTest {
 		SortedSet<String> keys = Sets.newTreeSet(properties.stringPropertyNames());
 		for (String key : keys) {
 			String value = properties.getProperty(key);
-			String flattened = Str.flatten(value);
-			String safe = flattened.replace(",", "${comma}");
-			sb.append(key + "=" + safe);
+			String safe = Str.flatten(value, "${cr}", "${lf}").replace(",", "${comma}").replace("|", "${pipe}");
+			sb.append(key + "=" + safe + "|");
 		}
 		return sb.toString();
 	}
