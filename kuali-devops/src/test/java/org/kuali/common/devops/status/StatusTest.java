@@ -130,7 +130,7 @@ public class StatusTest {
 	}
 
 	protected String inflate(String s) {
-		return s.replace("${cr}", "\r").replace("${lf}", "\n").replace("${comma}", ",");
+		return s.replace("${cr}", "\r").replace("${lf}", "\n").replace("${comma}", ",").replace("${pipe}", "|");
 	}
 
 	protected Tomcat getTomcat(List<String> tokens) {
