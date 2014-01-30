@@ -22,7 +22,7 @@ public class Fqdns {
 	private static final String DOMAIN = "kuali.org";
 
 	/**
-	 * The keys are the jacked up Amazon FQDN's, the values are friendly alias FQDN's from DNSME.
+	 * The keys are the jacked up Amazon FQDN's, the values are friendly FQDN's from DNSME.
 	 */
 	public static Map<String, String> getMap() {
 		DNSMadeEasyServiceContext context = new DNSMadeEasyServiceContext(Auth.getDnsmeCredentials(), URLS.PRODUCTION, DOMAIN);
