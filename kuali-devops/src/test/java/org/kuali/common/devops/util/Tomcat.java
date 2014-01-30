@@ -1,6 +1,10 @@
 package org.kuali.common.devops.util;
 
-public class Tomcat {
+import java.io.Serializable;
+
+public class Tomcat implements Serializable {
+
+	private static final long serialVersionUID = 883317421109808807L;
 
 	String version;
 	String startup;
