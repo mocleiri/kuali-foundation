@@ -67,11 +67,11 @@ public class Instances {
 	}
 
 	public static Map<String, List<Instance>> getMap() {
-		List<AWSCredentials> creds = Auth.getCredentials();
+		Map<String, AWSCredentials> creds = Credentials.asMap();
 		logger.info(String.format("Using %s sets of AWS credentials", creds.size()));
 		WaitService ws = new DefaultWaitService();
 		Map<String, List<Instance>> instances = Maps.newTreeMap();
-		for (AWSCredentials credentials : creds) {
+		for (AWSCredentials credentials : creds.values()) {
 			String projectName = getProjectName(credentials.getAWSAccessKeyId());
 			EC2ServiceContext context = EC2ServiceContext.create(credentials);
 			EC2Service service = new DefaultEC2Service(context, ws);
