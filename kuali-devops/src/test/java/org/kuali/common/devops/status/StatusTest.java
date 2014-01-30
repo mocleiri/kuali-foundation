@@ -78,7 +78,7 @@ public class StatusTest {
 		for (Environment env : envs) {
 			lines.add(asCSV(env));
 		}
-		String path = System.getProperty("env.out", "./target/env/devops.txt");
+		String path = System.getProperty("envs.out", "./target/env/environments.txt");
 		File file = new CanonicalFile(path);
 		FileUtils.writeLines(file, lines);
 		logger.info(format("created -> %s", file));
