@@ -33,7 +33,7 @@ public class MergeTest {
 	@Test
 	public void test() {
 		try {
-			System.setProperty("dnsme.in", "/Users/jcaddel/sts/3.1.0.RELEASE/workspace/kuali-dns/target/dnsme/records.csv");
+			// System.setProperty("dnsme.in", "/Users/jcaddel/sts/3.1.0.RELEASE/workspace/kuali-dns/target/dnsme/records.csv");
 			File dnsme = new CanonicalFile(System.getProperty("dnsme.in", DNSME));
 			File aws = new CanonicalFile(System.getProperty("aws.in", AWS));
 			File kuali = new CanonicalFile(System.getProperty("kuali.out", KUALI));
