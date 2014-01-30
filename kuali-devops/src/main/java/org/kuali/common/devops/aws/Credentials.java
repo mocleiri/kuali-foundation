@@ -1,11 +1,8 @@
 package org.kuali.common.devops.aws;
 
-import java.util.Map;
-
 import org.kuali.common.util.Assert;
 
 import com.amazonaws.auth.AWSCredentials;
-import com.google.common.collect.Maps;
 
 public enum Credentials implements AWSCredentials {
 
@@ -32,14 +29,6 @@ public enum Credentials implements AWSCredentials {
 	@Override
 	public String getAWSSecretKey() {
 		return secretKey;
-	}
-
-	public static final Map<String, AWSCredentials> asMap() {
-		Map<String, AWSCredentials> map = Maps.newTreeMap();
-		for (Credentials c : values()) {
-			map.put(c.name().toLowerCase(), c);
-		}
-		return map;
 	}
 
 }

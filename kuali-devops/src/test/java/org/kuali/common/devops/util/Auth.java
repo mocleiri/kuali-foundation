@@ -1,6 +1,6 @@
 package org.kuali.common.devops.util;
 
-import java.util.List;
+import java.util.Map;
 
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.devops.aws.Credentials;
@@ -10,7 +10,7 @@ import org.kuali.common.util.enc.EncUtils;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class Auth {
 
@@ -25,19 +25,19 @@ public class Auth {
 		return DNSMadeEasyCredentials.create(apiKey, secretKey);
 	}
 
-	public static List<AWSCredentials> getCredentials() {
+	public static Map<String, AWSCredentials> getAwsCredentials() {
 		String password = Passwords.getEncPassword();
 		TextEncryptor enc = EncUtils.getTextEncryptor(password);
-		List<AWSCredentials> list = Lists.newArrayList();
-		for (AWSCredentials credentials : Credentials.values()) {
+		Map<String, AWSCredentials> map = Maps.newTreeMap();
+		for (Credentials credentials : Credentials.values()) {
 			String accessKey = credentials.getAWSAccessKeyId();
 			String secretKey = credentials.getAWSSecretKey();
 			if (EncUtils.isEncrypted(secretKey)) {
 				secretKey = enc.decrypt(EncUtils.unwrap(secretKey));
 			}
-			list.add(new BasicAWSCredentials(accessKey, secretKey));
+			map.put(credentials.name().toLowerCase(), new BasicAWSCredentials(accessKey, secretKey));
 		}
-		return list;
+		return map;
 	}
 
 }
