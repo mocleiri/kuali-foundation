@@ -59,6 +59,7 @@ public class StatusTest {
 	private static final Logger logger = LoggerUtils.make();
 
 	@Test
+	@Ignore
 	public void test1() {
 		try {
 			String path = "/Users/jcaddel/sts/3.1.0.RELEASE/workspace/kuali-devops/target/env/environments.txt";
@@ -71,7 +72,6 @@ public class StatusTest {
 	}
 
 	@Test
-	@Ignore
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
