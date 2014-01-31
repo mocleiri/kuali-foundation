@@ -144,11 +144,6 @@ public class StatusTest {
 		}
 	}
 
-	protected Properties getProperties(List<String> tokens) {
-		String psv = tokens.get(11);
-		return fromString(psv);
-	}
-
 	protected String deflate(String s) {
 		return s.replace("\r", "${cr}").replace("\n", "${lf}").replace(",", "${comma}").replace("|", "${pipe}");
 	}
