@@ -63,10 +63,14 @@ public class StatusTest {
 		try {
 			String path = "classpath:environments.txt";
 			List<Environment> envs = getEnvironments(path);
-			logger.info(format("%s envs", envs.size()));
+			info("%s envs", envs.size());
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void info(String msg, Object... args) {
+		logger.info(format(msg, args));
 	}
 
 	@Test
