@@ -12,16 +12,13 @@ import com.google.common.collect.Table;
 
 public class Environments {
 
-	public static Table<String, String, String> getTable(Environment env) {
-		Table<String, String, String> table = HashBasedTable.create();
-		table.put("row1", "col1", "a");
-		table.put("row1", "col2", "b");
-		table.put("row1", "col3", "c");
-		table.put("row1", "col4", "d");
-		table.put("row2", "col1", "1");
-		table.put("row2", "col2", "2");
-		table.put("row2", "col3", "3");
-		table.put("row2", "col4", "4");
+	public static Table<Integer, Integer, String> getTable(Environment env) {
+		Integer row = 1;
+		Table<Integer, Integer, String> table = HashBasedTable.create();
+		table.put(row, new Integer(1), env.getId());
+		table.put(row, new Integer(2), env.getFqdn());
+		table.put(row, new Integer(3), env.getJava());
+		table.put(row, new Integer(4), env.getType());
 		return table;
 	}
 
