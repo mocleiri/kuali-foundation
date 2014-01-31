@@ -2,8 +2,6 @@ package org.kuali.common.devops.util;
 
 import java.util.Comparator;
 
-import org.kuali.common.util.project.model.Project;
-
 import com.google.common.base.Optional;
 
 public class Environment implements Comparable<Environment> {
@@ -16,8 +14,7 @@ public class Environment implements Comparable<Environment> {
 	String type;
 	Tomcat tomcat;
 	String java;
-	Database database;
-	Optional<Project> application;
+	Optional<Application> application;
 
 	@Override
 	public int compareTo(Environment other) {
@@ -64,14 +61,6 @@ public class Environment implements Comparable<Environment> {
 		this.java = java;
 	}
 
-	public Optional<Project> getApplication() {
-		return application;
-	}
-
-	public void setApplication(Optional<Project> application) {
-		this.application = application;
-	}
-
 	public Tomcat getTomcat() {
 		return tomcat;
 	}
@@ -80,12 +69,12 @@ public class Environment implements Comparable<Environment> {
 		this.tomcat = tomcat;
 	}
 
-	public Database getDatabase() {
-		return database;
+	public Optional<Application> getApplication() {
+		return application;
 	}
 
-	public void setDatabase(Database database) {
-		this.database = database;
+	public void setApplication(Optional<Application> application) {
+		this.application = application;
 	}
 
 }
