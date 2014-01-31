@@ -1,5 +1,7 @@
 package org.kuali.common.devops.logic;
 
+import static java.lang.String.format;
+
 import java.util.Set;
 
 import org.kuali.common.devops.model.Environment;
@@ -31,7 +33,7 @@ public class Environments {
 			sb.append(" <tr>\n");
 			for (Object colKey : colKeys) {
 				Object value = table.get(rowKey, colKey);
-				sb.append(String.format("  <td>%s</td>", value.toString()));
+				sb.append(format("  <td>%s</td>", value.toString()));
 			}
 			sb.append(" </tr>\n");
 		}
