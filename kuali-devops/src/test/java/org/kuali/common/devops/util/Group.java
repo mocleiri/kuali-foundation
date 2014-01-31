@@ -2,10 +2,12 @@ package org.kuali.common.devops.util;
 
 import java.util.List;
 
+import com.google.common.collect.Lists;
+
 public class Group {
 
-	String name;
-	List<Environment> environments;
+	String name = "na";
+	List<Environment> environments = Lists.newArrayList();
 
 	public String getName() {
 		return name;
