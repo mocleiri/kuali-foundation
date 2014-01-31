@@ -27,8 +27,18 @@ public class Environments {
 			table.put(Integer.valueOf(row), Integer.valueOf(6), env.getTomcat().getStartup());
 			table.put(Integer.valueOf(row), Integer.valueOf(7), env.getTomcat().getUptime());
 			table.put(Integer.valueOf(row), Integer.valueOf(8), getArtifactId(env));
+			table.put(Integer.valueOf(row), Integer.valueOf(9), getVersion(env));
 		}
 		return table;
+	}
+
+	protected static String getVersion(Environment env) {
+		if (env.getApplication().isPresent()) {
+			Application app = env.getApplication().get();
+			return app.getProject().getVersion();
+		} else {
+			return "na";
+		}
 	}
 
 	protected static String getArtifactId(Environment env) {
