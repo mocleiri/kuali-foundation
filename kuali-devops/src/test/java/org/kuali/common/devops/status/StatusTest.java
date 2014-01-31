@@ -330,8 +330,7 @@ public class StatusTest {
 			StringBuilder sb = new StringBuilder();
 			in = LocationUtils.getInputStream(location);
 			byte[] buffer = new byte[4096];
-			int len = -1;
-			len = in.read(buffer);
+			int len = in.read(buffer);
 			while (len != -1) {
 				String string = new String(buffer, 0, len, Encodings.UTF8);
 				sb.append(string);
