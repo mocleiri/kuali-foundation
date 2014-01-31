@@ -69,6 +69,13 @@ public class StatusTest {
 		}
 	}
 
+	protected Properties getConfig(Environment env) {
+		String protocol = "http://";
+		String fragment = "/home/kuali/main/dev/common-config.xml";
+		String location = protocol + env.getFqdn() + fragment;
+		return new Properties();
+	}
+
 	@Test
 	@Ignore
 	public void test() {
@@ -106,7 +113,7 @@ public class StatusTest {
 		Environment env = new Environment();
 		env.setProject(tokens.get(0));
 		env.setId(tokens.get(1));
-		env.setDns(tokens.get(2));
+		env.setFqdn(tokens.get(2));
 		env.setType(tokens.get(3));
 		env.setJava(tokens.get(4));
 		// group,env,fqdn,type,java,tomcat,startup,uptime,groupId,artifactId,version,properties
@@ -178,7 +185,7 @@ public class StatusTest {
 		List<String> tokens = Lists.newArrayList();
 		tokens.add(env.getProject());
 		tokens.add(env.getId());
-		tokens.add(env.getDns());
+		tokens.add(env.getFqdn());
 		tokens.add(env.getType());
 		tokens.add(env.getJava());
 		tokens.add(env.getTomcat().getVersion());
@@ -217,8 +224,8 @@ public class StatusTest {
 	}
 
 	protected void fillIn(Environment env) {
-		logger.info(format("examining -> %s", env.getDns()));
-		String fqdn = env.getDns();
+		logger.info(format("examining -> %s", env.getFqdn()));
+		String fqdn = env.getFqdn();
 		String java = getJavaVersion(fqdn);
 		Tomcat tomcat = getTomcat(fqdn);
 		env.setTomcat(tomcat);
@@ -454,7 +461,7 @@ public class StatusTest {
 			env.setType(record.getType());
 			String fqdn = fqdns.get(record.getDns());
 			checkState(fqdn != null, "No DNSME record for %s [%s=%s]", record.getProject(), record.getEnv(), record.getDns());
-			env.setDns(fqdn);
+			env.setFqdn(fqdn);
 			envs.add(env);
 		}
 		return envs;

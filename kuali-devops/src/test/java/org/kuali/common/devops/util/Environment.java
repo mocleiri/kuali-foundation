@@ -8,7 +8,7 @@ public class Environment {
 
 	String project;
 	String id;
-	String dns;
+	String fqdn;
 	String type;
 	Tomcat tomcat;
 	String java;
@@ -31,12 +31,12 @@ public class Environment {
 		this.id = id;
 	}
 
-	public String getDns() {
-		return dns;
+	public String getFqdn() {
+		return fqdn;
 	}
 
-	public void setDns(String dns) {
-		this.dns = dns;
+	public void setFqdn(String dns) {
+		this.fqdn = dns;
 	}
 
 	public String getType() {
