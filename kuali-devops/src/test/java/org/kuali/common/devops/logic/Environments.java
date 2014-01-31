@@ -15,9 +15,8 @@ public class Environments {
 
 	public static Table<Integer, Integer, String> getTable(List<Environment> envs) {
 		Table<Integer, Integer, String> table = HashBasedTable.create();
-		for (int i = 0; i < envs.size(); i++) {
-			Environment env = envs.get(i);
-			Integer row = i;
+		for (Integer row = 0; row < envs.size(); row++) {
+			Environment env = envs.get(row);
 			table.put(row, new Integer(1), env.getId());
 			table.put(row, new Integer(2), env.getFqdn());
 			table.put(row, new Integer(3), env.getJava());
