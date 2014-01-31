@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
-public class Fqdns {
+public class DNS {
 
 	private static final Logger logger = LoggerUtils.make();
 	private static final String DOMAIN = "kuali.org";

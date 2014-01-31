@@ -23,7 +23,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.kuali.common.devops.logic.Fqdns;
+import org.kuali.common.devops.logic.DNS;
 import org.kuali.common.devops.logic.Instances;
 import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.AwsRecord;
@@ -104,7 +104,7 @@ public class StatusTest {
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
-			Map<String, String> fqdns = Fqdns.getMap();
+			Map<String, String> fqdns = DNS.getMap();
 			Map<String, List<Instance>> instances = Instances.getMap();
 			List<AwsRecord> records = Instances.getRecords(instances);
 			List<Environment> envs = merge(records, fqdns);
