@@ -5,6 +5,7 @@ import static java.lang.String.format;
 import java.util.List;
 import java.util.SortedSet;
 
+import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.Environment;
 
 import com.google.common.collect.HashBasedTable;
@@ -25,8 +26,18 @@ public class Environments {
 			table.put(Integer.valueOf(row), Integer.valueOf(5), env.getTomcat().getVersion());
 			table.put(Integer.valueOf(row), Integer.valueOf(6), env.getTomcat().getStartup());
 			table.put(Integer.valueOf(row), Integer.valueOf(7), env.getTomcat().getUptime());
+			table.put(Integer.valueOf(row), Integer.valueOf(8), getArtifactId(env));
 		}
 		return table;
+	}
+
+	protected static String getArtifactId(Environment env) {
+		if (env.getApplication().isPresent()) {
+			Application app = env.getApplication().get();
+			return app.getProject().getArtifactId();
+		} else {
+			return "na";
+		}
 	}
 
 	public static <R, C> String html(Table<? extends Comparable<R>, ? extends Comparable<C>, ?> table) {
