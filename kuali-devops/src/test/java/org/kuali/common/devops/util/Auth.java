@@ -37,6 +37,9 @@ public class Auth {
 			}
 			map.put(credentials.name().toLowerCase(), new BasicAWSCredentials(accessKey, secretKey));
 		}
+		map.remove(Credentials.FOUNDATION.name().toLowerCase());
+		map.remove(Credentials.STUDENT.name().toLowerCase());
+		map.remove(Credentials.RICE.name().toLowerCase());
 		return map;
 	}
 
