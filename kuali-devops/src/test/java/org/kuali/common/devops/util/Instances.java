@@ -1,15 +1,16 @@
 package org.kuali.common.devops.util;
 
 import static com.google.common.base.Preconditions.checkState;
+import static java.util.Collections.sort;
+import static org.apache.commons.lang3.StringUtils.leftPad;
+import static org.apache.commons.lang3.StringUtils.rightPad;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
@@ -84,14 +85,14 @@ public class Instances {
 				}
 			}
 			instances.put(projectName, list);
-			logger.info(String.format("%s -> %s instances", StringUtils.rightPad(projectName, 12), StringUtils.leftPad(list.size() + "", 2)));
+			logger.info(String.format("%s -> %s instances", rightPad(projectName, 12), leftPad(list.size() + "", 2)));
 		}
 		SortedSet<String> keys = Sets.newTreeSet(instances.keySet());
 		for (String key : keys) {
 			List<Instance> list = instances.get(key);
 			List<Instance> filtered = filter(list);
-			Collections.sort(filtered, new InstanceComparator());
-			logger.info(String.format("%s -> %s environments", StringUtils.rightPad(key, 12), StringUtils.leftPad(filtered.size() + "", 2)));
+			sort(filtered, new InstanceComparator());
+			logger.info(String.format("%s -> %s environments", rightPad(key, 12), leftPad(filtered.size() + "", 2)));
 			instances.put(key, filtered);
 		}
 		return instances;
