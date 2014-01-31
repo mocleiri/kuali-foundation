@@ -151,24 +151,7 @@ public class StatusTest {
 
 	protected Properties getProperties(List<String> tokens) {
 		String psv = tokens.get(11);
-		List<String> values = PIPE_SPLITTER.splitToList(psv);
-		List<String> list = Lists.newArrayList();
-		for (String value : values) {
-			String inflated = inflate(value);
-			list.add(inflated);
-		}
-		Properties props = new Properties();
-		for (String element : list) {
-			if (element.equals("na")) {
-				return props;
-			}
-			List<String> propTokens = EQUALS_SPLITTER.splitToList(element);
-			checkArgument(propTokens.size() == 2, "Must always be exactly 2 tokens");
-			String key = propTokens.get(0);
-			String value = propTokens.get(1);
-			props.setProperty(key, value);
-		}
-		return props;
+		return fromString(psv);
 	}
 
 	protected String deflate(String s) {
@@ -228,6 +211,27 @@ public class StatusTest {
 			tokens.add("na");
 		}
 		return tokens;
+	}
+
+	protected Properties fromString(String string) {
+		List<String> values = PIPE_SPLITTER.splitToList(string);
+		List<String> list = Lists.newArrayList();
+		for (String value : values) {
+			String inflated = inflate(value);
+			list.add(inflated);
+		}
+		Properties props = new Properties();
+		for (String element : list) {
+			if (element.equals("na")) {
+				return props;
+			}
+			List<String> propTokens = EQUALS_SPLITTER.splitToList(element);
+			checkArgument(propTokens.size() == 2, "Must always be exactly 2 tokens");
+			String key = propTokens.get(0);
+			String value = propTokens.get(1);
+			props.setProperty(key, value);
+		}
+		return props;
 	}
 
 	protected String toString(Properties properties) {
