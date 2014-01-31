@@ -21,9 +21,11 @@ import java.util.jar.Manifest;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.devops.util.Application;
 import org.kuali.common.devops.util.AwsRecord;
+import org.kuali.common.devops.util.Database;
 import org.kuali.common.devops.util.Environment;
 import org.kuali.common.devops.util.Fqdns;
 import org.kuali.common.devops.util.Instances;
@@ -64,6 +66,28 @@ public class StatusTest {
 	private static final Logger logger = LoggerUtils.make();
 
 	@Test
+	public void test1() {
+		try {
+			String path = "classpath:environments.txt";
+			List<Environment> envs = getEnvironments(path);
+			Collections.sort(envs);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
+
+	protected Database getDatabase(Environment env) {
+		if (!env.getApplication().isPresent()) {
+			return new Database();
+		}
+		Application app = env.getApplication().get();
+		Properties config = app.getConfiguration();
+		Database database = new Database();
+		return database;
+	}
+
+	@Test
+	@Ignore
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();

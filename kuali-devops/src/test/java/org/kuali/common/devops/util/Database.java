@@ -2,9 +2,9 @@ package org.kuali.common.devops.util;
 
 public class Database {
 
-	String vendor;
-	String url;
-	String username;
+	String vendor = "na";
+	String url = "na";
+	String username = "na";
 
 	public String getVendor() {
 		return vendor;
