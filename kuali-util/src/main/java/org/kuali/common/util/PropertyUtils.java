@@ -1222,7 +1222,7 @@ public class PropertyUtils {
 		logger.info("Loading Rice properties [{}] encoding={}", location, DEFAULT_XML_ENCODING);
 		String contents = LocationUtils.toString(location, DEFAULT_XML_ENCODING);
 		String config = StringUtils.substringBetween(contents, "<config>", "</config>");
-		String[] tokens = StringUtils.substringsBetween(config, "<param", "</param>");
+		String[] tokens = StringUtils.substringsBetween(config, "<param", "<param");
 
 		Properties properties = new Properties();
 		for (String token : tokens) {
