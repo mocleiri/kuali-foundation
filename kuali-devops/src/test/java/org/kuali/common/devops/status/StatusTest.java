@@ -28,7 +28,6 @@ import org.kuali.common.devops.logic.Databases;
 import org.kuali.common.devops.logic.Instances;
 import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.AwsRecord;
-import org.kuali.common.devops.model.Database;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.model.Tomcat;
 import org.kuali.common.util.Encodings;
@@ -67,29 +66,19 @@ public class StatusTest {
 	private static final Logger logger = LoggerUtils.make();
 
 	@Test
+	@Ignore
 	public void test1() {
 		try {
 			String path = "/tmp/environments.txt";
 			List<Environment> envs = getEnvironments(path);
 			Collections.sort(envs);
 			info("%s environments", envs.size());
-			Databases.update(envs);
-			for (Environment env : envs) {
-				if (env.getApplication().isPresent()) {
-					Application app = env.getApplication().get();
-					Database db = app.getDatabase();
-					if (db.getVendor() == null) {
-						System.out.println(env.getFqdn());
-					}
-				}
-			}
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Test
-	@Ignore
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
@@ -101,6 +90,7 @@ public class StatusTest {
 			for (Environment env : envs) {
 				fillIn(env);
 			}
+			Databases.update(envs);
 			long elapsed = System.currentTimeMillis() - start;
 			logger.info(format("elapsed -> %s", FormatUtils.getTime(elapsed)));
 			write(envs);
@@ -118,6 +108,7 @@ public class StatusTest {
 			Environment env = getEnvironment(line);
 			envs.add(env);
 		}
+		Databases.update(envs);
 		return envs;
 	}
 

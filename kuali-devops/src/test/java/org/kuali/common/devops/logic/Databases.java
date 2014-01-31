@@ -46,6 +46,10 @@ public class Databases {
 		String urlKey = vendor + ".dba.url";
 		String url = getProperty(config, urlKey);
 
+		if (vendor.equals("mysql")) {
+			url += "/" + username;
+		}
+
 		Database db = new Database();
 		db.setVendor(vendor);
 		db.setUsername(username);
