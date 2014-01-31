@@ -24,6 +24,7 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.devops.logic.DNS;
+import org.kuali.common.devops.logic.Databases;
 import org.kuali.common.devops.logic.Instances;
 import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.AwsRecord;
@@ -72,12 +73,7 @@ public class StatusTest {
 			List<Environment> envs = getEnvironments(path);
 			Collections.sort(envs);
 			info("%s environments", envs.size());
-			for (Environment env : envs) {
-				Optional<Database> db = getDatabase(env);
-				if (db.isPresent()) {
-					env.getApplication().get().setDatabase(db.get());
-				}
-			}
+			Databases.update(envs);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
