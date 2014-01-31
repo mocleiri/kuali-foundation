@@ -39,6 +39,7 @@ import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.project.KualiProjectConstants;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
+import org.kuali.common.util.properties.rice.RiceLoader;
 import org.slf4j.Logger;
 
 import com.amazonaws.services.ec2.model.Instance;
@@ -504,7 +505,7 @@ public class StatusTest {
 		String fragment = getConfigFragment(env);
 		String location = protocol + env.getFqdn() + fragment;
 		try {
-			return PropertyUtils.loadRiceProperties(location);
+			return RiceLoader.load(location);
 		} catch (Exception e) {
 			info("error loading [%s] -> [%s]", location, e.getMessage());
 			PROBLEMS.add(env);
