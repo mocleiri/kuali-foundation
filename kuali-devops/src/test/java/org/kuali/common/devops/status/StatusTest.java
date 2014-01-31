@@ -64,6 +64,9 @@ public class StatusTest {
 			String path = "classpath:environments.txt";
 			List<Environment> envs = getEnvironments(path);
 			info("%s envs", envs.size());
+			for (Environment env : envs) {
+				getConfig(env);
+			}
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -73,7 +76,12 @@ public class StatusTest {
 		String protocol = "http://";
 		String fragment = "/home/kuali/main/dev/common-config.xml";
 		String location = protocol + env.getFqdn() + fragment;
-		return new Properties();
+		try {
+			return PropertyUtils.loadRiceProperties(location);
+		} catch (Exception e) {
+			info("error loading [%s] -> [%s]", location, e.getMessage());
+			return new Properties();
+		}
 	}
 
 	@Test
