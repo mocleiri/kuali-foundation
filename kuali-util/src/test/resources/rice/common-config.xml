@@ -1,0 +1,52 @@
+<!--
+
+  Copyright 2004-2013 The Kuali Foundation
+
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.opensource.org/licenses/ecl2.php
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<config>
+
+  <!-- Generic URL's -->
+  <param name="appserver.url">http://tst.ole.kuali.org</param>
+  <param name="application.url">${appserver.url}</param>
+  <param name="app.context.name" />
+  <param name="app.code" />
+  <param name="keystore.file">/home/tomcat/.ssh/rice.keystore</param>
+
+  <!-- Server specific URL's -->
+  <kdo.environment>env4</kdo.environment>
+  <param name="ole.docstore.url.base">${${kdo.environment}.ole.docstore.url.base}</param>
+  <param name="ole.fs.url.base">${${kdo.environment}.ole.fs.url.base}</param>
+  <param name="ole.rice2.url.base">${${kdo.environment}.ole.rice2.url.base}</param>
+
+  <!-- Database -->
+  <param name="db.vendor">oracle</param>
+  <param name="jdbc.username">OLEENV4</param>
+  <param name="oracle.dba.url">asdfasdf</param>
+  <param name="oracle.dba.username">asdfasdfasdf</param>
+  <param name="oracle.dba.password">asdfasdfasd</param>
+  <param name="mysql.dba.url">jdbc:mysql://mysql.rice.kuali.org</param>
+  <param name="mysql.dba.username">asdfasdfad</param>
+  <param name="mysql.dba.password">adfasdfasdf</param>
+
+  <!-- Email -->
+  <param name="mail.debug">false</param>
+  <param name="mail.smtp.host">asdfasdfadf</param>
+  <param name="mail.smtp.port">465</param>
+  <param name="mail.smtp.ssl.enable">true</param>
+  <param name="mail.smtp.auth">true</param>
+  <param name="mail.smtp.username">asdfadf</param>
+  <param name="mail.smtp.password">adadfasdfadsf</param>
+
+</config>
