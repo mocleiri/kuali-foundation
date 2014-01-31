@@ -21,7 +21,6 @@ import java.util.jar.Manifest;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.devops.util.Application;
 import org.kuali.common.devops.util.AwsRecord;
@@ -63,27 +62,6 @@ public class StatusTest {
 	private static final List<Environment> PROBLEMS = Lists.newArrayList();
 
 	private static final Logger logger = LoggerUtils.make();
-
-	@Test
-	@Ignore
-	public void test1() {
-		try {
-			String path = "classpath:environments.txt";
-			List<Environment> envs = getEnvironments(path);
-			Collections.sort(envs);
-			info("%s envs", envs.size());
-			for (Environment env : envs) {
-				getConfig(env);
-			}
-			System.out.println();
-			Collections.sort(PROBLEMS);
-			for (Environment env : PROBLEMS) {
-				System.out.println(env.getFqdn());
-			}
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-	}
 
 	@Test
 	public void test() {
