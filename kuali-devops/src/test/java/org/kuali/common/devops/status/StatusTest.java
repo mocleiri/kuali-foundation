@@ -28,6 +28,7 @@ import org.kuali.common.devops.logic.Databases;
 import org.kuali.common.devops.logic.Instances;
 import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.AwsRecord;
+import org.kuali.common.devops.model.Database;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.model.Tomcat;
 import org.kuali.common.util.Encodings;
@@ -73,6 +74,15 @@ public class StatusTest {
 			Collections.sort(envs);
 			info("%s environments", envs.size());
 			Databases.update(envs);
+			for (Environment env : envs) {
+				if (env.getApplication().isPresent()) {
+					Application app = env.getApplication().get();
+					Database db = app.getDatabase();
+					if (db.getVendor() == null) {
+						System.out.println(env.getFqdn());
+					}
+				}
+			}
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
