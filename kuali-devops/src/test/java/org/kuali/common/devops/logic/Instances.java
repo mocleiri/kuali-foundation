@@ -1,4 +1,4 @@
-package org.kuali.common.devops.model;
+package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
@@ -16,6 +16,7 @@ import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.devops.aws.Credentials;
+import org.kuali.common.devops.model.AwsRecord;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitService;

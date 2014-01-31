@@ -1,4 +1,4 @@
-package org.kuali.common.devops.model;
+package org.kuali.common.devops.logic;
 
 import java.io.File;
 import java.io.IOException;

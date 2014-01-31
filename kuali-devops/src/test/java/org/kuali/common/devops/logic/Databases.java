@@ -1,6 +1,9 @@
-package org.kuali.common.devops.model;
+package org.kuali.common.devops.logic;
 
 import java.util.Properties;
+
+import org.kuali.common.devops.model.Application;
+import org.kuali.common.devops.model.Database;
 
 public class Databases {
 

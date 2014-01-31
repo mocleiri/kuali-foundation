@@ -1,4 +1,4 @@
-package org.kuali.common.devops.model;
+package org.kuali.common.devops.logic;
 
 import java.util.List;
 import java.util.Map;
