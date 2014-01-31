@@ -1,5 +1,6 @@
 package org.kuali.common.devops.util;
 
+import static java.lang.Integer.parseInt;
 import static org.apache.commons.lang.StringUtils.leftPad;
 
 import java.util.Comparator;
@@ -26,7 +27,7 @@ public class FqdnComparator implements Comparator<String> {
 	protected List<String> updateTokens(List<String> tokens) {
 		if (tokens.get(0).startsWith("env")) {
 			String token = tokens.get(0);
-			Integer integer = Integer.parseInt(token.substring(3));
+			Integer integer = parseInt(token.substring(3));
 			String padded = "env" + leftPad(integer.toString(), 10, "0");
 			tokens.set(0, padded);
 		}
