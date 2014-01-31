@@ -484,7 +484,11 @@ public class StatusTest {
 	}
 
 	public void info(String msg, Object... args) {
-		logger.info(format(msg, args));
+		if (args != null && args.length > 0) {
+			logger.info(format(msg, args));
+		} else {
+			logger.info(msg);
+		}
 	}
 
 	protected Properties getConfig(Environment env) {
