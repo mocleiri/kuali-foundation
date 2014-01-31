@@ -8,6 +8,7 @@ public class Application {
 
 	Project project;
 	Properties configuration = new Properties();
+	Database database;
 
 	public Project getProject() {
 		return project;
@@ -23,5 +24,13 @@ public class Application {
 
 	public void setConfiguration(Properties configuration) {
 		this.configuration = configuration;
+	}
+
+	public Database getDatabase() {
+		return database;
+	}
+
+	public void setDatabase(Database database) {
+		this.database = database;
 	}
 }

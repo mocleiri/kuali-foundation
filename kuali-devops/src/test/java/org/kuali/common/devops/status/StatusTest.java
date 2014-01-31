@@ -72,19 +72,31 @@ public class StatusTest {
 			List<Environment> envs = getEnvironments(path);
 			Collections.sort(envs);
 			info("%s environments", envs.size());
+			for (Environment env : envs) {
+				Optional<Database> db = getDatabase(env);
+				if (db.isPresent()) {
+					env.getApplication().get().setDatabase(db.get());
+				}
+			}
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected Database getDatabase(Environment env) {
+	protected Optional<Database> getDatabase(Environment env) {
 		if (!env.getApplication().isPresent()) {
-			return new Database();
+			return Optional.absent();
 		}
 		Application app = env.getApplication().get();
 		Properties config = app.getConfiguration();
-		Database database = new Database();
-		return database;
+		String vendor = config.getProperty("db.vendor");
+		String username = config.getProperty("datasource.username");
+		String url = config.getProperty("datasource.url");
+		Database db = new Database();
+		db.setVendor(vendor);
+		db.setUsername(username);
+		db.setUrl(url);
+		return Optional.of(db);
 	}
 
 	@Test
