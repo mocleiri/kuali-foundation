@@ -358,7 +358,7 @@ public class StatusTest {
 				}
 			}
 		} catch (Exception e) {
-			logger.warn(String.format("error getting java version -> [%s]", location));
+			logger.warn(String.format("error getting system property [%s] -> [%s]", property, location));
 		}
 		return "na";
 	}
@@ -495,7 +495,7 @@ public class StatusTest {
 			return new Properties();
 		}
 		String protocol = "http://";
-		String fragment = getConfigFragment(env.getApplication().get().getProject());
+		String fragment = getConfigFragment(env);
 		String location = protocol + env.getFqdn() + fragment;
 		try {
 			return PropertyUtils.loadRiceProperties(location);
@@ -506,10 +506,14 @@ public class StatusTest {
 		}
 	}
 
-	protected String getConfigFragment(Project project) {
+	protected String getConfigFragment(Environment env) {
+		Project project = env.getApplication().get().getProject();
 		String groupId = project.getGroupId();
 		if (groupId.equals(KualiProjectConstants.STUDENT_GROUP_ID)) {
 			return "/home/kuali/main/dev/" + project.getArtifactId() + "-config.xml";
+		} else if (groupId.equals(KualiProjectConstants.OLE_GROUP_ID)) {
+			String environment = getSystemProperty(env.getFqdn(), "environment");
+			return "/home/kuali/main/" + environment + "/common-config.xml";
 		} else {
 			return "/home/kuali/main/dev/common-config.xml";
 		}
