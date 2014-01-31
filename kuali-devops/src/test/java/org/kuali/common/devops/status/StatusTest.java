@@ -3,7 +3,6 @@ package org.kuali.common.devops.status;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 import static java.lang.String.format;
-import static org.apache.commons.lang.StringUtils.reverse;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +10,6 @@ import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -68,18 +66,13 @@ public class StatusTest {
 		try {
 			String path = "classpath:environments.txt";
 			List<Environment> envs = getEnvironments(path);
+			Collections.sort(envs);
 			info("%s envs", envs.size());
 			for (Environment env : envs) {
 				getConfig(env);
 			}
 			System.out.println();
-			Collections.sort(PROBLEMS, new Comparator<Environment>() {
-				@Override
-				public int compare(Environment one, Environment two) {
-					return reverse(one.getFqdn()).compareTo(reverse(two.getFqdn()));
-				}
-			});
-
+			Collections.sort(PROBLEMS);
 			for (Environment env : PROBLEMS) {
 				System.out.println(env.getFqdn());
 			}
