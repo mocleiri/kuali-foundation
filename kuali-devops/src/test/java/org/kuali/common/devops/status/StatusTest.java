@@ -28,7 +28,6 @@ import org.kuali.common.devops.logic.Databases;
 import org.kuali.common.devops.logic.Instances;
 import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.AwsRecord;
-import org.kuali.common.devops.model.Database;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.model.Tomcat;
 import org.kuali.common.util.Encodings;
@@ -77,22 +76,6 @@ public class StatusTest {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-	}
-
-	protected Optional<Database> getDatabase(Environment env) {
-		if (!env.getApplication().isPresent()) {
-			return Optional.absent();
-		}
-		Application app = env.getApplication().get();
-		Properties config = app.getConfiguration();
-		String vendor = config.getProperty("db.vendor");
-		String username = config.getProperty("datasource.username");
-		String url = config.getProperty("datasource.url");
-		Database db = new Database();
-		db.setVendor(vendor);
-		db.setUsername(username);
-		db.setUrl(url);
-		return Optional.of(db);
 	}
 
 	@Test
