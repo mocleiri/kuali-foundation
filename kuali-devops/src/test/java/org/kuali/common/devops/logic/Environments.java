@@ -17,10 +17,14 @@ public class Environments {
 		Table<Integer, Integer, String> table = HashBasedTable.create();
 		for (int row = 0; row < envs.size(); row++) {
 			Environment env = envs.get(row);
-			table.put(Integer.valueOf(row), Integer.valueOf(1), env.getId());
+			table.put(Integer.valueOf(row), Integer.valueOf(0), env.getProject());
+			table.put(Integer.valueOf(row), Integer.valueOf(1), env.getId().substring(3));
 			table.put(Integer.valueOf(row), Integer.valueOf(2), env.getFqdn());
 			table.put(Integer.valueOf(row), Integer.valueOf(3), env.getJava());
 			table.put(Integer.valueOf(row), Integer.valueOf(4), env.getType());
+			table.put(Integer.valueOf(row), Integer.valueOf(5), env.getTomcat().getVersion());
+			table.put(Integer.valueOf(row), Integer.valueOf(6), env.getTomcat().getStartup());
+			table.put(Integer.valueOf(row), Integer.valueOf(7), env.getTomcat().getUptime());
 		}
 		return table;
 	}
