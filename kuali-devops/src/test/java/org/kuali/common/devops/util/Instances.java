@@ -1,5 +1,6 @@
 package org.kuali.common.devops.util;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 import static java.util.Collections.sort;
 import static org.apache.commons.lang3.StringUtils.leftPad;
@@ -38,6 +39,8 @@ public class Instances {
 		public int compare(Instance one, Instance two) {
 			Tag t1 = getRequiredTag(one, "Name");
 			Tag t2 = getRequiredTag(two, "Name");
+			checkArgument(t1.getValue().startsWith("env"), "[%s] must start with 'env'", t1.getValue());
+			checkArgument(t2.getValue().startsWith("env"), "[%s] must start with 'env'", t2.getValue());
 			Integer i1 = Integer.parseInt(t1.getValue().substring(3));
 			Integer i2 = Integer.parseInt(t2.getValue().substring(3));
 			return Double.compare(i1, i2);
