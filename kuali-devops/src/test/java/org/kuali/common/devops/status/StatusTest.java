@@ -59,12 +59,10 @@ public class StatusTest {
 	private static final Logger logger = LoggerUtils.make();
 
 	@Test
-	@Ignore
 	public void test1() {
 		try {
-			String path = "/Users/jcaddel/sts/3.1.0.RELEASE/workspace/kuali-devops/target/env/environments.txt";
-			File file = new CanonicalFile(path);
-			List<Environment> envs = getEnvironments(file);
+			String path = "classpath:environments.txt";
+			List<Environment> envs = getEnvironments(path);
 			logger.info(format("%s envs", envs.size()));
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -72,6 +70,7 @@ public class StatusTest {
 	}
 
 	@Test
+	@Ignore
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
@@ -90,10 +89,10 @@ public class StatusTest {
 		}
 	}
 
-	protected List<Environment> getEnvironments(File file) throws IOException {
+	protected List<Environment> getEnvironments(String location) throws IOException {
 		List<Environment> envs = Lists.newArrayList();
-		checkState(file.exists(), "[%s] does not exist", file);
-		List<String> lines = FileUtils.readLines(file);
+		checkState(LocationUtils.exists(location), "[%s] does not exist", location);
+		List<String> lines = LocationUtils.readLines(location);
 		for (int i = 1; i < lines.size(); i++) {
 			String line = lines.get(i);
 			Environment env = getEnvironment(line);
