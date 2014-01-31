@@ -15,12 +15,12 @@ public class Environments {
 
 	public static Table<Integer, Integer, String> getTable(List<Environment> envs) {
 		Table<Integer, Integer, String> table = HashBasedTable.create();
-		for (Integer row = 0; row < envs.size(); row++) {
+		for (int row = 0; row < envs.size(); row++) {
 			Environment env = envs.get(row);
-			table.put(row, new Integer(1), env.getId());
-			table.put(row, new Integer(2), env.getFqdn());
-			table.put(row, new Integer(3), env.getJava());
-			table.put(row, new Integer(4), env.getType());
+			table.put(Integer.valueOf(row), Integer.valueOf(1), env.getId());
+			table.put(Integer.valueOf(row), Integer.valueOf(2), env.getFqdn());
+			table.put(Integer.valueOf(row), Integer.valueOf(3), env.getJava());
+			table.put(Integer.valueOf(row), Integer.valueOf(4), env.getType());
 		}
 		return table;
 	}
