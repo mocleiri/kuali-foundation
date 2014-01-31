@@ -490,8 +490,11 @@ public class StatusTest {
 	}
 
 	protected Properties getConfig(Environment env) {
+		if (!env.getApplication().isPresent()) {
+			return new Properties();
+		}
 		String protocol = "http://";
-		String fragment = "/home/kuali/main/dev/common-config.xml";
+		String fragment = getConfigFragment(env.getApplication().get().getProject());
 		String location = protocol + env.getFqdn() + fragment;
 		try {
 			return PropertyUtils.loadRiceProperties(location);
