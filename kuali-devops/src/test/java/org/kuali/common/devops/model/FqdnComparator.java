@@ -1,8 +1,6 @@
 package org.kuali.common.devops.model;
 
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
@@ -16,15 +14,13 @@ public class FqdnComparator implements Comparator<String> {
 
 	@Override
 	public int compare(String fqdn1, String fqdn2) {
-		String r1 = getReversed(fqdn1);
-		String r2 = getReversed(fqdn2);
+		String r1 = reverse(fqdn1);
+		String r2 = reverse(fqdn2);
 		return r1.compareTo(r2);
 	}
 
-	protected String getReversed(String fqdn) {
-		List<String> tokens = Lists.newArrayList((SPLITTER.split(fqdn)));
-		Collections.reverse(tokens);
-		return JOINER.join(tokens);
+	protected String reverse(String fqdn) {
+		return JOINER.join(Lists.reverse(SPLITTER.splitToList(fqdn)));
 	}
 
 }
