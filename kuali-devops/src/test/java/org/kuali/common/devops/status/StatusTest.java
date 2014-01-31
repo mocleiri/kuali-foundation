@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +58,8 @@ public class StatusTest {
 	private static final Splitter EQUALS_SPLITTER = Splitter.on('=');
 	private static final SimpleDateFormat PARSER = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
 
+	private static final List<Environment> PROBLEMS = Lists.newArrayList();
+
 	private static final Logger logger = LoggerUtils.make();
 
 	@Test
@@ -66,6 +70,17 @@ public class StatusTest {
 			info("%s envs", envs.size());
 			for (Environment env : envs) {
 				getConfig(env);
+			}
+			System.out.println();
+			Collections.sort(PROBLEMS, new Comparator<Environment>() {
+				@Override
+				public int compare(Environment one, Environment two) {
+					return StringUtils.reverse(one.getFqdn()).compareTo(StringUtils.reverse(two.getFqdn()));
+				}
+			});
+
+			for (Environment env : PROBLEMS) {
+				System.out.println(env.getFqdn());
 			}
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -80,6 +95,7 @@ public class StatusTest {
 			return PropertyUtils.loadRiceProperties(location);
 		} catch (Exception e) {
 			info("error loading [%s] -> [%s]", location, e.getMessage());
+			PROBLEMS.add(env);
 			return new Properties();
 		}
 	}
