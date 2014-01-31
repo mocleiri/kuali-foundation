@@ -49,9 +49,8 @@ public class RiceLoader {
 	protected static Config getConfig(String location) {
 		InputStream in = null;
 		try {
-			Unmarshaller unmarshaller = getUnmarshaller();
 			in = LocationUtils.getInputStream(location);
-			return unmarshal(unmarshaller, in);
+			return unmarshal(Config.class, in);
 		} catch (IOException e) {
 			throw new IllegalStateException(String.format("unexpected io error -> [%s]", location));
 		} finally {
@@ -59,17 +58,11 @@ public class RiceLoader {
 		}
 	}
 
-	protected static Unmarshaller getUnmarshaller() {
+	@SuppressWarnings("unchecked")
+	protected static <T> T unmarshal(Class<T> type, InputStream in) throws IOException {
 		try {
-			JAXBContext context = JAXBContext.newInstance(Config.class);
-			return context.createUnmarshaller();
-		} catch (JAXBException e) {
-			throw new IllegalStateException("Error initializing JAXB for config", e);
-		}
-	}
-
-	protected static Config unmarshal(Unmarshaller unmarshaller, InputStream in) throws IOException {
-		try {
+			JAXBContext context = JAXBContext.newInstance(type);
+			Unmarshaller unmarshaller = context.createUnmarshaller();
 			UnmarshallerHandler unmarshallerHandler = unmarshaller.getUnmarshallerHandler();
 			SAXParserFactory spf = SAXParserFactory.newInstance();
 			SAXParser sp = spf.newSAXParser();
@@ -77,7 +70,7 @@ public class RiceLoader {
 			xr.setContentHandler(unmarshallerHandler);
 			InputSource xmlSource = new InputSource(in);
 			xr.parse(xmlSource);
-			return (Config) unmarshallerHandler.getResult();
+			return (T) unmarshallerHandler.getResult();
 		} catch (SAXException e) {
 			throw new IllegalStateException("Unexpected SAX error", e);
 		} catch (ParserConfigurationException e) {
