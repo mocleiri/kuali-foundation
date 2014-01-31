@@ -248,9 +248,11 @@ public class StatusTest {
 		Properties properties = getProjectProperties(fqdn, manifest);
 		String artifactId = properties.getProperty("project.artifactId");
 		if (artifactId != null) {
+			Properties config = getConfig(env);
 			Project project = ProjectUtils.getProject(properties);
 			Application application = new Application();
 			application.setProject(project);
+			application.setConfiguration(config);
 			env.setApplication(Optional.of(application));
 		} else {
 			env.setApplication(Optional.<Application> absent());
