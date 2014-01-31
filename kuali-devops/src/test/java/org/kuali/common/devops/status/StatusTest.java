@@ -338,13 +338,17 @@ public class StatusTest {
 	}
 
 	protected String getJavaVersion(String fqdn) {
+		return getSystemProperty(fqdn, "java.version");
+	}
+
+	protected String getSystemProperty(String fqdn, String property) {
 		String protocol = "http://";
 		String fragment = "/tomcat/logs/env.jsp";
 		String location = protocol + fqdn + fragment;
 		try {
 			List<String> lines = LocationUtils.readLines(location);
-			String token = "java.version";
 			for (String line : lines) {
+				String token = "<td>" + property + "</td>";
 				if (line.contains(token)) {
 					int pos = line.indexOf(token) + token.length();
 					String substring = line.substring(pos);
@@ -495,6 +499,14 @@ public class StatusTest {
 			info("error loading [%s] -> [%s]", location, e.getMessage());
 			PROBLEMS.add(env);
 			return new Properties();
+		}
+	}
+
+	protected String getConfigFragment(Project project) {
+		if (project.getArtifactId().contains("student")) {
+			return "/home/kuali/main/dev/" + project.getArtifactId() + "-config.xml";
+		} else {
+			return "/home/kuali/main/dev/common-config.xml";
 		}
 	}
 
