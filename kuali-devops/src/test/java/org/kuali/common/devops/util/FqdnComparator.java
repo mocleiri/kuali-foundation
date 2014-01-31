@@ -27,7 +27,7 @@ public class FqdnComparator implements Comparator<String> {
 		if (tokens.get(0).startsWith("env")) {
 			String token = tokens.get(0);
 			Integer integer = Integer.parseInt(token.substring(3));
-			String padded = "env" + leftPad(integer.toString(), 3, "0");
+			String padded = "env" + leftPad(integer.toString(), 10, "0");
 			tokens.set(0, padded);
 		}
 		return tokens;
