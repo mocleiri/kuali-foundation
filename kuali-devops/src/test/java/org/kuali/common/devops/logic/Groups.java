@@ -1,8 +1,11 @@
-package org.kuali.common.devops.model;
+package org.kuali.common.devops.logic;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
+import org.kuali.common.devops.model.Environment;
+import org.kuali.common.devops.model.Group;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
