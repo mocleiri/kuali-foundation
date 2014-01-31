@@ -2,11 +2,12 @@ package org.kuali.common.devops.logic;
 
 import static java.lang.String.format;
 
-import java.util.Set;
+import java.util.SortedSet;
 
 import org.kuali.common.devops.model.Environment;
 
 import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
 
 public class Environments {
@@ -24,16 +25,15 @@ public class Environments {
 		return table;
 	}
 
-	public static String html(Table<?, ?, ?> table) {
+	public static <R, C> String html(Table<? extends Comparable<R>, ? extends Comparable<C>, ?> table) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<table border=1>\n");
-		Set<?> rowKeys = table.rowKeySet();
-		Set<?> colKeys = table.columnKeySet();
-		for (Object rowKey : rowKeys) {
+		SortedSet<Comparable<R>> rowKeys = Sets.newTreeSet(table.rowKeySet());
+		SortedSet<Comparable<C>> colKeys = Sets.newTreeSet(table.columnKeySet());
+		for (Comparable<R> rowKey : rowKeys) {
 			sb.append(" <tr>\n");
-			for (Object colKey : colKeys) {
-				Object value = table.get(rowKey, colKey);
-				sb.append(format("  <td>%s</td>", value.toString()));
+			for (Comparable<C> colKey : colKeys) {
+				sb.append(format("  <td>%s</td>", table.get(rowKey, colKey).toString()));
 			}
 			sb.append(" </tr>\n");
 		}

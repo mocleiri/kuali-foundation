@@ -25,6 +25,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.devops.logic.DNS;
 import org.kuali.common.devops.logic.Databases;
+import org.kuali.common.devops.logic.Environments;
 import org.kuali.common.devops.logic.Groups;
 import org.kuali.common.devops.logic.Instances;
 import org.kuali.common.devops.model.Application;
@@ -52,6 +53,7 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.google.common.collect.Table;
 
 public class StatusTest {
 
@@ -75,6 +77,9 @@ public class StatusTest {
 			Collections.sort(envs);
 			List<Group> groups = Groups.getGroups(envs);
 			info("%s groups", groups.size());
+			Table<String, String, String> table = Environments.getTable(null);
+			String html = Environments.html(table);
+			FileUtils.write(new File("/tmp/envs.htm"), html);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
