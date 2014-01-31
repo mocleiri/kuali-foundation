@@ -1,4 +1,4 @@
-package org.kuali.common.devops.util;
+package org.kuali.common.devops.model;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +18,16 @@ public class Passwords {
 	private static final File SETTINGS = getSettingsXmlFile();
 	private static final Logger logger = LoggerUtils.make();
 
-	public static String getEncPassword() {
+	private static String password;
+
+	public synchronized static String getEncPassword() {
+		if (password == null) {
+			password = initPassword();
+		}
+		return password;
+	}
+
+	protected static String initPassword() {
 		Optional<String> sys = getSystemPassword();
 		if (sys.isPresent()) {
 			logger.info(String.format("Located [%s] in system properties", KEY));

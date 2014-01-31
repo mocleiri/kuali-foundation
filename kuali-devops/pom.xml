@@ -37,6 +37,7 @@
   <properties>
     <kuali-aws.version>1.0.0-SNAPSHOT</kuali-aws.version>
     <kuali-dns.version>1.0.0-SNAPSHOT</kuali-dns.version>
+    <kuali-util.version>4.4.9-SNAPSHOT</kuali-util.version>
     <junit.version>4.11</junit.version>
 
     <tomcat7.version>7.0.47</tomcat7.version>
