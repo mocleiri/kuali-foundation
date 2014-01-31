@@ -64,6 +64,7 @@ public class StatusTest {
 	private static final Logger logger = LoggerUtils.make();
 
 	@Test
+	@Ignore
 	public void test1() {
 		try {
 			String path = "classpath:environments.txt";
@@ -84,7 +85,6 @@ public class StatusTest {
 	}
 
 	@Test
-	@Ignore
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
