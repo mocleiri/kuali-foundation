@@ -23,6 +23,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.kuali.common.devops.util.Application;
 import org.kuali.common.devops.util.AwsRecord;
 import org.kuali.common.devops.util.Environment;
 import org.kuali.common.devops.util.Fqdns;
@@ -62,6 +63,7 @@ public class StatusTest {
 	private static final Logger logger = LoggerUtils.make();
 
 	@Test
+	@Ignore
 	public void test1() {
 		try {
 			String path = "classpath:environments.txt";
@@ -95,7 +97,6 @@ public class StatusTest {
 	}
 
 	@Test
-	@Ignore
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
@@ -196,17 +197,18 @@ public class StatusTest {
 		return JOINER.join(tokens.iterator());
 	}
 
-	protected List<String> getTokens(Optional<Project> project) {
+	protected List<String> getTokens(Optional<Application> application) {
 		List<String> tokens = Lists.newArrayList();
-		if (project.isPresent()) {
-			Project p = project.get();
-			tokens.add(p.getGroupId());
-			tokens.add(p.getArtifactId());
-			tokens.add(p.getVersion());
-			tokens.add(toString(p.getProperties()));
+		if (application.isPresent()) {
+			Project project = application.get().getProject();
+			Properties configuration = application.get().getConfiguration();
+			tokens.add(toString(project.getProperties()));
+			if (!configuration.isEmpty()) {
+				tokens.add(toString(configuration));
+			} else {
+				tokens.add("na");
+			}
 		} else {
-			tokens.add("na");
-			tokens.add("na");
 			tokens.add("na");
 			tokens.add("na");
 		}
@@ -256,10 +258,12 @@ public class StatusTest {
 		Properties properties = getProjectProperties(fqdn, manifest);
 		String artifactId = properties.getProperty("project.artifactId");
 		if (artifactId != null) {
-			Project application = ProjectUtils.getProject(properties);
+			Project project = ProjectUtils.getProject(properties);
+			Application application = new Application();
+			application.setProject(project);
 			env.setApplication(Optional.of(application));
 		} else {
-			env.setApplication(Optional.<Project> absent());
+			env.setApplication(Optional.<Application> absent());
 		}
 	}
 

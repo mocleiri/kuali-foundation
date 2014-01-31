@@ -7,7 +7,7 @@ import org.kuali.common.util.project.model.Project;
 public class Application {
 
 	Project project;
-	Properties configuration;
+	Properties configuration = new Properties();
 
 	public Project getProject() {
 		return project;
