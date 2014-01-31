@@ -68,9 +68,10 @@ public class StatusTest {
 	@Test
 	public void test1() {
 		try {
-			String path = "classpath:environments.txt";
+			String path = "/tmp/environments.txt";
 			List<Environment> envs = getEnvironments(path);
 			Collections.sort(envs);
+			info("%s environments", envs.size());
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
