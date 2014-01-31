@@ -137,7 +137,7 @@ public class StatusTest {
 		env.setJava(tokens.get(4));
 		// group,env,fqdn,type,java,tomcat,startup,uptime,groupId,artifactId,version,properties
 		env.setTomcat(getTomcat(tokens));
-		env.setApplication(getProject(tokens));
+		// env.setApplication(getProject(tokens));
 		return env;
 	}
 
