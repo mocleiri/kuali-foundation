@@ -1210,14 +1210,20 @@ public class PropertyUtils {
 
 	/**
 	 * Return a new <code>Properties</code> object loaded from <code>file</code> where the properties are stored in Rice XML style syntax
+	 * 
+	 * @deprecated
 	 */
+	@Deprecated
 	public static final Properties loadRiceProperties(File file) {
 		return loadRiceProperties(LocationUtils.getCanonicalPath(file));
 	}
 
 	/**
 	 * Return a new <code>Properties</code> object loaded from <code>location</code> where the properties are stored in Rice XML style syntax
+	 * 
+	 * @deprecated
 	 */
+	@Deprecated
 	public static final Properties loadRiceProperties(String location) {
 		logger.info("Loading Rice properties [{}] encoding={}", location, DEFAULT_XML_ENCODING);
 		String contents = LocationUtils.toString(location, DEFAULT_XML_ENCODING);

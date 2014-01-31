@@ -26,6 +26,7 @@ import org.jasypt.util.text.TextEncryptor;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kuali.common.util.properties.rice.RiceLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,15 +53,16 @@ public class PropertyUtilsTest {
 
 	@Test
 	public void testRiceProperties2() {
-		Properties props = PropertyUtils.loadRiceProperties("classpath:rice/common-config.xml");
+		Properties props = RiceLoader.load("classpath:rice/common-config.xml");
 		SortedSet<String> keys = Sets.newTreeSet(props.stringPropertyNames());
 		for (String key : keys) {
-			System.out.println(key);
+			System.out.println(key + "=" + props.getProperty(key));
 		}
 		System.out.println();
 	}
 
 	@Test
+	@Deprecated
 	public void testRiceProperties() {
 		Properties props = PropertyUtils.loadRiceProperties("classpath:rice-properties.xml");
 		String value = props.getProperty("foo");
