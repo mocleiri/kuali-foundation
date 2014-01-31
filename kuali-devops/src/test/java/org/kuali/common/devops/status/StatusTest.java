@@ -69,10 +69,6 @@ public class StatusTest {
 		}
 	}
 
-	public void info(String msg, Object... args) {
-		logger.info(format(msg, args));
-	}
-
 	@Test
 	@Ignore
 	public void test() {
@@ -462,6 +458,10 @@ public class StatusTest {
 			envs.add(env);
 		}
 		return envs;
+	}
+
+	public void info(String msg, Object... args) {
+		logger.info(format(msg, args));
 	}
 
 }
