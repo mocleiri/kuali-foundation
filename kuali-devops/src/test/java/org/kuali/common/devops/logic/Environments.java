@@ -2,6 +2,7 @@ package org.kuali.common.devops.logic;
 
 import static java.lang.String.format;
 
+import java.util.List;
 import java.util.SortedSet;
 
 import org.kuali.common.devops.model.Environment;
@@ -12,13 +13,16 @@ import com.google.common.collect.Table;
 
 public class Environments {
 
-	public static Table<Integer, Integer, String> getTable(Environment env) {
-		Integer row = 1;
+	public static Table<Integer, Integer, String> getTable(List<Environment> envs) {
 		Table<Integer, Integer, String> table = HashBasedTable.create();
-		table.put(row, new Integer(1), env.getId());
-		table.put(row, new Integer(2), env.getFqdn());
-		table.put(row, new Integer(3), env.getJava());
-		table.put(row, new Integer(4), env.getType());
+		for (int i = 0; i < envs.size(); i++) {
+			Environment env = envs.get(i);
+			Integer row = i;
+			table.put(row, new Integer(1), env.getId());
+			table.put(row, new Integer(2), env.getFqdn());
+			table.put(row, new Integer(3), env.getJava());
+			table.put(row, new Integer(4), env.getType());
+		}
 		return table;
 	}
 
