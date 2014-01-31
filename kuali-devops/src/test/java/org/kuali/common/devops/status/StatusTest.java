@@ -63,7 +63,6 @@ public class StatusTest {
 	private static final Logger logger = LoggerUtils.make();
 
 	@Test
-	@Ignore
 	public void test1() {
 		try {
 			String path = "classpath:environments.txt";
@@ -84,6 +83,7 @@ public class StatusTest {
 	}
 
 	@Test
+	@Ignore
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
@@ -129,12 +129,18 @@ public class StatusTest {
 		return env;
 	}
 
-	protected Optional<Project> getProject(List<String> tokens) {
-		Properties props = getProperties(tokens);
-		if (props.isEmpty()) {
+	protected Optional<Application> getApplication(List<String> tokens) {
+		String project = tokens.get(8);
+		String config = tokens.get(9);
+		Properties p1 = project.equals("na") ? new Properties() : fromString(project);
+		Properties p2 = config.equals("na") ? new Properties() : fromString(config);
+		if (p1.isEmpty()) {
 			return Optional.absent();
 		} else {
-			return Optional.of(ProjectUtils.getProject(props));
+			Application application = new Application();
+			application.setProject(ProjectUtils.getProject(p1));
+			application.setConfiguration(p2);
+			return Optional.of(application);
 		}
 	}
 
