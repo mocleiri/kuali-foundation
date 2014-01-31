@@ -123,7 +123,7 @@ public class StatusTest {
 		env.setFqdn(tokens.get(2));
 		env.setType(tokens.get(3));
 		env.setJava(tokens.get(4));
-		// group,env,fqdn,type,java,tomcat,startup,uptime,groupId,artifactId,version,properties
+		// group,env,fqdn,type,java,tomcat,startup,uptime,project,config
 		env.setTomcat(getTomcat(tokens));
 		env.setApplication(getApplication(tokens));
 		return env;
