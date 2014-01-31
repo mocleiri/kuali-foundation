@@ -38,6 +38,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.enc.EncStrength;
 import org.kuali.common.util.enc.EncUtils;
+import org.kuali.common.util.properties.rice.RiceLoader;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.property.ImmutableProperties;
@@ -1208,10 +1209,18 @@ public class PropertyUtils {
 		return StringUtils.endsWithIgnoreCase(location, Constants.RICE_PROPERTIES_SUFFIX);
 	}
 
+	public static final Properties loadRiceProps(File file) {
+		return RiceLoader.load(file);
+	}
+
+	public static final Properties loadRiceProps(String location) {
+		return RiceLoader.load(location);
+	}
+
 	/**
 	 * Return a new <code>Properties</code> object loaded from <code>file</code> where the properties are stored in Rice XML style syntax
 	 * 
-	 * @deprecated
+	 * @deprecated use loadRiceProps() instead
 	 */
 	@Deprecated
 	public static final Properties loadRiceProperties(File file) {
@@ -1221,7 +1230,7 @@ public class PropertyUtils {
 	/**
 	 * Return a new <code>Properties</code> object loaded from <code>location</code> where the properties are stored in Rice XML style syntax
 	 * 
-	 * @deprecated
+	 * @deprecated use loadRiceProps() instead
 	 */
 	@Deprecated
 	public static final Properties loadRiceProperties(String location) {
