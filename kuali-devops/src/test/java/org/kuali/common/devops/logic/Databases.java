@@ -17,7 +17,6 @@ public class Databases {
 	public static void update(List<Environment> envs) {
 		for (Environment env : envs) {
 			if (env.getApplication().isPresent()) {
-				System.out.println(env.getFqdn());
 				Application app = env.getApplication().get();
 				Database db = getDatabase(app);
 				app.setDatabase(db);
