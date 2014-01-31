@@ -104,6 +104,7 @@ public class StatusTest {
 			Map<String, List<Instance>> instances = Instances.getMap();
 			List<AwsRecord> records = Instances.getRecords(instances);
 			List<Environment> envs = merge(records, fqdns);
+			Collections.sort(envs);
 			for (Environment env : envs) {
 				fillIn(env);
 			}
