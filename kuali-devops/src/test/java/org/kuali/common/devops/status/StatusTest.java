@@ -3,6 +3,7 @@ package org.kuali.common.devops.status;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 import static java.lang.String.format;
+import static org.apache.commons.lang.StringUtils.reverse;
 
 import java.io.File;
 import java.io.IOException;
@@ -75,7 +76,7 @@ public class StatusTest {
 			Collections.sort(PROBLEMS, new Comparator<Environment>() {
 				@Override
 				public int compare(Environment one, Environment two) {
-					return StringUtils.reverse(one.getFqdn()).compareTo(StringUtils.reverse(two.getFqdn()));
+					return reverse(one.getFqdn()).compareTo(reverse(two.getFqdn()));
 				}
 			});
 
