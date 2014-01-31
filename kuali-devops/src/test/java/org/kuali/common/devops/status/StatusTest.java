@@ -435,7 +435,7 @@ public class StatusTest {
 			}
 			String token = tokens.get(i);
 			sb.append(token);
-			// Shorten "org.kuali.student.web" -> "org.kuali.student"
+			// Shorten "org.kuali.student.*" -> "org.kuali.student"
 			if (token.equals("student")) {
 				break;
 			}
