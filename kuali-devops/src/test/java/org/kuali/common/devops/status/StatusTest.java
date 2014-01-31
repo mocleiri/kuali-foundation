@@ -36,6 +36,7 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.LoggerUtils;
+import org.kuali.common.util.project.KualiProjectConstants;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
 import org.slf4j.Logger;
@@ -506,7 +507,8 @@ public class StatusTest {
 	}
 
 	protected String getConfigFragment(Project project) {
-		if (project.getArtifactId().contains("student")) {
+		String groupId = project.getGroupId();
+		if (groupId.equals(KualiProjectConstants.STUDENT_GROUP_ID)) {
 			return "/home/kuali/main/dev/" + project.getArtifactId() + "-config.xml";
 		} else {
 			return "/home/kuali/main/dev/common-config.xml";
