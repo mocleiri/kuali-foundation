@@ -15,19 +15,9 @@
  */
 package org.kuali.common.devops.aws.spring;
 
-import org.kuali.common.aws.model.AwsContext;
-import org.kuali.common.devops.aws.AwsUtils;
-import org.kuali.common.devops.aws.Contexts;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class FoundationAwsConfig extends KualiAwsConfig {
-
-	@Override
-	@Bean
-	public AwsContext awsContext() {
-		return AwsUtils.getAwsContext(env, enc, Contexts.FOUNDATION.getContext());
-	}
 
 }

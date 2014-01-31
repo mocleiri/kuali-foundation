@@ -6,11 +6,53 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 public class Trees {
 
+	public static <T> List<Node<T>> getLeaves(List<Node<T>> nodes) {
+		List<Node<T>> leaves = Lists.newArrayList();
+		for (Node<T> node : nodes) {
+			leaves.addAll(getLeaves(node));
+		}
+		return leaves;
+	}
+
+	public static <T> List<Node<T>> getLeaves(Node<T> root) {
+		List<Node<T>> leaves = Lists.newArrayList();
+		List<Node<T>> nodes = breadthFirst(root);
+		for (Node<T> node : nodes) {
+			if (node.isLeaf()) {
+				leaves.add(node);
+			}
+		}
+		return leaves;
+	}
+
+	public static <T> List<T> breadthFirstElements(Node<T> node) {
+		return Lists.transform(breadthFirst(node), new NodeElementFunction<T>());
+	}
+
+	public static <T> List<Node<T>> breadthFirst(Node<T> node) {
+		NodeTraverser<T> nt = NodeTraverser.create();
+		Iterable<Node<T>> itr = nt.breadthFirstTraversal(node);
+		return Lists.newArrayList(itr);
+	}
+
+	public static <T> List<Node<T>> postOrder(Node<T> node) {
+		NodeTraverser<T> nt = NodeTraverser.create();
+		Iterable<Node<T>> itr = nt.postOrderTraversal(node);
+		return Lists.newArrayList(itr);
+	}
+
+	public static <T> List<Node<T>> preOrder(Node<T> node) {
+		NodeTraverser<T> nt = NodeTraverser.create();
+		Iterable<Node<T>> itr = nt.preOrderTraversal(node);
+		return Lists.newArrayList(itr);
+	}
+
 	public static <T> String html(String title, Node<T> node) {
-		Function<Node<T>, String> converter = NodeStringFunction.make();
+		Function<Node<T>, String> converter = NodeStringFunction.create();
 		return html(title, ImmutableList.of(node), converter);
 	}
 
@@ -19,7 +61,7 @@ public class Trees {
 	}
 
 	public static <T> String html(String title, List<Node<T>> nodes) {
-		Function<Node<T>, String> converter = NodeStringFunction.make();
+		Function<Node<T>, String> converter = NodeStringFunction.create();
 		return html(title, nodes, converter);
 	}
 
@@ -39,7 +81,7 @@ public class Trees {
 	}
 
 	public static <T> String html(Node<T> node) {
-		Function<Node<T>, String> converter = NodeStringFunction.make();
+		Function<Node<T>, String> converter = NodeStringFunction.create();
 		return html(node, 0, converter);
 	}
 

@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.kuali.common.aws.ec2.model.Distro;
 import org.kuali.common.devops.model.Node;
-import org.kuali.common.devops.model.Packages;
-import org.kuali.common.devops.model.Services;
 import org.kuali.common.devops.model.User;
 import org.kuali.common.devops.model.Users;
 import org.kuali.common.devops.project.DevOpsProjectConstants;
@@ -44,7 +42,7 @@ public final class BootstrapContext {
 
 		// Optional (default values are usually ok)
 		private String rootVolumeDeviceName = "/dev/xvda1";
-		private List<String> packages = Packages.of(Packages.BASIC);
+		private List<String> packages = null; // Packages.of(Packages.BASIC);
 
 		// Filled in automatically by build();
 		private ServiceOverride sshdOverride;
@@ -76,8 +74,8 @@ public final class BootstrapContext {
 			Assert.isFalse(EncUtils.isEncrypted(privateKey), "Private key is encrypted");
 			this.packages = ImmutableList.copyOf(packages);
 
-			Node sshd = Services.SSHD.getService();
-			String configFileOverrideLocation = DISTROS + "/" + distro.getName() + sshd.getConfigFileAbsolutePath();
+			Node sshd = null; // Services.SSHD.getService();
+			String configFileOverrideLocation = DISTROS + "/" + distro.getName() + null; // sshd.getConfigFileAbsolutePath();
 			this.sshdOverride = new ServiceOverride.Builder(sshd, configFileOverrideLocation).build();
 
 			return new BootstrapContext(this);

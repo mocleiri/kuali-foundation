@@ -61,7 +61,7 @@ public final class AnnotatedFieldAssembler implements Assembler<List<Node<Field>
 		this.comparator = builder.comparator;
 	}
 
-	public static AnnotatedFieldAssembler of(Class<?> type, Class<? extends Annotation> annotation) {
+	public static AnnotatedFieldAssembler create(Class<?> type, Class<? extends Annotation> annotation) {
 		return builder(type, annotation).build();
 	}
 

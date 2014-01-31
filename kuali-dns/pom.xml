@@ -32,13 +32,14 @@
     <dnsme.ttl>60</dnsme.ttl>
     <dnsme.domainName>kuali.org</dnsme.domainName>
     <dnsme.apiKey>454f2836-81c0-4379-b8dd-2cc6495131b5</dnsme.apiKey>
+    <dnsme.secretKey>enc--iDJaxZE9rvz170KCd+EjsWsjgqtBRit8SnlpaMqlR2Qd637n4ZdNp5uC2Tp6EEd1</dnsme.secretKey>
     <dnsme.restApiUrl>http://api.dnsmadeeasy.com/V1.2</dnsme.restApiUrl>
     <gson.version>1.7.2</gson.version>
     <beanutils.version>1.8.3-kuali-4</beanutils.version>
     <httpclient.version>3.1</httpclient.version>
-    <kuali-util.version>4.4.8-SNAPSHOT</kuali-util.version>
     <junit.version>4.11</junit.version>
     <slf4j.version>1.7.5</slf4j.version>
+    <plugin.dnsme.version>1.0.7</plugin.dnsme.version>
   </properties>
   <dependencies>
     <dependency>
@@ -67,7 +68,6 @@
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-util</artifactId>
-      <version>${kuali-util.version}</version>
     </dependency>
     <dependency>
       <groupId>com.google.code.gson</groupId>
@@ -117,7 +117,7 @@
           -->
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>maven-dnsme-plugin</artifactId>
-          <version>1.0.5</version>
+          <version>${plugin.dnsme.version}</version>
           <configuration>
             <apiKey>${dnsme.apiKey}</apiKey>
             <secretKey>${dnsme.secretKey}</secretKey>
@@ -147,7 +147,7 @@
             <plugin>
               <groupId>org.kuali.maven.plugins</groupId>
               <artifactId>maven-dnsme-plugin</artifactId>
-              <version>1.0.5</version>
+              <version>${plugin.dnsme.version}</version>
               <configuration>
                 <apiKey>${dnsme.apiKey}</apiKey>
                 <secretKey>${dnsme.secretKey}</secretKey>

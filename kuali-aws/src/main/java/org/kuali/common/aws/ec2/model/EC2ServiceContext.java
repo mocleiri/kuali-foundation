@@ -22,6 +22,14 @@ public final class EC2ServiceContext {
 	private final Optional<ClientConfiguration> configuration;
 	private final Optional<Integer> timeOffsetInSeconds;
 
+	public static EC2ServiceContext create(AWSCredentials credentials) {
+		return builder(credentials).build();
+	}
+
+	public static Builder builder(AWSCredentials credentials) {
+		return new Builder(credentials);
+	}
+
 	public static class Builder {
 
 		// Required

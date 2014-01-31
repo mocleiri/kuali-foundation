@@ -1,5 +1,9 @@
 package org.kuali.common.aws.ec2.impl;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -69,6 +73,7 @@ import com.amazonaws.services.ec2.model.Tag;
 import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 /**
  * This service implementation performs operations using a single set of AWS credentials on a single EC2 region.
@@ -238,18 +243,31 @@ public final class DefaultEC2Service implements EC2Service {
 
 	@Override
 	public Instance getInstance(String instanceId) {
-		Assert.noBlanks(instanceId);
+		checkArgument(!StringUtils.isBlank(instanceId), "'instanceId' cannot be blank");
+		List<Instance> instances = getInstances(ImmutableList.of(instanceId));
+		checkState(instances.size() == 1, "Expected exactly 1 instance but there were %s instead", instances.size());
+		return instances.get(0);
+	}
+
+	@Override
+	public List<Instance> getInstances(List<String> instances) {
+		checkNotNull(instances, "'instances' cannot be null");
 		DescribeInstancesRequest request = new DescribeInstancesRequest();
-		request.setInstanceIds(Collections.singletonList(instanceId));
+		if (!instances.isEmpty()) {
+			request.setInstanceIds(instances);
+		}
 		DescribeInstancesResult result = client.describeInstances(request);
+		List<Instance> list = Lists.newArrayList();
 		List<Reservation> reservations = result.getReservations();
-		Assert.isTrue(reservations.size() == 1, "Expected exactly 1 reservation but there were " + reservations.size() + " instead");
-		Reservation reservation = reservations.get(0);
-		List<Instance> instances = reservation.getInstances();
-		Assert.isTrue(instances.size() == 1, "Expected exactly 1 instance but there were " + instances.size() + " instead");
-		Instance instance = instances.get(0);
-		logger.debug("Retrieved Instance: [{}]", instance.getInstanceId());
-		return instance;
+		for (Reservation reservation : reservations) {
+			list.addAll(reservation.getInstances());
+		}
+		return ImmutableList.copyOf(list);
+	}
+
+	@Override
+	public List<Instance> getInstances() {
+		return getInstances(ImmutableList.<String> of());
 	}
 
 	@Override

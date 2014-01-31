@@ -2,7 +2,6 @@ package org.kuali.common.util.tree;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-
 import com.google.common.base.Function;
 
 public final class NodeStringFunction<T> implements Function<Node<T>, String> {
@@ -15,14 +14,14 @@ public final class NodeStringFunction<T> implements Function<Node<T>, String> {
 	/**
 	 * Convert the element contained in each node to a string by calling it's toString() method
 	 */
-	public static <T> NodeStringFunction<T> make() {
-		return make(new ToStringFunction<T>());
+	public static <T> NodeStringFunction<T> create() {
+		return create(new ToStringFunction<T>());
 	}
 
 	/**
 	 * Convert the element contained in each node to a string by invoking {@code function} on it
 	 */
-	public static <T> NodeStringFunction<T> make(Function<T, String> function) {
+	public static <T> NodeStringFunction<T> create(Function<T, String> function) {
 		return new NodeStringFunction<T>(function);
 	}
 

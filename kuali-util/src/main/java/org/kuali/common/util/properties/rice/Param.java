@@ -1,4 +1,4 @@
-package org.kuali.common.util.properties.model.rice;
+package org.kuali.common.util.properties.rice;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

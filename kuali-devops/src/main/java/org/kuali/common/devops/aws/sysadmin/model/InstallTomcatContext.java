@@ -1,7 +1,5 @@
 package org.kuali.common.devops.aws.sysadmin.model;
 
-import java.util.List;
-
 import org.kuali.common.devops.model.Heap;
 import org.kuali.common.devops.model.Java;
 import org.kuali.common.devops.model.Package;
@@ -49,7 +47,7 @@ public final class InstallTomcatContext {
 
 		public InstallTomcatContext build() {
 			Assert.noBlanks(sharedDir);
-			Assert.noNulls(pkg, javaOpts, service, context, version, javaHome);
+			// Assert.noNulls(pkg, javaOpts, service, context, version, javaHome);
 			return new InstallTomcatContext(this);
 		}
 
@@ -59,15 +57,11 @@ public final class InstallTomcatContext {
 		this.service = builder.service;
 		this.context = builder.context;
 		this.pkg = builder.pkg;
-		this.javaOpts = builder.javaOpts;
+		this.java = builder.java;
 		this.sharedDir = builder.sharedDir;
 		this.version = builder.version;
 		this.user = builder.user;
-		this.javaHome = builder.javaHome;
-	}
-
-	public List<String> getJavaOpts() {
-		return javaOpts;
+		this.heap = builder.heap;
 	}
 
 	public ChannelService getService() {
@@ -88,10 +82,6 @@ public final class InstallTomcatContext {
 
 	public User getUser() {
 		return user;
-	}
-
-	public Optional<String> getJavaHome() {
-		return javaHome;
 	}
 
 	public Package getPkg() {

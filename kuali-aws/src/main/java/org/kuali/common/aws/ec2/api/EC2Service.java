@@ -75,6 +75,10 @@ public interface EC2Service {
 	 */
 	Instance getInstance(String instanceId);
 
+	List<Instance> getInstances(List<String> instanceIds);
+
+	List<Instance> getInstances();
+
 	/**
 	 * Create tags on the indicated Amazon EC2 resource (instance, volume, snapshot, ami, etc).
 	 */

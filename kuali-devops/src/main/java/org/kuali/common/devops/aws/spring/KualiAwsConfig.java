@@ -15,50 +15,13 @@
  */
 package org.kuali.common.devops.aws.spring;
 
-import org.kuali.common.aws.model.AwsContext;
-import org.kuali.common.aws.spring.AwsContextConfig;
-import org.kuali.common.aws.spring.AwsCredentialsConfig;
-import org.kuali.common.devops.aws.AwsUtils;
-import org.kuali.common.dns.spring.DomainNameConfig;
-import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
-import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import com.amazonaws.auth.AWSCredentials;
-
 @Configuration
 @Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
-public class KualiAwsConfig implements AwsContextConfig, AwsCredentialsConfig, DomainNameConfig {
-
-	private static final String DOMAIN_NAME = "kuali.org";
-
-	@Autowired
-	EnvironmentService env;
-
-	@Autowired
-	EncryptionService enc;
-
-	@Override
-	@Bean
-	public AwsContext awsContext() {
-		return AwsUtils.getAwsContext(env, enc);
-	}
-
-	@Override
-	@Bean
-	public String domainName() {
-		return DOMAIN_NAME;
-	}
-
-	@Override
-	@Bean
-	public AWSCredentials awsCredentials() {
-		return awsContext().getAuth().getCredentials();
-	}
+public class KualiAwsConfig {
 
 }

@@ -119,14 +119,14 @@ public final class Bootstrap implements Executable {
 	}
 
 	protected void enableRootSSH(SecureChannel channel) {
-		ServiceOverride sshd = context.getSshdOverride().getService();
+		ServiceOverride sshd = null; // context.getSshdOverride().getService();
 
 		String src = context.getSshdOverride().getConfigFileOverrideLocation();
-		String dst = context.getSshEnabledUser().getHome() + "/.bootstrap/" + sshd.getConfigFileName();
+		String dst = context.getSshEnabledUser().getHome() + "/.bootstrap/" + null; // sshd.getConfigFileName();
 
 		String command1 = "sudo cp " + context.getSshEnabledUser().getAuthorizedKeys() + " " + context.getRoot().getAuthorizedKeys();
-		String command2 = "sudo cp " + dst + " " + sshd.getConfigFileAbsolutePath();
-		String command3 = "sudo service " + sshd.getName() + " restart";
+		String command2 = "sudo cp " + dst + " " + null; // sshd.getConfigFileAbsolutePath();
+		String command3 = "sudo service " + null; // sshd.getName() + " restart";
 
 		RemoteFile file = new RemoteFile.Builder(dst).build();
 
@@ -160,7 +160,7 @@ public final class Bootstrap implements Executable {
 	protected SecureChannel getChannel(User user, boolean requestPseudoTerminal) throws IOException {
 		String dnsName = context.getHostname();
 		String privateKey = context.getPrivateKey();
-		ChannelContext cc = new ChannelContext.Builder(user.getLogin(), dnsName).privateKey(privateKey).requestPseudoTerminal(requestPseudoTerminal).build();
+		ChannelContext cc = null; // new ChannelContext.Builder(user.getLogin(), dnsName).privateKey(privateKey).requestPseudoTerminal(requestPseudoTerminal).build();
 		return context.getService().openChannel(cc);
 	}
 

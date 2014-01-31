@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
+import java.util.SortedSet;
 
 import org.apache.commons.io.FileUtils;
 import org.jasypt.util.text.TextEncryptor;
@@ -30,6 +31,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.google.common.collect.Sets;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
@@ -45,6 +48,16 @@ public class PropertyUtilsTest {
 
 	protected File getTestDir() {
 		return new File(buildDir + File.separator + "properties");
+	}
+
+	@Test
+	public void testRiceProperties2() {
+		Properties props = PropertyUtils.loadRiceProperties("classpath:rice/common-config.xml");
+		SortedSet<String> keys = Sets.newTreeSet(props.stringPropertyNames());
+		for (String key : keys) {
+			System.out.println(key);
+		}
+		System.out.println();
 	}
 
 	@Test
