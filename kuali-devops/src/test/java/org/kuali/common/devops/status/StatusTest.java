@@ -25,10 +25,12 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.devops.logic.DNS;
 import org.kuali.common.devops.logic.Databases;
+import org.kuali.common.devops.logic.Groups;
 import org.kuali.common.devops.logic.Instances;
 import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.AwsRecord;
 import org.kuali.common.devops.model.Environment;
+import org.kuali.common.devops.model.Group;
 import org.kuali.common.devops.model.Tomcat;
 import org.kuali.common.util.Encodings;
 import org.kuali.common.util.FormatUtils;
@@ -66,19 +68,20 @@ public class StatusTest {
 	private static final Logger logger = LoggerUtils.make();
 
 	@Test
-	@Ignore
 	public void test1() {
 		try {
 			String path = "/tmp/environments.txt";
 			List<Environment> envs = getEnvironments(path);
 			Collections.sort(envs);
-			info("%s environments", envs.size());
+			List<Group> groups = Groups.getGroups(envs);
+			info("%s groups", groups.size());
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Test
+	@Ignore
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
