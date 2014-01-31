@@ -46,7 +46,6 @@ import com.amazonaws.services.ec2.model.Instance;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -98,12 +97,10 @@ public class StatusTest {
 			Collections.reverse(envs);
 			for (Environment env : envs) {
 				fillIn(env);
-				break;
 			}
 			long elapsed = System.currentTimeMillis() - start;
 			logger.info(format("elapsed -> %s", FormatUtils.getTime(elapsed)));
-			write(ImmutableList.of(envs.get(0)));
-			// write(envs);
+			write(envs);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
