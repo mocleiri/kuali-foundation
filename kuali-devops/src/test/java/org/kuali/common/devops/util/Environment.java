@@ -1,10 +1,14 @@
 package org.kuali.common.devops.util;
 
+import java.util.Comparator;
+
 import org.kuali.common.util.project.model.Project;
 
 import com.google.common.base.Optional;
 
-public class Environment {
+public class Environment implements Comparable<Environment> {
+
+	private static final Comparator<String> COMPARATOR = new FqdnComparator();
 
 	String project;
 	String id;
@@ -14,6 +18,11 @@ public class Environment {
 	String java;
 	Database database;
 	Optional<Project> application;
+
+	@Override
+	public int compareTo(Environment other) {
+		return COMPARATOR.compare(this.getFqdn(), other.getFqdn());
+	}
 
 	public String getProject() {
 		return project;
