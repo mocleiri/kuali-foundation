@@ -83,19 +83,6 @@ public class StatusTest {
 		}
 	}
 
-	protected Properties getConfig(Environment env) {
-		String protocol = "http://";
-		String fragment = "/home/kuali/main/dev/common-config.xml";
-		String location = protocol + env.getFqdn() + fragment;
-		try {
-			return PropertyUtils.loadRiceProperties(location);
-		} catch (Exception e) {
-			info("error loading [%s] -> [%s]", location, e.getMessage());
-			PROBLEMS.add(env);
-			return new Properties();
-		}
-	}
-
 	@Test
 	public void test() {
 		try {
@@ -495,6 +482,19 @@ public class StatusTest {
 
 	public void info(String msg, Object... args) {
 		logger.info(format(msg, args));
+	}
+
+	protected Properties getConfig(Environment env) {
+		String protocol = "http://";
+		String fragment = "/home/kuali/main/dev/common-config.xml";
+		String location = protocol + env.getFqdn() + fragment;
+		try {
+			return PropertyUtils.loadRiceProperties(location);
+		} catch (Exception e) {
+			info("error loading [%s] -> [%s]", location, e.getMessage());
+			PROBLEMS.add(env);
+			return new Properties();
+		}
 	}
 
 }
