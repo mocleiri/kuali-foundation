@@ -402,7 +402,8 @@ public class StatusTest {
 			}
 			properties.setProperty("project.scm.revision", revision);
 			String url = manifest.get("SVN-URL");
-			if (url != null) {
+			boolean skip = url == null || url.indexOf("${") != -1;
+			if (!skip) {
 				url = "scm:svn:" + url;
 				properties.setProperty("project.scm.url", url);
 			}
