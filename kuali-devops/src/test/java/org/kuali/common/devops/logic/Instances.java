@@ -17,6 +17,7 @@ import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.devops.aws.Credentials;
 import org.kuali.common.devops.model.AwsRecord;
+import org.kuali.common.devops.model.EnvStringComparator;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitService;
@@ -36,15 +37,15 @@ public class Instances {
 
 	private static class InstanceComparator implements Comparator<Instance> {
 
+		private static final Comparator<String> COMPARATOR = new EnvStringComparator();
+
 		@Override
 		public int compare(Instance one, Instance two) {
 			Tag t1 = getRequiredTag(one, "Name");
 			Tag t2 = getRequiredTag(two, "Name");
 			checkArgument(t1.getValue().startsWith("env"), "[%s] must start with 'env'", t1.getValue());
 			checkArgument(t2.getValue().startsWith("env"), "[%s] must start with 'env'", t2.getValue());
-			Integer i1 = Integer.parseInt(t1.getValue().substring(3));
-			Integer i2 = Integer.parseInt(t2.getValue().substring(3));
-			return Double.compare(i1, i2);
+			return COMPARATOR.compare(t1.getValue(), t2.getValue());
 		}
 
 	}
