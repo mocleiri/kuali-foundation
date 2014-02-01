@@ -83,7 +83,7 @@ public class Passwords {
 				return Optional.absent();
 			}
 		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
+			throw new IllegalStateException(String.format("unexpected io error -> [%s]", file), e);
 		}
 	}
 
