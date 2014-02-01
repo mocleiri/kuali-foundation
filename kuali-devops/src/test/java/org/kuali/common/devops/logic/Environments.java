@@ -52,7 +52,7 @@ public class Environments {
 		} else {
 			List<String> tokens = Lists.newArrayList(Splitter.on(':').splitToList(url));
 			tokens.remove(0); // scm
-			tokens.remove(0); // svn
+			tokens.remove(0); // svn|git
 			url = Joiner.on(':').join(tokens.iterator());
 			url = "<a href=\"" + url + "\">public url</a>";
 		}
