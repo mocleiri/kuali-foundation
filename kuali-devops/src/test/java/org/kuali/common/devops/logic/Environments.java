@@ -69,8 +69,8 @@ public class Environments {
 			for (Comparable<C> colKey : colKeys) {
 				Object cell = table.get(rowKey, colKey);
 				if (cell instanceof Table) {
-					Table<? extends Comparable<R>, ? extends Comparable<C>, ?> nested = cast((Table<?, ?, ?>) cell);
-					sb.append(html(nested));
+					Table<?, ?, ?> nested = (Table<?, ?, ?>) cell;
+					sb.append(html(cast(nested)));
 				} else {
 					sb.append(format("  <td>%s</td>", table.get(rowKey, colKey).toString()));
 				}
