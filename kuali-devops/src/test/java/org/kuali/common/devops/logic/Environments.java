@@ -51,9 +51,10 @@ public class Environments {
 			url = "na";
 		} else {
 			List<String> tokens = Lists.newArrayList(Splitter.on(':').splitToList(url));
-			tokens.remove(0);
-			tokens.remove(0);
+			tokens.remove(0); // scm
+			tokens.remove(0); // svn
 			url = Joiner.on(':').join(tokens.iterator());
+			url = "<a href=\"" + url + "\">public url</a>";
 		}
 		Table<Integer, Integer, Object> table = HashBasedTable.create();
 		addRow(table, "application", project.getArtifactId());
