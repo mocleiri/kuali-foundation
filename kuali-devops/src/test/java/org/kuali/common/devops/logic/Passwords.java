@@ -34,6 +34,11 @@ public class Passwords {
 			logger.info(String.format("Located [%s] in system properties", KEY));
 			return Str.reveal(sys.get());
 		}
+		Optional<String> env = getEnvPassword();
+		if (env.isPresent()) {
+			logger.info(String.format("Located [%s] in environment variables", KEY));
+			return Str.reveal(env.get());
+		}
 		Optional<String> settings = getSettingsXmlPassword();
 		if (settings.isPresent()) {
 			logger.info(String.format("Located [%s] in [%s]", KEY, SETTINGS));
