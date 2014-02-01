@@ -359,8 +359,8 @@ public class StatusTest {
 				if (line.contains(token)) {
 					int pos = line.indexOf(token) + token.length();
 					String substring = line.substring(pos);
-					String version = StringUtils.substringBetween(substring, "<td>", "</td>");
-					return StringUtils.trim(version);
+					String value = StringUtils.substringBetween(substring, "<td>", "</td>");
+					return StringUtils.trim(value);
 				}
 			}
 		} catch (Exception e) {
