@@ -18,8 +18,8 @@ import com.google.common.collect.Table;
 
 public class Environments {
 
-	public static Table<Integer, Integer, String> getTable(List<Environment> envs) {
-		Table<Integer, Integer, String> table = HashBasedTable.create();
+	public static Table<Integer, Integer, ?> getTable(List<Environment> envs) {
+		Table<Integer, Integer, Object> table = HashBasedTable.create();
 		for (int row = 0; row < envs.size(); row++) {
 			Environment env = envs.get(row);
 			table.put(Integer.valueOf(row), Integer.valueOf(0), env.getProject());

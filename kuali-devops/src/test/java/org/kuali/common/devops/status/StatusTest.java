@@ -77,7 +77,7 @@ public class StatusTest {
 			Collections.sort(envs);
 			List<Group> groups = Groups.getGroups(envs);
 			info("%s groups", groups.size());
-			Table<Integer, Integer, String> table = Environments.getTable(envs);
+			Table<Integer, Integer, ?> table = Environments.getTable(envs);
 			String html = Environments.html(table);
 			FileUtils.write(new File("/tmp/envs.htm"), html);
 		} catch (Throwable e) {
