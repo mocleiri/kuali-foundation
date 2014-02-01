@@ -1,5 +1,7 @@
 package org.kuali.common.devops.logic;
 
+import static java.lang.String.format;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -83,7 +85,7 @@ public class Passwords {
 				return Optional.absent();
 			}
 		} catch (IOException e) {
-			throw new IllegalStateException(String.format("unexpected io error -> [%s]", file), e);
+			throw new IllegalStateException(format("unexpected io error -> [%s]", file), e);
 		}
 	}
 
