@@ -9,6 +9,7 @@ import java.util.SortedSet;
 import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.Database;
 import org.kuali.common.devops.model.Environment;
+import org.kuali.common.devops.model.Tomcat;
 import org.kuali.common.util.project.model.ImmutableProject;
 import org.kuali.common.util.project.model.Project;
 
@@ -22,23 +23,47 @@ public class Environments {
 		Table<Integer, Integer, Object> table = HashBasedTable.create();
 		for (int row = 0; row < envs.size(); row++) {
 			Environment env = envs.get(row);
+			Project project = getProject(env);
+			Database db = getDatabase(env);
 			table.put(Integer.valueOf(row), Integer.valueOf(0), env.getProject());
 			table.put(Integer.valueOf(row), Integer.valueOf(1), env.getId().substring(3));
 			table.put(Integer.valueOf(row), Integer.valueOf(2), env.getFqdn());
 			table.put(Integer.valueOf(row), Integer.valueOf(3), env.getJava());
 			table.put(Integer.valueOf(row), Integer.valueOf(4), env.getType());
-			table.put(Integer.valueOf(row), Integer.valueOf(5), env.getTomcat().getVersion());
-			table.put(Integer.valueOf(row), Integer.valueOf(6), env.getTomcat().getStartup());
-			table.put(Integer.valueOf(row), Integer.valueOf(7), env.getTomcat().getUptime());
-			Project project = getProject(env);
-			Database db = getDatabase(env);
-			table.put(Integer.valueOf(row), Integer.valueOf(8), project.getArtifactId());
-			table.put(Integer.valueOf(row), Integer.valueOf(9), project.getVersion());
-			table.put(Integer.valueOf(row), Integer.valueOf(10), db.getVendor());
-			table.put(Integer.valueOf(row), Integer.valueOf(11), db.getUrl());
-			table.put(Integer.valueOf(row), Integer.valueOf(12), db.getUsername());
+			table.put(Integer.valueOf(row), Integer.valueOf(5), getTable(env.getTomcat()));
+			table.put(Integer.valueOf(row), Integer.valueOf(8), getTable(project));
+			table.put(Integer.valueOf(row), Integer.valueOf(10), getTable(db));
 		}
 		return table;
+	}
+
+	protected static Table<Integer, Integer, ?> getTable(Project project) {
+		Table<Integer, Integer, Object> table = HashBasedTable.create();
+		addRow(table, "app", project.getArtifactId());
+		addRow(table, "version", project.getVersion());
+		return table;
+	}
+
+	protected static Table<Integer, Integer, ?> getTable(Database db) {
+		Table<Integer, Integer, Object> table = HashBasedTable.create();
+		addRow(table, "vendor", db.getVendor());
+		addRow(table, "url", db.getUrl());
+		addRow(table, "username", db.getUsername());
+		return table;
+	}
+
+	protected static Table<Integer, Integer, ?> getTable(Tomcat tomcat) {
+		Table<Integer, Integer, Object> table = HashBasedTable.create();
+		addRow(table, "version", tomcat.getVersion());
+		addRow(table, "uptime", tomcat.getUptime());
+		return table;
+	}
+
+	protected static void addRow(Table<Integer, Integer, Object> table, Object... objects) {
+		int row = table.rowKeySet().size();
+		for (int col = 0; col < objects.length; col++) {
+			table.put(Integer.valueOf(row), Integer.valueOf(col), objects[col]);
+		}
 	}
 
 	protected static Database getDatabase(Environment env) {
@@ -67,18 +92,23 @@ public class Environments {
 		for (Comparable<R> rowKey : rowKeys) {
 			sb.append(" <tr>\n");
 			for (Comparable<C> colKey : colKeys) {
-				Object cell = table.get(rowKey, colKey);
-				if (cell instanceof Table) {
-					Table<?, ?, ?> nested = (Table<?, ?, ?>) cell;
-					sb.append(html(cast(nested)));
-				} else {
-					sb.append(format("  <td>%s</td>", table.get(rowKey, colKey).toString()));
-				}
+				Object object = table.get(rowKey, colKey);
+				String value = getTableCellValue(object);
+				sb.append(format("  <td>%s</td>", value));
 			}
 			sb.append(" </tr>\n");
 		}
 		sb.append("</table>\n");
 		return sb.toString();
+	}
+
+	protected static String getTableCellValue(Object object) {
+		if (object instanceof Table) {
+			Table<?, ?, ?> nested = (Table<?, ?, ?>) object;
+			return html(cast(nested));
+		} else {
+			return object.toString();
+		}
 	}
 
 	@SuppressWarnings("unchecked")
