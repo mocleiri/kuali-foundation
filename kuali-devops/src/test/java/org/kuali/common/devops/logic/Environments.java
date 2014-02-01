@@ -14,7 +14,10 @@ import org.kuali.common.devops.model.Tomcat;
 import org.kuali.common.util.project.model.ImmutableProject;
 import org.kuali.common.util.project.model.Project;
 
+import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
 import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
 
@@ -46,6 +49,11 @@ public class Environments {
 		String url = project.getProperties().getProperty("project.scm.url");
 		if (StringUtils.isBlank(url)) {
 			url = "na";
+		} else {
+			List<String> tokens = Lists.newArrayList(Splitter.on(':').splitToList(url));
+			tokens.remove(0);
+			tokens.remove(0);
+			url = Joiner.on(':').join(tokens.iterator());
 		}
 		Table<Integer, Integer, Object> table = HashBasedTable.create();
 		addRow(table, "application", project.getArtifactId());
