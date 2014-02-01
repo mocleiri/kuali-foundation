@@ -67,11 +67,22 @@ public class Environments {
 		for (Comparable<R> rowKey : rowKeys) {
 			sb.append(" <tr>\n");
 			for (Comparable<C> colKey : colKeys) {
-				sb.append(format("  <td>%s</td>", table.get(rowKey, colKey).toString()));
+				Object cell = table.get(rowKey, colKey);
+				if (cell instanceof Table) {
+					Table<? extends Comparable<R>, ? extends Comparable<C>, ?> nested = cast((Table<?, ?, ?>) cell);
+					sb.append(html(nested));
+				} else {
+					sb.append(format("  <td>%s</td>", table.get(rowKey, colKey).toString()));
+				}
 			}
 			sb.append(" </tr>\n");
 		}
 		sb.append("</table>\n");
 		return sb.toString();
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <R, C> Table<? extends Comparable<R>, ? extends Comparable<C>, ?> cast(Table<?, ?, ?> table) {
+		return (Table<? extends Comparable<R>, ? extends Comparable<C>, ?>) table;
 	}
 }
