@@ -38,9 +38,19 @@ public class Environments {
 	}
 
 	protected static Table<Integer, Integer, ?> getTable(Project project) {
+		String revision = project.getProperties().getProperty("project.scm.revision");
+		if (revision == null) {
+			revision = "na";
+		}
+		String url = project.getProperties().getProperty("project.scm.url");
+		if (url == null) {
+			url = "na";
+		}
 		Table<Integer, Integer, Object> table = HashBasedTable.create();
-		addRow(table, "app", project.getArtifactId());
+		addRow(table, "application", project.getArtifactId());
 		addRow(table, "version", project.getVersion());
+		addRow(table, "scm", url);
+		addRow(table, "revision", revision);
 		return table;
 	}
 
