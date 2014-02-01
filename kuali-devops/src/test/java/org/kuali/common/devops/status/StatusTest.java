@@ -401,14 +401,27 @@ public class StatusTest {
 				revision = "na";
 			}
 			properties.setProperty("project.scm.revision", revision);
-			String url = manifest.get("SVN-URL");
-			boolean skip = url == null || url.indexOf("${") != -1;
-			if (!skip) {
+			String url = getScmUrl(manifest);
+			if (!url.equals("na")) {
 				url = "scm:svn:" + url;
 				properties.setProperty("project.scm.url", url);
 			}
 			return properties;
 		}
+	}
+
+	protected String getScmUrl(Map<String, String> manifest) {
+		String url = manifest.get("SVN-URL");
+		if (url == null) {
+			return "na";
+		}
+		if (url.indexOf("${") != -1) {
+			return "na";
+		}
+		if (!LocationUtils.exists(url)) {
+			return "na";
+		}
+		return url;
 	}
 
 	protected String getProjectPropertiesPath(String fqdn, String bundleSymbolicName) {

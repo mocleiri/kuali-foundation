@@ -11,7 +11,6 @@ import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.Database;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.model.Tomcat;
-import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.project.model.ImmutableProject;
 import org.kuali.common.util.project.model.Project;
 
@@ -48,18 +47,14 @@ public class Environments {
 			revision = "na";
 		}
 		String url = project.getProperties().getProperty("project.scm.url");
-		if (StringUtils.isBlank(url)) {
+		if (StringUtils.isBlank(url) || "na".equals(url)) {
 			url = "na";
 		} else {
 			List<String> tokens = Lists.newArrayList(Splitter.on(':').splitToList(url));
 			tokens.remove(0); // scm
 			tokens.remove(0); // svn
 			url = Joiner.on(':').join(tokens.iterator());
-			if (!LocationUtils.exists(url)) {
-				url = "na";
-			} else {
-				url = "<a href=\"" + url + "\">public url</a>";
-			}
+			url = "<a href=\"" + url + "\">public url</a>";
 		}
 		Table<Integer, Integer, Object> table = HashBasedTable.create();
 		addRow(table, "application", project.getArtifactId());
