@@ -3,10 +3,14 @@ package org.kuali.common.devops.logic;
 import static java.lang.String.format;
 
 import java.util.List;
+import java.util.Properties;
 import java.util.SortedSet;
 
 import org.kuali.common.devops.model.Application;
+import org.kuali.common.devops.model.Database;
 import org.kuali.common.devops.model.Environment;
+import org.kuali.common.util.project.model.ImmutableProject;
+import org.kuali.common.util.project.model.Project;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Sets;
@@ -26,27 +30,32 @@ public class Environments {
 			table.put(Integer.valueOf(row), Integer.valueOf(5), env.getTomcat().getVersion());
 			table.put(Integer.valueOf(row), Integer.valueOf(6), env.getTomcat().getStartup());
 			table.put(Integer.valueOf(row), Integer.valueOf(7), env.getTomcat().getUptime());
-			table.put(Integer.valueOf(row), Integer.valueOf(8), getArtifactId(env));
-			table.put(Integer.valueOf(row), Integer.valueOf(9), getVersion(env));
+			Project project = getProject(env);
+			Database db = getDatabase(env);
+			table.put(Integer.valueOf(row), Integer.valueOf(8), project.getArtifactId());
+			table.put(Integer.valueOf(row), Integer.valueOf(9), project.getVersion());
+			table.put(Integer.valueOf(row), Integer.valueOf(10), db.getVendor());
+			table.put(Integer.valueOf(row), Integer.valueOf(11), db.getUrl());
+			table.put(Integer.valueOf(row), Integer.valueOf(12), db.getUsername());
 		}
 		return table;
 	}
 
-	protected static String getVersion(Environment env) {
+	protected static Database getDatabase(Environment env) {
 		if (env.getApplication().isPresent()) {
 			Application app = env.getApplication().get();
-			return app.getProject().getVersion();
+			return app.getDatabase();
 		} else {
-			return "na";
+			return new Database();
 		}
 	}
 
-	protected static String getArtifactId(Environment env) {
+	protected static Project getProject(Environment env) {
 		if (env.getApplication().isPresent()) {
 			Application app = env.getApplication().get();
-			return app.getProject().getArtifactId();
+			return app.getProject();
 		} else {
-			return "na";
+			return new ImmutableProject("na", "na", "na", new Properties());
 		}
 	}
 
