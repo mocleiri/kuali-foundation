@@ -401,6 +401,11 @@ public class StatusTest {
 				revision = "na";
 			}
 			properties.setProperty("project.scm.revision", revision);
+			String url = manifest.get("SVN-URL");
+			if (url != null) {
+				url = "scm:svn:" + url;
+				properties.setProperty("project.scm.url", url);
+			}
 			return properties;
 		}
 	}
