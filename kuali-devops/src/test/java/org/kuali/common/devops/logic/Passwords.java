@@ -15,6 +15,7 @@ import com.google.common.base.Optional;
 public class Passwords {
 
 	private static final String KEY = "enc.password";
+	private static final String ENV_KEY = "ENC_PASSWORD";
 	private static final File SETTINGS = getSettingsXmlFile();
 	private static final Logger logger = LoggerUtils.make();
 
@@ -45,6 +46,14 @@ public class Passwords {
 	protected static Optional<String> getSystemPassword() {
 		if (System.getProperty(KEY) != null) {
 			return Optional.of(System.getProperty(KEY).trim());
+		} else {
+			return Optional.absent();
+		}
+	}
+
+	protected static Optional<String> getEnvPassword() {
+		if (System.getenv(ENV_KEY) != null) {
+			return Optional.of(System.getenv(ENV_KEY).trim());
 		} else {
 			return Optional.absent();
 		}
