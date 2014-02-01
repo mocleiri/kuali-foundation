@@ -38,7 +38,7 @@ public class Passwords {
 			logger.info(String.format("Located [%s] in [%s]", KEY, SETTINGS));
 			return Str.reveal(settings.get());
 		} else {
-			throw new IllegalStateException(String.format("[%s] was not found in system properties or [%s]", KEY, SETTINGS));
+			throw new IllegalStateException(String.format("[%s] could not be found in system properties or [%s]", KEY, SETTINGS));
 		}
 	}
 
