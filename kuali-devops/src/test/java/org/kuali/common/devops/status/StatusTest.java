@@ -70,6 +70,7 @@ public class StatusTest {
 	private static final Logger logger = LoggerUtils.make();
 
 	@Test
+	@Ignore
 	public void test1() {
 		try {
 			String path = "/tmp/environments.txt";
@@ -86,7 +87,6 @@ public class StatusTest {
 	}
 
 	@Test
-	@Ignore
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
@@ -401,11 +401,10 @@ public class StatusTest {
 				revision = "na";
 			}
 			properties.setProperty("project.scm.revision", revision);
+
+			// Only way to get a reliable SVN url is from the manifest
 			String url = getScmUrl(manifest);
-			if (!url.equals("na")) {
-				url = "scm:svn:" + url;
-				properties.setProperty("project.scm.url", url);
-			}
+			properties.setProperty("project.scm.url", url);
 			return properties;
 		}
 	}
@@ -421,7 +420,7 @@ public class StatusTest {
 		if (!LocationUtils.exists(url)) {
 			return "na";
 		}
-		return url;
+		return "scm:svn:" + url;
 	}
 
 	protected String getProjectPropertiesPath(String fqdn, String bundleSymbolicName) {
