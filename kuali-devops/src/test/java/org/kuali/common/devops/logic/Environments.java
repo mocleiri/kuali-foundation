@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.SortedSet;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.Database;
 import org.kuali.common.devops.model.Environment;
@@ -39,11 +40,11 @@ public class Environments {
 
 	protected static Table<Integer, Integer, ?> getTable(Project project) {
 		String revision = project.getProperties().getProperty("project.scm.revision");
-		if (revision == null) {
+		if (StringUtils.isBlank(revision)) {
 			revision = "na";
 		}
 		String url = project.getProperties().getProperty("project.scm.url");
-		if (url == null) {
+		if (StringUtils.isBlank(url)) {
 			url = "na";
 		}
 		Table<Integer, Integer, Object> table = HashBasedTable.create();
