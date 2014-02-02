@@ -38,9 +38,13 @@ public final class EC2Instance {
 		private String type;
 		private long launchTime;
 
-		public Builder name(String name) {
-			this.name = Optional.of(name);
+		public Builder name(Optional<String> name) {
+			this.name = name;
 			return this;
+		}
+
+		public Builder name(String name) {
+			return name(Optional.of(name));
 		}
 
 		public Builder publicDnsName(String publicDnsName) {
@@ -86,6 +90,26 @@ public final class EC2Instance {
 		public void setLaunchTime(long launchTime) {
 			this.launchTime = launchTime;
 		}
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public Optional<String> getName() {
+		return name;
+	}
+
+	public String getPublicDnsName() {
+		return publicDnsName;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public long getLaunchTime() {
+		return launchTime;
 	}
 
 }
