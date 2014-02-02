@@ -4,8 +4,10 @@ import static com.google.common.base.Optional.fromNullable;
 import static org.apache.commons.lang.StringUtils.trimToNull;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
@@ -29,10 +31,22 @@ public class Instances {
 		WaitService ws = new DefaultWaitService();
 		EC2ServiceContext context = EC2ServiceContext.create(creds);
 		EC2Service service = new DefaultEC2Service(context, ws);
-		return convert(service.getInstances());
+		List<EC2Instance> instances = convert(service.getInstances());
+		store(accountName, instances);
+		return instances;
 	}
 
-	protected List<String> csv(List<EC2Instance> instances) {
+	protected static void store(String accountName, List<EC2Instance> instances) {
+		File file = new CanonicalFile(CACHE_DIR, accountName + "txt");
+		List<String> csv = csv(instances);
+		try {
+			FileUtils.writeLines(null, csv);
+		} catch (IOException e) {
+			throw Exceptions.ise(e, "unexpected io error -> [%s]", file);
+		}
+	}
+
+	protected static List<String> csv(List<EC2Instance> instances) {
 		List<String> lines = Lists.newArrayList();
 		for (EC2Instance instance : instances) {
 			lines.add(csv(instance));
@@ -40,12 +54,12 @@ public class Instances {
 		return lines;
 	}
 
-	protected String csv(EC2Instance instance) {
+	protected static String csv(EC2Instance instance) {
 		List<String> tokens = Lists.newArrayList();
 		tokens.add(instance.getId());
 		tokens.add(toString(instance.getName()));
 		tokens.add(instance.getType());
-		tokens.add(instance.getLaunchTime() + "");
+		tokens.add(Long.toString(instance.getLaunchTime()));
 		tokens.add(toString(instance.getPublicDnsName()));
 		return Joiner.on(',').join(tokens);
 	}
@@ -86,7 +100,7 @@ public class Instances {
 		return Optional.absent();
 	}
 
-	protected String toString(Optional<String> string) {
+	protected static String toString(Optional<String> string) {
 		if (string.isPresent()) {
 			return string.get();
 		} else {
