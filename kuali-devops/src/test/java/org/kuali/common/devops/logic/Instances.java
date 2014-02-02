@@ -79,6 +79,7 @@ public class Instances {
 		Optional<String> publicDnsName = fromNullable(trimToNull(instance.getPublicDnsName()));
 		String type = instance.getInstanceType();
 		long launchTime = instance.getLaunchTime().getTime();
+		String ami = instance.getImageId();
 		return EC2Instance.builder().id(id).name(name).publicDnsName(publicDnsName).type(type).launchTime(launchTime).build();
 	}
 
