@@ -24,6 +24,14 @@ public class Exceptions {
 		}
 	}
 
+	public static IllegalStateException ise(String msg) {
+		return ise(msg, (Object[]) null);
+	}
+
+	public static IllegalStateException ise(String msg, Object... args) {
+		return create(IllegalStateException.class, msg, args);
+	}
+
 	public static IllegalArgumentException iae(String msg) {
 		return iae(msg, (Object[]) null);
 	}
