@@ -60,8 +60,10 @@ public class Instances {
 		tokens.add(instance.getId());
 		tokens.add(toString(instance.getName()));
 		tokens.add(instance.getType());
+		tokens.add(instance.getState());
 		tokens.add(Long.toString(instance.getLaunchTime()));
 		tokens.add(toString(instance.getPublicDnsName()));
+		tokens.add(instance.getAmi());
 		return Joiner.on(',').join(tokens);
 	}
 
