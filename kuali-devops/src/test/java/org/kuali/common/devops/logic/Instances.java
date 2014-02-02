@@ -114,7 +114,7 @@ public class Instances {
 				return credentials.name().toLowerCase();
 			}
 		}
-		throw new IllegalArgumentException(String.format("Unable to locate a name for [%s]", accessKey));
+		throw Exceptions.iae("Unable to locate a name for [%s]", accessKey);
 	}
 
 	protected static List<Instance> filter(List<Instance> instances) {
