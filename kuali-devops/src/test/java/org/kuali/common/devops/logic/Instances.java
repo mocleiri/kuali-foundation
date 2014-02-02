@@ -73,7 +73,7 @@ public class Instances {
 	protected static List<EC2Instance> load(File file) {
 		try {
 			logger.info(format("loading -> [%s]", file));
-			List<String> lines = FileUtils.readLines(file);
+			List<String> lines = FileUtils.readLines(file, ENCODING);
 			List<EC2Instance> instances = Lists.newArrayList();
 			for (int i = 1; i < lines.size(); i++) {
 				instances.add(convert(lines.get(i)));
