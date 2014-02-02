@@ -32,6 +32,10 @@ public final class Replacer {
 		this.tokens = ImmutableBiMap.copyOf(builder.tokens);
 	}
 
+	public static Replacer create(String oldToken, String newToken) {
+		return builder().add(oldToken, newToken).build();
+	}
+
 	public static Builder builder() {
 		return new Builder();
 	}
