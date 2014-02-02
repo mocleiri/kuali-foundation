@@ -12,31 +12,38 @@ public final class Replacer {
 
 	private final ImmutableBiMap<String, String> tokens;
 
-	public String replace(String string) {
+	public String replace(final String string) {
+		String s = string;
 		for (Map.Entry<String, String> pair : tokens.entrySet()) {
-			String oldToken = pair.getKey();
-			String newToken = pair.getValue();
-			string = string.replace(oldToken, newToken);
+			s = s.replace(pair.getKey(), pair.getValue());
 		}
-		return string;
+		return s;
 	}
 
-	public String restore(String string) {
+	public String restore(final String string) {
+		String s = string;
 		for (Map.Entry<String, String> pair : tokens.entrySet()) {
-			String oldToken = pair.getValue();
-			String newToken = pair.getKey();
-			string = string.replace(oldToken, newToken);
+			s = s.replace(pair.getValue(), pair.getKey());
 		}
-		return string;
+		return s;
 	}
 
 	private Replacer(Builder builder) {
 		this.tokens = ImmutableBiMap.copyOf(builder.tokens);
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder {
 
 		private BiMap<String, String> tokens = HashBiMap.create();
+
+		public Builder add(String oldToken, String newToken) {
+			this.tokens.put(oldToken, newToken);
+			return this;
+		}
 
 		public Builder tokens(BiMap<String, String> tokens) {
 			this.tokens = tokens;
