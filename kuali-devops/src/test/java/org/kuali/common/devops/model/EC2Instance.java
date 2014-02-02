@@ -15,7 +15,7 @@ public final class EC2Instance {
 	private final String publicDnsName;
 	private final String type;
 
-	@Min(0)
+	@Min(1)
 	private final long launchTime;
 
 	private EC2Instance(Builder builder) {
