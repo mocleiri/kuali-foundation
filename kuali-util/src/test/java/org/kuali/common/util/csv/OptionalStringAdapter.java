@@ -16,4 +16,8 @@ public class OptionalStringAdapter extends CsvAdapter<Optional<String>> {
 		return Optional.fromNullable(adapter.parse(string));
 	}
 
+	public CsvAdapter<String> getAdapter() {
+		return adapter;
+	}
+
 }
