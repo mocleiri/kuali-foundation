@@ -36,6 +36,7 @@ import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Table;
 
 public class Instances {
 
@@ -53,6 +54,10 @@ public class Instances {
 			map.put(account, getInstances(account, refresh));
 		}
 		return map;
+	}
+
+	public static Table<Integer, Integer, String> getTable(List<EC2Instance> instances) {
+		return null;
 	}
 
 	protected static List<EC2Instance> getInstances(String account, boolean refresh) {
