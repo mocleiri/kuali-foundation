@@ -67,7 +67,7 @@ public class Instances {
 	}
 
 	protected static File getFile(String account) {
-		return new CanonicalFile(CACHE_DIR, account + ".txt");
+		return new CanonicalFile(CACHE_DIR, account + ".csv");
 	}
 
 	protected static List<EC2Instance> load(File file) {
