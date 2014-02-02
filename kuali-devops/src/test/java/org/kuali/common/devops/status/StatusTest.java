@@ -128,15 +128,15 @@ public class StatusTest {
 		env.setFqdn(tokens.get(2));
 		env.setType(tokens.get(3));
 		env.setJava(tokens.get(4));
-		// group,env,fqdn,type,java,tomcat,startup,uptime,project,config
+		// group,env,fqdn,type,java,tomcat,startup,project,config
 		env.setTomcat(getTomcat(tokens));
 		env.setApplication(getApplication(tokens));
 		return env;
 	}
 
 	protected Optional<Application> getApplication(List<String> tokens) {
-		String project = tokens.get(8);
-		String config = tokens.get(9);
+		String project = tokens.get(7);
+		String config = tokens.get(8);
 		Properties p1 = project.equals("na") ? new Properties() : fromString(project);
 		Properties p2 = config.equals("na") ? new Properties() : fromString(config);
 		if (p1.isEmpty()) {
