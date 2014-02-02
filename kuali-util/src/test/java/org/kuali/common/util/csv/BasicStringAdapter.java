@@ -41,6 +41,10 @@ public class BasicStringAdapter extends CsvAdapter<String> {
 		this.replacer = builder.replacer;
 	}
 
+	public static BasicStringAdapter create() {
+		return builder().build();
+	}
+
 	public static Builder builder() {
 		return new Builder();
 	}
