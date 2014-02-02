@@ -285,7 +285,7 @@ public class StatusTest {
 			Date date = parser.parse(time);
 			return date.getTime();
 		} catch (ParseException e) {
-			throw new IllegalStateException(String.format("date parse error -> [%s]", time), e);
+			throw new IllegalStateException(format("date parse error -> [%s]", time), e);
 		}
 	}
 
