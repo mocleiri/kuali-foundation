@@ -12,7 +12,7 @@ public final class EC2Instance {
 
 	private final String id;
 	private final Optional<String> name;
-	private final String publicDnsName;
+	private final Optional<String> publicDnsName;
 	private final String type;
 
 	@Min(1)
@@ -34,7 +34,7 @@ public final class EC2Instance {
 
 		private String id;
 		private Optional<String> name = Optional.absent();
-		private String publicDnsName;
+		private Optional<String> publicDnsName = Optional.absent();
 		private String type;
 		private long launchTime;
 
@@ -52,9 +52,13 @@ public final class EC2Instance {
 			return name(Optional.of(name));
 		}
 
-		public Builder publicDnsName(String publicDnsName) {
+		public Builder publicDnsName(Optional<String> publicDnsName) {
 			this.publicDnsName = publicDnsName;
 			return this;
+		}
+
+		public Builder publicDnsName(String publicDnsName) {
+			return publicDnsName(Optional.of(publicDnsName));
 		}
 
 		public Builder type(String type) {
@@ -105,7 +109,7 @@ public final class EC2Instance {
 		return name;
 	}
 
-	public String getPublicDnsName() {
+	public Optional<String> getPublicDnsName() {
 		return publicDnsName;
 	}
 

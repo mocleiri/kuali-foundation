@@ -1,13 +1,18 @@
 package org.kuali.common.devops.logic;
 
+import static com.google.common.base.Optional.fromNullable;
+import static org.apache.commons.lang.StringUtils.trimToNull;
+
 import java.util.List;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.devops.model.EC2Instance;
+import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitService;
+import org.slf4j.Logger;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.ec2.model.Instance;
@@ -16,6 +21,8 @@ import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 
 public class Instances {
+
+	private static final Logger logger = LoggerUtils.make();
 
 	public static List<EC2Instance> getInstances(AWSCredentials creds) {
 		WaitService ws = new DefaultWaitService();
@@ -35,9 +42,10 @@ public class Instances {
 	protected static EC2Instance convert(Instance instance) {
 		String id = instance.getInstanceId();
 		Optional<String> name = getName(instance);
-		String publicDnsName = instance.getPublicDnsName();
+		Optional<String> publicDnsName = fromNullable(trimToNull(instance.getPublicDnsName()));
 		String type = instance.getInstanceType();
 		long launchTime = instance.getLaunchTime().getTime();
+		logger.info(String.format("%s -> [%s]", id, publicDnsName));
 		return EC2Instance.builder().id(id).name(name).publicDnsName(publicDnsName).type(type).launchTime(launchTime).build();
 	}
 
