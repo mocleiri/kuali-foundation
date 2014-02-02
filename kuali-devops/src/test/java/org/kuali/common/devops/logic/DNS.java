@@ -28,8 +28,7 @@ public class DNS {
 	private static final File CACHE = new CanonicalFile("./target/dns/cache.properties");
 
 	public static Map<String, String> getMap(boolean refresh) {
-		boolean query = refresh || !CACHE.exists();
-		if (query) {
+		if (refresh || !CACHE.exists()) {
 			Map<String, String> dns = queryProvider();
 			store(dns);
 			return dns;
