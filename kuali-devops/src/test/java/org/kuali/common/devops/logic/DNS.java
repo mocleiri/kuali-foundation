@@ -50,8 +50,8 @@ public class DNS {
 		logger.info(String.format("Located %s dns records for [%s]", records.size(), DOMAIN));
 		Map<String, String> map = Maps.newTreeMap();
 		for (DnsRecord record : records) {
-			String alias = trimTrailingDot(record.getValue());
 			String key = record.getName() + "." + DOMAIN;
+			String alias = trimTrailingDot(record.getValue());
 			map.put(key, alias);
 		}
 		return ImmutableMap.copyOf(map);
