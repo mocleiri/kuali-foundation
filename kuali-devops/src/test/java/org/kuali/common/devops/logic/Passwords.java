@@ -1,7 +1,5 @@
 package org.kuali.common.devops.logic;
 
-import static java.lang.String.format;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -16,7 +14,7 @@ import com.google.common.base.Optional;
 
 public class Passwords {
 
-	private static final String KEY = "enc.password";
+	private static final String SYS_KEY = "enc.password";
 	private static final String ENV_KEY = "ENC_PASSWORD";
 	private static final File SETTINGS = getSettingsXmlFile();
 	private static final Logger logger = LoggerUtils.make();
@@ -33,26 +31,26 @@ public class Passwords {
 	protected static String initPassword() {
 		Optional<String> sys = getSystemPassword();
 		if (sys.isPresent()) {
-			logger.info(String.format("Located [%s] in system properties", KEY));
+			logger.info(String.format("Located [%s] in system properties", SYS_KEY));
 			return Str.reveal(sys.get());
 		}
 		Optional<String> env = getEnvPassword();
 		if (env.isPresent()) {
-			logger.info(String.format("Located [%s] in environment variables", KEY));
+			logger.info(String.format("Located [%s] in environment variables", ENV_KEY));
 			return Str.reveal(env.get());
 		}
 		Optional<String> settings = getSettingsXmlPassword();
 		if (settings.isPresent()) {
-			logger.info(String.format("Located [%s] in [%s]", KEY, SETTINGS));
+			logger.info(String.format("Located [%s] in [%s]", SYS_KEY, SETTINGS));
 			return Str.reveal(settings.get());
 		} else {
-			throw new IllegalStateException(String.format("[%s] could not be found in system properties, environment variables, or [%s]", KEY, SETTINGS));
+			throw Exceptions.ise("encryption password could not be found in system properties, environment variables, or [%s]", SETTINGS);
 		}
 	}
 
 	protected static Optional<String> getSystemPassword() {
-		if (System.getProperty(KEY) != null) {
-			return Optional.of(System.getProperty(KEY).trim());
+		if (System.getProperty(SYS_KEY) != null) {
+			return Optional.of(System.getProperty(SYS_KEY).trim());
 		} else {
 			return Optional.absent();
 		}
@@ -78,14 +76,14 @@ public class Passwords {
 		}
 		try {
 			String contents = FileUtils.readFileToString(file);
-			String password = StringUtils.substringBetween(contents, "<" + KEY + ">", "</" + KEY + ">");
+			String password = StringUtils.substringBetween(contents, "<" + SYS_KEY + ">", "</" + SYS_KEY + ">");
 			if (!StringUtils.isBlank(password)) {
 				return Optional.of(StringUtils.trim(password));
 			} else {
 				return Optional.absent();
 			}
 		} catch (IOException e) {
-			throw new IllegalStateException(format("unexpected io error -> [%s]", file), e);
+			throw Exceptions.ise(e, "unexpected io error -> [%s]", file);
 		}
 	}
 
