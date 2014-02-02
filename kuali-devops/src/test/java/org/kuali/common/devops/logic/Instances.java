@@ -143,7 +143,9 @@ public class Instances {
 	}
 
 	protected static void store(File file, List<EC2Instance> instances) {
-		List<String> csv = csv(instances);
+		Table<Integer, Integer, String> table = toStringTable(instances);
+		ToCsvFunction<Integer, Integer> function = new ToCsvFunction<Integer, Integer>();
+		List<String> csv = function.apply(table);
 		store(file, csv, ENCODING);
 	}
 
