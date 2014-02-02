@@ -42,7 +42,7 @@ public class Instances {
 		try {
 			writeLines(file, csv);
 		} catch (IOException e) {
-			throw Exceptions.ise(e, "unexpected io error -> [%s]", file);
+			throw Exceptions.illegalState(e, "unexpected io error -> [%s]", file);
 		}
 	}
 

@@ -4,27 +4,27 @@ import java.lang.reflect.Constructor;
 
 public class Exceptions {
 
-	public static IllegalStateException ise(String msg) {
-		return ise(msg, (Object[]) null);
+	public static IllegalStateException illegalState(String msg) {
+		return illegalState(msg, (Object[]) null);
 	}
 
-	public static IllegalStateException ise(String msg, Object... args) {
+	public static IllegalStateException illegalState(String msg, Object... args) {
 		return create(IllegalStateException.class, msg, args);
 	}
 
-	public static IllegalStateException ise(Throwable cause, String msg, Object... args) {
+	public static IllegalStateException illegalState(Throwable cause, String msg, Object... args) {
 		return create(IllegalStateException.class, cause, msg, args);
 	}
 
-	public static IllegalArgumentException iae(String msg) {
-		return iae(msg, (Object[]) null);
+	public static IllegalArgumentException illegalArgument(String msg) {
+		return illegalArgument(msg, (Object[]) null);
 	}
 
-	public static IllegalArgumentException iae(String msg, Object... args) {
+	public static IllegalArgumentException illegalArgument(String msg, Object... args) {
 		return create(IllegalArgumentException.class, msg, args);
 	}
 
-	public static IllegalArgumentException iae(Throwable cause, String msg, Object... args) {
+	public static IllegalArgumentException illegalArgument(Throwable cause, String msg, Object... args) {
 		return create(IllegalArgumentException.class, cause, msg, args);
 	}
 
