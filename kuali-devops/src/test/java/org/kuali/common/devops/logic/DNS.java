@@ -25,7 +25,7 @@ public class DNS {
 
 	private static final Logger logger = LoggerUtils.make();
 	private static final String DOMAIN = "kuali.org";
-	private static final File CACHE = new CanonicalFile("./target/dns/", "cache.txt");
+	private static final File CACHE = new CanonicalFile("./target/dns/", "cache.properties");
 
 	/**
 	 * The keys are the convoluted Amazon DNS names, the values are the friendly DNS names from DNSME.
