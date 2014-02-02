@@ -42,6 +42,7 @@
     <hibernate-validator.version>5.0.1.Final</hibernate-validator.version>
     <javax.el.version>2.2.4</javax.el.version>
     <javax.el-api.version>${javax.el.version}</javax.el-api.version>
+    <jsr305.version>2.0.3</jsr305.version>
 
     <tomcat7.version>7.0.47</tomcat7.version>
     <tomcat6.version>6.0.37</tomcat6.version>
@@ -139,6 +140,12 @@
       <artifactId>javax.el</artifactId>
       <version>${javax.el.version}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+      <version>${jsr305.version}</version>
+      <optional>true</optional>
     </dependency>
   </dependencies>
 </project>
