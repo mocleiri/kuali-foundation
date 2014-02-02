@@ -38,6 +38,16 @@ public class DefaultAdapter<T> extends CsvAdapter<T> {
 		this.targetType = builder.targetType;
 	}
 
+	public static <T> DefaultAdapter<T> create(Class<T> targetType) {
+		Builder<T> builder = builder();
+		builder.targetType(targetType);
+		return builder.build();
+	}
+
+	public static <T> Builder<T> builder() {
+		return new Builder<T>();
+	}
+
 	public static class Builder<T> implements org.kuali.common.util.build.Builder<DefaultAdapter<T>> {
 
 		private CsvAdapter<String> adapter = BasicStringAdapter.create();
