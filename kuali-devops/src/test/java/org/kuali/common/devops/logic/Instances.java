@@ -43,7 +43,7 @@ import com.google.common.collect.Table;
 public class Instances {
 
 	private static final File CACHE_DIR = new CanonicalFile("./target/aws/ec2");
-	private static final String ABSENT = "${csv.absent}";
+	private static final String ABSENT = "${optional.absent}";
 	private static final Logger logger = Loggers.make();
 	private static final String ENCODING = Encodings.UTF8;
 	private static final String EC2_NAME_TAG_KEY = "Name";
@@ -63,7 +63,7 @@ public class Instances {
 		List<String> header = ImmutableList.of("id", "ami", "launchTime", "name", "state", "type", "publicDnsName");
 		Tables.addRow(table, header);
 		for (EC2Instance instance : instances) {
-			Tables.addRow(table, toString(instance));
+			Tables.addRow(table, toStrings(instance));
 		}
 		return table;
 	}
@@ -71,15 +71,15 @@ public class Instances {
 	/**
 	 * id,ami,launchTime,name,state,type,publicDnsName
 	 */
-	public static List<String> toString(EC2Instance instance) {
+	public static List<String> toStrings(EC2Instance instance) {
 		List<String> strings = Lists.newArrayList();
 		strings.add(instance.getId());
 		strings.add(instance.getAmi());
 		strings.add(Long.toString(instance.getLaunchTime()));
-		strings.add(instance.getName().orNull());
+		strings.add(toString(instance.getName()));
 		strings.add(instance.getState());
 		strings.add(instance.getType());
-		strings.add(instance.getPublicDnsName().orNull());
+		strings.add(toString(instance.getPublicDnsName()));
 		return strings;
 	}
 
@@ -220,7 +220,7 @@ public class Instances {
 
 	protected static String toString(Optional<String> string) {
 		if (string.isPresent()) {
-			return CSV.replace(string.get());
+			return string.get();
 		} else {
 			return ABSENT;
 		}

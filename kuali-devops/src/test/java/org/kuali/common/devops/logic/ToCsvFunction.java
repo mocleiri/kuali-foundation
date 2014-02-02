@@ -17,6 +17,7 @@ public final class ToCsvFunction<R, C> implements Function<Table<? extends Compa
 
 	private final String nullToken = "${csv.null}";
 	private final String emptyToken = "${csv.empty}";
+	private final String optionalAbsentToken = "${optional.absent}";
 	private final Replacer replacer = Replacer.builder().add("\r", "${csv.cr}").add("\n", "${csv.lf}").add(",", "${csv.comma}").build();
 	private final Joiner joiner = Joiner.on(',');
 
@@ -40,7 +41,7 @@ public final class ToCsvFunction<R, C> implements Function<Table<? extends Compa
 	}
 
 	protected String getToken(String tableValue) {
-		if (tableValue == null) {
+		if (tableValue.equals(optionalAbsentToken)) {
 			return nullToken;
 		}
 		if (tableValue.equals("")) {
