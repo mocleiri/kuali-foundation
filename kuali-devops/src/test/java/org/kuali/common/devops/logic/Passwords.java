@@ -77,11 +77,7 @@ public class Passwords {
 		try {
 			String contents = FileUtils.readFileToString(file);
 			String password = StringUtils.substringBetween(contents, "<" + SYS_KEY + ">", "</" + SYS_KEY + ">");
-			if (!StringUtils.isBlank(password)) {
-				return Optional.of(StringUtils.trim(password));
-			} else {
-				return Optional.absent();
-			}
+			return Optional.fromNullable(StringUtils.trimToNull(password));
 		} catch (IOException e) {
 			throw Exceptions.illegalState(e, "unexpected io error -> [%s]", file);
 		}
