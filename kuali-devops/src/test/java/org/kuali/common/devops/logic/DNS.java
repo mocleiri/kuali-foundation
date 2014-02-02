@@ -40,9 +40,9 @@ public class DNS {
 	 */
 	public static Map<String, String> getCanonicalNameRecords(boolean refresh) {
 		if (refresh || !CACHE.exists()) {
-			Map<String, String> dns = queryProvider();
-			store(dns);
-			return dns;
+			Map<String, String> records = queryProvider();
+			store(records);
+			return records;
 		} else {
 			return load();
 		}
