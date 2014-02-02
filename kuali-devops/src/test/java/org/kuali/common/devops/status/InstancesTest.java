@@ -20,7 +20,7 @@ public class InstancesTest {
 	@Test
 	public void test() {
 		try {
-			Map<String, List<EC2Instance>> map = Instances.getInstances(true);
+			Map<String, List<EC2Instance>> map = Instances.getInstances(false);
 			for (String account : map.keySet()) {
 				List<EC2Instance> instances = map.get(account);
 				logger.info(format("%s -> %s", rightPad(account, 10), leftPad(instances.size() + "", 2)));

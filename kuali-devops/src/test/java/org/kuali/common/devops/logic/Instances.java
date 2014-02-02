@@ -89,7 +89,7 @@ public class Instances {
 		String id = tokens.get(0);
 		String ami = tokens.get(1);
 		long launchTime = Long.parseLong(tokens.get(2));
-		Optional<String> name = getOptional(tokens.get(3));
+		Optional<String> name = getOptional(inflate(tokens.get(3)));
 		String state = tokens.get(4);
 		String type = tokens.get(5);
 		Optional<String> publicDnsName = getOptional(tokens.get(6));
@@ -191,10 +191,18 @@ public class Instances {
 
 	protected static String toString(Optional<String> string) {
 		if (string.isPresent()) {
-			return string.get();
+			return deflate(string.get());
 		} else {
 			return ABSENT;
 		}
+	}
+
+	protected static String deflate(String s) {
+		return s.replace(",", "${comma}");
+	}
+
+	protected static String inflate(String s) {
+		return s.replace("${comma}", ",");
 	}
 
 }
