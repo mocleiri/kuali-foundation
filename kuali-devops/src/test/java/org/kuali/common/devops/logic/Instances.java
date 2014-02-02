@@ -34,6 +34,8 @@ import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Table;
@@ -56,8 +58,27 @@ public class Instances {
 		return map;
 	}
 
-	public static Table<Integer, Integer, String> getTable(List<EC2Instance> instances) {
-		return null;
+	public static Table<Integer, Integer, String> getCSVTable(List<EC2Instance> instances) {
+		Table<Integer, Integer, String> table = HashBasedTable.create();
+		List<String> header = ImmutableList.of("id", "ami", "launchTime", "name", "state", "type", "publicDnsName");
+		Tables.addRow(table, header);
+		for (EC2Instance instance : instances) {
+			Tables.addRow(table, getCSVRow(instance));
+		}
+		return table;
+	}
+
+	public static List<String> getCSVRow(EC2Instance instance) {
+		// id,ami,launchTime,name,state,type,publicDnsName
+		List<String> strings = Lists.newArrayList();
+		strings.add(instance.getId());
+		strings.add(instance.getAmi());
+		strings.add(Long.toString(instance.getLaunchTime()));
+		strings.add(toString(instance.getName()));
+		strings.add(instance.getState());
+		strings.add(instance.getType());
+		strings.add(toString(instance.getPublicDnsName()));
+		return strings;
 	}
 
 	protected static List<EC2Instance> getInstances(String account, boolean refresh) {
