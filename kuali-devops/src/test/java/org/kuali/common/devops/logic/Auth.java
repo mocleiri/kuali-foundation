@@ -1,8 +1,8 @@
 package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Preconditions.checkState;
+import static org.kuali.common.util.enc.EncUtils.unwrap;
 
-import java.util.Map;
 import java.util.SortedSet;
 
 import org.jasypt.util.text.TextEncryptor;
@@ -13,7 +13,6 @@ import org.kuali.common.util.enc.EncUtils;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 public class Auth {
@@ -29,33 +28,36 @@ public class Auth {
 		return DNSMadeEasyCredentials.create(apiKey, secretKey);
 	}
 
-	public static Map<String, AWSCredentials> getAwsCredentials() {
-		String password = Passwords.getEncPassword();
-		TextEncryptor enc = EncUtils.getTextEncryptor(password);
-		Map<String, AWSCredentials> map = Maps.newTreeMap();
-		for (Credentials credentials : Credentials.values()) {
-			String accessKey = credentials.getAWSAccessKeyId();
-			String secretKey = credentials.getAWSSecretKey();
-			if (EncUtils.isEncrypted(secretKey)) {
-				secretKey = enc.decrypt(EncUtils.unwrap(secretKey));
-			}
-			map.put(getName(credentials), new BasicAWSCredentials(accessKey, secretKey));
-		}
-		return map;
-	}
-
-	protected static String getName(Credentials credentials) {
-		return credentials.name().toLowerCase();
-	}
-
 	public static SortedSet<String> getAwsAccounts() {
 		SortedSet<String> accounts = Sets.newTreeSet();
 		for (Credentials credentials : Credentials.values()) {
-			String account = getName(credentials);
+			String account = getAccount(credentials);
 			boolean added = accounts.add(account);
-			checkState(added, "duplicate account name -> %s", account);
+			checkState(added, "duplicate account name -> [%s]", account);
 		}
 		return accounts;
+	}
+
+	public static AWSCredentials getAwsCredentials(String account) {
+		String password = Passwords.getEncPassword();
+		TextEncryptor enc = EncUtils.getTextEncryptor(password);
+		Credentials credentials = getCredentials(account);
+		String accessKey = credentials.getAWSAccessKeyId();
+		String secretKey = enc.decrypt(unwrap(credentials.getAWSSecretKey()));
+		return new BasicAWSCredentials(accessKey, secretKey);
+	}
+
+	protected static Credentials getCredentials(String account) {
+		for (Credentials credentials : Credentials.values()) {
+			if (account.equals(getAccount(credentials))) {
+				return credentials;
+			}
+		}
+		throw Exceptions.illegalState("unknown account -> [%s]", account);
+	}
+
+	protected static String getAccount(Credentials credentials) {
+		return credentials.name().toLowerCase();
 	}
 
 }

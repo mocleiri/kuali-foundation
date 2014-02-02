@@ -1,6 +1,8 @@
 package org.kuali.common.devops.aws;
 
-import org.kuali.common.util.Assert;
+import static com.google.common.base.Preconditions.checkArgument;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.kuali.common.util.enc.EncUtils.isEncrypted;
 
 import com.amazonaws.auth.AWSCredentials;
 
@@ -15,8 +17,9 @@ public enum Credentials implements AWSCredentials {
 	private final String secretKey;
 
 	private Credentials(String accessKey, String secretKey) {
-		Assert.noBlanks(accessKey, secretKey);
-		Assert.encrypted(secretKey);
+		checkArgument(!isBlank(accessKey), "'accessKey' cannot be blank");
+		checkArgument(!isBlank(secretKey), "'secretKey' cannot be blank");
+		checkArgument(isEncrypted(secretKey), "'secretKey' must be encrypted");
 		this.accessKey = accessKey;
 		this.secretKey = secretKey;
 	}

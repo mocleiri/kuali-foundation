@@ -1,23 +1,32 @@
 package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Optional.fromNullable;
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static java.lang.String.format;
 import static org.apache.commons.io.FileUtils.writeLines;
 import static org.apache.commons.lang.StringUtils.trimToNull;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
 
 import org.apache.commons.io.FileUtils;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.devops.model.EC2Instance;
+import org.kuali.common.util.Encodings;
 import org.kuali.common.util.file.CanonicalFile;
+import org.kuali.common.util.log.Loggers;
+import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitService;
+import org.slf4j.Logger;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.ec2.model.Instance;
@@ -31,21 +40,24 @@ import com.google.common.collect.Maps;
 public class Instances {
 
 	private static final File CACHE_DIR = new CanonicalFile("./target/aws/ec2");
-	private static final String ABSENT = "${optional.absent}";
+	private static final String ABSENT = NullUtils.NONE;
+	private static final Logger logger = Loggers.make();
+	private static final String ENCODING = Encodings.UTF8;
+	private static final String EC2_NAME_TAG_KEY = "Name";
 
-	public static Map<String, List<EC2Instance>> getInstances(boolean refresh) {
-		Map<String, List<EC2Instance>> map = Maps.newTreeMap();
-		Map<String, AWSCredentials> credentials = Auth.getAwsCredentials();
-		for (String account : credentials.keySet()) {
-			List<EC2Instance> instances = getInstances(account, credentials.get(account), refresh);
-			map.put(account, instances);
+	public static SortedMap<String, List<EC2Instance>> getInstances(boolean refresh) {
+		SortedMap<String, List<EC2Instance>> map = Maps.newTreeMap();
+		Set<String> accounts = Auth.getAwsAccounts();
+		for (String account : accounts) {
+			map.put(account, getInstances(account, refresh));
 		}
 		return map;
 	}
 
-	protected static List<EC2Instance> getInstances(String account, AWSCredentials creds, boolean refresh) {
-		File file = new CanonicalFile(CACHE_DIR, account + ".txt");
-		if (!file.exists() || refresh) {
+	protected static List<EC2Instance> getInstances(String account, boolean refresh) {
+		File file = getFile(account);
+		if (refresh || !file.exists()) {
+			AWSCredentials creds = Auth.getAwsCredentials(account);
 			List<EC2Instance> instances = queryAmazon(creds);
 			store(file, instances);
 			return instances;
@@ -54,8 +66,13 @@ public class Instances {
 		}
 	}
 
+	protected static File getFile(String account) {
+		return new CanonicalFile(CACHE_DIR, account + ".txt");
+	}
+
 	protected static List<EC2Instance> load(File file) {
 		try {
+			logger.info(format("loading -> [%s]", file));
 			List<String> lines = FileUtils.readLines(file);
 			List<EC2Instance> instances = Lists.newArrayList();
 			for (int i = 1; i < lines.size(); i++) {
@@ -98,8 +115,16 @@ public class Instances {
 
 	protected static void store(File file, List<EC2Instance> instances) {
 		List<String> csv = csv(instances);
+		store(file, csv, ENCODING);
+	}
+
+	protected static void store(File file, List<String> lines, String encoding) {
+		checkNotNull(file, "'file' cannot be null");
+		checkNotNull(lines, "'lines' cannot be null");
+		checkArgument(!isBlank(encoding), "'encoding' cannot be blank");
 		try {
-			writeLines(file, csv);
+			logger.info(format("creating -> [%s]", file));
+			writeLines(file, encoding, lines);
 		} catch (IOException e) {
 			throw Exceptions.illegalState(e, "unexpected io error -> [%s]", file);
 		}
@@ -146,7 +171,7 @@ public class Instances {
 	}
 
 	protected static Optional<String> getName(Instance instance) {
-		Optional<Tag> name = getTag(instance, "Name");
+		Optional<Tag> name = getTag(instance, EC2_NAME_TAG_KEY);
 		if (name.isPresent()) {
 			return Optional.of(name.get().getValue());
 		} else {
