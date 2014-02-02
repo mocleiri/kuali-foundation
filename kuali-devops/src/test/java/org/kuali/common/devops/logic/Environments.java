@@ -73,12 +73,22 @@ public class Environments {
 	}
 
 	protected static Table<Integer, Integer, ?> getTable(Tomcat tomcat) {
-		long millis = System.currentTimeMillis() - tomcat.getStartup();
-		String uptime = FormatUtils.getTime(millis);
+		String uptime = getUptime(tomcat);
 		Table<Integer, Integer, Object> table = HashBasedTable.create();
 		addRow(table, "version", tomcat.getVersion());
 		addRow(table, "uptime", uptime);
 		return table;
+	}
+
+	protected static String getUptime(Tomcat tomcat) {
+		long millis = System.currentTimeMillis() - tomcat.getStartup();
+		String uptime = FormatUtils.getTime(millis);
+		int pos = uptime.indexOf('.');
+		if (pos != -1) {
+			String uom = uptime.endsWith("ms") ? "ms" : uptime.substring(uptime.length() - 1);
+			uptime = uptime.substring(0, pos) + uom;
+		}
+		return uptime;
 	}
 
 	protected static void addRow(Table<Integer, Integer, Object> table, Object... objects) {
