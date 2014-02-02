@@ -30,7 +30,7 @@ public class DNS {
 	protected static Map<String, String> getMap(boolean refresh) {
 		boolean query = refresh || !CACHE.exists();
 		if (query) {
-			Map<String, String> dns = queryDnsProvider();
+			Map<String, String> dns = queryProvider();
 			store(dns);
 			return dns;
 		} else {
@@ -41,7 +41,7 @@ public class DNS {
 	/**
 	 * The keys are the convoluted Amazon DNS names, the values are the friendly DNS names from DNSME.
 	 */
-	protected static Map<String, String> queryDnsProvider() {
+	protected static Map<String, String> queryProvider() {
 		DNSMadeEasyServiceContext context = new DNSMadeEasyServiceContext(Auth.getDnsmeCredentials(), URLS.PRODUCTION, DOMAIN);
 		DnsService dns = new DNSMadeEasyDnsService(context);
 		DnsRecordSearchCriteria criteria = new DnsRecordSearchCriteria(DnsRecordType.CNAME);
