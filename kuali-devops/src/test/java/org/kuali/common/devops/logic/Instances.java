@@ -3,28 +3,51 @@ package org.kuali.common.devops.logic;
 import static com.google.common.base.Optional.fromNullable;
 import static org.apache.commons.lang.StringUtils.trimToNull;
 
+import java.io.File;
 import java.util.List;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.devops.model.EC2Instance;
+import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitService;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Tag;
+import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 
 public class Instances {
 
-	public static List<EC2Instance> getInstances(AWSCredentials creds) {
+	private static final File CACHE_DIR = new CanonicalFile("./target/aws/ec2");
+
+	public static List<EC2Instance> getInstances(String accountName, AWSCredentials creds) {
 		WaitService ws = new DefaultWaitService();
 		EC2ServiceContext context = EC2ServiceContext.create(creds);
 		EC2Service service = new DefaultEC2Service(context, ws);
 		return convert(service.getInstances());
+	}
+
+	protected List<String> csv(List<EC2Instance> instances) {
+		List<String> lines = Lists.newArrayList();
+		for (EC2Instance instance : instances) {
+			lines.add(csv(instance));
+		}
+		return lines;
+	}
+
+	protected String csv(EC2Instance instance) {
+		List<String> tokens = Lists.newArrayList();
+		tokens.add(instance.getId());
+		tokens.add(toString(instance.getName()));
+		tokens.add(instance.getType());
+		tokens.add(instance.getLaunchTime() + "");
+		tokens.add(toString(instance.getPublicDnsName()));
+		return Joiner.on(',').join(tokens);
 	}
 
 	protected static List<EC2Instance> convert(List<Instance> instances) {
@@ -61,6 +84,14 @@ public class Instances {
 			}
 		}
 		return Optional.absent();
+	}
+
+	protected String toString(Optional<String> string) {
+		if (string.isPresent()) {
+			return string.get();
+		} else {
+			return "${optional.absent}";
+		}
 	}
 
 }
