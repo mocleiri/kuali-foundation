@@ -82,8 +82,8 @@ public class Instances {
 			String projectName = getProjectName(credentials.getAWSAccessKeyId());
 			EC2ServiceContext context = EC2ServiceContext.create(credentials);
 			EC2Service service = new DefaultEC2Service(context, ws);
-			List<Instance> list = service.getInstances();
-			removeOffline(service, list);
+			List<Instance> list = Lists.newArrayList(service.getInstances());
+			// removeOffline(service, list);
 			instances.put(projectName, list);
 			logger.info(format("%s -> %s instances", rightPad(projectName, 12), leftPad(list.size() + "", 2)));
 		}
