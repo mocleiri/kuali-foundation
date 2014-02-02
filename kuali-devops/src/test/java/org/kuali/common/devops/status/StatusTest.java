@@ -30,7 +30,7 @@ import org.kuali.common.devops.logic.Environments;
 import org.kuali.common.devops.logic.Groups;
 import org.kuali.common.devops.logic.Instances;
 import org.kuali.common.devops.model.Application;
-import org.kuali.common.devops.model.AwsInstance;
+import org.kuali.common.devops.model.EC2Instance;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.model.Group;
 import org.kuali.common.devops.model.Tomcat;
@@ -71,6 +71,7 @@ public class StatusTest {
 	private static final Logger logger = LoggerUtils.make();
 
 	@Test
+	@Ignore
 	public void test1() {
 		try {
 			String path = "/tmp/environments.txt";
@@ -87,13 +88,12 @@ public class StatusTest {
 	}
 
 	@Test
-	@Ignore
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
 			Map<String, String> fqdns = DNS.getMap();
 			Map<String, List<Instance>> instances = Instances.getMap(Auth.getAwsCredentials());
-			List<AwsInstance> records = Instances.convert(instances);
+			List<EC2Instance> records = Instances.convert(instances);
 			List<Environment> envs = merge(records, fqdns);
 			Collections.sort(envs);
 			for (Environment env : envs) {
@@ -483,9 +483,9 @@ public class StatusTest {
 		return keys;
 	}
 
-	protected List<Environment> merge(List<AwsInstance> records, Map<String, String> fqdns) {
+	protected List<Environment> merge(List<EC2Instance> records, Map<String, String> fqdns) {
 		List<Environment> envs = Lists.newArrayList();
-		for (AwsInstance record : records) {
+		for (EC2Instance record : records) {
 			Environment env = new Environment();
 			env.setId(record.getName());
 			env.setProject(record.getProject());
