@@ -72,9 +72,10 @@ public class Environments {
 	}
 
 	protected static Table<Integer, Integer, ?> getTable(Tomcat tomcat) {
+		Long uptime = System.currentTimeMillis() - tomcat.getStartup();
 		Table<Integer, Integer, Object> table = HashBasedTable.create();
 		addRow(table, "version", tomcat.getVersion());
-		addRow(table, "uptime", tomcat.getUptime());
+		addRow(table, "uptime", uptime.toString());
 		return table;
 	}
 

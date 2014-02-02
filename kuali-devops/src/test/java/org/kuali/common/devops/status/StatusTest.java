@@ -158,16 +158,14 @@ public class StatusTest {
 	}
 
 	protected Tomcat getTomcat(List<String> tokens) {
-		Tomcat tomcat = new Tomcat();
-		tomcat.setVersion(tokens.get(5));
-		tomcat.setStartup(tokens.get(6));
-		tomcat.setUptime(tokens.get(7));
-		return tomcat;
+		String version = tokens.get(5);
+		long startup = Long.parseLong(tokens.get(6));
+		return Tomcat.builder().version(version).startup(startup).build();
 	}
 
 	protected void write(List<Environment> envs) throws IOException {
 		List<String> lines = Lists.newArrayList();
-		lines.add("group,env,fqdn,type,java,tomcat,startup,uptime,project,config");
+		lines.add("group,env,fqdn,type,java,tomcat,startup,project,config");
 		for (Environment env : envs) {
 			lines.add(asCSV(env));
 		}
@@ -185,8 +183,7 @@ public class StatusTest {
 		tokens.add(env.getType());
 		tokens.add(env.getJava());
 		tokens.add(env.getTomcat().getVersion());
-		tokens.add(env.getTomcat().getStartup());
-		tokens.add(env.getTomcat().getUptime());
+		tokens.add(env.getTomcat().getStartup() + "");
 		tokens.addAll(getTokens(env.getApplication()));
 		return JOINER.join(tokens.iterator());
 	}
@@ -267,23 +264,7 @@ public class StatusTest {
 		String version = getTomcatVersion(fqdn);
 		// 2014-01-06T21:23:15.299+0000: 0.957: [GC
 		long startup = getTomcatStartupTime(fqdn, PARSER);
-		Tomcat tomcat = new Tomcat();
-		tomcat.setVersion(version);
-		if (startup != -1) {
-			tomcat.setStartup(new Date(startup).toString());
-			String uptime = FormatUtils.getTime(System.currentTimeMillis() - startup);
-			int pos = uptime.indexOf('.');
-			if (pos != -1) {
-				String original = uptime;
-				uptime = uptime.substring(0, pos);
-				uptime = uptime + original.substring(original.length() - 1);
-			}
-			tomcat.setUptime(uptime);
-		} else {
-			tomcat.setStartup("na");
-			tomcat.setUptime("na");
-		}
-		return tomcat;
+		return Tomcat.builder().startup(startup).version(version).build();
 	}
 
 	protected long getTomcatStartupTime(String fqdn, SimpleDateFormat parser) {
