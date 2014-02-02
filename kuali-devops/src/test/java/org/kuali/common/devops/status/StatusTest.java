@@ -29,7 +29,7 @@ import org.kuali.common.devops.logic.Environments;
 import org.kuali.common.devops.logic.Groups;
 import org.kuali.common.devops.logic.Instances;
 import org.kuali.common.devops.model.Application;
-import org.kuali.common.devops.model.AwsRecord;
+import org.kuali.common.devops.model.AwsInstance;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.model.Group;
 import org.kuali.common.devops.model.Tomcat;
@@ -92,7 +92,7 @@ public class StatusTest {
 			long start = System.currentTimeMillis();
 			Map<String, String> fqdns = DNS.getMap();
 			Map<String, List<Instance>> instances = Instances.getMap();
-			List<AwsRecord> records = Instances.getRecords(instances);
+			List<AwsInstance> records = Instances.getRecords(instances);
 			List<Environment> envs = merge(records, fqdns);
 			Collections.sort(envs);
 			for (Environment env : envs) {
@@ -482,9 +482,9 @@ public class StatusTest {
 		return keys;
 	}
 
-	protected List<Environment> merge(List<AwsRecord> records, Map<String, String> fqdns) {
+	protected List<Environment> merge(List<AwsInstance> records, Map<String, String> fqdns) {
 		List<Environment> envs = Lists.newArrayList();
-		for (AwsRecord record : records) {
+		for (AwsInstance record : records) {
 			Environment env = new Environment();
 			env.setId(record.getName());
 			env.setProject(record.getProject());

@@ -3,7 +3,7 @@ package org.kuali.common.devops.model;
 import static com.google.common.base.Preconditions.checkArgument;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
-public final class AwsRecord {
+public final class AwsInstance {
 
 	private final String project;
 	private final String name;
@@ -11,7 +11,7 @@ public final class AwsRecord {
 	private final String type;
 	private final long launchTime;
 
-	private AwsRecord(Builder builder) {
+	private AwsInstance(Builder builder) {
 		this.project = builder.project;
 		this.name = builder.name;
 		this.dns = builder.dns;
@@ -23,7 +23,7 @@ public final class AwsRecord {
 		return new Builder();
 	}
 
-	public static class Builder implements org.kuali.common.util.build.Builder<AwsRecord> {
+	public static class Builder implements org.kuali.common.util.build.Builder<AwsInstance> {
 
 		private String project;
 		private String name;
@@ -57,13 +57,13 @@ public final class AwsRecord {
 		}
 
 		@Override
-		public AwsRecord build() {
-			AwsRecord instance = new AwsRecord(this);
+		public AwsInstance build() {
+			AwsInstance instance = new AwsInstance(this);
 			validate(instance);
 			return instance;
 		}
 
-		private static void validate(AwsRecord instance) {
+		private static void validate(AwsInstance instance) {
 			checkArgument(!isBlank(instance.project), "'project' cannot be blank");
 			checkArgument(!isBlank(instance.name), "'env' cannot be blank");
 			checkArgument(!isBlank(instance.dns), "'dns' cannot be blank");

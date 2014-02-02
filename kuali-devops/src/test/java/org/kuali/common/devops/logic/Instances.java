@@ -17,7 +17,7 @@ import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.devops.aws.Credentials;
-import org.kuali.common.devops.model.AwsRecord;
+import org.kuali.common.devops.model.AwsInstance;
 import org.kuali.common.devops.model.EnvStringComparator;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.wait.DefaultWaitService;
@@ -51,24 +51,24 @@ public class Instances {
 
 	}
 
-	public static List<AwsRecord> getRecords(Map<String, List<Instance>> instances) {
-		List<AwsRecord> records = Lists.newArrayList();
+	public static List<AwsInstance> getRecords(Map<String, List<Instance>> instances) {
+		List<AwsInstance> records = Lists.newArrayList();
 		for (String project : instances.keySet()) {
 			List<Instance> envs = instances.get(project);
 			for (Instance env : envs) {
-				AwsRecord record = getRecord(project, env);
+				AwsInstance record = getRecord(project, env);
 				records.add(record);
 			}
 		}
 		return records;
 	}
 
-	protected static AwsRecord getRecord(String project, Instance instance) {
+	protected static AwsInstance getRecord(String project, Instance instance) {
 		String name = getName(instance);
 		String dns = instance.getPublicDnsName();
 		String type = instance.getInstanceType();
 		long launchTime = instance.getLaunchTime().getTime();
-		return AwsRecord.builder().dns(dns).project(project).type(type).name(name).launchTime(launchTime).build();
+		return AwsInstance.builder().dns(dns).project(project).type(type).name(name).launchTime(launchTime).build();
 	}
 
 	public static Map<String, List<Instance>> getMap() {
