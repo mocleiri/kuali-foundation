@@ -45,7 +45,7 @@ public class Instances {
 	private static final Logger logger = Loggers.make();
 	private static final String ENCODING = Encodings.UTF8;
 	private static final String EC2_NAME_TAG_KEY = "Name";
-	private static final Replacer REPLACER = Replacer.create(",", "${csv.comma}");
+	private static final Replacer CSV = Replacer.create(",", "${csv.comma}");
 
 	public static SortedMap<String, List<EC2Instance>> getInstances(boolean refresh) {
 		SortedMap<String, List<EC2Instance>> map = Maps.newTreeMap();
@@ -91,7 +91,7 @@ public class Instances {
 		String id = tokens.get(0);
 		String ami = tokens.get(1);
 		long launchTime = Long.parseLong(tokens.get(2));
-		Optional<String> name = getOptional(REPLACER.restore(tokens.get(3)));
+		Optional<String> name = getOptional(CSV.restore(tokens.get(3)));
 		String state = tokens.get(4);
 		String type = tokens.get(5);
 		Optional<String> publicDnsName = getOptional(tokens.get(6));
@@ -193,7 +193,7 @@ public class Instances {
 
 	protected static String toString(Optional<String> string) {
 		if (string.isPresent()) {
-			return REPLACER.replace(string.get());
+			return CSV.replace(string.get());
 		} else {
 			return ABSENT;
 		}
