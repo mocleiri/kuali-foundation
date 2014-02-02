@@ -42,11 +42,11 @@ public class Instances {
 
 		@Override
 		public int compare(Instance one, Instance two) {
-			Tag t1 = getRequiredTag(one, "Name");
-			Tag t2 = getRequiredTag(two, "Name");
-			checkArgument(t1.getValue().startsWith("env"), "[%s] must start with 'env'", t1.getValue());
-			checkArgument(t2.getValue().startsWith("env"), "[%s] must start with 'env'", t2.getValue());
-			return COMPARATOR.compare(t1.getValue(), t2.getValue());
+			String name1 = getName(one);
+			String name2 = getName(two);
+			checkArgument(name1.startsWith("env"), "[%s] must start with 'env'", name1);
+			checkArgument(name2.startsWith("env"), "[%s] must start with 'env'", name2);
+			return COMPARATOR.compare(name1, name2);
 		}
 
 	}
@@ -126,6 +126,11 @@ public class Instances {
 			}
 		}
 		return filtered;
+	}
+
+	protected static String getName(Instance instance) {
+		Tag name = getRequiredTag(instance, "Name");
+		return name.getValue();
 	}
 
 	protected static Tag getRequiredTag(Instance instance, String key) {
