@@ -2,6 +2,7 @@ package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
+import static java.lang.String.format;
 import static java.util.Collections.sort;
 import static org.apache.commons.lang3.StringUtils.leftPad;
 import static org.apache.commons.lang3.StringUtils.rightPad;
@@ -84,14 +85,14 @@ public class Instances {
 			List<Instance> list = service.getInstances();
 			removeOffline(service, list);
 			instances.put(projectName, list);
-			logger.info(String.format("%s -> %s instances", rightPad(projectName, 12), leftPad(list.size() + "", 2)));
+			logger.info(format("%s -> %s instances", rightPad(projectName, 12), leftPad(list.size() + "", 2)));
 		}
 		SortedSet<String> keys = Sets.newTreeSet(instances.keySet());
 		for (String key : keys) {
 			List<Instance> list = instances.get(key);
 			List<Instance> filtered = filter(list);
 			sort(filtered, new InstanceComparator());
-			logger.info(String.format("%s -> %s environments", rightPad(key, 12), leftPad(filtered.size() + "", 2)));
+			logger.info(format("%s -> %s environments", rightPad(key, 12), leftPad(filtered.size() + "", 2)));
 			instances.put(key, filtered);
 		}
 		return instances;
