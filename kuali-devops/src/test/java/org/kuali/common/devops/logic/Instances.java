@@ -65,10 +65,10 @@ public class Instances {
 
 	protected static EC2Instance convert(String project, Instance instance) {
 		String name = getName(instance);
-		String dns = instance.getPublicDnsName();
+		String publicDnsName = instance.getPublicDnsName();
 		String type = instance.getInstanceType();
 		long launchTime = instance.getLaunchTime().getTime();
-		return EC2Instance.builder().dns(dns).project(project).type(type).name(name).launchTime(launchTime).build();
+		return EC2Instance.builder().publicDnsName(publicDnsName).type(type).name(name).launchTime(launchTime).build();
 	}
 
 	public static Map<String, List<Instance>> getMap(Map<String, AWSCredentials> creds) {
