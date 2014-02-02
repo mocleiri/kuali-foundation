@@ -13,7 +13,7 @@ public class DNSTest {
 
 	@Test
 	public void test() {
-		Map<String, String> dns = DNS.getMap(false);
+		Map<String, String> dns = DNS.getMap(true);
 		logger.info(String.format("dns entries -> %s", dns.size()));
 	}
 }
