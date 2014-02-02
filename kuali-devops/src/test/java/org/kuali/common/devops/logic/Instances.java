@@ -40,7 +40,7 @@ public class Instances {
 		File file = new CanonicalFile(CACHE_DIR, accountName + "txt");
 		List<String> csv = csv(instances);
 		try {
-			FileUtils.writeLines(null, csv);
+			FileUtils.writeLines(file, csv);
 		} catch (IOException e) {
 			throw Exceptions.ise(e, "unexpected io error -> [%s]", file);
 		}

@@ -26,7 +26,7 @@ public class InstancesTest {
 			Map<String, AWSCredentials> map = Auth.getAwsCredentials();
 			for (String account : map.keySet()) {
 				AWSCredentials auth = map.get(account);
-				List<EC2Instance> instances = Instances.getInstances(auth);
+				List<EC2Instance> instances = Instances.getInstances(account, auth);
 				logger.info(format("%s -> %s", rightPad(account, 10), leftPad(instances.size() + "", 2)));
 			}
 		} catch (Throwable e) {
