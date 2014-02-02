@@ -27,7 +27,7 @@ public class InstancesTest {
 			for (String account : map.keySet()) {
 				AWSCredentials auth = map.get(account);
 				List<EC2Instance> instances = Instances.getInstances(auth);
-				logger.info(format("%s -> %s", rightPad(account, 12), leftPad(instances.size() + "", 2)));
+				logger.info(format("%s -> %s", rightPad(account, 10), leftPad(instances.size() + "", 2)));
 			}
 		} catch (Throwable e) {
 			e.printStackTrace();
