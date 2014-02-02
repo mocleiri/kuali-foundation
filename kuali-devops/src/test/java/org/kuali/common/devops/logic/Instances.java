@@ -26,6 +26,7 @@ import com.google.common.collect.Lists;
 public class Instances {
 
 	private static final File CACHE_DIR = new CanonicalFile("./target/aws/ec2");
+	private static final String ABSENT = "${optional.absent}";
 
 	public static List<EC2Instance> getInstances(String accountName, AWSCredentials creds) {
 		WaitService ws = new DefaultWaitService();
@@ -104,7 +105,7 @@ public class Instances {
 		if (string.isPresent()) {
 			return string.get();
 		} else {
-			return "${optional.absent}";
+			return ABSENT;
 		}
 	}
 
