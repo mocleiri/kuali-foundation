@@ -6,15 +6,15 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 public final class Tomcat {
 
 	private final String version;
-	private final long startup;
+	private final long startupTime;
 
 	private Tomcat(Builder builder) {
 		this.version = builder.version;
-		this.startup = builder.startup;
+		this.startupTime = builder.startupTime;
 	}
 
-	public static Tomcat create(String version, long startup) {
-		return builder().version(version).startup(startup).build();
+	public static Tomcat create(String version, long startupTime) {
+		return builder().version(version).startupTime(startupTime).build();
 	}
 
 	public static Builder builder() {
@@ -24,15 +24,15 @@ public final class Tomcat {
 	public static class Builder implements org.kuali.common.util.build.Builder<Tomcat> {
 
 		private String version;
-		private long startup;
+		private long startupTime;
 
 		public Builder version(String version) {
 			this.version = version;
 			return this;
 		}
 
-		public Builder startup(long startup) {
-			this.startup = startup;
+		public Builder startupTime(long startupTime) {
+			this.startupTime = startupTime;
 			return this;
 		}
 
@@ -45,7 +45,7 @@ public final class Tomcat {
 
 		private static void validate(Tomcat instance) {
 			checkArgument(!isBlank(instance.version), "'version' cannot be blank");
-			checkArgument(instance.startup >= -1, "'startup' must be greater than or equal to -1");
+			checkArgument(instance.startupTime >= -1, "'startup' must be greater than or equal to -1");
 		}
 
 		public String getVersion() {
@@ -56,12 +56,12 @@ public final class Tomcat {
 			this.version = version;
 		}
 
-		public long getStartup() {
-			return startup;
+		public long getStartupTime() {
+			return startupTime;
 		}
 
-		public void setStartup(long startup) {
-			this.startup = startup;
+		public void setStartupTime(long startup) {
+			this.startupTime = startup;
 		}
 	}
 
@@ -69,8 +69,8 @@ public final class Tomcat {
 		return version;
 	}
 
-	public long getStartup() {
-		return startup;
+	public long getStartupTime() {
+		return startupTime;
 	}
 
 }

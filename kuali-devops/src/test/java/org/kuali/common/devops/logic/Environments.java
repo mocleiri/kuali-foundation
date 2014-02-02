@@ -81,7 +81,7 @@ public class Environments {
 	}
 
 	protected static String getUptime(Tomcat tomcat) {
-		long millis = System.currentTimeMillis() - tomcat.getStartup();
+		long millis = System.currentTimeMillis() - tomcat.getStartupTime();
 		String uptime = FormatUtils.getTime(millis);
 		int pos = uptime.indexOf('.');
 		if (pos != -1) {

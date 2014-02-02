@@ -184,7 +184,7 @@ public class StatusTest {
 		tokens.add(env.getType());
 		tokens.add(env.getJava());
 		tokens.add(env.getTomcat().getVersion());
-		tokens.add(env.getTomcat().getStartup() + "");
+		tokens.add(env.getTomcat().getStartupTime() + "");
 		tokens.addAll(getTokens(env.getApplication()));
 		return JOINER.join(tokens.iterator());
 	}
