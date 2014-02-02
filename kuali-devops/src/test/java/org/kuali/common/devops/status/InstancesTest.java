@@ -27,7 +27,6 @@ public class InstancesTest {
 				List<EC2Instance> instances = map.get(account);
 				logger.info(format("%s -> %s", rightPad(account, 10), leftPad(instances.size() + "", 2)));
 			}
-			logger.info(String.format("%s", "what?"));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
