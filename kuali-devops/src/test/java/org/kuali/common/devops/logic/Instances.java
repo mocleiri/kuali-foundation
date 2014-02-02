@@ -52,18 +52,18 @@ public class Instances {
 	}
 
 	public static List<AwsInstance> convert(Map<String, List<Instance>> instances) {
-		List<AwsInstance> records = Lists.newArrayList();
+		List<AwsInstance> converted = Lists.newArrayList();
 		for (String project : instances.keySet()) {
 			List<Instance> envs = instances.get(project);
 			for (Instance env : envs) {
-				AwsInstance record = getRecord(project, env);
-				records.add(record);
+				AwsInstance element = convert(project, env);
+				converted.add(element);
 			}
 		}
-		return records;
+		return converted;
 	}
 
-	protected static AwsInstance getRecord(String project, Instance instance) {
+	protected static AwsInstance convert(String project, Instance instance) {
 		String name = getName(instance);
 		String dns = instance.getPublicDnsName();
 		String type = instance.getInstanceType();
