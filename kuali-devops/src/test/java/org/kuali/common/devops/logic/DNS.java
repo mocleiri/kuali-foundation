@@ -25,12 +25,23 @@ public class DNS {
 
 	private static final Logger logger = LoggerUtils.make();
 	private static final String DOMAIN = "kuali.org";
-	private static final File CACHE = new CanonicalFile("./target/dns/", "cache.properties");
+	private static final File CACHE = new CanonicalFile("./target/dns/cache.properties");
+
+	protected static Map<String, String> getMap(boolean refresh) {
+		boolean query = refresh || !CACHE.exists();
+		if (query) {
+			Map<String, String> dns = queryDnsProvider();
+			store(dns);
+			return dns;
+		} else {
+			return load();
+		}
+	}
 
 	/**
 	 * The keys are the convoluted Amazon DNS names, the values are the friendly DNS names from DNSME.
 	 */
-	public static Map<String, String> getMap() {
+	protected static Map<String, String> queryDnsProvider() {
 		DNSMadeEasyServiceContext context = new DNSMadeEasyServiceContext(Auth.getDnsmeCredentials(), URLS.PRODUCTION, DOMAIN);
 		DnsService dns = new DNSMadeEasyDnsService(context);
 		DnsRecordSearchCriteria criteria = new DnsRecordSearchCriteria(DnsRecordType.CNAME);
