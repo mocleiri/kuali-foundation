@@ -1,53 +1,43 @@
 package org.kuali.common.devops.model;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static org.apache.commons.lang3.StringUtils.isBlank;
+import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.validate.IdiotProofImmutable;
 
+import com.google.common.base.Optional;
+
+@IdiotProofImmutable
 public final class EC2Instance {
 
-	private final String project;
-	private final String name;
-	private final String dns;
+	private final String id;
+	private final Optional<String> name;
+	private final String publicDnsName;
 	private final String type;
+	@Min
 	private final long launchTime;
 
 	private EC2Instance(Builder builder) {
-		this.project = builder.project;
+		this.id = builder.id;
 		this.name = builder.name;
-		this.dns = builder.dns;
+		this.publicDnsName = builder.publicDnsName;
 		this.type = builder.type;
 		this.launchTime = builder.launchTime;
 	}
 
-	public static Builder builder() {
-		return new Builder();
-	}
+	public static class Builder extends ValidatingBuilder<EC2Instance> {
 
-	public static class Builder implements org.kuali.common.util.build.Builder<EC2Instance> {
-
-		private String project;
-		private String name;
-		private String dns;
+		private String id;
+		private Optional<String> name = Optional.absent();
+		private String publicDnsName;
 		private String type;
 		private long launchTime;
 
-		public Builder launchTime(long launchTime) {
-			this.launchTime = launchTime;
-			return this;
-		}
-
-		public Builder project(String project) {
-			this.project = project;
-			return this;
-		}
-
 		public Builder name(String name) {
-			this.name = name;
+			this.name = Optional.of(name);
 			return this;
 		}
 
-		public Builder dns(String dns) {
-			this.dns = dns;
+		public Builder publicDnsName(String publicDnsName) {
+			this.publicDnsName = publicDnsName;
 			return this;
 		}
 
@@ -56,43 +46,22 @@ public final class EC2Instance {
 			return this;
 		}
 
+		public Builder launchTime(long launchTime) {
+			this.launchTime = launchTime;
+			return this;
+		}
+
 		@Override
-		public EC2Instance build() {
-			EC2Instance instance = new EC2Instance(this);
-			validate(instance);
-			return instance;
+		public EC2Instance getInstance() {
+			return new EC2Instance(this);
 		}
 
-		private static void validate(EC2Instance instance) {
-			checkArgument(!isBlank(instance.project), "'project' cannot be blank");
-			checkArgument(!isBlank(instance.name), "'name' cannot be blank");
-			checkArgument(!isBlank(instance.dns), "'dns' cannot be blank");
-			checkArgument(!isBlank(instance.type), "'type' cannot be blank");
-			checkArgument(instance.launchTime > 0, "'launchTime' must be greater than zero");
-		}
-
-		public String getProject() {
-			return project;
-		}
-
-		public void setProject(String project) {
-			this.project = project;
-		}
-
-		public String getName() {
+		public Optional<String> getName() {
 			return name;
 		}
 
-		public void setName(String name) {
+		public void setName(Optional<String> name) {
 			this.name = name;
-		}
-
-		public String getDns() {
-			return dns;
-		}
-
-		public void setDns(String dns) {
-			this.dns = dns;
 		}
 
 		public String getType() {
@@ -110,26 +79,6 @@ public final class EC2Instance {
 		public void setLaunchTime(long launchTime) {
 			this.launchTime = launchTime;
 		}
-	}
-
-	public String getProject() {
-		return project;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getDns() {
-		return dns;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public long getLaunchTime() {
-		return launchTime;
 	}
 
 }

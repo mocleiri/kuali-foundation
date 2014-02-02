@@ -59,6 +59,7 @@
     <jdk6.version>1.6.0-u45</jdk6.version>
     <jdk6.classifier>linux-x64</jdk6.classifier>
     <jdk6.type>zip</jdk6.type>
+    <hibernate-validator.version>5.0.1.Final</hibernate-validator.version>
 
   </properties>
   <profiles>
@@ -119,6 +120,11 @@
       <version>${kuali-util.version}</version>
       <type>test-jar</type>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>${hibernate-validator.version}</version>
     </dependency>
   </dependencies>
 </project>
