@@ -81,7 +81,7 @@ public class Instances {
 			}
 			return instances;
 		} catch (IOException e) {
-			throw Exceptions.illegalState(e, "unexpected io error -> %s", file);
+			throw Exceptions.illegalState(e, "unexpected io error -> [%s]", file);
 		}
 	}
 
