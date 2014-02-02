@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.google.common.base.Preconditions;
 
-public final class CharReplacer {
+public final class Replacer {
 
 	private final List<String> oldTokens;
 	private final List<String> newTokens;
@@ -28,7 +28,7 @@ public final class CharReplacer {
 		return string;
 	}
 
-	private CharReplacer(Builder builder) {
+	private Replacer(Builder builder) {
 		this.oldTokens = builder.oldTokens;
 		this.newTokens = builder.newTokens;
 		this.tokens = builder.tokens;
