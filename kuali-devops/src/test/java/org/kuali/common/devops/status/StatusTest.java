@@ -181,7 +181,8 @@ public class StatusTest {
 		tokens.add(env.getProject());
 		tokens.add(env.getId());
 		tokens.add(env.getFqdn());
-		tokens.add(env.getType());
+		tokens.add(env.getInstance().getType());
+		tokens.add(env.getInstance().getLaunchTime() + "");
 		tokens.add(env.getJava());
 		tokens.add(env.getTomcat().getVersion());
 		tokens.add(env.getTomcat().getStartupTime() + "");
@@ -483,15 +484,15 @@ public class StatusTest {
 		return keys;
 	}
 
-	protected List<Environment> merge(List<EC2Instance> records, Map<String, String> fqdns) {
+	protected List<Environment> merge(List<EC2Instance> instances, Map<String, String> fqdns) {
 		List<Environment> envs = Lists.newArrayList();
-		for (EC2Instance record : records) {
+		for (EC2Instance instance : instances) {
 			Environment env = new Environment();
-			env.setId(record.getName());
-			env.setProject(record.getProject());
-			env.setType(record.getType());
-			String fqdn = fqdns.get(record.getDns());
-			checkState(fqdn != null, "No DNSME record for %s [%s=%s]", record.getProject(), record.getName(), record.getDns());
+			env.setId(instance.getName());
+			env.setProject(instance.getProject());
+			env.setInstance(instance);
+			String fqdn = fqdns.get(instance.getDns());
+			checkState(fqdn != null, "No DNSME record for %s [%s=%s]", instance.getProject(), instance.getName(), instance.getDns());
 			env.setFqdn(fqdn);
 			envs.add(env);
 		}

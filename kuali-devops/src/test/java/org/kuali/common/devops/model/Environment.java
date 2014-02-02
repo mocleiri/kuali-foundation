@@ -11,7 +11,7 @@ public class Environment implements Comparable<Environment> {
 	String project;
 	String id;
 	String fqdn;
-	String type;
+	EC2Instance instance;
 	Tomcat tomcat;
 	String java;
 	Optional<Application> application;
@@ -50,14 +50,6 @@ public class Environment implements Comparable<Environment> {
 		this.fqdn = dns;
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
 	public String getJava() {
 		return java;
 	}
@@ -80,6 +72,14 @@ public class Environment implements Comparable<Environment> {
 
 	public void setApplication(Optional<Application> application) {
 		this.application = application;
+	}
+
+	public EC2Instance getInstance() {
+		return instance;
+	}
+
+	public void setInstance(EC2Instance instance) {
+		this.instance = instance;
 	}
 
 }
