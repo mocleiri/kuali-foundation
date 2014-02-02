@@ -10,6 +10,7 @@ import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.Database;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.model.Tomcat;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.project.model.Project;
 
 import com.google.common.base.Joiner;
@@ -72,10 +73,11 @@ public class Environments {
 	}
 
 	protected static Table<Integer, Integer, ?> getTable(Tomcat tomcat) {
-		Long uptime = System.currentTimeMillis() - tomcat.getStartup();
+		long millis = System.currentTimeMillis() - tomcat.getStartup();
+		String uptime = FormatUtils.getTime(millis);
 		Table<Integer, Integer, Object> table = HashBasedTable.create();
 		addRow(table, "version", tomcat.getVersion());
-		addRow(table, "uptime", uptime.toString());
+		addRow(table, "uptime", uptime);
 		return table;
 	}
 
