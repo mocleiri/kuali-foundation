@@ -68,8 +68,10 @@ public class Instances {
 		return table;
 	}
 
+	/**
+	 * id,ami,launchTime,name,state,type,publicDnsName
+	 */
 	public static List<String> getCSVRow(EC2Instance instance) {
-		// id,ami,launchTime,name,state,type,publicDnsName
 		List<String> strings = Lists.newArrayList();
 		strings.add(instance.getId());
 		strings.add(instance.getAmi());
