@@ -58,12 +58,12 @@ public class Instances {
 		return map;
 	}
 
-	public static Table<Integer, Integer, String> getCSVTable(List<EC2Instance> instances) {
+	public static Table<Integer, Integer, String> toStringTable(List<EC2Instance> instances) {
 		Table<Integer, Integer, String> table = HashBasedTable.create();
 		List<String> header = ImmutableList.of("id", "ami", "launchTime", "name", "state", "type", "publicDnsName");
 		Tables.addRow(table, header);
 		for (EC2Instance instance : instances) {
-			Tables.addRow(table, getCSVRow(instance));
+			Tables.addRow(table, toString(instance));
 		}
 		return table;
 	}
@@ -71,15 +71,15 @@ public class Instances {
 	/**
 	 * id,ami,launchTime,name,state,type,publicDnsName
 	 */
-	public static List<String> getCSVRow(EC2Instance instance) {
+	public static List<String> toString(EC2Instance instance) {
 		List<String> strings = Lists.newArrayList();
 		strings.add(instance.getId());
 		strings.add(instance.getAmi());
 		strings.add(Long.toString(instance.getLaunchTime()));
-		strings.add(toString(instance.getName()));
+		strings.add(instance.getName().orNull());
 		strings.add(instance.getState());
 		strings.add(instance.getType());
-		strings.add(toString(instance.getPublicDnsName()));
+		strings.add(instance.getPublicDnsName().orNull());
 		return strings;
 	}
 
