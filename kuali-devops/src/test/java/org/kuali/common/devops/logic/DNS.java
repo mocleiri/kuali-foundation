@@ -3,6 +3,7 @@ package org.kuali.common.devops.logic;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.DNSMadeEasyDnsService;
@@ -11,8 +12,10 @@ import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
 import org.kuali.common.dns.model.DnsRecord;
 import org.kuali.common.dns.model.DnsRecordSearchCriteria;
 import org.kuali.common.dns.model.DnsRecordType;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.LoggerUtils;
+import org.kuali.common.util.property.ImmutableProperties;
 import org.slf4j.Logger;
 
 import com.google.common.collect.ImmutableMap;
@@ -35,14 +38,41 @@ public class DNS {
 		logger.info(String.format("Located %s dns records for [%s]", records.size(), DOMAIN));
 		Map<String, String> map = Maps.newTreeMap();
 		for (DnsRecord record : records) {
-			String key = record.getValue();
-			if (key.endsWith(".")) {
-				key = key.substring(0, key.length() - 1);
-			}
+			String key = getKey(record.getValue());
 			String value = record.getName() + "." + DOMAIN;
 			map.put(key, value);
 		}
 		return ImmutableMap.copyOf(map);
+	}
+
+	protected static Map<String, String> load() {
+		return convert(PropertyUtils.load(CACHE));
+	}
+
+	protected static void store(Map<String, String> map) {
+		PropertyUtils.store(convert(map), CACHE);
+	}
+
+	protected static Properties convert(Map<String, String> map) {
+		Properties props = new Properties();
+		props.putAll(map);
+		return ImmutableProperties.of(props);
+	}
+
+	protected static Map<String, String> convert(Properties props) {
+		Map<String, String> map = Maps.newTreeMap();
+		for (String key : props.stringPropertyNames()) {
+			map.put(key, props.getProperty(key));
+		}
+		return ImmutableMap.copyOf(map);
+	}
+
+	protected static String getKey(String key) {
+		if (key.endsWith(".")) {
+			return key.substring(0, key.length() - 1);
+		} else {
+			return key;
+		}
 	}
 
 }
