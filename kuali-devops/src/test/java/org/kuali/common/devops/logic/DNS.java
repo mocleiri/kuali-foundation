@@ -28,7 +28,7 @@ public class DNS {
 	private static final File CACHE = new CanonicalFile("./target/dns/cache.properties");
 
 	/**
-	 * Returns all the CNAME records for {@code kuali.org} being managed by DNS Made Easy.
+	 * Returns all the CNAME records for {@code kuali.org}.
 	 * 
 	 * The keys are aliases to the canonical name records.
 	 * 
