@@ -1,5 +1,9 @@
 package org.kuali.common.devops.status;
 
+import static java.lang.String.format;
+import static org.apache.commons.lang.StringUtils.rightPad;
+import static org.apache.commons.lang3.StringUtils.leftPad;
+
 import java.util.List;
 import java.util.Map;
 
@@ -21,10 +25,9 @@ public class InstancesTest {
 		try {
 			Map<String, AWSCredentials> map = Auth.getAwsCredentials();
 			for (String account : map.keySet()) {
-				logger.info(String.format("examining -> %s", account));
 				AWSCredentials auth = map.get(account);
 				List<EC2Instance> instances = Instances.getInstances(auth);
-				logger.info(String.format("%s -> %s", account, instances.size()));
+				logger.info(format("%s -> %s", rightPad(account, 12), leftPad(instances.size() + "", 2)));
 			}
 		} catch (Throwable e) {
 			e.printStackTrace();
