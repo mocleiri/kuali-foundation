@@ -9,7 +9,7 @@ import javax.validation.Validator;
 
 import org.kuali.common.util.validate.Validation;
 
-public abstract class ValidatingInstanceBuilder<T> implements InstanceBuilder<T> {
+public abstract class ValidatingBuilder<T> implements InstanceBuilder<T> {
 
 	protected Validator validator = Validation.getDefaultValidator();
 
