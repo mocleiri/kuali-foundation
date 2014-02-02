@@ -1,6 +1,9 @@
 package org.kuali.common.devops.logic;
 
+import static com.google.common.base.Preconditions.checkState;
+
 import java.util.Map;
+import java.util.SortedSet;
 
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.devops.aws.Credentials;
@@ -11,6 +14,7 @@ import org.kuali.common.util.enc.EncUtils;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 public class Auth {
 
@@ -35,9 +39,23 @@ public class Auth {
 			if (EncUtils.isEncrypted(secretKey)) {
 				secretKey = enc.decrypt(EncUtils.unwrap(secretKey));
 			}
-			map.put(credentials.name().toLowerCase(), new BasicAWSCredentials(accessKey, secretKey));
+			map.put(getName(credentials), new BasicAWSCredentials(accessKey, secretKey));
 		}
 		return map;
+	}
+
+	protected static String getName(Credentials credentials) {
+		return credentials.name().toLowerCase();
+	}
+
+	public static SortedSet<String> getAwsAccounts() {
+		SortedSet<String> accounts = Sets.newTreeSet();
+		for (Credentials credentials : Credentials.values()) {
+			String account = getName(credentials);
+			boolean added = accounts.add(account);
+			checkState(added, "duplicate account name -> %s", account);
+		}
+		return accounts;
 	}
 
 }
