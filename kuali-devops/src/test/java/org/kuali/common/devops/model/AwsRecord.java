@@ -6,14 +6,14 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 public final class AwsRecord {
 
 	private final String project;
-	private final String env;
+	private final String name;
 	private final String dns;
 	private final String type;
 	private final long launchTime;
 
 	private AwsRecord(Builder builder) {
 		this.project = builder.project;
-		this.env = builder.env;
+		this.name = builder.name;
 		this.dns = builder.dns;
 		this.type = builder.type;
 		this.launchTime = builder.launchTime;
@@ -26,7 +26,7 @@ public final class AwsRecord {
 	public static class Builder implements org.kuali.common.util.build.Builder<AwsRecord> {
 
 		private String project;
-		private String env;
+		private String name;
 		private String dns;
 		private String type;
 		private long launchTime;
@@ -41,8 +41,8 @@ public final class AwsRecord {
 			return this;
 		}
 
-		public Builder env(String env) {
-			this.env = env;
+		public Builder name(String name) {
+			this.name = name;
 			return this;
 		}
 
@@ -65,7 +65,7 @@ public final class AwsRecord {
 
 		private static void validate(AwsRecord instance) {
 			checkArgument(!isBlank(instance.project), "'project' cannot be blank");
-			checkArgument(!isBlank(instance.env), "'env' cannot be blank");
+			checkArgument(!isBlank(instance.name), "'env' cannot be blank");
 			checkArgument(!isBlank(instance.dns), "'dns' cannot be blank");
 			checkArgument(!isBlank(instance.type), "'type' cannot be blank");
 			checkArgument(instance.launchTime > 0, "'launchTime' must be greater than zero");
@@ -79,12 +79,12 @@ public final class AwsRecord {
 			this.project = project;
 		}
 
-		public String getEnv() {
-			return env;
+		public String getName() {
+			return name;
 		}
 
-		public void setEnv(String env) {
-			this.env = env;
+		public void setName(String name) {
+			this.name = name;
 		}
 
 		public String getDns() {
@@ -116,8 +116,8 @@ public final class AwsRecord {
 		return project;
 	}
 
-	public String getEnv() {
-		return env;
+	public String getName() {
+		return name;
 	}
 
 	public String getDns() {

@@ -486,11 +486,11 @@ public class StatusTest {
 		List<Environment> envs = Lists.newArrayList();
 		for (AwsRecord record : records) {
 			Environment env = new Environment();
-			env.setId(record.getEnv());
+			env.setId(record.getName());
 			env.setProject(record.getProject());
 			env.setType(record.getType());
 			String fqdn = fqdns.get(record.getDns());
-			checkState(fqdn != null, "No DNSME record for %s [%s=%s]", record.getProject(), record.getEnv(), record.getDns());
+			checkState(fqdn != null, "No DNSME record for %s [%s=%s]", record.getProject(), record.getName(), record.getDns());
 			env.setFqdn(fqdn);
 			envs.add(env);
 		}
