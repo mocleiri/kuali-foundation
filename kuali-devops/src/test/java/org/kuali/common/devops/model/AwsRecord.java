@@ -68,7 +68,7 @@ public final class AwsRecord {
 			checkArgument(!isBlank(instance.env), "'env' cannot be blank");
 			checkArgument(!isBlank(instance.dns), "'dns' cannot be blank");
 			checkArgument(!isBlank(instance.type), "'type' cannot be blank");
-			checkArgument(instance.launchTime > 0, "'launchTimeMillis' must be greater than zero");
+			checkArgument(instance.launchTime > 0, "'launchTime' must be greater than zero");
 		}
 
 		public String getProject() {
