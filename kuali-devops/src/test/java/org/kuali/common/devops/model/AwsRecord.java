@@ -9,14 +9,14 @@ public final class AwsRecord {
 	private final String env;
 	private final String dns;
 	private final String type;
-	private final long launchTimeMillis;
+	private final long launchTime;
 
 	private AwsRecord(Builder builder) {
 		this.project = builder.project;
 		this.env = builder.env;
 		this.dns = builder.dns;
 		this.type = builder.type;
-		this.launchTimeMillis = builder.launchTimeMillis;
+		this.launchTime = builder.launchTime;
 	}
 
 	public static Builder builder() {
@@ -29,10 +29,10 @@ public final class AwsRecord {
 		private String env;
 		private String dns;
 		private String type;
-		private long launchTimeMillis;
+		private long launchTime;
 
-		public Builder launchTimeMillis(long launchTimeMillis) {
-			this.launchTimeMillis = launchTimeMillis;
+		public Builder launchTime(long launchTime) {
+			this.launchTime = launchTime;
 			return this;
 		}
 
@@ -68,7 +68,7 @@ public final class AwsRecord {
 			checkArgument(!isBlank(instance.env), "'env' cannot be blank");
 			checkArgument(!isBlank(instance.dns), "'dns' cannot be blank");
 			checkArgument(!isBlank(instance.type), "'type' cannot be blank");
-			checkArgument(instance.launchTimeMillis > 0, "'launchTimeMillis' must be greater than zero");
+			checkArgument(instance.launchTime > 0, "'launchTimeMillis' must be greater than zero");
 		}
 
 		public String getProject() {
@@ -103,12 +103,12 @@ public final class AwsRecord {
 			this.type = type;
 		}
 
-		public long getLaunchTimeMillis() {
-			return launchTimeMillis;
+		public long getLaunchTime() {
+			return launchTime;
 		}
 
-		public void setLaunchTimeMillis(long launchTimeMillis) {
-			this.launchTimeMillis = launchTimeMillis;
+		public void setLaunchTime(long launchTime) {
+			this.launchTime = launchTime;
 		}
 	}
 
@@ -126,6 +126,10 @@ public final class AwsRecord {
 
 	public String getType() {
 		return type;
+	}
+
+	public long getLaunchTime() {
+		return launchTime;
 	}
 
 }
