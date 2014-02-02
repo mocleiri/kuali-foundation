@@ -17,11 +17,11 @@ public class DNSTest {
 
 	@Test
 	public void test() {
-		Map<String, String> dns = DNS.getMap(false);
-		logger.info(String.format("dns entries -> %s", dns.size()));
+		Map<String, String> cnames = DNS.getCanonicalNameRecords(false);
+		logger.info(String.format("records -> %s", cnames.size()));
 		Multiset<String> multi = TreeMultiset.create();
-		for (String alias : dns.values()) {
-			multi.add(alias);
+		for (String cname : cnames.values()) {
+			multi.add(cname);
 		}
 		Map<String, Integer> duplicates = Maps.newTreeMap();
 		for (String element : multi) {

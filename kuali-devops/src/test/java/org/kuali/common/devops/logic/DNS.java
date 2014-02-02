@@ -30,9 +30,15 @@ public class DNS {
 	/**
 	 * Returns all of the CNAME records for {@code kuali.org} being managed by DNS Made Easy.
 	 * 
-	 * The key is the FQDN DNSME provides resolution for ie {@code env1.rice.kuali.org}. The value is typically a somewhat more convoluted AWS FQDN name.
+	 * The keys are aliases to the canonical name records.
+	 * 
+	 * <pre>
+	 * 
+	 * env1.rice.kuali.org  ->  ec2-174-129-109-246.compute-1.amazonaws.com
+	 * 
+	 * <pre>
 	 */
-	public static Map<String, String> getMap(boolean refresh) {
+	public static Map<String, String> getCanonicalNameRecords(boolean refresh) {
 		if (refresh || !CACHE.exists()) {
 			Map<String, String> dns = queryProvider();
 			store(dns);
