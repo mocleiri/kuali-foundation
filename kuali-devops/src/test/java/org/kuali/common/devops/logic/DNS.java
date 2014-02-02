@@ -27,7 +27,7 @@ public class DNS {
 	private static final String DOMAIN = "kuali.org";
 	private static final File CACHE = new CanonicalFile("./target/dns/cache.properties");
 
-	protected static Map<String, String> getMap(boolean refresh) {
+	public static Map<String, String> getMap(boolean refresh) {
 		boolean query = refresh || !CACHE.exists();
 		if (query) {
 			Map<String, String> dns = queryProvider();
