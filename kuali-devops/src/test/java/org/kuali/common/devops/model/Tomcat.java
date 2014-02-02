@@ -1,8 +1,7 @@
 package org.kuali.common.devops.model;
 
 import static com.google.common.base.Preconditions.checkArgument;
-
-import org.apache.commons.lang3.StringUtils;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public final class Tomcat {
 
@@ -45,7 +44,7 @@ public final class Tomcat {
 		}
 
 		private static void validate(Tomcat instance) {
-			checkArgument(!StringUtils.isBlank(instance.version), "'version' cannot be blank");
+			checkArgument(!isBlank(instance.version), "'version' cannot be blank");
 			checkArgument(instance.startup >= -1, "'startup' must be greater than or equal to -1");
 		}
 
