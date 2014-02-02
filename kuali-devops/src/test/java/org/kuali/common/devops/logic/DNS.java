@@ -27,6 +27,11 @@ public class DNS {
 	private static final String DOMAIN = "kuali.org";
 	private static final File CACHE = new CanonicalFile("./target/dns/cache.properties");
 
+	/**
+	 * Returns all of the CNAME records for {@code kuali.org} being managed by DNS Made Easy.
+	 * 
+	 * The key is the FQDN DNSME provides resolution for ie {@code env1.rice.kuali.org}. The value is typically a somewhat more convoluted AWS FQDN name.
+	 */
 	public static Map<String, String> getMap(boolean refresh) {
 		if (refresh || !CACHE.exists()) {
 			Map<String, String> dns = queryProvider();
@@ -37,9 +42,6 @@ public class DNS {
 		}
 	}
 
-	/**
-	 * The keys are the convoluted Amazon DNS names, the values are the friendly DNS names from DNSME.
-	 */
 	protected static Map<String, String> queryProvider() {
 		DNSMadeEasyServiceContext context = new DNSMadeEasyServiceContext(Auth.getDnsmeCredentials(), URLS.PRODUCTION, DOMAIN);
 		DnsService dns = new DNSMadeEasyDnsService(context);
