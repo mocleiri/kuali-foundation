@@ -71,8 +71,7 @@ public class Instances {
 		return AwsInstance.builder().dns(dns).project(project).type(type).name(name).launchTime(launchTime).build();
 	}
 
-	public static Map<String, List<Instance>> getMap() {
-		Map<String, AWSCredentials> creds = Auth.getAwsCredentials();
+	public static Map<String, List<Instance>> getMap(Map<String, AWSCredentials> creds) {
 		logger.info(String.format("Using %s sets of AWS credentials", creds.size()));
 		WaitService ws = new DefaultWaitService();
 		Map<String, List<Instance>> instances = Maps.newTreeMap();
