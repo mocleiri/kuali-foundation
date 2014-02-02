@@ -1,58 +1,44 @@
 package org.kuali.common.util.base;
 
-import java.util.List;
+import static com.google.common.base.Preconditions.checkNotNull;
 
-import com.google.common.base.Preconditions;
+import java.util.Map;
+
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import com.google.common.collect.ImmutableBiMap;
 
 public final class Replacer {
 
-	private final List<String> oldTokens;
-	private final List<String> newTokens;
-	private final int tokens;
+	private final ImmutableBiMap<String, String> tokens;
 
 	public String replace(String string) {
-		for (int i = 0; i < tokens; i++) {
-			String oldToken = oldTokens.get(i);
-			String newToken = newTokens.get(i);
+		for (Map.Entry<String, String> pair : tokens.entrySet()) {
+			String oldToken = pair.getKey();
+			String newToken = pair.getValue();
 			string = string.replace(oldToken, newToken);
 		}
 		return string;
 	}
 
 	public String restore(String string) {
-		for (int i = 0; i < tokens; i++) {
-			String oldToken = oldTokens.get(i);
-			String newToken = newTokens.get(i);
-			string = string.replace(newToken, oldToken);
+		for (Map.Entry<String, String> pair : tokens.entrySet()) {
+			String oldToken = pair.getValue();
+			String newToken = pair.getKey();
+			string = string.replace(oldToken, newToken);
 		}
 		return string;
 	}
 
 	private Replacer(Builder builder) {
-		this.oldTokens = builder.oldTokens;
-		this.newTokens = builder.newTokens;
-		this.tokens = builder.tokens;
+		this.tokens = ImmutableBiMap.copyOf(builder.tokens);
 	}
 
 	public static class Builder {
 
-		private List<String> oldTokens=
-		private List<String> newTokens;
+		private BiMap<String, String> tokens = HashBiMap.create();
 
-		// Filled in by the build method
-		private int tokens;
-
-		public Builder oldTokens(List<String> oldTokens) {
-			this.oldTokens = oldTokens;
-			return this;
-		}
-
-		public Builder newTokens(List<String> newTokens) {
-			this.newTokens = newTokens;
-			return this;
-		}
-
-		public Builder tokens(int tokens) {
+		public Builder tokens(BiMap<String, String> tokens) {
 			this.tokens = tokens;
 			return this;
 		}
@@ -64,10 +50,20 @@ public final class Replacer {
 		}
 
 		private static void validate(Replacer instance) {
-			Preconditions.checkArgument(!StringUtils.isBlank(instance.oldTokens), "'oldTokens' cannot be blank");
-			Preconditions.checkArgument(!StringUtils.isBlank(instance.newTokens), "'newTokens' cannot be blank");
-
+			checkNotNull(instance.tokens, "'tokens' cannot be null");
 		}
+
+		public BiMap<String, String> getTokens() {
+			return tokens;
+		}
+
+		public void setTokens(BiMap<String, String> tokens) {
+			this.tokens = tokens;
+		}
+	}
+
+	public BiMap<String, String> getTokens() {
+		return tokens;
 	}
 
 }
