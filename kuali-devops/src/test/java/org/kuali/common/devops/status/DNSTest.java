@@ -17,10 +17,10 @@ public class DNSTest {
 
 	@Test
 	public void test() {
-		Map<String, String> cnames = DNS.getCanonicalNameRecords(false);
-		logger.info(String.format("records -> %s", cnames.size()));
+		Map<String, String> records = DNS.getCanonicalNameRecords(false);
+		logger.info(String.format("records -> %s", records.size()));
 		Multiset<String> multi = TreeMultiset.create();
-		for (String cname : cnames.values()) {
+		for (String cname : records.values()) {
 			multi.add(cname);
 		}
 		Map<String, Integer> duplicates = Maps.newTreeMap();
