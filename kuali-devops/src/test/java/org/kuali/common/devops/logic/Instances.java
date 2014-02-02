@@ -51,7 +51,7 @@ public class Instances {
 
 	}
 
-	public static List<AwsInstance> getRecords(Map<String, List<Instance>> instances) {
+	public static List<AwsInstance> convert(Map<String, List<Instance>> instances) {
 		List<AwsInstance> records = Lists.newArrayList();
 		for (String project : instances.keySet()) {
 			List<Instance> envs = instances.get(project);

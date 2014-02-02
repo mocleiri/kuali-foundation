@@ -92,7 +92,7 @@ public class StatusTest {
 			long start = System.currentTimeMillis();
 			Map<String, String> fqdns = DNS.getMap();
 			Map<String, List<Instance>> instances = Instances.getMap();
-			List<AwsInstance> records = Instances.getRecords(instances);
+			List<AwsInstance> records = Instances.convert(instances);
 			List<Environment> envs = merge(records, fqdns);
 			Collections.sort(envs);
 			for (Environment env : envs) {
