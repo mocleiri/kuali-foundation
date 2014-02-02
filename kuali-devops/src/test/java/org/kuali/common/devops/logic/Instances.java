@@ -1,13 +1,13 @@
 package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Optional.fromNullable;
+import static org.apache.commons.io.FileUtils.writeLines;
 import static org.apache.commons.lang.StringUtils.trimToNull;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
@@ -37,10 +37,10 @@ public class Instances {
 	}
 
 	protected static void store(String accountName, List<EC2Instance> instances) {
-		File file = new CanonicalFile(CACHE_DIR, accountName + "txt");
+		File file = new CanonicalFile(CACHE_DIR, accountName + ".txt");
 		List<String> csv = csv(instances);
 		try {
-			FileUtils.writeLines(file, csv);
+			writeLines(file, csv);
 		} catch (IOException e) {
 			throw Exceptions.ise(e, "unexpected io error -> [%s]", file);
 		}
