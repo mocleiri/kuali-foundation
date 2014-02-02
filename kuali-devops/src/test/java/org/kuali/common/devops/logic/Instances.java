@@ -56,18 +56,18 @@ public class Instances {
 	}
 
 	protected static List<EC2Instance> getInstances(String account, boolean refresh) {
-		File file = getFile(account);
-		if (refresh || !file.exists()) {
+		File cache = getCacheFile(account);
+		if (refresh || !cache.exists()) {
 			AWSCredentials creds = Auth.getAwsCredentials(account);
 			List<EC2Instance> instances = queryAmazon(creds);
-			store(file, instances);
+			store(cache, instances);
 			return instances;
 		} else {
-			return load(file);
+			return load(cache);
 		}
 	}
 
-	protected static File getFile(String account) {
+	protected static File getCacheFile(String account) {
 		return new CanonicalFile(CACHE_DIR, account + ".txt");
 	}
 
