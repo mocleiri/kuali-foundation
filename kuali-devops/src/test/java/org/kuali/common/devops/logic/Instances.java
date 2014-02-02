@@ -64,9 +64,11 @@ public class Instances {
 	}
 
 	protected static AwsRecord getRecord(String project, Instance instance) {
-		String name = getName(instance);
-		instance.getLaunchTime();
-		return AwsRecord.builder().dns(instance.getPublicDnsName()).project(project).type(instance.getInstanceType()).env(name).build();
+		String env = getName(instance);
+		String dns = instance.getPublicDnsName();
+		String type = instance.getInstanceType();
+		long launchTimeMillis = instance.getLaunchTime().getTime();
+		return AwsRecord.builder().dns(dns).project(project).type(type).env(env).launchTimeMillis(launchTimeMillis).build();
 	}
 
 	public static Map<String, List<Instance>> getMap() {
