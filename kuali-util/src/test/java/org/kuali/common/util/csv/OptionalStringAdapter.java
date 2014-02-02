@@ -4,7 +4,7 @@ import com.google.common.base.Optional;
 
 public class OptionalStringAdapter extends CsvAdapter<Optional<String>> {
 
-	private final CsvAdapter<String> adapter = new BasicStringAdapter.Builder().build();
+	private final CsvAdapter<String> adapter = BasicStringAdapter.builder().build();
 
 	@Override
 	public String format(Optional<String> instance) {

@@ -41,6 +41,10 @@ public class BasicStringAdapter extends CsvAdapter<String> {
 		this.replacer = builder.replacer;
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder {
 
 		private String nullToken = "${csv.null}";
