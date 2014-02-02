@@ -81,14 +81,8 @@ public class Instances {
 			String projectName = getProjectName(credentials.getAWSAccessKeyId());
 			EC2ServiceContext context = EC2ServiceContext.create(credentials);
 			EC2Service service = new DefaultEC2Service(context, ws);
-			List<Instance> list = Lists.newArrayList(service.getInstances());
-			Iterator<Instance> itr = list.iterator();
-			while (itr.hasNext()) {
-				Instance i = itr.next();
-				if (!service.isOnline(i.getInstanceId())) {
-					itr.remove();
-				}
-			}
+			List<Instance> list = service.getInstances();
+			removeOffline(service, list);
 			instances.put(projectName, list);
 			logger.info(String.format("%s -> %s instances", rightPad(projectName, 12), leftPad(list.size() + "", 2)));
 		}
@@ -101,6 +95,16 @@ public class Instances {
 			instances.put(key, filtered);
 		}
 		return instances;
+	}
+
+	protected static void removeOffline(EC2Service service, List<Instance> instances) {
+		Iterator<Instance> itr = instances.iterator();
+		while (itr.hasNext()) {
+			Instance i = itr.next();
+			if (!service.isOnline(i.getInstanceId())) {
+				itr.remove();
+			}
+		}
 	}
 
 	protected static String getProjectName(String accessKey) {
