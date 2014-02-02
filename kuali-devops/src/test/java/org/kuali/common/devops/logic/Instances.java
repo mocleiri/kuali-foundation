@@ -65,12 +65,8 @@ public class Instances {
 
 	protected static AwsRecord getRecord(String project, Instance instance) {
 		String name = getName(instance);
-		AwsRecord record = new AwsRecord();
-		record.setDns(instance.getPublicDnsName());
-		record.setProject(project);
-		record.setType(instance.getInstanceType());
-		record.setEnv(name);
-		return record;
+		instance.getLaunchTime();
+		return AwsRecord.builder().dns(instance.getPublicDnsName()).project(project).type(instance.getInstanceType()).env(name).build();
 	}
 
 	public static Map<String, List<Instance>> getMap() {
