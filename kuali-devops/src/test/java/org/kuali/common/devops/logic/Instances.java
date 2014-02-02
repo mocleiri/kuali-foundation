@@ -58,12 +58,12 @@ public class Instances {
 	protected static String csv(EC2Instance instance) {
 		List<String> tokens = Lists.newArrayList();
 		tokens.add(instance.getId());
-		tokens.add(toString(instance.getName()));
-		tokens.add(instance.getType());
-		tokens.add(instance.getState());
-		tokens.add(Long.toString(instance.getLaunchTime()));
-		tokens.add(toString(instance.getPublicDnsName()));
 		tokens.add(instance.getAmi());
+		tokens.add(Long.toString(instance.getLaunchTime()));
+		tokens.add(toString(instance.getName()));
+		tokens.add(instance.getState());
+		tokens.add(instance.getType());
+		tokens.add(toString(instance.getPublicDnsName()));
 		return Joiner.on(',').join(tokens);
 	}
 

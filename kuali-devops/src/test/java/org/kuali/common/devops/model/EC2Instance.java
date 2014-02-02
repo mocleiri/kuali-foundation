@@ -8,7 +8,7 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 import com.google.common.base.Optional;
 
 @IdiotProofImmutable
-public final class EC2Instance {
+public final class EC2Instance implements Comparable<EC2Instance> {
 
 	private final String id;
 	private final Optional<String> name;
@@ -19,6 +19,11 @@ public final class EC2Instance {
 
 	@Min(1)
 	private final long launchTime;
+
+	@Override
+	public int compareTo(EC2Instance other) {
+		return Double.compare(launchTime, other.getLaunchTime());
+	}
 
 	private EC2Instance(Builder builder) {
 		this.id = builder.id;
