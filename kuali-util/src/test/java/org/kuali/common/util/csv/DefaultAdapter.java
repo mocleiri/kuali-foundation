@@ -1,8 +1,8 @@
 package org.kuali.common.util.csv;
 
-import org.springframework.core.convert.ConversionService;
+import static com.google.common.base.Preconditions.checkNotNull;
 
-import com.google.common.base.Preconditions;
+import org.springframework.core.convert.ConversionService;
 
 public class DefaultAdapter<T> extends CsvAdapter<T> {
 
@@ -66,9 +66,9 @@ public class DefaultAdapter<T> extends CsvAdapter<T> {
 		}
 
 		private static <T> void validate(DefaultAdapter<T> instance) {
-			Preconditions.checkNotNull(instance.adapter, "'adapter' cannot be null");
-			Preconditions.checkNotNull(instance.converter, "'converter' cannot be null");
-			Preconditions.checkNotNull(instance.targetType, "'targetType' cannot be null");
+			checkNotNull(instance.adapter, "'adapter' cannot be null");
+			checkNotNull(instance.converter, "'converter' cannot be null");
+			checkNotNull(instance.targetType, "'targetType' cannot be null");
 		}
 	}
 }
