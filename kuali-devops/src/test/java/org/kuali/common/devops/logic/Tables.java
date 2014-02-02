@@ -2,9 +2,19 @@ package org.kuali.common.devops.logic;
 
 import static java.lang.Integer.valueOf;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedSet;
 
+import org.kuali.common.util.ReflectionUtils;
+
+import com.google.common.base.Optional;
+import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
 
 public class Tables {
@@ -19,4 +29,46 @@ public class Tables {
 			table.put(valueOf(row), valueOf(col), elements.get(col));
 		}
 	}
+
+	public static <T> void addRow(Table<Integer, String, T> table, Map<String, T> columns) {
+		int row = table.rowKeySet().size();
+		for (String columnKey : columns.keySet()) {
+			table.put(valueOf(row), columnKey, columns.get(columnKey));
+		}
+	}
+
+	public static <T> Table<Integer, String, Object> getTable(List<T> elements, Class<T> type) {
+		Table<Integer, String, Object> table = HashBasedTable.create();
+		Set<Field> fields = ReflectionUtils.getAllFields(type);
+		validate(fields, type);
+		for (int i = 0; i < elements.size(); i++) {
+			T element = elements.get(i);
+			Map<String, Object> columns = getColumns(fields, element);
+			addRow(table, columns);
+		}
+		return table;
+	}
+
+	protected static <T> Map<String, Object> getColumns(Set<Field> fields, T element) {
+		Map<String, Object> columns = Maps.newHashMap();
+		for (Field field : fields) {
+			Optional<?> value = ReflectionUtils.get(field, element);
+			if (value.isPresent()) {
+				columns.put(field.getName(), value.get());
+			} else {
+				columns.put(field.getName(), value);
+			}
+		}
+		return columns;
+	}
+
+	protected static <T> void validate(Set<Field> fields, Class<T> type) {
+		SortedSet<String> columns = Sets.newTreeSet();
+		for (Field field : fields) {
+			if (!columns.add(field.getName())) {
+				throw Exceptions.illegalArgument("[%s] contains a duplicate field name -> [%s]", type.getCanonicalName(), field.getName());
+			}
+		}
+	}
+
 }

@@ -10,6 +10,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -21,6 +22,7 @@ import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.devops.model.EC2Instance;
 import org.kuali.common.util.Encodings;
+import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.base.Replacer;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.Loggers;
@@ -171,7 +173,11 @@ public class Instances {
 	}
 
 	protected static String csv(EC2Instance instance) {
+		Set<Field> fields = ReflectionUtils.getAllFields(instance.getClass());
 		List<String> tokens = Lists.newArrayList();
+		for (Field field : fields) {
+			Optional<?> value = ReflectionUtils.get(field, instance);
+		}
 		tokens.add(instance.getId());
 		tokens.add(instance.getAmi());
 		tokens.add(Long.toString(instance.getLaunchTime()));
