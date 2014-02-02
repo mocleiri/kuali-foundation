@@ -18,6 +18,7 @@ import org.kuali.common.util.wait.WaitService;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.ec2.model.Instance;
+import com.amazonaws.services.ec2.model.InstanceState;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
@@ -80,7 +81,8 @@ public class Instances {
 		String type = instance.getInstanceType();
 		long launchTime = instance.getLaunchTime().getTime();
 		String ami = instance.getImageId();
-		return EC2Instance.builder().id(id).name(name).publicDnsName(publicDnsName).type(type).launchTime(launchTime).build();
+		InstanceState state = instance.getState();
+		return EC2Instance.builder().id(id).name(name).publicDnsName(publicDnsName).type(type).launchTime(launchTime).ami(ami).build();
 	}
 
 	protected static Optional<String> getName(Instance instance) {

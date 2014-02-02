@@ -15,6 +15,7 @@ public final class EC2Instance {
 	private final Optional<String> publicDnsName;
 	private final String type;
 	private final String ami;
+	private final String state;
 
 	@Min(1)
 	private final long launchTime;
@@ -26,6 +27,7 @@ public final class EC2Instance {
 		this.type = builder.type;
 		this.launchTime = builder.launchTime;
 		this.ami = builder.ami;
+		this.state = builder.state;
 	}
 
 	public static Builder builder() {
@@ -40,6 +42,12 @@ public final class EC2Instance {
 		private String type;
 		private long launchTime;
 		private String ami;
+		private String state;
+
+		public Builder state(String state) {
+			this.state = state;
+			return this;
+		}
 
 		public Builder ami(String ami) {
 			this.ami = ami;
@@ -131,6 +139,14 @@ public final class EC2Instance {
 		public void setAmi(String ami) {
 			this.ami = ami;
 		}
+
+		public String getState() {
+			return state;
+		}
+
+		public void setState(String state) {
+			this.state = state;
+		}
 	}
 
 	public String getId() {
@@ -155,6 +171,10 @@ public final class EC2Instance {
 
 	public String getAmi() {
 		return ami;
+	}
+
+	public String getState() {
+		return state;
 	}
 
 }
