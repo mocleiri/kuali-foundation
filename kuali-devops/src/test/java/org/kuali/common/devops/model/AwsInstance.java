@@ -65,7 +65,7 @@ public final class AwsInstance {
 
 		private static void validate(AwsInstance instance) {
 			checkArgument(!isBlank(instance.project), "'project' cannot be blank");
-			checkArgument(!isBlank(instance.name), "'env' cannot be blank");
+			checkArgument(!isBlank(instance.name), "'name' cannot be blank");
 			checkArgument(!isBlank(instance.dns), "'dns' cannot be blank");
 			checkArgument(!isBlank(instance.type), "'type' cannot be blank");
 			checkArgument(instance.launchTime > 0, "'launchTime' must be greater than zero");
