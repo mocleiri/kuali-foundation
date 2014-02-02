@@ -70,6 +70,7 @@ public class StatusTest {
 	private static final Logger logger = LoggerUtils.make();
 
 	@Test
+	@Ignore
 	public void test1() {
 		try {
 			String path = "/tmp/environments.txt";
@@ -86,7 +87,6 @@ public class StatusTest {
 	}
 
 	@Test
-	@Ignore
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
@@ -262,11 +262,17 @@ public class StatusTest {
 
 	protected Tomcat getTomcat(String fqdn) {
 		String version = getTomcatVersion(fqdn);
-		// 2014-01-06T21:23:15.299+0000: 0.957: [GC
 		long startup = getTomcatStartupTime(fqdn, PARSER);
-		return Tomcat.builder().startup(startup).version(version).build();
+		return Tomcat.create(version, startup);
 	}
 
+	/**
+	 * time format is -> 2014-01-06T21:23:15.299+0000: 0.957: [GC
+	 * 
+	 * @param fqdn
+	 * @param parser
+	 * @return
+	 */
 	protected long getTomcatStartupTime(String fqdn, SimpleDateFormat parser) {
 		Optional<String> string = getTomcatStartupString(fqdn);
 		if (!string.isPresent()) {
