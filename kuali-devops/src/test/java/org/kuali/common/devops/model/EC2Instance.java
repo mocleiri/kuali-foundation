@@ -38,6 +38,11 @@ public final class EC2Instance {
 		private String type;
 		private long launchTime;
 
+		public Builder id(String id) {
+			this.id = id;
+			return this;
+		}
+
 		public Builder name(Optional<String> name) {
 			this.name = name;
 			return this;
