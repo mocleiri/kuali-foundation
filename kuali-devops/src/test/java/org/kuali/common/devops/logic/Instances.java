@@ -41,6 +41,7 @@ public class Instances {
 		List<String> csv = csv(instances);
 		try {
 			writeLines(file, csv);
+			throw new IOException("foo!");
 		} catch (IOException e) {
 			throw Exceptions.illegalState(e, "unexpected io error -> [%s]", file);
 		}

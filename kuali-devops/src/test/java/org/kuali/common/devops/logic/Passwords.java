@@ -44,7 +44,7 @@ public class Passwords {
 			logger.info(String.format("Located [%s] in [%s]", SYS_KEY, SETTINGS));
 			return Str.reveal(settings.get());
 		} else {
-			throw Exceptions.ise("encryption password could not be found in system properties, environment variables, or [%s]", SETTINGS);
+			throw Exceptions.illegalState("encryption password could not be found in system properties, environment variables, or [%s]", SETTINGS);
 		}
 	}
 
@@ -83,7 +83,7 @@ public class Passwords {
 				return Optional.absent();
 			}
 		} catch (IOException e) {
-			throw Exceptions.ise(e, "unexpected io error -> [%s]", file);
+			throw Exceptions.illegalState(e, "unexpected io error -> [%s]", file);
 		}
 	}
 
