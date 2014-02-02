@@ -24,7 +24,6 @@ import org.kuali.common.util.Encodings;
 import org.kuali.common.util.base.Replacer;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.Loggers;
-import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
@@ -41,11 +40,11 @@ import com.google.common.collect.Maps;
 public class Instances {
 
 	private static final File CACHE_DIR = new CanonicalFile("./target/aws/ec2");
-	private static final String ABSENT = NullUtils.NONE;
+	private static final String ABSENT = "${csv.absent}";
 	private static final Logger logger = Loggers.make();
 	private static final String ENCODING = Encodings.UTF8;
 	private static final String EC2_NAME_TAG_KEY = "Name";
-	private static final Replacer CSV = Replacer.create(",", "${csv.comma}");
+	private static final Replacer CSV = Replacer.builder().add(",", "${csv.comma}").add("\r", "${csv.cr}").add("\n", "${csv.lf}").build();
 
 	public static SortedMap<String, List<EC2Instance>> getInstances(boolean refresh) {
 		SortedMap<String, List<EC2Instance>> map = Maps.newTreeMap();
