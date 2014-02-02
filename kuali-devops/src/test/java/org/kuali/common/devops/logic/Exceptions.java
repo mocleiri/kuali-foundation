@@ -5,25 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 
 public class Exceptions {
 
-	public static <T extends Exception> T create(Class<T> type, String msg) {
-		return create(type, msg, (Object[]) null);
-	}
-
-	public static <T extends Exception> T create(Class<T> type, String msg, Object... args) {
-		try {
-			Constructor<T> constructor = type.getConstructor(String.class);
-			return constructor.newInstance(getExceptionMessage(msg, args));
-		} catch (NoSuchMethodException e) {
-			throw new IllegalStateException(e);
-		} catch (InstantiationException e) {
-			throw new IllegalStateException(e);
-		} catch (IllegalAccessException e) {
-			throw new IllegalStateException(e);
-		} catch (InvocationTargetException e) {
-			throw new IllegalStateException(e);
-		}
-	}
-
 	public static IllegalStateException ise(String msg) {
 		return ise(msg, (Object[]) null);
 	}
@@ -45,6 +26,25 @@ public class Exceptions {
 			return msg;
 		} else {
 			return String.format(msg, args);
+		}
+	}
+
+	public static <T extends Exception> T create(Class<T> type, String msg) {
+		return create(type, msg, (Object[]) null);
+	}
+
+	public static <T extends Exception> T create(Class<T> type, String msg, Object... args) {
+		try {
+			Constructor<T> constructor = type.getConstructor(String.class);
+			return constructor.newInstance(getExceptionMessage(msg, args));
+		} catch (NoSuchMethodException e) {
+			throw new IllegalStateException(e);
+		} catch (InstantiationException e) {
+			throw new IllegalStateException(e);
+		} catch (IllegalAccessException e) {
+			throw new IllegalStateException(e);
+		} catch (InvocationTargetException e) {
+			throw new IllegalStateException(e);
 		}
 	}
 
