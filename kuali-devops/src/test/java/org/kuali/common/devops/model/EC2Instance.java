@@ -1,5 +1,7 @@
 package org.kuali.common.devops.model;
 
+import javax.validation.constraints.Min;
+
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -12,7 +14,8 @@ public final class EC2Instance {
 	private final Optional<String> name;
 	private final String publicDnsName;
 	private final String type;
-	@Min
+
+	@Min(0)
 	private final long launchTime;
 
 	private EC2Instance(Builder builder) {
@@ -21,6 +24,10 @@ public final class EC2Instance {
 		this.publicDnsName = builder.publicDnsName;
 		this.type = builder.type;
 		this.launchTime = builder.launchTime;
+	}
+
+	public static Builder builder() {
+		return new Builder();
 	}
 
 	public static class Builder extends ValidatingBuilder<EC2Instance> {
