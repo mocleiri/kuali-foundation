@@ -160,7 +160,7 @@ public class StatusTest {
 	protected Tomcat getTomcat(List<String> tokens) {
 		String version = tokens.get(5);
 		long startup = Long.parseLong(tokens.get(6));
-		return Tomcat.builder().version(version).startup(startup).build();
+		return Tomcat.create(version, startup);
 	}
 
 	protected void write(List<Environment> envs) throws IOException {
