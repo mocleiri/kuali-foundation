@@ -1,10 +1,13 @@
 package org.kuali.common.devops.model;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import java.util.Properties;
 
+import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.property.ImmutableProperties;
+import org.kuali.common.util.validate.IdiotProofImmutable;
 
+@IdiotProofImmutable
 public final class Application {
 
 	private final Project project;
@@ -17,7 +20,7 @@ public final class Application {
 		this.database = builder.database;
 	}
 
-	public static class Builder {
+	public static class Builder extends ValidatingBuilder<Application> {
 
 		private Project project;
 		private ImmutableProperties configuration;
@@ -38,16 +41,9 @@ public final class Application {
 			return this;
 		}
 
-		public Application build() {
-			Application instance = new Application(this);
-			validate(instance);
-			return instance;
-		}
-
-		private static void validate(Application instance) {
-			checkNotNull(instance.project, "'project' cannot be null");
-			checkNotNull(instance.configuration, "'configuration' cannot be null");
-			checkNotNull(instance.database, "'database' cannot be null");
+		@Override
+		public Application getInstance() {
+			return new Application(this);
 		}
 
 		public Project getProject() {
@@ -79,7 +75,7 @@ public final class Application {
 		return project;
 	}
 
-	public ImmutableProperties getConfiguration() {
+	public Properties getConfiguration() {
 		return configuration;
 	}
 
