@@ -22,9 +22,9 @@ import com.google.common.collect.Table;
 public final class ToCsvFunction<R, C> implements Function<Table<? extends Comparable<R>, ? extends Comparable<C>, TableCellDescriptor>, List<String>> {
 
 	private final Joiner joiner = Joiner.on(',');
-	ConversionService converter = new DefaultConversionService();
-	Formatter<String> formatter = CsvStringFormatter.create();
-	TypeDescriptor targetType = TypeDescriptor.valueOf(String.class);
+	private final ConversionService converter = new DefaultConversionService();
+	private final Formatter<String> formatter = CsvStringFormatter.create();
+	private final TypeDescriptor targetType = TypeDescriptor.valueOf(String.class);
 
 	@Override
 	public List<String> apply(Table<? extends Comparable<R>, ? extends Comparable<C>, TableCellDescriptor> table) {
@@ -39,9 +39,9 @@ public final class ToCsvFunction<R, C> implements Function<Table<? extends Compa
 				TableCellDescriptor descriptor = table.get(rowKey, colKey);
 				TypeDescriptor sourceType = new TypeDescriptor(descriptor.getField());
 				Object source = descriptor.getObject();
-				Object converted = converter.convert(source, sourceType, targetType);
-				String string = formatter.print(converted == null ? null : converted.toString(), null);
-				tokens.add(string);
+				String converted = (String) converter.convert(source, sourceType, targetType);
+				String formatted = formatter.print(converted, null);
+				tokens.add(formatted);
 			}
 			String joined = joiner.join(tokens);
 			lines.add(joined);
