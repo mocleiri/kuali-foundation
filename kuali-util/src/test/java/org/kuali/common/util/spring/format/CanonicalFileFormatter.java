@@ -10,12 +10,20 @@ public class CanonicalFileFormatter implements Formatter<File> {
 
 	@Override
 	public File parse(String file, Locale locale) {
-		return new CanonicalFile(file);
+		if (file == null) {
+			return null;
+		} else {
+			return new CanonicalFile(file);
+		}
 	}
 
 	@Override
 	public String print(File file, Locale locale) {
-		return new CanonicalFile(file).getPath();
+		if (file == null) {
+			return null;
+		} else {
+			return new CanonicalFile(file).getPath();
+		}
 	}
 
 }

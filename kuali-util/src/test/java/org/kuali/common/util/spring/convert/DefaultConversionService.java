@@ -3,6 +3,8 @@ package org.kuali.common.util.spring.convert;
 import org.kohsuke.MetaInfServices;
 import org.kuali.common.util.spring.format.BytesFormatAnnotationFormatterFactory;
 import org.kuali.common.util.spring.format.CanonicalFileFormatAnnotationFormatterFactory;
+import org.kuali.common.util.spring.format.OptionalIntegerFormatter;
+import org.kuali.common.util.spring.format.OptionalLongFormatter;
 import org.kuali.common.util.spring.format.OptionalStringFormatter;
 import org.kuali.common.util.spring.format.TimeFormatAnnotationFormatterFactory;
 import org.springframework.core.convert.ConversionService;
@@ -18,6 +20,8 @@ public class DefaultConversionService extends DefaultFormattingConversionService
 		addFormatterForFieldAnnotation(new TimeFormatAnnotationFormatterFactory());
 		addFormatterForFieldAnnotation(new CanonicalFileFormatAnnotationFormatterFactory());
 		addFormatterForFieldType(Optional.class, new OptionalStringFormatter());
+		addFormatterForFieldType(Optional.class, new OptionalIntegerFormatter());
+		addFormatterForFieldType(Optional.class, new OptionalLongFormatter());
 	}
 
 }
