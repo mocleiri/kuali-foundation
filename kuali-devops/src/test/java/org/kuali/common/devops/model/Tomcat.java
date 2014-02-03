@@ -1,11 +1,15 @@
 package org.kuali.common.devops.model;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static org.apache.commons.lang3.StringUtils.isBlank;
+import javax.validation.constraints.Min;
 
+import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.validate.IdiotProofImmutable;
+
+@IdiotProofImmutable
 public final class Tomcat {
 
 	private final String version;
+	@Min(-1)
 	private final long startupTime;
 
 	private Tomcat(Builder builder) {
@@ -21,7 +25,7 @@ public final class Tomcat {
 		return new Builder();
 	}
 
-	public static class Builder implements org.kuali.common.util.build.Builder<Tomcat> {
+	public static class Builder extends ValidatingBuilder<Tomcat> {
 
 		private String version;
 		private long startupTime;
@@ -37,15 +41,8 @@ public final class Tomcat {
 		}
 
 		@Override
-		public Tomcat build() {
-			Tomcat instance = new Tomcat(this);
-			validate(instance);
-			return instance;
-		}
-
-		private static void validate(Tomcat instance) {
-			checkArgument(!isBlank(instance.version), "'version' cannot be blank");
-			checkArgument(instance.startupTime >= -1, "'startup' must be greater than or equal to -1");
+		public Tomcat getInstance() {
+			return new Tomcat(this);
 		}
 
 		public String getVersion() {
