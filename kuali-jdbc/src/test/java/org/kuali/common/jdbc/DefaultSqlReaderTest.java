@@ -65,7 +65,7 @@ public class DefaultSqlReaderTest {
 
 	protected String getFirst(SqlReader reader, BufferedReader in) throws IOException {
 		List<String> sql = reader.getSql(in);
-		return sql.get(0);
+		return sql != null ? sql.get( 0 ) : null;
 	}
 
 	@Test
