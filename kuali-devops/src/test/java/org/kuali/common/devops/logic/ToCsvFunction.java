@@ -32,6 +32,7 @@ public final class ToCsvFunction<R, C> implements Function<Table<? extends Compa
 		lines.add(getHeader(colKeys));
 		ConversionService converter = new DefaultConversionService();
 		TypeDescriptor tds = TypeDescriptor.valueOf(String.class);
+		CsvAdapter<String> adapter = BasicStringAdapter.create();
 		for (Comparable<R> rowKey : rowKeys) {
 			List<String> tokens = Lists.newArrayList();
 			for (Comparable<C> colKey : colKeys) {
@@ -39,8 +40,7 @@ public final class ToCsvFunction<R, C> implements Function<Table<? extends Compa
 				TypeDescriptor td = new TypeDescriptor(tcd.getField());
 				Object source = tcd.getObject();
 				Object converted = converter.convert(source, td, tds);
-				CsvAdapter<String> adapter = BasicStringAdapter.create();
-				String string = adapter.format(converted.toString());
+				String string = adapter.format(converted == null ? null : converted.toString());
 				tokens.add(string);
 			}
 			String joined = joiner.join(tokens);
