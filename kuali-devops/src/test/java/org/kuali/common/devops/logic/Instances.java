@@ -44,6 +44,9 @@ public class Instances {
 	private static final String ENCODING = Encodings.UTF8;
 	private static final String EC2_NAME_TAG_KEY = "Name";
 
+	/**
+	 * Produces a map containing all EC2 server instances for all Kuali accounts.
+	 */
 	public static SortedMap<String, List<EC2Instance>> getInstances(boolean refresh) {
 		SortedMap<String, List<EC2Instance>> map = Maps.newTreeMap();
 		Set<String> accounts = Auth.getAwsAccounts();
