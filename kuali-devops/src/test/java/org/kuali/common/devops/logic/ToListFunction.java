@@ -2,7 +2,6 @@ package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Locale;
 import java.util.SortedSet;
@@ -34,12 +33,12 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 		SortedSet<Comparable<R>> rowKeys = Sets.newTreeSet(table.rowKeySet());
 		SortedSet<Comparable<C>> colKeys = Sets.newTreeSet(table.columnKeySet());
 		List<V> elements = Lists.newArrayList();
-		Class<? extends org.kuali.common.util.build.Builder<V>> builderClass = getBuilderClass(targetType);
-		org.kuali.common.util.build.Builder<V> builder = ReflectionUtils.newInstance(builderClass);
+		org.kuali.common.util.build.Builder<V> builder = ReflectionUtils.newInstance(getBuilderClass(targetType));
 		for (Comparable<R> rowKey : rowKeys) {
 			for (Comparable<C> colKey : colKeys) {
 				TableCellDescriptor<String> descriptor = table.get(rowKey, colKey);
-				setBuilderField(descriptor, builder);
+				Object value = convertString(descriptor);
+				setProperty(builder, descriptor.getField().getName(), value);
 			}
 			V element = builder.build();
 			elements.add(element);
@@ -47,21 +46,31 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 		return ImmutableList.copyOf(elements);
 	}
 
-	protected void setBuilderField(TableCellDescriptor<String> descriptor, org.kuali.common.util.build.Builder<V> builder) {
+	protected Object convertString(TableCellDescriptor<String> descriptor) {
 		try {
-			Field originalField = descriptor.getField();
-			TypeDescriptor targetType = new TypeDescriptor(originalField);
+			TypeDescriptor targetType = new TypeDescriptor(descriptor.getField());
 			Optional<String> value = descriptor.getFieldValue();
 			Object converted = converter.convert(value.orNull(), sourceType, targetType);
-			Field builderField = builder.getClass().getDeclaredField(originalField.getName());
 			// TODO Spring's converter doesn't do anything if you pass it null
-			if (ReflectionUtils.isOptionalString(builderField) && converted == null) {
+			if (ReflectionUtils.isOptionalString(descriptor.getField()) && converted == null) {
 				converted = Optional.<String> absent();
 			}
-			PropertyUtils.setProperty(builder, builderField.getName(), converted);
+			return converted;
 		} catch (Exception e) {
 			throw Exceptions.illegalState("unexpected error converting table cell string into a strongly typed object");
 		}
+	}
+
+	protected void setProperty(Object bean, String name, Object value) {
+		try {
+			PropertyUtils.setProperty(bean, name, value);
+		} catch (Exception e) {
+			throw Exceptions.illegalState("unexpected error setting bean property [%s.%s]", bean.getClass().getCanonicalName(), name);
+		}
+	}
+
+	protected org.kuali.common.util.build.Builder<V> getBuilder(Class<V> targetType) {
+		return ReflectionUtils.newInstance(getBuilderClass(targetType));
 	}
 
 	@SuppressWarnings("unchecked")
