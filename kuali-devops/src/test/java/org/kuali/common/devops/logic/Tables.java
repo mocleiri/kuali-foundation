@@ -55,15 +55,20 @@ public class Tables {
 			checkState(tokens.size() == headerTokens.size(), "line -> %s  expected %s tokens, but there were %s", row, headerTokens.size(), tokens.size());
 			for (int column = 0; column < tokens.size(); column++) {
 				String fieldName = headerTokens.get(column);
-				String token = tokens.get(column);
-				String parsed = formatter.parse(token, Locale.getDefault());
-				Optional<String> fieldValue = Optional.fromNullable(parsed);
-				Field field = fieldNames.get(fieldName);
-				TableCellDescriptor<String> descriptor = TableCellDescriptor.create(field, fieldValue);
-				table.put(row, fieldName, descriptor);
+				TableCellContext context = TableCellContext.builder().row(row).column(column).tokens(tokens).formatter(formatter).fieldNames(fieldNames).headerTokens(headerTokens).build();
+				table.put(row, fieldName, getDescriptor(context));
 			}
 		}
 		return table;
+	}
+
+	protected static TableCellDescriptor<String> getDescriptor(TableCellContext ctx) {
+		String fieldName = ctx.getHeaderTokens().get(ctx.getColumn());
+		String token = ctx.getTokens().get(ctx.getColumn());
+		String parsed = ctx.getFormatter().parse(token, Locale.getDefault());
+		Optional<String> fieldValue = Optional.fromNullable(parsed);
+		Field field = ctx.getFieldNames().get(fieldName);
+		return TableCellDescriptor.create(field, fieldValue);
 	}
 
 	protected static Map<String, Field> getFields(Set<Field> fields) {
