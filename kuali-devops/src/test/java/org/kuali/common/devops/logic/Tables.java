@@ -5,18 +5,19 @@ import static java.lang.Integer.valueOf;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 
 import org.kuali.common.devops.model.TableCellDescriptor;
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.spring.format.CsvStringFormatter;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
@@ -44,20 +45,21 @@ public class Tables {
 	public static <T> Table<Integer, String, TableCellDescriptor<String>> getTableFromCSV(List<String> lines, Class<T> type) {
 		Splitter splitter = Splitter.on(',');
 		Table<Integer, String, TableCellDescriptor<String>> table = HashBasedTable.create();
-		Set<Field> fields = ReflectionUtils.getAllFields(type);
-		SortedSet<String> headerTokens = Sets.newTreeSet(splitter.splitToList(lines.get(0)));
-		validate(fields, type, headerTokens);
-		Map<String, Field> fieldNames = getFields(fields);
-		List<String> fieldNamesList = Lists.newArrayList(headerTokens);
+		Map<String, Field> fieldNames = ReflectionUtils.getUniqueFieldNames(type);
+		List<String> headerTokens = splitter.splitToList(lines.get(0));
+		checkState(isSuperSet(fieldNames.keySet(), Sets.newHashSet(headerTokens)), "header line contains field names not found in [%s]", type.getCanonicalName());
+		CsvStringFormatter formatter = CsvStringFormatter.create();
 		for (int row = 1; row < lines.size(); row++) {
 			String line = lines.get(row);
 			List<String> tokens = splitter.splitToList(line);
 			checkState(tokens.size() == headerTokens.size(), "line -> %s  expected %s tokens, but there were %s", row, headerTokens.size(), tokens.size());
 			for (int column = 0; column < tokens.size(); column++) {
-				String fieldName = fieldNamesList.get(column);
+				String fieldName = headerTokens.get(column);
 				String token = tokens.get(column);
+				String parsed = formatter.parse(token, Locale.getDefault());
+				Optional<String> fieldValue = Optional.fromNullable(parsed);
 				Field field = fieldNames.get(fieldName);
-				TableCellDescriptor<String> descriptor = TableCellDescriptor.create(field, Optional.of(token));
+				TableCellDescriptor<String> descriptor = TableCellDescriptor.create(field, fieldValue);
 				table.put(row, fieldName, descriptor);
 			}
 		}
@@ -75,7 +77,7 @@ public class Tables {
 	public static <T> Table<Integer, String, TableCellDescriptor<Object>> getTable(List<T> elements, Class<T> type) {
 		Table<Integer, String, TableCellDescriptor<Object>> table = HashBasedTable.create();
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
-		validate(fields, type);
+		checkState(ReflectionUtils.hasUniqueFieldNames(fields), "[%s] contains duplicate field names", type.getCanonicalName());
 		for (T element : elements) {
 			Map<String, TableCellDescriptor<Object>> columns = getColumns(fields, element);
 			addRow(table, columns);
@@ -93,22 +95,20 @@ public class Tables {
 		return columns;
 	}
 
-	protected static <T> void validate(Set<Field> fields, Class<T> type, SortedSet<String> headerTokens) {
-		validate(fields, type);
-		Set<String> fieldNames = Sets.newHashSet();
-		for (Field field : fields) {
-			fieldNames.add(field.getName());
-		}
-		Set<String> difference = Sets.difference(headerTokens, fieldNames);
-		checkState(difference.size() == 0, "[%s] header tokens are not present in [%s] -> [%s]", difference.size(), type.getCanonicalName(), difference);
+	/**
+	 * Return true if one is a super set of two (ie every element in two is also an element in one)
+	 */
+	protected static <T> boolean isSuperSet(Set<T> one, Set<T> two) {
+		Set<T> hash1 = Sets.newHashSet(one);
+		Set<T> hash2 = Sets.newHashSet(two);
+		return Sets.difference(hash2, hash1).size() == 0;
 	}
 
-	protected static <T> void validate(Set<Field> fields, Class<T> type) {
-		SortedSet<String> columns = Sets.newTreeSet();
-		for (Field field : fields) {
-			// Make sure each field name is unique
-			checkState(columns.add(field.getName()), "[%s] contains a duplicate field name -> [%s]", type.getCanonicalName(), field.getName());
-		}
+	protected static <T> void validate(Set<String> fieldNames, Class<T> type, SortedSet<String> headerTokens) {
+		Set<String> names = Sets.newHashSet(fieldNames);
+		Set<String> tokens = Sets.newHashSet(headerTokens);
+		Set<String> difference = Sets.difference(tokens, names);
+		checkState(difference.size() == 0, "[%s] header tokens are not present in [%s] -> [%s]", difference.size(), type.getCanonicalName(), difference);
 	}
 
 }
