@@ -19,6 +19,14 @@ public final class Group {
 		this.environments = ImmutableList.copyOf(builder.environments);
 	}
 
+	public static Group create(String name, List<Environment> environments) {
+		return builder().name(name).environments(environments).build();
+	}
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder implements org.kuali.common.util.build.Builder<Group> {
 
 		private String name;
