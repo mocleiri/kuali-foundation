@@ -424,9 +424,20 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 	}
 
 	/**
+	 * Return true if every single field in the recursive type hiearchy has a unique name, false otherwise
+	 */
+	public static boolean hasUniqueFieldNames(Class<?> type) {
+		return hasUniqueFieldNames(getAllFields(type));
+	}
+
+	/**
 	 * Return true if the fields in this set can be uniquely represented by field name alone
 	 */
 	public static boolean hasUniqueFieldNames(Set<Field> fields) {
+		return getNameMap(Lists.newArrayList(fields)).size() == fields.size();
+	}
+
+	public static boolean hasUniqueFieldNames(List<Field> fields) {
 		return getNameMap(fields).size() == fields.size();
 	}
 
