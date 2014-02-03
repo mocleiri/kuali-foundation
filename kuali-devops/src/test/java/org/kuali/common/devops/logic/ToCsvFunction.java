@@ -21,7 +21,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
 
-public final class ToCsvFunction<R, C> implements Function<Table<? extends Comparable<R>, ? extends Comparable<C>, TableCellDescriptor>, List<String>> {
+public final class ToCsvFunction<R, C> implements Function<Table<? extends Comparable<R>, ? extends Comparable<C>, TableCellDescriptor<Object>>, List<String>> {
 
 	private final Joiner joiner = Joiner.on(',');
 	private final ConversionService converter = new DefaultConversionService();
@@ -30,7 +30,7 @@ public final class ToCsvFunction<R, C> implements Function<Table<? extends Compa
 	private final Locale locale = Locale.getDefault();
 
 	@Override
-	public List<String> apply(Table<? extends Comparable<R>, ? extends Comparable<C>, TableCellDescriptor> table) {
+	public List<String> apply(Table<? extends Comparable<R>, ? extends Comparable<C>, TableCellDescriptor<Object>> table) {
 		checkNotNull(table, "'table' cannot be null");
 		SortedSet<Comparable<R>> rowKeys = Sets.newTreeSet(table.rowKeySet());
 		SortedSet<Comparable<C>> colKeys = Sets.newTreeSet(table.columnKeySet());
@@ -39,7 +39,7 @@ public final class ToCsvFunction<R, C> implements Function<Table<? extends Compa
 		for (Comparable<R> rowKey : rowKeys) {
 			List<String> tokens = Lists.newArrayList();
 			for (Comparable<C> colKey : colKeys) {
-				TableCellDescriptor descriptor = table.get(rowKey, colKey);
+				TableCellDescriptor<Object> descriptor = table.get(rowKey, colKey);
 				String token = getToken(descriptor);
 				tokens.add(token);
 			}
@@ -49,9 +49,9 @@ public final class ToCsvFunction<R, C> implements Function<Table<? extends Compa
 		return ImmutableList.copyOf(lines);
 	}
 
-	protected String getToken(TableCellDescriptor descriptor) {
+	protected String getToken(TableCellDescriptor<Object> descriptor) {
 		TypeDescriptor sourceType = new TypeDescriptor(descriptor.getField());
-		Optional<?> value = descriptor.getFieldValue();
+		Optional<Object> value = descriptor.getFieldValue();
 		String converted = (String) converter.convert(value.orNull(), sourceType, targetType);
 		return formatter.print(converted, locale);
 	}
