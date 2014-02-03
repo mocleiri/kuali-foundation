@@ -43,8 +43,7 @@ public class Tables {
 		Table<Integer, String, TableCellDescriptor> table = HashBasedTable.create();
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		validate(fields, type);
-		for (int i = 0; i < elements.size(); i++) {
-			T element = elements.get(i);
+		for (T element : elements) {
 			Map<String, TableCellDescriptor> columns = getColumns(fields, element);
 			addRow(table, columns);
 		}
