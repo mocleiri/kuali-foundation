@@ -48,7 +48,7 @@ public final class Environment implements Comparable<Environment> {
 		private EC2Instance server;
 		private Tomcat tomcat;
 		private String java;
-		private Optional<Application> application;
+		private Optional<Application> application = Optional.absent();
 
 		public Builder group(String group) {
 			this.group = group;
