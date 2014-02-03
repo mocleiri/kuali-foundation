@@ -7,14 +7,16 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.google.common.collect.ImmutableList;
+
 public final class Group {
 
 	private final String name;
-	private final List<Environment> environments;
+	private final ImmutableList<Environment> environments;
 
 	private Group(Builder builder) {
 		this.name = builder.name;
-		this.environments = builder.environments;
+		this.environments = ImmutableList.copyOf(builder.environments);
 	}
 
 	public static class Builder implements org.kuali.common.util.build.Builder<Group> {
