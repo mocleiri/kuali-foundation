@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.DNSMadeEasyDnsService;
@@ -18,8 +19,13 @@ import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.property.ImmutableProperties;
 import org.slf4j.Logger;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import com.google.common.collect.HashMultiset;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Multiset;
+import com.google.common.collect.Sets;
 
 public class DNS {
 
@@ -36,7 +42,7 @@ public class DNS {
 	 * 
 	 * <pre>
 	 */
-	public static Map<String, String> getCanonicalNameRecords(boolean refresh) {
+	public static Map<String, String> getCNAMERecords(boolean refresh) {
 		if (refresh || !CACHE.exists()) {
 			Map<String, String> records = queryProvider();
 			store(records);
@@ -44,6 +50,33 @@ public class DNS {
 		} else {
 			return load();
 		}
+	}
+
+	public static BiMap<String, String> getUnambiguousCNAMERecords(boolean refresh) {
+		Map<String, String> all = getCNAMERecords(refresh);
+		Set<String> duplicates = getDuplicateValues(all);
+		Map<String, String> clean = Maps.newHashMap(all);
+		Set<String> keys = Sets.newHashSet(all.keySet());
+		for (String key : keys) {
+			String value = all.get(key);
+			if (duplicates.contains(value)) {
+				clean.remove(key);
+			}
+		}
+		return HashBiMap.create(clean);
+	}
+
+	protected static <T> Set<T> getDuplicateValues(Map<?, T> map) {
+		Multiset<T> multi = HashMultiset.create();
+		multi.addAll(map.values());
+		Set<T> duplicates = Sets.newHashSet();
+		Set<T> elements = multi.elementSet();
+		for (T element : elements) {
+			if (multi.count(element) > 1) {
+				duplicates.add(element);
+			}
+		}
+		return duplicates;
 	}
 
 	protected static Map<String, String> queryProvider() {
