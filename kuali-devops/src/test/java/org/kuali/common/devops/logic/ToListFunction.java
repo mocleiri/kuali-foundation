@@ -35,6 +35,7 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 			SortedSet<Comparable<R>> rowKeys = Sets.newTreeSet(table.rowKeySet());
 			SortedSet<Comparable<C>> colKeys = Sets.newTreeSet(table.columnKeySet());
 			List<V> elements = Lists.newArrayList();
+			// TODO Do something smarter to acquire the builder class
 			@SuppressWarnings("unchecked")
 			Class<? extends org.kuali.common.util.build.Builder<V>> builderClass = (Class<? extends org.kuali.common.util.build.Builder<V>>) targetType.getDeclaredClasses()[0];
 			for (Comparable<R> rowKey : rowKeys) {
