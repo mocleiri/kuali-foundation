@@ -106,7 +106,7 @@ public class Instances {
 		try {
 			logger.info(format("loading -> [%s]", file));
 			List<String> lines = FileUtils.readLines(file, ENCODING);
-			Table<Integer, String, TableCellDescriptor> table = Tables.getTableFromCSV(lines, EC2Instance.class);
+			Table<Integer, String, TableCellDescriptor<String>> table = Tables.getTableFromCSV(lines, EC2Instance.class);
 			FromCsvFunction<Integer, String, EC2Instance> function = new FromCsvFunction.Builder<Integer, String, EC2Instance>().targetType(EC2Instance.class).build();
 			return function.apply(table);
 		} catch (IOException e) {
