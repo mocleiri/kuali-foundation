@@ -62,6 +62,18 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	protected Class<? extends org.kuali.common.util.build.Builder<V>> getBuilder(Class<V> targetType) {
+		Class<?>[] declaredClasses = targetType.getDeclaredClasses();
+		for (Class<?> declaredClass : declaredClasses) {
+			if (org.kuali.common.util.build.Builder.class.isAssignableFrom(declaredClass)) {
+				return (Class<? extends org.kuali.common.util.build.Builder<V>>) declaredClass;
+			}
+		}
+		Object[] args = { targetType.getCanonicalName(), org.kuali.common.util.build.Builder.class.getCanonicalName() };
+		throw Exceptions.illegalState("[%s] does not declare a class that implements [%s]", args);
+	}
+
 	private ToListFunction(Builder<R, C, V> builder) {
 		this.targetType = builder.targetType;
 		this.converter = builder.converter;
