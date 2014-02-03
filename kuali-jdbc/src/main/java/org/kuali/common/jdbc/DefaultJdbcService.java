@@ -38,6 +38,7 @@ import org.kuali.common.jdbc.listener.SqlExecutionEvent;
 import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.listener.SqlMetaDataEvent;
 import org.kuali.common.jdbc.supplier.SimpleStringSupplier;
+import org.kuali.common.jdbc.supplier.SqlLocationSupplier;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.jdbc.threads.SqlBucket;
 import org.kuali.common.jdbc.threads.SqlBucketContext;
@@ -275,6 +276,9 @@ public class DefaultJdbcService implements JdbcService {
 			statement = conn.createStatement();
 			List<SqlSupplier> suppliers = context.getSuppliers();
 			for (SqlSupplier supplier : suppliers) {
+				if (supplier instanceof SqlLocationSupplier) {
+					logger.debug("Location: {}", ((SqlLocationSupplier) supplier).getLocation());
+				}
 				ExecutionStats stats = excecuteSupplier(statement, context, supplier);
 				updateCount += stats.getUpdateCount();
 				statementCount += stats.getStatementCount();
