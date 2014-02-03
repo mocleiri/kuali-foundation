@@ -53,5 +53,29 @@ public final class Group {
 			checkArgument(!StringUtils.isBlank(instance.name), "'name' cannot be blank");
 			checkNotNull(instance.environments, "'environments' cannot be null");
 		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public List<Environment> getEnvironments() {
+			return environments;
+		}
+
+		public void setEnvironments(List<Environment> environments) {
+			this.environments = environments;
+		}
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public ImmutableList<Environment> getEnvironments() {
+		return environments;
 	}
 }
