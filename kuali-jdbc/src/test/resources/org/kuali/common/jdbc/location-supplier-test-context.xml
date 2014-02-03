@@ -24,9 +24,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
   <util:properties id="properties">
-    <prop key="sqlListKey">sql.1,sql.2</prop>
-    <prop key="sql.1">classpath:org/kuali/common/jdbc/test1.sql</prop>
-    <prop key="sql.2">classpath:org/kuali/common/jdbc/test2.sql</prop>
+    <prop key="sqlListKey">classpath:org/kuali/common/jdbc/test1.sql,classpath:org/kuali/common/jdbc/test2.sql</prop>
   </util:properties>
 
   <bean id="sqlReader" class="org.kuali.common.jdbc.DefaultSqlReader" />
@@ -46,11 +44,19 @@
     </entry>
   </util:map>
 
-  <bean id="locationSuppliersFactory" class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
-    <property name="property" value="sqlListKey" />
-    <property name="properties" ref="properties" />
-    <property name="extensionMappings" ref="extensionMappings" />
-  </bean>
+  <bean id="locationSuppliersFactory"
+	class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
+	<property name="propertyKey" value="sqlListKey" />
+	<property name="env">
+		<bean class="org.kuali.common.util.spring.env.PropertiesEnvironment">
+			<constructor-arg index="0" ref="properties" />
+		</bean>
+	</property>
+	<property name="context">
+		<bean class="org.kuali.common.jdbc.supplier.LocationSupplierContext" />
+	</property>
+	<property name="extensionMappings" ref="extensionMappings" />
+</bean>
 
   <bean class="org.kuali.common.jdbc.supplier.SqlExtensionSupplierBuilder" />
 

@@ -48,8 +48,8 @@ public class LocationSupplierFactoryBeanTest {
         assertEquals(2, suppliers.size());
 
         Collection<String> expectedLocations = new ArrayList<String>(2);
-        expectedLocations.add("classpath:org/kuali/common/jdbc/test1.sql");
-        expectedLocations.add("classpath:org/kuali/common/jdbc/test2.sql");
+        expectedLocations.add("NONE:classpath:org/kuali/common/jdbc/test1.sql");
+        expectedLocations.add("NONE:classpath:org/kuali/common/jdbc/test2.sql");
 
         for(LocationSupplier supplier : suppliers) {
             expectedLocations.remove(supplier.getLocation());
