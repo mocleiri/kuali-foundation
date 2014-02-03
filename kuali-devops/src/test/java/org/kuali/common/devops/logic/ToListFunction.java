@@ -69,6 +69,10 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 		this.locale = builder.locale;
 	}
 
+	public static <R, C, V> ToListFunction<R, C, V> create(Class<V> targetType) {
+		return new Builder<R, C, V>().targetType(targetType).build();
+	}
+
 	public static <R, C, V> Builder<R, C, V> builder() {
 		return new Builder<R, C, V>();
 	}
