@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -389,6 +391,18 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 			map.put(field.getName(), field);
 		}
 		return map;
+	}
+
+	/**
+	 * Get a list of all fields contained anywhere in the type hierarchy keyed by field name.
+	 * 
+	 * @throws IllegalArgumentException
+	 *             if {@code type} contains duplicate field names
+	 */
+	public static Map<String, Field> getUniqueFieldNames(Class<?> type) {
+		Set<Field> fields = getAllFields(type);
+		checkArgument(hasUniqueFieldNames(fields), "[%s] contains duplicate field names");
+		return getNameMap(Lists.newArrayList(fields));
 	}
 
 	/**
