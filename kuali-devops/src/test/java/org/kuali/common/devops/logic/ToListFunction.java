@@ -68,6 +68,10 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 		this.locale = builder.locale;
 	}
 
+	public static <R, C, V> Builder<R, C, V> builder() {
+		return new Builder<R, C, V>();
+	}
+
 	public static class Builder<R, C, V> implements org.kuali.common.util.build.Builder<ToListFunction<R, C, V>> {
 
 		private Class<V> targetType;

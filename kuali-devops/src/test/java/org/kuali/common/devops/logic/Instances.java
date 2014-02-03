@@ -10,7 +10,6 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -23,8 +22,6 @@ import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.devops.model.EC2Instance;
 import org.kuali.common.devops.model.TableCellDescriptor;
 import org.kuali.common.util.Encodings;
-import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.base.Replacer;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.Loggers;
 import org.kuali.common.util.wait.DefaultWaitService;
@@ -34,11 +31,7 @@ import org.slf4j.Logger;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Tag;
-import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
-import com.google.common.base.Splitter;
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Table;
@@ -46,11 +39,9 @@ import com.google.common.collect.Table;
 public class Instances {
 
 	private static final File CACHE_DIR = new CanonicalFile("./target/aws/ec2");
-	private static final String ABSENT = "${optional.absent}";
 	private static final Logger logger = Loggers.make();
 	private static final String ENCODING = Encodings.UTF8;
 	private static final String EC2_NAME_TAG_KEY = "Name";
-	private static final Replacer CSV = Replacer.builder().add(",", "${csv.comma}").add("\r", "${csv.cr}").add("\n", "${csv.lf}").build();
 
 	public static SortedMap<String, List<EC2Instance>> getInstances(boolean refresh) {
 		SortedMap<String, List<EC2Instance>> map = Maps.newTreeMap();
@@ -59,31 +50,6 @@ public class Instances {
 			map.put(account, getInstances(account, refresh));
 		}
 		return map;
-	}
-
-	public static Table<Integer, Integer, String> toStringTable(List<EC2Instance> instances) {
-		Table<Integer, Integer, String> table = HashBasedTable.create();
-		List<String> header = ImmutableList.of("id", "ami", "launchTime", "name", "state", "type", "publicDnsName");
-		Tables.addRow(table, header);
-		for (EC2Instance instance : instances) {
-			Tables.addRow(table, toStrings(instance));
-		}
-		return table;
-	}
-
-	/**
-	 * id,ami,launchTime,name,state,type,publicDnsName
-	 */
-	public static List<String> toStrings(EC2Instance instance) {
-		List<String> strings = Lists.newArrayList();
-		strings.add(instance.getId());
-		strings.add(instance.getAmi());
-		strings.add(Long.toString(instance.getLaunchTime()));
-		strings.add(toString(instance.getName()));
-		strings.add(instance.getState());
-		strings.add(instance.getType());
-		strings.add(toString(instance.getPublicDnsName()));
-		return strings;
 	}
 
 	protected static List<EC2Instance> getInstances(String account, boolean refresh) {
@@ -114,26 +80,6 @@ public class Instances {
 		}
 	}
 
-	protected static EC2Instance convert(String csv) {
-		List<String> tokens = Splitter.on(',').splitToList(csv);
-		String id = tokens.get(0);
-		String ami = tokens.get(1);
-		long launchTime = Long.parseLong(tokens.get(2));
-		Optional<String> name = getOptional(CSV.restore(tokens.get(3)));
-		String state = tokens.get(4);
-		String type = tokens.get(5);
-		Optional<String> publicDnsName = getOptional(tokens.get(6));
-		return EC2Instance.builder().id(id).ami(ami).launchTime(launchTime).name(name).state(state).type(type).publicDnsName(publicDnsName).build();
-	}
-
-	protected static Optional<String> getOptional(String string) {
-		if (string.equals(ABSENT)) {
-			return Optional.absent();
-		} else {
-			return Optional.of(string);
-		}
-	}
-
 	protected static List<EC2Instance> queryAmazon(AWSCredentials creds) {
 		WaitService ws = new DefaultWaitService();
 		EC2ServiceContext context = EC2ServiceContext.create(creds);
@@ -160,31 +106,6 @@ public class Instances {
 		} catch (IOException e) {
 			throw Exceptions.illegalState(e, "unexpected io error -> [%s]", file);
 		}
-	}
-
-	protected static List<String> csv(List<EC2Instance> instances) {
-		List<String> lines = Lists.newArrayList();
-		lines.add("id,ami,launchTime,name,state,type,publicDnsName");
-		for (EC2Instance instance : instances) {
-			lines.add(csv(instance));
-		}
-		return lines;
-	}
-
-	protected static String csv(EC2Instance instance) {
-		Set<Field> fields = ReflectionUtils.getAllFields(instance.getClass());
-		List<String> tokens = Lists.newArrayList();
-		for (Field field : fields) {
-			Optional<?> value = ReflectionUtils.get(field, instance);
-		}
-		tokens.add(instance.getId());
-		tokens.add(instance.getAmi());
-		tokens.add(Long.toString(instance.getLaunchTime()));
-		tokens.add(toString(instance.getName()));
-		tokens.add(instance.getState());
-		tokens.add(instance.getType());
-		tokens.add(toString(instance.getPublicDnsName()));
-		return Joiner.on(',').join(tokens);
 	}
 
 	protected static List<EC2Instance> convert(List<Instance> instances) {
@@ -225,11 +146,4 @@ public class Instances {
 		return Optional.absent();
 	}
 
-	protected static String toString(Optional<String> string) {
-		if (string.isPresent()) {
-			return string.get();
-		} else {
-			return ABSENT;
-		}
-	}
 }

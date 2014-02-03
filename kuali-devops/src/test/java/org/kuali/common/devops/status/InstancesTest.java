@@ -22,7 +22,7 @@ public class InstancesTest {
 	public void test() {
 		try {
 			Validation.getDefaultValidator();
-			Map<String, List<EC2Instance>> map = Instances.getInstances(false);
+			Map<String, List<EC2Instance>> map = Instances.getInstances(true);
 			for (String account : map.keySet()) {
 				List<EC2Instance> instances = map.get(account);
 				logger.info(format("%s -> %s", rightPad(account, 10), leftPad(instances.size() + "", 2)));
