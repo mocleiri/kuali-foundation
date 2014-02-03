@@ -106,6 +106,7 @@ public class Instances {
 		try {
 			logger.info(format("loading -> [%s]", file));
 			List<String> lines = FileUtils.readLines(file, ENCODING);
+			Table<Integer, String, TableCellDescriptor> table = Tables.getTableFromCSV(lines, EC2Instance.class);
 			List<EC2Instance> instances = Lists.newArrayList();
 			for (int i = 1; i < lines.size(); i++) {
 				instances.add(convert(lines.get(i)));
