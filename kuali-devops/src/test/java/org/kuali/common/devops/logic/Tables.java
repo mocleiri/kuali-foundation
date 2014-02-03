@@ -16,6 +16,7 @@ import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
@@ -46,7 +47,29 @@ public class Tables {
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		SortedSet<String> headerTokens = Sets.newTreeSet(splitter.splitToList(lines.get(0)));
 		validate(fields, type, headerTokens);
+		Map<String, Field> fieldNames = getFields(fields);
+		List<String> fieldNamesList = Lists.newArrayList(headerTokens);
+		for (int row = 1; row < lines.size(); row++) {
+			String line = lines.get(row);
+			List<String> tokens = splitter.splitToList(line);
+			checkState(tokens.size() == headerTokens.size(), "line -> %s  expected %s tokens, but there were %s", row, headerTokens.size(), tokens.size());
+			for (int column = 0; column < tokens.size(); column++) {
+				String fieldName = fieldNamesList.get(column);
+				String token = tokens.get(column);
+				Field field = fieldNames.get(fieldName);
+				TableCellDescriptor descriptor = TableCellDescriptor.create(field, Optional.of(token));
+				table.put(row, fieldName, descriptor);
+			}
+		}
 		return table;
+	}
+
+	protected static Map<String, Field> getFields(Set<Field> fields) {
+		Map<String, Field> map = Maps.newHashMap();
+		for (Field field : fields) {
+			map.put(field.getName(), field);
+		}
+		return map;
 	}
 
 	public static <T> Table<Integer, String, TableCellDescriptor> getTable(List<T> elements, Class<T> type) {
