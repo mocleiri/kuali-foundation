@@ -46,6 +46,7 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 					Optional<String> value = descriptor.getFieldValue();
 					Object converted = converter.convert(value.orNull(), sourceType, targetType);
 					Field builderField = builderClass.getDeclaredField(originalField.getName());
+					// TODO Spring's converter doesn't do anything if you pass it null
 					if (ReflectionUtils.isOptionalString(builderField) && converted == null) {
 						converted = Optional.<String> absent();
 					}
