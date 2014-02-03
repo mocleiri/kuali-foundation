@@ -16,6 +16,10 @@ public final class Database {
 		this.username = builder.username;
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder extends ValidatingBuilder<Database> {
 
 		private String vendor;
