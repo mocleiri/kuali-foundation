@@ -30,35 +30,37 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 
 	@Override
 	public List<V> apply(Table<? extends Comparable<R>, ? extends Comparable<C>, TableCellDescriptor<String>> table) {
-		try {
-			checkNotNull(table, "'table' cannot be null");
-			SortedSet<Comparable<R>> rowKeys = Sets.newTreeSet(table.rowKeySet());
-			SortedSet<Comparable<C>> colKeys = Sets.newTreeSet(table.columnKeySet());
-			List<V> elements = Lists.newArrayList();
-			// TODO Do something smarter to acquire the builder class
-			@SuppressWarnings("unchecked")
-			Class<? extends org.kuali.common.util.build.Builder<V>> builderClass = (Class<? extends org.kuali.common.util.build.Builder<V>>) targetType.getDeclaredClasses()[0];
-			org.kuali.common.util.build.Builder<V> builder = ReflectionUtils.newInstance(builderClass);
-			for (Comparable<R> rowKey : rowKeys) {
-				for (Comparable<C> colKey : colKeys) {
-					TableCellDescriptor<String> descriptor = table.get(rowKey, colKey);
-					Field originalField = descriptor.getField();
-					TypeDescriptor targetType = new TypeDescriptor(originalField);
-					Optional<String> value = descriptor.getFieldValue();
-					Object converted = converter.convert(value.orNull(), sourceType, targetType);
-					Field builderField = builderClass.getDeclaredField(originalField.getName());
-					// TODO Spring's converter doesn't do anything if you pass it null
-					if (ReflectionUtils.isOptionalString(builderField) && converted == null) {
-						converted = Optional.<String> absent();
-					}
-					PropertyUtils.setProperty(builder, builderField.getName(), converted);
-				}
-				V element = builder.build();
-				elements.add(element);
+		checkNotNull(table, "'table' cannot be null");
+		SortedSet<Comparable<R>> rowKeys = Sets.newTreeSet(table.rowKeySet());
+		SortedSet<Comparable<C>> colKeys = Sets.newTreeSet(table.columnKeySet());
+		List<V> elements = Lists.newArrayList();
+		Class<? extends org.kuali.common.util.build.Builder<V>> builderClass = getBuilderClass(targetType);
+		org.kuali.common.util.build.Builder<V> builder = ReflectionUtils.newInstance(builderClass);
+		for (Comparable<R> rowKey : rowKeys) {
+			for (Comparable<C> colKey : colKeys) {
+				TableCellDescriptor<String> descriptor = table.get(rowKey, colKey);
+				setBuilderField(descriptor, builder);
 			}
-			return ImmutableList.copyOf(elements);
+			V element = builder.build();
+			elements.add(element);
+		}
+		return ImmutableList.copyOf(elements);
+	}
+
+	protected void setBuilderField(TableCellDescriptor<String> descriptor, org.kuali.common.util.build.Builder<V> builder) {
+		try {
+			Field originalField = descriptor.getField();
+			TypeDescriptor targetType = new TypeDescriptor(originalField);
+			Optional<String> value = descriptor.getFieldValue();
+			Object converted = converter.convert(value.orNull(), sourceType, targetType);
+			Field builderField = builder.getClass().getDeclaredField(originalField.getName());
+			// TODO Spring's converter doesn't do anything if you pass it null
+			if (ReflectionUtils.isOptionalString(builderField) && converted == null) {
+				converted = Optional.<String> absent();
+			}
+			PropertyUtils.setProperty(builder, builderField.getName(), converted);
 		} catch (Exception e) {
-			throw Exceptions.illegalState(e, "unexpected error converting table of string data into strongly typed objects");
+			throw Exceptions.illegalState("unexpected error converting table cell string into a strongly typed object");
 		}
 	}
 
