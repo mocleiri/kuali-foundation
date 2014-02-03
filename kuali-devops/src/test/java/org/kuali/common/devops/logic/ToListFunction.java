@@ -21,7 +21,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
 
-public final class FromStringTableFunction<R, C, V> implements Function<Table<? extends Comparable<R>, ? extends Comparable<C>, TableCellDescriptor<String>>, List<V>> {
+public final class ToListFunction<R, C, V> implements Function<Table<? extends Comparable<R>, ? extends Comparable<C>, TableCellDescriptor<String>>, List<V>> {
 
 	private final Class<V> targetType;
 	private final ConversionService converter;
@@ -57,14 +57,14 @@ public final class FromStringTableFunction<R, C, V> implements Function<Table<? 
 		}
 	}
 
-	private FromStringTableFunction(Builder<R, C, V> builder) {
+	private ToListFunction(Builder<R, C, V> builder) {
 		this.targetType = builder.targetType;
 		this.converter = builder.converter;
 		this.sourceType = builder.sourceType;
 		this.locale = builder.locale;
 	}
 
-	public static class Builder<R, C, V> implements org.kuali.common.util.build.Builder<FromStringTableFunction<R, C, V>> {
+	public static class Builder<R, C, V> implements org.kuali.common.util.build.Builder<ToListFunction<R, C, V>> {
 
 		private Class<V> targetType;
 		private ConversionService converter = new DefaultConversionService();
@@ -92,13 +92,13 @@ public final class FromStringTableFunction<R, C, V> implements Function<Table<? 
 		}
 
 		@Override
-		public FromStringTableFunction<R, C, V> build() {
-			FromStringTableFunction<R, C, V> instance = new FromStringTableFunction<R, C, V>(this);
+		public ToListFunction<R, C, V> build() {
+			ToListFunction<R, C, V> instance = new ToListFunction<R, C, V>(this);
 			validate(instance);
 			return instance;
 		}
 
-		private static <R, C, V> void validate(FromStringTableFunction<R, C, V> instance) {
+		private static <R, C, V> void validate(ToListFunction<R, C, V> instance) {
 			checkNotNull(instance.targetType, "'targetType' cannot be null");
 			checkNotNull(instance.converter, "'converter' cannot be null");
 			checkNotNull(instance.sourceType, "'sourceType' cannot be null");
