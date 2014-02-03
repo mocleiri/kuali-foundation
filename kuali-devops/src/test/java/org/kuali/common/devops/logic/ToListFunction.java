@@ -38,8 +38,8 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 			// TODO Do something smarter to acquire the builder class
 			@SuppressWarnings("unchecked")
 			Class<? extends org.kuali.common.util.build.Builder<V>> builderClass = (Class<? extends org.kuali.common.util.build.Builder<V>>) targetType.getDeclaredClasses()[0];
+			org.kuali.common.util.build.Builder<V> builder = ReflectionUtils.newInstance(builderClass);
 			for (Comparable<R> rowKey : rowKeys) {
-				org.kuali.common.util.build.Builder<V> builder = ReflectionUtils.newInstance(builderClass);
 				for (Comparable<C> colKey : colKeys) {
 					TableCellDescriptor<String> descriptor = table.get(rowKey, colKey);
 					Field originalField = descriptor.getField();
@@ -63,15 +63,15 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 	}
 
 	@SuppressWarnings("unchecked")
-	protected Class<? extends org.kuali.common.util.build.Builder<V>> getBuilder(Class<V> targetType) {
+	protected Class<? extends org.kuali.common.util.build.Builder<V>> getBuilderClass(Class<V> targetType) {
 		Class<?>[] declaredClasses = targetType.getDeclaredClasses();
 		for (Class<?> declaredClass : declaredClasses) {
 			if (org.kuali.common.util.build.Builder.class.isAssignableFrom(declaredClass)) {
 				return (Class<? extends org.kuali.common.util.build.Builder<V>>) declaredClass;
 			}
 		}
-		Object[] args = { targetType.getCanonicalName(), org.kuali.common.util.build.Builder.class.getCanonicalName() };
-		throw Exceptions.illegalState("[%s] does not declare a class that implements [%s]", args);
+		Object[] args = { org.kuali.common.util.build.Builder.class.getCanonicalName(), targetType.getCanonicalName(), };
+		throw Exceptions.illegalState("[%s] is not assignable from any classes declared in [%s]", args);
 	}
 
 	private ToListFunction(Builder<R, C, V> builder) {
