@@ -40,15 +40,15 @@ public class Exceptions {
 		return create(type, msg, (Object[]) null);
 	}
 
-	public static <T extends Exception> T create(Class<T> type, Throwable cause, String msg, Object... args) {
-		Class<?>[] parameterTypes = { String.class, Throwable.class };
-		Object[] initArgs = { formatMessage(msg, args), cause };
-		return create(type, parameterTypes, initArgs);
-	}
-
 	public static <T extends Exception> T create(Class<T> type, String msg, Object... args) {
 		Class<?>[] parameterTypes = { String.class };
 		Object[] initArgs = { formatMessage(msg, args) };
+		return create(type, parameterTypes, initArgs);
+	}
+
+	public static <T extends Exception> T create(Class<T> type, Throwable cause, String msg, Object... args) {
+		Class<?>[] parameterTypes = { String.class, Throwable.class };
+		Object[] initArgs = { formatMessage(msg, args), cause };
 		return create(type, parameterTypes, initArgs);
 	}
 
