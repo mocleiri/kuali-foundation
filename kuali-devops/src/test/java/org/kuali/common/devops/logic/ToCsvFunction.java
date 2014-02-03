@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.SortedSet;
 
 import org.kuali.common.devops.model.TableCellDescriptor;
-import org.kuali.common.util.csv.BasicStringAdapter;
-import org.kuali.common.util.csv.CsvAdapter;
 import org.kuali.common.util.spring.convert.DefaultConversionService;
+import org.kuali.common.util.spring.format.CsvStringFormatter;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
+import org.springframework.format.Formatter;
 
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
@@ -22,6 +22,9 @@ import com.google.common.collect.Table;
 public final class ToCsvFunction<R, C> implements Function<Table<? extends Comparable<R>, ? extends Comparable<C>, TableCellDescriptor>, List<String>> {
 
 	private final Joiner joiner = Joiner.on(',');
+	ConversionService converter = new DefaultConversionService();
+	Formatter<String> formatter = CsvStringFormatter.create();
+	TypeDescriptor targetType = TypeDescriptor.valueOf(String.class);
 
 	@Override
 	public List<String> apply(Table<? extends Comparable<R>, ? extends Comparable<C>, TableCellDescriptor> table) {
@@ -30,17 +33,14 @@ public final class ToCsvFunction<R, C> implements Function<Table<? extends Compa
 		SortedSet<Comparable<C>> colKeys = Sets.newTreeSet(table.columnKeySet());
 		List<String> lines = Lists.newArrayList();
 		lines.add(getHeader(colKeys));
-		ConversionService converter = new DefaultConversionService();
-		TypeDescriptor tds = TypeDescriptor.valueOf(String.class);
-		CsvAdapter<String> adapter = BasicStringAdapter.create();
 		for (Comparable<R> rowKey : rowKeys) {
 			List<String> tokens = Lists.newArrayList();
 			for (Comparable<C> colKey : colKeys) {
-				TableCellDescriptor tcd = table.get(rowKey, colKey);
-				TypeDescriptor td = new TypeDescriptor(tcd.getField());
-				Object source = tcd.getObject();
-				Object converted = converter.convert(source, td, tds);
-				String string = adapter.format(converted == null ? null : converted.toString());
+				TableCellDescriptor descriptor = table.get(rowKey, colKey);
+				TypeDescriptor sourceType = new TypeDescriptor(descriptor.getField());
+				Object source = descriptor.getObject();
+				Object converted = converter.convert(source, sourceType, targetType);
+				String string = formatter.print(converted == null ? null : converted.toString(), null);
 				tokens.add(string);
 			}
 			String joined = joiner.join(tokens);
