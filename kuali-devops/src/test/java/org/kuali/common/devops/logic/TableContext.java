@@ -70,4 +70,24 @@ public final class TableContext {
 		}
 	}
 
+	public int getRows() {
+		return rows;
+	}
+
+	public int getColumns() {
+		return columns;
+	}
+
+	public List<String> getHeaderTokens() {
+		return headerTokens;
+	}
+
+	public CsvStringFormatter getFormatter() {
+		return formatter;
+	}
+
+	public Map<String, Field> getFieldNames() {
+		return fieldNames;
+	}
+
 }
