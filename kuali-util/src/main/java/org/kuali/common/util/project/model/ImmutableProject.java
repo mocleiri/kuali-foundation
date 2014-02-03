@@ -31,6 +31,14 @@ public final class ImmutableProject implements Project, Identifiable {
 	private final String id;
 	private final int hashCode;
 
+	public static ImmutableProject copyOf(Project project) {
+		if (project instanceof ImmutableProject) {
+			return (ImmutableProject) project;
+		} else {
+			return new ImmutableProject(project.getGroupId(), project.getArtifactId(), project.getVersion(), project.getProperties());
+		}
+	}
+
 	public ImmutableProject(ProjectIdentifier identifier, String version, Properties properties) {
 		// Make sure we are being configured correctly
 		Assert.noNulls(identifier, properties);
