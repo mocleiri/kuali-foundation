@@ -23,7 +23,6 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -367,8 +366,25 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 		}
 	}
 
+	/**
+	 * Convert the set of fields into a Map keyed by field name. If there are fields that contain duplicate names in the set, which one makes it into the map is undefined
+	 * 
+	 * @deprecated use getNameMap(List) instead
+	 */
+	@Deprecated
 	public static Map<String, Field> getNameMap(Set<Field> fields) {
-		Map<String, Field> map = new HashMap<String, Field>();
+		Map<String, Field> map = Maps.newHashMap();
+		for (Field field : fields) {
+			map.put(field.getName(), field);
+		}
+		return map;
+	}
+
+	/**
+	 * Convert the list of fields into a Map keyed by field name. If there are duplicate field names in the list, "last one in wins"
+	 */
+	public static Map<String, Field> getNameMap(List<Field> fields) {
+		Map<String, Field> map = Maps.newHashMap();
 		for (Field field : fields) {
 			map.put(field.getName(), field);
 		}
@@ -397,11 +413,7 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 	 * Return true if the fields in this set can be uniquely represented by field name alone
 	 */
 	public static boolean hasUniqueFieldNames(Set<Field> fields) {
-		Map<String, Field> map = new HashMap<String, Field>();
-		for (Field field : fields) {
-			map.put(field.getName(), field);
-		}
-		return map.size() == fields.size();
+		return getNameMap(fields).size() == fields.size();
 	}
 
 	@SuppressWarnings("unchecked")
