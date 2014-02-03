@@ -21,6 +21,7 @@ import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.devops.model.EC2Instance;
+import org.kuali.common.devops.model.TableCellDescriptor;
 import org.kuali.common.util.Encodings;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.base.Replacer;
@@ -145,7 +146,7 @@ public class Instances {
 	}
 
 	protected static void store(File file, List<EC2Instance> instances) {
-		Table<Integer, String, Object> table = Tables.getTable(instances, EC2Instance.class);
+		Table<Integer, String, TableCellDescriptor> table = Tables.getTable(instances, EC2Instance.class);
 		ToCsvFunction<Integer, String> function = new ToCsvFunction<Integer, String>();
 		List<String> csv = function.apply(table);
 		store(file, csv, ENCODING);

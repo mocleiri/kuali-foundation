@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 
+import org.kuali.common.devops.model.TableCellDescriptor;
 import org.kuali.common.util.ReflectionUtils;
 
 import com.google.common.base.Optional;
@@ -38,24 +39,25 @@ public class Tables {
 		}
 	}
 
-	public static <T> Table<Integer, String, Object> getTable(List<T> elements, Class<T> type) {
-		Table<Integer, String, Object> table = HashBasedTable.create();
+	public static <T> Table<Integer, String, TableCellDescriptor> getTable(List<T> elements, Class<T> type) {
+		Table<Integer, String, TableCellDescriptor> table = HashBasedTable.create();
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		validate(fields, type);
 		for (int i = 0; i < elements.size(); i++) {
 			T element = elements.get(i);
-			Map<String, Object> columns = getColumns(fields, element);
+			Map<String, TableCellDescriptor> columns = getColumns(fields, element);
 			addRow(table, columns);
 		}
 		return table;
 	}
 
-	protected static <T> Map<String, Object> getColumns(Set<Field> fields, T element) {
-		Map<String, Object> columns = Maps.newHashMap();
+	protected static <T> Map<String, TableCellDescriptor> getColumns(Set<Field> fields, T element) {
+		Map<String, TableCellDescriptor> columns = Maps.newHashMap();
 		for (Field field : fields) {
 			Optional<?> value = ReflectionUtils.get(field, element);
 			checkState(value.isPresent(), "[%s.%s] ==  null", field.getType().getSimpleName(), field.getName());
-			columns.put(field.getName(), value.get());
+			TableCellDescriptor descriptor = new TableCellDescriptor.Builder().field(field).object(value.get()).build();
+			columns.put(field.getName(), descriptor);
 		}
 		return columns;
 	}
