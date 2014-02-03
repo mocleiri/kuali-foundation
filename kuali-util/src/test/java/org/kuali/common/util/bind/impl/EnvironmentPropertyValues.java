@@ -62,6 +62,26 @@ public final class EnvironmentPropertyValues<T> extends MutablePropertyValues {
 			checkNotNull(instance.env, "'env' cannot be null");
 			checkNotNull(instance.values, "'values' cannot be null");
 		}
+
+		public Map<String, String> getValues() {
+			return values;
+		}
+
+		public void setValues(Map<String, String> values) {
+			this.values = values;
+		}
+
+		public Class<T> getType() {
+			return type;
+		}
+
+		public Environment getEnv() {
+			return env;
+		}
+
+		public BindingPrefix getBind() {
+			return bind;
+		}
 	}
 
 	public Class<T> getType() {

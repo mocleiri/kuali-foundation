@@ -7,17 +7,15 @@ import java.util.Set;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.model.BoundTypeDescriptor;
-import org.kuali.common.util.bind.test.Prefixes;
 import org.kuali.common.util.tree.MutableNode;
 import org.kuali.common.util.tree.Node;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 
 public class BoundTypes {
 
 	public static BoundTypeDescriptor describe(Class<?> type) {
-		Optional<String> prefix = Prefixes.get(type);
+		// Optional<String> prefix = Prefixes.get(type);
 		return null;
 	}
 

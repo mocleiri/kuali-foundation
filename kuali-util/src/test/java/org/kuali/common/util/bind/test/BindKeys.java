@@ -9,7 +9,6 @@ import org.kuali.common.util.Annotations;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.api.BindingAlias;
-import org.kuali.common.util.bind.api.BindingPrefix;
 import org.kuali.common.util.function.PrefixFunction;
 
 import com.google.common.base.Function;
@@ -26,7 +25,7 @@ public class BindKeys {
 
 	public static Set<String> get(Optional<String> prefix, Class<?> type) {
 		SortedSet<String> keys = Sets.newTreeSet();
-		Optional<BindingPrefix> annotation = Annotations.get(type, BindingPrefix.class);
+		// Optional<BindingPrefix> annotation = Annotations.get(type, BindingPrefix.class);
 		Optional<String> actualPrefix = null; // Prefixes.get(prefix, type, annotation);
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		for (Field field : fields) {
@@ -39,7 +38,7 @@ public class BindKeys {
 	protected static Set<String> getKeys(Field field, Optional<String> prefix) {
 		// If the Bind annotation is present we'll need to recurse
 		if (field.isAnnotationPresent(Bind.class)) {
-			Optional<BindingPrefix> annotation = Annotations.get(field, BindingPrefix.class);
+			// Optional<BindingPrefix> annotation = Annotations.get(field, BindingPrefix.class);
 			Optional<String> fieldPrefix = null; // Prefixes.get(field.getType(), annotation);
 			Optional<String> newPrefix = combine(prefix, fieldPrefix, ".");
 			// Recurse to acquire more keys
