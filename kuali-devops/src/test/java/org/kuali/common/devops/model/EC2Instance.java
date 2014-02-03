@@ -3,6 +3,7 @@ package org.kuali.common.devops.model;
 import javax.validation.constraints.Min;
 
 import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.spring.format.OptionalStringFormat;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
@@ -11,7 +12,9 @@ import com.google.common.base.Optional;
 public final class EC2Instance implements Comparable<EC2Instance> {
 
 	private final String id;
+	@OptionalStringFormat
 	private final Optional<String> name;
+	@OptionalStringFormat
 	private final Optional<String> publicDnsName;
 	private final String type;
 	private final String ami;
