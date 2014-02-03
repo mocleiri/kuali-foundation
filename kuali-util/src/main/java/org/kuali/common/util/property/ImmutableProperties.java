@@ -60,10 +60,28 @@ public final class ImmutableProperties extends Properties {
 	 * 
 	 * @throws NullPointerException
 	 *             if {@code properties} is null
+	 * 
+	 * @deprecated use copyOf(Properties) instead
 	 */
+	@Deprecated
 	public static Properties of(Properties properties) {
 		if (properties instanceof ImmutableProperties) {
 			return properties;
+		} else {
+			return new ImmutableProperties(properties);
+		}
+	}
+
+	/**
+	 * Create and return a new immutable properties object identical to the one passed in. If <code>properties</code> is already immutable, no new object is created, the
+	 * <code>properties</code> object passed in as a method argument is what is returned.
+	 * 
+	 * @throws NullPointerException
+	 *             if {@code properties} is null
+	 */
+	public static ImmutableProperties copyOf(Properties properties) {
+		if (properties instanceof ImmutableProperties) {
+			return (ImmutableProperties) properties;
 		} else {
 			return new ImmutableProperties(properties);
 		}

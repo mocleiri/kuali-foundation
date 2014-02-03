@@ -110,7 +110,7 @@ public final class OverridingProcessor implements PropertyProcessor {
 		private int indent = DEFAULT_INDENT;
 
 		public Builder(Properties overrides) {
-			this.overrides = ImmutableProperties.of(overrides);
+			this.overrides = ImmutableProperties.copyOf(overrides);
 		}
 
 		public Builder overrideMode(Mode overrideMode) {

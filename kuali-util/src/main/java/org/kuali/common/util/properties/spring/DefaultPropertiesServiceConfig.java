@@ -45,7 +45,7 @@ public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
 		Properties global = PropertyUtils.getGlobalProperties();
 
 		// Setup a properties object where system properties "win" over project properties
-		return ImmutableProperties.of(PropertyUtils.combine(project.getProperties(), global));
+		return ImmutableProperties.copyOf(PropertyUtils.combine(project.getProperties(), global));
 	}
 
 	private PropertyProcessor getPostProcessor(Properties overrides) {

@@ -232,7 +232,7 @@ public final class ChannelContext {
 			privateKeys(EncUtils.decrypt(enc, privateKeys));
 			this.privateKeyFiles = ImmutableList.copyOf(getUniquePrivateKeyFiles(privateKeyFiles, useConfigFile, config, includeDefaultPrivateKeyLocations));
 			this.privateKeys = ImmutableList.copyOf(privateKeys);
-			this.options = ImmutableProperties.of(getSessionProperties(options, strictHostKeyChecking));
+			this.options = ImmutableProperties.copyOf(getSessionProperties(options, strictHostKeyChecking));
 		}
 
 		private void validate(ChannelContext ctx) {

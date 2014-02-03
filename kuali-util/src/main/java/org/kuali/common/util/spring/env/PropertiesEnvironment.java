@@ -26,7 +26,7 @@ public final class PropertiesEnvironment extends AbstractEnvironment {
 	}
 
 	public PropertiesEnvironment(String name, Properties properties) {
-		this.properties = ImmutableProperties.of(properties);
+		this.properties = ImmutableProperties.copyOf(properties);
 		super.getPropertySources().addLast(new PropertiesPropertySource(name, properties));
 	}
 
