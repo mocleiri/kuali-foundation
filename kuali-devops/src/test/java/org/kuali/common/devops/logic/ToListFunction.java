@@ -46,6 +46,9 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 					Optional<String> value = descriptor.getFieldValue();
 					Object converted = converter.convert(value.orNull(), sourceType, targetType);
 					Field builderField = builderClass.getDeclaredField(originalField.getName());
+					if (ReflectionUtils.isOptionalString(builderField) && converted == null) {
+						converted = Optional.<String> absent();
+					}
 					PropertyUtils.setProperty(builder, builderField.getName(), converted);
 				}
 				V element = builder.build();
