@@ -108,7 +108,7 @@ public class MatchDeclaringClassFieldsValidator implements ConstraintValidator<M
 
 	protected FieldDetail getFieldDetail(Class<?> type) {
 		Set<Field> set = ReflectionUtils.getAllFields(type);
-		Map<String, Field> map = ReflectionUtils.getNameMap(set);
+		Map<String, Field> map = ReflectionUtils.getNameMap(Lists.newArrayList(set));
 		return FieldDetail.builder(type).set(set).map(map).build();
 	}
 
