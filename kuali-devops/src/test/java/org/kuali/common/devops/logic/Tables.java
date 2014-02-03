@@ -1,5 +1,6 @@
 package org.kuali.common.devops.logic;
 
+import static com.google.common.base.Preconditions.checkState;
 import static java.lang.Integer.valueOf;
 
 import java.lang.reflect.Field;
@@ -53,11 +54,8 @@ public class Tables {
 		Map<String, Object> columns = Maps.newHashMap();
 		for (Field field : fields) {
 			Optional<?> value = ReflectionUtils.get(field, element);
-			if (value.isPresent()) {
-				columns.put(field.getName(), value.get());
-			} else {
-				columns.put(field.getName(), value);
-			}
+			checkState(value.isPresent(), "[%s.%s] ==  null", field.getType().getSimpleName(), field.getName());
+			columns.put(field.getName(), value.get());
 		}
 		return columns;
 	}

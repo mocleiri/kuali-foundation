@@ -5,6 +5,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.List;
 import java.util.SortedSet;
 
+import org.kuali.common.util.csv.DefaultAdapter;
+
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
@@ -26,7 +28,9 @@ public final class ToCsvFunction<R, C> implements Function<Table<? extends Compa
 			List<String> tokens = Lists.newArrayList();
 			for (Comparable<C> colKey : colKeys) {
 				Object value = table.get(rowKey, colKey);
-				tokens.add(value.toString());
+				DefaultAdapter adapter = DefaultAdapter.create(value.getClass());
+				String string = adapter.format(value);
+				tokens.add(string);
 			}
 			String joined = joiner.join(tokens);
 			lines.add(joined);
