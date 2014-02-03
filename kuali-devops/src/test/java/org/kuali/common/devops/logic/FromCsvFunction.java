@@ -3,52 +3,65 @@ package org.kuali.common.devops.logic;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.SortedSet;
 
-import org.kuali.common.util.base.Replacer;
+import org.kuali.common.devops.model.TableCellDescriptor;
+import org.kuali.common.util.spring.convert.DefaultConversionService;
+import org.kuali.common.util.spring.format.CsvStringFormatter;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.TypeDescriptor;
+import org.springframework.format.Formatter;
 
 import com.google.common.base.Function;
-import com.google.common.base.Splitter;
-import com.google.common.collect.HashBasedTable;
+import com.google.common.base.Joiner;
+import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
 
-public final class FromCsvFunction<R extends Comparable<R>, C extends Comparable<C>> implements Function<List<String>, Table<R, C, String>> {
+public final class FromCsvFunction<R, C> implements Function<Table<? extends Comparable<R>, ? extends Comparable<C>, TableCellDescriptor>, List<String>> {
 
-	private final String nullToken = "${csv.null}";
-	private final String emptyToken = "${csv.empty}";
-	private final String optionalAbsentToken = "${optional.absent}";
-	private final Replacer replacer = Replacer.builder().add("\r", "${csv.cr}").add("\n", "${csv.lf}").add(",", "${csv.comma}").build();
-	private final Splitter splitter = Splitter.on(',');
+	private final Joiner joiner = Joiner.on(',');
+	private final ConversionService converter = new DefaultConversionService();
+	private final Formatter<String> formatter = CsvStringFormatter.create();
+	private final TypeDescriptor targetType = TypeDescriptor.valueOf(String.class);
+	private final Locale locale = Locale.getDefault();
 
 	@Override
-	public Table<R, C, String> apply(List<String> lines) {
-		checkNotNull(lines, "'lines' cannot be null");
-		Table<R, C, String> table = HashBasedTable.create();
-		for (int row=0;row<lines.size();row++) {
-			List<String> tokens =getTokens(lines.get(row));
-			Tables.addRow(table,tokens);
+	public List<String> apply(Table<? extends Comparable<R>, ? extends Comparable<C>, TableCellDescriptor> table) {
+		checkNotNull(table, "'table' cannot be null");
+		SortedSet<Comparable<R>> rowKeys = Sets.newTreeSet(table.rowKeySet());
+		SortedSet<Comparable<C>> colKeys = Sets.newTreeSet(table.columnKeySet());
+		List<String> lines = Lists.newArrayList();
+		lines.add(getHeader(colKeys));
+		for (Comparable<R> rowKey : rowKeys) {
+			List<String> tokens = Lists.newArrayList();
+			for (Comparable<C> colKey : colKeys) {
+				TableCellDescriptor descriptor = table.get(rowKey, colKey);
+				String token = getToken(descriptor);
+				tokens.add(token);
+			}
+			String joined = joiner.join(tokens);
+			lines.add(joined);
 		}
-		return table;
-	}
-	
-	protected List<String> getTokens(String csv) {
-		List<String> tokens = Lists.newArrayList(splitter.splitToList(csv));
-		for (int i=0;i<tokens.size();i++) {
-			String originalToken = tokens.get(i);
-			String replacedToken = getToken(originalToken);
-			tokens.set(i,replacedToken);
-		}
-		return tokens;
+		return ImmutableList.copyOf(lines);
 	}
 
-	protected String getToken(String tableValue) {
-		if (tableValue.equals(nullToken)) {
-			return optionalAbsentToken;
+	protected String getToken(TableCellDescriptor descriptor) {
+		TypeDescriptor sourceType = new TypeDescriptor(descriptor.getField());
+		Optional<?> value = descriptor.getValue();
+		String converted = (String) converter.convert(value.orNull(), sourceType, targetType);
+		return formatter.print(converted, locale);
+	}
+
+	protected String getHeader(SortedSet<Comparable<C>> colKeys) {
+		List<String> tokens = Lists.newArrayList();
+		for (Comparable<C> colKey : colKeys) {
+			tokens.add(colKey.toString());
 		}
-		if (tableValue.equals(emptyToken)) {
-			return "";
-		}
-		return replacer.replace(tableValue);
+		return joiner.join(tokens);
 	}
 
 }
