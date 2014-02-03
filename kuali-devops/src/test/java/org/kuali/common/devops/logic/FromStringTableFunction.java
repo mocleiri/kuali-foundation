@@ -53,7 +53,7 @@ public final class FromStringTableFunction<R, C, V> implements Function<Table<? 
 			}
 			return ImmutableList.copyOf(elements);
 		} catch (Exception e) {
-			throw Exceptions.illegalState(e, "unexpected error converting table of csv string data into strongly typed objects");
+			throw Exceptions.illegalState(e, "unexpected error converting table of string data into strongly typed objects");
 		}
 	}
 
