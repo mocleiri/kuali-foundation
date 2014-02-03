@@ -107,11 +107,8 @@ public class Instances {
 			logger.info(format("loading -> [%s]", file));
 			List<String> lines = FileUtils.readLines(file, ENCODING);
 			Table<Integer, String, TableCellDescriptor> table = Tables.getTableFromCSV(lines, EC2Instance.class);
-			List<EC2Instance> instances = Lists.newArrayList();
-			for (int i = 1; i < lines.size(); i++) {
-				instances.add(convert(lines.get(i)));
-			}
-			return instances;
+			FromCsvFunction<Integer, String, EC2Instance> function = new FromCsvFunction.Builder<Integer, String, EC2Instance>().targetType(EC2Instance.class).build();
+			return function.apply(table);
 		} catch (IOException e) {
 			throw Exceptions.illegalState(e, "unexpected io error -> [%s]", file);
 		}
