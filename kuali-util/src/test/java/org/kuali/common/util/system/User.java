@@ -4,7 +4,6 @@ import java.io.File;
 
 import org.kuali.common.util.bind.api.BindingAlias;
 import org.kuali.common.util.build.AwesomeBuilder;
-import org.kuali.common.util.spring.format.CanonicalFileFormat;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
@@ -28,11 +27,7 @@ public final class User {
 	public static class Builder extends AwesomeBuilder<User> {
 
 		private String name;
-
-		@CanonicalFileFormat
 		private File home;
-
-		@CanonicalFileFormat
 		private File dir;
 
 		public Builder name(String name) {
