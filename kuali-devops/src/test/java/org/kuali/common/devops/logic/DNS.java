@@ -20,8 +20,8 @@ import org.kuali.common.util.property.ImmutableProperties;
 import org.slf4j.Logger;
 
 import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import com.google.common.collect.HashMultiset;
+import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multiset;
@@ -56,9 +56,9 @@ public class DNS {
 	 * Returns only those CNAME records with exactly one alias.
 	 */
 	public static BiMap<String, String> getUnambiguousCNAMERecords(boolean refresh) {
-		Map<String, String> map = getCNAMERecords(refresh);
+		Map<String, String> map = Maps.newHashMap(getCNAMERecords(refresh));
 		removeAllKeysWithDuplicateValues(map);
-		return HashBiMap.create(map);
+		return ImmutableBiMap.copyOf(map);
 	}
 
 	protected static <T> void removeAllKeysWithDuplicateValues(Map<?, T> map) {
