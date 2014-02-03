@@ -22,7 +22,7 @@ public final class PropertiesEnvironment extends AbstractEnvironment {
 	 * Create an environment based on <code>properties</code>
 	 */
 	public PropertiesEnvironment(Properties properties) {
-		this.properties = ImmutableProperties.of(properties);
+		this.properties = ImmutableProperties.copyOf(properties);
 		super.getPropertySources().addLast(new PropertiesPropertySource(NAME, properties));
 	}
 
