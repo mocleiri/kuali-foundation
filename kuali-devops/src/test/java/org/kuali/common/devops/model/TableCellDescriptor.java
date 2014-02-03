@@ -9,15 +9,15 @@ import com.google.common.base.Optional;
 public final class TableCellDescriptor {
 
 	private final Field field;
-	private final Optional<?> value;
+	private final Optional<?> fieldValue;
 
 	private TableCellDescriptor(Builder builder) {
 		this.field = builder.field;
-		this.value = builder.value;
+		this.fieldValue = builder.fieldValue;
 	}
 
-	public static TableCellDescriptor create(Field field, Optional<?> value) {
-		return builder().field(field).value(value).build();
+	public static TableCellDescriptor create(Field field, Optional<?> fieldValue) {
+		return builder().field(field).fieldValue(fieldValue).build();
 	}
 
 	public static Builder builder() {
@@ -27,20 +27,20 @@ public final class TableCellDescriptor {
 	public static class Builder implements org.kuali.common.util.build.Builder<TableCellDescriptor> {
 
 		private Field field;
-		private Optional<?> value;
+		private Optional<?> fieldValue;
 
 		public Builder field(Field field) {
 			this.field = field;
 			return this;
 		}
 
-		public Builder value(Optional<?> value) {
-			this.value = value;
+		public Builder fieldValue(Optional<?> fieldValue) {
+			this.fieldValue = fieldValue;
 			return this;
 		}
 
-		public Builder value(Object object) {
-			return value(Optional.of(object));
+		public Builder fieldValue(Object object) {
+			return fieldValue(Optional.of(object));
 		}
 
 		@Override
@@ -52,7 +52,7 @@ public final class TableCellDescriptor {
 
 		private static void validate(TableCellDescriptor instance) {
 			checkNotNull(instance.field, "'field' cannot be null");
-			checkNotNull(instance.value, "'value' cannot be null");
+			checkNotNull(instance.fieldValue, "'value' cannot be null");
 		}
 	}
 
@@ -60,8 +60,8 @@ public final class TableCellDescriptor {
 		return field;
 	}
 
-	public Optional<?> getValue() {
-		return value;
+	public Optional<?> getFieldValue() {
+		return fieldValue;
 	}
 
 }

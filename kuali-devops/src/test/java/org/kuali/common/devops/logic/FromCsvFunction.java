@@ -46,7 +46,7 @@ public final class FromCsvFunction<R, C, V> implements Function<Table<? extends 
 					TableCellDescriptor descriptor = table.get(rowKey, colKey);
 					Field originalField = descriptor.getField();
 					TypeDescriptor targetType = new TypeDescriptor(originalField);
-					Optional<?> value = descriptor.getValue();
+					Optional<?> value = descriptor.getFieldValue();
 					if (value.get().toString().equals("${csv.null}")) {
 						System.out.println("yo");
 					}
