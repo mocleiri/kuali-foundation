@@ -9,13 +9,13 @@ import com.google.common.base.Optional;
 public class OptionalStringFormatter implements Formatter<Optional<String>> {
 
 	@Override
-	public Optional<String> parse(String text, Locale locale) {
-		return Optional.fromNullable(text);
+	public String print(Optional<String> string, Locale locale) {
+		return string.orNull();
 	}
 
 	@Override
-	public String print(Optional<String> string, Locale locale) {
-		return string.orNull();
+	public Optional<String> parse(String text, Locale locale) {
+		return Optional.fromNullable(text);
 	}
 
 }
