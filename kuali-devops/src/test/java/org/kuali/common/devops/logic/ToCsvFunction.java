@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.SortedSet;
 
-import org.kuali.common.devops.model.TableCellDescriptor;
+import org.kuali.common.devops.table.TableCellDescriptor;
 import org.kuali.common.util.spring.convert.DefaultConversionService;
 import org.kuali.common.util.spring.format.CsvStringFormatter;
 import org.springframework.core.convert.ConversionService;

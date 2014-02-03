@@ -7,7 +7,7 @@ import java.util.Locale;
 import java.util.SortedSet;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.kuali.common.devops.model.TableCellDescriptor;
+import org.kuali.common.devops.table.TableCellDescriptor;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.spring.convert.Conversion;
 import org.springframework.core.convert.ConversionService;

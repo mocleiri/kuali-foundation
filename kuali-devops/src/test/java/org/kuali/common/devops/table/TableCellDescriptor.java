@@ -1,4 +1,4 @@
-package org.kuali.common.devops.model;
+package org.kuali.common.devops.table;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
