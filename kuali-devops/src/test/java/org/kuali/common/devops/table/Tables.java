@@ -49,7 +49,7 @@ public class Tables {
 		List<String> headerTokens = splitter.splitToList(lines.get(0));
 		checkState(isSuperSet(fieldNames.keySet(), Sets.newHashSet(headerTokens)), "header line contains field names not found in [%s]", type.getCanonicalName());
 		CsvStringFormatter formatter = CsvStringFormatter.create();
-		TableContext context = new TableContext.Builder().rows(lines.size()).columns(headerTokens.size()).headerTokens(headerTokens).formatter(formatter).build();
+		TableContext context = new TableContext.Builder().rows(lines.size()).fieldNames(fieldNames).columns(headerTokens.size()).headerTokens(headerTokens).formatter(formatter).build();
 		for (int row = 1; row < lines.size(); row++) {
 			String line = lines.get(row);
 			List<String> tokens = splitter.splitToList(line);
