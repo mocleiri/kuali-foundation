@@ -1,9 +1,10 @@
 package org.kuali.common.devops.logic;
 
+import static org.apache.commons.io.FileUtils.readFileToString;
+
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Encodings;
 import org.kuali.common.util.Str;
@@ -76,7 +77,7 @@ public class Passwords {
 			return Optional.absent();
 		}
 		try {
-			String contents = FileUtils.readFileToString(file, Encodings.UTF8);
+			String contents = readFileToString(file, Encodings.UTF8);
 			String password = StringUtils.substringBetween(contents, "<" + SYS_KEY + ">", "</" + SYS_KEY + ">");
 			return Optional.fromNullable(StringUtils.trimToNull(password));
 		} catch (IOException e) {
