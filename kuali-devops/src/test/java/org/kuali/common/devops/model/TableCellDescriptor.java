@@ -14,7 +14,15 @@ public final class TableCellDescriptor {
 		this.object = builder.object;
 	}
 
-	public static class Builder {
+	public static TableCellDescriptor create(Field field, Object object) {
+		return builder().field(field).object(object).build();
+	}
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
+	public static class Builder implements org.kuali.common.util.build.Builder<TableCellDescriptor> {
 
 		private Field field;
 		private Object object;
@@ -29,6 +37,7 @@ public final class TableCellDescriptor {
 			return this;
 		}
 
+		@Override
 		public TableCellDescriptor build() {
 			TableCellDescriptor instance = new TableCellDescriptor(this);
 			validate(instance);

@@ -55,7 +55,7 @@ public class Tables {
 		for (Field field : fields) {
 			Optional<?> value = ReflectionUtils.get(field, element);
 			checkState(value.isPresent(), "[%s.%s] == null", field.getType().getSimpleName(), field.getName());
-			TableCellDescriptor descriptor = new TableCellDescriptor.Builder().field(field).object(value.get()).build();
+			TableCellDescriptor descriptor = TableCellDescriptor.create(field, value.get());
 			columns.put(field.getName(), descriptor);
 		}
 		return columns;
