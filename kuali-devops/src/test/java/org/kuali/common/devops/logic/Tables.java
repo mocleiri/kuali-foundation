@@ -1,5 +1,6 @@
 package org.kuali.common.devops.logic;
 
+import static com.google.common.base.Preconditions.checkState;
 import static java.lang.Integer.valueOf;
 
 import java.lang.reflect.Field;
@@ -12,6 +13,7 @@ import org.kuali.common.devops.model.TableCellDescriptor;
 import org.kuali.common.util.ReflectionUtils;
 
 import com.google.common.base.Optional;
+import com.google.common.base.Splitter;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
@@ -38,6 +40,15 @@ public class Tables {
 		}
 	}
 
+	public static <T> Table<Integer, String, TableCellDescriptor> getTableFromCSV(List<String> lines, Class<T> type) {
+		Splitter splitter = Splitter.on(',');
+		Table<Integer, String, TableCellDescriptor> table = HashBasedTable.create();
+		Set<Field> fields = ReflectionUtils.getAllFields(type);
+		SortedSet<String> headerTokens = Sets.newTreeSet(splitter.splitToList(lines.get(0)));
+		validate(fields, type, headerTokens);
+		return table;
+	}
+
 	public static <T> Table<Integer, String, TableCellDescriptor> getTable(List<T> elements, Class<T> type) {
 		Table<Integer, String, TableCellDescriptor> table = HashBasedTable.create();
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
@@ -59,12 +70,21 @@ public class Tables {
 		return columns;
 	}
 
+	protected static <T> void validate(Set<Field> fields, Class<T> type, SortedSet<String> headerTokens) {
+		validate(fields, type);
+		Set<String> fieldNames = Sets.newHashSet();
+		for (Field field : fields) {
+			fieldNames.add(field.getName());
+		}
+		Set<String> difference = Sets.difference(headerTokens, fieldNames);
+		checkState(difference.size() == 0, "[%s] header tokens are not present in [%s] -> [%s]", difference.size(), type.getCanonicalName(), difference);
+	}
+
 	protected static <T> void validate(Set<Field> fields, Class<T> type) {
 		SortedSet<String> columns = Sets.newTreeSet();
 		for (Field field : fields) {
-			if (!columns.add(field.getName())) {
-				throw Exceptions.illegalArgument("[%s] contains a duplicate field name -> [%s]", type.getCanonicalName(), field.getName());
-			}
+			// Make sure each field name is unique
+			checkState(columns.add(field.getName()), "[%s] contains a duplicate field name -> [%s]", type.getCanonicalName(), field.getName());
 		}
 	}
 
