@@ -49,25 +49,26 @@ public class Tables {
 		List<String> headerTokens = splitter.splitToList(lines.get(0));
 		checkState(isSuperSet(fieldNames.keySet(), Sets.newHashSet(headerTokens)), "header line contains field names not found in [%s]", type.getCanonicalName());
 		CsvStringFormatter formatter = CsvStringFormatter.create();
+		TableContext context = new TableContext.Builder().rows(lines.size()).columns(headerTokens.size()).headerTokens(headerTokens).formatter(formatter).build();
 		for (int row = 1; row < lines.size(); row++) {
 			String line = lines.get(row);
 			List<String> tokens = splitter.splitToList(line);
 			checkState(tokens.size() == headerTokens.size(), "line -> %s  expected %s tokens, but there were %s", row, headerTokens.size(), tokens.size());
 			for (int column = 0; column < tokens.size(); column++) {
 				String fieldName = headerTokens.get(column);
-				TableCellContext context = TableCellContext.builder().row(row).column(column).tokens(tokens).formatter(formatter).fieldNames(fieldNames).headerTokens(headerTokens).build();
-				table.put(row, fieldName, getDescriptor(context));
+				TableCellContext cell = TableCellContext.builder().row(row).column(column).tokens(tokens).build();
+				table.put(row, fieldName, getDescriptor(context, cell));
 			}
 		}
 		return table;
 	}
 
-	protected static TableCellDescriptor<String> getDescriptor(TableCellContext ctx) {
-		String fieldName = ctx.getHeaderTokens().get(ctx.getColumn());
-		String token = ctx.getTokens().get(ctx.getColumn());
-		String parsed = ctx.getFormatter().parse(token, Locale.getDefault());
+	protected static TableCellDescriptor<String> getDescriptor(TableContext table, TableCellContext cell) {
+		String fieldName = table.getHeaderTokens().get(cell.getColumn());
+		String token = cell.getTokens().get(cell.getColumn());
+		String parsed = table.getFormatter().parse(token, Locale.getDefault());
 		Optional<String> fieldValue = Optional.fromNullable(parsed);
-		Field field = ctx.getFieldNames().get(fieldName);
+		Field field = table.getFieldNames().get(fieldName);
 		return TableCellDescriptor.create(field, fieldValue);
 	}
 
