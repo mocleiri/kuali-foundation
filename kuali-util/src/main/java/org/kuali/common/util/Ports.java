@@ -9,6 +9,7 @@ public final class Ports {
 	public static final int MAX = 65535;
 	public static final int SSH = 22;
 	public static final int HTTP = 80;
+	public static final int TOMCAT = 8080;
 	public static final int HTTPS = 443;
 	public static final int ORACLE = 1521;
 	public static final int MYSQL = 3306;
