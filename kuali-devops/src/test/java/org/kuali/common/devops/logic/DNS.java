@@ -52,18 +52,24 @@ public class DNS {
 		}
 	}
 
+	/**
+	 * Returns only those CNAME records with exactly one alias.
+	 */
 	public static BiMap<String, String> getUnambiguousCNAMERecords(boolean refresh) {
-		Map<String, String> all = getCNAMERecords(refresh);
-		Set<String> duplicates = getDuplicateValues(all);
-		Map<String, String> clean = Maps.newHashMap(all);
-		Set<String> keys = Sets.newHashSet(all.keySet());
-		for (String key : keys) {
-			String value = all.get(key);
+		Map<String, String> map = getCNAMERecords(refresh);
+		removeAllKeysWithDuplicateValues(map);
+		return HashBiMap.create(map);
+	}
+
+	protected static <T> void removeAllKeysWithDuplicateValues(Map<?, T> map) {
+		Set<T> duplicates = getDuplicateValues(map);
+		Set<?> keys = Sets.newHashSet(map.keySet());
+		for (Object key : keys) {
+			T value = map.get(key);
 			if (duplicates.contains(value)) {
-				clean.remove(key);
+				map.remove(key);
 			}
 		}
-		return HashBiMap.create(clean);
 	}
 
 	protected static <T> Set<T> getDuplicateValues(Map<?, T> map) {
