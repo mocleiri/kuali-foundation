@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.kuali.common.devops.model.TableCellDescriptor;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.spring.format.CsvStringFormatter;
@@ -76,8 +77,8 @@ public class Tables {
 
 	public static <T> Table<Integer, String, TableCellDescriptor<Object>> getTable(List<T> elements, Class<T> type) {
 		Table<Integer, String, TableCellDescriptor<Object>> table = HashBasedTable.create();
+		checkState(ReflectionUtils.hasUniqueFieldNames(type), "[%s] contains duplicate field names", type.getCanonicalName());
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
-		checkState(ReflectionUtils.hasUniqueFieldNames(fields), "[%s] contains duplicate field names", type.getCanonicalName());
 		for (T element : elements) {
 			Map<String, TableCellDescriptor<Object>> columns = getColumns(fields, element);
 			addRow(table, columns);
@@ -88,11 +89,19 @@ public class Tables {
 	protected static <T> Map<String, TableCellDescriptor<Object>> getColumns(Set<Field> fields, T element) {
 		Map<String, TableCellDescriptor<Object>> columns = Maps.newHashMap();
 		for (Field field : fields) {
-			Optional<Object> value = ReflectionUtils.get(field, element);
+			Optional<Object> value = getProperty(element, field);
 			TableCellDescriptor<Object> descriptor = TableCellDescriptor.create(field, value);
 			columns.put(field.getName(), descriptor);
 		}
 		return columns;
+	}
+
+	protected static <T> Optional<Object> getProperty(T bean, Field field) {
+		try {
+			return Optional.fromNullable(PropertyUtils.getProperty(bean, field.getName()));
+		} catch (Exception e) {
+			throw Exceptions.illegalState(e, "unexpected error getting value for [%s.%s]", bean.getClass().getCanonicalName(), field.getName());
+		}
 	}
 
 	/**
