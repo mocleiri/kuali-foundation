@@ -72,7 +72,7 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 				return (Class<? extends org.kuali.common.util.build.Builder<V>>) declaredClass;
 			}
 		}
-		Object[] args = { org.kuali.common.util.build.Builder.class.getCanonicalName(), targetType.getCanonicalName(), };
+		Object[] args = { org.kuali.common.util.build.Builder.class.getCanonicalName(), targetType.getCanonicalName() };
 		throw Exceptions.illegalState("[%s] is not assignable from any classes declared in [%s]", args);
 	}
 
