@@ -14,6 +14,7 @@ public class DefaultConversionService extends DefaultFormattingConversionService
 		addFormatterForFieldAnnotation(new BytesFormatAnnotationFormatterFactory());
 		addFormatterForFieldAnnotation(new TimeFormatAnnotationFormatterFactory());
 		addFormatterForFieldAnnotation(new CanonicalFileFormatAnnotationFormatterFactory());
+		addFormatterForFieldType(fieldType, formatter)
 	}
 
 }
