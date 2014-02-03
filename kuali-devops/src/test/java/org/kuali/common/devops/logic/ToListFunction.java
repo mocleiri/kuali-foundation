@@ -10,7 +10,7 @@ import java.util.SortedSet;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.kuali.common.devops.model.TableCellDescriptor;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.spring.convert.DefaultConversionService;
+import org.kuali.common.util.spring.convert.Conversion;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
 
@@ -75,7 +75,7 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 	public static class Builder<R, C, V> implements org.kuali.common.util.build.Builder<ToListFunction<R, C, V>> {
 
 		private Class<V> targetType;
-		private ConversionService converter = new DefaultConversionService();
+		private ConversionService converter = Conversion.getDefaultConversionService();
 		private TypeDescriptor sourceType = TypeDescriptor.valueOf(String.class);
 		private Locale locale = Locale.getDefault();
 
