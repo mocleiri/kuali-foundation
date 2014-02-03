@@ -1,14 +1,13 @@
 package org.kuali.common.devops.model;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.collect.ImmutableList;
 
+@IdiotProofImmutable
 public final class Group {
 
 	private final String name;
@@ -27,7 +26,7 @@ public final class Group {
 		return new Builder();
 	}
 
-	public static class Builder implements org.kuali.common.util.build.Builder<Group> {
+	public static class Builder extends ValidatingBuilder<Group> {
 
 		private String name;
 		private List<Environment> environments;
@@ -43,15 +42,8 @@ public final class Group {
 		}
 
 		@Override
-		public Group build() {
-			Group instance = new Group(this);
-			validate(instance);
-			return instance;
-		}
-
-		private static void validate(Group instance) {
-			checkArgument(!StringUtils.isBlank(instance.name), "'name' cannot be blank");
-			checkNotNull(instance.environments, "'environments' cannot be null");
+		public Group getInstance() {
+			return new Group(this);
 		}
 
 		public String getName() {
@@ -75,7 +67,7 @@ public final class Group {
 		return name;
 	}
 
-	public ImmutableList<Environment> getEnvironments() {
+	public List<Environment> getEnvironments() {
 		return environments;
 	}
 }
