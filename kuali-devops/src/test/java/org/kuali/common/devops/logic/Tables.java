@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.kuali.common.devops.model.TableCellDescriptor;
@@ -111,13 +110,6 @@ public class Tables {
 		Set<T> hash1 = Sets.newHashSet(one);
 		Set<T> hash2 = Sets.newHashSet(two);
 		return Sets.difference(hash2, hash1).size() == 0;
-	}
-
-	protected static <T> void validate(Set<String> fieldNames, Class<T> type, SortedSet<String> headerTokens) {
-		Set<String> names = Sets.newHashSet(fieldNames);
-		Set<String> tokens = Sets.newHashSet(headerTokens);
-		Set<String> difference = Sets.difference(tokens, names);
-		checkState(difference.size() == 0, "[%s] header tokens are not present in [%s] -> [%s]", difference.size(), type.getCanonicalName(), difference);
 	}
 
 }
