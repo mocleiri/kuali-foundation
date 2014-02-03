@@ -41,9 +41,9 @@ public class Tables {
 		}
 	}
 
-	public static <T> Table<Integer, String, TableCellDescriptor> getTableFromCSV(List<String> lines, Class<T> type) {
+	public static <T> Table<Integer, String, TableCellDescriptor<String>> getTableFromCSV(List<String> lines, Class<T> type) {
 		Splitter splitter = Splitter.on(',');
-		Table<Integer, String, TableCellDescriptor> table = HashBasedTable.create();
+		Table<Integer, String, TableCellDescriptor<String>> table = HashBasedTable.create();
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		SortedSet<String> headerTokens = Sets.newTreeSet(splitter.splitToList(lines.get(0)));
 		validate(fields, type, headerTokens);
@@ -57,7 +57,7 @@ public class Tables {
 				String fieldName = fieldNamesList.get(column);
 				String token = tokens.get(column);
 				Field field = fieldNames.get(fieldName);
-				TableCellDescriptor descriptor = TableCellDescriptor.create(field, Optional.of(token));
+				TableCellDescriptor<String> descriptor = TableCellDescriptor.create(field, Optional.of(token));
 				table.put(row, fieldName, descriptor);
 			}
 		}
@@ -72,22 +72,22 @@ public class Tables {
 		return map;
 	}
 
-	public static <T> Table<Integer, String, TableCellDescriptor> getTable(List<T> elements, Class<T> type) {
-		Table<Integer, String, TableCellDescriptor> table = HashBasedTable.create();
+	public static <T> Table<Integer, String, TableCellDescriptor<Object>> getTable(List<T> elements, Class<T> type) {
+		Table<Integer, String, TableCellDescriptor<Object>> table = HashBasedTable.create();
 		Set<Field> fields = ReflectionUtils.getAllFields(type);
 		validate(fields, type);
 		for (T element : elements) {
-			Map<String, TableCellDescriptor> columns = getColumns(fields, element);
+			Map<String, TableCellDescriptor<Object>> columns = getColumns(fields, element);
 			addRow(table, columns);
 		}
 		return table;
 	}
 
-	protected static <T> Map<String, TableCellDescriptor> getColumns(Set<Field> fields, T element) {
-		Map<String, TableCellDescriptor> columns = Maps.newHashMap();
+	protected static <T> Map<String, TableCellDescriptor<Object>> getColumns(Set<Field> fields, T element) {
+		Map<String, TableCellDescriptor<Object>> columns = Maps.newHashMap();
 		for (Field field : fields) {
-			Optional<?> value = ReflectionUtils.get(field, element);
-			TableCellDescriptor descriptor = TableCellDescriptor.create(field, value);
+			Optional<Object> value = ReflectionUtils.get(field, element);
+			TableCellDescriptor<Object> descriptor = TableCellDescriptor.create(field, value);
 			columns.put(field.getName(), descriptor);
 		}
 		return columns;
