@@ -10,15 +10,15 @@ public enum EnvTable {
 	FQDN(Label.create(1, "fqdn")), //
 	JAVA(Label.create(2, "java")); //
 
-	private final Label column;
+	private final Label label;
 
-	private EnvTable(Label column) {
-		checkNotNull(column, "'column' cannot be null");
-		this.column = column;
+	private EnvTable(Label label) {
+		checkNotNull(label, "'label' cannot be null");
+		this.label = label;
 	}
 
-	public Label getColumn() {
-		return column;
+	public Label getLabel() {
+		return label;
 	}
 
 }
