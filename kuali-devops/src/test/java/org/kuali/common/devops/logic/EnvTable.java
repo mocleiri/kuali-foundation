@@ -12,7 +12,7 @@ import com.google.common.collect.Lists;
 public enum EnvTable {
 
 	NAME(Label.create(0, "name")), //
-	FQDN(Label.create(1, "fqdn")), //
+	URL(Label.create(1, "url")), //
 	JAVA(Label.create(2, "java")), //
 	SERVER(Label.create(3, "server")); //
 

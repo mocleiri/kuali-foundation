@@ -50,11 +50,14 @@ public class Environments {
 	}
 
 	public static Map<Label, String> getRowData(Environment env) {
+		String url = "http://" + env.getFqdn();
+		String href = "<a href='" + url + "'>" + url + "</a>";
+		String java = env.getJava().isPresent() ? env.getJava().get() : "na";
 		Map<Label, String> map = Maps.newHashMap();
 		map.put(EnvTable.NAME.getLabel(), env.getName());
-		map.put(EnvTable.FQDN.getLabel(), env.getFqdn());
-		map.put(EnvTable.JAVA.getLabel(), env.getJava().isPresent() ? env.getJava().get() : "na");
-		map.put(EnvTable.SERVER.getLabel(), html(getTable(env.getServer())));
+		map.put(EnvTable.URL.getLabel(), href);
+		map.put(EnvTable.JAVA.getLabel(), java);
+		map.put(EnvTable.SERVER.getLabel(), getHtml(env.getServer()));
 		return map;
 	}
 
@@ -64,6 +67,11 @@ public class Environments {
 		nf.setMaximumFractionDigits(0);
 		nf.setMinimumFractionDigits(0);
 		return nf;
+	}
+
+	public static String getHtml(EC2Instance instance) {
+		TableContext context = TableContext.builder().headers(false).border(false).build();
+		return html(context, getTable(instance));
 	}
 
 	public static Table<Integer, Integer, String> getTable(EC2Instance instance) {
@@ -168,9 +176,7 @@ public class Environments {
 	}
 
 	public static <R, C> String html(Table<? extends Comparable<R>, ? extends Comparable<C>, String> table, int indent) {
-		TableContext context = new TableContext();
-		context.setIndent(indent);
-		return html(context, table);
+		return html(TableContext.builder().indent(indent).build(), table);
 	}
 
 	public static String getBorder(Optional<Integer> border) {
