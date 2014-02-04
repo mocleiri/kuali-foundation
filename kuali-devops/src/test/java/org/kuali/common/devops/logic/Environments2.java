@@ -27,7 +27,22 @@ public class Environments2 {
 	private static final String DEPLOY_SERVER_PREFIX = "env";
 	private static final Logger logger = Loggers.make();
 
-	public static SortedMap<String, List<Environment.Builder>> getBuilders(boolean refresh) {
+	public static SortedMap<String, List<Environment>> getEnvironments(boolean refresh) {
+		SortedMap<String, List<Environment.Builder>> builders = getBuilders(refresh);
+		SortedMap<String, List<Environment>> map = Maps.newTreeMap();
+		for (String group : builders.keySet()) {
+			List<Environment.Builder> list = builders.get(group);
+			List<Environment> envs = Lists.newArrayList();
+			for (Environment.Builder builder : list) {
+				Environment env = builder.build();
+				envs.add(env);
+			}
+			map.put(group, envs);
+		}
+		return map;
+	}
+
+	protected static SortedMap<String, List<Environment.Builder>> getBuilders(boolean refresh) {
 		long start = System.currentTimeMillis();
 		BiMap<String, String> aliases = DNS.getUnambiguousCNAMERecords(refresh);
 		Map<String, List<EC2Instance>> instances = Instances.getInstances(refresh);

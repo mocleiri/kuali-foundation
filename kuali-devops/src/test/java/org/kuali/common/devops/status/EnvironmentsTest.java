@@ -14,7 +14,7 @@ public class EnvironmentsTest {
 	public void test() {
 		try {
 			Validation.getDefaultValidator();
-			Environments2.getBuilders(false);
+			Environments2.getEnvironments(false);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
