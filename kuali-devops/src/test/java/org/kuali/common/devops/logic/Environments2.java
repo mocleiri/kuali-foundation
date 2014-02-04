@@ -53,7 +53,7 @@ public class Environments2 {
 			if (!builder.getFqdn().equals("env5.rice.kuali.org")) {
 				builder.setJava(Examiner.getJavaVersion(builder.getFqdn()));
 				builder.setTomcat(Tomcats.getTomcat(builder.getFqdn()));
-				Optional<Project> project = Applications.getProject(builder.getFqdn());
+				Optional<Project> project = Projects.getProject(builder.getFqdn());
 			}
 			System.out.println(String.format(" - %s", FormatUtils.getTime(System.currentTimeMillis() - start)));
 		}
