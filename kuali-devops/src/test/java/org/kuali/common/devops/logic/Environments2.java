@@ -38,6 +38,7 @@ public class Environments2 {
 	protected static void fillIn(List<Environment.Builder> builders) {
 		for (Environment.Builder builder : builders) {
 			logger.info(String.format("examining -> [%s]", builder.getFqdn()));
+			builder.setJava(Fqdns.getJavaVersion(builder.getFqdn()));
 		}
 	}
 

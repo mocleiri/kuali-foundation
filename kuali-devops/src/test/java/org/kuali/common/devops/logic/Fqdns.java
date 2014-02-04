@@ -17,11 +17,11 @@ public class Fqdns {
 	private static final Logger logger = Loggers.make();
 	private static final String NOT_AVAILABLE = "na";
 
-	public String getJavaVersion(String fqdn) {
+	public static String getJavaVersion(String fqdn) {
 		return getSystemProperty(fqdn, "java.version");
 	}
 
-	public String getSystemProperty(String fqdn, String property) {
+	public static String getSystemProperty(String fqdn, String property) {
 		String fragment = "/tomcat/logs/env.jsp";
 		String location = PROTOCOL + fqdn + fragment;
 		List<String> lines = readLines(location);
@@ -40,7 +40,7 @@ public class Fqdns {
 		throw Exceptions.illegalState("unable to locate system property -> [%s]", property);
 	}
 
-	protected List<String> readLines(String location) {
+	protected static List<String> readLines(String location) {
 		try {
 			return LocationUtils.readLines(location);
 		} catch (Exception e) {
