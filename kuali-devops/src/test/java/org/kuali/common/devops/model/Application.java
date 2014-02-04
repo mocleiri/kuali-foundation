@@ -27,8 +27,8 @@ public final class Application {
 		this.scm = builder.scm;
 	}
 
-	public static Application create(Project project, Properties config, Database database) {
-		return builder().project(project).configuration(config).database(database).build();
+	public static Application create(Project project, Properties config, Database database, Optional<Scm> scm) {
+		return builder().project(project).configuration(config).database(database).scm(scm).build();
 	}
 
 	public static Builder builder() {

@@ -4,6 +4,7 @@ import java.util.Properties;
 
 import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.Database;
+import org.kuali.common.devops.model.Scm;
 import org.kuali.common.util.log.Loggers;
 import org.kuali.common.util.project.KualiProjectConstants;
 import org.kuali.common.util.project.model.Project;
@@ -21,10 +22,22 @@ public class Applications extends Examiner {
 		if (project.isPresent()) {
 			Properties config = Applications.getConfig(fqdn, project.get());
 			Database database = Databases.getDatabase(project.get().getGroupId(), config);
-			return Optional.of(Application.create(project.get(), config, database));
+			Optional<Scm> scm = getScm(config);
+			return Optional.of(Application.create(project.get(), config, database, scm));
 		} else {
 			return Optional.absent();
 		}
+	}
+
+	protected static Optional<Scm> getScm(Properties properties) {
+		Optional<String> url = Optional.fromNullable(properties.getProperty("project.scm.url"));
+		Optional<String> revision = Optional.fromNullable(properties.getProperty("project.scm.revision"));
+		if (url.isPresent() && revision.isPresent()) {
+			return Optional.of(Scm.create(url.get(), revision.get()));
+		} else {
+			return Optional.absent();
+		}
+
 	}
 
 	protected static Properties getConfig(String fqdn, Project project) {
