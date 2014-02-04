@@ -21,6 +21,7 @@ import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
@@ -73,34 +74,24 @@ public class Tables {
 	}
 
 	public static <T> Table<Integer, String, TableCellDescriptor<String>> getTableFromCSV(List<String> lines, Class<T> type) {
-		Splitter splitter = Splitter.on(',');
+		Table<Integer, String, String> data = getTableFromCSV(lines);
+		Set<String> columns = data.columnKeySet();
 		Table<Integer, String, TableCellDescriptor<String>> table = HashBasedTable.create();
-		Map<String, Field> fieldNames = ReflectionUtils.getUniqueFieldNames(type);
-		List<String> headerTokens = splitter.splitToList(lines.get(0));
-		checkState(isSuperSet(fieldNames.keySet(), Sets.newHashSet(headerTokens)), "header line contains field names not found in [%s]", type.getCanonicalName());
+		Map<String, Field> fields = ReflectionUtils.getFields(type, columns);
 		CsvStringFormatter formatter = CsvStringFormatter.create();
-		TableContext context = new TableContext.Builder().rows(lines.size()).fieldNames(fieldNames).columns(headerTokens.size()).headerTokens(headerTokens).formatter(formatter)
-				.build();
-		for (int row = 1; row < lines.size(); row++) {
-			String line = lines.get(row);
-			List<String> tokens = splitter.splitToList(line);
-			checkState(tokens.size() == headerTokens.size(), "line -> %s  expected %s tokens, but there were %s", row, headerTokens.size(), tokens.size());
-			for (int column = 0; column < tokens.size(); column++) {
-				String fieldName = headerTokens.get(column);
-				TableCellContext cell = TableCellContext.builder().row(row).column(column).tokens(tokens).build();
-				table.put(row, fieldName, getDescriptor(context, cell));
+		List<Integer> rows = Lists.newArrayList(Sets.newTreeSet(data.rowKeySet()));
+		Locale locale = Locale.getDefault();
+		for (int row = 1; row < rows.size(); row++) {
+			for (String column : columns) {
+				String string = data.get(row, column);
+				String parsed = formatter.parse(string, locale);
+				Optional<String> fieldValue = Optional.fromNullable(parsed);
+				Field field = fields.get(column);
+				TableCellDescriptor<String> descriptor = TableCellDescriptor.create(field, fieldValue);
+				table.put(row - 1, column, descriptor);
 			}
 		}
 		return table;
-	}
-
-	protected static TableCellDescriptor<String> getDescriptor(TableContext table, TableCellContext cell) {
-		String fieldName = table.getHeaderTokens().get(cell.getColumn());
-		String token = cell.getTokens().get(cell.getColumn());
-		String parsed = table.getFormatter().parse(token, Locale.getDefault());
-		Optional<String> fieldValue = Optional.fromNullable(parsed);
-		Field field = table.getFieldNames().get(fieldName);
-		return TableCellDescriptor.create(field, fieldValue);
 	}
 
 	protected static Map<String, Field> getFields(Set<Field> fields) {
