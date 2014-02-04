@@ -248,8 +248,16 @@ public class FormatUtils {
 	 * exactly 365 days per year.
 	 */
 	public static String getTime(long millis) {
+		return getTime(millis, timeFormatter);
+	}
+
+	/**
+	 * Given milliseconds, return milliseconds, seconds, minutes, hours, days, or years as appropriate. Note that years is approximate since the logic always assumes there are
+	 * exactly 365 days per year.
+	 */
+	public static String getTime(long millis, NumberFormat formatter) {
 		long abs = Math.abs(millis);
-		synchronized (timeFormatter) {
+		synchronized (formatter) {
 			if (abs < SECOND) {
 				return millis + "ms";
 			} else if (abs < MINUTE) {
