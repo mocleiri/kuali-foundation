@@ -1,23 +1,26 @@
 package org.kuali.common.devops.model;
 
+import java.util.Map;
 import java.util.Properties;
 
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.project.model.ImmutableProject;
 import org.kuali.common.util.project.model.Project;
-import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.validate.IdiotProofImmutable;
+
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
 
 @IdiotProofImmutable
 public final class Application {
 
 	private final ImmutableProject project;
-	private final ImmutableProperties configuration;
+	private final ImmutableMap<String, String> configuration;
 	private final Database database;
 
 	private Application(Builder builder) {
 		this.project = ImmutableProject.copyOf(builder.project);
-		this.configuration = ImmutableProperties.copyOf(builder.configuration);
+		this.configuration = ImmutableMap.copyOf(builder.configuration);
 		this.database = builder.database;
 	}
 
@@ -32,7 +35,7 @@ public final class Application {
 	public static class Builder extends ValidatingBuilder<Application> {
 
 		private Project project;
-		private Properties configuration;
+		private Map<String, String> configuration;
 		private Database database;
 
 		public Builder project(Project project) {
@@ -41,6 +44,14 @@ public final class Application {
 		}
 
 		public Builder configuration(Properties configuration) {
+			Map<String, String> map = Maps.newHashMap();
+			for (String key : configuration.stringPropertyNames()) {
+				map.put(key, configuration.getProperty(key));
+			}
+			return configuration(map);
+		}
+
+		public Builder configuration(Map<String, String> configuration) {
 			this.configuration = configuration;
 			return this;
 		}
@@ -63,11 +74,11 @@ public final class Application {
 			this.project = project;
 		}
 
-		public Properties getConfiguration() {
+		public Map<String, String> getConfiguration() {
 			return configuration;
 		}
 
-		public void setConfiguration(ImmutableProperties configuration) {
+		public void setConfiguration(Map<String, String> configuration) {
 			this.configuration = configuration;
 		}
 
@@ -84,7 +95,7 @@ public final class Application {
 		return project;
 	}
 
-	public Properties getConfiguration() {
+	public Map<String, String> getConfiguration() {
 		return configuration;
 	}
 

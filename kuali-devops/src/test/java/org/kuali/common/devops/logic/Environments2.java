@@ -16,10 +16,8 @@ import org.kuali.common.devops.model.EC2Instance;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.log.Loggers;
-import org.kuali.common.util.project.model.Project;
 import org.slf4j.Logger;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -53,7 +51,7 @@ public class Environments2 {
 			if (!builder.getFqdn().equals("env5.rice.kuali.org")) {
 				builder.setJava(Examiner.getJavaVersion(builder.getFqdn()));
 				builder.setTomcat(Tomcats.getTomcat(builder.getFqdn()));
-				Optional<Project> project = Projects.getProject(builder.getFqdn());
+				builder.setApplication(Applications.getApplication(builder.getFqdn()));
 			}
 			System.out.println(String.format(" - %s", FormatUtils.getTime(System.currentTimeMillis() - start)));
 		}
