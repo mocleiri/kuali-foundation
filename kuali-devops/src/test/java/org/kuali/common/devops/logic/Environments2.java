@@ -45,7 +45,7 @@ public class Environments2 {
 		String publicDnsName = server.getPublicDnsName().get();
 		String fqdn = cnames.get(publicDnsName);
 		checkState(!isBlank(fqdn), "no fqdn -> [%s]", publicDnsName);
-		return Environment.builder().fqdn(fqdn).server(server);
+		return Environment.builder().fqdn(fqdn).server(server).name(server.getName().get());
 	}
 
 	protected static List<EC2Instance> getDeployServers(List<EC2Instance> instances) {
