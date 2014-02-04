@@ -6,20 +6,24 @@ import java.util.Properties;
 import org.kuali.common.devops.model.Database;
 import org.kuali.common.util.project.KualiProjectConstants;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public class Databases {
 
 	private static final List<String> VENDORS = ImmutableList.of("oracle", "mysql");
 
-	public static Database getDatabase(String groupId, Properties config) {
+	public static Optional<Database> getDatabase(String groupId, Properties config) {
+		if (config.isEmpty()) {
+			return Optional.absent();
+		}
 		if (groupId.equals(KualiProjectConstants.OLE_GROUP_ID)) {
-			return getOleDatabase(config);
+			return Optional.of(getOleDatabase(config));
 		}
 		String username = config.getProperty("datasource.username");
 		String url = config.getProperty("datasource.url");
 		String vendor = getVendor(url);
-		return Database.builder().vendor(vendor).username(username).url(url).build();
+		return Optional.of(Database.builder().vendor(vendor).username(username).url(url).build());
 	}
 
 	protected static Database getOleDatabase(Properties config) {
