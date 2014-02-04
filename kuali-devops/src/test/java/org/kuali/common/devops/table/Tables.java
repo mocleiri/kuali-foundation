@@ -29,7 +29,7 @@ import com.google.common.collect.Table;
 
 public class Tables {
 
-	private static final String CHECK_CSV_LINE_MSG = "line -> %s  expected %s data elements, actual data elements %s";
+	private static final String CHECK_CSV_DATA_LINE_MSG = "line -> %s  expected %s data elements, but there were %s data elements instead";
 	private static final char CSV_SEPARATOR = ',';
 
 	public static <T> Table<Integer, String, String> getTableFromCSV(File file) {
@@ -47,7 +47,7 @@ public class Tables {
 		List<String> columns = splitter.splitToList(lines.get(0));
 		for (int row = 1; row < lines.size(); row++) {
 			List<String> data = splitter.splitToList(lines.get(row));
-			checkState(data.size() == columns.size(), CHECK_CSV_LINE_MSG, row, columns.size(), data.size());
+			checkState(data.size() == columns.size(), CHECK_CSV_DATA_LINE_MSG, row, columns.size(), data.size());
 			for (int column = 0; column < columns.size(); column++) {
 				String columnName = columns.get(column);
 				table.put(row, columnName, data.get(column));
