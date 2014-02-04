@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
-public class Fqdns {
+public class Examiner {
 
 	public static final String PROTOCOL = "http://";
 	private static final Logger logger = Loggers.make();

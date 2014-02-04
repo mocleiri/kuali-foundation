@@ -49,7 +49,7 @@ public class Environments2 {
 			long start = System.currentTimeMillis();
 			System.out.print(StringUtils.rightPad(String.format("examining -> [%s]", builder.getFqdn()), 45));
 			if (!builder.getFqdn().equals("env5.rice.kuali.org")) {
-				builder.setJava(Fqdns.getJavaVersion(builder.getFqdn()));
+				builder.setJava(Examiner.getJavaVersion(builder.getFqdn()));
 				builder.setTomcat(Tomcats.getTomcat(builder.getFqdn()));
 			}
 			System.out.println(String.format(" - %s", FormatUtils.getTime(System.currentTimeMillis() - start)));

@@ -18,9 +18,8 @@ import org.slf4j.Logger;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 
-public class Tomcats {
+public class Tomcats extends Examiner {
 
-	private static final String PROTOCOL = Fqdns.PROTOCOL;
 	private static final Logger logger = Loggers.make();
 	private static final SimpleDateFormat PARSER = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
 
@@ -100,7 +99,7 @@ public class Tomcats {
 	protected static Optional<String> getTomcatVersion(String fqdn) {
 		String fragment = "/tomcat/RELEASE-NOTES";
 		String location = PROTOCOL + fqdn + fragment;
-		List<String> lines = Fqdns.readLines(location);
+		List<String> lines = readLines(location);
 		if (lines.isEmpty()) {
 			return Optional.absent();
 		}
