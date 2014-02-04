@@ -17,7 +17,7 @@ public final class Application {
 
 	private final ImmutableProject project;
 	private final ImmutableMap<String, String> configuration;
-	private final Database database;
+	private final Optional<Database> database;
 	private final Optional<Scm> scm;
 
 	private Application(Builder builder) {
@@ -39,7 +39,7 @@ public final class Application {
 
 		private Project project;
 		private Map<String, String> configuration;
-		private Database database;
+		private Optional<Database> database;
 		private Optional<Scm> scm;
 
 		public Builder scm(Optional<Scm> scm) {
@@ -69,9 +69,13 @@ public final class Application {
 			return this;
 		}
 
-		public Builder database(Database database) {
+		public Builder database(Optional<Database> database) {
 			this.database = database;
 			return this;
+		}
+
+		public Builder database(Database database) {
+			return database(Optional.of(database));
 		}
 
 		@Override
@@ -95,11 +99,11 @@ public final class Application {
 			this.configuration = configuration;
 		}
 
-		public Database getDatabase() {
+		public Optional<Database> getDatabase() {
 			return database;
 		}
 
-		public void setDatabase(Database database) {
+		public void setDatabase(Optional<Database> database) {
 			this.database = database;
 		}
 
@@ -120,7 +124,7 @@ public final class Application {
 		return configuration;
 	}
 
-	public Database getDatabase() {
+	public Optional<Database> getDatabase() {
 		return database;
 	}
 
