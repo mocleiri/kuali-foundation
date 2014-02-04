@@ -18,9 +18,7 @@ public final class TableCellDescriptor<T> {
 
 	public static <T> TableCellDescriptor<T> create(Field field, Optional<T> fieldValue) {
 		Builder<T> builder = builder();
-		builder.setField(field);
-		builder.setFieldValue(fieldValue);
-		return builder.build();
+		return builder.field(field).fieldValue(fieldValue).build();
 	}
 
 	public static <T> Builder<T> builder() {
