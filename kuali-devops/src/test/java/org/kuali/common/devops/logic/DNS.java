@@ -111,7 +111,7 @@ public class DNS {
 	protected static Properties convert(Map<String, String> map) {
 		Properties props = new Properties();
 		props.putAll(map);
-		return ImmutableProperties.of(props);
+		return ImmutableProperties.copyOf(props);
 	}
 
 	protected static Map<String, String> convert(Properties props) {
