@@ -57,8 +57,8 @@ public class Environments {
 		map.put(EnvTable.NAME.getLabel(), env.getName());
 		map.put(EnvTable.URL.getLabel(), href(url, url));
 		map.put(EnvTable.JAVA.getLabel(), java);
-		map.put(EnvTable.SERVER.getLabel(), getHtml(env.getServer()));
-		map.put(EnvTable.TOMCAT.getLabel(), getHtml(env.getTomcat()));
+		map.put(EnvTable.SERVER.getLabel(), getServer(env.getServer()));
+		map.put(EnvTable.TOMCAT.getLabel(), getTomcat(env.getTomcat()));
 		map.put(EnvTable.APP.getLabel(), getApplication(env.getApplication()));
 		return map;
 	}
@@ -75,14 +75,20 @@ public class Environments {
 		return nf;
 	}
 
-	public static String getHtml(Optional<Tomcat> tomcat) {
-		if (!tomcat.isPresent()) {
+	public static String getTomcat(Optional<Tomcat> optional) {
+		if (!optional.isPresent()) {
 			return "na";
 		} else {
+			Tomcat tomcat = optional.get();
 			TableContext context = TableContext.builder().headers(false).border(false).build();
-			String uptime = FormatUtils.getTime(currentTimeMillis() - tomcat.get().getStartupTime(), AGE);
+			String uptime = null;
+			if (tomcat.getStartupTime() == -1) {
+				uptime = "n/a";
+			} else {
+				uptime = FormatUtils.getTime(currentTimeMillis() - tomcat.getStartupTime(), AGE);
+			}
 			Table<Integer, Integer, String> table = HashBasedTable.create();
-			addRow(table, ImmutableList.of("version", tomcat.get().getVersion()));
+			addRow(table, ImmutableList.of("version", tomcat.getVersion()));
 			addRow(table, ImmutableList.of("uptime", uptime));
 			return html(context, table);
 		}
@@ -120,7 +126,7 @@ public class Environments {
 		return vendor;
 	}
 
-	public static String getHtml(EC2Instance instance) {
+	public static String getServer(EC2Instance instance) {
 		TableContext context = TableContext.builder().headers(false).border(false).build();
 		return html(context, getTable(instance));
 	}
