@@ -33,6 +33,10 @@ public final class Environment implements Comparable<Environment> {
 		this.application = builder.application;
 	}
 
+	public static Environment create(String name, String fqdn, EC2Instance server) {
+		return builder().name(name).fqdn(fqdn).server(server).build();
+	}
+
 	public static Builder builder() {
 		return new Builder();
 	}
