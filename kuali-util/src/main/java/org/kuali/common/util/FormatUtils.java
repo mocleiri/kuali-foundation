@@ -261,15 +261,15 @@ public class FormatUtils {
 			if (abs < SECOND) {
 				return millis + "ms";
 			} else if (abs < MINUTE) {
-				return timeFormatter.format(millis / SECOND) + "s";
+				return formatter.format(millis / SECOND) + "s";
 			} else if (abs < HOUR) {
-				return timeFormatter.format(millis / MINUTE) + "m";
+				return formatter.format(millis / MINUTE) + "m";
 			} else if (abs < DAY) {
-				return timeFormatter.format(millis / HOUR) + "h";
+				return formatter.format(millis / HOUR) + "h";
 			} else if (abs < YEAR) {
-				return timeFormatter.format(millis / DAY) + "d";
+				return formatter.format(millis / DAY) + "d";
 			} else {
-				return timeFormatter.format(millis / YEAR) + "y";
+				return formatter.format(millis / YEAR) + "y";
 			}
 		}
 	}
