@@ -41,7 +41,6 @@ public class Instances {
 
 	private static final File CACHE_DIR = new CanonicalFile("./target/aws/ec2");
 	private static final Logger logger = Loggers.make();
-	private static final String ENCODING = Encodings.UTF8;
 	private static final String EC2_NAME_TAG_KEY = "Name";
 
 	/**
@@ -75,7 +74,7 @@ public class Instances {
 	protected static List<EC2Instance> load(File file) {
 		try {
 			logger.info(format("loading -> [%s]", file));
-			List<String> lines = FileUtils.readLines(file, ENCODING);
+			List<String> lines = FileUtils.readLines(file, Encodings.UTF8);
 			Table<Integer, String, TableCellDescriptor<String>> table = Tables.getTableFromCSV(lines, EC2Instance.class);
 			ToListFunction<Integer, String, EC2Instance> function = new ToListFunction.Builder<Integer, String, EC2Instance>().targetType(EC2Instance.class).build();
 			return function.apply(table);
@@ -97,7 +96,7 @@ public class Instances {
 		Table<Integer, String, TableCellDescriptor<Object>> table = Tables.getTable(instances, EC2Instance.class);
 		ToCsvFunction<Integer, String> function = new ToCsvFunction<Integer, String>();
 		List<String> lines = function.apply(table);
-		store(file, lines, ENCODING);
+		store(file, lines, Encodings.UTF8);
 	}
 
 	protected static void store(File file, List<String> lines, String encoding) {

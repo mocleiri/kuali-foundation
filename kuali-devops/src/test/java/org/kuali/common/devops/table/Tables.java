@@ -56,24 +56,6 @@ public class Tables {
 		return table;
 	}
 
-	public static <T> void addRow(Table<Integer, Integer, T> table, T... elements) {
-		addRow(table, ImmutableList.copyOf(elements));
-	}
-
-	public static <T> void addRow(Table<Integer, Integer, T> table, List<T> elements) {
-		int row = table.rowKeySet().size();
-		for (int col = 0; col < elements.size(); col++) {
-			table.put(valueOf(row), valueOf(col), elements.get(col));
-		}
-	}
-
-	public static <T> void addRow(Table<Integer, String, T> table, Map<String, T> columns) {
-		int row = table.rowKeySet().size();
-		for (String columnKey : columns.keySet()) {
-			table.put(valueOf(row), columnKey, columns.get(columnKey));
-		}
-	}
-
 	public static <T> Table<Integer, String, TableCellDescriptor<String>> getTableFromCSV(List<String> lines, Class<T> type) {
 		Table<Integer, String, String> data = getTableFromCSV(lines);
 		Set<String> columns = data.columnKeySet();
@@ -132,13 +114,22 @@ public class Tables {
 		}
 	}
 
-	/**
-	 * Return true if one is a super set of two (ie every element in two is also an element in one)
-	 */
-	protected static <T> boolean isSuperSet(Set<T> one, Set<T> two) {
-		Set<T> hash1 = Sets.newHashSet(one);
-		Set<T> hash2 = Sets.newHashSet(two);
-		return Sets.difference(hash2, hash1).size() == 0;
+	public static <T> void addRow(Table<Integer, Integer, T> table, T... elements) {
+		addRow(table, ImmutableList.copyOf(elements));
+	}
+
+	public static <T> void addRow(Table<Integer, Integer, T> table, List<T> elements) {
+		int row = table.rowKeySet().size();
+		for (int col = 0; col < elements.size(); col++) {
+			table.put(valueOf(row), valueOf(col), elements.get(col));
+		}
+	}
+
+	public static <T> void addRow(Table<Integer, String, T> table, Map<String, T> columns) {
+		int row = table.rowKeySet().size();
+		for (String columnKey : columns.keySet()) {
+			table.put(valueOf(row), columnKey, columns.get(columnKey));
+		}
 	}
 
 }
