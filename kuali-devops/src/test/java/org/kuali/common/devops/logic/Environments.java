@@ -3,6 +3,7 @@ package org.kuali.common.devops.logic;
 import static java.lang.Integer.valueOf;
 import static java.lang.System.currentTimeMillis;
 
+import java.text.NumberFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
@@ -29,6 +30,8 @@ import com.google.common.collect.Table;
 
 public class Environments {
 
+	private static final NumberFormat AGE = getAgeFormatter();
+
 	public static Table<Integer, Label, String> getTable(List<Environment> envs) {
 		Table<Integer, Label, String> table = HashBasedTable.create();
 		for (Integer row = 0; row < envs.size(); row++) {
@@ -46,10 +49,19 @@ public class Environments {
 		return map;
 	}
 
+	protected static NumberFormat getAgeFormatter() {
+		NumberFormat nf = NumberFormat.getInstance();
+		nf.setGroupingUsed(false);
+		nf.setMaximumFractionDigits(0);
+		nf.setMinimumFractionDigits(0);
+		return nf;
+	}
+
 	public static Table<Integer, Integer, String> getTable(EC2Instance instance) {
+		String age = FormatUtils.getTime(currentTimeMillis() - instance.getLaunchTime(), AGE);
 		Table<Integer, Integer, String> table = HashBasedTable.create();
 		addRow(table, ImmutableList.of("type", instance.getType()));
-		addRow(table, ImmutableList.of("age", FormatUtils.getTime(currentTimeMillis() - instance.getLaunchTime())));
+		addRow(table, ImmutableList.of("age", age));
 		return table;
 	}
 
