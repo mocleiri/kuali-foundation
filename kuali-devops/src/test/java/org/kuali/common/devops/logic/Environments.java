@@ -188,4 +188,25 @@ public class Environments {
 		return sb.toString();
 	}
 
+	public static <R, C> String html(TableContext context, Table<? extends Comparable<R>, ? extends Comparable<C>, String> table) {
+		String padding = StringUtils.repeat(" ", context.getIndent());
+		StringBuilder sb = new StringBuilder();
+		sb.append(padding + "<table border=1>\n");
+		SortedSet<Comparable<R>> rowKeys = Sets.newTreeSet(table.rowKeySet());
+		SortedSet<Comparable<C>> colKeys = Sets.newTreeSet(table.columnKeySet());
+		for (Comparable<C> colKey : colKeys) {
+			sb.append(padding + " <th>" + colKey + "</th>");
+		}
+		for (Comparable<R> rowKey : rowKeys) {
+			sb.append(padding + " <tr>\n");
+			for (Comparable<C> colKey : colKeys) {
+				sb.append(padding + "  <td>\n");
+				sb.append(padding + "   " + table.get(rowKey, colKey) + "\n");
+				sb.append(padding + "  </td>\n");
+			}
+			sb.append(padding + " </tr>\n");
+		}
+		sb.append(padding + "</table>\n");
+		return sb.toString();
+	}
 }
