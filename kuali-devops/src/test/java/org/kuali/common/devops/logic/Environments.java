@@ -79,8 +79,8 @@ public class Environments {
 				uptime = FormatUtils.getTime(currentTimeMillis() - tomcat.getStartupTime(), AGE);
 			}
 			Table<Integer, Integer, String> table = HashBasedTable.create();
-			addRow(table, ImmutableList.of("version", tomcat.getVersion()));
-			addRow(table, ImmutableList.of("uptime", uptime));
+			addRow(table, tomcat.getVersion());
+			addRow(table, "uptime" + uptime);
 			return html(context, table);
 		}
 	}
