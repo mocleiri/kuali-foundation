@@ -35,17 +35,17 @@ public class Tomcats extends Examiner {
 	/**
 	 * time format is -> 2014-01-06T21:23:15.299+0000: 0.957: [GC
 	 */
-	protected static long getTomcatStartupTime(String fqdn, SimpleDateFormat parser) {
+	protected static Optional<Long> getTomcatStartupTime(String fqdn, SimpleDateFormat parser) {
 		Optional<String> string = getTomcatStartupString(fqdn);
 		if (!string.isPresent()) {
-			return -1;
+			return Optional.absent();
 		}
 		String s = string.get();
 		int pos = s.indexOf(' ');
 		String time = s.substring(0, pos - 1);
 		try {
 			Date date = parser.parse(time);
-			return date.getTime();
+			return Optional.of(date.getTime());
 		} catch (ParseException e) {
 			throw Exceptions.illegalState(e, "date parse error -> [%s]", time);
 		}

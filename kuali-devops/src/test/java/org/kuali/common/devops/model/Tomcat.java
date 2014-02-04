@@ -1,23 +1,22 @@
 package org.kuali.common.devops.model;
 
-import javax.validation.constraints.Min;
-
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
+
+import com.google.common.base.Optional;
 
 @IdiotProofImmutable
 public final class Tomcat {
 
 	private final String version;
-	@Min(-1)
-	private final long startupTime;
+	private final Optional<Long> startupTime;
 
 	private Tomcat(Builder builder) {
 		this.version = builder.version;
 		this.startupTime = builder.startupTime;
 	}
 
-	public static Tomcat create(String version, long startupTime) {
+	public static Tomcat create(String version, Optional<Long> startupTime) {
 		return builder().version(version).startupTime(startupTime).build();
 	}
 
@@ -28,16 +27,20 @@ public final class Tomcat {
 	public static class Builder extends ValidatingBuilder<Tomcat> {
 
 		private String version;
-		private long startupTime;
+		private Optional<Long> startupTime;
 
 		public Builder version(String version) {
 			this.version = version;
 			return this;
 		}
 
-		public Builder startupTime(long startupTime) {
+		public Builder startupTime(Optional<Long> startupTime) {
 			this.startupTime = startupTime;
 			return this;
+		}
+
+		public Builder startupTime(long startupTime) {
+			return startupTime(Optional.of(startupTime));
 		}
 
 		@Override
@@ -53,11 +56,11 @@ public final class Tomcat {
 			this.version = version;
 		}
 
-		public long getStartupTime() {
+		public Optional<Long> getStartupTime() {
 			return startupTime;
 		}
 
-		public void setStartupTime(long startup) {
+		public void setStartupTime(Optional<Long> startup) {
 			this.startupTime = startup;
 		}
 	}
@@ -66,7 +69,7 @@ public final class Tomcat {
 		return version;
 	}
 
-	public long getStartupTime() {
+	public Optional<Long> getStartupTime() {
 		return startupTime;
 	}
 

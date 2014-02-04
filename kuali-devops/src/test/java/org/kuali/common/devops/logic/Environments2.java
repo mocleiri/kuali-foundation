@@ -11,6 +11,7 @@ import java.io.File;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.SortedMap;
 
 import org.kuali.common.devops.model.EC2Instance;
@@ -49,16 +50,20 @@ public class Environments2 {
 	}
 
 	protected static void store(String group, List<Environment> envs) {
-		new CanonicalFile(CACHE_DIR, group + ".txt");
 	}
 
-	protected static List<String> getTokens(Environment env) {
-		List<String> tokens = Lists.newArrayList();
-		tokens.add(env.getName());
-		tokens.add(env.getFqdn());
-		tokens.add(env.getJava().orNull());
-		tokens.addAll(getTokens(env.getTomcat()));
-		return tokens;
+	protected static Properties convert(Environment env) {
+		Properties props = new Properties();
+		props.setProperty("env.name", env.getName());
+		props.setProperty("env.fqdn", env.getFqdn());
+		if (env.getJava().isPresent()) {
+			props.setProperty("java.version", env.getJava().get());
+		}
+		if (env.getTomcat().isPresent()) {
+			Tomcat tomcat = env.getTomcat().get();
+			props.setProperty("tomcat.version", tomcat.getVersion());
+		}
+		return props;
 	}
 
 	protected static List<String> getTokens(Optional<Tomcat> optional) {
