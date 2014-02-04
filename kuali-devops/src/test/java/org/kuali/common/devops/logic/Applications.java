@@ -1,5 +1,7 @@
 package org.kuali.common.devops.logic;
 
+import static com.google.common.base.Optional.fromNullable;
+
 import java.util.Map;
 import java.util.Properties;
 
@@ -34,8 +36,8 @@ public class Applications extends Examiner {
 	}
 
 	protected static Optional<Scm> getScm(Properties properties) {
-		Optional<String> url = Optional.fromNullable(properties.getProperty(SCM_URL_KEY));
-		Optional<String> revision = Optional.fromNullable(properties.getProperty(SCM_REVISION_KEY));
+		Optional<String> url = fromNullable(properties.getProperty(SCM_URL_KEY));
+		Optional<String> revision = fromNullable(properties.getProperty(SCM_REVISION_KEY));
 		if (url.isPresent() && revision.isPresent()) {
 			return Optional.of(Scm.create(url.get(), revision.get()));
 		} else {
