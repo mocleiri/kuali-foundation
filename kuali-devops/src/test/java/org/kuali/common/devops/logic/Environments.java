@@ -100,13 +100,24 @@ public class Environments {
 			addRow(table, ImmutableList.of(project.getArtifactId() + "::" + project.getVersion()));
 			addRow(table, ImmutableList.of(database.getVendor() + "::" + database.getUsername()));
 			addRow(table, ImmutableList.of(database.getUrl()));
+			String vendor = getScmVendor(project);
 			if (app.getScm().isPresent()) {
 				Scm scm = app.getScm().get();
-				String href = href(scm.getUrl(), "scm");
-				addRow(table, ImmutableList.of(href + " revision:" + scm.getRevision()));
+				String href = href(scm.getUrl(), vendor + ":revision:" + scm.getRevision());
+				addRow(table, ImmutableList.of(href));
+			} else {
+				addRow(table, ImmutableList.of(vendor + "&nbsp;:&nbsp;n/a"));
 			}
 			return html(context, table);
 		}
+	}
+
+	protected static String getScmVendor(Project project) {
+		String vendor = project.getProperties().getProperty("project.scm.vendor");
+		if (vendor == null) {
+			vendor = "svn";
+		}
+		return vendor;
 	}
 
 	public static String getHtml(EC2Instance instance) {
