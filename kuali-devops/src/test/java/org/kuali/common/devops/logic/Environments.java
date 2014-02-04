@@ -173,10 +173,19 @@ public class Environments {
 		return html(context, table);
 	}
 
+	public static String getBorder(Optional<Integer> border) {
+		if (border.isPresent()) {
+			return "border=\"" + border.get() + "\"";
+		} else {
+			return "";
+		}
+	}
+
 	public static <R, C> String html(TableContext context, Table<? extends Comparable<R>, ? extends Comparable<C>, String> table) {
 		String padding = StringUtils.repeat(" ", context.getIndent());
 		StringBuilder sb = new StringBuilder();
-		sb.append(padding + "<table border=1>\n");
+
+		sb.append(padding + "<table " + getBorder(context.getBorder()) + ">\n");
 		SortedSet<Comparable<R>> rowKeys = Sets.newTreeSet(table.rowKeySet());
 		SortedSet<Comparable<C>> colKeys = Sets.newTreeSet(table.columnKeySet());
 		if (context.isHeaders()) {
