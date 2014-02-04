@@ -27,7 +27,7 @@ public class EnvironmentsTest {
 	public void test() {
 		try {
 			Validation.getDefaultValidator();
-			SortedMap<String, List<Environment>> maps = Environments2.getEnvironments(false);
+			SortedMap<String, List<Environment>> maps = Environments2.getEnvironments(true);
 			for (String group : maps.keySet()) {
 				List<Environment> envs = maps.get(group);
 				Table<Integer, Integer, String> table = Environments.getTable(envs);
