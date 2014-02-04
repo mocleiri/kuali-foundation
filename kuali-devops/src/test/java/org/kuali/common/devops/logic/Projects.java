@@ -35,7 +35,7 @@ public class Projects extends Examiner {
 			String location = getProjectPropertiesPath(fqdn, bundleSymbolicName.get());
 			Properties properties = PropertyUtils.loadOrCreateSilently(location);
 
-			// Most reliable way to SVN information is from the manifest
+			// Most reliable way to get SVN information is from the manifest
 			Optional<String> url = getScmUrl(manifest, properties);
 			String revision = getScmRevision(manifest);
 
@@ -93,6 +93,9 @@ public class Projects extends Examiner {
 		return tokens.get(tokens.size() - 1);
 	}
 
+	/**
+	 * Returns Optional.absent() unless we can locate a live URL that we can actually contact
+	 */
 	protected static Optional<String> getScmUrl(Map<String, String> manifest, Properties properties) {
 		// Most reliable method for getting the url is via MANIFEST.MF
 		Optional<String> url = getScmUrlFromManifest(manifest);
@@ -102,7 +105,7 @@ public class Projects extends Examiner {
 		} else {
 			// Failing that attempt to get it from the project properties
 			// Maven assumes that artifactId == directory name for sub-modules
-			// If that isn't the case, the URL points somewhere that doesn't exist
+			// If that isn't the case, the URL from project.properties points to a non-existent location
 			return getScmUrlFromProperties(properties);
 		}
 	}
