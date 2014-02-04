@@ -1166,8 +1166,7 @@ public class PropertyUtils {
 	public static final Properties convert(Map<String, String> map) {
 		Properties props = new Properties();
 		for (String key : map.keySet()) {
-			String value = map.get(key);
-			props.setProperty(key, value);
+			props.setProperty(key, map.get(key));
 		}
 		return props;
 	}
