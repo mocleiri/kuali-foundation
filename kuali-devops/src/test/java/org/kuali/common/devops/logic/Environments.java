@@ -83,6 +83,19 @@ public class Environments {
 		}
 	}
 
+	public static String getApplication(Optional<Application> optional) {
+		if (!optional.isPresent()) {
+			return "na";
+		} else {
+			Application app = optional.get();
+			Project project = app.getProject();
+			TableContext context = TableContext.builder().headers(false).border(false).build();
+			Table<Integer, Integer, String> table = HashBasedTable.create();
+			addRow(table, ImmutableList.of(project.getArtifactId() + ":" + project.getVersion()));
+			return html(context, table);
+		}
+	}
+
 	public static String getHtml(EC2Instance instance) {
 		TableContext context = TableContext.builder().headers(false).border(false).build();
 		return html(context, getTable(instance));
