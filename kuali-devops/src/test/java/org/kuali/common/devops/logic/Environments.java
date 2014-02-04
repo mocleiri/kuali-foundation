@@ -106,7 +106,7 @@ public class Environments {
 				String href = href(scm.getUrl(), vendor + ":revision:" + scm.getRevision());
 				addRow(table, ImmutableList.of(href));
 			} else {
-				addRow(table, ImmutableList.of(vendor + "&nbsp;:&nbsp;n/a"));
+				addRow(table, ImmutableList.of(vendor + " : n/a"));
 			}
 			return html(context, table);
 		}
