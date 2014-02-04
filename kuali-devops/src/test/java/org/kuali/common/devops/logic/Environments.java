@@ -26,11 +26,11 @@ public class Environments {
 
 	public static Table<Integer, Integer, String> getTable(List<Environment> envs) {
 		Table<Integer, Integer, String> table = HashBasedTable.create();
-		for (int row = 0; row < envs.size(); row++) {
+		for (Integer row = 0; row < envs.size(); row++) {
 			Environment env = envs.get(row);
-			table.put(valueOf(row), valueOf(0), env.getName());
-			table.put(valueOf(row), valueOf(1), env.getFqdn());
-			table.put(valueOf(row), valueOf(2), env.getJava().isPresent() ? env.getJava().get() : "na");
+			table.put(row, valueOf(0), env.getName());
+			table.put(row, valueOf(1), env.getFqdn());
+			table.put(row, valueOf(2), env.getJava().isPresent() ? env.getJava().get() : "na");
 		}
 		return table;
 	}
