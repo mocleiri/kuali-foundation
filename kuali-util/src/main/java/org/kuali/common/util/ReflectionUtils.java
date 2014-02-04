@@ -25,7 +25,6 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -41,6 +40,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 
@@ -405,6 +405,13 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 		return getNameMap(Lists.newArrayList(fields));
 	}
 
+	/**
+	 * Return the field corresponding
+	 * 
+	 * @param type
+	 * @param fieldNames
+	 * @return
+	 */
 	public static Map<String, Field> getFields(Class<?> type, Set<String> fieldNames) {
 		Map<String, Field> fields = Maps.newHashMap();
 		for (String fieldName : fieldNames) {
@@ -429,12 +436,30 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 	 * </p>
 	 */
 	public static Set<Field> getAllFields(Class<?> type) {
-		Set<Field> fields = new HashSet<Field>();
+		Set<Field> fields = Sets.newHashSet();
 		for (Class<?> c = type; c != null; c = c.getSuperclass()) {
 			Set<Field> set = getFields(c);
 			fields.addAll(set);
 		}
 		return ImmutableSet.copyOf(fields);
+	}
+
+	/**
+	 * <p>
+	 * Recursively examine the type hierarchy and extract every field encountered anywhere in the hierarchy into an immutable list
+	 * </p>
+	 * 
+	 * <p>
+	 * NOTE: field.getName() is not necessarily unique for the elements in the list
+	 * </p>
+	 */
+	public static List<Field> getAllFieldsList(Class<?> type) {
+		List<Field> fields = Lists.newArrayList();
+		for (Class<?> c = type; c != null; c = c.getSuperclass()) {
+			Set<Field> set = getFields(c);
+			fields.addAll(set);
+		}
+		return ImmutableList.copyOf(Lists.reverse(fields));
 	}
 
 	/**
