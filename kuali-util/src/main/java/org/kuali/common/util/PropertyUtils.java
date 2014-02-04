@@ -51,6 +51,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.Maps;
 
 /**
  * Simplify handling of <code>Properties</code> especially as it relates to storing and loading. <code>Properties</code> can be loaded from any url Spring resource loading can
@@ -1169,6 +1170,17 @@ public class PropertyUtils {
 			props.setProperty(key, value);
 		}
 		return props;
+	}
+
+	/**
+	 * Convert the <code>Properties</code> to a <code>Map</code> object.
+	 */
+	public static Map<String, String> convert(Properties properties) {
+		Map<String, String> map = Maps.newHashMap();
+		for (String key : properties.stringPropertyNames()) {
+			map.put(key, properties.getProperty(key));
+		}
+		return map;
 	}
 
 	/**
