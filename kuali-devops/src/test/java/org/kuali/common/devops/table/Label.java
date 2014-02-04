@@ -62,7 +62,7 @@ public final class Label implements Comparable<Label> {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((text == null) ? 0 : text.hashCode());
+		result = prime * result + text.hashCode();
 		result = prime * result + sequence;
 		return result;
 	}
