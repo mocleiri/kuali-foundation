@@ -61,8 +61,9 @@ public class Tomcats extends Examiner {
 		String gc = StringUtils.substringBetween(heap.get(), "{", "}");
 		List<String> lines = Splitter.on('\n').splitToList(gc);
 		for (String line : lines) {
-			if (line.startsWith("201")) { // This will only work for the next 6 years :)
-				return Optional.of(line.trim());
+			String trimmed = line.trim();
+			if (trimmed.startsWith("201")) { // This will only work for the next 6 years :)
+				return Optional.of(trimmed);
 			}
 		}
 		return Optional.absent();
