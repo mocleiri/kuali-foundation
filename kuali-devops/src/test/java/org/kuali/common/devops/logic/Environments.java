@@ -58,6 +58,7 @@ public class Environments {
 		map.put(EnvTable.URL.getLabel(), href);
 		map.put(EnvTable.JAVA.getLabel(), java);
 		map.put(EnvTable.SERVER.getLabel(), getHtml(env.getServer()));
+		map.put(EnvTable.TOMCAT.getLabel(), getHtml(env.getTomcat()));
 		return map;
 	}
 
@@ -67,6 +68,19 @@ public class Environments {
 		nf.setMaximumFractionDigits(0);
 		nf.setMinimumFractionDigits(0);
 		return nf;
+	}
+
+	public static String getHtml(Optional<Tomcat> tomcat) {
+		if (!tomcat.isPresent()) {
+			return "na";
+		} else {
+			TableContext context = TableContext.builder().headers(false).border(false).build();
+			String uptime = FormatUtils.getTime(currentTimeMillis() - tomcat.get().getStartupTime(), AGE);
+			Table<Integer, Integer, String> table = HashBasedTable.create();
+			addRow(table, ImmutableList.of("version", tomcat.get().getVersion()));
+			addRow(table, ImmutableList.of("uptime", uptime));
+			return html(context, table);
+		}
 	}
 
 	public static String getHtml(EC2Instance instance) {

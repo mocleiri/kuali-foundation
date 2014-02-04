@@ -25,7 +25,7 @@ public final class TableContext {
 	public static class Builder extends ValidatingBuilder<TableContext> {
 
 		private int indent;
-		private boolean headers;
+		private boolean headers = true;
 		private Optional<Integer> border = Optional.of(1);
 
 		public Builder indent(int indent) {
