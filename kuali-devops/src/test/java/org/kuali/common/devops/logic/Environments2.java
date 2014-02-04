@@ -1,5 +1,8 @@
 package org.kuali.common.devops.logic;
 
+import static com.google.common.base.Preconditions.checkState;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
@@ -40,6 +43,7 @@ public class Environments2 {
 	protected static Environment.Builder getBuilder(EC2Instance server, BiMap<String, String> aliases) {
 		Map<String, String> cnames = aliases.inverse();
 		String fqdn = cnames.get(server.getPublicDnsName());
+		checkState(!isBlank(fqdn), "no fqdn -> [%s]", server.getPublicDnsName());
 		return Environment.builder().fqdn(fqdn).server(server);
 	}
 
