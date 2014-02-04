@@ -15,6 +15,7 @@ import org.kuali.common.devops.model.EC2Instance;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.model.Tomcat;
 import org.kuali.common.devops.table.Label;
+import org.kuali.common.devops.table.TableContext;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.project.model.Project;
 
@@ -194,8 +195,10 @@ public class Environments {
 		sb.append(padding + "<table border=1>\n");
 		SortedSet<Comparable<R>> rowKeys = Sets.newTreeSet(table.rowKeySet());
 		SortedSet<Comparable<C>> colKeys = Sets.newTreeSet(table.columnKeySet());
-		for (Comparable<C> colKey : colKeys) {
-			sb.append(padding + " <th>" + colKey + "</th>");
+		if (context.isHeaders()) {
+			for (Comparable<C> colKey : colKeys) {
+				sb.append(padding + " <th>" + colKey + "</th>");
+			}
 		}
 		for (Comparable<R> rowKey : rowKeys) {
 			sb.append(padding + " <tr>\n");
