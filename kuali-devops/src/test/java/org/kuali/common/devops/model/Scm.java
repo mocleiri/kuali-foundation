@@ -42,6 +42,22 @@ public final class Scm {
 			return new Scm(this);
 		}
 
+		public String getUrl() {
+			return url;
+		}
+
+		public void setUrl(String url) {
+			this.url = url;
+		}
+
+		public String getRevision() {
+			return revision;
+		}
+
+		public void setRevision(String revision) {
+			this.revision = revision;
+		}
+
 	}
 
 	public String getUrl() {
