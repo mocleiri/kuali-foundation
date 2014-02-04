@@ -1,6 +1,5 @@
 package org.kuali.common.devops.logic;
 
-import static java.lang.Integer.valueOf;
 import static java.lang.System.currentTimeMillis;
 
 import java.text.NumberFormat;
@@ -40,14 +39,6 @@ public class Environments {
 			addRow(table, getRowData(envs.get(row)));
 		}
 		return table;
-	}
-
-	public static Map<Label, String> getRowData(List<Label> columns) {
-		Map<Label, String> map = Maps.newHashMap();
-		for (Label label : columns) {
-			map.put(label, label.getText());
-		}
-		return map;
 	}
 
 	public static Map<Label, String> getRowData(Environment env) {
@@ -163,31 +154,6 @@ public class Environments {
 		}
 	}
 
-	protected static void addRow(Table<Integer, Integer, Object> table, Object... objects) {
-		int row = table.rowKeySet().size();
-		for (int col = 0; col < objects.length; col++) {
-			table.put(valueOf(row), valueOf(col), objects[col]);
-		}
-	}
-
-	protected static Optional<Database> getDatabase(Environment env) {
-		if (env.getApplication().isPresent()) {
-			Application app = env.getApplication().get();
-			return Optional.of(app.getDatabase());
-		} else {
-			return Optional.absent();
-		}
-	}
-
-	protected static Optional<Project> getProject(Environment env) {
-		if (env.getApplication().isPresent()) {
-			Application app = env.getApplication().get();
-			return Optional.of(app.getProject());
-		} else {
-			return Optional.absent();
-		}
-	}
-
 	public static <R, C> String html(Table<? extends Comparable<R>, ? extends Comparable<C>, String> table) {
 		return html(table, 0);
 	}
@@ -204,18 +170,25 @@ public class Environments {
 		}
 	}
 
-	public static <R, C> String html(TableContext context, Table<? extends Comparable<R>, ? extends Comparable<C>, String> table) {
-		String padding = StringUtils.repeat(" ", context.getIndent());
-		StringBuilder sb = new StringBuilder();
-
-		sb.append(padding + "<table " + getBorder(context.getBorder()) + ">\n");
-		SortedSet<Comparable<R>> rowKeys = Sets.newTreeSet(table.rowKeySet());
-		SortedSet<Comparable<C>> colKeys = Sets.newTreeSet(table.columnKeySet());
+	public static <C> String getHeader(TableContext context, SortedSet<Comparable<C>> colKeys, String padding) {
 		if (context.isHeaders()) {
+			StringBuilder sb = new StringBuilder();
 			for (Comparable<C> colKey : colKeys) {
 				sb.append(padding + " <th>" + colKey + "</th>");
 			}
+			return sb.toString();
+		} else {
+			return "";
 		}
+	}
+
+	public static <R, C> String html(TableContext context, Table<? extends Comparable<R>, ? extends Comparable<C>, String> table) {
+		String padding = StringUtils.repeat(" ", context.getIndent());
+		StringBuilder sb = new StringBuilder();
+		sb.append(padding + "<table " + getBorder(context.getBorder()) + ">\n");
+		SortedSet<Comparable<R>> rowKeys = Sets.newTreeSet(table.rowKeySet());
+		SortedSet<Comparable<C>> colKeys = Sets.newTreeSet(table.columnKeySet());
+		sb.append(getHeader(context, colKeys, padding));
 		for (Comparable<R> rowKey : rowKeys) {
 			sb.append(padding + " <tr>\n");
 			for (Comparable<C> colKey : colKeys) {
