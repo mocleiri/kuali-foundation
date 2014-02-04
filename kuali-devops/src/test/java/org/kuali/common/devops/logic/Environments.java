@@ -72,16 +72,19 @@ public class Environments {
 		} else {
 			Tomcat tomcat = optional.get();
 			TableContext context = TableContext.builder().headers(false).border(false).build();
-			String uptime = null;
-			if (tomcat.getStartupTime() == -1) {
-				uptime = "n/a";
-			} else {
-				uptime = FormatUtils.getTime(currentTimeMillis() - tomcat.getStartupTime(), AGE);
-			}
+			String uptime = getTime(tomcat.getStartupTime());
 			Table<Integer, Integer, String> table = HashBasedTable.create();
 			addRow(table, tomcat.getVersion());
 			addRow(table, "uptime " + uptime);
 			return html(context, table);
+		}
+	}
+
+	protected static String getTime(Optional<Long> millis) {
+		if (!millis.isPresent()) {
+			return "n/a";
+		} else {
+			return FormatUtils.getTime(currentTimeMillis() - millis.get(), AGE);
 		}
 	}
 
