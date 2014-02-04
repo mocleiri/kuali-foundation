@@ -9,6 +9,8 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.log.Loggers;
 import org.slf4j.Logger;
 
+import com.google.common.collect.ImmutableList;
+
 public class Fqdns {
 
 	private static final String PROTOCOL = "http://";
@@ -22,20 +24,28 @@ public class Fqdns {
 	public String getSystemProperty(String fqdn, String property) {
 		String fragment = "/tomcat/logs/env.jsp";
 		String location = PROTOCOL + fqdn + fragment;
-		try {
-			List<String> lines = LocationUtils.readLines(location);
-			for (String line : lines) {
-				String token = "<td>" + property + "</td>";
-				if (line.contains(token)) {
-					int pos = line.indexOf(token) + token.length();
-					String substring = line.substring(pos);
-					String value = StringUtils.substringBetween(substring, "<td>", "</td>");
-					return StringUtils.trim(value);
-				}
-			}
-		} catch (Exception e) {
-			logger.warn(format("error getting system property [%s] -> [%s]", property, location));
+		List<String> lines = readLines(location);
+		if (lines.isEmpty()) {
+			return NOT_AVAILABLE;
 		}
-		return NOT_AVAILABLE;
+		for (String line : lines) {
+			String token = "<td>" + property + "</td>";
+			if (line.contains(token)) {
+				int pos = line.indexOf(token) + token.length();
+				String substring = line.substring(pos);
+				String value = StringUtils.substringBetween(substring, "<td>", "</td>");
+				return StringUtils.trim(value);
+			}
+		}
+		throw Exceptions.illegalState("unable to locate system property -> [%s]", property);
+	}
+
+	protected List<String> readLines(String location) {
+		try {
+			return LocationUtils.readLines(location);
+		} catch (Exception e) {
+			logger.warn(format("unexpected error reading from [%s]", location));
+			return ImmutableList.of();
+		}
 	}
 }
