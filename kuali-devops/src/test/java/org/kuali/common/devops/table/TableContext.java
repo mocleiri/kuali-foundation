@@ -66,24 +66,12 @@ public final class TableContext {
 		return indent;
 	}
 
-	public void setIndent(int indent) {
-		this.indent = indent;
-	}
-
 	public boolean isHeaders() {
 		return headers;
 	}
 
-	public void setHeaders(boolean headers) {
-		this.headers = headers;
-	}
-
 	public Optional<Integer> getBorder() {
 		return border;
-	}
-
-	public void setBorder(Optional<Integer> border) {
-		this.border = border;
 	}
 
 }
