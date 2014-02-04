@@ -145,14 +145,6 @@ public class Environments {
 		return html(context, table);
 	}
 
-	protected static Table<Integer, Integer, ?> getTable(Tomcat tomcat) {
-		String uptime = getUptime(tomcat);
-		Table<Integer, Integer, Object> table = HashBasedTable.create();
-		addRow(table, "version", tomcat.getVersion());
-		addRow(table, "uptime", uptime);
-		return table;
-	}
-
 	protected static void addRow(Table<Integer, Label, String> table, Map<Label, String> map) {
 		Integer row = table.rowKeySet().size();
 		for (Label label : map.keySet()) {
