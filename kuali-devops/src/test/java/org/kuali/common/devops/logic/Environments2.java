@@ -67,7 +67,7 @@ public class Environments2 {
 			builder.setJava(Examiner.getJavaVersion(builder.getFqdn()));
 			builder.setTomcat(Tomcats.getTomcat(builder.getFqdn()));
 			builder.setApplication(Applications.getApplication(builder.getFqdn()));
-			System.out.println(format(" - %s", FormatUtils.getTime(System.currentTimeMillis() - start)));
+			System.out.println(format(" - %s", FormatUtils.getTime(currentTimeMillis() - start)));
 		}
 	}
 
