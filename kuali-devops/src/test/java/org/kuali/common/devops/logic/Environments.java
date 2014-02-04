@@ -34,10 +34,19 @@ public class Environments {
 
 	public static Table<Integer, Label, String> getTable(List<Environment> envs) {
 		Table<Integer, Label, String> table = HashBasedTable.create();
+		addRow(table, getRowData(EnvTable.asList()));
 		for (Integer row = 0; row < envs.size(); row++) {
 			addRow(table, getRowData(envs.get(row)));
 		}
 		return table;
+	}
+
+	public static Map<Label, String> getRowData(List<Label> columns) {
+		Map<Label, String> map = Maps.newHashMap();
+		for (Label label : columns) {
+			map.put(label, label.getText());
+		}
+		return map;
 	}
 
 	public static Map<Label, String> getRowData(Environment env) {
@@ -164,6 +173,9 @@ public class Environments {
 		sb.append(padding + "<table border=1>\n");
 		SortedSet<Comparable<R>> rowKeys = Sets.newTreeSet(table.rowKeySet());
 		SortedSet<Comparable<C>> colKeys = Sets.newTreeSet(table.columnKeySet());
+		for (Comparable<C> colKey : colKeys) {
+			sb.append(padding + " <th>" + colKey + "</th>");
+		}
 		for (Comparable<R> rowKey : rowKeys) {
 			sb.append(padding + " <tr>\n");
 			for (Comparable<C> colKey : colKeys) {

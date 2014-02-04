@@ -77,4 +77,9 @@ public final class Label implements Comparable<Label> {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return text;
+	}
+
 }
