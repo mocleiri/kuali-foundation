@@ -13,6 +13,7 @@ import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.Database;
 import org.kuali.common.devops.model.EC2Instance;
 import org.kuali.common.devops.model.Environment;
+import org.kuali.common.devops.model.Scm;
 import org.kuali.common.devops.model.Tomcat;
 import org.kuali.common.devops.table.Label;
 import org.kuali.common.devops.table.TableContext;
@@ -51,15 +52,19 @@ public class Environments {
 
 	public static Map<Label, String> getRowData(Environment env) {
 		String url = "http://" + env.getFqdn();
-		String href = "<a href='" + url + "'>" + url + "</a>";
 		String java = env.getJava().isPresent() ? env.getJava().get() : "na";
 		Map<Label, String> map = Maps.newHashMap();
 		map.put(EnvTable.NAME.getLabel(), env.getName());
-		map.put(EnvTable.URL.getLabel(), href);
+		map.put(EnvTable.URL.getLabel(), href(url, url));
 		map.put(EnvTable.JAVA.getLabel(), java);
 		map.put(EnvTable.SERVER.getLabel(), getHtml(env.getServer()));
 		map.put(EnvTable.TOMCAT.getLabel(), getHtml(env.getTomcat()));
+		map.put(EnvTable.APP.getLabel(), getApplication(env.getApplication()));
 		return map;
+	}
+
+	protected static String href(String dest, String show) {
+		return "<a href='" + dest + "'>" + show + "</a>";
 	}
 
 	protected static NumberFormat getAgeFormatter() {
@@ -89,9 +94,17 @@ public class Environments {
 		} else {
 			Application app = optional.get();
 			Project project = app.getProject();
+			Database database = app.getDatabase();
 			TableContext context = TableContext.builder().headers(false).border(false).build();
 			Table<Integer, Integer, String> table = HashBasedTable.create();
-			addRow(table, ImmutableList.of(project.getArtifactId() + ":" + project.getVersion()));
+			addRow(table, ImmutableList.of(project.getArtifactId() + "::" + project.getVersion()));
+			addRow(table, ImmutableList.of(database.getVendor() + "::" + database.getUsername()));
+			addRow(table, ImmutableList.of(database.getUrl()));
+			if (app.getScm().isPresent()) {
+				Scm scm = app.getScm().get();
+				String href = href(scm.getUrl(), "scm");
+				addRow(table, ImmutableList.of(href + " revision:" + scm.getRevision()));
+			}
 			return html(context, table);
 		}
 	}

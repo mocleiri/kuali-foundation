@@ -32,7 +32,7 @@ public class EnvironmentsTest {
 			for (String group : maps.keySet()) {
 				List<Environment> envs = maps.get(group);
 				Table<Integer, Label, String> table = Environments.getTable(envs);
-				String html = Environments.html(table);
+				String html = "<center>" + Environments.html(table) + "</center>";
 				File outputFile = new CanonicalFile(HTML_DIR, group + ".htm");
 				FileUtils.write(outputFile, html);
 				logger.info(format("created -> %s", outputFile));

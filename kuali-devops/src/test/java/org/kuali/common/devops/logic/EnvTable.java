@@ -13,9 +13,10 @@ public enum EnvTable {
 
 	NAME(Label.create(0, "name")), //
 	URL(Label.create(1, "url")), //
-	JAVA(Label.create(2, "java")), //
-	SERVER(Label.create(3, "server")), //
-	TOMCAT(Label.create(4, "tomcat")); //
+	JAVA(Label.create(3, "java")), //
+	SERVER(Label.create(4, "server")), //
+	TOMCAT(Label.create(5, "tomcat")), //
+	APP(Label.create(2, "application")); //
 
 	private final Label label;
 
