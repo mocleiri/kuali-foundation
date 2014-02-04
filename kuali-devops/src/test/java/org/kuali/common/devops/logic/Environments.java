@@ -28,12 +28,14 @@ public class Environments {
 	public static Table<Integer, Integer, String> getTable(List<Environment> envs) {
 		Table<Integer, Integer, String> table = HashBasedTable.create();
 		for (Integer row = 0; row < envs.size(); row++) {
-			Environment env = envs.get(row);
-			String java = env.getJava().isPresent() ? env.getJava().get() : "na";
-			List<String> data = ImmutableList.of(env.getName(), env.getFqdn(), java);
-			addRow(table, data);
+			addRow(table, getRowData(envs.get(row)));
 		}
 		return table;
+	}
+
+	public static List<String> getRowData(Environment env) {
+		String java = env.getJava().isPresent() ? env.getJava().get() : "na";
+		return ImmutableList.of(env.getName(), env.getFqdn(), java);
 	}
 
 	protected static Table<Integer, Integer, ?> getTable(Project project) {
