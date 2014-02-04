@@ -63,11 +63,9 @@ public class Environments2 {
 		for (Environment.Builder builder : builders) {
 			long start = System.currentTimeMillis();
 			System.out.print(StringUtils.rightPad(String.format("examining -> [%s]", builder.getFqdn()), 45));
-			if (!builder.getFqdn().equals("env5.rice.kuali.org")) {
-				builder.setJava(Examiner.getJavaVersion(builder.getFqdn()));
-				builder.setTomcat(Tomcats.getTomcat(builder.getFqdn()));
-				builder.setApplication(Applications.getApplication(builder.getFqdn()));
-			}
+			builder.setJava(Examiner.getJavaVersion(builder.getFqdn()));
+			builder.setTomcat(Tomcats.getTomcat(builder.getFqdn()));
+			builder.setApplication(Applications.getApplication(builder.getFqdn()));
 			System.out.println(String.format(" - %s", FormatUtils.getTime(System.currentTimeMillis() - start)));
 		}
 	}
