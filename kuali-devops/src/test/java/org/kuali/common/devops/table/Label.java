@@ -72,8 +72,8 @@ public final class Label implements Comparable<Label> {
 		if (ObjectUtils.notEqual(this, other)) {
 			return false;
 		} else {
-			Label column = (Label) other;
-			return sequence == column.getSequence() && text.equals(column.getText());
+			Label label = (Label) other;
+			return sequence == label.getSequence() && text.equals(label.getText());
 		}
 	}
 
