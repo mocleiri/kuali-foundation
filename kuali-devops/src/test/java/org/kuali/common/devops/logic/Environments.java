@@ -92,19 +92,37 @@ public class Environments {
 			Application app = optional.get();
 			Project project = app.getProject();
 			Database database = app.getDatabase();
+
 			TableContext context = TableContext.builder().headers(false).border(false).build();
 			Table<Integer, Integer, String> table = HashBasedTable.create();
-			addRow(table, ImmutableList.of(project.getArtifactId() + "::" + project.getVersion() + "::" + getBuildDate(project)));
-			addRow(table, ImmutableList.of(database.getUsername() + "::" + database.getUrl()));
-			String vendor = getScmVendor(project);
-			if (app.getScm().isPresent()) {
-				Scm scm = app.getScm().get();
-				String href = href(scm.getUrl(), vendor + ":revision:" + scm.getRevision());
-				addRow(table, ImmutableList.of(href));
-			} else {
-				addRow(table, ImmutableList.of(vendor + " : n/a"));
-			}
+			
+			String buildId = project.getArtifactId() + "::" + project.getVersion() + "::" + getBuildDate(project);
+			String databaseId = getDatabaseId(database);
+			String scm = getScmDisplay(app.getScm(), project);
+
+			addRow(table, buildId);
+			addRow(table, databaseId);
+			addRow(table, scm);
+			
 			return html(context, table);
+		}
+	}
+
+	protected static String getScmDisplay(Optional<Scm> optional, Project project) {
+		String vendor = getScmVendor(project);
+		if (optional.isPresent()) {
+			Scm scm = optional.get();
+			return href(scm.getUrl(), vendor + ":revision:" + scm.getRevision());
+		} else {
+			return vendor + " : n/a";
+		}
+	}
+
+	protected static String getDatabaseId(Database database) {
+		if (database.getVendor().equals("mysql")) {
+			return database.getUrl();
+		} else {
+			return database.getUrl() + "&nbsp;&nbsp;::&nbsp;&nbsp" + database.getUsername();
 		}
 	}
 
