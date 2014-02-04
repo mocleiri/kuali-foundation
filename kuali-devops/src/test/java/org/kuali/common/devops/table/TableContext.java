@@ -8,9 +8,9 @@ import com.google.common.base.Optional;
 @IdiotProofImmutable
 public final class TableContext {
 
-	private int indent;
-	private boolean headers = true;
-	private Optional<Integer> border = Optional.of(1);
+	private final int indent;
+	private final boolean headers;
+	private final Optional<Integer> border;
 
 	private TableContext(Builder builder) {
 		this.indent = builder.indent;
@@ -26,7 +26,7 @@ public final class TableContext {
 
 		private int indent;
 		private boolean headers;
-		private Optional<Integer> border;
+		private Optional<Integer> border = Optional.of(1);
 
 		public Builder indent(int indent) {
 			this.indent = indent;
