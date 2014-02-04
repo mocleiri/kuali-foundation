@@ -49,7 +49,8 @@ public class Tables {
 		List<String> headerTokens = splitter.splitToList(lines.get(0));
 		checkState(isSuperSet(fieldNames.keySet(), Sets.newHashSet(headerTokens)), "header line contains field names not found in [%s]", type.getCanonicalName());
 		CsvStringFormatter formatter = CsvStringFormatter.create();
-		TableContext context = new TableContext.Builder().rows(lines.size()).fieldNames(fieldNames).columns(headerTokens.size()).headerTokens(headerTokens).formatter(formatter).build();
+		TableContext context = new TableContext.Builder().rows(lines.size()).fieldNames(fieldNames).columns(headerTokens.size()).headerTokens(headerTokens).formatter(formatter)
+				.build();
 		for (int row = 1; row < lines.size(); row++) {
 			String line = lines.get(row);
 			List<String> tokens = splitter.splitToList(line);
@@ -58,6 +59,21 @@ public class Tables {
 				String fieldName = headerTokens.get(column);
 				TableCellContext cell = TableCellContext.builder().row(row).column(column).tokens(tokens).build();
 				table.put(row, fieldName, getDescriptor(context, cell));
+			}
+		}
+		return table;
+	}
+
+	public static <T> Table<Integer, String, String> getTableFromCSV2(List<String> lines) {
+		Splitter splitter = Splitter.on(',');
+		Table<Integer, String, String> table = HashBasedTable.create();
+		List<String> columns = splitter.splitToList(lines.get(0));
+		for (int row = 1; row < lines.size(); row++) {
+			List<String> data = splitter.splitToList(lines.get(row));
+			checkState(data.size() == columns.size(), "line -> %s  expected %s data elements, actual data elements %s", row, columns.size(), data.size());
+			for (int column = 0; column < columns.size(); column++) {
+				String columnName = columns.get(column);
+				table.put(row, columnName, data.get(column));
 			}
 		}
 		return table;
