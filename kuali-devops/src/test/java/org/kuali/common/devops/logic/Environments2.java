@@ -42,8 +42,9 @@ public class Environments2 {
 
 	protected static Environment.Builder getBuilder(EC2Instance server, BiMap<String, String> aliases) {
 		Map<String, String> cnames = aliases.inverse();
-		String fqdn = cnames.get(server.getPublicDnsName().get());
-		checkState(!isBlank(fqdn), "no fqdn -> [%s]", server.getPublicDnsName().get());
+		String publicDnsName = server.getPublicDnsName().get();
+		String fqdn = cnames.get(publicDnsName);
+		checkState(!isBlank(fqdn), "no fqdn -> [%s]", publicDnsName);
 		return Environment.builder().fqdn(fqdn).server(server);
 	}
 
