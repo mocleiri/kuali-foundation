@@ -120,20 +120,25 @@ public class Environments {
 	}
 
 	public static <R, C> String html(Table<? extends Comparable<R>, ? extends Comparable<C>, String> table) {
+		return html(table, 0);
+	}
+
+	public static <R, C> String html(Table<? extends Comparable<R>, ? extends Comparable<C>, String> table, int indent) {
+		String padding = StringUtils.repeat(" ", indent);
 		StringBuilder sb = new StringBuilder();
-		sb.append("<table border=1>\n");
+		sb.append(padding + "<table border=1>\n");
 		SortedSet<Comparable<R>> rowKeys = Sets.newTreeSet(table.rowKeySet());
 		SortedSet<Comparable<C>> colKeys = Sets.newTreeSet(table.columnKeySet());
 		for (Comparable<R> rowKey : rowKeys) {
-			sb.append(" <tr>\n");
+			sb.append(padding + " <tr>\n");
 			for (Comparable<C> colKey : colKeys) {
-				sb.append("  <td>\n");
-				sb.append("   " + table.get(rowKey, colKey) + "\n");
-				sb.append("  </td>\n");
+				sb.append(padding + "  <td>\n");
+				sb.append(padding + "   " + table.get(rowKey, colKey) + "\n");
+				sb.append(padding + "  </td>\n");
 			}
-			sb.append(" </tr>\n");
+			sb.append(padding + " </tr>\n");
 		}
-		sb.append("</table>\n");
+		sb.append(padding + "</table>\n");
 		return sb.toString();
 	}
 
