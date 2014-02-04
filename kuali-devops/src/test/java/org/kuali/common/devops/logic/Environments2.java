@@ -8,8 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.devops.model.EC2Instance;
 import org.kuali.common.devops.model.Environment;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.log.Loggers;
 import org.slf4j.Logger;
 
@@ -37,8 +39,12 @@ public class Environments2 {
 
 	protected static void fillIn(List<Environment.Builder> builders) {
 		for (Environment.Builder builder : builders) {
-			logger.info(String.format("examining -> [%s]", builder.getFqdn()));
-			builder.setJava(Fqdns.getJavaVersion(builder.getFqdn()));
+			long start = System.currentTimeMillis();
+			System.out.print(StringUtils.rightPad(String.format("examining -> [%s]", builder.getFqdn()), 45));
+			if (!builder.getFqdn().equals("env5.rice.kuali.org")) {
+				builder.setJava(Fqdns.getJavaVersion(builder.getFqdn()));
+			}
+			System.out.println(String.format(" - %s", FormatUtils.getTime(System.currentTimeMillis() - start)));
 		}
 	}
 

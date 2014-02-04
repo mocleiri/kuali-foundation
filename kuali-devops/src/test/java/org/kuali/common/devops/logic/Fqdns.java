@@ -44,7 +44,7 @@ public class Fqdns {
 		try {
 			return LocationUtils.readLines(location);
 		} catch (Exception e) {
-			logger.warn(format("unexpected error reading from [%s]", location));
+			logger.debug(format("unexpected error reading from [%s]", location));
 			return ImmutableList.of();
 		}
 	}
