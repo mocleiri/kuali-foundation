@@ -120,7 +120,7 @@ public class Environments {
 		}
 	}
 
-	public static <R, C> String html(Table<? extends Comparable<R>, ? extends Comparable<C>, ?> table) {
+	public static <R, C> String html(Table<? extends Comparable<R>, ? extends Comparable<C>, String> table) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<table border=1>\n");
 		SortedSet<Comparable<R>> rowKeys = Sets.newTreeSet(table.rowKeySet());
@@ -128,9 +128,7 @@ public class Environments {
 		for (Comparable<R> rowKey : rowKeys) {
 			sb.append(" <tr>\n");
 			for (Comparable<C> colKey : colKeys) {
-				Object object = table.get(rowKey, colKey);
-				String value = getTableCellValue(object);
-				sb.append(format("  <td>%s</td>\n", value));
+				sb.append(format("  <td>%s</td>\n", table.get(rowKey, colKey)));
 			}
 			sb.append(" </tr>\n");
 		}
@@ -138,17 +136,4 @@ public class Environments {
 		return sb.toString();
 	}
 
-	protected static String getTableCellValue(Object object) {
-		if (object instanceof Table) {
-			Table<?, ?, ?> nested = (Table<?, ?, ?>) object;
-			return html(cast(nested));
-		} else {
-			return object.toString();
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	public static <R, C> Table<? extends Comparable<R>, ? extends Comparable<C>, ?> cast(Table<?, ?, ?> table) {
-		return (Table<? extends Comparable<R>, ? extends Comparable<C>, ?>) table;
-	}
 }
