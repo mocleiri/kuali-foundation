@@ -147,8 +147,8 @@ public class Environments {
 	public static Table<Integer, Integer, String> getTable(EC2Instance instance) {
 		String age = FormatUtils.getTime(currentTimeMillis() - instance.getLaunchTime(), AGE);
 		Table<Integer, Integer, String> table = HashBasedTable.create();
-		addRow(table, ImmutableList.of("type", instance.getType()));
-		addRow(table, ImmutableList.of("age", age));
+		addRow(table, ImmutableList.of(instance.getType()));
+		addRow(table, ImmutableList.of("age " + age));
 		return table;
 	}
 
