@@ -1,5 +1,6 @@
 package org.kuali.common.devops.logic;
 
+import java.util.Map;
 import java.util.Properties;
 
 import org.kuali.common.devops.model.Application;
@@ -18,7 +19,8 @@ public class Applications extends Examiner {
 	private static final Logger logger = Loggers.make();
 
 	public static Optional<Application> getApplication(String fqdn) {
-		Optional<Project> project = Projects.getProject(fqdn);
+		Map<String, String> manifest = Manifests.getManifest(fqdn);
+		Optional<Project> project = Projects.getProject(fqdn, manifest);
 		if (project.isPresent()) {
 			Properties config = Applications.getConfig(fqdn, project.get());
 			Optional<Database> database = Databases.getDatabase(project.get().getGroupId(), config);

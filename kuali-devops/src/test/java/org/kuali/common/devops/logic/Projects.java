@@ -18,8 +18,7 @@ import com.google.common.collect.Lists;
 
 public class Projects extends Examiner {
 
-	public static Optional<Project> getProject(String fqdn) {
-		Map<String, String> manifest = Manifests.getManifest(fqdn);
+	public static Optional<Project> getProject(String fqdn, Map<String, String> manifest) {
 		Properties properties = getProjectProperties(fqdn, manifest);
 		if (properties.getProperty("project.artifactId") == null) {
 			return Optional.absent();

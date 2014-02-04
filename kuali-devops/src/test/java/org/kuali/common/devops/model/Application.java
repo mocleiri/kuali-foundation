@@ -3,6 +3,7 @@ package org.kuali.common.devops.model;
 import java.util.Map;
 import java.util.Properties;
 
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.project.model.ImmutableProject;
 import org.kuali.common.util.project.model.Project;
@@ -10,7 +11,6 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 
 @IdiotProofImmutable
 public final class Application {
@@ -29,8 +29,8 @@ public final class Application {
 		this.scm = builder.scm;
 	}
 
-	public static Application create(Project project, Properties config, Optional<Database> database, Optional<Scm> scm) {
-		return builder().project(project).configuration(config).database(database).scm(scm).build();
+	public static Application create(Project project, Properties manifest, Properties config, Optional<Database> database, Optional<Scm> scm) {
+		return builder().project(project).manifest(manifest).configuration(config).database(database).scm(scm).build();
 	}
 
 	public static Builder builder() {
@@ -60,16 +60,16 @@ public final class Application {
 		}
 
 		public Builder configuration(Properties configuration) {
-			Map<String, String> map = Maps.newHashMap();
-			for (String key : configuration.stringPropertyNames()) {
-				map.put(key, configuration.getProperty(key));
-			}
-			return configuration(map);
+			return configuration(PropertyUtils.convert(configuration));
 		}
 
 		public Builder configuration(Map<String, String> configuration) {
 			this.configuration = configuration;
 			return this;
+		}
+
+		public Builder manifest(Properties manifest) {
+			return manifest(PropertyUtils.convert(manifest));
 		}
 
 		public Builder manifest(Map<String, String> manifest) {
