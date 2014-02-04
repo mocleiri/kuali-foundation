@@ -130,7 +130,7 @@ public class Environments {
 			for (Comparable<C> colKey : colKeys) {
 				Object object = table.get(rowKey, colKey);
 				String value = getTableCellValue(object);
-				sb.append(format("  <td>%s</td>", value));
+				sb.append(format("  <td>%s</td>\n", value));
 			}
 			sb.append(" </tr>\n");
 		}
