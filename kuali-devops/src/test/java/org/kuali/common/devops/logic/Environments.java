@@ -1,7 +1,6 @@
 package org.kuali.common.devops.logic;
 
 import static java.lang.Integer.valueOf;
-import static java.lang.String.format;
 
 import java.util.List;
 import java.util.SortedSet;
@@ -128,7 +127,9 @@ public class Environments {
 		for (Comparable<R> rowKey : rowKeys) {
 			sb.append(" <tr>\n");
 			for (Comparable<C> colKey : colKeys) {
-				sb.append(format("  <td>%s</td>\n", table.get(rowKey, colKey)));
+				sb.append("  <td>\n");
+				sb.append("   " + table.get(rowKey, colKey) + "\n");
+				sb.append("  </td>\n");
 			}
 			sb.append(" </tr>\n");
 		}
