@@ -10,9 +10,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.kuali.common.devops.logic.Exceptions;
+import org.kuali.common.util.Encodings;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.spring.format.CsvStringFormatter;
@@ -21,7 +23,6 @@ import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
@@ -37,7 +38,7 @@ public class Tables {
 
 	public static <T> Table<Integer, String, String> getTableFromCSV(String location) {
 		checkState(!isBlank(location), "'location' cannot be blank");
-		return getTableFromCSV(LocationUtils.readLines(location));
+		return getTableFromCSV(LocationUtils.readLines(location, Encodings.UTF8));
 	}
 
 	public static <T> Table<Integer, String, String> getTableFromCSV(List<String> lines) {
@@ -79,9 +80,9 @@ public class Tables {
 		Table<Integer, String, TableCellDescriptor<String>> table = HashBasedTable.create();
 		Map<String, Field> fields = ReflectionUtils.getFields(type, columns);
 		CsvStringFormatter formatter = CsvStringFormatter.create();
-		List<Integer> rows = Lists.newArrayList(Sets.newTreeSet(data.rowKeySet()));
+		SortedSet<Integer> rows = Sets.newTreeSet(data.rowKeySet());
 		Locale locale = Locale.getDefault();
-		for (int row = 1; row < rows.size(); row++) {
+		for (Integer row : rows) {
 			for (String column : columns) {
 				String string = data.get(row, column);
 				String parsed = formatter.parse(string, locale);
