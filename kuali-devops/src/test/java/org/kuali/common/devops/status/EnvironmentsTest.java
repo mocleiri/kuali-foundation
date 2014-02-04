@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.kuali.common.devops.logic.Environments;
 import org.kuali.common.devops.logic.Environments2;
 import org.kuali.common.devops.model.Environment;
+import org.kuali.common.devops.table.Label;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.Loggers;
 import org.kuali.common.util.validate.Validation;
@@ -30,7 +31,7 @@ public class EnvironmentsTest {
 			SortedMap<String, List<Environment>> maps = Environments2.getEnvironments(true);
 			for (String group : maps.keySet()) {
 				List<Environment> envs = maps.get(group);
-				Table<Integer, Integer, String> table = Environments.getTable(envs);
+				Table<Integer, Label, String> table = Environments.getTable(envs);
 				String html = Environments.html(table);
 				File outputFile = new CanonicalFile(HTML_DIR, group + ".htm");
 				FileUtils.write(outputFile, html);
