@@ -37,12 +37,10 @@ public class Environments2 {
 		return builders;
 	}
 
-	protected static Environment.Builder getBuilder(EC2Instance instance, BiMap<String, String> aliases) {
+	protected static Environment.Builder getBuilder(EC2Instance server, BiMap<String, String> aliases) {
 		Map<String, String> cnames = aliases.inverse();
-		String fqdn = cnames.get(instance.getPublicDnsName());
-		Environment.Builder builder = new Environment.Builder();
-		builder.fqdn(fqdn).server(instance);
-		return builder;
+		String fqdn = cnames.get(server.getPublicDnsName());
+		return Environment.builder().fqdn(fqdn).server(server);
 	}
 
 	protected static List<EC2Instance> getDeployServers(List<EC2Instance> instances) {

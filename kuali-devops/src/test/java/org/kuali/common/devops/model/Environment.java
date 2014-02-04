@@ -39,18 +39,12 @@ public final class Environment implements Comparable<Environment> {
 
 	public static class Builder extends ValidatingBuilder<Environment> {
 
-		private String group;
 		private String name;
 		private String fqdn;
 		private EC2Instance server;
 		private Tomcat tomcat;
 		private String java;
 		private Optional<Application> application = Optional.absent();
-
-		public Builder group(String group) {
-			this.group = group;
-			return this;
-		}
 
 		public Builder name(String name) {
 			this.name = name;
@@ -85,14 +79,6 @@ public final class Environment implements Comparable<Environment> {
 		@Override
 		public Environment getInstance() {
 			return new Environment(this);
-		}
-
-		public String getGroup() {
-			return group;
-		}
-
-		public void setGroup(String group) {
-			this.group = group;
 		}
 
 		public String getName() {
