@@ -16,6 +16,7 @@ import com.google.common.collect.Maps;
 public final class Application {
 
 	private final ImmutableProject project;
+	private final ImmutableMap<String, String> manifest;
 	private final ImmutableMap<String, String> configuration;
 	private final Optional<Database> database;
 	private final Optional<Scm> scm;
@@ -23,6 +24,7 @@ public final class Application {
 	private Application(Builder builder) {
 		this.project = ImmutableProject.copyOf(builder.project);
 		this.configuration = ImmutableMap.copyOf(builder.configuration);
+		this.manifest = ImmutableMap.copyOf(builder.manifest);
 		this.database = builder.database;
 		this.scm = builder.scm;
 	}
@@ -39,6 +41,7 @@ public final class Application {
 
 		private Project project;
 		private Map<String, String> configuration;
+		private Map<String, String> manifest;
 		private Optional<Database> database;
 		private Optional<Scm> scm;
 
@@ -66,6 +69,11 @@ public final class Application {
 
 		public Builder configuration(Map<String, String> configuration) {
 			this.configuration = configuration;
+			return this;
+		}
+
+		public Builder manifest(Map<String, String> manifest) {
+			this.manifest = manifest;
 			return this;
 		}
 
@@ -130,5 +138,9 @@ public final class Application {
 
 	public Optional<Scm> getScm() {
 		return scm;
+	}
+
+	public ImmutableMap<String, String> getManifest() {
+		return manifest;
 	}
 }

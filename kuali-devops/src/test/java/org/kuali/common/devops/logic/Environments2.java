@@ -7,6 +7,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.rightPad;
 import static org.kuali.common.util.FormatUtils.getTime;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -14,11 +15,15 @@ import java.util.SortedMap;
 
 import org.kuali.common.devops.model.EC2Instance;
 import org.kuali.common.devops.model.Environment;
+import org.kuali.common.devops.model.Tomcat;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.Loggers;
 import org.slf4j.Logger;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.BiMap;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
@@ -26,6 +31,7 @@ public class Environments2 {
 
 	private static final String DEPLOY_SERVER_PREFIX = "env";
 	private static final Logger logger = Loggers.make();
+	private static final File CACHE_DIR = new CanonicalFile("./target/envs/data");
 
 	public static SortedMap<String, List<Environment>> getEnvironments(boolean refresh) {
 		SortedMap<String, List<Environment.Builder>> builders = getBuilders(refresh);
@@ -40,6 +46,32 @@ public class Environments2 {
 			map.put(group, envs);
 		}
 		return map;
+	}
+
+	protected static void store(String group, List<Environment> envs) {
+		File csv = new CanonicalFile(CACHE_DIR, group + ".txt");
+
+	}
+
+	protected static List<String> getTokens(Environment env) {
+		List<String> tokens = Lists.newArrayList();
+		tokens.add(env.getName());
+		tokens.add(env.getFqdn());
+		tokens.add(env.getJava().orNull());
+		tokens.addAll(getTokens(env.getTomcat()));
+		return tokens;
+	}
+
+	protected static List<String> getTokens(Optional<Tomcat> optional) {
+		if (optional.isPresent()) {
+			Tomcat tomcat = optional.get();
+			return ImmutableList.of(tomcat.getVersion(), tomcat.getStartupTime() + "");
+		} else {
+			List<String> list = Lists.newArrayList();
+			list.add(null);
+			list.add(null);
+			return list;
+		}
 	}
 
 	protected static SortedMap<String, List<Environment.Builder>> getBuilders(boolean refresh) {
