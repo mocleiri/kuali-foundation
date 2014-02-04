@@ -18,6 +18,7 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
@@ -28,9 +29,9 @@ public class Environments {
 		Table<Integer, Integer, String> table = HashBasedTable.create();
 		for (Integer row = 0; row < envs.size(); row++) {
 			Environment env = envs.get(row);
-			table.put(row, valueOf(0), env.getName());
-			table.put(row, valueOf(1), env.getFqdn());
-			table.put(row, valueOf(2), env.getJava().isPresent() ? env.getJava().get() : "na");
+			String java = env.getJava().isPresent() ? env.getJava().get() : "na";
+			List<String> data = ImmutableList.of(env.getName(), env.getFqdn(), java);
+			addRow(table, data);
 		}
 		return table;
 	}
@@ -83,6 +84,13 @@ public class Environments {
 			uptime = uptime.substring(0, pos) + uom;
 		}
 		return uptime;
+	}
+
+	protected static void addRow(Table<Integer, Integer, String> table, List<String> strings) {
+		Integer row = table.rowKeySet().size();
+		for (Integer column = 0; column < strings.size(); column++) {
+			table.put(row, column, strings.get(column));
+		}
 	}
 
 	protected static void addRow(Table<Integer, Integer, Object> table, Object... objects) {
