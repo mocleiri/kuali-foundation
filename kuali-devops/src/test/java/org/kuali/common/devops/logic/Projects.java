@@ -37,11 +37,11 @@ public class Projects extends Examiner {
 			Optional<String> url = getScmUrl(manifest);
 			Optional<String> revision = Optional.of(manifest.get("SVN-Revision"));
 			if (revision.isPresent() && url.isPresent()) {
-				properties.setProperty("project.scm.url", url.get());
-				properties.setProperty("project.scm.revision", revision.get());
+				properties.setProperty(SCM_URL_KEY, url.get());
+				properties.setProperty(SCM_REVISION_KEY, revision.get());
 			} else {
-				properties.remove("project.scm.url");
-				properties.remove("project.scm.revision");
+				properties.remove(SCM_URL_KEY);
+				properties.remove(SCM_REVISION_KEY);
 			}
 			return properties;
 		}
@@ -99,7 +99,7 @@ public class Projects extends Examiner {
 		if (!LocationUtils.exists(url)) {
 			return Optional.absent();
 		}
-		return Optional.of("scm:svn:" + url);
+		return Optional.of(url);
 	}
 
 }

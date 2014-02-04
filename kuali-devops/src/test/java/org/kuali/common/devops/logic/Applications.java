@@ -30,8 +30,8 @@ public class Applications extends Examiner {
 	}
 
 	protected static Optional<Scm> getScm(Properties properties) {
-		Optional<String> url = Optional.fromNullable(properties.getProperty("project.scm.url"));
-		Optional<String> revision = Optional.fromNullable(properties.getProperty("project.scm.revision"));
+		Optional<String> url = Optional.fromNullable(properties.getProperty(SCM_URL_KEY));
+		Optional<String> revision = Optional.fromNullable(properties.getProperty(SCM_REVISION_KEY));
 		if (url.isPresent() && revision.isPresent()) {
 			return Optional.of(Scm.create(url.get(), revision.get()));
 		} else {

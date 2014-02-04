@@ -16,6 +16,8 @@ public class Examiner {
 
 	protected static final String PROTOCOL = "http://";
 	private static final Logger logger = Loggers.make();
+	protected static final String SCM_URL_KEY = "project.scm.url";
+	protected static final String SCM_REVISION_KEY = "project.scm.revision";
 
 	public static Optional<String> getJavaVersion(String fqdn) {
 		return getSystemProperty(fqdn, "java.version");
