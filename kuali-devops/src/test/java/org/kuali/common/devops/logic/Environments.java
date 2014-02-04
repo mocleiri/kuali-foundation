@@ -4,6 +4,8 @@ import static java.lang.Integer.valueOf;
 import static java.lang.System.currentTimeMillis;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
@@ -33,6 +35,7 @@ import com.google.common.collect.Table;
 public class Environments {
 
 	private static final NumberFormat AGE = getAgeFormatter();
+	private static final SimpleDateFormat BUILD = new SimpleDateFormat("yyyy-MM-dd HH:mm z");
 
 	public static Table<Integer, Label, String> getTable(List<Environment> envs) {
 		Table<Integer, Label, String> table = HashBasedTable.create();
@@ -103,7 +106,7 @@ public class Environments {
 			Database database = app.getDatabase();
 			TableContext context = TableContext.builder().headers(false).border(false).build();
 			Table<Integer, Integer, String> table = HashBasedTable.create();
-			addRow(table, ImmutableList.of(project.getArtifactId() + "::" + project.getVersion()));
+			addRow(table, ImmutableList.of(project.getArtifactId() + "::" + project.getVersion() + "::" + getBuildDate(project)));
 			addRow(table, ImmutableList.of(database.getVendor() + "::" + database.getUsername()));
 			addRow(table, ImmutableList.of(database.getUrl()));
 			String vendor = getScmVendor(project);
@@ -115,6 +118,17 @@ public class Environments {
 				addRow(table, ImmutableList.of(vendor + " : n/a"));
 			}
 			return html(context, table);
+		}
+	}
+
+	protected static String getBuildDate(Project project) {
+		String property = project.getProperties().getProperty("project.build.timestamp.millis");
+		if (property == null) {
+			return "n/a";
+		} else {
+			long millis = Long.parseLong(property);
+			Date date = new Date(millis);
+			return BUILD.format(date);
 		}
 	}
 
