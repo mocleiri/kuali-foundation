@@ -37,7 +37,7 @@ public final class Environment implements Comparable<Environment> {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<Environment> {
+	public static class Builder extends ValidatingBuilder<Environment> implements Comparable<Environment.Builder> {
 
 		private String name;
 		private String fqdn;
@@ -45,6 +45,11 @@ public final class Environment implements Comparable<Environment> {
 		private Tomcat tomcat;
 		private String java;
 		private Optional<Application> application = Optional.absent();
+
+		@Override
+		public int compareTo(Environment.Builder other) {
+			return COMPARATOR.compare(name, other.getName());
+		}
 
 		public Builder name(String name) {
 			this.name = name;

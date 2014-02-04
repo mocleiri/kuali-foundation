@@ -3,6 +3,7 @@ package org.kuali.common.devops.logic;
 import static com.google.common.base.Preconditions.checkState;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
@@ -47,6 +48,7 @@ public class Environments2 {
 			Environment.Builder builder = getBuilder(server, aliases);
 			builders.add(builder);
 		}
+		Collections.sort(builders);
 		return builders;
 	}
 
