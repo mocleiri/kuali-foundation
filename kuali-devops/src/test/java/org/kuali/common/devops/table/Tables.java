@@ -89,7 +89,7 @@ public class Tables {
 				Optional<String> fieldValue = Optional.fromNullable(parsed);
 				Field field = fields.get(column);
 				TableCellDescriptor<String> descriptor = TableCellDescriptor.create(field, fieldValue);
-				table.put(row - 1, column, descriptor);
+				table.put(row, column, descriptor);
 			}
 		}
 		return table;
