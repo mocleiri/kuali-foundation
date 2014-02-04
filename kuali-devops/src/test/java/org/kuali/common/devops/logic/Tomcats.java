@@ -84,9 +84,13 @@ public class Tomcats {
 				}
 				len = in.read(buffer);
 			}
-			return Optional.of(sb.toString());
+			if (sb.length() > 0) {
+				return Optional.of(sb.toString());
+			} else {
+				return Optional.absent();
+			}
 		} catch (IOException e) {
-			logger.warn(String.format("error reading -> [%s]", location));
+			logger.debug(String.format("error reading -> [%s]", location));
 		} finally {
 			IOUtils.closeQuietly(in);
 		}
