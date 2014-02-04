@@ -34,7 +34,6 @@ public class Environments {
 
 	public static Table<Integer, Label, String> getTable(List<Environment> envs) {
 		Table<Integer, Label, String> table = HashBasedTable.create();
-		addRow(table, getRowData(EnvTable.asList()));
 		for (Integer row = 0; row < envs.size(); row++) {
 			addRow(table, getRowData(envs.get(row)));
 		}
