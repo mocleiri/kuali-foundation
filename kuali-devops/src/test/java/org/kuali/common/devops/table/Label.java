@@ -55,7 +55,7 @@ public final class Label implements Comparable<Label> {
 
 	@Override
 	public int compareTo(Label other) {
-		return Double.compare(sequence, other.getSequence());
+		return sequence > other.getSequence() ? 1 : sequence < other.getSequence() ? -1 : 0;
 	}
 
 	@Override
