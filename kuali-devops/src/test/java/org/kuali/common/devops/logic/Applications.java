@@ -6,6 +6,7 @@ import java.util.Properties;
 import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.Database;
 import org.kuali.common.devops.model.Scm;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.log.Loggers;
 import org.kuali.common.util.project.KualiProjectConstants;
 import org.kuali.common.util.project.model.Project;
@@ -25,7 +26,7 @@ public class Applications extends Examiner {
 			Properties config = Applications.getConfig(fqdn, project.get());
 			Optional<Database> database = Databases.getDatabase(project.get().getGroupId(), config);
 			Optional<Scm> scm = getScm(project.get().getProperties());
-			return Optional.of(Application.create(project.get(), config, database, scm));
+			return Optional.of(Application.create(project.get(), PropertyUtils.convert(manifest), config, database, scm));
 		} else {
 			return Optional.absent();
 		}
