@@ -92,6 +92,13 @@ public class Environments {
 		return uptime;
 	}
 
+	protected static void addRow(Table<Integer, Label, String> table, Map<Label, String> map) {
+		Integer row = table.rowKeySet().size();
+		for (Label label : map.keySet()) {
+			table.put(row, label, map.get(label));
+		}
+	}
+
 	protected static void addRow(Table<Integer, Integer, String> table, List<String> strings) {
 		Integer row = table.rowKeySet().size();
 		for (Integer column = 0; column < strings.size(); column++) {
