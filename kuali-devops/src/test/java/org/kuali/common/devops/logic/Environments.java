@@ -1,5 +1,6 @@
 package org.kuali.common.devops.logic;
 
+import static java.lang.Integer.valueOf;
 import static java.lang.String.format;
 
 import java.util.List;
@@ -27,16 +28,9 @@ public class Environments {
 		Table<Integer, Integer, Object> table = HashBasedTable.create();
 		for (int row = 0; row < envs.size(); row++) {
 			Environment env = envs.get(row);
-			Optional<Project> project = getProject(env);
-			Optional<Database> db = getDatabase(env);
-			table.put(Integer.valueOf(row), Integer.valueOf(0), env.getProject());
-			table.put(Integer.valueOf(row), Integer.valueOf(1), env.getId().substring(3));
-			table.put(Integer.valueOf(row), Integer.valueOf(2), env.getFqdn());
-			table.put(Integer.valueOf(row), Integer.valueOf(3), env.getJava());
-			table.put(Integer.valueOf(row), Integer.valueOf(4), env.getType());
-			table.put(Integer.valueOf(row), Integer.valueOf(5), getTable(env.getTomcat()));
-			table.put(Integer.valueOf(row), Integer.valueOf(8), project.isPresent() ? getTable(project.get()) : "na");
-			table.put(Integer.valueOf(row), Integer.valueOf(10), db.isPresent() ? getTable(db.get()) : "na");
+			table.put(valueOf(row), valueOf(0), env.getName());
+			table.put(valueOf(row), valueOf(2), env.getFqdn());
+			table.put(valueOf(row), valueOf(3), env.getJava());
 		}
 		return table;
 	}
@@ -94,7 +88,7 @@ public class Environments {
 	protected static void addRow(Table<Integer, Integer, Object> table, Object... objects) {
 		int row = table.rowKeySet().size();
 		for (int col = 0; col < objects.length; col++) {
-			table.put(Integer.valueOf(row), Integer.valueOf(col), objects[col]);
+			table.put(valueOf(row), valueOf(col), objects[col]);
 		}
 	}
 
