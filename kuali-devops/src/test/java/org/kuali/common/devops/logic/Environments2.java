@@ -52,7 +52,6 @@ public class Environments2 {
 		List<EC2Instance> list = Lists.newArrayList();
 		for (EC2Instance instance : instances) {
 			if (isDeployServer(instance)) {
-				checkState(instance.getPublicDnsName().isPresent(), "no public dns name -> [%s]", instance.getId());
 				list.add(instance);
 			}
 		}
