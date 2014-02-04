@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.lang.StringUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
@@ -13,6 +14,7 @@ import org.kuali.common.util.project.model.Project;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
+import com.google.common.collect.Lists;
 
 public class Projects extends Examiner {
 
@@ -48,15 +50,6 @@ public class Projects extends Examiner {
 				properties.remove(SCM_REVISION_KEY);
 			}
 			return properties;
-		}
-	}
-
-	protected static String getScmRevision(Map<String, String> manifest) {
-		String revision = manifest.get("SVN-Revision");
-		if (revision == null) {
-			return "n/a";
-		} else {
-			return revision;
 		}
 	}
 
@@ -134,7 +127,7 @@ public class Projects extends Examiner {
 		if (url == null) {
 			return Optional.absent();
 		}
-		List<String> tokens = Splitter.on(':').splitToList(url);
+		List<String> tokens = Lists.newArrayList(Splitter.on(':').splitToList(url));
 		tokens.remove(0); // scm
 		tokens.remove(0); // svn
 		String newUrl = Joiner.on(':').join(tokens);
@@ -144,6 +137,15 @@ public class Projects extends Examiner {
 			return Optional.of(newUrl);
 		} else {
 			return Optional.absent();
+		}
+	}
+
+	protected static String getScmRevision(Map<String, String> manifest) {
+		String revision = StringUtils.trimToNull(manifest.get("SVN-Revision"));
+		if (revision == null || revision.indexOf("${") != -1) {
+			return "n/a";
+		} else {
+			return revision;
 		}
 	}
 
