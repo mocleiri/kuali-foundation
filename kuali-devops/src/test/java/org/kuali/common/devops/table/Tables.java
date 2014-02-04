@@ -2,6 +2,7 @@ package org.kuali.common.devops.table;
 
 import static com.google.common.base.Preconditions.checkState;
 import static java.lang.Integer.valueOf;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -28,6 +29,30 @@ public class Tables {
 
 	private static final String CHECK_CSV_LINE_MSG = "line -> %s  expected %s data elements, actual data elements %s";
 	private static final char CSV_SEPARATOR = ',';
+
+	public static <T> Table<Integer, String, String> getTableFromCSV(File file) {
+		return getTableFromCSV(LocationUtils.getCanonicalPath(file));
+	}
+
+	public static <T> Table<Integer, String, String> getTableFromCSV(String location) {
+		checkState(!isBlank(location), "'location' cannot be blank");
+		return getTableFromCSV(LocationUtils.readLines(location));
+	}
+
+	public static <T> Table<Integer, String, String> getTableFromCSV(List<String> lines) {
+		Splitter splitter = Splitter.on(CSV_SEPARATOR);
+		Table<Integer, String, String> table = HashBasedTable.create();
+		List<String> columns = splitter.splitToList(lines.get(0));
+		for (int row = 1; row < lines.size(); row++) {
+			List<String> data = splitter.splitToList(lines.get(row));
+			checkState(data.size() == columns.size(), CHECK_CSV_LINE_MSG, row, columns.size(), data.size());
+			for (int column = 0; column < columns.size(); column++) {
+				String columnName = columns.get(column);
+				table.put(row, columnName, data.get(column));
+			}
+		}
+		return table;
+	}
 
 	public static <T> void addRow(Table<Integer, Integer, T> table, T... elements) {
 		addRow(table, ImmutableList.copyOf(elements));
@@ -64,29 +89,6 @@ public class Tables {
 				String fieldName = headerTokens.get(column);
 				TableCellContext cell = TableCellContext.builder().row(row).column(column).tokens(tokens).build();
 				table.put(row, fieldName, getDescriptor(context, cell));
-			}
-		}
-		return table;
-	}
-
-	public static <T> Table<Integer, String, String> getTableFromCSV(File file) {
-		return getTableFromCSV(LocationUtils.getCanonicalPath(file));
-	}
-
-	public static <T> Table<Integer, String, String> getTableFromCSV(String location) {
-		return getTableFromCSV2(LocationUtils.readLines(location));
-	}
-
-	public static <T> Table<Integer, String, String> getTableFromCSV2(List<String> lines) {
-		Splitter splitter = Splitter.on(CSV_SEPARATOR);
-		Table<Integer, String, String> table = HashBasedTable.create();
-		List<String> columns = splitter.splitToList(lines.get(0));
-		for (int row = 1; row < lines.size(); row++) {
-			List<String> data = splitter.splitToList(lines.get(row));
-			checkState(data.size() == columns.size(), CHECK_CSV_LINE_MSG, row, columns.size(), data.size());
-			for (int column = 0; column < columns.size(); column++) {
-				String columnName = columns.get(column);
-				table.put(row, columnName, data.get(column));
 			}
 		}
 		return table;
