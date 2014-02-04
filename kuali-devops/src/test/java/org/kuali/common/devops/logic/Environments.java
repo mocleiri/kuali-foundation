@@ -80,7 +80,7 @@ public class Environments {
 			}
 			Table<Integer, Integer, String> table = HashBasedTable.create();
 			addRow(table, tomcat.getVersion());
-			addRow(table, "uptime" + uptime);
+			addRow(table, "uptime " + uptime);
 			return html(context, table);
 		}
 	}
