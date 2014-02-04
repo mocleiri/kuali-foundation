@@ -3,6 +3,7 @@ package org.kuali.common.devops.logic;
 import static java.lang.Integer.valueOf;
 
 import java.util.List;
+import java.util.Map;
 import java.util.SortedSet;
 
 import org.apache.commons.lang3.StringUtils;
@@ -10,6 +11,7 @@ import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.Database;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.model.Tomcat;
+import org.kuali.common.devops.table.TableColumn;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.project.model.Project;
 
@@ -17,24 +19,32 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
 
 public class Environments {
 
-	public static Table<Integer, Integer, String> getTable(List<Environment> envs) {
-		Table<Integer, Integer, String> table = HashBasedTable.create();
+	public static Table<Integer, TableColumn, String> getTable(List<Environment> envs) {
+		Table<Integer, TableColumn, String> table = HashBasedTable.create();
 		for (Integer row = 0; row < envs.size(); row++) {
 			addRow(table, getRowData(envs.get(row)));
 		}
 		return table;
 	}
 
-	public static List<String> getRowData(Environment env) {
-		String java = env.getJava().isPresent() ? env.getJava().get() : "na";
-		return ImmutableList.of(env.getName(), env.getFqdn(), java);
+	public static Map<TableColumn, String> getRowData(Environment env) {
+		TableColumn name = TableColumn.create(0, "name");
+		TableColumn fqdn = TableColumn.create(1, "fqdn");
+		TableColumn java = TableColumn.create(2, "java");
+
+		Map<TableColumn, String> map = Maps.newHashMap();
+		map.put(name, env.getName());
+		map.put(fqdn, env.getFqdn());
+		map.put(java, env.getJava().isPresent() ? env.getJava().get() : "na");
+
+		return map;
 	}
 
 	protected static Table<Integer, Integer, ?> getTable(Project project) {
