@@ -270,10 +270,6 @@ public class StatusTest {
 
 	/**
 	 * time format is -> 2014-01-06T21:23:15.299+0000: 0.957: [GC
-	 * 
-	 * @param fqdn
-	 * @param parser
-	 * @return
 	 */
 	protected long getTomcatStartupTime(String fqdn, SimpleDateFormat parser) {
 		Optional<String> string = getTomcatStartupString(fqdn);

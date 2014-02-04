@@ -15,8 +15,8 @@ public final class Environment implements Comparable<Environment> {
 	private final String name;
 	private final String fqdn;
 	private final EC2Instance server;
-	private final Tomcat tomcat;
 	private final String java;
+	private final Tomcat tomcat;
 	private final Optional<Application> application;
 
 	@Override
