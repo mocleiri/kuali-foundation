@@ -9,6 +9,8 @@ import java.util.SortedMap;
 
 import org.kuali.common.devops.model.EC2Instance;
 import org.kuali.common.devops.model.Environment;
+import org.kuali.common.util.log.Loggers;
+import org.slf4j.Logger;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.Lists;
@@ -17,6 +19,7 @@ import com.google.common.collect.Maps;
 public class Environments2 {
 
 	private static final String DEPLOY_SERVER_PREFIX = "env";
+	private static final Logger logger = Loggers.make();
 
 	public static SortedMap<String, List<Environment.Builder>> getBuilders(boolean refresh) {
 		BiMap<String, String> aliases = DNS.getUnambiguousCNAMERecords(refresh);
@@ -25,9 +28,16 @@ public class Environments2 {
 		for (String group : instances.keySet()) {
 			List<EC2Instance> servers = instances.get(group);
 			List<Environment.Builder> builders = getBuilders(servers, aliases);
+			fillIn(builders);
 			map.put(group, builders);
 		}
 		return map;
+	}
+
+	protected static void fillIn(List<Environment.Builder> builders) {
+		for (Environment.Builder builder : builders) {
+			logger.info(String.format("examining -> [%s]", builder.getFqdn()));
+		}
 	}
 
 	protected static List<Environment.Builder> getBuilders(List<EC2Instance> instances, BiMap<String, String> aliases) {
