@@ -45,12 +45,13 @@ public class Environments2 {
 	protected static SortedMap<String, List<Environment.Builder>> getBuilders(boolean refresh) {
 		long start = System.currentTimeMillis();
 		BiMap<String, String> aliases = DNS.getUnambiguousCNAMERecords(refresh);
+		BiMap<String, String> cnames = aliases.inverse();
 		Map<String, List<EC2Instance>> instances = Instances.getInstances(refresh);
 		SortedMap<String, List<Environment.Builder>> map = Maps.newTreeMap();
 		int count = 0;
 		for (String group : instances.keySet()) {
 			List<EC2Instance> servers = instances.get(group);
-			List<Environment.Builder> builders = getBuilders(servers, aliases);
+			List<Environment.Builder> builders = getBuilders(servers, cnames);
 			fillIn(builders);
 			count += builders.size();
 			map.put(group, builders);
@@ -70,19 +71,18 @@ public class Environments2 {
 		}
 	}
 
-	protected static List<Environment.Builder> getBuilders(List<EC2Instance> instances, BiMap<String, String> aliases) {
+	protected static List<Environment.Builder> getBuilders(List<EC2Instance> instances, BiMap<String, String> cnames) {
 		List<EC2Instance> servers = getDeployServers(instances);
 		List<Environment.Builder> builders = Lists.newArrayList();
 		for (EC2Instance server : servers) {
-			Environment.Builder builder = getBuilder(server, aliases);
+			Environment.Builder builder = getBuilder(server, cnames);
 			builders.add(builder);
 		}
 		Collections.sort(builders);
 		return builders;
 	}
 
-	protected static Environment.Builder getBuilder(EC2Instance server, BiMap<String, String> aliases) {
-		Map<String, String> cnames = aliases.inverse();
+	protected static Environment.Builder getBuilder(EC2Instance server, BiMap<String, String> cnames) {
 		String publicDnsName = server.getPublicDnsName().get();
 		String fqdn = cnames.get(publicDnsName);
 		checkState(!isBlank(fqdn), "no fqdn -> [%s]", publicDnsName);
