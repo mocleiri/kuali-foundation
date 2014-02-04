@@ -1,6 +1,7 @@
 package org.kuali.common.devops.logic;
 
 import static java.lang.Integer.valueOf;
+import static java.lang.System.currentTimeMillis;
 
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.SortedSet;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.Database;
+import org.kuali.common.devops.model.EC2Instance;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.model.Tomcat;
 import org.kuali.common.devops.table.Label;
@@ -19,6 +21,7 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -39,7 +42,15 @@ public class Environments {
 		map.put(EnvTable.NAME.getLabel(), env.getName());
 		map.put(EnvTable.FQDN.getLabel(), env.getFqdn());
 		map.put(EnvTable.JAVA.getLabel(), env.getJava().isPresent() ? env.getJava().get() : "na");
+		map.put(EnvTable.SERVER.getLabel(), html(getTable(env.getServer())));
 		return map;
+	}
+
+	public static Table<Integer, Integer, String> getTable(EC2Instance instance) {
+		Table<Integer, Integer, String> table = HashBasedTable.create();
+		addRow(table, ImmutableList.of("type", instance.getType()));
+		addRow(table, ImmutableList.of("age", FormatUtils.getTime(currentTimeMillis() - instance.getLaunchTime())));
+		return table;
 	}
 
 	protected static Table<Integer, Integer, ?> getTable(Project project) {
