@@ -1,10 +1,11 @@
 package org.kuali.common.devops.table;
 
+import org.kuali.common.util.ObjectUtils;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
-public final class TableColumn {
+public final class TableColumn implements Comparable<TableColumn> {
 
 	private final int sequence;
 	private final String label;
@@ -50,6 +51,30 @@ public final class TableColumn {
 
 	public String getLabel() {
 		return label;
+	}
+
+	@Override
+	public int compareTo(TableColumn other) {
+		return Double.compare(sequence, other.getSequence());
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((label == null) ? 0 : label.hashCode());
+		result = prime * result + sequence;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (ObjectUtils.notEqual(this, other)) {
+			return false;
+		} else {
+			TableColumn column = (TableColumn) other;
+			return sequence == column.getSequence() && label.equals(column.getLabel());
+		}
 	}
 
 }
