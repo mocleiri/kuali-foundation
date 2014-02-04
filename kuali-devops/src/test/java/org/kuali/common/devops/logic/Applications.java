@@ -21,7 +21,7 @@ public class Applications extends Examiner {
 		Optional<Project> project = Projects.getProject(fqdn);
 		if (project.isPresent()) {
 			Properties config = Applications.getConfig(fqdn, project.get());
-			Database database = Databases.getDatabase(project.get().getGroupId(), config);
+			Optional<Database> database = Databases.getDatabase(project.get().getGroupId(), config);
 			Optional<Scm> scm = getScm(project.get().getProperties());
 			return Optional.of(Application.create(project.get(), config, database, scm));
 		} else {
