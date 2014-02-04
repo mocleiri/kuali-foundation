@@ -22,12 +22,9 @@ import org.kuali.common.devops.table.TableContext;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.project.model.Project;
 
-import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
-import com.google.common.base.Splitter;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
@@ -141,46 +138,11 @@ public class Environments {
 
 	public static String getServer(EC2Instance instance) {
 		TableContext context = TableContext.builder().headers(false).border(false).build();
-		return html(context, getTable(instance));
-	}
-
-	public static Table<Integer, Integer, String> getTable(EC2Instance instance) {
 		String age = FormatUtils.getTime(currentTimeMillis() - instance.getLaunchTime(), AGE);
 		Table<Integer, Integer, String> table = HashBasedTable.create();
 		addRow(table, ImmutableList.of(instance.getType()));
 		addRow(table, ImmutableList.of("age " + age));
-		return table;
-	}
-
-	protected static Table<Integer, Integer, ?> getTable(Project project) {
-		String revision = project.getProperties().getProperty("project.scm.revision");
-		if (StringUtils.isBlank(revision)) {
-			revision = "na";
-		}
-		String url = project.getProperties().getProperty("project.scm.url");
-		if (StringUtils.isBlank(url) || "na".equals(url)) {
-			url = "na";
-		} else {
-			List<String> tokens = Lists.newArrayList(Splitter.on(':').splitToList(url));
-			tokens.remove(0); // scm
-			tokens.remove(0); // svn
-			url = Joiner.on(':').join(tokens.iterator());
-			url = "<a href=\"" + url + "\">public url</a>";
-		}
-		Table<Integer, Integer, Object> table = HashBasedTable.create();
-		addRow(table, "application", project.getArtifactId());
-		addRow(table, "version", project.getVersion());
-		addRow(table, "scm", url);
-		addRow(table, "revision", revision);
-		return table;
-	}
-
-	protected static Table<Integer, Integer, ?> getTable(Database db) {
-		Table<Integer, Integer, Object> table = HashBasedTable.create();
-		addRow(table, "vendor", db.getVendor());
-		addRow(table, "url", db.getUrl());
-		addRow(table, "username", db.getUsername());
-		return table;
+		return html(context, table);
 	}
 
 	protected static Table<Integer, Integer, ?> getTable(Tomcat tomcat) {
@@ -191,22 +153,15 @@ public class Environments {
 		return table;
 	}
 
-	protected static String getUptime(Tomcat tomcat) {
-		long millis = System.currentTimeMillis() - tomcat.getStartupTime();
-		String uptime = FormatUtils.getTime(millis);
-		int pos = uptime.indexOf('.');
-		if (pos != -1) {
-			String uom = uptime.endsWith("ms") ? "ms" : uptime.substring(uptime.length() - 1);
-			uptime = uptime.substring(0, pos) + uom;
-		}
-		return uptime;
-	}
-
 	protected static void addRow(Table<Integer, Label, String> table, Map<Label, String> map) {
 		Integer row = table.rowKeySet().size();
 		for (Label label : map.keySet()) {
 			table.put(row, label, map.get(label));
 		}
+	}
+
+	protected static void addRow(Table<Integer, Integer, String> table, String string) {
+		addRow(table, ImmutableList.of(string));
 	}
 
 	protected static void addRow(Table<Integer, Integer, String> table, List<String> strings) {
