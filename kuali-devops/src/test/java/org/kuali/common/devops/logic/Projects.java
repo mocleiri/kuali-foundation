@@ -138,6 +138,8 @@ public class Projects extends Examiner {
 		tokens.remove(0); // scm
 		tokens.remove(0); // svn
 		String newUrl = Joiner.on(':').join(tokens);
+
+		// Make sure the location actually exists
 		if (LocationUtils.exists(newUrl)) {
 			return Optional.of(newUrl);
 		} else {
