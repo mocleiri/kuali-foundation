@@ -1,7 +1,10 @@
 package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Preconditions.checkState;
+import static java.lang.String.format;
+import static java.lang.System.currentTimeMillis;
 import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.kuali.common.util.FormatUtils.getTime;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,15 +28,19 @@ public class Environments2 {
 	private static final Logger logger = Loggers.make();
 
 	public static SortedMap<String, List<Environment.Builder>> getBuilders(boolean refresh) {
+		long start = System.currentTimeMillis();
 		BiMap<String, String> aliases = DNS.getUnambiguousCNAMERecords(refresh);
 		Map<String, List<EC2Instance>> instances = Instances.getInstances(refresh);
 		SortedMap<String, List<Environment.Builder>> map = Maps.newTreeMap();
+		int count = 0;
 		for (String group : instances.keySet()) {
 			List<EC2Instance> servers = instances.get(group);
 			List<Environment.Builder> builders = getBuilders(servers, aliases);
 			fillIn(builders);
+			count += builders.size();
 			map.put(group, builders);
 		}
+		logger.info(format("located information on %s environments - %s", count, getTime(currentTimeMillis() - start)));
 		return map;
 	}
 

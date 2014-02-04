@@ -15,8 +15,8 @@ public final class Environment implements Comparable<Environment> {
 	private final String name;
 	private final String fqdn;
 	private final EC2Instance server;
-	private final String java;
-	private final Tomcat tomcat;
+	private final Optional<String> java;
+	private final Optional<Tomcat> tomcat;
 	private final Optional<Application> application;
 
 	@Override
@@ -42,8 +42,8 @@ public final class Environment implements Comparable<Environment> {
 		private String name;
 		private String fqdn;
 		private EC2Instance server;
-		private Tomcat tomcat;
-		private String java;
+		private Optional<Tomcat> tomcat = Optional.absent();
+		private Optional<String> java = Optional.absent();
 		private Optional<Application> application = Optional.absent();
 
 		@Override
@@ -66,13 +66,17 @@ public final class Environment implements Comparable<Environment> {
 			return this;
 		}
 
-		public Builder tomcat(Tomcat tomcat) {
+		public Builder tomcat(Optional<Tomcat> tomcat) {
 			this.tomcat = tomcat;
 			return this;
 		}
 
+		public Builder tomcat(Tomcat tomcat) {
+			return tomcat(Optional.of(tomcat));
+		}
+
 		public Builder java(String java) {
-			this.java = java;
+			this.java = Optional.of(java);
 			return this;
 		}
 
@@ -110,19 +114,11 @@ public final class Environment implements Comparable<Environment> {
 			this.server = server;
 		}
 
-		public Tomcat getTomcat() {
-			return tomcat;
-		}
-
-		public void setTomcat(Tomcat tomcat) {
-			this.tomcat = tomcat;
-		}
-
-		public String getJava() {
+		public Optional<String> getJava() {
 			return java;
 		}
 
-		public void setJava(String java) {
+		public void setJava(Optional<String> java) {
 			this.java = java;
 		}
 
@@ -132,6 +128,14 @@ public final class Environment implements Comparable<Environment> {
 
 		public void setApplication(Optional<Application> application) {
 			this.application = application;
+		}
+
+		public Optional<Tomcat> getTomcat() {
+			return tomcat;
+		}
+
+		public void setTomcat(Optional<Tomcat> tomcat) {
+			this.tomcat = tomcat;
 		}
 
 	}
@@ -148,11 +152,11 @@ public final class Environment implements Comparable<Environment> {
 		return server;
 	}
 
-	public Tomcat getTomcat() {
+	public Optional<Tomcat> getTomcat() {
 		return tomcat;
 	}
 
-	public String getJava() {
+	public Optional<String> getJava() {
 		return java;
 	}
 
