@@ -91,11 +91,11 @@ public class Environments {
 		} else {
 			Application app = optional.get();
 			Project project = app.getProject();
-			Database database = app.getDatabase();
+			Optional<Database> database = app.getDatabase();
 
 			TableContext context = TableContext.builder().headers(false).border(false).build();
 			Table<Integer, Integer, String> table = HashBasedTable.create();
-			
+
 			String buildId = project.getArtifactId() + "::" + project.getVersion() + "::" + getBuildDate(project);
 			String databaseId = getDatabaseId(database);
 			String scm = getScmDisplay(app.getScm(), project);
@@ -103,7 +103,7 @@ public class Environments {
 			addRow(table, buildId);
 			addRow(table, databaseId);
 			addRow(table, scm);
-			
+
 			return html(context, table);
 		}
 	}
@@ -118,7 +118,11 @@ public class Environments {
 		}
 	}
 
-	protected static String getDatabaseId(Database database) {
+	protected static String getDatabaseId(Optional<Database> optional) {
+		if (!optional.isPresent()) {
+			return "n/a";
+		}
+		Database database = optional.get();
 		if (database.getVendor().equals("mysql")) {
 			return database.getUrl();
 		} else {
