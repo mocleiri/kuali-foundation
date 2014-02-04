@@ -41,8 +41,9 @@ public class Tomcats extends Examiner {
 			return Optional.absent();
 		}
 		String s = string.get();
-		int pos = s.indexOf(' ');
-		String time = s.substring(0, pos - 1);
+		String token = ": ";
+		int pos = s.indexOf(token);
+		String time = s.substring(0, pos - token.length());
 		try {
 			Date date = parser.parse(time);
 			return Optional.of(date.getTime());
