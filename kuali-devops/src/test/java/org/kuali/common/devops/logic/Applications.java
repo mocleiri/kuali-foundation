@@ -20,12 +20,13 @@ public class Applications extends Examiner {
 
 	public static Optional<Application> getApplication(String fqdn) {
 		Map<String, String> manifest = Manifests.getManifest(fqdn);
-		Optional<Project> project = Projects.getProject(fqdn, manifest);
-		if (project.isPresent()) {
-			Properties config = Applications.getConfig(fqdn, project.get());
-			Optional<Database> database = Databases.getDatabase(project.get().getGroupId(), config);
-			Optional<Scm> scm = getScm(project.get().getProperties());
-			Application app = Application.builder().project(project.get()).manifest(manifest).configuration(config).database(database).scm(scm).build();
+		Optional<Project> optional = Projects.getProject(fqdn, manifest);
+		if (optional.isPresent()) {
+			Project project = optional.get();
+			Properties config = Applications.getConfig(fqdn, project);
+			Optional<Database> database = Databases.getDatabase(project.getGroupId(), config);
+			Optional<Scm> scm = getScm(project.getProperties());
+			Application app = Application.builder().project(project).manifest(manifest).configuration(config).database(database).scm(scm).build();
 			return Optional.of(app);
 		} else {
 			return Optional.absent();
