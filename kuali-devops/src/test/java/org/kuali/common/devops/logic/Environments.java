@@ -36,9 +36,9 @@ public class Environments {
 
 	public static Map<Label, String> getRowData(Environment env) {
 		Map<Label, String> map = Maps.newHashMap();
-		map.put(EnvTable.NAME.getColumn(), env.getName());
-		map.put(EnvTable.FQDN.getColumn(), env.getFqdn());
-		map.put(EnvTable.JAVA.getColumn(), env.getJava().isPresent() ? env.getJava().get() : "na");
+		map.put(EnvTable.NAME.getLabel(), env.getName());
+		map.put(EnvTable.FQDN.getLabel(), env.getFqdn());
+		map.put(EnvTable.JAVA.getLabel(), env.getJava().isPresent() ? env.getJava().get() : "na");
 		return map;
 	}
 
