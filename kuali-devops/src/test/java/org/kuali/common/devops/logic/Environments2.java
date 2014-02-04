@@ -49,8 +49,7 @@ public class Environments2 {
 	}
 
 	protected static void store(String group, List<Environment> envs) {
-		File csv = new CanonicalFile(CACHE_DIR, group + ".txt");
-
+		new CanonicalFile(CACHE_DIR, group + ".txt");
 	}
 
 	protected static List<String> getTokens(Environment env) {
