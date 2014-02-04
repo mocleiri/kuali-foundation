@@ -62,7 +62,7 @@ public class Tomcats extends Examiner {
 		List<String> lines = Splitter.on('\n').splitToList(gc);
 		for (String line : lines) {
 			if (line.startsWith("201")) { // This will only work for the next 6 years :)
-				return Optional.of(line);
+				return Optional.of(line.trim());
 			}
 		}
 		return Optional.absent();
