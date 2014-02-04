@@ -29,8 +29,8 @@ public class Environments {
 		for (int row = 0; row < envs.size(); row++) {
 			Environment env = envs.get(row);
 			table.put(valueOf(row), valueOf(0), env.getName());
-			table.put(valueOf(row), valueOf(2), env.getFqdn());
-			table.put(valueOf(row), valueOf(3), env.getJava());
+			table.put(valueOf(row), valueOf(1), env.getFqdn());
+			table.put(valueOf(row), valueOf(2), env.getJava());
 		}
 		return table;
 	}
