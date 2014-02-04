@@ -10,6 +10,7 @@ import org.kuali.common.util.Str;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 
@@ -33,17 +34,29 @@ public class Projects extends Examiner {
 			String location = getProjectPropertiesPath(fqdn, bundleSymbolicName.get());
 			Properties properties = PropertyUtils.loadOrCreateSilently(location);
 
-			// Only way to get reliable SVN information is from the manifest
-			Optional<String> url = getScmUrl(manifest);
-			Optional<String> revision = Optional.of(manifest.get("SVN-Revision"));
-			if (revision.isPresent() && url.isPresent()) {
+			// Most reliable way to SVN information is from the manifest
+			Optional<String> url = getScmUrl(manifest, properties);
+			String revision = getScmRevision(manifest);
+
+			if (url.isPresent()) {
+				// Override whatever is in the project properties with what we found
 				properties.setProperty(SCM_URL_KEY, url.get());
-				properties.setProperty(SCM_REVISION_KEY, revision.get());
+				properties.setProperty(SCM_REVISION_KEY, revision);
 			} else {
+				// Remove these 2 properties so nobody can even attempt to display inaccurate SCM info
 				properties.remove(SCM_URL_KEY);
 				properties.remove(SCM_REVISION_KEY);
 			}
 			return properties;
+		}
+	}
+
+	protected static String getScmRevision(Map<String, String> manifest) {
+		String revision = manifest.get("SVN-Revision");
+		if (revision == null) {
+			return "n/a";
+		} else {
+			return revision;
 		}
 	}
 
@@ -88,7 +101,21 @@ public class Projects extends Examiner {
 		return tokens.get(tokens.size() - 1);
 	}
 
-	protected static Optional<String> getScmUrl(Map<String, String> manifest) {
+	protected static Optional<String> getScmUrl(Map<String, String> manifest, Properties properties) {
+		// Most reliable method for getting the url is via MANIFEST.MF
+		Optional<String> url = getScmUrlFromManifest(manifest);
+		if (url.isPresent()) {
+			// If we found one, we are done
+			return url;
+		} else {
+			// Failing that attempt to get it from the project properties
+			// Maven assumes that artifactId == directory name for sub-modules
+			// If that isn't the case, the URL points somewhere that doesn't exist
+			return getScmUrlFromProperties(properties);
+		}
+	}
+
+	protected static Optional<String> getScmUrlFromManifest(Map<String, String> manifest) {
 		String url = manifest.get("SVN-URL");
 		if (url == null) {
 			return Optional.absent();
@@ -100,6 +127,22 @@ public class Projects extends Examiner {
 			return Optional.absent();
 		}
 		return Optional.of(url);
+	}
+
+	protected static Optional<String> getScmUrlFromProperties(Properties properties) {
+		String url = properties.getProperty("project.scm.url");
+		if (url == null) {
+			return Optional.absent();
+		}
+		List<String> tokens = Splitter.on(':').splitToList(url);
+		tokens.remove(0); // scm
+		tokens.remove(0); // svn
+		String newUrl = Joiner.on(':').join(tokens);
+		if (LocationUtils.exists(newUrl)) {
+			return Optional.of(newUrl);
+		} else {
+			return Optional.absent();
+		}
 	}
 
 }
