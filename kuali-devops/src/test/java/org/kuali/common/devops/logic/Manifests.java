@@ -1,5 +1,7 @@
 package org.kuali.common.devops.logic;
 
+import static java.lang.String.format;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
@@ -34,7 +36,7 @@ public class Manifests extends Examiner {
 				map.put(key, value);
 			}
 		} catch (IOException e) {
-			logger.debug(String.format("error getting manifest -> [%s]", location));
+			logger.debug(format("error getting manifest -> [%s]", location));
 		} finally {
 			IOUtils.closeQuietly(in);
 		}
