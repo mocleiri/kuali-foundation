@@ -103,8 +103,8 @@ public class Projects extends Examiner {
 			// If we found one, we are done
 			return url;
 		} else {
-			// Failing that attempt to get it from the project properties
-			// Maven assumes that artifactId == directory name for sub-modules
+			// If MANIFEST.MF fails, try to get it from project.properties
+			// The problem here, is that Maven assumes artifactId == directory name for sub-modules
 			// If that isn't the case, the URL from project.properties points to a non-existent location
 			return getScmUrlFromProperties(properties);
 		}
