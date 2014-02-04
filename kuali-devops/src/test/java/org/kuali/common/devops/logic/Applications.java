@@ -29,11 +29,11 @@ public class Applications extends Examiner {
 			Optional<String> url = getScmUrl(manifest);
 			Optional<String> revision = Optional.of(manifest.get("SVN-Revision"));
 			if (revision.isPresent() && url.isPresent()) {
-				properties.setProperty("project.scm.revision", revision.get());
 				properties.setProperty("project.scm.url", url.get());
+				properties.setProperty("project.scm.revision", revision.get());
 			} else {
-				properties.remove("project.scm.revision");
 				properties.remove("project.scm.url");
+				properties.remove("project.scm.revision");
 			}
 			return properties;
 		}
