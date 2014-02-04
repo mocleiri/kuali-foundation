@@ -38,6 +38,7 @@ public class Tables {
 
 	public static <T> Table<Integer, String, String> getTableFromCSV(String location) {
 		checkState(!isBlank(location), "'location' cannot be blank");
+		checkState(LocationUtils.exists(location), "[%s] does not exist", location);
 		return getTableFromCSV(LocationUtils.readLines(location, Encodings.UTF8));
 	}
 
