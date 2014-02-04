@@ -4,6 +4,10 @@ import java.lang.reflect.Constructor;
 
 public class Exceptions {
 
+	public static IllegalStateException illegalState(Throwable cause) {
+		return new IllegalStateException(cause);
+	}
+
 	public static IllegalStateException illegalState(String msg) {
 		return illegalState(msg, (Object[]) null);
 	}
