@@ -21,7 +21,7 @@ import com.google.common.collect.Table;
 public class EnvironmentsTest {
 
 	private static final Logger logger = Loggers.make();
-	private static final File HTML_DIR = new CanonicalFile("./target/envs");
+	private static final File HTML_DIR = new CanonicalFile("./target/envs/html");
 
 	@Test
 	public void test() {
