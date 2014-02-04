@@ -14,7 +14,7 @@ import com.google.common.collect.ImmutableList;
 
 public class Examiner {
 
-	public static final String PROTOCOL = "http://";
+	protected static final String PROTOCOL = "http://";
 	private static final Logger logger = Loggers.make();
 
 	public static Optional<String> getJavaVersion(String fqdn) {
