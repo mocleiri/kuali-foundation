@@ -40,7 +40,7 @@ public class Databases {
 				return vendor;
 			}
 		}
-		return "na";
+		throw Exceptions.illegalState("could not determine a vendor from url -> [%s]", url);
 	}
 
 }
