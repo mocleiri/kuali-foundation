@@ -8,6 +8,7 @@ import org.kuali.common.util.project.model.ImmutableProject;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
@@ -17,11 +18,13 @@ public final class Application {
 	private final ImmutableProject project;
 	private final ImmutableMap<String, String> configuration;
 	private final Database database;
+	private final Optional<Scm> scm;
 
 	private Application(Builder builder) {
 		this.project = ImmutableProject.copyOf(builder.project);
 		this.configuration = ImmutableMap.copyOf(builder.configuration);
 		this.database = builder.database;
+		this.scm = builder.scm;
 	}
 
 	public static Application create(Project project, Properties config, Database database) {
@@ -37,6 +40,16 @@ public final class Application {
 		private Project project;
 		private Map<String, String> configuration;
 		private Database database;
+		private Optional<Scm> scm;
+
+		public Builder scm(Optional<Scm> scm) {
+			this.scm = scm;
+			return this;
+		}
+
+		public Builder scm(Scm scm) {
+			return scm(Optional.of(scm));
+		}
 
 		public Builder project(Project project) {
 			this.project = project;
@@ -89,6 +102,14 @@ public final class Application {
 		public void setDatabase(Database database) {
 			this.database = database;
 		}
+
+		public Optional<Scm> getScm() {
+			return scm;
+		}
+
+		public void setScm(Optional<Scm> scm) {
+			this.scm = scm;
+		}
 	}
 
 	public Project getProject() {
@@ -101,5 +122,9 @@ public final class Application {
 
 	public Database getDatabase() {
 		return database;
+	}
+
+	public Optional<Scm> getScm() {
+		return scm;
 	}
 }
