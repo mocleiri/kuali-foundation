@@ -11,7 +11,7 @@ import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.Database;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.model.Tomcat;
-import org.kuali.common.devops.table.TableColumn;
+import org.kuali.common.devops.table.Label;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.project.model.Project;
 
@@ -26,24 +26,19 @@ import com.google.common.collect.Table;
 
 public class Environments {
 
-	public static Table<Integer, TableColumn, String> getTable(List<Environment> envs) {
-		Table<Integer, TableColumn, String> table = HashBasedTable.create();
+	public static Table<Integer, Label, String> getTable(List<Environment> envs) {
+		Table<Integer, Label, String> table = HashBasedTable.create();
 		for (Integer row = 0; row < envs.size(); row++) {
 			addRow(table, getRowData(envs.get(row)));
 		}
 		return table;
 	}
 
-	public static Map<TableColumn, String> getRowData(Environment env) {
-		TableColumn name = TableColumn.create(0, "name");
-		TableColumn fqdn = TableColumn.create(1, "fqdn");
-		TableColumn java = TableColumn.create(2, "java");
-
-		Map<TableColumn, String> map = Maps.newHashMap();
-		map.put(name, env.getName());
-		map.put(fqdn, env.getFqdn());
-		map.put(java, env.getJava().isPresent() ? env.getJava().get() : "na");
-
+	public static Map<Label, String> getRowData(Environment env) {
+		Map<Label, String> map = Maps.newHashMap();
+		map.put(EnvTable.NAME.getColumn(), env.getName());
+		map.put(EnvTable.FQDN.getColumn(), env.getFqdn());
+		map.put(EnvTable.JAVA.getColumn(), env.getJava().isPresent() ? env.getJava().get() : "na");
 		return map;
 	}
 

@@ -5,18 +5,18 @@ import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
-public final class TableColumn implements Comparable<Label> {
+public final class Label implements Comparable<Label> {
 
 	private final int sequence;
-	private final String label;
+	private final String text;
 
-	private TableColumn(Builder builder) {
+	private Label(Builder builder) {
 		this.sequence = builder.sequence;
-		this.label = builder.label;
+		this.text = builder.text;
 	}
 
-	public static Label create(int sequence, String label) {
-		return builder().sequence(sequence).label(label).build();
+	public static Label create(int sequence, String text) {
+		return builder().sequence(sequence).text(text).build();
 	}
 
 	public static Builder builder() {
@@ -26,15 +26,15 @@ public final class TableColumn implements Comparable<Label> {
 	public static class Builder extends ValidatingBuilder<Label> {
 
 		private int sequence;
-		private String label;
+		private String text;
 
 		public Builder sequence(int sequence) {
 			this.sequence = sequence;
 			return this;
 		}
 
-		public Builder label(String label) {
-			this.label = label;
+		public Builder text(String text) {
+			this.text = text;
 			return this;
 		}
 
@@ -49,8 +49,8 @@ public final class TableColumn implements Comparable<Label> {
 		return sequence;
 	}
 
-	public String getLabel() {
-		return label;
+	public String getText() {
+		return text;
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public final class TableColumn implements Comparable<Label> {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((label == null) ? 0 : label.hashCode());
+		result = prime * result + ((text == null) ? 0 : text.hashCode());
 		result = prime * result + sequence;
 		return result;
 	}
@@ -73,7 +73,7 @@ public final class TableColumn implements Comparable<Label> {
 			return false;
 		} else {
 			Label column = (Label) other;
-			return sequence == column.getSequence() && label.equals(column.getText());
+			return sequence == column.getSequence() && text.equals(column.getText());
 		}
 	}
 
