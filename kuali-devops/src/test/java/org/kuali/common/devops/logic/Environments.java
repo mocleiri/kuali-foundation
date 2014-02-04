@@ -107,8 +107,7 @@ public class Environments {
 			TableContext context = TableContext.builder().headers(false).border(false).build();
 			Table<Integer, Integer, String> table = HashBasedTable.create();
 			addRow(table, ImmutableList.of(project.getArtifactId() + "::" + project.getVersion() + "::" + getBuildDate(project)));
-			addRow(table, ImmutableList.of(database.getVendor() + "::" + database.getUsername()));
-			addRow(table, ImmutableList.of(database.getUrl()));
+			addRow(table, ImmutableList.of(database.getUsername() + "::" + database.getUrl()));
 			String vendor = getScmVendor(project);
 			if (app.getScm().isPresent()) {
 				Scm scm = app.getScm().get();
