@@ -12,7 +12,6 @@ public final class Environment implements Comparable<Environment> {
 
 	private static final Comparator<String> COMPARATOR = new EnvStringComparator();
 
-	private final String group;
 	private final String name;
 	private final String fqdn;
 	private final EC2Instance server;
@@ -22,22 +21,20 @@ public final class Environment implements Comparable<Environment> {
 
 	@Override
 	public int compareTo(Environment other) {
-		int compare = group.compareTo(other.getGroup());
-		if (compare != 0) {
-			return compare;
-		} else {
-			return COMPARATOR.compare(name, other.getName());
-		}
+		return COMPARATOR.compare(name, other.getName());
 	}
 
 	private Environment(Builder builder) {
-		this.group = builder.group;
 		this.name = builder.name;
 		this.fqdn = builder.fqdn;
 		this.server = builder.server;
 		this.tomcat = builder.tomcat;
 		this.java = builder.java;
 		this.application = builder.application;
+	}
+
+	public static Builder builder() {
+		return new Builder();
 	}
 
 	public static class Builder extends ValidatingBuilder<Environment> {
@@ -146,10 +143,6 @@ public final class Environment implements Comparable<Environment> {
 			this.application = application;
 		}
 
-	}
-
-	public String getGroup() {
-		return group;
 	}
 
 	public String getName() {
