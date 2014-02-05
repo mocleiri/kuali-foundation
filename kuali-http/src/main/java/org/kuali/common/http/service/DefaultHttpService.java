@@ -130,8 +130,15 @@ public class DefaultHttpService implements HttpService {
 	}
 
 	protected boolean isFinishState(HttpContext context, HttpRequestResult rr, long end, int count) {
-		if (context.getMaxResponseBodyBytes())
-		
+		// See if they have set a max retry limit
+		if (context.getMaxRetries().isPresent()) {
+			// If we have hit or exceeded the max retry limit, we are done
+			int maxRetries = context.getMaxRetries().get();
+			if (count >= maxRetries) {
+				return true;
+			}
+		}
+
 		// If we've gone past our max allotted time, we are done
 		if (rr.getStop() > end) {
 			return true;
