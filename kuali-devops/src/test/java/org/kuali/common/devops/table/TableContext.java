@@ -9,12 +9,14 @@ import com.google.common.base.Optional;
 public final class TableContext {
 
 	private final int indent;
-	private final boolean headers;
+	private final boolean columnLabels;
+	private final boolean rowLabels;
 	private final Optional<Integer> border;
 
 	private TableContext(Builder builder) {
 		this.indent = builder.indent;
-		this.headers = builder.headers;
+		this.columnLabels = builder.columnLabels;
+		this.rowLabels = builder.rowLabels;
 		this.border = builder.border;
 	}
 
@@ -24,8 +26,9 @@ public final class TableContext {
 
 	public static class Builder extends ValidatingBuilder<TableContext> {
 
-		private int indent;
-		private boolean headers = true;
+		private int indent = 0;
+		private boolean columnLabels = true;
+		private boolean rowLabels = false;
 		private Optional<Integer> border = Optional.of(1);
 
 		public Builder indent(int indent) {
@@ -33,8 +36,13 @@ public final class TableContext {
 			return this;
 		}
 
-		public Builder headers(boolean headers) {
-			this.headers = headers;
+		public Builder rowLabels(boolean rowLabels) {
+			this.rowLabels = rowLabels;
+			return this;
+		}
+
+		public Builder columnLabels(boolean columnLabels) {
+			this.columnLabels = columnLabels;
 			return this;
 		}
 
@@ -66,12 +74,16 @@ public final class TableContext {
 		return indent;
 	}
 
-	public boolean isHeaders() {
-		return headers;
+	public boolean isColumnLabels() {
+		return columnLabels;
 	}
 
 	public Optional<Integer> getBorder() {
 		return border;
+	}
+
+	public boolean isRowLabels() {
+		return rowLabels;
 	}
 
 }

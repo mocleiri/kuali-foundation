@@ -71,7 +71,7 @@ public class Environments {
 			return "na";
 		} else {
 			Tomcat tomcat = optional.get();
-			TableContext context = TableContext.builder().headers(false).border(false).build();
+			TableContext context = TableContext.builder().columnLabels(false).border(false).build();
 			String uptime = getTime(tomcat.getStartupTime());
 			Table<Integer, Integer, String> table = HashBasedTable.create();
 			addRow(table, tomcat.getVersion());
@@ -96,7 +96,7 @@ public class Environments {
 			Project project = app.getProject();
 			Optional<Database> database = app.getDatabase();
 
-			TableContext context = TableContext.builder().headers(false).border(false).build();
+			TableContext context = TableContext.builder().columnLabels(false).border(false).build();
 			Table<Integer, Integer, String> table = HashBasedTable.create();
 
 			String buildId = project.getArtifactId() + "::" + project.getVersion() + "::" + getBuildDate(project);
@@ -153,7 +153,7 @@ public class Environments {
 	}
 
 	public static String getServer(EC2Instance instance) {
-		TableContext context = TableContext.builder().headers(false).border(false).build();
+		TableContext context = TableContext.builder().columnLabels(false).border(false).build();
 		String age = FormatUtils.getTime(currentTimeMillis() - instance.getLaunchTime(), AGE);
 		Table<Integer, Integer, String> table = HashBasedTable.create();
 		addRow(table, ImmutableList.of(instance.getType()));
@@ -196,7 +196,7 @@ public class Environments {
 	}
 
 	public static <C> String getHeader(TableContext context, SortedSet<Comparable<C>> colKeys, String padding) {
-		if (context.isHeaders()) {
+		if (context.isColumnLabels()) {
 			StringBuilder sb = new StringBuilder();
 			for (Comparable<C> colKey : colKeys) {
 				sb.append(padding + " <th>" + colKey + "</th>");
