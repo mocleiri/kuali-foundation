@@ -3,7 +3,6 @@ package org.kuali.common.devops.logic;
 import static com.google.common.base.Preconditions.checkArgument;
 import static org.apache.commons.lang3.StringUtils.startsWith;
 import static org.kuali.common.util.base.Assertions.assertNotBlank;
-import static org.kuali.common.util.base.Assertions.assertPositive;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,19 +26,10 @@ public class HttpCacher {
 	private static final String PROTOCOL = "http://";
 
 	public static File cache(String url) {
-		return cache(url, Optional.<Integer> absent());
-	}
-
-	public static File cache(String url, int maxBytes) {
 		assertNotBlank(url, "url");
-		assertPositive(maxBytes, "maxBytes");
-		return cache(url, Optional.of(maxBytes));
-	}
-
-	protected static File cache(String url, Optional<Integer> maxBytes) {
 		checkArgument(startsWith(url, "http://"), "[%s] must start with [%s]", url, PROTOCOL);
 		File cacheFile = getCacheFile(url);
-		Optional<String> content = getContent(url, maxBytes);
+		Optional<String> content = getContent(url);
 		cache(cacheFile, content);
 		return cacheFile;
 	}
@@ -62,10 +52,7 @@ public class HttpCacher {
 	}
 
 	protected static Optional<String> getContent(String url) {
-		return getContent(url, Optional.<Integer> absent());
-	}
-
-	protected static Optional<String> getContent(String url, Optional<Integer> maxBytes) {
+		int maxBytes = 50 * 1024;
 		HttpContext context = HttpContext.builder(url).overallTimeout("5s").requestTimeout("5s").quiet(true).maxRetries(0).maxResponseBodyBytes(maxBytes).build();
 		HttpWaitResult result = SERVICE.wait(context);
 		if (result.getStatus().equals(HttpStatus.SUCCESS)) {
