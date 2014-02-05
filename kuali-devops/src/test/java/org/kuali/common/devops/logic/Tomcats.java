@@ -41,7 +41,7 @@ public class Tomcats extends Examiner {
 			return Optional.absent();
 		}
 		String s = string.get();
-		String token = ": "; // A colon followed by a space signifies the end of the string containing the timestamp
+		String token = ": "; // A colon followed by a space signifies the end of the timestamp
 		int pos = s.indexOf(token);
 		String time = s.substring(0, pos);
 		try {
