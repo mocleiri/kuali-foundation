@@ -24,6 +24,7 @@ import java.util.List;
 
 import org.kuali.common.util.Encodings;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public final class HttpContext {
@@ -38,6 +39,7 @@ public final class HttpContext {
 	// If true, no log messages are emitted and timing out before getting a success code does not throw an exception
 	// You are on your own to examine the HttpWaitResult object and figure out what to do from there
 	private final boolean quiet;
+	private final Optional<Integer> maxResponseBodyBytes;
 
 	// If Tomcat is fronted by an Apache web server, and Apache is up and running but Tomcat is still starting, http 503 is returned by Apache
 	// We don't want to fail if we get a 503, just continue waiting
@@ -68,9 +70,19 @@ public final class HttpContext {
 		private int overallTimeoutMillis = getMillisAsInt("30m"); // 30 minutes
 		private String encoding = Encodings.UTF8;
 		private boolean quiet = false;
+		private Optional<Integer> maxResponseBodyBytes = Optional.absent();
 
 		public Builder(String url) {
 			this.url = url;
+		}
+
+		public Builder maxResponseBodyBytes(Optional<Integer> maxResponseBodyBytes) {
+			this.maxResponseBodyBytes = maxResponseBodyBytes;
+			return this;
+		}
+
+		public Builder maxResponseBodyBytes(int maxResponseBodyBytes) {
+			return maxResponseBodyBytes(Optional.of(maxResponseBodyBytes));
 		}
 
 		public Builder quiet(boolean quiet) {
@@ -140,6 +152,10 @@ public final class HttpContext {
 			assertNotBlank(instance.encoding, "encoding");
 			assertNotNull(instance.successCodes, "successCodes");
 			assertNotNull(instance.continueWaitingCodes, "continueWaitingCodes");
+			assertNotNull(instance.maxResponseBodyBytes, "maxResponseBodyBytes");
+			if (instance.maxResponseBodyBytes.isPresent()) {
+				assertPositive(instance.maxResponseBodyBytes.get(), "maxResponseBodyBytes");
+			}
 			assertNotNull(instance.logMsgPrefix, "logMsgPrefix");
 			assertPositive(instance.requestTimeoutMillis, "requestTimeoutMillis");
 			assertPositive(instance.overallTimeoutMillis, "overallTimeoutMillis");
@@ -226,6 +242,7 @@ public final class HttpContext {
 		this.sleepIntervalMillis = builder.sleepIntervalMillis;
 		this.overallTimeoutMillis = builder.overallTimeoutMillis;
 		this.quiet = builder.quiet;
+		this.maxResponseBodyBytes = builder.maxResponseBodyBytes;
 	}
 
 	public String getUrl() {
