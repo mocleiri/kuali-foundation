@@ -17,6 +17,10 @@ package org.kuali.common.util;
 
 import java.util.List;
 
+/**
+ * @deprecated Use org.kuali.common.util.base.Threads instead
+ */
+@Deprecated
 public class ThreadUtils {
 
 	/**
