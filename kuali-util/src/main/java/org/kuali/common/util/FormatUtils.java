@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.base.Exceptions;
 
 /**
  * Format time, bytes, counts, dates, and transfer rates into human friendly form
@@ -155,7 +156,7 @@ public class FormatUtils {
 		if (millis <= Integer.MAX_VALUE) {
 			return millis.intValue();
 		} else {
-			throw new IllegalArgumentException("[" + millis + "] is to large to convert to an integer");
+			throw Exceptions.illegalArg("[%s] is to large to convert to an integer", millis);
 		}
 	}
 
