@@ -34,7 +34,7 @@ public class DefaultHttpServiceTest {
 	@Test
 	public void testUnknownHost() {
 		try {
-			HttpContext context = new HttpContext.Builder("http://blibbity.foomanchu").overallTimeout("3s").requestTimeout("1s").sleepInterval("1s").build();
+			HttpContext context = HttpContext.builder("http://blibbity.foomanchu").overallTimeout("3s").requestTimeout("1s").sleepInterval("1s").build();
 			service.wait(context);
 			Assert.fail("Contacting a non-existent URL returned 200");
 		} catch (Exception e) {
@@ -44,7 +44,7 @@ public class DefaultHttpServiceTest {
 
 	@Test
 	public void testYahoo() {
-		HttpContext context = new HttpContext.Builder("http://www.yahoo.com/").overallTimeout("15s").requestTimeout("10s").sleepInterval("1s").build();
+		HttpContext context = HttpContext.builder("http://www.yahoo.com/").overallTimeout("15s").requestTimeout("10s").sleepInterval("1s").build();
 		service.wait(context);
 	}
 }

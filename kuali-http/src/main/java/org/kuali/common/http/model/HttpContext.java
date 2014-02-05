@@ -64,7 +64,7 @@ public final class HttpContext {
 		private int sleepIntervalMillis = getMillisAsInt("15s"); // 15 seconds
 		private int overallTimeoutMillis = getMillisAsInt("30m"); // 30 minutes
 		private String encoding = Charsets.UTF_8.name();
-		private boolean quiet = true;
+		private boolean quiet = false;
 
 		public Builder(String url) {
 			this.url = url;
