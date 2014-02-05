@@ -99,7 +99,7 @@ public class Environments2 {
 		}
 		Optional<Long> optional = Optional.absent();
 		if (startupTime != null) {
-			optional = Optional.of(Long.parseLong(startupTime));
+			optional = Optional.of(Long.parseLong(startupTime.trim()));
 		}
 		return Optional.of(Tomcat.create(version, optional));
 
