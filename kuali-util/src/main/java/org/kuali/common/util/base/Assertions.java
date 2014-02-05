@@ -19,10 +19,7 @@ public class Assertions {
 	}
 
 	/**
-	 * Ass
-	 * 
-	 * @param arg
-	 * @param name
+	 * Assert that arg is greater than zero. Zero itself does not count as positive.
 	 */
 	public static void assertPositive(int arg, String name) {
 		checkArgument(arg > 0, IS_POSITIVE_MSG, arg, name);
