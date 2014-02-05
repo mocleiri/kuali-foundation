@@ -1,9 +1,12 @@
 package org.kuali.common.devops.logic;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.http.model.HttpStatus;
 import org.kuali.common.http.model.HttpWaitResult;
@@ -19,8 +22,10 @@ public class HttpCacher {
 
 	private static final HttpService SERVICE = new DefaultHttpService();
 	private static final File CACHE_DIR = new CanonicalFile("./target/urls/cache");
+	private static final String PROTOCOL = "http://";
 
 	public static File cache(String url) {
+		checkArgument(StringUtils.startsWith(url, "http://"), "[%s] must start with %s", url, PROTOCOL);
 		File cacheFile = getCacheFile(url);
 		Optional<String> content = getContent(url);
 		cache(cacheFile, content);
@@ -28,7 +33,8 @@ public class HttpCacher {
 	}
 
 	public static File getCacheFile(String url) {
-		return new CanonicalFile(CACHE_DIR, url);
+		String fragment = url.substring(PROTOCOL.length());
+		return new CanonicalFile(CACHE_DIR, fragment);
 	}
 
 	protected static void cache(File file, Optional<String> data) {
