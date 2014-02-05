@@ -20,10 +20,11 @@ public class HttpCacher {
 	private static final HttpService SERVICE = new DefaultHttpService();
 	private static final File CACHE_DIR = new CanonicalFile("./target/http/cache");
 
-	public static void cache(String url) {
+	public static File cache(String url) {
 		File cacheFile = getCacheFile(url);
 		Optional<String> content = getContent(url);
 		cache(cacheFile, content);
+		return cacheFile;
 	}
 
 	public static File getCacheFile(String url) {
