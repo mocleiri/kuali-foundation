@@ -14,6 +14,7 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.log.Loggers;
 import org.slf4j.Logger;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -24,23 +25,33 @@ public class Manifests extends Examiner {
 	public static Map<String, String> getManifest(String fqdn) {
 		String fragment = "/tomcat/webapps/ROOT/META-INF/MANIFEST.MF";
 		String location = PROTOCOL + fqdn + fragment;
-		Map<String, String> map = Maps.newHashMap();
-		InputStream in = null;
-		try {
-			in = LocationUtils.getInputStream(location);
-			Manifest manifest = new Manifest(in);
+		Optional<Manifest> optional = readManifest(location);
+		if (optional.isPresent()) {
+			Manifest manifest = optional.get();
 			Attributes attributes = manifest.getMainAttributes();
+			Map<String, String> map = Maps.newHashMap();
 			SortedSet<String> keys = getKeys(attributes);
 			for (String key : keys) {
 				String value = attributes.getValue(key);
 				map.put(key, value);
 			}
+			return map;
+		} else {
+			return Maps.newHashMap();
+		}
+	}
+
+	protected static Optional<Manifest> readManifest(String location) {
+		InputStream in = null;
+		try {
+			in = LocationUtils.getInputStream(location);
+			return Optional.of(new Manifest(in));
 		} catch (IOException e) {
-			logger.debug(format("error getting manifest -> [%s]", location));
+			logger.debug(format("unexpected io error reading manifest -> [%s]", location));
 		} finally {
 			IOUtils.closeQuietly(in);
 		}
-		return map;
+		return Optional.absent();
 	}
 
 	protected static SortedSet<String> getKeys(Attributes attributes) {
