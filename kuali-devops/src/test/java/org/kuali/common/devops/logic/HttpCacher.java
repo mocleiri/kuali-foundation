@@ -39,6 +39,17 @@ public class HttpCacher {
 		return new CanonicalFile(CACHE_DIR, fragment);
 	}
 
+	protected static Optional<String> getContent(String url) {
+		int maxBytes = 50 * 1024;
+		HttpContext context = HttpContext.builder(url).overallTimeout("5s").requestTimeout("5s").quiet(true).maxRetries(0).maxResponseBodyBytes(maxBytes).build();
+		HttpWaitResult result = SERVICE.wait(context);
+		if (result.getStatus().equals(HttpStatus.SUCCESS)) {
+			return result.getFinalRequestResult().getResponseBody();
+		} else {
+			return Optional.absent();
+		}
+	}
+
 	protected static void cache(File file, Optional<String> data) {
 		try {
 			if (!data.isPresent()) {
@@ -48,17 +59,6 @@ public class HttpCacher {
 			}
 		} catch (IOException e) {
 			throw Exceptions.illegalState("unexpected io error -> %s", file);
-		}
-	}
-
-	protected static Optional<String> getContent(String url) {
-		int maxBytes = 50 * 1024;
-		HttpContext context = HttpContext.builder(url).overallTimeout("5s").requestTimeout("5s").quiet(true).maxRetries(0).maxResponseBodyBytes(maxBytes).build();
-		HttpWaitResult result = SERVICE.wait(context);
-		if (result.getStatus().equals(HttpStatus.SUCCESS)) {
-			return result.getFinalRequestResult().getResponseBody();
-		} else {
-			return Optional.absent();
 		}
 	}
 
