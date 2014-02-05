@@ -49,7 +49,7 @@
     <junit.version>4.11</junit.version>
     <slf4j.version>1.7.5</slf4j.version>
     <!--
-      Do not upgrade this to 3.2.6+ with first sorting out the issue with kuali-maven
+      Do not upgrade this to 3.2.6+ before sorting out the issue with kuali-maven
       and spring-maven-plugin and making sure both of those can be built and released
     -->
     <spring.version>3.2.5.RELEASE</spring.version>
