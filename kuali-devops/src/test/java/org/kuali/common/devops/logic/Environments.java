@@ -8,9 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.SortedSet;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.Database;
 import org.kuali.common.devops.model.EC2Instance;
@@ -26,7 +24,6 @@ import com.google.common.base.Optional;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
 
 public class Environments extends Examiner {
@@ -42,7 +39,7 @@ public class Environments extends Examiner {
 		return table;
 	}
 
-	public static Map<Label, String> getRowData(Environment env) {
+	protected static Map<Label, String> getRowData(Environment env) {
 		String dest = PROTOCOL + env.getFqdn();
 		String href = href(dest, dest);
 		String java = env.getJava().isPresent() ? env.getJava().get() : "na";
@@ -74,7 +71,7 @@ public class Environments extends Examiner {
 		return nf;
 	}
 
-	public static String getTomcat(Optional<Tomcat> optional) {
+	protected static String getTomcat(Optional<Tomcat> optional) {
 		if (!optional.isPresent()) {
 			return "na";
 		} else {
@@ -84,7 +81,7 @@ public class Environments extends Examiner {
 			Table<Integer, Integer, String> table = HashBasedTable.create();
 			addRow(table, tomcat.getVersion());
 			addRow(table, "uptime " + uptime);
-			return html(context, table);
+			return Html.html(context, table);
 		}
 	}
 
@@ -96,7 +93,7 @@ public class Environments extends Examiner {
 		}
 	}
 
-	public static String getApplication(Environment env) {
+	protected static String getApplication(Environment env) {
 		if (!env.getApplication().isPresent()) {
 			return "n/a";
 		} else {
@@ -113,7 +110,7 @@ public class Environments extends Examiner {
 			addRow(table, buildId);
 			addRow(table, databaseId);
 
-			return html(context, table);
+			return Html.html(context, table);
 		}
 	}
 
@@ -164,13 +161,13 @@ public class Environments extends Examiner {
 		return vendor;
 	}
 
-	public static String getServer(EC2Instance instance) {
+	protected static String getServer(EC2Instance instance) {
 		TableContext context = TableContext.builder().columnLabels(false).border(false).build();
 		String age = FormatUtils.getTime(currentTimeMillis() - instance.getLaunchTime(), AGE);
 		Table<Integer, Integer, String> table = HashBasedTable.create();
 		addRow(table, ImmutableList.of(instance.getType()));
 		addRow(table, ImmutableList.of("age " + age));
-		return html(context, table);
+		return Html.html(context, table);
 	}
 
 	protected static void addRow(Table<Integer, Label, String> table, Map<Label, String> map) {
@@ -191,56 +188,4 @@ public class Environments extends Examiner {
 		}
 	}
 
-	public static <R, C> String html(Table<? extends Comparable<R>, ? extends Comparable<C>, String> table) {
-		return html(table, 0);
-	}
-
-	public static <R, C> String html(Table<? extends Comparable<R>, ? extends Comparable<C>, String> table, int indent) {
-		return html(TableContext.builder().indent(indent).build(), table);
-	}
-
-	public static String getBorder(Optional<Integer> border) {
-		if (border.isPresent()) {
-			return "border=\"" + border.get() + "\"";
-		} else {
-			return "";
-		}
-	}
-
-	public static <C> String getHeader(TableContext context, SortedSet<Comparable<C>> colKeys, String padding) {
-		if (context.isColumnLabels()) {
-			StringBuilder sb = new StringBuilder();
-			for (Comparable<C> colKey : colKeys) {
-				sb.append(padding + " <th>" + colKey + "</th>");
-			}
-			return sb.toString();
-		} else {
-			return "";
-		}
-	}
-
-	public static <R, C> String html(TableContext context, Table<? extends Comparable<R>, ? extends Comparable<C>, String> table) {
-		String padding = StringUtils.repeat(" ", context.getIndent());
-		StringBuilder sb = new StringBuilder();
-		sb.append(padding + "<table " + getBorder(context.getBorder()) + ">\n");
-		SortedSet<Comparable<R>> rowKeys = Sets.newTreeSet(table.rowKeySet());
-		SortedSet<Comparable<C>> colKeys = Sets.newTreeSet(table.columnKeySet());
-		sb.append(getHeader(context, colKeys, padding));
-		for (Comparable<R> rowKey : rowKeys) {
-			sb.append(padding + " <tr>\n");
-			if (context.isRowLabels()) {
-				sb.append(padding + "  <td>\n");
-				sb.append(padding + "   " + rowKey.toString() + "\n");
-				sb.append(padding + "  </td>\n");
-			}
-			for (Comparable<C> colKey : colKeys) {
-				sb.append(padding + "  <td>\n");
-				sb.append(padding + "   " + table.get(rowKey, colKey) + "\n");
-				sb.append(padding + "  </td>\n");
-			}
-			sb.append(padding + " </tr>\n");
-		}
-		sb.append(padding + "</table>\n");
-		return sb.toString();
-	}
 }

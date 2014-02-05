@@ -10,6 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.kuali.common.devops.logic.Environments;
 import org.kuali.common.devops.logic.Environments2;
+import org.kuali.common.devops.logic.Html;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.table.Label;
 import org.kuali.common.util.file.CanonicalFile;
@@ -32,7 +33,7 @@ public class EnvironmentsTest {
 			for (String group : maps.keySet()) {
 				List<Environment> envs = maps.get(group);
 				Table<Integer, Label, String> table = Environments.getTable(envs);
-				String html = "<center>" + Environments.html(table) + "</center>";
+				String html = "<center>" + Html.html(table) + "</center>";
 				File outputFile = new CanonicalFile(HTML_DIR, group + ".htm");
 				FileUtils.write(outputFile, html);
 				logger.info(format("created -> %s", outputFile));
