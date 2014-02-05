@@ -8,7 +8,7 @@ import org.kuali.common.http.service.HttpService;
 
 import com.google.common.base.Optional;
 
-public class Http {
+public class HttpCacher {
 
 	private static final HttpService SERVICE = new DefaultHttpService();
 

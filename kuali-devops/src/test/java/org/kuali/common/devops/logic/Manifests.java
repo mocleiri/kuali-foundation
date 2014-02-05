@@ -20,7 +20,7 @@ public class Manifests extends Examiner {
 
 	public static Map<String, String> getManifest(String fqdn) {
 		String url = PROTOCOL + fqdn + MANIFEST_LOCATION;
-		Optional<String> optional = Http.getContent(url);
+		Optional<String> optional = HttpCacher.getContent(url);
 		if (!optional.isPresent()) {
 			return Maps.newHashMap();
 		} else {
