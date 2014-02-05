@@ -91,7 +91,7 @@ public final class HttpWaitResult {
 			assertNotNull(instance.finalRequestResult, "finalRequestResult");
 			assertNotNull(instance.requestResults, "requestResults");
 			assertPositive(instance.start, "start");
-			checkArgument(instance.stop >= instance.start, "%s is less than %s", instance.stop, instance.start);
+			checkArgument(instance.stop >= instance.start, "'stop' cannot be less than 'start' [%s < %s]", instance.stop, instance.start);
 		}
 
 	}
