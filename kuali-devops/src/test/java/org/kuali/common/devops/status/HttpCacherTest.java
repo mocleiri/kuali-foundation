@@ -5,7 +5,7 @@ import org.kuali.common.devops.logic.HttpCacher;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 
-public class HttpTest {
+public class HttpCacherTest {
 
 	private static final Logger logger = LoggerUtils.make();
 
