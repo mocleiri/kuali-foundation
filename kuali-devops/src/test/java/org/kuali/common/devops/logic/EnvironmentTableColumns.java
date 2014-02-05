@@ -2,12 +2,7 @@ package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.List;
-
 import org.kuali.common.devops.table.Label;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 public enum EnvironmentTableColumns {
 
@@ -29,11 +24,4 @@ public enum EnvironmentTableColumns {
 		return label;
 	}
 
-	public static List<Label> asList() {
-		List<Label> labels = Lists.newArrayList();
-		for (EnvironmentTableColumns ev : values()) {
-			labels.add(ev.getLabel());
-		}
-		return ImmutableList.copyOf(labels);
-	}
 }
