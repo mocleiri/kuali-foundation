@@ -15,9 +15,11 @@
  */
 package org.kuali.common.http.model;
 
-import java.util.List;
+import static com.google.common.base.Preconditions.checkArgument;
+import static org.kuali.common.util.base.Assertions.assertNotNull;
+import static org.kuali.common.util.base.Assertions.assertPositive;
 
-import org.kuali.common.util.Assert;
+import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 
@@ -54,7 +56,7 @@ public final class HttpWaitResult {
 		return finalRequestResult;
 	}
 
-	public static class Builder {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<HttpWaitResult> {
 
 		private final HttpStatus status;
 		private final HttpRequestResult finalRequestResult;
@@ -77,12 +79,19 @@ public final class HttpWaitResult {
 			return this;
 		}
 
+		@Override
 		public HttpWaitResult build() {
-			Assert.noNulls(status, finalRequestResult, requestResults);
-			Assert.isTrue(start > 0, "start is negative");
-			Assert.isTrue(stop >= start, "stop is less than start");
-			this.requestResults = ImmutableList.copyOf(requestResults);
-			return new HttpWaitResult(this);
+			HttpWaitResult instance = new HttpWaitResult(this);
+			validate(instance);
+			return instance;
+		}
+
+		private static void validate(HttpWaitResult instance) {
+			assertNotNull(instance.status, "status");
+			assertNotNull(instance.finalRequestResult, "finalRequestResult");
+			assertNotNull(instance.requestResults, "requestResults");
+			assertPositive(instance.start, "start");
+			checkArgument(instance.stop >= instance.start, "%s is less than %s", instance.stop, instance.start);
 		}
 
 	}
