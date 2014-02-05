@@ -181,14 +181,25 @@ public class DefaultHttpService implements HttpService {
 				String content = new String(buffer, 0, length, context.getEncoding());
 				sb.append(content);
 				bytesRead += length;
-				if (bytesRead >= context.getM)
+				if (isMaxBytes(bytesRead, context)) {
+					break;
+				}
 			}
-			return IOUtils.toString(in, encoding);
+			return sb.toString();
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
 			method.releaseConnection();
 			IOUtils.closeQuietly(in);
+		}
+	}
+
+	protected boolean isMaxBytes(int bytesRead, HttpContext context) {
+		if (context.getMaxResponseBodyBytes().isPresent()) {
+			int max = context.getMaxResponseBodyBytes().get();
+			return bytesRead >= max;
+		} else {
+			return false;
 		}
 	}
 
