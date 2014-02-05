@@ -141,7 +141,7 @@ public final class HttpContext {
 		}
 
 		private static final String NOBLANKS = "'%s' cannot be blank";
-		private static final String NONULLS = "'%s' cannot be blank";
+		private static final String NONULLS = "'%s' cannot be null";
 		private static final String POSITIVE_INTEGER = "'%s' must be a positive integer";
 
 	}
