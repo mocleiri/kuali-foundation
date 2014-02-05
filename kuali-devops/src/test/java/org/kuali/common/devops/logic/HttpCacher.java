@@ -26,9 +26,13 @@ public class HttpCacher {
 	private static final File CACHE_DIR = new CanonicalFile("./target/http/cache");
 	private static final String PROTOCOL = "http://";
 
+	public static File cache(String url) {
+		return cache(url, Optional.<Integer> absent());
+	}
+
 	public static File cache(String url, int maxBytes) {
-		assertPositive(maxBytes, "maxBytes");
 		assertNotBlank(url, "url");
+		assertPositive(maxBytes, "maxBytes");
 		return cache(url, Optional.of(maxBytes));
 	}
 
@@ -38,10 +42,6 @@ public class HttpCacher {
 		Optional<String> content = getContent(url, maxBytes);
 		cache(cacheFile, content);
 		return cacheFile;
-	}
-
-	public static File cache(String url) {
-		return cache(url, Optional.<Integer> absent());
 	}
 
 	protected static File getCacheFile(String url) {
