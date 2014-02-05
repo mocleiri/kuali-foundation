@@ -156,7 +156,7 @@ public class FormatUtils {
 		if (millis <= Integer.MAX_VALUE) {
 			return millis.intValue();
 		} else {
-			throw Exceptions.illegalArg("[%s] is to large to convert to an integer", millis);
+			throw Exceptions.illegalArg("[%s] converts to [%s]. max integer value is [%s]", time, millis, Integer.MAX_VALUE);
 		}
 	}
 
