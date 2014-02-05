@@ -22,9 +22,9 @@ import java.util.Properties;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.settings.Settings;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.Dependency;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.RepositoryUtils;
+import org.kuali.common.util.maven.RepositoryUtils;
+import org.kuali.common.util.maven.model.Dependency;
 import org.kuali.common.util.nullify.NullUtils;
 
 /**
@@ -113,13 +113,7 @@ public class MavenAwareUtils {
 	public static List<Dependency> convertToSimplePojos(List<org.apache.maven.model.Dependency> dependencies) {
 		List<Dependency> pojos = new ArrayList<Dependency>();
 		for (org.apache.maven.model.Dependency d : CollectionUtils.toEmptyList(dependencies)) {
-			Dependency pojo = new Dependency();
-			pojo.setGroupId(d.getGroupId());
-			pojo.setArtifactId(d.getArtifactId());
-			pojo.setVersion(d.getVersion());
-			pojo.setClassifier(d.getClassifier());
-			pojo.setType(d.getType());
-			pojo.setScope(d.getScope());
+			Dependency pojo = new Dependency.Builder(d.getGroupId(), d.getArtifactId(), d.getVersion()).classifier(d.getClassifier()).type(d.getType()).scope(d.getScope()).build();
 			pojos.add(pojo);
 		}
 		return pojos;
