@@ -230,6 +230,14 @@ public final class HttpContext {
 			return url;
 		}
 
+		public Optional<Integer> getMaxResponseBodyBytes() {
+			return maxResponseBodyBytes;
+		}
+
+		public void setMaxResponseBodyBytes(Optional<Integer> maxResponseBodyBytes) {
+			this.maxResponseBodyBytes = maxResponseBodyBytes;
+		}
+
 	}
 
 	private HttpContext(Builder builder) {
@@ -279,6 +287,10 @@ public final class HttpContext {
 
 	public boolean isQuiet() {
 		return quiet;
+	}
+
+	public Optional<Integer> getMaxResponseBodyBytes() {
+		return maxResponseBodyBytes;
 	}
 
 }

@@ -157,7 +157,7 @@ public class DefaultHttpService implements HttpService {
 		try {
 			HttpMethod method = new GetMethod(context.getUrl());
 			client.executeMethod(method);
-			String responseBody = getResponseBodyAsString(method, context.getEncoding());
+			String responseBody = getResponseBodyAsString(method, context);
 			int statusCode = method.getStatusCode();
 			String statusText = method.getStatusText();
 			return new HttpRequestResult.Builder(statusText, statusCode, responseBody, start).build();
@@ -166,12 +166,22 @@ public class DefaultHttpService implements HttpService {
 		}
 	}
 
-	protected String getResponseBodyAsString(HttpMethod method, String encoding) {
+	protected String getResponseBodyAsString(HttpMethod method, HttpContext context) {
 		InputStream in = null;
 		try {
 			in = method.getResponseBodyAsStream();
 			if (in == null) {
 				return null;
+			}
+			byte[] buffer = new byte[4096];
+			int length = in.read(buffer);
+			int bytesRead = 0;
+			StringBuilder sb = new StringBuilder();
+			while (length != -1) {
+				String content = new String(buffer, 0, length, context.getEncoding());
+				sb.append(content);
+				bytesRead += length;
+				if (bytesRead >= context.getM)
 			}
 			return IOUtils.toString(in, encoding);
 		} catch (IOException e) {
