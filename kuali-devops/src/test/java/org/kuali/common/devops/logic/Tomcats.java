@@ -85,8 +85,10 @@ public class Tomcats extends Examiner {
 				}
 				len = in.read(buffer);
 			}
-			if (sb.length() > 0) {
-				return Optional.of(sb.toString());
+			String result = sb.toString();
+			String trimmed = result.trim();
+			if (!StringUtils.isBlank(trimmed)) {
+				return Optional.of(trimmed);
 			} else {
 				return Optional.absent();
 			}
