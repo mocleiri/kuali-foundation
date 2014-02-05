@@ -34,10 +34,6 @@ public class Tomcats extends Examiner {
 		return getUrl(fqdn, RELEASE_NOTES_FRAGMENT);
 	}
 
-	protected static String getUrl(String fqdn, String fragment) {
-		return PROTOCOL + fqdn + fragment;
-	}
-
 	public static Optional<Tomcat> getTomcat(String fqdn) {
 		Optional<String> version = getTomcatVersion(fqdn);
 		if (!version.isPresent()) {

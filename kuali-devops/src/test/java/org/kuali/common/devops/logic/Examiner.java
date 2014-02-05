@@ -26,11 +26,15 @@ public class Examiner {
 	protected static final String ENV_JSP_FRAGMENT = "/tomcat/logs/env.jsp";
 
 	public static final String getEnvJspUrl(String fqdn) {
-		return PROTOCOL + fqdn + ENV_JSP_FRAGMENT;
+		return getUrl(fqdn, ENV_JSP_FRAGMENT);
 	}
 
 	public static Optional<String> getJavaVersion(String fqdn) {
 		return getSystemProperty(fqdn, "java.version");
+	}
+
+	protected static String getUrl(String fqdn, String fragment) {
+		return PROTOCOL + fqdn + fragment;
 	}
 
 	public static Optional<String> getSystemProperty(String fqdn, String property) {
