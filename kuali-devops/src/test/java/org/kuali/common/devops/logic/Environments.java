@@ -120,7 +120,7 @@ public class Environments extends Examiner {
 		String vendor = getScmVendor(project);
 		if (optional.isPresent()) {
 			Scm scm = optional.get();
-			return href(scm.getUrl(), vendor + ":revision:" + scm.getRevision());
+			return href(scm.getUrl(), vendor + " :: revision " + scm.getRevision());
 		} else {
 			return vendor + " : n/a";
 		}
