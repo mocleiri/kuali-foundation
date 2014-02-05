@@ -52,7 +52,7 @@ public final class CsvStringFormatter implements Formatter<String> {
 		return new Builder();
 	}
 
-	public static class Builder implements org.kuali.common.util.base.Builder<CsvStringFormatter> {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<CsvStringFormatter> {
 
 		private String nullToken = "${csv.null}";
 		private String emptyToken = "${csv.empty}";

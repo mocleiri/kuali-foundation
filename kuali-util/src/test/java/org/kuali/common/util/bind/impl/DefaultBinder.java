@@ -11,8 +11,8 @@ import java.util.Set;
 import org.kohsuke.MetaInfServices;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.Bind;
-import org.kuali.common.util.bind.api.BindingPrefix;
 import org.kuali.common.util.bind.api.Binder;
+import org.kuali.common.util.bind.api.BindingPrefix;
 import org.kuali.common.util.spring.convert.Conversion;
 import org.kuali.common.util.spring.env.Environments;
 import org.springframework.core.convert.ConversionService;
@@ -61,9 +61,9 @@ public final class DefaultBinder implements Binder {
 		Set<Field> fields = getBindFields(target.getClass());
 		for (Field field : fields) {
 			Class<?> fieldType = field.getType();
-			Class<? extends org.kuali.common.util.base.Builder<?>> builderType = getBuilder(fieldType);
+			Class<? extends org.apache.commons.lang3.builder.Builder<?>> builderType = getBuilder(fieldType);
 			BindingPrefix bind = field.getAnnotation(BindingPrefix.class);
-			org.kuali.common.util.base.Builder<?> builder = (org.kuali.common.util.base.Builder<?>) ReflectionUtils.newInstance(builderType);
+			org.apache.commons.lang3.builder.Builder<?> builder = (org.apache.commons.lang3.builder.Builder<?>) ReflectionUtils.newInstance(builderType);
 			EnvironmentDataBinder binder = new EnvironmentDataBinder(builder, bind);
 			binder.setConversionService(service);
 			binder.bind(environment);
@@ -106,11 +106,11 @@ public final class DefaultBinder implements Binder {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected Class<? extends org.kuali.common.util.base.Builder<?>> getBuilder(Class<?> type) {
+	protected Class<? extends org.apache.commons.lang3.builder.Builder<?>> getBuilder(Class<?> type) {
 		Class<?>[] declaredClasses = type.getDeclaredClasses();
 		for (Class<?> declaredClass : declaredClasses) {
-			if (org.kuali.common.util.base.Builder.class.isAssignableFrom(declaredClass)) {
-				return (Class<? extends org.kuali.common.util.base.Builder<?>>) declaredClass;
+			if (org.apache.commons.lang3.builder.Builder.class.isAssignableFrom(declaredClass)) {
+				return (Class<? extends org.apache.commons.lang3.builder.Builder<?>>) declaredClass;
 			}
 		}
 		checkState(false, "No builder declared in [%s]", type.getCanonicalName());
@@ -151,7 +151,7 @@ public final class DefaultBinder implements Binder {
 		return new Builder();
 	}
 
-	public static final class Builder implements org.kuali.common.util.base.Builder<DefaultBinder> {
+	public static final class Builder implements org.apache.commons.lang3.builder.Builder<DefaultBinder> {
 
 		private Environment environment = Environments.getDefaultEnvironment();
 		private ConversionService service = Conversion.getDefaultConversionService();

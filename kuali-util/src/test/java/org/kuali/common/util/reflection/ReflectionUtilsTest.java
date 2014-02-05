@@ -25,10 +25,10 @@ import java.lang.reflect.TypeVariable;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.builder.Builder;
 import org.junit.Assert;
 import org.junit.Test;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.base.Builder;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 

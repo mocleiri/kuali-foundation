@@ -86,7 +86,7 @@ public final class KeyAssembler implements Assembler<Set<String>> {
 		this.descriptor = builder.descriptor;
 	}
 
-	public static class Builder implements org.kuali.common.util.base.Builder<KeyAssembler> {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<KeyAssembler> {
 
 		private BoundTypeDescriptor descriptor;
 

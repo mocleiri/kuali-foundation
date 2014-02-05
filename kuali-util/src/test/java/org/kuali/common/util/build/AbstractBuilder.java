@@ -4,8 +4,8 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
+import org.apache.commons.lang3.builder.Builder;
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.base.Builder;
 import org.kuali.common.util.env.annotation.EnvIgnore;
 import org.kuali.common.util.validate.Validation;
 

@@ -42,7 +42,7 @@ public final class PrefixFunction implements Function<String, String> {
 		return new Builder(prefix);
 	}
 
-	public static class Builder implements org.kuali.common.util.base.Builder<PrefixFunction> {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<PrefixFunction> {
 
 		// Required
 		private final String prefix;

@@ -69,7 +69,7 @@ public final class AnnotatedFieldAssembler implements Assembler<List<Node<Field>
 		return new Builder(type, annotation);
 	}
 
-	public static class Builder implements org.kuali.common.util.base.Builder<AnnotatedFieldAssembler> {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<AnnotatedFieldAssembler> {
 
 		// Required
 		private final Class<?> type;

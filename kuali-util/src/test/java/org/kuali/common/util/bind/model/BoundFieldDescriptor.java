@@ -30,7 +30,7 @@ public final class BoundFieldDescriptor {
 		this.keys = copyOf(builder.keys);
 	}
 
-	public static class Builder implements org.kuali.common.util.base.Builder<BoundFieldDescriptor> {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<BoundFieldDescriptor> {
 
 		// Required
 		private final Field field;

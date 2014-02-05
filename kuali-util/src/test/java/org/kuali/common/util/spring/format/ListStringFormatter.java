@@ -61,7 +61,7 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 		return new Builder();
 	}
 
-	public static class Builder implements org.kuali.common.util.base.Builder<ListStringFormatter> {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<ListStringFormatter> {
 
 		private char separator = ',';
 		private boolean trim = true;

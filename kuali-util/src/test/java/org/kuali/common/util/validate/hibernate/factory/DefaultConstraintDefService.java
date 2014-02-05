@@ -49,7 +49,7 @@ public final class DefaultConstraintDefService implements ConstraintDefService {
 		return new Builder();
 	}
 
-	public static class Builder implements org.kuali.common.util.base.Builder<DefaultConstraintDefService> {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<DefaultConstraintDefService> {
 
 		private Map<Class<? extends Annotation>, ConstraintDefFactory<? extends ConstraintDef<?, ?>, ?>> factories = getDefaultMappings();
 

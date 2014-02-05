@@ -12,7 +12,7 @@ public class Foo {
 		this.bar = builder.bar;
 	}
 
-	public static class Builder implements org.kuali.common.util.base.Builder<Foo> {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<Foo> {
 
 		private String bar;
 
@@ -33,7 +33,7 @@ public class Foo {
 		}
 	}
 
-	public static class Builder2 extends Builder implements org.kuali.common.util.base.Builder<Foo> {
+	public static class Builder2 extends Builder implements org.apache.commons.lang3.builder.Builder<Foo> {
 	}
 
 }

@@ -24,7 +24,7 @@ public final class FieldDetail {
 		return new Builder(type);
 	}
 
-	public static class Builder implements org.kuali.common.util.base.Builder<FieldDetail> {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<FieldDetail> {
 
 		private final Class<?> type;
 		private Set<Field> set = ImmutableSet.of();
