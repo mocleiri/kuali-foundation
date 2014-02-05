@@ -46,7 +46,9 @@ public class DefaultHttpService implements HttpService {
 	public HttpWaitResult wait(HttpContext context) {
 		HttpWaitResult result = getWaitResult(context);
 		HttpStatus actual = result.getStatus();
-		Assert.isTrue(HttpStatus.SUCCESS.equals(result.getStatus()), "[" + context.getUrl() + "] returned [" + actual + "].");
+		if (!context.isQuiet()) {
+			Assert.isTrue(HttpStatus.SUCCESS.equals(result.getStatus()), "[" + context.getUrl() + "] returned [" + actual + "].");
+		}
 		return result;
 	}
 
@@ -57,35 +59,41 @@ public class DefaultHttpService implements HttpService {
 		long end = start + context.getOverallTimeoutMillis();
 		List<HttpRequestResult> requestResults = new ArrayList<HttpRequestResult>();
 		Object[] args = { context.getLogMsgPrefix(), context.getUrl(), FormatUtils.getTime(context.getOverallTimeoutMillis()) };
-		logger.info("{} - [{}] - [Timeout in {}]", args);
+		if (!context.isQuiet()) {
+			logger.info("{} - [{}] - [Timeout in {}]", args);
+		}
 		for (;;) {
 			HttpRequestResult rr = doRequest(client, context);
 			requestResults.add(rr);
 			if (!isFinishState(context, rr, end)) {
-				logHttpRequestResult(context.getLogMsgPrefix(), rr, context.getUrl(), end);
+				logHttpRequestResult(context.getLogMsgPrefix(), rr, context.getUrl(), end, context.isQuiet());
 				ThreadUtils.sleep(context.getSleepIntervalMillis());
 			} else {
 				HttpStatus status = getResultStatus(context, rr, end);
 				HttpWaitResult waitResult = new HttpWaitResult.Builder(status, rr, start).requestResults(requestResults).build();
-				logWaitResult(waitResult, context.getUrl(), context.getLogMsgPrefix());
+				logWaitResult(waitResult, context.getUrl(), context.getLogMsgPrefix(), context.isQuiet());
 				return waitResult;
 			}
 		}
 	}
 
-	protected void logHttpRequestResult(String logMsgPrefix, HttpRequestResult result, String url, long end) {
+	protected void logHttpRequestResult(String logMsgPrefix, HttpRequestResult result, String url, long end, boolean quiet) {
 		String statusText = getStatusText(result);
 		String timeout = FormatUtils.getTime(end - System.currentTimeMillis());
 		Object[] args = { logMsgPrefix, url, statusText, timeout };
-		logger.info("{} - [{}] - [{}] - [Timeout in {}]", args);
+		if (quiet) {
+			logger.info("{} - [{}] - [{}] - [Timeout in {}]", args);
+		}
 	}
 
-	protected void logWaitResult(HttpWaitResult result, String url, String logMsgPrefix) {
+	protected void logWaitResult(HttpWaitResult result, String url, String logMsgPrefix, boolean quiet) {
 		String status = result.getStatus().toString();
 		String elapsed = FormatUtils.getTime(result.getStop() - result.getStart());
 		String statusText = getStatusText(result.getFinalRequestResult());
 		Object[] args = { logMsgPrefix, url, status, statusText, elapsed };
-		logger.info("{} - [{}] - [{} - {}]  Total time: {}", args);
+		if (!quiet) {
+			logger.info("{} - [{}] - [{} - {}]  Total time: {}", args);
+		}
 	}
 
 	protected String getStatusText(HttpRequestResult result) {
