@@ -15,8 +15,7 @@
  */
 package org.kuali.common.http.service;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.http.model.HttpContext;
