@@ -184,7 +184,7 @@ public class DefaultHttpService implements HttpService {
 			if (in == null) {
 				return null;
 			}
-			byte[] buffer = new byte[4096];
+			byte[] buffer = new byte[1024];
 			int length = in.read(buffer);
 			int bytesRead = 0;
 			StringBuilder sb = new StringBuilder();
