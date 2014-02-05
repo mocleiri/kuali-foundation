@@ -19,6 +19,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.http.model.HttpContext;
+import org.kuali.common.http.model.HttpStatus;
+import org.kuali.common.http.model.HttpWaitResult;
 import org.kuali.common.http.spring.DefaultHttpServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -30,6 +32,13 @@ public class DefaultHttpServiceTest {
 
 	@Autowired
 	HttpService service;
+
+	@Test
+	public void testQuiet() {
+		HttpContext context = HttpContext.builder("http://blibbity.foomanchu").overallTimeout("3s").requestTimeout("1s").sleepInterval("1s").quiet(true).build();
+		HttpWaitResult result = service.wait(context);
+		Assert.assertEquals(HttpStatus.TIMEOUT, result.getStatus());
+	}
 
 	@Test
 	public void testUnknownHost() {
