@@ -29,7 +29,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
 
-public class Environments {
+public class Environments extends Examiner {
 
 	private static final NumberFormat AGE = getAgeFormatter();
 	private static final SimpleDateFormat BUILD = new SimpleDateFormat("yyyy-MM-dd HH:mm z");
@@ -43,15 +43,13 @@ public class Environments {
 	}
 
 	public static Map<Label, String> getRowData(Environment env) {
-		String url = "http://" + env.getFqdn();
 		String java = env.getJava().isPresent() ? env.getJava().get() : "na";
 		Map<Label, String> map = Maps.newHashMap();
 		map.put(EnvironmentTableColumns.NAME.getLabel(), getEnvironmentInteger(env.getName()) + "");
-		map.put(EnvironmentTableColumns.URL.getLabel(), href(url, url));
 		map.put(EnvironmentTableColumns.JAVA.getLabel(), java);
 		map.put(EnvironmentTableColumns.SERVER.getLabel(), getServer(env.getServer()));
 		map.put(EnvironmentTableColumns.TOMCAT.getLabel(), getTomcat(env.getTomcat()));
-		map.put(EnvironmentTableColumns.APP.getLabel(), getApplication(env.getApplication()));
+		map.put(EnvironmentTableColumns.APP.getLabel(), getApplication(env));
 		return map;
 	}
 
@@ -94,11 +92,11 @@ public class Environments {
 		}
 	}
 
-	public static String getApplication(Optional<Application> optional) {
-		if (!optional.isPresent()) {
+	public static String getApplication(Environment env) {
+		if (!env.getApplication().isPresent()) {
 			return "na";
 		} else {
-			Application app = optional.get();
+			Application app = env.getApplication().get();
 			Project project = app.getProject();
 			Optional<Database> database = app.getDatabase();
 
@@ -106,10 +104,11 @@ public class Environments {
 			Table<Integer, Integer, String> table = HashBasedTable.create();
 
 			String buildId = project.getArtifactId() + "::" + project.getVersion() + "::" + getBuildDate(project);
+			String href = href(PROTOCOL + env.getFqdn(), buildId);
 			String databaseId = getDatabaseId(database);
 			String scm = getScmDisplay(app.getScm(), project);
 
-			addRow(table, buildId);
+			addRow(table, href);
 			addRow(table, databaseId);
 			addRow(table, scm);
 
