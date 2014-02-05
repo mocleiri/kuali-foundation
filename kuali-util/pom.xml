@@ -46,7 +46,7 @@
   </developers>
   <properties>
     <kuali.release.arguments>-DskipTests -Pkuali-release</kuali.release.arguments>
-    <spring.version>3.2.5.RELEASE</spring.version>
+    <spring.version>3.2.7.RELEASE</spring.version>
     <junit.version>4.11</junit.version>
     <slf4j.version>1.7.5</slf4j.version>
     <io.version>2.4</io.version>
