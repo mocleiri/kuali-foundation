@@ -35,6 +35,8 @@ public final class HttpContext {
 	private final int sleepIntervalMillis; // Millis to wait in between http requests (15 seconds)
 	private final int overallTimeoutMillis; // Total number of millis to wait before timing out (30 minutes)
 	private final String encoding;
+	// If true, no log messages are emitted and timing out before getting a success code does not throw an exception
+	// You are on your own to examine the HttpWaitResult object and figure out what to do from there
 	private final boolean quiet;
 
 	// If Tomcat is fronted by an Apache web server, and Apache is up and running but Tomcat is still starting, http 503 is returned by Apache
