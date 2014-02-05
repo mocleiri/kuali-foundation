@@ -22,7 +22,8 @@ import static org.kuali.common.util.base.Assertions.assertPositive;
 
 import java.util.List;
 
-import com.google.common.base.Charsets;
+import org.kuali.common.util.Encodings;
+
 import com.google.common.collect.ImmutableList;
 
 public final class HttpContext {
@@ -63,7 +64,7 @@ public final class HttpContext {
 		private int requestTimeoutMillis = getMillisAsInt("15s"); // 15 seconds
 		private int sleepIntervalMillis = getMillisAsInt("15s"); // 15 seconds
 		private int overallTimeoutMillis = getMillisAsInt("30m"); // 30 minutes
-		private String encoding = Charsets.UTF_8.name();
+		private String encoding = Encodings.UTF8;
 		private boolean quiet = false;
 
 		public Builder(String url) {
