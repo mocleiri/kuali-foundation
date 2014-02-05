@@ -15,10 +15,10 @@
  */
 package org.kuali.common.http.model;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
+import static org.kuali.common.util.base.Assertions.assertNotBlank;
+import static org.kuali.common.util.base.Assertions.assertNotNull;
+import static org.kuali.common.util.base.Assertions.assertPositive;
 
 import java.util.List;
 
@@ -133,31 +133,15 @@ public final class HttpContext {
 		}
 
 		private static void validate(HttpContext instance) {
-			checkBlank(instance.url, "url");
-			checkBlank(instance.encoding, "encoding");
-			checkNull(instance.successCodes, "successCodes");
-			checkNull(instance.continueWaitingCodes, "continueWaitingCodes");
-			checkNull(instance.logMsgPrefix, "logMsgPrefix");
-			checkPositive(instance.requestTimeoutMillis, "requestTimeoutMillis");
-			checkPositive(instance.overallTimeoutMillis, "overallTimeoutMillis");
-			checkPositive(instance.sleepIntervalMillis, "sleepIntervalMillis");
+			assertNotBlank(instance.url, "url");
+			assertNotBlank(instance.encoding, "encoding");
+			assertNotNull(instance.successCodes, "successCodes");
+			assertNotNull(instance.continueWaitingCodes, "continueWaitingCodes");
+			assertNotNull(instance.logMsgPrefix, "logMsgPrefix");
+			assertPositive(instance.requestTimeoutMillis, "requestTimeoutMillis");
+			assertPositive(instance.requestTimeoutMillis, "overallTimeoutMillis");
+			assertPositive(instance.requestTimeoutMillis, "sleepIntervalMillis");
 		}
-
-		private static void checkNull(Object arg, String name) {
-			checkNotNull(arg, NONULLS, name);
-		}
-
-		private static void checkPositive(int arg, String name) {
-			checkNotNull(arg, POSITIVE_INTEGER, name);
-		}
-
-		private static void checkBlank(String arg, String name) {
-			checkArgument(!isBlank(arg), NOBLANKS, name);
-		}
-
-		private static final String NOBLANKS = "'%s' cannot be blank";
-		private static final String NONULLS = "'%s' cannot be null";
-		private static final String POSITIVE_INTEGER = "'%s' must be a positive integer";
 
 	}
 
