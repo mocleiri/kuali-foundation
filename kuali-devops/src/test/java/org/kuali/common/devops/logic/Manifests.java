@@ -1,7 +1,5 @@
 package org.kuali.common.devops.logic;
 
-import static java.lang.String.format;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
@@ -45,18 +43,15 @@ public class Manifests extends Examiner {
 		return map;
 	}
 
-	protected static Optional<Manifest> readManifest(String location) {
+	protected static Manifest read(String location) throws IOException {
 		InputStream in = null;
 		try {
 			in = LocationUtils.getInputStream(location);
 			Manifest manifest = new Manifest(in);
-			return Optional.of(manifest);
-		} catch (IOException e) {
-			logger.debug(format("unexpected io error reading manifest -> [%s]", location));
+			return manifest;
 		} finally {
 			IOUtils.closeQuietly(in);
 		}
-		return Optional.absent();
 	}
 
 	protected static SortedSet<String> getKeys(Attributes attributes) {
