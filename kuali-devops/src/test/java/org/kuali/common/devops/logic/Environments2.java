@@ -28,7 +28,6 @@ import org.slf4j.Logger;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.BiMap;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
@@ -77,14 +76,46 @@ public class Environments2 {
 		PropertyUtils.storeSilently(app.getProject().getProperties(), new CanonicalFile(dir, "project.properties"));
 	}
 
-	protected static Application load(File dir) {
+	protected static Environment.Builder getBuilder(File dir) {
+		File cache = new CanonicalFile(dir, "environment.properties");
+		Properties props = PropertyUtils.load(cache);
+		Optional<Application> app = getApplication(dir);
+		return getEnvironment(props, app);
+	}
+
+	protected static Environment.Builder getEnvironment(Properties props, Optional<Application> app) {
+		String name = props.getProperty("env.name");
+		String fqdn = props.getProperty("env.fqdn");
+		Optional<String> java = Optional.fromNullable(props.getProperty("java.version"));
+		Optional<Tomcat> tomcat = getTomcat(props);
+		return Environment.builder().name(name).fqdn(fqdn).tomcat(tomcat).java(java).application(app);
+	}
+
+	protected static Optional<Tomcat> getTomcat(Properties props) {
+		String version = props.getProperty("tomcat.version");
+		String startupTime = props.getProperty("tomcat.startupTime");
+		if (version == null) {
+			return Optional.absent();
+		}
+		Optional<Long> optional = Optional.absent();
+		if (startupTime != null) {
+			optional = Optional.of(Long.parseLong(startupTime));
+		}
+		return Optional.of(Tomcat.create(version, optional));
+
+	}
+
+	protected static Optional<Application> getApplication(File dir) {
 		Properties manifest = PropertyUtils.loadOrCreateSilently(new CanonicalFile(dir, "manifest.properties").getPath());
 		Properties config = PropertyUtils.loadOrCreateSilently(new CanonicalFile(dir, "config.properties").getPath());
 		Properties project = PropertyUtils.loadOrCreateSilently(new CanonicalFile(dir, "project.properties").getPath());
+		if (project.isEmpty()) {
+			return Optional.absent();
+		}
 		Project p = ProjectUtils.getProject(project);
 		Optional<Database> database = Databases.getDatabase(p.getGroupId(), config);
 		Optional<Scm> scm = Applications.getScm(project);
-		return Application.create(p, manifest, config, database, scm);
+		return Optional.of(Application.create(p, manifest, config, database, scm));
 	}
 
 	protected static Properties convert(Environment env) {
@@ -103,18 +134,6 @@ public class Environments2 {
 			}
 		}
 		return props;
-	}
-
-	protected static List<String> getTokens(Optional<Tomcat> optional) {
-		if (optional.isPresent()) {
-			Tomcat tomcat = optional.get();
-			return ImmutableList.of(tomcat.getVersion(), tomcat.getStartupTime() + "");
-		} else {
-			List<String> list = Lists.newArrayList();
-			list.add(null);
-			list.add(null);
-			return list;
-		}
 	}
 
 	protected static SortedMap<String, List<Environment.Builder>> getBuilders(boolean refresh) {

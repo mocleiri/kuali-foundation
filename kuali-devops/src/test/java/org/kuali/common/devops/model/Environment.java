@@ -80,7 +80,11 @@ public final class Environment implements Comparable<Environment> {
 		}
 
 		public Builder java(String java) {
-			this.java = Optional.of(java);
+			return java(Optional.of(java));
+		}
+
+		public Builder java(Optional<String> java) {
+			this.java = java;
 			return this;
 		}
 
