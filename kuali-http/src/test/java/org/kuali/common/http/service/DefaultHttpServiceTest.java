@@ -54,6 +54,7 @@ public class DefaultHttpServiceTest {
 	@Test
 	public void testYahoo() {
 		HttpContext context = HttpContext.builder("http://www.yahoo.com/").overallTimeout("15s").requestTimeout("10s").sleepInterval("1s").build();
-		service.wait(context);
+		HttpWaitResult result = service.wait(context);
+		Assert.assertEquals(HttpStatus.SUCCESS, result.getStatus());
 	}
 }
