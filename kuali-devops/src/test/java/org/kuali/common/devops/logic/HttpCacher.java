@@ -1,12 +1,12 @@
 package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static org.apache.commons.lang3.StringUtils.startsWith;
 
 import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.http.model.HttpStatus;
 import org.kuali.common.http.model.HttpWaitResult;
@@ -25,7 +25,7 @@ public class HttpCacher {
 	private static final String PROTOCOL = "http://";
 
 	public static File cache(String url) {
-		checkArgument(StringUtils.startsWith(url, "http://"), "[%s] must start with [%s]", url, PROTOCOL);
+		checkArgument(startsWith(url, "http://"), "[%s] must start with [%s]", url, PROTOCOL);
 		File cacheFile = getCacheFile(url);
 		Optional<String> content = getContent(url);
 		cache(cacheFile, content);
