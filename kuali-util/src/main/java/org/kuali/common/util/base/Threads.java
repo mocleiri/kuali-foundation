@@ -47,12 +47,12 @@ public class Threads {
 	 * @throws <code>IllegalStateException</code> if any thread gets interrupted.
 	 */
 	public static void join(List<Thread> threads) {
-		try {
-			for (Thread thread : threads) {
+		for (Thread thread : threads) {
+			try {
 				thread.join();
+			} catch (InterruptedException e) {
+				throw Exceptions.illegalState(e, "unexpected thread interruption [id:%s] [name:%s]", thread.getId(), thread.getName());
 			}
-		} catch (InterruptedException e) {
-			throw Exceptions.illegalState(e);
 		}
 	}
 }
