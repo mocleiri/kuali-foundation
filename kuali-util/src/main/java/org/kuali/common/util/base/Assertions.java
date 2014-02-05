@@ -9,6 +9,7 @@ public class Assertions {
 	private static final String NOT_NULL_MSG = "'%s' cannot be null";
 	private static final String NOT_BLANK_MSG = "'%s' cannot be blank";
 	private static final String IS_POSITIVE_MSG = "%s not allowed. '%s' must be positive";
+	private static final String NOT_NEGATIVE_MSG = "%s not allowed. '%s' must not be negative";
 
 	public static <T> T assertNotNull(T arg, String name) {
 		return checkNotNull(arg, NOT_NULL_MSG, name);
@@ -16,6 +17,14 @@ public class Assertions {
 
 	public static String assertNotBlank(String arg, String name) {
 		checkArgument(!isBlank(arg), NOT_BLANK_MSG, name);
+		return arg;
+	}
+
+	/**
+	 * Assert that arg is greater than or equal to zero.
+	 */
+	public static int assertNotNegative(int arg, String name) {
+		checkArgument(arg >= 0, NOT_NEGATIVE_MSG, arg, name);
 		return arg;
 	}
 
