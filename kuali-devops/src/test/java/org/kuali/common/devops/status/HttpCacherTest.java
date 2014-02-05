@@ -1,5 +1,7 @@
 package org.kuali.common.devops.status;
 
+import java.io.File;
+
 import org.junit.Test;
 import org.kuali.common.devops.logic.HttpCacher;
 import org.kuali.common.util.log.LoggerUtils;
@@ -13,7 +15,8 @@ public class HttpCacherTest {
 	public void test() {
 		try {
 			String url = "http://env1.ks.kuali.org/tomcat/logs/env.jsp";
-			HttpCacher.cache(url);
+			File file = HttpCacher.cache(url);
+			logger.info(String.format("file -> %s", file));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
