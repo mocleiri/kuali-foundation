@@ -36,7 +36,7 @@ import org.kuali.common.util.Encodings;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
-import org.kuali.common.util.ThreadUtils;
+import org.kuali.common.util.base.Threads;
 import org.kuali.common.util.property.ImmutableProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -190,7 +190,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	protected void waitForClosed(ChannelExec exec, long millis) {
 		while (!exec.isClosed()) {
-			ThreadUtils.sleep(millis);
+			Threads.sleep(millis);
 		}
 	}
 
