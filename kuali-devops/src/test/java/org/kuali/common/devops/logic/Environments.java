@@ -103,7 +103,7 @@ public class Environments extends Examiner {
 			TableContext context = TableContext.builder().columnLabels(false).border(false).build();
 			Table<Integer, Integer, String> table = HashBasedTable.create();
 
-			String buildId = project.getArtifactId() + "::" + project.getVersion() + "::" + getBuildDate(project);
+			String buildId = project.getArtifactId() + " :: " + project.getVersion() + " :: " + getBuildDate(project);
 			String href = href(PROTOCOL + env.getFqdn(), buildId);
 			String databaseId = getDatabaseId(database);
 			String scm = getScmDisplay(app.getScm(), project);
