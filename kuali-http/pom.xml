@@ -39,7 +39,8 @@
     <junit.version>4.11</junit.version>
     <httpclient.version>3.1</httpclient.version>
     <slf4j.version>1.7.5</slf4j.version>
-    <spring.version>3.2.4.RELEASE</spring.version>
+    <spring.version>3.2.7.RELEASE</spring.version>
+    <kuali-util.version>4.4.9-SNAPSHOT</kuali-util.version>
   </properties>
   <developers>
     <developer>
