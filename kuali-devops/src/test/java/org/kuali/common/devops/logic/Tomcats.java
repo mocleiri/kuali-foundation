@@ -23,6 +23,11 @@ public class Tomcats extends Examiner {
 
 	private static final Logger logger = Loggers.make();
 	private static final SimpleDateFormat PARSER = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
+	private static final String HEAP_FRAGMENT = "/tomcat/logs/heap.log";
+
+	public static String getHeapUrl(String fqdn) {
+		return PROTOCOL + fqdn + HEAP_FRAGMENT;
+	}
 
 	public static Optional<Tomcat> getTomcat(String fqdn) {
 		Optional<String> version = getTomcatVersion(fqdn);
@@ -54,9 +59,7 @@ public class Tomcats extends Examiner {
 	}
 
 	protected static Optional<String> getTomcatStartupString(String fqdn) {
-		String fragment = "/tomcat/logs/heap.log";
-		String location = PROTOCOL + fqdn + fragment;
-		Optional<String> heap = read(location, 4096);
+		Optional<String> heap = read(getHeapUrl(fqdn), 4096);
 		if (!heap.isPresent()) {
 			return Optional.absent();
 		}
