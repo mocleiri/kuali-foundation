@@ -66,7 +66,7 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 		try {
 			PropertyUtils.setProperty(bean, name, value);
 		} catch (Exception e) {
-			throw Exceptions.illegalState("unexpected error setting bean property [%s.%s]", bean.getClass().getCanonicalName(), name);
+			throw Exceptions.illegalState("unexpected error setting bean property [%s.%s=%s]", bean.getClass().getCanonicalName(), name, value);
 		}
 	}
 
