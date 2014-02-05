@@ -34,7 +34,7 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 		SortedSet<Comparable<R>> rowKeys = Sets.newTreeSet(table.rowKeySet());
 		SortedSet<Comparable<C>> colKeys = Sets.newTreeSet(table.columnKeySet());
 		List<V> elements = Lists.newArrayList();
-		org.kuali.common.util.build.Builder<V> builder = ReflectionUtils.newInstance(getBuilderClass(targetType));
+		org.apache.commons.lang3.builder.Builder<V> builder = ReflectionUtils.newInstance(getBuilderClass(targetType));
 		for (Comparable<R> rowKey : rowKeys) {
 			for (Comparable<C> colKey : colKeys) {
 				TableCellDescriptor<String> descriptor = table.get(rowKey, colKey);
@@ -70,19 +70,19 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 		}
 	}
 
-	protected org.kuali.common.util.build.Builder<V> getBuilder(Class<V> targetType) {
+	protected org.apache.commons.lang3.builder.Builder<V> getBuilder(Class<V> targetType) {
 		return ReflectionUtils.newInstance(getBuilderClass(targetType));
 	}
 
 	@SuppressWarnings("unchecked")
-	protected Class<? extends org.kuali.common.util.build.Builder<V>> getBuilderClass(Class<V> targetType) {
+	protected Class<? extends org.apache.commons.lang3.builder.Builder<V>> getBuilderClass(Class<V> targetType) {
 		Class<?>[] declaredClasses = targetType.getDeclaredClasses();
 		for (Class<?> declaredClass : declaredClasses) {
-			if (org.kuali.common.util.build.Builder.class.isAssignableFrom(declaredClass)) {
-				return (Class<? extends org.kuali.common.util.build.Builder<V>>) declaredClass;
+			if (org.apache.commons.lang3.builder.Builder.class.isAssignableFrom(declaredClass)) {
+				return (Class<? extends org.apache.commons.lang3.builder.Builder<V>>) declaredClass;
 			}
 		}
-		Object[] args = { org.kuali.common.util.build.Builder.class.getCanonicalName(), targetType.getCanonicalName() };
+		Object[] args = { org.apache.commons.lang3.builder.Builder.class.getCanonicalName(), targetType.getCanonicalName() };
 		throw Exceptions.illegalState("[%s] is not assignable from any classes declared in [%s]", args);
 	}
 
@@ -101,7 +101,7 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 		return new Builder<R, C, V>();
 	}
 
-	public static class Builder<R, C, V> implements org.kuali.common.util.build.Builder<ToListFunction<R, C, V>> {
+	public static class Builder<R, C, V> implements org.apache.commons.lang3.builder.Builder<ToListFunction<R, C, V>> {
 
 		private Class<V> targetType;
 		private ConversionService converter = Conversion.getDefaultConversionService();

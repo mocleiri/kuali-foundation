@@ -25,7 +25,7 @@ public final class TableCellDescriptor<T> {
 		return new Builder<T>();
 	}
 
-	public static class Builder<T> implements org.kuali.common.util.build.Builder<TableCellDescriptor<T>> {
+	public static class Builder<T> implements org.apache.commons.lang3.builder.Builder<TableCellDescriptor<T>> {
 
 		private Field field;
 		private Optional<T> fieldValue;
