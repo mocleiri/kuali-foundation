@@ -25,10 +25,10 @@ public class Tomcats extends Examiner {
 
 	public static Optional<Tomcat> getTomcat(String fqdn) {
 		Optional<String> version = getTomcatVersion(fqdn);
-		Optional<Long> startup = getTomcatStartupTime(fqdn, PARSER);
 		if (!version.isPresent()) {
 			return Optional.absent();
 		}
+		Optional<Long> startup = getTomcatStartupTime(fqdn, PARSER);
 		return Optional.of(Tomcat.create(version.get(), startup));
 	}
 
