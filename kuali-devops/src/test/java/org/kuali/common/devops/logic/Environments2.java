@@ -47,24 +47,30 @@ public class Environments2 {
 				envs.add(builder.build());
 			}
 			map.put(group, envs);
-			store(group, envs);
+			if (refresh) {
+				store(group, envs);
+			}
 		}
 		return map;
 	}
 
-	protected static File getEnvCacheDir(String group, Environment env) {
+	protected static File getEnvCacheDir(String group, String environment) {
 		File groupDir = new CanonicalFile(CACHE_DIR, group);
-		return new CanonicalFile(groupDir, env.getName());
+		return new CanonicalFile(groupDir, environment);
 	}
 
 	protected static void store(String group, List<Environment> envs) {
 		for (Environment env : envs) {
-			store(env, getEnvCacheDir(group, env));
+			store(group, env, getEnvCacheDir(group, env.getName()));
 		}
 	}
 
-	protected static void store(Environment env, File dir) {
-		PropertyUtils.store(convert(env), new CanonicalFile(dir, "environment.properties"));
+	protected static File getEnvironmentCacheFile(String group, String environment) {
+		return new CanonicalFile(getEnvCacheDir(group, environment), "environment.properties");
+	}
+
+	protected static void store(String group, Environment env, File dir) {
+		PropertyUtils.store(convert(env), getEnvironmentCacheFile(group, env.getName()));
 		if (env.getApplication().isPresent()) {
 			store(env.getApplication().get(), dir);
 		}
@@ -76,19 +82,13 @@ public class Environments2 {
 		PropertyUtils.storeSilently(app.getProject().getProperties(), new CanonicalFile(dir, "project.properties"));
 	}
 
-	protected static Environment.Builder getBuilder(File dir) {
+	protected static void fillIn(Environment.Builder builder, File dir) {
 		File cache = new CanonicalFile(dir, "environment.properties");
 		Properties props = PropertyUtils.load(cache);
 		Optional<Application> app = getApplication(dir);
-		return getEnvironment(props, app);
-	}
-
-	protected static Environment.Builder getEnvironment(Properties props, Optional<Application> app) {
-		String name = props.getProperty("env.name");
-		String fqdn = props.getProperty("env.fqdn");
-		Optional<String> java = Optional.fromNullable(props.getProperty("java.version"));
-		Optional<Tomcat> tomcat = getTomcat(props);
-		return Environment.builder().name(name).fqdn(fqdn).tomcat(tomcat).java(java).application(app);
+		builder.setJava(Optional.fromNullable(props.getProperty("java.version")));
+		builder.setTomcat(getTomcat(props));
+		builder.setApplication(app);
 	}
 
 	protected static Optional<Tomcat> getTomcat(Properties props) {
@@ -146,7 +146,7 @@ public class Environments2 {
 		for (String group : instances.keySet()) {
 			List<EC2Instance> servers = instances.get(group);
 			List<Environment.Builder> builders = getBuilders(servers, cnames);
-			fillIn(builders);
+			fillIn(group, builders, refresh);
 			count += builders.size();
 			map.put(group, builders);
 		}
@@ -154,14 +154,18 @@ public class Environments2 {
 		return map;
 	}
 
-	protected static void fillIn(List<Environment.Builder> builders) {
+	protected static void fillIn(String group, List<Environment.Builder> builders, boolean refresh) {
 		for (Environment.Builder builder : builders) {
-			// long start = System.currentTimeMillis();
-			// System.out.print(rightPad(format("examining -> [%s]", builder.getFqdn()), 45));
-			builder.setJava(Examiner.getJavaVersion(builder.getFqdn()));
-			builder.setTomcat(Tomcats.getTomcat(builder.getFqdn()));
-			builder.setApplication(Applications.getApplication(builder.getFqdn()));
-			// System.out.println(format(" - %s", FormatUtils.getTime(currentTimeMillis() - start)));
+			File cache = getEnvironmentCacheFile(group, builder.getName());
+			boolean query = !cache.exists() || refresh;
+			if (query) {
+				builder.setJava(Examiner.getJavaVersion(builder.getFqdn()));
+				builder.setTomcat(Tomcats.getTomcat(builder.getFqdn()));
+				builder.setApplication(Applications.getApplication(builder.getFqdn()));
+			} else {
+				File dir = getEnvCacheDir(group, builder.getName());
+				fillIn(builder, dir);
+			}
 		}
 	}
 
