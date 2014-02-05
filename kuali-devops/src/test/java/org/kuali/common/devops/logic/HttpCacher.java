@@ -21,7 +21,7 @@ import com.google.common.base.Optional;
 public class HttpCacher {
 
 	private static final HttpService SERVICE = new DefaultHttpService();
-	private static final File CACHE_DIR = new CanonicalFile("./target/urls/cache");
+	private static final File CACHE_DIR = new CanonicalFile("./target/http/cache");
 	private static final String PROTOCOL = "http://";
 
 	public static File cache(String url) {
