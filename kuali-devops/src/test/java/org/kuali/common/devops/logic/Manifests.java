@@ -1,16 +1,14 @@
 package org.kuali.common.devops.logic;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
-import org.apache.commons.io.IOUtils;
-import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.log.Loggers;
-import org.slf4j.Logger;
+import org.kuali.common.util.Encodings;
+import org.kuali.common.util.base.Exceptions;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.Maps;
@@ -18,17 +16,27 @@ import com.google.common.collect.Sets;
 
 public class Manifests extends Examiner {
 
-	private static final Logger logger = Loggers.make();
+	private static final String MANIFEST_LOCATION = "/tomcat/webapps/ROOT/META-INF/MANIFEST.MF";
 
 	public static Map<String, String> getManifest(String fqdn) {
-		String fragment = "/tomcat/webapps/ROOT/META-INF/MANIFEST.MF";
-		String location = PROTOCOL + fqdn + fragment;
-		Optional<Manifest> optional = readManifest(location);
-		if (optional.isPresent()) {
-			Manifest manifest = optional.get();
-			return getMap(manifest);
-		} else {
+		String url = PROTOCOL + fqdn + MANIFEST_LOCATION;
+		Optional<String> optional = Http.getContent(url);
+		if (!optional.isPresent()) {
 			return Maps.newHashMap();
+		} else {
+			String content = optional.get();
+			Manifest manifest = getManifestFromString(content);
+			return getMap(manifest);
+		}
+	}
+
+	protected static Manifest getManifestFromString(String content) {
+		try {
+			ByteArrayInputStream in = new ByteArrayInputStream(content.getBytes(Encodings.UTF8));
+			Manifest manifest = new Manifest(in);
+			return manifest;
+		} catch (IOException e) {
+			throw Exceptions.illegalState(e, "unexpected io error converting string content into a Manifest object. \n\n%s\n\n", content);
 		}
 	}
 
@@ -41,17 +49,6 @@ public class Manifests extends Examiner {
 			map.put(key, value);
 		}
 		return map;
-	}
-
-	protected static Manifest read(String location) throws IOException {
-		InputStream in = null;
-		try {
-			in = LocationUtils.getInputStream(location);
-			Manifest manifest = new Manifest(in);
-			return manifest;
-		} finally {
-			IOUtils.closeQuietly(in);
-		}
 	}
 
 	protected static SortedSet<String> getKeys(Attributes attributes) {
