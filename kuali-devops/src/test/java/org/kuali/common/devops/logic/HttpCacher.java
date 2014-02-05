@@ -2,6 +2,7 @@ package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static org.apache.commons.lang3.StringUtils.startsWith;
+import static org.kuali.common.util.base.Assertions.assertNotBlank;
 import static org.kuali.common.util.base.Assertions.assertPositive;
 
 import java.io.File;
@@ -27,6 +28,7 @@ public class HttpCacher {
 
 	public static File cache(String url, int maxBytes) {
 		assertPositive(maxBytes, "maxBytes");
+		assertNotBlank(url, "url");
 		return cache(url, Optional.of(maxBytes));
 	}
 
