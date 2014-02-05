@@ -10,8 +10,8 @@ package org.kuali.common.util.base;
  * <pre>
  * try {
  *   ...
- * } catch (SomeException e) {
- *   throw Exceptions.illegalArg(e, &quot;[%s] must be between %s and %s&quot; "port", 0, 65535);
+ * } catch (IOException e) {
+ *   throw Exceptions.illegalArg(e, &quot;[%s] does not exist&quot; file);
  * }
  * </pre>
  */
