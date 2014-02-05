@@ -33,7 +33,7 @@ public final class EnvironmentPropertyValues<T> extends MutablePropertyValues {
 		return new Builder<T>(type, bind, env);
 	}
 
-	public static class Builder<T> implements org.kuali.common.util.build.Builder<EnvironmentPropertyValues<T>> {
+	public static class Builder<T> implements org.kuali.common.util.base.Builder<EnvironmentPropertyValues<T>> {
 
 		// Required
 		private final Class<T> type;

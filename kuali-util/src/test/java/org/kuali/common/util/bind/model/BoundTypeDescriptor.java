@@ -28,7 +28,7 @@ public final class BoundTypeDescriptor {
 		return new Builder();
 	}
 
-	public static class Builder implements org.kuali.common.util.build.Builder<BoundTypeDescriptor> {
+	public static class Builder implements org.kuali.common.util.base.Builder<BoundTypeDescriptor> {
 
 		private Class<?> type;
 		private List<Node<Field>> fields;

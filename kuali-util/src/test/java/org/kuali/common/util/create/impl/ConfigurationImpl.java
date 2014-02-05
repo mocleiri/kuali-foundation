@@ -54,7 +54,7 @@ public final class ConfigurationImpl implements KualiCreationConfiguration, Conf
 		return new Builder(state);
 	}
 
-	public static class Builder implements org.kuali.common.util.build.Builder<ConfigurationImpl> {
+	public static class Builder implements org.kuali.common.util.base.Builder<ConfigurationImpl> {
 
 		private final CreationProviderResolver providerResolver;
 		private Validator validator = Validation.getDefaultValidator();

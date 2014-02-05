@@ -61,9 +61,9 @@ public final class DefaultBinder implements Binder {
 		Set<Field> fields = getBindFields(target.getClass());
 		for (Field field : fields) {
 			Class<?> fieldType = field.getType();
-			Class<? extends org.kuali.common.util.build.Builder<?>> builderType = getBuilder(fieldType);
+			Class<? extends org.kuali.common.util.base.Builder<?>> builderType = getBuilder(fieldType);
 			BindingPrefix bind = field.getAnnotation(BindingPrefix.class);
-			org.kuali.common.util.build.Builder<?> builder = (org.kuali.common.util.build.Builder<?>) ReflectionUtils.newInstance(builderType);
+			org.kuali.common.util.base.Builder<?> builder = (org.kuali.common.util.base.Builder<?>) ReflectionUtils.newInstance(builderType);
 			EnvironmentDataBinder binder = new EnvironmentDataBinder(builder, bind);
 			binder.setConversionService(service);
 			binder.bind(environment);
@@ -106,11 +106,11 @@ public final class DefaultBinder implements Binder {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected Class<? extends org.kuali.common.util.build.Builder<?>> getBuilder(Class<?> type) {
+	protected Class<? extends org.kuali.common.util.base.Builder<?>> getBuilder(Class<?> type) {
 		Class<?>[] declaredClasses = type.getDeclaredClasses();
 		for (Class<?> declaredClass : declaredClasses) {
-			if (org.kuali.common.util.build.Builder.class.isAssignableFrom(declaredClass)) {
-				return (Class<? extends org.kuali.common.util.build.Builder<?>>) declaredClass;
+			if (org.kuali.common.util.base.Builder.class.isAssignableFrom(declaredClass)) {
+				return (Class<? extends org.kuali.common.util.base.Builder<?>>) declaredClass;
 			}
 		}
 		checkState(false, "No builder declared in [%s]", type.getCanonicalName());
@@ -151,7 +151,7 @@ public final class DefaultBinder implements Binder {
 		return new Builder();
 	}
 
-	public static final class Builder implements org.kuali.common.util.build.Builder<DefaultBinder> {
+	public static final class Builder implements org.kuali.common.util.base.Builder<DefaultBinder> {
 
 		private Environment environment = Environments.getDefaultEnvironment();
 		private ConversionService service = Conversion.getDefaultConversionService();
