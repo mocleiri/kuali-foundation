@@ -139,8 +139,8 @@ public final class HttpContext {
 			assertNotNull(instance.continueWaitingCodes, "continueWaitingCodes");
 			assertNotNull(instance.logMsgPrefix, "logMsgPrefix");
 			assertPositive(instance.requestTimeoutMillis, "requestTimeoutMillis");
-			assertPositive(instance.requestTimeoutMillis, "overallTimeoutMillis");
-			assertPositive(instance.requestTimeoutMillis, "sleepIntervalMillis");
+			assertPositive(instance.overallTimeoutMillis, "overallTimeoutMillis");
+			assertPositive(instance.sleepIntervalMillis, "sleepIntervalMillis");
 		}
 
 	}
