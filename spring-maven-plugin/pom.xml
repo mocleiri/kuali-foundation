@@ -53,6 +53,7 @@
   <properties>
     <parent.version>${project.parent.version}</parent.version>
     <kuali-maven.version>1.1.4-SNAPSHOT</kuali-maven.version>
+    <kuali-util.version>4.4.9-SNAPSHOT</kuali-util.version>
   </properties>
   <scm>
     <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/spring-maven-plugin</connection>
