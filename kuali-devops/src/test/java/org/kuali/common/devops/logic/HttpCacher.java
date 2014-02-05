@@ -35,7 +35,7 @@ public class HttpCacher {
 	protected static File cache(String url, Optional<Integer> maxBytes) {
 		checkArgument(startsWith(url, "http://"), "[%s] must start with [%s]", url, PROTOCOL);
 		File cacheFile = getCacheFile(url);
-		Optional<String> content = getContent(url);
+		Optional<String> content = getContent(url, maxBytes);
 		cache(cacheFile, content);
 		return cacheFile;
 	}
@@ -61,8 +61,8 @@ public class HttpCacher {
 		}
 	}
 
-	protected static Optional<String> getContent(String url) {
-		HttpContext context = HttpContext.builder(url).overallTimeout("10s").requestTimeout("3s").quiet(true).build();
+	protected static Optional<String> getContent(String url, Optional<Integer> maxBytes) {
+		HttpContext context = HttpContext.builder(url).overallTimeout("5s").requestTimeout("5s").quiet(true).maxRetries(0).maxResponseBodyBytes(maxBytes).build();
 		HttpWaitResult result = SERVICE.wait(context);
 		if (result.getStatus().equals(HttpStatus.SUCCESS)) {
 			return result.getFinalRequestResult().getResponseBody();
