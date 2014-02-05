@@ -84,7 +84,7 @@ public class Environments2 {
 
 	protected static void fillIn(String group, Environment.Builder builder, File dir) {
 		File cache = getEnvironmentCacheFile(group, builder.getName());
-		Properties props = PropertyUtils.load(cache);
+		Properties props = PropertyUtils.loadSilently(cache);
 		Optional<Application> app = getApplication(dir);
 		builder.setJava(Optional.fromNullable(props.getProperty("java.version")));
 		builder.setTomcat(getTomcat(props));
