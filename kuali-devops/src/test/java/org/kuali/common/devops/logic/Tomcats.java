@@ -24,9 +24,18 @@ public class Tomcats extends Examiner {
 	private static final Logger logger = Loggers.make();
 	private static final SimpleDateFormat PARSER = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
 	private static final String HEAP_FRAGMENT = "/tomcat/logs/heap.log";
+	private static final String RELEASE_NOTES_FRAGMENT = "/tomcat/RELEASE-NOTES";
 
 	public static String getHeapUrl(String fqdn) {
-		return PROTOCOL + fqdn + HEAP_FRAGMENT;
+		return getUrl(fqdn, HEAP_FRAGMENT);
+	}
+
+	public static String getReleaseNotesUrl(String fqdn) {
+		return getUrl(fqdn, RELEASE_NOTES_FRAGMENT);
+	}
+
+	protected static String getUrl(String fqdn, String fragment) {
+		return PROTOCOL + fqdn + fragment;
 	}
 
 	public static Optional<Tomcat> getTomcat(String fqdn) {
@@ -105,9 +114,7 @@ public class Tomcats extends Examiner {
 	}
 
 	protected static Optional<String> getTomcatVersion(String fqdn) {
-		String fragment = "/tomcat/RELEASE-NOTES";
-		String location = PROTOCOL + fqdn + fragment;
-		List<String> lines = readLines(location);
+		List<String> lines = readLines(getReleaseNotesUrl(fqdn));
 		if (lines.isEmpty()) {
 			return Optional.absent();
 		}
