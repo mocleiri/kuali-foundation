@@ -70,7 +70,7 @@ public class Environments2 {
 	}
 
 	protected static void store(String group, Environment env, File dir) {
-		PropertyUtils.store(convert(env), getEnvironmentCacheFile(group, env.getName()));
+		PropertyUtils.storeSilently(convert(env), getEnvironmentCacheFile(group, env.getName()));
 		if (env.getApplication().isPresent()) {
 			store(env.getApplication().get(), dir);
 		}
