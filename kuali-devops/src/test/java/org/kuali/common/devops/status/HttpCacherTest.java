@@ -23,7 +23,7 @@ public class HttpCacherTest {
 		try {
 			SortedMap<String, List<Environment.Builder>> map = Environments2.getBuilders(false);
 			Set<String> fqdns = getFqdns(map);
-			logger.info(String.format("fqdns=%s", fqdns.size()));
+			logger.info(String.format("fqdns: %s", fqdns.size()));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
