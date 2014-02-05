@@ -46,22 +46,26 @@ public class Environments2 {
 				envs.add(builder.build());
 			}
 			map.put(group, envs);
+			store(group, envs);
 		}
 		return map;
 	}
 
 	protected static void store(String group, List<Environment> envs) {
-		File groupDir = new CanonicalFile(CACHE_DIR, group);
 		for (Environment env : envs) {
-			store(env, new CanonicalFile(groupDir, env.getName()));
+			store(env, getEnvCacheDir(group, env));
 		}
 	}
 
+	protected static File getEnvCacheDir(String group, Environment env) {
+		File groupDir = new CanonicalFile(CACHE_DIR, group);
+		return new CanonicalFile(groupDir, env.getName());
+	}
+
 	protected static void store(Environment env, File dir) {
-		File envDir = new CanonicalFile(dir, env.getName());
-		PropertyUtils.store(convert(env), new CanonicalFile(envDir, "environment.properties"));
+		PropertyUtils.store(convert(env), new CanonicalFile(dir, "environment.properties"));
 		if (env.getApplication().isPresent()) {
-			store(env.getApplication().get(), envDir);
+			store(env.getApplication().get(), dir);
 		}
 	}
 
