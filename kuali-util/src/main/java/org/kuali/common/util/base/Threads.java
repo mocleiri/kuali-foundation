@@ -44,7 +44,7 @@ public class Threads {
 	/**
 	 * Invoke join() on each thread
 	 * 
-	 * @throws <code>IllegalStateException</code> if we get interrupted.
+	 * @throws <code>IllegalStateException</code> if any thread gets interrupted.
 	 */
 	public static void join(List<Thread> threads) {
 		try {
