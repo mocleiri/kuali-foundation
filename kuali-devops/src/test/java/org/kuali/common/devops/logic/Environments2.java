@@ -136,7 +136,7 @@ public class Environments2 {
 		return props;
 	}
 
-	protected static SortedMap<String, List<Environment.Builder>> getBuilders(boolean refresh) {
+	public static SortedMap<String, List<Environment.Builder>> getBuilders(boolean refresh) {
 		long start = System.currentTimeMillis();
 		BiMap<String, String> aliases = DNS.getUnambiguousCNAMERecords(refresh);
 		BiMap<String, String> cnames = aliases.inverse();
@@ -146,7 +146,7 @@ public class Environments2 {
 		for (String group : instances.keySet()) {
 			List<EC2Instance> servers = instances.get(group);
 			List<Environment.Builder> builders = getBuilders(servers, cnames);
-			fillIn(group, builders, refresh);
+			// fillIn(group, builders, refresh);
 			count += builders.size();
 			map.put(group, builders);
 		}
