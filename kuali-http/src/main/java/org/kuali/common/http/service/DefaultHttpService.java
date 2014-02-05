@@ -34,7 +34,7 @@ import org.kuali.common.http.model.HttpStatus;
 import org.kuali.common.http.model.HttpWaitResult;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.ThreadUtils;
+import org.kuali.common.util.base.Threads;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,7 +67,7 @@ public class DefaultHttpService implements HttpService {
 			requestResults.add(rr);
 			if (!isFinishState(context, rr, end)) {
 				logHttpRequestResult(context.getLogMsgPrefix(), rr, context.getUrl(), end, context.isQuiet());
-				ThreadUtils.sleep(context.getSleepIntervalMillis());
+				Threads.sleep(context.getSleepIntervalMillis());
 			} else {
 				HttpStatus status = getResultStatus(context, rr, end);
 				HttpWaitResult waitResult = new HttpWaitResult.Builder(status, rr, start).requestResults(requestResults).build();
