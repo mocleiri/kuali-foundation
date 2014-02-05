@@ -15,7 +15,7 @@ public class Assertions {
 	}
 
 	public static String assertNotBlank(String arg, String name) {
-		checkArgument(isBlank(arg), NOT_BLANK_MSG, name);
+		checkArgument(!isBlank(arg), NOT_BLANK_MSG, name);
 		return arg;
 	}
 
