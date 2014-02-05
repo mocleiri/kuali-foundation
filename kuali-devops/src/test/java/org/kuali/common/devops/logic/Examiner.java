@@ -48,7 +48,7 @@ public class Examiner {
 
 	public static List<String> readLines(String location) {
 		HttpService service = new DefaultHttpService();
-		HttpContext context = new HttpContext.Builder(location).overallTimeout("3s").sleepIntervalMillis(5).requestTimeout("3s").build();
+		HttpContext context = new HttpContext.Builder(location).overallTimeout("3s").sleepIntervalMillis(500).requestTimeout("3s").build();
 		try {
 			HttpWaitResult result = service.wait(context);
 			return Splitter.on('\n').splitToList(result.getFinalRequestResult().getResponseBody().get());
