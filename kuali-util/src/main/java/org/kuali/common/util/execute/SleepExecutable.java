@@ -16,7 +16,7 @@
 package org.kuali.common.util.execute;
 
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.ThreadUtils;
+import org.kuali.common.util.base.Threads;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +29,7 @@ public class SleepExecutable implements Executable {
 	@Override
 	public void execute() {
 		logger.info("Sleeping for {}", FormatUtils.getTime(millis));
-		ThreadUtils.sleep(millis);
+		Threads.sleep(millis);
 	}
 
 	public long getMillis() {

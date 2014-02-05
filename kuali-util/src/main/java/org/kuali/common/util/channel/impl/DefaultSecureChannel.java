@@ -35,7 +35,7 @@ import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
-import org.kuali.common.util.ThreadUtils;
+import org.kuali.common.util.base.Threads;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.CommandContext;
@@ -231,7 +231,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	protected void waitForClosed(ChannelExec exec, long millis) {
 		while (!exec.isClosed()) {
-			ThreadUtils.sleep(millis);
+			Threads.sleep(millis);
 		}
 	}
 

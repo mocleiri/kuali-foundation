@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.ThreadUtils;
+import org.kuali.common.util.base.Threads;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
@@ -96,8 +96,8 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 		}
 		List<Thread> threads = getThreads(executables);
 		long start = System.currentTimeMillis();
-		ThreadUtils.start(threads);
-		ThreadUtils.join(threads);
+		Threads.start(threads);
+		Threads.join(threads);
 		long stop = System.currentTimeMillis();
 		if (uncaughtException.isPresent()) {
 			throw uncaughtException.get();
