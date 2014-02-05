@@ -9,7 +9,7 @@ import org.kuali.common.devops.table.Label;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
-public enum EnvTable {
+public enum EnvironmentTableColumns {
 
 	NAME(Label.create(0, "name")), //
 	URL(Label.create(1, "url")), //
@@ -20,7 +20,7 @@ public enum EnvTable {
 
 	private final Label label;
 
-	private EnvTable(Label label) {
+	private EnvironmentTableColumns(Label label) {
 		checkNotNull(label, "'label' cannot be null");
 		this.label = label;
 	}
@@ -31,7 +31,7 @@ public enum EnvTable {
 
 	public static List<Label> asList() {
 		List<Label> labels = Lists.newArrayList();
-		for (EnvTable ev : values()) {
+		for (EnvironmentTableColumns ev : values()) {
 			labels.add(ev.getLabel());
 		}
 		return ImmutableList.copyOf(labels);

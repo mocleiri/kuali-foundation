@@ -45,12 +45,12 @@ public class Environments {
 		String url = "http://" + env.getFqdn();
 		String java = env.getJava().isPresent() ? env.getJava().get() : "na";
 		Map<Label, String> map = Maps.newHashMap();
-		map.put(EnvTable.NAME.getLabel(), env.getName());
-		map.put(EnvTable.URL.getLabel(), href(url, url));
-		map.put(EnvTable.JAVA.getLabel(), java);
-		map.put(EnvTable.SERVER.getLabel(), getServer(env.getServer()));
-		map.put(EnvTable.TOMCAT.getLabel(), getTomcat(env.getTomcat()));
-		map.put(EnvTable.APP.getLabel(), getApplication(env.getApplication()));
+		map.put(EnvironmentTableColumns.NAME.getLabel(), env.getName());
+		map.put(EnvironmentTableColumns.URL.getLabel(), href(url, url));
+		map.put(EnvironmentTableColumns.JAVA.getLabel(), java);
+		map.put(EnvironmentTableColumns.SERVER.getLabel(), getServer(env.getServer()));
+		map.put(EnvironmentTableColumns.TOMCAT.getLabel(), getTomcat(env.getTomcat()));
+		map.put(EnvironmentTableColumns.APP.getLabel(), getApplication(env.getApplication()));
 		return map;
 	}
 
