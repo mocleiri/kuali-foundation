@@ -17,6 +17,7 @@ package org.kuali.common.http.model;
 
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
 import static org.kuali.common.util.base.Assertions.assertNotBlank;
+import static org.kuali.common.util.base.Assertions.assertNotNegative;
 import static org.kuali.common.util.base.Assertions.assertNotNull;
 import static org.kuali.common.util.base.Assertions.assertPositive;
 
@@ -40,6 +41,7 @@ public final class HttpContext {
 	// You are on your own to examine the HttpWaitResult object and figure out what to do from there
 	private final boolean quiet;
 	private final Optional<Integer> maxResponseBodyBytes;
+	private final Optional<Integer> maxRetries;
 
 	// If Tomcat is fronted by an Apache web server, and Apache is up and running but Tomcat is still starting, http 503 is returned by Apache
 	// We don't want to fail if we get a 503, just continue waiting
@@ -71,9 +73,19 @@ public final class HttpContext {
 		private String encoding = Encodings.UTF8;
 		private boolean quiet = false;
 		private Optional<Integer> maxResponseBodyBytes = Optional.absent();
+		private Optional<Integer> maxRetries = Optional.absent();
 
 		public Builder(String url) {
 			this.url = url;
+		}
+
+		public Builder maxRetries(Optional<Integer> maxRetries) {
+			this.maxRetries = maxRetries;
+			return this;
+		}
+
+		public Builder maxRetries(int maxRetries) {
+			return maxRetries(Optional.of(maxRetries));
 		}
 
 		public Builder maxResponseBodyBytes(Optional<Integer> maxResponseBodyBytes) {
@@ -155,6 +167,10 @@ public final class HttpContext {
 			assertNotNull(instance.maxResponseBodyBytes, "maxResponseBodyBytes");
 			if (instance.maxResponseBodyBytes.isPresent()) {
 				assertPositive(instance.maxResponseBodyBytes.get(), "maxResponseBodyBytes");
+			}
+			assertNotNull(instance.maxRetries, "maxRetries");
+			if (instance.maxRetries.isPresent()) {
+				assertNotNegative(instance.maxRetries.get(), "maxRetries");
 			}
 			assertNotNull(instance.logMsgPrefix, "logMsgPrefix");
 			assertPositive(instance.requestTimeoutMillis, "requestTimeoutMillis");
@@ -251,6 +267,7 @@ public final class HttpContext {
 		this.overallTimeoutMillis = builder.overallTimeoutMillis;
 		this.quiet = builder.quiet;
 		this.maxResponseBodyBytes = builder.maxResponseBodyBytes;
+		this.maxRetries = builder.maxRetries;
 	}
 
 	public String getUrl() {

@@ -62,10 +62,12 @@ public class DefaultHttpService implements HttpService {
 		if (!context.isQuiet()) {
 			logger.info("{} - [{}] - [Timeout in {}]", args);
 		}
+		int count = 0;
 		for (;;) {
 			HttpRequestResult rr = doRequest(client, context);
+			count++;
 			requestResults.add(rr);
-			if (!isFinishState(context, rr, end)) {
+			if (!isFinishState(context, rr, end, count)) {
 				logHttpRequestResult(context.getLogMsgPrefix(), rr, context.getUrl(), end, context.isQuiet());
 				Threads.sleep(context.getSleepIntervalMillis());
 			} else {
@@ -127,7 +129,7 @@ public class DefaultHttpService implements HttpService {
 		}
 	}
 
-	protected boolean isFinishState(HttpContext context, HttpRequestResult rr, long end) {
+	protected boolean isFinishState(HttpContext context, HttpRequestResult rr, long end, int count) {
 		// If we've gone past our max allotted time, we are done
 		if (rr.getStop() > end) {
 			return true;
