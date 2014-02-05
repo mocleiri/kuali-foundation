@@ -43,13 +43,17 @@ public class Environments extends Examiner {
 	}
 
 	public static Map<Label, String> getRowData(Environment env) {
+		String dest = PROTOCOL + env.getFqdn();
+		String href = href(dest, dest);
 		String java = env.getJava().isPresent() ? env.getJava().get() : "na";
 		Map<Label, String> map = Maps.newHashMap();
 		map.put(EnvironmentTableColumns.NAME.getLabel(), getEnvironmentInteger(env.getName()) + "");
+		map.put(EnvironmentTableColumns.URL.getLabel(), href);
+		map.put(EnvironmentTableColumns.APP.getLabel(), getApplication(env));
+		map.put(EnvironmentTableColumns.SCM.getLabel(), getScmDisplay(env));
 		map.put(EnvironmentTableColumns.JAVA.getLabel(), java);
 		map.put(EnvironmentTableColumns.SERVER.getLabel(), getServer(env.getServer()));
 		map.put(EnvironmentTableColumns.TOMCAT.getLabel(), getTomcat(env.getTomcat()));
-		map.put(EnvironmentTableColumns.APP.getLabel(), getApplication(env));
 		return map;
 	}
 
@@ -94,7 +98,7 @@ public class Environments extends Examiner {
 
 	public static String getApplication(Environment env) {
 		if (!env.getApplication().isPresent()) {
-			return "na";
+			return "n/a";
 		} else {
 			Application app = env.getApplication().get();
 			Project project = app.getProject();
@@ -104,25 +108,28 @@ public class Environments extends Examiner {
 			Table<Integer, Integer, String> table = HashBasedTable.create();
 
 			String buildId = project.getArtifactId() + " :: " + project.getVersion() + " :: " + getBuildDate(project);
-			String href = href(PROTOCOL + env.getFqdn(), buildId);
 			String databaseId = getDatabaseId(database);
-			String scm = getScmDisplay(app.getScm(), project);
 
-			addRow(table, href);
+			addRow(table, buildId);
 			addRow(table, databaseId);
-			addRow(table, scm);
 
 			return html(context, table);
 		}
 	}
 
-	protected static String getScmDisplay(Optional<Scm> optional, Project project) {
+	protected static String getScmDisplay(Environment env) {
+		if (!env.getApplication().isPresent()) {
+			return "n/a";
+		}
+		Application app = env.getApplication().get();
+		Project project = app.getProject();
+		Optional<Scm> optional = app.getScm();
 		String vendor = getScmVendor(project);
 		if (optional.isPresent()) {
 			Scm scm = optional.get();
 			return href(scm.getUrl(), vendor + " :: revision " + scm.getRevision());
 		} else {
-			return vendor + " : n/a";
+			return vendor + " :: n/a";
 		}
 	}
 

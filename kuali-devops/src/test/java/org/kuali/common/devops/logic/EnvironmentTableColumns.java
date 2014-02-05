@@ -8,10 +8,11 @@ public enum EnvironmentTableColumns {
 
 	NAME(Label.create(0, "env")), //
 	URL(Label.create(1, "url")), //
-	JAVA(Label.create(3, "java")), //
-	SERVER(Label.create(4, "server")), //
-	TOMCAT(Label.create(5, "tomcat")), //
-	APP(Label.create(2, "application")); //
+	APP(Label.create(2, "application")), //
+	SCM(Label.create(3, "scm")), //
+	JAVA(Label.create(4, "java")), //
+	SERVER(Label.create(5, "server")), //
+	TOMCAT(Label.create(6, "tomcat")); //
 
 	private final Label label;
 

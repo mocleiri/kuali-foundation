@@ -12,12 +12,14 @@ public final class TableContext {
 	private final boolean columnLabels;
 	private final boolean rowLabels;
 	private final Optional<Integer> border;
+	private final Optional<String> tdalign;
 
 	private TableContext(Builder builder) {
 		this.indent = builder.indent;
 		this.columnLabels = builder.columnLabels;
 		this.rowLabels = builder.rowLabels;
 		this.border = builder.border;
+		this.tdalign = builder.tdalign;
 	}
 
 	public static Builder builder() {
@@ -30,6 +32,12 @@ public final class TableContext {
 		private boolean columnLabels = true;
 		private boolean rowLabels = false;
 		private Optional<Integer> border = Optional.of(1);
+		private Optional<String> tdalign = Optional.absent();
+
+		public Builder tdalign(String tdalign) {
+			this.tdalign = Optional.of(tdalign);
+			return this;
+		}
 
 		public Builder indent(int indent) {
 			this.indent = indent;
@@ -84,6 +92,10 @@ public final class TableContext {
 
 	public boolean isRowLabels() {
 		return rowLabels;
+	}
+
+	public Optional<String> getTdalign() {
+		return tdalign;
 	}
 
 }
