@@ -28,24 +28,29 @@ public class Manifests extends Examiner {
 		Optional<Manifest> optional = readManifest(location);
 		if (optional.isPresent()) {
 			Manifest manifest = optional.get();
-			Attributes attributes = manifest.getMainAttributes();
-			Map<String, String> map = Maps.newHashMap();
-			SortedSet<String> keys = getKeys(attributes);
-			for (String key : keys) {
-				String value = attributes.getValue(key);
-				map.put(key, value);
-			}
-			return map;
+			return getMap(manifest);
 		} else {
 			return Maps.newHashMap();
 		}
+	}
+
+	protected static Map<String, String> getMap(Manifest manifest) {
+		Attributes attributes = manifest.getMainAttributes();
+		Map<String, String> map = Maps.newHashMap();
+		SortedSet<String> keys = getKeys(attributes);
+		for (String key : keys) {
+			String value = attributes.getValue(key);
+			map.put(key, value);
+		}
+		return map;
 	}
 
 	protected static Optional<Manifest> readManifest(String location) {
 		InputStream in = null;
 		try {
 			in = LocationUtils.getInputStream(location);
-			return Optional.of(new Manifest(in));
+			Manifest manifest = new Manifest(in);
+			return Optional.of(manifest);
 		} catch (IOException e) {
 			logger.debug(format("unexpected io error reading manifest -> [%s]", location));
 		} finally {
