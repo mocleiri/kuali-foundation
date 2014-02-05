@@ -3,7 +3,6 @@ package org.kuali.common.devops.aws.sysadmin;
 import java.io.IOException;
 
 import org.kuali.common.devops.aws.sysadmin.model.BootstrapContext;
-import org.kuali.common.devops.aws.sysadmin.model.ServiceOverride;
 import org.kuali.common.devops.model.User;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
@@ -119,7 +118,7 @@ public final class Bootstrap implements Executable {
 	}
 
 	protected void enableRootSSH(SecureChannel channel) {
-		ServiceOverride sshd = null; // context.getSshdOverride().getService();
+		// ServiceOverride sshd = null; // context.getSshdOverride().getService();
 
 		String src = context.getSshdOverride().getConfigFileOverrideLocation();
 		String dst = context.getSshEnabledUser().getHome() + "/.bootstrap/" + null; // sshd.getConfigFileName();
@@ -158,8 +157,8 @@ public final class Bootstrap implements Executable {
 	}
 
 	protected SecureChannel getChannel(User user, boolean requestPseudoTerminal) throws IOException {
-		String dnsName = context.getHostname();
-		String privateKey = context.getPrivateKey();
+		// String dnsName = context.getHostname();
+		// String privateKey = context.getPrivateKey();
 		ChannelContext cc = null; // new ChannelContext.Builder(user.getLogin(), dnsName).privateKey(privateKey).requestPseudoTerminal(requestPseudoTerminal).build();
 		return context.getService().openChannel(cc);
 	}

@@ -88,4 +88,12 @@ public final class InstallTomcatContext {
 		return pkg;
 	}
 
+	public Optional<Java> getJava() {
+		return java;
+	}
+
+	public Optional<Heap> getHeap() {
+		return heap;
+	}
+
 }
