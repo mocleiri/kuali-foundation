@@ -254,6 +254,14 @@ public final class HttpContext {
 			this.maxResponseBodyBytes = maxResponseBodyBytes;
 		}
 
+		public Optional<Integer> getMaxRetries() {
+			return maxRetries;
+		}
+
+		public void setMaxRetries(Optional<Integer> maxRetries) {
+			this.maxRetries = maxRetries;
+		}
+
 	}
 
 	private HttpContext(Builder builder) {
@@ -308,6 +316,10 @@ public final class HttpContext {
 
 	public Optional<Integer> getMaxResponseBodyBytes() {
 		return maxResponseBodyBytes;
+	}
+
+	public Optional<Integer> getMaxRetries() {
+		return maxRetries;
 	}
 
 }
