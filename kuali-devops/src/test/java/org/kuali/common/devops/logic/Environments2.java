@@ -82,8 +82,8 @@ public class Environments2 {
 		PropertyUtils.storeSilently(app.getProject().getProperties(), new CanonicalFile(dir, "project.properties"));
 	}
 
-	protected static void fillIn(Environment.Builder builder, File dir) {
-		File cache = new CanonicalFile(dir, "environment.properties");
+	protected static void fillIn(String group, Environment.Builder builder, File dir) {
+		File cache = getEnvironmentCacheFile(group, builder.getName());
 		Properties props = PropertyUtils.load(cache);
 		Optional<Application> app = getApplication(dir);
 		builder.setJava(Optional.fromNullable(props.getProperty("java.version")));
@@ -164,7 +164,7 @@ public class Environments2 {
 				builder.setApplication(Applications.getApplication(builder.getFqdn()));
 			} else {
 				File dir = getEnvCacheDir(group, builder.getName());
-				fillIn(builder, dir);
+				fillIn(group, builder, dir);
 			}
 		}
 	}
