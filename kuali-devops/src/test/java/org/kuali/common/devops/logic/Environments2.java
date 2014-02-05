@@ -14,12 +14,16 @@ import java.util.Properties;
 import java.util.SortedMap;
 
 import org.kuali.common.devops.model.Application;
+import org.kuali.common.devops.model.Database;
 import org.kuali.common.devops.model.EC2Instance;
 import org.kuali.common.devops.model.Environment;
+import org.kuali.common.devops.model.Scm;
 import org.kuali.common.devops.model.Tomcat;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.Loggers;
+import org.kuali.common.util.project.ProjectUtils;
+import org.kuali.common.util.project.model.Project;
 import org.slf4j.Logger;
 
 import com.google.common.base.Optional;
@@ -49,15 +53,15 @@ public class Environments2 {
 		return map;
 	}
 
+	protected static File getEnvCacheDir(String group, Environment env) {
+		File groupDir = new CanonicalFile(CACHE_DIR, group);
+		return new CanonicalFile(groupDir, env.getName());
+	}
+
 	protected static void store(String group, List<Environment> envs) {
 		for (Environment env : envs) {
 			store(env, getEnvCacheDir(group, env));
 		}
-	}
-
-	protected static File getEnvCacheDir(String group, Environment env) {
-		File groupDir = new CanonicalFile(CACHE_DIR, group);
-		return new CanonicalFile(groupDir, env.getName());
 	}
 
 	protected static void store(Environment env, File dir) {
@@ -68,9 +72,19 @@ public class Environments2 {
 	}
 
 	protected static void store(Application app, File dir) {
-		PropertyUtils.store(PropertyUtils.convert(app.getManifest()), new CanonicalFile(dir, "manifest.properties"));
-		PropertyUtils.store(PropertyUtils.convert(app.getConfiguration()), new CanonicalFile(dir, "config.properties"));
-		PropertyUtils.store(app.getProject().getProperties(), new CanonicalFile(dir, "project.properties"));
+		PropertyUtils.storeSilently(PropertyUtils.convert(app.getManifest()), new CanonicalFile(dir, "manifest.properties"));
+		PropertyUtils.storeSilently(PropertyUtils.convert(app.getConfiguration()), new CanonicalFile(dir, "config.properties"));
+		PropertyUtils.storeSilently(app.getProject().getProperties(), new CanonicalFile(dir, "project.properties"));
+	}
+
+	protected static Application load(File dir) {
+		Properties manifest = PropertyUtils.loadOrCreateSilently(new CanonicalFile(dir, "manifest.properties").getPath());
+		Properties config = PropertyUtils.loadOrCreateSilently(new CanonicalFile(dir, "config.properties").getPath());
+		Properties project = PropertyUtils.loadOrCreateSilently(new CanonicalFile(dir, "project.properties").getPath());
+		Project p = ProjectUtils.getProject(project);
+		Optional<Database> database = Databases.getDatabase(p.getGroupId(), config);
+		Optional<Scm> scm = Applications.getScm(project);
+		return Application.create(p, manifest, config, database, scm);
 	}
 
 	protected static Properties convert(Environment env) {

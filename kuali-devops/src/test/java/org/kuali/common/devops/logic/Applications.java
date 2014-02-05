@@ -35,7 +35,7 @@ public class Applications extends Examiner {
 		}
 	}
 
-	protected static Optional<Scm> getScm(Properties properties) {
+	public static Optional<Scm> getScm(Properties properties) {
 		Optional<String> url = fromNullable(properties.getProperty(SCM_URL_KEY));
 		Optional<String> revision = fromNullable(properties.getProperty(SCM_REVISION_KEY));
 		if (url.isPresent() && revision.isPresent()) {
