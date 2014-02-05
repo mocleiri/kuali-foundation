@@ -1,5 +1,6 @@
 package org.kuali.common.devops.logic;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static java.lang.System.currentTimeMillis;
 
 import java.text.NumberFormat;
@@ -45,13 +46,18 @@ public class Environments {
 		String url = "http://" + env.getFqdn();
 		String java = env.getJava().isPresent() ? env.getJava().get() : "na";
 		Map<Label, String> map = Maps.newHashMap();
-		map.put(EnvironmentTableColumns.NAME.getLabel(), env.getName());
+		map.put(EnvironmentTableColumns.NAME.getLabel(), getEnvironmentInteger(env.getName()) + "");
 		map.put(EnvironmentTableColumns.URL.getLabel(), href(url, url));
 		map.put(EnvironmentTableColumns.JAVA.getLabel(), java);
 		map.put(EnvironmentTableColumns.SERVER.getLabel(), getServer(env.getServer()));
 		map.put(EnvironmentTableColumns.TOMCAT.getLabel(), getTomcat(env.getTomcat()));
 		map.put(EnvironmentTableColumns.APP.getLabel(), getApplication(env.getApplication()));
 		return map;
+	}
+
+	protected static int getEnvironmentInteger(String environmentName) {
+		checkArgument(environmentName.startsWith("env"), "[%s] does not start with 'env'");
+		return Integer.parseInt(environmentName.substring(3));
 	}
 
 	protected static String href(String dest, String show) {
@@ -216,6 +222,11 @@ public class Environments {
 		sb.append(getHeader(context, colKeys, padding));
 		for (Comparable<R> rowKey : rowKeys) {
 			sb.append(padding + " <tr>\n");
+			if (context.isRowLabels()) {
+				sb.append(padding + "  <td>\n");
+				sb.append(padding + "   " + rowKey.toString() + "\n");
+				sb.append(padding + "  </td>\n");
+			}
 			for (Comparable<C> colKey : colKeys) {
 				sb.append(padding + "  <td>\n");
 				sb.append(padding + "   " + table.get(rowKey, colKey) + "\n");

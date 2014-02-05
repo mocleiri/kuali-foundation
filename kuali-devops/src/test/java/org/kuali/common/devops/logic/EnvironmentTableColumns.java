@@ -6,7 +6,7 @@ import org.kuali.common.devops.table.Label;
 
 public enum EnvironmentTableColumns {
 
-	NAME(Label.create(0, "name")), //
+	NAME(Label.create(0, "env")), //
 	URL(Label.create(1, "url")), //
 	JAVA(Label.create(3, "java")), //
 	SERVER(Label.create(4, "server")), //
