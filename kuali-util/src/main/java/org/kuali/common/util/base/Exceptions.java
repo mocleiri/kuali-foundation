@@ -1,5 +1,6 @@
 package org.kuali.common.util.base;
 
+
 /**
  * <p>
  * Create {@code IllegalStateException's} and {@code IllegaArgumentException's} with richly formatted error messages.
@@ -10,8 +11,8 @@ package org.kuali.common.util.base;
  * <pre>
  * try {
  *   ...
- * } catch (IOException e) {
- *   throw Exceptions.illegalArg(e, &quot;[%s] does not exist&quot; file);
+ * } catch (FileNotFoundException e) {
+ *   throw Exceptions.illegalArg(e, &quot;File [%s] does not exist&quot; file);
  * }
  * </pre>
  */
