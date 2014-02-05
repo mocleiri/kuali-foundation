@@ -25,7 +25,7 @@ public class HttpCacher {
 	private static final String PROTOCOL = "http://";
 
 	public static File cache(String url) {
-		checkArgument(StringUtils.startsWith(url, "http://"), "[%s] must start with %s", url, PROTOCOL);
+		checkArgument(StringUtils.startsWith(url, "http://"), "[%s] must start with [%s]", url, PROTOCOL);
 		File cacheFile = getCacheFile(url);
 		Optional<String> content = getContent(url);
 		cache(cacheFile, content);
