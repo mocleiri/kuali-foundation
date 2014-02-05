@@ -9,6 +9,7 @@ import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.http.model.HttpWaitResult;
 import org.kuali.common.http.service.DefaultHttpService;
 import org.kuali.common.http.service.HttpService;
+import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.log.Loggers;
 import org.slf4j.Logger;
 

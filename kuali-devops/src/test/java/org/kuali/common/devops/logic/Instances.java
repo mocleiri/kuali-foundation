@@ -23,6 +23,7 @@ import org.kuali.common.devops.model.EC2Instance;
 import org.kuali.common.devops.table.TableCellDescriptor;
 import org.kuali.common.devops.table.Tables;
 import org.kuali.common.util.Encodings;
+import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.Loggers;
 import org.kuali.common.util.wait.DefaultWaitService;

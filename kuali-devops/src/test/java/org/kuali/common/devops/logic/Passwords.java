@@ -8,6 +8,7 @@ import java.io.IOException;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Encodings;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;

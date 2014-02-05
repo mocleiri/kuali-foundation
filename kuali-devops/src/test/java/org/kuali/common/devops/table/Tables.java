@@ -13,10 +13,10 @@ import java.util.Set;
 import java.util.SortedSet;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.kuali.common.devops.logic.Exceptions;
 import org.kuali.common.util.Encodings;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.spring.format.CsvStringFormatter;
 
 import com.google.common.base.Optional;
