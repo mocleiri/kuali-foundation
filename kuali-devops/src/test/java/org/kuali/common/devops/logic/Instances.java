@@ -52,6 +52,7 @@ public class Instances {
 		for (String account : accounts) {
 			map.put(account, getInstances(account, refresh));
 		}
+		/*
 		map.remove("student");
 		map.remove("ole");
 		map.remove("foundation");
@@ -63,6 +64,7 @@ public class Instances {
 			}
 		}
 		map.put("rice", newRice);
+		*/
 		return map;
 	}
 

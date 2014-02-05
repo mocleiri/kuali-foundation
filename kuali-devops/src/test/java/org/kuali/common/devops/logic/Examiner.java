@@ -5,11 +5,15 @@ import static java.lang.String.format;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.common.util.LocationUtils;
+import org.kuali.common.http.model.HttpContext;
+import org.kuali.common.http.model.HttpWaitResult;
+import org.kuali.common.http.service.DefaultHttpService;
+import org.kuali.common.http.service.HttpService;
 import org.kuali.common.util.log.Loggers;
 import org.slf4j.Logger;
 
 import com.google.common.base.Optional;
+import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
 
 public class Examiner {
@@ -43,10 +47,13 @@ public class Examiner {
 	}
 
 	public static List<String> readLines(String location) {
+		HttpService service = new DefaultHttpService();
+		HttpContext context = new HttpContext.Builder(location).overallTimeout("3s").sleepIntervalMillis(5).requestTimeout("3s").build();
 		try {
-			return LocationUtils.readLines(location);
+			HttpWaitResult result = service.wait(context);
+			return Splitter.on('\n').splitToList(result.getFinalRequestResult().getResponseBody().get());
 		} catch (Exception e) {
-			logger.debug(format("unexpected error reading from [%s]", location));
+			logger.info(format("unexpected error reading from [%s]", location));
 			return ImmutableList.of();
 		}
 	}

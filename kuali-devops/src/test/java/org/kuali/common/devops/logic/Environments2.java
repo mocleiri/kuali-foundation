@@ -4,7 +4,6 @@ import static com.google.common.base.Preconditions.checkState;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.apache.commons.lang3.StringUtils.rightPad;
 import static org.kuali.common.util.FormatUtils.getTime;
 
 import java.io.File;
@@ -18,7 +17,6 @@ import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.EC2Instance;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.model.Tomcat;
-import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.Loggers;
@@ -125,12 +123,12 @@ public class Environments2 {
 
 	protected static void fillIn(List<Environment.Builder> builders) {
 		for (Environment.Builder builder : builders) {
-			long start = System.currentTimeMillis();
-			System.out.print(rightPad(format("examining -> [%s]", builder.getFqdn()), 45));
+			// long start = System.currentTimeMillis();
+			// System.out.print(rightPad(format("examining -> [%s]", builder.getFqdn()), 45));
 			builder.setJava(Examiner.getJavaVersion(builder.getFqdn()));
 			builder.setTomcat(Tomcats.getTomcat(builder.getFqdn()));
 			builder.setApplication(Applications.getApplication(builder.getFqdn()));
-			System.out.println(format(" - %s", FormatUtils.getTime(currentTimeMillis() - start)));
+			// System.out.println(format(" - %s", FormatUtils.getTime(currentTimeMillis() - start)));
 		}
 	}
 

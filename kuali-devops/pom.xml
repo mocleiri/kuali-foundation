@@ -38,6 +38,7 @@
     <kuali-aws.version>1.0.0-SNAPSHOT</kuali-aws.version>
     <kuali-dns.version>1.0.0-SNAPSHOT</kuali-dns.version>
     <kuali-util.version>4.4.9-SNAPSHOT</kuali-util.version>
+    <kuali-http.version>1.0.8</kuali-http.version>
     <junit.version>4.11</junit.version>
     <hibernate-validator.version>5.0.1.Final</hibernate-validator.version>
     <javax.el.version>2.2.4</javax.el.version>
@@ -116,6 +117,11 @@
       <version>${tomcat.version}</version>
       <type>${tomcat.type}</type>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.kuali.common</groupId>
+      <artifactId>kuali-http</artifactId>
+      <version>${kuali-http.version}</version>
     </dependency>
     <dependency>
       <groupId>org.kuali.common</groupId>
