@@ -53,7 +53,7 @@ public class Examiner {
 			HttpWaitResult result = service.wait(context);
 			return Splitter.on('\n').splitToList(result.getFinalRequestResult().getResponseBody().get());
 		} catch (Exception e) {
-			logger.info(format("unexpected error reading from [%s]", location));
+			logger.debug(format("unexpected error reading from [%s]", location));
 			return ImmutableList.of();
 		}
 	}
