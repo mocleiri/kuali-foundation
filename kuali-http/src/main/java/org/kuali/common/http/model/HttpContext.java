@@ -143,6 +143,74 @@ public final class HttpContext {
 			assertPositive(instance.sleepIntervalMillis, "sleepIntervalMillis");
 		}
 
+		public String getLogMsgPrefix() {
+			return logMsgPrefix;
+		}
+
+		public void setLogMsgPrefix(String logMsgPrefix) {
+			this.logMsgPrefix = logMsgPrefix;
+		}
+
+		public List<Integer> getSuccessCodes() {
+			return successCodes;
+		}
+
+		public void setSuccessCodes(List<Integer> successCodes) {
+			this.successCodes = successCodes;
+		}
+
+		public List<Integer> getContinueWaitingCodes() {
+			return continueWaitingCodes;
+		}
+
+		public void setContinueWaitingCodes(List<Integer> continueWaitingCodes) {
+			this.continueWaitingCodes = continueWaitingCodes;
+		}
+
+		public int getRequestTimeoutMillis() {
+			return requestTimeoutMillis;
+		}
+
+		public void setRequestTimeoutMillis(int requestTimeoutMillis) {
+			this.requestTimeoutMillis = requestTimeoutMillis;
+		}
+
+		public int getSleepIntervalMillis() {
+			return sleepIntervalMillis;
+		}
+
+		public void setSleepIntervalMillis(int sleepIntervalMillis) {
+			this.sleepIntervalMillis = sleepIntervalMillis;
+		}
+
+		public int getOverallTimeoutMillis() {
+			return overallTimeoutMillis;
+		}
+
+		public void setOverallTimeoutMillis(int overallTimeoutMillis) {
+			this.overallTimeoutMillis = overallTimeoutMillis;
+		}
+
+		public String getEncoding() {
+			return encoding;
+		}
+
+		public void setEncoding(String encoding) {
+			this.encoding = encoding;
+		}
+
+		public boolean isQuiet() {
+			return quiet;
+		}
+
+		public void setQuiet(boolean quiet) {
+			this.quiet = quiet;
+		}
+
+		public String getUrl() {
+			return url;
+		}
+
 	}
 
 	private HttpContext(Builder builder) {
