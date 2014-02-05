@@ -43,6 +43,22 @@ public final class Label implements Comparable<Label> {
 			return new Label(this);
 		}
 
+		public int getSequence() {
+			return sequence;
+		}
+
+		public void setSequence(int sequence) {
+			this.sequence = sequence;
+		}
+
+		public String getText() {
+			return text;
+		}
+
+		public void setText(String text) {
+			this.text = text;
+		}
+
 	}
 
 	public int getSequence() {
