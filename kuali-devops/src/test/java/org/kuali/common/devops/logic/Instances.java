@@ -55,6 +55,14 @@ public class Instances {
 		map.remove("student");
 		map.remove("ole");
 		map.remove("foundation");
+		List<EC2Instance> rice = map.get("rice");
+		List<EC2Instance> newRice = Lists.newArrayList();
+		for (EC2Instance instance : rice) {
+			if (instance.getName().isPresent() && instance.getName().get().equals("env1")) {
+				newRice.add(instance);
+			}
+		}
+		map.put("rice", newRice);
 		return map;
 	}
 
