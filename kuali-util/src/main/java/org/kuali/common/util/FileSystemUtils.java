@@ -26,6 +26,7 @@ import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.base.Threads;
 import org.kuali.common.util.execute.CopyFileRequest;
 import org.kuali.common.util.execute.CopyFileResult;
 import org.kuali.common.util.file.DirDiff;
@@ -306,7 +307,7 @@ public class FileSystemUtils {
 
 			// Always pause (unless this is the first iteration)
 			if (now != -1) {
-				ThreadUtils.sleep(intervalMillis);
+				Threads.sleep(intervalMillis);
 			}
 
 			// Check to make sure we haven't exceeded our timeout limit
