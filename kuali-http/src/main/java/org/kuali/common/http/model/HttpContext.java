@@ -34,6 +34,7 @@ public final class HttpContext {
 	private final int sleepIntervalMillis; // Millis to wait in between http requests (15 seconds)
 	private final int overallTimeoutMillis; // Total number of millis to wait before timing out (30 minutes)
 	private final String encoding;
+	private final boolean quiet;
 
 	// If Tomcat is fronted by an Apache web server, and Apache is up and running but Tomcat is still starting, http 503 is returned by Apache
 	// We don't want to fail if we get a 503, just continue waiting
@@ -63,9 +64,15 @@ public final class HttpContext {
 		private int sleepIntervalMillis = getMillisAsInt("15s"); // 15 seconds
 		private int overallTimeoutMillis = getMillisAsInt("30m"); // 30 minutes
 		private String encoding = Charsets.UTF_8.name();
+		private boolean quiet = true;
 
 		public Builder(String url) {
 			this.url = url;
+		}
+
+		public Builder quiet(boolean quiet) {
+			this.quiet = quiet;
+			return this;
 		}
 
 		public Builder logMsgPrefix(String logMsgPrefix) {
@@ -163,6 +170,7 @@ public final class HttpContext {
 		this.requestTimeoutMillis = builder.requestTimeoutMillis;
 		this.sleepIntervalMillis = builder.sleepIntervalMillis;
 		this.overallTimeoutMillis = builder.overallTimeoutMillis;
+		this.quiet = builder.quiet;
 	}
 
 	public String getUrl() {
@@ -195,6 +203,10 @@ public final class HttpContext {
 
 	public String getEncoding() {
 		return encoding;
+	}
+
+	public boolean isQuiet() {
+		return quiet;
 	}
 
 }
