@@ -23,15 +23,18 @@ public class Examiner {
 	private static final Logger logger = Loggers.make();
 	protected static final String SCM_URL_KEY = "project.scm.url";
 	protected static final String SCM_REVISION_KEY = "project.scm.revision";
+	protected static final String ENV_JSP_FRAGMENT = "/tomcat/logs/env.jsp";
+
+	public static final String getEnvJspUrl(String fqdn) {
+		return PROTOCOL + fqdn + ENV_JSP_FRAGMENT;
+	}
 
 	public static Optional<String> getJavaVersion(String fqdn) {
 		return getSystemProperty(fqdn, "java.version");
 	}
 
 	public static Optional<String> getSystemProperty(String fqdn, String property) {
-		String fragment = "/tomcat/logs/env.jsp";
-		String location = PROTOCOL + fqdn + fragment;
-		List<String> lines = readLines(location);
+		List<String> lines = readLines(getEnvJspUrl(fqdn));
 		if (lines.isEmpty()) {
 			return Optional.absent();
 		}
