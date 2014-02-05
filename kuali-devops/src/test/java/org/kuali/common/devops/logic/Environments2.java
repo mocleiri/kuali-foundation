@@ -14,10 +14,12 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.SortedMap;
 
+import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.EC2Instance;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.model.Tomcat;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.Loggers;
 import org.slf4j.Logger;
@@ -41,8 +43,7 @@ public class Environments2 {
 			List<Environment.Builder> list = builders.get(group);
 			List<Environment> envs = Lists.newArrayList();
 			for (Environment.Builder builder : list) {
-				Environment env = builder.build();
-				envs.add(env);
+				envs.add(builder.build());
 			}
 			map.put(group, envs);
 		}
@@ -50,6 +51,24 @@ public class Environments2 {
 	}
 
 	protected static void store(String group, List<Environment> envs) {
+		File groupDir = new CanonicalFile(CACHE_DIR, group);
+		for (Environment env : envs) {
+			store(env, new CanonicalFile(groupDir, env.getName()));
+		}
+	}
+
+	protected static void store(Environment env, File dir) {
+		File envDir = new CanonicalFile(dir, env.getName());
+		PropertyUtils.store(convert(env), new CanonicalFile(envDir, "environment.properties"));
+		if (env.getApplication().isPresent()) {
+			store(env.getApplication().get(), envDir);
+		}
+	}
+
+	protected static void store(Application app, File dir) {
+		PropertyUtils.store(PropertyUtils.convert(app.getManifest()), new CanonicalFile(dir, "manifest.properties"));
+		PropertyUtils.store(PropertyUtils.convert(app.getConfiguration()), new CanonicalFile(dir, "config.properties"));
+		PropertyUtils.store(app.getProject().getProperties(), new CanonicalFile(dir, "project.properties"));
 	}
 
 	protected static Properties convert(Environment env) {
