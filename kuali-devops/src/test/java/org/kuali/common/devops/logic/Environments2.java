@@ -61,7 +61,11 @@ public class Environments2 {
 		}
 		if (env.getTomcat().isPresent()) {
 			Tomcat tomcat = env.getTomcat().get();
+			Optional<Long> startupTime = tomcat.getStartupTime();
 			props.setProperty("tomcat.version", tomcat.getVersion());
+			if (startupTime.isPresent()) {
+				props.setProperty("tomcat.startupTime", startupTime.get() + "");
+			}
 		}
 		return props;
 	}
