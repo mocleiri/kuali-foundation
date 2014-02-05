@@ -54,7 +54,8 @@ public class Html extends Examiner {
 				sb.append(padding + "  </td>\n");
 			}
 			for (Comparable<C> colKey : colKeys) {
-				sb.append(padding + "  <td>\n");
+				String align = context.getTdalign().isPresent() ? " align=\"" + context.getTdalign().get() + "\"" : "";
+				sb.append(padding + "  <td" + align + ">\n");
 				sb.append(padding + "   " + table.get(rowKey, colKey) + "\n");
 				sb.append(padding + "  </td>\n");
 			}
