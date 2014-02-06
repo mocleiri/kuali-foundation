@@ -5,17 +5,13 @@ import static org.kuali.common.devops.logic.Manifests.getManifestUrl;
 import static org.kuali.common.devops.logic.Tomcats.getHeapUrl;
 import static org.kuali.common.devops.logic.Tomcats.getReleaseNotesUrl;
 
-import java.io.File;
-
-import org.kuali.common.devops.logic.HttpCacher;
+import org.kuali.common.devops.logic.function.FileCacheFunction;
 import org.kuali.common.devops.model.EnvironmentBasics;
 import org.kuali.common.devops.model.FileCache;
-import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.impl.ConcurrentExecutables;
 
 import com.google.common.base.Function;
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public final class EnvironmentBasicsFunction implements Function<String, EnvironmentBasics> {
@@ -44,26 +40,11 @@ public final class EnvironmentBasicsFunction implements Function<String, Environ
 			FileCache environment = e.getResult();
 			return EnvironmentBasics.builder().manifest(manifest).heap(heap).releaseNotes(releaseNotes).environment(environment).build();
 		} else {
-			FileCache manifest = getFileCache(fqdn, getManifestUrl(fqdn));
-			FileCache heap = getFileCache(fqdn, getHeapUrl(fqdn));
-			FileCache releaseNotes = getFileCache(fqdn, getReleaseNotesUrl(fqdn));
-			FileCache environment = getFileCache(fqdn, getEnvJspUrl(fqdn));
+			FileCache manifest = new FileCacheFunction(refresh).apply(getManifestUrl(fqdn));
+			FileCache heap = new FileCacheFunction(refresh).apply(getHeapUrl(fqdn));
+			FileCache releaseNotes = new FileCacheFunction(refresh).apply(getReleaseNotesUrl(fqdn));
+			FileCache environment = new FileCacheFunction(refresh).apply(getEnvJspUrl(fqdn));
 			return EnvironmentBasics.builder().manifest(manifest).heap(heap).releaseNotes(releaseNotes).environment(environment).build();
-		}
-	}
-
-	private FileCache getFileCache(String fqdn, String url) {
-		File cache = HttpCacher.getCacheFile(url);
-		Optional<String> content = getContent(HttpCacher.getCacheFile(url));
-		return FileCache.builder().cache(cache).content(content).url(url).build();
-	}
-
-	private Optional<String> getContent(File file) {
-		if (file.exists()) {
-			String content = LocationUtils.toString(file);
-			return Optional.of(content);
-		} else {
-			return Optional.absent();
 		}
 	}
 
