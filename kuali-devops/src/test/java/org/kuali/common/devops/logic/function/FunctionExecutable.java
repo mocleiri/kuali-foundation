@@ -1,6 +1,6 @@
 package org.kuali.common.devops.logic.function;
 
-import static org.kuali.common.util.base.Assertions.assertNotNull;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 import org.kuali.common.util.execute.Executable;
 
@@ -13,8 +13,8 @@ public final class FunctionExecutable<F, T> implements Executable {
 	}
 
 	public FunctionExecutable(Function<F, T> function, F input) {
-		this.function = assertNotNull(function, "function");
-		this.input = assertNotNull(input, "input");
+		this.function = checkNotNull(function);
+		this.input = checkNotNull(input);
 	}
 
 	private final Function<F, T> function;

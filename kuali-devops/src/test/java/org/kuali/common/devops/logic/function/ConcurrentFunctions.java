@@ -1,6 +1,6 @@
 package org.kuali.common.devops.logic.function;
 
-import static org.kuali.common.util.base.Assertions.assertNotNull;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.List;
@@ -23,7 +23,7 @@ public class ConcurrentFunctions<F, T> implements Executable, UncaughtExceptionH
 	}
 
 	public ConcurrentFunctions(List<FunctionRunner<F, T>> runners) {
-		this.runners = assertNotNull(runners, "runners");
+		this.runners = checkNotNull(runners);
 	}
 
 	private final List<FunctionRunner<F, T>> runners;

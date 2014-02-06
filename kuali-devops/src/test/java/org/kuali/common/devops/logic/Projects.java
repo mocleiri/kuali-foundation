@@ -1,6 +1,6 @@
 package org.kuali.common.devops.logic;
 
-import static org.kuali.common.util.base.Assertions.assertNotBlank;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 import java.util.List;
 import java.util.Map;
@@ -59,7 +59,7 @@ public class Projects extends Examiner {
 
 	public static String getProjectPropertiesUrl(String fqdn, Map<String, String> manifest) {
 		String key = "Bundle-SymbolicName";
-		assertNotBlank(manifest.get(key), key);
+		checkNotBlank(manifest.get(key), key);
 		return getProjectPropertiesUrl(fqdn, manifest.get(key));
 	}
 

@@ -3,7 +3,7 @@ package org.kuali.common.devops.logic;
 import static com.google.common.base.Preconditions.checkArgument;
 import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.startsWith;
-import static org.kuali.common.util.base.Assertions.assertNotBlank;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,7 +32,7 @@ public class HttpCacher {
 	private static final Logger logger = Loggers.make();
 
 	public static FileCache refresh(String url) {
-		assertNotBlank(url, "url");
+		checkNotBlank(url, "url");
 		checkArgument(startsWith(url, "http://"), "[%s] must start with [%s]", url, PROTOCOL);
 		File cacheFile = getCacheFile(url);
 		Optional<String> content = getContent(url);
