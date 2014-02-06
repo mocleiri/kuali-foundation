@@ -32,7 +32,7 @@ public class Manifests extends Examiner {
 			Manifest manifest = new Manifest(in);
 			return manifest;
 		} catch (IOException e) {
-			throw Exceptions.illegalState(e, "unexpected io error converting string content into a Manifest object. \n\n%s\n\n", content);
+			throw Exceptions.illegalState(e, "unexpected io error converting string content into a manifest object. \n\n%s\n\n", content);
 		}
 	}
 
