@@ -50,6 +50,16 @@ public class Precondition {
 	}
 
 	/**
+	 * If arg.isPresent(), check that the Long it contains is greater than or equal to min
+	 */
+	public static Optional<Long> checkMin(Optional<Long> arg, long min, String argName) {
+		if (arg.isPresent()) {
+			checkMin(arg.get(), min, argName);
+		}
+		return arg;
+	}
+
+	/**
 	 * Check that arg is greater than or equal to min.
 	 */
 	public static int checkMin(int arg, int min, String argName) {
