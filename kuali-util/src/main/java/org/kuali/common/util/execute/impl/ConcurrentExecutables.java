@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util.execute.impl;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,7 @@ import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 
 import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
+import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
 
 /**
@@ -42,6 +44,22 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 
 	// If any thread throws an exception, this gets filled in
 	private Optional<IllegalStateException> uncaughtException = Optional.absent();
+
+	public static void execute(Executable... executables) {
+		create(executables).execute();
+	}
+
+	public static void execute(List<Executable> executables) {
+		create(executables).execute();
+	}
+
+	public static ConcurrentExecutables create(Executable... executables) {
+		return builder(executables).build();
+	}
+
+	public static ConcurrentExecutables create(List<Executable> executables) {
+		return builder(executables).build();
+	}
 
 	public static Builder builder(Executable... executables) {
 		return new Builder(executables);
@@ -86,8 +104,8 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 		}
 
 		private static void validate(ConcurrentExecutables instance) {
-			Preconditions.checkNotNull(instance.executables, "executables cannot be null");
-			Preconditions.checkNotNull(instance.uncaughtException, "uncaughtException cannot be null");
+			checkNotNull(instance.executables, "executables cannot be null");
+			checkNotNull(instance.uncaughtException, "uncaughtException cannot be null");
 		}
 	}
 
@@ -104,16 +122,15 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 			return;
 		}
 		List<Thread> threads = getThreads(executables);
-		long start = System.currentTimeMillis();
+		Stopwatch stopwatch = Stopwatch.createStarted();
 		Threads.start(threads);
 		Threads.join(threads);
-		long stop = System.currentTimeMillis();
 		if (uncaughtException.isPresent()) {
 			throw uncaughtException.get();
 		}
 		if (timed) {
 			logger.info("------------------------------------------------------------------------");
-			logger.info("Total Time: {} (Wall Clock)", FormatUtils.getTime(stop - start));
+			logger.info("Total Time: {} (Wall Clock)", FormatUtils.getTime(stopwatch));
 			logger.info("------------------------------------------------------------------------");
 		}
 	}

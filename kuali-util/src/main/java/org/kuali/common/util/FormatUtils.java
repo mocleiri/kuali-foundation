@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util;
 
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,6 +27,8 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.base.Exceptions;
+
+import com.google.common.base.Stopwatch;
 
 /**
  * Format time, bytes, counts, dates, and transfer rates into human friendly form
@@ -250,6 +254,14 @@ public class FormatUtils {
 	 */
 	public static String getTime(long millis) {
 		return getTime(millis, timeFormatter);
+	}
+
+	/**
+	 * Given a stopwatch, return milliseconds, seconds, minutes, hours, days, or years as appropriate. Note that years is approximate since the logic always assumes there are
+	 * exactly 365 days per year.
+	 */
+	public static String getTime(Stopwatch stopwatch) {
+		return getTime(stopwatch.elapsed(MILLISECONDS));
 	}
 
 	/**
