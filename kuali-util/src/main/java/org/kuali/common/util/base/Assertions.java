@@ -29,7 +29,7 @@ public class Assertions {
 	}
 
 	/**
-	 * Assert that arg is greater than zero. Zero itself does not count as positive.
+	 * Assert that arg is greater than zero. Zero does not count as positive.
 	 */
 	public static int assertPositive(int arg, String name) {
 		checkArgument(arg > 0, IS_POSITIVE_MSG, arg, name);
@@ -37,7 +37,7 @@ public class Assertions {
 	}
 
 	/**
-	 * Assert that arg is greater than zero. Zero itself does not count as positive.
+	 * Assert that arg is greater than zero. Zero does not count as positive.
 	 */
 	public static long assertPositive(long arg, String name) {
 		checkArgument(arg > 0, IS_POSITIVE_MSG, arg, name);
