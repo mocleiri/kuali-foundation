@@ -10,8 +10,6 @@ public class Precondition {
 
 	private static final String NOT_NULL_MSG = "'%s' cannot be null";
 	private static final String NOT_BLANK_MSG = "'%s' cannot be blank";
-	private static final String IS_POSITIVE_MSG = "%s not allowed. '%s' must be positive";
-	private static final String NOT_NEGATIVE_MSG = "%s not allowed. '%s' must not be negative";
 	private static final String MIN_MSG = "%s not allowed. '%s' must be greater than or equal to %s";
 
 	/**
@@ -48,27 +46,32 @@ public class Precondition {
 	}
 
 	/**
+	 * Assert that arg is greater than or equal to min.
+	 */
+	public static long checkMin(long arg, long min, String name) {
+		checkArgument(arg >= min, MIN_MSG, arg, min, name);
+		return arg;
+	}
+
+	/**
 	 * Assert that arg is greater than or equal to zero.
 	 */
 	public static int checkNotNegative(int arg, String name) {
-		checkArgument(arg >= 0, NOT_NEGATIVE_MSG, arg, name);
-		return arg;
+		return checkMin(arg, 0, name);
 	}
 
 	/**
 	 * Assert that arg is greater than zero. Zero does not count as positive.
 	 */
 	public static int checkPositive(int arg, String name) {
-		checkArgument(arg > 0, IS_POSITIVE_MSG, arg, name);
-		return arg;
+		return checkMin(arg, 1, name);
 	}
 
 	/**
 	 * Assert that arg is greater than zero. Zero does not count as positive.
 	 */
 	public static long checkPositive(long arg, String name) {
-		checkArgument(arg > 0, IS_POSITIVE_MSG, arg, name);
-		return arg;
+		return checkMin(arg, 1, name);
 	}
 
 }
