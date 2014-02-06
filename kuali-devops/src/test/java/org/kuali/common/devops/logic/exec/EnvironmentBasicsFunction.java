@@ -39,9 +39,9 @@ public final class EnvironmentBasicsFunction implements Function<String, Environ
 			HttpCacherExecutable e = new HttpCacherExecutable(getEnvJspUrl(fqdn));
 			ConcurrentExecutables.execute(ImmutableList.<Executable> of(m, h, r, e));
 			FileCache manifest = m.getResult();
-			FileCache heap = m.getResult();
-			FileCache releaseNotes = m.getResult();
-			FileCache environment = m.getResult();
+			FileCache heap = h.getResult();
+			FileCache releaseNotes = r.getResult();
+			FileCache environment = e.getResult();
 			return EnvironmentBasics.builder().manifest(manifest).heap(heap).releaseNotes(releaseNotes).environment(environment).build();
 		} else {
 			FileCache manifest = getFileCache(fqdn, getManifestUrl(fqdn));
