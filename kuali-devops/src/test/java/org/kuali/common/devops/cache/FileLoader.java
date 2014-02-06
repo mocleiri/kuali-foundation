@@ -9,9 +9,9 @@ import java.io.IOException;
 import com.google.common.base.Optional;
 import com.google.common.cache.CacheLoader;
 
-public final class FileCacheLoader extends CacheLoader<File, Optional<String>> {
+public final class FileLoader extends CacheLoader<File, Optional<String>> {
 
-	public FileCacheLoader(String encoding) {
+	public FileLoader(String encoding) {
 		this.encoding = checkNotBlank(encoding, "encoding");
 	}
 
