@@ -24,7 +24,7 @@ public final class LocationLoader extends CacheLoader<String, Optional<String>> 
 	}
 
 	public LocationLoader(ResourceLoader resourceLoader, String encoding) {
-		this.resourceLoader = checkNotNull(resourceLoader);
+		this.resourceLoader = checkNotNull(resourceLoader, "resourceLoader");
 		this.encoding = checkNotBlank(encoding, "encoding");
 	}
 
