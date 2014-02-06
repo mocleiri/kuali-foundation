@@ -1,6 +1,6 @@
 package org.kuali.common.util.base;
 
-import static org.kuali.common.util.base.Precondition.checkNotNull;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Map;
 
@@ -61,7 +61,7 @@ public final class Replacer {
 		}
 
 		private static void validate(Replacer instance) {
-			checkNotNull(instance.tokens, "tokens");
+			checkNotNull(instance.tokens);
 		}
 
 		public BiMap<String, String> getTokens() {
