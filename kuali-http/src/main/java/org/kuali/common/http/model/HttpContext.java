@@ -104,13 +104,13 @@ public final class HttpContext {
 			return maxRetries(Optional.of(maxRetries));
 		}
 
-		public Builder maxResponseBodyBytes(Optional<Long> maxResponseBodyBytes) {
-			this.maxBytes = maxResponseBodyBytes;
+		public Builder maxBytes(Optional<Long> maxBytes) {
+			this.maxBytes = maxBytes;
 			return this;
 		}
 
-		public Builder maxResponseBodyBytes(long maxResponseBodyBytes) {
-			return maxResponseBodyBytes(Optional.of(maxResponseBodyBytes));
+		public Builder maxBytes(long maxBytes) {
+			return maxBytes(Optional.of(maxBytes));
 		}
 
 		public Builder quiet(boolean quiet) {
