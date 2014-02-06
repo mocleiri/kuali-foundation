@@ -1,6 +1,6 @@
 package org.kuali.common.util.base;
 
-import static org.kuali.common.util.base.Assertions.checkNotNull;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.util.Map;
 

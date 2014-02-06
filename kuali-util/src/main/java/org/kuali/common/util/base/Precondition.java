@@ -6,7 +6,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 
-public class Assertions {
+public class Precondition {
 
 	private static final String NOT_NULL_MSG = "'%s' cannot be null";
 	private static final String NOT_BLANK_MSG = "'%s' cannot be blank";
