@@ -42,6 +42,7 @@ public final class HttpContext {
 	private final boolean quiet;
 	private final Optional<Integer> maxResponseBodyBytes;
 	private final Optional<Integer> maxRetries;
+	private final boolean skipReleaseConnection;
 
 	// If Tomcat is fronted by an Apache web server, and Apache is up and running but Tomcat is still starting, http 503 is returned by Apache
 	// We don't want to fail if we get a 503, just continue waiting
@@ -74,9 +75,15 @@ public final class HttpContext {
 		private boolean quiet = false;
 		private Optional<Integer> maxResponseBodyBytes = Optional.absent();
 		private Optional<Integer> maxRetries = Optional.absent();
+		private boolean skipReleaseConnection = false;
 
 		public Builder(String url) {
 			this.url = url;
+		}
+
+		public Builder skipReleaseConnection(boolean skipReleaseConnection) {
+			this.skipReleaseConnection = skipReleaseConnection;
+			return this;
 		}
 
 		public Builder maxRetries(Optional<Integer> maxRetries) {
@@ -262,6 +269,14 @@ public final class HttpContext {
 			this.maxRetries = maxRetries;
 		}
 
+		public boolean isSkipReleaseConnection() {
+			return skipReleaseConnection;
+		}
+
+		public void setSkipReleaseConnection(boolean skipReleaseConnection) {
+			this.skipReleaseConnection = skipReleaseConnection;
+		}
+
 	}
 
 	private HttpContext(Builder builder) {
@@ -276,6 +291,7 @@ public final class HttpContext {
 		this.quiet = builder.quiet;
 		this.maxResponseBodyBytes = builder.maxResponseBodyBytes;
 		this.maxRetries = builder.maxRetries;
+		this.skipReleaseConnection = builder.skipReleaseConnection;
 	}
 
 	public String getUrl() {
@@ -320,6 +336,10 @@ public final class HttpContext {
 
 	public Optional<Integer> getMaxRetries() {
 		return maxRetries;
+	}
+
+	public boolean isSkipReleaseConnection() {
+		return skipReleaseConnection;
 	}
 
 }
