@@ -24,17 +24,17 @@ public class Precondition {
 	/**
 	 * Check that a String is not whitespace, empty ("") or null.
 	 */
-	public static String checkNotBlank(String arg, String name) {
-		checkArgument(!isBlank(arg), NOT_BLANK_MSG, name);
+	public static String checkNotBlank(String arg, String argName) {
+		checkArgument(!isBlank(arg), NOT_BLANK_MSG, argName);
 		return arg;
 	}
 
 	/**
 	 * If arg.isPresent(), check that the string it contains is not whitespace, empty ("") or null.
 	 */
-	public static Optional<String> checkNotBlank(Optional<String> arg, String name) {
+	public static Optional<String> checkNotBlank(Optional<String> arg, String argName) {
 		if (arg.isPresent()) {
-			checkArgument(!isBlank(arg.get()), name);
+			checkArgument(!isBlank(arg.get()), argName);
 		}
 		return arg;
 	}
@@ -42,9 +42,9 @@ public class Precondition {
 	/**
 	 * If arg.isPresent(), check that the Integer it contains is greater than or equal to min
 	 */
-	public static Optional<Integer> checkMin(Optional<Integer> arg, int min, String name) {
+	public static Optional<Integer> checkMin(Optional<Integer> arg, int min, String argName) {
 		if (arg.isPresent()) {
-			checkMin(arg.get(), min, name);
+			checkMin(arg.get(), min, argName);
 		}
 		return arg;
 	}
@@ -52,16 +52,16 @@ public class Precondition {
 	/**
 	 * Check that arg is greater than or equal to min.
 	 */
-	public static int checkMin(int arg, int min, String name) {
-		checkArgument(arg >= min, MIN_MSG, arg, min, name);
+	public static int checkMin(int arg, int min, String argName) {
+		checkArgument(arg >= min, MIN_MSG, arg, min, argName);
 		return arg;
 	}
 
 	/**
 	 * Check that arg is greater than or equal to min.
 	 */
-	public static long checkMin(long arg, long min, String name) {
-		checkArgument(arg >= min, MIN_MSG, arg, min, name);
+	public static long checkMin(long arg, long min, String argName) {
+		checkArgument(arg >= min, MIN_MSG, arg, min, argName);
 		return arg;
 	}
 
