@@ -19,10 +19,6 @@ import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
 
-/**
- * @deprecated
- */
-@Deprecated
 public final class HttpWaitExecutable implements Executable {
 
 	public static final boolean DEFAULT_SKIP = false;

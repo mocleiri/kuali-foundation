@@ -22,10 +22,6 @@ public interface HttpService {
 
 	HttpWaitResult wait(String url);
 
-	/**
-	 * @deprecated Use wait(url) instead
-	 */
-	@Deprecated
 	HttpWaitResult wait(HttpContext context);
 
 }

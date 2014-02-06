@@ -46,8 +46,7 @@ public class DefaultHttpService implements HttpService {
 
 	@Override
 	public HttpWaitResult wait(String url) {
-		HttpContext context = HttpContext.create(url);
-		return wait(context);
+		return wait(HttpContext.create(url));
 	}
 
 	@Override
