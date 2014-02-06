@@ -1,6 +1,6 @@
 package org.kuali.common.devops.cache;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 import java.io.IOException;
 
@@ -22,8 +22,8 @@ public final class DefaultHttpUrlLoader extends CacheLoader<String, Optional<Str
 
 	@Override
 	public Optional<String> load(String url) throws IOException {
-		checkNotNull(url);
-		HttpContext.Builder builder = HttpContext.builder(url);
+		checkNotBlank(url, "url");
+		HttpContext.Builder builder = HttpContext.builder();
 		BeanUtils.copyProperties(context, builder);
 		builder.setUrl(url);
 		HttpContext context = builder.build();
