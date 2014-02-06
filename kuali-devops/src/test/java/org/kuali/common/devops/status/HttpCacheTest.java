@@ -28,7 +28,7 @@ public class HttpCacheTest {
 	@Test
 	public void test() {
 		try {
-			HttpContext context = HttpContext.builder().quiet(true).asynchronousClose(true).maxBytes("25k").maxRetries(0).overallTimeout("5s").build();
+			HttpContext context = HttpContext.builder().quiet(true).asynchronousClose(true).maxBytes("250k").maxRetries(0).overallTimeout("5s").build();
 			LoadingCache<String, Optional<String>> cache1 = CacheBuilder.newBuilder().build(HttpLoader.create(context));
 			LoadingCache<String, Optional<String>> cache2 = CacheBuilder.newBuilder().build(new LocationLoader(UTF8));
 			cache(cache1);
