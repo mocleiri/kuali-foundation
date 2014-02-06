@@ -9,14 +9,14 @@ import java.util.SortedMap;
 import org.junit.Test;
 import org.kuali.common.devops.logic.Environments2;
 import org.kuali.common.devops.model.Environment;
-import org.kuali.common.util.log.LoggerUtils;
+import org.kuali.common.util.log.Loggers;
 import org.slf4j.Logger;
 
 import com.google.common.collect.Sets;
 
 public class HttpCacherTest {
 
-	private static final Logger logger = LoggerUtils.make();
+	private static final Logger logger = Loggers.make();
 
 	@Test
 	public void test() {
