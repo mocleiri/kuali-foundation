@@ -225,85 +225,85 @@ public class MetaInfUtils {
 	/**
 	 * List of <code>classpath:META-INF/org/kuali/util/kuali-util/[filename].resources</code> where <code>[filename]</code> can contain an Ant-style pattern
 	 */
-	public static List<String> getPatterenedClasspathResources(ProjectIdentifier project, String filename) {
-		return getPatterenedClasspathResources(project.getGroupId(), project.getArtifactId(), filename);
+	public static List<String> getPatternedClasspathResources(ProjectIdentifier project, String filename) {
+		return getPatternedClasspathResources(project.getGroupId(), project.getArtifactId(), filename);
 	}
 
 	/**
 	 * List of <code>classpath:META-INF/org/kuali/util/kuali-util/[qualifier]/[group].resources</code> where <code>[qualifier]</code> can contain an Ant-style pattern
 	 */
-	public static List<String> getPatterenedClasspathResources(ProjectIdentifier project, String qualifier, MetaInfGroup group) {
-		return getPatterenedClasspathResources(project.getGroupId(), project.getArtifactId(), Optional.of(qualifier), group.name().toLowerCase());
+	public static List<String> getPatternedClasspathResources(ProjectIdentifier project, String qualifier, MetaInfGroup group) {
+		return getPatternedClasspathResources(project.getGroupId(), project.getArtifactId(), Optional.of(qualifier), group.name().toLowerCase());
 	}
 
 	/**
 	 * List of <code>classpath:META-INF/org/kuali/util/kuali-util/[qualifier]/[filename].resources</code> where <code>[qualifier]</code> and <code>[filename]</code> can contain an
 	 * Ant-style pattern
 	 */
-	public static List<String> getPatterenedClasspathResources(ProjectIdentifier project, String qualifier, String filename) {
-		return getPatterenedClasspathResources(project.getGroupId(), project.getArtifactId(), Optional.of(qualifier), filename);
+	public static List<String> getPatternedClasspathResources(ProjectIdentifier project, String qualifier, String filename) {
+		return getPatternedClasspathResources(project.getGroupId(), project.getArtifactId(), Optional.of(qualifier), filename);
 	}
 
 	/**
 	 * List of <code>classpath:META-INF/org/kuali/util/kuali-util/[qualifier]/[location]/[type]/[filename].resources</code> where <code>[qualifier]</code>, <code>[location]</code>,
 	 * and <type>[type]</type> are optional and <code>[qualifier]</code> and <code>[filename]</code> can contain an Ant-style pattern
 	 */
-	public static List<String> getPatterenedClasspathResources(ProjectIdentifier project, Optional<String> qualifier, Optional<MetaInfDataLocation> location,
+	public static List<String> getPatternedClasspathResources(ProjectIdentifier project, Optional<String> qualifier, Optional<MetaInfDataLocation> location,
 			Optional<MetaInfDataType> type, String filename) {
-		return getPatterenedClasspathResources(project.getGroupId(), project.getArtifactId(), qualifier, location, type, filename);
+		return getPatternedClasspathResources(project.getGroupId(), project.getArtifactId(), qualifier, location, type, filename);
 	}
 
 	/**
 	 * List of <code>classpath:META-INF/org/kuali/util/kuali-util/[filename].resources</code> where <code>[filename]</code> can contain an Ant-style pattern
 	 */
-	public static List<String> getPatterenedClasspathResources(Project project, String filename) {
-		return getPatterenedClasspathResources(project.getGroupId(), project.getArtifactId(), filename);
+	public static List<String> getPatternedClasspathResources(Project project, String filename) {
+		return getPatternedClasspathResources(project.getGroupId(), project.getArtifactId(), filename);
 	}
 
 	/**
 	 * List of <code>classpath:META-INF/org/kuali/util/kuali-util/[qualifier]/[group].resources</code> where <code>[qualifier]</code> can contain an Ant-style pattern
 	 */
-	public static List<String> getPatterenedClasspathResources(Project project, String qualifier, MetaInfGroup group) {
-		return getPatterenedClasspathResources(project.getGroupId(), project.getArtifactId(), Optional.of(qualifier), group.name().toLowerCase());
+	public static List<String> getPatternedClasspathResources(Project project, String qualifier, MetaInfGroup group) {
+		return getPatternedClasspathResources(project.getGroupId(), project.getArtifactId(), Optional.of(qualifier), group.name().toLowerCase());
 	}
 
 	/**
 	 * List of <code>classpath:META-INF/org/kuali/util/kuali-util/[qualifier]/[filename].resources</code> where <code>[qualifier]</code> and <code>[filename]</code> can contain an
 	 * Ant-style pattern
 	 */
-	public static List<String> getPatterenedClasspathResources(Project project, String qualifier, String filename) {
-		return getPatterenedClasspathResources(project.getGroupId(), project.getArtifactId(), Optional.of(qualifier), filename);
+	public static List<String> getPatternedClasspathResources(Project project, String qualifier, String filename) {
+		return getPatternedClasspathResources(project.getGroupId(), project.getArtifactId(), Optional.of(qualifier), filename);
 	}
 
 	/**
 	 * List of <code>classpath:META-INF/org/kuali/util/kuali-util/[qualifier]/[location]/[type]/[filename].resources</code> where <code>[qualifier]</code>, <code>[location]</code>,
 	 * and <type>[type]</type> are optional and <code>[qualifier]</code> and <code>[filename]</code> can contain an Ant-style pattern
 	 */
-	public static List<String> getPatterenedClasspathResources(Project project, Optional<String> qualifier, Optional<MetaInfDataLocation> location, Optional<MetaInfDataType> type,
+	public static List<String> getPatternedClasspathResources(Project project, Optional<String> qualifier, Optional<MetaInfDataLocation> location, Optional<MetaInfDataType> type,
 			String filename) {
-		return getPatterenedClasspathResources(project.getGroupId(), project.getArtifactId(), qualifier, location, type, filename);
+		return getPatternedClasspathResources(project.getGroupId(), project.getArtifactId(), qualifier, location, type, filename);
 	}
 
 	/**
 	 * List of <code>classpath:META-INF/org/kuali/util/kuali-util/[filename].resources</code> where <code>[filename]</code> can contain an Ant-style pattern
 	 */
-	public static List<String> getPatterenedClasspathResources(String groupId, String artifactId, String filename) {
-		return getPatterenedClasspathResources(groupId, artifactId, Optional.<String> absent(), filename);
+	public static List<String> getPatternedClasspathResources(String groupId, String artifactId, String filename) {
+		return getPatternedClasspathResources(groupId, artifactId, Optional.<String> absent(), filename);
 	}
 
 	/**
 	 * List of <code>classpath:META-INF/org/kuali/util/kuali-util/[qualifier]/[filename].resources</code> where <code>[qualifier]</code> is optional * and <code>[qualifier]</code>
 	 * and <code>[filename]</code> can contain an Ant-style pattern
 	 */
-	public static List<String> getPatterenedClasspathResources(String groupId, String artifactId, Optional<String> qualifier, String filename) {
-		return getPatterenedClasspathResources(groupId, artifactId, qualifier, Optional.<MetaInfDataLocation> absent(), Optional.<MetaInfDataType> absent(), filename);
+	public static List<String> getPatternedClasspathResources(String groupId, String artifactId, Optional<String> qualifier, String filename) {
+		return getPatternedClasspathResources(groupId, artifactId, qualifier, Optional.<MetaInfDataLocation> absent(), Optional.<MetaInfDataType> absent(), filename);
 	}
 
 	/**
 	 * List of <code>classpath:META-INF/org/kuali/util/kuali-util/[qualifier]/[filename].resources</code> where <code>[qualifier]</code>, <code>[location]</code>, and
 	 * <type>[type]</type> are optional and <code>[qualifier]</code> and <code>[filename]</code> can contain an Ant-style pattern
 	 */
-	public static List<String> getPatterenedClasspathResources(String groupId, String artifactId, Optional<String> qualifier, Optional<MetaInfDataLocation> location,
+	public static List<String> getPatternedClasspathResources(String groupId, String artifactId, Optional<String> qualifier, Optional<MetaInfDataLocation> location,
 			Optional<MetaInfDataType> type, String filename) {
 		List<String> patterenedClasspathResources = new ArrayList<String>();
 		String classpathResource = getClasspathResource(groupId, artifactId, qualifier, location, type, filename);
