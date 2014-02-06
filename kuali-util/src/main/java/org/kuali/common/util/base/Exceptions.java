@@ -8,7 +8,7 @@ package org.kuali.common.util.base;
  * Typical usage:
  * 
  * <pre>
- *   throw Exceptions.illegalArg(e, &quot;Port [%s] must be between %s and %s&quot; port, 0, 65535);
+ *   throw Exceptions.illegalArg("Port [%s] must be between %s and %s" port, 0, 65535);
  * </pre>
  */
 public class Exceptions {
