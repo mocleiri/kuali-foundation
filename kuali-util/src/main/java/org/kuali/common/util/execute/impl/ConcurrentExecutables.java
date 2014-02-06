@@ -43,7 +43,15 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 	// If any thread throws an exception, this gets filled in
 	private Optional<IllegalStateException> uncaughtException = Optional.absent();
 
-	public static class Builder {
+	public static Builder builder(Executable... executables) {
+		return new Builder(executables);
+	}
+
+	public static Builder builder(List<Executable> executables) {
+		return new Builder(executables);
+	}
+
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<ConcurrentExecutables> {
 
 		// Required
 		private final List<Executable> executables;
@@ -70,6 +78,7 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 			return this;
 		}
 
+		@Override
 		public ConcurrentExecutables build() {
 			ConcurrentExecutables instance = new ConcurrentExecutables(this);
 			validate(instance);
