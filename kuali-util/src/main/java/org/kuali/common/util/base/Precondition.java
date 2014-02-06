@@ -8,6 +8,14 @@ import com.google.common.base.Preconditions;
 
 /**
  * Strongly mimic's Guava's {@Preconditions} with the addition of a sensible default error message for common situations
+ * 
+ * <pre>
+ * Before:
+ * String foo = checkNotNull(foo, &quot;'%s' cannot be null&quot;);
+ * 
+ * After:
+ * String foo = checkNotNull(foo, &quot;foo&quot;);
+ * </pre>
  */
 public class Precondition {
 
