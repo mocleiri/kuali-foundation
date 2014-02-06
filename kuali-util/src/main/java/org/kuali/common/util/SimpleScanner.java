@@ -62,4 +62,17 @@ public class SimpleScanner extends DirectoryScanner {
 		}
 		return files;
 	}
+
+    /**
+     * This method scans the file system starting at <code>basedir</code> and returns directory names matching the provided include/exclude patterns
+     */
+    public List<String> getDirectories() {
+        scan();
+        String[] includedDirectories = getIncludedDirectories();
+        List<String> directories = new ArrayList<String>();
+        for (String includedDirectory : includedDirectories) {
+            directories.add(includedDirectory);
+        }
+        return directories;
+    }
 }

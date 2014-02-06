@@ -6,10 +6,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-import org.kuali.common.util.metainf.model.MetaInfContext;
-import org.kuali.common.util.metainf.model.MetaInfResource;
-import org.kuali.common.util.metainf.model.MetaInfResourceLocationComparator;
-import org.kuali.common.util.metainf.model.MetaInfResourcePathComparator;
+import com.google.common.base.Optional;
+import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.metainf.model.*;
 import org.kuali.common.util.metainf.service.MetaInfUtils;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.project.ProjectUtils;
@@ -53,49 +53,56 @@ public class RiceXmlConfig implements MetaInfContextsConfig {
 	@Override
 	@Bean
 	public List<MetaInfContext> metaInfContexts() {
-		List<MetaInfContext> contexts = new ArrayList<MetaInfContext>();
-		MetaInfContext context = getMetaInfContext(MetaInfGroup.OTHER);
-		contexts.add(context);
-		return contexts;
+        List<MetaInfContext> metaInfContexts = new ArrayList<MetaInfContext>();
+        List<String> includeStrings = Lists.newArrayList("/initial-xml/", "/upgrades/*/");
+        for (String includeString : includeStrings) {
+            for (MetaInfDataType type : getTypes()) {
+                List<MetaInfContext> contexts = getMetaInfContexts(MetaInfGroup.OTHER, includeString, type);
+                metaInfContexts.addAll(contexts);
+            }
+        }
+		return metaInfContexts;
 	}
 
-	protected MetaInfContext getMetaInfContext(MetaInfGroup group) {
-		Map<MetaInfGroup, String> defaultIncludes = getDefaultIncludes(project);
-		Map<MetaInfGroup, String> defaultExcludes = getDefaultExcludes();
-		boolean relativePaths = env.getBoolean(RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
-		File outputFile = MetaInfUtils.getOutputFile(project, build, INGEST_FILENAME);
+	protected List<MetaInfContext> getMetaInfContexts(MetaInfGroup group, String includeString, MetaInfDataType type) {
+		List<MetaInfContext> metaInfContexts = Lists.newArrayList();
 		String includesKey = MetaInfConfigUtils.getIncludesKey(group, PREFIX);
 		String excludesKey = MetaInfConfigUtils.getExcludesKey(group, PREFIX);
-		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, includesKey, defaultIncludes.get(group));
-		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, excludesKey, defaultExcludes.get(group));
 		File scanDir = build.getOutputDir();
 		String encoding = build.getEncoding();
-		Comparator<MetaInfResource> comparator = getComparator(group);
-		return new MetaInfContext.Builder(outputFile, encoding, scanDir).comparator(comparator).includes(includes).excludes(excludes).relativePaths(relativePaths).build();
+		Comparator<MetaInfResource> comparator = getComparator();
+        boolean relativePaths = env.getBoolean(RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
+        List<String> qualifiers = MetaInfUtils.getQualifiers(scanDir, project, Lists.<String>newArrayList(includeString), Lists.<String>newArrayList());
+        for (String qualifier : qualifiers) {
+            File outputFile = MetaInfUtils.getOutputFile(project, build, Optional.of(qualifier), Optional.<MetaInfDataLocation> absent(), Optional.of(type), INGEST_FILENAME);
+            Map<MetaInfGroup, String> defaultIncludes = getDefaultIncludes(project, qualifier, type);
+            Map<MetaInfGroup, String> defaultExcludes = getDefaultExcludes();
+            List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, includesKey, defaultIncludes.get(group));
+            List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, excludesKey, defaultExcludes.get(group));
+            MetaInfContext context = new MetaInfContext.Builder(outputFile, encoding, scanDir).comparator(comparator).includes(includes).excludes(excludes).relativePaths(relativePaths).build();
+            metaInfContexts.add(context);
+        }
+        return metaInfContexts;
 	}
 
-	protected Comparator<MetaInfResource> getComparator(MetaInfGroup group) {
-		if (MetaInfGroup.OTHER.equals(group)) {
-			// The upgrades folder for Rice has a nested directory structure - [bootstrap|demo|test] and also [files...|sub-directories] inside each area
-			// The sorting of XML located inside the "upgrades" folder for Rice sorts by the directory structure first, and then by filenames in each directory.
-			// All sorting is done lexicographically.
-			// Files in any given directory come first, followed by any files in sub-directories.
-			return new MetaInfResourcePathComparator();
-		} else {
-			return new MetaInfResourceLocationComparator();
-		}
+    protected List<MetaInfDataType> getTypes() {
+        return Lists.newArrayList(MetaInfDataType.BOOTSTRAP, MetaInfDataType.DEMO, MetaInfDataType.TEST);
+    }
+
+	protected Comparator<MetaInfResource> getComparator() {
+		return new MetaInfResourcePathComparator();
 	}
 
-	protected Map<MetaInfGroup, String> getDefaultIncludes(Project project) {
+	protected Map<MetaInfGroup, String> getDefaultIncludes(Project project, String qualifier, MetaInfDataType type) {
 		String resourcePath = ProjectUtils.getResourcePath(project.getGroupId(), project.getArtifactId());
 		Map<MetaInfGroup, String> map = Maps.newHashMap();
-		map.put(MetaInfGroup.OTHER, resourcePath + "/upgrades/**/*.xml");
+        List<String> paths = Lists.newArrayList(resourcePath, qualifier, type.name().toLowerCase(), "**/*.xml");
+		map.put(MetaInfGroup.OTHER, StringUtils.join(paths, "/"));
 		return map;
 	}
 
 	protected Map<MetaInfGroup, String> getDefaultExcludes() {
 		Map<MetaInfGroup, String> map = Maps.newHashMap();
-		// No need to exclude any of the "upgrades" XML
 		map.put(MetaInfGroup.OTHER, NullUtils.NONE);
 		return map;
 	}
