@@ -26,7 +26,6 @@ public class Precondition {
 	 * Checks that a String is not whitespace, empty ("") or null.
 	 */
 	public static String checkNotBlank(String arg, String name) {
-		checkNotNull(arg, name);
 		checkArgument(!isBlank(arg), NOT_BLANK_MSG, name);
 		return arg;
 	}
