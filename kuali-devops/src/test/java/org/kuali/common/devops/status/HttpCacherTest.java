@@ -5,11 +5,15 @@ import static java.lang.String.format;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
 
 import org.junit.Test;
 import org.kuali.common.devops.logic.Environments2;
+import org.kuali.common.devops.logic.HttpCacher;
+import org.kuali.common.devops.logic.Manifests;
+import org.kuali.common.devops.logic.Projects;
 import org.kuali.common.devops.logic.function.EnvironmentBasicsFunction;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.model.EnvironmentBasics;
@@ -35,6 +39,11 @@ public class HttpCacherTest {
 			for (String fqdn : fqdns) {
 				logger.info(String.format("examining -> %s", fqdn));
 				EnvironmentBasics eb = new EnvironmentBasicsFunction(true).apply(fqdn);
+				if (eb.getManifest().getContent().isPresent()) {
+					Map<String, String> manifest = Manifests.getManifest(eb.getManifest().getContent().get());
+					String url = Projects.getProjectPropertiesUrl(fqdn, manifest);
+					HttpCacher.refresh(url);
+				}
 				break;
 			}
 			logger.info(format("elapsed -> %s", FormatUtils.getTime(stopwatch)));
