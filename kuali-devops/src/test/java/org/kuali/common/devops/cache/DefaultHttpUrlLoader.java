@@ -38,6 +38,14 @@ public final class DefaultHttpUrlLoader extends CacheLoader<String, Optional<Str
 		this.service = builder.service;
 	}
 
+	public static DefaultHttpUrlLoader create() {
+		return builder().build();
+	}
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder extends ValidatingBuilder<DefaultHttpUrlLoader> {
 
 		private HttpContext context = HttpContext.builder(NullUtils.NONE).build();
