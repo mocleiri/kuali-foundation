@@ -36,7 +36,6 @@ public class ConcurrentFunctions<F, T> implements Executable, UncaughtExceptionH
 		for (FunctionRunner<F, T> runner : runners) {
 			Thread thread = new Thread(runner, "function runner");
 			thread.setUncaughtExceptionHandler(this);
-			runners.add(runner);
 			threads.add(thread);
 		}
 		Threads.start(threads);
