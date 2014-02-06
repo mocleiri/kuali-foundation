@@ -59,6 +59,10 @@ public final class HttpContext {
 		return new Builder(url);
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder implements org.apache.commons.lang3.builder.Builder<HttpContext> {
 
 		private static final int OK = 200;
