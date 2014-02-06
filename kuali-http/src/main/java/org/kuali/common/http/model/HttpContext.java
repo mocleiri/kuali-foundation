@@ -23,6 +23,7 @@ import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import java.util.List;
 
 import org.kuali.common.util.Encodings;
+import org.kuali.common.util.nullify.NullUtils;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
@@ -84,6 +85,7 @@ public final class HttpContext {
 		private boolean asynchronousClose = false;
 
 		public Builder() {
+			this(NullUtils.NONE);
 		}
 
 		public Builder(String url) {
