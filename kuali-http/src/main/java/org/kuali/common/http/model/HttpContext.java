@@ -79,6 +79,9 @@ public final class HttpContext {
 		private Optional<Integer> maxRetries = Optional.absent();
 		private boolean asynchronousClose = false;
 
+		public Builder() {
+		}
+
 		public Builder(String url) {
 			this.url = url;
 		}
