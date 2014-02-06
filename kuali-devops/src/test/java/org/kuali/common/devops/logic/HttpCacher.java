@@ -1,6 +1,7 @@
 package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.startsWith;
 import static org.kuali.common.util.base.Assertions.assertNotBlank;
 
@@ -16,6 +17,8 @@ import org.kuali.common.http.service.HttpService;
 import org.kuali.common.util.Encodings;
 import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.file.CanonicalFile;
+import org.kuali.common.util.log.Loggers;
+import org.slf4j.Logger;
 
 import com.google.common.base.Optional;
 
@@ -24,6 +27,7 @@ public class HttpCacher {
 	private static final HttpService SERVICE = new DefaultHttpService();
 	private static final File CACHE_DIR = new CanonicalFile("./target/http/cache");
 	private static final String PROTOCOL = "http://";
+	private static final Logger logger = Loggers.make();
 
 	public static File cache(String url) {
 		assertNotBlank(url, "url");
@@ -53,8 +57,10 @@ public class HttpCacher {
 	protected static void cache(File file, Optional<String> data) {
 		try {
 			if (!data.isPresent()) {
+				logger.info(format("deleting -> [%s]", file));
 				FileUtils.forceDelete(file);
 			} else {
+				logger.info(format("creating -> [%s]", file));
 				FileUtils.write(file, data.get(), Encodings.UTF8);
 			}
 		} catch (IOException e) {
