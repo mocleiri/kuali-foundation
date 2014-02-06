@@ -5,7 +5,7 @@ import static org.kuali.common.devops.logic.Manifests.getManifestUrl;
 import static org.kuali.common.devops.logic.Tomcats.getHeapUrl;
 import static org.kuali.common.devops.logic.Tomcats.getReleaseNotesUrl;
 
-import org.kuali.common.devops.logic.exec.HttpCacherExecutable;
+import org.kuali.common.devops.logic.exec.FunctionExecutable;
 import org.kuali.common.devops.model.EnvironmentBasics;
 import org.kuali.common.devops.model.FileCache;
 import org.kuali.common.util.execute.Executable;
@@ -28,24 +28,18 @@ public final class EnvironmentBasicsFunction implements Function<String, Environ
 
 	@Override
 	public EnvironmentBasics apply(String fqdn) {
-		if (refresh) {
-			HttpCacherExecutable m = new HttpCacherExecutable(getManifestUrl(fqdn));
-			HttpCacherExecutable h = new HttpCacherExecutable(getHeapUrl(fqdn));
-			HttpCacherExecutable r = new HttpCacherExecutable(getReleaseNotesUrl(fqdn));
-			HttpCacherExecutable e = new HttpCacherExecutable(getEnvJspUrl(fqdn));
-			ConcurrentExecutables.execute(ImmutableList.<Executable> of(m, h, r, e));
-			FileCache manifest = m.getResult();
-			FileCache heap = h.getResult();
-			FileCache releaseNotes = r.getResult();
-			FileCache environment = e.getResult();
-			return EnvironmentBasics.builder().manifest(manifest).heap(heap).releaseNotes(releaseNotes).environment(environment).build();
-		} else {
-			FileCache manifest = new FileCacheFunction(refresh).apply(getManifestUrl(fqdn));
-			FileCache heap = new FileCacheFunction(refresh).apply(getHeapUrl(fqdn));
-			FileCache releaseNotes = new FileCacheFunction(refresh).apply(getReleaseNotesUrl(fqdn));
-			FileCache environment = new FileCacheFunction(refresh).apply(getEnvJspUrl(fqdn));
-			return EnvironmentBasics.builder().manifest(manifest).heap(heap).releaseNotes(releaseNotes).environment(environment).build();
-		}
+		Function<String, FileCache> function = new FileCacheFunction(refresh);
+		FunctionExecutable<String, FileCache> manifest = FunctionExecutable.create(function, getManifestUrl(fqdn));
+		FunctionExecutable<String, FileCache> heap = FunctionExecutable.create(function, getHeapUrl(fqdn));
+		FunctionExecutable<String, FileCache> releaseNotes = FunctionExecutable.create(function, getReleaseNotesUrl(fqdn));
+		FunctionExecutable<String, FileCache> environment = FunctionExecutable.create(function, getEnvJspUrl(fqdn));
+		ConcurrentExecutables.execute(ImmutableList.<Executable> of(manifest, heap, releaseNotes, environment));
+		EnvironmentBasics.Builder builder = EnvironmentBasics.builder();
+		builder.manifest(manifest.getResult());
+		builder.heap(heap.getResult());
+		builder.releaseNotes(releaseNotes.getResult());
+		builder.environment(environment.getResult());
+		return builder.build();
 	}
 
 }

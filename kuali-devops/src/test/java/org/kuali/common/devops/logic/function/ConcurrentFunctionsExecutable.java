@@ -14,6 +14,10 @@ import com.google.common.collect.Lists;
 
 public class ConcurrentFunctionsExecutable<F, T> implements Executable, UncaughtExceptionHandler {
 
+	public static <F, T> void execute(Function<F, T> function, List<F> inputs) {
+		new ConcurrentFunctionsExecutable<F, T>(function, inputs).execute();
+	}
+
 	public ConcurrentFunctionsExecutable(Function<F, T> function, List<F> inputs) {
 		this.function = assertNotNull(function, "function");
 		this.inputs = assertNotNull(inputs, "inputs");

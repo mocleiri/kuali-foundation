@@ -8,6 +8,10 @@ import com.google.common.base.Function;
 
 public final class FunctionExecutable<F, T> implements Executable {
 
+	public static <F, T> FunctionExecutable<F, T> create(Function<F, T> function, F input) {
+		return new FunctionExecutable<F, T>(function, input);
+	}
+
 	public FunctionExecutable(Function<F, T> function, F input) {
 		this.function = assertNotNull(function, "function");
 		this.input = assertNotNull(input, "input");
