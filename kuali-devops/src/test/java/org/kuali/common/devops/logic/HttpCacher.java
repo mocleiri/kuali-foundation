@@ -45,7 +45,9 @@ public class HttpCacher {
 
 	protected static Optional<String> getContent(String url) {
 		int maxBytes = 50 * 1024;
-		HttpContext context = HttpContext.builder(url).overallTimeout("5s").requestTimeout("5s").quiet(true).maxRetries(0).maxResponseBodyBytes(maxBytes).build();
+		boolean quiet = false;
+		HttpContext context = HttpContext.builder(url).skipReleaseConnection(true).overallTimeout("15s").requestTimeout("15s").quiet(quiet).maxRetries(0)
+				.maxResponseBodyBytes(maxBytes).build();
 		HttpWaitResult result = SERVICE.wait(context);
 		if (result.getStatus().equals(HttpStatus.SUCCESS)) {
 			return result.getFinalRequestResult().getResponseBody();

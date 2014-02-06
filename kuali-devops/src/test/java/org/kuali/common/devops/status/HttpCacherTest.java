@@ -9,6 +9,7 @@ import java.util.SortedMap;
 
 import org.junit.Test;
 import org.kuali.common.devops.logic.Environments2;
+import org.kuali.common.devops.logic.HttpCacher;
 import org.kuali.common.devops.logic.exec.BasicsCacherExecutable;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.util.execute.Executable;
@@ -25,6 +26,10 @@ public class HttpCacherTest {
 	@Test
 	public void test() {
 		try {
+			HttpCacher.cache("http://demo.ks.kuali.org/tomcat/logs/heap.log");
+			if (true) {
+				return;
+			}
 			SortedMap<String, List<Environment.Builder>> map = Environments2.getBuilders(false);
 			List<String> fqdns = getFqdns(map);
 			logger.info(String.format("fqdns: %s", fqdns.size()));
