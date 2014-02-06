@@ -8,10 +8,9 @@ import static org.kuali.common.util.base.Assertions.assertNotBlank;
 
 import java.util.List;
 
-import org.kuali.common.devops.logic.function.ConcurrentFunctions;
-import org.kuali.common.devops.logic.function.FileCacheFunction;
 import org.kuali.common.devops.model.FileCache;
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.execute.impl.ConcurrentExecutables;
 
 import com.google.common.collect.ImmutableList;
 
@@ -25,10 +24,16 @@ public final class BasicsCacherExecutable implements Executable {
 
 	@Override
 	public void execute() {
-		List<String> urls = ImmutableList.of(getManifestUrl(fqdn), getHeapUrl(fqdn), getReleaseNotesUrl(fqdn), getEnvJspUrl(fqdn));
-		FileCacheFunction function = new FileCacheFunction();
-		ConcurrentFunctions<String, FileCache> cf = new ConcurrentFunctions<String, FileCache>(function, urls);
-		List<FileCache> results = cf.apply();
+		HttpCacherExecutable m = new HttpCacherExecutable(getManifestUrl(fqdn));
+		HttpCacherExecutable h = new HttpCacherExecutable(getHeapUrl(fqdn));
+		HttpCacherExecutable r = new HttpCacherExecutable(getReleaseNotesUrl(fqdn));
+		HttpCacherExecutable e = new HttpCacherExecutable(getEnvJspUrl(fqdn));
+		List<Executable> execs = ImmutableList.<Executable> of(m, h, r, e);
+		ConcurrentExecutables.execute(execs);
+		FileCache manifest = m.getResult();
+		FileCache heap = m.getResult();
+		FileCache releaseNotes = m.getResult();
+		FileCache environment = m.getResult();
 	}
 
 }

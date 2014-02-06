@@ -8,7 +8,7 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 import com.google.common.base.Optional;
 
 @IdiotProofImmutable
-public class FileCache {
+public final class FileCache {
 
 	private final String url;
 	private final Optional<String> content;
