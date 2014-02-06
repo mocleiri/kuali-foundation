@@ -4,7 +4,7 @@ import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
-public class EnvironmentBasics {
+public final class EnvironmentBasics {
 
 	private final FileCache manifest;
 	private final FileCache heap;
