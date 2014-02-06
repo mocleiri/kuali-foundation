@@ -16,6 +16,7 @@ import org.kuali.common.http.model.HttpWaitResult;
 import org.kuali.common.http.service.DefaultHttpService;
 import org.kuali.common.http.service.HttpService;
 import org.kuali.common.util.Encodings;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.Loggers;
@@ -39,12 +40,26 @@ public class HttpCacher {
 		return FileCache.builder().url(url).cache(cacheFile).content(content).build();
 	}
 
-	public static File getCacheFile(String url) {
+	public static FileCache loadFromCache(String url) {
+		File cache = getCacheFile(url);
+		return FileCache.builder().cache(cache).content(getContent(cache)).url(url).build();
+	}
+
+	private static Optional<String> getContent(File file) {
+		if (file.exists()) {
+			String content = LocationUtils.toString(file);
+			return Optional.of(content);
+		} else {
+			return Optional.absent();
+		}
+	}
+
+	private static File getCacheFile(String url) {
 		String fragment = url.substring(PROTOCOL.length());
 		return new CanonicalFile(CACHE_DIR, fragment);
 	}
 
-	protected static Optional<String> getContent(String url) {
+	private static Optional<String> getContent(String url) {
 		int maxBytes = 25 * 1024;
 		boolean quiet = true;
 		HttpContext context = HttpContext.builder(url).asynchronousClose(true).overallTimeout("5s").requestTimeout("5s").quiet(quiet).maxRetries(0).maxResponseBodyBytes(maxBytes)
@@ -57,7 +72,7 @@ public class HttpCacher {
 		}
 	}
 
-	protected static void cache(File file, Optional<String> data) {
+	private static void cache(File file, Optional<String> data) {
 		try {
 			if (!data.isPresent()) {
 				logger.debug(format("deleting -> [%s]", file));
