@@ -5,6 +5,7 @@ import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.util.file.CanonicalFile;
@@ -35,9 +36,19 @@ public final class LocationLoader extends CacheLoader<String, Optional<String>> 
 		checkNotBlank(location, "location");
 		Resource resource = getResource(location);
 		if (!resource.exists()) {
-			return Optional.absent();
+			return Optional.of(readResourceToString(resource, encoding));
 		} else {
-			return Optional.of(IOUtils.toString(resource.getInputStream(), encoding));
+			return Optional.absent();
+		}
+	}
+
+	protected String readResourceToString(Resource resource, String encoding) throws IOException {
+		InputStream in = null;
+		try {
+			in = resource.getInputStream();
+			return IOUtils.toString(in, encoding);
+		} finally {
+			IOUtils.closeQuietly(in);
 		}
 	}
 
