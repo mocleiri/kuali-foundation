@@ -18,8 +18,7 @@ import com.google.common.collect.ImmutableList;
 public final class BasicsCacherExecutable implements Executable {
 
 	public BasicsCacherExecutable(String fqdn) {
-		assertNotBlank(fqdn, "fqdn");
-		this.fqdn = fqdn;
+		this.fqdn = assertNotBlank(fqdn, "fqdn");
 	}
 
 	private final String fqdn;
