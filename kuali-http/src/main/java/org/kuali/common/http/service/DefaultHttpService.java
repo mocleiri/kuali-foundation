@@ -208,7 +208,7 @@ public class DefaultHttpService implements HttpService {
 			if (context.isAsynchronousClose()) {
 				Runnable runnable = new AsynchronousCloser(method, in);
 				Thread thread = new Thread(runnable, "async http closer");
-				thread.setDaemon(false);
+				thread.setDaemon(true);
 			} else {
 				method.releaseConnection();
 				IOUtils.closeQuietly(in);
