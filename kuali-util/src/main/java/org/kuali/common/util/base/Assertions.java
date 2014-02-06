@@ -14,6 +14,9 @@ public class Assertions {
 	private static final String NOT_NEGATIVE_MSG = "%s not allowed. '%s' must not be negative";
 	private static final String MIN_MSG = "%s not allowed. '%s' must be greater than or equal to %s";
 
+	/**
+	 * Ensures that an object reference passed as a parameter to the calling method is not null.
+	 */
 	public static <T> T checkNotNull(T arg, String name) {
 		return Preconditions.checkNotNull(arg, NOT_NULL_MSG, name);
 	}
