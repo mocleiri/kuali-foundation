@@ -30,7 +30,7 @@ public class HttpCacher {
 	private static final String PROTOCOL = "http://";
 	private static final Logger logger = Loggers.make();
 
-	public static FileCache cache(String url) {
+	public static FileCache refresh(String url) {
 		assertNotBlank(url, "url");
 		checkArgument(startsWith(url, "http://"), "[%s] must start with [%s]", url, PROTOCOL);
 		File cacheFile = getCacheFile(url);
