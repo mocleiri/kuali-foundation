@@ -11,7 +11,7 @@ import java.util.SortedMap;
 
 import org.junit.Test;
 import org.kuali.common.devops.logic.Environments2;
-import org.kuali.common.devops.logic.exec.BasicsCacherExecutable;
+import org.kuali.common.devops.logic.exec.EnvironmentBasicsFunction;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.execute.Executable;
@@ -35,7 +35,7 @@ public class HttpCacherTest {
 			Stopwatch stopwatch = Stopwatch.createStarted();
 			for (String fqdn : fqdns) {
 				logger.info(String.format("examining -> %s", fqdn));
-				Executable executable = new BasicsCacherExecutable(fqdn);
+				Executable executable = new EnvironmentBasicsFunction(fqdn);
 				executable.execute();
 				break;
 			}
