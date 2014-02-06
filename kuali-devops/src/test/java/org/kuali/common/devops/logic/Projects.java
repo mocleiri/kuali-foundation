@@ -1,5 +1,7 @@
 package org.kuali.common.devops.logic;
 
+import static org.kuali.common.util.base.Assertions.assertNotBlank;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -18,6 +20,9 @@ import com.google.common.collect.Lists;
 
 public class Projects extends Examiner {
 
+	private static final String METAINF_FRAGMENT = "/tomcat/webapps/ROOT/WEB-INF/classes/META-INF";
+	private static final String FILENAME = "project.properties";
+
 	public static Optional<Project> getProject(String fqdn, Map<String, String> manifest) {
 		Properties properties = getProjectProperties(fqdn, manifest);
 		if (properties.getProperty("project.artifactId") == null) {
@@ -32,7 +37,7 @@ public class Projects extends Examiner {
 		if (!bundleSymbolicName.isPresent()) {
 			return new Properties();
 		} else {
-			String location = getProjectPropertiesPath(fqdn, bundleSymbolicName.get());
+			String location = getProjectPropertiesUrl(fqdn, bundleSymbolicName.get());
 			Properties properties = PropertyUtils.loadOrCreateSilently(location);
 
 			// Most reliable way to get SVN information is from the manifest
@@ -52,25 +57,29 @@ public class Projects extends Examiner {
 		}
 	}
 
-	protected static String getProjectPropertiesPath(String fqdn, String bundleSymbolicName) {
-		String fragment = "/tomcat/webapps/ROOT/WEB-INF/classes/META-INF";
+	public static String getProjectPropertiesUrl(String fqdn, Map<String, String> manifest) {
+		String key = "Bundle-SymbolicName";
+		assertNotBlank(manifest.get(key), key);
+		return getProjectPropertiesUrl(fqdn, manifest.get(key));
+	}
+
+	private static String getProjectPropertiesUrl(String fqdn, String bundleSymbolicName) {
 		String groupId = getGroupId(bundleSymbolicName);
 		String artifactId = getArtifactId(bundleSymbolicName);
-		String filename = "project.properties";
 		StringBuilder sb = new StringBuilder();
 		sb.append(PROTOCOL);
 		sb.append(fqdn);
-		sb.append(fragment);
+		sb.append(METAINF_FRAGMENT);
 		sb.append("/");
 		sb.append(Str.getPath(groupId));
 		sb.append("/");
 		sb.append(artifactId);
 		sb.append("/");
-		sb.append(filename);
+		sb.append(FILENAME);
 		return sb.toString();
 	}
 
-	protected static String getGroupId(String bundleSymbolicName) {
+	private static String getGroupId(String bundleSymbolicName) {
 		char separator = '.';
 		List<String> tokens = Splitter.on(separator).splitToList(bundleSymbolicName);
 		StringBuilder sb = new StringBuilder();
@@ -88,7 +97,7 @@ public class Projects extends Examiner {
 		return sb.toString();
 	}
 
-	protected static String getArtifactId(String bundleSymbolicName) {
+	private static String getArtifactId(String bundleSymbolicName) {
 		List<String> tokens = Splitter.on('.').splitToList(bundleSymbolicName);
 		return tokens.get(tokens.size() - 1);
 	}
@@ -96,7 +105,7 @@ public class Projects extends Examiner {
 	/**
 	 * Returns Optional.absent() unless we can locate a live URL that we can actually contact
 	 */
-	protected static Optional<String> getScmUrl(Map<String, String> manifest, Properties properties) {
+	private static Optional<String> getScmUrl(Map<String, String> manifest, Properties properties) {
 		// Most reliable method for getting the url is via MANIFEST.MF
 		Optional<String> url = getScmUrlFromManifest(manifest);
 		if (url.isPresent()) {
@@ -110,7 +119,7 @@ public class Projects extends Examiner {
 		}
 	}
 
-	protected static Optional<String> getScmUrlFromManifest(Map<String, String> manifest) {
+	private static Optional<String> getScmUrlFromManifest(Map<String, String> manifest) {
 		String url = manifest.get("SVN-URL");
 		if (url == null) {
 			return Optional.absent();
@@ -124,7 +133,7 @@ public class Projects extends Examiner {
 		return Optional.of(url);
 	}
 
-	protected static Optional<String> getScmUrlFromProperties(Properties properties) {
+	private static Optional<String> getScmUrlFromProperties(Properties properties) {
 		String url = properties.getProperty("project.scm.url");
 		if (url == null) {
 			return Optional.absent();
@@ -142,7 +151,7 @@ public class Projects extends Examiner {
 		}
 	}
 
-	protected static String getScmRevision(Map<String, String> manifest) {
+	private static String getScmRevision(Map<String, String> manifest) {
 		String revision = StringUtils.trimToNull(manifest.get("SVN-Revision"));
 		if (revision == null || revision.indexOf("${") != -1) {
 			return "n/a";
