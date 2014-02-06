@@ -20,6 +20,10 @@ public class FileCache {
 		this.cache = builder.cache;
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder extends ValidatingBuilder<FileCache> {
 
 		private String url;

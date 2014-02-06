@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
+import org.kuali.common.devops.model.FileCache;
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.http.model.HttpStatus;
 import org.kuali.common.http.model.HttpWaitResult;
@@ -29,13 +30,13 @@ public class HttpCacher {
 	private static final String PROTOCOL = "http://";
 	private static final Logger logger = Loggers.make();
 
-	public static File cache(String url) {
+	public static FileCache cache(String url) {
 		assertNotBlank(url, "url");
 		checkArgument(startsWith(url, "http://"), "[%s] must start with [%s]", url, PROTOCOL);
 		File cacheFile = getCacheFile(url);
 		Optional<String> content = getContent(url);
 		cache(cacheFile, content);
-		return cacheFile;
+		return FileCache.builder().url(url).cache(cacheFile).content(content).build();
 	}
 
 	public static File getCacheFile(String url) {
