@@ -195,6 +195,7 @@ public class DefaultHttpService implements HttpService {
 				if (isMaxBytes(bytesRead, context)) {
 					break;
 				}
+				length = in.read(buffer);
 			}
 			return sb.toString();
 		} catch (IOException e) {
