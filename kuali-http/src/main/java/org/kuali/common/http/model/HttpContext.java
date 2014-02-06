@@ -16,10 +16,10 @@
 package org.kuali.common.http.model;
 
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
-import static org.kuali.common.util.base.Assertions.assertNotBlank;
-import static org.kuali.common.util.base.Assertions.assertNotNegative;
-import static org.kuali.common.util.base.Assertions.assertNotNull;
-import static org.kuali.common.util.base.Assertions.assertPositive;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
+import static org.kuali.common.util.base.Precondition.checkNotNegative;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
+import static org.kuali.common.util.base.Precondition.checkPositive;
 
 import java.util.List;
 
@@ -167,22 +167,22 @@ public final class HttpContext {
 		}
 
 		private static void validate(HttpContext instance) {
-			assertNotBlank(instance.url, "url");
-			assertNotBlank(instance.encoding, "encoding");
-			assertNotNull(instance.successCodes, "successCodes");
-			assertNotNull(instance.continueWaitingCodes, "continueWaitingCodes");
-			assertNotNull(instance.maxResponseBodyBytes, "maxResponseBodyBytes");
+			checkNotBlank(instance.url, "url");
+			checkNotBlank(instance.encoding, "encoding");
+			checkNotNull(instance.successCodes, "successCodes");
+			checkNotNull(instance.continueWaitingCodes, "continueWaitingCodes");
+			checkNotNull(instance.maxResponseBodyBytes, "maxResponseBodyBytes");
 			if (instance.maxResponseBodyBytes.isPresent()) {
-				assertPositive(instance.maxResponseBodyBytes.get(), "maxResponseBodyBytes");
+				checkPositive(instance.maxResponseBodyBytes.get(), "maxResponseBodyBytes");
 			}
-			assertNotNull(instance.maxRetries, "maxRetries");
+			checkNotNull(instance.maxRetries, "maxRetries");
 			if (instance.maxRetries.isPresent()) {
-				assertNotNegative(instance.maxRetries.get(), "maxRetries");
+				checkNotNegative(instance.maxRetries.get(), "maxRetries");
 			}
-			assertNotNull(instance.logMsgPrefix, "logMsgPrefix");
-			assertPositive(instance.requestTimeoutMillis, "requestTimeoutMillis");
-			assertPositive(instance.overallTimeoutMillis, "overallTimeoutMillis");
-			assertPositive(instance.sleepIntervalMillis, "sleepIntervalMillis");
+			checkNotNull(instance.logMsgPrefix, "logMsgPrefix");
+			checkPositive(instance.requestTimeoutMillis, "requestTimeoutMillis");
+			checkPositive(instance.overallTimeoutMillis, "overallTimeoutMillis");
+			checkPositive(instance.sleepIntervalMillis, "sleepIntervalMillis");
 		}
 
 		public String getLogMsgPrefix() {

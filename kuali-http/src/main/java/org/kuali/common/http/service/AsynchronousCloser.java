@@ -1,6 +1,6 @@
 package org.kuali.common.http.service;
 
-import static org.kuali.common.util.base.Assertions.assertNotNull;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.io.InputStream;
 
@@ -10,8 +10,8 @@ import org.apache.commons.io.IOUtils;
 public final class AsynchronousCloser implements Runnable {
 
 	public AsynchronousCloser(HttpMethod method, InputStream in) {
-		this.method = assertNotNull(method, "method");
-		this.in = assertNotNull(in, "in");
+		this.method = checkNotNull(method, "method");
+		this.in = checkNotNull(in, "in");
 	}
 
 	private final HttpMethod method;

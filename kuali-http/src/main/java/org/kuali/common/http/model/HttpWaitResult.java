@@ -16,8 +16,8 @@
 package org.kuali.common.http.model;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static org.kuali.common.util.base.Assertions.assertNotNull;
-import static org.kuali.common.util.base.Assertions.assertPositive;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
+import static org.kuali.common.util.base.Precondition.checkPositive;
 
 import java.util.List;
 
@@ -87,10 +87,10 @@ public final class HttpWaitResult {
 		}
 
 		private static void validate(HttpWaitResult instance) {
-			assertNotNull(instance.status, "status");
-			assertNotNull(instance.finalRequestResult, "finalRequestResult");
-			assertNotNull(instance.requestResults, "requestResults");
-			assertPositive(instance.start, "start");
+			checkNotNull(instance.status, "status");
+			checkNotNull(instance.finalRequestResult, "finalRequestResult");
+			checkNotNull(instance.requestResults, "requestResults");
+			checkPositive(instance.start, "start");
 			checkArgument(instance.stop >= instance.start, "'stop' cannot be less than 'start' [%s < %s]", instance.stop, instance.start);
 		}
 
