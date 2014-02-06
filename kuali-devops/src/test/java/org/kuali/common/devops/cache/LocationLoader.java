@@ -35,7 +35,7 @@ public final class LocationLoader extends CacheLoader<String, Optional<String>> 
 	public Optional<String> load(String location) throws IOException {
 		checkNotBlank(location, "location");
 		Resource resource = getResource(location);
-		if (!resource.exists()) {
+		if (resource.exists()) {
 			return Optional.of(readResourceToString(resource, encoding));
 		} else {
 			return Optional.absent();
