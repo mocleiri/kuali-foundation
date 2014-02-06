@@ -23,6 +23,7 @@ import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import java.util.List;
 
 import org.kuali.common.util.Encodings;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.nullify.NullUtils;
 
 import com.google.common.base.Optional;
@@ -109,6 +110,10 @@ public final class HttpContext {
 		public Builder maxBytes(Optional<Long> maxBytes) {
 			this.maxBytes = maxBytes;
 			return this;
+		}
+
+		public Builder maxBytes(String maxBytes) {
+			return maxBytes(Optional.of(FormatUtils.getBytes(maxBytes)));
 		}
 
 		public Builder maxBytes(long maxBytes) {
