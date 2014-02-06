@@ -58,7 +58,9 @@ public class HttpCacher {
 		try {
 			if (!data.isPresent()) {
 				logger.info(format("deleting -> [%s]", file));
-				FileUtils.forceDelete(file);
+				if (file.exists()) {
+					FileUtils.forceDelete(file);
+				}
 			} else {
 				logger.info(format("creating -> [%s]", file));
 				FileUtils.write(file, data.get(), Encodings.UTF8);
