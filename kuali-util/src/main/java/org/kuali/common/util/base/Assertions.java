@@ -1,8 +1,10 @@
 package org.kuali.common.util.base;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 import static org.apache.commons.lang3.StringUtils.isBlank;
+
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 
 public class Assertions {
 
@@ -10,20 +12,42 @@ public class Assertions {
 	private static final String NOT_BLANK_MSG = "'%s' cannot be blank";
 	private static final String IS_POSITIVE_MSG = "%s not allowed. '%s' must be positive";
 	private static final String NOT_NEGATIVE_MSG = "%s not allowed. '%s' must not be negative";
+	private static final String MIN_MSG = "%s not allowed. '%s' must be greater than or equal to %s";
 
-	public static <T> T assertNotNull(T arg, String name) {
-		return checkNotNull(arg, NOT_NULL_MSG, name);
+	public static <T> T checkNotNull(T arg, String name) {
+		return Preconditions.checkNotNull(arg, NOT_NULL_MSG, name);
 	}
 
-	public static String assertNotBlank(String arg, String name) {
+	/**
+	 * Checks that a String is not whitespace, empty ("") or null.
+	 */
+	public static String checkNotBlank(String arg, String name) {
 		checkArgument(!isBlank(arg), NOT_BLANK_MSG, name);
+		return arg;
+	}
+
+	/**
+	 * If Optional.isPresent(), checks that the string it contains is not whitespace, empty ("") or null.
+	 */
+	public static Optional<String> checkNotBlank(Optional<String> arg, String name) {
+		if (arg.isPresent()) {
+			checkArgument(!isBlank(arg.get()), name);
+		}
+		return arg;
+	}
+
+	/**
+	 * Assert that arg is greater than or equal to min.
+	 */
+	public static int checkMin(int arg, int min, String name) {
+		checkArgument(arg >= min, MIN_MSG, arg, min, name);
 		return arg;
 	}
 
 	/**
 	 * Assert that arg is greater than or equal to zero.
 	 */
-	public static int assertNotNegative(int arg, String name) {
+	public static int checkNotNegative(int arg, String name) {
 		checkArgument(arg >= 0, NOT_NEGATIVE_MSG, arg, name);
 		return arg;
 	}
@@ -31,7 +55,7 @@ public class Assertions {
 	/**
 	 * Assert that arg is greater than zero. Zero does not count as positive.
 	 */
-	public static int assertPositive(int arg, String name) {
+	public static int checkPositive(int arg, String name) {
 		checkArgument(arg > 0, IS_POSITIVE_MSG, arg, name);
 		return arg;
 	}
@@ -39,7 +63,7 @@ public class Assertions {
 	/**
 	 * Assert that arg is greater than zero. Zero does not count as positive.
 	 */
-	public static long assertPositive(long arg, String name) {
+	public static long checkPositive(long arg, String name) {
 		checkArgument(arg > 0, IS_POSITIVE_MSG, arg, name);
 		return arg;
 	}
