@@ -34,6 +34,7 @@ import org.kuali.common.http.model.HttpStatus;
 import org.kuali.common.http.model.HttpWaitResult;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.base.Threads;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -184,11 +185,13 @@ public class DefaultHttpService implements HttpService {
 			if (in == null) {
 				return null;
 			}
-			byte[] buffer = new byte[1024];
+			byte[] buffer = new byte[4096];
 			int length = in.read(buffer);
 			int bytesRead = 0;
 			StringBuilder sb = new StringBuilder();
+			int count = 0;
 			while (length != -1) {
+				System.out.println("count: " + (count++));
 				String content = new String(buffer, 0, length, context.getEncoding());
 				sb.append(content);
 				bytesRead += length;
@@ -199,7 +202,7 @@ public class DefaultHttpService implements HttpService {
 			}
 			return sb.toString();
 		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
+			throw Exceptions.illegalState("unexpected io error", e);
 		} finally {
 			method.releaseConnection();
 			IOUtils.closeQuietly(in);
