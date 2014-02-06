@@ -1,7 +1,0 @@
-#!/bin/sh
-
-ARGS="$ARGS -Ddp.groupId=org.kuali.student"
-ARGS="$ARGS -Ddp.artifactId=ks-cm-image"
-ARGS="$ARGS -Ddp.version=1.0.0"
-ARGS="$ARGS -Ddp.file=/root/cm-training.vdi"
-mvn process-resources -Ps3private $ARGS
