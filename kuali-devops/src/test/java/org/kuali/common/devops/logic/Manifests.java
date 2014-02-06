@@ -18,7 +18,7 @@ public class Manifests extends Examiner {
 
 	private static final String MANIFEST_LOCATION = "/tomcat/webapps/ROOT/META-INF/MANIFEST.MF";
 
-	public static String getUrl(String fqdn) {
+	public static String getManifestUrl(String fqdn) {
 		return PROTOCOL + fqdn + MANIFEST_LOCATION;
 	}
 
