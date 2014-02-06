@@ -8,8 +8,7 @@ import org.kuali.common.util.execute.Executable;
 public final class HttpCacherExecutable implements Executable {
 
 	public HttpCacherExecutable(String url) {
-		assertNotBlank(url, "url");
-		this.url = url;
+		this.url = assertNotBlank(url, "url");
 	}
 
 	private final String url;
