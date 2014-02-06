@@ -9,7 +9,7 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 import com.google.common.collect.ImmutableList;
 
 @IdiotProofImmutable
-public final class HttpCacherExecutable implements Executable {
+public final class URLCacher implements Executable {
 
 	private final ImmutableList<String> urls;
 
@@ -20,11 +20,11 @@ public final class HttpCacherExecutable implements Executable {
 		}
 	}
 
-	private HttpCacherExecutable(Builder builder) {
+	private URLCacher(Builder builder) {
 		this.urls = ImmutableList.copyOf(builder.urls);
 	}
 
-	public static class Builder extends ValidatingBuilder<HttpCacherExecutable> {
+	public static class Builder extends ValidatingBuilder<URLCacher> {
 
 		private List<String> urls;
 
@@ -34,8 +34,8 @@ public final class HttpCacherExecutable implements Executable {
 		}
 
 		@Override
-		public HttpCacherExecutable getInstance() {
-			return new HttpCacherExecutable(this);
+		public URLCacher getInstance() {
+			return new URLCacher(this);
 		}
 
 		public List<String> getUrls() {
