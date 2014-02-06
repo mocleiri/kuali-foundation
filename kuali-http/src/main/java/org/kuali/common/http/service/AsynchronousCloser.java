@@ -1,6 +1,7 @@
 package org.kuali.common.http.service;
 
-import static org.kuali.common.util.base.Precondition.checkNotNull;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.InputStream;
 

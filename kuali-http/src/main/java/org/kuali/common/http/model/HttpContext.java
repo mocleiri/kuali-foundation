@@ -15,11 +15,10 @@
  */
 package org.kuali.common.http.model;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
+import static org.kuali.common.util.base.Precondition.checkMin;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
-import static org.kuali.common.util.base.Precondition.checkNotNegative;
-import static org.kuali.common.util.base.Precondition.checkNotNull;
-import static org.kuali.common.util.base.Precondition.checkPositive;
 
 import java.util.List;
 
@@ -172,17 +171,13 @@ public final class HttpContext {
 			checkNotNull(instance.successCodes, "successCodes");
 			checkNotNull(instance.continueWaitingCodes, "continueWaitingCodes");
 			checkNotNull(instance.maxResponseBodyBytes, "maxResponseBodyBytes");
-			if (instance.maxResponseBodyBytes.isPresent()) {
-				checkPositive(instance.maxResponseBodyBytes.get(), "maxResponseBodyBytes");
-			}
 			checkNotNull(instance.maxRetries, "maxRetries");
-			if (instance.maxRetries.isPresent()) {
-				checkNotNegative(instance.maxRetries.get(), "maxRetries");
-			}
 			checkNotNull(instance.logMsgPrefix, "logMsgPrefix");
-			checkPositive(instance.requestTimeoutMillis, "requestTimeoutMillis");
-			checkPositive(instance.overallTimeoutMillis, "overallTimeoutMillis");
-			checkPositive(instance.sleepIntervalMillis, "sleepIntervalMillis");
+			checkMin(instance.maxResponseBodyBytes, 0, "maxResponseBodyBytes");
+			checkMin(instance.maxRetries, 0, "maxRetries");
+			checkMin(instance.requestTimeoutMillis, 0, "requestTimeoutMillis");
+			checkMin(instance.overallTimeoutMillis, 0, "overallTimeoutMillis");
+			checkMin(instance.sleepIntervalMillis, 0, "sleepIntervalMillis");
 		}
 
 		public String getLogMsgPrefix() {
