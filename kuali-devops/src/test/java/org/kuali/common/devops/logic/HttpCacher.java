@@ -34,7 +34,7 @@ public class HttpCacher {
 		return cacheFile;
 	}
 
-	public static File getCacheFile(String url) {
+	protected static File getCacheFile(String url) {
 		String fragment = url.substring(PROTOCOL.length());
 		return new CanonicalFile(CACHE_DIR, fragment);
 	}

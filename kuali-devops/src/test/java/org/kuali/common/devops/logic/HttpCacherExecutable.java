@@ -1,6 +1,5 @@
 package org.kuali.common.devops.logic;
 
-import java.io.File;
 import java.util.List;
 
 import org.kuali.common.util.build.ValidatingBuilder;
@@ -13,7 +12,6 @@ import com.google.common.collect.ImmutableList;
 public final class HttpCacherExecutable implements Executable {
 
 	private final ImmutableList<String> urls;
-	private final ImmutableList<File> files;
 
 	@Override
 	public void execute() {
@@ -22,21 +20,14 @@ public final class HttpCacherExecutable implements Executable {
 
 	private HttpCacherExecutable(Builder builder) {
 		this.urls = ImmutableList.copyOf(builder.urls);
-		this.files = ImmutableList.copyOf(builder.files);
 	}
 
 	public static class Builder extends ValidatingBuilder<HttpCacherExecutable> {
 
 		private List<String> urls;
-		private List<File> files;
 
 		public Builder urls(List<String> urls) {
 			this.urls = urls;
-			return this;
-		}
-
-		public Builder files(List<File> files) {
-			this.files = files;
 			return this;
 		}
 
@@ -53,22 +44,10 @@ public final class HttpCacherExecutable implements Executable {
 			this.urls = urls;
 		}
 
-		public List<File> getFiles() {
-			return files;
-		}
-
-		public void setFiles(List<File> files) {
-			this.files = files;
-		}
-
 	}
 
 	public ImmutableList<String> getUrls() {
 		return urls;
-	}
-
-	public ImmutableList<File> getFiles() {
-		return files;
 	}
 
 }
