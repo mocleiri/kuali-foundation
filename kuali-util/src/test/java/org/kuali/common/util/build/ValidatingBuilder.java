@@ -11,7 +11,7 @@ import org.kuali.common.util.validate.Validation;
 
 public abstract class ValidatingBuilder<T> implements InstanceBuilder<T> {
 
-	protected Validator validator = Validation.getDefaultValidator();
+	private Validator validator = Validation.getDefaultValidator();
 
 	@Override
 	public final T build() {
