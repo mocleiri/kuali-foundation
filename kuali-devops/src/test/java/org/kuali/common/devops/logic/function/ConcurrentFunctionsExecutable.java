@@ -9,31 +9,31 @@ import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.base.Threads;
 import org.kuali.common.util.execute.Executable;
 
-import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 public class ConcurrentFunctionsExecutable<F, T> implements Executable, UncaughtExceptionHandler {
 
-	public static <F, T> void execute(Function<F, T> function, List<F> inputs) {
-		new ConcurrentFunctionsExecutable<F, T>(function, inputs).execute();
+	public static <F, T> void execute(FunctionRunner<F, T>... runners) {
+		execute(ImmutableList.copyOf(runners));
 	}
 
-	public ConcurrentFunctionsExecutable(Function<F, T> function, List<F> inputs) {
-		this.function = assertNotNull(function, "function");
-		this.inputs = assertNotNull(inputs, "inputs");
+	public static <F, T> void execute(List<FunctionRunner<F, T>> runners) {
+		new ConcurrentFunctionsExecutable<F, T>(runners).execute();
 	}
 
-	private final Function<F, T> function;
-	private final List<F> inputs;
+	public ConcurrentFunctionsExecutable(List<FunctionRunner<F, T>> runners) {
+		this.runners = assertNotNull(runners, "runners");
+	}
+
+	private final List<FunctionRunner<F, T>> runners;
 
 	private List<IllegalStateException> exceptions = Lists.newArrayList();
 
 	@Override
 	public void execute() {
-		List<FunctionRunner<F, T>> runners = Lists.newArrayList();
 		List<Thread> threads = Lists.newArrayList();
-		for (F input : inputs) {
-			FunctionRunner<F, T> runner = new FunctionRunner<F, T>(function, input);
+		for (FunctionRunner<F, T> runner : runners) {
 			Thread thread = new Thread(runner, "function runner");
 			thread.setUncaughtExceptionHandler(this);
 			runners.add(runner);
