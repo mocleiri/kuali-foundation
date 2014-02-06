@@ -20,6 +20,7 @@ import org.kuali.common.util.property.ImmutableProperties;
 import org.slf4j.Logger;
 
 import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableMap;
@@ -58,7 +59,9 @@ public class DNS {
 	public static BiMap<String, String> getCanonicalMap(boolean refresh) {
 		Map<String, String> map = Maps.newHashMap(getAliasMap(refresh));
 		removeAllKeysWithDuplicateValues(map);
-		return ImmutableBiMap.copyOf(map);
+		BiMap<String, String> aliases = HashBiMap.create(map);
+		BiMap<String, String> canonical = aliases.inverse();
+		return ImmutableBiMap.copyOf(canonical);
 	}
 
 	protected static <T> void removeAllKeysWithDuplicateValues(Map<?, T> map) {

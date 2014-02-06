@@ -17,7 +17,7 @@ import com.google.common.base.Optional;
 import com.google.common.cache.CacheLoader;
 
 @IdiotProofImmutable
-public final class DefaultHttpUrlLoader extends CacheLoader<String, Optional<String>> {
+public final class HttpUrlLoader extends CacheLoader<String, Optional<String>> {
 
 	private final HttpContext context;
 	private final HttpService service;
@@ -33,12 +33,12 @@ public final class DefaultHttpUrlLoader extends CacheLoader<String, Optional<Str
 		return result.getFinalRequestResult().getResponseBody();
 	}
 
-	private DefaultHttpUrlLoader(Builder builder) {
+	private HttpUrlLoader(Builder builder) {
 		this.context = builder.context;
 		this.service = builder.service;
 	}
 
-	public static DefaultHttpUrlLoader create() {
+	public static HttpUrlLoader create() {
 		return builder().build();
 	}
 
@@ -46,7 +46,7 @@ public final class DefaultHttpUrlLoader extends CacheLoader<String, Optional<Str
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<DefaultHttpUrlLoader> {
+	public static class Builder extends ValidatingBuilder<HttpUrlLoader> {
 
 		private HttpContext context = HttpContext.builder(NullUtils.NONE).build();
 		private HttpService service = new DefaultHttpService();
@@ -62,8 +62,8 @@ public final class DefaultHttpUrlLoader extends CacheLoader<String, Optional<Str
 		}
 
 		@Override
-		public DefaultHttpUrlLoader getInstance() {
-			return new DefaultHttpUrlLoader(this);
+		public HttpUrlLoader getInstance() {
+			return new HttpUrlLoader(this);
 		}
 
 		public HttpContext getContext() {
