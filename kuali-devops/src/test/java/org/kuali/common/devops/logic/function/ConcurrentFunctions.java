@@ -47,6 +47,6 @@ public class ConcurrentFunctions<F, T> implements Executable, UncaughtExceptionH
 
 	@Override
 	public synchronized void uncaughtException(Thread thread, Throwable e) {
-		exceptions.add(Exceptions.illegalState(e, "uncaught exception in thread [%s]", thread.getName()));
+		exceptions.add(Exceptions.illegalState(e, "uncaught exception in thread [%s] [id:%s]", thread.getName(), thread.getId()));
 	}
 }
