@@ -1,6 +1,8 @@
 package org.kuali.common.devops.status;
 
 import static java.lang.String.format;
+import static org.apache.commons.lang3.StringUtils.rightPad;
+import static org.kuali.common.util.FormatUtils.getTime;
 
 import java.util.List;
 
@@ -11,6 +13,7 @@ import org.kuali.common.util.log.Loggers;
 import org.slf4j.Logger;
 
 import com.google.common.base.Optional;
+import com.google.common.base.Stopwatch;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableList;
@@ -22,14 +25,15 @@ public class HttpCacheTest {
 	@Test
 	public void test() {
 		try {
-			List<String> urls = ImmutableList.of("http://www.yahoo.com/", "http://www.google.com/");
-			HttpContext context = HttpContext.builder().quiet(true).asynchronousClose(true).maxBytes(25 * 1024).maxRetries(0).overallTimeout("5s").build();
+			List<String> urls = ImmutableList.of("http://www.google.com/", "http://cnn.com", "http://www.microsoft.com", "http://www.yahoo.com/");
+			HttpContext context = HttpContext.builder().quiet(true).asynchronousClose(true).maxBytes(50 * 1024).maxRetries(0).overallTimeout("5s").build();
 			LoadingCache<String, Optional<String>> cache = CacheBuilder.newBuilder().build(HttpLoader.create(context));
 			for (String url : urls) {
-				Optional<String> content = cache.get(url);
-				logger.info(format("[%s] content: %s", url, content.isPresent() ? content.get().length() : "absent"));
+				Stopwatch stopwatch = Stopwatch.createStarted();
+				Optional<String> optional = cache.get(url);
+				String content = optional.isPresent() ? optional.get().length() + "" : "absent";
+				logger.info(format("%s content: %s - %s", rightPad(url, 25), content, getTime(stopwatch)));
 			}
-
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
