@@ -74,4 +74,12 @@ public final class DefaultHttpUrlLoader extends CacheLoader<String, Optional<Str
 
 	}
 
+	public HttpContext getContext() {
+		return context;
+	}
+
+	public HttpService getService() {
+		return service;
+	}
+
 }
