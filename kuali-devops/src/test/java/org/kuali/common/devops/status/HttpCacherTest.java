@@ -34,7 +34,7 @@ public class HttpCacherTest {
 			Stopwatch stopwatch = Stopwatch.createStarted();
 			for (String fqdn : fqdns) {
 				logger.info(String.format("examining -> %s", fqdn));
-				EnvironmentBasics eb = new EnvironmentBasicsFunction().apply(fqdn);
+				EnvironmentBasics eb = new EnvironmentBasicsFunction(true).apply(fqdn);
 				break;
 			}
 			logger.info(format("elapsed -> %s", FormatUtils.getTime(stopwatch)));
