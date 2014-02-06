@@ -6,6 +6,10 @@ import com.google.common.base.Function;
 
 public class FunctionRunner<F, T> implements Runnable {
 
+	public static <F, T> FunctionRunner<F, T> create(Function<F, T> function, F input) {
+		return new FunctionRunner<F, T>(function, input);
+	}
+
 	public FunctionRunner(Function<F, T> function, F input) {
 		this.input = assertNotNull(input, "input");
 		this.function = assertNotNull(function, "function");
