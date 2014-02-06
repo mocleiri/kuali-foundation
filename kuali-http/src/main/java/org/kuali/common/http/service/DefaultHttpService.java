@@ -188,7 +188,7 @@ public class DefaultHttpService implements HttpService {
 			}
 			byte[] buffer = new byte[4096];
 			int length = in.read(buffer);
-			int bytesRead = 0;
+			long bytesRead = 0;
 			StringBuilder sb = new StringBuilder();
 			while (length != -1) {
 				String content = new String(buffer, 0, length, context.getEncoding());
@@ -216,9 +216,9 @@ public class DefaultHttpService implements HttpService {
 		}
 	}
 
-	protected boolean isMaxBytes(int bytesRead, HttpContext context) {
-		if (context.getMaxResponseBodyBytes().isPresent()) {
-			int max = context.getMaxResponseBodyBytes().get();
+	protected boolean isMaxBytes(long bytesRead, HttpContext context) {
+		if (context.getMaxBytes().isPresent()) {
+			long max = context.getMaxBytes().get();
 			return bytesRead >= max;
 		} else {
 			return false;

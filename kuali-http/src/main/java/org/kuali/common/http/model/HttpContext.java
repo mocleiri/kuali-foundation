@@ -39,7 +39,7 @@ public final class HttpContext {
 	// If true, no log messages are emitted and timing out before getting a success code does not throw an exception
 	// You are on your own to examine the HttpWaitResult object and figure out what to do from there
 	private final boolean quiet;
-	private final Optional<Integer> maxResponseBodyBytes;
+	private final Optional<Long> maxBytes;
 	private final Optional<Integer> maxRetries;
 	private final boolean asynchronousClose;
 
@@ -72,7 +72,7 @@ public final class HttpContext {
 		private int overallTimeoutMillis = getMillisAsInt("30m"); // 30 minutes
 		private String encoding = Encodings.UTF8;
 		private boolean quiet = false;
-		private Optional<Integer> maxResponseBodyBytes = Optional.absent();
+		private Optional<Long> maxBytes = Optional.absent();
 		private Optional<Integer> maxRetries = Optional.absent();
 		private boolean asynchronousClose = false;
 
@@ -94,12 +94,12 @@ public final class HttpContext {
 			return maxRetries(Optional.of(maxRetries));
 		}
 
-		public Builder maxResponseBodyBytes(Optional<Integer> maxResponseBodyBytes) {
-			this.maxResponseBodyBytes = maxResponseBodyBytes;
+		public Builder maxResponseBodyBytes(Optional<Long> maxResponseBodyBytes) {
+			this.maxBytes = maxResponseBodyBytes;
 			return this;
 		}
 
-		public Builder maxResponseBodyBytes(int maxResponseBodyBytes) {
+		public Builder maxResponseBodyBytes(long maxResponseBodyBytes) {
 			return maxResponseBodyBytes(Optional.of(maxResponseBodyBytes));
 		}
 
@@ -170,10 +170,10 @@ public final class HttpContext {
 			checkNotBlank(instance.encoding, "encoding");
 			checkNotNull(instance.successCodes, "successCodes");
 			checkNotNull(instance.continueWaitingCodes, "continueWaitingCodes");
-			checkNotNull(instance.maxResponseBodyBytes, "maxResponseBodyBytes");
+			checkNotNull(instance.maxBytes, "maxResponseBodyBytes");
 			checkNotNull(instance.maxRetries, "maxRetries");
 			checkNotNull(instance.logMsgPrefix, "logMsgPrefix");
-			checkMin(instance.maxResponseBodyBytes, 0, "maxResponseBodyBytes");
+			checkMin(instance.maxBytes, 0, "maxResponseBodyBytes");
 			checkMin(instance.maxRetries, 0, "maxRetries");
 			checkMin(instance.requestTimeoutMillis, 0, "requestTimeoutMillis");
 			checkMin(instance.overallTimeoutMillis, 0, "overallTimeoutMillis");
@@ -248,12 +248,12 @@ public final class HttpContext {
 			return url;
 		}
 
-		public Optional<Integer> getMaxResponseBodyBytes() {
-			return maxResponseBodyBytes;
+		public Optional<Long> getMaxBytes() {
+			return maxBytes;
 		}
 
-		public void setMaxResponseBodyBytes(Optional<Integer> maxResponseBodyBytes) {
-			this.maxResponseBodyBytes = maxResponseBodyBytes;
+		public void setMaxBytes(Optional<Long> maxResponseBodyBytes) {
+			this.maxBytes = maxResponseBodyBytes;
 		}
 
 		public Optional<Integer> getMaxRetries() {
@@ -284,7 +284,7 @@ public final class HttpContext {
 		this.sleepIntervalMillis = builder.sleepIntervalMillis;
 		this.overallTimeoutMillis = builder.overallTimeoutMillis;
 		this.quiet = builder.quiet;
-		this.maxResponseBodyBytes = builder.maxResponseBodyBytes;
+		this.maxBytes = builder.maxBytes;
 		this.maxRetries = builder.maxRetries;
 		this.asynchronousClose = builder.asynchronousClose;
 	}
@@ -325,8 +325,8 @@ public final class HttpContext {
 		return quiet;
 	}
 
-	public Optional<Integer> getMaxResponseBodyBytes() {
-		return maxResponseBodyBytes;
+	public Optional<Long> getMaxBytes() {
+		return maxBytes;
 	}
 
 	public Optional<Integer> getMaxRetries() {
