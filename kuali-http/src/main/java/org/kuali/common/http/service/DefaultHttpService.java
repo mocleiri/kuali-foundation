@@ -15,6 +15,9 @@
  */
 package org.kuali.common.http.service;
 
+import static java.lang.System.currentTimeMillis;
+import static org.kuali.common.util.FormatUtils.getTime;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -189,9 +192,7 @@ public class DefaultHttpService implements HttpService {
 			int length = in.read(buffer);
 			int bytesRead = 0;
 			StringBuilder sb = new StringBuilder();
-			int count = 0;
 			while (length != -1) {
-				System.out.println("count: " + (count++));
 				String content = new String(buffer, 0, length, context.getEncoding());
 				sb.append(content);
 				bytesRead += length;
@@ -204,7 +205,10 @@ public class DefaultHttpService implements HttpService {
 		} catch (IOException e) {
 			throw Exceptions.illegalState("unexpected io error", e);
 		} finally {
+			System.out.println("closing");
+			long start = System.currentTimeMillis();
 			method.releaseConnection();
+			System.out.println(" closed elapsed: " + getTime(currentTimeMillis() - start));
 			IOUtils.closeQuietly(in);
 		}
 	}
