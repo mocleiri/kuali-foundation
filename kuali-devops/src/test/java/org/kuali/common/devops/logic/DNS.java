@@ -35,13 +35,10 @@ public class DNS {
 	private static final File CACHE = new CanonicalFile("./target/dns/cache.properties");
 
 	/**
-	 * Returns all the CNAME records for {@code kuali.org}. The keys are aliases to the canonical name records.
-	 * 
 	 * <pre>
-	 * 
-	 * env1.rice.kuali.org  ->  ec2-174-129-109-246.compute-1.amazonaws.com
-	 * 
-	 * <pre>
+	 * alias                  canonical
+	 * env1.rice.kuali.org -> ec2-174-129-109-246.compute-1.amazonaws.com
+	 * </pre>
 	 */
 	public static Map<String, String> getAliasMap(boolean refresh) {
 		if (refresh || !CACHE.exists()) {
@@ -54,7 +51,10 @@ public class DNS {
 	}
 
 	/**
-	 * Returns only those CNAME records with exactly one alias.
+	 * <pre>
+	 * canonical                                      alias
+	 * ec2-174-129-109-246.compute-1.amazonaws.com -> env1.rice.kuali.org
+	 * </pre>
 	 */
 	public static BiMap<String, String> getCanonicalMap(boolean refresh) {
 		Map<String, String> map = Maps.newHashMap(getAliasMap(refresh));
