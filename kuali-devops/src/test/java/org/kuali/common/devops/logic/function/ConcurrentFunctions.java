@@ -21,7 +21,7 @@ public class ConcurrentFunctions<F, T> implements UncaughtExceptionHandler {
 	private final Function<F, T> function;
 	private final List<F> inputs;
 
-	private List<IllegalStateException> uncaughtExceptions = Lists.newArrayList();
+	private List<IllegalStateException> exceptions = Lists.newArrayList();
 
 	public List<T> apply() {
 		List<FunctionRunner<F, T>> runners = Lists.newArrayList();
@@ -36,8 +36,8 @@ public class ConcurrentFunctions<F, T> implements UncaughtExceptionHandler {
 		}
 		Threads.start(threads);
 		Threads.join(threads);
-		if (!uncaughtExceptions.isEmpty()) {
-			throw uncaughtExceptions.get(0);
+		if (!exceptions.isEmpty()) {
+			throw exceptions.get(0);
 		}
 		List<T> results = Lists.newArrayList();
 		for (FunctionRunner<F, T> runner : runners) {
@@ -48,6 +48,6 @@ public class ConcurrentFunctions<F, T> implements UncaughtExceptionHandler {
 
 	@Override
 	public synchronized void uncaughtException(Thread thread, Throwable e) {
-		uncaughtExceptions.add(Exceptions.illegalState(e, "uncaught exception in thread [%s]", thread.getName()));
+		exceptions.add(Exceptions.illegalState(e, "uncaught exception in thread [%s]", thread.getName()));
 	}
 }
