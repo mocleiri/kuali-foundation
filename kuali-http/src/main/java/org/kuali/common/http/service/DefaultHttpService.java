@@ -15,9 +15,6 @@
  */
 package org.kuali.common.http.service;
 
-import static java.lang.System.currentTimeMillis;
-import static org.kuali.common.util.FormatUtils.getTime;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -205,10 +202,11 @@ public class DefaultHttpService implements HttpService {
 		} catch (IOException e) {
 			throw Exceptions.illegalState("unexpected io error", e);
 		} finally {
-			System.out.println("closing");
-			long start = System.currentTimeMillis();
-			method.releaseConnection();
-			System.out.println(" closed elapsed: " + getTime(currentTimeMillis() - start));
+			// The 3.1 httpclient always reads to the end of the end of the stream no matter what
+			// This can take FOREVER if there is a lot of content in this http url
+			if (!context.isSkipReleaseConnection()) {
+				method.releaseConnection();
+			}
 			IOUtils.closeQuietly(in);
 		}
 	}
