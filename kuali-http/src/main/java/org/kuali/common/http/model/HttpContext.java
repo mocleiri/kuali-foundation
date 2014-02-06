@@ -64,8 +64,7 @@ public final class HttpContext {
 		private static final int OK = 200;
 		private static final int SERVICE_UNAVAILABLE = 503;
 
-		// Required
-		private final String url;
+		private String url;
 
 		// Optional
 		private String logMsgPrefix = "Waiting for";
@@ -274,6 +273,10 @@ public final class HttpContext {
 
 		public void setAsynchronousClose(boolean asynchronousClose) {
 			this.asynchronousClose = asynchronousClose;
+		}
+
+		public void setUrl(String url) {
+			this.url = url;
 		}
 
 	}
