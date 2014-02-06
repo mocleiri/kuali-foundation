@@ -46,7 +46,7 @@ public final class HttpCacherExecutable implements Executable {
 
 	}
 
-	public ImmutableList<String> getUrls() {
+	public List<String> getUrls() {
 		return urls;
 	}
 
