@@ -45,7 +45,7 @@ public class HttpCacher {
 
 	protected static Optional<String> getContent(String url) {
 		int maxBytes = 50 * 1024;
-		boolean quiet = false;
+		boolean quiet = true;
 		HttpContext context = HttpContext.builder(url).asynchronousClose(true).overallTimeout("15s").requestTimeout("15s").quiet(quiet).maxRetries(0)
 				.maxResponseBodyBytes(maxBytes).build();
 		HttpWaitResult result = SERVICE.wait(context);
@@ -59,12 +59,12 @@ public class HttpCacher {
 	protected static void cache(File file, Optional<String> data) {
 		try {
 			if (!data.isPresent()) {
-				logger.info(format("deleting -> [%s]", file));
+				logger.debug(format("deleting -> [%s]", file));
 				if (file.exists()) {
 					FileUtils.forceDelete(file);
 				}
 			} else {
-				logger.info(format("creating -> [%s]", file));
+				logger.debug(format("creating -> [%s]", file));
 				FileUtils.write(file, data.get(), Encodings.UTF8);
 			}
 		} catch (IOException e) {

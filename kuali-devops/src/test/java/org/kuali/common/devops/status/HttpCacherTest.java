@@ -1,6 +1,7 @@
 package org.kuali.common.devops.status;
 
 import static com.google.common.base.Preconditions.checkState;
+import static java.lang.String.format;
 
 import java.util.Collections;
 import java.util.List;
@@ -9,9 +10,9 @@ import java.util.SortedMap;
 
 import org.junit.Test;
 import org.kuali.common.devops.logic.Environments2;
-import org.kuali.common.devops.logic.HttpCacher;
 import org.kuali.common.devops.logic.exec.BasicsCacherExecutable;
 import org.kuali.common.devops.model.Environment;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.log.Loggers;
 import org.slf4j.Logger;
@@ -26,18 +27,16 @@ public class HttpCacherTest {
 	@Test
 	public void test() {
 		try {
-			HttpCacher.cache("http://demo.ks.kuali.org/tomcat/logs/heap.log");
-			if (true) {
-				return;
-			}
 			SortedMap<String, List<Environment.Builder>> map = Environments2.getBuilders(false);
 			List<String> fqdns = getFqdns(map);
-			logger.info(String.format("fqdns: %s", fqdns.size()));
+			logger.info(format("fqdns: %s", fqdns.size()));
+			long start = System.currentTimeMillis();
 			for (String fqdn : fqdns) {
 				logger.info(String.format("examining -> %s", fqdn));
 				Executable executable = new BasicsCacherExecutable(fqdn);
 				executable.execute();
 			}
+			logger.info(format("elapsed -> %s", FormatUtils.getTime(System.currentTimeMillis() - start)));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
