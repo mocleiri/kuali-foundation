@@ -17,7 +17,6 @@ package org.kuali.common.http.service;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
@@ -39,6 +38,8 @@ import org.kuali.common.util.base.Threads;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.Lists;
+
 public class DefaultHttpService implements HttpService {
 
 	private final Logger logger = LoggerFactory.getLogger(DefaultHttpService.class);
@@ -58,7 +59,7 @@ public class DefaultHttpService implements HttpService {
 		HttpClient client = getHttpClient(context);
 		long start = System.currentTimeMillis();
 		long end = start + context.getOverallTimeoutMillis();
-		List<HttpRequestResult> requestResults = new ArrayList<HttpRequestResult>();
+		List<HttpRequestResult> requestResults = Lists.newArrayList();
 		Object[] args = { context.getLogMsgPrefix(), context.getUrl(), FormatUtils.getTime(context.getOverallTimeoutMillis()) };
 		if (!context.isQuiet()) {
 			logger.info("{} - [{}] - [Timeout in {}]", args);
