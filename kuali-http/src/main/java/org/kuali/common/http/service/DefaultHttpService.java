@@ -203,7 +203,7 @@ public class DefaultHttpService implements HttpService {
 		} catch (IOException e) {
 			throw Exceptions.illegalState("unexpected io error", e);
 		} finally {
-			// The 3.1 httpclient always reads to the end of the end of the stream no matter what
+			// The 3.1 httpclient always reads to the end of the end of the stream no matter what when you close it
 			// This can take FOREVER
 			if (context.isAsynchronousClose()) {
 				Runnable runnable = new AsynchronousCloser(method, in);
