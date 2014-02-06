@@ -10,7 +10,7 @@ import com.google.common.base.Optional;
  * 
  * <pre>
  * Before:
- * String foo = checkArgument(foo, &quot;'%s' cannot be blank&quot;);
+ * String foo = checkArgument(!StringUtils.isBlank(foo), &quot;'%s' cannot be blank&quot;);
  * 
  * After:
  * String foo = checkNotBlank(foo, &quot;foo&quot;);
