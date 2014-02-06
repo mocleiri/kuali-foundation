@@ -20,6 +20,7 @@ public class ConcurrentFunctions<F, T> implements UncaughtExceptionHandler {
 
 	private final Function<F, T> function;
 	private final List<F> inputs;
+	private final ThreadGroup group = new ThreadGroup("function runners");
 
 	private List<IllegalStateException> exceptions = Lists.newArrayList();
 
@@ -28,9 +29,8 @@ public class ConcurrentFunctions<F, T> implements UncaughtExceptionHandler {
 		List<Thread> threads = Lists.newArrayList();
 		for (F input : inputs) {
 			FunctionRunner<F, T> runner = new FunctionRunner<F, T>(function, input);
-			Thread thread = new Thread(runner);
+			Thread thread = new Thread(group, runner, "function runner");
 			thread.setUncaughtExceptionHandler(this);
-			thread.setName("function runner");
 			runners.add(runner);
 			threads.add(thread);
 		}
@@ -49,5 +49,6 @@ public class ConcurrentFunctions<F, T> implements UncaughtExceptionHandler {
 	@Override
 	public synchronized void uncaughtException(Thread thread, Throwable e) {
 		exceptions.add(Exceptions.illegalState(e, "uncaught exception in thread [%s]", thread.getName()));
+		group.interrupt();
 	}
 }
