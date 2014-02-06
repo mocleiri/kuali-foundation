@@ -11,9 +11,9 @@ import org.kuali.common.util.base.Threads;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
-public class ConcurrentFunctionsFunction<F, T> implements UncaughtExceptionHandler {
+public class ConcurrentFunctions<F, T> implements UncaughtExceptionHandler {
 
-	public ConcurrentFunctionsFunction(Function<F, T> function, List<F> inputs) {
+	public ConcurrentFunctions(Function<F, T> function, List<F> inputs) {
 		this.function = assertNotNull(function, "function");
 		this.inputs = assertNotNull(inputs, "inputs");
 	}
