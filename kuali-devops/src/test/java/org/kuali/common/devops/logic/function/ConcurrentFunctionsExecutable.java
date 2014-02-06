@@ -7,29 +7,30 @@ import java.util.List;
 
 import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.base.Threads;
+import org.kuali.common.util.execute.Executable;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
-public class ConcurrentFunctions<F, T> implements UncaughtExceptionHandler {
+public class ConcurrentFunctionsExecutable<F, T> implements Executable, UncaughtExceptionHandler {
 
-	public ConcurrentFunctions(Function<F, T> function, List<F> inputs) {
+	public ConcurrentFunctionsExecutable(Function<F, T> function, List<F> inputs) {
 		this.function = assertNotNull(function, "function");
 		this.inputs = assertNotNull(inputs, "inputs");
 	}
 
 	private final Function<F, T> function;
 	private final List<F> inputs;
-	private final ThreadGroup group = new ThreadGroup("function runners");
 
 	private List<IllegalStateException> exceptions = Lists.newArrayList();
 
-	public List<T> apply() {
+	@Override
+	public void execute() {
 		List<FunctionRunner<F, T>> runners = Lists.newArrayList();
 		List<Thread> threads = Lists.newArrayList();
 		for (F input : inputs) {
 			FunctionRunner<F, T> runner = new FunctionRunner<F, T>(function, input);
-			Thread thread = new Thread(group, runner, "function runner");
+			Thread thread = new Thread(runner, "function runner");
 			thread.setUncaughtExceptionHandler(this);
 			runners.add(runner);
 			threads.add(thread);
@@ -39,11 +40,6 @@ public class ConcurrentFunctions<F, T> implements UncaughtExceptionHandler {
 		if (!exceptions.isEmpty()) {
 			throw exceptions.get(0);
 		}
-		List<T> results = Lists.newArrayList();
-		for (FunctionRunner<F, T> runner : runners) {
-			results.add(runner.getResult());
-		}
-		return results;
 	}
 
 	@Override
