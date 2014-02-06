@@ -1,4 +1,4 @@
-package org.kuali.common.devops.logic;
+package org.kuali.common.devops.logic.function;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

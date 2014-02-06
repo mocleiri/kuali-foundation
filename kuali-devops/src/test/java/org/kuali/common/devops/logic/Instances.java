@@ -19,6 +19,8 @@ import org.apache.commons.io.FileUtils;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
+import org.kuali.common.devops.logic.function.ToCsvFunction;
+import org.kuali.common.devops.logic.function.ToListFunction;
 import org.kuali.common.devops.model.EC2Instance;
 import org.kuali.common.devops.table.TableCellDescriptor;
 import org.kuali.common.devops.table.Tables;
