@@ -10,7 +10,7 @@ import java.util.SortedMap;
 
 import org.junit.Test;
 import org.kuali.common.devops.logic.Environments2;
-import org.kuali.common.devops.logic.exec.EnvironmentBasicsFunction;
+import org.kuali.common.devops.logic.function.EnvironmentBasicsFunction;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.model.EnvironmentBasics;
 import org.kuali.common.util.FormatUtils;

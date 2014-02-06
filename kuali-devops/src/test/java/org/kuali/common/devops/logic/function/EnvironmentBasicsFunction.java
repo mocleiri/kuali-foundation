@@ -1,11 +1,11 @@
-package org.kuali.common.devops.logic.exec;
+package org.kuali.common.devops.logic.function;
 
 import static org.kuali.common.devops.logic.Examiner.getEnvJspUrl;
 import static org.kuali.common.devops.logic.Manifests.getManifestUrl;
 import static org.kuali.common.devops.logic.Tomcats.getHeapUrl;
 import static org.kuali.common.devops.logic.Tomcats.getReleaseNotesUrl;
 
-import org.kuali.common.devops.logic.function.FileCacheFunction;
+import org.kuali.common.devops.logic.exec.HttpCacherExecutable;
 import org.kuali.common.devops.model.EnvironmentBasics;
 import org.kuali.common.devops.model.FileCache;
 import org.kuali.common.util.execute.Executable;
