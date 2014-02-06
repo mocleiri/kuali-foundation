@@ -16,7 +16,7 @@ public final class HttpCacherExecutable implements Executable {
 
 	@Override
 	public void execute() {
-		HttpCacher.cache(url);
+		HttpCacher.refresh(url);
 	}
 
 }
