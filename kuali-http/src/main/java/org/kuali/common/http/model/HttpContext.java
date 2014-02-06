@@ -177,7 +177,7 @@ public final class HttpContext {
 			checkNotNull(instance.logMsgPrefix, "logMsgPrefix");
 			checkNotBlank(instance.url, "url");
 			checkNotBlank(instance.encoding, "encoding");
-			checkMin(instance.maxBytes, 0, "maxResponseBodyBytes");
+			checkMin(instance.maxBytes, 0, "maxBytes");
 			checkMin(instance.maxRetries, 0, "maxRetries");
 			checkMin(instance.requestTimeoutMillis, 0, "requestTimeoutMillis");
 			checkMin(instance.overallTimeoutMillis, 0, "overallTimeoutMillis");
