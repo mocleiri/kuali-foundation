@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.kuali.common.devops.cache.HttpLoader;
+import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.util.log.Loggers;
 import org.slf4j.Logger;
 
@@ -22,10 +23,11 @@ public class HttpCacheTest {
 	public void test() {
 		try {
 			List<String> urls = ImmutableList.of("http://www.yahoo.com/", "http://www.google.com/");
-			LoadingCache<String, Optional<String>> cache = CacheBuilder.newBuilder().build(HttpLoader.create());
+			HttpContext context = HttpContext.builder().quiet(true).asynchronousClose(true).maxBytes(25 * 1024).maxRetries(0).overallTimeout("5s").build();
+			LoadingCache<String, Optional<String>> cache = CacheBuilder.newBuilder().build(HttpLoader.create(context));
 			for (String url : urls) {
 				Optional<String> content = cache.get(url);
-				logger.info(format("[%s] present: %s", url, content.isPresent()));
+				logger.info(format("[%s] content: %s", url, content.isPresent() ? content.get().length() : "absent"));
 			}
 
 		} catch (Throwable e) {
