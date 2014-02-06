@@ -10,10 +10,8 @@ import org.apache.commons.io.IOUtils;
 public final class AsynchronousCloser implements Runnable {
 
 	public AsynchronousCloser(HttpMethod method, InputStream in) {
-		assertNotNull(method, "method");
-		assertNotNull(in, "in");
-		this.method = method;
-		this.in = in;
+		this.method = assertNotNull(method, "method");
+		this.in = assertNotNull(in, "in");
 	}
 
 	private final HttpMethod method;
