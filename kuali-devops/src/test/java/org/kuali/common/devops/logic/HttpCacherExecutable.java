@@ -15,7 +15,9 @@ public final class HttpCacherExecutable implements Executable {
 
 	@Override
 	public void execute() {
-
+		for (String url : urls) {
+			HttpCacher.cache(url);
+		}
 	}
 
 	private HttpCacherExecutable(Builder builder) {
