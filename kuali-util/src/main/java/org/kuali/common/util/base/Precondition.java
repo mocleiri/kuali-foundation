@@ -7,7 +7,7 @@ import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 
 /**
- * Strongly mimic's Guava's {@Preconditions} but with sensible default error messages
+ * Strongly mimic's Guava's {@Preconditions} with the addition of a sensible default error message for common situations
  */
 public class Precondition {
 
