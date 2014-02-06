@@ -2,6 +2,7 @@ package org.kuali.common.devops.status;
 
 import static com.google.common.base.Preconditions.checkState;
 import static java.lang.String.format;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 import java.util.Collections;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.log.Loggers;
 import org.slf4j.Logger;
 
+import com.google.common.base.Stopwatch;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
@@ -30,13 +32,14 @@ public class HttpCacherTest {
 			SortedMap<String, List<Environment.Builder>> map = Environments2.getBuilders(false);
 			List<String> fqdns = getFqdns(map);
 			logger.info(format("fqdns: %s", fqdns.size()));
-			long start = System.currentTimeMillis();
+			Stopwatch stopwatch = Stopwatch.createStarted();
 			for (String fqdn : fqdns) {
 				logger.info(String.format("examining -> %s", fqdn));
 				Executable executable = new BasicsCacherExecutable(fqdn);
 				executable.execute();
+				break;
 			}
-			logger.info(format("elapsed -> %s", FormatUtils.getTime(System.currentTimeMillis() - start)));
+			logger.info(format("elapsed -> %s", FormatUtils.getTime(stopwatch.elapsed(MILLISECONDS))));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}

@@ -6,8 +6,6 @@ import static org.kuali.common.devops.logic.Tomcats.getHeapUrl;
 import static org.kuali.common.devops.logic.Tomcats.getReleaseNotesUrl;
 import static org.kuali.common.util.base.Assertions.assertNotBlank;
 
-import java.util.List;
-
 import org.kuali.common.devops.model.FileCache;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.impl.ConcurrentExecutables;
@@ -28,8 +26,7 @@ public final class BasicsCacherExecutable implements Executable {
 		HttpCacherExecutable h = new HttpCacherExecutable(getHeapUrl(fqdn));
 		HttpCacherExecutable r = new HttpCacherExecutable(getReleaseNotesUrl(fqdn));
 		HttpCacherExecutable e = new HttpCacherExecutable(getEnvJspUrl(fqdn));
-		List<Executable> execs = ImmutableList.<Executable> of(m, h, r, e);
-		ConcurrentExecutables.execute(execs);
+		ConcurrentExecutables.execute(ImmutableList.<Executable> of(m, h, r, e));
 		FileCache manifest = m.getResult();
 		FileCache heap = m.getResult();
 		FileCache releaseNotes = m.getResult();
