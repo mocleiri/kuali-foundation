@@ -10,7 +10,6 @@ import java.util.jar.Manifest;
 import org.kuali.common.util.Encodings;
 import org.kuali.common.util.base.Exceptions;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -22,19 +21,12 @@ public class Manifests extends Examiner {
 		return PROTOCOL + fqdn + MANIFEST_LOCATION;
 	}
 
-	public static Map<String, String> getManifest(String fqdn) {
-		String url = PROTOCOL + fqdn + MANIFEST_LOCATION;
-		Optional<String> optional = HttpCacher.getContent(url);
-		if (!optional.isPresent()) {
-			return Maps.newHashMap();
-		} else {
-			String content = optional.get();
-			Manifest manifest = getManifestFromString(content);
-			return getMap(manifest);
-		}
+	public static Map<String, String> getManifest(String content) {
+		Manifest manifest = getManifestFromString(content);
+		return convert(manifest);
 	}
 
-	protected static Manifest getManifestFromString(String content) {
+	private static Manifest getManifestFromString(String content) {
 		try {
 			ByteArrayInputStream in = new ByteArrayInputStream(content.getBytes(Encodings.UTF8));
 			Manifest manifest = new Manifest(in);
@@ -44,7 +36,7 @@ public class Manifests extends Examiner {
 		}
 	}
 
-	protected static Map<String, String> getMap(Manifest manifest) {
+	private static Map<String, String> convert(Manifest manifest) {
 		Attributes attributes = manifest.getMainAttributes();
 		Map<String, String> map = Maps.newHashMap();
 		SortedSet<String> keys = getKeys(attributes);
@@ -55,7 +47,7 @@ public class Manifests extends Examiner {
 		return map;
 	}
 
-	protected static SortedSet<String> getKeys(Attributes attributes) {
+	private static SortedSet<String> getKeys(Attributes attributes) {
 		SortedSet<String> keys = Sets.newTreeSet();
 		for (Object key : attributes.keySet()) {
 			keys.add(key.toString());
