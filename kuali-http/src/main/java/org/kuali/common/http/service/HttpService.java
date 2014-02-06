@@ -22,4 +22,6 @@ public interface HttpService {
 
 	HttpWaitResult wait(HttpContext context);
 
+	HttpWaitResult wait(String url);
+
 }

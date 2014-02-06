@@ -35,14 +35,20 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.base.Threads;
+import org.kuali.common.util.log.Loggers;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Lists;
 
 public class DefaultHttpService implements HttpService {
 
-	private final Logger logger = LoggerFactory.getLogger(DefaultHttpService.class);
+	private static final Logger logger = Loggers.make();
+
+	@Override
+	public HttpWaitResult wait(String url) {
+		HttpContext context = HttpContext.create(url);
+		return wait(context);
+	}
 
 	@Override
 	public HttpWaitResult wait(HttpContext context) {
