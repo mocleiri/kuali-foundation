@@ -13,9 +13,9 @@ public class DNSTest {
 
 	@Test
 	public void test() {
-		Map<String, String> all = DNS.getCNAMERecords(false);
+		Map<String, String> all = DNS.getAliasMap(false);
 		logger.info(String.format("cname records -> %s", all.size()));
-		Map<String, String> unambiguous = DNS.getUnambiguousCNAMERecords(false);
+		Map<String, String> unambiguous = DNS.getCanonicalMap(false);
 		logger.info(String.format("unambiguous cname records -> %s", unambiguous.size()));
 	}
 }

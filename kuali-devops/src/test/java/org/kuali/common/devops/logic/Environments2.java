@@ -138,7 +138,7 @@ public class Environments2 {
 
 	public static SortedMap<String, List<Environment.Builder>> getBuilders(boolean refresh) {
 		long start = System.currentTimeMillis();
-		BiMap<String, String> aliases = DNS.getUnambiguousCNAMERecords(refresh);
+		BiMap<String, String> aliases = DNS.getCanonicalMap(refresh);
 		BiMap<String, String> cnames = aliases.inverse();
 		Map<String, List<EC2Instance>> instances = Instances.getInstances(refresh);
 		SortedMap<String, List<Environment.Builder>> map = Maps.newTreeMap();

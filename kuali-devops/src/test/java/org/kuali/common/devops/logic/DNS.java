@@ -42,7 +42,7 @@ public class DNS {
 	 * 
 	 * <pre>
 	 */
-	public static Map<String, String> getCNAMERecords(boolean refresh) {
+	public static Map<String, String> getAliasMap(boolean refresh) {
 		if (refresh || !CACHE.exists()) {
 			Map<String, String> records = queryProvider();
 			store(records);
@@ -55,8 +55,8 @@ public class DNS {
 	/**
 	 * Returns only those CNAME records with exactly one alias.
 	 */
-	public static BiMap<String, String> getUnambiguousCNAMERecords(boolean refresh) {
-		Map<String, String> map = Maps.newHashMap(getCNAMERecords(refresh));
+	public static BiMap<String, String> getCanonicalMap(boolean refresh) {
+		Map<String, String> map = Maps.newHashMap(getAliasMap(refresh));
 		removeAllKeysWithDuplicateValues(map);
 		return ImmutableBiMap.copyOf(map);
 	}
