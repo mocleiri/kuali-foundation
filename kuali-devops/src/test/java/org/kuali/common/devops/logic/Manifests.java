@@ -10,7 +10,6 @@ import java.util.jar.Manifest;
 import org.kuali.common.util.Encodings;
 import org.kuali.common.util.base.Exceptions;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -22,13 +21,9 @@ public class Manifests extends Examiner {
 		return PROTOCOL + fqdn + MANIFEST_LOCATION;
 	}
 
-	public static Map<String, String> getManifest(Optional<String> content) {
-		if (content.isPresent()) {
-			Manifest manifest = getManifestFromString(content.get());
-			return convert(manifest);
-		} else {
-			return Maps.newHashMap();
-		}
+	public static Map<String, String> getManifest(String content) {
+		Manifest manifest = getManifestFromString(content);
+		return convert(manifest);
 	}
 
 	private static Manifest getManifestFromString(String content) {
