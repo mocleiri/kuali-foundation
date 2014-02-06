@@ -39,8 +39,12 @@ public final class HttpContext {
 	// If true, no log messages are emitted and timing out before getting a success code does not throw an exception
 	// You are on your own to examine the HttpWaitResult object and figure out what to do from there
 	private final boolean quiet;
-	private final Optional<Long> maxBytes;
+	// The max number of retries to attempt
 	private final Optional<Integer> maxRetries;
+	// The max number of bytes to read
+	private final Optional<Long> maxBytes;
+	// HttpClient 3.1 always reads to the end of the InputStream no matter what when you close it
+	// If this flag is set to true, the closing of the InputStream is done in a separate non-blocking thread to get around that
 	private final boolean asynchronousClose;
 
 	// If Tomcat is fronted by an Apache web server, and Apache is up and running but Tomcat is still starting, http 503 is returned by Apache
