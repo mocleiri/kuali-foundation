@@ -5,7 +5,7 @@ package org.kuali.common.util.base;
  * Create {@code IllegalStateException's} and {@code IllegaArgumentException's} with richly formatted error messages.
  * </p>
  * 
- * Typical usage:
+ * Example usage:
  * 
  * <pre>
  * throw Exceptions.illegalArg(&quot;port must be &gt;= %s and &lt;= %s&quot;, 0, 65535);
