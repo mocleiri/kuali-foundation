@@ -9,10 +9,10 @@ import com.google.common.base.Optional;
  * Strongly mimic's Guava's {@Preconditions} with a sensible default error message for common situations
  * 
  * <pre>
- * Before:
+ * Guava:
  * String foo = checkArgument(!StringUtils.isBlank(foo), &quot;'%s' cannot be blank&quot;);
  * 
- * After:
+ * Kuali:
  * String foo = checkNotBlank(foo, &quot;foo&quot;);
  * </pre>
  */
