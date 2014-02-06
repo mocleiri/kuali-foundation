@@ -170,13 +170,13 @@ public final class HttpContext {
 		}
 
 		private static void validate(HttpContext instance) {
-			checkNotBlank(instance.url, "url");
-			checkNotBlank(instance.encoding, "encoding");
 			checkNotNull(instance.successCodes, "successCodes");
 			checkNotNull(instance.continueWaitingCodes, "continueWaitingCodes");
-			checkNotNull(instance.maxBytes, "maxResponseBodyBytes");
+			checkNotNull(instance.maxBytes, "maxBytes");
 			checkNotNull(instance.maxRetries, "maxRetries");
 			checkNotNull(instance.logMsgPrefix, "logMsgPrefix");
+			checkNotBlank(instance.url, "url");
+			checkNotBlank(instance.encoding, "encoding");
 			checkMin(instance.maxBytes, 0, "maxResponseBodyBytes");
 			checkMin(instance.maxRetries, 0, "maxRetries");
 			checkMin(instance.requestTimeoutMillis, 0, "requestTimeoutMillis");
