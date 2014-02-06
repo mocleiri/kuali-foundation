@@ -12,17 +12,17 @@ import org.kuali.common.util.execute.Executable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
-public class ConcurrentFunctionsExecutable<F, T> implements Executable, UncaughtExceptionHandler {
+public class ConcurrentFunctions<F, T> implements Executable, UncaughtExceptionHandler {
 
 	public static <F, T> void execute(FunctionRunner<F, T>... runners) {
 		execute(ImmutableList.copyOf(runners));
 	}
 
 	public static <F, T> void execute(List<FunctionRunner<F, T>> runners) {
-		new ConcurrentFunctionsExecutable<F, T>(runners).execute();
+		new ConcurrentFunctions<F, T>(runners).execute();
 	}
 
-	public ConcurrentFunctionsExecutable(List<FunctionRunner<F, T>> runners) {
+	public ConcurrentFunctions(List<FunctionRunner<F, T>> runners) {
 		this.runners = assertNotNull(runners, "runners");
 	}
 
