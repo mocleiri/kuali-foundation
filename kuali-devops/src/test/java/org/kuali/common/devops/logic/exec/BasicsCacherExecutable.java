@@ -8,11 +8,12 @@ import static org.kuali.common.util.base.Assertions.assertNotBlank;
 
 import java.util.List;
 
+import org.kuali.common.devops.logic.function.ConcurrentFunctions;
+import org.kuali.common.devops.logic.function.FileCacheFunction;
+import org.kuali.common.devops.model.FileCache;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.impl.ConcurrentExecutables;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 public final class BasicsCacherExecutable implements Executable {
 
@@ -26,11 +27,9 @@ public final class BasicsCacherExecutable implements Executable {
 	@Override
 	public void execute() {
 		List<String> urls = ImmutableList.of(getManifestUrl(fqdn), getHeapUrl(fqdn), getReleaseNotesUrl(fqdn), getEnvJspUrl(fqdn));
-		List<Executable> executables = Lists.newArrayList();
-		for (String url : urls) {
-			executables.add(new HttpCacherExecutable(url));
-		}
-		ConcurrentExecutables.builder(executables).build().execute();
+		FileCacheFunction function = new FileCacheFunction();
+		ConcurrentFunctions<String, FileCache> cf = new ConcurrentFunctions<String, FileCache>(function, urls);
+		List<FileCache> results = cf.apply();
 	}
 
 }
