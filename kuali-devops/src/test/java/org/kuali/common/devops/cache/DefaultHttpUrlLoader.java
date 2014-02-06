@@ -6,8 +6,10 @@ import java.io.IOException;
 
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.http.model.HttpWaitResult;
+import org.kuali.common.http.service.DefaultHttpService;
 import org.kuali.common.http.service.HttpService;
 import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 import org.springframework.beans.BeanUtils;
 
@@ -38,8 +40,8 @@ public final class DefaultHttpUrlLoader extends CacheLoader<String, Optional<Str
 
 	public static class Builder extends ValidatingBuilder<DefaultHttpUrlLoader> {
 
-		private HttpContext context;
-		private HttpService service;
+		private HttpContext context = HttpContext.builder(NullUtils.NONE).build();
+		private HttpService service = new DefaultHttpService();
 
 		public Builder context(HttpContext context) {
 			this.context = context;
