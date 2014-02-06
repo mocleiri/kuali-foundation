@@ -20,8 +20,12 @@ import org.kuali.common.http.model.HttpWaitResult;
 
 public interface HttpService {
 
-	HttpWaitResult wait(HttpContext context);
-
 	HttpWaitResult wait(String url);
+
+	/**
+	 * @deprecated Use wait(url) instead
+	 */
+	@Deprecated
+	HttpWaitResult wait(HttpContext context);
 
 }
