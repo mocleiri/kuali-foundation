@@ -1,5 +1,6 @@
 package org.kuali.common.devops.cache;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static org.apache.commons.io.FileUtils.readFileToString;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
@@ -19,6 +20,7 @@ public final class FileLoader extends CacheLoader<File, Optional<String>> {
 
 	@Override
 	public Optional<String> load(File file) throws IOException {
+		checkNotNull(file);
 		if (file.exists()) {
 			return Optional.of(readFileToString(file, encoding));
 		} else {
