@@ -1,4 +1,4 @@
-package org.kuali.common.devops.logic.exec;
+package org.kuali.common.devops.logic.function;
 
 import static org.kuali.common.util.base.Assertions.assertNotNull;
 

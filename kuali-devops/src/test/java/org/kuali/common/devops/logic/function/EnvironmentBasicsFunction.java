@@ -5,7 +5,6 @@ import static org.kuali.common.devops.logic.Manifests.getManifestUrl;
 import static org.kuali.common.devops.logic.Tomcats.getHeapUrl;
 import static org.kuali.common.devops.logic.Tomcats.getReleaseNotesUrl;
 
-import org.kuali.common.devops.logic.exec.FunctionExecutable;
 import org.kuali.common.devops.model.EnvironmentBasics;
 import org.kuali.common.devops.model.FileCache;
 import org.kuali.common.util.execute.Executable;
