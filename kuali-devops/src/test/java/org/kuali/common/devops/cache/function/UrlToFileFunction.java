@@ -5,6 +5,7 @@ import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 import java.io.File;
 
+import org.apache.commons.lang.StringUtils;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -22,14 +23,11 @@ public final class UrlToFileFunction implements Function<String, File> {
 		checkNotBlank(url, "url");
 		int pos = url.indexOf(protocolToken);
 		checkState(pos != -1, "unable to determine protocol. [%s] does not contain [%s]", url, protocolToken);
-		String protocol = url.substring(0, pos);
-		String token = protocol + protocolToken;
-		checkState(url.startsWith(token));
-		String fragment = url.substring(token.length());
-		if (fragment.endsWith("/") && fragment.length() > 1) {
-			fragment = fragment.substring(0, fragment.length() - 1);
-		}
-		String path = protocol + File.separatorChar + fragment;
+		String protocol = url.substring(0, pos); // Typically -> http, https,
+		String startsWith = protocol + protocolToken; // Typically -> http:// https://
+		checkState(url.startsWith(startsWith));
+		String fragment = StringUtils.removeEnd(url.substring(startsWith.length()), "/"); // http://www.yahoo.com/ -> www.yahoo.com
+		String path = protocol + File.separatorChar + fragment; // ./target/cache/http/www.yahoo.com
 		return new CanonicalFile(basedir, path);
 	}
 
