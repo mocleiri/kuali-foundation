@@ -1,8 +1,10 @@
 package org.kuali.common.devops.model;
 
-import org.kuali.common.devops.logic.Examiner;
-import org.kuali.common.devops.logic.Manifests;
-import org.kuali.common.devops.logic.Tomcats;
+import static org.kuali.common.devops.logic.Examiner.ENV_JSP_FRAGMENT;
+import static org.kuali.common.devops.logic.Manifests.MANIFEST_LOCATION;
+import static org.kuali.common.devops.logic.Tomcats.HEAP_FRAGMENT;
+import static org.kuali.common.devops.logic.Tomcats.RELEASE_NOTES_FRAGMENT;
+
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -29,6 +31,10 @@ public final class DeployEnvironmentUrls {
 		this.configuration = builder.configuration;
 	}
 
+	public static Builder builder(String fqdn) {
+		return new Builder().fqdn(fqdn);
+	}
+
 	public static class Builder extends ValidatingBuilder<DeployEnvironmentUrls> {
 
 		private static final String DEFAULT_PROTOCOL = "http://";
@@ -46,15 +52,20 @@ public final class DeployEnvironmentUrls {
 
 		public Builder(String fqdn) {
 			this.fqdn = fqdn;
-			releaseNotes(DEFAULT_PROTOCOL + fqdn + Tomcats.RELEASE_NOTES_FRAGMENT);
-			heap(DEFAULT_PROTOCOL + fqdn + Tomcats.HEAP_FRAGMENT);
-			envJsp(DEFAULT_PROTOCOL + fqdn + Examiner.ENV_JSP_FRAGMENT);
-			manifest(DEFAULT_PROTOCOL + fqdn + Manifests.MANIFEST_LOCATION);
+			releaseNotes(DEFAULT_PROTOCOL + fqdn + RELEASE_NOTES_FRAGMENT);
+			heap(DEFAULT_PROTOCOL + fqdn + HEAP_FRAGMENT);
+			envJsp(DEFAULT_PROTOCOL + fqdn + ENV_JSP_FRAGMENT);
+			manifest(DEFAULT_PROTOCOL + fqdn + MANIFEST_LOCATION);
 		}
 
 		@Override
 		public DeployEnvironmentUrls getInstance() {
 			return new DeployEnvironmentUrls(this);
+		}
+
+		public Builder fqdn(String fqdn) {
+			this.fqdn = fqdn;
+			return this;
 		}
 
 		public Builder releaseNotes(String releaseNotes) {
@@ -133,6 +144,14 @@ public final class DeployEnvironmentUrls {
 
 		public void setConfiguration(Optional<String> configuration) {
 			this.configuration = configuration;
+		}
+
+		public String getFqdn() {
+			return fqdn;
+		}
+
+		public void setFqdn(String fqdn) {
+			this.fqdn = fqdn;
 		}
 
 	}
