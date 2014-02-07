@@ -73,8 +73,8 @@ public final class DeployEnvironmentUrls {
 			return this;
 		}
 
-		public Builder heap(String heap) {
-			this.tomcatHeap = heap;
+		public Builder tomcatHeap(String tomcatHeap) {
+			this.tomcatHeap = tomcatHeap;
 			return this;
 		}
 
@@ -83,8 +83,8 @@ public final class DeployEnvironmentUrls {
 			return this;
 		}
 
-		public Builder manifest(String manifest) {
-			this.applicationManifest = manifest;
+		public Builder applicationManifest(String applicationManifest) {
+			this.applicationManifest = applicationManifest;
 			return this;
 		}
 
@@ -93,8 +93,8 @@ public final class DeployEnvironmentUrls {
 			return this;
 		}
 
-		public Builder configuration(Optional<String> configuration) {
-			this.projectConfiguration = configuration;
+		public Builder projectConfiguration(Optional<String> projectConfiguration) {
+			this.projectConfiguration = projectConfiguration;
 			return this;
 		}
 
