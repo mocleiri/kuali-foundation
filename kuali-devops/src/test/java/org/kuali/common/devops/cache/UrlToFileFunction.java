@@ -1,0 +1,25 @@
+package org.kuali.common.devops.cache;
+
+import static com.google.common.base.Preconditions.checkState;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
+
+import java.io.File;
+
+import org.kuali.common.util.file.CanonicalFile;
+
+import com.google.common.base.Function;
+
+public class UrlToFileFunction implements Function<String, File> {
+
+	private final File basedir = new CanonicalFile("./target");
+	private final String protocol = "http://";
+
+	@Override
+	public File apply(String url) {
+		checkNotBlank(url, "url");
+		checkState(url.startsWith(protocol));
+		String substring = url.substring(url.indexOf(protocol));
+		return new CanonicalFile(basedir, substring);
+	}
+
+}
