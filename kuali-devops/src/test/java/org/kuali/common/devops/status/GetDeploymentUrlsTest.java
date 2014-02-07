@@ -62,9 +62,7 @@ public class GetDeploymentUrlsTest {
 		if (configFragment.isPresent()) {
 			String configUrl = DeployEnvironmentUrls.Builder.DEFAULT_PREFIX + builder.getFqdn() + configFragment.get();
 			builder.configuration(Optional.of(configUrl));
-			return;
 		}
-
 	}
 
 	protected static LoadingCache<String, Optional<String>> getCache() {
