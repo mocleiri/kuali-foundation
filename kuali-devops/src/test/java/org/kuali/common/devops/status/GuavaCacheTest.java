@@ -26,13 +26,17 @@ public class GuavaCacheTest {
 	@Test
 	public void test() {
 		try {
-			HttpContext context = HttpContext.builder().quiet(true).asynchronousClose(true).maxBytes("25k").maxRetries(0).overallTimeout("5s").build();
-			LoadingCache<String, Optional<String>> cache = CacheBuilder.newBuilder().build(FileCache.createHttpUrlCacher(context));
+			LoadingCache<String, Optional<String>> cache = getCache();
 			logger.info(cache.getClass().getCanonicalName());
 			cache(cache);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected static LoadingCache<String, Optional<String>> getCache() {
+		HttpContext context = HttpContext.builder().quiet(true).asynchronousClose(true).maxBytes("25k").maxRetries(0).overallTimeout("5s").build();
+		return CacheBuilder.newBuilder().build(FileCache.createHttpUrlCacher(context));
 	}
 
 	protected static void cache(LoadingCache<String, Optional<String>> cache) throws ExecutionException {
