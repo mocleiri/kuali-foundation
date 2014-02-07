@@ -12,6 +12,11 @@ public final class ReverseDnsNameFunction implements Function<String, String> {
 	private static final Splitter SPLITTER = Splitter.on('.');
 	private static final Joiner JOINER = Joiner.on('.');
 
+	/**
+	 * <pre>
+	 *  env1.rice.kuali.org -> org.kuali.rice.env1
+	 * </pre>
+	 */
 	@Override
 	public String apply(String dnsName) {
 		checkNotBlank(dnsName, "dnsName");
