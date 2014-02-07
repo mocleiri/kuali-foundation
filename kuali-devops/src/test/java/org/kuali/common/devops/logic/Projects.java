@@ -58,7 +58,7 @@ public class Projects extends Examiner {
 
 	public static Optional<String> getProjectPropertiesUrlFragment(Map<String, String> manifest) {
 		Optional<String> name = Optional.fromNullable(manifest.get(BUNDLE_SYMBOLIC_NAME_KEY));
-		if (!name.isPresent()) {
+		if (name.isPresent()) {
 			return Optional.of(getProjectPropertiesUrlFragment(name.get()));
 		} else {
 			return Optional.absent();

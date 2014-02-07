@@ -1,8 +1,13 @@
 package org.kuali.common.devops.status;
 
+import java.util.Map;
+
 import org.junit.Test;
 import org.kuali.common.devops.cache.PersistToFileSystemLoader;
 import org.kuali.common.devops.cache.PersistToFileSystemLoaderFactory;
+import org.kuali.common.devops.logic.Manifests;
+import org.kuali.common.devops.logic.Projects;
+import org.kuali.common.devops.model.DeployEnvironmentUrls;
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
@@ -19,7 +24,31 @@ public class GetDeploymentUrlsTest {
 	public void test() {
 		LoadingCache<String, Optional<String>> httpContentCache = getCache();
 		String fqdn = "env1.rice.kuali.org";
-		DeployEnvironmentUrls.Builder builder = DeployEnvironmentUrls.b
+		DeployEnvironmentUrls.Builder builder = DeployEnvironmentUrls.builder(fqdn);
+		fillIn(builder, httpContentCache);
+	}
+
+	protected static void fillIn(DeployEnvironmentUrls.Builder builder, LoadingCache<String, Optional<String>> httpContentCache) {
+		Optional<String> manifestContent = httpContentCache.getUnchecked(builder.getManifest());
+		if (!manifestContent.isPresent()) {
+			return;
+		}
+		Map<String, String> manifest = Manifests.getManifestMapFromString(manifestContent.get());
+		Optional<String> fragment = Projects.getProjectPropertiesUrlFragment(manifest);
+		if (fragment.isPresent()) {
+			String url = DeployEnvironmentUrls.Builder.DEFAULT_PREFIX + builder.getFqdn() + fragment.get();
+			builder.projectProperties(Optional.of(url));
+		}
+		if (!builder.getProjectProperties().isPresent()) {
+			return;
+		}
+		String url = builder.getProjectProperties().get();
+		Optional<String> projectPropertiesContent = httpContentCache.getUnchecked(url);
+		Optional<String> envJspContent = httpContentCache.getUnchecked(builder.getEnvJsp());
+		if (!projectPropertiesContent.isPresent() || !envJspContent.isPresent()) {
+			return;
+		}
+
 	}
 
 	protected static LoadingCache<String, Optional<String>> getCache() {

@@ -32,12 +32,12 @@ public final class DeployEnvironmentUrls {
 	}
 
 	public static Builder builder(String fqdn) {
-		return new Builder().fqdn(fqdn);
+		return new Builder(fqdn);
 	}
 
 	public static class Builder extends ValidatingBuilder<DeployEnvironmentUrls> {
 
-		private static final String DEFAULT_PROTOCOL = "http://";
+		public static final String DEFAULT_PREFIX = "http://";
 
 		private String fqdn;
 		private String releaseNotes;
@@ -52,10 +52,10 @@ public final class DeployEnvironmentUrls {
 
 		public Builder(String fqdn) {
 			this.fqdn = fqdn;
-			releaseNotes(DEFAULT_PROTOCOL + fqdn + RELEASE_NOTES_FRAGMENT);
-			heap(DEFAULT_PROTOCOL + fqdn + HEAP_FRAGMENT);
-			envJsp(DEFAULT_PROTOCOL + fqdn + ENV_JSP_FRAGMENT);
-			manifest(DEFAULT_PROTOCOL + fqdn + MANIFEST_LOCATION);
+			releaseNotes(DEFAULT_PREFIX + fqdn + RELEASE_NOTES_FRAGMENT);
+			heap(DEFAULT_PREFIX + fqdn + HEAP_FRAGMENT);
+			envJsp(DEFAULT_PREFIX + fqdn + ENV_JSP_FRAGMENT);
+			manifest(DEFAULT_PREFIX + fqdn + MANIFEST_LOCATION);
 		}
 
 		@Override
