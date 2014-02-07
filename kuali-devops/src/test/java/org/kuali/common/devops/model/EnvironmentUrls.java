@@ -11,7 +11,7 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 import com.google.common.base.Optional;
 
 @IdiotProofImmutable
-public final class DeployEnvironmentUrls {
+public final class EnvironmentUrls {
 
 	private final String fqdn;
 	private final String tomcatVersion;
@@ -21,7 +21,7 @@ public final class DeployEnvironmentUrls {
 	private final Optional<String> projectProperties;
 	private final Optional<String> projectConfiguration;
 
-	private DeployEnvironmentUrls(Builder builder) {
+	private EnvironmentUrls(Builder builder) {
 		this.fqdn = builder.fqdn;
 		this.tomcatVersion = builder.tomcatVersion;
 		this.tomcatHeap = builder.tomcatHeap;
@@ -35,7 +35,7 @@ public final class DeployEnvironmentUrls {
 		return new Builder(fqdn);
 	}
 
-	public static class Builder extends ValidatingBuilder<DeployEnvironmentUrls> {
+	public static class Builder extends ValidatingBuilder<EnvironmentUrls> {
 
 		public static final String DEFAULT_PREFIX = "http://";
 
@@ -59,8 +59,8 @@ public final class DeployEnvironmentUrls {
 		}
 
 		@Override
-		public DeployEnvironmentUrls getInstance() {
-			return new DeployEnvironmentUrls(this);
+		public EnvironmentUrls getInstance() {
+			return new EnvironmentUrls(this);
 		}
 
 		public Builder fqdn(String fqdn) {

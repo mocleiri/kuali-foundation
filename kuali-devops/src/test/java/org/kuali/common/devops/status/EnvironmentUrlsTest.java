@@ -12,7 +12,7 @@ import org.kuali.common.devops.cache.PersistToFileSystemLoaderFactory;
 import org.kuali.common.devops.logic.Applications;
 import org.kuali.common.devops.logic.Manifests;
 import org.kuali.common.devops.logic.Projects;
-import org.kuali.common.devops.model.DeployEnvironmentUrls;
+import org.kuali.common.devops.model.EnvironmentUrls;
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.project.ProjectUtils;
@@ -23,7 +23,7 @@ import com.google.common.base.Optional;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.LoadingCache;
 
-public class DeployEnvironmentUrlsTest {
+public class EnvironmentUrlsTest {
 
 	private static final Logger logger = LoggerUtils.make();
 
@@ -31,12 +31,12 @@ public class DeployEnvironmentUrlsTest {
 	public void test() {
 		LoadingCache<String, Optional<String>> httpContentCache = getCache();
 		String fqdn = "env1.rice.kuali.org";
-		DeployEnvironmentUrls.Builder builder = DeployEnvironmentUrls.builder(fqdn);
+		EnvironmentUrls.Builder builder = EnvironmentUrls.builder(fqdn);
 		fillIn(builder, httpContentCache);
-		DeployEnvironmentUrls urls = builder.build();
+		EnvironmentUrls urls = builder.build();
 	}
 
-	protected static void fillIn(DeployEnvironmentUrls.Builder builder, LoadingCache<String, Optional<String>> httpContentCache) {
+	protected static void fillIn(EnvironmentUrls.Builder builder, LoadingCache<String, Optional<String>> httpContentCache) {
 		Optional<String> manifestContent = httpContentCache.getUnchecked(builder.getApplicationManifest());
 		if (!manifestContent.isPresent()) {
 			return;
@@ -44,7 +44,7 @@ public class DeployEnvironmentUrlsTest {
 		Map<String, String> manifest = Manifests.getManifestMapFromString(manifestContent.get());
 		Optional<String> fragment = Projects.getProjectPropertiesUrlFragment(manifest);
 		if (fragment.isPresent()) {
-			String url = DeployEnvironmentUrls.Builder.DEFAULT_PREFIX + builder.getFqdn() + fragment.get();
+			String url = EnvironmentUrls.Builder.DEFAULT_PREFIX + builder.getFqdn() + fragment.get();
 			builder.projectProperties(Optional.of(url));
 		}
 		if (!builder.getProjectProperties().isPresent()) {
@@ -61,7 +61,7 @@ public class DeployEnvironmentUrlsTest {
 		Project project = ProjectUtils.getProject(projectProperties);
 		Optional<String> configFragment = Applications.getConfigFragment(project, system);
 		if (configFragment.isPresent()) {
-			String configUrl = DeployEnvironmentUrls.Builder.DEFAULT_PREFIX + builder.getFqdn() + configFragment.get();
+			String configUrl = EnvironmentUrls.Builder.DEFAULT_PREFIX + builder.getFqdn() + configFragment.get();
 			builder.projectConfiguration(Optional.of(configUrl));
 		}
 	}
