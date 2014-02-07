@@ -2,7 +2,6 @@ package org.kuali.common.devops.status;
 
 import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.rightPad;
-import static org.kuali.common.util.Encodings.UTF8;
 import static org.kuali.common.util.FormatUtils.getTime;
 
 import java.util.List;
@@ -10,8 +9,6 @@ import java.util.concurrent.ExecutionException;
 
 import org.junit.Test;
 import org.kuali.common.devops.cache.FileCache;
-import org.kuali.common.devops.cache.HttpLoader;
-import org.kuali.common.devops.cache.LocationLoader;
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.util.log.Loggers;
 import org.slf4j.Logger;
@@ -30,12 +27,8 @@ public class GuavaCacheTest {
 	public void test() {
 		try {
 			HttpContext context = HttpContext.builder().quiet(true).asynchronousClose(true).maxBytes("25k").maxRetries(0).overallTimeout("5s").build();
-			LoadingCache<String, Optional<String>> cache1 = CacheBuilder.newBuilder().build(HttpLoader.create(context));
-			LoadingCache<String, Optional<String>> cache2 = CacheBuilder.newBuilder().build(new LocationLoader(UTF8));
-			LoadingCache<String, Optional<String>> cache3 = CacheBuilder.newBuilder().build(FileCache.createHttpUrlCacher(context));
-			// cache(cache1);
-			// cache(cache2);
-			cache(cache3);
+			LoadingCache<String, Optional<String>> cache = CacheBuilder.newBuilder().build(FileCache.createHttpUrlCacher(context));
+			cache(cache);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
