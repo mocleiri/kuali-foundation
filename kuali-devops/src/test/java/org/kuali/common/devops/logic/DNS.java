@@ -35,6 +35,8 @@ public class DNS {
 	private static final File CACHE = new CanonicalFile("./target/dns/cache.properties");
 
 	/**
+	 * Return a mapping of aliases to canonical name records. There can be multiple aliases pointing to the same canonical name record.
+	 * 
 	 * <pre>
 	 * alias                  canonical
 	 * env1.rice.kuali.org -> ec2-174-129-109-246.compute-1.amazonaws.com
@@ -51,6 +53,10 @@ public class DNS {
 	}
 
 	/**
+	 * Return a mapping of canonical name records to aliases. The only canonical name records present in this map are those that contain one (and only one) alias.
+	 * 
+	 * This allows you to deterministically find the correct alias if you have the canonical name record.
+	 * 
 	 * <pre>
 	 * canonical                                      alias
 	 * ec2-174-129-109-246.compute-1.amazonaws.com -> env1.rice.kuali.org
