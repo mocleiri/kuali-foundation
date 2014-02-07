@@ -11,16 +11,16 @@ import org.apache.commons.io.FileUtils;
 
 import com.google.common.base.Optional;
 
-public final class FileWriter implements CacheWriter<File, Optional<String>> {
+public final class FilePersister implements CachePersister<File, Optional<String>> {
 
-	public FileWriter(String encoding) {
+	public FilePersister(String encoding) {
 		this.encoding = checkNotBlank(encoding, "encoding");
 	}
 
 	private final String encoding;
 
 	@Override
-	public void write(File file, Optional<String> string) throws IOException {
+	public void persist(File file, Optional<String> string) throws IOException {
 		checkNotNull(file);
 		checkNotNull(string);
 		if (string.isPresent()) {

@@ -20,7 +20,7 @@ public abstract class DualLayerCache<T> extends CacheLoader<T, Optional<String>>
 	}
 
 	private final CacheLoader<File, Optional<String>> fileLoader = new FileLoader(UTF8);
-	private final CacheWriter<File, Optional<String>> fileWriter = new FileWriter(UTF8);
+	private final CachePersister<File, Optional<String>> fileWriter = new FilePersister(UTF8);
 
 	private final CacheLoader<T, Optional<String>> loader;
 	private final Function<T, File> function;
@@ -32,7 +32,7 @@ public abstract class DualLayerCache<T> extends CacheLoader<T, Optional<String>>
 		Optional<String> data = fileLoader.load(file);
 		if (!data.isPresent()) {
 			data = loader.load(key);
-			fileWriter.write(file, data);
+			fileWriter.persist(file, data);
 		}
 		return data;
 	}
