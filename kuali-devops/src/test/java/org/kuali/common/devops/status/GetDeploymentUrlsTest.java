@@ -33,6 +33,7 @@ public class GetDeploymentUrlsTest {
 		String fqdn = "env1.rice.kuali.org";
 		DeployEnvironmentUrls.Builder builder = DeployEnvironmentUrls.builder(fqdn);
 		fillIn(builder, httpContentCache);
+		DeployEnvironmentUrls urls = builder.build();
 	}
 
 	protected static void fillIn(DeployEnvironmentUrls.Builder builder, LoadingCache<String, Optional<String>> httpContentCache) {

@@ -53,9 +53,9 @@ public final class DeployEnvironmentUrls {
 		public Builder(String fqdn) {
 			this.fqdn = fqdn;
 			tomcatVersion(DEFAULT_PREFIX + fqdn + VERSION_URL_FRAGMENT);
-			heap(DEFAULT_PREFIX + fqdn + HEAP_URL_FRAGMENT);
+			tomcatHeap(DEFAULT_PREFIX + fqdn + HEAP_URL_FRAGMENT);
 			envJsp(DEFAULT_PREFIX + fqdn + ENV_JSP_FRAGMENT);
-			manifest(DEFAULT_PREFIX + fqdn + MANIFEST_URL_FRAGMENT);
+			applicationManifest(DEFAULT_PREFIX + fqdn + MANIFEST_URL_FRAGMENT);
 		}
 
 		@Override
