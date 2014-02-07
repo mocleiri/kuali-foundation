@@ -28,13 +28,11 @@ public abstract class DualLayerCache<T> extends CacheLoader<T, Optional<String>>
 		checkNotNull(key);
 		File file = getFile(key);
 		Optional<String> data = fileLoader.load(file);
-		if (data.isPresent()) {
-			return data;
-		} else {
+		if (!data.isPresent()) {
 			data = loader.load(key);
 			fileWriter.write(file, data);
-			return data;
 		}
+		return data;
 	}
 
 }
