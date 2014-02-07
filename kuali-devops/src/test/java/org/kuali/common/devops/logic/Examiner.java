@@ -30,15 +30,15 @@ public class Examiner {
 	protected static final String SCM_REVISION_KEY = "project.scm.revision";
 	public static final String ENV_JSP_FRAGMENT = "/tomcat/logs/env.jsp";
 
-	public static Properties getSystemPropertiesFromString(String envJspContent) {
-		String content = substringBetween(envJspContent, "<th>System Property</th>", "</table>");
+	public static Properties getSystemPropertiesFromHtml(String html) {
+		String content = substringBetween(html, "<th>System Property</th>", "</table>");
 		String[] rows = substringsBetween(content, "<tr>", "</tr>");
 		Properties properties = new Properties();
 		for (String row : rows) {
 			String[] tokens = substringsBetween(row, "<td>", "</td>");
 			checkState(tokens.length == 2, "expected exactly 2 tokens. found %s instead [%]", tokens.length, row);
 			String key = tokens[0];
-			String value = tokens[1];
+			String value = tokens[1].replace("<br>", "");
 			properties.setProperty(key, value);
 		}
 		return ImmutableProperties.copyOf(properties);
