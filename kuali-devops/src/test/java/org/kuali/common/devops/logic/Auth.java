@@ -23,9 +23,7 @@ public class Auth {
 		TextEncryptor enc = EncUtils.getTextEncryptor(password);
 		String apiKey = DNSMadeEasyCreds.PRODUCTION.getCredentials().getApiKey();
 		String secretKey = DNSMadeEasyCreds.PRODUCTION.getCredentials().getSecretKey();
-		if (EncUtils.isEncrypted(secretKey)) {
-			secretKey = enc.decrypt(EncUtils.unwrap(secretKey));
-		}
+		secretKey = enc.decrypt(EncUtils.unwrap(secretKey));
 		return DNSMadeEasyCredentials.create(apiKey, secretKey);
 	}
 
