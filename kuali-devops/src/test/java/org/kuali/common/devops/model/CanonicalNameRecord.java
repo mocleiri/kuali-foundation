@@ -14,6 +14,10 @@ public final class CanonicalNameRecord {
 		this.canonical = builder.canonical;
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder extends ValidatingBuilder<CanonicalNameRecord> {
 
 		private String alias;
