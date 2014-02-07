@@ -1,35 +1,35 @@
 package org.kuali.common.devops.cache;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static org.apache.commons.io.FileUtils.readFileToString;
-import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 import java.io.File;
 import java.io.IOException;
 
+import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.cache.CacheLoader;
 
-public final class FileLoader extends CacheLoader<File, Optional<String>> {
+public final class FileLoader<V> extends CacheLoader<File, Optional<V>> {
 
-	public FileLoader(String encoding) {
-		this.encoding = checkNotBlank(encoding, "encoding");
+	public FileLoader(Function<File, V> function) {
+		this.function = checkNotNull(function, "function");
 	}
 
-	private final String encoding;
+	private final Function<File, V> function;
 
 	@Override
-	public Optional<String> load(File file) throws IOException {
+	public Optional<V> load(File file) throws IOException {
 		checkNotNull(file);
 		if (file.exists()) {
-			return Optional.of(readFileToString(file, encoding));
+			V reference = function.apply(file);
+			return Optional.of(reference);
 		} else {
 			return Optional.absent();
 		}
 	}
 
-	public String getEncoding() {
-		return encoding;
+	public Function<File, V> getFunction() {
+		return function;
 	}
 
 }
