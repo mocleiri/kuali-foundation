@@ -12,7 +12,7 @@ import org.kuali.common.devops.cache.PersistToFileSystemLoaderFactory;
 import org.kuali.common.devops.logic.Applications;
 import org.kuali.common.devops.logic.Manifests;
 import org.kuali.common.devops.logic.Projects;
-import org.kuali.common.devops.model.EnvironmentUrls;
+import org.kuali.common.devops.model.EnvironmentMetadataUrls;
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.project.ProjectUtils;
@@ -31,12 +31,12 @@ public class EnvironmentUrlsTest {
 	public void test() {
 		LoadingCache<String, Optional<String>> httpContentCache = getCache();
 		String fqdn = "env1.rice.kuali.org";
-		EnvironmentUrls.Builder builder = EnvironmentUrls.builder(fqdn);
+		EnvironmentMetadataUrls.Builder builder = EnvironmentMetadataUrls.builder(fqdn);
 		fillIn(builder, httpContentCache);
-		EnvironmentUrls urls = builder.build();
+		EnvironmentMetadataUrls urls = builder.build();
 	}
 
-	protected static void fillIn(EnvironmentUrls.Builder builder, LoadingCache<String, Optional<String>> httpContentCache) {
+	protected static void fillIn(EnvironmentMetadataUrls.Builder builder, LoadingCache<String, Optional<String>> httpContentCache) {
 		Optional<String> manifestContent = httpContentCache.getUnchecked(builder.getApplicationManifest());
 		if (!manifestContent.isPresent()) {
 			return;
@@ -44,7 +44,7 @@ public class EnvironmentUrlsTest {
 		Map<String, String> manifest = Manifests.getManifestMapFromString(manifestContent.get());
 		Optional<String> fragment = Projects.getProjectPropertiesUrlFragment(manifest);
 		if (fragment.isPresent()) {
-			String url = EnvironmentUrls.Builder.DEFAULT_PREFIX + builder.getFqdn() + fragment.get();
+			String url = EnvironmentMetadataUrls.Builder.DEFAULT_PREFIX + builder.getFqdn() + fragment.get();
 			builder.projectProperties(Optional.of(url));
 		}
 		if (!builder.getProjectProperties().isPresent()) {
@@ -61,7 +61,7 @@ public class EnvironmentUrlsTest {
 		Project project = ProjectUtils.getProject(projectProperties);
 		Optional<String> configFragment = Applications.getConfigFragment(project, system);
 		if (configFragment.isPresent()) {
-			String configUrl = EnvironmentUrls.Builder.DEFAULT_PREFIX + builder.getFqdn() + configFragment.get();
+			String configUrl = EnvironmentMetadataUrls.Builder.DEFAULT_PREFIX + builder.getFqdn() + configFragment.get();
 			builder.projectConfiguration(Optional.of(configUrl));
 		}
 	}
