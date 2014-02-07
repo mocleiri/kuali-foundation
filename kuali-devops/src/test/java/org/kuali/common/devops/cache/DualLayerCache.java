@@ -15,7 +15,7 @@ import com.google.common.base.Optional;
 import com.google.common.cache.CacheLoader;
 
 @IdiotProofImmutable
-public abstract class DualLayerCache<T> extends CacheLoader<T, Optional<String>> {
+public abstract class DualLayerCache<T> extends CacheLoader<T, Optional<String>> implements CacheWriter<T, Optional<String>> {
 
 	private final FileLoader fileLoader = new FileLoader(UTF8);
 	private final CacheLoader<T, Optional<String>> loader = null;
