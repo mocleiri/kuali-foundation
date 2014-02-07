@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import org.junit.Test;
-import org.kuali.common.devops.cache.PersistentLoader;
-import org.kuali.common.devops.cache.PersistentLoaderFactory;
+import org.kuali.common.devops.cache.PersistToFileSystemLoader;
+import org.kuali.common.devops.cache.PersistToFileSystemLoaderFactory;
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.util.log.Loggers;
 import org.slf4j.Logger;
@@ -37,7 +37,7 @@ public class GuavaCacheTest {
 
 	protected static LoadingCache<String, Optional<String>> getCache() {
 		HttpContext context = HttpContext.builder().quiet(true).asynchronousClose(true).maxBytes("25k").maxRetries(0).overallTimeout("5s").build();
-		PersistentLoader<String, String> fileCache = PersistentLoaderFactory.createHttpUrlCacher(context);
+		PersistToFileSystemLoader<String, String> fileCache = PersistToFileSystemLoaderFactory.createHttpUrlCacher(context);
 		return CacheBuilder.newBuilder().build(fileCache);
 	}
 
