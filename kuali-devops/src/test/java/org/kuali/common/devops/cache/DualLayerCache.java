@@ -13,9 +13,13 @@ import com.google.common.cache.CacheLoader;
 @IdiotProofImmutable
 public abstract class DualLayerCache<T> extends CacheLoader<T, Optional<String>> {
 
+	public DualLayerCache(CacheLoader<T, Optional<String>> loader) {
+		this.loader = checkNotNull(loader);
+	}
+
 	private final FileLoader fileLoader = new FileLoader(UTF8);
 	private final FileWriter fileWriter = new FileWriter(UTF8);
-	private final CacheLoader<T, Optional<String>> loader = null;
+	private final CacheLoader<T, Optional<String>> loader;
 
 	protected abstract File getFile(T key);
 
