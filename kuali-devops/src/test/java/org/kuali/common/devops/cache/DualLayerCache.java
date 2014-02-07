@@ -7,7 +7,9 @@ import static org.kuali.common.util.Encodings.UTF8;
 
 import java.io.File;
 
+import org.kuali.common.util.log.Loggers;
 import org.kuali.common.util.validate.IdiotProofImmutable;
+import org.slf4j.Logger;
 
 import com.google.common.base.Optional;
 import com.google.common.cache.CacheLoader;
@@ -20,6 +22,8 @@ public abstract class DualLayerCache<T> extends CacheLoader<T, Optional<String>>
 
 	protected abstract File getFile(T key);
 
+	private static final Logger logger = Loggers.make();
+
 	@Override
 	public Optional<String> load(T key) throws Exception {
 		checkNotNull(key);
@@ -30,6 +34,7 @@ public abstract class DualLayerCache<T> extends CacheLoader<T, Optional<String>>
 		}
 		data = loader.load(key);
 		if (data.isPresent()) {
+			logger.info(String.format("creating -> %s", file));
 			writeStringToFile(file, data.get(), UTF8);
 		} else {
 			if (file.exists()) {
