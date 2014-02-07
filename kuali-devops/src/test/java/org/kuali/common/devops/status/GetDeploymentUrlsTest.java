@@ -36,7 +36,7 @@ public class GetDeploymentUrlsTest {
 	}
 
 	protected static void fillIn(DeployEnvironmentUrls.Builder builder, LoadingCache<String, Optional<String>> httpContentCache) {
-		Optional<String> manifestContent = httpContentCache.getUnchecked(builder.getManifest());
+		Optional<String> manifestContent = httpContentCache.getUnchecked(builder.getApplicationManifest());
 		if (!manifestContent.isPresent()) {
 			return;
 		}

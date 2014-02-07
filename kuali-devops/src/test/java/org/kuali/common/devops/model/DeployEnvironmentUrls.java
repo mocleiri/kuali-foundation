@@ -23,12 +23,12 @@ public final class DeployEnvironmentUrls {
 
 	private DeployEnvironmentUrls(Builder builder) {
 		this.fqdn = builder.fqdn;
-		this.tomcatVersion = builder.releaseNotes;
-		this.tomcatHeap = builder.heap;
+		this.tomcatVersion = builder.tomcatVersion;
+		this.tomcatHeap = builder.tomcatHeap;
 		this.envJsp = builder.envJsp;
-		this.applicationManifest = builder.manifest;
+		this.applicationManifest = builder.applicationManifest;
 		this.projectProperties = builder.projectProperties;
-		this.projectConfiguration = builder.configuration;
+		this.projectConfiguration = builder.projectConfiguration;
 	}
 
 	public static Builder builder(String fqdn) {
@@ -40,12 +40,12 @@ public final class DeployEnvironmentUrls {
 		public static final String DEFAULT_PREFIX = "http://";
 
 		private String fqdn;
-		private String releaseNotes;
-		private String heap;
+		private String tomcatVersion;
+		private String tomcatHeap;
 		private String envJsp;
-		private String manifest;
+		private String applicationManifest;
 		private Optional<String> projectProperties = Optional.absent();
-		private Optional<String> configuration = Optional.absent();
+		private Optional<String> projectConfiguration = Optional.absent();
 
 		public Builder() {
 		}
@@ -69,12 +69,12 @@ public final class DeployEnvironmentUrls {
 		}
 
 		public Builder releaseNotes(String releaseNotes) {
-			this.releaseNotes = releaseNotes;
+			this.tomcatVersion = releaseNotes;
 			return this;
 		}
 
 		public Builder heap(String heap) {
-			this.heap = heap;
+			this.tomcatHeap = heap;
 			return this;
 		}
 
@@ -84,7 +84,7 @@ public final class DeployEnvironmentUrls {
 		}
 
 		public Builder manifest(String manifest) {
-			this.manifest = manifest;
+			this.applicationManifest = manifest;
 			return this;
 		}
 
@@ -94,24 +94,24 @@ public final class DeployEnvironmentUrls {
 		}
 
 		public Builder configuration(Optional<String> configuration) {
-			this.configuration = configuration;
+			this.projectConfiguration = configuration;
 			return this;
 		}
 
-		public String getReleaseNotes() {
-			return releaseNotes;
+		public String getTomcatVersion() {
+			return tomcatVersion;
 		}
 
-		public void setReleaseNotes(String releaseNotes) {
-			this.releaseNotes = releaseNotes;
+		public void setTomcatVersion(String releaseNotes) {
+			this.tomcatVersion = releaseNotes;
 		}
 
-		public String getHeap() {
-			return heap;
+		public String getTomcatHeap() {
+			return tomcatHeap;
 		}
 
-		public void setHeap(String heap) {
-			this.heap = heap;
+		public void setTomcatHeap(String heap) {
+			this.tomcatHeap = heap;
 		}
 
 		public String getEnvJsp() {
@@ -122,12 +122,12 @@ public final class DeployEnvironmentUrls {
 			this.envJsp = envJsp;
 		}
 
-		public String getManifest() {
-			return manifest;
+		public String getApplicationManifest() {
+			return applicationManifest;
 		}
 
-		public void setManifest(String manifest) {
-			this.manifest = manifest;
+		public void setApplicationManifest(String manifest) {
+			this.applicationManifest = manifest;
 		}
 
 		public Optional<String> getProjectProperties() {
@@ -138,12 +138,12 @@ public final class DeployEnvironmentUrls {
 			this.projectProperties = projectProperties;
 		}
 
-		public Optional<String> getConfiguration() {
-			return configuration;
+		public Optional<String> getProjectConfiguration() {
+			return projectConfiguration;
 		}
 
-		public void setConfiguration(Optional<String> configuration) {
-			this.configuration = configuration;
+		public void setProjectConfiguration(Optional<String> configuration) {
+			this.projectConfiguration = configuration;
 		}
 
 		public String getFqdn() {
