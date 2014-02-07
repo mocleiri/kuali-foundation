@@ -12,7 +12,7 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 import com.google.common.base.Function;
 
 @IdiotProofImmutable
-public class UrlToFileFunction implements Function<String, File> {
+public final class UrlToFileFunction implements Function<String, File> {
 
 	private final File basedir;
 	private final String protocol;
