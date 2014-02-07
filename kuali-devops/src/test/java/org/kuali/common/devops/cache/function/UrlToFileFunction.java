@@ -26,6 +26,9 @@ public final class UrlToFileFunction implements Function<String, File> {
 		String token = protocol + protocolToken;
 		checkState(url.startsWith(token));
 		String fragment = url.substring(token.length());
+		if (fragment.endsWith("/") && fragment.length() > 1) {
+			fragment = fragment.substring(fragment.length() - 1);
+		}
 		return new CanonicalFile(basedir, protocol + File.pathSeparatorChar + fragment);
 	}
 
