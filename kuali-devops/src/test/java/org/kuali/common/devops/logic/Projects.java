@@ -20,6 +20,7 @@ public class Projects extends Examiner {
 
 	private static final String METAINF_FRAGMENT = "/tomcat/webapps/ROOT/WEB-INF/classes/META-INF";
 	private static final String FILENAME = "project.properties";
+	private static final String BUNDLE_SYMBOLIC_NAME_KEY = "Bundle-SymbolicName";
 
 	public static Optional<Project> getProject(String fqdn, Map<String, String> manifest) {
 		Properties properties = getProjectProperties(fqdn, manifest);
@@ -31,7 +32,7 @@ public class Projects extends Examiner {
 	}
 
 	public static Properties getProjectProperties(String fqdn, Map<String, String> manifest) {
-		Optional<String> bundleSymbolicName = Optional.fromNullable(manifest.get("Bundle-SymbolicName"));
+		Optional<String> bundleSymbolicName = Optional.fromNullable(manifest.get(BUNDLE_SYMBOLIC_NAME_KEY));
 		if (!bundleSymbolicName.isPresent()) {
 			return new Properties();
 		} else {
@@ -55,14 +56,27 @@ public class Projects extends Examiner {
 		}
 	}
 
-	public static Optional<String> getProjectPropertiesUrl(String fqdn, Map<String, String> manifest) {
-		String key = "Bundle-SymbolicName";
-		String name = manifest.get(key);
-		if (name == null) {
-			return Optional.absent();
+	public static Optional<String> getProjectPropertiesUrlFragment(Map<String, String> manifest) {
+		Optional<String> name = Optional.fromNullable(manifest.get(BUNDLE_SYMBOLIC_NAME_KEY));
+		if (!name.isPresent()) {
+			return Optional.of(getProjectPropertiesUrlFragment(name.get()));
 		} else {
-			return Optional.of(getProjectPropertiesUrl(fqdn, name));
+			return Optional.absent();
 		}
+	}
+
+	private static String getProjectPropertiesUrlFragment(String bundleSymbolicName) {
+		String groupId = getGroupId(bundleSymbolicName);
+		String artifactId = getArtifactId(bundleSymbolicName);
+		StringBuilder sb = new StringBuilder();
+		sb.append(METAINF_FRAGMENT);
+		sb.append("/");
+		sb.append(Str.getPath(groupId));
+		sb.append("/");
+		sb.append(artifactId);
+		sb.append("/");
+		sb.append(FILENAME);
+		return sb.toString();
 	}
 
 	private static String getProjectPropertiesUrl(String fqdn, String bundleSymbolicName) {
