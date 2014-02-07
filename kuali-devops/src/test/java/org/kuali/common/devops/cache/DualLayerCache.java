@@ -7,27 +7,28 @@ import java.io.File;
 
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
+import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.cache.CacheLoader;
 
 @IdiotProofImmutable
 public abstract class DualLayerCache<T> extends CacheLoader<T, Optional<String>> {
 
-	public DualLayerCache(CacheLoader<T, Optional<String>> loader) {
+	public DualLayerCache(CacheLoader<T, Optional<String>> loader, Function<T, File> function) {
 		this.loader = checkNotNull(loader);
+		this.function = checkNotNull(function);
 	}
 
 	private final CacheLoader<File, Optional<String>> fileLoader = new FileLoader(UTF8);
 	private final CacheWriter<File, Optional<String>> fileWriter = new FileWriter(UTF8);
 
 	private final CacheLoader<T, Optional<String>> loader;
-
-	protected abstract File getFile(T key);
+	private final Function<T, File> function;
 
 	@Override
 	public Optional<String> load(T key) throws Exception {
 		checkNotNull(key);
-		File file = getFile(key);
+		File file = function.apply(key);
 		Optional<String> data = fileLoader.load(file);
 		if (!data.isPresent()) {
 			data = loader.load(key);
