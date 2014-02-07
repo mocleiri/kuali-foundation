@@ -40,6 +40,8 @@ public final class UrlToFileFunction implements Function<String, File> {
 		for (String replaceToken : replaceTokens) {
 			path.replace(replaceToken, File.separator);
 		}
+
+		// Return what we've got
 		return path;
 	}
 
