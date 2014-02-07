@@ -1,7 +1,7 @@
 package org.kuali.common.devops.model;
 
 import static org.kuali.common.devops.logic.Examiner.ENV_JSP_FRAGMENT;
-import static org.kuali.common.devops.logic.Manifests.MANIFEST_LOCATION;
+import static org.kuali.common.devops.logic.Manifests.MANIFEST_URL_FRAGMENT;
 import static org.kuali.common.devops.logic.Tomcats.HEAP_URL_FRAGMENT;
 import static org.kuali.common.devops.logic.Tomcats.VERSION_URL_FRAGMENT;
 
@@ -52,10 +52,10 @@ public final class DeployEnvironmentUrls {
 
 		public Builder(String fqdn) {
 			this.fqdn = fqdn;
-			releaseNotes(DEFAULT_PREFIX + fqdn + VERSION_URL_FRAGMENT);
+			tomcatVersion(DEFAULT_PREFIX + fqdn + VERSION_URL_FRAGMENT);
 			heap(DEFAULT_PREFIX + fqdn + HEAP_URL_FRAGMENT);
 			envJsp(DEFAULT_PREFIX + fqdn + ENV_JSP_FRAGMENT);
-			manifest(DEFAULT_PREFIX + fqdn + MANIFEST_LOCATION);
+			manifest(DEFAULT_PREFIX + fqdn + MANIFEST_URL_FRAGMENT);
 		}
 
 		@Override
@@ -68,8 +68,8 @@ public final class DeployEnvironmentUrls {
 			return this;
 		}
 
-		public Builder releaseNotes(String releaseNotes) {
-			this.tomcatVersion = releaseNotes;
+		public Builder tomcatVersion(String tomcatVersion) {
+			this.tomcatVersion = tomcatVersion;
 			return this;
 		}
 

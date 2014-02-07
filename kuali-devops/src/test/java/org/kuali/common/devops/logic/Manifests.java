@@ -16,10 +16,10 @@ import com.google.common.collect.Sets;
 
 public class Manifests extends Examiner {
 
-	public static final String MANIFEST_LOCATION = "/tomcat/webapps/ROOT/META-INF/MANIFEST.MF";
+	public static final String MANIFEST_URL_FRAGMENT = "/tomcat/webapps/ROOT/META-INF/MANIFEST.MF";
 
 	public static String getManifestUrl(String fqdn) {
-		return PROTOCOL + fqdn + MANIFEST_LOCATION;
+		return PROTOCOL + fqdn + MANIFEST_URL_FRAGMENT;
 	}
 
 	public static Map<String, String> getManifestMapFromString(String content) {
