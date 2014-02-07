@@ -161,4 +161,8 @@ public final class DeployEnvironmentUrls {
 		return configuration;
 	}
 
+	public String getFqdn() {
+		return fqdn;
+	}
+
 }
