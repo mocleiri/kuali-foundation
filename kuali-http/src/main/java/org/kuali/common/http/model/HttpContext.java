@@ -57,6 +57,10 @@ public final class HttpContext {
 		return builder(url).build();
 	}
 
+	public static HttpContext create() {
+		return builder().build();
+	}
+
 	public static Builder builder(String url) {
 		return new Builder(url);
 	}
