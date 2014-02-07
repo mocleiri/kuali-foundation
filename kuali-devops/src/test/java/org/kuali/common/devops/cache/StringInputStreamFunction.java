@@ -1,7 +1,7 @@
 package org.kuali.common.devops.cache;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static org.kuali.common.util.Encodings.UTF8;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -13,7 +13,11 @@ import com.google.common.base.Function;
 
 public class StringInputStreamFunction implements Function<String, InputStream> {
 
-	private final String encoding = UTF8;
+	public StringInputStreamFunction(String encoding) {
+		this.encoding = checkNotBlank(encoding, "encoding");
+	}
+
+	private final String encoding;
 
 	@Override
 	public InputStream apply(String data) {

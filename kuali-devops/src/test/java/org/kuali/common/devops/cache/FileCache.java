@@ -5,6 +5,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.io.File;
 import java.io.InputStream;
 
+import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -39,14 +40,13 @@ public final class FileCache<T, V> extends CacheLoader<T, Optional<V>> {
 		this.function = builder.function;
 	}
 
-	public static <T, V> FileCache<String, String> createUrlCacher() {
-		CacheLoader<String, Optional<String>> loader = HttpLoader.create();
-		CacheLoader<File, Optional<String>> fileLoader = new FileLoader<String>(new ReadFileToStringFunction());
-		Function<String, File> function = UrlToFileFunction.create();
+	public static <T, V> FileCache<String, String> createHttpUrlCacher(HttpContext context, String encoding, File basedir) {
+		CacheLoader<String, Optional<String>> loader = HttpLoader.create(context);
+		CacheLoader<File, Optional<String>> fileLoader = new FileLoader<String>(new ReadFileToStringFunction(encoding));
+		Function<String, File> function = UrlToFileFunction.builder().basedir(basedir).build();
 
-		Function<File, File> fileFunction = new NoopFunction<File>();
-		Function<String, InputStream> inputStreamFunction = new StringInputStreamFunction();
-		CachePersister<File, Optional<String>> filePersister = new FilePersister<File, String>(fileFunction, inputStreamFunction);
+		Function<String, InputStream> inputStreamFunction = new StringInputStreamFunction(encoding);
+		CachePersister<File, Optional<String>> filePersister = new FilePersister<File, String>(new NoopFunction<File>(), inputStreamFunction);
 
 		Builder<String, String> builder = new Builder<String, String>();
 		builder.function(function);

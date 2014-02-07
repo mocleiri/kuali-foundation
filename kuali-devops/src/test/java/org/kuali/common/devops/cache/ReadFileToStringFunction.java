@@ -2,7 +2,7 @@ package org.kuali.common.devops.cache;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.apache.commons.io.FileUtils.readFileToString;
-import static org.kuali.common.util.Encodings.UTF8;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +13,11 @@ import com.google.common.base.Function;
 
 public class ReadFileToStringFunction implements Function<File, String> {
 
-	private final String encoding = UTF8;
+	public ReadFileToStringFunction(String encoding) {
+		this.encoding = checkNotBlank(encoding, "encoding");
+	}
+
+	private final String encoding;
 
 	@Override
 	public String apply(File file) {
