@@ -1,10 +1,5 @@
 package org.kuali.common.devops.model.metadata;
 
-import static org.kuali.common.devops.logic.Examiner.SYSTEM_PROPERTIES_URL_FRAGMENT;
-import static org.kuali.common.devops.logic.Manifests.MANIFEST_URL_FRAGMENT;
-import static org.kuali.common.devops.logic.Tomcats.HEAP_URL_FRAGMENT;
-import static org.kuali.common.devops.logic.Tomcats.VERSION_URL_FRAGMENT;
-
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -37,7 +32,11 @@ public final class EnvironmentMetadataUrls {
 
 	public static class Builder extends ValidatingBuilder<EnvironmentMetadataUrls> {
 
-		public static final String DEFAULT_PREFIX = "http://";
+		private static final String DEFAULT_PREFIX = "http://";
+		private static final String SYSTEM_PROPERTIES_URL_FRAGMENT = "/tomcat/logs/env.jsp";
+		private static final String MANIFEST_URL_FRAGMENT = "/tomcat/webapps/ROOT/META-INF/MANIFEST.MF";
+		private static final String VERSION_URL_FRAGMENT = "/tomcat";
+		private static final String HEAP_URL_FRAGMENT = "/tomcat/logs/heap.log";
 
 		private String fqdn;
 		private String tomcatVersion;
