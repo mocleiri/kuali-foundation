@@ -1,7 +1,7 @@
 package org.kuali.common.devops.cache;
 
-public interface CachePersister<K, V> {
+public interface CachePersister<K, V, L> {
 
-	void persist(K key, V value) throws Exception;
+	L persist(K key, V value) throws Exception;
 
 }
