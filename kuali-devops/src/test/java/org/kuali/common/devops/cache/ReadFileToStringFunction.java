@@ -12,7 +12,7 @@ import org.kuali.common.util.base.Exceptions;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 
-public class ToStringFunction implements Function<File, Optional<String>> {
+public class ReadFileToStringFunction implements Function<File, Optional<String>> {
 
 	private final String encoding = UTF8;
 
