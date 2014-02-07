@@ -1,7 +1,6 @@
 package org.kuali.common.devops.cache;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static org.apache.commons.io.FileUtils.forceDelete;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,38 +13,45 @@ import org.apache.commons.io.IOUtils;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 
-public final class FilePersister<K, V> implements CachePersister<K, Optional<V>, File> {
+public final class FilePersister<K, V> implements CachePersister<K, Optional<V>> {
 
-	public FilePersister(Function<K, File> fileFunction, Function<V, InputStream> inputStreamFunction) {
-		this.fileFunction = checkNotNull(fileFunction, "fileFunction");
-		this.inputStreamFunction = checkNotNull(inputStreamFunction, "inputStreamFunction");
+	public FilePersister(Function<K, File> file, Function<V, InputStream> in) {
+		this.file = checkNotNull(file, "file");
+		this.in = checkNotNull(in, "in");
 	}
 
-	private final Function<K, File> fileFunction;
-	private final Function<V, InputStream> inputStreamFunction;
+	private final Function<K, File> file;
+	private final Function<V, InputStream> in;
 
 	@Override
-	public File persist(K key, Optional<V> reference) throws IOException {
+	public void persist(K key, Optional<V> reference) throws IOException {
 		checkNotNull(key);
 		checkNotNull(reference);
-		File file = fileFunction.apply(key);
+		File file = this.file.apply(key);
 		if (reference.isPresent()) {
-			InputStream in = null;
-			OutputStream out = null;
-			try {
-				in = inputStreamFunction.apply(reference.get());
-				out = FileUtils.openOutputStream(file);
-				IOUtils.copy(in, out);
-			} finally {
-				IOUtils.closeQuietly(in);
-				IOUtils.closeQuietly(out);
-			}
+			copy(file, reference);
 		} else {
-			if (file.exists()) {
-				forceDelete(file);
-			}
+			forceDelete(file);
 		}
-		return file;
+	}
+
+	protected void copy(File file, Optional<V> reference) throws IOException {
+		InputStream in = null;
+		OutputStream out = null;
+		try {
+			in = this.in.apply(reference.get());
+			out = FileUtils.openOutputStream(file);
+			IOUtils.copyLarge(in, out);
+		} finally {
+			IOUtils.closeQuietly(in);
+			IOUtils.closeQuietly(out);
+		}
+	}
+
+	protected void forceDelete(File file) throws IOException {
+		if (file.exists()) {
+			forceDelete(file);
+		}
 	}
 
 }
