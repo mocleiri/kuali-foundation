@@ -5,6 +5,7 @@ import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import java.util.List;
 
 import org.kuali.common.devops.logic.Auth;
+import org.kuali.common.devops.logic.Instances;
 import org.kuali.common.devops.model.EC2Instance;
 
 import com.amazonaws.auth.AWSCredentials;
@@ -16,7 +17,7 @@ public final class InstancesLoader extends CacheLoader<String, List<EC2Instance>
 	public List<EC2Instance> load(String account) {
 		checkNotBlank(account, "account");
 		AWSCredentials credentials = Auth.getAwsCredentials(account);
-		return null;
+		return Instances.queryAmazon(credentials);
 	}
 
 }
