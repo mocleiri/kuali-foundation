@@ -40,4 +40,12 @@ public final class Account {
 
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public List<EC2Instance> getInstances() {
+		return instances;
+	}
+
 }
