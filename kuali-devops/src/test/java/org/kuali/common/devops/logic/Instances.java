@@ -86,7 +86,7 @@ public class Instances {
 		}
 	}
 
-	protected static List<EC2Instance> queryAmazon(AWSCredentials creds) {
+	public static List<EC2Instance> queryAmazon(AWSCredentials creds) {
 		WaitService ws = new DefaultWaitService();
 		EC2ServiceContext context = EC2ServiceContext.create(creds);
 		EC2Service service = new DefaultEC2Service(context, ws);
