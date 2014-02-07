@@ -1,5 +1,7 @@
 package org.kuali.common.devops.logic;
 
+import static org.kuali.common.util.Encodings.UTF8;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Map;
@@ -7,7 +9,6 @@ import java.util.SortedSet;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
-import org.kuali.common.util.Encodings;
 import org.kuali.common.util.base.Exceptions;
 
 import com.google.common.collect.Maps;
@@ -28,7 +29,7 @@ public class Manifests extends Examiner {
 
 	private static Manifest getManifestFromString(String content) {
 		try {
-			ByteArrayInputStream in = new ByteArrayInputStream(content.getBytes(Encodings.UTF8));
+			ByteArrayInputStream in = new ByteArrayInputStream(content.getBytes(UTF8));
 			Manifest manifest = new Manifest(in);
 			return manifest;
 		} catch (IOException e) {
