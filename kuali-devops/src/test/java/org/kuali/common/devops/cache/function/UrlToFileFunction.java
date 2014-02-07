@@ -15,12 +15,15 @@ import com.google.common.base.Function;
 public final class UrlToFileFunction implements Function<String, File> {
 
 	private final File basedir;
-	private final String protocol;
+	private final String protocolToken;
 
 	@Override
 	public File apply(String url) {
 		checkNotBlank(url, "url");
-		String token = protocol + "://";
+		int pos = url.indexOf(protocolToken);
+		checkState(pos != -1, "unable to determine protocol. [%s] does not contain [%s]", url, protocolToken);
+		String protocol = url.substring(0, pos);
+		String token = protocol + protocolToken;
 		checkState(url.startsWith(token));
 		String fragment = url.substring(token.length());
 		return new CanonicalFile(basedir, protocol + File.pathSeparatorChar + fragment);
@@ -28,7 +31,7 @@ public final class UrlToFileFunction implements Function<String, File> {
 
 	private UrlToFileFunction(Builder builder) {
 		this.basedir = builder.basedir;
-		this.protocol = builder.protocol;
+		this.protocolToken = builder.protocolToken;
 	}
 
 	public static UrlToFileFunction create() {
@@ -42,15 +45,15 @@ public final class UrlToFileFunction implements Function<String, File> {
 	public static class Builder extends ValidatingBuilder<UrlToFileFunction> {
 
 		private File basedir = new CanonicalFile("./target/cache");
-		private String protocol = "http";
+		private String protocolToken = "://";
 
 		public Builder basedir(File basedir) {
 			this.basedir = basedir;
 			return this;
 		}
 
-		public Builder protocol(String protocol) {
-			this.protocol = protocol;
+		public Builder protocolToken(String protocolToken) {
+			this.protocolToken = protocolToken;
 			return this;
 		}
 
@@ -67,12 +70,12 @@ public final class UrlToFileFunction implements Function<String, File> {
 			this.basedir = basedir;
 		}
 
-		public String getProtocol() {
-			return protocol;
+		public String getProtocolToken() {
+			return protocolToken;
 		}
 
-		public void setProtocol(String protocol) {
-			this.protocol = protocol;
+		public void setProtocolToken(String protocolToken) {
+			this.protocolToken = protocolToken;
 		}
 
 	}
@@ -81,8 +84,8 @@ public final class UrlToFileFunction implements Function<String, File> {
 		return basedir;
 	}
 
-	public String getProtocol() {
-		return protocol;
+	public String getProtocolToken() {
+		return protocolToken;
 	}
 
 }
