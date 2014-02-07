@@ -31,12 +31,12 @@ public final class UrlToFileFunction implements Function<String, File> {
 		// Remove trailing slash (if any)
 		String path = StringUtils.removeEnd(url, "/");
 
-		// For each token in the remove tokens list, replace it with empty ("")
+		// For each token in the remove list, replace it with empty ("")
 		for (String removeToken : removeTokens) {
 			path.replace(removeToken, "");
 		}
 
-		// For each token in the replace tokens list, replace it with the file separator
+		// For each token in the replace list, replace it with the file separator
 		for (String replaceToken : replaceTokens) {
 			path.replace(replaceToken, File.separator);
 		}
