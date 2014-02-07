@@ -12,7 +12,7 @@ import com.google.common.base.Optional;
 import com.google.common.cache.CacheLoader;
 
 @IdiotProofImmutable
-public final class PersistentCacheLoader<T, V> extends CacheLoader<T, Optional<V>> {
+public final class PersistentLoader<T, V> extends CacheLoader<T, Optional<V>> {
 
 	private final CacheLoader<File, Optional<V>> fileLoader;
 	private final CachePersister<File, Optional<V>> filePersister;
@@ -31,7 +31,7 @@ public final class PersistentCacheLoader<T, V> extends CacheLoader<T, Optional<V
 		return data;
 	}
 
-	private PersistentCacheLoader(Builder<T, V> builder) {
+	private PersistentLoader(Builder<T, V> builder) {
 		this.fileLoader = builder.fileLoader;
 		this.filePersister = builder.filePersister;
 		this.loader = builder.loader;
@@ -42,7 +42,7 @@ public final class PersistentCacheLoader<T, V> extends CacheLoader<T, Optional<V
 		return new Builder<T, V>();
 	}
 
-	public static class Builder<T, V> extends ValidatingBuilder<PersistentCacheLoader<T, V>> {
+	public static class Builder<T, V> extends ValidatingBuilder<PersistentLoader<T, V>> {
 
 		private CacheLoader<File, Optional<V>> fileLoader;
 		private CachePersister<File, Optional<V>> filePersister;
@@ -70,8 +70,8 @@ public final class PersistentCacheLoader<T, V> extends CacheLoader<T, Optional<V
 		}
 
 		@Override
-		public PersistentCacheLoader<T, V> getInstance() {
-			return new PersistentCacheLoader<T, V>(this);
+		public PersistentLoader<T, V> getInstance() {
+			return new PersistentLoader<T, V>(this);
 		}
 
 		public CacheLoader<File, Optional<V>> getFileLoader() {
