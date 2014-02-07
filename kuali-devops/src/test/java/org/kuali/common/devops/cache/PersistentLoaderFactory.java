@@ -13,7 +13,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.cache.CacheLoader;
 
-public class FileCacheFactory {
+public class PersistentLoaderFactory {
 
 	public static <T, V> PersistentLoader<String, String> createHttpUrlCacher() {
 		return createHttpUrlCacher(HttpContext.create());
