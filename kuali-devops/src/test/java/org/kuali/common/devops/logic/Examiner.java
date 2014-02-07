@@ -23,7 +23,7 @@ public class Examiner {
 	private static final Logger logger = Loggers.make();
 	protected static final String SCM_URL_KEY = "project.scm.url";
 	protected static final String SCM_REVISION_KEY = "project.scm.revision";
-	protected static final String ENV_JSP_FRAGMENT = "/tomcat/logs/env.jsp";
+	public static final String ENV_JSP_FRAGMENT = "/tomcat/logs/env.jsp";
 
 	public static final String getEnvJspUrl(String fqdn) {
 		return getUrl(fqdn, ENV_JSP_FRAGMENT);

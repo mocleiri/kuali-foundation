@@ -1,5 +1,8 @@
 package org.kuali.common.devops.model;
 
+import org.kuali.common.devops.logic.Examiner;
+import org.kuali.common.devops.logic.Manifests;
+import org.kuali.common.devops.logic.Tomcats;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -8,6 +11,7 @@ import com.google.common.base.Optional;
 @IdiotProofImmutable
 public final class DeployEnvironmentUrls {
 
+	private final String fqdn;
 	private final String releaseNotes;
 	private final String heap;
 	private final String envJsp;
@@ -16,6 +20,7 @@ public final class DeployEnvironmentUrls {
 	private final Optional<String> configuration;
 
 	private DeployEnvironmentUrls(Builder builder) {
+		this.fqdn = builder.fqdn;
 		this.releaseNotes = builder.releaseNotes;
 		this.heap = builder.heap;
 		this.envJsp = builder.envJsp;
@@ -26,12 +31,26 @@ public final class DeployEnvironmentUrls {
 
 	public static class Builder extends ValidatingBuilder<DeployEnvironmentUrls> {
 
+		private static final String DEFAULT_PROTOCOL = "http://";
+
+		private String fqdn;
 		private String releaseNotes;
 		private String heap;
 		private String envJsp;
 		private String manifest;
 		private Optional<String> projectProperties = Optional.absent();
 		private Optional<String> configuration = Optional.absent();
+
+		public Builder() {
+		}
+
+		public Builder(String fqdn) {
+			this.fqdn = fqdn;
+			releaseNotes(DEFAULT_PROTOCOL + fqdn + Tomcats.RELEASE_NOTES_FRAGMENT);
+			heap(DEFAULT_PROTOCOL + fqdn + Tomcats.HEAP_FRAGMENT);
+			envJsp(DEFAULT_PROTOCOL + fqdn + Examiner.ENV_JSP_FRAGMENT);
+			manifest(DEFAULT_PROTOCOL + fqdn + Manifests.MANIFEST_LOCATION);
+		}
 
 		@Override
 		public DeployEnvironmentUrls getInstance() {
