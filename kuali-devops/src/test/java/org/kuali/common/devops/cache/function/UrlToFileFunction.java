@@ -29,7 +29,7 @@ public final class UrlToFileFunction implements Function<String, File> {
 		if (fragment.endsWith("/") && fragment.length() > 1) {
 			fragment = fragment.substring(fragment.length() - 1);
 		}
-		return new CanonicalFile(basedir, protocol + File.pathSeparatorChar + fragment);
+		return new CanonicalFile(basedir, protocol + File.separatorChar + fragment);
 	}
 
 	private UrlToFileFunction(Builder builder) {
