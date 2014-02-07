@@ -30,17 +30,17 @@ public final class FilePersister<K, V> implements CachePersister<K, Optional<V>>
 		checkNotNull(reference);
 		File file = this.file.apply(key);
 		if (reference.isPresent()) {
-			copy(file, reference);
+			copy(file, reference, in);
 		} else {
 			forceDeleteIfExists(file);
 		}
 	}
 
-	protected void copy(File file, Optional<V> reference) throws IOException {
+	protected void copy(File file, Optional<V> reference, Function<V, InputStream> inputStreamFunction) throws IOException {
 		InputStream in = null;
 		OutputStream out = null;
 		try {
-			in = this.in.apply(reference.get());
+			in = inputStreamFunction.apply(reference.get());
 			out = FileUtils.openOutputStream(file);
 			IOUtils.copyLarge(in, out);
 		} finally {
