@@ -23,7 +23,7 @@ public final class UrlToFileFunction implements Function<String, File> {
 		String token = protocol + "://";
 		checkState(url.startsWith(token));
 		String fragment = url.substring(token.length());
-		return new CanonicalFile(basedir, protocol + fragment);
+		return new CanonicalFile(basedir, protocol + File.pathSeparatorChar + fragment);
 	}
 
 	private UrlToFileFunction(Builder builder) {
