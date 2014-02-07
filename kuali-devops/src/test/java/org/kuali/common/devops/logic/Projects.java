@@ -1,7 +1,5 @@
 package org.kuali.common.devops.logic;
 
-import static org.kuali.common.util.base.Precondition.checkNotBlank;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -57,10 +55,14 @@ public class Projects extends Examiner {
 		}
 	}
 
-	public static String getProjectPropertiesUrl(String fqdn, Map<String, String> manifest) {
+	public static Optional<String> getProjectPropertiesUrl(String fqdn, Map<String, String> manifest) {
 		String key = "Bundle-SymbolicName";
-		checkNotBlank(manifest.get(key), key);
-		return getProjectPropertiesUrl(fqdn, manifest.get(key));
+		String name = manifest.get(key);
+		if (name == null) {
+			return Optional.absent();
+		} else {
+			return Optional.of(getProjectPropertiesUrl(fqdn, name));
+		}
 	}
 
 	private static String getProjectPropertiesUrl(String fqdn, String bundleSymbolicName) {
