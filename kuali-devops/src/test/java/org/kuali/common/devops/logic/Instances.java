@@ -51,7 +51,7 @@ public class Instances {
 	 */
 	public static SortedMap<String, List<EC2Instance>> getInstances(boolean refresh) {
 		SortedMap<String, List<EC2Instance>> map = Maps.newTreeMap();
-		Set<String> accounts = Auth.getAwsAccounts();
+		Set<String> accounts = Auth.getAwsAccountNames();
 		for (String account : accounts) {
 			map.put(account, getInstances(account, refresh));
 		}

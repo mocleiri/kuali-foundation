@@ -27,7 +27,7 @@ public class Auth {
 		return DNSMadeEasyCredentials.create(apiKey, secretKey);
 	}
 
-	public static SortedSet<String> getAwsAccounts() {
+	public static SortedSet<String> getAwsAccountNames() {
 		SortedSet<String> accounts = Sets.newTreeSet();
 		for (Credentials credentials : Credentials.values()) {
 			String account = getAccount(credentials);
