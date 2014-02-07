@@ -23,7 +23,7 @@ import com.google.common.base.Optional;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.LoadingCache;
 
-public class GetDeploymentUrlsTest {
+public class DeployEnvironmentUrlsTest {
 
 	private static final Logger logger = LoggerUtils.make();
 
