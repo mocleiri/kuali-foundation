@@ -5,6 +5,8 @@ import static java.lang.String.format;
 import static org.apache.commons.lang.StringUtils.substringBetween;
 import static org.apache.commons.lang.StringUtils.substringsBetween;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
@@ -13,6 +15,7 @@ import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.http.model.HttpWaitResult;
 import org.kuali.common.http.service.DefaultHttpService;
 import org.kuali.common.http.service.HttpService;
+import org.kuali.common.util.Encodings;
 import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.log.Loggers;
 import org.kuali.common.util.property.ImmutableProperties;
@@ -42,6 +45,17 @@ public class Examiner {
 			properties.setProperty(key, value);
 		}
 		return ImmutableProperties.copyOf(properties);
+	}
+
+	public static Properties getPropertiesFromString(String content) {
+		try {
+			ByteArrayInputStream in = new ByteArrayInputStream(content.getBytes(Encodings.UTF8));
+			Properties props = new Properties();
+			props.load(in);
+			return ImmutableProperties.copyOf(props);
+		} catch (IOException e) {
+			throw Exceptions.illegalState(e);
+		}
 	}
 
 	public static final String getEnvJspUrl(String fqdn) {
