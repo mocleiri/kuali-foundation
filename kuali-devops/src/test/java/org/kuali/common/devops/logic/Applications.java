@@ -51,9 +51,10 @@ public class Applications extends Examiner {
 		if (groupId.equals(KualiProjectConstants.STUDENT_GROUP_ID)) {
 			return "/home/kuali/main/dev/" + project.getArtifactId() + "-config.xml";
 		} else if (groupId.equals(KualiProjectConstants.OLE_GROUP_ID)) {
-			String environment = systemProperties.getProperty("environment");
-			checkNotBlank(environment, "environment");
-			return "/home/kuali/main/" + environment + "/common-config.xml";
+			String key = "environment";
+			String value = systemProperties.getProperty(key);
+			checkNotBlank(value, key);
+			return "/home/kuali/main/" + value + "/common-config.xml";
 		} else {
 			return "/home/kuali/main/dev/common-config.xml";
 		}
