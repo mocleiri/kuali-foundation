@@ -1,6 +1,7 @@
 package org.kuali.common.devops.cache;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static org.apache.commons.io.FileUtils.forceDelete;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +32,7 @@ public final class FilePersister<K, V> implements CachePersister<K, Optional<V>>
 		if (reference.isPresent()) {
 			copy(file, reference);
 		} else {
-			forceDelete(file);
+			forceDeleteIfExists(file);
 		}
 	}
 
@@ -48,7 +49,7 @@ public final class FilePersister<K, V> implements CachePersister<K, Optional<V>>
 		}
 	}
 
-	protected void forceDelete(File file) throws IOException {
+	protected void forceDeleteIfExists(File file) throws IOException {
 		if (file.exists()) {
 			forceDelete(file);
 		}
