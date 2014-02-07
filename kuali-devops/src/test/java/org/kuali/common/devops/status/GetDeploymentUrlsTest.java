@@ -61,7 +61,7 @@ public class GetDeploymentUrlsTest {
 		Optional<String> configFragment = Applications.getConfigFragment(project, system);
 		if (configFragment.isPresent()) {
 			String configUrl = DeployEnvironmentUrls.Builder.DEFAULT_PREFIX + builder.getFqdn() + configFragment.get();
-			builder.configuration(Optional.of(configUrl));
+			builder.projectConfiguration(Optional.of(configUrl));
 		}
 	}
 
