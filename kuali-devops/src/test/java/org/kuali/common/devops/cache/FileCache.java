@@ -5,6 +5,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.io.File;
 import java.io.InputStream;
 
+import org.kuali.common.devops.cache.function.NoopFunction;
+import org.kuali.common.devops.cache.function.ReadFileToStringFunction;
+import org.kuali.common.devops.cache.function.StringInputStreamFunction;
+import org.kuali.common.devops.cache.function.UrlToFileFunction;
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;

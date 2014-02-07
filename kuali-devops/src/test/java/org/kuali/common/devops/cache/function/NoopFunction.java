@@ -1,4 +1,4 @@
-package org.kuali.common.devops.cache;
+package org.kuali.common.devops.cache.function;
 
 import com.google.common.base.Function;
 

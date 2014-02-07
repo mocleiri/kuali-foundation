@@ -1,4 +1,4 @@
-package org.kuali.common.devops.cache;
+package org.kuali.common.devops.cache.function;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.apache.commons.io.FileUtils.readFileToString;
