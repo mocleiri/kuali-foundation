@@ -28,6 +28,7 @@ public class GuavaCacheTest {
 		try {
 			HttpContext context = HttpContext.builder().quiet(true).asynchronousClose(true).maxBytes("25k").maxRetries(0).overallTimeout("5s").build();
 			LoadingCache<String, Optional<String>> cache = CacheBuilder.newBuilder().build(FileCache.createHttpUrlCacher(context));
+			logger.info(cache.getClass().getCanonicalName());
 			cache(cache);
 		} catch (Throwable e) {
 			e.printStackTrace();
