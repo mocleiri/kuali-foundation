@@ -21,7 +21,7 @@ public class Manifests extends Examiner {
 		return PROTOCOL + fqdn + MANIFEST_LOCATION;
 	}
 
-	public static Map<String, String> getManifest(String content) {
+	public static Map<String, String> getManifestMapFromString(String content) {
 		Manifest manifest = getManifestFromString(content);
 		return convert(manifest);
 	}
