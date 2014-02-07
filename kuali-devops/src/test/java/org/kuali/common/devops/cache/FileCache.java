@@ -23,12 +23,12 @@ public final class FileCache<T, V> extends CacheLoader<T, Optional<V>> {
 	private final CacheLoader<File, Optional<V>> fileLoader;
 	private final CachePersister<File, Optional<V>> filePersister;
 	private final CacheLoader<T, Optional<V>> loader;
-	private final Function<T, File> function;
+	private final Function<T, File> fileFunction;
 
 	@Override
 	public Optional<V> load(T key) throws Exception {
 		checkNotNull(key);
-		File file = function.apply(key);
+		File file = fileFunction.apply(key);
 		Optional<V> data = fileLoader.load(file);
 		if (!data.isPresent()) {
 			data = loader.load(key);
@@ -41,7 +41,7 @@ public final class FileCache<T, V> extends CacheLoader<T, Optional<V>> {
 		this.fileLoader = builder.fileLoader;
 		this.filePersister = builder.filePersister;
 		this.loader = builder.loader;
-		this.function = builder.function;
+		this.fileFunction = builder.fileFunction;
 	}
 
 	public static <T, V> FileCache<String, String> createHttpUrlCacher() {
@@ -59,13 +59,13 @@ public final class FileCache<T, V> extends CacheLoader<T, Optional<V>> {
 	public static <T, V> FileCache<String, String> createHttpUrlCacher(HttpContext context, String encoding, File basedir) {
 		CacheLoader<String, Optional<String>> loader = HttpLoader.create(context);
 		CacheLoader<File, Optional<String>> fileLoader = new FileLoader<String>(new ReadFileToStringFunction(encoding));
-		Function<String, File> function = new UrlToFileFunction(basedir);
+		Function<String, File> fileFunction = new UrlToFileFunction(basedir);
 
 		Function<String, InputStream> inputStreamFunction = new StringInputStreamFunction(encoding);
 		CachePersister<File, Optional<String>> filePersister = new FilePersister<File, String>(new NoopFunction<File>(), inputStreamFunction);
 
 		Builder<String, String> builder = new Builder<String, String>();
-		builder.function(function);
+		builder.fileFunction(fileFunction);
 		builder.loader(loader);
 		builder.fileLoader(fileLoader);
 		builder.filePersister(filePersister);
@@ -81,7 +81,7 @@ public final class FileCache<T, V> extends CacheLoader<T, Optional<V>> {
 		private CacheLoader<File, Optional<V>> fileLoader;
 		private CachePersister<File, Optional<V>> filePersister;
 		private CacheLoader<T, Optional<V>> loader;
-		private Function<T, File> function;
+		private Function<T, File> fileFunction;
 
 		public Builder<T, V> fileLoader(CacheLoader<File, Optional<V>> fileLoader) {
 			this.fileLoader = fileLoader;
@@ -98,8 +98,8 @@ public final class FileCache<T, V> extends CacheLoader<T, Optional<V>> {
 			return this;
 		}
 
-		public Builder<T, V> function(Function<T, File> function) {
-			this.function = function;
+		public Builder<T, V> fileFunction(Function<T, File> fileFunction) {
+			this.fileFunction = fileFunction;
 			return this;
 		}
 
@@ -132,12 +132,12 @@ public final class FileCache<T, V> extends CacheLoader<T, Optional<V>> {
 			this.loader = loader;
 		}
 
-		public Function<T, File> getFunction() {
-			return function;
+		public Function<T, File> getFileFunction() {
+			return fileFunction;
 		}
 
-		public void setFunction(Function<T, File> function) {
-			this.function = function;
+		public void setFileFunction(Function<T, File> function) {
+			this.fileFunction = function;
 		}
 
 	}
@@ -154,8 +154,8 @@ public final class FileCache<T, V> extends CacheLoader<T, Optional<V>> {
 		return loader;
 	}
 
-	public Function<T, File> getFunction() {
-		return function;
+	public Function<T, File> getFileFunction() {
+		return fileFunction;
 	}
 
 }
