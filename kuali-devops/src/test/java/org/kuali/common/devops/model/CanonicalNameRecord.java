@@ -1,5 +1,6 @@
 package org.kuali.common.devops.model;
 
+import org.kuali.common.util.ObjectUtils;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -62,6 +63,25 @@ public final class CanonicalNameRecord {
 
 	public String getCanonical() {
 		return canonical;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + alias.hashCode();
+		result = prime * result + canonical.hashCode();
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (ObjectUtils.notEqual(this, other)) {
+			return false;
+		} else {
+			CanonicalNameRecord cname = (CanonicalNameRecord) other;
+			return alias.equals(cname.getAlias()) && canonical.equals(cname.getCanonical());
+		}
 	}
 
 }
