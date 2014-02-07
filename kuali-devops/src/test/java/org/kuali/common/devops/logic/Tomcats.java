@@ -23,15 +23,15 @@ public class Tomcats extends Examiner {
 
 	private static final Logger logger = Loggers.make();
 	private static final SimpleDateFormat PARSER = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
-	public static final String HEAP_FRAGMENT = "/tomcat/logs/heap.log";
-	public static final String RELEASE_NOTES_FRAGMENT = "/tomcat/RELEASE-NOTES";
+	public static final String HEAP_URL_FRAGMENT = "/tomcat/logs/heap.log";
+	public static final String VERSION_URL_FRAGMENT = "/tomcat";
 
 	public static String getHeapUrl(String fqdn) {
-		return getUrl(fqdn, HEAP_FRAGMENT);
+		return getUrl(fqdn, HEAP_URL_FRAGMENT);
 	}
 
 	public static String getReleaseNotesUrl(String fqdn) {
-		return getUrl(fqdn, RELEASE_NOTES_FRAGMENT);
+		return getUrl(fqdn, VERSION_URL_FRAGMENT);
 	}
 
 	public static Optional<Tomcat> getTomcat(String fqdn) {
