@@ -31,7 +31,7 @@ public class Examiner {
 	private static final Logger logger = Loggers.make();
 	protected static final String SCM_URL_KEY = "project.scm.url";
 	protected static final String SCM_REVISION_KEY = "project.scm.revision";
-	public static final String ENV_JSP_FRAGMENT = "/tomcat/logs/env.jsp";
+	public static final String SYSTEM_PROPERTIES_URL_FRAGMENT = "/tomcat/logs/env.jsp";
 
 	public static Properties getSystemPropertiesFromHtml(String html) {
 		String content = substringBetween(html, "<th>System Property</th>", "</table>");
@@ -59,7 +59,7 @@ public class Examiner {
 	}
 
 	public static final String getEnvJspUrl(String fqdn) {
-		return getUrl(fqdn, ENV_JSP_FRAGMENT);
+		return getUrl(fqdn, SYSTEM_PROPERTIES_URL_FRAGMENT);
 	}
 
 	public static Optional<String> getJavaVersion(String fqdn) {

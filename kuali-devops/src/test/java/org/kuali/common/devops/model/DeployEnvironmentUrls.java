@@ -1,6 +1,6 @@
 package org.kuali.common.devops.model;
 
-import static org.kuali.common.devops.logic.Examiner.ENV_JSP_FRAGMENT;
+import static org.kuali.common.devops.logic.Examiner.SYSTEM_PROPERTIES_URL_FRAGMENT;
 import static org.kuali.common.devops.logic.Manifests.MANIFEST_URL_FRAGMENT;
 import static org.kuali.common.devops.logic.Tomcats.HEAP_URL_FRAGMENT;
 import static org.kuali.common.devops.logic.Tomcats.VERSION_URL_FRAGMENT;
@@ -54,7 +54,7 @@ public final class DeployEnvironmentUrls {
 			this.fqdn = fqdn;
 			tomcatVersion(DEFAULT_PREFIX + fqdn + VERSION_URL_FRAGMENT);
 			tomcatHeap(DEFAULT_PREFIX + fqdn + HEAP_URL_FRAGMENT);
-			systemPropertiesJsp(DEFAULT_PREFIX + fqdn + ENV_JSP_FRAGMENT);
+			systemPropertiesJsp(DEFAULT_PREFIX + fqdn + SYSTEM_PROPERTIES_URL_FRAGMENT);
 			applicationManifest(DEFAULT_PREFIX + fqdn + MANIFEST_URL_FRAGMENT);
 		}
 
