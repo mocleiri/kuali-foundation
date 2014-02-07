@@ -14,21 +14,21 @@ import com.google.common.base.Optional;
 public final class DeployEnvironmentUrls {
 
 	private final String fqdn;
-	private final String releaseNotes;
-	private final String heap;
+	private final String tomcatVersion;
+	private final String tomcatHeap;
 	private final String envJsp;
-	private final String manifest;
+	private final String applicationManifest;
 	private final Optional<String> projectProperties;
-	private final Optional<String> configuration;
+	private final Optional<String> projectConfiguration;
 
 	private DeployEnvironmentUrls(Builder builder) {
 		this.fqdn = builder.fqdn;
-		this.releaseNotes = builder.releaseNotes;
-		this.heap = builder.heap;
+		this.tomcatVersion = builder.releaseNotes;
+		this.tomcatHeap = builder.heap;
 		this.envJsp = builder.envJsp;
-		this.manifest = builder.manifest;
+		this.applicationManifest = builder.manifest;
 		this.projectProperties = builder.projectProperties;
-		this.configuration = builder.configuration;
+		this.projectConfiguration = builder.configuration;
 	}
 
 	public static Builder builder(String fqdn) {
@@ -156,28 +156,28 @@ public final class DeployEnvironmentUrls {
 
 	}
 
-	public String getReleaseNotes() {
-		return releaseNotes;
+	public String getTomcatVersion() {
+		return tomcatVersion;
 	}
 
-	public String getHeap() {
-		return heap;
+	public String getTomcatHeap() {
+		return tomcatHeap;
 	}
 
 	public String getEnvJsp() {
 		return envJsp;
 	}
 
-	public String getManifest() {
-		return manifest;
+	public String getApplicationManifest() {
+		return applicationManifest;
 	}
 
 	public Optional<String> getProjectProperties() {
 		return projectProperties;
 	}
 
-	public Optional<String> getConfiguration() {
-		return configuration;
+	public Optional<String> getProjectConfiguration() {
+		return projectConfiguration;
 	}
 
 	public String getFqdn() {
