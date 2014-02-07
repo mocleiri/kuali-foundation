@@ -42,6 +42,10 @@ public final class HttpLoader extends CacheLoader<String, Optional<String>> {
 		return builder().context(context).build();
 	}
 
+	public static HttpLoader create(HttpContext context, HttpService service) {
+		return builder().context(context).service(service).build();
+	}
+
 	public static HttpLoader create() {
 		return builder().build();
 	}
