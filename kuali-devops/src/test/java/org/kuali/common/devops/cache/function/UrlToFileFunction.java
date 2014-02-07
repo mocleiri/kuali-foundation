@@ -6,11 +6,9 @@ import java.io.File;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.common.util.file.CanonicalFile;
-import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Function;
 
-@IdiotProofImmutable
 public final class UrlToFileFunction implements Function<String, File> {
 
 	public UrlToFileFunction() {
