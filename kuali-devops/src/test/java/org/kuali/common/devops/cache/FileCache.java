@@ -49,7 +49,7 @@ public final class FileCache<T, V> extends CacheLoader<T, Optional<V>> {
 	}
 
 	public static <T, V> FileCache<String, String> createHttpUrlCacher(HttpContext context) {
-		return createHttpUrlCacher(context, context.getEncoding(), UrlToFileFunction.create().getBasedir());
+		return createHttpUrlCacher(context, context.getEncoding(), new UrlToFileFunction().getBasedir());
 	}
 
 	public static <T, V> FileCache<String, String> createHttpUrlCacher(HttpContext context, File basedir) {
@@ -59,7 +59,7 @@ public final class FileCache<T, V> extends CacheLoader<T, Optional<V>> {
 	public static <T, V> FileCache<String, String> createHttpUrlCacher(HttpContext context, String encoding, File basedir) {
 		CacheLoader<String, Optional<String>> loader = HttpLoader.create(context);
 		CacheLoader<File, Optional<String>> fileLoader = new FileLoader<String>(new ReadFileToStringFunction(encoding));
-		Function<String, File> function = UrlToFileFunction.builder().basedir(basedir).build();
+		Function<String, File> function = new UrlToFileFunction(basedir);
 
 		Function<String, InputStream> inputStreamFunction = new StringInputStreamFunction(encoding);
 		CachePersister<File, Optional<String>> filePersister = new FilePersister<File, String>(new NoopFunction<File>(), inputStreamFunction);
