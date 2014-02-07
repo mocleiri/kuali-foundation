@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import org.junit.Test;
-import org.kuali.common.devops.cache.FileCache;
+import org.kuali.common.devops.cache.PersistentCacheLoader;
+import org.kuali.common.devops.cache.FileCacheFactory;
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.util.log.Loggers;
 import org.slf4j.Logger;
@@ -36,7 +37,8 @@ public class GuavaCacheTest {
 
 	protected static LoadingCache<String, Optional<String>> getCache() {
 		HttpContext context = HttpContext.builder().quiet(true).asynchronousClose(true).maxBytes("25k").maxRetries(0).overallTimeout("5s").build();
-		return CacheBuilder.newBuilder().build(FileCache.createHttpUrlCacher(context));
+		PersistentCacheLoader<String, String> fileCache = FileCacheFactory.createHttpUrlCacher(context);
+		return CacheBuilder.newBuilder().build(fileCache);
 	}
 
 	protected static void cache(LoadingCache<String, Optional<String>> cache) throws ExecutionException {

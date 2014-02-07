@@ -3,13 +3,7 @@ package org.kuali.common.devops.cache;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.File;
-import java.io.InputStream;
 
-import org.kuali.common.devops.cache.function.NoopFunction;
-import org.kuali.common.devops.cache.function.ReadFileToStringFunction;
-import org.kuali.common.devops.cache.function.StringInputStreamFunction;
-import org.kuali.common.devops.cache.function.UrlToFileFunction;
-import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -18,7 +12,7 @@ import com.google.common.base.Optional;
 import com.google.common.cache.CacheLoader;
 
 @IdiotProofImmutable
-public final class FileCache<T, V> extends CacheLoader<T, Optional<V>> {
+public final class PersistentCacheLoader<T, V> extends CacheLoader<T, Optional<V>> {
 
 	private final CacheLoader<File, Optional<V>> fileLoader;
 	private final CachePersister<File, Optional<V>> filePersister;
@@ -37,46 +31,18 @@ public final class FileCache<T, V> extends CacheLoader<T, Optional<V>> {
 		return data;
 	}
 
-	private FileCache(Builder<T, V> builder) {
+	private PersistentCacheLoader(Builder<T, V> builder) {
 		this.fileLoader = builder.fileLoader;
 		this.filePersister = builder.filePersister;
 		this.loader = builder.loader;
 		this.fileFunction = builder.fileFunction;
 	}
 
-	public static <T, V> FileCache<String, String> createHttpUrlCacher() {
-		return createHttpUrlCacher(HttpContext.create());
-	}
-
-	public static <T, V> FileCache<String, String> createHttpUrlCacher(HttpContext context) {
-		return createHttpUrlCacher(context, UrlToFileFunction.create().getBasedir(), context.getEncoding());
-	}
-
-	public static <T, V> FileCache<String, String> createHttpUrlCacher(HttpContext context, File basedir) {
-		return createHttpUrlCacher(context, basedir, context.getEncoding());
-	}
-
-	public static <T, V> FileCache<String, String> createHttpUrlCacher(HttpContext context, File basedir, String encoding) {
-		CacheLoader<String, Optional<String>> loader = HttpLoader.create(context);
-		CacheLoader<File, Optional<String>> fileLoader = new FileLoader<String>(new ReadFileToStringFunction(encoding));
-		Function<String, File> fileFunction = UrlToFileFunction.create(basedir);
-
-		Function<String, InputStream> inputStreamFunction = new StringInputStreamFunction(encoding);
-		CachePersister<File, Optional<String>> filePersister = new FilePersister<File, String>(new NoopFunction<File>(), inputStreamFunction);
-
-		Builder<String, String> builder = new Builder<String, String>();
-		builder.fileFunction(fileFunction);
-		builder.loader(loader);
-		builder.fileLoader(fileLoader);
-		builder.filePersister(filePersister);
-		return builder.build();
-	}
-
 	public static <T, V> Builder<T, V> builder() {
 		return new Builder<T, V>();
 	}
 
-	public static class Builder<T, V> extends ValidatingBuilder<FileCache<T, V>> {
+	public static class Builder<T, V> extends ValidatingBuilder<PersistentCacheLoader<T, V>> {
 
 		private CacheLoader<File, Optional<V>> fileLoader;
 		private CachePersister<File, Optional<V>> filePersister;
@@ -104,8 +70,8 @@ public final class FileCache<T, V> extends CacheLoader<T, Optional<V>> {
 		}
 
 		@Override
-		public FileCache<T, V> getInstance() {
-			return new FileCache<T, V>(this);
+		public PersistentCacheLoader<T, V> getInstance() {
+			return new PersistentCacheLoader<T, V>(this);
 		}
 
 		public CacheLoader<File, Optional<V>> getFileLoader() {
