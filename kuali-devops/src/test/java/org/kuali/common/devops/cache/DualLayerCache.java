@@ -19,6 +19,7 @@ public abstract class DualLayerCache<T> extends CacheLoader<T, Optional<String>>
 
 	private final FileLoader fileLoader = new FileLoader(UTF8);
 	private final FileWriter fileWriter = new FileWriter(UTF8);
+
 	private final CacheLoader<T, Optional<String>> loader;
 
 	protected abstract File getFile(T key);
