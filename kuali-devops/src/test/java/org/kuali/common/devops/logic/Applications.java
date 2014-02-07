@@ -1,7 +1,7 @@
 package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Optional.fromNullable;
-import static org.kuali.common.util.base.Precondition.checkNotBlank;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import java.util.Map;
 import java.util.Properties;
@@ -16,13 +16,14 @@ import org.kuali.common.util.properties.rice.RiceLoader;
 import org.slf4j.Logger;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.Maps;
 
 public class Applications extends Examiner {
 
 	private static final Logger logger = Loggers.make();
 
 	public static Optional<Application> getApplication(String fqdn) {
-		Map<String, String> manifest = Manifests.getManifest(fqdn);
+		Map<String, String> manifest = Maps.newHashMap(); // Manifests.getManifest(fqdn);
 		Optional<Project> optional = Projects.getProject(fqdn, manifest);
 		if (optional.isPresent()) {
 			Project project = optional.get();
@@ -46,17 +47,20 @@ public class Applications extends Examiner {
 		}
 	}
 
-	public static String getConfigFragment(Project project, Properties systemProperties) {
+	public static Optional<String> getConfigFragment(Project project, Properties systemProperties) {
 		String groupId = project.getGroupId();
 		if (groupId.equals(KualiProjectConstants.STUDENT_GROUP_ID)) {
-			return "/home/kuali/main/dev/" + project.getArtifactId() + "-config.xml";
+			return Optional.of("/home/kuali/main/dev/" + project.getArtifactId() + "-config.xml");
 		} else if (groupId.equals(KualiProjectConstants.OLE_GROUP_ID)) {
 			String key = "environment";
-			String value = systemProperties.getProperty(key);
-			checkNotBlank(value, key);
-			return "/home/kuali/main/" + value + "/common-config.xml";
+			Optional<String> value = Optional.fromNullable(systemProperties.getProperty(key));
+			if (!value.isPresent() || isBlank(value.get())) {
+				return Optional.absent();
+			} else {
+				return Optional.of("/home/kuali/main/" + value.get() + "/common-config.xml");
+			}
 		} else {
-			return "/home/kuali/main/dev/common-config.xml";
+			return Optional.of("/home/kuali/main/dev/common-config.xml");
 		}
 	}
 

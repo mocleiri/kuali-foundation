@@ -1,6 +1,10 @@
 package org.kuali.common.devops.status;
 
+import static org.kuali.common.devops.logic.Examiner.getPropertiesFromString;
+import static org.kuali.common.devops.logic.Examiner.getSystemPropertiesFromHtml;
+
 import java.util.Map;
+import java.util.Properties;
 
 import org.junit.Test;
 import org.kuali.common.devops.cache.PersistToFileSystemLoader;
@@ -10,6 +14,8 @@ import org.kuali.common.devops.logic.Projects;
 import org.kuali.common.devops.model.DeployEnvironmentUrls;
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.util.log.LoggerUtils;
+import org.kuali.common.util.project.ProjectUtils;
+import org.kuali.common.util.project.model.Project;
 import org.slf4j.Logger;
 
 import com.google.common.base.Optional;
@@ -48,6 +54,10 @@ public class GetDeploymentUrlsTest {
 		if (!projectPropertiesContent.isPresent() || !envJspContent.isPresent()) {
 			return;
 		}
+		Properties projectProperties = getPropertiesFromString(projectPropertiesContent.get());
+		Properties system = getSystemPropertiesFromHtml(envJspContent.get());
+		Project project = ProjectUtils.getProject(projectProperties);
+		
 
 	}
 
