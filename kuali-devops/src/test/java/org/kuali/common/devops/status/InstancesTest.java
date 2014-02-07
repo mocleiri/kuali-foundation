@@ -8,13 +8,17 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
+import org.kuali.common.devops.cache.InstancesLoader;
 import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.devops.logic.Instances;
+import org.kuali.common.devops.model.Account;
 import org.kuali.common.devops.model.EC2Instance;
 import org.kuali.common.util.log.Loggers;
 import org.kuali.common.util.validate.Validation;
 import org.slf4j.Logger;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
 
 public class InstancesTest {
@@ -26,8 +30,9 @@ public class InstancesTest {
 		try {
 			Validation.getDefaultValidator();
 			List<String> accounts = Lists.newArrayList(Auth.getAwsAccountNames());
-			for (String account:accounts) {
-				List<EC2Instance> instances = 
+			LoadingCache<String, List<EC2Instance>> cache = CacheBuilder.newBuilder().build(new InstancesLoader());
+			for (String account : accounts) {
+				List<EC2Instance> instances = cache.get(account);
 			}
 			Map<String, List<EC2Instance>> map = Instances.getInstances(false);
 			for (String account : map.keySet()) {
@@ -37,5 +42,18 @@ public class InstancesTest {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected List<Account> getInstances() {
+		Validation.getDefaultValidator();
+		List<String> names = Lists.newArrayList(Auth.getAwsAccountNames());
+		LoadingCache<String, List<EC2Instance>> cache = CacheBuilder.newBuilder().build(new InstancesLoader());
+		List<Account> accounts = Lists.newArrayList();
+		for (String name : names) {
+			List<EC2Instance> instances = cache.getUnchecked(name);
+			Account account = new Account.Builder().name(name).instances(instances).build();
+			accounts.add(account);
+		}
+		return accounts;
 	}
 }
