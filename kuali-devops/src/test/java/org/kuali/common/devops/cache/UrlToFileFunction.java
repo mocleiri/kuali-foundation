@@ -12,14 +12,15 @@ import com.google.common.base.Function;
 public class UrlToFileFunction implements Function<String, File> {
 
 	private final File basedir = new CanonicalFile("./target");
-	private final String protocol = "http://";
+	private final String protocol = "http";
 
 	@Override
 	public File apply(String url) {
 		checkNotBlank(url, "url");
-		checkState(url.startsWith(protocol));
-		String substring = url.substring(url.indexOf(protocol));
-		return new CanonicalFile(basedir, substring);
+		String token = protocol + "://";
+		checkState(url.startsWith(token));
+		String fragment = url.substring(token.length());
+		return new CanonicalFile(basedir, protocol + "/cache/" + fragment);
 	}
 
 }
