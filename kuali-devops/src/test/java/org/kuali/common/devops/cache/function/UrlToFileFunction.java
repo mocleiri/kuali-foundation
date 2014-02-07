@@ -49,6 +49,18 @@ public final class UrlToFileFunction implements Function<String, File> {
 		this.replaceTokens = ImmutableList.copyOf(builder.replaceTokens);
 	}
 
+	public static UrlToFileFunction create(File basedir) {
+		return builder().basedir(basedir).build();
+	}
+
+	public static UrlToFileFunction create() {
+		return builder().build();
+	}
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder extends ValidatingBuilder<UrlToFileFunction> {
 
 		private File basedir = new CanonicalFile("./target/cache");
