@@ -9,6 +9,7 @@ import java.util.Properties;
 import org.junit.Test;
 import org.kuali.common.devops.cache.PersistToFileSystemLoader;
 import org.kuali.common.devops.cache.PersistToFileSystemLoaderFactory;
+import org.kuali.common.devops.logic.Applications;
 import org.kuali.common.devops.logic.Manifests;
 import org.kuali.common.devops.logic.Projects;
 import org.kuali.common.devops.model.DeployEnvironmentUrls;
@@ -57,7 +58,12 @@ public class GetDeploymentUrlsTest {
 		Properties projectProperties = getPropertiesFromString(projectPropertiesContent.get());
 		Properties system = getSystemPropertiesFromHtml(envJspContent.get());
 		Project project = ProjectUtils.getProject(projectProperties);
-		
+		Optional<String> configFragment = Applications.getConfigFragment(project, system);
+		if (configFragment.isPresent()) {
+			String configUrl = DeployEnvironmentUrls.Builder.DEFAULT_PREFIX + builder.getFqdn() + configFragment.get();
+			builder.configuration(Optional.of(configUrl));
+			return;
+		}
 
 	}
 
