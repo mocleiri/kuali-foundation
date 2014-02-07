@@ -77,4 +77,12 @@ public class UrlToFileFunction implements Function<String, File> {
 
 	}
 
+	public File getBasedir() {
+		return basedir;
+	}
+
+	public String getProtocol() {
+		return protocol;
+	}
+
 }

@@ -6,9 +6,7 @@ import java.io.File;
 import java.io.InputStream;
 
 import org.kuali.common.http.model.HttpContext;
-import org.kuali.common.util.Encodings;
 import org.kuali.common.util.build.ValidatingBuilder;
-import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Function;
@@ -47,7 +45,11 @@ public final class FileCache<T, V> extends CacheLoader<T, Optional<V>> {
 	}
 
 	public static <T, V> FileCache<String, String> createHttpUrlCacher(HttpContext context) {
-		return createHttpUrlCacher(context, Encodings.UTF8, new CanonicalFile("./target/cache"));
+		return createHttpUrlCacher(context, context.getEncoding(), UrlToFileFunction.create().getBasedir());
+	}
+
+	public static <T, V> FileCache<String, String> createHttpUrlCacher(HttpContext context, File basedir) {
+		return createHttpUrlCacher(context, context.getEncoding(), basedir);
 	}
 
 	public static <T, V> FileCache<String, String> createHttpUrlCacher(HttpContext context, String encoding, File basedir) {
