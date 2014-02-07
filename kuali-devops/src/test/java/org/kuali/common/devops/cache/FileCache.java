@@ -38,6 +38,16 @@ public final class FileCache<T, V> extends CacheLoader<T, Optional<V>> {
 		this.function = builder.function;
 	}
 
+	public static <T, V> FileCache<String, String> createUrlCacher() {
+		Builder<String, String> builder = new Builder<String, String>();
+		builder.function(new UrlToFileFunction());
+		return builder.build();
+	}
+
+	public static <T, V> Builder<T, V> builder() {
+		return new Builder<T, V>();
+	}
+
 	public static class Builder<T, V> extends ValidatingBuilder<FileCache<T, V>> {
 
 		private CacheLoader<File, Optional<V>> fileLoader;
