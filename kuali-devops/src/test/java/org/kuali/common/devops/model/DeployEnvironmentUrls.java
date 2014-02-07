@@ -16,7 +16,7 @@ public final class DeployEnvironmentUrls {
 	private final String fqdn;
 	private final String tomcatVersion;
 	private final String tomcatHeap;
-	private final String systemProperties;
+	private final String systemPropertiesJsp;
 	private final String applicationManifest;
 	private final Optional<String> projectProperties;
 	private final Optional<String> projectConfiguration;
@@ -25,7 +25,7 @@ public final class DeployEnvironmentUrls {
 		this.fqdn = builder.fqdn;
 		this.tomcatVersion = builder.tomcatVersion;
 		this.tomcatHeap = builder.tomcatHeap;
-		this.systemProperties = builder.systemProperties;
+		this.systemPropertiesJsp = builder.systemPropertiesJsp;
 		this.applicationManifest = builder.applicationManifest;
 		this.projectProperties = builder.projectProperties;
 		this.projectConfiguration = builder.projectConfiguration;
@@ -42,7 +42,7 @@ public final class DeployEnvironmentUrls {
 		private String fqdn;
 		private String tomcatVersion;
 		private String tomcatHeap;
-		private String systemProperties;
+		private String systemPropertiesJsp;
 		private String applicationManifest;
 		private Optional<String> projectProperties = Optional.absent();
 		private Optional<String> projectConfiguration = Optional.absent();
@@ -79,7 +79,7 @@ public final class DeployEnvironmentUrls {
 		}
 
 		public Builder envJsp(String envJsp) {
-			this.systemProperties = envJsp;
+			this.systemPropertiesJsp = envJsp;
 			return this;
 		}
 
@@ -114,12 +114,12 @@ public final class DeployEnvironmentUrls {
 			this.tomcatHeap = heap;
 		}
 
-		public String getSystemProperties() {
-			return systemProperties;
+		public String getSystemPropertiesJsp() {
+			return systemPropertiesJsp;
 		}
 
-		public void setSystemProperties(String envJsp) {
-			this.systemProperties = envJsp;
+		public void setSystemPropertiesJsp(String envJsp) {
+			this.systemPropertiesJsp = envJsp;
 		}
 
 		public String getApplicationManifest() {
@@ -164,8 +164,8 @@ public final class DeployEnvironmentUrls {
 		return tomcatHeap;
 	}
 
-	public String getSystemProperties() {
-		return systemProperties;
+	public String getSystemPropertiesJsp() {
+		return systemPropertiesJsp;
 	}
 
 	public String getApplicationManifest() {
