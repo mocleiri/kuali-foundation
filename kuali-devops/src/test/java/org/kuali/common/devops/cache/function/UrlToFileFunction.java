@@ -1,5 +1,6 @@
 package org.kuali.common.devops.cache.function;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 import java.io.File;
@@ -16,7 +17,7 @@ public final class UrlToFileFunction implements Function<String, File> {
 	}
 
 	public UrlToFileFunction(File basedir) {
-		this.basedir = basedir;
+		this.basedir = checkNotNull(basedir);
 	}
 
 	private final File basedir;
