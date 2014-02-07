@@ -8,11 +8,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
+import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.devops.logic.Instances;
 import org.kuali.common.devops.model.EC2Instance;
 import org.kuali.common.util.log.Loggers;
 import org.kuali.common.util.validate.Validation;
 import org.slf4j.Logger;
+
+import com.google.common.collect.Lists;
 
 public class InstancesTest {
 
@@ -22,6 +25,10 @@ public class InstancesTest {
 	public void test() {
 		try {
 			Validation.getDefaultValidator();
+			List<String> accounts = Lists.newArrayList(Auth.getAwsAccountNames());
+			for (String account:accounts) {
+				List<EC2Instance> instances = 
+			}
 			Map<String, List<EC2Instance>> map = Instances.getInstances(false);
 			for (String account : map.keySet()) {
 				List<EC2Instance> instances = map.get(account);

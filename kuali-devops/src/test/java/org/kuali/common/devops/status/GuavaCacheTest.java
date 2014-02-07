@@ -37,8 +37,8 @@ public class GuavaCacheTest {
 
 	protected static LoadingCache<String, Optional<String>> getCache() {
 		HttpContext context = HttpContext.builder().quiet(true).asynchronousClose(true).maxBytes("25k").maxRetries(0).overallTimeout("5s").build();
-		PersistToFileSystemLoader<String, String> fileCache = PersistToFileSystemLoaderFactory.createHttpUrlCacher(context);
-		return CacheBuilder.newBuilder().build(fileCache);
+		PersistToFileSystemLoader<String, String> loader = PersistToFileSystemLoaderFactory.createHttpUrlCacher(context);
+		return CacheBuilder.newBuilder().build(loader);
 	}
 
 	protected static void cache(LoadingCache<String, Optional<String>> cache) throws ExecutionException {
