@@ -25,7 +25,7 @@ public final class DeployEnvironmentUrls {
 		this.fqdn = builder.fqdn;
 		this.tomcatVersion = builder.tomcatVersion;
 		this.tomcatHeap = builder.tomcatHeap;
-		this.systemProperties = builder.envJsp;
+		this.systemProperties = builder.systemProperties;
 		this.applicationManifest = builder.applicationManifest;
 		this.projectProperties = builder.projectProperties;
 		this.projectConfiguration = builder.projectConfiguration;
@@ -42,7 +42,7 @@ public final class DeployEnvironmentUrls {
 		private String fqdn;
 		private String tomcatVersion;
 		private String tomcatHeap;
-		private String envJsp;
+		private String systemProperties;
 		private String applicationManifest;
 		private Optional<String> projectProperties = Optional.absent();
 		private Optional<String> projectConfiguration = Optional.absent();
@@ -79,7 +79,7 @@ public final class DeployEnvironmentUrls {
 		}
 
 		public Builder envJsp(String envJsp) {
-			this.envJsp = envJsp;
+			this.systemProperties = envJsp;
 			return this;
 		}
 
@@ -114,12 +114,12 @@ public final class DeployEnvironmentUrls {
 			this.tomcatHeap = heap;
 		}
 
-		public String getEnvJsp() {
-			return envJsp;
+		public String getSystemProperties() {
+			return systemProperties;
 		}
 
-		public void setEnvJsp(String envJsp) {
-			this.envJsp = envJsp;
+		public void setSystemProperties(String envJsp) {
+			this.systemProperties = envJsp;
 		}
 
 		public String getApplicationManifest() {

@@ -52,7 +52,7 @@ public class GetDeploymentUrlsTest {
 		}
 		String url = builder.getProjectProperties().get();
 		Optional<String> projectPropertiesContent = httpContentCache.getUnchecked(url);
-		Optional<String> envJspContent = httpContentCache.getUnchecked(builder.getEnvJsp());
+		Optional<String> envJspContent = httpContentCache.getUnchecked(builder.getSystemProperties());
 		if (!projectPropertiesContent.isPresent() || !envJspContent.isPresent()) {
 			return;
 		}
