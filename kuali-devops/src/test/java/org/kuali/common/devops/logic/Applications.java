@@ -1,6 +1,7 @@
 package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Optional.fromNullable;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 import java.util.Map;
 import java.util.Properties;
@@ -43,7 +44,19 @@ public class Applications extends Examiner {
 		} else {
 			return Optional.absent();
 		}
+	}
 
+	public static String getConfigFragment(Project project, Properties systemProperties) {
+		String groupId = project.getGroupId();
+		if (groupId.equals(KualiProjectConstants.STUDENT_GROUP_ID)) {
+			return "/home/kuali/main/dev/" + project.getArtifactId() + "-config.xml";
+		} else if (groupId.equals(KualiProjectConstants.OLE_GROUP_ID)) {
+			String environment = systemProperties.getProperty("environment");
+			checkNotBlank(environment, "environment");
+			return "/home/kuali/main/" + environment + "/common-config.xml";
+		} else {
+			return "/home/kuali/main/dev/common-config.xml";
+		}
 	}
 
 	protected static Properties getConfig(String fqdn, Project project) {
