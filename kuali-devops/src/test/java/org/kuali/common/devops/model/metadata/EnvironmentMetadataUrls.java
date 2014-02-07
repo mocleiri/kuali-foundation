@@ -1,4 +1,4 @@
-package org.kuali.common.devops.model;
+package org.kuali.common.devops.model.metadata;
 
 import static org.kuali.common.devops.logic.Examiner.SYSTEM_PROPERTIES_URL_FRAGMENT;
 import static org.kuali.common.devops.logic.Manifests.MANIFEST_URL_FRAGMENT;

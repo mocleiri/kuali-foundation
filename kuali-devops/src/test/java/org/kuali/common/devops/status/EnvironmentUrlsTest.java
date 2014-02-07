@@ -12,7 +12,7 @@ import org.kuali.common.devops.cache.PersistToFileSystemLoaderFactory;
 import org.kuali.common.devops.logic.Applications;
 import org.kuali.common.devops.logic.Manifests;
 import org.kuali.common.devops.logic.Projects;
-import org.kuali.common.devops.model.EnvironmentMetadataUrls;
+import org.kuali.common.devops.model.metadata.EnvironmentMetadataUrls;
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.project.ProjectUtils;
