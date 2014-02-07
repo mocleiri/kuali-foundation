@@ -42,7 +42,7 @@ public final class FileCache<T, V> extends CacheLoader<T, Optional<V>> {
 	public static <T, V> FileCache<String, String> createUrlCacher() {
 		CacheLoader<String, Optional<String>> loader = HttpLoader.create();
 		CacheLoader<File, Optional<String>> fileLoader = new FileLoader<String>(new ReadFileToStringFunction());
-		Function<String, File> function = new UrlToFileFunction();
+		Function<String, File> function = UrlToFileFunction.create();
 
 		Function<File, File> fileFunction = new NoopFunction<File>();
 		Function<String, InputStream> inputStreamFunction = new StringInputStreamFunction();
