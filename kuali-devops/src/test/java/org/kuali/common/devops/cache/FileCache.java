@@ -12,9 +12,9 @@ import com.google.common.base.Optional;
 import com.google.common.cache.CacheLoader;
 
 @IdiotProofImmutable
-public abstract class DualLayerCache<T> extends CacheLoader<T, Optional<String>> {
+public abstract class FileCache<T> extends CacheLoader<T, Optional<String>> {
 
-	public DualLayerCache(CacheLoader<T, Optional<String>> loader, Function<T, File> function) {
+	public FileCache(CacheLoader<T, Optional<String>> loader, Function<T, File> function) {
 		this.loader = checkNotNull(loader);
 		this.function = checkNotNull(function);
 	}
