@@ -12,7 +12,7 @@ import com.google.common.base.Optional;
 import com.google.common.cache.CacheLoader;
 
 @IdiotProofImmutable
-public class FileCache<T, V> extends CacheLoader<T, Optional<V>> {
+public final class FileCache<T, V> extends CacheLoader<T, Optional<V>> {
 
 	private final CacheLoader<File, Optional<V>> fileLoader;
 	private final CachePersister<File, Optional<V>> filePersister;
