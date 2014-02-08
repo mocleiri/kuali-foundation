@@ -32,7 +32,7 @@ public final class EnvironmentMetadataUrls {
 
 	public static class Builder extends ValidatingBuilder<EnvironmentMetadataUrls> {
 
-		private static final String DEFAULT_PREFIX = "http://";
+		public static final String DEFAULT_PREFIX = "http://";
 		private static final String SYSTEM_PROPERTIES_URL_FRAGMENT = "/tomcat/logs/env.jsp";
 		private static final String MANIFEST_URL_FRAGMENT = "/tomcat/webapps/ROOT/META-INF/MANIFEST.MF";
 		private static final String VERSION_URL_FRAGMENT = "/tomcat";
