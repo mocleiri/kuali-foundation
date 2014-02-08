@@ -35,13 +35,26 @@ public class Precondition {
 	 * 
 	 * @throws NullPointerException
 	 *             If arg is null. The exception message contains the name of the argument that was null
+	 * @throws IllegalArgumentException
+	 *             If argName is pure whitespace, empty ("") or null
 	 */
 	public static <T> T checkNotNull(T arg, String argName) {
+		checkNotBlank(argName, "argName");
 		return Preconditions.checkNotNull(arg, NOT_NULL_MSG, argName);
 	}
 
 	/**
-	 * Check that a String is not whitespace, empty ("") or null.
+	 * Ensures that a String passed as an argument is not not whitespace, empty ("") or null
+	 * 
+	 * @param arg
+	 *            a String passed as an argument
+	 * @param argName
+	 *            the name of the argument
+	 * 
+	 * @return the non-blank String that was validated
+	 * 
+	 * @throws IllegalArgumentException
+	 *             If arg is blank. The exception message contains the name of the argument that was null
 	 */
 	public static String checkNotBlank(String arg, String argName) {
 		checkArgument(!isBlank(arg), NOT_BLANK_MSG, argName);
