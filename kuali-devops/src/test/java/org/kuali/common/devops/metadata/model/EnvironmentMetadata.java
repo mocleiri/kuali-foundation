@@ -1,6 +1,6 @@
 package org.kuali.common.devops.metadata.model;
 
-import org.kuali.common.devops.model.GlobalProperties;
+import org.kuali.common.devops.model.RemoteEnvironment;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -9,7 +9,7 @@ public final class EnvironmentMetadata {
 
 	private final MetadataUrl<String> tomcatVersion;
 	private final MetadataUrl<Long> tomcatStartupTime;
-	private final MetadataUrl<GlobalProperties> environmentJsp;
+	private final MetadataUrl<RemoteEnvironment> environmentJsp;
 
 	private EnvironmentMetadata(Builder builder) {
 		this.tomcatVersion = builder.tomcatVersion;
@@ -25,9 +25,9 @@ public final class EnvironmentMetadata {
 
 		private MetadataUrl<String> tomcatVersion;
 		private MetadataUrl<Long> tomcatStartupTime;
-		private MetadataUrl<GlobalProperties> environmentJsp;
+		private MetadataUrl<RemoteEnvironment> environmentJsp;
 
-		public Builder environmentJsp(MetadataUrl<GlobalProperties> environmentJsp) {
+		public Builder environmentJsp(MetadataUrl<RemoteEnvironment> environmentJsp) {
 			this.environmentJsp = environmentJsp;
 			return this;
 		}
@@ -56,7 +56,7 @@ public final class EnvironmentMetadata {
 		return tomcatStartupTime;
 	}
 
-	public MetadataUrl<GlobalProperties> getEnvironmentJsp() {
+	public MetadataUrl<RemoteEnvironment> getEnvironmentJsp() {
 		return environmentJsp;
 	}
 }
