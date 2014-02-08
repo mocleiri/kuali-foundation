@@ -43,9 +43,9 @@ long skip = length <= display ? 0 : length - display;
 in.skip(skip);
 String encoding = "UTF-8";
 byte[] buffer = new byte[4096];
-int readLength = 0;
-while ((readLength = in.read(buffer, 0, buffer.length)) != -1) {
-  out.write(new String(buffer, 0, readLength, encoding));
+int amount = 0;
+while ((amount = in.read(buffer, 0, buffer.length)) != -1) {
+  out.write(new String(buffer, 0, amount, encoding));
 }
 in.close();
 %>
