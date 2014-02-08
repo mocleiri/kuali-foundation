@@ -1,24 +1,16 @@
 package org.kuali.common.devops.status;
 
-import static org.kuali.common.devops.logic.Examiner.getPropertiesFromString;
-import static org.kuali.common.devops.logic.Examiner.getSystemPropertiesFromHtml;
-
-import java.util.Map;
-import java.util.Properties;
-
 import org.junit.Test;
 import org.kuali.common.devops.cache.PersistToFileSystemLoader;
 import org.kuali.common.devops.cache.PersistToFileSystemLoaderFactory;
-import org.kuali.common.devops.logic.Applications;
-import org.kuali.common.devops.logic.Manifests;
-import org.kuali.common.devops.logic.Projects;
-import org.kuali.common.devops.model.metadata.EnvironmentMetadataUrls;
+import org.kuali.common.devops.logic.function.TomcatVersionFunction;
+import org.kuali.common.devops.model.metadata.EnvironmentMetadata;
+import org.kuali.common.devops.model.metadata.MetadataUrl;
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.util.log.LoggerUtils;
-import org.kuali.common.util.project.ProjectUtils;
-import org.kuali.common.util.project.model.Project;
 import org.slf4j.Logger;
 
+import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.LoadingCache;
@@ -26,44 +18,32 @@ import com.google.common.cache.LoadingCache;
 public class EnvMetaTest {
 
 	private static final Logger logger = LoggerUtils.make();
+	private static final String PREFIX = "http://";
+	private static final String VERSION_SUFFIX = "/tomcat";
+	private static final String JSP_SUFFIX = "/tomcat/logs/env.jsp";
+	private static final String MANIFEST_SUFFIX = "/tomcat/webapps/ROOT/META-INF/MANIFEST.MF";
+	private static final String HEAP_SUFFIX = "/tomcat/logs/heap.log";
 
 	@Test
 	public void test() {
 		LoadingCache<String, Optional<String>> httpContentCache = getCache();
 		String fqdn = "env1.rice.kuali.org";
-		EnvironmentMetadataUrls.Builder builder = EnvironmentMetadataUrls.builder(fqdn);
-		fillIn(builder, httpContentCache);
-		EnvironmentMetadataUrls urls = builder.build();
+		EnvironmentMetadata.Builder builder = new EnvironmentMetadata.Builder();
+		fillIn(builder, fqdn, httpContentCache);
 	}
 
-	protected static void fillIn(EnvironmentMetadataUrls.Builder builder, LoadingCache<String, Optional<String>> httpContentCache) {
-		Optional<String> manifestContent = httpContentCache.getUnchecked(builder.getApplicationManifest());
-		if (!manifestContent.isPresent()) {
-			return;
-		}
-		Map<String, String> manifest = Manifests.getManifestMapFromString(manifestContent.get());
-		Optional<String> fragment = Projects.getProjectPropertiesUrlFragment(manifest);
-		if (fragment.isPresent()) {
-			String url = EnvironmentMetadataUrls.Builder.DEFAULT_PREFIX + builder.getFqdn() + fragment.get();
-			builder.projectProperties(Optional.of(url));
-		}
-		if (!builder.getProjectProperties().isPresent()) {
-			return;
-		}
-		String url = builder.getProjectProperties().get();
-		Optional<String> projectPropertiesContent = httpContentCache.getUnchecked(url);
-		Optional<String> envJspContent = httpContentCache.getUnchecked(builder.getSystemPropertiesJsp());
-		if (!projectPropertiesContent.isPresent() || !envJspContent.isPresent()) {
-			return;
-		}
-		Properties projectProperties = getPropertiesFromString(projectPropertiesContent.get());
-		Properties system = getSystemPropertiesFromHtml(envJspContent.get());
-		Project project = ProjectUtils.getProject(projectProperties);
-		Optional<String> configFragment = Applications.getConfigFragment(project, system);
-		if (configFragment.isPresent()) {
-			String configUrl = EnvironmentMetadataUrls.Builder.DEFAULT_PREFIX + builder.getFqdn() + configFragment.get();
-			builder.projectConfiguration(Optional.of(configUrl));
-		}
+	protected static void fillIn(EnvironmentMetadata.Builder builder, String fqdn, LoadingCache<String, Optional<String>> httpContentCache) {
+		TomcatVersionFunction versionConverter = new TomcatVersionFunction();
+		String versionUrl = PREFIX + fqdn + VERSION_SUFFIX;
+		builder.tomcatVersion(create(versionUrl, httpContentCache, versionConverter));
+
+		TomcatVersionFunction versionConverter = new TomcatVersionFunction();
+		String versionUrl = PREFIX + fqdn + VERSION_SUFFIX;
+		builder.tomcatVersion(create(versionUrl, httpContentCache, versionConverter));
+	}
+
+	protected static <T> MetadataUrl<T> create(String url, LoadingCache<String, Optional<String>> httpContentCache, Function<String, T> converter) {
+		return MetadataUrl.create(url, httpContentCache.getUnchecked(url), converter);
 	}
 
 	protected static LoadingCache<String, Optional<String>> getCache() {

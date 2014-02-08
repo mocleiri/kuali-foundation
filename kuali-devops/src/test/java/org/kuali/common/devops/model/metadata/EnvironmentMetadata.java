@@ -1,71 +1,41 @@
 package org.kuali.common.devops.model.metadata;
 
-import java.util.Map;
-import java.util.Properties;
+import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.validate.IdiotProofImmutable;
 
-public class EnvironmentMetadata {
+@IdiotProofImmutable
+public final class EnvironmentMetadata {
 
-	MetadataUrl<String> tomcatVersion;
-	MetadataUrl<Long> tomcatStartup;
-	MetadataUrl<Map<String, String>> manifest;
-	MetadataUrl<Properties> systemProperties;
-	MetadataUrl<Properties> projectProperties;
-	MetadataUrl<Properties> configProperties;
+	private final MetadataUrl<String> tomcatVersion;
+	private final MetadataUrl<Long> tomcatStartupTime;
+
+	private EnvironmentMetadata(Builder builder) {
+		this.tomcatVersion = builder.tomcatVersion;
+		this.tomcatStartupTime = builder.tomcatStartupTime;
+	}
+
+	public static class Builder extends ValidatingBuilder<EnvironmentMetadata> {
+
+		private MetadataUrl<String> tomcatVersion;
+		private MetadataUrl<Long> tomcatStartupTime;
+
+		public Builder tomcatVersion(MetadataUrl<String> tomcatVersion) {
+			this.tomcatVersion = tomcatVersion;
+			return this;
+		}
+
+		public Builder tomcatStartupTime(MetadataUrl<Long> tomcatStartupTime) {
+			this.tomcatStartupTime = tomcatStartupTime;
+			return this;
+		}
+
+		@Override
+		public EnvironmentMetadata getInstance() {
+			return new EnvironmentMetadata(this);
+		}
+	}
 
 	public MetadataUrl<String> getTomcatVersion() {
 		return tomcatVersion;
 	}
-
-	public void setTomcatVersion(MetadataUrl<String> tomcatVersion) {
-		this.tomcatVersion = tomcatVersion;
-	}
-
-	public MetadataUrl<Long> getTomcatStartup() {
-		return tomcatStartup;
-	}
-
-	public void setTomcatStartup(MetadataUrl<Long> tomcatStartup) {
-		this.tomcatStartup = tomcatStartup;
-	}
-
-	public MetadataUrl<Map<String, String>> getManifest() {
-		return manifest;
-	}
-
-	public void setManifest(MetadataUrl<Map<String, String>> manifest) {
-		this.manifest = manifest;
-	}
-
-	public MetadataUrl<Properties> getSystemProperties() {
-		return systemProperties;
-	}
-
-	public void setSystemProperties(MetadataUrl<Properties> systemProperties) {
-		this.systemProperties = systemProperties;
-	}
-
-	public MetadataUrl<Properties> getEnvironmentProperties() {
-		return environmentProperties;
-	}
-
-	public void setEnvironmentProperties(MetadataUrl<Properties> environmentProperties) {
-		this.environmentProperties = environmentProperties;
-	}
-
-	public MetadataUrl<Properties> getProjectProperties() {
-		return projectProperties;
-	}
-
-	public void setProjectProperties(MetadataUrl<Properties> projectProperties) {
-		this.projectProperties = projectProperties;
-	}
-
-	public MetadataUrl<Properties> getConfigProperties() {
-		return configProperties;
-	}
-
-	public void setConfigProperties(MetadataUrl<Properties> configProperties) {
-		this.configProperties = configProperties;
-	}
-
 }
