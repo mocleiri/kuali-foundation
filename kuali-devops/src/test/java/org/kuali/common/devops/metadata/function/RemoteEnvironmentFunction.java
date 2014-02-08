@@ -7,6 +7,7 @@ import static org.apache.commons.lang.StringUtils.substringBefore;
 import static org.apache.commons.lang.StringUtils.substringBetween;
 import static org.apache.commons.lang.StringUtils.substringsBetween;
 import static org.kuali.common.util.base.Exceptions.illegalArg;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.text.ParseException;
@@ -20,15 +21,23 @@ import org.kuali.common.devops.metadata.model.Memory;
 import org.kuali.common.devops.metadata.model.RemoteEnvironment;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.property.ImmutableProperties;
-import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Maps;
 
-@IdiotProofImmutable
 public final class RemoteEnvironmentFunction implements Function<String, RemoteEnvironment> {
+
+	public RemoteEnvironmentFunction() {
+		this("yyyy-MM-dd HH:mm:ss.S z");
+	}
+
+	public RemoteEnvironmentFunction(String timestampFormat) {
+		this.timestampFormat = checkNotBlank(timestampFormat, "timestampFormat");
+	}
+
+	private final String timestampFormat;
 
 	@Override
 	public RemoteEnvironment apply(String html) {
@@ -74,7 +83,7 @@ public final class RemoteEnvironmentFunction implements Function<String, RemoteE
 
 	protected Optional<Long> getTime(String token) {
 		try {
-			SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S z");
+			SimpleDateFormat parser = new SimpleDateFormat(timestampFormat);
 			Date date = parser.parse(token);
 			return Optional.of(date.getTime());
 		} catch (ParseException e) {
