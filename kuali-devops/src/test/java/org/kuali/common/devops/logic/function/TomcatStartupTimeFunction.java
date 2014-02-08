@@ -15,7 +15,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 
-public final class TomcatStartupTimeFunction implements Function<Optional<String>, Optional<Long>> {
+public final class TomcatStartupTimeFunction implements Function<String, Optional<Long>> {
 
 	public TomcatStartupTimeFunction() {
 		this("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
@@ -28,13 +28,9 @@ public final class TomcatStartupTimeFunction implements Function<Optional<String
 	private final String timestampFormat;
 
 	@Override
-	public Optional<Long> apply(Optional<String> content) {
+	public Optional<Long> apply(String content) {
 		checkNotNull(content, "content");
-		if (content.isPresent()) {
-			return getStartupTime(content.get());
-		} else {
-			return absent();
-		}
+		return getStartupTime(content);
 	}
 
 	/**
@@ -115,7 +111,7 @@ public final class TomcatStartupTimeFunction implements Function<Optional<String
 	 */
 	protected Optional<Long> getMillis(String timestamp) {
 		try {
-			// New parser every single time since SimpleDateFormat is not thread-safe
+			// New parser every single time because of SimpleDateFormat's thread safety issues
 			SimpleDateFormat parser = new SimpleDateFormat(timestampFormat);
 			Date date = parser.parse(timestamp);
 			return Optional.of(date.getTime());
