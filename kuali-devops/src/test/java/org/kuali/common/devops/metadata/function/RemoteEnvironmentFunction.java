@@ -6,6 +6,9 @@ import static org.apache.commons.lang.StringUtils.substringBetween;
 import static org.apache.commons.lang.StringUtils.substringsBetween;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 
 import org.kuali.common.devops.metadata.model.RemoteEnvironment;
@@ -27,6 +30,17 @@ public final class RemoteEnvironmentFunction implements Function<String, RemoteE
 	}
 
 	protected Optional<Long> getTimestamp(String html) {
+		// <li>time: 2014-02-08 18:26:06.873 UTC</li>
+		Optional<String> token = fromNullable(substringBetween(html, "<li>time:", "</li>"));
+		if (token.isPresent()) {
+			try {
+				SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S z");
+				Date date = parser.parse(token.get().trim());
+				return Optional.of(date.getTime());
+			} catch (ParseException e) {
+				return absent();
+			}
+		}
 		return absent();
 	}
 
