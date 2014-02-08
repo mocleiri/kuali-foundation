@@ -9,25 +9,25 @@ import com.google.common.base.Function;
 public final class MetadataUrl<T> {
 
 	private final String url;
-	private final Function<String, T> converter;
+	private final Function<String, T> contentConverter;
 
 	private MetadataUrl(Builder<T> builder) {
 		this.url = builder.url;
-		this.converter = builder.converter;
+		this.contentConverter = builder.contentConverter;
 	}
 
 	public static class Builder<T> extends ValidatingBuilder<MetadataUrl<T>> {
 
 		private String url;
-		private Function<String, T> converter;
+		private Function<String, T> contentConverter;
 
 		public Builder<T> url(String url) {
 			this.url = url;
 			return this;
 		}
 
-		public Builder<T> converter(Function<String, T> converter) {
-			this.converter = converter;
+		public Builder<T> contentConverter(Function<String, T> contentConverter) {
+			this.contentConverter = contentConverter;
 			return this;
 		}
 
@@ -44,12 +44,12 @@ public final class MetadataUrl<T> {
 			this.url = url;
 		}
 
-		public Function<String, T> getConverter() {
-			return converter;
+		public Function<String, T> getContentConverter() {
+			return contentConverter;
 		}
 
-		public void setConverter(Function<String, T> converter) {
-			this.converter = converter;
+		public void setContentConverter(Function<String, T> converter) {
+			this.contentConverter = converter;
 		}
 
 	}
@@ -58,8 +58,8 @@ public final class MetadataUrl<T> {
 		return url;
 	}
 
-	public Function<String, T> getConverter() {
-		return converter;
+	public Function<String, T> getContentConverter() {
+		return contentConverter;
 	}
 
 }
