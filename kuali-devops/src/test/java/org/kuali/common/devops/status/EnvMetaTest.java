@@ -34,17 +34,17 @@ public class EnvMetaTest {
 
 	protected static EnvironmentMetadata build(String fqdn, LoadingCache<String, Optional<String>> httpContentCache) {
 		EnvironmentMetadata.Builder builder = new EnvironmentMetadata.Builder();
-		TomcatVersionFunction versionConverter = new TomcatVersionFunction();
+		TomcatVersionFunction tomcatVersion = new TomcatVersionFunction();
 		String versionUrl = PREFIX + fqdn + VERSION_SUFFIX;
-		builder.tomcatVersion(create(versionUrl, httpContentCache, versionConverter));
+		builder.tomcatVersion(create(versionUrl, httpContentCache, tomcatVersion));
 
-		FirstGCTimestampFunction startupTimeConverter = new FirstGCTimestampFunction();
+		FirstGCTimestampFunction firstGCTimetamp = new FirstGCTimestampFunction();
 		String heapLog = PREFIX + fqdn + HEAP_LOG_SUFFIX;
-		builder.tomcatStartupTime(create(heapLog, httpContentCache, startupTimeConverter));
+		builder.tomcatStartupTime(create(heapLog, httpContentCache, firstGCTimetamp));
 		return builder.build();
 	}
 
-	protected static <T> MetadataUrl<T> create(String url, LoadingCache<String, Optional<String>> httpContentCache, Function<Optional<String>, Optional<T>> converter) {
+	protected static <T> MetadataUrl<T> create(String url, LoadingCache<String, Optional<String>> httpContentCache, Function<String, Optional<T>> converter) {
 		return MetadataUrl.create(url, httpContentCache.getUnchecked(url), converter);
 	}
 
