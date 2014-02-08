@@ -6,7 +6,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import java.util.Locale;
 
-import org.kuali.common.util.base.Replacer;
+import org.kuali.common.util.base.string.Replacer;
 import org.springframework.format.Formatter;
 
 public final class CsvStringFormatter implements Formatter<String> {
