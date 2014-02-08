@@ -24,7 +24,7 @@ public class Precondition {
 	private static final String MIN_MSG = "%s not allowed. '%s' must be greater than or equal to %s";
 
 	/**
-	 * Ensures that an object reference passed as an argument
+	 * Ensures that an object reference passed as an argument is not null
 	 * 
 	 * @param arg
 	 *            an object reference passed as an argument
