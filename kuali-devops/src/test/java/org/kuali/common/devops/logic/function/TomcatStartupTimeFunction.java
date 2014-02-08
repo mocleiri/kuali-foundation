@@ -3,6 +3,7 @@ package org.kuali.common.devops.logic.function;
 import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
 import static org.apache.commons.lang.StringUtils.substringBetween;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.text.ParseException;
@@ -16,7 +17,15 @@ import com.google.common.base.Splitter;
 
 public final class TomcatStartupTimeFunction implements Function<Optional<String>, Optional<Long>> {
 
-	private static final String TIMESTAMP_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ";
+	public TomcatStartupTimeFunction() {
+		this("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
+	}
+
+	public TomcatStartupTimeFunction(String timestampFormat) {
+		this.timestampFormat = checkNotBlank(timestampFormat, "timestampFormat");
+	}
+
+	private final String timestampFormat;
 
 	@Override
 	public Optional<Long> apply(Optional<String> content) {
@@ -29,7 +38,9 @@ public final class TomcatStartupTimeFunction implements Function<Optional<String
 	}
 
 	/**
-	 * time format -> 2014-01-06T21:23:15.299+0000: 0.957: [GC
+	 * 1 - Identify the line containing the timestamp<br>
+	 * 2 - Extract the timestamp from that line<br>
+	 * 3 - Convert the timestamp into milliseconds<br>
 	 */
 	protected Optional<Long> getStartupTime(String content) {
 		Optional<String> line = getTimestampLine(content);
@@ -104,10 +115,12 @@ public final class TomcatStartupTimeFunction implements Function<Optional<String
 	 */
 	protected Optional<Long> getMillis(String timestamp) {
 		try {
-			SimpleDateFormat parser = new SimpleDateFormat(TIMESTAMP_FORMAT);
+			// New parser every single time since SimpleDateFormat is not thread-safe
+			SimpleDateFormat parser = new SimpleDateFormat(timestampFormat);
 			Date date = parser.parse(timestamp);
 			return Optional.of(date.getTime());
 		} catch (ParseException e) {
+			// Don't rethrow since the general expectation for Function.apply() is to not have any observable side effects
 			return absent();
 		}
 	}
