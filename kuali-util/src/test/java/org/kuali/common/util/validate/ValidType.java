@@ -26,4 +26,6 @@ public @interface ValidType {
 
 	Class<?> superType();
 
+	Class<?>[] exclude() default {};
+
 }
