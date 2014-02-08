@@ -29,11 +29,11 @@ public class EnvMetaTest {
 	public void test() {
 		LoadingCache<String, Optional<String>> httpContentCache = getCache();
 		String fqdn = "env1.rice.kuali.org";
-		EnvironmentMetadata.Builder builder = new EnvironmentMetadata.Builder();
-		fillIn(builder, fqdn, httpContentCache);
+		EnvironmentMetadata meta = build(fqdn, httpContentCache);
 	}
 
-	protected static void fillIn(EnvironmentMetadata.Builder builder, String fqdn, LoadingCache<String, Optional<String>> httpContentCache) {
+	protected static EnvironmentMetadata build(String fqdn, LoadingCache<String, Optional<String>> httpContentCache) {
+		EnvironmentMetadata.Builder builder = new EnvironmentMetadata.Builder();
 		TomcatVersionFunction versionConverter = new TomcatVersionFunction();
 		String versionUrl = PREFIX + fqdn + VERSION_SUFFIX;
 		builder.tomcatVersion(create(versionUrl, httpContentCache, versionConverter));
@@ -41,6 +41,7 @@ public class EnvMetaTest {
 		TomcatStartupTimeFunction startupTimeConverter = new TomcatStartupTimeFunction();
 		String heapLog = PREFIX + fqdn + HEAP_LOG_SUFFIX;
 		builder.tomcatStartupTime(create(heapLog, httpContentCache, startupTimeConverter));
+		return builder.build();
 	}
 
 	protected static <T> MetadataUrl<T> create(String url, LoadingCache<String, Optional<String>> httpContentCache, Function<Optional<String>, Optional<T>> converter) {
