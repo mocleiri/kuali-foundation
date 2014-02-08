@@ -11,7 +11,7 @@ import com.google.common.base.Preconditions;
  * 
  * <pre>
  * Guava:
- * String foo = checkArgument(!StringUtils.isBlank(foo), &quot;'%s' cannot be blank&quot;);
+ * String foo = checkArgument(!StringUtils.isBlank(foo), &quot;'%s' cannot be blank&quot;, "foo");
  * 
  * Kuali:
  * String foo = checkNotBlank(foo, &quot;foo&quot;);
@@ -24,7 +24,17 @@ public class Precondition {
 	private static final String MIN_MSG = "%s not allowed. '%s' must be greater than or equal to %s";
 
 	/**
-	 * Check that a method argument is not null. Includes the name of the argument in the error message if it is
+	 * Ensures that an object reference passed as an argument to a method is not null.
+	 * 
+	 * @param arg
+	 *            an object reference passed as an argument to a method
+	 * @param argName
+	 *            the name of the argument passed to the method
+	 * 
+	 * @return the non-null object reference that was validated
+	 * 
+	 * @throws NullPointerException
+	 *             If arg is null. The exception message contains the name of the argument that was null
 	 */
 	public static <T> T checkNotNull(T arg, String argName) {
 		return Preconditions.checkNotNull(arg, NOT_NULL_MSG, argName);
