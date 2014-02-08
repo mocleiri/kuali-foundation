@@ -14,14 +14,14 @@ public final class RemoteEnvironment {
 	private final ImmutableProperties system;
 	private final ImmutableProperties environment;
 	private final Optional<Integer> processors;
-	private final Optional<Long> timestamp;
+	private final Optional<Long> currentTimeMillis;
 	private final Optional<Memory> memory;
 
 	private RemoteEnvironment(Builder builder) {
 		this.processors = builder.processors;
 		this.system = ImmutableProperties.copyOf(builder.system);
 		this.environment = ImmutableProperties.copyOf(builder.environment);
-		this.timestamp = builder.timestamp;
+		this.currentTimeMillis = builder.currentTimeMillis;
 		this.memory = builder.memory;
 	}
 
@@ -34,7 +34,7 @@ public final class RemoteEnvironment {
 		private Optional<Integer> processors;
 		private Properties system;
 		private Properties environment;
-		private Optional<Long> timestamp;
+		private Optional<Long> currentTimeMillis;
 		private Optional<Memory> memory;
 
 		public Builder processors(Optional<Integer> processors) {
@@ -52,8 +52,8 @@ public final class RemoteEnvironment {
 			return this;
 		}
 
-		public Builder timestamp(Optional<Long> timestamp) {
-			this.timestamp = timestamp;
+		public Builder currentTimeMillis(Optional<Long> currentTimeMillis) {
+			this.currentTimeMillis = currentTimeMillis;
 			return this;
 		}
 
@@ -80,8 +80,8 @@ public final class RemoteEnvironment {
 		return environment;
 	}
 
-	public Optional<Long> getTimestamp() {
-		return timestamp;
+	public Optional<Long> getCurrentTimeMillis() {
+		return currentTimeMillis;
 	}
 
 	public Optional<Memory> getMemory() {
