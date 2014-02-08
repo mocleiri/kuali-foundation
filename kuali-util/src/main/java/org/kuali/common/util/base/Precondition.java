@@ -59,6 +59,7 @@ public class Precondition {
 	 *             If argName is blank
 	 */
 	public static String checkNotBlank(String arg, String argName) {
+		checkArgument(!isBlank(argName), NOT_BLANK_MSG, argName);
 		checkArgument(!isBlank(arg), NOT_BLANK_MSG, argName);
 		return arg;
 	}
