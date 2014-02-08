@@ -1,59 +1,71 @@
 package org.kuali.common.devops.model.metadata;
 
-import org.kuali.common.devops.logic.function.TomcatVersionFunction;
-import org.kuali.common.util.build.ValidatingBuilder;
-import org.kuali.common.util.validate.IdiotProofImmutable;
+import java.util.Map;
+import java.util.Properties;
 
-import com.google.common.base.Function;
+public class EnvironmentMetadata {
 
-@IdiotProofImmutable
-public final class EnvironmentMetadata {
-
-	private final MetadataUrl<String> tomcatVersion;
-
-	private EnvironmentMetadata(Builder builder) {
-		this.tomcatVersion = builder.tomcatVersion;
-	}
-
-	public static Builder builder(String fqdn) {
-		String url = Builder.DEFAULT_PREFIX + fqdn + Builder.VERSION_SUFFIX;
-		Function<String, String> contentConverter = new TomcatVersionFunction();
-		return builder().tomcatVersion(MetadataUrl.create(url, contentConverter));
-	}
-
-	public static Builder builder() {
-		return new Builder();
-	}
-
-	public static class Builder extends ValidatingBuilder<EnvironmentMetadata> {
-
-		private static final String DEFAULT_PREFIX = "http://";
-		private static final String VERSION_SUFFIX = "/tomcat";
-
-		private MetadataUrl<String> tomcatVersion;
-
-		public Builder tomcatVersion(MetadataUrl<String> tomcatVersion) {
-			this.tomcatVersion = tomcatVersion;
-			return this;
-		}
-
-		@Override
-		public EnvironmentMetadata getInstance() {
-			return new EnvironmentMetadata(this);
-		}
-
-		public MetadataUrl<String> getTomcatVersion() {
-			return tomcatVersion;
-		}
-
-		public void setTomcatVersion(MetadataUrl<String> tomcatVersion) {
-			this.tomcatVersion = tomcatVersion;
-		}
-
-	}
+	MetadataUrl<String> tomcatVersion;
+	MetadataUrl<Long> tomcatStartup;
+	MetadataUrl<Map<String, String>> manifest;
+	MetadataUrl<Properties> systemProperties;
+	MetadataUrl<Properties> projectProperties;
+	MetadataUrl<Properties> configProperties;
 
 	public MetadataUrl<String> getTomcatVersion() {
 		return tomcatVersion;
+	}
+
+	public void setTomcatVersion(MetadataUrl<String> tomcatVersion) {
+		this.tomcatVersion = tomcatVersion;
+	}
+
+	public MetadataUrl<Long> getTomcatStartup() {
+		return tomcatStartup;
+	}
+
+	public void setTomcatStartup(MetadataUrl<Long> tomcatStartup) {
+		this.tomcatStartup = tomcatStartup;
+	}
+
+	public MetadataUrl<Map<String, String>> getManifest() {
+		return manifest;
+	}
+
+	public void setManifest(MetadataUrl<Map<String, String>> manifest) {
+		this.manifest = manifest;
+	}
+
+	public MetadataUrl<Properties> getSystemProperties() {
+		return systemProperties;
+	}
+
+	public void setSystemProperties(MetadataUrl<Properties> systemProperties) {
+		this.systemProperties = systemProperties;
+	}
+
+	public MetadataUrl<Properties> getEnvironmentProperties() {
+		return environmentProperties;
+	}
+
+	public void setEnvironmentProperties(MetadataUrl<Properties> environmentProperties) {
+		this.environmentProperties = environmentProperties;
+	}
+
+	public MetadataUrl<Properties> getProjectProperties() {
+		return projectProperties;
+	}
+
+	public void setProjectProperties(MetadataUrl<Properties> projectProperties) {
+		this.projectProperties = projectProperties;
+	}
+
+	public MetadataUrl<Properties> getConfigProperties() {
+		return configProperties;
+	}
+
+	public void setConfigProperties(MetadataUrl<Properties> configProperties) {
+		this.configProperties = configProperties;
 	}
 
 }

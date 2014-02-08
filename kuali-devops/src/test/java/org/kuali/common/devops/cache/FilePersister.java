@@ -1,7 +1,7 @@
 package org.kuali.common.devops.cache;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static org.apache.commons.io.FileUtils.forceDelete;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,8 +26,8 @@ public final class FilePersister<K, V> implements CachePersister<K, Optional<V>>
 
 	@Override
 	public void persist(K key, Optional<V> reference) throws IOException {
-		checkNotNull(key);
-		checkNotNull(reference);
+		checkNotNull(key, "key");
+		checkNotNull(reference, "reference");
 		File file = this.file.apply(key);
 		if (reference.isPresent()) {
 			copy(file, reference, in);

@@ -7,7 +7,7 @@ public class MetadataUrl<T> {
 
 	String url;
 	Optional<String> content;
-	Function<String, T> contentConverter;
+	Function<String, T> converter;
 	T instance;
 
 	public String getUrl() {
@@ -26,12 +26,12 @@ public class MetadataUrl<T> {
 		this.content = content;
 	}
 
-	public Function<String, T> getContentConverter() {
-		return contentConverter;
+	public Function<String, T> getConverter() {
+		return converter;
 	}
 
-	public void setContentConverter(Function<String, T> contentConverter) {
-		this.contentConverter = contentConverter;
+	public void setConverter(Function<String, T> converter) {
+		this.converter = converter;
 	}
 
 	public T getInstance() {
