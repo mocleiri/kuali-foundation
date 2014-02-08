@@ -3,6 +3,7 @@ package org.kuali.common.devops.status;
 import org.junit.Test;
 import org.kuali.common.devops.cache.PersistToFileSystemLoader;
 import org.kuali.common.devops.cache.PersistToFileSystemLoaderFactory;
+import org.kuali.common.devops.logic.function.TomcatStartupTimeFunction;
 import org.kuali.common.devops.logic.function.TomcatVersionFunction;
 import org.kuali.common.devops.model.metadata.EnvironmentMetadata;
 import org.kuali.common.devops.model.metadata.MetadataUrl;
@@ -22,7 +23,7 @@ public class EnvMetaTest {
 	private static final String VERSION_SUFFIX = "/tomcat";
 	private static final String JSP_SUFFIX = "/tomcat/logs/env.jsp";
 	private static final String MANIFEST_SUFFIX = "/tomcat/webapps/ROOT/META-INF/MANIFEST.MF";
-	private static final String HEAP_SUFFIX = "/tomcat/logs/heap.log";
+	private static final String HEAP_LOG_SUFFIX = "/tomcat/logs/heap.log";
 
 	@Test
 	public void test() {
@@ -37,9 +38,9 @@ public class EnvMetaTest {
 		String versionUrl = PREFIX + fqdn + VERSION_SUFFIX;
 		builder.tomcatVersion(create(versionUrl, httpContentCache, versionConverter));
 
-		TomcatVersionFunction versionConverter = new TomcatVersionFunction();
-		String versionUrl = PREFIX + fqdn + VERSION_SUFFIX;
-		builder.tomcatVersion(create(versionUrl, httpContentCache, versionConverter));
+		TomcatStartupTimeFunction startupTimeConverter = new TomcatStartupTimeFunction();
+		String heapLog = PREFIX + fqdn + HEAP_LOG_SUFFIX;
+		builder.tomcatStartupTime(create(heapLog, httpContentCache, startupTimeConverter));
 	}
 
 	protected static <T> MetadataUrl<T> create(String url, LoadingCache<String, Optional<String>> httpContentCache, Function<Optional<String>, Optional<T>> converter) {
