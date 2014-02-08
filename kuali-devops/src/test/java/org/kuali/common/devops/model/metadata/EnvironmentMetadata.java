@@ -42,4 +42,8 @@ public final class EnvironmentMetadata {
 	public MetadataUrl<String> getTomcatVersion() {
 		return tomcatVersion;
 	}
+
+	public MetadataUrl<Long> getTomcatStartupTime() {
+		return tomcatStartupTime;
+	}
 }
