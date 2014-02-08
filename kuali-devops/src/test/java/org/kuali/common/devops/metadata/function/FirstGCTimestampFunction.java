@@ -116,7 +116,7 @@ public final class FirstGCTimestampFunction implements Function<String, Optional
 			Date date = parser.parse(timestamp);
 			return Optional.of(date.getTime());
 		} catch (ParseException e) {
-			// Don't rethrow since the general expectation for Function.apply() is to not have any observable side effects
+			// Don't rethrow since the general expectation for Function.apply() is to not have side effects
 			return absent();
 		}
 	}
