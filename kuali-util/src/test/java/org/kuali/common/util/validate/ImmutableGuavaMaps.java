@@ -11,6 +11,8 @@ import java.util.Map;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+import org.kuali.common.util.property.ImmutableProperties;
+
 import com.google.common.collect.ImmutableMap;
 
 /**
@@ -19,7 +21,7 @@ import com.google.common.collect.ImmutableMap;
 @Target({ TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = {})
-@ValidType(superType = Map.class, type = ImmutableMap.class)
+@ValidType(superType = Map.class, type = ImmutableMap.class, exclude = ImmutableProperties.class)
 @Documented
 public @interface ImmutableGuavaMaps {
 
