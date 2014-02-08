@@ -30,6 +30,15 @@ public final class RemoteEnvironmentFunction implements Function<String, RemoteE
 		return RemoteEnvironment.builder().system(system).environment(environment).currentTimeMillis(millis).build();
 	}
 
+	protected Optional<Integer> getProcessors(String html) {
+		// <li>processors: 2</li>
+		Optional<String> token = fromNullable(substringBetween(html, "<li>processors:", "</li>"));
+		if (token.isPresent()) {
+			return Optional.of(Integer.parseInt(token.get()));
+		}
+		return absent();
+	}
+
 	protected Optional<Long> getCurrentTimeMillis(String html) {
 		// <li>time: 2014-02-08 18:26:06.873 UTC</li>
 		Optional<String> token = fromNullable(substringBetween(html, "<li>time:", "</li>"));
