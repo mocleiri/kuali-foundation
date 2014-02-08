@@ -42,7 +42,7 @@ public class EnvMetaTest {
 		builder.tomcatVersion(create(versionUrl, httpContentCache, versionConverter));
 	}
 
-	protected static <T> MetadataUrl<T> create(String url, LoadingCache<String, Optional<String>> httpContentCache, Function<String, T> converter) {
+	protected static <T> MetadataUrl<T> create(String url, LoadingCache<String, Optional<String>> httpContentCache, Function<Optional<String>, Optional<T>> converter) {
 		return MetadataUrl.create(url, httpContentCache.getUnchecked(url), converter);
 	}
 

@@ -15,7 +15,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 
-public final class TomatStartupTimeFunction implements Function<Optional<String>, Optional<Long>> {
+public final class TomcatStartupTimeFunction implements Function<Optional<String>, Optional<Long>> {
 
 	@Override
 	public Optional<Long> apply(Optional<String> content) {
@@ -30,7 +30,7 @@ public final class TomatStartupTimeFunction implements Function<Optional<String>
 	/**
 	 * time format is -> 2014-01-06T21:23:15.299+0000: 0.957: [GC
 	 */
-	protected static Optional<Long> getStartupTime(String content) {
+	protected Optional<Long> getStartupTime(String content) {
 		Optional<String> string = getTimestampLine(content);
 		if (!string.isPresent()) {
 			return absent();
@@ -48,12 +48,12 @@ public final class TomatStartupTimeFunction implements Function<Optional<String>
 		}
 	}
 
-	protected static Optional<String> getTimestampLine(String content) {
+	protected Optional<String> getTimestampLine(String content) {
 		String gc = substringBetween(content, "{", "}");
 		List<String> lines = Splitter.on('\n').splitToList(gc);
 		for (String line : lines) {
 			String trimmed = line.trim();
-			if (trimmed.startsWith("201")) { // This will only work for the next 6 years :)
+			if (trimmed.startsWith("201")) { // Only works until the end of 2019
 				return Optional.of(trimmed);
 			}
 		}
