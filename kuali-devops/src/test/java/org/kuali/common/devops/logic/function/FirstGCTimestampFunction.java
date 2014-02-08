@@ -15,13 +15,13 @@ import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 
-public final class TomcatStartupTimeFunction implements Function<String, Optional<Long>> {
+public final class FirstGCTimestampFunction implements Function<String, Optional<Long>> {
 
-	public TomcatStartupTimeFunction() {
+	public FirstGCTimestampFunction() {
 		this("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
 	}
 
-	public TomcatStartupTimeFunction(String timestampFormat) {
+	public FirstGCTimestampFunction(String timestampFormat) {
 		this.timestampFormat = checkNotBlank(timestampFormat, "timestampFormat");
 	}
 
@@ -30,7 +30,7 @@ public final class TomcatStartupTimeFunction implements Function<String, Optiona
 	@Override
 	public Optional<Long> apply(String content) {
 		checkNotNull(content, "content");
-		return getStartupTime(content);
+		return getFirstGCTimestamp(content);
 	}
 
 	/**
@@ -38,7 +38,7 @@ public final class TomcatStartupTimeFunction implements Function<String, Optiona
 	 * 2 - Extract the timestamp from that line<br>
 	 * 3 - Convert the timestamp into milliseconds<br>
 	 */
-	protected Optional<Long> getStartupTime(String content) {
+	protected Optional<Long> getFirstGCTimestamp(String content) {
 		Optional<String> line = getTimestampLine(content);
 		if (!line.isPresent()) {
 			return absent();

@@ -3,7 +3,7 @@ package org.kuali.common.devops.status;
 import org.junit.Test;
 import org.kuali.common.devops.cache.PersistToFileSystemLoader;
 import org.kuali.common.devops.cache.PersistToFileSystemLoaderFactory;
-import org.kuali.common.devops.logic.function.TomcatStartupTimeFunction;
+import org.kuali.common.devops.logic.function.FirstGCTimestampFunction;
 import org.kuali.common.devops.logic.function.TomcatVersionFunction;
 import org.kuali.common.devops.model.metadata.EnvironmentMetadata;
 import org.kuali.common.devops.model.metadata.MetadataUrl;
@@ -38,7 +38,7 @@ public class EnvMetaTest {
 		String versionUrl = PREFIX + fqdn + VERSION_SUFFIX;
 		builder.tomcatVersion(create(versionUrl, httpContentCache, versionConverter));
 
-		TomcatStartupTimeFunction startupTimeConverter = new TomcatStartupTimeFunction();
+		FirstGCTimestampFunction startupTimeConverter = new FirstGCTimestampFunction();
 		String heapLog = PREFIX + fqdn + HEAP_LOG_SUFFIX;
 		builder.tomcatStartupTime(create(heapLog, httpContentCache, startupTimeConverter));
 		return builder.build();
