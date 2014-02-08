@@ -53,7 +53,7 @@ public class Threads {
 			try {
 				thread.join();
 			} catch (InterruptedException e) {
-				throw illegalState(e, "unexpected thread interruption [id:%s] [name:%s]", thread.getId(), thread.getName());
+				throw illegalState(e, "unexpected interruption [thread id:%s] [thread name:%s]", thread.getId(), thread.getName());
 			}
 		}
 	}
