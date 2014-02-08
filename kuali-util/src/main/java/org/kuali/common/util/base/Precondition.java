@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 
 /**
  * Strongly mimic's Guava's {@Preconditions} with a sensible default error message for common situations
@@ -18,8 +19,16 @@ import com.google.common.base.Optional;
  */
 public class Precondition {
 
+	private static final String NOT_NULL_MSG = "'%s' cannot be null";
 	private static final String NOT_BLANK_MSG = "'%s' cannot be blank";
 	private static final String MIN_MSG = "%s not allowed. '%s' must be greater than or equal to %s";
+
+	/**
+	 * Check that a method argument is not null. Includes the name of the argument in the error message if it is
+	 */
+	public static <T> T checkNotNull(T arg, String argName) {
+		return Preconditions.checkNotNull(arg, NOT_NULL_MSG, argName);
+	}
 
 	/**
 	 * Check that a String is not whitespace, empty ("") or null.
