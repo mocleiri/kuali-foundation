@@ -1,4 +1,4 @@
-package org.kuali.common.devops.model.metadata;
+package org.kuali.common.devops.metadata.model;
 
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
