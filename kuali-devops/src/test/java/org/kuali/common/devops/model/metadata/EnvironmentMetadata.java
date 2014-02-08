@@ -1,7 +1,10 @@
 package org.kuali.common.devops.model.metadata;
 
+import org.kuali.common.devops.logic.function.TomcatVersionFunction;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
+
+import com.google.common.base.Function;
 
 @IdiotProofImmutable
 public final class EnvironmentMetadata {
@@ -14,7 +17,8 @@ public final class EnvironmentMetadata {
 
 	public static Builder builder(String fqdn) {
 		String url = Builder.DEFAULT_PREFIX + fqdn + Builder.VERSION_SUFFIX;
-		return builder().tomcatVersion(null);
+		Function<String, String> contentConverter = new TomcatVersionFunction();
+		return builder().tomcatVersion(MetadataUrl.create(url, contentConverter));
 	}
 
 	public static Builder builder() {

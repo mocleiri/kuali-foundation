@@ -16,6 +16,15 @@ public final class MetadataUrl<T> {
 		this.contentConverter = builder.contentConverter;
 	}
 
+	public static <T> MetadataUrl<T> create(String url, Function<String, T> contentConverter) {
+		Builder<T> builder = builder();
+		return builder.url(url).contentConverter(contentConverter).build();
+	}
+
+	public static <T> Builder<T> builder() {
+		return new Builder<T>();
+	}
+
 	public static class Builder<T> extends ValidatingBuilder<MetadataUrl<T>> {
 
 		private String url;
