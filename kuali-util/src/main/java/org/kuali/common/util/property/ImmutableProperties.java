@@ -16,12 +16,13 @@
 package org.kuali.common.util.property;
 
 import static com.google.common.base.Preconditions.checkState;
+import static java.util.Collections.unmodifiableCollection;
+import static java.util.Collections.unmodifiableSet;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -130,17 +131,17 @@ public final class ImmutableProperties extends Properties {
 
 	@Override
 	public Set<Object> keySet() {
-		return Collections.unmodifiableSet(super.keySet());
+		return unmodifiableSet(super.keySet());
 	}
 
 	@Override
 	public Set<java.util.Map.Entry<Object, Object>> entrySet() {
-		return Collections.unmodifiableSet(super.entrySet());
+		return unmodifiableSet(super.entrySet());
 	}
 
 	@Override
 	public Collection<Object> values() {
-		return Collections.unmodifiableCollection(super.values());
+		return unmodifiableCollection(super.values());
 	}
 
 }
