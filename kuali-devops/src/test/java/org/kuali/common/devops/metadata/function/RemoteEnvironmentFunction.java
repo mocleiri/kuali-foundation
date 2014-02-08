@@ -39,7 +39,7 @@ public final class RemoteEnvironmentFunction implements Function<String, Optiona
 			if (data.isPresent() && data.get().length == 2) {
 				String[] tokens = data.get();
 				String key = tokens[0];
-				String value = tokens[1].replace("<br>", "");
+				String value = tokens[1].replace("<br>", "").replace("&nbsp;", "");
 				properties.setProperty(key, value);
 			}
 		}
