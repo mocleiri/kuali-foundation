@@ -6,7 +6,7 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 import com.google.common.base.Optional;
 
 @IdiotProofImmutable
-public final class EnvironmentMetadataContent {
+public final class EnvironmentMetadata {
 
 	private final String fqdn;
 	private final Optional<String> tomcatVersion;
@@ -16,7 +16,7 @@ public final class EnvironmentMetadataContent {
 	private final Optional<String> projectProperties;
 	private final Optional<String> projectConfiguration;
 
-	private EnvironmentMetadataContent(Builder builder) {
+	private EnvironmentMetadata(Builder builder) {
 		this.fqdn = builder.fqdn;
 		this.tomcatVersion = builder.tomcatVersion;
 		this.tomcatHeap = builder.tomcatHeap;
@@ -26,7 +26,7 @@ public final class EnvironmentMetadataContent {
 		this.projectConfiguration = builder.projectConfiguration;
 	}
 
-	public static class Builder extends ValidatingBuilder<EnvironmentMetadataContent> {
+	public static class Builder extends ValidatingBuilder<EnvironmentMetadata> {
 
 		private String fqdn;
 		private Optional<String> tomcatVersion;
@@ -72,8 +72,8 @@ public final class EnvironmentMetadataContent {
 		}
 
 		@Override
-		public EnvironmentMetadataContent getInstance() {
-			return new EnvironmentMetadataContent(this);
+		public EnvironmentMetadata getInstance() {
+			return new EnvironmentMetadata(this);
 		}
 
 		public String getFqdn() {
