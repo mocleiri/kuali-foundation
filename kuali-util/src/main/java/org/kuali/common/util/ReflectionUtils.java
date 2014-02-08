@@ -213,6 +213,9 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 			if (i >= actualTypeArguments.length) {
 				return false;
 			}
+			if (!(actualTypeArguments[i] instanceof Class<?>)) {
+				return false;
+			}
 			Class<?> actualTypeArgument = (Class<?>) actualTypeArguments[i];
 			if (actualTypeArgument != expectedTypeArgument) {
 				return false;
