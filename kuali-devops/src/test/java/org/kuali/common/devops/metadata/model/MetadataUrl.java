@@ -11,7 +11,7 @@ public final class MetadataUrl<T> {
 
 	private final String url;
 	private final Optional<String> content;
-	private final Function<String, Optional<T>> converter;
+	private final Function<String, T> converter;
 	private final Optional<T> metadata;
 
 	private MetadataUrl(Builder<T> builder) {
@@ -29,7 +29,7 @@ public final class MetadataUrl<T> {
 
 		private String url;
 		private Optional<String> content;
-		private Function<String, Optional<T>> converter;
+		private Function<String,T> converter;
 		private Optional<T> metadata;
 
 		public Builder<T> metadata(Optional<T> metadata) {
@@ -47,7 +47,7 @@ public final class MetadataUrl<T> {
 			return this;
 		}
 
-		public Builder<T> converter(Function<String, Optional<T>> converter) {
+		public Builder<T> converter(Function<String, T> converter) {
 			this.converter = converter;
 			return this;
 		}
@@ -67,7 +67,7 @@ public final class MetadataUrl<T> {
 		return content;
 	}
 
-	public Function<String, Optional<T>> getConverter() {
+	public Function<String, T> getConverter() {
 		return converter;
 	}
 

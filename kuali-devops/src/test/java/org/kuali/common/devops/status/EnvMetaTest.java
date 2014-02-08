@@ -45,27 +45,27 @@ public class EnvMetaTest {
 		return builder.build();
 	}
 
-	public static <T> MetadataUrl<T> build(MetadataUrlHelper helper, Function<String, Optional<T>> converter) {
+	public static <T> MetadataUrl<T> build(MetadataUrlHelper helper, Function<String, T> converter) {
 		return build(helper, Optional.<String> absent(), converter);
 	}
 
-	public static <T> MetadataUrl<T> build(MetadataUrlHelper helper, String suffix, Function<String, Optional<T>> converter) {
+	public static <T> MetadataUrl<T> build(MetadataUrlHelper helper, String suffix, Function<String, T> converter) {
 		return build(helper, Optional.of(suffix), converter);
 	}
 
-	public static <T> MetadataUrl<T> build(MetadataUrlHelper helper, Optional<String> suffix, Function<String, Optional<T>> converter) {
+	public static <T> MetadataUrl<T> build(MetadataUrlHelper helper, Optional<String> suffix, Function<String, T> converter) {
 		checkNotNull(helper, "helper");
 		checkNotBlank(suffix, "suffix");
 		checkNotNull(converter, "converter");
 		String url = helper.prefix + helper.fqdn + suffix;
 		Optional<String> content = helper.httpContentCache.getUnchecked(url);
-		Optional<T> metadata = content.isPresent() ? converter.apply(content.get()) : Optional.<T> absent();
+		Optional<T> metadata = content.isPresent() ? Optional.of(converter.apply(content.get())) : Optional.<T> absent();
 		MetadataUrl.Builder<T> builder = MetadataUrl.builder();
 		return builder.url(url).content(content).converter(converter).metadata(metadata).build();
 	}
 
 	/**
-	 * Grabs the first 25k in content from a url and stashes it onto the local file system. Times out after 5 seconds, no re-tries.
+	 * Grabs the first 25k in content from an http url and stashes it onto the local file system. Times out after 5 seconds, no re-tries.
 	 */
 	protected LoadingCache<String, Optional<String>> getFastFileSystemCacher() {
 		HttpContext context = HttpContext.builder().quiet(true).asynchronousClose(true).maxBytes("25k").maxRetries(0).overallTimeout("5s").build();

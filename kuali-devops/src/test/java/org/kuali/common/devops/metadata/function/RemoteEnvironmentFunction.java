@@ -16,14 +16,14 @@ import com.google.common.base.Function;
 import com.google.common.base.Optional;
 
 @IdiotProofImmutable
-public final class RemoteEnvironmentFunction implements Function<String, Optional<RemoteEnvironment>> {
+public final class RemoteEnvironmentFunction implements Function<String, RemoteEnvironment> {
 
 	@Override
-	public Optional<RemoteEnvironment> apply(String content) {
+	public RemoteEnvironment apply(String content) {
 		checkNotNull(content, "content");
 		Properties system = getProperties("System Property", content);
 		Properties environment = getProperties("Environment Variable", content);
-		return Optional.of(RemoteEnvironment.builder().system(system).environment(environment).build());
+		return RemoteEnvironment.builder().system(system).environment(environment).build();
 	}
 
 	protected Optional<Long> getTimestamp(String html) {
