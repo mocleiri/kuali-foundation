@@ -44,8 +44,7 @@ public class EnvMetaTest {
 	protected EnvironmentMetadata build(String fqdn, LoadingCache<String, Optional<String>> httpContentCache) {
 		MetadataUrlHelper helper = new MetadataUrlHelper(PREFIX, fqdn, httpContentCache);
 		EnvironmentMetadata.Builder builder = EnvironmentMetadata.builder();
-		Function<String, Optional<String>> v = TomcatVersionFunction.create();
-		builder.tomcatVersion(build(helper, VERSION_SUFFIX, v));
+		builder.tomcatVersion(build(helper, VERSION_SUFFIX, TomcatVersionFunction.create()));
 		builder.tomcatStartupTime(build(helper, HEAP_LOG_SUFFIX, new FirstGCTimestampFunction()));
 		builder.remoteEnvironment(build(helper, JSP_SUFFIX, new RemoteEnvironmentFunction()));
 		builder.manifest(build(helper, MANIFEST_SUFFIX, new ManifestFunction()));
@@ -64,7 +63,7 @@ public class EnvMetaTest {
 		checkNotNull(helper, "helper");
 		checkNotBlank(suffix, "suffix");
 		checkNotNull(converter, "converter");
-		String url = helper.prefix + helper.fqdn + suffix;
+		String url = helper.prefix + helper.fqdn + suffix.get();
 		Optional<String> content = helper.httpContentCache.getUnchecked(url);
 		Optional<T> metadata = content.isPresent() ? Optional.of(converter.apply(content.get())) : Optional.<T> absent();
 		MetadataUrl.Builder<T> builder = MetadataUrl.builder();
@@ -87,7 +86,7 @@ public class EnvMetaTest {
 		private final LoadingCache<String, Optional<String>> httpContentCache;
 
 		public MetadataUrlHelper(String prefix, String fqdn, LoadingCache<String, Optional<String>> httpContentCache) {
-			this.prefix = checkNotBlank(fqdn, "prefix");
+			this.prefix = checkNotBlank(prefix, "prefix");
 			this.fqdn = checkNotBlank(fqdn, "fqdn");
 			this.httpContentCache = checkNotNull(httpContentCache, "httpContentCache");
 		}
