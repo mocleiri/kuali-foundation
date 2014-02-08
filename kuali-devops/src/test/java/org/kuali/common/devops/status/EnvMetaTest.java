@@ -40,7 +40,8 @@ public class EnvMetaTest {
 		MetadataUrlHelper helper = new MetadataUrlHelper(PREFIX, fqdn, httpContentCache);
 
 		EnvironmentMetadata.Builder builder = EnvironmentMetadata.builder();
-		builder.tomcatVersion(build(helper, VERSION_SUFFIX, TomcatVersionFunction.create()));
+		Function<String, Optional<String>> v = TomcatVersionFunction.create();
+		builder.tomcatVersion(build(helper, VERSION_SUFFIX, v));
 		builder.tomcatStartupTime(build(helper, HEAP_LOG_SUFFIX, new FirstGCTimestampFunction()));
 		return builder.build();
 	}
@@ -53,7 +54,7 @@ public class EnvMetaTest {
 		return build(helper, Optional.of(suffix), converter);
 	}
 
-	public static <T> MetadataUrl<T> build(MetadataUrlHelper helper, Optional<String> suffix, Function<String, T> converter) {
+	private static <T> MetadataUrl<T> build(MetadataUrlHelper helper, Optional<String> suffix, Function<String, T> converter) {
 		checkNotNull(helper, "helper");
 		checkNotBlank(suffix, "suffix");
 		checkNotNull(converter, "converter");
