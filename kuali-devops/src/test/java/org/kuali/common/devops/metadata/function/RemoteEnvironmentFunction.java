@@ -8,7 +8,7 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.util.Properties;
 
-import org.kuali.common.devops.model.RemoteEnvironment;
+import org.kuali.common.devops.metadata.model.RemoteEnvironment;
 import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -16,12 +16,12 @@ import com.google.common.base.Function;
 import com.google.common.base.Optional;
 
 @IdiotProofImmutable
-public final class GlobalPropertiesFunction implements Function<String, Optional<RemoteEnvironment>> {
+public final class RemoteEnvironmentFunction implements Function<String, Optional<RemoteEnvironment>> {
 
 	@Override
 	public Optional<RemoteEnvironment> apply(String content) {
 		checkNotNull(content, "content");
-		return fromNullable(substringBetween(content, open, close));
+		return null;
 	}
 
 	public static Optional<Properties> getPropertiesFromHtml(String title, String html) {
