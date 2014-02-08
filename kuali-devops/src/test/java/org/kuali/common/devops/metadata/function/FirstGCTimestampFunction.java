@@ -87,7 +87,7 @@ public final class FirstGCTimestampFunction implements Function<String, Optional
 		List<String> lines = Splitter.on('\n').splitToList(gc.get());
 		for (String line : lines) {
 			String trimmed = line.trim();
-			if (trimmed.startsWith("20")) { // Only works until the end of 2099
+			if (trimmed.startsWith("20")) { // This will only work until the end of 2099 :-)
 				return Optional.of(trimmed);
 			}
 		}
