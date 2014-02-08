@@ -3,11 +3,14 @@ package org.kuali.common.devops.status;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
+import java.util.Properties;
+
 import org.junit.Test;
 import org.kuali.common.devops.cache.PersistToFileSystemLoader;
 import org.kuali.common.devops.cache.PersistToFileSystemLoaderFactory;
 import org.kuali.common.devops.metadata.function.FirstGCTimestampFunction;
 import org.kuali.common.devops.metadata.function.ManifestFunction;
+import org.kuali.common.devops.metadata.function.ProjectPropertiesUrlFragmentFunction;
 import org.kuali.common.devops.metadata.function.RemoteEnvironmentFunction;
 import org.kuali.common.devops.metadata.function.TomcatVersionFunction;
 import org.kuali.common.devops.metadata.model.EnvironmentMetadata;
@@ -48,7 +51,16 @@ public class EnvMetaTest {
 		builder.tomcatStartupTime(build(helper, HEAP_LOG_SUFFIX, new FirstGCTimestampFunction()));
 		builder.remoteEnvironment(build(helper, JSP_SUFFIX, new RemoteEnvironmentFunction()));
 		builder.manifest(build(helper, MANIFEST_SUFFIX, new ManifestFunction()));
-		return builder.build();
+
+		Optional<Properties> manifest = builder.getManifest().getMetadata();
+		if (manifest.isPresent()) {
+			Function<Properties, Optional<String>> function = new ProjectPropertiesUrlFragmentFunction();
+			Optional<String> suffix = function.apply(manifest.get());
+			if (suffix.isPresent()) {
+				
+			}
+		}
+		return null;
 	}
 
 	public static <T> MetadataUrl<T> build(MetadataUrlHelper helper, Function<String, T> converter) {

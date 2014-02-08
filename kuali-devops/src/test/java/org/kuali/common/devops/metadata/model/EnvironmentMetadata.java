@@ -14,12 +14,14 @@ public final class EnvironmentMetadata {
 	private final MetadataUrl<Optional<Long>> tomcatStartupTime;
 	private final MetadataUrl<RemoteEnvironment> remoteEnvironment;
 	private final MetadataUrl<Properties> manifest;
+	private final MetadataUrl<Properties> project;
 
 	private EnvironmentMetadata(Builder builder) {
 		this.tomcatVersion = builder.tomcatVersion;
 		this.tomcatStartupTime = builder.tomcatStartupTime;
 		this.remoteEnvironment = builder.remoteEnvironment;
 		this.manifest = builder.manifest;
+		this.project = builder.project;
 	}
 
 	public static Builder builder() {
@@ -32,6 +34,12 @@ public final class EnvironmentMetadata {
 		private MetadataUrl<Optional<Long>> tomcatStartupTime;
 		private MetadataUrl<RemoteEnvironment> remoteEnvironment;
 		private MetadataUrl<Properties> manifest;
+		private MetadataUrl<Properties> project;
+
+		public Builder project(MetadataUrl<Properties> project) {
+			this.project = project;
+			return this;
+		}
 
 		public Builder manifest(MetadataUrl<Properties> manifest) {
 			this.manifest = manifest;
@@ -57,6 +65,46 @@ public final class EnvironmentMetadata {
 		public EnvironmentMetadata getInstance() {
 			return new EnvironmentMetadata(this);
 		}
+
+		public MetadataUrl<Optional<String>> getTomcatVersion() {
+			return tomcatVersion;
+		}
+
+		public void setTomcatVersion(MetadataUrl<Optional<String>> tomcatVersion) {
+			this.tomcatVersion = tomcatVersion;
+		}
+
+		public MetadataUrl<Optional<Long>> getTomcatStartupTime() {
+			return tomcatStartupTime;
+		}
+
+		public void setTomcatStartupTime(MetadataUrl<Optional<Long>> tomcatStartupTime) {
+			this.tomcatStartupTime = tomcatStartupTime;
+		}
+
+		public MetadataUrl<RemoteEnvironment> getRemoteEnvironment() {
+			return remoteEnvironment;
+		}
+
+		public void setRemoteEnvironment(MetadataUrl<RemoteEnvironment> remoteEnvironment) {
+			this.remoteEnvironment = remoteEnvironment;
+		}
+
+		public MetadataUrl<Properties> getManifest() {
+			return manifest;
+		}
+
+		public void setManifest(MetadataUrl<Properties> manifest) {
+			this.manifest = manifest;
+		}
+
+		public MetadataUrl<Properties> getProject() {
+			return project;
+		}
+
+		public void setProject(MetadataUrl<Properties> project) {
+			this.project = project;
+		}
 	}
 
 	public MetadataUrl<Optional<String>> getTomcatVersion() {
@@ -73,5 +121,9 @@ public final class EnvironmentMetadata {
 
 	public MetadataUrl<Properties> getManifest() {
 		return manifest;
+	}
+
+	public MetadataUrl<Properties> getProject() {
+		return project;
 	}
 }
