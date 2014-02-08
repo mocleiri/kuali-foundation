@@ -1,5 +1,7 @@
 package org.kuali.common.devops.metadata.model;
 
+import javax.validation.constraints.Min;
+
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -7,9 +9,13 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 public final class Memory {
 	// used=0.62g, free=1.16g, allocated=0.94g, max=1.78g
 
+	@Min(0)
 	private final long used;
+	@Min(0)
 	private final long free;
+	@Min(0)
 	private final long allocated;
+	@Min(0)
 	private final long max;
 
 	private Memory(Builder builder) {
