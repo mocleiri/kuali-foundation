@@ -3,22 +3,32 @@ package org.kuali.common.devops.model.metadata;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
-import com.google.common.base.Optional;
-
 @IdiotProofImmutable
 public final class EnvironmentMetadata {
 
-	private final Optional<String> tomcatVersion;
+	private final MetadataUrl<String> tomcatVersion;
 
 	private EnvironmentMetadata(Builder builder) {
 		this.tomcatVersion = builder.tomcatVersion;
 	}
 
+	public static Builder builder(String fqdn) {
+		String url = Builder.DEFAULT_PREFIX + fqdn + Builder.VERSION_SUFFIX;
+		return builder().tomcatVersion(null);
+	}
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder extends ValidatingBuilder<EnvironmentMetadata> {
 
-		private Optional<String> tomcatVersion;
+		private static final String DEFAULT_PREFIX = "http://";
+		private static final String VERSION_SUFFIX = "/tomcat";
 
-		public Builder tomcatVersion(Optional<String> tomcatVersion) {
+		private MetadataUrl<String> tomcatVersion;
+
+		public Builder tomcatVersion(MetadataUrl<String> tomcatVersion) {
 			this.tomcatVersion = tomcatVersion;
 			return this;
 		}
@@ -28,17 +38,17 @@ public final class EnvironmentMetadata {
 			return new EnvironmentMetadata(this);
 		}
 
-		public Optional<String> getTomcatVersion() {
+		public MetadataUrl<String> getTomcatVersion() {
 			return tomcatVersion;
 		}
 
-		public void setTomcatVersion(Optional<String> tomcatVersion) {
+		public void setTomcatVersion(MetadataUrl<String> tomcatVersion) {
 			this.tomcatVersion = tomcatVersion;
 		}
 
 	}
 
-	public Optional<String> getTomcatVersion() {
+	public MetadataUrl<String> getTomcatVersion() {
 		return tomcatVersion;
 	}
 
