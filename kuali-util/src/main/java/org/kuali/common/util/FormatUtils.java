@@ -160,7 +160,7 @@ public class FormatUtils {
 		if (millis <= Integer.MAX_VALUE) {
 			return millis.intValue();
 		} else {
-			throw Exceptions.illegalArg("[%s] converts to [%s]. maximum allowable integer value is [%s]", time, millis, Integer.MAX_VALUE);
+			throw Exceptions.illegalArgument("[%s] converts to [%s]. maximum allowable integer value is [%s]", time, millis, Integer.MAX_VALUE);
 		}
 	}
 

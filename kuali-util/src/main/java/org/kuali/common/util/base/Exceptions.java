@@ -29,19 +29,19 @@ public class Exceptions {
 		return new IllegalStateException(formattedMessage(msg, args), cause);
 	}
 
-	public static IllegalArgumentException illegalArg(Throwable cause) {
+	public static IllegalArgumentException illegalArgument(Throwable cause) {
 		return new IllegalArgumentException(cause);
 	}
 
-	public static IllegalArgumentException illegalArg(String msg) {
+	public static IllegalArgumentException illegalArgument(String msg) {
 		return new IllegalArgumentException(msg);
 	}
 
-	public static IllegalArgumentException illegalArg(String msg, Object... args) {
+	public static IllegalArgumentException illegalArgument(String msg, Object... args) {
 		return new IllegalArgumentException(formattedMessage(msg, args));
 	}
 
-	public static IllegalArgumentException illegalArg(Throwable cause, String msg, Object... args) {
+	public static IllegalArgumentException illegalArgument(Throwable cause, String msg, Object... args) {
 		return new IllegalArgumentException(formattedMessage(msg, args), cause);
 	}
 
