@@ -1,5 +1,6 @@
 package org.kuali.common.devops.metadata.function;
 
+import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
 import static org.apache.commons.lang.StringUtils.substringBetween;
 import static org.apache.commons.lang.StringUtils.substringsBetween;
@@ -20,12 +21,16 @@ public final class RemoteEnvironmentFunction implements Function<String, Optiona
 	@Override
 	public Optional<RemoteEnvironment> apply(String content) {
 		checkNotNull(content, "content");
-		Properties system = getPropertiesFromHtml("System Property", content);
-		Properties environment = getPropertiesFromHtml("Environment Variable", content);
+		Properties system = getProperties("System Property", content);
+		Properties environment = getProperties("Environment Variable", content);
 		return Optional.of(RemoteEnvironment.builder().system(system).environment(environment).build());
 	}
 
-	protected Properties getPropertiesFromHtml(String title, String html) {
+	protected Optional<Long> getTimestamp(String html) {
+		return absent();
+	}
+
+	protected Properties getProperties(String title, String html) {
 		Optional<String> content = fromNullable(substringBetween(html, "<th>" + title + "</th>", "</table>"));
 		if (!content.isPresent()) {
 			return ImmutableProperties.of();
