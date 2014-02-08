@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.kuali.common.devops.cache.PersistToFileSystemLoader;
 import org.kuali.common.devops.cache.PersistToFileSystemLoaderFactory;
 import org.kuali.common.devops.metadata.function.FirstGCTimestampFunction;
+import org.kuali.common.devops.metadata.function.ManifestFunction;
 import org.kuali.common.devops.metadata.function.RemoteEnvironmentFunction;
 import org.kuali.common.devops.metadata.function.TomcatVersionFunction;
 import org.kuali.common.devops.metadata.model.EnvironmentMetadata;
@@ -31,20 +32,23 @@ public class EnvMetaTest {
 
 	@Test
 	public void test() {
-		LoadingCache<String, Optional<String>> httpContentCache = getFastFileSystemCacher();
-		String fqdn = "env1.rice.kuali.org";
-		EnvironmentMetadata meta = build(fqdn, httpContentCache);
+		try {
+			LoadingCache<String, Optional<String>> httpContentCache = getFastFileSystemCacher();
+			String fqdn = "env1.rice.kuali.org";
+			EnvironmentMetadata meta = build(fqdn, httpContentCache);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 	}
 
-	protected static EnvironmentMetadata build(String fqdn, LoadingCache<String, Optional<String>> httpContentCache) {
-
+	protected EnvironmentMetadata build(String fqdn, LoadingCache<String, Optional<String>> httpContentCache) {
 		MetadataUrlHelper helper = new MetadataUrlHelper(PREFIX, fqdn, httpContentCache);
-
 		EnvironmentMetadata.Builder builder = EnvironmentMetadata.builder();
 		Function<String, Optional<String>> v = TomcatVersionFunction.create();
 		builder.tomcatVersion(build(helper, VERSION_SUFFIX, v));
 		builder.tomcatStartupTime(build(helper, HEAP_LOG_SUFFIX, new FirstGCTimestampFunction()));
-		builder.environmentJsp(build(helper, JSP_SUFFIX, new RemoteEnvironmentFunction()));
+		builder.remoteEnvironment(build(helper, JSP_SUFFIX, new RemoteEnvironmentFunction()));
+		builder.manifest(build(helper, MANIFEST_SUFFIX, new ManifestFunction()));
 		return builder.build();
 	}
 
