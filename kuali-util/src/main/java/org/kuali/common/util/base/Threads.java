@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util.base;
 
+import static org.kuali.common.util.base.Exceptions.illegalState;
+
 import java.util.List;
 
 public class Threads {
@@ -51,7 +53,7 @@ public class Threads {
 			try {
 				thread.join();
 			} catch (InterruptedException e) {
-				throw Exceptions.illegalState(e, "unexpected thread interruption [id:%s] [name:%s]", thread.getId(), thread.getName());
+				throw illegalState(e, "unexpected thread interruption [id:%s] [name:%s]", thread.getId(), thread.getName());
 			}
 		}
 	}
