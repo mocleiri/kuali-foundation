@@ -57,7 +57,7 @@ public final class RemoteEnvironmentFunction implements Function<String, RemoteE
 			Map<String, Long> map = Maps.newHashMap();
 			for (String element : tokens) {
 				String key = substringBefore(element, "=");
-				Long value = FormatUtils.getMillis(substringAfter(element, "="));
+				Long value = FormatUtils.getBytes(substringAfter(element, "="));
 				map.put(key, value);
 			}
 			Memory memory = Memory.builder().used(map.get("used")).free(map.get("free")).allocated(map.get("allocated")).max(map.get("max")).build();
