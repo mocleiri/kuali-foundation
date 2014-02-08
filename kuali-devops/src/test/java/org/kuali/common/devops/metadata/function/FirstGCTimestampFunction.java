@@ -3,6 +3,7 @@ package org.kuali.common.devops.metadata.function;
 import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
 import static org.apache.commons.lang.StringUtils.substringBetween;
+import static org.kuali.common.util.base.Exceptions.illegalArg;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
@@ -116,8 +117,7 @@ public final class FirstGCTimestampFunction implements Function<String, Optional
 			Date date = parser.parse(timestamp);
 			return Optional.of(date.getTime());
 		} catch (ParseException e) {
-			// Don't rethrow since the general expectation for Function.apply() is to not have side effects
-			return absent();
+			throw illegalArg(e, "unexpected parse error -> [%s]", timestamp);
 		}
 	}
 
