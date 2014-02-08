@@ -46,6 +46,7 @@ public final class RemoteEnvironmentFunction implements Function<String, RemoteE
 		Properties environment = getProperties("Environment Variable", html);
 		Optional<Long> millis = getCurrentTimeMillis(html);
 		Optional<Integer> processors = getProcessors(html);
+		Optional<Memory> memory = getMemory(html);
 		return RemoteEnvironment.builder().system(system).environment(environment).currentTimeMillis(millis).processors(processors).build();
 	}
 
