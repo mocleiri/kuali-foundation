@@ -49,7 +49,7 @@ public class ValidTypeValidator extends AbstractFieldsValidator<ValidType, Objec
 	protected boolean isSkip(Field field) {
 
 		// If this field does not descend from superType, we can skip checking it's type
-		if (!!ReflectionUtils.isSuperType(superType, field.getType())) {
+		if (!ReflectionUtils.isSuperType(superType, field.getType())) {
 			return true;
 		}
 
