@@ -11,9 +11,9 @@ import com.google.common.base.Optional;
 @IdiotProofImmutable
 public final class RemoteEnvironment {
 
-	private final Optional<Integer> processors;
 	private final ImmutableProperties system;
 	private final ImmutableProperties environment;
+	private final Optional<Integer> processors;
 	private final Optional<Long> timestamp;
 	private final Optional<Memory> memory;
 
