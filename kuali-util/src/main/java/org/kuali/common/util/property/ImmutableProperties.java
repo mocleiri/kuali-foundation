@@ -15,6 +15,9 @@
  */
 package org.kuali.common.util.property;
 
+import static com.google.common.base.Preconditions.checkState;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
+
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.Collection;
@@ -23,16 +26,14 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import org.kuali.common.util.Assert;
-
 public final class ImmutableProperties extends Properties {
 
 	private static final long serialVersionUID = -3964884087103719367L;
 	private static final String UOE_MSG = "Immutable properties cannot be changed";
-	private static final Properties EMPTY = ImmutableProperties.of(new Properties());
+	private static final Properties EMPTY = ImmutableProperties.copyOf(new Properties());
 
 	public ImmutableProperties(Properties original) {
-		Assert.noNulls(original);
+		checkNotNull(original, "original");
 
 		// Prevent anything from changing original until we are done
 		synchronized (original) {
@@ -41,7 +42,7 @@ public final class ImmutableProperties extends Properties {
 			Set<String> keys = original.stringPropertyNames();
 
 			// If the sizes are different, original contains at least one key or value that is not a string
-			Assert.isTrue(keys.size() == original.size(), "Immutable properties only support strings");
+			checkState(keys.size() == original.size(), "Immutable properties only support strings");
 
 			// Copy every key/value pair from original - can't use putAll() since it calls put() which is now disabled
 			for (String key : keys) {
