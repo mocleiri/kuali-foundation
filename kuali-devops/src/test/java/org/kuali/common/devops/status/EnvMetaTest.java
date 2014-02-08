@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.kuali.common.devops.cache.PersistToFileSystemLoader;
 import org.kuali.common.devops.cache.PersistToFileSystemLoaderFactory;
 import org.kuali.common.devops.metadata.function.FirstGCTimestampFunction;
+import org.kuali.common.devops.metadata.function.RemoteEnvironmentFunction;
 import org.kuali.common.devops.metadata.function.TomcatVersionFunction;
 import org.kuali.common.devops.metadata.model.EnvironmentMetadata;
 import org.kuali.common.devops.metadata.model.MetadataUrl;
@@ -43,6 +44,7 @@ public class EnvMetaTest {
 		Function<String, Optional<String>> v = TomcatVersionFunction.create();
 		builder.tomcatVersion(build(helper, VERSION_SUFFIX, v));
 		builder.tomcatStartupTime(build(helper, HEAP_LOG_SUFFIX, new FirstGCTimestampFunction()));
+		builder.environmentJsp(build(helper, JSP_SUFFIX, new RemoteEnvironmentFunction()));
 		return builder.build();
 	}
 

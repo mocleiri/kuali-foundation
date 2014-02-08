@@ -10,12 +10,12 @@ public final class EnvironmentMetadata {
 
 	private final MetadataUrl<Optional<String>> tomcatVersion;
 	private final MetadataUrl<Optional<Long>> tomcatStartupTime;
-	private final MetadataUrl<RemoteEnvironment> environmentJsp;
+	private final MetadataUrl<RemoteEnvironment> remoteEnvironment;
 
 	private EnvironmentMetadata(Builder builder) {
 		this.tomcatVersion = builder.tomcatVersion;
 		this.tomcatStartupTime = builder.tomcatStartupTime;
-		this.environmentJsp = builder.environmentJsp;
+		this.remoteEnvironment = builder.remoteEnvironment;
 	}
 
 	public static Builder builder() {
@@ -26,10 +26,10 @@ public final class EnvironmentMetadata {
 
 		private MetadataUrl<Optional<String>> tomcatVersion;
 		private MetadataUrl<Optional<Long>> tomcatStartupTime;
-		private MetadataUrl<RemoteEnvironment> environmentJsp;
+		private MetadataUrl<RemoteEnvironment> remoteEnvironment;
 
-		public Builder environmentJsp(MetadataUrl<RemoteEnvironment> environmentJsp) {
-			this.environmentJsp = environmentJsp;
+		public Builder remoteEnvironment(MetadataUrl<RemoteEnvironment> remoteEnvironment) {
+			this.remoteEnvironment = remoteEnvironment;
 			return this;
 		}
 
@@ -57,7 +57,7 @@ public final class EnvironmentMetadata {
 		return tomcatStartupTime;
 	}
 
-	public MetadataUrl<RemoteEnvironment> getEnvironmentJsp() {
-		return environmentJsp;
+	public MetadataUrl<RemoteEnvironment> getRemoteEnvironment() {
+		return remoteEnvironment;
 	}
 }
