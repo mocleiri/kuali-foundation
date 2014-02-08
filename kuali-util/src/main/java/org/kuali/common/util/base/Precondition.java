@@ -36,7 +36,7 @@ public class Precondition {
 	 * @throws NullPointerException
 	 *             If arg is null. The exception message contains the name of the argument that was null
 	 * @throws IllegalArgumentException
-	 *             If argName is pure whitespace, empty ("") or null
+	 *             If argName is blank
 	 */
 	public static <T> T checkNotNull(T arg, String argName) {
 		checkNotBlank(argName, "argName");
@@ -56,7 +56,7 @@ public class Precondition {
 	 * @throws IllegalArgumentException
 	 *             If arg is blank. The exception message contains the name of the argument that was blank
 	 * @throws IllegalArgumentException
-	 *             If argName is pure whitespace, empty ("") or null
+	 *             If argName is blank
 	 */
 	public static String checkNotBlank(String arg, String argName) {
 		checkNotBlank(argName, "argName");
