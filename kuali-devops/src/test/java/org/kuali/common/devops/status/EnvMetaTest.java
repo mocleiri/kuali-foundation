@@ -11,6 +11,7 @@ import org.kuali.common.devops.cache.PersistToFileSystemLoaderFactory;
 import org.kuali.common.devops.metadata.function.FirstGCTimestampFunction;
 import org.kuali.common.devops.metadata.function.ManifestFunction;
 import org.kuali.common.devops.metadata.function.ProjectPropertiesUrlFragmentFunction;
+import org.kuali.common.devops.metadata.function.PropertiesFunction;
 import org.kuali.common.devops.metadata.function.RemoteEnvironmentFunction;
 import org.kuali.common.devops.metadata.function.TomcatVersionFunction;
 import org.kuali.common.devops.metadata.model.EnvironmentMetadata;
@@ -57,7 +58,7 @@ public class EnvMetaTest {
 			Function<Properties, Optional<String>> function = new ProjectPropertiesUrlFragmentFunction();
 			Optional<String> suffix = function.apply(manifest.get());
 			if (suffix.isPresent()) {
-				
+				builder.project(build(helper, suffix.get(), new PropertiesFunction()));
 			}
 		}
 		return null;
