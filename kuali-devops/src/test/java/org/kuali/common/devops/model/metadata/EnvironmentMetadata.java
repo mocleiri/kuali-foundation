@@ -14,6 +14,10 @@ public final class EnvironmentMetadata {
 		this.tomcatStartupTime = builder.tomcatStartupTime;
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder extends ValidatingBuilder<EnvironmentMetadata> {
 
 		private MetadataUrl<String> tomcatVersion;

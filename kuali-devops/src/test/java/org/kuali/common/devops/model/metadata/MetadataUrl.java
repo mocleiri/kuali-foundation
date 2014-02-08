@@ -21,12 +21,6 @@ public final class MetadataUrl<T> {
 		this.metadata = builder.metadata;
 	}
 
-	public static <T> MetadataUrl<T> create(String url, Optional<String> content, Function<String, Optional<T>> converter) {
-		Builder<T> builder = builder();
-		Optional<T> metadata = content.isPresent() ? converter.apply(content.get()) : Optional.<T> absent();
-		return builder.url(url).content(content).converter(converter).metadata(metadata).build();
-	}
-
 	public static <T> Builder<T> builder() {
 		return new Builder<T>();
 	}

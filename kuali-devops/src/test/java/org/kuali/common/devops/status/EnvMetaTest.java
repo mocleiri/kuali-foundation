@@ -1,5 +1,8 @@
 package org.kuali.common.devops.status;
 
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
+
 import org.junit.Test;
 import org.kuali.common.devops.cache.PersistToFileSystemLoader;
 import org.kuali.common.devops.cache.PersistToFileSystemLoaderFactory;
@@ -27,31 +30,59 @@ public class EnvMetaTest {
 
 	@Test
 	public void test() {
-		LoadingCache<String, Optional<String>> httpContentCache = getCache();
+		LoadingCache<String, Optional<String>> httpContentCache = getFastFileSystemCacher();
 		String fqdn = "env1.rice.kuali.org";
 		EnvironmentMetadata meta = build(fqdn, httpContentCache);
 	}
 
 	protected static EnvironmentMetadata build(String fqdn, LoadingCache<String, Optional<String>> httpContentCache) {
-		EnvironmentMetadata.Builder builder = new EnvironmentMetadata.Builder();
-		TomcatVersionFunction tomcatVersion = new TomcatVersionFunction();
-		String versionUrl = PREFIX + fqdn + VERSION_SUFFIX;
-		builder.tomcatVersion(create(versionUrl, httpContentCache, tomcatVersion));
 
-		FirstGCTimestampFunction firstGCTimetamp = new FirstGCTimestampFunction();
-		String heapLog = PREFIX + fqdn + HEAP_LOG_SUFFIX;
-		builder.tomcatStartupTime(create(heapLog, httpContentCache, firstGCTimetamp));
+		MetadataUrlHelper helper = new MetadataUrlHelper(PREFIX, fqdn, httpContentCache);
+
+		EnvironmentMetadata.Builder builder = EnvironmentMetadata.builder();
+		builder.tomcatVersion(build(helper, VERSION_SUFFIX, TomcatVersionFunction.create()));
+		builder.tomcatStartupTime(build(helper, HEAP_LOG_SUFFIX, new FirstGCTimestampFunction()));
 		return builder.build();
 	}
 
-	protected static <T> MetadataUrl<T> create(String url, LoadingCache<String, Optional<String>> httpContentCache, Function<String, Optional<T>> converter) {
-		return MetadataUrl.create(url, httpContentCache.getUnchecked(url), converter);
+	public static <T> MetadataUrl<T> build(MetadataUrlHelper helper, Function<String, Optional<T>> converter) {
+		return build(helper, Optional.<String> absent(), converter);
 	}
 
-	protected static LoadingCache<String, Optional<String>> getCache() {
+	public static <T> MetadataUrl<T> build(MetadataUrlHelper helper, String suffix, Function<String, Optional<T>> converter) {
+		return build(helper, Optional.of(suffix), converter);
+	}
+
+	public static <T> MetadataUrl<T> build(MetadataUrlHelper helper, Optional<String> suffix, Function<String, Optional<T>> converter) {
+		checkNotNull(helper, "helper");
+		checkNotBlank(suffix, "suffix");
+		checkNotNull(converter, "converter");
+		String url = helper.prefix + helper.fqdn + suffix;
+		Optional<String> content = helper.httpContentCache.getUnchecked(url);
+		Optional<T> metadata = content.isPresent() ? converter.apply(content.get()) : Optional.<T> absent();
+		MetadataUrl.Builder<T> builder = MetadataUrl.builder();
+		return builder.url(url).content(content).converter(converter).metadata(metadata).build();
+	}
+
+	/**
+	 * Grabs the first 25k in content from a url and stashes it onto the local file system. Times out after 5 seconds, no re-tries.
+	 */
+	protected LoadingCache<String, Optional<String>> getFastFileSystemCacher() {
 		HttpContext context = HttpContext.builder().quiet(true).asynchronousClose(true).maxBytes("25k").maxRetries(0).overallTimeout("5s").build();
 		PersistToFileSystemLoader<String, String> loader = PersistToFileSystemLoaderFactory.createHttpUrlCacher(context);
 		return CacheBuilder.newBuilder().build(loader);
 	}
 
+	private static class MetadataUrlHelper {
+
+		private final String prefix;
+		private final String fqdn;
+		private final LoadingCache<String, Optional<String>> httpContentCache;
+
+		public MetadataUrlHelper(String prefix, String fqdn, LoadingCache<String, Optional<String>> httpContentCache) {
+			this.prefix = checkNotBlank(fqdn, "prefix");
+			this.fqdn = checkNotBlank(fqdn, "fqdn");
+			this.httpContentCache = checkNotNull(httpContentCache, "httpContentCache");
+		}
+	}
 }

@@ -27,6 +27,14 @@ public final class TomcatVersionFunction implements Function<String, Optional<St
 		this.close = builder.close;
 	}
 
+	public static TomcatVersionFunction create() {
+		return builder().build();
+	}
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder extends ValidatingBuilder<TomcatVersionFunction> {
 
 		private String open = "<h3>Apache Tomcat/";
