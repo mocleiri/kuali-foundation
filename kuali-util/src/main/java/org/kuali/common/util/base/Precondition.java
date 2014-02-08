@@ -54,9 +54,12 @@ public class Precondition {
 	 * @return the non-blank String that was validated
 	 * 
 	 * @throws IllegalArgumentException
-	 *             If arg is blank. The exception message contains the name of the argument that was null
+	 *             If arg is blank. The exception message contains the name of the argument that was blank
+	 * @throws IllegalArgumentException
+	 *             If argName is pure whitespace, empty ("") or null
 	 */
 	public static String checkNotBlank(String arg, String argName) {
+		checkNotBlank(argName, "argName");
 		checkArgument(!isBlank(arg), NOT_BLANK_MSG, argName);
 		return arg;
 	}
@@ -66,7 +69,7 @@ public class Precondition {
 	 */
 	public static Optional<String> checkNotBlank(Optional<String> arg, String argName) {
 		if (arg.isPresent()) {
-			checkArgument(!isBlank(arg.get()), argName);
+			checkNotBlank(arg.get(), argName);
 		}
 		return arg;
 	}
@@ -95,6 +98,7 @@ public class Precondition {
 	 * Check that arg is greater than or equal to min.
 	 */
 	public static int checkMin(int arg, int min, String argName) {
+		checkNotBlank(argName, "argName");
 		checkArgument(arg >= min, MIN_MSG, arg, min, argName);
 		return arg;
 	}
@@ -103,6 +107,7 @@ public class Precondition {
 	 * Check that arg is greater than or equal to min.
 	 */
 	public static long checkMin(long arg, long min, String argName) {
+		checkNotBlank(argName, "argName");
 		checkArgument(arg >= min, MIN_MSG, arg, min, argName);
 		return arg;
 	}
