@@ -25,6 +25,10 @@ public final class RemoteEnvironment {
 		this.memory = builder.memory;
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder extends ValidatingBuilder<RemoteEnvironment> {
 
 		private Optional<Integer> processors;

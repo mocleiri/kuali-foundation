@@ -1,6 +1,5 @@
 package org.kuali.common.devops.metadata.function;
 
-import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
 import static org.apache.commons.lang.StringUtils.substringBetween;
 import static org.apache.commons.lang.StringUtils.substringsBetween;
@@ -21,17 +20,19 @@ public final class RemoteEnvironmentFunction implements Function<String, Optiona
 	@Override
 	public Optional<RemoteEnvironment> apply(String content) {
 		checkNotNull(content, "content");
-		return null;
+		Properties system = getPropertiesFromHtml("System Property", content);
+		Properties environment = getPropertiesFromHtml("Environment Variable", content);
+		return Optional.of(RemoteEnvironment.builder().system(system).environment(environment).build());
 	}
 
-	public static Optional<Properties> getPropertiesFromHtml(String title, String html) {
+	protected Properties getPropertiesFromHtml(String title, String html) {
 		Optional<String> content = fromNullable(substringBetween(html, "<th>" + title + "</th>", "</table>"));
 		if (!content.isPresent()) {
-			return absent();
+			return ImmutableProperties.of();
 		}
 		Optional<String[]> rows = fromNullable(substringsBetween(content.get(), "<tr>", "</tr>"));
 		if (!rows.isPresent()) {
-			return absent();
+			return ImmutableProperties.of();
 		}
 		Properties properties = new Properties();
 		for (String row : rows.get()) {
@@ -43,6 +44,6 @@ public final class RemoteEnvironmentFunction implements Function<String, Optiona
 				properties.setProperty(key, value);
 			}
 		}
-		return Optional.<Properties> of(ImmutableProperties.copyOf(properties));
+		return ImmutableProperties.copyOf(properties);
 	}
 }
