@@ -30,7 +30,7 @@ public class Threads {
 		try {
 			Thread.sleep(millis);
 		} catch (InterruptedException e) {
-			throw Exceptions.illegalState(e);
+			throw illegalState(e);
 		}
 	}
 
