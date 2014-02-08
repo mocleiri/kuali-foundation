@@ -11,10 +11,13 @@ public final class Memory {
 
 	@Min(0)
 	private final long used;
+	
 	@Min(0)
 	private final long free;
+	
 	@Min(0)
 	private final long allocated;
+	
 	@Min(0)
 	private final long max;
 
