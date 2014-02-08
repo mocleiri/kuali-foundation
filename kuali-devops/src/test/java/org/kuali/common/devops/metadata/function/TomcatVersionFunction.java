@@ -1,4 +1,4 @@
-package org.kuali.common.devops.logic.function;
+package org.kuali.common.devops.metadata.function;
 
 import static com.google.common.base.Optional.fromNullable;
 import static org.apache.commons.lang.StringUtils.substringBetween;

@@ -1,4 +1,4 @@
-package org.kuali.common.devops.logic.function;
+package org.kuali.common.devops.metadata.function;
 
 import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
