@@ -6,7 +6,7 @@ import static org.apache.commons.lang.StringUtils.substringAfter;
 import static org.apache.commons.lang.StringUtils.substringBefore;
 import static org.apache.commons.lang.StringUtils.substringBetween;
 import static org.apache.commons.lang.StringUtils.substringsBetween;
-import static org.kuali.common.util.base.Exceptions.illegalArg;
+import static org.kuali.common.util.base.Exceptions.illegalArgument;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
@@ -87,7 +87,7 @@ public final class RemoteEnvironmentFunction implements Function<String, RemoteE
 			Date date = parser.parse(token);
 			return Optional.of(date.getTime());
 		} catch (ParseException e) {
-			throw illegalArg(e, "unexpected parse error -> [%s]", token);
+			throw illegalArgument(e, "unexpected parse error -> [%s]", token);
 		}
 	}
 
