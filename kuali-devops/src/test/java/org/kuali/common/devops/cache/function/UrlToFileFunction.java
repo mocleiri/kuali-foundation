@@ -19,6 +19,7 @@ public final class UrlToFileFunction implements Function<String, File> {
 	private final File basedir;
 	private final ImmutableList<String> removeTokens;
 	private final ImmutableList<String> replaceTokens;
+	private final String magicSuffix;
 
 	@Override
 	public File apply(String url) {
@@ -33,22 +34,23 @@ public final class UrlToFileFunction implements Function<String, File> {
 
 		// For each token in the remove list, replace it with empty ("")
 		for (String removeToken : removeTokens) {
-			path.replace(removeToken, "");
+			path = path.replace(removeToken, "");
 		}
 
 		// For each token in the replace list, replace it with the file separator
 		for (String replaceToken : replaceTokens) {
-			path.replace(replaceToken, File.separator);
+			path = path.replace(replaceToken, File.separator);
 		}
 
 		// Return what we've got
-		return path;
+		return path + magicSuffix;
 	}
 
 	private UrlToFileFunction(Builder builder) {
 		this.basedir = builder.basedir;
 		this.removeTokens = ImmutableList.copyOf(builder.removeTokens);
 		this.replaceTokens = ImmutableList.copyOf(builder.replaceTokens);
+		this.magicSuffix = builder.magicSuffix;
 	}
 
 	public static UrlToFileFunction create(File basedir) {
@@ -69,6 +71,12 @@ public final class UrlToFileFunction implements Function<String, File> {
 		private List<String> removeTokens = ImmutableList.of();
 		// This translates both http://foo.com and classpath:foo.txt correctly
 		private List<String> replaceTokens = ImmutableList.of(":", "///", "?", "#", "=");
+		private String magicSuffix = ".cached.url";
+
+		public Builder magicSuffix(String magicSuffix) {
+			this.magicSuffix = magicSuffix;
+			return this;
+		}
 
 		public Builder basedir(File basedir) {
 			this.basedir = basedir;
@@ -126,6 +134,10 @@ public final class UrlToFileFunction implements Function<String, File> {
 
 	public List<String> getReplaceTokens() {
 		return replaceTokens;
+	}
+
+	public String getMagicSuffix() {
+		return magicSuffix;
 	}
 
 }
