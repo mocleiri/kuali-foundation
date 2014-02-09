@@ -55,19 +55,11 @@ public class Passwords {
 	}
 
 	protected static Optional<String> getSystemPassword() {
-		if (System.getProperty(SYS_KEY) != null) {
-			return Optional.of(System.getProperty(SYS_KEY).trim());
-		} else {
-			return absent();
-		}
+		return fromNullable(System.getProperty(SYS_KEY));
 	}
 
 	protected static Optional<String> getEnvPassword() {
-		if (System.getenv(ENV_KEY) != null) {
-			return Optional.of(System.getenv(ENV_KEY).trim());
-		} else {
-			return absent();
-		}
+		return fromNullable(System.getenv(ENV_KEY));
 	}
 
 	protected static File getSettingsXmlFile() {
