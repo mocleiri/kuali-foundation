@@ -57,4 +57,11 @@ public class DefaultHttpServiceTest {
 		HttpWaitResult result = service.wait(context);
 		Assert.assertEquals(HttpStatus.SUCCESS, result.getStatus());
 	}
+
+	@Test
+	public void testEnv20() {
+		HttpContext context = HttpContext.builder("http://ec2-23-22-42-91.compute-1.amazonaws.com").overallTimeout("5s").requestTimeout("5s").sleepInterval("1s").build();
+		HttpWaitResult result = service.wait(context);
+		Assert.assertEquals(HttpStatus.SUCCESS, result.getStatus());
+	}
 }
