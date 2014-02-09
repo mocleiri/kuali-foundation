@@ -32,9 +32,7 @@ public class EnvironmentsTest {
 			SortedMap<String, List<Environment>> maps = Environments2.getEnvironments(false);
 			for (String group : maps.keySet()) {
 				List<Environment> envs = maps.get(group);
-				System.out.println(envs.size());
 				Table<Integer, Label, String> table = Environments.getTable(envs);
-				System.out.println(table.size());
 				String html = "<center>" + Html.html(table) + "</center>";
 				File outputFile = new CanonicalFile(HTML_DIR, group + ".htm");
 				FileUtils.write(outputFile, html);

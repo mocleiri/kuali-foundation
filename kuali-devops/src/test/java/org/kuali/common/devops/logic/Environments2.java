@@ -23,7 +23,6 @@ import org.kuali.common.devops.model.Database;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.model.Scm;
 import org.kuali.common.devops.model.Tomcat;
-import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.Loggers;
@@ -32,7 +31,6 @@ import org.kuali.common.util.project.model.Project;
 import org.slf4j.Logger;
 
 import com.google.common.base.Optional;
-import com.google.common.base.Stopwatch;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -102,24 +100,6 @@ public class Environments2 {
 		return Optional.of(Application.create(p, manifest, config, database, scm));
 	}
 
-	protected static Properties convert(Environment env) {
-		Properties props = new Properties();
-		props.setProperty("env.name", env.getName());
-		props.setProperty("env.fqdn", env.getFqdn());
-		if (env.getJava().isPresent()) {
-			props.setProperty("java.version", env.getJava().get());
-		}
-		if (env.getTomcat().isPresent()) {
-			Tomcat tomcat = env.getTomcat().get();
-			Optional<Long> startupTime = tomcat.getStartupTime();
-			props.setProperty("tomcat.version", tomcat.getVersion());
-			if (startupTime.isPresent()) {
-				props.setProperty("tomcat.startupTime", startupTime.get() + "");
-			}
-		}
-		return props;
-	}
-
 	public static SortedMap<String, List<Environment.Builder>> getBuilders(boolean refresh) {
 		long start = System.currentTimeMillis();
 		BiMap<String, String> cnames = DNS.getCanonicalMap(refresh);
@@ -139,16 +119,12 @@ public class Environments2 {
 	}
 
 	protected static void fillIn(String group, List<Environment.Builder> builders, EnvironmentMetadataService service, boolean refresh) {
-		Stopwatch total = Stopwatch.createStarted();
 		for (Environment.Builder builder : builders) {
-			Stopwatch sw = Stopwatch.createStarted();
 			EnvironmentMetadata metadata = service.getMetadata(builder.getFqdn());
 			builder.tomcat(getTomcat(metadata));
 			builder.java(getJava(metadata));
 			builder.application(getApplication(metadata));
-			logger.info(format("filled in -> [%s::%s::%s] - %s", group, builder.getName(), builder.getFqdn(), FormatUtils.getTime(sw)));
 		}
-		logger.info(format("total -> %s", FormatUtils.getTime(total)));
 	}
 
 	protected static Optional<Application> getApplication(EnvironmentMetadata meta) {
@@ -156,11 +132,9 @@ public class Environments2 {
 		Properties config = getMetadata(meta.getConfig(), new Properties());
 
 		Optional<Project> optional = getMetadata(meta.getProject());
-
 		if (!optional.isPresent()) {
 			return Optional.<Application> absent();
 		}
-
 		Project parsedProject = optional.get();
 		Project project = Projects.getProjectWithAccurateSCMInfo(parsedProject, manifest);
 
