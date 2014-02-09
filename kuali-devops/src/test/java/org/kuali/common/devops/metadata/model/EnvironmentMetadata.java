@@ -16,6 +16,7 @@ public final class EnvironmentMetadata {
 	private final MetadataUrl<RemoteEnvironment> remoteEnvironment;
 	private final MetadataUrl<Properties> manifest;
 	private final MetadataUrl<Project> project;
+	private final MetadataUrl<Properties> config;
 
 	private EnvironmentMetadata(Builder builder) {
 		this.tomcatVersion = builder.tomcatVersion;
@@ -23,6 +24,7 @@ public final class EnvironmentMetadata {
 		this.remoteEnvironment = builder.remoteEnvironment;
 		this.manifest = builder.manifest;
 		this.project = builder.project;
+		this.config = builder.config;
 	}
 
 	public static Builder builder() {
@@ -36,6 +38,12 @@ public final class EnvironmentMetadata {
 		private MetadataUrl<RemoteEnvironment> remoteEnvironment;
 		private MetadataUrl<Properties> manifest;
 		private MetadataUrl<Project> project;
+		private MetadataUrl<Properties> config;
+
+		public Builder config(MetadataUrl<Properties> config) {
+			this.config = config;
+			return this;
+		}
 
 		public Builder project(MetadataUrl<Project> project) {
 			this.project = project;
@@ -126,5 +134,9 @@ public final class EnvironmentMetadata {
 
 	public MetadataUrl<Project> getProject() {
 		return project;
+	}
+
+	public MetadataUrl<Properties> getConfig() {
+		return config;
 	}
 }
