@@ -49,8 +49,7 @@ public final class ProjectConfigUrlFragmentFunction implements Function<Project,
 			return absent();
 		}
 		Properties systemProperties = remoteEnvironment.get().getSystem();
-		String key = "environment";
-		Optional<String> value = fromNullable(systemProperties.getProperty(key));
+		Optional<String> value = fromNullable(systemProperties.getProperty( "environment"));
 		if (!value.isPresent() || isBlank(value.get().trim())) {
 			return absent();
 		} else {
