@@ -132,7 +132,6 @@ public class Environments2 {
 			List<Environment.Builder> builders = getBuilders(group, servers, cnames);
 			fillIn(group, builders, service, refresh);
 			count += builders.size();
-			System.out.println(builders.size());
 			map.put(group, builders);
 		}
 		logger.info(format("located information on %s environments - %s", count, getTime(currentTimeMillis() - start)));
