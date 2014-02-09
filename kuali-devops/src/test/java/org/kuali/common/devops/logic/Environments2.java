@@ -16,6 +16,7 @@ import org.kuali.common.devops.metadata.logic.DefaultEnvironmentMetadataService;
 import org.kuali.common.devops.metadata.logic.EnvironmentMetadataService;
 import org.kuali.common.devops.metadata.model.EC2Instance;
 import org.kuali.common.devops.metadata.model.EnvironmentMetadata;
+import org.kuali.common.devops.metadata.model.MetadataUrl;
 import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.Database;
 import org.kuali.common.devops.model.Environment;
@@ -165,19 +166,22 @@ public class Environments2 {
 	}
 
 	protected static Optional<Tomcat> getTomcat(EnvironmentMetadata meta) {
-		if (!meta.getTomcatVersion().getMetadata().isPresent()) {
+		MetadataUrl<Optional<String>> url1 = meta.getTomcatVersion();
+		if (!url1.getMetadata().isPresent()) {
 			return Optional.<Tomcat> absent();
 		}
-		Optional<String> optionalVersion = meta.getTomcatVersion().getMetadata().get();
-		if (!optionalVersion.isPresent()) {
+		Optional<String> optional = url1.getMetadata().get();
+		if (!optional.isPresent()) {
 			return Optional.<Tomcat> absent();
 		}
-		String version = optionalVersion.get();
+		String version = optional.get();
 		Tomcat.Builder builder = Tomcat.builder().version(version);
-		if (meta.getTomcatStartupTime().getMetadata().isPresent()) {
-			Optional<Long> optionalStartupTime = meta.getTomcatStartupTime().getMetadata().get();
-			if (optionalStartupTime.isPresent()) {
-				builder.startupTime(optionalStartupTime.get());
+
+		MetadataUrl<Optional<Long>> url2 = meta.getTomcatStartupTime();
+		if (url2.getMetadata().isPresent()) {
+			Optional<Long> value = url2.getMetadata().get();
+			if (value.isPresent()) {
+				builder.startupTime(value.get());
 			}
 		}
 		return Optional.of(builder.build());
@@ -200,7 +204,7 @@ public class Environments2 {
 		if (alias.isPresent()) {
 			return alias.get();
 		} else {
-			logger.warn(format("no cname alias -> [%s::%s::%s]", group, server.getName().get(), server.getId()));
+			logger.warn(format("no cname alias -> [%s::%s::%s::%s]", group, server.getName().get(), server.getId(), server.getPublicDnsName()));
 			return publicDnsName;
 		}
 	}
