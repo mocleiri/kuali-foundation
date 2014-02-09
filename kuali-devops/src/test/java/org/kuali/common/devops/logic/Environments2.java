@@ -60,12 +60,9 @@ public class Environments2 {
 		return new CanonicalFile(groupDir, environment);
 	}
 
-
 	protected static File getEnvironmentCacheFile(String group, String environment) {
 		return new CanonicalFile(getEnvCacheDir(group, environment), "environment.properties");
 	}
-
-
 
 	protected static void fillIn(String group, Environment.Builder builder, File dir) {
 		File cache = getEnvironmentCacheFile(group, builder.getName());
@@ -144,22 +141,34 @@ public class Environments2 {
 			EnvironmentMetadata metadata = service.getMetadata(builder.getFqdn());
 			builder.tomcat(getTomcat(metadata));
 			builder.java(getJava(metadata));
+			builder.application(getApplication(metadata));
 		}
 	}
 
 	protected static Optional<Application> getApplication(EnvironmentMetadata meta) {
 		Optional<Properties> manifest = getMetadata(meta.getManifest());
 		Optional<Properties> config = getMetadata(meta.getConfig());
-		Optional<Project> project = getMetadata(meta.getProject());
 
-		if (!project.isPresent()) {
+		Optional<Project> optional = getMetadata(meta.getProject());
+
+		if (!optional.isPresent()) {
 			return Optional.<Application> absent();
 		}
 
-		Application.Builder builder = Application.builder();
-		builder.setProject(project.get());
+		Project project = optional.get();
 
-		return Optional.<Application> absent();
+		Application.Builder builder = Application.builder();
+		builder.setProject(project);
+		builder.setManifest(manifest.isPresent() ? manifest.get() : new Properties());
+		builder.setConfiguration(config.isPresent() ? config.get() : new Properties());
+
+		Optional<Database> database = Databases.getDatabase(project.getGroupId(), builder.getConfiguration());
+		Optional<Scm> scm = Applications.getScm(project.getProperties());
+
+		builder.setDatabase(database);
+		builder.setScm(scm);
+
+		return Optional.of(builder.build());
 	}
 
 	protected static Optional<String> getJava(EnvironmentMetadata meta) {
