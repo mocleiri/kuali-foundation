@@ -15,11 +15,12 @@
  */
 package org.kuali.common.http.model;
 
-import static com.google.common.base.Optional.fromNullable;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.kuali.common.util.base.Precondition.checkMin;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.io.IOException;
-
-import org.kuali.common.util.Assert;
 
 import com.google.common.base.Optional;
 
@@ -57,8 +58,12 @@ public final class HttpRequestResult {
 		return elapsed;
 	}
 
-	public static Builder builder(String statusText, long start) {
-		return new Builder(statusText,start):
+	public static Builder builder(String statusText, int statusCode, Optional<String> responseBody, long start) {
+		return new Builder(statusText, statusCode, responseBody, start);
+	}
+
+	public static Builder builder(IOException exception, long start) {
+		return new Builder(exception, start);
 	}
 
 	public static class Builder {
@@ -77,7 +82,7 @@ public final class HttpRequestResult {
 
 		public Builder(IOException exception, long start) {
 			this.exception = Optional.of(exception);
-			this.statusText = getStatusText(exception);
+			this.statusText = isBlank(exception.getMessage()) ? "n/a" : exception.getMessage();
 			this.start = start;
 		}
 
@@ -89,25 +94,21 @@ public final class HttpRequestResult {
 		}
 
 		public HttpRequestResult build() {
-			Precondition.checkNot
-			Assert.noNulls(statusCode, exception, responseBody);
-			Assert.noBlanks(statusText);
-			Assert.isTrue(start > 0, "start is negative");
-			if (statusCode.isPresent()) {
-				Assert.isTrue(statusCode.get() > 0, "status code must be a positive integer");
-			}
 			this.stop = System.currentTimeMillis();
 			this.elapsed = stop - start;
-			return new HttpRequestResult(this);
+			HttpRequestResult instance = new HttpRequestResult(this);
+			validate(instance);
+			return instance;
 		}
 
-		protected static String getStatusText(IOException exception) {
-			String name = exception.getClass().getName();
-			int pos = name.lastIndexOf(".");
-			if (pos != -1) {
-				name = name.substring(pos + 1);
-			}
-			return name + ": " + exception.getMessage();
+		private static void validate(HttpRequestResult instance) {
+			checkNotNull(instance.statusCode, "statusCode");
+			checkNotNull(instance.exception, "exception");
+			checkNotNull(instance.responseBody, "responseBody");
+			checkNotBlank(instance.statusText, "statusText");
+			checkMin(instance.statusCode, 0, "statusCode");
+			checkMin(instance.stop, instance.start, "stop");
+			checkMin(instance.elapsed, 0, "elapsed");
 		}
 
 	}
