@@ -31,7 +31,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
 
-public class EnvironmentMetadataService {
+public class DefaultEnvironmentMetadataService {
 
 	private static final Logger logger = LoggerUtils.make();
 	private static final String PREFIX = "http://";
