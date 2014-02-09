@@ -73,18 +73,29 @@ public class DefaultEnvironmentMetadataService implements EnvironmentMetadataSer
 				builder.project(build(helper, suffix.get(), new ProjectFunction()));
 			}
 		} else {
-			builder.project(Optional.<MetadataUrl<Project>> absent());
+			builder.projectIsAbsent();
 		}
 	}
 
 	protected void addConfig(MetadataUrlHelper helper, EnvironmentMetadata.Builder builder) {
-		Optional<Project> project = builder.getProject().getMetadata();
+		Optional<MetadataUrl<Project>> optionalProjectUrl = builder.getProject();
+		if (!optionalProjectUrl.isPresent()) {
+			builder.configIsAbsent();
+			return;
+		}
+		Optional<Project> optionalProject = optionalProjectUrl.get().getMetadata();
+		if (!optionalProject.isPresent()) {
+			builder.configIsAbsent();
+			return;
+		}
 		Optional<RemoteEnvironment> env = builder.getRemoteEnvironment().getMetadata();
-		if (project.isPresent()) {
+		if (optionalProject.isPresent()) {
 			Function<Project, Optional<String>> function = new ProjectConfigUrlFragmentFunction(env);
-			Optional<String> suffix = function.apply(project.get());
+			Optional<String> suffix = function.apply(optionalProject.get());
 			if (suffix.isPresent()) {
 				builder.config(build(helper, suffix.get(), new RicePropertiesFunction()));
+			} else {
+				builder.configIsAbsent();
 			}
 		}
 	}

@@ -42,6 +42,10 @@ public final class EnvironmentMetadata {
 		private Optional<MetadataUrl<Project>> project;
 		private Optional<MetadataUrl<Properties>> config;
 
+		public Builder configIsAbsent() {
+			return config(Optional.<MetadataUrl<Properties>> absent());
+		}
+
 		public Builder config(Optional<MetadataUrl<Properties>> config) {
 			this.config = config;
 			return this;
@@ -49,6 +53,10 @@ public final class EnvironmentMetadata {
 
 		public Builder config(MetadataUrl<Properties> config) {
 			return config(Optional.of(config));
+		}
+
+		public Builder projectIsAbsent() {
+			return project(Optional.<MetadataUrl<Project>> absent());
 		}
 
 		public Builder project(Optional<MetadataUrl<Project>> project) {
