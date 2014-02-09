@@ -1,4 +1,4 @@
-package org.kuali.common.devops.status;
+package org.kuali.common.devops.metadata.logic;
 
 import static java.lang.String.format;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
