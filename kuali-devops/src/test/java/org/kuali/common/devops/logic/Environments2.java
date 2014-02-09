@@ -23,6 +23,7 @@ import org.kuali.common.devops.model.Database;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.model.Scm;
 import org.kuali.common.devops.model.Tomcat;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.Loggers;
@@ -31,6 +32,7 @@ import org.kuali.common.util.project.model.Project;
 import org.slf4j.Logger;
 
 import com.google.common.base.Optional;
+import com.google.common.base.Stopwatch;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -137,12 +139,16 @@ public class Environments2 {
 	}
 
 	protected static void fillIn(String group, List<Environment.Builder> builders, EnvironmentMetadataService service, boolean refresh) {
+		Stopwatch total = Stopwatch.createStarted();
 		for (Environment.Builder builder : builders) {
+			Stopwatch sw = Stopwatch.createStarted();
 			EnvironmentMetadata metadata = service.getMetadata(builder.getFqdn());
 			builder.tomcat(getTomcat(metadata));
 			builder.java(getJava(metadata));
 			builder.application(getApplication(metadata));
+			logger.info(format("filled in -> [%s::%s::%s] - %s", group, builder.getName(), builder.getFqdn(), FormatUtils.getTime(sw)));
 		}
+		logger.info(format("total -> %s", FormatUtils.getTime(total)));
 	}
 
 	protected static Optional<Application> getApplication(EnvironmentMetadata meta) {
