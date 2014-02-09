@@ -32,7 +32,7 @@ public class DNS {
 
 	private static final Logger logger = LoggerUtils.make();
 	private static final String DOMAIN = "kuali.org";
-	private static final File CACHE = new CanonicalFile("./target/dns/cache.properties");
+	private static final File CACHE = new CanonicalFile("./target/cache/dns/cache.properties");
 
 	/**
 	 * Return a mapping of aliases to canonical name records. There can be multiple aliases pointing to the same canonical name record.
