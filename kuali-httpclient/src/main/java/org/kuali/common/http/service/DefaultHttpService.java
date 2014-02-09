@@ -183,9 +183,9 @@ public class DefaultHttpService implements HttpService {
 			Optional<String> responseBody = getResponseBodyAsString(response, context);
 			int statusCode = response.getStatusLine().getStatusCode();
 			String statusText = response.getStatusLine().getReasonPhrase();
-			return new HttpRequestResult.Builder(statusText, statusCode, responseBody, start).build();
+			return HttpRequestResult.builder(statusText, statusCode, responseBody, start).build();
 		} catch (IOException e) {
-			return new HttpRequestResult.Builder(e, start).build();
+			return HttpRequestResult.builder(e, start).build();
 		}
 	}
 
