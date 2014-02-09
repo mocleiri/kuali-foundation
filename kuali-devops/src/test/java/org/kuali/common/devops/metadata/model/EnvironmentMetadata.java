@@ -15,8 +15,8 @@ public final class EnvironmentMetadata {
 	private final MetadataUrl<Optional<Long>> tomcatStartupTime;
 	private final MetadataUrl<RemoteEnvironment> remoteEnvironment;
 	private final MetadataUrl<Properties> manifest;
-	// These 2 are optional as they are derived from information contained in previous urls
-	// If those previous URL's cannot be contacted, we have no way to calculate the metadata url for the project or the project's configuration
+	// These 2 are optional as they are derived from information contained in previous url's
+	// If those previous URL's cannot be contacted, we have no way to figure out what these url's should be
 	private final Optional<MetadataUrl<Project>> project;
 	private final Optional<MetadataUrl<Properties>> config;
 
