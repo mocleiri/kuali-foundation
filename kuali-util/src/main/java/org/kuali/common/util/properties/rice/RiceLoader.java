@@ -1,6 +1,7 @@
 package org.kuali.common.util.properties.rice;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.kuali.common.util.base.Exceptions.illegalState;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,19 +25,23 @@ import org.xml.sax.XMLReader;
 public class RiceLoader {
 
 	public static Properties load(File file) {
-		checkNotNull(file, "'file' cannot be null");
+		checkNotNull(file, "file");
 		return load(file.getAbsolutePath());
 	}
 
 	public static Properties load(String location) {
-		checkNotNull(location, "'location' cannot be null");
+		checkNotNull(location, "location");
 		Config config = getConfig(location);
 		return convert(config);
 	}
 
+	public static Properties load(InputStream in) throws IOException {
+		return convert(getConfig(in));
+	}
+
 	protected static Properties convert(Config config) {
-		checkNotNull(config, "'config' cannot be null");
-		checkNotNull(config.getParams(), "'params' cannot be null");
+		checkNotNull(config, "config");
+		checkNotNull(config.getParams(), "config.params");
 		Properties properties = new Properties();
 		for (Param param : config.getParams()) {
 			String key = param.getName();
@@ -50,12 +55,16 @@ public class RiceLoader {
 		InputStream in = null;
 		try {
 			in = LocationUtils.getInputStream(location);
-			return unmarshal(Config.class, in);
+			return getConfig(in);
 		} catch (IOException e) {
-			throw new IllegalStateException(String.format("unexpected io error -> [%s]", location));
+			throw illegalState(e, "unexpected io error -> [%s]", location);
 		} finally {
 			IOUtils.closeQuietly(in);
 		}
+	}
+
+	protected static Config getConfig(InputStream in) throws IOException {
+		return unmarshal(Config.class, in);
 	}
 
 	@SuppressWarnings("unchecked")
