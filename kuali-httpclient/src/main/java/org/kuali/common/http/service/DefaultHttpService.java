@@ -66,7 +66,7 @@ public class DefaultHttpService implements HttpService {
 
 	protected HttpWaitResult getWaitResult(HttpContext context) {
 		logger.debug(context.getUrl());
-		HttpClient client = getHttpClient(context);
+		CloseableHttpClient client = getHttpClient(context);
 		long start = System.currentTimeMillis();
 		long end = start + context.getOverallTimeoutMillis();
 		List<HttpRequestResult> requestResults = Lists.newArrayList();
