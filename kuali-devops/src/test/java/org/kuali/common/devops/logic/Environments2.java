@@ -204,7 +204,7 @@ public class Environments2 {
 		if (alias.isPresent()) {
 			return alias.get();
 		} else {
-			logger.warn(format("no cname alias -> [%s::%s::%s::%s]", group, server.getName().get(), server.getId(), server.getPublicDnsName()));
+			logger.warn(format("no cname alias -> [%s::%s::%s::%s]", group, server.getName().get(), server.getId(), server.getPublicDnsName().get()));
 			return publicDnsName;
 		}
 	}
