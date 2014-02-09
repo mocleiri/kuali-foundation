@@ -4,6 +4,7 @@ import static org.apache.commons.io.FileUtils.forceDelete;
 import static org.apache.commons.io.FileUtils.openOutputStream;
 import static org.apache.commons.io.IOUtils.closeQuietly;
 import static org.apache.commons.io.IOUtils.copyLarge;
+import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.io.File;
@@ -16,23 +17,31 @@ import com.google.common.base.Optional;
 
 public final class FilePersister<K, V> implements CachePersister<K, Optional<V>> {
 
-	public FilePersister(Function<K, File> file, Function<V, InputStream> in) {
-		this.file = checkNotNull(file, "file");
-		this.in = checkNotNull(in, "in");
+	public FilePersister(Function<K, File> fileFunction, Function<V, InputStream> inputStreamFunction) {
+		this.fileFunction = checkNotNull(fileFunction, "fileFunction");
+		this.inputStreamFunction = checkNotNull(inputStreamFunction, "inputStreamFunction");
 	}
 
-	private final Function<K, File> file;
-	private final Function<V, InputStream> in;
+	private final Function<K, File> fileFunction;
+	private final Function<V, InputStream> inputStreamFunction;
 
 	@Override
-	public void persist(K key, Optional<V> reference) throws IOException {
+	public void persist(K key, Optional<V> reference) {
 		checkNotNull(key, "key");
 		checkNotNull(reference, "reference");
-		File file = this.file.apply(key);
-		if (reference.isPresent()) {
-			copy(file, reference, in);
-		} else {
-			forceDeleteIfExists(file);
+		File file = this.fileFunction.apply(key);
+		syncFileSystem(reference, file);
+	}
+
+	protected void syncFileSystem(Optional<V> reference, File file) {
+		try {
+			if (reference.isPresent()) {
+				copy(file, reference, inputStreamFunction);
+			} else {
+				forceDeleteIfExists(file);
+			}
+		} catch (IOException e) {
+			throw illegalState(e, "unexpected io error -> [%s]", file);
 		}
 	}
 
