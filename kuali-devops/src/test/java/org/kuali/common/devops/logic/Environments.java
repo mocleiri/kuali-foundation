@@ -43,11 +43,16 @@ public class Environments extends Examiner {
 		String dest = PROTOCOL + env.getFqdn();
 		String href = href(dest, dest);
 		String java = env.getJava().isPresent() ? env.getJava().get() : "n/a";
+		Optional<Application> app = env.getApplication();
 		Map<Label, String> map = Maps.newHashMap();
 		map.put(EnvironmentTableColumns.NAME.getLabel(), getEnvironmentInteger(env.getName()) + "");
 		map.put(EnvironmentTableColumns.URL.getLabel(), href);
-		map.put(EnvironmentTableColumns.APP.getLabel(), getApplication(env));
+		map.put(EnvironmentTableColumns.APP.getLabel(), app.isPresent() ? app.get().getProject().getArtifactId() : "n/a");
+		map.put(EnvironmentTableColumns.VERSION.getLabel(), app.isPresent() ? app.get().getProject().getVersion() : "n/a");
+		map.put(EnvironmentTableColumns.BUILD_DATE.getLabel(), app.isPresent() ? getBuildDate(app.get().getProject()) : "n/a");
 		map.put(EnvironmentTableColumns.SCM.getLabel(), getScmDisplay(env));
+		map.put(EnvironmentTableColumns.DATABASE.getLabel(), app.isPresent() ? getDatabaseUrl(app.get().getDatabase()) : "n/a");
+		map.put(EnvironmentTableColumns.SCHEMA.getLabel(), app.isPresent() ? getDatabaseSchema(app.get().getDatabase()) : "n/a");
 		map.put(EnvironmentTableColumns.JAVA.getLabel(), java);
 		map.put(EnvironmentTableColumns.SERVER.getLabel(), getServer(env.getServer()));
 		map.put(EnvironmentTableColumns.TOMCAT.getLabel(), getTomcat(env.getTomcat()));
@@ -73,7 +78,7 @@ public class Environments extends Examiner {
 
 	protected static String getTomcat(Optional<Tomcat> optional) {
 		if (!optional.isPresent()) {
-			return "na";
+			return "n/a";
 		} else {
 			Tomcat tomcat = optional.get();
 			TableContext context = TableContext.builder().columnLabels(false).border(false).build();
@@ -100,19 +105,18 @@ public class Environments extends Examiner {
 		} else {
 			Application app = env.getApplication().get();
 			Project project = app.getProject();
-			Optional<Database> database = app.getDatabase();
-
-			TableContext context = TableContext.builder().columnLabels(false).border(false).build();
-			Table<Integer, Integer, String> table = HashBasedTable.create();
-
-			String buildId = project.getArtifactId() + " :: " + project.getVersion() + " :: " + getBuildDate(project);
-			String databaseId = getDatabaseId(database);
-
-			addRow(table, buildId);
-			addRow(table, databaseId);
-
-			// return Html.html(context, table);
-			return "<div>" + buildId + "</div><div>" + databaseId + "</div>";
+			return project.getArtifactId();
+			/*
+			 * Optional<Database> database = app.getDatabase();
+			 * 
+			 * TableContext context = TableContext.builder().columnLabels(false).border(false).build(); Table<Integer, Integer, String> table = HashBasedTable.create();
+			 * 
+			 * String buildId = project.getArtifactId() + " :: " + project.getVersion() + " :: " + getBuildDate(project); String databaseId = getDatabaseId(database);
+			 * 
+			 * addRow(table, buildId); addRow(table, databaseId);
+			 * 
+			 * // return Html.html(context, table); return "<div>" + buildId + "</div><div>" + databaseId + "</div>";
+			 */
 		}
 	}
 
@@ -129,6 +133,22 @@ public class Environments extends Examiner {
 			return href(scm.getUrl(), vendor + " :: revision " + scm.getRevision());
 		} else {
 			return vendor + " :: n/a";
+		}
+	}
+
+	protected static String getDatabaseUrl(Optional<Database> optional) {
+		if (!optional.isPresent()) {
+			return "n/a";
+		} else {
+			return optional.get().getUrl();
+		}
+	}
+
+	protected static String getDatabaseSchema(Optional<Database> optional) {
+		if (!optional.isPresent()) {
+			return "n/a";
+		} else {
+			return optional.get().getUsername();
 		}
 	}
 

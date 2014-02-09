@@ -50,7 +50,7 @@ public class Html extends Examiner {
 		for (Comparable<R> rowKey : rowKeys) {
 			boolean even = count++ % 2 == 0;
 			if (even) {
-				sb.append(padding + " <tr>\n");
+				sb.append(padding + " <tr class='table-tr-even'>\n");
 			} else {
 				sb.append(padding + " <tr class='table-tr-odd'>\n");
 			}
