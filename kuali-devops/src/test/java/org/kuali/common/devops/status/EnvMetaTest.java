@@ -56,7 +56,12 @@ public class EnvMetaTest {
 		builder.tomcatStartupTime(build(helper, HEAP_LOG_SUFFIX, new FirstGCTimestampFunction()));
 		builder.remoteEnvironment(build(helper, JSP_SUFFIX, new RemoteEnvironmentFunction()));
 		builder.manifest(build(helper, MANIFEST_SUFFIX, new ManifestFunction()));
+		addManifest(helper, builder);
+		addConfig(helper, builder);
+		return builder.build();
+	}
 
+	protected void addManifest(MetadataUrlHelper helper, EnvironmentMetadata.Builder builder) {
 		Optional<Properties> manifest = builder.getManifest().getMetadata();
 		if (manifest.isPresent()) {
 			Function<Properties, Optional<String>> function = new ProjectPropertiesUrlFragmentFunction();
@@ -65,17 +70,18 @@ public class EnvMetaTest {
 				builder.project(build(helper, suffix.get(), new ProjectFunction()));
 			}
 		}
+	}
 
+	protected void addConfig(MetadataUrlHelper helper, EnvironmentMetadata.Builder builder) {
 		Optional<Project> project = builder.getProject().getMetadata();
 		Optional<RemoteEnvironment> env = builder.getRemoteEnvironment().getMetadata();
 		if (project.isPresent()) {
 			Function<Project, Optional<String>> function = new ProjectConfigUrlFragmentFunction(env);
 			Optional<String> suffix = function.apply(project.get());
 			if (suffix.isPresent()) {
-				builder.project(build(helper, suffix.get(), new RicePropertiesFunction()));
+				builder.config(build(helper, suffix.get(), new RicePropertiesFunction()));
 			}
 		}
-		return null;
 	}
 
 	public static <T> MetadataUrl<T> build(MetadataUrlHelper helper, Function<String, T> converter) {
