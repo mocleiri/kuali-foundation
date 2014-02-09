@@ -1,6 +1,4 @@
-<%@ page import="java.io.*" %><%
-
-response.setContentType("text/plain");
+<%@ page import="java.io.*" %><%response.setContentType("text/plain");
 
 int display = 10 * 1024;
 if (request.getParameter("k") != null) {
