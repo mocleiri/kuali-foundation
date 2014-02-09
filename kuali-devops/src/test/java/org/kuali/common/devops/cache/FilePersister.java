@@ -18,6 +18,8 @@ import com.google.common.base.Optional;
 
 public final class FilePersister<K, V> implements CachePersister<K, Optional<V>> {
 
+	public static final String GLOBAL_MAGIC_ABSENT_STRING = "##--absent--##";
+
 	public FilePersister(Function<K, File> fileFunction, Function<V, InputStream> inputStreamFunction) {
 		this.fileFunction = checkNotNull(fileFunction, "fileFunction");
 		this.inputStreamFunction = checkNotNull(inputStreamFunction, "inputStreamFunction");
@@ -39,8 +41,7 @@ public final class FilePersister<K, V> implements CachePersister<K, Optional<V>>
 			if (reference.isPresent()) {
 				copy(file, reference, inputStreamFunction);
 			} else {
-				String magicAbsentString = "##--absent--##";
-				writeStringToFile(file, magicAbsentString);
+				writeStringToFile(file, GLOBAL_MAGIC_ABSENT_STRING);
 			}
 		} catch (IOException e) {
 			throw illegalState(e, "unexpected io error -> [%s]", file);

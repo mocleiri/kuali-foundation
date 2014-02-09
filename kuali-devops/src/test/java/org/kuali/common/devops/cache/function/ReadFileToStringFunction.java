@@ -9,8 +9,9 @@ import java.io.File;
 import java.io.IOException;
 
 import com.google.common.base.Function;
+import com.google.common.base.Optional;
 
-public class ReadFileToStringFunction implements Function<File, String> {
+public class ReadFileToStringFunction implements Function<File, Optional<String>> {
 
 	public ReadFileToStringFunction(String encoding) {
 		this.encoding = checkNotBlank(encoding, "encoding");
