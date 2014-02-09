@@ -38,7 +38,7 @@
     <kuali-aws.version>1.0.0-SNAPSHOT</kuali-aws.version>
     <kuali-dns.version>1.0.0-SNAPSHOT</kuali-dns.version>
     <kuali-util.version>4.4.10-SNAPSHOT</kuali-util.version>
-    <kuali-http.version>1.0.9-SNAPSHOT</kuali-http.version>
+    <kuali-httpclient.version>1.0.0-SNAPSHOT</kuali-httpclient.version>
     <junit.version>4.11</junit.version>
     <hibernate-validator.version>5.0.1.Final</hibernate-validator.version>
     <javax.el.version>2.2.4</javax.el.version>
@@ -120,8 +120,8 @@
     </dependency>
     <dependency>
       <groupId>org.kuali.common</groupId>
-      <artifactId>kuali-http</artifactId>
-      <version>${kuali-http.version}</version>
+      <artifactId>kuali-httpclient</artifactId>
+      <version>${kuali-httpclient.version}</version>
     </dependency>
     <dependency>
       <groupId>org.kuali.common</groupId>
