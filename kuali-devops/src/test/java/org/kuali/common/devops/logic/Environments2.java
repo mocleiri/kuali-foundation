@@ -197,7 +197,10 @@ public class Environments2 {
 
 	protected static Environment.Builder getBuilder(EC2Instance server, BiMap<String, String> cnames) {
 		String publicDnsName = server.getPublicDnsName().get();
-		String fqdn = cnames.get(publicDnsName);
+		String fqdn = publicDnsName;
+		if (cnames.get(publicDnsName) != null) {
+			fqdn = cnames.get(publicDnsName);
+		}
 		checkState(!isBlank(fqdn), "no fqdn -> [%s:%s]", server.getName().get(), publicDnsName);
 		return Environment.builder().fqdn(fqdn).server(server).name(server.getName().get());
 	}
@@ -205,14 +208,9 @@ public class Environments2 {
 	protected static List<EC2Instance> getDeployServers(String group, List<EC2Instance> instances, BiMap<String, String> cnames) {
 		List<EC2Instance> list = Lists.newArrayList();
 		for (EC2Instance instance : instances) {
-			if (isDeployServer(instance)) {
-				if (!instance.getPublicDnsName().isPresent()) {
-					logger.warn(format("no public dns name -> [%s::%s::%s]", group, instance.getName().get(), instance.getId()));
-					continue;
-				}
+			if (isActiveDeployServer(instance)) {
 				if (cnames.get(instance.getPublicDnsName().get()) == null) {
-					logger.warn(format("no fqdn -> [%s::%s::%s]", group, instance.getName().get(), instance.getId()));
-					continue;
+					logger.warn(format("no cname alias -> [%s::%s::%s]", group, instance.getName().get(), instance.getId()));
 				}
 				list.add(instance);
 			}
@@ -220,8 +218,11 @@ public class Environments2 {
 		return list;
 	}
 
-	protected static boolean isDeployServer(EC2Instance instance) {
-		return instance.getName().isPresent() && instance.getName().get().startsWith(DEPLOY_SERVER_PREFIX);
+	/**
+	 * Returns true if the instance has been tagged with name=env AND it has a public DNS name
+	 */
+	protected static boolean isActiveDeployServer(EC2Instance instance) {
+		return instance.getName().isPresent() && instance.getName().get().startsWith(DEPLOY_SERVER_PREFIX) && instance.getPublicDnsName().isPresent();
 	}
 
 }
