@@ -16,7 +16,11 @@ public final class Tomcat {
 		this.startupTime = builder.startupTime;
 	}
 
-	public static Tomcat create(String version, Optional<Long> startupTime) {
+	public static Tomcat create(String version) {
+		return builder().version(version).build();
+	}
+
+	public static Tomcat create(String version, long startupTime) {
 		return builder().version(version).startupTime(startupTime).build();
 	}
 
@@ -34,13 +38,9 @@ public final class Tomcat {
 			return this;
 		}
 
-		public Builder startupTime(Optional<Long> startupTime) {
-			this.startupTime = startupTime;
-			return this;
-		}
-
 		public Builder startupTime(long startupTime) {
-			return startupTime(Optional.of(startupTime));
+			this.startupTime = Optional.of(startupTime);
+			return this;
 		}
 
 		@Override

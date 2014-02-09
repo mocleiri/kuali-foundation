@@ -100,11 +100,11 @@ public class Environments2 {
 		if (version == null) {
 			return Optional.absent();
 		}
-		Optional<Long> optional = Optional.absent();
+		Tomcat.Builder builder = Tomcat.builder().version(version);
 		if (startupTime != null) {
-			optional = Optional.of(Long.parseLong(startupTime.trim()));
+			builder.startupTime(Long.parseLong(startupTime.trim()));
 		}
-		return Optional.of(Tomcat.create(version, optional));
+		return Optional.of(builder.build());
 
 	}
 
@@ -176,7 +176,10 @@ public class Environments2 {
 		String version = optionalVersion.get();
 		Tomcat.Builder builder = Tomcat.builder().version(version);
 		if (meta.getTomcatStartupTime().getMetadata().isPresent()) {
-			builder.startupTime(meta.getTomcatStartupTime().getMetadata().get());
+			Optional<Long> optionalStartupTime = meta.getTomcatStartupTime().getMetadata().get();
+			if (optionalStartupTime.isPresent()) {
+				builder.startupTime(optionalStartupTime.get());
+			}
 		}
 		return Optional.of(builder.build());
 	}
