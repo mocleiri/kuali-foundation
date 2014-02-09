@@ -1,6 +1,7 @@
 package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Preconditions.checkState;
+import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.enc.EncUtils.unwrap;
 
 import java.util.SortedSet;
@@ -9,7 +10,6 @@ import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.devops.aws.Credentials;
 import org.kuali.common.devops.dnsme.DNSMadeEasyCreds;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
-import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.enc.EncUtils;
 
 import com.amazonaws.auth.AWSCredentials;
@@ -52,7 +52,7 @@ public class Auth {
 				return credentials;
 			}
 		}
-		throw Exceptions.illegalState("unknown account -> [%s]", account);
+		throw illegalState("unknown account -> [%s]", account);
 	}
 
 	protected static String getAccount(Credentials credentials) {
