@@ -31,7 +31,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
 
-public class DefaultEnvironmentMetadataService {
+public class DefaultEnvironmentMetadataService implements EnvironmentMetadataService {
 
 	private static final Logger logger = LoggerUtils.make();
 	private static final String PREFIX = "http://";
@@ -40,7 +40,8 @@ public class DefaultEnvironmentMetadataService {
 	private static final String MANIFEST_SUFFIX = "/tomcat/webapps/ROOT/META-INF/MANIFEST.MF";
 	private static final String HEAP_LOG_SUFFIX = "/tomcat/logs/heap.log";
 
-	public List<EnvironmentMetadata> buildEnvironmentMetadata(List<String> fqdns) {
+	@Override
+	public List<EnvironmentMetadata> getMetadata(List<String> fqdns) {
 		LoadingCache<String, Optional<String>> httpContentCache = getFastFileSystemCacher();
 		List<EnvironmentMetadata> list = Lists.newArrayList();
 		for (String fqdn : fqdns) {
@@ -58,12 +59,12 @@ public class DefaultEnvironmentMetadataService {
 		builder.tomcatStartupTime(build(helper, HEAP_LOG_SUFFIX, new FirstGCTimestampFunction()));
 		builder.remoteEnvironment(build(helper, JSP_SUFFIX, new RemoteEnvironmentFunction()));
 		builder.manifest(build(helper, MANIFEST_SUFFIX, new ManifestFunction()));
-		addManifest(helper, builder);
+		addProject(helper, builder);
 		addConfig(helper, builder);
 		return builder.build();
 	}
 
-	protected void addManifest(MetadataUrlHelper helper, EnvironmentMetadata.Builder builder) {
+	protected void addProject(MetadataUrlHelper helper, EnvironmentMetadata.Builder builder) {
 		Optional<Properties> manifest = builder.getManifest().getMetadata();
 		if (manifest.isPresent()) {
 			Function<Properties, Optional<String>> function = new ProjectPropertiesUrlFragmentFunction();
