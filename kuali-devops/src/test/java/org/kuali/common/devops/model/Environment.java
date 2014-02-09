@@ -159,6 +159,10 @@ public final class Environment implements Comparable<Environment> {
 			return status;
 		}
 
+		public void setStatus(Status status) {
+			this.status = status;
+		}
+
 	}
 
 	public String getName() {
