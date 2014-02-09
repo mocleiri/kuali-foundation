@@ -3,7 +3,6 @@ package org.kuali.common.devops.logic;
 import static com.google.common.base.Optional.fromNullable;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
-import java.util.Map;
 import java.util.Properties;
 
 import org.kuali.common.devops.model.Application;
@@ -16,14 +15,13 @@ import org.kuali.common.util.properties.rice.RiceLoader;
 import org.slf4j.Logger;
 
 import com.google.common.base.Optional;
-import com.google.common.collect.Maps;
 
 public class Applications extends Examiner {
 
 	private static final Logger logger = Loggers.make();
 
 	public static Optional<Application> getApplication(String fqdn) {
-		Map<String, String> manifest = Maps.newHashMap(); // Manifests.getManifest(fqdn);
+		Properties manifest = new Properties(); // Manifests.getManifest(fqdn);
 		Optional<Project> optional = Projects.getProject(fqdn, manifest);
 		if (optional.isPresent()) {
 			Project project = optional.get();

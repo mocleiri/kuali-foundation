@@ -51,9 +51,6 @@ public class Environments2 {
 				envs.add(builder.build());
 			}
 			map.put(group, envs);
-			if (refresh) {
-				store(group, envs);
-			}
 		}
 		return map;
 	}
@@ -63,28 +60,12 @@ public class Environments2 {
 		return new CanonicalFile(groupDir, environment);
 	}
 
-	protected static void store(String group, List<Environment> envs) {
-		for (Environment env : envs) {
-			store(group, env, getEnvCacheDir(group, env.getName()));
-		}
-	}
 
 	protected static File getEnvironmentCacheFile(String group, String environment) {
 		return new CanonicalFile(getEnvCacheDir(group, environment), "environment.properties");
 	}
 
-	protected static void store(String group, Environment env, File dir) {
-		PropertyUtils.storeSilently(convert(env), getEnvironmentCacheFile(group, env.getName()));
-		if (env.getApplication().isPresent()) {
-			store(env.getApplication().get(), dir);
-		}
-	}
 
-	protected static void store(Application app, File dir) {
-		PropertyUtils.storeSilently(PropertyUtils.convert(app.getManifest()), new CanonicalFile(dir, "manifest.properties"));
-		PropertyUtils.storeSilently(PropertyUtils.convert(app.getConfiguration()), new CanonicalFile(dir, "config.properties"));
-		PropertyUtils.storeSilently(app.getProject().getProperties(), new CanonicalFile(dir, "project.properties"));
-	}
 
 	protected static void fillIn(String group, Environment.Builder builder, File dir) {
 		File cache = getEnvironmentCacheFile(group, builder.getName());

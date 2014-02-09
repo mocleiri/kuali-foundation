@@ -22,7 +22,7 @@ public class Projects extends Examiner {
 	private static final String FILENAME = "project.properties";
 	private static final String BUNDLE_SYMBOLIC_NAME_KEY = "Bundle-SymbolicName";
 
-	public static Optional<Project> getProject(String fqdn, Map<String, String> manifest) {
+	public static Optional<Project> getProject(String fqdn, Properties manifest) {
 		Properties properties = getProjectProperties(fqdn, manifest);
 		if (properties.getProperty("project.artifactId") == null) {
 			return Optional.absent();
@@ -31,8 +31,8 @@ public class Projects extends Examiner {
 		}
 	}
 
-	public static Properties getProjectProperties(String fqdn, Map<String, String> manifest) {
-		Optional<String> bundleSymbolicName = Optional.fromNullable(manifest.get(BUNDLE_SYMBOLIC_NAME_KEY));
+	public static Properties getProjectProperties(String fqdn, Properties manifest) {
+		Optional<String> bundleSymbolicName = Optional.fromNullable(manifest.getProperty(BUNDLE_SYMBOLIC_NAME_KEY));
 		if (!bundleSymbolicName.isPresent()) {
 			return new Properties();
 		} else {
@@ -121,7 +121,7 @@ public class Projects extends Examiner {
 	/**
 	 * Returns Optional.absent() unless we can locate a live URL that we can actually contact
 	 */
-	private static Optional<String> getScmUrl(Map<String, String> manifest, Properties properties) {
+	private static Optional<String> getScmUrl(Properties manifest, Properties properties) {
 		// Most reliable method for getting the url is via MANIFEST.MF
 		Optional<String> url = getScmUrlFromManifest(manifest);
 		if (url.isPresent()) {
@@ -135,8 +135,8 @@ public class Projects extends Examiner {
 		}
 	}
 
-	private static Optional<String> getScmUrlFromManifest(Map<String, String> manifest) {
-		String url = manifest.get("SVN-URL");
+	private static Optional<String> getScmUrlFromManifest(Properties manifest) {
+		String url = manifest.getProperty("SVN-URL");
 		if (url == null) {
 			return Optional.absent();
 		}
@@ -167,8 +167,8 @@ public class Projects extends Examiner {
 		}
 	}
 
-	private static String getScmRevision(Map<String, String> manifest) {
-		String revision = StringUtils.trimToNull(manifest.get("SVN-Revision"));
+	private static String getScmRevision(Properties manifest) {
+		String revision = StringUtils.trimToNull(manifest.getProperty("SVN-Revision"));
 		if (revision == null || revision.indexOf("${") != -1) {
 			return "n/a";
 		} else {
