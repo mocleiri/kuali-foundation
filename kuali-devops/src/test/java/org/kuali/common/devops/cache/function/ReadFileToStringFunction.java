@@ -1,7 +1,9 @@
 package org.kuali.common.devops.cache.function;
 
+import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.apache.commons.io.FileUtils.readFileToString;
+import static org.kuali.common.devops.cache.FilePersister.GLOBAL_MAGIC_ABSENT_STRING;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
@@ -20,13 +22,17 @@ public class ReadFileToStringFunction implements Function<File, Optional<String>
 	private final String encoding;
 
 	@Override
-	public String apply(File file) {
+	public Optional<String> apply(File file) {
 		checkNotNull(file);
 		try {
-			return readFileToString(file, encoding);
+			String content = readFileToString(file, encoding);
+			if (GLOBAL_MAGIC_ABSENT_STRING.equals(content)) {
+				return absent();
+			} else {
+				return Optional.of(content);
+			}
 		} catch (IOException e) {
 			throw illegalState(e, "unexpected io error reading from [%s]", file);
 		}
 	}
-
 }
