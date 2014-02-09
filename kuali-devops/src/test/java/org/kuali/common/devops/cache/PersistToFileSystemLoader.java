@@ -5,6 +5,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.io.File;
 
 import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Function;
@@ -23,6 +24,10 @@ public final class PersistToFileSystemLoader<T, V> extends CacheLoader<T, Option
 	public Optional<V> load(T key) throws Exception {
 		checkNotNull(key);
 		File file = fileFunction.apply(key);
+		File absentFile = new CanonicalFile(file + FilePersister.GLOBAL_MAGIC_ABSENT_SUFFIX);
+		if (absentFile.exists()) {
+			return Optional.<V> absent();
+		}
 		Optional<V> data = fileLoader.load(file);
 		if (!data.isPresent()) {
 			data = loader.load(key);
