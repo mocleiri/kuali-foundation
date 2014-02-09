@@ -11,6 +11,7 @@ import org.kuali.common.devops.metadata.logic.DefaultEnvironmentMetadataService;
 import org.kuali.common.devops.metadata.logic.EnvironmentMetadataService;
 import org.kuali.common.devops.metadata.model.EnvironmentMetadata;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 
@@ -23,7 +24,11 @@ public class MetadataServiceTest {
 	@Test
 	public void test() {
 		try {
-			List<String> fqdns = of("env1.rice.kuali.org", "env2.rice.kuali.org", "env1.ks.kuali.org", "dev.ole.kuali.org", "dev.docstore.ole.kuali.org");
+			String location = "http://jackedup.foomanchu.com";
+			String s = LocationUtils.toString(location);
+			System.out.println(s);
+			// List<String> fqdns = of("env1.rice.kuali.org", "env2.rice.kuali.org", "env1.ks.kuali.org", "dev.ole.kuali.org", "dev.docstore.ole.kuali.org");
+			List<String> fqdns = of("blibbity.jbc.foo.kuali.org");
 			EnvironmentMetadataService service = new DefaultEnvironmentMetadataService();
 			Stopwatch sw = createStarted();
 			List<EnvironmentMetadata> metadata = service.getMetadata(fqdns);
