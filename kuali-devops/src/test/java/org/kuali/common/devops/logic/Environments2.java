@@ -146,8 +146,8 @@ public class Environments2 {
 	}
 
 	protected static Optional<Application> getApplication(EnvironmentMetadata meta) {
-		Optional<Properties> manifest = getMetadata(meta.getManifest());
-		Optional<Properties> config = getMetadata(meta.getConfig());
+		Properties manifest = getMetadata(meta.getManifest(), new Properties());
+		Properties config = getMetadata(meta.getConfig(), new Properties());
 
 		Optional<Project> optional = getMetadata(meta.getProject());
 
@@ -155,12 +155,13 @@ public class Environments2 {
 			return Optional.<Application> absent();
 		}
 
-		Project project = optional.get();
+		Project parsedProject = optional.get();
+		Project project = Projects.getProjectWithAccurateSCMInfo(parsedProject, manifest);
 
 		Application.Builder builder = Application.builder();
 		builder.setProject(project);
-		builder.setManifest(manifest.isPresent() ? manifest.get() : new Properties());
-		builder.setConfiguration(config.isPresent() ? config.get() : new Properties());
+		builder.setManifest(manifest);
+		builder.setConfiguration(config);
 
 		Optional<Database> database = Databases.getDatabase(project.getGroupId(), builder.getConfiguration());
 		Optional<Scm> scm = Applications.getScm(project.getProperties());
@@ -250,6 +251,34 @@ public class Environments2 {
 		}
 	}
 
+	protected static <T> T getMetadata(Optional<MetadataUrl<T>> optional, T provided) {
+		if (!optional.isPresent()) {
+			return provided;
+		} else {
+			MetadataUrl<T> url = optional.get();
+			if (url.getMetadata().isPresent()) {
+				Optional<T> parsed = url.getMetadata();
+				if (parsed.isPresent()) {
+					return parsed.get();
+				} else {
+					return provided;
+				}
+			} else {
+				return provided;
+			}
+		}
+	}
+
+	protected static <T> T getOptionalMetadata(MetadataUrl<Optional<T>> url, T provided) {
+		if (url.getMetadata().isPresent()) {
+			Optional<T> parsed = url.getMetadata().get();
+			if (parsed.isPresent()) {
+				return parsed.get();
+			}
+		}
+		return provided;
+	}
+
 	protected static <T> Optional<T> getOptionalMetadata(MetadataUrl<Optional<T>> url) {
 		if (url.getMetadata().isPresent()) {
 			return url.getMetadata().get();
@@ -258,12 +287,18 @@ public class Environments2 {
 		}
 	}
 
+	protected static <T> T getMetadata(MetadataUrl<T> url, T provided) {
+		if (url.getMetadata().isPresent()) {
+			return url.getMetadata().get();
+		}
+		return provided;
+	}
+
 	protected static <T> Optional<T> getMetadata(MetadataUrl<T> url) {
 		if (url.getMetadata().isPresent()) {
 			return url.getMetadata();
-		} else {
-			return Optional.<T> absent();
 		}
+		return Optional.<T> absent();
 	}
 
 }
