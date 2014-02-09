@@ -1,5 +1,6 @@
 package org.kuali.common.devops.cache;
 
+import static java.lang.String.format;
 import static org.apache.commons.io.FileUtils.forceDelete;
 import static org.apache.commons.io.FileUtils.openOutputStream;
 import static org.apache.commons.io.FileUtils.touch;
@@ -14,6 +15,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.kuali.common.util.file.CanonicalFile;
+import org.kuali.common.util.log.Loggers;
+import org.slf4j.Logger;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
@@ -21,6 +24,7 @@ import com.google.common.base.Optional;
 public final class FilePersister<K, V> implements CachePersister<K, Optional<V>> {
 
 	public static final String GLOBAL_MAGIC_ABSENT_SUFFIX = ".absent";
+	private static final Logger logger = Loggers.make();
 
 	public FilePersister(Function<K, File> fileFunction, Function<V, InputStream> inputStreamFunction) {
 		this.fileFunction = checkNotNull(fileFunction, "fileFunction");
@@ -41,9 +45,11 @@ public final class FilePersister<K, V> implements CachePersister<K, Optional<V>>
 	protected void syncFileSystem(Optional<V> reference, File file) {
 		try {
 			if (reference.isPresent()) {
+				logger.info(format("creating -> %s", file));
 				copy(file, reference, inputStreamFunction);
 			} else {
 				File absentFile = new CanonicalFile(file.getCanonicalFile() + GLOBAL_MAGIC_ABSENT_SUFFIX);
+				logger.info(format("creating -> %s", absentFile));
 				touch(absentFile);
 			}
 		} catch (IOException e) {
