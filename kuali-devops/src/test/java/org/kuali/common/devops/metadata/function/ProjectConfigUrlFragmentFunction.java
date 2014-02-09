@@ -34,6 +34,7 @@ public final class ProjectConfigUrlFragmentFunction implements Function<Project,
 			// KS specific logic
 			return Optional.of("/home/kuali/main/dev/" + project.getArtifactId() + "-config.xml");
 		} else if (groupId.equals(KualiProjectConstants.OLE_GROUP_ID)) {
+			// OLE specific logic
 			return getOleConfigFragment(remoteEnvironment);
 		} else {
 			// Everyone else
