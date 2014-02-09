@@ -52,11 +52,16 @@ public final class Environment implements Comparable<Environment> {
 		private Optional<Tomcat> tomcat = Optional.absent();
 		private Optional<String> java = Optional.absent();
 		private Optional<Application> application = Optional.absent();
-		private final Status status = Status.UNKNOWN;
+		private Status status = Status.UNKNOWN;
 
 		@Override
 		public int compareTo(Environment.Builder other) {
 			return COMPARATOR.compare(name, other.getName());
+		}
+
+		public Builder status(String status) {
+			this.name = status;
+			return this;
 		}
 
 		public Builder name(String name) {
