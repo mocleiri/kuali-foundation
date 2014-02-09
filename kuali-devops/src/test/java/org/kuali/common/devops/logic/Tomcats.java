@@ -1,5 +1,7 @@
 package org.kuali.common.devops.logic;
 
+import static org.kuali.common.util.base.Exceptions.illegalState;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -59,7 +61,7 @@ public class Tomcats extends Examiner {
 			Date date = parser.parse(time);
 			return Optional.of(date.getTime());
 		} catch (ParseException e) {
-			throw Exceptions.illegalState(e, "date parse error -> [%s]", time);
+			throw illegalState(e, "date parse error -> [%s]", time);
 		}
 	}
 
