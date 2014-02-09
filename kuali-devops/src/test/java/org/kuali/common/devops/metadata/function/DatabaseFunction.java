@@ -2,12 +2,12 @@ package org.kuali.common.devops.metadata.function;
 
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
+import static org.kuali.common.util.project.KualiProjectConstants.OLE_GROUP_ID;
 
 import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.devops.model.Database;
-import org.kuali.common.util.project.KualiProjectConstants;
 import org.kuali.common.util.project.model.ImmutableProject;
 import org.kuali.common.util.project.model.Project;
 
@@ -35,7 +35,7 @@ public final class DatabaseFunction implements Function<Properties, Optional<Dat
 		if (config.isEmpty()) {
 			return Optional.absent();
 		}
-		if (groupId.equals(KualiProjectConstants.OLE_GROUP_ID)) {
+		if (groupId.equals(OLE_GROUP_ID)) {
 			return Optional.of(getOleDatabase(config));
 		}
 		String username = config.getProperty("datasource.username");
