@@ -17,6 +17,7 @@ import org.kuali.common.devops.metadata.logic.EnvironmentMetadataService;
 import org.kuali.common.devops.metadata.model.EC2Instance;
 import org.kuali.common.devops.metadata.model.EnvironmentMetadata;
 import org.kuali.common.devops.metadata.model.MetadataUrl;
+import org.kuali.common.devops.metadata.model.RemoteEnvironment;
 import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.Database;
 import org.kuali.common.devops.model.Environment;
@@ -160,9 +161,34 @@ public class Environments2 {
 	protected static void fillIn(String group, List<Environment.Builder> builders, EnvironmentMetadataService service, boolean refresh) {
 		for (Environment.Builder builder : builders) {
 			EnvironmentMetadata metadata = service.getMetadata(builder.getFqdn());
-			Optional<Tomcat> tomcat = getTomcat(metadata);
-			builder.tomcat(tomcat);
+			builder.tomcat(getTomcat(metadata));
+			builder.java(getJava(metadata));
 		}
+	}
+
+	protected static Optional<Application> getApplication(EnvironmentMetadata meta) {
+		Optional<Properties> manifest = getMetadata(meta.getManifest());
+		Optional<Properties> config = getMetadata(meta.getConfig());
+		Optional<Project> project = getMetadata(meta.getProject());
+
+		if (!project.isPresent()) {
+			return Optional.<Application> absent();
+		}
+
+		Application.Builder builder = Application.builder();
+		builder.setProject(project.get());
+
+		return Optional.<Application> absent();
+	}
+
+	protected static Optional<String> getJava(EnvironmentMetadata meta) {
+		Optional<RemoteEnvironment> metdata = getMetadata(meta.getRemoteEnvironment());
+		if (!metdata.isPresent()) {
+			return Optional.<String> absent();
+		}
+		RemoteEnvironment env = metdata.get();
+		Properties system = env.getSystem();
+		return fromNullable(system.getProperty("java.version"));
 	}
 
 	protected static Optional<Tomcat> getTomcat(EnvironmentMetadata meta) {
@@ -229,6 +255,27 @@ public class Environments2 {
 	 */
 	protected static boolean isActiveDeployServer(EC2Instance instance) {
 		return instance.getName().isPresent() && instance.getName().get().startsWith(DEPLOY_SERVER_PREFIX) && instance.getPublicDnsName().isPresent();
+	}
+
+	protected static <T> Optional<T> getMetadata(Optional<MetadataUrl<T>> optional) {
+		if (!optional.isPresent()) {
+			return Optional.<T> absent();
+		} else {
+			MetadataUrl<T> url = optional.get();
+			if (url.getMetadata().isPresent()) {
+				return url.getMetadata();
+			} else {
+				return Optional.<T> absent();
+			}
+		}
+	}
+
+	protected static <T> Optional<T> getMetadata(MetadataUrl<T> url) {
+		if (url.getMetadata().isPresent()) {
+			return url.getMetadata();
+		} else {
+			return Optional.<T> absent();
+		}
 	}
 
 }
