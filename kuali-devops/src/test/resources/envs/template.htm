@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>${html.title}</title>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="./stupidtable.js?dev"></script>
+<script>
+	$(function() {
+		$("table").stupidtable();
+	});
+</script>
+<link href="./style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<div class="title">
+		<span id="title">${html.title}</span>
+	</div>
+	<hr>
+	${html.table}
+	<hr>
+	<div id="footer-left" class="footer">
+		<span id="footer-text">${html.footer}</span>
+	</div>
+</body>
+</html>
