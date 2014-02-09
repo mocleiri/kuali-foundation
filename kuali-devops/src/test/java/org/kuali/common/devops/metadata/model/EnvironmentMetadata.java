@@ -15,8 +15,10 @@ public final class EnvironmentMetadata {
 	private final MetadataUrl<Optional<Long>> tomcatStartupTime;
 	private final MetadataUrl<RemoteEnvironment> remoteEnvironment;
 	private final MetadataUrl<Properties> manifest;
-	private final MetadataUrl<Project> project;
-	private final MetadataUrl<Properties> config;
+	// These 2 are optional as they are derived from information contained in previous urls
+	// If those previous URL's cannot be contacted, we have no way to calculate the metadata url for the project or the project's configuration
+	private final Optional<MetadataUrl<Project>> project;
+	private final Optional<MetadataUrl<Properties>> config;
 
 	private EnvironmentMetadata(Builder builder) {
 		this.tomcatVersion = builder.tomcatVersion;
@@ -37,17 +39,25 @@ public final class EnvironmentMetadata {
 		private MetadataUrl<Optional<Long>> tomcatStartupTime;
 		private MetadataUrl<RemoteEnvironment> remoteEnvironment;
 		private MetadataUrl<Properties> manifest;
-		private MetadataUrl<Project> project;
-		private MetadataUrl<Properties> config;
+		private Optional<MetadataUrl<Project>> project;
+		private Optional<MetadataUrl<Properties>> config;
 
-		public Builder config(MetadataUrl<Properties> config) {
+		public Builder config(Optional<MetadataUrl<Properties>> config) {
 			this.config = config;
 			return this;
 		}
 
-		public Builder project(MetadataUrl<Project> project) {
+		public Builder config(MetadataUrl<Properties> config) {
+			return config(Optional.of(config));
+		}
+
+		public Builder project(Optional<MetadataUrl<Project>> project) {
 			this.project = project;
 			return this;
+		}
+
+		public Builder project(MetadataUrl<Project> project) {
+			return project(Optional.of(project));
 		}
 
 		public Builder manifest(MetadataUrl<Properties> manifest) {
@@ -107,12 +117,20 @@ public final class EnvironmentMetadata {
 			this.manifest = manifest;
 		}
 
-		public MetadataUrl<Project> getProject() {
+		public Optional<MetadataUrl<Project>> getProject() {
 			return project;
 		}
 
-		public void setProject(MetadataUrl<Project> project) {
+		public void setProject(Optional<MetadataUrl<Project>> project) {
 			this.project = project;
+		}
+
+		public Optional<MetadataUrl<Properties>> getConfig() {
+			return config;
+		}
+
+		public void setConfig(Optional<MetadataUrl<Properties>> config) {
+			this.config = config;
 		}
 	}
 
@@ -132,11 +150,11 @@ public final class EnvironmentMetadata {
 		return manifest;
 	}
 
-	public MetadataUrl<Project> getProject() {
+	public Optional<MetadataUrl<Project>> getProject() {
 		return project;
 	}
 
-	public MetadataUrl<Properties> getConfig() {
+	public Optional<MetadataUrl<Properties>> getConfig() {
 		return config;
 	}
 }
