@@ -40,17 +40,7 @@ public class Environments extends Examiner {
 	}
 
 	protected static Map<Label, String> getRowData(Environment env) {
-		String dest = PROTOCOL + env.getFqdn();
-		String href = href(dest, dest);
-		String java = env.getJava().isPresent() ? env.getJava().get() : "na";
 		Map<Label, String> map = Maps.newHashMap();
-		map.put(EnvironmentTableColumns.NAME.getLabel(), getEnvironmentInteger(env.getName()) + "");
-		map.put(EnvironmentTableColumns.URL.getLabel(), href);
-		map.put(EnvironmentTableColumns.APP.getLabel(), getApplication(env));
-		map.put(EnvironmentTableColumns.SCM.getLabel(), getScmDisplay(env));
-		map.put(EnvironmentTableColumns.JAVA.getLabel(), java);
-		map.put(EnvironmentTableColumns.SERVER.getLabel(), getServer(env.getServer()));
-		map.put(EnvironmentTableColumns.TOMCAT.getLabel(), getTomcat(env.getTomcat()));
 		return map;
 	}
 
