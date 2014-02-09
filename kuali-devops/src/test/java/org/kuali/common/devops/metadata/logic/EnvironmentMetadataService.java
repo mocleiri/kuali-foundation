@@ -7,7 +7,6 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 import java.util.List;
 import java.util.Properties;
 
-import org.junit.Test;
 import org.kuali.common.devops.cache.PersistToFileSystemLoader;
 import org.kuali.common.devops.cache.PersistToFileSystemLoaderFactory;
 import org.kuali.common.devops.metadata.function.FirstGCTimestampFunction;
@@ -22,19 +21,17 @@ import org.kuali.common.devops.metadata.model.EnvironmentMetadata;
 import org.kuali.common.devops.metadata.model.MetadataUrl;
 import org.kuali.common.devops.metadata.model.RemoteEnvironment;
 import org.kuali.common.http.model.HttpContext;
-import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.project.model.Project;
 import org.slf4j.Logger;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
-import com.google.common.base.Stopwatch;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.LoadingCache;
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
-public class EnvMetaTest {
+public class EnvironmentMetadataService {
 
 	private static final Logger logger = LoggerUtils.make();
 	private static final String PREFIX = "http://";
@@ -43,19 +40,15 @@ public class EnvMetaTest {
 	private static final String MANIFEST_SUFFIX = "/tomcat/webapps/ROOT/META-INF/MANIFEST.MF";
 	private static final String HEAP_LOG_SUFFIX = "/tomcat/logs/heap.log";
 
-	@Test
-	public void test() {
-		try {
-			LoadingCache<String, Optional<String>> httpContentCache = getFastFileSystemCacher();
-			List<String> fqdns = ImmutableList.of("env1.rice.kuali.org", "env1.ks.kuali.org", "dev.ole.kuali.org");
-			Stopwatch sw = Stopwatch.createStarted();
-			for (String fqdn : fqdns) {
-				EnvironmentMetadata meta = build(fqdn, httpContentCache);
-			}
-			logger.info(format("elapsed -> %s", FormatUtils.getTime(sw)));
-		} catch (Throwable e) {
-			e.printStackTrace();
+	public List<EnvironmentMetadata> buildEnvironmentMetadata(List<String> fqdns) {
+		LoadingCache<String, Optional<String>> httpContentCache = getFastFileSystemCacher();
+		List<EnvironmentMetadata> list = Lists.newArrayList();
+		for (String fqdn : fqdns) {
+			logger.debug(format("examining -> [%s]", fqdn));
+			EnvironmentMetadata meta = build(fqdn, httpContentCache);
+			list.add(meta);
 		}
+		return list;
 	}
 
 	protected EnvironmentMetadata build(String fqdn, LoadingCache<String, Optional<String>> httpContentCache) {
