@@ -1,6 +1,6 @@
 package org.kuali.common.devops.logic;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import org.kuali.common.devops.table.Label;
 
@@ -17,7 +17,7 @@ public enum EnvironmentTableColumns {
 	private final Label label;
 
 	private EnvironmentTableColumns(Label label) {
-		checkNotNull(label, "'label' cannot be null");
+		checkNotNull(label, "label");
 		this.label = label;
 	}
 
