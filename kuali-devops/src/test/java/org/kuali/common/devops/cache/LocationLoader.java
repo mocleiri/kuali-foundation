@@ -1,5 +1,6 @@
 package org.kuali.common.devops.cache;
 
+import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
@@ -38,7 +39,7 @@ public final class LocationLoader extends CacheLoader<String, Optional<String>> 
 		if (resource.exists()) {
 			return Optional.of(readResourceToString(resource, encoding));
 		} else {
-			return Optional.absent();
+			return absent();
 		}
 	}
 

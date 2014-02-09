@@ -1,15 +1,15 @@
 package org.kuali.common.devops.cache;
 
 import static org.apache.commons.io.FileUtils.forceDelete;
+import static org.apache.commons.io.FileUtils.openOutputStream;
+import static org.apache.commons.io.IOUtils.closeQuietly;
+import static org.apache.commons.io.IOUtils.copyLarge;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
@@ -41,11 +41,11 @@ public final class FilePersister<K, V> implements CachePersister<K, Optional<V>>
 		OutputStream out = null;
 		try {
 			in = inputStreamFunction.apply(reference.get());
-			out = FileUtils.openOutputStream(file);
-			IOUtils.copyLarge(in, out);
+			out = openOutputStream(file);
+			copyLarge(in, out);
 		} finally {
-			IOUtils.closeQuietly(in);
-			IOUtils.closeQuietly(out);
+			closeQuietly(in);
+			closeQuietly(out);
 		}
 	}
 

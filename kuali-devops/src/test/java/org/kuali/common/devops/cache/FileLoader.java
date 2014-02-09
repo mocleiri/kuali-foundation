@@ -1,5 +1,6 @@
 package org.kuali.common.devops.cache;
 
+import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.File;
@@ -24,7 +25,7 @@ public final class FileLoader<V> extends CacheLoader<File, Optional<V>> {
 			V reference = function.apply(file);
 			return Optional.of(reference);
 		} else {
-			return Optional.absent();
+			return absent();
 		}
 	}
 
