@@ -1,21 +1,37 @@
-package org.kuali.common.devops.logic;
+package org.kuali.common.devops.metadata.function;
 
 import static org.kuali.common.util.base.Exceptions.illegalState;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.devops.model.Database;
 import org.kuali.common.util.project.KualiProjectConstants;
+import org.kuali.common.util.project.model.ImmutableProject;
+import org.kuali.common.util.project.model.Project;
 
+import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
-public class Databases {
+public final class DatabaseFunction implements Function<Properties, Optional<Database>> {
 
 	private static final List<String> VENDORS = ImmutableList.of("oracle", "mysql");
 
-	public static Optional<Database> getDatabase(String groupId, Properties config) {
+	public DatabaseFunction(Project project) {
+		this.project = ImmutableProject.copyOf(checkNotNull(project, "project"));
+	}
+
+	private final ImmutableProject project;
+
+	@Override
+	public Optional<Database> apply(Properties config) {
+		checkNotNull(config, "config");
+		return getDatabase(project.getGroupId(), config);
+	}
+
+	protected Optional<Database> getDatabase(String groupId, Properties config) {
 		if (config.isEmpty()) {
 			return Optional.absent();
 		}
@@ -28,7 +44,7 @@ public class Databases {
 		return Optional.of(Database.builder().vendor(vendor).username(username).url(url).build());
 	}
 
-	protected static Database getOleDatabase(Properties config) {
+	protected Database getOleDatabase(Properties config) {
 		String vendor = config.getProperty("db.vendor");
 		String username = config.getProperty("jdbc.username");
 		String urlKey = vendor + ".dba.url";
@@ -40,13 +56,17 @@ public class Databases {
 		return Database.builder().vendor(vendor).username(username).url(url).build();
 	}
 
-	protected static String getVendor(String url) {
+	protected String getVendor(String url) {
 		for (String vendor : VENDORS) {
 			if (url.contains(vendor)) {
 				return vendor;
 			}
 		}
 		throw illegalState("could not determine a vendor from url -> [%s]", url);
+	}
+
+	public Project getProject() {
+		return project;
 	}
 
 }
