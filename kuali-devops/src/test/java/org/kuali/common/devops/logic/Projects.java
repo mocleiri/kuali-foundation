@@ -9,6 +9,7 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.project.ProjectUtils;
+import org.kuali.common.util.project.model.ImmutableProject;
 import org.kuali.common.util.project.model.Project;
 
 import com.google.common.base.Joiner;
@@ -28,6 +29,31 @@ public class Projects extends Examiner {
 			return Optional.absent();
 		} else {
 			return Optional.of(ProjectUtils.getProject(properties));
+		}
+	}
+
+	public static Project getProjectWithAccurateSCMInfo(Project project, Properties manifest) {
+		Optional<String> bundleSymbolicName = Optional.fromNullable(manifest.getProperty(BUNDLE_SYMBOLIC_NAME_KEY));
+		if (!bundleSymbolicName.isPresent()) {
+			return ImmutableProject.copyOf(project);
+		} else {
+			Properties newProps = new Properties();
+			newProps.putAll(project.getProperties());
+
+			// Most reliable way to get SVN information is from the manifest
+			Optional<String> url = getScmUrl(manifest, newProps);
+			String revision = getScmRevision(manifest);
+
+			if (url.isPresent()) {
+				// Override whatever is in the project properties with what we found
+				newProps.setProperty(SCM_URL_KEY, url.get());
+				newProps.setProperty(SCM_REVISION_KEY, revision);
+			} else {
+				// Remove these 2 properties so nobody can even attempt to display inaccurate SCM info
+				newProps.remove(SCM_URL_KEY);
+				newProps.remove(SCM_REVISION_KEY);
+			}
+			return new ImmutableProject(project.getGroupId(), project.getArtifactId(), project.getVersion(), newProps);
 		}
 	}
 
