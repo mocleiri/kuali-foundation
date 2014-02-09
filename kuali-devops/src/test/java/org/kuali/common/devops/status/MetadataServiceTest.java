@@ -1,5 +1,6 @@
 package org.kuali.common.devops.status;
 
+import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.ImmutableList.of;
 import static java.lang.String.format;
 
@@ -24,7 +25,7 @@ public class MetadataServiceTest {
 		try {
 			List<String> fqdns = of("env1.rice.kuali.org", "env2.rice.kuali.org", "env1.ks.kuali.org", "dev.ole.kuali.org", "dev.docstore.ole.kuali.org");
 			EnvironmentMetadataService service = new DefaultEnvironmentMetadataService();
-			Stopwatch sw = Stopwatch.createStarted();
+			Stopwatch sw = createStarted();
 			List<EnvironmentMetadata> metadata = service.getMetadata(fqdns);
 			logger.info(format("fqdns: %s, elapsed -> %s", metadata.size(), FormatUtils.getTime(sw)));
 		} catch (Throwable e) {
