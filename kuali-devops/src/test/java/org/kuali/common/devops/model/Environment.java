@@ -19,6 +19,7 @@ public final class Environment implements Comparable<Environment> {
 	private final Optional<String> java;
 	private final Optional<Tomcat> tomcat;
 	private final Optional<Application> application;
+	private final Status status;
 
 	@Override
 	public int compareTo(Environment other) {
@@ -32,6 +33,7 @@ public final class Environment implements Comparable<Environment> {
 		this.tomcat = builder.tomcat;
 		this.java = builder.java;
 		this.application = builder.application;
+		this.status = builder.status;
 	}
 
 	public static Environment create(String name, String fqdn, EC2Instance server) {
@@ -50,6 +52,7 @@ public final class Environment implements Comparable<Environment> {
 		private Optional<Tomcat> tomcat = Optional.absent();
 		private Optional<String> java = Optional.absent();
 		private Optional<Application> application = Optional.absent();
+		private final Status status = Status.UNKNOWN;
 
 		@Override
 		public int compareTo(Environment.Builder other) {
@@ -147,6 +150,10 @@ public final class Environment implements Comparable<Environment> {
 			this.tomcat = tomcat;
 		}
 
+		public Status getStatus() {
+			return status;
+		}
+
 	}
 
 	public String getName() {
@@ -171,6 +178,10 @@ public final class Environment implements Comparable<Environment> {
 
 	public Optional<Application> getApplication() {
 		return application;
+	}
+
+	public Status getStatus() {
+		return status;
 	}
 
 }
