@@ -192,23 +192,14 @@ public class Environments2 {
 	}
 
 	protected static Optional<Tomcat> getTomcat(EnvironmentMetadata meta) {
-		MetadataUrl<Optional<String>> url1 = meta.getTomcatVersion();
-		if (!url1.getMetadata().isPresent()) {
+		Optional<String> version = getOptionalMetadata(meta.getTomcatVersion());
+		Optional<Long> startup = getOptionalMetadata(meta.getTomcatStartupTime());
+		if (!version.isPresent()) {
 			return Optional.<Tomcat> absent();
 		}
-		Optional<String> optional = url1.getMetadata().get();
-		if (!optional.isPresent()) {
-			return Optional.<Tomcat> absent();
-		}
-		String version = optional.get();
-		Tomcat.Builder builder = Tomcat.builder().version(version);
-
-		MetadataUrl<Optional<Long>> url2 = meta.getTomcatStartupTime();
-		if (url2.getMetadata().isPresent()) {
-			Optional<Long> value = url2.getMetadata().get();
-			if (value.isPresent()) {
-				builder.startupTime(value.get());
-			}
+		Tomcat.Builder builder = Tomcat.builder().version(version.get());
+		if (startup.isPresent()) {
+			builder.startupTime(startup.get());
 		}
 		return Optional.of(builder.build());
 	}
@@ -267,6 +258,14 @@ public class Environments2 {
 			} else {
 				return Optional.<T> absent();
 			}
+		}
+	}
+
+	protected static <T> Optional<T> getOptionalMetadata(MetadataUrl<Optional<T>> url) {
+		if (url.getMetadata().isPresent()) {
+			return url.getMetadata().get();
+		} else {
+			return Optional.<T> absent();
 		}
 	}
 
