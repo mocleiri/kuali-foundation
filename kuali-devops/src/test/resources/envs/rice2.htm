@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>DevOps Managed Environments</title>
+<title>Kuali Student Environments</title>
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="./stupidtable.js?dev"></script>
@@ -15,14 +15,13 @@
 
 <body>
 	<div class="title">
-		<span id="title"> DevOps Managed Environments </span>
+		<span id="title">Kuali Student Environments</span>
 	</div>
 	<hr>
-
 	<table>
 		<thead>
 			<tr>
-				<th data-sort="int">Env</th>
+				<th data-sort="int">#</th>
 				<th data-sort="string">Url</th>
 				<th data-sort="string">Application</th>
 				<th data-sort="string">Version</th>
@@ -36,7 +35,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
+			<tr class='table-tr-even'>
 				<td>1</td>
 				<td><a href='http://env1.ks.kuali.org'>http://env1.ks.kuali.org</a>
 				</td>
@@ -44,8 +43,8 @@
 				<td>2.1.0-FR1</td>
 				<td>2014-01-06 13:41 MST</td>
 				<td><a
-					href='https://svn.kuali.org/repos/student/enrollment/ks-deployments/tags/ks-deployments-2.1.0-FR1/ks-web/ks-with-rice-bundled'>svn
-						:: revision 62922</a></td>
+					href='https://svn.kuali.org/repos/student/enrollment/ks-deployments/tags/ks-deployments-2.1.0-FR1/ks-web/ks-with-rice-bundled'>svn:62922</a>
+				</td>
 				<td>jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE</td>
 				<td>KSENV1</td>
 				<td>1.6.0_43</td>
@@ -66,8 +65,8 @@
 				<td>2.1.1-FR2-M1-build-665</td>
 				<td>2014-02-08 20:59 MST</td>
 				<td><a
-					href='https://svn.kuali.org/repos/student/enrollment/ks-deployments/tags/builds/ks-deployments-2.1/2.1.1-FR2-M1/build-665/ks-web/ks-with-rice-bundled'>svn
-						:: revision 64791</a></td>
+					href='https://svn.kuali.org/repos/student/enrollment/ks-deployments/tags/builds/ks-deployments-2.1/2.1.1-FR2-M1/build-665/ks-web/ks-with-rice-bundled'>svn:64791</a>
+				</td>
 				<td>jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE</td>
 				<td>KSENV2</td>
 				<td>1.7.0_21</td>
@@ -77,10 +76,10 @@
 				</td>
 				<td>
 					<div id='data'>6.0.35</div>
-					<div id='data'>uptime 17h</div>
+					<div id='data'>uptime 18h</div>
 				</td>
 			</tr>
-			<tr>
+			<tr class='table-tr-even'>
 				<td>3</td>
 				<td><a href='http://env3.ks.kuali.org'>http://env3.ks.kuali.org</a>
 				</td>
@@ -88,8 +87,8 @@
 				<td>2.1.1-FR2-M1-build-665</td>
 				<td>2014-02-08 20:59 MST</td>
 				<td><a
-					href='https://svn.kuali.org/repos/student/enrollment/ks-deployments/tags/builds/ks-deployments-2.1/2.1.1-FR2-M1/build-665/ks-web/ks-with-rice-bundled'>svn
-						:: revision 64791</a></td>
+					href='https://svn.kuali.org/repos/student/enrollment/ks-deployments/tags/builds/ks-deployments-2.1/2.1.1-FR2-M1/build-665/ks-web/ks-with-rice-bundled'>svn:64791</a>
+				</td>
 				<td>jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE</td>
 				<td>KSENV3</td>
 				<td>1.7.0_21</td>
@@ -99,7 +98,7 @@
 				</td>
 				<td>
 					<div id='data'>6.0.35</div>
-					<div id='data'>uptime 17h</div>
+					<div id='data'>uptime 18h</div>
 				</td>
 			</tr>
 			<tr class='table-tr-odd'>
@@ -110,8 +109,8 @@
 				<td>2.1.1-FR2-M1-cm-krad-build-218</td>
 				<td>2014-02-09 09:27 MST</td>
 				<td><a
-					href='https://svn.kuali.org/repos/student/enrollment/ks-deployments/tags/builds/ks-deployments-2.1/2.1.1-FR2-M1-cm-krad/build-218/ks-web/ks-with-rice-bundled'>svn
-						:: revision 64806</a></td>
+					href='https://svn.kuali.org/repos/student/enrollment/ks-deployments/tags/builds/ks-deployments-2.1/2.1.1-FR2-M1-cm-krad/build-218/ks-web/ks-with-rice-bundled'>svn:64806</a>
+				</td>
 				<td>jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE</td>
 				<td>KSENV4</td>
 				<td>1.6.0_35</td>
@@ -121,10 +120,10 @@
 				</td>
 				<td>
 					<div id='data'>6.0.35</div>
-					<div id='data'>uptime 5h</div>
+					<div id='data'>uptime 6h</div>
 				</td>
 			</tr>
-			<tr>
+			<tr class='table-tr-even'>
 				<td>5</td>
 				<td><a href='http://staging.ks.kuali.org'>http://staging.ks.kuali.org</a>
 				</td>
@@ -132,8 +131,8 @@
 				<td>2.0.0-M8</td>
 				<td>2013-10-31 11:07 MST</td>
 				<td><a
-					href='https://svn.kuali.org/repos/student/enrollment/ks-deployments/tags/ks-deployments-2.0.0-M8/ks-web/ks-with-rice-bundled'>svn
-						:: revision 59202</a></td>
+					href='https://svn.kuali.org/repos/student/enrollment/ks-deployments/tags/ks-deployments-2.0.0-M8/ks-web/ks-with-rice-bundled'>svn:59202</a>
+				</td>
 				<td>jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE</td>
 				<td>KSENV5</td>
 				<td>1.6.0_27</td>
@@ -153,7 +152,7 @@
 				<td>ks-with-rice-bundled</td>
 				<td>2.0.2-cm-krad-SNAPSHOT</td>
 				<td>2014-02-03 10:00 MST</td>
-				<td>svn :: n/a</td>
+				<td>svn:n/a</td>
 				<td>jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE</td>
 				<td>KSENV6</td>
 				<td>1.7.0_21</td>
@@ -166,7 +165,7 @@
 					<div id='data'>uptime 6d</div>
 				</td>
 			</tr>
-			<tr>
+			<tr class='table-tr-even'>
 				<td>7</td>
 				<td><a href='http://env7.ks.kuali.org'>http://env7.ks.kuali.org</a>
 				</td>
@@ -194,8 +193,8 @@
 				<td>2.1.0-FR1</td>
 				<td>2014-01-06 11:39 MST</td>
 				<td><a
-					href='https://svn.kuali.org/repos/student/enrollment/ks-deployments/tags/ks-deployments-2.1.0-FR1/ks-web/ks-with-rice-bundled'>svn
-						:: revision 62916</a></td>
+					href='https://svn.kuali.org/repos/student/enrollment/ks-deployments/tags/ks-deployments-2.1.0-FR1/ks-web/ks-with-rice-bundled'>svn:62916</a>
+				</td>
 				<td>jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE</td>
 				<td>KSENV8</td>
 				<td>1.7.0_21</td>
@@ -208,7 +207,7 @@
 					<div id='data'>uptime 27d</div>
 				</td>
 			</tr>
-			<tr>
+			<tr class='table-tr-even'>
 				<td>9</td>
 				<td><a href='http://demo.ks.kuali.org'>http://demo.ks.kuali.org</a>
 				</td>
@@ -235,7 +234,7 @@
 				<td>ks-rice-standalone</td>
 				<td>2.1.1-FR2-M1-SNAPSHOT</td>
 				<td>2014-02-07 16:47 MST</td>
-				<td>svn :: n/a</td>
+				<td>svn:n/a</td>
 				<td>jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE</td>
 				<td>KSENV10</td>
 				<td>1.7.0_21</td>
@@ -248,7 +247,7 @@
 					<div id='data'>uptime 2d</div>
 				</td>
 			</tr>
-			<tr>
+			<tr class='table-tr-even'>
 				<td>11</td>
 				<td><a href='http://env11.ks.kuali.org'>http://env11.ks.kuali.org</a>
 				</td>
@@ -256,8 +255,8 @@
 				<td>2.1.1-FR2-M1-build-665</td>
 				<td>2014-02-08 21:15 MST</td>
 				<td><a
-					href='https://svn.kuali.org/repos/student/enrollment/ks-deployments/tags/builds/ks-deployments-2.1/2.1.1-FR2-M1/build-665/ks-web/ks-rice-standalone'>svn
-						:: revision 64791</a></td>
+					href='https://svn.kuali.org/repos/student/enrollment/ks-deployments/tags/builds/ks-deployments-2.1/2.1.1-FR2-M1/build-665/ks-web/ks-rice-standalone'>svn:64791</a>
+				</td>
 				<td>jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE</td>
 				<td>KSENV11</td>
 				<td>1.7.0_21</td>
@@ -267,7 +266,7 @@
 				</td>
 				<td>
 					<div id='data'>6.0.35</div>
-					<div id='data'>uptime 17h</div>
+					<div id='data'>uptime 18h</div>
 				</td>
 			</tr>
 			<tr class='table-tr-odd'>
@@ -285,16 +284,16 @@
 					<div>m1.medium</div>
 					<div>age 271d</div>
 				</td>
-				<td>na</td>
+				<td>n/a</td>
 			</tr>
-			<tr>
+			<tr class='table-tr-even'>
 				<td>13</td>
 				<td><a href='http://env13.ks.kuali.org'>http://env13.ks.kuali.org</a>
 				</td>
 				<td>ks-with-rice-embedded</td>
 				<td>2.1.1-FR2-M1-SNAPSHOT</td>
 				<td>2014-02-07 16:44 MST</td>
-				<td>svn :: n/a</td>
+				<td>svn:n/a</td>
 				<td>jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE</td>
 				<td>KSENV10</td>
 				<td>1.7.0_21</td>
@@ -327,7 +326,7 @@
 					<div id='data'>uptime 109d</div>
 				</td>
 			</tr>
-			<tr>
+			<tr class='table-tr-even'>
 				<td>15</td>
 				<td><a href='http://env15.ks.kuali.org'>http://env15.ks.kuali.org</a>
 				</td>
@@ -355,8 +354,8 @@
 				<td>2.1.1-FR2-M1-build-665</td>
 				<td>2014-02-08 21:15 MST</td>
 				<td><a
-					href='https://svn.kuali.org/repos/student/enrollment/ks-deployments/tags/builds/ks-deployments-2.1/2.1.1-FR2-M1/build-665/ks-web/ks-rice-standalone'>svn
-						:: revision 64791</a></td>
+					href='https://svn.kuali.org/repos/student/enrollment/ks-deployments/tags/builds/ks-deployments-2.1/2.1.1-FR2-M1/build-665/ks-web/ks-rice-standalone'>svn:64791</a>
+				</td>
 				<td>jdbc:oracle:thin:@oraperf.ks.kuali.org:1521:ORAPERF</td>
 				<td>KSENV16</td>
 				<td>1.6.0_43</td>
@@ -366,10 +365,10 @@
 				</td>
 				<td>
 					<div id='data'>6.0.35</div>
-					<div id='data'>uptime 17h</div>
+					<div id='data'>uptime 18h</div>
 				</td>
 			</tr>
-			<tr>
+			<tr class='table-tr-even'>
 				<td>17</td>
 				<td><a href='http://env17.ks.kuali.org'>http://env17.ks.kuali.org</a>
 				</td>
@@ -384,7 +383,7 @@
 					<div>m1.medium</div>
 					<div>age 54d</div>
 				</td>
-				<td>na</td>
+				<td>n/a</td>
 			</tr>
 		</tbody>
 	</table>
