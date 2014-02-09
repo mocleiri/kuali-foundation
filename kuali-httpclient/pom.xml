@@ -40,7 +40,7 @@
     <slf4j.version>1.7.5</slf4j.version>
     <spring.version>3.2.7.RELEASE</spring.version>
     <httpclient.version>4.3.2</httpclient.version>
-    <kuali-util.version>4.4.9-SNAPSHOT</kuali-util.version>
+    <kuali-util.version>4.4.10-SNAPSHOT</kuali-util.version>
   </properties>
   <developers>
     <developer>

@@ -15,27 +15,26 @@
  */
 package org.kuali.common.http.service;
 
-
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.InputStream;
 
-import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.io.IOUtils;
+import org.apache.http.client.methods.CloseableHttpResponse;
 
 public final class AsynchronousCloser implements Runnable {
 
-	public AsynchronousCloser(HttpMethod method, InputStream in) {
-		this.method = checkNotNull(method, "method");
+	public AsynchronousCloser(CloseableHttpResponse response, InputStream in) {
+		this.response = checkNotNull(response, "response");
 		this.in = checkNotNull(in, "in");
 	}
 
-	private final HttpMethod method;
+	private final CloseableHttpResponse response;
 	private final InputStream in;
 
 	@Override
 	public void run() {
-		method.releaseConnection();
+		IOUtils.closeQuietly(response);
 		IOUtils.closeQuietly(in);
 	}
 

@@ -15,29 +15,34 @@
  */
 package org.kuali.common.http.service;
 
+import static com.google.common.base.Optional.absent;
+import static com.google.common.base.Optional.fromNullable;
+import static org.kuali.common.util.base.Exceptions.illegalState;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.HttpMethodRetryHandler;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.params.HttpClientParams;
-import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.HttpRequestRetryHandler;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.config.SocketConfig;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.StandardHttpRequestRetryHandler;
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.http.model.HttpRequestResult;
 import org.kuali.common.http.model.HttpStatus;
 import org.kuali.common.http.model.HttpWaitResult;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.base.Threads;
 import org.kuali.common.util.log.Loggers;
 import org.slf4j.Logger;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 
 public class DefaultHttpService implements HttpService {
@@ -170,27 +175,28 @@ public class DefaultHttpService implements HttpService {
 		}
 	}
 
-	protected HttpRequestResult doRequest(HttpClient client, HttpContext context) {
+	protected HttpRequestResult doRequest(CloseableHttpClient client, HttpContext context) {
 		long start = System.currentTimeMillis();
 		try {
-			HttpMethod method = new GetMethod(context.getUrl());
-			client.executeMethod(method);
-			String responseBody = getResponseBodyAsString(method, context);
-			int statusCode = method.getStatusCode();
-			String statusText = method.getStatusText();
+			HttpGet httpGet = new HttpGet(context.getUrl());
+			CloseableHttpResponse response = client.execute(httpGet);
+			Optional<String> responseBody = getResponseBodyAsString(response, context);
+			int statusCode = response.getStatusLine().getStatusCode();
+			String statusText = response.getStatusLine().getReasonPhrase();
 			return new HttpRequestResult.Builder(statusText, statusCode, responseBody, start).build();
 		} catch (IOException e) {
 			return new HttpRequestResult.Builder(e, start).build();
 		}
 	}
 
-	protected String getResponseBodyAsString(HttpMethod method, HttpContext context) {
+	protected Optional<String> getResponseBodyAsString(CloseableHttpResponse response, HttpContext context) {
 		InputStream in = null;
 		try {
-			in = method.getResponseBodyAsStream();
-			if (in == null) {
-				return null;
+			Optional<HttpEntity> entity = fromNullable(response.getEntity());
+			if (!entity.isPresent()) {
+				return absent();
 			}
+			in = entity.get().getContent();
 			byte[] buffer = new byte[4096];
 			int length = in.read(buffer);
 			long bytesRead = 0;
@@ -204,19 +210,17 @@ public class DefaultHttpService implements HttpService {
 				}
 				length = in.read(buffer);
 			}
-			return sb.toString();
+			return Optional.of(sb.toString());
 		} catch (IOException e) {
-			throw Exceptions.illegalState("unexpected io error", e);
+			throw illegalState("unexpected io error", e);
 		} finally {
-			// The 3.1 httpclient always reads to the end of the end of the stream no matter what when you close it
-			// This can take FOREVER
 			if (context.isAsynchronousClose()) {
-				Runnable runnable = new AsynchronousCloser(method, in);
+				Runnable runnable = new AsynchronousCloser(response, in);
 				Thread thread = new Thread(runnable, "async http closer");
 				thread.setDaemon(true);
 				thread.start();
 			} else {
-				method.releaseConnection();
+				IOUtils.closeQuietly(response);
 				IOUtils.closeQuietly(in);
 			}
 		}
@@ -248,20 +252,10 @@ public class DefaultHttpService implements HttpService {
 		return false;
 	}
 
-	protected HttpClient getHttpClient(HttpContext context) {
-		HttpClient client = new HttpClient();
-		HttpClientParams clientParams = client.getParams();
-
-		// Disable the automatic retry capability built into the http client software
-		// We will be handling retries on our own
-		HttpMethodRetryHandler retryHandler = new DefaultHttpMethodRetryHandler(0, false);
-		clientParams.setParameter(HttpMethodParams.RETRY_HANDLER, retryHandler);
-
-		// Set a hard timeout for this individual request so we get control back after a known amount of time
-		clientParams.setParameter(HttpMethodParams.SO_TIMEOUT, context.getRequestTimeoutMillis());
-
-		// Return the client configured with our preferences
-		return client;
+	protected CloseableHttpClient getHttpClient(HttpContext context) {
+		SocketConfig socketConfig = SocketConfig.custom().setSoTimeout(context.getRequestTimeoutMillis()).build();
+		HttpRequestRetryHandler retryHandler = new StandardHttpRequestRetryHandler(0, false);
+		return HttpClients.custom().setRetryHandler(retryHandler).setDefaultSocketConfig(socketConfig).build();
 	}
 
 }

@@ -15,6 +15,8 @@
  */
 package org.kuali.common.http.model;
 
+import static com.google.common.base.Optional.fromNullable;
+
 import java.io.IOException;
 
 import org.kuali.common.util.Assert;
@@ -55,6 +57,10 @@ public final class HttpRequestResult {
 		return elapsed;
 	}
 
+	public static Builder builder(String statusText, long start) {
+		return new Builder(statusText,start):
+	}
+
 	public static class Builder {
 
 		// Required
@@ -75,14 +81,15 @@ public final class HttpRequestResult {
 			this.start = start;
 		}
 
-		public Builder(String statusText, int statusCode, String responseBody, long start) {
+		public Builder(String statusText, int statusCode, Optional<String> responseBody, long start) {
 			this.statusText = statusText;
 			this.statusCode = Optional.of(statusCode);
-			this.responseBody = Optional.fromNullable(responseBody);
+			this.responseBody = responseBody;
 			this.start = start;
 		}
 
 		public HttpRequestResult build() {
+			Precondition.checkNot
 			Assert.noNulls(statusCode, exception, responseBody);
 			Assert.noBlanks(statusText);
 			Assert.isTrue(start > 0, "start is negative");
