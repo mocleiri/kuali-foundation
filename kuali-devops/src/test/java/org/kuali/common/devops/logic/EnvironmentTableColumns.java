@@ -6,13 +6,13 @@ import org.kuali.common.devops.table.Label;
 
 public enum EnvironmentTableColumns {
 
-	NAME(Label.create(0, "env")), //
-	URL(Label.create(1, "url")), //
-	APP(Label.create(2, "application")), //
-	SCM(Label.create(3, "scm")), //
-	JAVA(Label.create(4, "java")), //
-	SERVER(Label.create(5, "server")), //
-	TOMCAT(Label.create(6, "tomcat")); //
+	NAME(Label.create(0, "Env")), //
+	URL(Label.create(1, "Url")), //
+	APP(Label.create(2, "Application")), //
+	SCM(Label.create(3, "SCM")), //
+	JAVA(Label.create(4, "Java")), //
+	SERVER(Label.create(5, "Server")), //
+	TOMCAT(Label.create(6, "Tomcat")); //
 
 	private final Label label;
 

@@ -42,7 +42,7 @@ public class Environments extends Examiner {
 	protected static Map<Label, String> getRowData(Environment env) {
 		String dest = PROTOCOL + env.getFqdn();
 		String href = href(dest, dest);
-		String java = env.getJava().isPresent() ? env.getJava().get() : "na";
+		String java = env.getJava().isPresent() ? env.getJava().get() : "n/a";
 		Map<Label, String> map = Maps.newHashMap();
 		map.put(EnvironmentTableColumns.NAME.getLabel(), getEnvironmentInteger(env.getName()) + "");
 		map.put(EnvironmentTableColumns.URL.getLabel(), href);
@@ -81,7 +81,8 @@ public class Environments extends Examiner {
 			Table<Integer, Integer, String> table = HashBasedTable.create();
 			addRow(table, tomcat.getVersion());
 			addRow(table, "uptime " + uptime);
-			return Html.html(context, table);
+			// return Html.html(context, table);
+			return "<div id='data'>" + tomcat.getVersion() + "</div><div id='data'>uptime " + uptime + "</div>";
 		}
 	}
 
@@ -110,7 +111,8 @@ public class Environments extends Examiner {
 			addRow(table, buildId);
 			addRow(table, databaseId);
 
-			return Html.html(context, table);
+			// return Html.html(context, table);
+			return "<div>" + buildId + "</div><div>" + databaseId + "</div>";
 		}
 	}
 
@@ -167,7 +169,8 @@ public class Environments extends Examiner {
 		Table<Integer, Integer, String> table = HashBasedTable.create();
 		addRow(table, ImmutableList.of(instance.getType()));
 		addRow(table, ImmutableList.of("age " + age));
-		return Html.html(context, table);
+		// return Html.html(context, table);
+		return "<div>" + instance.getType() + "</div><div>age " + age + "</div>";
 	}
 
 	protected static void addRow(Table<Integer, Label, String> table, Map<Label, String> map) {

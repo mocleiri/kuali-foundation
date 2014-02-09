@@ -46,8 +46,14 @@ public class Html extends Examiner {
 		SortedSet<Comparable<R>> rowKeys = Sets.newTreeSet(table.rowKeySet());
 		SortedSet<Comparable<C>> colKeys = Sets.newTreeSet(table.columnKeySet());
 		sb.append(getHeader(context, colKeys, padding));
+		int count = 0;
 		for (Comparable<R> rowKey : rowKeys) {
-			sb.append(padding + " <tr>\n");
+			boolean even = count++ % 2 == 0;
+			if (even) {
+				sb.append(padding + " <tr>\n");
+			} else {
+				sb.append(padding + " <tr class='table-tr-odd'>\n");
+			}
 			if (context.isRowLabels()) {
 				sb.append(padding + "  <td>\n");
 				sb.append(padding + "   " + rowKey.toString() + "\n");
