@@ -10,14 +10,16 @@ import org.kuali.common.devops.cache.PersistToFileSystemLoader;
 import org.kuali.common.devops.cache.PersistToFileSystemLoaderFactory;
 import org.kuali.common.devops.metadata.function.FirstGCTimestampFunction;
 import org.kuali.common.devops.metadata.function.ManifestFunction;
+import org.kuali.common.devops.metadata.function.ProjectFunction;
 import org.kuali.common.devops.metadata.function.ProjectPropertiesUrlFragmentFunction;
-import org.kuali.common.devops.metadata.function.PropertiesFunction;
 import org.kuali.common.devops.metadata.function.RemoteEnvironmentFunction;
 import org.kuali.common.devops.metadata.function.TomcatVersionFunction;
 import org.kuali.common.devops.metadata.model.EnvironmentMetadata;
 import org.kuali.common.devops.metadata.model.MetadataUrl;
+import org.kuali.common.devops.metadata.model.RemoteEnvironment;
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.util.log.LoggerUtils;
+import org.kuali.common.util.project.model.Project;
 import org.slf4j.Logger;
 
 import com.google.common.base.Function;
@@ -58,8 +60,15 @@ public class EnvMetaTest {
 			Function<Properties, Optional<String>> function = new ProjectPropertiesUrlFragmentFunction();
 			Optional<String> suffix = function.apply(manifest.get());
 			if (suffix.isPresent()) {
-				builder.project(build(helper, suffix.get(), new PropertiesFunction()));
+				builder.project(build(helper, suffix.get(), new ProjectFunction()));
 			}
+		}
+
+		Optional<Project> project = builder.getProject().getMetadata();
+		Optional<RemoteEnvironment> remoteEnvironment = builder.getRemoteEnvironment().getMetadata();
+		if (project.isPresent()) {
+			Function<Properties, Optional<String>> function = new ProjectPropertiesUrlFragmentFunction();
+			
 		}
 		return null;
 	}

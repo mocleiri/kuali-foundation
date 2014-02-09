@@ -8,13 +8,21 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.kuali.common.util.project.ProjectUtils;
+import org.kuali.common.util.project.model.Project;
+
 import com.google.common.base.Function;
 
-public class PropertiesFunction implements Function<String, Properties> {
+public class ProjectFunction implements Function<String, Project> {
 
 	@Override
-	public Properties apply(String content) {
+	public Project apply(String content) {
 		checkNotNull(content, "content");
+		Properties properties = getProperties(content);
+		return ProjectUtils.getProject(properties);
+	}
+
+	protected Properties getProperties(String content) {
 		try {
 			ByteArrayInputStream in = new ByteArrayInputStream(content.getBytes(UTF8));
 			Properties props = new Properties();

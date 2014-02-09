@@ -3,6 +3,7 @@ package org.kuali.common.devops.metadata.model;
 import java.util.Properties;
 
 import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
@@ -14,7 +15,7 @@ public final class EnvironmentMetadata {
 	private final MetadataUrl<Optional<Long>> tomcatStartupTime;
 	private final MetadataUrl<RemoteEnvironment> remoteEnvironment;
 	private final MetadataUrl<Properties> manifest;
-	private final MetadataUrl<Properties> project;
+	private final MetadataUrl<Project> project;
 
 	private EnvironmentMetadata(Builder builder) {
 		this.tomcatVersion = builder.tomcatVersion;
@@ -34,9 +35,9 @@ public final class EnvironmentMetadata {
 		private MetadataUrl<Optional<Long>> tomcatStartupTime;
 		private MetadataUrl<RemoteEnvironment> remoteEnvironment;
 		private MetadataUrl<Properties> manifest;
-		private MetadataUrl<Properties> project;
+		private MetadataUrl<Project> project;
 
-		public Builder project(MetadataUrl<Properties> project) {
+		public Builder project(MetadataUrl<Project> project) {
 			this.project = project;
 			return this;
 		}
@@ -98,11 +99,11 @@ public final class EnvironmentMetadata {
 			this.manifest = manifest;
 		}
 
-		public MetadataUrl<Properties> getProject() {
+		public MetadataUrl<Project> getProject() {
 			return project;
 		}
 
-		public void setProject(MetadataUrl<Properties> project) {
+		public void setProject(MetadataUrl<Project> project) {
 			this.project = project;
 		}
 	}
@@ -123,7 +124,7 @@ public final class EnvironmentMetadata {
 		return manifest;
 	}
 
-	public MetadataUrl<Properties> getProject() {
+	public MetadataUrl<Project> getProject() {
 		return project;
 	}
 }
