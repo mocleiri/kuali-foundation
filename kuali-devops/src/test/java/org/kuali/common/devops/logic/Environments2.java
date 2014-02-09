@@ -188,13 +188,8 @@ public class Environments2 {
 		List<EC2Instance> servers = getDeployServers(group, instances, cnames);
 		List<Environment.Builder> builders = Lists.newArrayList();
 		for (EC2Instance server : servers) {
-			if (group.equals("rice") && server.getName().isPresent() && server.getName().get().equals("env20")) {
-				System.out.println("yo");
-				Environment.Builder builder = getBuilder(server, cnames);
-				builders.add(builder);
-			} else {
-				continue;
-			}
+			Environment.Builder builder = getBuilder(server, cnames);
+			builders.add(builder);
 		}
 		Collections.sort(builders);
 		return builders;
