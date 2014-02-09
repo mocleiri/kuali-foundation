@@ -2,6 +2,7 @@ package org.kuali.common.devops.cache;
 
 import static org.apache.commons.io.FileUtils.forceDelete;
 import static org.apache.commons.io.FileUtils.openOutputStream;
+import static org.apache.commons.io.FileUtils.writeStringToFile;
 import static org.apache.commons.io.IOUtils.closeQuietly;
 import static org.apache.commons.io.IOUtils.copyLarge;
 import static org.kuali.common.util.base.Exceptions.illegalState;
@@ -38,7 +39,8 @@ public final class FilePersister<K, V> implements CachePersister<K, Optional<V>>
 			if (reference.isPresent()) {
 				copy(file, reference, inputStreamFunction);
 			} else {
-				forceDeleteIfExists(file);
+				String magicAbsentString = "##--absent--##";
+				writeStringToFile(file, magicAbsentString);
 			}
 		} catch (IOException e) {
 			throw illegalState(e, "unexpected io error -> [%s]", file);
