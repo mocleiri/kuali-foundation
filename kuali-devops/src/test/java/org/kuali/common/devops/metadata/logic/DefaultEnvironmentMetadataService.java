@@ -72,6 +72,8 @@ public class DefaultEnvironmentMetadataService implements EnvironmentMetadataSer
 			if (suffix.isPresent()) {
 				builder.project(build(helper, suffix.get(), new ProjectFunction()));
 			}
+		} else {
+			builder.project(Optional.<MetadataUrl<Project>> absent());
 		}
 	}
 
