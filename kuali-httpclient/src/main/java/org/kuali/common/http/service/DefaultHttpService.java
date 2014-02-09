@@ -26,6 +26,7 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.HttpRequestRetryHandler;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.config.SocketConfig;
@@ -253,9 +254,12 @@ public class DefaultHttpService implements HttpService {
 	}
 
 	protected CloseableHttpClient getHttpClient(HttpContext context) {
-		SocketConfig socketConfig = SocketConfig.custom().setSoTimeout(context.getRequestTimeoutMillis()).build();
+		int timeout = context.getRequestTimeoutMillis();
+		SocketConfig socketConfig = SocketConfig.custom().setSoTimeout(timeout).build();
 		HttpRequestRetryHandler retryHandler = new StandardHttpRequestRetryHandler(0, false);
-		return HttpClients.custom().setRetryHandler(retryHandler).setDefaultSocketConfig(socketConfig).build();
+		RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(timeout).setConnectTimeout(timeout).setConnectionRequestTimeout(timeout)
+				.setStaleConnectionCheckEnabled(true).build();
+		return HttpClients.custom().setRetryHandler(retryHandler).setDefaultSocketConfig(socketConfig).setDefaultRequestConfig(requestConfig).build();
 	}
 
 }
