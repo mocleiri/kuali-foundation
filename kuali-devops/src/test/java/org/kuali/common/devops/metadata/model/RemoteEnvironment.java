@@ -2,6 +2,8 @@ package org.kuali.common.devops.metadata.model;
 
 import java.util.Properties;
 
+import javax.validation.Valid;
+
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -15,6 +17,7 @@ public final class RemoteEnvironment {
 	private final ImmutableProperties environment;
 	private final Optional<Integer> processors;
 	private final Optional<Long> currentTimeMillis;
+	@Valid
 	private final Optional<Memory> memory;
 
 	private RemoteEnvironment(Builder builder) {
