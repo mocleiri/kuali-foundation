@@ -182,13 +182,12 @@ public class Environments2 {
 	}
 
 	protected static Optional<String> getJava(EnvironmentMetadata meta) {
-		Optional<RemoteEnvironment> metdata = getMetadata(meta.getRemoteEnvironment());
-		if (!metdata.isPresent()) {
+		Optional<RemoteEnvironment> remoteEnvironment = getMetadata(meta.getRemoteEnvironment());
+		if (!remoteEnvironment.isPresent()) {
 			return Optional.<String> absent();
 		}
-		RemoteEnvironment env = metdata.get();
-		Properties system = env.getSystem();
-		return fromNullable(system.getProperty("java.version"));
+		Properties systemProperties = remoteEnvironment.get().getSystem();
+		return fromNullable(systemProperties.getProperty("java.version"));
 	}
 
 	protected static Optional<Tomcat> getTomcat(EnvironmentMetadata meta) {
