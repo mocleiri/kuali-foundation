@@ -159,9 +159,6 @@ public class Environments2 {
 
 	protected static void fillIn(String group, List<Environment.Builder> builders, EnvironmentMetadataService service, boolean refresh) {
 		for (Environment.Builder builder : builders) {
-			if (builder.getFqdn().equals("ec2-23-22-42-91.compute-1.amazonaws.com")) {
-				System.out.println("yo");
-			}
 			EnvironmentMetadata metadata = service.getMetadata(builder.getFqdn());
 			Optional<Tomcat> tomcat = getTomcat(metadata);
 			builder.tomcat(tomcat);
@@ -193,9 +190,11 @@ public class Environments2 {
 		for (EC2Instance server : servers) {
 			if (group.equals("rice") && server.getName().isPresent() && server.getName().get().equals("env20")) {
 				System.out.println("yo");
+				Environment.Builder builder = getBuilder(server, cnames);
+				builders.add(builder);
+			} else {
+				continue;
 			}
-			Environment.Builder builder = getBuilder(server, cnames);
-			builders.add(builder);
 		}
 		Collections.sort(builders);
 		return builders;
