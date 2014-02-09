@@ -23,8 +23,7 @@ public class MetadataServiceTest {
 	@Test
 	public void test() {
 		try {
-			// List<String> fqdns = of("env1.rice.kuali.org", "env2.rice.kuali.org", "env1.ks.kuali.org", "dev.ole.kuali.org", "dev.docstore.ole.kuali.org");
-			List<String> fqdns = of("blibbity.jbc.foo.kuali.org");
+			List<String> fqdns = of("env1.rice.kuali.org", "env2.rice.kuali.org", "env1.ks.kuali.org", "dev.ole.kuali.org", "dev.docstore.ole.kuali.org");
 			EnvironmentMetadataService service = new DefaultEnvironmentMetadataService();
 			Stopwatch sw = createStarted();
 			List<EnvironmentMetadata> metadata = service.getMetadata(fqdns);
