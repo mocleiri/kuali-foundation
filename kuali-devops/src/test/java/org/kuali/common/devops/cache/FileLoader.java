@@ -12,24 +12,24 @@ import com.google.common.cache.CacheLoader;
 
 public final class FileLoader<V> extends CacheLoader<File, Optional<V>> {
 
-	public FileLoader(Function<File, Optional<V>> function) {
+	public FileLoader(Function<File, V> function) {
 		this.function = checkNotNull(function, "function");
 	}
 
-	private final Function<File, Optional<V>> function;
+	private final Function<File, V> function;
 
 	@Override
 	public Optional<V> load(File file) throws IOException {
 		checkNotNull(file);
 		if (file.exists()) {
-			Optional<V> reference = function.apply(file);
-			return reference;
+			V reference = function.apply(file);
+			return Optional.of(reference);
 		} else {
 			return absent();
 		}
 	}
 
-	public Function<File, Optional<V>> getFunction() {
+	public Function<File, V> getFunction() {
 		return function;
 	}
 

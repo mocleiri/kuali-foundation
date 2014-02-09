@@ -2,7 +2,7 @@ package org.kuali.common.devops.cache;
 
 import static org.apache.commons.io.FileUtils.forceDelete;
 import static org.apache.commons.io.FileUtils.openOutputStream;
-import static org.apache.commons.io.FileUtils.writeStringToFile;
+import static org.apache.commons.io.FileUtils.touch;
 import static org.apache.commons.io.IOUtils.closeQuietly;
 import static org.apache.commons.io.IOUtils.copyLarge;
 import static org.kuali.common.util.base.Exceptions.illegalState;
@@ -13,12 +13,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.kuali.common.util.file.CanonicalFile;
+
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 
 public final class FilePersister<K, V> implements CachePersister<K, Optional<V>> {
 
-	public static final String GLOBAL_MAGIC_ABSENT_STRING = "##--absent--##";
+	public static final String GLOBAL_MAGIC_ABSENT_SUFFIX = ".absent";
 
 	public FilePersister(Function<K, File> fileFunction, Function<V, InputStream> inputStreamFunction) {
 		this.fileFunction = checkNotNull(fileFunction, "fileFunction");
@@ -41,7 +43,8 @@ public final class FilePersister<K, V> implements CachePersister<K, Optional<V>>
 			if (reference.isPresent()) {
 				copy(file, reference, inputStreamFunction);
 			} else {
-				writeStringToFile(file, GLOBAL_MAGIC_ABSENT_STRING);
+				File absentFile = new CanonicalFile(file.getCanonicalFile() + GLOBAL_MAGIC_ABSENT_SUFFIX);
+				touch(absentFile);
 			}
 		} catch (IOException e) {
 			throw illegalState(e, "unexpected io error -> [%s]", file);
