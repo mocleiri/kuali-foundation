@@ -148,7 +148,7 @@ public class Environments2 {
 		int count = 0;
 		for (String group : instances.keySet()) {
 			List<EC2Instance> servers = instances.get(group);
-			List<Environment.Builder> builders = getBuilders(servers, cnames);
+			List<Environment.Builder> builders = getBuilders(group, servers, cnames);
 			fillIn(group, builders, service, refresh);
 			count += builders.size();
 			map.put(group, builders);
@@ -184,8 +184,8 @@ public class Environments2 {
 		return Optional.of(builder.build());
 	}
 
-	protected static List<Environment.Builder> getBuilders(List<EC2Instance> instances, BiMap<String, String> cnames) {
-		List<EC2Instance> servers = getDeployServers(instances);
+	protected static List<Environment.Builder> getBuilders(String group, List<EC2Instance> instances, BiMap<String, String> cnames) {
+		List<EC2Instance> servers = getDeployServers(group, instances, cnames);
 		List<Environment.Builder> builders = Lists.newArrayList();
 		for (EC2Instance server : servers) {
 			Environment.Builder builder = getBuilder(server, cnames);
@@ -198,15 +198,22 @@ public class Environments2 {
 	protected static Environment.Builder getBuilder(EC2Instance server, BiMap<String, String> cnames) {
 		String publicDnsName = server.getPublicDnsName().get();
 		String fqdn = cnames.get(publicDnsName);
-		checkState(!isBlank(fqdn), "no fqdn -> [%s]", publicDnsName);
+		checkState(!isBlank(fqdn), "no fqdn -> [%s:%s]", server.getName().get(), publicDnsName);
 		return Environment.builder().fqdn(fqdn).server(server).name(server.getName().get());
 	}
 
-	protected static List<EC2Instance> getDeployServers(List<EC2Instance> instances) {
+	protected static List<EC2Instance> getDeployServers(String group, List<EC2Instance> instances, BiMap<String, String> cnames) {
 		List<EC2Instance> list = Lists.newArrayList();
 		for (EC2Instance instance : instances) {
 			if (isDeployServer(instance)) {
-				checkState(instance.getPublicDnsName().isPresent(), "no public dns name -> [%s]", instance.getId());
+				if (!instance.getPublicDnsName().isPresent()) {
+					logger.warn(format("no public dns name -> [%s::%s::%s]", group, instance.getName().get(), instance.getId()));
+					continue;
+				}
+				if (cnames.get(instance.getPublicDnsName().get()) == null) {
+					logger.warn(format("no fqdn -> [%s::%s::%s]", group, instance.getName().get(), instance.getId()));
+					continue;
+				}
 				list.add(instance);
 			}
 		}
