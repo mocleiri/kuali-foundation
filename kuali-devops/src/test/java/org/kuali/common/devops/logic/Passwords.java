@@ -1,14 +1,17 @@
 package org.kuali.common.devops.logic;
 
+import static com.google.common.base.Optional.absent;
+import static com.google.common.base.Optional.fromNullable;
 import static org.apache.commons.io.FileUtils.readFileToString;
+import static org.apache.commons.lang3.StringUtils.substringBetween;
+import static org.apache.commons.lang3.StringUtils.trimToNull;
+import static org.kuali.common.util.base.Exceptions.illegalState;
 
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Encodings;
 import org.kuali.common.util.Str;
-import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
@@ -47,7 +50,7 @@ public class Passwords {
 			logger.info(String.format("Located [%s] in [%s]", SYS_KEY, SETTINGS));
 			return Str.reveal(settings.get());
 		} else {
-			throw Exceptions.illegalState("encryption password could not be found in system properties, environment variables, or [%s]", SETTINGS);
+			throw illegalState("encryption password could not be found in system properties, environment variables, or [%s]", SETTINGS);
 		}
 	}
 
@@ -55,7 +58,7 @@ public class Passwords {
 		if (System.getProperty(SYS_KEY) != null) {
 			return Optional.of(System.getProperty(SYS_KEY).trim());
 		} else {
-			return Optional.absent();
+			return absent();
 		}
 	}
 
@@ -63,7 +66,7 @@ public class Passwords {
 		if (System.getenv(ENV_KEY) != null) {
 			return Optional.of(System.getenv(ENV_KEY).trim());
 		} else {
-			return Optional.absent();
+			return absent();
 		}
 	}
 
@@ -75,14 +78,14 @@ public class Passwords {
 	protected static Optional<String> getSettingsXmlPassword() {
 		File file = getSettingsXmlFile();
 		if (!file.exists()) {
-			return Optional.absent();
+			return absent();
 		}
 		try {
 			String contents = readFileToString(file, Encodings.UTF8);
-			String password = StringUtils.substringBetween(contents, "<" + SYS_KEY + ">", "</" + SYS_KEY + ">");
-			return Optional.fromNullable(StringUtils.trimToNull(password));
+			String password = substringBetween(contents, "<" + SYS_KEY + ">", "</" + SYS_KEY + ">");
+			return fromNullable(trimToNull(password));
 		} catch (IOException e) {
-			throw Exceptions.illegalState(e, "unexpected io error -> [%s]", file);
+			throw illegalState(e, "unexpected io error -> [%s]", file);
 		}
 	}
 
