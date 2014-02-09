@@ -42,7 +42,7 @@ public final class UrlToFileFunction implements Function<String, File> {
 			path = path.replace(replaceToken, File.separator);
 		}
 
-		// Return what we've got
+		// Append a suffix and return
 		return path + magicSuffix;
 	}
 
