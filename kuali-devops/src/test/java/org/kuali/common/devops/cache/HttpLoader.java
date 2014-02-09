@@ -1,5 +1,7 @@
 package org.kuali.common.devops.cache;
 
+import static com.google.common.base.Optional.absent;
+import static org.kuali.common.http.model.HttpStatus.SUCCESS;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 import java.io.IOException;
@@ -30,7 +32,11 @@ public final class HttpLoader extends CacheLoader<String, Optional<String>> {
 		builder.setUrl(url);
 		HttpContext context = builder.build();
 		HttpWaitResult result = service.wait(context);
-		return result.getFinalRequestResult().getResponseBody();
+		if (result.getStatus().equals(SUCCESS)) {
+			return result.getFinalRequestResult().getResponseBody();
+		} else {
+			return absent();
+		}
 	}
 
 	private HttpLoader(Builder builder) {
