@@ -42,7 +42,7 @@ import com.google.common.collect.Table;
 
 public class Instances {
 
-	private static final File CACHE_DIR = new CanonicalFile("./target/cache/aws/ec2");
+	private static final File CACHE_DIR = new CanonicalFile("./target/cache/servers/aws/ec2");
 	private static final Logger logger = Loggers.make();
 	private static final String EC2_NAME_TAG_KEY = "Name";
 

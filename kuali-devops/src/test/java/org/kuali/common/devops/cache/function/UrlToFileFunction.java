@@ -67,7 +67,7 @@ public final class UrlToFileFunction implements Function<String, File> {
 
 	public static class Builder extends ValidatingBuilder<UrlToFileFunction> {
 
-		private File basedir = new CanonicalFile("./target/cache");
+		private File basedir = new CanonicalFile("./target/cache/urls");
 		private List<String> removeTokens = ImmutableList.of();
 		// This translates both http://foo.com and classpath:foo.txt correctly
 		private List<String> replaceTokens = ImmutableList.of(":", "///", "?", "#", "=");
