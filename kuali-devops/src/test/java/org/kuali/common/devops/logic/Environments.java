@@ -9,9 +9,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.kuali.common.devops.metadata.model.EC2Instance;
 import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.Database;
-import org.kuali.common.devops.model.EC2Instance;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.model.Scm;
 import org.kuali.common.devops.model.Tomcat;

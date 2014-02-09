@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.devops.logic.Instances;
-import org.kuali.common.devops.model.EC2Instance;
+import org.kuali.common.devops.metadata.model.EC2Instance;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.google.common.cache.CacheLoader;

@@ -13,9 +13,9 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.SortedMap;
 
+import org.kuali.common.devops.metadata.model.EC2Instance;
 import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.Database;
-import org.kuali.common.devops.model.EC2Instance;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.model.Scm;
 import org.kuali.common.devops.model.Tomcat;

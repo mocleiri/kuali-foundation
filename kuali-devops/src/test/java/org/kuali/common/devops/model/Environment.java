@@ -2,6 +2,7 @@ package org.kuali.common.devops.model;
 
 import java.util.Comparator;
 
+import org.kuali.common.devops.metadata.model.EC2Instance;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
