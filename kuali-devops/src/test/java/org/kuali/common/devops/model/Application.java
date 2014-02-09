@@ -1,30 +1,28 @@
 package org.kuali.common.devops.model;
 
-import java.util.Map;
 import java.util.Properties;
 
-import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.project.model.ImmutableProject;
 import org.kuali.common.util.project.model.Project;
+import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
-import com.google.common.collect.ImmutableMap;
 
 @IdiotProofImmutable
 public final class Application {
 
 	private final ImmutableProject project;
-	private final ImmutableMap<String, String> manifest;
-	private final ImmutableMap<String, String> configuration;
+	private final ImmutableProperties manifest;
+	private final ImmutableProperties configuration;
 	private final Optional<Database> database;
 	private final Optional<Scm> scm;
 
 	private Application(Builder builder) {
 		this.project = ImmutableProject.copyOf(builder.project);
-		this.configuration = ImmutableMap.copyOf(builder.configuration);
-		this.manifest = ImmutableMap.copyOf(builder.manifest);
+		this.configuration = ImmutableProperties.copyOf(builder.configuration);
+		this.manifest = ImmutableProperties.copyOf(builder.manifest);
 		this.database = builder.database;
 		this.scm = builder.scm;
 	}
@@ -40,8 +38,8 @@ public final class Application {
 	public static class Builder extends ValidatingBuilder<Application> {
 
 		private Project project;
-		private Map<String, String> configuration;
-		private Map<String, String> manifest;
+		private Properties configuration;
+		private Properties manifest;
 		private Optional<Database> database;
 		private Optional<Scm> scm;
 
@@ -60,19 +58,11 @@ public final class Application {
 		}
 
 		public Builder configuration(Properties configuration) {
-			return configuration(PropertyUtils.convert(configuration));
-		}
-
-		public Builder configuration(Map<String, String> configuration) {
 			this.configuration = configuration;
 			return this;
 		}
 
 		public Builder manifest(Properties manifest) {
-			return manifest(PropertyUtils.convert(manifest));
-		}
-
-		public Builder manifest(Map<String, String> manifest) {
 			this.manifest = manifest;
 			return this;
 		}
@@ -99,14 +89,6 @@ public final class Application {
 			this.project = project;
 		}
 
-		public Map<String, String> getConfiguration() {
-			return configuration;
-		}
-
-		public void setConfiguration(Map<String, String> configuration) {
-			this.configuration = configuration;
-		}
-
 		public Optional<Database> getDatabase() {
 			return database;
 		}
@@ -122,14 +104,26 @@ public final class Application {
 		public void setScm(Optional<Scm> scm) {
 			this.scm = scm;
 		}
+
+		public Properties getConfiguration() {
+			return configuration;
+		}
+
+		public void setConfiguration(Properties configuration) {
+			this.configuration = configuration;
+		}
+
+		public Properties getManifest() {
+			return manifest;
+		}
+
+		public void setManifest(Properties manifest) {
+			this.manifest = manifest;
+		}
 	}
 
 	public Project getProject() {
 		return project;
-	}
-
-	public Map<String, String> getConfiguration() {
-		return configuration;
 	}
 
 	public Optional<Database> getDatabase() {
@@ -140,7 +134,12 @@ public final class Application {
 		return scm;
 	}
 
-	public ImmutableMap<String, String> getManifest() {
+	public ImmutableProperties getManifest() {
 		return manifest;
 	}
+
+	public ImmutableProperties getConfiguration() {
+		return configuration;
+	}
+
 }
