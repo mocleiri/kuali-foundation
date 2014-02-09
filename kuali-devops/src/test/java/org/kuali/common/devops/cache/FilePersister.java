@@ -64,4 +64,12 @@ public final class FilePersister<K, V> implements CachePersister<K, Optional<V>>
 		}
 	}
 
+	public Function<K, File> getFileFunction() {
+		return fileFunction;
+	}
+
+	public Function<V, InputStream> getInputStreamFunction() {
+		return inputStreamFunction;
+	}
+
 }
