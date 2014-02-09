@@ -13,7 +13,10 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.SortedMap;
 
+import org.kuali.common.devops.metadata.logic.DefaultEnvironmentMetadataService;
+import org.kuali.common.devops.metadata.logic.EnvironmentMetadataService;
 import org.kuali.common.devops.metadata.model.EC2Instance;
+import org.kuali.common.devops.metadata.model.EnvironmentMetadata;
 import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.Database;
 import org.kuali.common.devops.model.Environment;
@@ -138,15 +141,15 @@ public class Environments2 {
 
 	public static SortedMap<String, List<Environment.Builder>> getBuilders(boolean refresh) {
 		long start = System.currentTimeMillis();
-		BiMap<String, String> aliases = DNS.getCanonicalMap(refresh);
-		BiMap<String, String> cnames = aliases.inverse();
+		BiMap<String, String> cnames = DNS.getCanonicalMap(refresh);
 		Map<String, List<EC2Instance>> instances = Instances.getInstances(refresh);
 		SortedMap<String, List<Environment.Builder>> map = Maps.newTreeMap();
+		EnvironmentMetadataService service = new DefaultEnvironmentMetadataService();
 		int count = 0;
 		for (String group : instances.keySet()) {
 			List<EC2Instance> servers = instances.get(group);
 			List<Environment.Builder> builders = getBuilders(servers, cnames);
-			// fillIn(group, builders, refresh);
+			fillIn(group, builders, service, refresh);
 			count += builders.size();
 			map.put(group, builders);
 		}
@@ -154,19 +157,28 @@ public class Environments2 {
 		return map;
 	}
 
-	protected static void fillIn(String group, List<Environment.Builder> builders, boolean refresh) {
+	protected static void fillIn(String group, List<Environment.Builder> builders, EnvironmentMetadataService service, boolean refresh) {
 		for (Environment.Builder builder : builders) {
-			File cache = getEnvironmentCacheFile(group, builder.getName());
-			boolean query = !cache.exists() || refresh;
-			if (query) {
-				builder.setJava(Examiner.getJavaVersion(builder.getFqdn()));
-				builder.setTomcat(Tomcats.getTomcat(builder.getFqdn()));
-				builder.setApplication(Applications.getApplication(builder.getFqdn()));
-			} else {
-				File dir = getEnvCacheDir(group, builder.getName());
-				fillIn(group, builder, dir);
-			}
+			EnvironmentMetadata metadata = service.getMetadata(builder.getFqdn());
+			Optional<Tomcat> tomcat = getTomcat(metadata);
+			builder.tomcat(tomcat);
 		}
+	}
+
+	protected static Optional<Tomcat> getTomcat(EnvironmentMetadata meta) {
+		if (!meta.getTomcatVersion().getMetadata().isPresent()) {
+			return Optional.<Tomcat> absent();
+		}
+		Optional<String> optionalVersion = meta.getTomcatVersion().getMetadata().get();
+		if (!optionalVersion.isPresent()) {
+			return Optional.<Tomcat> absent();
+		}
+		String version = optionalVersion.get();
+		Tomcat.Builder builder = Tomcat.builder().version(version);
+		if (meta.getTomcatStartupTime().getMetadata().isPresent()) {
+			builder.startupTime(meta.getTomcatStartupTime().getMetadata().get());
+		}
+		return Optional.of(builder.build());
 	}
 
 	protected static List<Environment.Builder> getBuilders(List<EC2Instance> instances, BiMap<String, String> cnames) {

@@ -29,6 +29,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.LoadingCache;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 public class DefaultEnvironmentMetadataService implements EnvironmentMetadataService {
@@ -39,6 +40,11 @@ public class DefaultEnvironmentMetadataService implements EnvironmentMetadataSer
 	private static final String JSP_SUFFIX = "/tomcat/logs/env.jsp";
 	private static final String MANIFEST_SUFFIX = "/tomcat/webapps/ROOT/META-INF/MANIFEST.MF";
 	private static final String HEAP_LOG_SUFFIX = "/tomcat/logs/heap.log";
+
+	@Override
+	public EnvironmentMetadata getMetadata(String fqdn) {
+		return getMetadata(ImmutableList.of(fqdn)).get(0);
+	}
 
 	@Override
 	public List<EnvironmentMetadata> getMetadata(List<String> fqdns) {

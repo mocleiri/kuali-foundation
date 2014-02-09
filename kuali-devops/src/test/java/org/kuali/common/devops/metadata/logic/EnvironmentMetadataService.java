@@ -6,6 +6,8 @@ import org.kuali.common.devops.metadata.model.EnvironmentMetadata;
 
 public interface EnvironmentMetadataService {
 
+	EnvironmentMetadata getMetadata(String fqdn);
+
 	List<EnvironmentMetadata> getMetadata(List<String> fqdns);
 
 }

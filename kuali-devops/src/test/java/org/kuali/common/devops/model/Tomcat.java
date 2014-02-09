@@ -27,7 +27,7 @@ public final class Tomcat {
 	public static class Builder extends ValidatingBuilder<Tomcat> {
 
 		private String version;
-		private Optional<Long> startupTime;
+		private Optional<Long> startupTime = Optional.absent();
 
 		public Builder version(String version) {
 			this.version = version;
