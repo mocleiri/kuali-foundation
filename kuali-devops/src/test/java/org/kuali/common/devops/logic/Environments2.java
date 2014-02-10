@@ -1,6 +1,7 @@
 package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Optional.fromNullable;
+import static com.google.common.collect.Maps.newTreeMap;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static org.kuali.common.util.FormatUtils.getTime;
@@ -106,7 +107,7 @@ public class Environments2 {
 		long start = System.currentTimeMillis();
 		BiMap<String, String> cnames = DNS.getCanonicalMap(refresh);
 		Map<String, List<EC2Instance>> instances = Instances.getInstances(refresh);
-		SortedMap<String, List<Environment.Builder>> map = Maps.newTreeMap();
+		SortedMap<String, List<Environment.Builder>> map = newTreeMap();
 		EnvironmentMetadataService service = new DefaultEnvironmentMetadataService();
 		int count = 0;
 		for (String group : instances.keySet()) {
