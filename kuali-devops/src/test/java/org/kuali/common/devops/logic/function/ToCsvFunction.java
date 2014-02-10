@@ -1,13 +1,13 @@
 package org.kuali.common.devops.logic.function;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static org.kuali.common.util.ReflectionUtils.isOptionalString;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.SortedSet;
 
 import org.kuali.common.devops.table.TableCellDescriptor;
-import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.spring.convert.DefaultConversionService;
 import org.kuali.common.util.spring.format.CsvStringFormatter;
 import org.springframework.core.convert.ConversionService;
@@ -58,7 +58,7 @@ public final class ToCsvFunction<R, C> implements Function<Table<? extends Compa
 
 	protected String getConverted(TableCellDescriptor<Object> descriptor, TypeDescriptor sourceType) {
 		Optional<Object> value = descriptor.getFieldValue();
-		if (value.isPresent() && ReflectionUtils.isOptionalString(descriptor.getField())) {
+		if (value.isPresent() && isOptionalString(descriptor.getField())) {
 			@SuppressWarnings("unchecked")
 			Optional<String> string = (Optional<String>) value.get();
 			return string.orNull();
