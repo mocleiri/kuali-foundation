@@ -1,11 +1,12 @@
 table {
-	border: 0px;
+	border: 1px solid black;
 	font-family: monospace;
 	font-size: 0.9em;
 }
 th {
 	text-align: left;
 	cursor: pointer;
+	padding:5px;
 }
 td {
 	padding:3px;
@@ -14,7 +15,7 @@ td {
 	background-color: #ffffff;
 }
 .table-tr-even {
-	background-color: #f0f4f8;
+	background-color: #efefff;
 }
 a {
 	color: #111;
@@ -27,8 +28,14 @@ a:hover {
 	font-size: x-large;
 }
 
+.title {
+	padding-bottom:10px;
+}
+
+
 #footer-left {
 	float: left;
+	padding-top:10px;
 }
 #footer-text {
 	font-style: italic;

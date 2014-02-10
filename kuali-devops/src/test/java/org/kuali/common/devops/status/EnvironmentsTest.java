@@ -28,7 +28,7 @@ import com.google.common.collect.Table;
 public class EnvironmentsTest {
 
 	private static final Logger logger = Loggers.make();
-	private static final File HTML_DIR = new CanonicalFile("./target/html/envs");
+	private static final File HTML_DIR = new CanonicalFile("./target/test-classes/html/envs");
 
 	@Test
 	public void test() {
@@ -49,7 +49,7 @@ public class EnvironmentsTest {
 	}
 
 	protected String getHtml(String group, String table) {
-		String location = "classpath:envs/template.htm";
+		String location = "classpath:html/envs/template.htm";
 		String content = LocationUtils.toString(location);
 		Properties props = new Properties();
 		props.setProperty("html.title", "Kuali " + capitalize(group) + " Environments");

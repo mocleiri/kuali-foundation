@@ -31,7 +31,7 @@ public final class TableContext {
 		private int indent = 0;
 		private boolean columnLabels = true;
 		private boolean rowLabels = false;
-		private Optional<Integer> border = Optional.of(1);
+		private Optional<Integer> border = Optional.absent();
 		private Optional<String> tdalign = Optional.absent();
 
 		public Builder tdalign(String tdalign) {
