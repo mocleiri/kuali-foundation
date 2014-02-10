@@ -43,6 +43,9 @@ public class EnvironmentsTest {
 			SortedMap<String, List<Environment>> maps = Environments2.getEnvironments(false);
 			for (String group : maps.keySet()) {
 				List<Environment> envs = maps.get(group);
+				if (envs.size() == 0) {
+					continue;
+				}
 				Table<Integer, Label, String> table = Environments.getTable(envs);
 				String html = Html.html(table);
 				File outputFile = new CanonicalFile(HTML_DIR, group + ".htm");
