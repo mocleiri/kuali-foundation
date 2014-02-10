@@ -37,7 +37,7 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 		this.launchTime = builder.launchTime;
 		this.ami = builder.ami;
 		this.state = builder.state;
-		this.description = builder.description;
+		this.description = builder.description = Optional.absent();
 	}
 
 	public static Builder builder() {
