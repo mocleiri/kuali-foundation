@@ -1,5 +1,6 @@
 package org.kuali.common.devops.logic;
 
+import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -45,6 +46,7 @@ public class Instances {
 	private static final File CACHE_DIR = new CanonicalFile("./target/cache/servers/aws/ec2");
 	private static final Logger logger = Loggers.make();
 	private static final String EC2_NAME_TAG_KEY = "Name";
+	private static final String EC2_DESCRIPTION_TAG_KEY = "Description";
 
 	/**
 	 * Produces a map containing all EC2 server instances for all Kuali accounts.
@@ -138,7 +140,16 @@ public class Instances {
 		if (name.isPresent()) {
 			return Optional.of(name.get().getValue());
 		} else {
-			return Optional.absent();
+			return absent();
+		}
+	}
+
+	protected static Optional<String> getDescription(Instance instance) {
+		Optional<Tag> name = getTag(instance, EC2_DESCRIPTION_TAG_KEY);
+		if (name.isPresent()) {
+			return Optional.of(name.get().getValue());
+		} else {
+			return absent();
 		}
 	}
 
@@ -149,7 +160,7 @@ public class Instances {
 				return Optional.of(tag);
 			}
 		}
-		return Optional.absent();
+		return absent();
 	}
 
 }
