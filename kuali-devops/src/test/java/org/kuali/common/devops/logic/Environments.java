@@ -28,8 +28,8 @@ import com.google.common.collect.Table;
 
 public class Environments extends Examiner {
 
-	private static final String BUILD_DATE_FORMAT = "yyyy-MM-dd HH:mm z";
-	private static final String BUILD_TIME_ZONE = "Etc/UTC";
+	private static final String BUILD_DATE_DISPLAY_FORMAT = "yyyy-MM-dd HH:mm z";
+	private static final String BUILD_DATE_DISPLAY_TIME_ZONE = "US/Eastern";
 
 	public static Table<Integer, Label, String> getTable(List<Environment> envs) {
 		Table<Integer, Label, String> table = HashBasedTable.create();
@@ -40,8 +40,8 @@ public class Environments extends Examiner {
 	}
 
 	protected static SimpleDateFormat getBuildDateFormatter() {
-		TimeZone zone = TimeZone.getTimeZone(BUILD_TIME_ZONE);
-		SimpleDateFormat sdf = new SimpleDateFormat(BUILD_DATE_FORMAT);
+		TimeZone zone = TimeZone.getTimeZone(BUILD_DATE_DISPLAY_TIME_ZONE);
+		SimpleDateFormat sdf = new SimpleDateFormat(BUILD_DATE_DISPLAY_FORMAT);
 		sdf.setTimeZone(zone);
 		return sdf;
 	}
