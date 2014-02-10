@@ -45,11 +45,11 @@ public final class FilePersister<K, V> implements CachePersister<K, Optional<V>>
 	protected void syncFileSystem(Optional<V> reference, File file) {
 		try {
 			if (reference.isPresent()) {
-				logger.info(format("creating -> %s", file));
+				logger.debug(format("creating -> %s", file));
 				copy(file, reference, inputStreamFunction);
 			} else {
 				File absentFile = new CanonicalFile(file.getCanonicalFile() + GLOBAL_MAGIC_ABSENT_SUFFIX);
-				logger.info(format("creating -> %s", absentFile));
+				logger.debug(format("creating -> %s", absentFile));
 				touch(absentFile);
 			}
 		} catch (IOException e) {
