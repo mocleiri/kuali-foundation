@@ -47,7 +47,7 @@ public class FormatUtils {
 	/**
 	 * This is the format produced by the {@code toString()} method of {@code java.util.Date} instance
 	 */
-	public static final String DATE_TO_STRING_FORMAT = "EEE MMM d HH:mm:ss zzz y";
+	public static final String JAVA_UTIL_DATE_TO_STRING_FORMAT = "EEE MMM d HH:mm:ss zzz y";
 
 	private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ";
 	private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT);
