@@ -26,7 +26,6 @@ a:hover {
 	font-size: x-large;
 	padding-left: 25px;
 	font-family: Arial;
-	font-style: italic;
 }
 
 #currentGroup {
@@ -34,14 +33,12 @@ a:hover {
 	font-size: x-large;
 	padding-left: 25px;
 	font-family: Arial;
-	font-style: italic;
 }
 
 #title {
 	font-weight: bold;
 	font-size: x-large;
 	font-family: Arial;
-	font-style: italic;
 }
 
 .title {
