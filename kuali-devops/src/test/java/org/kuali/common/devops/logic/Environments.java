@@ -16,7 +16,6 @@ import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.model.Scm;
 import org.kuali.common.devops.model.Tomcat;
 import org.kuali.common.devops.table.Label;
-import org.kuali.common.devops.table.TableContext;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.project.model.Project;
 
@@ -81,7 +80,7 @@ public class Environments extends Examiner {
 			return "n/a";
 		} else {
 			Tomcat tomcat = optional.get();
-			TableContext context = TableContext.builder().columnLabels(false).border(false).build();
+			// TableContext context = TableContext.builder().columnLabels(false).border(false).build();
 			String uptime = getTime(tomcat.getStartupTime());
 			Table<Integer, Integer, String> table = HashBasedTable.create();
 			addRow(table, tomcat.getVersion());
@@ -184,7 +183,7 @@ public class Environments extends Examiner {
 	}
 
 	protected static String getServer(EC2Instance instance) {
-		TableContext context = TableContext.builder().columnLabels(false).border(false).build();
+		// TableContext context = TableContext.builder().columnLabels(false).border(false).build();
 		String age = FormatUtils.getTime(currentTimeMillis() - instance.getLaunchTime(), AGE);
 		Table<Integer, Integer, String> table = HashBasedTable.create();
 		addRow(table, ImmutableList.of(instance.getType()));
