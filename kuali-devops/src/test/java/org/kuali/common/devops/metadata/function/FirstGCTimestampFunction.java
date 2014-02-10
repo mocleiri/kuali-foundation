@@ -39,8 +39,8 @@ public final class FirstGCTimestampFunction implements Function<String, Optional
 	 * 2 - Extract the timestamp from that line<br>
 	 * 3 - Convert the timestamp into milliseconds<br>
 	 */
-	protected Optional<Long> getFirstGCTimestamp(String content) {
-		Optional<String> line = getTimestampLine(content);
+	protected Optional<Long> getFirstGCTimestamp(String text) {
+		Optional<String> line = getTimestampLine(text);
 		if (!line.isPresent()) {
 			return absent();
 		}
@@ -80,8 +80,8 @@ public final class FirstGCTimestampFunction implements Function<String, Optional
 	 * }
 	 * </pre>
 	 */
-	protected Optional<String> getTimestampLine(String content) {
-		Optional<String> gc = fromNullable(substringBetween(content, "{", "}"));
+	protected Optional<String> getTimestampLine(String text) {
+		Optional<String> gc = fromNullable(substringBetween(text, "{", "}"));
 		if (!gc.isPresent()) {
 			return absent();
 		}
