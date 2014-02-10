@@ -104,7 +104,7 @@ public class Environments2 {
 	}
 
 	public static SortedMap<String, List<Environment.Builder>> getBuilders(boolean refresh) {
-		long start = System.currentTimeMillis();
+		long start = currentTimeMillis();
 		BiMap<String, String> cnames = DNS.getCanonicalMap(refresh);
 		Map<String, List<EC2Instance>> instances = Instances.getInstances(refresh);
 		SortedMap<String, List<Environment.Builder>> map = newTreeMap();
