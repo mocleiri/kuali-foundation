@@ -55,6 +55,11 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 		private String state;
 		private Optional<String> description;
 
+		public Builder description(Optional<String> description) {
+			this.description = description;
+			return this;
+		}
+
 		public Builder description(String description) {
 			this.description = Optional.of(description);
 			return this;

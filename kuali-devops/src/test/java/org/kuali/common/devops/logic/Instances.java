@@ -126,28 +126,20 @@ public class Instances {
 
 	protected static EC2Instance convert(Instance instance) {
 		String id = instance.getInstanceId();
-		Optional<String> name = getName(instance);
+		Optional<String> name = getTagValue(instance, EC2_NAME_TAG_KEY);
+		Optional<String> description = getTagValue(instance, EC2_DESCRIPTION_TAG_KEY);
 		Optional<String> publicDnsName = fromNullable(trimToNull(instance.getPublicDnsName()));
 		String type = instance.getInstanceType();
 		long launchTime = instance.getLaunchTime().getTime();
 		String ami = instance.getImageId();
 		String state = instance.getState().getName();
-		return EC2Instance.builder().id(id).name(name).publicDnsName(publicDnsName).type(type).launchTime(launchTime).ami(ami).state(state).build();
+		return EC2Instance.builder().id(id).name(name).publicDnsName(publicDnsName).type(type).launchTime(launchTime).ami(ami).state(state).description(description).build();
 	}
 
-	protected static Optional<String> getName(Instance instance) {
-		Optional<Tag> name = getTag(instance, EC2_NAME_TAG_KEY);
-		if (name.isPresent()) {
-			return Optional.of(name.get().getValue());
-		} else {
-			return absent();
-		}
-	}
-
-	protected static Optional<String> getDescription(Instance instance) {
-		Optional<Tag> name = getTag(instance, EC2_DESCRIPTION_TAG_KEY);
-		if (name.isPresent()) {
-			return Optional.of(name.get().getValue());
+	protected static Optional<String> getTagValue(Instance instance, String tagName) {
+		Optional<Tag> tag = getTag(instance, tagName);
+		if (tag.isPresent()) {
+			return Optional.of(tag.get().getValue());
 		} else {
 			return absent();
 		}
