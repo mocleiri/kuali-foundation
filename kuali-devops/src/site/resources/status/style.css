@@ -23,6 +23,13 @@ a {
 a:hover {
 	background-color: #cfcfdf;
 }
+
+#group {
+	font-weight: bold;
+	font-size: x-large;
+	padding-left:25px;
+}
+
 #title {
 	font-weight: bold;
 	font-size: x-large;
