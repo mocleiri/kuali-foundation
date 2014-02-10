@@ -33,7 +33,7 @@ import com.google.common.collect.Table;
 public class EnvironmentsTest {
 
 	private static final Logger logger = Loggers.make();
-	private static final File HTML_DIR = new CanonicalFile("./target/test-classes/html/envs");
+	private static final File HTML_DIR = new CanonicalFile("./target/site/status");
 	private static final String US_EASTERN_TIMEZONE_ID = "US/Eastern";
 
 	@Test
