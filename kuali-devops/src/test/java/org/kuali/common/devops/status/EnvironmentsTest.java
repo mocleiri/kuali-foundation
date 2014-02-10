@@ -2,6 +2,7 @@ package org.kuali.common.devops.status;
 
 import static java.lang.String.format;
 import static org.apache.commons.lang.StringUtils.capitalize;
+import static org.kuali.common.util.FormatUtils.JAVA_UTIL_DATE_TO_STRING_FORMAT;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -30,7 +31,6 @@ public class EnvironmentsTest {
 
 	private static final Logger logger = Loggers.make();
 	private static final File HTML_DIR = new CanonicalFile("./target/test-classes/html/envs");
-	private static final String DATE_TO_STRING_FORMAT = "EEE MMM d HH:mm:ss zzz y";
 
 	@Test
 	public void test() {
@@ -64,7 +64,7 @@ public class EnvironmentsTest {
 	}
 
 	protected String getCurrentDateDisplay() {
-		SimpleDateFormat sdf = new SimpleDateFormat(DATE_TO_STRING_FORMAT);
+		SimpleDateFormat sdf = new SimpleDateFormat(JAVA_UTIL_DATE_TO_STRING_FORMAT);
 		return sdf.format(new Date());
 	}
 }
