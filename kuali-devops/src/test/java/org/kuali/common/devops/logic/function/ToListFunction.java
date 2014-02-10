@@ -1,6 +1,7 @@
 package org.kuali.common.devops.logic.function;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static org.kuali.common.util.base.Exceptions.illegalState;
 
 import java.util.List;
 import java.util.Locale;
@@ -58,7 +59,7 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 			}
 			return converted;
 		} catch (Exception e) {
-			throw Exceptions.illegalState("unexpected error converting table cell string into a strongly typed object");
+			throw illegalState(e, "unexpected error converting table cell string into a strongly typed object");
 		}
 	}
 
@@ -66,7 +67,7 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 		try {
 			PropertyUtils.setProperty(bean, name, value);
 		} catch (Exception e) {
-			throw Exceptions.illegalState("unexpected error setting bean property %s.%s=[%s]", bean.getClass().getCanonicalName(), name, value);
+			throw illegalState("unexpected error setting bean property %s.%s=[%s]", bean.getClass().getCanonicalName(), name, value);
 		}
 	}
 
