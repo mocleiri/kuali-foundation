@@ -7,6 +7,7 @@ import java.util.Locale;
 import java.util.SortedSet;
 
 import org.kuali.common.devops.table.TableCellDescriptor;
+import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.spring.convert.DefaultConversionService;
 import org.kuali.common.util.spring.format.CsvStringFormatter;
 import org.springframework.core.convert.ConversionService;
@@ -51,9 +52,19 @@ public final class ToCsvFunction<R, C> implements Function<Table<? extends Compa
 
 	protected String getToken(TableCellDescriptor<Object> descriptor) {
 		TypeDescriptor sourceType = new TypeDescriptor(descriptor.getField());
-		Optional<Object> value = descriptor.getFieldValue();
-		String converted = (String) converter.convert(value.orNull(), sourceType, targetType);
+		String converted = getConverted(descriptor, sourceType);
 		return formatter.print(converted, locale);
+	}
+
+	protected String getConverted(TableCellDescriptor<Object> descriptor, TypeDescriptor sourceType) {
+		Optional<Object> value = descriptor.getFieldValue();
+		if (value.isPresent() && ReflectionUtils.isOptionalString(descriptor.getField())) {
+			@SuppressWarnings("unchecked")
+			Optional<String> string = (Optional<String>) value.get();
+			return string.orNull();
+		} else {
+			return (String) converter.convert(value.orNull(), sourceType, targetType);
+		}
 	}
 
 	protected String getHeader(SortedSet<Comparable<C>> colKeys) {
