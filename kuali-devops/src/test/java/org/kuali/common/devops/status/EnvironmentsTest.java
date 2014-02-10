@@ -28,6 +28,7 @@ import org.kuali.common.util.validate.Validation;
 import org.slf4j.Logger;
 import org.springframework.util.PropertyPlaceholderHelper;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
@@ -68,7 +69,8 @@ public class EnvironmentsTest {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<span id='title'>Managed Environments</span>\n");
 		sb.append("<span id='group'>-</span>\n");
-		for (String group : groups) {
+		List<String> names = Lists.newArrayList(groups);
+		for (String group : Lists.reverse(names)) {
 			String displayName = displayNames.get(group);
 			if (group.equals(currentGroup)) {
 				sb.append("<span id='currentGroup'>" + displayName + "</span>\n");
