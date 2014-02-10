@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import org.kuali.common.devops.metadata.model.EC2Instance;
 import org.kuali.common.devops.model.Application;
@@ -27,8 +28,8 @@ import com.google.common.collect.Table;
 
 public class Environments extends Examiner {
 
-	private static final NumberFormat AGE = getAgeFormatter();
-	private static final SimpleDateFormat BUILD = new SimpleDateFormat("yyyy-MM-dd HH:mm z");
+	private static final String BUILD_DATE_FORMAT = "yyyy-MM-dd HH:mm z";
+	private static final String BUILD_TIME_ZONE = "Etc/UTC";
 
 	public static Table<Integer, Label, String> getTable(List<Environment> envs) {
 		Table<Integer, Label, String> table = HashBasedTable.create();
@@ -36,6 +37,13 @@ public class Environments extends Examiner {
 			addRow(table, getRowData(envs.get(row)));
 		}
 		return table;
+	}
+
+	protected static SimpleDateFormat getBuildDateFormatter() {
+		TimeZone zone = TimeZone.getTimeZone(BUILD_TIME_ZONE);
+		SimpleDateFormat sdf = new SimpleDateFormat(BUILD_DATE_FORMAT);
+		sdf.setTimeZone(zone);
+		return sdf;
 	}
 
 	protected static Map<Label, String> getRowData(Environment env) {
@@ -94,7 +102,7 @@ public class Environments extends Examiner {
 		if (!millis.isPresent()) {
 			return "n/a";
 		} else {
-			return FormatUtils.getTime(currentTimeMillis() - millis.get(), AGE);
+			return FormatUtils.getTime(currentTimeMillis() - millis.get(), getAgeFormatter());
 		}
 	}
 
@@ -170,7 +178,7 @@ public class Environments extends Examiner {
 		} else {
 			long millis = Long.parseLong(property);
 			Date date = new Date(millis);
-			return BUILD.format(date);
+			return getBuildDateFormatter().format(date);
 		}
 	}
 
@@ -184,7 +192,7 @@ public class Environments extends Examiner {
 
 	protected static String getServer(EC2Instance instance) {
 		// TableContext context = TableContext.builder().columnLabels(false).border(false).build();
-		String age = FormatUtils.getTime(currentTimeMillis() - instance.getLaunchTime(), AGE);
+		String age = FormatUtils.getTime(currentTimeMillis() - instance.getLaunchTime(), getAgeFormatter());
 		Table<Integer, Integer, String> table = HashBasedTable.create();
 		addRow(table, ImmutableList.of(instance.getType()));
 		addRow(table, ImmutableList.of("age " + age));
