@@ -30,7 +30,7 @@ public class EnvironmentsTest {
 
 	private static final Logger logger = Loggers.make();
 	private static final File HTML_DIR = new CanonicalFile("./target/test-classes/html/envs");
-	private static final String DATE_TO_STRING_FORMAT = "";
+	private static final String DATE_TO_STRING_FORMAT = "EEE MMM d HH:mm:ss zzz y";
 
 	@Test
 	public void test() {
