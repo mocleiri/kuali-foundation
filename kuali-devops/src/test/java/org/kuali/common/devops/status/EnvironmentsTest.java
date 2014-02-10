@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.SortedMap;
+import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
@@ -31,6 +32,7 @@ public class EnvironmentsTest {
 
 	private static final Logger logger = Loggers.make();
 	private static final File HTML_DIR = new CanonicalFile("./target/test-classes/html/envs");
+	private static final String US_EASTERN_TIMEZONE_ID = "US/Eastern";
 
 	@Test
 	public void test() {
@@ -64,7 +66,9 @@ public class EnvironmentsTest {
 	}
 
 	protected String getCurrentDateDisplay() {
+		TimeZone zone = TimeZone.getTimeZone(US_EASTERN_TIMEZONE_ID);
 		SimpleDateFormat sdf = new SimpleDateFormat(JAVA_UTIL_DATE_TO_STRING_FORMAT);
+		sdf.setTimeZone(zone);
 		return sdf.format(new Date());
 	}
 }
