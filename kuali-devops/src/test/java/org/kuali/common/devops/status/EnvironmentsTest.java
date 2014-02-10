@@ -67,7 +67,7 @@ public class EnvironmentsTest {
 		Map<String, String> displayNames = getDisplayNames();
 		StringBuilder sb = new StringBuilder();
 		sb.append("<span id='title'>Managed Environments</span>\n");
-		sb.append("<span id='title'>-</span>\n");
+		sb.append("<span id='group'>-</span>\n");
 		for (String group : groups) {
 			String displayName = displayNames.get(group);
 			if (group.equals(currentGroup)) {
