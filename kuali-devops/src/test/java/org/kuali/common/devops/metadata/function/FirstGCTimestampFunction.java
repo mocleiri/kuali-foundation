@@ -29,9 +29,9 @@ public final class FirstGCTimestampFunction implements Function<String, Optional
 	private final String timestampFormat;
 
 	@Override
-	public Optional<Long> apply(String content) {
-		checkNotNull(content, "content");
-		return getFirstGCTimestamp(content);
+	public Optional<Long> apply(String text) {
+		checkNotNull(text, "text");
+		return getFirstGCTimestamp(text);
 	}
 
 	/**
