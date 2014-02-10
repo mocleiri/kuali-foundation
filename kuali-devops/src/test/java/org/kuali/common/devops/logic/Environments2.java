@@ -124,7 +124,7 @@ public class Environments2 {
 		for (Environment.Builder builder : builders) {
 			Stopwatch sw = Stopwatch.createStarted();
 			EnvironmentMetadata metadata = service.getMetadata(builder.getFqdn());
-			logger.info(format("examined -> %s", builder.getFqdn(), FormatUtils.getTime(sw)));
+			logger.info(format("examined -> %s - %s", builder.getFqdn(), FormatUtils.getTime(sw)));
 			builder.tomcat(getTomcat(metadata));
 			builder.java(getJava(metadata));
 			builder.application(getApplication(metadata));
