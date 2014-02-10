@@ -51,6 +51,7 @@ public class Environments extends Examiner {
 		String href = href(dest, dest);
 		String java = env.getJava().isPresent() ? env.getJava().get() : "n/a";
 		Optional<Application> app = env.getApplication();
+		Optional<String> desc = env.getServer().getDescription();
 		Map<Label, String> map = Maps.newHashMap();
 		map.put(EnvironmentTableColumns.NAME.getLabel(), getEnvironmentInteger(env.getName()) + "");
 		map.put(EnvironmentTableColumns.URL.getLabel(), href);
@@ -63,6 +64,7 @@ public class Environments extends Examiner {
 		map.put(EnvironmentTableColumns.JAVA.getLabel(), java);
 		map.put(EnvironmentTableColumns.SERVER.getLabel(), getServer(env.getServer()));
 		map.put(EnvironmentTableColumns.TOMCAT.getLabel(), getTomcat(env.getTomcat()));
+		map.put(EnvironmentTableColumns.DESCRIPTION.getLabel(), desc.isPresent() ? desc.get() : "n/a");
 		return map;
 	}
 

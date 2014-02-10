@@ -16,7 +16,8 @@ public enum EnvironmentTableColumns {
 	SCHEMA(Label.create(7, "Schema")), //
 	JAVA(Label.create(8, "Java")), //
 	SERVER(Label.create(9, "Server")), //
-	TOMCAT(Label.create(10, "Tomcat")); //
+	TOMCAT(Label.create(10, "Tomcat")), //
+	DESCRIPTION(Label.create(11, "Description")); //
 
 	private final Label label;
 
