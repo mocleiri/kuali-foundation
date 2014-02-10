@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.TimeZone;
 
@@ -28,6 +29,7 @@ import org.slf4j.Logger;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
 
 public class EnvironmentsTest {
@@ -40,11 +42,12 @@ public class EnvironmentsTest {
 	public void test() {
 		try {
 			Validation.getDefaultValidator();
-			SortedMap<String, List<Environment>> maps = Environments2.getEnvironments(false);
-			for (String group : maps.keySet()) {
-				List<Environment> envs = maps.get(group);
+			SortedMap<String, List<Environment>> map = Environments2.getEnvironments(false);
+			Set<String> keys = Sets.newHashSet(map.keySet());
+			for (String group : keys) {
+				List<Environment> envs = map.get(group);
 				if (envs.size() == 0) {
-					continue;
+					map.remove(group);
 				}
 				Table<Integer, Label, String> table = Environments.getTable(envs);
 				String html = Html.html(table);
