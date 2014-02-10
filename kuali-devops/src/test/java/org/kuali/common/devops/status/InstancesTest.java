@@ -33,6 +33,7 @@ public class InstancesTest {
 			LoadingCache<String, List<EC2Instance>> cache = CacheBuilder.newBuilder().build(new InstancesLoader());
 			for (String account : accounts) {
 				List<EC2Instance> instances = cache.get(account);
+				System.out.println(instances.size());
 			}
 			Map<String, List<EC2Instance>> map = Instances.getInstances(false);
 			for (String account : map.keySet()) {
