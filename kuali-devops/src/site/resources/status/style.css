@@ -17,9 +17,6 @@ td {
 .table-tr-even {
 	background-color: #efefff;
 }
-a {
-	color: #111;
-}
 a:hover {
 	background-color: #cfcfdf;
 }
@@ -28,17 +25,23 @@ a:hover {
 	font-weight: bold;
 	font-size: x-large;
 	padding-left: 25px;
+	font-family: Arial;
+	font-style: italic;
 }
 
 #currentGroup {
 	font-weight: bold;
 	font-size: x-large;
 	padding-left: 25px;
+	font-family: Arial;
+	font-style: italic;
 }
 
 #title {
 	font-weight: bold;
 	font-size: x-large;
+	font-family: Arial;
+	font-style: italic;
 }
 
 .title {
