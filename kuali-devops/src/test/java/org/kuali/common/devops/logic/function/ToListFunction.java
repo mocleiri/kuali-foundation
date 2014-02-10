@@ -1,6 +1,7 @@
 package org.kuali.common.devops.logic.function;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static org.kuali.common.util.ReflectionUtils.isOptionalString;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 
 import java.util.List;
@@ -52,12 +53,12 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 		try {
 			TypeDescriptor targetType = new TypeDescriptor(descriptor.getField());
 			Optional<String> value = descriptor.getFieldValue();
-			Object converted = converter.convert(value.orNull(), sourceType, targetType);
-			// TODO Spring's converter doesn't do anything if you pass it null
-			if (ReflectionUtils.isOptionalString(descriptor.getField()) && converted == null) {
-				converted = Optional.<String> absent();
+			// TODO Figure out a way
+			if (isOptionalString(descriptor.getField())) {
+				return Optional.fromNullable(value.orNull());
+			} else {
+				return converter.convert(value.orNull(), sourceType, targetType);
 			}
-			return converted;
 		} catch (Exception e) {
 			throw illegalState(e, "unexpected error converting table cell string into a strongly typed object");
 		}

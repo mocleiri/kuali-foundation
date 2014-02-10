@@ -19,6 +19,7 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 	private final String type;
 	private final String ami;
 	private final String state;
+	@OptionalStringFormat
 	private final Optional<String> description;
 
 	@Min(1)
