@@ -5,6 +5,7 @@ import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkArgument;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
+import static org.apache.commons.lang.StringUtils.leftPad;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -37,6 +38,7 @@ public class Environments extends Examiner {
 	private static final String BUILD_DATE_DISPLAY_FORMAT = "yyyy-MM-dd HH:mm z";
 	private static final String BUILD_DATE_DISPLAY_TIME_ZONE = "US/Eastern";
 	private static final String NOT_AVAILABLE = "n/a";
+	private static final String AMAZON_EC2_INSTANCE_DETAILS_LINK = "http://aws.amazon.com/ec2/instance-types/instance-details/";
 
 	public static Table<Integer, Label, String> getTable(List<Environment> envs) {
 		Table<Integer, Label, String> table = HashBasedTable.create();
@@ -131,8 +133,7 @@ public class Environments extends Examiner {
 			Tomcat tomcat = optional.get();
 			String uptime = getTime(tomcat.getStartupTime());
 			StringBuilder sb = new StringBuilder();
-			sb.append("<div id='data'>" + tomcat.getVersion() + "</div>\n");
-			sb.append("<div id='data'>uptime " + uptime + "</div>\n");
+			sb.append("<div id='data'>v" + tomcat.getVersion() + " uptime " + uptime + "</div>\n");
 			sb.append(getMemory(memory));
 			return sb.toString();
 		}
@@ -144,8 +145,9 @@ public class Environments extends Examiner {
 		} else {
 			Memory memory = optional.get();
 			String max = FormatUtils.getSize(memory.getMax(), Size.GB);
-			String used = FormatUtils.getSize(memory.getUsed(), Size.GB);
-			return format("<div id='data'>mem [used:%s, max:%s]</div>\n", used, max);
+			int percentUsed = new Double(memory.getUsed() / (memory.getMax() * 1D) * 100).intValue();
+			String displayPercent = leftPad(percentUsed + "", 2, "0");
+			return format("<div id='data'>memory %s%% of %s</div>\n", displayPercent, max);
 		}
 	}
 
@@ -164,17 +166,6 @@ public class Environments extends Examiner {
 			Application app = env.getApplication().get();
 			Project project = app.getProject();
 			return project.getArtifactId();
-			/*
-			 * Optional<Database> database = app.getDatabase();
-			 * 
-			 * TableContext context = TableContext.builder().columnLabels(false).border(false).build(); Table<Integer, Integer, String> table = HashBasedTable.create();
-			 * 
-			 * String buildId = project.getArtifactId() + " :: " + project.getVersion() + " :: " + getBuildDate(project); String databaseId = getDatabaseId(database);
-			 * 
-			 * addRow(table, buildId); addRow(table, databaseId);
-			 * 
-			 * // return Html.html(context, table); return "<div>" + buildId + "</div><div>" + databaseId + "</div>";
-			 */
 		}
 	}
 
@@ -232,13 +223,9 @@ public class Environments extends Examiner {
 	}
 
 	protected static String getServer(EC2Instance instance) {
-		// TableContext context = TableContext.builder().columnLabels(false).border(false).build();
 		String age = FormatUtils.getTime(currentTimeMillis() - instance.getLaunchTime(), getAgeFormatter());
-		Table<Integer, Integer, String> table = HashBasedTable.create();
-		addRow(table, ImmutableList.of(instance.getType()));
-		addRow(table, ImmutableList.of("age " + age));
-		// return Html.html(context, table);
-		return "<div>" + instance.getType() + "</div><div>age " + age + "</div>";
+		String href = href(AMAZON_EC2_INSTANCE_DETAILS_LINK, instance.getType());
+		return "<div>" + href + "</div><div>age " + age + "</div>";
 	}
 
 	protected static void addRow(Table<Integer, Label, String> table, Map<Label, String> map) {
