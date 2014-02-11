@@ -60,32 +60,10 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 		private long launchTime;
 		private String ami;
 		private String state;
-		private Optional<String> description = absent();
-		private Optional<String> purpose = absent();
 		private List<EC2Tag> tags = ImmutableList.of();
 
 		public Builder tags(List<EC2Tag> tags) {
 			this.tags = tags;
-			return this;
-		}
-
-		public Builder purpose(Optional<String> purpose) {
-			this.purpose = purpose;
-			return this;
-		}
-
-		public Builder purpose(String purpose) {
-			this.purpose = Optional.of(purpose);
-			return this;
-		}
-
-		public Builder description(Optional<String> description) {
-			this.description = description;
-			return this;
-		}
-
-		public Builder description(String description) {
-			this.description = Optional.of(description);
 			return this;
 		}
 
@@ -191,22 +169,6 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 
 		public void setState(String state) {
 			this.state = state;
-		}
-
-		public Optional<String> getDescription() {
-			return description;
-		}
-
-		public void setDescription(Optional<String> description) {
-			this.description = description;
-		}
-
-		public Optional<String> getPurpose() {
-			return purpose;
-		}
-
-		public void setPurpose(Optional<String> purpose) {
-			this.purpose = purpose;
 		}
 
 		public List<EC2Tag> getTags() {

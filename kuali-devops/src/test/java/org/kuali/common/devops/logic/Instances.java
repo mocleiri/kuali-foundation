@@ -56,8 +56,6 @@ public class Instances {
 	private static final File CACHE_DIR = new CanonicalFile("./target/cache/servers/aws/ec2");
 	private static final Logger logger = Loggers.make();
 	private static final String EC2_NAME_TAG_KEY = "Name";
-	private static final String EC2_DESCRIPTION_TAG_KEY = "Description";
-	private static final String EC2_PURPOSE_TAG_KEY = "Purpose";
 
 	/**
 	 * Produces a map containing all EC2 server instances for all Kuali accounts.
@@ -170,16 +168,13 @@ public class Instances {
 	protected static EC2Instance convert(Instance instance) {
 		String id = instance.getInstanceId();
 		Optional<String> name = getTagValue(instance, EC2_NAME_TAG_KEY);
-		Optional<String> description = getTagValue(instance, EC2_DESCRIPTION_TAG_KEY);
-		Optional<String> purpose = getTagValue(instance, EC2_PURPOSE_TAG_KEY);
 		Optional<String> publicDnsName = fromNullable(trimToNull(instance.getPublicDnsName()));
 		String type = instance.getInstanceType();
 		long launchTime = instance.getLaunchTime().getTime();
 		String ami = instance.getImageId();
 		String state = instance.getState().getName();
 		List<EC2Tag> tags = getTags(instance);
-		return EC2Instance.builder().id(id).purpose(purpose).name(name).publicDnsName(publicDnsName).type(type).launchTime(launchTime).ami(ami).state(state)
-				.description(description).tags(tags).build();
+		return EC2Instance.builder().id(id).name(name).publicDnsName(publicDnsName).type(type).launchTime(launchTime).ami(ami).state(state).tags(tags).build();
 	}
 
 	protected static List<EC2Tag> getTags(Instance instance) {
