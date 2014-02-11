@@ -1,6 +1,7 @@
 package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Optional.absent;
+import static com.google.common.collect.Lists.newArrayList;
 
 import java.util.List;
 import java.util.Properties;
@@ -13,7 +14,6 @@ import org.kuali.common.util.project.model.Project;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
-import com.google.common.collect.Lists;
 
 public class Projects extends Examiner {
 
@@ -80,7 +80,7 @@ public class Projects extends Examiner {
 		if (url == null) {
 			return Optional.absent();
 		}
-		List<String> tokens = Lists.newArrayList(Splitter.on(':').splitToList(url));
+		List<String> tokens = newArrayList(Splitter.on(':').splitToList(url));
 		tokens.remove(0); // scm
 		tokens.remove(0); // svn
 		String newUrl = Joiner.on(':').join(tokens);
