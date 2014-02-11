@@ -1,7 +1,6 @@
 package org.kuali.common.devops.logic.function;
 
 import static com.google.common.collect.Sets.newTreeSet;
-import static org.kuali.common.util.ReflectionUtils.isOptionalString;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.util.List;
@@ -62,17 +61,6 @@ public final class ToCsvFunction<R, C> implements Function<Table<? extends Compa
 		Optional<Object> value = descriptor.getFieldValue();
 		String converted = (String) converter.convert(value.orNull(), sourceType, targetType);
 		return formatter.print(converted, locale);
-	}
-
-	protected String getConverted(TableCellDescriptor<Object> descriptor, TypeDescriptor sourceType) {
-		Optional<Object> value = descriptor.getFieldValue();
-		if (value.isPresent() && isOptionalString(descriptor.getField())) {
-			@SuppressWarnings("unchecked")
-			Optional<String> string = (Optional<String>) value.get();
-			return string.orNull();
-		} else {
-			return (String) converter.convert(value.orNull(), sourceType, targetType);
-		}
 	}
 
 	protected String getHeader(SortedSet<Comparable<C>> colKeys) {
