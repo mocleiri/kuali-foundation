@@ -14,6 +14,14 @@ public final class EC2Tag {
 		this.value = builder.value;
 	}
 
+	public static EC2Tag create(String key, String value) {
+		return builder().key(key).value(value).build();
+	}
+
+	public static Builder builder() {
+		return builder();
+	}
+
 	public static class Builder extends ValidatingBuilder<EC2Tag> {
 
 		private String key;

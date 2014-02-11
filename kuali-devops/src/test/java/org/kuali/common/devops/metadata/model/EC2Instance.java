@@ -66,7 +66,12 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 		private String state;
 		private Optional<String> description = absent();
 		private Optional<String> purpose = absent();
-		private final List<EC2Tag> tags = ImmutableList.of();
+		private List<EC2Tag> tags = ImmutableList.of();
+
+		public Builder tags(List<EC2Tag> tags) {
+			this.tags = tags;
+			return this;
+		}
 
 		public Builder purpose(Optional<String> purpose) {
 			this.purpose = purpose;

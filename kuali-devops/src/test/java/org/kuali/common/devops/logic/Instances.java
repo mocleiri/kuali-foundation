@@ -29,6 +29,7 @@ import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.devops.logic.function.ToCsvFunction;
 import org.kuali.common.devops.logic.function.ToListFunction;
 import org.kuali.common.devops.metadata.model.EC2Instance;
+import org.kuali.common.devops.metadata.model.EC2Tag;
 import org.kuali.common.devops.table.TableCellDescriptor;
 import org.kuali.common.devops.table.Tables;
 import org.kuali.common.util.Encodings;
@@ -176,8 +177,21 @@ public class Instances {
 		long launchTime = instance.getLaunchTime().getTime();
 		String ami = instance.getImageId();
 		String state = instance.getState().getName();
+		List<EC2Tag> tags = getTags(instance);
 		return EC2Instance.builder().id(id).purpose(purpose).name(name).publicDnsName(publicDnsName).type(type).launchTime(launchTime).ami(ami).state(state)
-				.description(description).build();
+				.description(description).tags(tags).build();
+	}
+
+	protected static List<EC2Tag> getTags(Instance instance) {
+		if (instance.getTags() == null || instance.getTags().isEmpty()) {
+			return newArrayList();
+		}
+		List<EC2Tag> tags = newArrayList();
+		for (Tag tag : instance.getTags()) {
+			EC2Tag newTag = EC2Tag.create(tag.getKey(), tag.getValue());
+			tags.add(newTag);
+		}
+		return tags;
 	}
 
 	protected static Optional<String> getTagValue(Instance instance, String tagName) {
