@@ -1,6 +1,7 @@
 package org.kuali.common.devops.status;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.newHashSet;
 import static com.google.common.collect.Sets.newTreeSet;
 import static java.lang.String.format;
 import static org.kuali.common.util.FormatUtils.JAVA_UTIL_DATE_TO_STRING_FORMAT;
@@ -32,7 +33,6 @@ import org.springframework.util.PropertyPlaceholderHelper;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
 
 public class EnvironmentsTest {
@@ -46,7 +46,7 @@ public class EnvironmentsTest {
 		try {
 			Validation.getDefaultValidator();
 			SortedMap<String, List<Environment>> map = Environments2.getEnvironments(false);
-			Set<String> keys = Sets.newHashSet(map.keySet());
+			Set<String> keys = newHashSet(map.keySet());
 			for (String group : keys) {
 				List<Environment> envs = map.get(group);
 				if (envs.size() == 0) {
