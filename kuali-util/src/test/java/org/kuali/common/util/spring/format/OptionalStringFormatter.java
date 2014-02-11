@@ -12,6 +12,8 @@ import com.google.common.base.Optional;
 public final class OptionalStringFormatter implements Formatter<Optional<String>> {
 
 	public OptionalStringFormatter(String absentToken) {
+		// Spring's conversion service does not convert anything in either direction for null or whitespace
+		// Thus we must require a non-blank token to represent the condition when an optional string is absent
 		this.absentToken = checkNotBlank(absentToken, "absentToken");
 	}
 
