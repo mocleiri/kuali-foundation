@@ -56,6 +56,7 @@ public class Environments extends Examiner {
 		map.put(EnvironmentTableColumns.URL.getLabel(), href);
 		map.put(EnvironmentTableColumns.APP.getLabel(), app.isPresent() ? app.get().getProject().getArtifactId() : "n/a");
 		map.put(EnvironmentTableColumns.VERSION.getLabel(), app.isPresent() ? app.get().getProject().getVersion() : "n/a");
+		map.put(EnvironmentTableColumns.PURPOSE.getLabel(), getPurpose(env.getServer()));
 		map.put(EnvironmentTableColumns.BUILD_DATE.getLabel(), app.isPresent() ? getBuildDate(app.get().getProject()) : "n/a");
 		map.put(EnvironmentTableColumns.SCM.getLabel(), getScmDisplay(env));
 		map.put(EnvironmentTableColumns.DATABASE.getLabel(), app.isPresent() ? getDatabaseUrl(app.get().getDatabase()) : "n/a");
@@ -63,7 +64,6 @@ public class Environments extends Examiner {
 		map.put(EnvironmentTableColumns.JAVA.getLabel(), java);
 		map.put(EnvironmentTableColumns.SERVER.getLabel(), getServer(env.getServer()));
 		map.put(EnvironmentTableColumns.TOMCAT.getLabel(), getTomcat(env.getTomcat()));
-		map.put(EnvironmentTableColumns.PURPOSE.getLabel(), getPurpose(env.getServer()));
 		return map;
 	}
 
