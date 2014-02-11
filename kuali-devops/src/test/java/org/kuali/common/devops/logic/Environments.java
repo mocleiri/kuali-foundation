@@ -97,7 +97,6 @@ public class Environments extends Examiner {
 			String key = getKey(artifact);
 			Optional<String> dest = repositoryLinks.get(key);
 			if (dest != null && dest.isPresent()) {
-				logger.info(format("cache hit -> %s", key));
 				return href(dest.get(), show);
 			}
 
