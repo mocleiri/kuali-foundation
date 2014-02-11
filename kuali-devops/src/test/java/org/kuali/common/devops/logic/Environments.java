@@ -67,13 +67,25 @@ public class Environments extends Examiner {
 		return map;
 	}
 
+	protected static String getToolTip(String hover, String tip) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<a href='#' class='tooltip'>");
+		sb.append(hover);
+		sb.append("<span>" + tip + "</span>");
+		sb.append("</a>");
+		return sb.toString();
+	}
+
 	protected static String getPurpose(EC2Instance server) {
 		Optional<String> purpose = server.getPurpose();
 		Optional<String> desc = server.getDescription();
 		if (!purpose.isPresent()) {
 			return "n/a";
 		}
-		return purpose.get();
+		if (!desc.isPresent()) {
+			return purpose.get();
+		}
+		return getToolTip(purpose.get(), desc.get());
 	}
 
 	protected static int getEnvironmentInteger(String environmentName) {
