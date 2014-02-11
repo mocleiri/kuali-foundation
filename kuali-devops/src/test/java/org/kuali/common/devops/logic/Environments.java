@@ -194,18 +194,6 @@ public class Environments extends Examiner {
 		}
 	}
 
-	protected static String getDatabaseId(Optional<Database> optional) {
-		if (!optional.isPresent()) {
-			return NOT_AVAILABLE;
-		}
-		Database database = optional.get();
-		if (database.getVendor().equals("mysql")) {
-			return database.getUrl();
-		} else {
-			return database.getUrl() + "&nbsp;&nbsp;::&nbsp;&nbsp" + database.getUsername();
-		}
-	}
-
 	protected static String getBuildDate(Project project) {
 		String property = project.getProperties().getProperty("project.build.timestamp.millis");
 		if (property == null) {
