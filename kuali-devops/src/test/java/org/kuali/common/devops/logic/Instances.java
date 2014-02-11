@@ -67,8 +67,8 @@ public class Instances {
 		return map;
 	}
 
-	public static void updateDescriptions(String account) {
-		String location = "classpath:org/kuali/" + account + "/descriptions.properties";
+	public static void updateTags(String account) {
+		String location = "classpath:org/kuali/" + account + "/tags.properties";
 		checkArgument(LocationUtils.exists(location), "Location [%s] does not exist", location);
 		Properties props = PropertyUtils.load(location);
 		AWSCredentials creds = Auth.getAwsCredentials(account);

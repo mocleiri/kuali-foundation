@@ -20,7 +20,7 @@ public class UpdateTags {
 			if (!account.isPresent()) {
 				throw illegalState("System property [%s] was not provided.  Usage -D%s=[account]", ACCOUNT_KEY, ACCOUNT_KEY);
 			}
-			Instances.updateDescriptions(account.get());
+			Instances.updateTags(account.get());
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
