@@ -1,6 +1,7 @@
 package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Optional.absent;
+import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.collect.Lists.newArrayList;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class Projects extends Examiner {
 	private static final String BUNDLE_SYMBOLIC_NAME_KEY = "Bundle-SymbolicName";
 
 	public static Project getProjectWithAccurateSCMInfo(Project project, Properties manifest) {
-		Optional<String> bundleSymbolicName = Optional.fromNullable(manifest.getProperty(BUNDLE_SYMBOLIC_NAME_KEY));
+		Optional<String> bundleSymbolicName = fromNullable(manifest.getProperty(BUNDLE_SYMBOLIC_NAME_KEY));
 		if (!bundleSymbolicName.isPresent()) {
 			return ImmutableProject.copyOf(project);
 		} else {
