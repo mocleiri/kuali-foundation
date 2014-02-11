@@ -2,6 +2,7 @@ package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
 import static org.apache.commons.io.FileUtils.writeLines;
@@ -15,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 import java.util.SortedMap;
 
@@ -28,6 +30,9 @@ import org.kuali.common.devops.metadata.model.EC2Instance;
 import org.kuali.common.devops.table.TableCellDescriptor;
 import org.kuali.common.devops.table.Tables;
 import org.kuali.common.util.Encodings;
+import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.Loggers;
@@ -39,6 +44,7 @@ import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Table;
 
@@ -59,6 +65,28 @@ public class Instances {
 			map.put(account, getInstances(account, refresh));
 		}
 		return map;
+	}
+
+	public static void addDescriptions(String account) {
+		String location = "classpath:org/kuali/" + account + "/descriptions.properties";
+		checkArgument(LocationUtils.exists(location), "Location [%s] does not exist", location);
+		Properties props = PropertyUtils.load(location);
+		AWSCredentials creds = Auth.getAwsCredentials(account);
+		WaitService ws = new DefaultWaitService();
+		EC2ServiceContext context = EC2ServiceContext.create(creds);
+		EC2Service service = new DefaultEC2Service(context, ws);
+		List<Instance> instances = service.getInstances();
+		for (Instance instance : instances) {
+			Optional<String> name = getTagValue(instance, EC2_NAME_TAG_KEY);
+			if (name.isPresent()) {
+				Optional<String> description = fromNullable(props.getProperty(name.get()));
+				if (description.isPresent()) {
+					logger.info("tagging -> %s  [%s]", name, Str.flatten(description.get()));
+					Tag tag = new Tag(EC2_DESCRIPTION_TAG_KEY, description.get());
+					service.tag(instance.getInstanceId(), ImmutableList.of(tag));
+				}
+			}
+		}
 	}
 
 	protected static List<EC2Instance> getInstances(String account, boolean refresh) {
