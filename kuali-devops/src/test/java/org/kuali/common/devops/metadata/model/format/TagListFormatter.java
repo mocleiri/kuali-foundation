@@ -44,8 +44,8 @@ public class TagListFormatter implements Formatter<List<EC2Tag>> {
 		for (String string : strings) {
 			List<String> tokens = equals.splitToList(string);
 			checkState(tokens.size() == 2, "expected exactly 2 tokens, but there were %s intead -> [%s]", tokens.size(), string);
-			String key = tokens.get(0);
-			String value = tokens.get(1);
+			String key = REPLACER.restore(tokens.get(0));
+			String value = REPLACER.restore(tokens.get(1));
 			EC2Tag tag = EC2Tag.create(key, value);
 			tags.add(tag);
 		}
