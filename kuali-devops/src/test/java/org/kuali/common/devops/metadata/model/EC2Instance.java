@@ -21,6 +21,8 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 	private final String state;
 	@OptionalStringFormat
 	private final Optional<String> description;
+	@OptionalStringFormat
+	private final Optional<String> purpose;
 
 	@Min(1)
 	private final long launchTime;
@@ -39,6 +41,7 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 		this.ami = builder.ami;
 		this.state = builder.state;
 		this.description = builder.description;
+		this.purpose = builder.purpose;
 	}
 
 	public static Builder builder() {
@@ -54,7 +57,18 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 		private long launchTime;
 		private String ami;
 		private String state;
-		private Optional<String> description;
+		private Optional<String> description = Optional.absent();
+		private Optional<String> purpose = Optional.absent();
+
+		public Builder purpose(Optional<String> purpose) {
+			this.purpose = purpose;
+			return this;
+		}
+
+		public Builder purpose(String purpose) {
+			this.purpose = Optional.of(purpose);
+			return this;
+		}
 
 		public Builder description(Optional<String> description) {
 			this.description = description;
@@ -177,6 +191,14 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 		public void setDescription(Optional<String> description) {
 			this.description = description;
 		}
+
+		public Optional<String> getPurpose() {
+			return purpose;
+		}
+
+		public void setPurpose(Optional<String> purpose) {
+			this.purpose = purpose;
+		}
 	}
 
 	public String getId() {
@@ -209,6 +231,10 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 
 	public Optional<String> getDescription() {
 		return description;
+	}
+
+	public Optional<String> getPurpose() {
+		return purpose;
 	}
 
 }
