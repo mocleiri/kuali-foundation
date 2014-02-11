@@ -10,7 +10,6 @@ import java.util.SortedSet;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.kuali.common.devops.table.TableCellDescriptor;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.spring.convert.Conversion;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
@@ -84,7 +83,7 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 			}
 		}
 		Object[] args = { org.apache.commons.lang3.builder.Builder.class.getCanonicalName(), targetType.getCanonicalName() };
-		throw Exceptions.illegalState("[%s] is not assignable from any classes declared in [%s]", args);
+		throw illegalState("[%s] is not assignable from any classes declared in [%s]", args);
 	}
 
 	private ToListFunction(Builder<R, C, V> builder) {
