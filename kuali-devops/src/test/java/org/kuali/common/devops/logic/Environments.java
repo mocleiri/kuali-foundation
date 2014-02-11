@@ -3,6 +3,7 @@ package org.kuali.common.devops.logic;
 import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkArgument;
+import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 
 import java.text.NumberFormat;
@@ -14,6 +15,7 @@ import java.util.TimeZone;
 
 import org.kuali.common.devops.metadata.model.EC2Instance;
 import org.kuali.common.devops.metadata.model.EC2Tag;
+import org.kuali.common.devops.metadata.model.Memory;
 import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.Database;
 import org.kuali.common.devops.model.Environment;
@@ -67,7 +69,7 @@ public class Environments extends Examiner {
 		map.put(EnvironmentTableColumns.SCHEMA.getLabel(), app.isPresent() ? getDatabaseSchema(app.get().getDatabase()) : NOT_AVAILABLE);
 		map.put(EnvironmentTableColumns.JAVA.getLabel(), java);
 		map.put(EnvironmentTableColumns.SERVER.getLabel(), getServer(env.getServer()));
-		map.put(EnvironmentTableColumns.TOMCAT.getLabel(), getTomcat(env.getTomcat()));
+		map.put(EnvironmentTableColumns.TOMCAT.getLabel(), getTomcat(env));
 		return map;
 	}
 
@@ -119,18 +121,30 @@ public class Environments extends Examiner {
 		return nf;
 	}
 
-	protected static String getTomcat(Optional<Tomcat> optional) {
+	protected static String getTomcat(Environment env) {
+		Optional<Tomcat> optional = env.getTomcat();
 		if (!optional.isPresent()) {
 			return NOT_AVAILABLE;
 		} else {
+			Optional<Memory> memory = env.getMemory();
 			Tomcat tomcat = optional.get();
-			// TableContext context = TableContext.builder().columnLabels(false).border(false).build();
 			String uptime = getTime(tomcat.getStartupTime());
-			Table<Integer, Integer, String> table = HashBasedTable.create();
-			addRow(table, tomcat.getVersion());
-			addRow(table, "uptime " + uptime);
-			// return Html.html(context, table);
-			return "<div id='data'>" + tomcat.getVersion() + "</div><div id='data'>uptime " + uptime + "</div>";
+			StringBuilder sb = new StringBuilder();
+			sb.append("<div id='data'>" + tomcat.getVersion() + "</div>\n");
+			sb.append("<div id='data'>uptime " + uptime + "</div>\n");
+			sb.append(getMemory(memory));
+			return sb.toString();
+		}
+	}
+
+	protected static String getMemory(Optional<Memory> optional) {
+		if (!optional.isPresent()) {
+			return NOT_AVAILABLE;
+		} else {
+			Memory memory = optional.get();
+			String max = FormatUtils.getSize(memory.getMax());
+			String used = FormatUtils.getSize(memory.getUsed());
+			return format("<div id='data'>mem [used:%s, max:%s]</div>\n", used, max);
 		}
 	}
 
