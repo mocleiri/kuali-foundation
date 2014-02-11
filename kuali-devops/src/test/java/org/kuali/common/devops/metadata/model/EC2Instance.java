@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.validation.constraints.Min;
 
+import org.kuali.common.devops.metadata.model.format.TagListFormat;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.spring.format.OptionalStringFormat;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -28,6 +29,7 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 	private final Optional<String> description;
 	@OptionalStringFormat
 	private final Optional<String> purpose;
+	@TagListFormat
 	private final ImmutableList<EC2Tag> tags;
 
 	@Min(1)
