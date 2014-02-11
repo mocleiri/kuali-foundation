@@ -1,5 +1,9 @@
 package org.kuali.common.devops.metadata.model;
 
+import static com.google.common.base.Optional.absent;
+
+import java.util.List;
+
 import javax.validation.constraints.Min;
 
 import org.kuali.common.util.build.ValidatingBuilder;
@@ -7,6 +11,7 @@ import org.kuali.common.util.spring.format.OptionalStringFormat;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 
 @IdiotProofImmutable
 public final class EC2Instance implements Comparable<EC2Instance> {
@@ -23,6 +28,7 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 	private final Optional<String> description;
 	@OptionalStringFormat
 	private final Optional<String> purpose;
+	private final ImmutableList<EC2Tag> tags;
 
 	@Min(1)
 	private final long launchTime;
@@ -42,6 +48,7 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 		this.state = builder.state;
 		this.description = builder.description;
 		this.purpose = builder.purpose;
+		this.tags = ImmutableList.copyOf(builder.tags);
 	}
 
 	public static Builder builder() {
@@ -51,14 +58,15 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 	public static class Builder extends ValidatingBuilder<EC2Instance> {
 
 		private String id;
-		private Optional<String> name = Optional.absent();
-		private Optional<String> publicDnsName = Optional.absent();
+		private Optional<String> name = absent();
+		private Optional<String> publicDnsName = absent();
 		private String type;
 		private long launchTime;
 		private String ami;
 		private String state;
-		private Optional<String> description = Optional.absent();
-		private Optional<String> purpose = Optional.absent();
+		private Optional<String> description = absent();
+		private Optional<String> purpose = absent();
+		private final List<EC2Tag> tags = ImmutableList.of();
 
 		public Builder purpose(Optional<String> purpose) {
 			this.purpose = purpose;
@@ -199,6 +207,10 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 		public void setPurpose(Optional<String> purpose) {
 			this.purpose = purpose;
 		}
+
+		public List<EC2Tag> getTags() {
+			return tags;
+		}
 	}
 
 	public String getId() {
@@ -235,6 +247,10 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 
 	public Optional<String> getPurpose() {
 		return purpose;
+	}
+
+	public List<EC2Tag> getTags() {
+		return tags;
 	}
 
 }
