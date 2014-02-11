@@ -3,6 +3,7 @@ package org.kuali.common.devops.logic;
 import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.collect.Maps.newConcurrentMap;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static org.apache.commons.lang.StringUtils.leftPad;
@@ -45,6 +46,7 @@ public class Environments extends Examiner {
 	private static final String AMAZON_EC2_INSTANCE_DETAILS_LINK = "http://aws.amazon.com/ec2/instance-types/instance-details/";
 	private static final String SHRUB = "http://shrub.appspot.com/maven.kuali.org";
 	private static final String KUALI = "http://maven.kuali.org";
+	private static final Map<String, Optional<String>> repositoryLinks = newConcurrentMap();
 
 	public static Table<Integer, Label, String> getTable(List<Environment> envs) {
 		Table<Integer, Label, String> table = HashBasedTable.create();
@@ -89,14 +91,38 @@ public class Environments extends Examiner {
 			Project project = app.get().getProject();
 			String show = project.getVersion();
 			Artifact artifact = getArtifact(project);
+			String key = getKey(artifact);
+			Optional<String> dest = repositoryLinks.get(key);
+			if (dest != null && dest.isPresent()) {
+				return href(dest.get(), show);
+			}
+
 			Optional<String> repo = getRepoFragment(artifact);
 			if (!repo.isPresent()) {
+				repositoryLinks.put(key, Optional.<String> absent());
 				return show;
 			} else {
-				String dest = getFullRepositoryPathUrl(repo.get(), artifact);
-				return href(dest, show);
+				String url = getFullRepositoryPathUrl(repo.get(), artifact);
+				repositoryLinks.put(key, Optional.of(url));
+				return href(url, show);
 			}
 		}
+	}
+
+	protected static String getKey(Artifact artifact) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(artifact.getGroupId());
+		sb.append(":");
+		sb.append(artifact.getArtifactId());
+		sb.append(":");
+		sb.append(artifact.getVersion());
+		sb.append(":");
+		if (artifact.getClassifier().isPresent()) {
+			sb.append(artifact.getClassifier().get());
+		}
+		sb.append(":");
+		sb.append(artifact.getType());
+		return sb.toString();
 	}
 
 	protected static String getFullRepositoryPathUrl(String repo, Artifact artifact) {
