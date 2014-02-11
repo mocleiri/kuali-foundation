@@ -56,6 +56,7 @@ public class Instances {
 	private static final Logger logger = Loggers.make();
 	private static final String EC2_NAME_TAG_KEY = "Name";
 	private static final String EC2_DESCRIPTION_TAG_KEY = "Description";
+	private static final String EC2_PURPOSE_TAG_KEY = "Purpose";
 
 	/**
 	 * Produces a map containing all EC2 server instances for all Kuali accounts.
@@ -168,12 +169,14 @@ public class Instances {
 		String id = instance.getInstanceId();
 		Optional<String> name = getTagValue(instance, EC2_NAME_TAG_KEY);
 		Optional<String> description = getTagValue(instance, EC2_DESCRIPTION_TAG_KEY);
+		Optional<String> purpose = getTagValue(instance, EC2_PURPOSE_TAG_KEY);
 		Optional<String> publicDnsName = fromNullable(trimToNull(instance.getPublicDnsName()));
 		String type = instance.getInstanceType();
 		long launchTime = instance.getLaunchTime().getTime();
 		String ami = instance.getImageId();
 		String state = instance.getState().getName();
-		return EC2Instance.builder().id(id).name(name).publicDnsName(publicDnsName).type(type).launchTime(launchTime).ami(ami).state(state).description(description).build();
+		return EC2Instance.builder().id(id).purpose(purpose).name(name).publicDnsName(publicDnsName).type(type).launchTime(launchTime).ami(ami).state(state)
+				.description(description).build();
 	}
 
 	protected static Optional<String> getTagValue(Instance instance, String tagName) {

@@ -51,7 +51,6 @@ public class Environments extends Examiner {
 		String href = href(dest, dest);
 		String java = env.getJava().isPresent() ? env.getJava().get() : "n/a";
 		Optional<Application> app = env.getApplication();
-		Optional<String> desc = env.getServer().getDescription();
 		Map<Label, String> map = Maps.newHashMap();
 		map.put(EnvironmentTableColumns.NAME.getLabel(), getEnvironmentInteger(env.getName()) + "");
 		map.put(EnvironmentTableColumns.URL.getLabel(), href);
@@ -64,8 +63,17 @@ public class Environments extends Examiner {
 		map.put(EnvironmentTableColumns.JAVA.getLabel(), java);
 		map.put(EnvironmentTableColumns.SERVER.getLabel(), getServer(env.getServer()));
 		map.put(EnvironmentTableColumns.TOMCAT.getLabel(), getTomcat(env.getTomcat()));
-		map.put(EnvironmentTableColumns.DESCRIPTION.getLabel(), desc.isPresent() ? desc.get() : "n/a");
+		map.put(EnvironmentTableColumns.PURPOSE.getLabel(), getPurpose(env.getServer()));
 		return map;
+	}
+
+	protected static String getPurpose(EC2Instance server) {
+		Optional<String> purpose = server.getPurpose();
+		Optional<String> desc = server.getDescription();
+		if (!purpose.isPresent()) {
+			return "n/a";
+		}
+		return purpose.get();
 	}
 
 	protected static int getEnvironmentInteger(String environmentName) {
