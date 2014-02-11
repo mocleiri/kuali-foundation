@@ -1,5 +1,7 @@
 package org.kuali.common.devops.model;
 
+import static com.google.common.base.Optional.absent;
+
 import java.util.Comparator;
 
 import org.kuali.common.devops.metadata.model.EC2Instance;
@@ -52,11 +54,11 @@ public final class Environment implements Comparable<Environment> {
 		private String name;
 		private String fqdn;
 		private EC2Instance server;
-		private Optional<Tomcat> tomcat = Optional.absent();
-		private Optional<String> java = Optional.absent();
-		private Optional<Application> application = Optional.absent();
+		private Optional<Tomcat> tomcat = absent();
+		private Optional<String> java = absent();
+		private Optional<Application> application = absent();
 		private Status status = Status.UNKNOWN;
-		private Optional<Memory> memory = Optional.absent();
+		private Optional<Memory> memory = absent();
 
 		@Override
 		public int compareTo(Environment.Builder other) {
