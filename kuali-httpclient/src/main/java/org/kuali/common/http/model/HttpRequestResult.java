@@ -107,7 +107,7 @@ public final class HttpRequestResult {
 			checkNotNull(instance.responseBody, "responseBody");
 			checkNotBlank(instance.statusText, "statusText");
 			checkMin(instance.statusCode, 0, "statusCode");
-			checkMin(instance.stop, instance.start, "stop");
+			checkMin(instance.stop, instance.start, "stop"); // Make sure stop is >= start
 			checkMin(instance.elapsed, 0, "elapsed");
 		}
 
