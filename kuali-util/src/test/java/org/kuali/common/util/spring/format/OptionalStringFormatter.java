@@ -1,6 +1,7 @@
 package org.kuali.common.util.spring.format;
 
 import static com.google.common.base.Optional.absent;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 import java.util.Locale;
 
@@ -10,12 +11,16 @@ import com.google.common.base.Optional;
 
 public final class OptionalStringFormatter implements Formatter<Optional<String>> {
 
-	private static final String MAGIC_ABSENT_TOKEN = "${optional.absent}";
+	public OptionalStringFormatter(String absentToken) {
+		this.absentToken = checkNotBlank(absentToken, "absentToken");
+	}
+
+	private final String absentToken;
 
 	@Override
 	public String print(Optional<String> string, Locale locale) {
 		if (!string.isPresent()) {
-			return MAGIC_ABSENT_TOKEN;
+			return absentToken;
 		} else {
 			return string.get();
 		}
@@ -23,7 +28,7 @@ public final class OptionalStringFormatter implements Formatter<Optional<String>
 
 	@Override
 	public Optional<String> parse(String text, Locale locale) {
-		if (MAGIC_ABSENT_TOKEN.equals(text)) {
+		if (absentToken.equals(text)) {
 			return absent();
 		} else {
 			return Optional.of(text);

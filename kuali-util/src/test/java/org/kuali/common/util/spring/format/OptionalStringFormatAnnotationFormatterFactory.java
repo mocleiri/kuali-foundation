@@ -21,12 +21,12 @@ public final class OptionalStringFormatAnnotationFormatterFactory implements Ann
 
 	@Override
 	public Printer<Optional<String>> getPrinter(OptionalStringFormat annotation, Class<?> fieldType) {
-		return new OptionalStringFormatter();
+		return new OptionalStringFormatter(annotation.value());
 	}
 
 	@Override
 	public Parser<Optional<String>> getParser(OptionalStringFormat annotation, Class<?> fieldType) {
-		return new OptionalStringFormatter();
+		return new OptionalStringFormatter(annotation.value());
 	}
 
 }
