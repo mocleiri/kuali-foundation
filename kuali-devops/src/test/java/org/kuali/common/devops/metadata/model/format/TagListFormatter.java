@@ -16,9 +16,18 @@ import com.google.common.collect.ImmutableList;
 
 public final class TagListFormatter implements Formatter<List<EC2Tag>> {
 
-	private static final Replacer REPLACER = Replacer.builder().add("|", "${formatter.separator}").add("=", "${formatter.equals}").build();
+	private static final Replacer REPLACER = getReplacer();
 	private static final Splitter SPLITTER = Splitter.on('|');
 	private static final Joiner JOINER = Joiner.on('|');
+
+	private static final Replacer getReplacer() {
+		Replacer.Builder builder = Replacer.builder();
+		builder.add("|", "${formatter.separator}");
+		builder.add("=", "${formatter.equals}");
+		builder.add("\r", "${formatter.cr}");
+		builder.add("\n", "${formatter.lf}");
+		return builder.build();
+	}
 
 	@Override
 	public String print(List<EC2Tag> tags, Locale locale) {
