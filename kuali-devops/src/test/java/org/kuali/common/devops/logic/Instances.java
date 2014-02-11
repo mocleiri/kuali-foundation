@@ -79,13 +79,11 @@ public class Instances {
 		EC2Service service = new DefaultEC2Service(context, ws);
 		SortedSet<String> keys = newTreeSet(props.stringPropertyNames());
 		for (String key : keys) {
-			String value = props.getProperty(key);
-			updateTag(account, key, value, service);
+			updateTag(account, key, props.getProperty(key), service);
 		}
 	}
 
-	public static void updateTag(String account, String key, String value, EC2Service service) {
-		String location = "classpath:org/kuali/" + account + "/" + value + ".properties";
+	public static void updateTag(String account, String key, String location, EC2Service service) {
 		checkArgument(LocationUtils.exists(location), "Location [%s] does not exist", location);
 		Properties props = PropertyUtils.load(location);
 		List<Instance> instances = service.getInstances();
