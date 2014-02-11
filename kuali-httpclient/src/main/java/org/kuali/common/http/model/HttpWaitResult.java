@@ -15,8 +15,8 @@
  */
 package org.kuali.common.http.model;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static org.kuali.common.util.base.Precondition.checkMin;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.util.List;
 
@@ -86,9 +86,10 @@ public final class HttpWaitResult {
 		}
 
 		private static void validate(HttpWaitResult instance) {
-			checkNotNull(instance.status);
-			checkNotNull(instance.finalRequestResult);
-			checkNotNull(instance.requestResults);
+			checkNotNull(instance.status, "status");
+			checkNotNull(instance.finalRequestResult, "finalRequestResult");
+			checkNotNull(instance.requestResults, "requestResults");
+			checkNotNull(instance.finalRequestResult, "finalRequestResult");
 			checkMin(instance.start, 0, "start");
 			checkMin(instance.stop, instance.start, "stop");
 		}
