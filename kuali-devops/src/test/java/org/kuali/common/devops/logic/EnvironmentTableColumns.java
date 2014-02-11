@@ -36,8 +36,7 @@ public enum EnvironmentTableColumns {
 		private static final Counter COUNTER = new Counter();
 
 		private static final int next() {
-			COUNTER.increment();
-			return COUNTER.getValue();
+			return COUNTER.increment();
 		}
 	}
 
