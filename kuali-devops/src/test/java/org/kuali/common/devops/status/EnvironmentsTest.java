@@ -1,5 +1,6 @@
 package org.kuali.common.devops.status;
 
+import static com.google.common.collect.Sets.newTreeSet;
 import static java.lang.String.format;
 import static org.kuali.common.util.FormatUtils.JAVA_UTIL_DATE_TO_STRING_FORMAT;
 
@@ -56,7 +57,7 @@ public class EnvironmentsTest {
 				Table<Integer, Label, String> table = Environments.getTable(envs);
 				String html = Html.html(table);
 				File outputFile = new CanonicalFile(HTML_DIR, group + ".htm");
-				FileUtils.write(outputFile, getHtml(group, html, Sets.newTreeSet(map.keySet())));
+				FileUtils.write(outputFile, getHtml(group, html, newTreeSet(map.keySet())));
 				logger.info(format("created -> %s", outputFile));
 			}
 		} catch (Throwable e) {
