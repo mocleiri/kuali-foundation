@@ -1,6 +1,7 @@
 package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Optional.fromNullable;
+import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newTreeMap;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
@@ -36,7 +37,6 @@ import com.google.common.base.Optional;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 public class Environments2 {
 
@@ -46,10 +46,10 @@ public class Environments2 {
 
 	public static SortedMap<String, List<Environment>> getEnvironments(boolean refresh) {
 		SortedMap<String, List<Environment.Builder>> builders = getBuilders(refresh);
-		SortedMap<String, List<Environment>> map = Maps.newTreeMap();
+		SortedMap<String, List<Environment>> map = newTreeMap();
 		for (String group : builders.keySet()) {
 			List<Environment.Builder> list = builders.get(group);
-			List<Environment> envs = Lists.newArrayList();
+			List<Environment> envs = newArrayList();
 			for (Environment.Builder builder : list) {
 				envs.add(builder.build());
 			}
