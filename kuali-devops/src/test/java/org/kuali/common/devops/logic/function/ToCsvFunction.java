@@ -31,7 +31,7 @@ public final class ToCsvFunction<R, C> implements Function<Table<? extends Compa
 	private final TypeDescriptor targetType = TypeDescriptor.valueOf(String.class);
 	private final Locale locale = Locale.getDefault();
 
-	private ConversionService getConversionService() {
+	public static final ConversionService getConversionService() {
 		DefaultConversionService service = new DefaultConversionService();
 		service.addFormatterForFieldAnnotation(new TagListFormatAnnotationFormatterFactory());
 		return service;
