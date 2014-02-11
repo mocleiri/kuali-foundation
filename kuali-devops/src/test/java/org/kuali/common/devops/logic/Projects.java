@@ -38,7 +38,7 @@ public class Projects extends Examiner {
 				newProps.setProperty(SCM_URL_KEY, url.get());
 				newProps.setProperty(SCM_REVISION_KEY, revision);
 			} else {
-				// Remove these 2 properties so nobody can even attempt to display inaccurate SCM info
+				// Remove these 2 properties so nothing can even attempt to display inaccurate SCM info
 				newProps.remove(SCM_URL_KEY);
 				newProps.remove(SCM_REVISION_KEY);
 			}
