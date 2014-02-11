@@ -92,7 +92,7 @@ public class Projects extends Examiner {
 		if (LocationUtils.exists(newUrl)) {
 			return Optional.of(newUrl);
 		} else {
-			return Optional.absent();
+			return absent();
 		}
 	}
 
