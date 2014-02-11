@@ -1,5 +1,6 @@
 package org.kuali.common.devops.status;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
 import static org.apache.commons.lang.StringUtils.rightPad;
 import static org.apache.commons.lang3.StringUtils.leftPad;
@@ -18,7 +19,6 @@ import org.slf4j.Logger;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.LoadingCache;
-import com.google.common.collect.Lists;
 
 public class InstancesTest {
 
@@ -28,7 +28,7 @@ public class InstancesTest {
 	public void test() {
 		try {
 			Validation.getDefaultValidator();
-			List<String> accounts = Lists.newArrayList(Auth.getAwsAccountNames());
+			List<String> accounts = newArrayList(Auth.getAwsAccountNames());
 			LoadingCache<String, List<EC2Instance>> cache = CacheBuilder.newBuilder().build(new InstancesLoader());
 			for (String account : accounts) {
 				List<EC2Instance> instances = cache.get(account);
