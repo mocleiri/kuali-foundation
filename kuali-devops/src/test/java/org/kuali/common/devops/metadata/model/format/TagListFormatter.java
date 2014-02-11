@@ -14,7 +14,7 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
 
-public class TagListFormatter implements Formatter<List<EC2Tag>> {
+public final class TagListFormatter implements Formatter<List<EC2Tag>> {
 
 	private static final Replacer REPLACER = Replacer.builder().add("|", "${formatter.separator}").add("=", "${formatter.equals}").build();
 	private static final Splitter SPLITTER = Splitter.on('|');
