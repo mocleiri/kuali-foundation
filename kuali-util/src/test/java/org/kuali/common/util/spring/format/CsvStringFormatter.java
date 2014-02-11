@@ -1,14 +1,13 @@
 package org.kuali.common.util.spring.format;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-import static org.apache.commons.lang3.StringUtils.isBlank;
-
 import java.util.Locale;
 
 import org.kuali.common.util.base.string.Replacer;
+import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.validate.IdiotProofImmutable;
 import org.springframework.format.Formatter;
 
+@IdiotProofImmutable
 public final class CsvStringFormatter implements Formatter<String> {
 
 	private final String nullToken;
@@ -52,7 +51,7 @@ public final class CsvStringFormatter implements Formatter<String> {
 		return new Builder();
 	}
 
-	public static class Builder implements org.apache.commons.lang3.builder.Builder<CsvStringFormatter> {
+	public static class Builder extends ValidatingBuilder<CsvStringFormatter> {
 
 		private String nullToken = "${csv.null}";
 		private String emptyToken = "${csv.empty}";
@@ -74,16 +73,8 @@ public final class CsvStringFormatter implements Formatter<String> {
 		}
 
 		@Override
-		public CsvStringFormatter build() {
-			CsvStringFormatter instance = new CsvStringFormatter(this);
-			validate(instance);
-			return instance;
-		}
-
-		private static void validate(CsvStringFormatter instance) {
-			checkArgument(!isBlank(instance.nullToken), "'nullToken' cannot be blank");
-			checkArgument(!isBlank(instance.emptyToken), "'emptyToken' cannot be blank");
-			checkNotNull(instance.replacer, "'replacer' cannot be null");
+		public CsvStringFormatter getInstance() {
+			return new CsvStringFormatter(this);
 		}
 
 		public String getNullToken() {
