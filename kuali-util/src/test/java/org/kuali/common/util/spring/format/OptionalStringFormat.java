@@ -11,4 +11,9 @@ import java.lang.annotation.Target;
 @Target({ METHOD, FIELD, PARAMETER })
 @Retention(RUNTIME)
 public @interface OptionalStringFormat {
+
+	public static final String DEFAULT_OPTIONAL_ABSENT_TOKEN = "${optional.absent}";
+
+	String value() default DEFAULT_OPTIONAL_ABSENT_TOKEN;
+
 }
