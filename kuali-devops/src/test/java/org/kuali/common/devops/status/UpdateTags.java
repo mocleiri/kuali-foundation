@@ -8,7 +8,7 @@ import org.kuali.common.devops.logic.Instances;
 
 import com.google.common.base.Optional;
 
-public class UpdateDescriptions {
+public class UpdateTags {
 
 	private static final String ACCOUNT_KEY = "ec2.account";
 
