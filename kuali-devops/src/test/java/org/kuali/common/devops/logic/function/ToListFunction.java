@@ -1,6 +1,7 @@
 package org.kuali.common.devops.logic.function;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static org.kuali.common.util.ReflectionUtils.isOptionalString;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 
 import java.util.List;
@@ -53,7 +54,7 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 			Optional<String> value = descriptor.getFieldValue();
 			Object converted = converter.convert(value.orNull(), sourceType, targetType);
 			// TODO Spring's converter doesn't do anything if you pass it null
-			if (ReflectionUtils.isOptionalString(descriptor.getField()) && converted == null) {
+			if (isOptionalString(descriptor.getField()) && converted == null) {
 				converted = Optional.<String> absent();
 			}
 			return converted;
