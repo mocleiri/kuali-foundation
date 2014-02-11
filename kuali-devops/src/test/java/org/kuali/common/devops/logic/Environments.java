@@ -1,6 +1,7 @@
 package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Optional.absent;
+import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkArgument;
 import static java.lang.System.currentTimeMillis;
 
@@ -206,11 +207,13 @@ public class Environments extends Examiner {
 	}
 
 	protected static String getScmVendor(Project project) {
-		String vendor = project.getProperties().getProperty("project.scm.vendor");
-		if (vendor == null) {
-			vendor = "svn";
+		Optional<String> vendor = fromNullable(project.getProperties().getProperty("project.scm.vendor"));
+		if (!vendor.isPresent()) {
+			// Any Kuali app without this property is old enough that it was sourced from Subversion for sure
+			return "svn";
+		} else {
+			return vendor.get();
 		}
-		return vendor;
 	}
 
 	protected static String getServer(EC2Instance instance) {
