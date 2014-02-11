@@ -1,5 +1,6 @@
 package org.kuali.common.devops.logic;
 
+import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
@@ -19,6 +20,7 @@ import org.kuali.common.devops.metadata.logic.DefaultEnvironmentMetadataService;
 import org.kuali.common.devops.metadata.logic.EnvironmentMetadataService;
 import org.kuali.common.devops.metadata.model.EC2Instance;
 import org.kuali.common.devops.metadata.model.EnvironmentMetadata;
+import org.kuali.common.devops.metadata.model.Memory;
 import org.kuali.common.devops.metadata.model.MetadataUrl;
 import org.kuali.common.devops.metadata.model.RemoteEnvironment;
 import org.kuali.common.devops.model.Application;
@@ -130,6 +132,16 @@ public class Environments2 {
 			builder.tomcat(getTomcat(metadata));
 			builder.java(getJava(metadata));
 			builder.application(getApplication(metadata));
+			builder.memory(getMemory(metadata));
+		}
+	}
+
+	protected static Optional<Memory> getMemory(EnvironmentMetadata meta) {
+		Optional<RemoteEnvironment> remoteEnvironment = getMetadata(meta.getRemoteEnvironment());
+		if (!remoteEnvironment.isPresent()) {
+			return absent();
+		} else {
+			return remoteEnvironment.get().getMemory();
 		}
 	}
 
