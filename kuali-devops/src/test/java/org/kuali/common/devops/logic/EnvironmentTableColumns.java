@@ -3,22 +3,21 @@ package org.kuali.common.devops.logic;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import org.kuali.common.devops.table.Label;
-import org.kuali.common.util.Counter;
 
 public enum EnvironmentTableColumns {
 
-	NAME(Label.create(Int.next(), "#")), //
-	URL(Label.create(Int.next(), "Url")), //
-	APP(Label.create(Int.next(), "Application")), //
-	VERSION(Label.create(Int.next(), "Version")), //
-	BUILD_DATE(Label.create(Int.next(), "Build Date")), //
-	PURPOSE(Label.create(Int.next(), "Purpose")), //
-	SCM(Label.create(Int.next(), "SCM")), //
-	DATABASE(Label.create(Int.next(), "Database")), //
-	SCHEMA(Label.create(Int.next(), "Schema")), //
-	JAVA(Label.create(Int.next(), "Java")), //
-	SERVER(Label.create(Int.next(), "Server")), //
-	TOMCAT(Label.create(Int.next(), "Tomcat")); //
+	NAME(Label.create(Column.value++, "#")), //
+	URL(Label.create(Column.value++, "Url")), //
+	APP(Label.create(Column.value++, "Application")), //
+	VERSION(Label.create(Column.value++, "Version")), //
+	BUILD_DATE(Label.create(Column.value++, "Build Date")), //
+	PURPOSE(Label.create(Column.value++, "Purpose")), //
+	SCM(Label.create(Column.value++, "SCM")), //
+	DATABASE(Label.create(Column.value++, "Database")), //
+	SCHEMA(Label.create(Column.value++, "Schema")), //
+	JAVA(Label.create(Column.value++, "Java")), //
+	SERVER(Label.create(Column.value++, "Server")), //
+	TOMCAT(Label.create(Column.value++, "Tomcat")); //
 
 	private final Label label;
 
@@ -31,12 +30,8 @@ public enum EnvironmentTableColumns {
 		return label;
 	}
 
-	private static class Int {
-		private static final Counter COUNTER = new Counter();
-
-		private static final int next() {
-			return COUNTER.increment();
-		}
+	private static class Column {
+		private static int value = 0;
 	}
 
 }
