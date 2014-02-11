@@ -6,18 +6,18 @@ import org.kuali.common.devops.table.Label;
 
 public enum EnvironmentTableColumns {
 
-	NAME(Label.create(Column.value++, "#")), //
-	URL(Label.create(Column.value++, "Url")), //
-	APP(Label.create(Column.value++, "Application")), //
-	VERSION(Label.create(Column.value++, "Version")), //
-	BUILD_DATE(Label.create(Column.value++, "Build Date")), //
-	PURPOSE(Label.create(Column.value++, "Purpose")), //
-	SCM(Label.create(Column.value++, "SCM")), //
-	DATABASE(Label.create(Column.value++, "Database")), //
-	SCHEMA(Label.create(Column.value++, "Schema")), //
-	JAVA(Label.create(Column.value++, "Java")), //
-	SERVER(Label.create(Column.value++, "Server")), //
-	TOMCAT(Label.create(Column.value++, "Tomcat")); //
+	NAME(Label.create(Column.sequence++, "#")), //
+	URL(Label.create(Column.sequence++, "Url")), //
+	APP(Label.create(Column.sequence++, "Application")), //
+	VERSION(Label.create(Column.sequence++, "Version")), //
+	BUILD_DATE(Label.create(Column.sequence++, "Build Date")), //
+	PURPOSE(Label.create(Column.sequence++, "Purpose")), //
+	SCM(Label.create(Column.sequence++, "SCM")), //
+	DATABASE(Label.create(Column.sequence++, "Database")), //
+	SCHEMA(Label.create(Column.sequence++, "Schema")), //
+	JAVA(Label.create(Column.sequence++, "Java")), //
+	SERVER(Label.create(Column.sequence++, "Server")), //
+	TOMCAT(Label.create(Column.sequence++, "Tomcat")); //
 
 	private final Label label;
 
@@ -31,7 +31,7 @@ public enum EnvironmentTableColumns {
 	}
 
 	private static class Column {
-		private static int value = 0;
+		private static int sequence = 0;
 	}
 
 }
