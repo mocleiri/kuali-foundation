@@ -1,7 +1,7 @@
 package org.kuali.common.devops.cache;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static org.kuali.common.devops.cache.FilePersister.GLOBAL_MAGIC_ABSENT_SUFFIX;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.io.File;
 
@@ -23,7 +23,7 @@ public final class PersistToFileSystemLoader<T, V> extends CacheLoader<T, Option
 
 	@Override
 	public Optional<V> load(T key) throws Exception {
-		checkNotNull(key);
+		checkNotNull(key, "key");
 		File file = fileFunction.apply(key);
 		File absentFile = new CanonicalFile(file + GLOBAL_MAGIC_ABSENT_SUFFIX);
 		if (absentFile.exists()) {
