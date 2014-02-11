@@ -28,9 +28,11 @@ import org.kuali.common.devops.table.Label;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Size;
+import org.kuali.common.util.log.Loggers;
 import org.kuali.common.util.maven.RepositoryUtils;
 import org.kuali.common.util.maven.model.Artifact;
 import org.kuali.common.util.project.model.Project;
+import org.slf4j.Logger;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.HashBasedTable;
@@ -47,6 +49,7 @@ public class Environments extends Examiner {
 	private static final String SHRUB = "http://shrub.appspot.com/maven.kuali.org";
 	private static final String KUALI = "http://maven.kuali.org";
 	private static final Map<String, Optional<String>> repositoryLinks = newConcurrentMap();
+	private static final Logger logger = Loggers.make();
 
 	public static Table<Integer, Label, String> getTable(List<Environment> envs) {
 		Table<Integer, Label, String> table = HashBasedTable.create();
@@ -94,6 +97,7 @@ public class Environments extends Examiner {
 			String key = getKey(artifact);
 			Optional<String> dest = repositoryLinks.get(key);
 			if (dest != null && dest.isPresent()) {
+				logger.info(format("cache hit -> %s", key));
 				return href(dest.get(), show);
 			}
 
@@ -133,7 +137,7 @@ public class Environments extends Examiner {
 	protected static Optional<String> getRepoFragment(Artifact artifact) {
 		String repositoryPath = RepositoryUtils.getRepositoryPath(artifact);
 		String repositoryFilename = RepositoryUtils.getFilename(artifact);
-		List<String> repos = ImmutableList.of("builds", "releases");
+		List<String> repos = ImmutableList.of("builds", "release");
 		for (String repo : repos) {
 			String fullPath = KUALI + "/" + repo + "/" + repositoryPath + "/" + repositoryFilename;
 			if (LocationUtils.exists(fullPath)) {
@@ -153,7 +157,7 @@ public class Environments extends Examiner {
 		if (groupId.equals(STUDENT_GROUP_ID)) {
 			groupId = groupId + ".web";
 		}
-		return new Artifact.Builder(project.getGroupId(), project.getArtifactId(), project.getVersion()).type("war").build();
+		return new Artifact.Builder(groupId, project.getArtifactId(), project.getVersion()).type("war").build();
 	}
 
 	protected static String getToolTip(String hover, String tip) {
