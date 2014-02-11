@@ -4,10 +4,12 @@ import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
 import static org.apache.commons.io.FileUtils.writeLines;
 import static org.apache.commons.lang.StringUtils.trimToNull;
 import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.kuali.common.util.Encodings.UTF8;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +39,6 @@ import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Optional;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Table;
 
@@ -101,7 +102,7 @@ public class Instances {
 		Table<Integer, String, TableCellDescriptor<Object>> table = Tables.getTable(instances, EC2Instance.class);
 		ToCsvFunction<Integer, String> function = new ToCsvFunction<Integer, String>();
 		List<String> lines = function.apply(table);
-		store(file, lines, Encodings.UTF8);
+		store(file, lines, UTF8);
 	}
 
 	protected static void store(File file, List<String> lines, String encoding) {
@@ -117,7 +118,7 @@ public class Instances {
 	}
 
 	protected static List<EC2Instance> convert(List<Instance> instances) {
-		List<EC2Instance> list = Lists.newArrayList();
+		List<EC2Instance> list = newArrayList();
 		for (Instance instance : instances) {
 			list.add(convert(instance));
 		}
