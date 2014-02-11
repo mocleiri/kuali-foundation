@@ -63,6 +63,15 @@ public final class Environment implements Comparable<Environment> {
 			return COMPARATOR.compare(name, other.getName());
 		}
 
+		public Builder memory(Optional<Memory> memory) {
+			this.memory = memory;
+			return this;
+		}
+
+		public Builder memory(Memory memory) {
+			return memory(Optional.of(memory));
+		}
+
 		public Builder status(String status) {
 			this.name = status;
 			return this;
