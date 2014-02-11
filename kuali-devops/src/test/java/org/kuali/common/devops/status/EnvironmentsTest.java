@@ -1,5 +1,6 @@
 package org.kuali.common.devops.status;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.newTreeSet;
 import static java.lang.String.format;
 import static org.kuali.common.util.FormatUtils.JAVA_UTIL_DATE_TO_STRING_FORMAT;
@@ -70,7 +71,7 @@ public class EnvironmentsTest {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<span id='title'>Managed Environments</span>\n");
 		sb.append("<span id='group'>-</span>\n");
-		List<String> names = Lists.newArrayList(groups);
+		List<String> names = newArrayList(groups);
 		for (String group : Lists.reverse(names)) {
 			String displayName = displayNames.get(group);
 			if (group.equals(currentGroup)) {
