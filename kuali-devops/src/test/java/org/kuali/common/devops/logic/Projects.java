@@ -27,7 +27,8 @@ public class Projects extends Examiner {
 			Properties newProps = new Properties();
 			newProps.putAll(project.getProperties());
 
-			// Most reliable way to get SVN information is from the manifest
+			// Most reliable way to get SVN information is from the manifest but this method attempts to get it from both
+			// MANIFEST.MF and project.properties. It also verifies that it can actually contact the location.
 			Optional<String> url = getScmUrl(manifest, newProps);
 			String revision = getScmRevision(manifest);
 
