@@ -6,6 +6,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static org.apache.commons.lang.StringUtils.leftPad;
+import static org.kuali.common.util.project.KualiProjectConstants.STUDENT_GROUP_ID;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -24,7 +25,10 @@ import org.kuali.common.devops.model.Scm;
 import org.kuali.common.devops.model.Tomcat;
 import org.kuali.common.devops.table.Label;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Size;
+import org.kuali.common.util.maven.RepositoryUtils;
+import org.kuali.common.util.maven.model.Artifact;
 import org.kuali.common.util.project.model.Project;
 
 import com.google.common.base.Optional;
@@ -39,6 +43,8 @@ public class Environments extends Examiner {
 	private static final String BUILD_DATE_DISPLAY_TIME_ZONE = "US/Eastern";
 	private static final String NOT_AVAILABLE = "n/a";
 	private static final String AMAZON_EC2_INSTANCE_DETAILS_LINK = "http://aws.amazon.com/ec2/instance-types/instance-details/";
+	private static final String SHRUB = "http://shrub.appspot.com/maven.kuali.org";
+	private static final String KUALI = "http://maven.kuali.org";
 
 	public static Table<Integer, Label, String> getTable(List<Environment> envs) {
 		Table<Integer, Label, String> table = HashBasedTable.create();
@@ -64,7 +70,7 @@ public class Environments extends Examiner {
 		map.put(EnvironmentTableColumns.NAME.getLabel(), getEnvironmentInteger(env.getName()) + "");
 		map.put(EnvironmentTableColumns.URL.getLabel(), href);
 		map.put(EnvironmentTableColumns.APP.getLabel(), app.isPresent() ? app.get().getProject().getArtifactId() : NOT_AVAILABLE);
-		map.put(EnvironmentTableColumns.VERSION.getLabel(), app.isPresent() ? app.get().getProject().getVersion() : NOT_AVAILABLE);
+		map.put(EnvironmentTableColumns.VERSION.getLabel(), getVersionLink(app));
 		map.put(EnvironmentTableColumns.PURPOSE.getLabel(), getPurpose(env.getServer()));
 		map.put(EnvironmentTableColumns.BUILD_DATE.getLabel(), app.isPresent() ? getBuildDate(app.get().getProject()) : NOT_AVAILABLE);
 		map.put(EnvironmentTableColumns.SCM.getLabel(), getScmDisplay(env));
@@ -74,6 +80,54 @@ public class Environments extends Examiner {
 		map.put(EnvironmentTableColumns.SERVER.getLabel(), getServer(env.getServer()));
 		map.put(EnvironmentTableColumns.TOMCAT.getLabel(), getTomcat(env));
 		return map;
+	}
+
+	protected static String getVersionLink(Optional<Application> app) {
+		if (!app.isPresent()) {
+			return NOT_AVAILABLE;
+		} else {
+			Project project = app.get().getProject();
+			String show = project.getVersion();
+			Artifact artifact = getArtifact(project);
+			Optional<String> repo = getRepoFragment(artifact);
+			if (!repo.isPresent()) {
+				return show;
+			} else {
+				String dest = getFullRepositoryPathUrl(repo.get(), artifact);
+				return href(dest, show);
+			}
+		}
+	}
+
+	protected static String getFullRepositoryPathUrl(String repo, Artifact artifact) {
+		String repositoryPath = RepositoryUtils.getRepositoryPath(artifact);
+		return SHRUB + "/" + repo + "/" + repositoryPath + "/";
+	}
+
+	protected static Optional<String> getRepoFragment(Artifact artifact) {
+		String repositoryPath = RepositoryUtils.getRepositoryPath(artifact);
+		String repositoryFilename = RepositoryUtils.getFilename(artifact);
+		List<String> repos = ImmutableList.of("builds", "releases");
+		for (String repo : repos) {
+			String fullPath = KUALI + "/" + repo + "/" + repositoryPath + "/" + repositoryFilename;
+			if (LocationUtils.exists(fullPath)) {
+				return Optional.of(repo);
+			}
+		}
+		String snapshotPath = KUALI + "/snapshot/" + repositoryPath + "/maven-metadata.xml";
+		if (LocationUtils.exists(snapshotPath)) {
+			return Optional.of("snapshot");
+		} else {
+			return Optional.absent();
+		}
+	}
+
+	protected static Artifact getArtifact(Project project) {
+		String groupId = project.getGroupId();
+		if (groupId.equals(STUDENT_GROUP_ID)) {
+			groupId = groupId + ".web";
+		}
+		return new Artifact.Builder(project.getGroupId(), project.getArtifactId(), project.getVersion()).type("war").build();
 	}
 
 	protected static String getToolTip(String hover, String tip) {
