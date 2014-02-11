@@ -8,7 +8,7 @@ import org.springframework.format.Formatter;
 
 import com.google.common.base.Optional;
 
-public class OptionalStringFormatter implements Formatter<Optional<String>> {
+public final class OptionalStringFormatter implements Formatter<Optional<String>> {
 
 	private static final String MAGIC_ABSENT_OPTIONAL_STRING_TOKEN = "${formatter.optional.string.absent}";
 
