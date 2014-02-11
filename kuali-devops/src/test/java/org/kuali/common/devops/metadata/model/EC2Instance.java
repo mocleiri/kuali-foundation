@@ -218,6 +218,10 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 		public List<EC2Tag> getTags() {
 			return tags;
 		}
+
+		public void setTags(List<EC2Tag> tags) {
+			this.tags = tags;
+		}
 	}
 
 	public String getId() {
