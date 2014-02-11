@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static org.kuali.common.util.ReflectionUtils.isOptionalString;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Locale;
 import java.util.SortedSet;
@@ -50,7 +51,11 @@ public final class ToListFunction<R, C, V> implements Function<Table<? extends C
 	protected Object convertString(TableCellDescriptor<String> descriptor) {
 		try {
 			TypeDescriptor targetType = new TypeDescriptor(descriptor.getField());
+			Field field = descriptor.getField();
 			Optional<String> value = descriptor.getFieldValue();
+			if (field.getName().equals("tags") && !value.isPresent()) {
+				System.out.println("yo");
+			}
 			Object converted = converter.convert(value.orNull(), sourceType, targetType);
 			// TODO Spring's converter doesn't do anything if you pass it null
 			if (isOptionalString(descriptor.getField()) && converted == null) {

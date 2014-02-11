@@ -21,11 +21,12 @@ public final class TagListFormatter implements Formatter<List<EC2Tag>> {
 	private static final Replacer REPLACER = getReplacer();
 	private static final Splitter SPLITTER = Splitter.on('|');
 	private static final Joiner JOINER = Joiner.on('|');
+	private static final String MAGIC_EMPTY_LIST_TOKEN = "${formatter.tags.empty}";
 
 	@Override
 	public String print(List<EC2Tag> tags, Locale locale) {
 		if (tags.isEmpty()) {
-			return null;
+			return MAGIC_EMPTY_LIST_TOKEN;
 		}
 		List<EC2Tag> mutable = Lists.newArrayList(tags);
 		Collections.sort(mutable);
@@ -39,7 +40,7 @@ public final class TagListFormatter implements Formatter<List<EC2Tag>> {
 
 	@Override
 	public List<EC2Tag> parse(String text, Locale locale) {
-		if (text == null) {
+		if (MAGIC_EMPTY_LIST_TOKEN.equals(text)) {
 			return ImmutableList.<EC2Tag> of();
 		}
 		List<String> strings = SPLITTER.splitToList(text);
