@@ -59,7 +59,8 @@ public final class ToCsvFunction<R, C> implements Function<Table<? extends Compa
 
 	protected String getToken(TableCellDescriptor<Object> descriptor) {
 		TypeDescriptor sourceType = new TypeDescriptor(descriptor.getField());
-		String converted = getConverted(descriptor, sourceType);
+		Optional<Object> value = descriptor.getFieldValue();
+		String converted = (String) converter.convert(value.orNull(), sourceType, targetType);
 		return formatter.print(converted, locale);
 	}
 
