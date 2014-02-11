@@ -25,10 +25,6 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 	private final String type;
 	private final String ami;
 	private final String state;
-	@OptionalStringFormat
-	private final Optional<String> description;
-	@OptionalStringFormat
-	private final Optional<String> purpose;
 	@TagListFormat
 	private final ImmutableList<EC2Tag> tags;
 
@@ -48,8 +44,6 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 		this.launchTime = builder.launchTime;
 		this.ami = builder.ami;
 		this.state = builder.state;
-		this.description = builder.description;
-		this.purpose = builder.purpose;
 		this.tags = ImmutableList.copyOf(builder.tags);
 	}
 
@@ -250,14 +244,6 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 
 	public String getState() {
 		return state;
-	}
-
-	public Optional<String> getDescription() {
-		return description;
-	}
-
-	public Optional<String> getPurpose() {
-		return purpose;
 	}
 
 	public List<EC2Tag> getTags() {

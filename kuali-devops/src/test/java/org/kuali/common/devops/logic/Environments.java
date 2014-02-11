@@ -1,5 +1,6 @@
 package org.kuali.common.devops.logic;
 
+import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Preconditions.checkArgument;
 import static java.lang.System.currentTimeMillis;
 
@@ -11,6 +12,7 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import org.kuali.common.devops.metadata.model.EC2Instance;
+import org.kuali.common.devops.metadata.model.EC2Tag;
 import org.kuali.common.devops.model.Application;
 import org.kuali.common.devops.model.Database;
 import org.kuali.common.devops.model.Environment;
@@ -30,6 +32,7 @@ public class Environments extends Examiner {
 
 	private static final String BUILD_DATE_DISPLAY_FORMAT = "yyyy-MM-dd HH:mm z";
 	private static final String BUILD_DATE_DISPLAY_TIME_ZONE = "US/Eastern";
+	private static final String NOT_AVAILABLE = "n/a";
 
 	public static Table<Integer, Label, String> getTable(List<Environment> envs) {
 		Table<Integer, Label, String> table = HashBasedTable.create();
@@ -49,18 +52,18 @@ public class Environments extends Examiner {
 	protected static Map<Label, String> getRowData(Environment env) {
 		String dest = PROTOCOL + env.getFqdn();
 		String href = href(dest, dest);
-		String java = env.getJava().isPresent() ? env.getJava().get() : "n/a";
+		String java = env.getJava().isPresent() ? env.getJava().get() : NOT_AVAILABLE;
 		Optional<Application> app = env.getApplication();
 		Map<Label, String> map = Maps.newHashMap();
 		map.put(EnvironmentTableColumns.NAME.getLabel(), getEnvironmentInteger(env.getName()) + "");
 		map.put(EnvironmentTableColumns.URL.getLabel(), href);
-		map.put(EnvironmentTableColumns.APP.getLabel(), app.isPresent() ? app.get().getProject().getArtifactId() : "n/a");
-		map.put(EnvironmentTableColumns.VERSION.getLabel(), app.isPresent() ? app.get().getProject().getVersion() : "n/a");
+		map.put(EnvironmentTableColumns.APP.getLabel(), app.isPresent() ? app.get().getProject().getArtifactId() : NOT_AVAILABLE);
+		map.put(EnvironmentTableColumns.VERSION.getLabel(), app.isPresent() ? app.get().getProject().getVersion() : NOT_AVAILABLE);
 		map.put(EnvironmentTableColumns.PURPOSE.getLabel(), getPurpose(env.getServer()));
-		map.put(EnvironmentTableColumns.BUILD_DATE.getLabel(), app.isPresent() ? getBuildDate(app.get().getProject()) : "n/a");
+		map.put(EnvironmentTableColumns.BUILD_DATE.getLabel(), app.isPresent() ? getBuildDate(app.get().getProject()) : NOT_AVAILABLE);
 		map.put(EnvironmentTableColumns.SCM.getLabel(), getScmDisplay(env));
-		map.put(EnvironmentTableColumns.DATABASE.getLabel(), app.isPresent() ? getDatabaseUrl(app.get().getDatabase()) : "n/a");
-		map.put(EnvironmentTableColumns.SCHEMA.getLabel(), app.isPresent() ? getDatabaseSchema(app.get().getDatabase()) : "n/a");
+		map.put(EnvironmentTableColumns.DATABASE.getLabel(), app.isPresent() ? getDatabaseUrl(app.get().getDatabase()) : NOT_AVAILABLE);
+		map.put(EnvironmentTableColumns.SCHEMA.getLabel(), app.isPresent() ? getDatabaseSchema(app.get().getDatabase()) : NOT_AVAILABLE);
 		map.put(EnvironmentTableColumns.JAVA.getLabel(), java);
 		map.put(EnvironmentTableColumns.SERVER.getLabel(), getServer(env.getServer()));
 		map.put(EnvironmentTableColumns.TOMCAT.getLabel(), getTomcat(env.getTomcat()));
@@ -76,11 +79,21 @@ public class Environments extends Examiner {
 		return sb.toString();
 	}
 
+	protected static Optional<String> getTagValue(EC2Instance instance, String tagName) {
+		for (EC2Tag tag : instance.getTags()) {
+			if (tag.getKey().equals(tagName)) {
+				return Optional.of(tag.getValue());
+			}
+		}
+		return absent();
+
+	}
+
 	protected static String getPurpose(EC2Instance server) {
-		Optional<String> purpose = server.getPurpose();
-		Optional<String> desc = server.getDescription();
+		Optional<String> purpose = getTagValue(server, "Purpose");
+		Optional<String> desc = getTagValue(server, "Description");
 		if (!purpose.isPresent()) {
-			return "n/a";
+			return NOT_AVAILABLE;
 		}
 		if (!desc.isPresent()) {
 			return purpose.get();
@@ -107,7 +120,7 @@ public class Environments extends Examiner {
 
 	protected static String getTomcat(Optional<Tomcat> optional) {
 		if (!optional.isPresent()) {
-			return "n/a";
+			return NOT_AVAILABLE;
 		} else {
 			Tomcat tomcat = optional.get();
 			// TableContext context = TableContext.builder().columnLabels(false).border(false).build();
@@ -122,7 +135,7 @@ public class Environments extends Examiner {
 
 	protected static String getTime(Optional<Long> millis) {
 		if (!millis.isPresent()) {
-			return "n/a";
+			return NOT_AVAILABLE;
 		} else {
 			return FormatUtils.getTime(currentTimeMillis() - millis.get(), getAgeFormatter());
 		}
@@ -130,7 +143,7 @@ public class Environments extends Examiner {
 
 	protected static String getApplication(Environment env) {
 		if (!env.getApplication().isPresent()) {
-			return "n/a";
+			return NOT_AVAILABLE;
 		} else {
 			Application app = env.getApplication().get();
 			Project project = app.getProject();
@@ -151,7 +164,7 @@ public class Environments extends Examiner {
 
 	protected static String getScmDisplay(Environment env) {
 		if (!env.getApplication().isPresent()) {
-			return "n/a";
+			return NOT_AVAILABLE;
 		}
 		Application app = env.getApplication().get();
 		Project project = app.getProject();
@@ -161,13 +174,13 @@ public class Environments extends Examiner {
 			Scm scm = optional.get();
 			return href(scm.getUrl(), vendor + ":" + scm.getRevision());
 		} else {
-			return vendor + ":n/a";
+			return vendor + ":" + NOT_AVAILABLE;
 		}
 	}
 
 	protected static String getDatabaseUrl(Optional<Database> optional) {
 		if (!optional.isPresent()) {
-			return "n/a";
+			return NOT_AVAILABLE;
 		} else {
 			return optional.get().getUrl();
 		}
@@ -175,7 +188,7 @@ public class Environments extends Examiner {
 
 	protected static String getDatabaseSchema(Optional<Database> optional) {
 		if (!optional.isPresent()) {
-			return "n/a";
+			return NOT_AVAILABLE;
 		} else {
 			return optional.get().getUsername();
 		}
@@ -183,7 +196,7 @@ public class Environments extends Examiner {
 
 	protected static String getDatabaseId(Optional<Database> optional) {
 		if (!optional.isPresent()) {
-			return "n/a";
+			return NOT_AVAILABLE;
 		}
 		Database database = optional.get();
 		if (database.getVendor().equals("mysql")) {
@@ -196,7 +209,7 @@ public class Environments extends Examiner {
 	protected static String getBuildDate(Project project) {
 		String property = project.getProperties().getProperty("project.build.timestamp.millis");
 		if (property == null) {
-			return "n/a";
+			return NOT_AVAILABLE;
 		} else {
 			long millis = Long.parseLong(property);
 			Date date = new Date(millis);
