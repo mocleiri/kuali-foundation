@@ -1,5 +1,7 @@
 package org.kuali.common.devops.logic;
 
+import static com.google.common.base.Optional.absent;
+
 import java.util.List;
 import java.util.Properties;
 
@@ -62,13 +64,13 @@ public class Projects extends Examiner {
 	private static Optional<String> getScmUrlFromManifest(Properties manifest) {
 		String url = manifest.getProperty("SVN-URL");
 		if (url == null) {
-			return Optional.absent();
+			return absent();
 		}
 		if (url.indexOf("${") != -1) {
-			return Optional.absent();
+			return absent();
 		}
 		if (!LocationUtils.exists(url)) {
-			return Optional.absent();
+			return absent();
 		}
 		return Optional.of(url);
 	}
