@@ -2,14 +2,14 @@ package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
 import static org.apache.commons.io.FileUtils.writeLines;
 import static org.apache.commons.lang.StringUtils.trimToNull;
-import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.kuali.common.util.Encodings.UTF8;
+import static org.kuali.common.util.base.Exceptions.illegalState;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -106,14 +106,14 @@ public class Instances {
 	}
 
 	protected static void store(File file, List<String> lines, String encoding) {
-		checkNotNull(file, "'file' cannot be null");
-		checkNotNull(lines, "'lines' cannot be null");
-		checkArgument(!isBlank(encoding), "'encoding' cannot be blank");
+		checkNotNull(file, "file");
+		checkNotNull(lines, "lines");
+		checkNotBlank(encoding, "encoding");
 		try {
 			logger.info(format("creating -> [%s]", file));
 			writeLines(file, encoding, lines);
 		} catch (IOException e) {
-			throw Exceptions.illegalState(e, "unexpected io error -> [%s]", file);
+			throw illegalState(e, "unexpected io error -> [%s]", file);
 		}
 	}
 
