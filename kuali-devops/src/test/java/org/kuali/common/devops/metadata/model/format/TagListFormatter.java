@@ -14,7 +14,6 @@ import org.springframework.format.Formatter;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 public final class TagListFormatter implements Formatter<List<EC2Tag>> {
 
@@ -28,7 +27,7 @@ public final class TagListFormatter implements Formatter<List<EC2Tag>> {
 		if (tags.isEmpty()) {
 			return MAGIC_EMPTY_LIST_TOKEN;
 		}
-		List<EC2Tag> mutable = Lists.newArrayList(tags);
+		List<EC2Tag> mutable = newArrayList(tags);
 		Collections.sort(mutable);
 		List<String> strings = newArrayList();
 		for (EC2Tag tag : mutable) {
