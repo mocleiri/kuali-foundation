@@ -22,12 +22,12 @@ public final class TagListFormatAnnotationFormatterFactory implements Annotation
 	}
 
 	@Override
-	public Printer<List<EC2Tag>> getPrinter(TagListFormat annotation, Class<?> fieldType) {
+	public Printer<ImmutableList<EC2Tag>> getPrinter(TagListFormat annotation, Class<?> fieldType) {
 		return new TagListFormatter();
 	}
 
 	@Override
-	public Parser<List<EC2Tag>> getParser(TagListFormat annotation, Class<?> fieldType) {
+	public Parser<ImmutableList<EC2Tag>> getParser(TagListFormat annotation, Class<?> fieldType) {
 		return new TagListFormatter();
 	}
 
