@@ -2,6 +2,7 @@ package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
+import static java.lang.String.format;
 import static org.apache.commons.io.FileUtils.readFileToString;
 import static org.apache.commons.lang3.StringUtils.substringBetween;
 import static org.apache.commons.lang3.StringUtils.trimToNull;
@@ -37,17 +38,17 @@ public class Passwords {
 	protected static String initPassword() {
 		Optional<String> sys = getSystemPassword();
 		if (sys.isPresent()) {
-			logger.info(String.format("Located [%s] in system properties", SYS_KEY));
+			logger.info(format("Located [%s] in system properties", SYS_KEY));
 			return Str.reveal(sys.get());
 		}
 		Optional<String> env = getEnvPassword();
 		if (env.isPresent()) {
-			logger.info(String.format("Located [%s] in environment variables", ENV_KEY));
+			logger.info(format("Located [%s] in environment variables", ENV_KEY));
 			return Str.reveal(env.get());
 		}
 		Optional<String> settings = getSettingsXmlPassword();
 		if (settings.isPresent()) {
-			logger.info(String.format("Located [%s] in [%s]", SYS_KEY, SETTINGS));
+			logger.info(format("Located [%s] in [%s]", SYS_KEY, SETTINGS));
 			return Str.reveal(settings.get());
 		} else {
 			throw illegalState("encryption password could not be found in system properties, environment variables, or [%s]", SETTINGS);
