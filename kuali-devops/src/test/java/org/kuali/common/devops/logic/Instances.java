@@ -81,7 +81,7 @@ public class Instances {
 			if (name.isPresent()) {
 				Optional<String> description = fromNullable(props.getProperty(name.get()));
 				if (description.isPresent()) {
-					logger.info("tagging -> %s  [%s]", name, Str.flatten(description.get()));
+					logger.info(format("tagging -> %s  [%s]", name.get(), Str.flatten(description.get())));
 					Tag tag = new Tag(EC2_DESCRIPTION_TAG_KEY, description.get());
 					service.tag(instance.getInstanceId(), ImmutableList.of(tag));
 				}
