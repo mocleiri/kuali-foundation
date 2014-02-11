@@ -67,7 +67,7 @@ public class Instances {
 		return map;
 	}
 
-	public static void addDescriptions(String account) {
+	public static void updateDescriptions(String account) {
 		String location = "classpath:org/kuali/" + account + "/descriptions.properties";
 		checkArgument(LocationUtils.exists(location), "Location [%s] does not exist", location);
 		Properties props = PropertyUtils.load(location);

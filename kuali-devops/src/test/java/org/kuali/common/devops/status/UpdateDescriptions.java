@@ -8,7 +8,7 @@ import org.kuali.common.devops.logic.Instances;
 
 import com.google.common.base.Optional;
 
-public class AddDescriptionsTest {
+public class UpdateDescriptions {
 
 	private static final String ACCOUNT_KEY = "ec2.account";
 
@@ -19,7 +19,7 @@ public class AddDescriptionsTest {
 			if (!account.isPresent()) {
 				throw illegalState("System property [%s] was not provided.  Usage -D%s=[account]", ACCOUNT_KEY, ACCOUNT_KEY);
 			}
-			Instances.addDescriptions(account.get());
+			Instances.updateDescriptions(account.get());
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
