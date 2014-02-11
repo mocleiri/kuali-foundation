@@ -6,18 +6,18 @@ import org.kuali.common.devops.table.Label;
 
 public enum EnvironmentTableColumns {
 
-	NAME(Label.create(Column.sequence++, "#")), //
-	URL(Label.create(Column.sequence++, "Url")), //
-	APP(Label.create(Column.sequence++, "Application")), //
-	VERSION(Label.create(Column.sequence++, "Version")), //
-	BUILD_DATE(Label.create(Column.sequence++, "Build Date")), //
-	PURPOSE(Label.create(Column.sequence++, "Purpose")), //
-	SCM(Label.create(Column.sequence++, "SCM")), //
-	DATABASE(Label.create(Column.sequence++, "Database")), //
-	SCHEMA(Label.create(Column.sequence++, "Schema")), //
-	JAVA(Label.create(Column.sequence++, "Java")), //
-	SERVER(Label.create(Column.sequence++, "Server")), //
-	TOMCAT(Label.create(Column.sequence++, "Tomcat")); //
+	NAME(create("#")), //
+	URL(create("Url")), //
+	APP(create("Application")), //
+	VERSION(create("Version")), //
+	BUILD_DATE(create("Build Date")), //
+	PURPOSE(create("Purpose")), //
+	SCM(create("SCM")), //
+	DATABASE(create("Database")), //
+	SCHEMA(create("Schema")), //
+	JAVA(create("Java")), //
+	SERVER(create("Server")), //
+	TOMCAT(create("Tomcat")); //
 
 	private final Label label;
 
@@ -26,12 +26,14 @@ public enum EnvironmentTableColumns {
 		this.label = label;
 	}
 
-	public Label getLabel() {
-		return label;
+	private static int sequence = 0;
+
+	private static synchronized final Label create(String text) {
+		return Label.create(sequence++, text);
 	}
 
-	private static class Column {
-		private static int sequence = 0;
+	public Label getLabel() {
+		return label;
 	}
 
 }
