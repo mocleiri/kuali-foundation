@@ -1,7 +1,7 @@
 package org.kuali.common.devops.logic.function;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static org.kuali.common.util.ReflectionUtils.isOptionalString;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.util.List;
 import java.util.Locale;
@@ -39,7 +39,7 @@ public final class ToCsvFunction<R, C> implements Function<Table<? extends Compa
 
 	@Override
 	public List<String> apply(Table<? extends Comparable<R>, ? extends Comparable<C>, TableCellDescriptor<Object>> table) {
-		checkNotNull(table, "'table' cannot be null");
+		checkNotNull(table, "table");
 		SortedSet<Comparable<R>> rowKeys = Sets.newTreeSet(table.rowKeySet());
 		SortedSet<Comparable<C>> colKeys = Sets.newTreeSet(table.columnKeySet());
 		List<String> lines = Lists.newArrayList();
