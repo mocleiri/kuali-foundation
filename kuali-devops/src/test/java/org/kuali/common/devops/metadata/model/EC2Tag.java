@@ -19,7 +19,7 @@ public final class EC2Tag {
 	}
 
 	public static Builder builder() {
-		return builder();
+		return new Builder();
 	}
 
 	public static class Builder extends ValidatingBuilder<EC2Tag> {
