@@ -3,6 +3,7 @@ package org.kuali.common.devops.model;
 import java.util.Comparator;
 
 import org.kuali.common.devops.metadata.model.EC2Instance;
+import org.kuali.common.devops.metadata.model.Memory;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -19,6 +20,7 @@ public final class Environment implements Comparable<Environment> {
 	private final Optional<String> java;
 	private final Optional<Tomcat> tomcat;
 	private final Optional<Application> application;
+	private final Optional<Memory> memory;
 	private final Status status;
 
 	@Override
@@ -34,6 +36,7 @@ public final class Environment implements Comparable<Environment> {
 		this.java = builder.java;
 		this.application = builder.application;
 		this.status = builder.status;
+		this.memory = builder.memory;
 	}
 
 	public static Environment create(String name, String fqdn, EC2Instance server) {
@@ -53,6 +56,7 @@ public final class Environment implements Comparable<Environment> {
 		private Optional<String> java = Optional.absent();
 		private Optional<Application> application = Optional.absent();
 		private Status status = Status.UNKNOWN;
+		private Optional<Memory> memory = Optional.absent();
 
 		@Override
 		public int compareTo(Environment.Builder other) {
@@ -191,6 +195,10 @@ public final class Environment implements Comparable<Environment> {
 
 	public Status getStatus() {
 		return status;
+	}
+
+	public Optional<Memory> getMemory() {
+		return memory;
 	}
 
 }
