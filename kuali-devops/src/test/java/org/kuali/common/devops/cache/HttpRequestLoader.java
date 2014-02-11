@@ -2,8 +2,6 @@ package org.kuali.common.devops.cache;
 
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
-import java.io.IOException;
-
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.http.model.HttpRequestResult;
 import org.kuali.common.http.model.HttpWaitResult;
@@ -23,7 +21,7 @@ public final class HttpRequestLoader extends CacheLoader<String, HttpRequestResu
 	private final HttpService service;
 
 	@Override
-	public HttpRequestResult load(String url) throws IOException {
+	public HttpRequestResult load(String url) {
 		checkNotBlank(url, "url");
 		HttpContext.Builder builder = HttpContext.builder();
 		BeanUtils.copyProperties(context, builder);
