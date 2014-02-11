@@ -23,6 +23,7 @@ import org.kuali.common.devops.model.Scm;
 import org.kuali.common.devops.model.Tomcat;
 import org.kuali.common.devops.table.Label;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.Size;
 import org.kuali.common.util.project.model.Project;
 
 import com.google.common.base.Optional;
@@ -142,8 +143,8 @@ public class Environments extends Examiner {
 			return NOT_AVAILABLE;
 		} else {
 			Memory memory = optional.get();
-			String max = FormatUtils.getSize(memory.getMax());
-			String used = FormatUtils.getSize(memory.getUsed());
+			String max = FormatUtils.getSize(memory.getMax(), Size.GB);
+			String used = FormatUtils.getSize(memory.getUsed(), Size.GB);
 			return format("<div id='data'>mem [used:%s, max:%s]</div>\n", used, max);
 		}
 	}
