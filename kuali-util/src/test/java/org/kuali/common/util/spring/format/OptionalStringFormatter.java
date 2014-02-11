@@ -10,12 +10,12 @@ import com.google.common.base.Optional;
 
 public final class OptionalStringFormatter implements Formatter<Optional<String>> {
 
-	private static final String MAGIC_ABSENT_OPTIONAL_STRING_TOKEN = "${formatter.optional.string.absent}";
+	private static final String MAGIC_ABSENT_TOKEN = "${optional.absent}";
 
 	@Override
 	public String print(Optional<String> string, Locale locale) {
 		if (!string.isPresent()) {
-			return MAGIC_ABSENT_OPTIONAL_STRING_TOKEN;
+			return MAGIC_ABSENT_TOKEN;
 		} else {
 			return string.get();
 		}
@@ -23,7 +23,7 @@ public final class OptionalStringFormatter implements Formatter<Optional<String>
 
 	@Override
 	public Optional<String> parse(String text, Locale locale) {
-		if (MAGIC_ABSENT_OPTIONAL_STRING_TOKEN.equals(text)) {
+		if (MAGIC_ABSENT_TOKEN.equals(text)) {
 			return absent();
 		} else {
 			return Optional.of(text);
