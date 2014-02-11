@@ -15,7 +15,7 @@ public class UpdateTags {
 	@Test
 	public void test() {
 		try {
-			System.setProperty(ACCOUNT_KEY, "rice");
+			System.setProperty(ACCOUNT_KEY, "student");
 			Optional<String> account = fromNullable(System.getProperty(ACCOUNT_KEY));
 			if (!account.isPresent()) {
 				throw illegalState("System property [%s] was not provided.  Usage -D%s=[account]", ACCOUNT_KEY, ACCOUNT_KEY);

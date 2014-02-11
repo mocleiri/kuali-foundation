@@ -86,7 +86,7 @@ public class Instances {
 	}
 
 	public static void updateTag(String account, String key, String value, EC2Service service) {
-		String location = "classpath:org/kuali/" + account + "/" + value + ".properties";
+		String location = "classpath:org/kuali/" + account + "/" + value;
 		checkArgument(LocationUtils.exists(location), "Location [%s] does not exist", location);
 		Properties props = PropertyUtils.load(location);
 		List<Instance> instances = service.getInstances();
