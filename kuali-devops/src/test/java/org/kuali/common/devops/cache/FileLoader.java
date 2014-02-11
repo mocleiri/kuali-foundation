@@ -1,7 +1,7 @@
 package org.kuali.common.devops.cache;
 
 import static com.google.common.base.Optional.absent;
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +20,7 @@ public final class FileLoader<V> extends CacheLoader<File, Optional<V>> {
 
 	@Override
 	public Optional<V> load(File file) throws IOException {
-		checkNotNull(file);
+		checkNotNull(file, "file");
 		if (file.exists()) {
 			V reference = function.apply(file);
 			return Optional.of(reference);
