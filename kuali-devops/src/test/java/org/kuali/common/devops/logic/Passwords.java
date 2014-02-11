@@ -69,16 +69,15 @@ public class Passwords {
 	}
 
 	protected static Optional<String> getSettingsXmlPassword() {
-		File file = getSettingsXmlFile();
-		if (!file.exists()) {
+		if (!SETTINGS.exists()) {
 			return absent();
 		}
 		try {
-			String contents = readFileToString(file, Encodings.UTF8);
+			String contents = readFileToString(SETTINGS, Encodings.UTF8);
 			String password = substringBetween(contents, "<" + SYS_KEY + ">", "</" + SYS_KEY + ">");
 			return fromNullable(trimToNull(password));
 		} catch (IOException e) {
-			throw illegalState(e, "unexpected io error -> [%s]", file);
+			throw illegalState(e, "unexpected io error -> [%s]", SETTINGS);
 		}
 	}
 
