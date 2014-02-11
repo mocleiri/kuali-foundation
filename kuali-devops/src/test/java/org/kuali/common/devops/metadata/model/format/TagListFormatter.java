@@ -21,7 +21,7 @@ public final class TagListFormatter implements Formatter<List<EC2Tag>> {
 	private static final Replacer REPLACER = getReplacer();
 	private static final Splitter SPLITTER = Splitter.on('|');
 	private static final Joiner JOINER = Joiner.on('|');
-	private static final String MAGIC_EMPTY_LIST_TOKEN = "${formatter.tags.empty}";
+	private static final String MAGIC_EMPTY_LIST_TOKEN = "${tags.empty}";
 
 	@Override
 	public String print(List<EC2Tag> tags, Locale locale) {
@@ -60,10 +60,10 @@ public final class TagListFormatter implements Formatter<List<EC2Tag>> {
 
 	private static final Replacer getReplacer() {
 		Replacer.Builder builder = Replacer.builder();
-		builder.add("|", "${formatter.separator}");
-		builder.add("=", "${formatter.equals}");
-		builder.add("\r", "${formatter.cr}");
-		builder.add("\n", "${formatter.lf}");
+		builder.add("|", "${tags.separator}");
+		builder.add("=", "${tags.equals}");
+		builder.add("\r", "${tags.cr}");
+		builder.add("\n", "${tags.lf}");
 		return builder.build();
 	}
 
