@@ -4,10 +4,15 @@ import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
-public final class EC2Tag {
+public final class EC2Tag implements Comparable<EC2Tag> {
 
 	private final String key;
 	private final String value;
+
+	@Override
+	public int compareTo(EC2Tag other) {
+		return key.compareTo(other.getKey());
+	}
 
 	private EC2Tag(Builder builder) {
 		this.key = builder.key;
