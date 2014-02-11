@@ -1,6 +1,7 @@
 package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Optional.fromNullable;
+import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newTreeMap;
 import static java.lang.String.format;
@@ -123,7 +124,7 @@ public class Environments2 {
 
 	protected static void fillIn(String group, List<Environment.Builder> builders, EnvironmentMetadataService service, boolean refresh) {
 		for (Environment.Builder builder : builders) {
-			Stopwatch sw = Stopwatch.createStarted();
+			Stopwatch sw = createStarted();
 			EnvironmentMetadata metadata = service.getMetadata(builder.getFqdn());
 			logger.info(format("examined -> %s - %s", builder.getFqdn(), FormatUtils.getTime(sw)));
 			builder.tomcat(getTomcat(metadata));
