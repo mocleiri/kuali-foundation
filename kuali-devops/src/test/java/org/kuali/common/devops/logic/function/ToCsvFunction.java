@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.SortedSet;
 
+import org.kuali.common.devops.metadata.model.format.TagListFormatAnnotationFormatterFactory;
 import org.kuali.common.devops.table.TableCellDescriptor;
 import org.kuali.common.util.spring.convert.DefaultConversionService;
 import org.kuali.common.util.spring.format.CsvStringFormatter;
@@ -25,10 +26,16 @@ import com.google.common.collect.Table;
 public final class ToCsvFunction<R, C> implements Function<Table<? extends Comparable<R>, ? extends Comparable<C>, TableCellDescriptor<Object>>, List<String>> {
 
 	private final Joiner joiner = Joiner.on(',');
-	private final ConversionService converter = new DefaultConversionService();
+	private final ConversionService converter = getConversionService();
 	private final Formatter<String> formatter = CsvStringFormatter.create();
 	private final TypeDescriptor targetType = TypeDescriptor.valueOf(String.class);
 	private final Locale locale = Locale.getDefault();
+
+	private ConversionService getConversionService() {
+		DefaultConversionService service = new DefaultConversionService();
+		service.addFormatterForFieldAnnotation(new TagListFormatAnnotationFormatterFactory());
+		return service;
+	}
 
 	@Override
 	public List<String> apply(Table<? extends Comparable<R>, ? extends Comparable<C>, TableCellDescriptor<Object>> table) {

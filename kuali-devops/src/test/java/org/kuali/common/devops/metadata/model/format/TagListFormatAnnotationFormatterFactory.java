@@ -8,12 +8,11 @@ import org.springframework.format.AnnotationFormatterFactory;
 import org.springframework.format.Parser;
 import org.springframework.format.Printer;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
 public final class TagListFormatAnnotationFormatterFactory implements AnnotationFormatterFactory<TagListFormat> {
 
-	private static final Class<?>[] ARRAY = { List.class, ImmutableList.class };
+	private static final Class<?>[] ARRAY = { List.class };
 	private static final Set<Class<?>> TYPES = ImmutableSet.copyOf(ARRAY);
 
 	@Override
@@ -22,12 +21,12 @@ public final class TagListFormatAnnotationFormatterFactory implements Annotation
 	}
 
 	@Override
-	public Printer<ImmutableList<EC2Tag>> getPrinter(TagListFormat annotation, Class<?> fieldType) {
+	public Printer<List<EC2Tag>> getPrinter(TagListFormat annotation, Class<?> fieldType) {
 		return new TagListFormatter();
 	}
 
 	@Override
-	public Parser<ImmutableList<EC2Tag>> getParser(TagListFormat annotation, Class<?> fieldType) {
+	public Parser<List<EC2Tag>> getParser(TagListFormat annotation, Class<?> fieldType) {
 		return new TagListFormatter();
 	}
 

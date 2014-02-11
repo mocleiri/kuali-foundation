@@ -14,14 +14,14 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
 
-public final class TagListFormatter implements Formatter<ImmutableList<EC2Tag>> {
+public final class TagListFormatter implements Formatter<List<EC2Tag>> {
 
 	private static final Replacer REPLACER = Replacer.builder().add("|", "${formatter.separator}").add("=", "${formatter.equals}").build();
 	private static final Splitter SPLITTER = Splitter.on('|');
 	private static final Joiner JOINER = Joiner.on('|');
 
 	@Override
-	public String print(ImmutableList<EC2Tag> tags, Locale locale) {
+	public String print(List<EC2Tag> tags, Locale locale) {
 		if (tags.isEmpty()) {
 			return null;
 		}
@@ -34,7 +34,7 @@ public final class TagListFormatter implements Formatter<ImmutableList<EC2Tag>> 
 	}
 
 	@Override
-	public ImmutableList<EC2Tag> parse(String text, Locale locale) {
+	public List<EC2Tag> parse(String text, Locale locale) {
 		if (text == null) {
 			return ImmutableList.<EC2Tag> of();
 		}
