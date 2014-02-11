@@ -156,7 +156,7 @@ public class Environments extends Examiner {
 		if (LocationUtils.exists(snapshotPath)) {
 			return Optional.of("snapshot");
 		} else {
-			return Optional.absent();
+			return absent();
 		}
 	}
 
