@@ -4,6 +4,7 @@ import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.newTreeSet;
 import static java.lang.String.format;
 import static org.apache.commons.io.FileUtils.writeLines;
 import static org.apache.commons.lang.StringUtils.trimToNull;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.SortedMap;
+import java.util.SortedSet;
 
 import org.apache.commons.io.FileUtils;
 import org.kuali.common.aws.ec2.api.EC2Service;
@@ -75,14 +77,25 @@ public class Instances {
 		WaitService ws = new DefaultWaitService();
 		EC2ServiceContext context = EC2ServiceContext.create(creds);
 		EC2Service service = new DefaultEC2Service(context, ws);
+		SortedSet<String> keys = newTreeSet(props.stringPropertyNames());
+		for (String key : keys) {
+			String value = props.getProperty(key);
+			updateTag(account, key, value, service);
+		}
+	}
+
+	public static void updateTag(String account, String key, String value, EC2Service service) {
+		String location = "classpath:org/kuali/" + account + "/" + value + ".properties";
+		checkArgument(LocationUtils.exists(location), "Location [%s] does not exist", location);
+		Properties props = PropertyUtils.load(location);
 		List<Instance> instances = service.getInstances();
 		for (Instance instance : instances) {
 			Optional<String> name = getTagValue(instance, EC2_NAME_TAG_KEY);
 			if (name.isPresent()) {
-				Optional<String> description = fromNullable(props.getProperty(name.get()));
-				if (description.isPresent()) {
-					logger.info(format("tagging -> %s  [%s]", name.get(), Str.flatten(description.get())));
-					Tag tag = new Tag(EC2_DESCRIPTION_TAG_KEY, description.get());
+				Optional<String> tagValue = fromNullable(props.getProperty(name.get()));
+				if (tagValue.isPresent()) {
+					logger.info(format("tagging -> %s  [%s]", key, Str.flatten(tagValue.get())));
+					Tag tag = new Tag(key, tagValue.get());
 					service.tag(instance.getInstanceId(), ImmutableList.of(tag));
 				}
 			}
