@@ -4,6 +4,7 @@ import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.collect.Maps.newConcurrentMap;
+import static com.google.common.collect.Maps.newHashMap;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static org.apache.commons.lang.StringUtils.leftPad;
@@ -47,7 +48,6 @@ import org.kuali.common.util.project.model.Project;
 import com.google.common.base.Optional;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Table;
 
 public class Environments extends Examiner {
@@ -80,7 +80,7 @@ public class Environments extends Examiner {
 		String href = href(dest, dest);
 		String java = env.getJava().isPresent() ? env.getJava().get() : NOT_AVAILABLE;
 		Optional<Application> app = env.getApplication();
-		Map<Label, String> map = Maps.newHashMap();
+		Map<Label, String> map = newHashMap();
 		map.put(NAME.getLabel(), getEnvironmentInteger(env.getName()) + "");
 		map.put(URL.getLabel(), href);
 		map.put(APP.getLabel(), app.isPresent() ? app.get().getProject().getArtifactId() : NOT_AVAILABLE);
