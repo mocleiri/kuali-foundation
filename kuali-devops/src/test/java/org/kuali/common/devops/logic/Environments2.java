@@ -74,7 +74,7 @@ public class Environments2 {
 		File cache = getEnvironmentCacheFile(group, builder.getName());
 		Properties props = PropertyUtils.loadSilently(cache);
 		Optional<Application> app = getApplication(dir);
-		builder.setJava(Optional.fromNullable(props.getProperty("java.version")));
+		builder.setJava(fromNullable(props.getProperty("java.version")));
 		builder.setTomcat(getTomcat(props));
 		builder.setApplication(app);
 	}
