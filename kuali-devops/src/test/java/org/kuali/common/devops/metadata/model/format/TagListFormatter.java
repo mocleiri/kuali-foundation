@@ -3,6 +3,7 @@ package org.kuali.common.devops.metadata.model.format;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -13,6 +14,7 @@ import org.springframework.format.Formatter;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 public final class TagListFormatter implements Formatter<List<EC2Tag>> {
 
@@ -25,8 +27,10 @@ public final class TagListFormatter implements Formatter<List<EC2Tag>> {
 		if (tags.isEmpty()) {
 			return null;
 		}
+		List<EC2Tag> mutable = Lists.newArrayList(tags);
+		Collections.sort(mutable);
 		List<String> strings = newArrayList();
-		for (EC2Tag tag : tags) {
+		for (EC2Tag tag : mutable) {
 			String string = REPLACER.replace(tag.getKey()) + "=" + REPLACER.replace(tag.getValue());
 			strings.add(string);
 		}
@@ -49,6 +53,7 @@ public final class TagListFormatter implements Formatter<List<EC2Tag>> {
 			EC2Tag tag = EC2Tag.create(key, value);
 			tags.add(tag);
 		}
+		Collections.sort(tags);
 		return ImmutableList.copyOf(tags);
 	}
 
