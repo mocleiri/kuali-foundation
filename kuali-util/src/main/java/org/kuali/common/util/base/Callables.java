@@ -34,12 +34,12 @@ public class Callables {
 		}
 		List<T> elements = newArrayList();
 		for (Future<T> future : futures) {
-			elements.add(getElement(future));
+			elements.add(get(future));
 		}
 		return elements;
 	}
 
-	protected static <T> T getElement(Future<T> future) {
+	protected static <T> T get(Future<T> future) {
 		try {
 			return future.get();
 		} catch (Exception e) {
