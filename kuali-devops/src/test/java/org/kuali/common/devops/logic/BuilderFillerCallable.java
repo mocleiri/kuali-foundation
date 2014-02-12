@@ -27,6 +27,7 @@ public final class BuilderFillerCallable implements Callable<Long> {
 		Stopwatch sw = createStarted();
 		for (Environment.Builder builder : builders) {
 			Environments2.fillIn(builder, service);
+			informer.incrementProgress();
 		}
 		return sw.elapsed(MILLISECONDS);
 	}
