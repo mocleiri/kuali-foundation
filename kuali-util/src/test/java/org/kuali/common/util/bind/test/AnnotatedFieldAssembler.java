@@ -1,6 +1,7 @@
 package org.kuali.common.util.bind.test;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.collect.Lists.newArrayList;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -25,7 +26,7 @@ public final class AnnotatedFieldAssembler implements Assembler<List<Node<Field>
 	@Override
 	public List<Node<Field>> assemble() {
 		List<MutableNode<Field>> assembled = assemble(type);
-		List<Node<Field>> list = Lists.newArrayList();
+		List<Node<Field>> list = newArrayList();
 		for (Node<Field> element : assembled) {
 			list.add(ImmutableNode.copyOf(element));
 		}
@@ -34,7 +35,7 @@ public final class AnnotatedFieldAssembler implements Assembler<List<Node<Field>
 
 	protected List<MutableNode<Field>> assemble(Class<?> type) {
 		List<Field> fields = getSortedFields(type);
-		List<MutableNode<Field>> list = Lists.newArrayList();
+		List<MutableNode<Field>> list = newArrayList();
 		for (Field field : fields) {
 			list.add(getNode(field));
 		}
