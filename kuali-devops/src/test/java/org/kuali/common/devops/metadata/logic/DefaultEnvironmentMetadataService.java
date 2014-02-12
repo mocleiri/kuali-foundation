@@ -156,7 +156,7 @@ public class DefaultEnvironmentMetadataService implements EnvironmentMetadataSer
 	 * Grabs the first 25k in content from a URL and stashes it onto the local file system. Times out after 5 seconds, no re-tries.
 	 */
 	protected LoadingCache<String, HttpRequestResult> getFastFileSystemCacher() {
-		HttpContext context = HttpContext.builder().quiet(true).asynchronousClose(true).maxBytes("25k").maxRetries(0).overallTimeout("5s").build();
+		HttpContext context = HttpContext.builder().quiet(true).asynchronousClose(false).maxBytes("25k").maxRetries(0).overallTimeout("5s").build();
 		CacheLoader<String, HttpRequestResult> loader = Caches.buildUrlCache(context);
 		return CacheBuilder.newBuilder().build(loader);
 	}
