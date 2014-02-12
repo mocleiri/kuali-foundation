@@ -97,7 +97,7 @@ public class DefaultHttpService implements HttpService {
 		String statusText = getStatusText(result);
 		String timeout = FormatUtils.getTime(end - currentTimeMillis());
 		Object[] args = { logMsgPrefix, url, statusText, timeout };
-		if (quiet) {
+		if (!quiet) {
 			logger.info("{} - [{}] - [{}] - [Timeout in {}]", args);
 		}
 	}
