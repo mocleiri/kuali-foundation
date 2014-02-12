@@ -120,7 +120,7 @@ public class Environments2 {
 			List<EC2Instance> servers = instances.get(group);
 			List<Environment.Builder> elements = getBuilders(group, servers, cnames);
 			builders.addAll(elements);
-			map.put(group, builders);
+			map.put(group, elements);
 		}
 		EnvironmentMetadataService service = new DefaultEnvironmentMetadataService();
 		List<List<Environment.Builder>> partitions = Lists.partition(builders, 10);
