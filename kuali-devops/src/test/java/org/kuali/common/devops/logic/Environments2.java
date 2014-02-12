@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.SortedMap;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.kuali.common.devops.metadata.logic.DefaultEnvironmentMetadataService;
 import org.kuali.common.devops.metadata.logic.EnvironmentMetadataService;
@@ -113,13 +116,18 @@ public class Environments2 {
 		SortedMap<String, List<Environment.Builder>> map = newTreeMap();
 		EnvironmentMetadataService service = new DefaultEnvironmentMetadataService();
 		int count = 0;
+		List<Callable<Long>> callables = newArrayList();
 		for (String group : instances.keySet()) {
 			List<EC2Instance> servers = instances.get(group);
 			List<Environment.Builder> builders = getBuilders(group, servers, cnames);
-			fillIn(group, builders, service);
+			Callable<Long> callable = new BuilderFillerCallable.Builder().group(group).service(service).builders(builders).build();
+			callables.add(callable);
+			// fillIn(group, builders, service);
 			count += builders.size();
 			map.put(group, builders);
 		}
+
+		ExecutorService pool = Executors.newFixedThreadPool(callables.size());
 		logger.info(format("located information on %s environments - %s", count, getTime(currentTimeMillis() - start)));
 		return map;
 	}
