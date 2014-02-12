@@ -4,7 +4,7 @@ import java.io.File;
 
 import org.kuali.common.http.model.HttpRequestResult;
 
-public class HttpRequestFileCache extends PersistentCache<File, HttpRequestResult> {
+public class UrlFileCache extends PersistentCache<File, HttpRequestResult> {
 
 	@Override
 	public void persist(File key, HttpRequestResult value) {
