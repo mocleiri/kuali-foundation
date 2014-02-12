@@ -1,6 +1,7 @@
 package org.kuali.common.devops.cache;
 
 import static com.google.common.base.Optional.absent;
+import static com.google.common.base.Preconditions.checkArgument;
 import static java.lang.Long.parseLong;
 import static org.kuali.common.util.Encodings.UTF8;
 
@@ -29,12 +30,13 @@ public final class UrlFileCache extends PersistentCache<File, HttpRequestResult>
 		props.setProperty("start", result.getStart() + "");
 		props.setProperty("stop", result.getStop() + "");
 		props.setProperty("elapsed", result.getElapsed() + "");
-		PropertyUtils.store(props, file, encoding);
+		PropertyUtils.storeSilently(props, file);
 	}
 
 	@Override
 	public HttpRequestResult load(File file) {
-		Properties props = PropertyUtils.load(file, encoding);
+		checkArgument(file.exists(), "[%s] does not exist", file);
+		Properties props = PropertyUtils.loadOrCreateSilently(file.getAbsolutePath());
 		Optional<Integer> statusCode = toOptionalInteger(props.getProperty("statusCode"));
 		Optional<String> responseBody = toOptionalString(props.getProperty("responseBody"));
 		String statusText = props.getProperty("statusText");
