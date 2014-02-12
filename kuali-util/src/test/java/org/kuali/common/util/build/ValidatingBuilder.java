@@ -1,11 +1,8 @@
 package org.kuali.common.util.build;
 
-
 import static org.kuali.common.util.base.Precondition.checkNotNull;
+import static org.kuali.common.util.validate.Validation.checkViolations;
 
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import org.kuali.common.util.validate.Validation;
@@ -18,8 +15,7 @@ public abstract class ValidatingBuilder<T> implements InstanceBuilder<T> {
 	public final T build() {
 		checkNotNull(validator, "validator");
 		T instance = getInstance();
-		Set<ConstraintViolation<T>> violations = validator.validate(instance);
-		Validation.checkViolations(violations);
+		checkViolations(validator.validate(instance));
 		return instance;
 	}
 
