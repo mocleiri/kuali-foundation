@@ -11,17 +11,19 @@ import com.google.common.base.Function;
 import com.google.common.cache.CacheLoader;
 
 @IdiotProofImmutable
-public class FileSystemCache<K, V> extends CacheLoader<K, V> {
+public final class FileSystemCache<K, V> extends CacheLoader<K, V> {
 
 	private final PersistentCache<File, V> fileCache;
 	private final CacheLoader<K, V> loader;
 	private final Function<K, File> keyConverter;
-	private final boolean useFileSystemCache;
+	private final boolean ignoreFileSystem;
 
 	@Override
 	public V load(K key) throws Exception {
 		checkNotNull(key, "key");
-		if (useFileSystemCache) {
+		if (ignoreFileSystem) {
+			return loader.load(key);
+		} else {
 			File file = keyConverter.apply(key);
 			if (file.exists()) {
 				return fileCache.load(file);
@@ -29,8 +31,6 @@ public class FileSystemCache<K, V> extends CacheLoader<K, V> {
 			V data = loader.load(key);
 			fileCache.persist(file, data);
 			return data;
-		} else {
-			return loader.load(key);
 		}
 	}
 
@@ -42,15 +42,15 @@ public class FileSystemCache<K, V> extends CacheLoader<K, V> {
 		return keyConverter;
 	}
 
-	public boolean isUseFileSystemCache() {
-		return useFileSystemCache;
+	public boolean isIgnoreFileSystem() {
+		return ignoreFileSystem;
 	}
 
 	private FileSystemCache(Builder<K, V> builder) {
 		this.fileCache = builder.fileCache;
 		this.loader = builder.loader;
 		this.keyConverter = builder.keyConverter;
-		this.useFileSystemCache = builder.useFileSystemCache;
+		this.ignoreFileSystem = builder.ignoreFileSystemCache;
 	}
 
 	public static <K, V> Builder<K, V> builder() {
@@ -62,7 +62,7 @@ public class FileSystemCache<K, V> extends CacheLoader<K, V> {
 		private PersistentCache<File, V> fileCache;
 		private CacheLoader<K, V> loader;
 		private Function<K, File> keyConverter;
-		private boolean useFileSystemCache;
+		private boolean ignoreFileSystemCache;
 
 		public Builder<K, V> fileCache(PersistentCache<File, V> fileCache) {
 			this.fileCache = fileCache;
@@ -80,7 +80,7 @@ public class FileSystemCache<K, V> extends CacheLoader<K, V> {
 		}
 
 		public Builder<K, V> useFileSystemCache(boolean useFileSystemCache) {
-			this.useFileSystemCache = useFileSystemCache;
+			this.ignoreFileSystemCache = useFileSystemCache;
 			return this;
 		}
 
@@ -113,12 +113,12 @@ public class FileSystemCache<K, V> extends CacheLoader<K, V> {
 			this.keyConverter = keyConverter;
 		}
 
-		public boolean isUseFileSystemCache() {
-			return useFileSystemCache;
+		public boolean isIgnoreFileSystemCache() {
+			return ignoreFileSystemCache;
 		}
 
-		public void setUseFileSystemCache(boolean useFileSystemCache) {
-			this.useFileSystemCache = useFileSystemCache;
+		public void setIgnoreFileSystemCache(boolean useFileSystemCache) {
+			this.ignoreFileSystemCache = useFileSystemCache;
 		}
 
 	}
