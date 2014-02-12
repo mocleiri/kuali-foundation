@@ -1,13 +1,14 @@
 package org.kuali.common.devops.cache;
 
 import static com.google.common.base.Optional.absent;
+import static java.lang.Long.parseLong;
+import static org.kuali.common.util.Encodings.UTF8;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
 import org.kuali.common.http.model.HttpRequestResult;
-import org.kuali.common.util.Encodings;
 import org.kuali.common.util.PropertyUtils;
 
 import com.google.common.base.Optional;
@@ -16,7 +17,7 @@ public final class UrlFileCache extends PersistentCache<File, HttpRequestResult>
 
 	private final static String MAGIC_ABSENT_TOKEN = "${optional.absent}";
 
-	private final String encoding = Encodings.UTF8;
+	private final String encoding = UTF8;
 
 	@Override
 	public void persist(File file, HttpRequestResult result) {
@@ -38,9 +39,9 @@ public final class UrlFileCache extends PersistentCache<File, HttpRequestResult>
 		Optional<String> responseBody = toOptionalString(props.getProperty("responseBody"));
 		String statusText = props.getProperty("statusText");
 		Optional<IOException> exception = toOptionalIOException(props.getProperty("exception"));
-		long start = Long.parseLong(props.getProperty("start"));
-		long stop = Long.parseLong(props.getProperty("stop"));
-		long elapsed = Long.parseLong(props.getProperty("elapsed"));
+		long start = parseLong(props.getProperty("start"));
+		long stop = parseLong(props.getProperty("stop"));
+		long elapsed = parseLong(props.getProperty("elapsed"));
 		if (exception.isPresent()) {
 			return HttpRequestResult.builder(exception.get(), start).stop(stop).elapsed(elapsed).build();
 		} else {
