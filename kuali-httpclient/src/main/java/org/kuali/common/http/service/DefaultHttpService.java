@@ -17,6 +17,7 @@ package org.kuali.common.http.service;
 
 import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
+import static java.lang.System.currentTimeMillis;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 
 import java.io.IOException;
@@ -177,7 +178,7 @@ public class DefaultHttpService implements HttpService {
 	}
 
 	protected HttpRequestResult doRequest(CloseableHttpClient client, HttpContext context) {
-		long start = System.currentTimeMillis();
+		long start = currentTimeMillis();
 		try {
 			HttpGet httpGet = new HttpGet(context.getUrl());
 			CloseableHttpResponse response = client.execute(httpGet);
