@@ -30,7 +30,7 @@ public final class FileSystemCache<K, V> extends CacheLoader<K, V> {
 			return fileCache.load(file);
 		}
 		V value = loader.load(key);
-		fileCache.persist(file, value);
+		fileCache.store(file, value);
 		return value;
 	}
 

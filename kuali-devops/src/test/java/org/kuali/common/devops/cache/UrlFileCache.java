@@ -20,7 +20,7 @@ public final class UrlFileCache extends PersistentCache<File, HttpRequestResult>
 	// private final String encoding = UTF8;
 
 	@Override
-	public void persist(File file, HttpRequestResult result) {
+	public void store(File file, HttpRequestResult result) {
 		Properties props = new Properties();
 		props.setProperty("statusCode", toString(result.getStatusCode()));
 		props.setProperty("responseBody", toString(result.getResponseBody()));
