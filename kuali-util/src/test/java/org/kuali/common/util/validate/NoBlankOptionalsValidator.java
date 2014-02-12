@@ -1,8 +1,11 @@
 package org.kuali.common.util.validate;
 
+import static com.google.common.base.Optional.absent;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.kuali.common.util.ReflectionUtils.isOptionalString;
+
 import java.lang.reflect.Field;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.ReflectionUtils;
 
 import com.google.common.base.Optional;
@@ -13,8 +16,8 @@ public class NoBlankOptionalsValidator extends AbstractFieldsValidator<NoBlankOp
 	protected Optional<String> validate(Field field, Object instance) {
 
 		// If this field isn't an Optional<String> we are good to go
-		if (!ReflectionUtils.isOptionalString(field)) {
-			return Optional.absent();
+		if (!isOptionalString(field)) {
+			return absent();
 		}
 
 		// Get the value of the field as an optional
@@ -22,7 +25,7 @@ public class NoBlankOptionalsValidator extends AbstractFieldsValidator<NoBlankOp
 
 		// If the field was null we are good to go
 		if (!fieldValue.isPresent()) {
-			return Optional.absent();
+			return absent();
 		}
 
 		// Extract the object inside the field (we know it's an Optional<String> at this point)
@@ -31,15 +34,15 @@ public class NoBlankOptionalsValidator extends AbstractFieldsValidator<NoBlankOp
 
 		// If there is no value inside the optional we are good to go
 		if (!optional.isPresent()) {
-			return Optional.absent();
+			return absent();
 		}
 
 		// Extract the string from the optional
 		String string = optional.get();
 
 		// If it's not blank, we are good to go
-		if (!StringUtils.isBlank(string)) {
-			return Optional.absent();
+		if (!isBlank(string)) {
+			return absent();
 		}
 
 		// Otherwise, return an error message
