@@ -1,5 +1,7 @@
 package org.kuali.common.util.tree;
 
+import static com.google.common.collect.Lists.newArrayList;
+
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -36,19 +38,19 @@ public class Trees {
 	public static <T> List<Node<T>> breadthFirst(Node<T> node) {
 		NodeTraverser<T> nt = NodeTraverser.create();
 		Iterable<Node<T>> itr = nt.breadthFirstTraversal(node);
-		return Lists.newArrayList(itr);
+		return newArrayList(itr);
 	}
 
 	public static <T> List<Node<T>> postOrder(Node<T> node) {
 		NodeTraverser<T> nt = NodeTraverser.create();
 		Iterable<Node<T>> itr = nt.postOrderTraversal(node);
-		return Lists.newArrayList(itr);
+		return newArrayList(itr);
 	}
 
 	public static <T> List<Node<T>> preOrder(Node<T> node) {
 		NodeTraverser<T> nt = NodeTraverser.create();
 		Iterable<Node<T>> itr = nt.preOrderTraversal(node);
-		return Lists.newArrayList(itr);
+		return newArrayList(itr);
 	}
 
 	public static <T> String html(String title, Node<T> node) {
