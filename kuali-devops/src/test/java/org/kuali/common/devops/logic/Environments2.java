@@ -16,8 +16,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.SortedMap;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import org.kuali.common.devops.metadata.logic.DefaultEnvironmentMetadataService;
 import org.kuali.common.devops.metadata.logic.EnvironmentMetadataService;
@@ -33,6 +31,7 @@ import org.kuali.common.devops.model.Scm;
 import org.kuali.common.devops.model.Tomcat;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.base.Callables;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.Loggers;
 import org.kuali.common.util.project.ProjectUtils;
@@ -126,8 +125,7 @@ public class Environments2 {
 			count += builders.size();
 			map.put(group, builders);
 		}
-
-		ExecutorService pool = Executors.newFixedThreadPool(callables.size());
+		Callables.submit(callables);
 		logger.info(format("located information on %s environments - %s", count, getTime(currentTimeMillis() - start)));
 		return map;
 	}
