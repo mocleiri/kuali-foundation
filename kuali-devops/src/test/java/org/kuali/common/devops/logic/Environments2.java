@@ -138,17 +138,11 @@ public class Environments2 {
 	public static void fillIn(Environment.Builder builder, EnvironmentMetadataService service) {
 		Stopwatch sw = createStarted();
 		EnvironmentMetadata metadata = service.getMetadata(builder.getFqdn());
-		logger.info(format("examined -> %s - %s", builder.getFqdn(), FormatUtils.getTime(sw)));
+		logger.debug(format("examined -> %s - %s", builder.getFqdn(), FormatUtils.getTime(sw)));
 		builder.tomcat(getTomcat(metadata));
 		builder.java(getJava(metadata));
 		builder.application(getApplication(metadata));
 		builder.memory(getMemory(metadata));
-	}
-
-	private static void fillIn(List<Environment.Builder> builders, EnvironmentMetadataService service) {
-		for (Environment.Builder builder : builders) {
-			fillIn(builder, service);
-		}
 	}
 
 	protected static Optional<Memory> getMemory(EnvironmentMetadata meta) {
