@@ -116,7 +116,7 @@ public class Environments2 {
 		for (String group : instances.keySet()) {
 			List<EC2Instance> servers = instances.get(group);
 			List<Environment.Builder> builders = getBuilders(group, servers, cnames);
-			fillIn(group, builders, service, refresh);
+			fillIn(group, builders, service);
 			count += builders.size();
 			map.put(group, builders);
 		}
@@ -124,7 +124,7 @@ public class Environments2 {
 		return map;
 	}
 
-	protected static void fillIn(String group, List<Environment.Builder> builders, EnvironmentMetadataService service, boolean refresh) {
+	protected static void fillIn(String group, List<Environment.Builder> builders, EnvironmentMetadataService service) {
 		for (Environment.Builder builder : builders) {
 			Stopwatch sw = createStarted();
 			EnvironmentMetadata metadata = service.getMetadata(builder.getFqdn());
