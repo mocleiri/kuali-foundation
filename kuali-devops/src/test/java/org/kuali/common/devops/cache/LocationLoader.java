@@ -18,13 +18,13 @@ import org.springframework.core.io.ResourceLoader;
 import com.google.common.base.Optional;
 import com.google.common.cache.CacheLoader;
 
-public final class UrlLoader extends CacheLoader<String, Optional<String>> {
+public final class LocationLoader extends CacheLoader<String, Optional<String>> {
 
-	public UrlLoader(String encoding) {
+	public LocationLoader(String encoding) {
 		this(new DefaultResourceLoader(), encoding);
 	}
 
-	public UrlLoader(ResourceLoader resourceLoader, String encoding) {
+	public LocationLoader(ResourceLoader resourceLoader, String encoding) {
 		this.resourceLoader = checkNotNull(resourceLoader, "resourceLoader");
 		this.encoding = checkNotBlank(encoding, "encoding");
 	}

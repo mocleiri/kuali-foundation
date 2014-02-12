@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutionException;
 
 import org.junit.Test;
 import org.kuali.common.devops.cache.HttpLoader;
-import org.kuali.common.devops.cache.UrlLoader;
+import org.kuali.common.devops.cache.LocationLoader;
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.util.log.Loggers;
 import org.slf4j.Logger;
@@ -30,7 +30,7 @@ public class HttpCacheTest {
 		try {
 			HttpContext context = HttpContext.builder().quiet(true).asynchronousClose(true).maxBytes("250k").maxRetries(0).overallTimeout("5s").build();
 			LoadingCache<String, Optional<String>> cache1 = CacheBuilder.newBuilder().build(HttpLoader.create(context));
-			LoadingCache<String, Optional<String>> cache2 = CacheBuilder.newBuilder().build(new UrlLoader(UTF8));
+			LoadingCache<String, Optional<String>> cache2 = CacheBuilder.newBuilder().build(new LocationLoader(UTF8));
 			cache(cache1);
 			cache(cache2);
 		} catch (Throwable e) {
