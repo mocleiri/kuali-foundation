@@ -124,12 +124,13 @@ public class Environments2 {
 			count += builders.size();
 			map.put(group, builders);
 		}
+		Lists.p
 		Callables.submit(callables);
 		logger.info(format("located information on %s environments - %s", count, getTime(currentTimeMillis() - start)));
 		return map;
 	}
 
-	public static void fillIn(String group, List<Environment.Builder> builders, EnvironmentMetadataService service) {
+	public static void fillIn(List<Environment.Builder> builders, EnvironmentMetadataService service) {
 		for (Environment.Builder builder : builders) {
 			Stopwatch sw = createStarted();
 			EnvironmentMetadata metadata = service.getMetadata(builder.getFqdn());
