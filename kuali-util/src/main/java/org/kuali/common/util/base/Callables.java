@@ -16,18 +16,18 @@
 package org.kuali.common.util.base;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static java.util.concurrent.Executors.newFixedThreadPool;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class Callables {
 
 	public static <T> List<T> submit(List<Callable<T>> callables) {
-		ExecutorService pool = Executors.newFixedThreadPool(callables.size());
+		ExecutorService pool = newFixedThreadPool(callables.size());
 		List<Future<T>> futures = newArrayList();
 		for (Callable<T> callable : callables) {
 			Future<T> future = pool.submit(callable);
