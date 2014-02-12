@@ -76,26 +76,26 @@ public class DefaultHttpService implements HttpService {
 		if (!context.isQuiet()) {
 			logger.info("{} - [{}] - [Timeout in {}]", args);
 		}
-		int count = 0;
+		int retryAttmpts = 0;
 		for (;;) {
 			HttpRequestResult rr = doRequest(client, context);
-			count++;
 			requestResults.add(rr);
-			if (!isFinishState(context, rr, end, count)) {
+			if (!isFinishState(context, rr, end, retryAttmpts)) {
 				logHttpRequestResult(context.getLogMsgPrefix(), rr, context.getUrl(), end, context.isQuiet());
 				Threads.sleep(context.getSleepIntervalMillis());
 			} else {
-				HttpStatus status = getResultStatus(context, rr, end);
+				HttpStatus status = getResultStatus(context, retryAttmpts, rr, end);
 				HttpWaitResult waitResult = new HttpWaitResult.Builder(status, rr, start).requestResults(requestResults).build();
 				logWaitResult(waitResult, context.getUrl(), context.getLogMsgPrefix(), context.isQuiet());
 				return waitResult;
 			}
+			retryAttmpts++;
 		}
 	}
 
 	protected void logHttpRequestResult(String logMsgPrefix, HttpRequestResult result, String url, long end, boolean quiet) {
 		String statusText = getStatusText(result);
-		String timeout = FormatUtils.getTime(end - System.currentTimeMillis());
+		String timeout = FormatUtils.getTime(end - currentTimeMillis());
 		Object[] args = { logMsgPrefix, url, statusText, timeout };
 		if (quiet) {
 			logger.info("{} - [{}] - [{}] - [Timeout in {}]", args);
@@ -121,7 +121,7 @@ public class DefaultHttpService implements HttpService {
 		}
 	}
 
-	protected HttpStatus getResultStatus(HttpContext context, HttpRequestResult rr, long end) {
+	protected HttpStatus getResultStatus(HttpContext context, int retryAttmpts, HttpRequestResult rr, long end) {
 		// If we've gone past our max allotted time, we've timed out
 		if (rr.getStop() > end) {
 			return HttpStatus.TIMEOUT;
@@ -143,14 +143,19 @@ public class DefaultHttpService implements HttpService {
 		}
 	}
 
-	protected boolean isFinishState(HttpContext context, HttpRequestResult rr, long end, int count) {
-		// See if they have set a max retry limit
-		if (context.getMaxRetries().isPresent()) {
-			// If we have hit or exceeded the max retry limit, we are done
-			int maxRetries = context.getMaxRetries().get();
-			if (count >= maxRetries) {
-				return true;
-			}
+	protected boolean maxRetriesExceeded(HttpContext context, int retryAttempts) {
+		if (!context.getMaxRetries().isPresent()) {
+			return false;
+		} else {
+			return retryAttempts >= context.getMaxRetries().get();
+
+		}
+	}
+
+	protected boolean isFinishState(HttpContext context, HttpRequestResult rr, long end, int retryAttempts) {
+		// If we've gone past the number of max retries allowed, we are done
+		if (maxRetriesExceeded(context, retryAttempts)) {
+			return true;
 		}
 
 		// If we've gone past our max allotted time, we are done
