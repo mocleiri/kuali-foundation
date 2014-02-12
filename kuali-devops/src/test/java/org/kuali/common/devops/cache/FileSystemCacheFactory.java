@@ -9,7 +9,7 @@ import org.kuali.common.http.model.HttpRequestResult;
 import com.google.common.base.Function;
 import com.google.common.cache.CacheLoader;
 
-public class PersistentUrlCacheFactory {
+public class FileSystemCacheFactory {
 
 	public static <T, V> FileSystemCache<String, HttpRequestResult> createHttpUrlCacher() {
 		return createHttpUrlCacher(HttpContext.create());
@@ -25,16 +25,13 @@ public class PersistentUrlCacheFactory {
 
 	public static <T, V> FileSystemCache<String, HttpRequestResult> createHttpUrlCacher(HttpContext context, File basedir, String encoding) {
 		CacheLoader<String, HttpRequestResult> loader = UrlLoader.create(context);
-		CacheLoader<File, HttpRequestResult> fileSystemLoader = null;// new FileLoader<String>(new ReadFileToStringFunction(encoding));
-		Function<String, File> convertKeyToFileFunction = UrlToFileFunction.create(basedir);
-
-		CachePersister<File, HttpRequestResult> fileSystemPersister = null; // new FilePersister<File, String>(new NoopFunction<File>(), inputStreamFunction);
+		PersistentCache<File, HttpRequestResult> fileCache = new UrlFileCache();
+		Function<String, File> keyConverter = UrlToFileFunction.create(basedir);
 
 		FileSystemCache.Builder<String, HttpRequestResult> builder = new FileSystemCache.Builder<String, HttpRequestResult>();
-		builder.convertKeyToFileFunction(convertKeyToFileFunction);
+		builder.keyConverter(keyConverter);
 		builder.loader(loader);
-		builder.fileSystemLoader(fileSystemLoader);
-		builder.fileSystemPersister(fileSystemPersister);
+		builder.fileCache(fileCache);
 		return builder.build();
 	}
 
