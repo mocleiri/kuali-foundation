@@ -15,6 +15,7 @@
  */
 package org.kuali.common.http.model;
 
+import static java.lang.System.currentTimeMillis;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.kuali.common.util.base.Precondition.checkMin;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
@@ -92,7 +93,7 @@ public final class HttpRequestResult {
 			this.statusCode = Optional.of(statusCode);
 			this.responseBody = responseBody;
 			this.start = start;
-			this.stop = System.currentTimeMillis();
+			this.stop = currentTimeMillis();
 			this.elapsed = stop - start;
 		}
 
