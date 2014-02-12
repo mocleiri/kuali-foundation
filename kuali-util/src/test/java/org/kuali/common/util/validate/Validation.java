@@ -1,5 +1,8 @@
 package org.kuali.common.util.validate;
 
+import static org.kuali.common.util.base.Exceptions.illegalArgument;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -62,6 +65,7 @@ public class Validation {
 	}
 
 	public static <T> void checkViolations(Set<ConstraintViolation<T>> violations) {
+		checkNotNull(violations, "violations");
 		if (violations.isEmpty()) {
 			return;
 		}
@@ -75,7 +79,7 @@ public class Validation {
 			sb.append(errorMessages.get(i));
 		}
 		sb.append("\n");
-		throw new IllegalArgumentException(sb.toString());
+		throw illegalArgument(sb.toString());
 	}
 
 	public static <T> List<String> getErrorMessages(Set<ConstraintViolation<T>> violations) {
