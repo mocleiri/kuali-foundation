@@ -102,7 +102,7 @@ public class Environments2 {
 		Properties config = PropertyUtils.loadOrCreateSilently(new CanonicalFile(dir, "config.properties").getPath());
 		Properties project = PropertyUtils.loadOrCreateSilently(new CanonicalFile(dir, "project.properties").getPath());
 		if (project.isEmpty()) {
-			return Optional.absent();
+			return absent();
 		}
 		Project p = ProjectUtils.getProject(project);
 		Optional<Database> database = Databases.getDatabase(p.getGroupId(), config);
