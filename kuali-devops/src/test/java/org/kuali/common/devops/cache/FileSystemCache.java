@@ -53,6 +53,10 @@ public class FileSystemCache<K, V> extends CacheLoader<K, V> {
 		this.useFileSystemCache = builder.useFileSystemCache;
 	}
 
+	public static <K, V> Builder<K, V> builder() {
+		return new Builder<K, V>();
+	}
+
 	public static class Builder<K, V> extends ValidatingBuilder<FileSystemCache<K, V>> {
 
 		private PersistentCache<File, V> fileCache;
