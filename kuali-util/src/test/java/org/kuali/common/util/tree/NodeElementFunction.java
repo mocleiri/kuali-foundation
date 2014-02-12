@@ -1,6 +1,6 @@
 package org.kuali.common.util.tree;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import com.google.common.base.Function;
 
@@ -12,7 +12,7 @@ public class NodeElementFunction<T> implements Function<Node<T>, T> {
 
 	@Override
 	public T apply(Node<T> node) {
-		checkNotNull(node, "'node' cannot be null");
+		checkNotNull(node, "node");
 		return node.getElement();
 	}
 
