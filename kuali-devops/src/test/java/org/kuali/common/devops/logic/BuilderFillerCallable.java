@@ -32,6 +32,10 @@ public final class BuilderFillerCallable implements Callable<Long> {
 		this.service = builder.service;
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder extends ValidatingBuilder<BuilderFillerCallable> {
 
 		private List<Environment.Builder> builders;

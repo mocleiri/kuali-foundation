@@ -6,7 +6,7 @@ import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newTreeMap;
 import static java.lang.String.format;
-import static java.lang.System.currentTimeMillis;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.kuali.common.util.FormatUtils.getTime;
 
 import java.io.File;
@@ -109,24 +109,25 @@ public class Environments2 {
 	}
 
 	public static SortedMap<String, List<Environment.Builder>> getBuilders(boolean refresh) {
-		long start = currentTimeMillis();
+		Stopwatch sw = createStarted();
 		BiMap<String, String> cnames = DNS.getCanonicalMap(refresh);
 		Map<String, List<EC2Instance>> instances = Instances.getInstances(refresh);
 		SortedMap<String, List<Environment.Builder>> map = newTreeMap();
-		EnvironmentMetadataService service = new DefaultEnvironmentMetadataService();
-		int count = 0;
-		List<Callable<Long>> callables = newArrayList();
+		List<Environment.Builder> builders = newArrayList();
 		for (String group : instances.keySet()) {
 			List<EC2Instance> servers = instances.get(group);
-			List<Environment.Builder> builders = getBuilders(group, servers, cnames);
-			Callable<Long> callable = new BuilderFillerCallable.Builder().group(group).service(service).builders(builders).build();
-			callables.add(callable);
-			count += builders.size();
+			List<Environment.Builder> elements = getBuilders(group, servers, cnames);
+			builders.addAll(elements);
 			map.put(group, builders);
 		}
-		Lists.p
+		EnvironmentMetadataService service = new DefaultEnvironmentMetadataService();
+		List<List<Environment.Builder>> partitions = Lists.partition(builders, 8);
+		List<Callable<Long>> callables = newArrayList();
+		for (List<Environment.Builder> partition : partitions) {
+			callables.add(BuilderFillerCallable.builder().builders(partition).service(service).build());
+		}
 		Callables.submit(callables);
-		logger.info(format("located information on %s environments - %s", count, getTime(currentTimeMillis() - start)));
+		logger.info(format("located information on %s environments - %s", builders.size(), getTime(sw.elapsed(MILLISECONDS))));
 		return map;
 	}
 
