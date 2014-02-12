@@ -15,7 +15,7 @@ import org.springframework.beans.BeanUtils;
 import com.google.common.cache.CacheLoader;
 
 @IdiotProofImmutable
-public final class HttpRequestLoader extends CacheLoader<String, HttpRequestResult> {
+public final class UrlLoader extends CacheLoader<String, HttpRequestResult> {
 
 	private final HttpContext context;
 	private final HttpService service;
@@ -31,20 +31,20 @@ public final class HttpRequestLoader extends CacheLoader<String, HttpRequestResu
 		return result.getFinalRequestResult();
 	}
 
-	private HttpRequestLoader(Builder builder) {
+	private UrlLoader(Builder builder) {
 		this.context = builder.context;
 		this.service = builder.service;
 	}
 
-	public static HttpRequestLoader create(HttpContext context) {
+	public static UrlLoader create(HttpContext context) {
 		return builder().context(context).build();
 	}
 
-	public static HttpRequestLoader create(HttpContext context, HttpService service) {
+	public static UrlLoader create(HttpContext context, HttpService service) {
 		return builder().context(context).service(service).build();
 	}
 
-	public static HttpRequestLoader create() {
+	public static UrlLoader create() {
 		return builder().build();
 	}
 
@@ -52,7 +52,7 @@ public final class HttpRequestLoader extends CacheLoader<String, HttpRequestResu
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<HttpRequestLoader> {
+	public static class Builder extends ValidatingBuilder<UrlLoader> {
 
 		private HttpContext context = HttpContext.builder(NullUtils.NONE).build();
 		private HttpService service = new DefaultHttpService();
@@ -68,8 +68,8 @@ public final class HttpRequestLoader extends CacheLoader<String, HttpRequestResu
 		}
 
 		@Override
-		public HttpRequestLoader getInstance() {
-			return new HttpRequestLoader(this);
+		public UrlLoader getInstance() {
+			return new UrlLoader(this);
 		}
 
 		public HttpContext getContext() {

@@ -24,7 +24,7 @@ public class PersistToFileSystemLoaderFactory {
 	}
 
 	public static <T, V> FileSystemCache<String, HttpRequestResult> createHttpUrlCacher(HttpContext context, File basedir, String encoding) {
-		CacheLoader<String, HttpRequestResult> loader = HttpRequestLoader.create(context);
+		CacheLoader<String, HttpRequestResult> loader = UrlLoader.create(context);
 		CacheLoader<File, HttpRequestResult> fileSystemLoader = null;// new FileLoader<String>(new ReadFileToStringFunction(encoding));
 		Function<String, File> convertKeyToFileFunction = UrlToFileFunction.create(basedir);
 
