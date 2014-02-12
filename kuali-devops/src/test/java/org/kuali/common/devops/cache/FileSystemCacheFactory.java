@@ -11,19 +11,19 @@ import com.google.common.cache.CacheLoader;
 
 public class FileSystemCacheFactory {
 
-	public static <T, V> FileSystemCache<String, HttpRequestResult> createUrlCacher() {
-		return createUrlCacher(HttpContext.create());
+	public static <T, V> FileSystemCache<String, HttpRequestResult> createUrlCache() {
+		return createUrlCache(HttpContext.create());
 	}
 
-	public static <T, V> FileSystemCache<String, HttpRequestResult> createUrlCacher(HttpContext context) {
-		return createUrlCacher(context, UrlToFileFunction.create().getBasedir(), context.getEncoding());
+	public static <T, V> FileSystemCache<String, HttpRequestResult> createUrlCache(HttpContext context) {
+		return createUrlCache(context, UrlToFileFunction.create().getBasedir(), context.getEncoding());
 	}
 
-	public static <T, V> FileSystemCache<String, HttpRequestResult> createUrlCacher(HttpContext context, File basedir) {
-		return createUrlCacher(context, basedir, context.getEncoding());
+	public static <T, V> FileSystemCache<String, HttpRequestResult> createUrlCache(HttpContext context, File basedir) {
+		return createUrlCache(context, basedir, context.getEncoding());
 	}
 
-	public static <T, V> FileSystemCache<String, HttpRequestResult> createUrlCacher(HttpContext context, File basedir, String encoding) {
+	public static <T, V> FileSystemCache<String, HttpRequestResult> createUrlCache(HttpContext context, File basedir, String encoding) {
 		CacheLoader<String, HttpRequestResult> loader = UrlLoader.create(context);
 		PersistentCache<File, HttpRequestResult> fileCache = new UrlFileCache();
 		Function<String, File> keyConverter = UrlToFileFunction.create(basedir);
