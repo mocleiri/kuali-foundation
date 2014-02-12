@@ -291,16 +291,11 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 		return Joiner.on('.').join(names);
 	}
 
-	public static Optional<Object> extractFieldValue(Field field, Object instance) {
-		return get(field, instance);
-	}
-
 	/**
 	 * Unconditionally attempt to get the value of this field on this bean. If the field is not accessible make it accessible, get the value, then revert the field back to being
 	 * inaccessible.
 	 */
-	public static Optional<Object> get(Field field, Object instance) {
-
+	public static Optional<Object> extractFieldValue(Field field, Object instance) {
 		// Be thread safe
 		synchronized (field) {
 
@@ -324,6 +319,17 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Unconditionally attempt to get the value of this field on this bean. If the field is not accessible make it accessible, get the value, then revert the field back to being
+	 * inaccessible.
+	 * 
+	 * @deprecated Use extractFieldValue instead
+	 */
+	@Deprecated
+	public static Optional<Object> get(Field field, Object instance) {
+		return get(field, instance);
 	}
 
 	/**

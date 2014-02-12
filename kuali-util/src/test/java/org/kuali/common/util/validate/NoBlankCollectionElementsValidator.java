@@ -1,10 +1,13 @@
 package org.kuali.common.util.validate;
 
+import static com.google.common.base.Optional.absent;
+import static org.kuali.common.util.ReflectionUtils.extractFieldValue;
+import static org.kuali.common.util.ReflectionUtils.isStringCollection;
+
 import java.lang.reflect.Field;
 import java.util.Collection;
 
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.ReflectionUtils;
 
 import com.google.common.base.Optional;
 
@@ -14,16 +17,16 @@ public class NoBlankCollectionElementsValidator extends AbstractFieldsValidator<
 	protected Optional<String> validate(Field field, Object instance) {
 
 		// This field may not be Collection<String>
-		if (!ReflectionUtils.isStringCollection(field)) {
-			return Optional.absent();
+		if (!isStringCollection(field)) {
+			return absent();
 		}
 
 		// Extract the value of the field into an optional
-		Optional<?> fieldValue = ReflectionUtils.get(field, instance);
+		Optional<?> fieldValue = extractFieldValue(field, instance);
 
 		// If there is no value for this field, we are done
 		if (!fieldValue.isPresent()) {
-			return Optional.absent();
+			return absent();
 		}
 
 		// The ReflectionUtils.isStringCollection() check above ensures that this field is a Collection<String>
@@ -35,7 +38,7 @@ public class NoBlankCollectionElementsValidator extends AbstractFieldsValidator<
 		if (blanks.size() > 0) {
 			return Validation.errorMessage(field, "contains " + blanks.size() + " blank strings");
 		} else {
-			return Optional.absent();
+			return absent();
 		}
 
 	}
