@@ -1,7 +1,9 @@
 package org.kuali.common.util.tree;
 
+import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
+import static com.google.common.collect.Lists.newArrayList;
 
 import java.util.List;
 
@@ -11,8 +13,8 @@ import com.google.common.collect.Lists;
 
 public class MutableNode<T> extends AbstractNode<T> {
 
-	protected Optional<MutableNode<T>> mutableParent = Optional.absent();
-	protected List<MutableNode<T>> mutableChildren = Lists.newArrayList();
+	protected Optional<MutableNode<T>> mutableParent = absent();
+	protected List<MutableNode<T>> mutableChildren = newArrayList();
 	protected T element;
 
 	public static <T> MutableNode<T> of(T element) {
