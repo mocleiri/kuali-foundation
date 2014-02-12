@@ -121,7 +121,6 @@ public class Environments2 {
 			List<Environment.Builder> builders = getBuilders(group, servers, cnames);
 			Callable<Long> callable = new BuilderFillerCallable.Builder().group(group).service(service).builders(builders).build();
 			callables.add(callable);
-			// fillIn(group, builders, service);
 			count += builders.size();
 			map.put(group, builders);
 		}
