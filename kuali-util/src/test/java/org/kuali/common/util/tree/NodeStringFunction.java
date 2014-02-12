@@ -29,7 +29,7 @@ public final class NodeStringFunction<T> implements Function<Node<T>, String> {
 
 	@Override
 	public String apply(Node<T> node) {
-		checkNotNull(node, "node'");
+		checkNotNull(node, "node");
 		checkNotNull(node.getElement(), "node.element");
 		return function.apply(node.getElement());
 	}
