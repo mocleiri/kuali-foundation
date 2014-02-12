@@ -13,7 +13,7 @@ public abstract class ValidatingBuilder<T> implements InstanceBuilder<T> {
 	@Override
 	public final T build() {
 		checkNotNull(validator, "validator");
-		return checkValidation(getInstance());
+		return checkValidation(validator, getInstance());
 	}
 
 	public Validator getValidator() {
