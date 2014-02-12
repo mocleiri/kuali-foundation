@@ -1,9 +1,9 @@
 package org.kuali.common.util.tree;
 
 import static com.google.common.base.Optional.absent;
-import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.base.Preconditions.checkState;
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.collect.Lists.newArrayList;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class MutableNode<T> extends AbstractNode<T> {
 	}
 
 	public void setElement(T element) {
-		checkNotNull(element, "'element' cannot be null");
+		checkNotNull(element, "element");
 		this.element = element;
 	}
 
@@ -52,7 +52,7 @@ public class MutableNode<T> extends AbstractNode<T> {
 	}
 
 	protected void setParent(MutableNode<T> parent) {
-		checkNotNull(parent, "'parent' cannot be null");
+		checkNotNull(parent, "parent");
 		setMutableParent(Optional.of(parent));
 	}
 
@@ -69,8 +69,8 @@ public class MutableNode<T> extends AbstractNode<T> {
 	}
 
 	public void remove(MutableNode<T> child) {
-		checkNotNull(child, "'child' cannot be null");
-		checkState(isChild(child), "'child' is not a child of this node");
+		checkNotNull(child, "child");
+		checkArgument(isChild(child), "'child' is not a child of this node");
 		remove(mutableChildren.indexOf(child));
 	}
 
@@ -81,7 +81,7 @@ public class MutableNode<T> extends AbstractNode<T> {
 	}
 
 	public void add(List<MutableNode<T>> children) {
-		checkNotNull(children, "'children' cannot be null");
+		checkNotNull(children, "children");
 		for (MutableNode<T> child : children) {
 			add(child);
 		}
@@ -104,20 +104,20 @@ public class MutableNode<T> extends AbstractNode<T> {
 	}
 
 	public void add(MutableNode<T> child) {
-		checkNotNull(child, "'child' cannot be null");
+		checkNotNull(child, "child");
 		add(mutableChildren.size(), child);
 	}
 
 	public void add(int index, MutableNode<T> child) {
 		// Can't be null
-		checkNotNull(child, "'child' cannot be null");
+		checkNotNull(child, "child");
 
 		// If it's already a child, it gets removed from it's current position and then added to the end
 		// Thus, index needs to be children.size() - 1 if it's already a child
 		int actualIndex = isChild(child) ? mutableChildren.size() - 1 : mutableChildren.size();
 
-		// Can't be us, our parent, our grandparent, etc
-		checkState(!isAncestor(child), "'child' is an ancestor");
+		// Child can't be us, our parent, our grandparent, etc
+		checkArgument(!isAncestor(child), "cannot be an ancestor of 'child'");
 
 		// Remove this child from it's current parent
 		// If the child's parent is us, this decreases our child count by 1 (temporarily)
