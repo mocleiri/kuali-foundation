@@ -123,14 +123,14 @@ public class Environments2 {
 		}
 		EnvironmentMetadataService service = new DefaultEnvironmentMetadataService();
 		List<List<Environment.Builder>> partitions = Lists.partition(builders, 8);
-		PercentCompleteInformer pci = new PercentCompleteInformer(builders.size());
+		PercentCompleteInformer informer = new PercentCompleteInformer(builders.size());
 		List<Callable<Long>> callables = newArrayList();
 		for (List<Environment.Builder> partition : partitions) {
-			callables.add(BuilderFillerCallable.builder().builders(partition).service(service).build());
+			callables.add(BuilderFillerCallable.builder().builders(partition).service(service).informer(informer).build());
 		}
-		pci.start();
+		informer.start();
 		Callables.submit(callables);
-		pci.stop();
+		informer.stop();
 		logger.info(format("located information on %s environments - %s", builders.size(), getTime(sw.elapsed(MILLISECONDS))));
 		return map;
 	}
