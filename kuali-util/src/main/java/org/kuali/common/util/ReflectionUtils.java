@@ -15,8 +15,10 @@
  */
 package org.kuali.common.util;
 
+import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.collect.Lists.newArrayList;
+import static org.kuali.common.util.base.Exceptions.illegalState;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -288,6 +290,10 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 		return CollectionUtils.getStringWithSeparator(names, ".");
 	}
 
+	public static Optional<Object> extractFieldValue(Field field, Object instance) {
+		return get(field, instance);
+	}
+
 	/**
 	 * Unconditionally attempt to get the value of this field on this bean. If the field is not accessible make it accessible, get the value, then revert the field back to being
 	 * inaccessible.
@@ -307,9 +313,9 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 
 			try {
 				// Attempt to get the value of this field on the instance
-				return Optional.fromNullable(field.get(instance));
+				return fromNullable(field.get(instance));
 			} catch (IllegalAccessException e) {
-				throw new IllegalStateException(e);
+				throw illegalState(e);
 			} finally {
 				// Always flip the accessible flag back to what it was before (if we need to)
 				if (!accessible) {
