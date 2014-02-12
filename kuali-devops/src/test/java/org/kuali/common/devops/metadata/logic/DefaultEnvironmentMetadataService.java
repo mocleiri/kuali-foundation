@@ -1,5 +1,6 @@
 package org.kuali.common.devops.metadata.logic;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
@@ -31,7 +32,6 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 public class DefaultEnvironmentMetadataService implements EnvironmentMetadataService {
 
@@ -50,7 +50,7 @@ public class DefaultEnvironmentMetadataService implements EnvironmentMetadataSer
 
 	@Override
 	public List<EnvironmentMetadata> getMetadata(List<String> fqdns) {
-		List<EnvironmentMetadata> list = Lists.newArrayList();
+		List<EnvironmentMetadata> list = newArrayList();
 		for (String fqdn : fqdns) {
 			logger.debug(format("examining -> [%s]", fqdn));
 			EnvironmentMetadata meta = build(fqdn, urlCache);
