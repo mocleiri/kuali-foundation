@@ -23,15 +23,15 @@ public final class FileSystemCache<K, V> extends CacheLoader<K, V> {
 		checkNotNull(key, "key");
 		if (ignoreFileSystem) {
 			return loader.load(key);
-		} else {
-			File file = keyConverter.apply(key);
-			if (file.exists()) {
-				return fileCache.load(file);
-			}
-			V data = loader.load(key);
-			fileCache.persist(file, data);
-			return data;
 		}
+
+		File file = keyConverter.apply(key);
+		if (file.exists()) {
+			return fileCache.load(file);
+		}
+		V data = loader.load(key);
+		fileCache.persist(file, data);
+		return data;
 	}
 
 	public PersistentCache<File, V> getFileCache() {
