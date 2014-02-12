@@ -21,16 +21,25 @@ public final class FileSystemCache<K, V> extends CacheLoader<K, V> {
 	@Override
 	public V load(K key) throws Exception {
 		checkNotNull(key, "key");
+
+		// If we are ignoring the file system, just query the main cache
 		if (ignoreFileSystem) {
 			return loader.load(key);
 		}
 
+		// Otherwise check the file system first
 		File file = keyConverter.apply(key);
 		if (file.exists()) {
 			return fileCache.load(file);
 		}
+
+		// Query the main cache
 		V value = loader.load(key);
+
+		// Store the value to the file system
 		fileCache.store(file, value);
+
+		// Return the value
 		return value;
 	}
 
