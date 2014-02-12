@@ -42,6 +42,7 @@ public class Callables {
 		} catch (Exception e) {
 			throw illegalState(e);
 		}
+		pool.shutdown();
 		return elements;
 	}
 }
