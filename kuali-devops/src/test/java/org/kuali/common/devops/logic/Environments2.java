@@ -33,6 +33,7 @@ import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.base.Callables;
 import org.kuali.common.util.file.CanonicalFile;
+import org.kuali.common.util.inform.PercentCompleteInformer;
 import org.kuali.common.util.log.Loggers;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
@@ -122,11 +123,14 @@ public class Environments2 {
 		}
 		EnvironmentMetadataService service = new DefaultEnvironmentMetadataService();
 		List<List<Environment.Builder>> partitions = Lists.partition(builders, 8);
+		PercentCompleteInformer pci = new PercentCompleteInformer(builders.size());
 		List<Callable<Long>> callables = newArrayList();
 		for (List<Environment.Builder> partition : partitions) {
 			callables.add(BuilderFillerCallable.builder().builders(partition).service(service).build());
 		}
+		pci.start();
 		Callables.submit(callables);
+		pci.stop();
 		logger.info(format("located information on %s environments - %s", builders.size(), getTime(sw.elapsed(MILLISECONDS))));
 		return map;
 	}

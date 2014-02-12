@@ -9,6 +9,7 @@ import java.util.concurrent.Callable;
 import org.kuali.common.devops.metadata.logic.EnvironmentMetadataService;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.inform.PercentCompleteInformer;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Stopwatch;
@@ -19,6 +20,7 @@ public final class BuilderFillerCallable implements Callable<Long> {
 
 	private final ImmutableList<Environment.Builder> builders;
 	private final EnvironmentMetadataService service;
+	private final PercentCompleteInformer informer;
 
 	@Override
 	public Long call() {
@@ -32,6 +34,7 @@ public final class BuilderFillerCallable implements Callable<Long> {
 	private BuilderFillerCallable(Builder builder) {
 		this.builders = ImmutableList.copyOf(builder.builders);
 		this.service = builder.service;
+		this.informer = builder.informer;
 	}
 
 	public static Builder builder() {
@@ -42,6 +45,12 @@ public final class BuilderFillerCallable implements Callable<Long> {
 
 		private List<Environment.Builder> builders;
 		private EnvironmentMetadataService service;
+		private PercentCompleteInformer informer;
+
+		public Builder informer(PercentCompleteInformer informer) {
+			this.informer = informer;
+			return this;
+		}
 
 		public Builder builders(List<Environment.Builder> builders) {
 			this.builders = builders;
@@ -74,6 +83,14 @@ public final class BuilderFillerCallable implements Callable<Long> {
 			this.service = service;
 		}
 
+		public PercentCompleteInformer getInformer() {
+			return informer;
+		}
+
+		public void setInformer(PercentCompleteInformer informer) {
+			this.informer = informer;
+		}
+
 	}
 
 	public List<Environment.Builder> getBuilders() {
@@ -82,6 +99,10 @@ public final class BuilderFillerCallable implements Callable<Long> {
 
 	public EnvironmentMetadataService getService() {
 		return service;
+	}
+
+	public PercentCompleteInformer getInformer() {
+		return informer;
 	}
 
 }
