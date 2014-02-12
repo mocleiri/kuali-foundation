@@ -35,6 +35,7 @@ import java.util.Set;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.util.MethodInvoker;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableCollection;
@@ -283,11 +284,11 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 
 	public static String getDeclarationPath(Class<?> type) {
 		List<Class<?>> hierarchy = getDeclarationHierarchy(type);
-		List<String> names = new ArrayList<String>();
+		List<String> names = newArrayList();
 		for (Class<?> element : hierarchy) {
 			names.add(element.getSimpleName());
 		}
-		return CollectionUtils.getStringWithSeparator(names, ".");
+		return Joiner.on('.').join(names);
 	}
 
 	public static Optional<Object> extractFieldValue(Field field, Object instance) {
