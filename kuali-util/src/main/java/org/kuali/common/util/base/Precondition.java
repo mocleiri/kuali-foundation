@@ -65,7 +65,19 @@ public class Precondition {
 	}
 
 	/**
-	 * If arg.isPresent(), check that the string it contains is not whitespace, empty ("") or null.
+	 * Ensures that an {@code Optional<String>} passed as an argument does not contain a string that is whitespace or empty ("").
+	 * 
+	 * @param arg
+	 *            an {@code Optional<String>} passed as an argument
+	 * @param argName
+	 *            the name of the argument
+	 * 
+	 * @return the non-blank {@code Optional<String>} that was validated
+	 * 
+	 * @throws IllegalArgumentException
+	 *             If arg is blank. The exception message contains the name of the argument that was blank
+	 * @throws IllegalArgumentException
+	 *             If argName is blank
 	 */
 	public static Optional<String> checkNotBlank(Optional<String> arg, String argName) {
 		if (arg.isPresent()) {
