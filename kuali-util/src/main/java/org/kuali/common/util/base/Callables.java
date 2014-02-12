@@ -34,13 +34,13 @@ public class Callables {
 			futures.add(future);
 		}
 		List<T> elements = newArrayList();
-		for (Future<T> future : futures) {
-			try {
+		try {
+			for (Future<T> future : futures) {
 				T element = future.get();
 				elements.add(element);
-			} catch (Exception e) {
-				throw illegalState(e, "unexpected exception waiting for future");
 			}
+		} catch (Exception e) {
+			throw illegalState(e, "unexpected exception waiting for future");
 		}
 		return elements;
 	}
