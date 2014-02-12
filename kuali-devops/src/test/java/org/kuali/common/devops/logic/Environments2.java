@@ -7,7 +7,6 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newTreeMap;
 import static java.lang.String.format;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static org.kuali.common.util.FormatUtils.getTime;
 
 import java.io.File;
 import java.util.Collections;
@@ -32,6 +31,7 @@ import org.kuali.common.devops.model.Tomcat;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.base.Callables;
+import org.kuali.common.util.base.Precondition;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.inform.PercentCompleteInformer;
 import org.kuali.common.util.log.Loggers;
@@ -39,6 +39,7 @@ import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
 import org.slf4j.Logger;
 
+import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.BiMap;
@@ -129,10 +130,32 @@ public class Environments2 {
 			callables.add(BuilderFillerCallable.builder().builders(partition).service(service).informer(informer).build());
 		}
 		informer.start();
-		Callables.submit(callables);
+		List<Long> times = Callables.submit(callables);
 		informer.stop();
-		logger.info(format("located information on %s environments - %s", builders.size(), getTime(sw.elapsed(MILLISECONDS))));
+		long aggregate = newSumListFunction().apply(times);
+		long elapsed = sw.elapsed(MILLISECONDS);
+		long diff = aggregate - elapsed;
+		Object[] args = { builders.size(), FormatUtils.getTime(elapsed), FormatUtils.getTime(aggregate), FormatUtils.getTime(diff) };
+		logger.info(format("located information on %s environments - [e:%s a:%s d:%s]", args));
 		return map;
+	}
+
+	private static SumListFunction newSumListFunction() {
+		return new SumListFunction();
+	}
+
+	private static class SumListFunction implements Function<List<Long>, Long> {
+
+		@Override
+		public Long apply(List<Long> input) {
+			Precondition.checkNotNull(input, "input");
+			long sum = 0;
+			for (Long element : input) {
+				sum += element;
+			}
+			return sum;
+		}
+
 	}
 
 	public static void fillIn(Environment.Builder builder, EnvironmentMetadataService service) {
