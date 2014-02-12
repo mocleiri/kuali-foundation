@@ -28,7 +28,10 @@ public final class FileSystemCache<K, V> extends CacheLoader<K, V> {
 		}
 
 		// Otherwise check the file system first
+		// Convert the key into a filename
 		File file = keyConverter.apply(key);
+
+		// If the file exists, load the value from there
 		if (file.exists()) {
 			return fileCache.load(file);
 		}
