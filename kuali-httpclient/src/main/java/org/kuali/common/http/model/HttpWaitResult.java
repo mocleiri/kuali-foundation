@@ -15,6 +15,7 @@
  */
 package org.kuali.common.http.model;
 
+import static java.lang.System.currentTimeMillis;
 import static org.kuali.common.util.base.Precondition.checkMin;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
@@ -69,7 +70,7 @@ public final class HttpWaitResult {
 			this.status = status;
 			this.finalRequestResult = finalRequestResult;
 			this.start = start;
-			this.stop = System.currentTimeMillis();
+			this.stop = currentTimeMillis();
 			this.elapsed = stop - start;
 		}
 
