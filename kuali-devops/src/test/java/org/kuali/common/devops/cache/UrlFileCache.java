@@ -3,7 +3,6 @@ package org.kuali.common.devops.cache;
 import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Preconditions.checkArgument;
 import static java.lang.Long.parseLong;
-import static org.kuali.common.util.Encodings.UTF8;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +17,7 @@ public final class UrlFileCache extends PersistentCache<File, HttpRequestResult>
 
 	private final static String MAGIC_ABSENT_TOKEN = "${optional.absent}";
 
-	private final String encoding = UTF8;
+	// private final String encoding = UTF8;
 
 	@Override
 	public void persist(File file, HttpRequestResult result) {
