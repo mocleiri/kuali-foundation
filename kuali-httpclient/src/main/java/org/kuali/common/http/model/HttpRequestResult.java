@@ -15,6 +15,7 @@
  */
 package org.kuali.common.http.model;
 
+import static com.google.common.base.Optional.absent;
 import static java.lang.System.currentTimeMillis;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.kuali.common.util.base.Precondition.checkMin;
@@ -76,9 +77,9 @@ public final class HttpRequestResult {
 		private long elapsed; // filled in automatically
 
 		// Optional
-		private Optional<Integer> statusCode = Optional.absent();
-		private Optional<String> responseBody = Optional.absent();
-		private Optional<IOException> exception = Optional.absent();
+		private Optional<Integer> statusCode = absent();
+		private Optional<String> responseBody = absent();
+		private Optional<IOException> exception = absent();
 
 		public Builder(IOException exception, long start) {
 			this.exception = Optional.of(exception);
