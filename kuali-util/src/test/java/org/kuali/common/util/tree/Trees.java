@@ -13,7 +13,7 @@ import com.google.common.collect.Lists;
 public class Trees {
 
 	public static <T> List<Node<T>> getLeaves(List<Node<T>> nodes) {
-		List<Node<T>> leaves = Lists.newArrayList();
+		List<Node<T>> leaves = newArrayList();
 		for (Node<T> node : nodes) {
 			leaves.addAll(getLeaves(node));
 		}
@@ -21,7 +21,7 @@ public class Trees {
 	}
 
 	public static <T> List<Node<T>> getLeaves(Node<T> root) {
-		List<Node<T>> leaves = Lists.newArrayList();
+		List<Node<T>> leaves = newArrayList();
 		List<Node<T>> nodes = breadthFirst(root);
 		for (Node<T> node : nodes) {
 			if (node.isLeaf()) {
