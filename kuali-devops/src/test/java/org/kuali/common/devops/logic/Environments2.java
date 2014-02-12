@@ -131,15 +131,19 @@ public class Environments2 {
 		return map;
 	}
 
-	public static void fillIn(List<Environment.Builder> builders, EnvironmentMetadataService service) {
+	public static void fillIn(Environment.Builder builder, EnvironmentMetadataService service) {
+		Stopwatch sw = createStarted();
+		EnvironmentMetadata metadata = service.getMetadata(builder.getFqdn());
+		logger.info(format("examined -> %s - %s", builder.getFqdn(), FormatUtils.getTime(sw)));
+		builder.tomcat(getTomcat(metadata));
+		builder.java(getJava(metadata));
+		builder.application(getApplication(metadata));
+		builder.memory(getMemory(metadata));
+	}
+
+	private static void fillIn(List<Environment.Builder> builders, EnvironmentMetadataService service) {
 		for (Environment.Builder builder : builders) {
-			Stopwatch sw = createStarted();
-			EnvironmentMetadata metadata = service.getMetadata(builder.getFqdn());
-			logger.info(format("examined -> %s - %s", builder.getFqdn(), FormatUtils.getTime(sw)));
-			builder.tomcat(getTomcat(metadata));
-			builder.java(getJava(metadata));
-			builder.application(getApplication(metadata));
-			builder.memory(getMemory(metadata));
+			fillIn(builder, service);
 		}
 	}
 

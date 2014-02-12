@@ -23,7 +23,9 @@ public final class BuilderFillerCallable implements Callable<Long> {
 	@Override
 	public Long call() {
 		Stopwatch sw = createStarted();
-		Environments2.fillIn(builders, service);
+		for (Environment.Builder builder : builders) {
+			Environments2.fillIn(builder, service);
+		}
 		return sw.elapsed(MILLISECONDS);
 	}
 
