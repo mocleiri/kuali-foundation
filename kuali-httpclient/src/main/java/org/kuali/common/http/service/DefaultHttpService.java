@@ -17,6 +17,7 @@ package org.kuali.common.http.service;
 
 import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
+import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.System.currentTimeMillis;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 
@@ -45,7 +46,6 @@ import org.kuali.common.util.log.Loggers;
 import org.slf4j.Logger;
 
 import com.google.common.base.Optional;
-import com.google.common.collect.Lists;
 
 public class DefaultHttpService implements HttpService {
 
@@ -69,9 +69,9 @@ public class DefaultHttpService implements HttpService {
 	protected HttpWaitResult getWaitResult(HttpContext context) {
 		logger.debug(context.getUrl());
 		CloseableHttpClient client = getHttpClient(context);
-		long start = System.currentTimeMillis();
+		long start = currentTimeMillis();
 		long end = start + context.getOverallTimeoutMillis();
-		List<HttpRequestResult> requestResults = Lists.newArrayList();
+		List<HttpRequestResult> requestResults = newArrayList();
 		Object[] args = { context.getLogMsgPrefix(), context.getUrl(), FormatUtils.getTime(context.getOverallTimeoutMillis()) };
 		if (!context.isQuiet()) {
 			logger.info("{} - [{}] - [Timeout in {}]", args);
