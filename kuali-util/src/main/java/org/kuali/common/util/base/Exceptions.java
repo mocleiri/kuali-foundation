@@ -2,13 +2,13 @@ package org.kuali.common.util.base;
 
 /**
  * <p>
- * Create {@code IllegalStateException's} and {@code IllegaArgumentException's} with richly formatted error messages.
+ * Utility methods for creating {@code IllegalStateException's} and {@code IllegaArgumentException's} with richly formatted error messages.
  * </p>
  * 
  * Example usage:
  * 
  * <pre>
- * throw Exceptions.illegalArg(&quot;port must be &gt;= %s and &lt;= %s&quot;, 0, 65535);
+ * throw Exceptions.illegalArgument(&quot;port must be &gt;= %s and &lt;= %s&quot;, 0, 65535);
  * </pre>
  */
 public class Exceptions {
