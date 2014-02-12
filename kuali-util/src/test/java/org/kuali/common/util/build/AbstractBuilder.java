@@ -42,7 +42,7 @@ public abstract class AbstractBuilder<T> implements Builder<T> {
 		context.getOverrider().override(this);
 		T instance = getInstance();
 		Set<ConstraintViolation<T>> violations = context.getValidator().validate(instance);
-		Validation.check(violations);
+		Validation.checkViolations(violations);
 		return instance;
 	}
 

@@ -52,7 +52,7 @@ public class Foo {
 			copyFieldConstraints(builder.getClass().getDeclaringClass(), builder.getClass(), configuration);
 			Validator validator = configuration.buildValidatorFactory().getValidator();
 			Set<ConstraintViolation<Builder>> violations = validator.validate(builder);
-			org.kuali.common.util.validate.Validation.check(violations);
+			org.kuali.common.util.validate.Validation.checkViolations(violations);
 		}
 
 		private static void copyClassConstraints(Class<?> src, Class<?> dst, HibernateValidatorConfiguration configuration) {
@@ -83,7 +83,7 @@ public class Foo {
 		private void validate(Foo instance) {
 			Validator validator = org.kuali.common.util.validate.Validation.getDefaultValidator();
 			Set<ConstraintViolation<Foo>> violations = validator.validate(instance);
-			org.kuali.common.util.validate.Validation.check(violations);
+			org.kuali.common.util.validate.Validation.checkViolations(violations);
 		}
 
 		public Foo build() {

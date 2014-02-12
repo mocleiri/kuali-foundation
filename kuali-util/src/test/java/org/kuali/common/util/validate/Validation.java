@@ -61,7 +61,7 @@ public class Validation {
 		return "[" + classDeclarationPath + "." + field.getName() + "] " + suffix;
 	}
 
-	public static <T> void check(Set<ConstraintViolation<T>> violations) {
+	public static <T> void checkViolations(Set<ConstraintViolation<T>> violations) {
 		if (violations.isEmpty()) {
 			return;
 		}

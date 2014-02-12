@@ -24,7 +24,7 @@ public class DefaultCreator implements Creator {
 		check(errors);
 		T instance = builder.getInstance();
 		Set<ConstraintViolation<T>> violations = validator.validate(instance);
-		Validation.check(violations);
+		Validation.checkViolations(violations);
 		return instance;
 	}
 

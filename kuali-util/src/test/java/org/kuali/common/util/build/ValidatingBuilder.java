@@ -19,7 +19,7 @@ public abstract class ValidatingBuilder<T> implements InstanceBuilder<T> {
 		checkNotNull(validator, "validator");
 		T instance = getInstance();
 		Set<ConstraintViolation<T>> violations = validator.validate(instance);
-		Validation.check(violations);
+		Validation.checkViolations(violations);
 		return instance;
 	}
 
