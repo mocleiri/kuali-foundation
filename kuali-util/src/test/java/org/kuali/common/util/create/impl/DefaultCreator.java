@@ -13,6 +13,8 @@ import org.kuali.common.util.build.InstanceBuilder;
 import org.kuali.common.util.create.Creator;
 import org.kuali.common.util.validate.Validation;
 
+import com.google.common.base.Joiner;
+
 public class DefaultCreator implements Creator {
 
 	private final Validator validator;
@@ -34,12 +36,7 @@ public class DefaultCreator implements Creator {
 		}
 		StringBuilder sb = new StringBuilder();
 		sb.append("Binding failed:\n\n");
-		for (int i = 0; i < errors.size(); i++) {
-			if (i != 0) {
-				sb.append("\n");
-			}
-			sb.append(errors.get(i));
-		}
+		sb.append(Joiner.on('\n').join(errors));
 		sb.append("\n");
 		throw new IllegalArgumentException(sb.toString());
 	}
