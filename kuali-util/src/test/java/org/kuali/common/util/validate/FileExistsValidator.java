@@ -15,9 +15,7 @@ public class FileExistsValidator extends AbstractExistsValidator<File> {
 		if (file == null) {
 			return true;
 		} else {
-			boolean valid = file.exists();
-			doValidCheck(valid, file.getAbsolutePath(), context);
-			return valid;
+			return validate(file.exists(), file.getAbsolutePath(), context);
 		}
 	}
 

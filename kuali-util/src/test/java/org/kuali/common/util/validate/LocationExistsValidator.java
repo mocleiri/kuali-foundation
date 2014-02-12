@@ -11,9 +11,7 @@ public class LocationExistsValidator extends AbstractExistsValidator<String> {
 		if (resource == null) {
 			return true;
 		} else {
-			boolean valid = LocationUtils.exists(resource);
-			doValidCheck(valid, resource, context);
-			return valid;
+			return validate(LocationUtils.exists(resource), resource, context);
 		}
 	}
 

@@ -9,12 +9,13 @@ public abstract class AbstractExistsValidator<T> implements ConstraintValidator<
 	public void initialize(Exists constraintAnnotation) {
 	}
 
-	protected void doValidCheck(boolean valid, String path, ConstraintValidatorContext context) {
+	protected boolean validate(boolean valid, String path, ConstraintValidatorContext context) {
 		if (!valid) {
 			String error = String.format("[%s] does not exist", path);
 			context.disableDefaultConstraintViolation();
 			context.buildConstraintViolationWithTemplate(error).addConstraintViolation();
 		}
+		return valid;
 	}
 
 }
