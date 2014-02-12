@@ -68,9 +68,8 @@ public final class HttpRequestResult {
 
 	public static class Builder {
 
-		// Required
-		private final String statusText;
-		private final long start;
+		private String statusText;
+		private long start;
 
 		private long stop; // filled in automatically
 		private long elapsed; // filled in automatically
@@ -84,6 +83,8 @@ public final class HttpRequestResult {
 			this.exception = Optional.of(exception);
 			this.statusText = isBlank(exception.getMessage()) ? "n/a" : exception.getMessage();
 			this.start = start;
+			this.stop = System.currentTimeMillis();
+			this.elapsed = stop - start;
 		}
 
 		public Builder(String statusText, int statusCode, Optional<String> responseBody, long start) {
@@ -91,11 +92,21 @@ public final class HttpRequestResult {
 			this.statusCode = Optional.of(statusCode);
 			this.responseBody = responseBody;
 			this.start = start;
+			this.stop = System.currentTimeMillis();
+			this.elapsed = stop - start;
+		}
+
+		public Builder elapsed(long elapsed) {
+			this.elapsed = elapsed;
+			return this;
+		}
+
+		public Builder stop(long stop) {
+			this.stop = stop;
+			return this;
 		}
 
 		public HttpRequestResult build() {
-			this.stop = System.currentTimeMillis();
-			this.elapsed = stop - start;
 			HttpRequestResult instance = new HttpRequestResult(this);
 			validate(instance);
 			return instance;
