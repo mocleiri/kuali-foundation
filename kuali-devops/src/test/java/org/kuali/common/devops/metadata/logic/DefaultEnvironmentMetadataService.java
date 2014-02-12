@@ -135,7 +135,7 @@ public class DefaultEnvironmentMetadataService implements EnvironmentMetadataSer
 	 */
 	protected LoadingCache<String, HttpRequestResult> getFastFileSystemCacher() {
 		HttpContext context = HttpContext.builder().quiet(true).asynchronousClose(true).maxBytes("25k").maxRetries(0).overallTimeout("5s").build();
-		CacheLoader<String, HttpRequestResult> loader = Caches.createUrlCache(context);
+		CacheLoader<String, HttpRequestResult> loader = Caches.buildUrlCache(context);
 		return CacheBuilder.newBuilder().build(loader);
 	}
 
