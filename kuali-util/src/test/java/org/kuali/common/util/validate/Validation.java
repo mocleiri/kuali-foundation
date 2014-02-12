@@ -1,5 +1,7 @@
 package org.kuali.common.util.validate;
 
+import static com.google.common.collect.Lists.newArrayList;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.kuali.common.util.base.Exceptions.illegalArgument;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
@@ -14,7 +16,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.ReflectionUtils;
 
 import com.google.common.base.Optional;
@@ -83,7 +84,7 @@ public class Validation {
 	}
 
 	public static <T> List<String> getErrorMessages(Set<ConstraintViolation<T>> violations) {
-		List<String> errorMessages = new ArrayList<String>();
+		List<String> errorMessages = newArrayList();
 		for (ConstraintViolation<T> violation : violations) {
 			String errorMessage = getErrorMessage(violation);
 			errorMessages.add(errorMessage);
@@ -94,7 +95,7 @@ public class Validation {
 	public static <T> String getErrorMessage(ConstraintViolation<T> violation) {
 		String classDeclarationPath = ReflectionUtils.getDeclarationPath(violation.getRootBeanClass());
 		String propertyPath = violation.getPropertyPath() + "";
-		if (StringUtils.isBlank(propertyPath)) {
+		if (isBlank(propertyPath)) {
 			return "[" + classDeclarationPath + " - " + violation.getMessage() + "]";
 		} else {
 			return "[" + classDeclarationPath + "." + propertyPath + " " + violation.getMessage() + "]";
