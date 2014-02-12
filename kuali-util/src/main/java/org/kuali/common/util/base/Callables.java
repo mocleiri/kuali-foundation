@@ -30,14 +30,12 @@ public class Callables {
 		ExecutorService pool = newFixedThreadPool(callables.size());
 		List<Future<T>> futures = newArrayList();
 		for (Callable<T> callable : callables) {
-			Future<T> future = pool.submit(callable);
-			futures.add(future);
+			futures.add(pool.submit(callable));
 		}
 		List<T> elements = newArrayList();
 		try {
 			for (Future<T> future : futures) {
-				T element = future.get();
-				elements.add(element);
+				elements.add(future.get());
 			}
 		} catch (Exception e) {
 			throw illegalState(e);
