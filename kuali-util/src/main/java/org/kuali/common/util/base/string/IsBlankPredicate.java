@@ -5,7 +5,10 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import com.google.common.base.Predicate;
 
-public class IsBlankPredicate implements Predicate<String> {
+// enum singleton pattern
+public enum IsBlankPredicate implements Predicate<String> {
+
+	INSTANCE;
 
 	@Override
 	public boolean apply(String string) {
