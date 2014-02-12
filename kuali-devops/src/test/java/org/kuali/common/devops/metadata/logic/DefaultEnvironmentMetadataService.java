@@ -7,7 +7,7 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.devops.cache.FileSystemCacheFactory;
+import org.kuali.common.devops.cache.Caches;
 import org.kuali.common.devops.metadata.function.FirstGCTimestampFunction;
 import org.kuali.common.devops.metadata.function.ManifestFunction;
 import org.kuali.common.devops.metadata.function.ProjectConfigUrlFragmentFunction;
@@ -135,7 +135,7 @@ public class DefaultEnvironmentMetadataService implements EnvironmentMetadataSer
 	 */
 	protected LoadingCache<String, HttpRequestResult> getFastFileSystemCacher() {
 		HttpContext context = HttpContext.builder().quiet(true).asynchronousClose(true).maxBytes("25k").maxRetries(0).overallTimeout("5s").build();
-		CacheLoader<String, HttpRequestResult> loader = FileSystemCacheFactory.createUrlCache(context);
+		CacheLoader<String, HttpRequestResult> loader = Caches.createUrlCache(context);
 		return CacheBuilder.newBuilder().build(loader);
 	}
 
