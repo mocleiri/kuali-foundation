@@ -124,7 +124,7 @@ public class Environments2 {
 		return map;
 	}
 
-	protected static void fillIn(String group, List<Environment.Builder> builders, EnvironmentMetadataService service) {
+	public static void fillIn(String group, List<Environment.Builder> builders, EnvironmentMetadataService service) {
 		for (Environment.Builder builder : builders) {
 			Stopwatch sw = createStarted();
 			EnvironmentMetadata metadata = service.getMetadata(builder.getFqdn());
