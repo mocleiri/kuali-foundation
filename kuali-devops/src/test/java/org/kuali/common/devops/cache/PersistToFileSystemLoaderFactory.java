@@ -1,45 +1,40 @@
 package org.kuali.common.devops.cache;
 
 import java.io.File;
-import java.io.InputStream;
 
-import org.kuali.common.devops.cache.function.NoopFunction;
-import org.kuali.common.devops.cache.function.ReadFileToStringFunction;
-import org.kuali.common.devops.cache.function.StringInputStreamFunction;
 import org.kuali.common.devops.cache.function.UrlToFileFunction;
 import org.kuali.common.http.model.HttpContext;
+import org.kuali.common.http.model.HttpRequestResult;
 
 import com.google.common.base.Function;
-import com.google.common.base.Optional;
 import com.google.common.cache.CacheLoader;
 
 public class PersistToFileSystemLoaderFactory {
 
-	public static <T, V> PersistToFileSystemLoader<String, String> createHttpUrlCacher() {
+	public static <T, V> FileSystemCache<String, HttpRequestResult> createHttpUrlCacher() {
 		return createHttpUrlCacher(HttpContext.create());
 	}
 
-	public static <T, V> PersistToFileSystemLoader<String, String> createHttpUrlCacher(HttpContext context) {
+	public static <T, V> FileSystemCache<String, HttpRequestResult> createHttpUrlCacher(HttpContext context) {
 		return createHttpUrlCacher(context, UrlToFileFunction.create().getBasedir(), context.getEncoding());
 	}
 
-	public static <T, V> PersistToFileSystemLoader<String, String> createHttpUrlCacher(HttpContext context, File basedir) {
+	public static <T, V> FileSystemCache<String, HttpRequestResult> createHttpUrlCacher(HttpContext context, File basedir) {
 		return createHttpUrlCacher(context, basedir, context.getEncoding());
 	}
 
-	public static <T, V> PersistToFileSystemLoader<String, String> createHttpUrlCacher(HttpContext context, File basedir, String encoding) {
-		CacheLoader<String, Optional<String>> loader = HttpLoader.create(context);
-		CacheLoader<File, Optional<String>> fileLoader = new FileLoader<String>(new ReadFileToStringFunction(encoding));
-		Function<String, File> fileFunction = UrlToFileFunction.create(basedir);
+	public static <T, V> FileSystemCache<String, HttpRequestResult> createHttpUrlCacher(HttpContext context, File basedir, String encoding) {
+		CacheLoader<String, HttpRequestResult> loader = HttpRequestLoader.create(context);
+		CacheLoader<File, HttpRequestResult> fileSystemLoader = null;// new FileLoader<String>(new ReadFileToStringFunction(encoding));
+		Function<String, File> convertKeyToFileFunction = UrlToFileFunction.create(basedir);
 
-		Function<String, InputStream> inputStreamFunction = new StringInputStreamFunction(encoding);
-		CachePersister<File, Optional<String>> filePersister = new FilePersister<File, String>(new NoopFunction<File>(), inputStreamFunction);
+		CachePersister<File, HttpRequestResult> fileSystemPersister = null; // new FilePersister<File, String>(new NoopFunction<File>(), inputStreamFunction);
 
-		PersistToFileSystemLoader.Builder<String, String> builder = new PersistToFileSystemLoader.Builder<String, String>();
-		builder.fileFunction(fileFunction);
+		FileSystemCache.Builder<String, HttpRequestResult> builder = new FileSystemCache.Builder<String, HttpRequestResult>();
+		builder.convertKeyToFileFunction(convertKeyToFileFunction);
 		builder.loader(loader);
-		builder.fileLoader(fileLoader);
-		builder.filePersister(filePersister);
+		builder.fileSystemLoader(fileSystemLoader);
+		builder.fileSystemPersister(fileSystemPersister);
 		return builder.build();
 	}
 

@@ -7,7 +7,7 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.devops.cache.PersistToFileSystemLoader;
+import org.kuali.common.devops.cache.FileSystemCache;
 import org.kuali.common.devops.cache.PersistToFileSystemLoaderFactory;
 import org.kuali.common.devops.metadata.function.FirstGCTimestampFunction;
 import org.kuali.common.devops.metadata.function.ManifestFunction;
@@ -130,7 +130,7 @@ public class DefaultEnvironmentMetadataService implements EnvironmentMetadataSer
 	 */
 	protected LoadingCache<String, Optional<String>> getFastFileSystemCacher() {
 		HttpContext context = HttpContext.builder().quiet(true).asynchronousClose(true).maxBytes("25k").maxRetries(0).overallTimeout("5s").build();
-		PersistToFileSystemLoader<String, String> loader = PersistToFileSystemLoaderFactory.createHttpUrlCacher(context);
+		FileSystemCache<String, String> loader = PersistToFileSystemLoaderFactory.createHttpUrlCacher(context);
 		return CacheBuilder.newBuilder().build(loader);
 	}
 
