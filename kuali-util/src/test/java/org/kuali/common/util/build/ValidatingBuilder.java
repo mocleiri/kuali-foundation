@@ -2,14 +2,13 @@ package org.kuali.common.util.build;
 
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.getDefaultValidator;
 
 import javax.validation.Validator;
 
-import org.kuali.common.util.validate.Validation;
-
 public abstract class ValidatingBuilder<T> implements InstanceBuilder<T> {
 
-	private Validator validator = Validation.getDefaultValidator();
+	private Validator validator = getDefaultValidator();
 
 	@Override
 	public final T build() {
