@@ -40,7 +40,7 @@ public final class Replacer {
 		return new Builder();
 	}
 
-	public static class Builder {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<Replacer> {
 
 		private BiMap<String, String> tokens = HashBiMap.create();
 
@@ -54,6 +54,7 @@ public final class Replacer {
 			return this;
 		}
 
+		@Override
 		public Replacer build() {
 			Replacer instance = new Replacer(this);
 			validate(instance);
