@@ -121,7 +121,10 @@ public class DefaultEnvironmentMetadataService implements EnvironmentMetadataSer
 		checkNotNull(converter, "converter");
 		String url = helper.prefix + helper.fqdn + (suffix.isPresent() ? suffix.get() : "");
 		HttpRequestResult result = helper.urlCache.getUnchecked(url);
-		Optional<String> content = result.getResponseBody();
+		Optional<String> content = Optional.absent();
+		if (result.getStatusCode().isPresent() && result.getStatusCode().get() == 200) {
+			content = result.getResponseBody();
+		}
 		Optional<T> metadata = content.isPresent() ? Optional.of(converter.apply(content.get())) : Optional.<T> absent();
 		MetadataUrl.Builder<T> builder = MetadataUrl.builder();
 		return builder.url(url).content(content).converter(converter).metadata(metadata).build();
