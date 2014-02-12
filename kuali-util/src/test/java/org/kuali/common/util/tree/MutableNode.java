@@ -9,7 +9,6 @@ import java.util.List;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 public class MutableNode<T> extends AbstractNode<T> {
 
@@ -61,7 +60,7 @@ public class MutableNode<T> extends AbstractNode<T> {
 	 */
 	@Override
 	public List<Node<T>> getChildren() {
-		List<Node<T>> list = Lists.newArrayList();
+		List<Node<T>> list = newArrayList();
 		for (Node<T> child : mutableChildren) {
 			list.add(child);
 		}
