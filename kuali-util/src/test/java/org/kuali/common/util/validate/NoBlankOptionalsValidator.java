@@ -2,11 +2,10 @@ package org.kuali.common.util.validate;
 
 import static com.google.common.base.Optional.absent;
 import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.kuali.common.util.ReflectionUtils.extractFieldValue;
 import static org.kuali.common.util.ReflectionUtils.isOptionalString;
 
 import java.lang.reflect.Field;
-
-import org.kuali.common.util.ReflectionUtils;
 
 import com.google.common.base.Optional;
 
@@ -21,7 +20,7 @@ public class NoBlankOptionalsValidator extends AbstractFieldsValidator<NoBlankOp
 		}
 
 		// Get the value of the field as an optional
-		Optional<?> fieldValue = ReflectionUtils.get(field, instance);
+		Optional<?> fieldValue = extractFieldValue(field, instance);
 
 		// If the field was null we are good to go
 		if (!fieldValue.isPresent()) {
