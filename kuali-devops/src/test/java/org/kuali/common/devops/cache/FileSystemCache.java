@@ -50,7 +50,7 @@ public final class FileSystemCache<K, V> extends CacheLoader<K, V> {
 		this.fileCache = builder.fileCache;
 		this.loader = builder.loader;
 		this.keyConverter = builder.keyConverter;
-		this.ignoreFileSystem = builder.ignoreFileSystemCache;
+		this.ignoreFileSystem = builder.ignoreFileSystem;
 	}
 
 	public static <K, V> Builder<K, V> builder() {
@@ -62,7 +62,7 @@ public final class FileSystemCache<K, V> extends CacheLoader<K, V> {
 		private PersistentCache<File, V> fileCache;
 		private CacheLoader<K, V> loader;
 		private Function<K, File> keyConverter;
-		private boolean ignoreFileSystemCache;
+		private boolean ignoreFileSystem;
 
 		public Builder<K, V> fileCache(PersistentCache<File, V> fileCache) {
 			this.fileCache = fileCache;
@@ -79,8 +79,8 @@ public final class FileSystemCache<K, V> extends CacheLoader<K, V> {
 			return this;
 		}
 
-		public Builder<K, V> useFileSystemCache(boolean useFileSystemCache) {
-			this.ignoreFileSystemCache = useFileSystemCache;
+		public Builder<K, V> ignoreFileSystem(boolean ignoreFileSystem) {
+			this.ignoreFileSystem = ignoreFileSystem;
 			return this;
 		}
 
@@ -113,12 +113,12 @@ public final class FileSystemCache<K, V> extends CacheLoader<K, V> {
 			this.keyConverter = keyConverter;
 		}
 
-		public boolean isIgnoreFileSystemCache() {
-			return ignoreFileSystemCache;
+		public boolean isIgnoreFileSystem() {
+			return ignoreFileSystem;
 		}
 
-		public void setIgnoreFileSystemCache(boolean useFileSystemCache) {
-			this.ignoreFileSystemCache = useFileSystemCache;
+		public void setIgnoreFileSystem(boolean ignoreFileSystem) {
+			this.ignoreFileSystem = ignoreFileSystem;
 		}
 
 	}
