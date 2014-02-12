@@ -1,6 +1,7 @@
 package org.kuali.common.util.build;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.util.Set;
 
@@ -15,7 +16,7 @@ public abstract class ValidatingBuilder<T> implements InstanceBuilder<T> {
 
 	@Override
 	public final T build() {
-		checkNotNull(validator, "'validator' cannot be null'");
+		checkNotNull(validator, "validator");
 		T instance = getInstance();
 		Set<ConstraintViolation<T>> violations = validator.validate(instance);
 		Validation.check(violations);
