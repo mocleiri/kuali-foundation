@@ -12,12 +12,13 @@ import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Stopwatch;
+import com.google.common.collect.ImmutableList;
 
 @IdiotProofImmutable
 public final class BuilderFillerCallable implements Callable<Long> {
 
 	private final String group;
-	private final List<Environment.Builder> builders;
+	private final ImmutableList<Environment.Builder> builders;
 	private final EnvironmentMetadataService service;
 
 	@Override
@@ -29,7 +30,7 @@ public final class BuilderFillerCallable implements Callable<Long> {
 
 	private BuilderFillerCallable(Builder builder) {
 		this.group = builder.group;
-		this.builders = builder.builders;
+		this.builders = ImmutableList.copyOf(builder.builders);
 		this.service = builder.service;
 	}
 
