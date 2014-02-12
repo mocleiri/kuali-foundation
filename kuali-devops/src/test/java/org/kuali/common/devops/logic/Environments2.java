@@ -192,7 +192,7 @@ public class Environments2 {
 		return Optional.of(builder.build());
 	}
 
-	protected static List<Environment.Builder> getBuilders(String group, List<EC2Instance> instances, BiMap<String, String> cnames) {
+	public static List<Environment.Builder> getBuilders(String group, List<EC2Instance> instances, BiMap<String, String> cnames) {
 		List<EC2Instance> servers = getDeployServers(group, instances, cnames);
 		List<Environment.Builder> builders = Lists.newArrayList();
 		for (EC2Instance server : servers) {
