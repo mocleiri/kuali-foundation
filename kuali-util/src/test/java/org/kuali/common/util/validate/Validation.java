@@ -18,6 +18,7 @@ import javax.validation.ValidatorFactory;
 
 import org.kuali.common.util.ReflectionUtils;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
@@ -73,12 +74,7 @@ public class Validation {
 		List<String> errorMessages = getErrorMessages(violations);
 		StringBuilder sb = new StringBuilder();
 		sb.append("Validation failed:\n\n");
-		for (int i = 0; i < errorMessages.size(); i++) {
-			if (i != 0) {
-				sb.append("\n");
-			}
-			sb.append(errorMessages.get(i));
-		}
+		sb.append(Joiner.on('\n').join(errorMessages));
 		sb.append("\n");
 		throw illegalArgument(sb.toString());
 	}
