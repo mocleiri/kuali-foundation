@@ -123,7 +123,7 @@ public class Environments2 {
 			map.put(group, builders);
 		}
 		EnvironmentMetadataService service = new DefaultEnvironmentMetadataService();
-		List<List<Environment.Builder>> partitions = Lists.partition(builders, 8);
+		List<List<Environment.Builder>> partitions = Lists.partition(builders, 10);
 		PercentCompleteInformer informer = new PercentCompleteInformer(builders.size());
 		List<Callable<Long>> callables = newArrayList();
 		for (List<Environment.Builder> partition : partitions) {
