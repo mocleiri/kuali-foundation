@@ -66,6 +66,16 @@ public class Validation {
 		return "[" + classDeclarationPath + "." + field.getName() + "] " + suffix;
 	}
 
+	public static <T> T checkValidation(Validator validator, T instance) {
+		checkNotNull(instance, "instance");
+		checkViolations(validator.validate(instance));
+		return instance;
+	}
+
+	public static <T> T checkValidation(T instance) {
+		return checkValidation(getDefaultValidator(), instance);
+	}
+
 	public static <T> void checkViolations(Set<ConstraintViolation<T>> violations) {
 		checkNotNull(violations, "violations");
 		if (violations.isEmpty()) {

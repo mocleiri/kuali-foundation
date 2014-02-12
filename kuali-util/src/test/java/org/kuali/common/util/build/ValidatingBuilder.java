@@ -1,7 +1,7 @@
 package org.kuali.common.util.build;
 
 import static org.kuali.common.util.base.Precondition.checkNotNull;
-import static org.kuali.common.util.validate.Validation.checkViolations;
+import static org.kuali.common.util.validate.Validation.checkValidation;
 
 import javax.validation.Validator;
 
@@ -14,9 +14,7 @@ public abstract class ValidatingBuilder<T> implements InstanceBuilder<T> {
 	@Override
 	public final T build() {
 		checkNotNull(validator, "validator");
-		T instance = getInstance();
-		checkViolations(validator.validate(instance));
-		return instance;
+		return checkValidation(getInstance());
 	}
 
 	public Validator getValidator() {
