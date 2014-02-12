@@ -15,7 +15,6 @@ import org.kuali.common.util.tree.MutableNode;
 import org.kuali.common.util.tree.Node;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 public final class AnnotatedFieldAssembler implements Assembler<List<Node<Field>>> {
 
@@ -51,7 +50,7 @@ public final class AnnotatedFieldAssembler implements Assembler<List<Node<Field>
 	}
 
 	protected List<Field> getSortedFields(Class<?> type) {
-		List<Field> fields = Lists.newArrayList(ReflectionUtils.getAllFields(type));
+		List<Field> fields = newArrayList(ReflectionUtils.getAllFields(type));
 		Collections.sort(fields, comparator);
 		return fields;
 	}
