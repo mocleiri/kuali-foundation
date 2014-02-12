@@ -1,13 +1,13 @@
 package org.kuali.common.util.tree;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import com.google.common.base.Function;
 
 public final class NodeStringFunction<T> implements Function<Node<T>, String> {
 
 	public NodeStringFunction(Function<T, String> function) {
-		checkNotNull(function, "'function' cannot be null");
+		checkNotNull(function, "function");
 		this.function = function;
 	}
 
@@ -29,8 +29,8 @@ public final class NodeStringFunction<T> implements Function<Node<T>, String> {
 
 	@Override
 	public String apply(Node<T> node) {
-		checkNotNull(node, "'node' cannot be null'");
-		checkNotNull(node.getElement(), "'node.getElement()' cannot be null'");
+		checkNotNull(node, "node'");
+		checkNotNull(node.getElement(), "node.element");
 		return function.apply(node.getElement());
 	}
 
@@ -38,7 +38,7 @@ public final class NodeStringFunction<T> implements Function<Node<T>, String> {
 
 		@Override
 		public String apply(T element) {
-			checkNotNull(element, "'element' cannot be null'");
+			checkNotNull(element, "element");
 			return element.toString();
 		}
 	}
