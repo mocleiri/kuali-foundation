@@ -121,7 +121,12 @@ public class DefaultHttpService implements HttpService {
 		}
 	}
 
-	protected HttpStatus getResultStatus(HttpContext context, int retryAttmpts, HttpRequestResult rr, long end) {
+	protected HttpStatus getResultStatus(HttpContext context, int retryAttempts, HttpRequestResult rr, long end) {
+		// If we've gone past our max allotted time, we've timed out
+		if (maxRetriesExceeded(context, retryAttempts)) {
+			return HttpStatus.MAX_RETRIES_EXCEEDED;
+		}
+		
 		// If we've gone past our max allotted time, we've timed out
 		if (rr.getStop() > end) {
 			return HttpStatus.TIMEOUT;
