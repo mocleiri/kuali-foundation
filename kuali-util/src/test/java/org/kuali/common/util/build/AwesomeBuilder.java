@@ -1,6 +1,6 @@
 package org.kuali.common.util.build;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import org.kuali.common.util.create.Creation;
 import org.kuali.common.util.create.Creator;
@@ -11,7 +11,7 @@ public abstract class AwesomeBuilder<T> implements InstanceBuilder<T> {
 
 	@Override
 	public final T build() {
-		checkNotNull(creator, "'creator' cannot be null'");
+		checkNotNull(creator, "creator");
 		return creator.create(this);
 	}
 
