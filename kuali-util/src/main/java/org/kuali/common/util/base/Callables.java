@@ -40,7 +40,7 @@ public class Callables {
 				elements.add(element);
 			}
 		} catch (Exception e) {
-			throw illegalState(e, "unexpected exception waiting for future");
+			throw illegalState(e);
 		}
 		return elements;
 	}
