@@ -32,6 +32,7 @@ public class Caches {
 		builder.keyConverter(keyConverter);
 		builder.loader(loader);
 		builder.fileCache(fileCache);
+		builder.ignoreFileSystem(Boolean.getBoolean("cache.ignoreFileSystem"));
 		return builder.build();
 	}
 
