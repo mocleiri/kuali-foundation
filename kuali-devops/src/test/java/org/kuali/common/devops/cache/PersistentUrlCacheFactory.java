@@ -9,7 +9,7 @@ import org.kuali.common.http.model.HttpRequestResult;
 import com.google.common.base.Function;
 import com.google.common.cache.CacheLoader;
 
-public class PersistToFileSystemLoaderFactory {
+public class PersistentUrlCacheFactory {
 
 	public static <T, V> FileSystemCache<String, HttpRequestResult> createHttpUrlCacher() {
 		return createHttpUrlCacher(HttpContext.create());

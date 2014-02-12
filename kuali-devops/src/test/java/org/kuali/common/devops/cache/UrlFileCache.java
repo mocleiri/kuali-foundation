@@ -35,7 +35,7 @@ public final class UrlFileCache extends PersistentCache<File, HttpRequestResult>
 
 	@Override
 	public HttpRequestResult load(File file) {
-		Properties props = PropertyUtils.load(file);
+		Properties props = PropertyUtils.load(file, encoding);
 		Optional<Integer> statusCode = toOptionalInteger(props.getProperty("statusCode"));
 		Optional<String> responseBody = toOptionalString(formatter.parse(props.getProperty("responseBody"), null));
 		String statusText = props.getProperty("statusText");
