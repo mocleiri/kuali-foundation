@@ -92,8 +92,7 @@ public class Validation {
 	public static <T> List<String> getErrorMessages(Set<ConstraintViolation<T>> violations) {
 		List<String> errorMessages = newArrayList();
 		for (ConstraintViolation<T> violation : violations) {
-			String errorMessage = getErrorMessage(violation);
-			errorMessages.add(errorMessage);
+			errorMessages.add(getErrorMessage(violation));
 		}
 		return errorMessages;
 	}
