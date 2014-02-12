@@ -85,7 +85,7 @@ public final class HttpRequestResult {
 			this.exception = Optional.of(exception);
 			this.statusText = isBlank(exception.getMessage()) ? "n/a" : exception.getMessage();
 			this.start = start;
-			this.stop = System.currentTimeMillis();
+			this.stop = currentTimeMillis();
 			this.elapsed = stop - start;
 		}
 
