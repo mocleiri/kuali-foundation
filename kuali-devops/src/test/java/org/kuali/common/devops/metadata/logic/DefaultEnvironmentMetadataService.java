@@ -1,7 +1,9 @@
 package org.kuali.common.devops.metadata.logic;
 
+import static com.google.common.base.Optional.absent;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
@@ -121,13 +123,33 @@ public class DefaultEnvironmentMetadataService implements EnvironmentMetadataSer
 		checkNotNull(converter, "converter");
 		String url = helper.prefix + helper.fqdn + (suffix.isPresent() ? suffix.get() : "");
 		HttpRequestResult result = helper.urlCache.getUnchecked(url);
-		Optional<String> content = Optional.absent();
-		if (result.getStatusCode().isPresent() && result.getStatusCode().get() == 200) {
-			content = result.getResponseBody();
-		}
+		Optional<String> content = getContent(result);
 		Optional<T> metadata = content.isPresent() ? Optional.of(converter.apply(content.get())) : Optional.<T> absent();
 		MetadataUrl.Builder<T> builder = MetadataUrl.builder();
 		return builder.url(url).content(content).converter(converter).metadata(metadata).build();
+	}
+
+	private static Optional<String> getContent(HttpRequestResult result) {
+		if (result.getException().isPresent()) {
+			return absent();
+		}
+		if (!result.getStatusCode().isPresent()) {
+			return absent();
+		}
+		int statusCode = result.getStatusCode().get();
+		if (statusCode != 200) {
+			return absent();
+		}
+		Optional<String> optional = result.getResponseBody();
+		if (!optional.isPresent()) {
+			return absent();
+		}
+		String content = optional.get();
+		if (isBlank(content)) {
+			return absent();
+		} else {
+			return optional;
+		}
 	}
 
 	/**
