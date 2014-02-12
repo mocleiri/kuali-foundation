@@ -71,7 +71,7 @@ public final class UrlToFileFunction implements Function<String, File> {
 		private List<String> removeTokens = ImmutableList.of();
 		// This translates both http://foo.com and classpath:foo.txt correctly
 		private List<String> replaceTokens = ImmutableList.of(":", "///", "?", "#", "=");
-		private String magicSuffix = ".cached.url";
+		private String magicSuffix = ".cached.url.properties";
 
 		public Builder magicSuffix(String magicSuffix) {
 			this.magicSuffix = magicSuffix;
