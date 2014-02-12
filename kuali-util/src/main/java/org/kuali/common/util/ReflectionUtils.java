@@ -16,6 +16,7 @@
 package org.kuali.common.util;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.collect.Lists.newArrayList;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -457,7 +458,7 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 	 * </p>
 	 */
 	public static List<Field> getAllFieldsList(Class<?> type) {
-		List<Field> fields = Lists.newArrayList();
+		List<Field> fields = newArrayList();
 		for (Class<?> c = type; c != null; c = c.getSuperclass()) {
 			Set<Field> set = getFields(c);
 			fields.addAll(set);
