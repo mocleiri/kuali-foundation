@@ -1,7 +1,7 @@
 package org.kuali.common.util.bind.impl;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.lang.reflect.Field;
 import java.util.Iterator;
@@ -174,8 +174,8 @@ public final class DefaultBinder implements Binder {
 		}
 
 		private static void validate(DefaultBinder instance) {
-			checkNotNull(instance.environment, "'environment' cannot be null");
-			checkNotNull(instance.service, "'service' cannot be null");
+			checkNotNull(instance.environment, "environment");
+			checkNotNull(instance.service, "service");
 		}
 
 	}
