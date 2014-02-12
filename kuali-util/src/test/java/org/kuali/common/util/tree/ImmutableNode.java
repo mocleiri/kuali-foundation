@@ -1,19 +1,19 @@
 package org.kuali.common.util.tree;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.util.List;
 
 public final class ImmutableNode<T> extends MutableNode<T> {
 
-	private static final String UOE_MSG = "Operation not supported for immutable node";
+	private static final String UOE_MSG = "not supported for immutable node's";
 
 	public static <T> ImmutableNode<T> copyOf(Node<T> node) {
 		return new ImmutableNode<T>(node);
 	}
 
 	public ImmutableNode(Node<T> node) {
-		checkNotNull(node, "'node' cannot be null");
+		checkNotNull(node, "node");
 		super.setElement(node.getElement());
 		List<Node<T>> children = node.getChildren();
 		for (Node<T> child : children) {
