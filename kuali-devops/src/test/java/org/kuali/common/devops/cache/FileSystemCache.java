@@ -29,9 +29,9 @@ public final class FileSystemCache<K, V> extends CacheLoader<K, V> {
 		if (file.exists()) {
 			return fileCache.load(file);
 		}
-		V data = loader.load(key);
-		fileCache.persist(file, data);
-		return data;
+		V value = loader.load(key);
+		fileCache.persist(file, value);
+		return value;
 	}
 
 	public PersistentCache<File, V> getFileCache() {
