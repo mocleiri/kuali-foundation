@@ -33,14 +33,17 @@ public class Callables {
 			futures.add(pool.submit(callable));
 		}
 		List<T> elements = newArrayList();
-		try {
-			for (Future<T> future : futures) {
-				elements.add(future.get());
-			}
-		} catch (Exception e) {
-			throw illegalState(e);
+		for (Future<T> future : futures) {
+			elements.add(getElement(future));
 		}
 		return elements;
 	}
 
+	protected static <T> T getElement(Future<T> future) {
+		try {
+			return future.get();
+		} catch (Exception e) {
+			throw illegalState(e);
+		}
+	}
 }
