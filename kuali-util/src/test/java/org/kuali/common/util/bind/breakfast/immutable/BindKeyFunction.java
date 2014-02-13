@@ -64,7 +64,7 @@ public class BindKeyFunction implements Function<List<Field>, String> {
 			return Optional.of(provided);
 		}
 		String value = annotation.get().value();
-		checkNotBlank(value, "value");
+		checkNotBlank(value, Bind.class.getCanonicalName() + ".value()");
 		if (Bind.ABSENT.equals(value)) {
 			return absent();
 		}

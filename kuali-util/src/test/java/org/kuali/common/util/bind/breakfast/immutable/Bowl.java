@@ -9,7 +9,7 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 @Bind(Bind.DEFAULT)
 public final class Bowl {
 
-	@Bind("m")
+	@Bind
 	private final Milk milk;
 
 	private Bowl(Builder builder) {

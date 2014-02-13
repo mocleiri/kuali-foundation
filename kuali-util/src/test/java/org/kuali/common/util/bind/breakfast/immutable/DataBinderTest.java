@@ -1,6 +1,6 @@
 package org.kuali.common.util.bind.breakfast.immutable;
 
-import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Maps.newHashMap;
 import static org.apache.commons.io.FileUtils.write;
 import static org.kuali.common.util.ReflectionUtils.newInstance;
 
@@ -33,8 +33,8 @@ public class DataBinderTest {
 			Milk milk = build(Milk.Builder.class, ImmutableMap.of("type", "lowfat", "price", "2.29"));
 			Bowl bowl = build(Bowl.Builder.class, ImmutableMap.of("milk", milk));
 			System.out.println("milk.type=" + bowl.getMilk().getType());
-			List<String> keys = getKeys(type, nodes);
-			for (String key : keys) {
+			Map<String, Node<Field>> map = getKeys(type, nodes);
+			for (String key : map.keySet()) {
 				System.out.println(key);
 			}
 		} catch (Exception e) {
@@ -42,15 +42,16 @@ public class DataBinderTest {
 		}
 	}
 
-	protected static List<String> getKeys(Class<?> type, List<Node<Field>> nodes) {
+	protected static Map<String, Node<Field>> getKeys(Class<?> type, List<Node<Field>> nodes) {
 		List<Node<Field>> leaves = Trees.getLeaves(nodes);
 		Function<List<Field>, String> function = new BindKeyFunction(type);
-		List<String> keys = newArrayList();
+		Map<String, Node<Field>> map = newHashMap();
 		for (Node<Field> leaf : leaves) {
 			List<Field> fields = leaf.getElementPath();
-			keys.add(function.apply(fields));
+			String key = function.apply(fields);
+			map.put(key, leaf);
 		}
-		return keys;
+		return map;
 	}
 
 	protected static <T> T build(Class<? extends Builder<T>> type, Map<?, ?> map) {
