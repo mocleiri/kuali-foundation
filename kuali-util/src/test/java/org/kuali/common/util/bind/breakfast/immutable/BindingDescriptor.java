@@ -4,12 +4,10 @@ import java.lang.reflect.Field;
 
 import org.apache.commons.lang3.builder.Builder;
 
-import com.google.common.base.Optional;
-
 public class BindingDescriptor<T extends Builder<T>> {
 
 	Field field;
-	Optional<T> instance;
+	T instance;
 	String bindKey;
 	Object bindValue;
 	String instancePropertyName;
@@ -22,11 +20,11 @@ public class BindingDescriptor<T extends Builder<T>> {
 		this.field = field;
 	}
 
-	public Optional<T> getInstance() {
+	public T getInstance() {
 		return instance;
 	}
 
-	public void setInstance(Optional<T> instance) {
+	public void setInstance(T instance) {
 		this.instance = instance;
 	}
 
