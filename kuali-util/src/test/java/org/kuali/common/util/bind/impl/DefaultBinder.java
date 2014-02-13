@@ -12,7 +12,7 @@ import org.kohsuke.MetaInfServices;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.api.Binder;
-import org.kuali.common.util.bind.api.BindingPrefix;
+import org.kuali.common.util.bind.api.BindPrefix;
 import org.kuali.common.util.spring.convert.Conversion;
 import org.kuali.common.util.spring.env.Environments;
 import org.springframework.core.convert.ConversionService;
@@ -48,7 +48,7 @@ public final class DefaultBinder implements Binder {
 		}
 
 		List<String> errors = bindFields(target);
-		BindingPrefix bind = target.getClass().getAnnotation(BindingPrefix.class);
+		BindPrefix bind = target.getClass().getAnnotation(BindPrefix.class);
 		EnvironmentDataBinder binder = new EnvironmentDataBinder(target, bind);
 		binder.setConversionService(service);
 		binder.bind(environment);
@@ -62,7 +62,7 @@ public final class DefaultBinder implements Binder {
 		for (Field field : fields) {
 			Class<?> fieldType = field.getType();
 			Class<? extends org.apache.commons.lang3.builder.Builder<?>> builderType = getBuilder(fieldType);
-			BindingPrefix bind = field.getAnnotation(BindingPrefix.class);
+			BindPrefix bind = field.getAnnotation(BindPrefix.class);
 			org.apache.commons.lang3.builder.Builder<?> builder = (org.apache.commons.lang3.builder.Builder<?>) ReflectionUtils.newInstance(builderType);
 			EnvironmentDataBinder binder = new EnvironmentDataBinder(builder, bind);
 			binder.setConversionService(service);

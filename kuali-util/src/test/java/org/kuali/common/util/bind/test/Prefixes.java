@@ -6,7 +6,7 @@ import java.lang.reflect.Field;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Annotations;
-import org.kuali.common.util.bind.api.BindingPrefix;
+import org.kuali.common.util.bind.api.BindPrefix;
 import org.kuali.common.util.bind.api.NoBindingPrefix;
 
 import com.google.common.base.Optional;
@@ -14,7 +14,7 @@ import com.google.common.base.Optional;
 public class Prefixes {
 
 	public static Optional<String> get(Class<?> type) {
-		Optional<String> prefix = getPrefix(Annotations.get(type, BindingPrefix.class));
+		Optional<String> prefix = getPrefix(Annotations.get(type, BindPrefix.class));
 		if (prefix.isPresent()) {
 			return prefix;
 		}
@@ -26,7 +26,7 @@ public class Prefixes {
 	}
 
 	public static Optional<String> get(Field field) {
-		Optional<String> prefix = getPrefix(Annotations.get(field, BindingPrefix.class));
+		Optional<String> prefix = getPrefix(Annotations.get(field, BindPrefix.class));
 		if (prefix.isPresent()) {
 			return prefix;
 		}
@@ -37,10 +37,10 @@ public class Prefixes {
 		}
 	}
 
-	protected static Optional<String> getPrefix(Optional<BindingPrefix> annotation) {
+	protected static Optional<String> getPrefix(Optional<BindPrefix> annotation) {
 		if (annotation.isPresent()) {
 			String value = annotation.get().value();
-			checkState(!StringUtils.isBlank(value), "[%s.value()] cannot be blank", BindingPrefix.class.getCanonicalName());
+			checkState(!StringUtils.isBlank(value), "[%s.value()] cannot be blank", BindPrefix.class.getCanonicalName());
 			return Optional.of(value);
 		} else {
 			return Optional.absent();
