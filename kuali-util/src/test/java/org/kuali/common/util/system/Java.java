@@ -35,7 +35,7 @@ public final class Java {
 	@Alias("ext.dirs")
 	private final ImmutableList<String> extensionDirectories;
 
-	@Bind
+	@Bind(Bind.ABSENT)
 	private final RuntimeEnvironment runtimeEnvironment;
 
 	@Bind(value = "vm")
