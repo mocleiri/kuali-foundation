@@ -1,6 +1,7 @@
 package org.kuali.common.util.validate;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static javax.validation.Validation.buildDefaultValidatorFactory;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.kuali.common.util.ReflectionUtils.getDeclarationPath;
 import static org.kuali.common.util.base.Exceptions.illegalArgument;
@@ -25,7 +26,7 @@ import com.google.common.collect.ImmutableList;
 
 public class Validation {
 
-	private static ValidatorFactory FACTORY = javax.validation.Validation.buildDefaultValidatorFactory();
+	private static ValidatorFactory FACTORY = buildDefaultValidatorFactory();
 	private static Validator VALIDATOR = FACTORY.getValidator();
 
 	public static Validator getDefaultValidator() {
