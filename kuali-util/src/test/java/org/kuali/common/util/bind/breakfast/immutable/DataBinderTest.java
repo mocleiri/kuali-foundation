@@ -38,15 +38,20 @@ public class DataBinderTest {
 			System.out.println("milk.type=" + bowl.getMilk().getType());
 			Function<List<Field>, String> function = newBindKeyFunction(type);
 			List<MutableNode<BindDescriptor>> bds = getDescriptors(type, nodes, function);
-			List<Node<BindDescriptor>> list = Lists.newArrayList();
-			for (MutableNode<BindDescriptor> bd : bds) {
-				list.add(bd);
-			}
+			List<Node<BindDescriptor>> list = getDescriptors(bds);
 			String html2 = Trees.html(Bowl.class.getSimpleName(), list, new BindDescriptorFunction());
 			write(new File("/tmp/bds.htm"), html2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private List<Node<BindDescriptor>> getDescriptors(List<MutableNode<BindDescriptor>> bds) {
+		List<Node<BindDescriptor>> list = Lists.newArrayList();
+		for (MutableNode<BindDescriptor> bd : bds) {
+			list.add(bd);
+		}
+		return list;
 	}
 
 	private static class BindDescriptorFunction implements Function<Node<BindDescriptor>, String> {
