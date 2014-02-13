@@ -73,7 +73,7 @@ public final class CsvStringFormatter implements Formatter<String> {
 		}
 
 		@Override
-		public CsvStringFormatter getInstance() {
+		protected CsvStringFormatter newInstance() {
 			return new CsvStringFormatter(this);
 		}
 

@@ -5,16 +5,19 @@ import static org.kuali.common.util.validate.Validation.checkValidation;
 
 import javax.validation.Validator;
 
+import org.apache.commons.lang3.builder.Builder;
 import org.kuali.common.util.validate.Validation;
 
-public abstract class ValidatingBuilder<T> implements InstanceBuilder<T> {
+public abstract class ValidatingBuilder<T> implements Builder<T> {
 
 	private Validator validator = Validation.getDefaultValidator();
+
+	protected abstract T newInstance();
 
 	@Override
 	public final T build() {
 		checkNotNull(validator, "validator");
-		return checkValidation(validator, getInstance());
+		return checkValidation(validator, newInstance());
 	}
 
 	public Validator getValidator() {
