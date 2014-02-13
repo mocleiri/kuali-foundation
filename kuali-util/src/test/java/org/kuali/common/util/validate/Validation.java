@@ -65,8 +65,8 @@ public class Validation {
 	}
 
 	public static <T> T checkConstraints(Validator validator, T instance) {
-		checkNotNull(instance, "instance");
 		checkNotNull(validator, "validator");
+		checkNotNull(instance, "instance");
 		checkViolations(validator.validate(instance));
 		return instance;
 	}
