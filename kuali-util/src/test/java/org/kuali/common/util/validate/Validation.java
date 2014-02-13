@@ -18,8 +18,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import org.kuali.common.util.ReflectionUtils;
-
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
@@ -60,7 +58,7 @@ public class Validation {
 	}
 
 	public static String getErrorMessage(Field field, String suffix) {
-		String classDeclarationPath = ReflectionUtils.getDeclarationPath(field.getDeclaringClass());
+		String classDeclarationPath = getDeclarationPath(field.getDeclaringClass());
 		return "[" + classDeclarationPath + "." + field.getName() + "] " + suffix;
 	}
 
