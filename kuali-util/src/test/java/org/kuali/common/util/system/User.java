@@ -1,9 +1,10 @@
 package org.kuali.common.util.system;
 
+import static org.kuali.common.util.validate.Validation.checkValidation;
+
 import java.io.File;
 
 import org.kuali.common.util.bind.api.Alias;
-import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
@@ -24,7 +25,7 @@ public final class User {
 		return new Builder();
 	}
 
-	public static class Builder extends AwesomeBuilder<User> {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<User> {
 
 		private String name;
 		private File home;
@@ -46,8 +47,8 @@ public final class User {
 		}
 
 		@Override
-		public User getInstance() {
-			return new User(this);
+		public User build() {
+			return checkValidation(new User(this));
 		}
 
 		public String getName() {
