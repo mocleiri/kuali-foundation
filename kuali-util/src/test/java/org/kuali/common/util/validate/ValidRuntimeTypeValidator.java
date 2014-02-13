@@ -26,9 +26,7 @@ public class ValidRuntimeTypeValidator extends AbstractFieldsValidator<ValidRunt
 	protected Optional<String> validate(Field field, Object instance) {
 
 		// If this field does not descend from superType, we can skip checking it's runtime type
-		boolean skip = !isSuperType(superType, field.getType());
-
-		if (skip) {
+		if (!isSuperType(superType, field.getType())) {
 			// Nothing more to do
 			return absent();
 		}
