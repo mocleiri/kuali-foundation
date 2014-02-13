@@ -31,7 +31,6 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
 
 public class DataBinderTest {
 
@@ -63,8 +62,8 @@ public class DataBinderTest {
 			binder.bind(mpvs);
 			Bowl bowl = builder.build();
 			logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
-			String html2 = Trees.html(Bowl.class.getSimpleName(), objectGraphAsNodes, new BindDescriptorFunction());
-			write(new File("/tmp/bds.htm"), html2);
+			String html = Trees.html(Bowl.class.getSimpleName(), objectGraphAsNodes, new BindDescriptorFunction());
+			write(new File("/tmp/bdss.htm"), html);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -139,21 +138,13 @@ public class DataBinderTest {
 		}
 	}
 
-	private List<Node<BindDescriptor>> getDescriptors(List<MutableNode<BindDescriptor>> bds) {
-		List<Node<BindDescriptor>> list = Lists.newArrayList();
-		for (MutableNode<BindDescriptor> bd : bds) {
-			list.add(bd);
-		}
-		return list;
-	}
-
 	private static class BindDescriptorFunction implements Function<Node<BindDescriptor>, String> {
 
 		@Override
 		public String apply(Node<BindDescriptor> node) {
 			BindDescriptor bd = node.getElement();
 			StringBuilder sb = new StringBuilder();
-			sb.append(Joiner.on("<br>").join(bd.getBindKeys()));
+			sb.append(Joiner.on(',').join(bd.getBindKeys()));
 			sb.append(bd.getBindValue() + "<br>");
 			sb.append(bd.getInstancePropertyName() + "<br>");
 			sb.append(bd.getInstanceBuilder() + "<br>");
@@ -163,7 +154,7 @@ public class DataBinderTest {
 	}
 
 	protected List<Node<BindDescriptor>> buildDescriptors(Class<?> type, List<Node<Field>> nodes, Function<List<Field>, List<String>> function) {
-		return getDescriptors(getDescriptors(type, nodes, function));
+		return convert(getDescriptors(type, nodes, function));
 	}
 
 	protected static List<MutableNode<BindDescriptor>> getDescriptors(Class<?> type, List<Node<Field>> nodes, Function<List<Field>, List<String>> function) {
@@ -196,6 +187,14 @@ public class DataBinderTest {
 			}
 		}
 		throw illegalState("could not locate a builder for [%s]", type.getCanonicalName());
+	}
+
+	private List<Node<BindDescriptor>> convert(List<MutableNode<BindDescriptor>> bds) {
+		List<Node<BindDescriptor>> list = newArrayList();
+		for (MutableNode<BindDescriptor> bd : bds) {
+			list.add(bd);
+		}
+		return list;
 	}
 
 }

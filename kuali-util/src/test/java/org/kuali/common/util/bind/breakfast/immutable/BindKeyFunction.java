@@ -37,7 +37,7 @@ public class BindKeyFunction implements Function<List<Field>, List<String>> {
 		checkNotNull(fields, "fields");
 		List<String> strings = newArrayList();
 		addIfPresent(strings, getToken(type));
-		for (int i = 0; i < fields.size(); i++) {
+		for (int i = 0; i < fields.size() - 1; i++) {
 			Field field = fields.get(i);
 			addIfPresent(strings, getToken(field));
 		}
