@@ -1,21 +1,18 @@
 package org.kuali.common.util.system;
 
-import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.api.Alias;
-import org.kuali.common.util.bind.api.BindPrefix;
-import org.kuali.common.util.bind.api.NoBindingPrefix;
+import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
-@NoBindingPrefix
+@Bind(prefix = Bind.ABSENT)
 public final class SystemProperties {
 
 	@Bind
 	private final User user;
 
-	@Bind
-	@BindPrefix("os")
+	@Bind(prefix = "os")
 	private final OperatingSystem operatingSystem;
 
 	@Bind

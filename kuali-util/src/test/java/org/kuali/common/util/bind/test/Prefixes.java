@@ -7,7 +7,6 @@ import java.lang.reflect.Field;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Annotations;
 import org.kuali.common.util.bind.api.BindPrefix;
-import org.kuali.common.util.bind.api.NoBindingPrefix;
 
 import com.google.common.base.Optional;
 
@@ -18,11 +17,7 @@ public class Prefixes {
 		if (prefix.isPresent()) {
 			return prefix;
 		}
-		if (type.isAnnotationPresent(NoBindingPrefix.class)) {
-			return Optional.absent();
-		} else {
-			return Optional.of(getPrefix(type));
-		}
+		return Optional.of(getPrefix(type));
 	}
 
 	public static Optional<String> get(Field field) {
@@ -30,11 +25,7 @@ public class Prefixes {
 		if (prefix.isPresent()) {
 			return prefix;
 		}
-		if (field.isAnnotationPresent(NoBindingPrefix.class)) {
-			return Optional.absent();
-		} else {
-			return Optional.of(field.getName());
-		}
+		return Optional.of(field.getName());
 	}
 
 	protected static Optional<String> getPrefix(Optional<BindPrefix> annotation) {

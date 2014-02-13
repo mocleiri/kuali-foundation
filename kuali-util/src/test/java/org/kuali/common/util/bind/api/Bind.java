@@ -13,8 +13,9 @@ import java.lang.annotation.Target;
 @Documented
 public @interface Bind {
 	
-	public static final String ABSENT = "${optional.absent}";
+	public static final String ABSENT = "${prefix.absent}";
+	public static final String DEFAULT = "${prefix.default}";
 
-	String prefix() default ABSENT;
+	String prefix() default DEFAULT;
 
 }
