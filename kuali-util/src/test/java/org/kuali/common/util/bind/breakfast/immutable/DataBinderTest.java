@@ -3,6 +3,7 @@ package org.kuali.common.util.bind.breakfast.immutable;
 import static com.google.common.collect.Maps.newHashMap;
 import static org.apache.commons.io.FileUtils.write;
 import static org.kuali.common.util.ReflectionUtils.newInstance;
+import static org.kuali.common.util.bind.breakfast.immutable.BindKeyFunction.newBindKeyFunction;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -44,7 +45,7 @@ public class DataBinderTest {
 
 	protected static Map<String, Node<Field>> getKeys(Class<?> type, List<Node<Field>> nodes) {
 		List<Node<Field>> leaves = Trees.getLeaves(nodes);
-		Function<List<Field>, String> function = new BindKeyFunction(type);
+		Function<List<Field>, String> function = newBindKeyFunction(type);
 		Map<String, Node<Field>> map = newHashMap();
 		for (Node<Field> leaf : leaves) {
 			List<Field> fields = leaf.getElementPath();

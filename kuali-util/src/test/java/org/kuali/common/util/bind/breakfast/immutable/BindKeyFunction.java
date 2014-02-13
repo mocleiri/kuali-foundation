@@ -23,7 +23,7 @@ public class BindKeyFunction implements Function<List<Field>, String> {
 		this.type = checkNotNull(type, "type");
 	}
 
-	public static BindKeyFunction make(Class<?> type) {
+	public static BindKeyFunction newBindKeyFunction(Class<?> type) {
 		return new BindKeyFunction(type);
 	}
 
