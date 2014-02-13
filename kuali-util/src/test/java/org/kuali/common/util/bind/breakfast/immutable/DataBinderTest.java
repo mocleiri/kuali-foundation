@@ -23,7 +23,7 @@ public class DataBinderTest {
 			Milk milk = milkBuilder.build();
 			Map<String, Object> bowlMap = newHashMap();
 			bowlMap.put("milk", milk);
-			MutablePropertyValues bowlValues = new MutablePropertyValues(milkMap);
+			MutablePropertyValues bowlValues = new MutablePropertyValues(bowlMap);
 			Bowl.Builder bowlBuilder = new Bowl.Builder();
 			DataBinder bowlBinder = new DataBinder(bowlBuilder);
 			bowlBinder.bind(bowlValues);
