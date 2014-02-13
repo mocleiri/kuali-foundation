@@ -1,7 +1,8 @@
 package org.kuali.common.util.system;
 
+import static org.kuali.common.util.validate.Validation.checkValidation;
+
 import org.kuali.common.util.bind.api.Alias;
-import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
@@ -26,7 +27,7 @@ public final class OperatingSystem {
 		return new Builder();
 	}
 
-	public static class Builder extends AwesomeBuilder<OperatingSystem> {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<OperatingSystem> {
 
 		private String name;
 		private String architecture;
@@ -48,8 +49,8 @@ public final class OperatingSystem {
 		}
 
 		@Override
-		public OperatingSystem getInstance() {
-			return new OperatingSystem(this);
+		public OperatingSystem build() {
+			return checkValidation(new OperatingSystem(this));
 		}
 
 		public String getName() {

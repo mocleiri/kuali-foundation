@@ -1,11 +1,12 @@
 package org.kuali.common.util.system;
 
+import static org.kuali.common.util.validate.Validation.checkValidation;
+
 import java.io.File;
 import java.util.List;
 
 import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.bind.api.Bind;
-import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
@@ -52,7 +53,7 @@ public final class Java {
 		this.virtualMachine = builder.virtualMachine;
 	}
 
-	public static class Builder extends AwesomeBuilder<Java> {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<Java> {
 
 		private File home;
 		private File temporaryDirectory;
@@ -110,8 +111,8 @@ public final class Java {
 		}
 
 		@Override
-		public Java getInstance() {
-			return new Java(this);
+		public Java build() {
+			return checkValidation(new Java(this));
 		}
 
 		public File getHome() {
