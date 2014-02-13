@@ -15,19 +15,21 @@
  */
 package org.kuali.common.util;
 
+import static com.google.common.base.Optional.fromNullable;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 import com.google.common.base.Optional;
 
-public class Annotations extends org.springframework.util.ReflectionUtils {
+public class Annotations {
 
-	public static <T extends Annotation> Optional<T> get(Class<?> type, Class<T> annotationClass) {
-		return Optional.fromNullable(type.getAnnotation(annotationClass));
+	public static <T extends Annotation> Optional<T> extractAnnotationFromClass(Class<?> type, Class<T> annotationClass) {
+		return fromNullable(type.getAnnotation(annotationClass));
 	}
 
-	public static <T extends Annotation> Optional<T> get(Field field, Class<T> annotationClass) {
-		return Optional.fromNullable(field.getAnnotation(annotationClass));
+	public static <T extends Annotation> Optional<T> extractAnnotationFromField(Field field, Class<T> annotationClass) {
+		return fromNullable(field.getAnnotation(annotationClass));
 	}
 
 }

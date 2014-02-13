@@ -6,7 +6,6 @@ import java.lang.reflect.Field;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Annotations;
-import org.kuali.common.util.bind.api.BindPrefix;
 
 import com.google.common.base.Optional;
 
@@ -26,7 +25,7 @@ public class Prefixes {
 			return prefix;
 		}
 		return Optional.of(field.getName());
-	}
+ 	}
 
 	protected static Optional<String> getPrefix(Optional<BindPrefix> annotation) {
 		if (annotation.isPresent()) {
