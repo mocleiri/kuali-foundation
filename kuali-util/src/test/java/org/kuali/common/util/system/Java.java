@@ -3,8 +3,6 @@ package org.kuali.common.util.system;
 import java.io.File;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.api.BindingAlias;
 import org.kuali.common.util.bind.api.BindingPrefix;
@@ -38,12 +36,10 @@ public final class Java {
 	@BindingAlias("ext.dirs")
 	private final ImmutableList<String> extensionDirectories;
 
-	@Valid
 	@Bind
 	@NoBindingPrefix
 	private final RuntimeEnvironment runtimeEnvironment;
 
-	@Valid
 	@Bind
 	@BindingPrefix("vm")
 	private final VirtualMachine virtualMachine;
