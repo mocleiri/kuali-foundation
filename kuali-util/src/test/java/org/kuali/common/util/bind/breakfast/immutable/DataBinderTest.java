@@ -34,4 +34,15 @@ public class DataBinderTest {
 		}
 	}
 
+	protected Milk getMilk() {
+		Map<String, Object> map = newHashMap();
+		map.put("type", "lowfat");
+		map.put("price", "2.29");
+		MutablePropertyValues values = new MutablePropertyValues(map);
+		Milk.Builder builder = new Milk.Builder();
+		DataBinder binder = new DataBinder(builder);
+		binder.bind(values);
+		return builder.build();
+	}
+
 }
