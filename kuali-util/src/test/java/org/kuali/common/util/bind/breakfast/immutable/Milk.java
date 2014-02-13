@@ -4,6 +4,7 @@ import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import javax.validation.constraints.Min;
 
+import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
@@ -11,6 +12,7 @@ public final class Milk {
 
 	@Min(0)
 	private final double price;
+	@Alias({ "kind", "brand" })
 	private final String type;
 
 	private Milk(Builder builder) {
