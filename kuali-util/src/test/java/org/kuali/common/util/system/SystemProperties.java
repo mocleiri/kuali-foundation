@@ -6,13 +6,13 @@ import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
-@Bind(value = Bind.ABSENT)
+@Bind(Bind.ABSENT)
 public final class SystemProperties {
 
 	@Bind
 	private final User user;
 
-	@Bind(value = "os")
+	@Bind("os")
 	private final OperatingSystem operatingSystem;
 
 	@Bind
