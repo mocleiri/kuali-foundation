@@ -34,9 +34,9 @@ public class BindKeyFunction implements Function<List<Field>, String> {
 	public String apply(List<Field> fields) {
 		checkNotNull(fields, "fields");
 		List<String> strings = newArrayList();
-		Optional<String> prefix = getToken(type);
-		if (prefix.isPresent()) {
-			strings.add(prefix.get());
+		Optional<String> fragment = getToken(type);
+		if (fragment.isPresent()) {
+			strings.add(fragment.get());
 		}
 		for (Field field : fields) {
 			Optional<String> token = getToken(field);
