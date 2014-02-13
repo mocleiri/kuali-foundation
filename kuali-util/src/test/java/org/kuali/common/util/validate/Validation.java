@@ -2,6 +2,7 @@ package org.kuali.common.util.validate;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.kuali.common.util.ReflectionUtils.getDeclarationPath;
 import static org.kuali.common.util.base.Exceptions.illegalArgument;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
@@ -95,7 +96,7 @@ public class Validation {
 	}
 
 	public static <T> String getErrorMessage(ConstraintViolation<T> violation) {
-		String classDeclarationPath = ReflectionUtils.getDeclarationPath(violation.getRootBeanClass());
+		String classDeclarationPath = getDeclarationPath(violation.getRootBeanClass());
 		String propertyPath = violation.getPropertyPath() + "";
 		if (isBlank(propertyPath)) {
 			return "[" + classDeclarationPath + " - " + violation.getMessage() + "]";
