@@ -1,6 +1,7 @@
 package org.kuali.common.util.system;
 
-import org.kuali.common.util.build.AwesomeBuilder;
+import static org.kuali.common.util.validate.Validation.checkValidation;
+
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
@@ -20,7 +21,7 @@ public final class Specification {
 		return new Builder();
 	}
 
-	public static class Builder extends AwesomeBuilder<Specification> {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<Specification> {
 
 		private String vendor;
 		private String version;
@@ -42,8 +43,8 @@ public final class Specification {
 		}
 
 		@Override
-		public Specification getInstance() {
-			return new Specification(this);
+		public Specification build() {
+			return checkValidation(new Specification(this));
 		}
 
 		public String getVersion() {
