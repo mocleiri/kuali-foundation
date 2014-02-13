@@ -11,13 +11,15 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.bind.api.Bind;
 
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 
-public class BindKeyFunction implements Function<List<Field>, String> {
+public class BindKeyFunction implements Function<List<Field>, List<String>> {
 
 	public BindKeyFunction(Class<?> type) {
 		this.type = checkNotNull(type, "type");
@@ -31,14 +33,27 @@ public class BindKeyFunction implements Function<List<Field>, String> {
 	private final Class<?> type;
 
 	@Override
-	public String apply(List<Field> fields) {
+	public List<String> apply(List<Field> fields) {
 		checkNotNull(fields, "fields");
 		List<String> strings = newArrayList();
 		addIfPresent(strings, getToken(type));
-		for (Field field : fields) {
+		for (int i = 0; i < fields.size(); i++) {
+			Field field = fields.get(i);
 			addIfPresent(strings, getToken(field));
 		}
-		return joiner.join(strings);
+		List<String> suffixes = newArrayList();
+		Field lastField = fields.get(fields.size() - 1);
+		Optional<Alias> annotation = extractFieldAnnotation(lastField, Alias.class);
+		if (annotation.isPresent()) {
+			suffixes.addAll(ImmutableList.copyOf(annotation.get().value()));
+		}
+		suffixes.add(lastField.getName());
+		List<String> bindKeys = newArrayList();
+		for (String suffix : suffixes) {
+			String bindKey = joiner.join(strings) + "." + suffix;
+			bindKeys.add(bindKey);
+		}
+		return bindKeys;
 	}
 
 	protected void addIfPresent(List<String> strings, Optional<String> optional) {

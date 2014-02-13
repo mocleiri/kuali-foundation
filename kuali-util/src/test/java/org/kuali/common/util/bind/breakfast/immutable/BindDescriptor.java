@@ -1,6 +1,7 @@
 package org.kuali.common.util.bind.breakfast.immutable;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import org.apache.commons.lang3.builder.Builder;
 import org.kuali.common.util.tree.Node;
@@ -8,19 +9,11 @@ import org.kuali.common.util.tree.Node;
 public class BindDescriptor {
 
 	Node<Field> node;
-	String bindKey;
+	List<String> bindKeys;
 	Object bindValue;
 	String instancePropertyName;
 	Object instance;
 	Builder<?> instanceBuilder;
-
-	public String getBindKey() {
-		return bindKey;
-	}
-
-	public void setBindKey(String bindKey) {
-		this.bindKey = bindKey;
-	}
 
 	public Object getBindValue() {
 		return bindValue;
@@ -60,6 +53,14 @@ public class BindDescriptor {
 
 	public void setInstanceBuilder(Builder<?> instanceBuilder) {
 		this.instanceBuilder = instanceBuilder;
+	}
+
+	public List<String> getBindKeys() {
+		return bindKeys;
+	}
+
+	public void setBindKeys(List<String> bindKeys) {
+		this.bindKeys = bindKeys;
 	}
 
 }

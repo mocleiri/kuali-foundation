@@ -27,6 +27,7 @@ import org.springframework.beans.MutablePropertyValues;
 import org.springframework.validation.DataBinder;
 
 import com.google.common.base.Function;
+import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -41,9 +42,7 @@ public class DataBinderTest {
 		try {
 			Class<?> type = Bowl.class;
 			List<Node<Field>> nodes = AnnotatedFieldAssembler.create(type, Bind.class).assemble();
-			Function<List<Field>, String> function = newBindKeyFunction(type);
-			List<MutableNode<BindDescriptor>> bds = getDescriptors(type, nodes, function);
-			List<Node<BindDescriptor>> objectGraphAsNodes = getDescriptors(bds);
+			List<Node<BindDescriptor>> objectGraphAsNodes = buildDescriptors(type, nodes, newBindKeyFunction(type));
 			Map<String, String> objectGraphAsMap = ImmutableMap.of("bowl.milk.type", "lowfat", "bowl.milk.price", "2.29");
 			bindValuesToLeaves(objectGraphAsNodes, objectGraphAsMap);
 			createBuilderInstances(objectGraphAsNodes);
@@ -129,10 +128,13 @@ public class DataBinderTest {
 		List<Node<BindDescriptor>> leaves = Trees.getLeaves(nodes);
 		for (Node<BindDescriptor> leaf : leaves) {
 			BindDescriptor bd = leaf.getElement();
-			String bindKey = bd.getBindKey();
-			Optional<?> value = fromNullable(values.get(bindKey));
-			if (value.isPresent()) {
-				bd.setBindValue(value.get());
+			List<String> bindKeys = bd.getBindKeys();
+			for (String bindKey : bindKeys) {
+				Optional<?> value = fromNullable(values.get(bindKey));
+				if (value.isPresent()) {
+					bd.setBindValue(value.get());
+					break;
+				}
 			}
 		}
 	}
@@ -151,7 +153,7 @@ public class DataBinderTest {
 		public String apply(Node<BindDescriptor> node) {
 			BindDescriptor bd = node.getElement();
 			StringBuilder sb = new StringBuilder();
-			sb.append(bd.getBindKey() + "<br>");
+			sb.append(Joiner.on("<br>").join(bd.getBindKeys()));
 			sb.append(bd.getBindValue() + "<br>");
 			sb.append(bd.getInstancePropertyName() + "<br>");
 			sb.append(bd.getInstanceBuilder() + "<br>");
@@ -160,7 +162,11 @@ public class DataBinderTest {
 		}
 	}
 
-	protected static List<MutableNode<BindDescriptor>> getDescriptors(Class<?> type, List<Node<Field>> nodes, Function<List<Field>, String> function) {
+	protected List<Node<BindDescriptor>> buildDescriptors(Class<?> type, List<Node<Field>> nodes, Function<List<Field>, List<String>> function) {
+		return getDescriptors(getDescriptors(type, nodes, function));
+	}
+
+	protected static List<MutableNode<BindDescriptor>> getDescriptors(Class<?> type, List<Node<Field>> nodes, Function<List<Field>, List<String>> function) {
 		List<MutableNode<BindDescriptor>> newNodes = newArrayList();
 		for (Node<Field> node : nodes) {
 			Field field = node.getElement();
@@ -168,8 +174,8 @@ public class DataBinderTest {
 			bd.setNode(node);
 			if (node.isLeaf()) {
 				List<Field> fields = node.getElementPath();
-				String bindKey = function.apply(fields);
-				bd.setBindKey(bindKey);
+				List<String> bindKeys = function.apply(fields);
+				bd.setBindKeys(bindKeys);
 			}
 			bd.setInstancePropertyName(field.getName());
 			MutableNode<BindDescriptor> newNode = new MutableNode<BindDescriptor>(bd);
