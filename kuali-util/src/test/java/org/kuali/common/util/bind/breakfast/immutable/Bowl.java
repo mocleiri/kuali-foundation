@@ -2,11 +2,13 @@ package org.kuali.common.util.bind.breakfast.immutable;
 
 import static org.kuali.common.util.validate.Validation.checkValidation;
 
+import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
 public final class Bowl {
 
+	@Bind
 	private final Milk milk;
 
 	private Bowl(Builder builder) {
