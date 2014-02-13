@@ -1,5 +1,6 @@
 package org.kuali.common.util.system;
 
+import static org.kuali.common.util.bind.api.Bind.ABSENT;
 import static org.kuali.common.util.validate.Validation.checkValidation;
 
 import java.io.File;
@@ -35,7 +36,7 @@ public final class Java {
 	@Alias("ext.dirs")
 	private final ImmutableList<String> extensionDirectories;
 
-	@Bind(Bind.ABSENT)
+	@Bind(ABSENT)
 	private final RuntimeEnvironment runtimeEnvironment;
 
 	@Bind(value = "vm")
