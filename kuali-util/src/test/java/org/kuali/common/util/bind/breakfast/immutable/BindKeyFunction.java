@@ -34,17 +34,17 @@ public class BindKeyFunction implements Function<List<Field>, String> {
 	public String apply(List<Field> fields) {
 		checkNotNull(fields, "fields");
 		List<String> strings = newArrayList();
-		Optional<String> fragment = getToken(type);
-		if (fragment.isPresent()) {
-			strings.add(fragment.get());
-		}
+		addIfPresent(strings, getToken(type));
 		for (Field field : fields) {
-			Optional<String> token = getToken(field);
-			if (token.isPresent()) {
-				strings.add(token.get());
-			}
+			addIfPresent(strings, getToken(field));
 		}
 		return joiner.join(strings);
+	}
+
+	protected void addIfPresent(List<String> strings, Optional<String> optional) {
+		if (optional.isPresent()) {
+			strings.add(optional.get());
+		}
 	}
 
 	protected Optional<String> getToken(Class<?> type) {
