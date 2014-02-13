@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 
 import org.apache.commons.lang3.builder.Builder;
 
-public class BindingDescriptor<T extends Builder<T>> {
+public class BindDescriptor<T extends Builder<T>> {
 
 	Field field;
 	T instance;
