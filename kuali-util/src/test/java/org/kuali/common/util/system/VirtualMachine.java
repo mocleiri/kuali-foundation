@@ -1,7 +1,8 @@
 package org.kuali.common.util.system;
 
+import static org.kuali.common.util.validate.Validation.checkValidation;
+
 import org.kuali.common.util.bind.api.Bind;
-import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
@@ -21,7 +22,7 @@ public final class VirtualMachine {
 		this.version = builder.version;
 	}
 
-	public static class Builder extends AwesomeBuilder<VirtualMachine> {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<VirtualMachine> {
 
 		private Specification specification;
 		private String name;
@@ -49,8 +50,8 @@ public final class VirtualMachine {
 		}
 
 		@Override
-		public VirtualMachine getInstance() {
-			return new VirtualMachine(this);
+		public VirtualMachine build() {
+			return checkValidation(new VirtualMachine(this));
 		}
 
 		public Specification getSpecification() {
