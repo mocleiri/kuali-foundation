@@ -18,17 +18,17 @@ public class DataBinderTest {
 			Map<String, Object> milkMap = newHashMap();
 			milkMap.put("type", "lowfat");
 			milkMap.put("price", "2.29");
-			Milk milk = getInstance(Milk.Builder.class, milkMap);
+			Milk milk = build(Milk.Builder.class, milkMap);
 			Map<String, Object> bowlMap = newHashMap();
 			bowlMap.put("milk", milk);
-			Bowl bowl = getInstance(Bowl.Builder.class, bowlMap);
+			Bowl bowl = build(Bowl.Builder.class, bowlMap);
 			System.out.println("milk.type=" + bowl.getMilk().getType());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected static <T> T getInstance(Class<? extends Builder<T>> type, Map<String, Object> map) {
+	protected static <T> T build(Class<? extends Builder<T>> type, Map<String, Object> map) {
 		MutablePropertyValues values = new MutablePropertyValues(map);
 		Builder<T> builder = newInstance(type);
 		DataBinder binder = new DataBinder(builder);
