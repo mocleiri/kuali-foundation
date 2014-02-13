@@ -35,6 +35,14 @@ public class Trees {
 		return Lists.transform(breadthFirst(node), new NodeElementFunction<T>());
 	}
 
+	public static <T> List<Node<T>> breadthFirst(List<Node<T>> nodes) {
+		List<Node<T>> list = newArrayList();
+		for (Node<T> node : nodes) {
+			list.addAll(breadthFirst(node));
+		}
+		return list;
+	}
+
 	public static <T> List<Node<T>> breadthFirst(Node<T> node) {
 		NodeTraverser<T> nt = NodeTraverser.create();
 		Iterable<Node<T>> itr = nt.breadthFirstTraversal(node);
