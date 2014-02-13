@@ -10,7 +10,7 @@ import com.google.common.base.Function;
 
 public class FieldNameFunction implements Function<Node<Field>, String> {
 
-	public static FieldNameFunction make() {
+	public static FieldNameFunction newFieldNameFunction() {
 		return new FieldNameFunction();
 	}
 
