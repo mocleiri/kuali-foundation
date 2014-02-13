@@ -24,15 +24,11 @@ import com.google.common.collect.ImmutableList;
 
 public class Validation {
 
-	private static ValidatorFactory factory;
-	private static Validator validator;
+	private static ValidatorFactory FACTORY = javax.validation.Validation.buildDefaultValidatorFactory();
+	private static Validator VALIDATOR = FACTORY.getValidator();
 
-	public synchronized static Validator getDefaultValidator() {
-		if (factory == null) {
-			factory = javax.validation.Validation.buildDefaultValidatorFactory();
-			validator = factory.getValidator();
-		}
-		return validator;
+	public static Validator getDefaultValidator() {
+		return VALIDATOR;
 	}
 
 	public static List<Annotation> getConstraints(Field field) {
@@ -68,12 +64,13 @@ public class Validation {
 
 	public static <T> T checkValidation(Validator validator, T instance) {
 		checkNotNull(instance, "instance");
+		checkNotNull(validator, "validator");
 		checkViolations(validator.validate(instance));
 		return instance;
 	}
 
 	public static <T> T checkValidation(T instance) {
-		return checkValidation(getDefaultValidator(), instance);
+		return checkValidation(VALIDATOR, instance);
 	}
 
 	public static <T> void checkViolations(Set<ConstraintViolation<T>> violations) {
