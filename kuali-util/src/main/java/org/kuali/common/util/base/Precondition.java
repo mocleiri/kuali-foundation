@@ -22,6 +22,7 @@ public class Precondition {
 	private static final String NOT_NULL_MSG = "'%s' cannot be null";
 	private static final String NOT_BLANK_MSG = "'%s' cannot be blank";
 	private static final String MIN_MSG = "%s not allowed. '%s' must be greater than or equal to %s";
+	private static final String ARG_NAME ="argName";
 
 	/**
 	 * Ensures that an object reference passed as an argument is not null
@@ -39,7 +40,7 @@ public class Precondition {
 	 *             If argName is blank
 	 */
 	public static <T> T checkNotNull(T arg, String argName) {
-		checkNotBlank(argName, "argName");
+		checkNotBlank(argName, ARG_NAME);
 		return Preconditions.checkNotNull(arg, NOT_NULL_MSG, argName);
 	}
 
@@ -59,7 +60,7 @@ public class Precondition {
 	 *             If argName is blank
 	 */
 	public static String checkNotBlank(String arg, String argName) {
-		checkArgument(!isBlank(argName), NOT_BLANK_MSG, "argName");
+		checkArgument(!isBlank(argName), NOT_BLANK_MSG, ARG_NAME);
 		checkArgument(!isBlank(arg), NOT_BLANK_MSG, argName);
 		return arg;
 	}
@@ -110,7 +111,7 @@ public class Precondition {
 	 * Check that arg is greater than or equal to min.
 	 */
 	public static int checkMin(int arg, int min, String argName) {
-		checkNotBlank(argName, "argName");
+		checkNotBlank(argName, ARG_NAME);
 		checkArgument(arg >= min, MIN_MSG, arg, min, argName);
 		return arg;
 	}
@@ -119,7 +120,7 @@ public class Precondition {
 	 * Check that arg is greater than or equal to min.
 	 */
 	public static long checkMin(long arg, long min, String argName) {
-		checkNotBlank(argName, "argName");
+		checkNotBlank(argName, ARG_NAME);
 		checkArgument(arg >= min, MIN_MSG, arg, min, argName);
 		return arg;
 	}
