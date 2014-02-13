@@ -2,29 +2,21 @@ package org.kuali.common.util.bind.breakfast.immutable;
 
 import java.lang.reflect.Field;
 
-import org.apache.commons.lang3.builder.Builder;
+import org.kuali.common.util.tree.Node;
 
-public class BindDescriptor<T extends Builder<T>> {
+public class BindDescriptor {
 
-	Field field;
-	T instance;
+	Node<Field> node;
+	Object instance;
 	String bindKey;
 	Object bindValue;
 	String instancePropertyName;
 
-	public Field getField() {
-		return field;
-	}
-
-	public void setField(Field field) {
-		this.field = field;
-	}
-
-	public T getInstance() {
+	public Object getInstance() {
 		return instance;
 	}
 
-	public void setInstance(T instance) {
+	public void setInstance(Object instance) {
 		this.instance = instance;
 	}
 
@@ -50,6 +42,14 @@ public class BindDescriptor<T extends Builder<T>> {
 
 	public void setInstancePropertyName(String instancePropertyName) {
 		this.instancePropertyName = instancePropertyName;
+	}
+
+	public Node<Field> getNode() {
+		return node;
+	}
+
+	public void setNode(Node<Field> node) {
+		this.node = node;
 	}
 
 }
