@@ -10,13 +10,12 @@ import org.kuali.common.util.validate.Validation;
 
 public abstract class ValidatingBuilder<T> implements Builder<T> {
 
-	private Validator validator = Validation.getDefaultValidator();
+	protected Validator validator = Validation.getDefaultValidator();
 
 	protected abstract T newInstance();
 
 	@Override
 	public final T build() {
-		checkNotNull(validator, "validator");
 		return checkValidation(validator, newInstance());
 	}
 
@@ -25,6 +24,7 @@ public abstract class ValidatingBuilder<T> implements Builder<T> {
 	}
 
 	public void setValidator(Validator validator) {
+		checkNotNull(validator, "validator");
 		this.validator = validator;
 	}
 
