@@ -8,19 +8,11 @@ import org.kuali.common.util.tree.Node;
 public class BindDescriptor {
 
 	Node<Field> node;
-	Builder<?> builder;
-	Object instance;
 	String bindKey;
 	Object bindValue;
 	String instancePropertyName;
-
-	public Builder<?> getBuilder() {
-		return builder;
-	}
-
-	public void setBuilder(Builder<?> builder) {
-		this.builder = builder;
-	}
+	Object instance;
+	Builder<?> instanceBuilder;
 
 	public String getBindKey() {
 		return bindKey;
@@ -60,6 +52,14 @@ public class BindDescriptor {
 
 	public void setInstance(Object instance) {
 		this.instance = instance;
+	}
+
+	public Builder<?> getInstanceBuilder() {
+		return instanceBuilder;
+	}
+
+	public void setInstanceBuilder(Builder<?> instanceBuilder) {
+		this.instanceBuilder = instanceBuilder;
 	}
 
 }

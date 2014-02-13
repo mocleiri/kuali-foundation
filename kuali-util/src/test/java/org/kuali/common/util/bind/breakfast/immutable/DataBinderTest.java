@@ -77,13 +77,13 @@ public class DataBinderTest {
 			for (Node<BindDescriptor> child : children) {
 				BindDescriptor bd = child.getElement();
 				if (!child.isLeaf()) {
-					Builder<?> builder = bd.getBuilder();
+					Builder<?> builder = bd.getInstanceBuilder();
 					Object instance = builder.build();
 					bd.setInstance(instance);
 				}
 			}
 			BindDescriptor bd = node.getElement();
-			Builder<?> builder = bd.getBuilder();
+			Builder<?> builder = bd.getInstanceBuilder();
 			Object instance = builder.build();
 			bd.setInstance(instance);
 		}
@@ -103,7 +103,7 @@ public class DataBinderTest {
 				}
 			}
 			MutablePropertyValues mpvs = new MutablePropertyValues(values);
-			Builder<?> builder = node.getElement().getBuilder();
+			Builder<?> builder = node.getElement().getInstanceBuilder();
 			DataBinder binder = new DataBinder(builder);
 			binder.bind(mpvs);
 			bindLeavesToParents(subNodes);
@@ -117,9 +117,9 @@ public class DataBinderTest {
 			for (int i = 0; i < path.size() - 1; i++) {
 				Node<BindDescriptor> ancestor = path.get(i);
 				BindDescriptor bd = ancestor.getElement();
-				if (bd.getBuilder() == null) {
+				if (bd.getInstanceBuilder() == null) {
 					Builder<?> builder = createBuilder(ancestor);
-					bd.setBuilder(builder);
+					bd.setInstanceBuilder(builder);
 				}
 			}
 		}
@@ -154,7 +154,7 @@ public class DataBinderTest {
 			sb.append(bd.getBindKey() + "<br>");
 			sb.append(bd.getBindValue() + "<br>");
 			sb.append(bd.getInstancePropertyName() + "<br>");
-			sb.append(bd.getBuilder() + "<br>");
+			sb.append(bd.getInstanceBuilder() + "<br>");
 			sb.append(bd.getInstance() + "<br>");
 			return sb.toString();
 		}
