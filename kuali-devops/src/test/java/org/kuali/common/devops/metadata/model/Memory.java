@@ -1,6 +1,6 @@
 package org.kuali.common.devops.metadata.model;
 
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import javax.validation.constraints.Min;
 
@@ -63,7 +63,7 @@ public final class Memory {
 
 		@Override
 		public Memory build() {
-			return checkValidation(validator, new Memory(this));
+			return checkConstraints(validator, new Memory(this));
 		}
 
 	}

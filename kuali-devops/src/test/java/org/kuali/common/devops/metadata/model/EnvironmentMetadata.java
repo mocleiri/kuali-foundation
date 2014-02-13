@@ -1,6 +1,6 @@
 package org.kuali.common.devops.metadata.model;
 
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.util.Properties;
 
@@ -92,7 +92,7 @@ public final class EnvironmentMetadata {
 
 		@Override
 		public EnvironmentMetadata build() {
-			return checkValidation(validator, new EnvironmentMetadata(this));
+			return checkConstraints(validator, new EnvironmentMetadata(this));
 		}
 
 		public MetadataUrl<Optional<String>> getTomcatVersion() {

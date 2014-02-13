@@ -1,6 +1,6 @@
 package org.kuali.common.devops.table;
 
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -75,7 +75,7 @@ public final class TableContext {
 
 		@Override
 		public TableContext build() {
-			return checkValidation(new TableContext(this));
+			return checkConstraints(new TableContext(this));
 		}
 
 	}

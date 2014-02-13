@@ -1,6 +1,6 @@
 package org.kuali.common.devops.model.metadata;
 
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -61,7 +61,7 @@ public final class EnvironmentMetadataUrls {
 
 		@Override
 		public EnvironmentMetadataUrls build() {
-			return checkValidation(new EnvironmentMetadataUrls(this));
+			return checkConstraints(new EnvironmentMetadataUrls(this));
 		}
 
 		public Builder fqdn(String fqdn) {

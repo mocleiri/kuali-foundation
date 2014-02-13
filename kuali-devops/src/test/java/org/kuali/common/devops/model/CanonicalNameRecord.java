@@ -1,6 +1,6 @@
 package org.kuali.common.devops.model;
 
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import org.kuali.common.util.ObjectUtils;
 import org.kuali.common.util.build.ValidatingBuilder;
@@ -28,7 +28,7 @@ public final class CanonicalNameRecord {
 
 		@Override
 		public CanonicalNameRecord build() {
-			return checkValidation(new CanonicalNameRecord(this));
+			return checkConstraints(new CanonicalNameRecord(this));
 		}
 
 		public Builder alias(String alias) {

@@ -1,7 +1,7 @@
 package org.kuali.common.devops.cache;
 
 import static org.kuali.common.util.base.Precondition.checkNotNull;
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.io.File;
 
@@ -99,7 +99,7 @@ public final class FileSystemCache<K, V> extends CacheLoader<K, V> {
 
 		@Override
 		public FileSystemCache<K, V> build() {
-			return checkValidation(validator, new FileSystemCache<K, V>(this));
+			return checkConstraints(validator, new FileSystemCache<K, V>(this));
 		}
 
 		public PersistentCache<File, V> getFileCache() {

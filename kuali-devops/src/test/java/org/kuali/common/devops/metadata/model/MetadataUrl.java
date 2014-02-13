@@ -1,6 +1,6 @@
 package org.kuali.common.devops.metadata.model;
 
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -56,7 +56,7 @@ public final class MetadataUrl<T> {
 
 		@Override
 		public MetadataUrl<T> build() {
-			return checkValidation(validator, new MetadataUrl<T>(this));
+			return checkConstraints(validator, new MetadataUrl<T>(this));
 		}
 
 	}

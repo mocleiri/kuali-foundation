@@ -1,6 +1,6 @@
 package org.kuali.common.devops.model;
 
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -41,7 +41,7 @@ public final class Scm {
 
 		@Override
 		public Scm build() {
-			return checkValidation(validator, new Scm(this));
+			return checkConstraints(validator, new Scm(this));
 		}
 
 		public String getUrl() {

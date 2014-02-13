@@ -1,7 +1,7 @@
 package org.kuali.common.devops.cache.function;
 
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.io.File;
 import java.util.List;
@@ -96,7 +96,7 @@ public final class UrlToFileFunction implements Function<String, File> {
 
 		@Override
 		public UrlToFileFunction build() {
-			return checkValidation(validator, new UrlToFileFunction(this));
+			return checkConstraints(validator, new UrlToFileFunction(this));
 		}
 
 		public File getBasedir() {

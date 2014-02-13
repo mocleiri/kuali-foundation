@@ -2,7 +2,7 @@ package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Stopwatch.createStarted;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -66,7 +66,7 @@ public final class BuilderFillerCallable implements Callable<Long> {
 
 		@Override
 		public BuilderFillerCallable build() {
-			return checkValidation(validator, new BuilderFillerCallable(this));
+			return checkConstraints(validator, new BuilderFillerCallable(this));
 		}
 
 		public List<Environment.Builder> getBuilders() {

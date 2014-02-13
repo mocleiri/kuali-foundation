@@ -1,6 +1,6 @@
 package org.kuali.common.devops.model;
 
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.util.Properties;
 
@@ -80,7 +80,7 @@ public final class Application {
 
 		@Override
 		public Application build() {
-			return checkValidation(new Application(this));
+			return checkConstraints(new Application(this));
 		}
 
 		public Project getProject() {

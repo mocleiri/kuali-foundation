@@ -1,6 +1,6 @@
 package org.kuali.common.devops.table;
 
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import org.kuali.common.util.ObjectUtils;
 import org.kuali.common.util.build.ValidatingBuilder;
@@ -42,7 +42,7 @@ public final class Label implements Comparable<Label> {
 
 		@Override
 		public Label build() {
-			return checkValidation(new Label(this));
+			return checkConstraints(new Label(this));
 		}
 
 		public int getSequence() {

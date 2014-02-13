@@ -1,6 +1,6 @@
 package org.kuali.common.devops.model;
 
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.io.File;
 
@@ -49,7 +49,7 @@ public final class FileCache {
 
 		@Override
 		public FileCache build() {
-			return checkValidation(validator, new FileCache(this));
+			return checkConstraints(validator, new FileCache(this));
 		}
 
 		public String getUrl() {
