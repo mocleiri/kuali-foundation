@@ -2,7 +2,7 @@ package org.kuali.common.util.system;
 
 import java.io.File;
 
-import org.kuali.common.util.bind.api.Aliases;
+import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -11,7 +11,7 @@ public final class User {
 
 	private final String name;
 	private final File home;
-	@Aliases(value = "directory")
+	@Alias(value = "directory")
 	private final File dir;
 
 	private User(Builder builder) {

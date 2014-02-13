@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import org.kuali.common.util.bind.api.Bind;
-import org.kuali.common.util.bind.api.Aliases;
+import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.bind.api.BindingPrefix;
 import org.kuali.common.util.bind.api.NoBindingPrefix;
 import org.kuali.common.util.build.AwesomeBuilder;
@@ -18,22 +18,22 @@ public final class Java {
 
 	private final File home;
 
-	@Aliases("io.tmpdir")
+	@Alias("io.tmpdir")
 	private final File temporaryDirectory;
 
-	@Aliases("compiler")
+	@Alias("compiler")
 	private final Optional<String> jitCompiler;
 
-	@Aliases("class.version")
+	@Alias("class.version")
 	private final String classVersion;
 
-	@Aliases("class.path")
+	@Alias("class.path")
 	private final ImmutableList<String> classPath;
 
-	@Aliases("library.path")
+	@Alias("library.path")
 	private final ImmutableList<String> libraryPaths;
 
-	@Aliases("ext.dirs")
+	@Alias("ext.dirs")
 	private final ImmutableList<String> extensionDirectories;
 
 	@Bind

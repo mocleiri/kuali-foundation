@@ -9,7 +9,7 @@ import java.util.SortedSet;
 
 import org.kuali.common.util.Annotations;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.bind.api.Aliases;
+import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.function.PrefixFunction;
 
@@ -80,11 +80,11 @@ public class BindKeys {
 	}
 
 	protected static List<String> getKeys(Field field) {
-		Optional<Aliases> optional = Annotations.get(field, Aliases.class);
+		Optional<Alias> optional = Annotations.get(field, Alias.class);
 		if (!optional.isPresent()) {
 			return ImmutableList.of(field.getName());
 		} else {
-			Aliases annotation = optional.get();
+			Alias annotation = optional.get();
 			List<String> keys = newArrayList();
 			keys.addAll(ImmutableList.copyOf(annotation.value()));
 			keys.add(field.getName());

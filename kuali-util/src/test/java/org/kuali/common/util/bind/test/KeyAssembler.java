@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.kuali.common.util.Annotations;
-import org.kuali.common.util.bind.api.Aliases;
+import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.bind.model.BoundTypeDescriptor;
 import org.kuali.common.util.tree.Node;
 import org.kuali.common.util.tree.Trees;
@@ -57,7 +57,7 @@ public final class KeyAssembler implements Assembler<Set<String>> {
 
 	protected List<String> getLeafTokens(Node<Field> node) {
 		Field field = node.getElement();
-		Optional<Aliases> annotation = Annotations.get(node.getElement(), Aliases.class);
+		Optional<Alias> annotation = Annotations.get(node.getElement(), Alias.class);
 		if (!annotation.isPresent()) {
 			return ImmutableList.of(field.getName());
 		}
