@@ -2,6 +2,9 @@ package org.kuali.common.util.bind.breakfast.immutable;
 
 import static org.kuali.common.util.validate.Validation.checkValidation;
 
+import org.kuali.common.util.validate.IdiotProofImmutable;
+
+@IdiotProofImmutable
 public final class Milk {
 
 	private final double price;
@@ -30,6 +33,22 @@ public final class Milk {
 		@Override
 		public Milk build() {
 			return checkValidation(new Milk(this));
+		}
+
+		public double getPrice() {
+			return price;
+		}
+
+		public void setPrice(double price) {
+			this.price = price;
+		}
+
+		public String getType() {
+			return type;
+		}
+
+		public void setType(String type) {
+			this.type = type;
 		}
 
 	}

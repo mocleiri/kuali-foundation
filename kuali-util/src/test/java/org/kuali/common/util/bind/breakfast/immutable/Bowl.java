@@ -27,6 +27,14 @@ public final class Bowl {
 			return checkValidation(new Bowl(this));
 		}
 
+		public Milk getMilk() {
+			return milk;
+		}
+
+		public void setMilk(Milk milk) {
+			this.milk = milk;
+		}
+
 	}
 
 	public Milk getMilk() {

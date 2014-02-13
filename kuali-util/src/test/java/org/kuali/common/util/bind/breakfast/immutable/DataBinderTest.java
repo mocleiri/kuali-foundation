@@ -17,10 +17,12 @@ public class DataBinderTest {
 			original.put("milk.type", "lowfat");
 			original.put("milk.price", "2.29");
 			MutablePropertyValues mpvs = new MutablePropertyValues(original);
-			Bowl.Builder builder = new Bowl.Builder();
-			DataBinder binder = new DataBinder(builder);
+			Milk.Builder mb = new Milk.Builder();
+			DataBinder binder = new DataBinder(mb);
 			binder.bind(mpvs);
-			Bowl bowl = builder.build();
+			Milk milk = mb.build();
+			Bowl.Builder bb = new Bowl.Builder();
+			Bowl bowl = bb.milk(milk).build();
 			System.out.println("milk.type=" + bowl.getMilk().getType());
 		} catch (Exception e) {
 			e.printStackTrace();
