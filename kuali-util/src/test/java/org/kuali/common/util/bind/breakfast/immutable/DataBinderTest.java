@@ -13,16 +13,21 @@ public class DataBinderTest {
 	@Test
 	public void test() {
 		try {
-			Map<String, String> original = newHashMap();
-			original.put("type", "lowfat");
-			original.put("price", "2.29");
-			MutablePropertyValues mpvs = new MutablePropertyValues(original);
-			Milk.Builder mb = new Milk.Builder();
-			DataBinder binder = new DataBinder(mb);
-			binder.bind(mpvs);
-			Milk milk = mb.build();
-			Bowl.Builder bb = new Bowl.Builder();
-			Bowl bowl = bb.milk(milk).build();
+			Map<String, Object> milkMap = newHashMap();
+			milkMap.put("type", "lowfat");
+			milkMap.put("price", "2.29");
+			MutablePropertyValues milkValues = new MutablePropertyValues(milkMap);
+			Milk.Builder milkBuilder = new Milk.Builder();
+			DataBinder milkBinder = new DataBinder(milkBuilder);
+			milkBinder.bind(milkValues);
+			Milk milk = milkBuilder.build();
+			Map<String, Object> bowlMap = newHashMap();
+			bowlMap.put("milk", milk);
+			MutablePropertyValues bowlValues = new MutablePropertyValues(milkMap);
+			Bowl.Builder bowlBuilder = new Bowl.Builder();
+			DataBinder bowlBinder = new DataBinder(bowlBuilder);
+			bowlBinder.bind(bowlValues);
+			Bowl bowl = bowlBuilder.build();
 			System.out.println("milk.type=" + bowl.getMilk().getType());
 		} catch (Exception e) {
 			e.printStackTrace();
