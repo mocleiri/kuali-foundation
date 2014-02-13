@@ -1,6 +1,6 @@
 package org.kuali.common.util.function;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.lang.reflect.Field;
 
@@ -14,7 +14,7 @@ public class FieldNameFunction implements Function<Field, String> {
 
 	@Override
 	public String apply(Field field) {
-		checkNotNull(field, "'field' cannot be null'");
+		checkNotNull(field, "field");
 		return field.getName();
 	}
 
