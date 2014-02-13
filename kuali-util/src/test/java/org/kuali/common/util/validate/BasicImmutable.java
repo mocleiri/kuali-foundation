@@ -20,7 +20,7 @@ import javax.validation.Payload;
 @Documented
 public @interface BasicImmutable {
 
-	String message() default "idiot proofing failed";
+	String message() default "basic immutable checks failed";
 
 	Class<?>[] groups() default {};
 
