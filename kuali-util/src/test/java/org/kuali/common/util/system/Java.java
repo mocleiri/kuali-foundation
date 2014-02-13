@@ -37,7 +37,7 @@ public final class Java {
 	@Bind
 	private final RuntimeEnvironment runtimeEnvironment;
 
-	@Bind(prefix = "vm")
+	@Bind(value = "vm")
 	private final VirtualMachine virtualMachine;
 
 	private Java(Builder builder) {

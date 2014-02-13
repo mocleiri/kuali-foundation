@@ -12,10 +12,10 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Documented
 public @interface Bind {
-	
-	public static final String ABSENT = "${prefix.absent}";
-	public static final String DEFAULT = "${prefix.default}";
 
-	String prefix() default DEFAULT;
+	public static final String ABSENT = "${bind.absent}";
+	public static final String DEFAULT = "${bind.default}";
+
+	String value() default DEFAULT;
 
 }
