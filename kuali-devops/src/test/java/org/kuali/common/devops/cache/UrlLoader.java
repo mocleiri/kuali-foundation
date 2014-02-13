@@ -1,6 +1,7 @@
 package org.kuali.common.devops.cache;
 
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
+import static org.kuali.common.util.validate.Validation.checkValidation;
 
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.http.model.HttpRequestResult;
@@ -68,8 +69,8 @@ public final class UrlLoader extends CacheLoader<String, HttpRequestResult> {
 		}
 
 		@Override
-		public UrlLoader getInstance() {
-			return new UrlLoader(this);
+		public UrlLoader build() {
+			return checkValidation(validator, new UrlLoader(this));
 		}
 
 		public HttpContext getContext() {

@@ -1,5 +1,7 @@
 package org.kuali.common.devops.model;
 
+import static org.kuali.common.util.validate.Validation.checkValidation;
+
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -42,8 +44,8 @@ public final class Database {
 		}
 
 		@Override
-		public Database getInstance() {
-			return new Database(this);
+		public Database build() {
+			return checkValidation(validator, new Database(this));
 		}
 
 		public String getVendor() {

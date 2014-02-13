@@ -1,5 +1,7 @@
 package org.kuali.common.devops.model;
 
+import static org.kuali.common.util.validate.Validation.checkValidation;
+
 import org.kuali.common.util.ObjectUtils;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -25,8 +27,8 @@ public final class CanonicalNameRecord {
 		private String canonical;
 
 		@Override
-		public CanonicalNameRecord getInstance() {
-			return new CanonicalNameRecord(this);
+		public CanonicalNameRecord build() {
+			return checkValidation(new CanonicalNameRecord(this));
 		}
 
 		public Builder alias(String alias) {

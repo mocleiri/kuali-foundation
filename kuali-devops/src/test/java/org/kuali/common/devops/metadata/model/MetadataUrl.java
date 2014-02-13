@@ -1,5 +1,7 @@
 package org.kuali.common.devops.metadata.model;
 
+import static org.kuali.common.util.validate.Validation.checkValidation;
+
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -29,7 +31,7 @@ public final class MetadataUrl<T> {
 
 		private String url;
 		private Optional<String> content;
-		private Function<String,T> converter;
+		private Function<String, T> converter;
 		private Optional<T> metadata;
 
 		public Builder<T> metadata(Optional<T> metadata) {
@@ -53,8 +55,8 @@ public final class MetadataUrl<T> {
 		}
 
 		@Override
-		public MetadataUrl<T> getInstance() {
-			return new MetadataUrl<T>(this);
+		public MetadataUrl<T> build() {
+			return checkValidation(validator, new MetadataUrl<T>(this));
 		}
 
 	}

@@ -1,6 +1,7 @@
 package org.kuali.common.devops.metadata.model;
 
 import static com.google.common.base.Optional.absent;
+import static org.kuali.common.util.validate.Validation.checkValidation;
 
 import java.util.List;
 
@@ -111,8 +112,8 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 		}
 
 		@Override
-		public EC2Instance getInstance() {
-			return new EC2Instance(this);
+		public EC2Instance build() {
+			return checkValidation(validator, new EC2Instance(this));
 		}
 
 		public Optional<String> getName() {

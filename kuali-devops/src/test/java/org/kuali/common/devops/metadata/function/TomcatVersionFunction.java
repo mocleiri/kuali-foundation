@@ -3,6 +3,7 @@ package org.kuali.common.devops.metadata.function;
 import static com.google.common.base.Optional.fromNullable;
 import static org.apache.commons.lang.StringUtils.substringBetween;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
+import static org.kuali.common.util.validate.Validation.checkValidation;
 
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -51,8 +52,8 @@ public final class TomcatVersionFunction implements Function<String, Optional<St
 		}
 
 		@Override
-		public TomcatVersionFunction getInstance() {
-			return new TomcatVersionFunction(this);
+		public TomcatVersionFunction build() {
+			return checkValidation(validator, new TomcatVersionFunction(this));
 		}
 
 		public String getOpen() {

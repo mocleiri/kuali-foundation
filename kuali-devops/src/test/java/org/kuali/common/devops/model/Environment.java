@@ -1,6 +1,7 @@
 package org.kuali.common.devops.model;
 
 import static com.google.common.base.Optional.absent;
+import static org.kuali.common.util.validate.Validation.checkValidation;
 
 import java.util.Comparator;
 
@@ -118,8 +119,8 @@ public final class Environment implements Comparable<Environment> {
 		}
 
 		@Override
-		public Environment getInstance() {
-			return new Environment(this);
+		public Environment build() {
+			return checkValidation(validator, new Environment(this));
 		}
 
 		public String getName() {

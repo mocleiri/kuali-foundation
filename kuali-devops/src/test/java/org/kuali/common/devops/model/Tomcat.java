@@ -1,5 +1,7 @@
 package org.kuali.common.devops.model;
 
+import static org.kuali.common.util.validate.Validation.checkValidation;
+
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -44,8 +46,8 @@ public final class Tomcat {
 		}
 
 		@Override
-		public Tomcat getInstance() {
-			return new Tomcat(this);
+		public Tomcat build() {
+			return checkValidation(validator, new Tomcat(this));
 		}
 
 		public String getVersion() {

@@ -1,5 +1,7 @@
 package org.kuali.common.devops.metadata.model;
 
+import static org.kuali.common.util.validate.Validation.checkValidation;
+
 import javax.validation.constraints.Min;
 
 import org.kuali.common.util.build.ValidatingBuilder;
@@ -11,13 +13,13 @@ public final class Memory {
 
 	@Min(0)
 	private final long used;
-	
+
 	@Min(0)
 	private final long free;
-	
+
 	@Min(0)
 	private final long allocated;
-	
+
 	@Min(0)
 	private final long max;
 
@@ -60,8 +62,8 @@ public final class Memory {
 		}
 
 		@Override
-		public Memory getInstance() {
-			return new Memory(this);
+		public Memory build() {
+			return checkValidation(validator, new Memory(this));
 		}
 
 	}

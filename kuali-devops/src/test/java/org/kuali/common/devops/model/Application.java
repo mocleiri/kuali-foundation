@@ -1,5 +1,7 @@
 package org.kuali.common.devops.model;
 
+import static org.kuali.common.util.validate.Validation.checkValidation;
+
 import java.util.Properties;
 
 import org.kuali.common.util.build.ValidatingBuilder;
@@ -77,8 +79,8 @@ public final class Application {
 		}
 
 		@Override
-		public Application getInstance() {
-			return new Application(this);
+		public Application build() {
+			return checkValidation(new Application(this));
 		}
 
 		public Project getProject() {

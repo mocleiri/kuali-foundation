@@ -1,5 +1,7 @@
 package org.kuali.common.devops.table;
 
+import static org.kuali.common.util.validate.Validation.checkValidation;
+
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -72,8 +74,8 @@ public final class TableContext {
 		}
 
 		@Override
-		public TableContext getInstance() {
-			return new TableContext(this);
+		public TableContext build() {
+			return checkValidation(new TableContext(this));
 		}
 
 	}

@@ -1,5 +1,7 @@
 package org.kuali.common.devops.metadata.model;
 
+import static org.kuali.common.util.validate.Validation.checkValidation;
+
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -43,8 +45,8 @@ public final class EC2Tag implements Comparable<EC2Tag> {
 		}
 
 		@Override
-		public EC2Tag getInstance() {
-			return new EC2Tag(this);
+		public EC2Tag build() {
+			return checkValidation(validator, new EC2Tag(this));
 		}
 
 		public String getKey() {

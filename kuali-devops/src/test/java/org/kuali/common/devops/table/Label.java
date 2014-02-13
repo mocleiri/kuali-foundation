@@ -1,5 +1,7 @@
 package org.kuali.common.devops.table;
 
+import static org.kuali.common.util.validate.Validation.checkValidation;
+
 import org.kuali.common.util.ObjectUtils;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -39,8 +41,8 @@ public final class Label implements Comparable<Label> {
 		}
 
 		@Override
-		public Label getInstance() {
-			return new Label(this);
+		public Label build() {
+			return checkValidation(new Label(this));
 		}
 
 		public int getSequence() {

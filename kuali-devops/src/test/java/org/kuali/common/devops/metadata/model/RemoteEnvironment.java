@@ -1,5 +1,7 @@
 package org.kuali.common.devops.metadata.model;
 
+import static org.kuali.common.util.validate.Validation.checkValidation;
+
 import java.util.Properties;
 
 import org.kuali.common.util.build.ValidatingBuilder;
@@ -63,8 +65,8 @@ public final class RemoteEnvironment {
 		}
 
 		@Override
-		public RemoteEnvironment getInstance() {
-			return new RemoteEnvironment(this);
+		public RemoteEnvironment build() {
+			return checkValidation(validator, new RemoteEnvironment(this));
 		}
 	}
 
