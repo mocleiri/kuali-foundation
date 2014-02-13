@@ -1,6 +1,6 @@
 package org.kuali.common.util.system;
 
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.io.File;
 
@@ -48,7 +48,7 @@ public final class User {
 
 		@Override
 		public User build() {
-			return checkValidation(new User(this));
+			return checkConstraints(new User(this));
 		}
 
 		public String getName() {

@@ -1,6 +1,6 @@
 package org.kuali.common.util.system;
 
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.kuali.common.util.bind.api.Alias;
@@ -54,7 +54,7 @@ public final class SystemProperties {
 
 		@Override
 		public SystemProperties build() {
-			return checkValidation(new SystemProperties(this));
+			return checkConstraints(new SystemProperties(this));
 		}
 
 		public Builder user(User user) {

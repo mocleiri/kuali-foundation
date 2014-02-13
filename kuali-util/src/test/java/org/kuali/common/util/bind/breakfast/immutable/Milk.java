@@ -1,6 +1,6 @@
 package org.kuali.common.util.bind.breakfast.immutable;
 
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import javax.validation.constraints.Min;
 
@@ -35,7 +35,7 @@ public final class Milk {
 
 		@Override
 		public Milk build() {
-			return checkValidation(new Milk(this));
+			return checkConstraints(new Milk(this));
 		}
 
 		public double getPrice() {

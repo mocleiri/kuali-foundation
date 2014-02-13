@@ -1,7 +1,7 @@
 package org.kuali.common.util.system;
 
 import static org.kuali.common.util.bind.api.Bind.ABSENT;
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.io.File;
 import java.util.List;
@@ -113,7 +113,7 @@ public final class Java {
 
 		@Override
 		public Java build() {
-			return checkValidation(new Java(this));
+			return checkConstraints(new Java(this));
 		}
 
 		public File getHome() {

@@ -62,15 +62,15 @@ public class Validation {
 		return "[" + classDeclarationPath + "." + field.getName() + "] " + suffix;
 	}
 
-	public static <T> T checkValidation(Validator validator, T instance) {
+	public static <T> T checkConstraints(Validator validator, T instance) {
 		checkNotNull(instance, "instance");
 		checkNotNull(validator, "validator");
 		checkViolations(validator.validate(instance));
 		return instance;
 	}
 
-	public static <T> T checkValidation(T instance) {
-		return checkValidation(VALIDATOR, instance);
+	public static <T> T checkConstraints(T instance) {
+		return checkConstraints(VALIDATOR, instance);
 	}
 
 	public static <T> void checkViolations(Set<ConstraintViolation<T>> violations) {

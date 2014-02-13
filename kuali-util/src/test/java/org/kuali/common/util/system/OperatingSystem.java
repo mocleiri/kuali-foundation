@@ -1,6 +1,6 @@
 package org.kuali.common.util.system;
 
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -50,7 +50,7 @@ public final class OperatingSystem {
 
 		@Override
 		public OperatingSystem build() {
-			return checkValidation(new OperatingSystem(this));
+			return checkConstraints(new OperatingSystem(this));
 		}
 
 		public String getName() {

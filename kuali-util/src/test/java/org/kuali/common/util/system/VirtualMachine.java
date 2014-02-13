@@ -1,6 +1,6 @@
 package org.kuali.common.util.system;
 
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -51,7 +51,7 @@ public final class VirtualMachine {
 
 		@Override
 		public VirtualMachine build() {
-			return checkValidation(new VirtualMachine(this));
+			return checkConstraints(new VirtualMachine(this));
 		}
 
 		public Specification getSpecification() {

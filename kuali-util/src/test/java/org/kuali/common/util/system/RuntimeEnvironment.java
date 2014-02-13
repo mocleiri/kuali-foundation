@@ -1,6 +1,6 @@
 package org.kuali.common.util.system;
 
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.bind.api.Bind;
@@ -54,7 +54,7 @@ public class RuntimeEnvironment {
 
 		@Override
 		public RuntimeEnvironment build() {
-			return checkValidation(new RuntimeEnvironment(this));
+			return checkConstraints(new RuntimeEnvironment(this));
 		}
 
 		public Specification getSpecification() {

@@ -1,6 +1,6 @@
 package org.kuali.common.util.bind.breakfast.immutable;
 
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -26,7 +26,7 @@ public final class Bowl {
 
 		@Override
 		public Bowl build() {
-			return checkValidation(new Bowl(this));
+			return checkConstraints(new Bowl(this));
 		}
 
 		public Milk getMilk() {

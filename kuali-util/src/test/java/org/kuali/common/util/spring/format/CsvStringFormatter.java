@@ -1,6 +1,6 @@
 package org.kuali.common.util.spring.format;
 
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.util.Locale;
 
@@ -75,7 +75,7 @@ public final class CsvStringFormatter implements Formatter<String> {
 
 		@Override
 		public CsvStringFormatter build() {
-			return checkValidation(new CsvStringFormatter(this));
+			return checkConstraints(new CsvStringFormatter(this));
 		}
 
 		public String getNullToken() {

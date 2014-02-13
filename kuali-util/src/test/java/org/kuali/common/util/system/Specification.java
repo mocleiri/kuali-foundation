@@ -1,6 +1,6 @@
 package org.kuali.common.util.system;
 
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -44,7 +44,7 @@ public final class Specification {
 
 		@Override
 		public Specification build() {
-			return checkValidation(new Specification(this));
+			return checkConstraints(new Specification(this));
 		}
 
 		public String getVersion() {

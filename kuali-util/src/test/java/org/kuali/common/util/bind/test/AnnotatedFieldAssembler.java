@@ -1,7 +1,7 @@
 package org.kuali.common.util.bind.test;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static org.kuali.common.util.validate.Validation.checkValidation;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -90,7 +90,7 @@ public final class AnnotatedFieldAssembler implements Assembler<List<Node<Field>
 
 		@Override
 		public AnnotatedFieldAssembler build() {
-			return checkValidation(new AnnotatedFieldAssembler(this));
+			return checkConstraints(new AnnotatedFieldAssembler(this));
 		}
 
 		public Comparator<Field> getComparator() {
