@@ -43,15 +43,15 @@ public class DataBinderTest {
 			List<Node<Field>> nodes = AnnotatedFieldAssembler.create(type, Bind.class).assemble();
 			Function<List<Field>, String> function = newBindKeyFunction(type);
 			List<MutableNode<BindDescriptor>> bds = getDescriptors(type, nodes, function);
-			List<Node<BindDescriptor>> list = getDescriptors(bds);
-			Map<String, String> map = ImmutableMap.of("bowl.milk.type", "lowfat", "bowl.milk.price", "2.29");
-			bindValuesToLeaves(list, map);
-			createBuilderInstances(list);
-			bindLeavesToParents(list);
-			buildInstances(list);
+			List<Node<BindDescriptor>> objectGraphAsNodes = getDescriptors(bds);
+			Map<String, String> objectGraphAsMap = ImmutableMap.of("bowl.milk.type", "lowfat", "bowl.milk.price", "2.29");
+			bindValuesToLeaves(objectGraphAsNodes, objectGraphAsMap);
+			createBuilderInstances(objectGraphAsNodes);
+			bindLeavesToParents(objectGraphAsNodes);
+			buildInstances(objectGraphAsNodes);
 
 			Map<String, Object> bowlMap = newHashMap();
-			for (Node<BindDescriptor> node : list) {
+			for (Node<BindDescriptor> node : objectGraphAsNodes) {
 				BindDescriptor bd = node.getElement();
 				String key = bd.getInstancePropertyName();
 				Object value = bd.getInstance();
@@ -64,7 +64,7 @@ public class DataBinderTest {
 			binder.bind(mpvs);
 			Bowl bowl = builder.build();
 			logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
-			String html2 = Trees.html(Bowl.class.getSimpleName(), list, new BindDescriptorFunction());
+			String html2 = Trees.html(Bowl.class.getSimpleName(), objectGraphAsNodes, new BindDescriptorFunction());
 			write(new File("/tmp/bds.htm"), html2);
 		} catch (Exception e) {
 			e.printStackTrace();
