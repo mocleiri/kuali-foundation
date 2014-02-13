@@ -4,9 +4,9 @@ import static org.kuali.common.util.validate.Validation.checkValidation;
 
 import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.bind.api.Bind;
-import org.kuali.common.util.validate.IdiotProofImmutable;
+import org.kuali.common.util.validate.BasicImmutable;
 
-@IdiotProofImmutable
+@BasicImmutable
 public final class SystemProperties {
 
 	@Bind
