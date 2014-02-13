@@ -1,5 +1,6 @@
 package org.kuali.common.util.bind.breakfast.immutable;
 
+import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.collect.Lists.newArrayList;
 import static org.apache.commons.io.FileUtils.write;
 import static org.kuali.common.util.ReflectionUtils.newInstance;
@@ -21,6 +22,7 @@ import org.springframework.beans.MutablePropertyValues;
 import org.springframework.validation.DataBinder;
 
 import com.google.common.base.Function;
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 
@@ -31,18 +33,27 @@ public class DataBinderTest {
 		try {
 			Class<?> type = Bowl.class;
 			List<Node<Field>> nodes = AnnotatedFieldAssembler.create(type, Bind.class).assemble();
-			String html = Trees.html(Bowl.class.getSimpleName(), nodes, new org.kuali.common.util.bind.breakfast.immutable.FieldNameFunction());
-			write(new File("/tmp/bowl.htm"), html);
-			Milk milk = build(Milk.Builder.class, ImmutableMap.of("type", "lowfat", "price", "2.29"));
-			Bowl bowl = build(Bowl.Builder.class, ImmutableMap.of("milk", milk));
-			System.out.println("milk.type=" + bowl.getMilk().getType());
 			Function<List<Field>, String> function = newBindKeyFunction(type);
 			List<MutableNode<BindDescriptor>> bds = getDescriptors(type, nodes, function);
 			List<Node<BindDescriptor>> list = getDescriptors(bds);
+			Map<String, String> map = ImmutableMap.of("bowl.milk.type", "lowfat", "bowl.milk.price", "2.29");
+			bindValuesToLeaves(list, map);
 			String html2 = Trees.html(Bowl.class.getSimpleName(), list, new BindDescriptorFunction());
 			write(new File("/tmp/bds.htm"), html2);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	private void bindValuesToLeaves(List<Node<BindDescriptor>> nodes, Map<String, ?> values) {
+		List<Node<BindDescriptor>> leaves = Trees.getLeaves(nodes);
+		for (Node<BindDescriptor> leaf : leaves) {
+			BindDescriptor bd = leaf.getElement();
+			String bindKey = bd.getBindKey();
+			Optional<?> value = fromNullable(values.get(bindKey));
+			if (value.isPresent()) {
+				bd.setBindValue(value.get());
+			}
 		}
 	}
 
