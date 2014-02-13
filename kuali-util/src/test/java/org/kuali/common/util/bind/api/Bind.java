@@ -12,4 +12,7 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Documented
 public @interface Bind {
+
+	String value() default "";
+
 }

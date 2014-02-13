@@ -1,6 +1,6 @@
 package org.kuali.common.util.system;
 
-import org.kuali.common.util.bind.api.BindingAlias;
+import org.kuali.common.util.bind.api.Aliases;
 import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -8,7 +8,7 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 public final class OperatingSystem {
 
 	private final String name;
-	@BindingAlias("arch")
+	@Aliases("arch")
 	private final String architecture;
 	private final String version;
 

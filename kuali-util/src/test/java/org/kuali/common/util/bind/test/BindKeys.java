@@ -1,5 +1,7 @@
 package org.kuali.common.util.bind.test;
 
+import static com.google.common.collect.Lists.newArrayList;
+
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Set;
@@ -7,8 +9,8 @@ import java.util.SortedSet;
 
 import org.kuali.common.util.Annotations;
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.bind.api.Aliases;
 import org.kuali.common.util.bind.api.Bind;
-import org.kuali.common.util.bind.api.BindingAlias;
 import org.kuali.common.util.function.PrefixFunction;
 
 import com.google.common.base.Function;
@@ -78,16 +80,14 @@ public class BindKeys {
 	}
 
 	protected static List<String> getKeys(Field field) {
-		Optional<BindingAlias> optional = Annotations.get(field, BindingAlias.class);
+		Optional<Aliases> optional = Annotations.get(field, Aliases.class);
 		if (!optional.isPresent()) {
 			return ImmutableList.of(field.getName());
 		} else {
-			BindingAlias annotation = optional.get();
-			List<String> keys = Lists.newArrayList();
+			Aliases annotation = optional.get();
+			List<String> keys = newArrayList();
 			keys.addAll(ImmutableList.copyOf(annotation.value()));
-			if (annotation.includeFieldName()) {
-				keys.add(field.getName());
-			}
+			keys.add(field.getName());
 			return keys;
 		}
 	}

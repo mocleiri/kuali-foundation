@@ -10,10 +10,8 @@ import java.lang.annotation.Target;
 @Target({ FIELD })
 @Retention(RUNTIME)
 @Documented
-public @interface BindingAlias {
+public @interface Aliases {
 
 	String[] value();
-
-	boolean includeFieldName() default false;
 
 }

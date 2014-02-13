@@ -1,7 +1,7 @@
 package org.kuali.common.util.system;
 
 import org.kuali.common.util.bind.api.Bind;
-import org.kuali.common.util.bind.api.BindingAlias;
+import org.kuali.common.util.bind.api.Aliases;
 import org.kuali.common.util.bind.api.BindingPrefix;
 import org.kuali.common.util.bind.api.NoBindingPrefix;
 import org.kuali.common.util.build.AwesomeBuilder;
@@ -21,13 +21,13 @@ public final class SystemProperties {
 	@Bind
 	private final Java java;
 
-	@BindingAlias("line.separator")
+	@Aliases("line.separator")
 	private final String lineSeparator;
 
-	@BindingAlias("path.separator")
+	@Aliases("path.separator")
 	private final String pathSeparator;
 
-	@BindingAlias("file.separator")
+	@Aliases("file.separator")
 	private final String fileSeparator;
 
 	private SystemProperties(Builder builder) {
