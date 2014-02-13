@@ -45,7 +45,7 @@ public class DataBinderTest {
 	protected static List<String> getKeys(Class<?> type, List<Node<Field>> nodes) {
 		List<Node<Field>> leaves = Trees.getLeaves(nodes);
 		List<String> keys = newArrayList();
-		Function<List<Field>, String> function = new BindNameFunction(type);
+		Function<List<Field>, String> function = new BindKeyFunction(type);
 		for (Node<Field> leaf : leaves) {
 			List<Field> fields = leaf.getElementPath();
 			keys.add(function.apply(fields));

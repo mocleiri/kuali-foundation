@@ -17,14 +17,14 @@ import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 
-public class BindNameFunction implements Function<List<Field>, String> {
+public class BindKeyFunction implements Function<List<Field>, String> {
 
-	public BindNameFunction(Class<?> type) {
+	public BindKeyFunction(Class<?> type) {
 		this.type = checkNotNull(type, "type");
 	}
 
-	public static BindNameFunction make(Class<?> type) {
-		return new BindNameFunction(type);
+	public static BindKeyFunction make(Class<?> type) {
+		return new BindKeyFunction(type);
 	}
 
 	private final Joiner joiner = Joiner.on('.');
