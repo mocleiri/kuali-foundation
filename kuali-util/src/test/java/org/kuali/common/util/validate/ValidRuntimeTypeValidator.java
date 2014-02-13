@@ -1,8 +1,11 @@
 package org.kuali.common.util.validate;
 
-import java.lang.reflect.Field;
+import static com.google.common.base.Optional.absent;
+import static org.kuali.common.util.ReflectionUtils.extractFieldValue;
+import static org.kuali.common.util.ReflectionUtils.isSuperType;
+import static org.kuali.common.util.ReflectionUtils.validateIsSuperType;
 
-import org.kuali.common.util.ReflectionUtils;
+import java.lang.reflect.Field;
 
 import com.google.common.base.Optional;
 
@@ -16,26 +19,26 @@ public class ValidRuntimeTypeValidator extends AbstractFieldsValidator<ValidRunt
 		this.superType = constraintAnnotation.superType();
 		this.type = constraintAnnotation.type();
 		// Make sure type descends from superType
-		ReflectionUtils.validateIsSuperType(superType, type);
+		validateIsSuperType(superType, type);
 	}
 
 	@Override
 	protected Optional<String> validate(Field field, Object instance) {
 
 		// If this field does not descend from superType, we can skip checking it's runtime type
-		boolean skip = !ReflectionUtils.isSuperType(superType, field.getType());
+		boolean skip = !isSuperType(superType, field.getType());
 
 		if (skip) {
 			// Nothing more to do
-			return Optional.absent();
+			return absent();
 		}
 
 		// Extract the value of the field into an Optional
-		Optional<?> fieldValue = ReflectionUtils.get(field, instance);
+		Optional<?> fieldValue = extractFieldValue(field, instance);
 
 		// There is no value for this field (ie it was null)
 		if (!fieldValue.isPresent()) {
-			return Optional.absent();
+			return absent();
 		}
 
 		// Get the actual object reference
@@ -45,9 +48,9 @@ public class ValidRuntimeTypeValidator extends AbstractFieldsValidator<ValidRunt
 		Class<?> runtimeType = value.getClass();
 
 		// Make sure it descends from the correct type
-		if (ReflectionUtils.isSuperType(type, runtimeType)) {
+		if (isSuperType(type, runtimeType)) {
 			// If it does, we are good to go
-			return Optional.absent();
+			return absent();
 		} else {
 			// If not, return an error message
 			String runtime = runtimeType.getCanonicalName();
