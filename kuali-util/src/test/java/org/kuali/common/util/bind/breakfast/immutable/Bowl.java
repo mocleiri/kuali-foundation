@@ -6,6 +6,7 @@ import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
+@Bind(Bind.DEFAULT)
 public final class Bowl {
 
 	@Bind("m")

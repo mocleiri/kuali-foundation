@@ -9,20 +9,17 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.Builder;
 import org.junit.Test;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.test.AnnotatedFieldAssembler;
-import org.kuali.common.util.function.FieldNameFunction;
 import org.kuali.common.util.tree.Node;
 import org.kuali.common.util.tree.Trees;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.validation.DataBinder;
 
-import com.google.common.base.Joiner;
+import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
 
 public class DataBinderTest {
 
@@ -46,15 +43,12 @@ public class DataBinderTest {
 	}
 
 	protected static List<String> getKeys(Class<?> type, List<Node<Field>> nodes) {
-		String prefix = StringUtils.uncapitalize(type.getSimpleName());
-		char separator = '.';
-		Joiner joiner = Joiner.on(separator);
 		List<Node<Field>> leaves = Trees.getLeaves(nodes);
 		List<String> keys = newArrayList();
+		Function<List<Field>, String> function = new BindNameFunction(type);
 		for (Node<Field> leaf : leaves) {
 			List<Field> fields = leaf.getElementPath();
-			List<String> names = Lists.transform(fields, new FieldNameFunction());
-			keys.add(prefix + separator + joiner.join(names));
+			keys.add(function.apply(fields));
 		}
 		return keys;
 	}
