@@ -1,8 +1,9 @@
 package org.kuali.common.util.system;
 
-import org.kuali.common.util.bind.api.Bind;
+import static org.kuali.common.util.validate.Validation.checkValidation;
+
 import org.kuali.common.util.bind.api.Alias;
-import org.kuali.common.util.build.AwesomeBuilder;
+import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
@@ -24,7 +25,7 @@ public class RuntimeEnvironment {
 		this.url = builder.url;
 	}
 
-	public static class Builder extends AwesomeBuilder<RuntimeEnvironment> {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<RuntimeEnvironment> {
 
 		private String vendor;
 		private String version;
@@ -52,8 +53,8 @@ public class RuntimeEnvironment {
 		}
 
 		@Override
-		public RuntimeEnvironment getInstance() {
-			return new RuntimeEnvironment(this);
+		public RuntimeEnvironment build() {
+			return checkValidation(new RuntimeEnvironment(this));
 		}
 
 		public Specification getSpecification() {
