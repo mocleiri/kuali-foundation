@@ -1,19 +1,19 @@
 package org.kuali.common.util.bind.breakfast.pojo;
 
+import static com.google.common.collect.Maps.newHashMap;
+
 import java.util.Map;
 
 import org.junit.Test;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.validation.DataBinder;
 
-import com.google.common.collect.Maps;
-
 public class DataBinderTest {
 
 	@Test
 	public void test() {
 		try {
-			Map<String, String> original = Maps.newHashMap();
+			Map<String, String> original = newHashMap();
 			original.put("milk.type", "lowfat");
 			MutablePropertyValues mpvs = new MutablePropertyValues(original);
 			Bowl bowl = new Bowl();
