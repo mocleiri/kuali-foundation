@@ -1,8 +1,9 @@
 package org.kuali.common.util.system;
 
+import static org.kuali.common.util.validate.Validation.checkValidation;
+
 import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.bind.api.Bind;
-import org.kuali.common.util.build.AwesomeBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
@@ -40,7 +41,7 @@ public final class SystemProperties {
 		return new Builder();
 	}
 
-	public static class Builder extends AwesomeBuilder<SystemProperties> {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<SystemProperties> {
 
 		private User user;
 		private OperatingSystem operatingSystem;
@@ -50,8 +51,8 @@ public final class SystemProperties {
 		private String fileSeparator;
 
 		@Override
-		public SystemProperties getInstance() {
-			return new SystemProperties(this);
+		public SystemProperties build() {
+			return checkValidation(new SystemProperties(this));
 		}
 
 		public Builder user(User user) {
