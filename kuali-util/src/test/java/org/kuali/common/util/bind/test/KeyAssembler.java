@@ -2,12 +2,14 @@ package org.kuali.common.util.bind.test;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.newHashSet;
+import static org.kuali.common.util.Annotations.extractFieldAnnotation;
 
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Set;
 
-import org.kuali.common.util.Annotations;
 import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.bind.model.BoundTypeDescriptor;
 import org.kuali.common.util.tree.Node;
@@ -17,8 +19,6 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 public final class KeyAssembler implements Assembler<Set<String>> {
 
@@ -28,7 +28,7 @@ public final class KeyAssembler implements Assembler<Set<String>> {
 	public Set<String> assemble() {
 		List<Node<Field>> fields = descriptor.getFields();
 		List<Node<Field>> leaves = Trees.getLeaves(fields);
-		Set<String> keys = Sets.newHashSet();
+		Set<String> keys = newHashSet();
 		for (Node<Field> leaf : leaves) {
 			Set<String> fieldKeys = getKeys(leaf);
 			keys.addAll(fieldKeys);
@@ -40,14 +40,14 @@ public final class KeyAssembler implements Assembler<Set<String>> {
 		checkArgument(node.isLeaf(), "'node' is not a leaf");
 		List<String> pathTokens = getPathTokens(node);
 		List<String> leafTokens = getLeafTokens(node);
-		List<List<String>> listOfLists = Lists.newArrayList();
+		List<List<String>> listOfLists = newArrayList();
 		for (String leafToken : leafTokens) {
-			List<String> tokens = Lists.newArrayList(pathTokens);
+			List<String> tokens = newArrayList(pathTokens);
 			tokens.add(leafToken);
 			listOfLists.add(tokens);
 		}
 		Joiner joiner = Joiner.on('.');
-		Set<String> keys = Sets.newHashSet();
+		Set<String> keys = newHashSet();
 		for (List<String> list : listOfLists) {
 			String key = joiner.join(list.iterator());
 			keys.add(key);
@@ -57,11 +57,11 @@ public final class KeyAssembler implements Assembler<Set<String>> {
 
 	protected List<String> getLeafTokens(Node<Field> node) {
 		Field field = node.getElement();
-		Optional<Alias> annotation = Annotations.get(node.getElement(), Alias.class);
+		Optional<Alias> annotation = extractFieldAnnotation(node.getElement(), Alias.class);
 		if (!annotation.isPresent()) {
 			return ImmutableList.of(field.getName());
 		}
-		List<String> tokens = Lists.newArrayList();
+		List<String> tokens = newArrayList();
 		String[] aliases = annotation.get().value();
 		for (String alias : aliases) {
 			tokens.add(alias);
@@ -72,7 +72,7 @@ public final class KeyAssembler implements Assembler<Set<String>> {
 
 	protected List<String> getPathTokens(Node<Field> node) {
 		List<Field> path = node.getElementPath();
-		List<String> tokens = Lists.newArrayList();
+		List<String> tokens = newArrayList();
 		for (Field element : path) {
 			tokens.add(element.getName());
 		}
