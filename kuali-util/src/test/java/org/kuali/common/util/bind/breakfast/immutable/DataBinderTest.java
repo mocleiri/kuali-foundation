@@ -46,7 +46,7 @@ public class DataBinderTest {
 			List<Node<BindDescriptor>> list = getDescriptors(bds);
 			Map<String, String> map = ImmutableMap.of("bowl.milk.type", "lowfat", "bowl.milk.price", "2.29");
 			bindValuesToLeaves(list, map);
-			createInstances(list);
+			createBuilderInstances(list);
 			bindLeavesToParents(list);
 			buildInstances(list);
 
@@ -110,7 +110,7 @@ public class DataBinderTest {
 		}
 	}
 
-	private void createInstances(List<Node<BindDescriptor>> nodes) {
+	private void createBuilderInstances(List<Node<BindDescriptor>> nodes) {
 		List<Node<BindDescriptor>> leaves = Trees.getLeaves(nodes);
 		for (Node<BindDescriptor> leaf : leaves) {
 			List<Node<BindDescriptor>> path = leaf.getPath();
