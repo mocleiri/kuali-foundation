@@ -26,7 +26,7 @@ import java.util.concurrent.Future;
 
 public class Callables {
 
-	public static <T> List<T> submit(List<Callable<T>> callables) {
+	public static <T> List<T> submitCallables(List<Callable<T>> callables) {
 		ExecutorService pool = newFixedThreadPool(callables.size());
 		List<Future<T>> futures = newArrayList();
 		for (Callable<T> callable : callables) {
