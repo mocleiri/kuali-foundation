@@ -28,7 +28,7 @@ public final class Java {
 	private final String classVersion;
 
 	@Alias("class.path")
-	private final ImmutableList<String> classPath;
+	private final ImmutableList<String> classpath;
 
 	@Alias("library.path")
 	private final ImmutableList<String> libraryPaths;
@@ -47,7 +47,7 @@ public final class Java {
 		this.temporaryDirectory = builder.temporaryDirectory;
 		this.jitCompiler = builder.jitCompiler;
 		this.classVersion = builder.classVersion;
-		this.classPath = ImmutableList.copyOf(builder.classPath);
+		this.classpath = ImmutableList.copyOf(builder.classpath);
 		this.libraryPaths = ImmutableList.copyOf(builder.libraryPaths);
 		this.extensionDirectories = ImmutableList.copyOf(builder.extensionDirectories);
 		this.runtimeEnvironment = builder.runtimeEnvironment;
@@ -60,7 +60,7 @@ public final class Java {
 		private File temporaryDirectory;
 		private Optional<String> jitCompiler;
 		private String classVersion;
-		private List<String> classPath;
+		private List<String> classpath;
 		private List<String> libraryPaths;
 		private List<String> extensionDirectories;
 		private RuntimeEnvironment runtimeEnvironment;
@@ -87,7 +87,7 @@ public final class Java {
 		}
 
 		public Builder classPath(List<String> classPath) {
-			this.classPath = classPath;
+			this.classpath = classPath;
 			return this;
 		}
 
@@ -148,12 +148,12 @@ public final class Java {
 			this.classVersion = classVersion;
 		}
 
-		public List<String> getClassPath() {
-			return classPath;
+		public List<String> getClasspath() {
+			return classpath;
 		}
 
-		public void setClassPath(List<String> classPath) {
-			this.classPath = classPath;
+		public void setClasspath(List<String> classPath) {
+			this.classpath = classPath;
 		}
 
 		public List<String> getLibraryPaths() {
@@ -206,8 +206,8 @@ public final class Java {
 		return classVersion;
 	}
 
-	public ImmutableList<String> getClassPath() {
-		return classPath;
+	public ImmutableList<String> getClasspath() {
+		return classpath;
 	}
 
 	public ImmutableList<String> getLibraryPaths() {
