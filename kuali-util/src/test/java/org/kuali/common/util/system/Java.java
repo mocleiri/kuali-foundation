@@ -86,8 +86,8 @@ public final class Java {
 			return this;
 		}
 
-		public Builder classPath(List<String> classPath) {
-			this.classpath = classPath;
+		public Builder classpath(List<String> classpath) {
+			this.classpath = classpath;
 			return this;
 		}
 
@@ -152,8 +152,8 @@ public final class Java {
 			return classpath;
 		}
 
-		public void setClasspath(List<String> classPath) {
-			this.classpath = classPath;
+		public void setClasspath(List<String> classpath) {
+			this.classpath = classpath;
 		}
 
 		public List<String> getLibraryPaths() {
