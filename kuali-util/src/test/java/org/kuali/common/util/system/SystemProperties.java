@@ -2,6 +2,7 @@ package org.kuali.common.util.system;
 
 import static org.kuali.common.util.validate.Validation.checkValidation;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.validate.BasicImmutable;
@@ -22,9 +23,11 @@ public final class SystemProperties {
 	private final String lineSeparator;
 
 	@Alias("path.separator")
+	@NotBlank
 	private final String pathSeparator;
 
 	@Alias("file.separator")
+	@NotBlank
 	private final String fileSeparator;
 
 	private SystemProperties(Builder builder) {
