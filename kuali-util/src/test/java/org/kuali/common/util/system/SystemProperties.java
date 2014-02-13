@@ -7,7 +7,6 @@ import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
-@Bind(Bind.ABSENT)
 public final class SystemProperties {
 
 	@Bind
