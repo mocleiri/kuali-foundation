@@ -44,7 +44,7 @@ public class DataBinderTest {
 			Function<List<Field>, String> function = newBindKeyFunction(type);
 			List<MutableNode<BindDescriptor>> bds = getDescriptors(type, nodes, function);
 			List<Node<BindDescriptor>> objectGraphAsNodes = getDescriptors(bds);
-			Map<String, String> objectGraphAsMap = ImmutableMap.of("bowl.milk.type", "lowfat", "bowl.milk.price", "2.29");
+			Map<String, String> objectGraphAsMap = ImmutableMap.of("bowl.milk.typee", "lowfat", "bowl.milk.price", "2.29");
 			bindValuesToLeaves(objectGraphAsNodes, objectGraphAsMap);
 			createBuilderInstances(objectGraphAsNodes);
 			bindLeavesToParents(objectGraphAsNodes);
