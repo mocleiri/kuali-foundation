@@ -11,7 +11,7 @@ public final class User {
 
 	private final String name;
 	private final File home;
-	@Alias(value = "directory")
+	@Alias("directory")
 	private final File dir;
 
 	private User(Builder builder) {
