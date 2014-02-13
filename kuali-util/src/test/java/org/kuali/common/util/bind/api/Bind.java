@@ -12,7 +12,9 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Documented
 public @interface Bind {
+	
+	public static final String ABSENT = "${optional.absent}";
 
-	String value() default "";
+	String prefix() default ABSENT;
 
 }
