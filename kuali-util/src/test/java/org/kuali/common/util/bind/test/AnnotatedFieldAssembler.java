@@ -1,7 +1,7 @@
 package org.kuali.common.util.bind.test;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static org.kuali.common.util.base.Precondition.checkNotNull;
+import static org.kuali.common.util.validate.Validation.checkValidation;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -90,15 +90,7 @@ public final class AnnotatedFieldAssembler implements Assembler<List<Node<Field>
 
 		@Override
 		public AnnotatedFieldAssembler build() {
-			AnnotatedFieldAssembler instance = new AnnotatedFieldAssembler(this);
-			validate(instance);
-			return instance;
-		}
-
-		private static void validate(AnnotatedFieldAssembler instance) {
-			checkNotNull(instance.annotation, "annotation");
-			checkNotNull(instance.type, "type");
-			checkNotNull(instance.comparator, "comparator");
+			return checkValidation(new AnnotatedFieldAssembler(this));
 		}
 
 		public Comparator<Field> getComparator() {
