@@ -1,11 +1,12 @@
 package org.kuali.common.util.env;
 
+import static org.kuali.common.util.Annotations.extractClassAnnotation;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.kuali.common.util.Annotations;
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.env.adapter.EnvAdapter;
@@ -36,7 +37,7 @@ public final class DefaultOverrideService implements OverrideService {
 
 	@Override
 	public void override(Object instance) {
-		Optional<Env> optional = Annotations.get(instance.getClass(), Env.class);
+		Optional<Env> optional = extractClassAnnotation(instance.getClass(), Env.class);
 		if (!optional.isPresent()) {
 			return;
 		}
@@ -52,7 +53,7 @@ public final class DefaultOverrideService implements OverrideService {
 	}
 
 	private void override(Optional<String> prefix, Object instance, Field field) {
-		Optional<EnvIgnore> ignore = Annotations.get(instance.getClass(), EnvIgnore.class);
+		Optional<EnvIgnore> ignore = extractClassAnnotation(instance.getClass(), EnvIgnore.class);
 		if (ignore.isPresent()) {
 			return;
 		}
