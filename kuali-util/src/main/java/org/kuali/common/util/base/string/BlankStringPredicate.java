@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
 import com.google.common.base.Predicate;
 
 // enum singleton pattern
-public enum IsBlankPredicate implements Predicate<String> {
+public enum BlankStringPredicate implements Predicate<String> {
 
 	INSTANCE;
 
