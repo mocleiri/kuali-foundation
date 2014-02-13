@@ -7,6 +7,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newTreeMap;
 import static java.lang.String.format;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static org.kuali.common.util.base.Callables.submitCallables;
 
 import java.io.File;
 import java.util.Collections;
@@ -30,7 +31,6 @@ import org.kuali.common.devops.model.Scm;
 import org.kuali.common.devops.model.Tomcat;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.base.Callables;
 import org.kuali.common.util.base.Precondition;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.inform.PercentCompleteInformer;
@@ -130,7 +130,7 @@ public class Environments2 {
 			callables.add(BuilderFillerCallable.builder().builders(partition).service(service).informer(informer).build());
 		}
 		informer.start();
-		List<Long> times = Callables.submit(callables);
+		List<Long> times = submitCallables(callables);
 		informer.stop();
 		long aggregate = newSumListFunction().apply(times);
 		long elapsed = sw.elapsed(MILLISECONDS);
