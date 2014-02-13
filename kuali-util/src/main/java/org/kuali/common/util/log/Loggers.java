@@ -29,11 +29,24 @@ public class Loggers {
 	 * private static final Logger logger = LoggerUtils.make();
 	 * </pre>
 	 */
-	public static Logger make() {
+	public static Logger newLogger() {
 		Throwable throwable = new Throwable();
 		StackTraceElement[] elements = throwable.getStackTrace();
 		StackTraceElement directCaller = elements[1];
 		return LoggerFactory.getLogger(directCaller.getClassName());
+	}
+
+	/**
+	 * <p>
+	 * Convenience method for obtaining a logger (borrowed from the JBoss crew)
+	 * </p>
+	 * 
+	 * <pre>
+	 * private static final Logger logger = LoggerUtils.make();
+	 * </pre>
+	 */
+	public static Logger make() {
+		return newLogger();
 	}
 
 }
