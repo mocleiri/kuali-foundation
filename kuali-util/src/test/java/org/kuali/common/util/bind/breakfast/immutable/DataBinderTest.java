@@ -14,8 +14,8 @@ public class DataBinderTest {
 	public void test() {
 		try {
 			Map<String, String> original = newHashMap();
-			original.put("milk.type", "lowfat");
-			original.put("milk.price", "2.29");
+			original.put("type", "lowfat");
+			original.put("price", "2.29");
 			MutablePropertyValues mpvs = new MutablePropertyValues(original);
 			Milk.Builder mb = new Milk.Builder();
 			DataBinder binder = new DataBinder(mb);
