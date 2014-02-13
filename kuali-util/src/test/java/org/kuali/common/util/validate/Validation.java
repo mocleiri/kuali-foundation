@@ -1,6 +1,7 @@
 package org.kuali.common.util.validate;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static java.lang.String.format;
 import static javax.validation.Validation.buildDefaultValidatorFactory;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.kuali.common.util.ReflectionUtils.getDeclarationPath;
@@ -98,9 +99,9 @@ public class Validation {
 		String classDeclarationPath = getDeclarationPath(violation.getRootBeanClass());
 		String propertyPath = violation.getPropertyPath() + "";
 		if (isBlank(propertyPath)) {
-			return "[" + classDeclarationPath + " - " + violation.getMessage() + "]";
+			return format("[%s - %s]", classDeclarationPath, violation.getMessage());
 		} else {
-			return "[" + classDeclarationPath + "." + propertyPath + " " + violation.getMessage() + "]";
+			return format("[%s.%s - %s]", classDeclarationPath, propertyPath, violation.getMessage());
 		}
 	}
 
