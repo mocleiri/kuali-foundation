@@ -1,13 +1,13 @@
 package org.kuali.common.util.bind.test;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static org.kuali.common.util.Annotations.extractAnnotationFromField;
 
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 
-import org.kuali.common.util.Annotations;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.bind.api.Bind;
@@ -80,7 +80,7 @@ public class BindKeys {
 	}
 
 	protected static List<String> getKeys(Field field) {
-		Optional<Alias> optional = Annotations.get(field, Alias.class);
+		Optional<Alias> optional = extractAnnotationFromField(field, Alias.class);
 		if (!optional.isPresent()) {
 			return ImmutableList.of(field.getName());
 		} else {

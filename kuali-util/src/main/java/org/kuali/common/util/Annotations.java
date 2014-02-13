@@ -24,11 +24,11 @@ import com.google.common.base.Optional;
 
 public class Annotations {
 
-	public static <T extends Annotation> Optional<T> extractAnnotationFromClass(Class<?> type, Class<T> annotationClass) {
+	public static <T extends Annotation> Optional<T> extractClassAnnotation(Class<?> type, Class<T> annotationClass) {
 		return fromNullable(type.getAnnotation(annotationClass));
 	}
 
-	public static <T extends Annotation> Optional<T> extractAnnotationFromField(Field field, Class<T> annotationClass) {
+	public static <T extends Annotation> Optional<T> extractFieldAnnotation(Field field, Class<T> annotationClass) {
 		return fromNullable(field.getAnnotation(annotationClass));
 	}
 
