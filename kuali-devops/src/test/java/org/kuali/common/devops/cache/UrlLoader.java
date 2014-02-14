@@ -70,7 +70,7 @@ public final class UrlLoader extends CacheLoader<String, HttpRequestResult> {
 
 		@Override
 		public UrlLoader build() {
-			return checkConstraints(validator, new UrlLoader(this));
+			return checkConstraints(new UrlLoader(this), validator);
 		}
 
 		public HttpContext getContext() {

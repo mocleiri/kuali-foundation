@@ -46,7 +46,7 @@ public final class EC2Tag implements Comparable<EC2Tag> {
 
 		@Override
 		public EC2Tag build() {
-			return checkConstraints(validator, new EC2Tag(this));
+			return checkConstraints(new EC2Tag(this), validator);
 		}
 
 		public String getKey() {

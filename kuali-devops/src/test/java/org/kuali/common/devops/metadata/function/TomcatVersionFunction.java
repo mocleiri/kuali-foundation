@@ -53,7 +53,7 @@ public final class TomcatVersionFunction implements Function<String, Optional<St
 
 		@Override
 		public TomcatVersionFunction build() {
-			return checkConstraints(validator, new TomcatVersionFunction(this));
+			return checkConstraints(new TomcatVersionFunction(this), validator);
 		}
 
 		public String getOpen() {

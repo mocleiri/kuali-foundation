@@ -47,7 +47,7 @@ public final class Tomcat {
 
 		@Override
 		public Tomcat build() {
-			return checkConstraints(validator, new Tomcat(this));
+			return checkConstraints(new Tomcat(this), validator);
 		}
 
 		public String getVersion() {

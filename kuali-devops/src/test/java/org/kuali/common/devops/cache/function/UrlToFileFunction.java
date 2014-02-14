@@ -96,7 +96,7 @@ public final class UrlToFileFunction implements Function<String, File> {
 
 		@Override
 		public UrlToFileFunction build() {
-			return checkConstraints(validator, new UrlToFileFunction(this));
+			return checkConstraints(new UrlToFileFunction(this), validator);
 		}
 
 		public File getBasedir() {

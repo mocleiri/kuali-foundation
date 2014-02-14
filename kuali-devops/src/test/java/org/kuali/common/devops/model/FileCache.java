@@ -49,7 +49,7 @@ public final class FileCache {
 
 		@Override
 		public FileCache build() {
-			return checkConstraints(validator, new FileCache(this));
+			return checkConstraints(new FileCache(this), validator);
 		}
 
 		public String getUrl() {

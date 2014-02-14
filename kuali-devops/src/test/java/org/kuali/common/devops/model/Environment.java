@@ -120,7 +120,7 @@ public final class Environment implements Comparable<Environment> {
 
 		@Override
 		public Environment build() {
-			return checkConstraints(validator, new Environment(this));
+			return checkConstraints(new Environment(this), validator);
 		}
 
 		public String getName() {

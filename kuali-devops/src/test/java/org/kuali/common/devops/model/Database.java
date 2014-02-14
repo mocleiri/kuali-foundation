@@ -45,7 +45,7 @@ public final class Database {
 
 		@Override
 		public Database build() {
-			return checkConstraints(validator, new Database(this));
+			return checkConstraints(new Database(this), validator);
 		}
 
 		public String getVendor() {

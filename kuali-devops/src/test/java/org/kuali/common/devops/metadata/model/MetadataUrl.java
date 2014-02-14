@@ -56,7 +56,7 @@ public final class MetadataUrl<T> {
 
 		@Override
 		public MetadataUrl<T> build() {
-			return checkConstraints(validator, new MetadataUrl<T>(this));
+			return checkConstraints(new MetadataUrl<T>(this), validator);
 		}
 
 	}

@@ -41,7 +41,7 @@ public final class Scm {
 
 		@Override
 		public Scm build() {
-			return checkConstraints(validator, new Scm(this));
+			return checkConstraints(new Scm(this), validator);
 		}
 
 		public String getUrl() {

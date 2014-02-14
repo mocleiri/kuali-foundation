@@ -92,7 +92,7 @@ public final class EnvironmentMetadata {
 
 		@Override
 		public EnvironmentMetadata build() {
-			return checkConstraints(validator, new EnvironmentMetadata(this));
+			return checkConstraints(new EnvironmentMetadata(this), validator);
 		}
 
 		public MetadataUrl<Optional<String>> getTomcatVersion() {

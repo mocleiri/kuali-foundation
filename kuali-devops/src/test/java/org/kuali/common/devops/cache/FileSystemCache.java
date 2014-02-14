@@ -99,7 +99,7 @@ public final class FileSystemCache<K, V> extends CacheLoader<K, V> {
 
 		@Override
 		public FileSystemCache<K, V> build() {
-			return checkConstraints(validator, new FileSystemCache<K, V>(this));
+			return checkConstraints(new FileSystemCache<K, V>(this), validator);
 		}
 
 		public PersistentCache<File, V> getFileCache() {

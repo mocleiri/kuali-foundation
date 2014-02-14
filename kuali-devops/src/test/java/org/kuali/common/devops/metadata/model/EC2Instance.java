@@ -113,7 +113,7 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 
 		@Override
 		public EC2Instance build() {
-			return checkConstraints(validator, new EC2Instance(this));
+			return checkConstraints(new EC2Instance(this), validator);
 		}
 
 		public Optional<String> getName() {

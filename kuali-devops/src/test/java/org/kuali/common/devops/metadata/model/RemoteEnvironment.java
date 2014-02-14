@@ -66,7 +66,7 @@ public final class RemoteEnvironment {
 
 		@Override
 		public RemoteEnvironment build() {
-			return checkConstraints(validator, new RemoteEnvironment(this));
+			return checkConstraints(new RemoteEnvironment(this), validator);
 		}
 	}
 

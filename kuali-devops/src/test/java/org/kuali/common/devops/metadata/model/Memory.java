@@ -63,7 +63,7 @@ public final class Memory {
 
 		@Override
 		public Memory build() {
-			return checkConstraints(validator, new Memory(this));
+			return checkConstraints(new Memory(this), validator);
 		}
 
 	}

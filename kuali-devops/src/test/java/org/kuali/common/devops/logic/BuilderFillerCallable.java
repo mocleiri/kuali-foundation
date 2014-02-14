@@ -66,7 +66,7 @@ public final class BuilderFillerCallable implements Callable<Long> {
 
 		@Override
 		public BuilderFillerCallable build() {
-			return checkConstraints(validator, new BuilderFillerCallable(this));
+			return checkConstraints(new BuilderFillerCallable(this), validator);
 		}
 
 		public List<Environment.Builder> getBuilders() {
