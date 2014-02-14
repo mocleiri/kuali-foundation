@@ -162,12 +162,21 @@ public class DataBinderTest {
 		return convert(getDescriptors(type, nodes, function));
 	}
 
+	protected static List<MutableNode<BindDescriptor>> transform(List<Node<Field>> nodes) {
+		List<MutableNode<BindDescriptor>> newNodes = newArrayList();
+		for (Node<Field> node : nodes) {
+			MutableNode<BindDescriptor> newNode = new MutableNode<BindDescriptor>(new BindDescriptor(node));
+			newNode.add(transform(node.getChildren()));
+			newNodes.add(newNode);
+		}
+		return newNodes;
+	}
+
 	protected static List<MutableNode<BindDescriptor>> getDescriptors(Class<?> type, List<Node<Field>> nodes, Function<List<Field>, List<String>> function) {
 		List<MutableNode<BindDescriptor>> newNodes = newArrayList();
 		for (Node<Field> node : nodes) {
 			Field field = node.getElement();
-			BindDescriptor bd = new BindDescriptor();
-			bd.setNode(node);
+			BindDescriptor bd = new BindDescriptor(node);
 			if (node.isLeaf()) {
 				List<Field> fields = node.getElementPath();
 				List<String> bindKeys = function.apply(fields);

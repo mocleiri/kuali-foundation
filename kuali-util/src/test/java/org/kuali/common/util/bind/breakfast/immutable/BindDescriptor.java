@@ -8,6 +8,10 @@ import org.kuali.common.util.tree.Node;
 
 public class BindDescriptor {
 
+	public BindDescriptor(Node<Field> node) {
+		this.node = node;
+	}
+
 	Node<Field> node;
 	List<String> bindKeys;
 	Object bindValue;
