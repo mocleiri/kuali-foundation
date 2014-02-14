@@ -6,7 +6,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.constraints.Min;
 
 import org.kuali.common.util.bind.api.Alias;
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.ValidatingBuilder2;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
@@ -26,7 +26,7 @@ public final class Milk {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<Milk> {
+	public static class Builder extends ValidatingBuilder2<Milk> {
 
 		private double price = -1;
 		private String type;
