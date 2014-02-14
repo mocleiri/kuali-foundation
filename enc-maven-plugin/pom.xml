@@ -38,7 +38,7 @@
   </scm>
   <properties>
     <jasypt.version>1.9.1</jasypt.version>
-    <kuali-util.version>4.4.10101010101010101010-SNAPSHOT</kuali-util.version>
+    <kuali-util.version>4.4.10-SNAPSHOT</kuali-util.version>
   </properties>
   <developers>
     <developer>
