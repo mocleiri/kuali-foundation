@@ -1,5 +1,9 @@
 package org.kuali.common.util.bind.breakfast.immutable;
 
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -25,6 +29,16 @@ public final class Bowl {
 		public Builder milk(Milk milk) {
 			this.milk = milk;
 			return this;
+		}
+
+		@Override
+		public boolean isValid() {
+			return isValid(new Bowl(this));
+		}
+
+		@Override
+		public Set<ConstraintViolation<Bowl>> getConstraintViolations() {
+			return getConstraintViolations(new Bowl(this));
 		}
 
 		@Override

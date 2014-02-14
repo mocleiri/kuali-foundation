@@ -1,5 +1,8 @@
 package org.kuali.common.util.bind.breakfast.immutable;
 
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
 import javax.validation.constraints.Min;
 
 import org.kuali.common.util.bind.api.Alias;
@@ -38,9 +41,23 @@ public final class Milk {
 			return this;
 		}
 
+		private Milk newMilk() {
+			return new Milk(this);
+		}
+
+		@Override
+		public boolean isValid() {
+			return isValid(newMilk());
+		}
+
+		@Override
+		public Set<ConstraintViolation<Milk>> getConstraintViolations() {
+			return getConstraintViolations(newMilk());
+		}
+
 		@Override
 		public Milk build() {
-			return validate(new Milk(this));
+			return validate(newMilk());
 		}
 
 		public double getPrice() {
