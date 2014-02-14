@@ -24,15 +24,15 @@ public abstract class ValidatingBuilder2<T> implements Builder<T> {
 
 	public abstract Set<ConstraintViolation<T>> getViolations();
 
-	public boolean isValid(T instance) {
+	protected boolean isValid(T instance) {
 		return getViolations(instance).isEmpty();
 	}
 
-	public Set<ConstraintViolation<T>> getViolations(T instance) {
+	protected Set<ConstraintViolation<T>> getViolations(T instance) {
 		return validator.validate(instance, validationGroups.toArray(EMPTY_CLASS_ARRAY));
 	}
 
-	public T validate(T instance) {
+	protected T validate(T instance) {
 		return checkConstraints(instance, validator, validationGroups);
 	}
 
