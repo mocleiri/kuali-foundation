@@ -38,7 +38,7 @@
   </scm>
   <properties>
     <jsch.version>0.1.50</jsch.version>
-    <kuali-util.version>4.4.8-SNAPSHOT</kuali-util.version>
+    <kuali-util.version>4.4.10-SNAPSHOT</kuali-util.version>
   </properties>
   <developers>
     <developer>
