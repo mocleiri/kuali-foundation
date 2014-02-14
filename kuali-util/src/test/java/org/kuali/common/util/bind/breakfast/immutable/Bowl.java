@@ -1,8 +1,7 @@
 package org.kuali.common.util.bind.breakfast.immutable;
 
-import static org.kuali.common.util.validate.Validation.checkConstraints;
-
 import org.kuali.common.util.bind.api.Bind;
+import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
@@ -15,7 +14,7 @@ public final class Bowl {
 		this.milk = builder.milk;
 	}
 
-	public static class Builder implements org.apache.commons.lang3.builder.Builder<Bowl> {
+	public static class Builder extends ValidatingBuilder<Bowl> {
 
 		private Milk milk;
 
@@ -26,7 +25,7 @@ public final class Bowl {
 
 		@Override
 		public Bowl build() {
-			return checkConstraints(new Bowl(this));
+			return validate(new Bowl(this));
 		}
 
 		public Milk getMilk() {

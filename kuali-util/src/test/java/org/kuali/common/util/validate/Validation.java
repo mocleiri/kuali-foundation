@@ -27,6 +27,7 @@ public class Validation {
 
 	private static ValidatorFactory FACTORY = buildDefaultValidatorFactory();
 	private static Validator VALIDATOR = FACTORY.getValidator();
+	private static final Class<?>[] EMPTY_CLASS_ARRAY = {};
 
 	public static Validator getDefaultValidator() {
 		return VALIDATOR;
@@ -67,6 +68,14 @@ public class Validation {
 		checkNotNull(validator, "validator");
 		checkNotNull(instance, "instance");
 		checkViolations(validator.validate(instance));
+		return instance;
+	}
+
+	public static <T> T checkConstraints(Validator validator, T instance, List<Class<?>> groups) {
+		checkNotNull(validator, "validator");
+		checkNotNull(instance, "instance");
+		checkNotNull(groups, "groups");
+		checkViolations(validator.validate(instance, groups.toArray(EMPTY_CLASS_ARRAY)));
 		return instance;
 	}
 
