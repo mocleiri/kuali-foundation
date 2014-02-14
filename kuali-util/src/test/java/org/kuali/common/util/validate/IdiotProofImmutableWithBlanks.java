@@ -18,7 +18,7 @@ import javax.validation.Payload;
 @ImmutableGuavaMaps
 @ImmutableGuavaCollections
 @Documented
-public @interface BasicImmutable {
+public @interface IdiotProofImmutableWithBlanks {
 
 	String message() default "basic immutable checks failed";
 
