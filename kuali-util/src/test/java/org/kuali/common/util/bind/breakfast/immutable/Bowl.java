@@ -14,6 +14,10 @@ public final class Bowl {
 		this.milk = builder.milk;
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder extends ValidatingBuilder<Bowl> {
 
 		private Milk milk;
