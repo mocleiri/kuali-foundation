@@ -1,6 +1,5 @@
 package org.kuali.common.util.bind.breakfast.immutable;
 
-import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 import static java.lang.String.format;
@@ -28,7 +27,6 @@ import org.springframework.validation.DataBinder;
 
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
@@ -63,7 +61,7 @@ public class DataBinderTest {
 			Bowl bowl = builder.build();
 			logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
 			String html = Trees.html(Bowl.class.getSimpleName(), objectGraphAsNodes, new BindDescriptorFunction());
-			write(new File("/tmp/bdss.htm"), html);
+			write(new File("/tmp/bds.htm"), html);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -124,16 +122,18 @@ public class DataBinderTest {
 	}
 
 	private void bindValuesToLeaves(List<Node<BindDescriptor>> nodes, Map<String, ?> values) {
-		List<Node<BindDescriptor>> leaves = Trees.getLeaves(nodes);
-		for (Node<BindDescriptor> leaf : leaves) {
-			BindDescriptor bd = leaf.getElement();
-			List<String> bindKeys = bd.getBindKeys();
-			for (String bindKey : bindKeys) {
-				Optional<?> value = fromNullable(values.get(bindKey));
-				if (value.isPresent()) {
-					bd.setBindValue(value.get());
-					break;
-				}
+		for (Node<BindDescriptor> leaf : Trees.getLeaves(nodes)) {
+			bindValuesToLeaf(leaf, values);
+		}
+	}
+
+	private void bindValuesToLeaf(Node<BindDescriptor> leaf, Map<String, ?> values) {
+		for (String bindKey : leaf.getElement().getBindKeys()) {
+			// Ordering of the bindKeys is significant here.
+			// We must return the first value that matches
+			if (values.containsKey(bindKey)) {
+				leaf.getElement().setBindValue(values.get(bindKey));
+				break;
 			}
 		}
 	}
@@ -144,7 +144,12 @@ public class DataBinderTest {
 		public String apply(Node<BindDescriptor> node) {
 			BindDescriptor bd = node.getElement();
 			StringBuilder sb = new StringBuilder();
-			sb.append(Joiner.on(',').join(bd.getBindKeys()));
+			if (bd.getBindKeys() != null) {
+				sb.append(Joiner.on("<br>").join(bd.getBindKeys()));
+			} else {
+				sb.append(null + "<br>");
+			}
+			sb.append("<br>");
 			sb.append(bd.getBindValue() + "<br>");
 			sb.append(bd.getInstancePropertyName() + "<br>");
 			sb.append(bd.getInstanceBuilder() + "<br>");
