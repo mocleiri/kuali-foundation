@@ -15,7 +15,7 @@ import com.google.common.collect.ImmutableList;
 
 public abstract class ValidatingBuilder2<T> implements Builder<T> {
 
-	public static final Class<?>[] EMPTY_CLASS_ARRAY = {};
+	private static final Class<?>[] EMPTY_CLASS_ARRAY = {};
 
 	protected Validator validator = Validation.getDefaultValidator();
 	protected List<Class<?>> validationGroups = ImmutableList.of();
