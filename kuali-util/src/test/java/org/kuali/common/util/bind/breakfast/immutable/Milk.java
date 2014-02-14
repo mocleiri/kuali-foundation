@@ -41,23 +41,23 @@ public final class Milk {
 			return this;
 		}
 		
-		private Milk newInstance() {
+		private Milk newMilk() {
 			return new Milk(this);
 		}
 
 		@Override
 		public boolean isValid() {
-			return isValid(newInstance());
+			return isValid(newMilk());
 		}
 
 		@Override
 		public Set<ConstraintViolation<Milk>> getViolations() {
-			return getViolations(newInstance());
+			return getViolations(newMilk());
 		}
 
 		@Override
 		public Milk build() {
-			return validate(newInstance());
+			return validate(newMilk());
 		}
 
 		public double getPrice() {
