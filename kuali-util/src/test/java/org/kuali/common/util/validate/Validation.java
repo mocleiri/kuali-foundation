@@ -64,23 +64,27 @@ public class Validation {
 		return "[" + classDeclarationPath + "." + field.getName() + "] " + suffix;
 	}
 
-	public static <T> T checkConstraints(Validator validator, T instance) {
-		checkNotNull(validator, "validator");
+	public static <T> boolean isValid(T instance, Validator validator, List<Class<?>> groups) {
+		return validator.validate(instance, groups.toArray(EMPTY_CLASS_ARRAY)).size() == 0;
+	}
+
+	public static <T> T checkConstraints(T instance, Validator validator) {
 		checkNotNull(instance, "instance");
+		checkNotNull(validator, "validator");
 		checkViolations(validator.validate(instance));
 		return instance;
 	}
 
-	public static <T> T checkConstraints(Validator validator, T instance, List<Class<?>> groups) {
-		checkNotNull(validator, "validator");
+	public static <T> T checkConstraints(T instance, Validator validator, List<Class<?>> groups) {
 		checkNotNull(instance, "instance");
+		checkNotNull(validator, "validator");
 		checkNotNull(groups, "groups");
 		checkViolations(validator.validate(instance, groups.toArray(EMPTY_CLASS_ARRAY)));
 		return instance;
 	}
 
 	public static <T> T checkConstraints(T instance) {
-		return checkConstraints(VALIDATOR, instance);
+		return checkConstraints(instance, VALIDATOR);
 	}
 
 	public static <T> void checkViolations(Set<ConstraintViolation<T>> violations) {

@@ -16,8 +16,12 @@ public abstract class ValidatingBuilder<T> implements Builder<T> {
 	protected Validator validator = Validation.getDefaultValidator();
 	protected List<Class<?>> validationGroups = ImmutableList.of();
 
+	public boolean isValid(T instance) {
+		return Validation.isValid(instance, validator, validationGroups);
+	}
+
 	public T validate(T instance) {
-		return checkConstraints(validator, instance, validationGroups);
+		return checkConstraints(instance, validator, validationGroups);
 	}
 
 	public ValidatingBuilder<T> validator(Validator validator) {
