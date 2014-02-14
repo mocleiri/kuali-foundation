@@ -31,19 +31,23 @@ public final class Bowl {
 			return this;
 		}
 
-		@Override
-		public boolean isValid() {
-			return isValid(new Bowl(this));
+		private Bowl newBowl() {
+			return new Bowl(this);
 		}
 
 		@Override
-		public Set<ConstraintViolation<Bowl>> getConstraintViolations() {
-			return getConstraintViolations(new Bowl(this));
+		public boolean isValid() {
+			return isValid(newBowl());
+		}
+
+		@Override
+		public Set<ConstraintViolation<Bowl>> getViolations() {
+			return getViolations(newBowl());
 		}
 
 		@Override
 		public Bowl build() {
-			return validate(new Bowl(this));
+			return validate(newBowl());
 		}
 
 		public Milk getMilk() {

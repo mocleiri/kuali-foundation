@@ -51,8 +51,8 @@ public final class Milk {
 		}
 
 		@Override
-		public Set<ConstraintViolation<Milk>> getConstraintViolations() {
-			return getConstraintViolations(newMilk());
+		public Set<ConstraintViolation<Milk>> getViolations() {
+			return getViolations(newMilk());
 		}
 
 		@Override

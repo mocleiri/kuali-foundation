@@ -22,13 +22,13 @@ public abstract class ValidatingBuilder<T> implements Builder<T> {
 
 	public abstract boolean isValid();
 
-	public abstract Set<ConstraintViolation<T>> getConstraintViolations();
+	public abstract Set<ConstraintViolation<T>> getViolations();
 
 	public boolean isValid(T instance) {
-		return getConstraintViolations(instance).size() == 0;
+		return getViolations(instance).isEmpty();
 	}
 
-	public Set<ConstraintViolation<T>> getConstraintViolations(T instance) {
+	public Set<ConstraintViolation<T>> getViolations(T instance) {
 		return validator.validate(instance, validationGroups.toArray(EMPTY_CLASS_ARRAY));
 	}
 
