@@ -1,10 +1,9 @@
 package org.kuali.common.util.bind.breakfast.immutable;
 
-import static org.kuali.common.util.validate.Validation.checkConstraints;
-
 import javax.validation.constraints.Min;
 
 import org.kuali.common.util.bind.api.Alias;
+import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
@@ -20,7 +19,11 @@ public final class Milk {
 		this.type = builder.type;
 	}
 
-	public static class Builder implements org.apache.commons.lang3.builder.Builder<Milk> {
+	public static Builder builder() {
+		return new Builder();
+	}
+
+	public static class Builder extends ValidatingBuilder<Milk> {
 
 		private double price = -1;
 		private String type;
@@ -37,7 +40,7 @@ public final class Milk {
 
 		@Override
 		public Milk build() {
-			return checkConstraints(new Milk(this));
+			return validate(new Milk(this));
 		}
 
 		public double getPrice() {
