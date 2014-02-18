@@ -128,8 +128,10 @@ public class DataBinderTest {
 			List<Node<BindDescriptor>> subNodes = newArrayList();
 			for (Node<BindDescriptor> child : children) {
 				BindDescriptor bd = child.getElement();
-				if (child.isLeaf() && bd.getBindValue() != null) {
-					values.put(bd.getInstancePropertyName(), bd.getBindValue());
+				if (child.isLeaf()) {
+					if (bd.getBindValue() != null) {
+						values.put(bd.getInstancePropertyName(), bd.getBindValue());
+					}
 				} else {
 					subNodes.add(child);
 				}
