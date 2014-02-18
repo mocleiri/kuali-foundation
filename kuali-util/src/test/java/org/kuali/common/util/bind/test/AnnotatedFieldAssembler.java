@@ -60,25 +60,22 @@ public final class AnnotatedFieldAssembler implements Function<Class<?>, List<No
 		this.comparator = builder.comparator;
 	}
 
-	public static AnnotatedFieldAssembler create(Class<?> type, Class<? extends Annotation> annotation) {
-		return builder(type, annotation).build();
+	public static AnnotatedFieldAssembler create(Class<? extends Annotation> annotation) {
+		return builder(annotation).build();
 	}
 
-	public static Builder builder(Class<?> type, Class<? extends Annotation> annotation) {
-		return new Builder(type, annotation);
+	public static Builder builder(Class<? extends Annotation> annotation) {
+		return new Builder(annotation);
 	}
 
 	public static class Builder implements org.apache.commons.lang3.builder.Builder<AnnotatedFieldAssembler> {
 
-		// Required
-		private final Class<?> type;
 		private final Class<? extends Annotation> annotation;
 
 		// Optional
 		private Comparator<Field> comparator = FieldNameComparator.INSTANCE;
 
-		public Builder(Class<?> type, Class<? extends Annotation> annotation) {
-			this.type = type;
+		public Builder(Class<? extends Annotation> annotation) {
 			this.annotation = annotation;
 		}
 
@@ -104,9 +101,6 @@ public final class AnnotatedFieldAssembler implements Function<Class<?>, List<No
 			return annotation;
 		}
 
-		public Class<?> getType() {
-			return type;
-		}
 	}
 
 	public Class<? extends Annotation> getAnnotation() {
