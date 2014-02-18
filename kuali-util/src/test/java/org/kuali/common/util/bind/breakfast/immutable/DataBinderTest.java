@@ -13,6 +13,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.SortedSet;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.builder.Builder;
@@ -34,6 +35,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Sets;
 
 public class DataBinderTest {
 
@@ -46,10 +48,20 @@ public class DataBinderTest {
 			// Map<String, String> values = ImmutableMap.of("bowl.milk.type", "lowfat", "bowl.milk.price", "2.29");
 			// Bowl bowl = getInstance(type, values);
 			// logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
+
+			show(System.getProperties());
 			SystemProperties vm = getInstance(SystemProperties.class, System.getProperties());
 			logger.info(vm.getFileSeparator());
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	private static void show(Properties props) {
+		SortedSet<String> keys = Sets.newTreeSet(props.stringPropertyNames());
+		for (String key : keys) {
+			String value = props.getProperty(key);
+			System.out.println(key + "=" + value);
 		}
 	}
 
@@ -116,7 +128,7 @@ public class DataBinderTest {
 			List<Node<BindDescriptor>> subNodes = newArrayList();
 			for (Node<BindDescriptor> child : children) {
 				BindDescriptor bd = child.getElement();
-				if (child.isLeaf()) {
+				if (child.isLeaf() && bd.getBindValue() != null) {
 					values.put(bd.getInstancePropertyName(), bd.getBindValue());
 				} else {
 					subNodes.add(child);
