@@ -23,6 +23,9 @@ import com.google.common.collect.ImmutableList;
 
 public class BindKeyFunction implements Function<List<Field>, List<String>> {
 
+	private static final char SEPARATOR = '.';
+	private static final Joiner JOINER = Joiner.on(SEPARATOR);
+
 	public BindKeyFunction(Class<?> type) {
 		this.type = checkNotNull(type, "type");
 	}
@@ -31,7 +34,6 @@ public class BindKeyFunction implements Function<List<Field>, List<String>> {
 		return new BindKeyFunction(type);
 	}
 
-	private final Joiner joiner = Joiner.on('.');
 	private final Class<?> type;
 
 	@Override
@@ -43,7 +45,7 @@ public class BindKeyFunction implements Function<List<Field>, List<String>> {
 		for (String suffix : suffixes) {
 			String bindKey = suffix;
 			if (prefix.isPresent()) {
-				bindKey = prefix.get() + "." + suffix;
+				bindKey = prefix.get() + SEPARATOR + suffix;
 			}
 			bindKeys.add(bindKey);
 		}
@@ -71,7 +73,7 @@ public class BindKeyFunction implements Function<List<Field>, List<String>> {
 		if (strings.isEmpty()) {
 			return absent();
 		} else {
-			return Optional.of(joiner.join(strings));
+			return Optional.of(JOINER.join(strings));
 		}
 	}
 
