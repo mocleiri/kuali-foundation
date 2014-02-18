@@ -7,6 +7,8 @@ import static org.kuali.common.util.Annotations.extractClassAnnotation;
 import static org.kuali.common.util.Annotations.extractFieldAnnotation;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
+import static org.kuali.common.util.bind.api.Bind.ABSENT;
+import static org.kuali.common.util.bind.api.Bind.DEFAULT;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -80,10 +82,10 @@ public class BindKeyFunction implements Function<List<Field>, List<String>> {
 		}
 		String value = annotation.get().value();
 		checkNotBlank(value, Bind.class.getCanonicalName() + ".value()");
-		if (Bind.ABSENT.equals(value)) {
+		if (ABSENT.equals(value)) {
 			return absent();
 		}
-		if (Bind.DEFAULT.equals(value)) {
+		if (DEFAULT.equals(value)) {
 			return Optional.of(provided);
 		} else {
 			return Optional.of(value);
