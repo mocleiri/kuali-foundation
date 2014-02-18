@@ -20,7 +20,7 @@ import javax.validation.Payload;
 @Documented
 public @interface IdiotProofImmutableWithBlanks {
 
-	String message() default "basic immutable checks failed";
+	String message() default "immutability checks failed";
 
 	Class<?>[] groups() default {};
 
