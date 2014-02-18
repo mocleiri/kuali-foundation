@@ -18,9 +18,7 @@ public final class User {
 	private final String name;
 	private final File home;
 	private final File dir;
-	@OptionalStringFormat
 	private final Optional<String> language;
-	@OptionalStringFormat
 	private final Optional<String> country;
 	@Alias("timezone")
 	private final Optional<TimeZone> timeZone;
@@ -43,7 +41,9 @@ public final class User {
 		private String name;
 		private File home;
 		private File dir;
+		@OptionalStringFormat
 		private Optional<String> language = absent();
+		@OptionalStringFormat
 		private Optional<String> country = absent();
 		private Optional<TimeZone> timeZone = absent();
 
