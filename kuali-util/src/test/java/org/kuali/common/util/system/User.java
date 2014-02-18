@@ -4,7 +4,6 @@ import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.io.File;
 
-import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
@@ -12,7 +11,6 @@ public final class User {
 
 	private final String name;
 	private final File home;
-	@Alias("directory")
 	private final File dir;
 
 	private User(Builder builder) {
