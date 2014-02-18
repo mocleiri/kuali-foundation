@@ -79,22 +79,14 @@ public class DataBinderTest {
 
 	protected static void buildInstances(List<Node<BindDescriptor>> nodes) {
 		for (Node<BindDescriptor> node : nodes) {
-			if (!node.getChildren().isEmpty()) {
-				List<Node<BindDescriptor>> children = node.getChildren();
-				for (Node<BindDescriptor> child : children) {
-					BindDescriptor bd = child.getElement();
-					if (!child.isLeaf()) {
-						Builder<?> builder = bd.getInstanceBuilder();
-						Object instance = builder.build();
-						bd.setInstance(instance);
-					}
-				}
+			buildInstances(node.getChildren());
+			if (!node.isLeaf()) {
 				BindDescriptor bd = node.getElement();
 				Builder<?> builder = bd.getInstanceBuilder();
-				Object instance = builder.build();
-				bd.setInstance(instance);
-			} else {
-				// do something awesome
+				if (builder != null) {
+					Object instance = builder.build();
+					bd.setInstance(instance);
+				}
 			}
 		}
 	}
