@@ -2,13 +2,13 @@ package org.kuali.common.util.validate;
 
 import static com.google.common.base.Optional.absent;
 import static org.kuali.common.util.ReflectionUtils.extractFieldValue;
+import static org.kuali.common.util.ReflectionUtils.isStringKeyedMap;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Map;
 
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.ReflectionUtils;
 
 import com.google.common.base.Optional;
 
@@ -18,7 +18,7 @@ public class NoBlankMapKeysValidator extends AbstractFieldsValidator<NoBlankMapK
 	protected Optional<String> validate(Field field, Object instance) {
 
 		// This field may not be a Map<String,?>
-		if (!ReflectionUtils.isStringKeyedMap(field)) {
+		if (!isStringKeyedMap(field)) {
 			return absent();
 		}
 
