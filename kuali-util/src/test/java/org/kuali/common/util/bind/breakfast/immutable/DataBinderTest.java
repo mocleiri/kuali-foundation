@@ -132,7 +132,8 @@ public class DataBinderTest {
 			// Ordering of the bindKeys is significant here.
 			// We must return the first value that matches
 			if (values.containsKey(bindKey)) {
-				leaf.getElement().setBindValue(values.get(bindKey));
+				Object value = values.get(bindKey);
+				leaf.getElement().setBindValue(value);
 				break;
 			}
 		}
