@@ -4,7 +4,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 import static org.kuali.common.util.ReflectionUtils.newInstance;
 import static org.kuali.common.util.base.Exceptions.illegalState;
-import static org.kuali.common.util.bind.breakfast.immutable.BindKeyFunction.newBindKeyFunction;
+import static org.kuali.common.util.bind.breakfast.immutable.BindKeysFunction.newBindKeyFunction;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.io.File;

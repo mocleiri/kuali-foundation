@@ -21,17 +21,17 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
-public class BindKeyFunction implements Function<List<Field>, List<String>> {
+public class BindKeysFunction implements Function<List<Field>, List<String>> {
 
 	private static final char SEPARATOR = '.';
 	private static final Joiner JOINER = Joiner.on(SEPARATOR);
 
-	public BindKeyFunction(Class<?> type) {
+	public BindKeysFunction(Class<?> type) {
 		this.type = checkNotNull(type, "type");
 	}
 
-	public static BindKeyFunction newBindKeyFunction(Class<?> type) {
-		return new BindKeyFunction(type);
+	public static BindKeysFunction newBindKeyFunction(Class<?> type) {
+		return new BindKeysFunction(type);
 	}
 
 	private final Class<?> type;
