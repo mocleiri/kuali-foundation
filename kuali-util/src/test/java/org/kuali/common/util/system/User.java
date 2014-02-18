@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.TimeZone;
 
 import org.kuali.common.util.bind.api.Alias;
+import org.kuali.common.util.spring.format.OptionalStringFormat;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
@@ -17,7 +18,9 @@ public final class User {
 	private final String name;
 	private final File home;
 	private final File dir;
+	@OptionalStringFormat
 	private final Optional<String> language;
+	@OptionalStringFormat
 	private final Optional<String> country;
 	@Alias("timezone")
 	private final Optional<TimeZone> timeZone;
