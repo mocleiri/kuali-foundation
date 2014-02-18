@@ -11,11 +11,14 @@ import static org.kuali.common.util.log.Loggers.newLogger;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.apache.commons.lang3.builder.Builder;
 import org.junit.Test;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.test.AnnotatedFieldAssemblerFunction;
+import org.kuali.common.util.system.SystemProperties;
 import org.kuali.common.util.tree.MutableNode;
 import org.kuali.common.util.tree.Node;
 import org.kuali.common.util.tree.Trees;
@@ -39,9 +42,15 @@ public class DataBinderTest {
 			Map<String, String> values = ImmutableMap.of("bowl.milk.type", "lowfat", "bowl.milk.price", "2.29");
 			Bowl bowl = getInstance(type, values);
 			logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
+			SystemProperties vm = getInstance(SystemProperties.class, System.getProperties());
+			logger.info(vm.getFileSeparator());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static <T> T getInstance(Class<T> type, Properties properties) {
+		return getInstance(type, PropertyUtils.convert(properties));
 	}
 
 	public static <T> T getInstance(Class<T> type, Map<String, ?> values) {
