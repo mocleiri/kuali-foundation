@@ -89,42 +89,50 @@ public class DataBinderTest {
 
 	protected static void buildInstances(List<Node<BindDescriptor>> nodes) {
 		for (Node<BindDescriptor> node : nodes) {
-			List<Node<BindDescriptor>> children = node.getChildren();
-			for (Node<BindDescriptor> child : children) {
-				BindDescriptor bd = child.getElement();
-				if (!child.isLeaf()) {
-					Builder<?> builder = bd.getInstanceBuilder();
-					Object instance = builder.build();
-					bd.setInstance(instance);
+			if (!node.getChildren().isEmpty()) {
+				List<Node<BindDescriptor>> children = node.getChildren();
+				for (Node<BindDescriptor> child : children) {
+					BindDescriptor bd = child.getElement();
+					if (!child.isLeaf()) {
+						Builder<?> builder = bd.getInstanceBuilder();
+						Object instance = builder.build();
+						bd.setInstance(instance);
+					}
 				}
+				BindDescriptor bd = node.getElement();
+				Builder<?> builder = bd.getInstanceBuilder();
+				Object instance = builder.build();
+				bd.setInstance(instance);
+			} else {
+				// do something awesome
 			}
-			BindDescriptor bd = node.getElement();
-			Builder<?> builder = bd.getInstanceBuilder();
-			Object instance = builder.build();
-			bd.setInstance(instance);
 		}
 	}
 
 	protected static void bindLeavesToParents(List<Node<BindDescriptor>> nodes) {
 		for (Node<BindDescriptor> node : nodes) {
-			List<Node<BindDescriptor>> children = node.getChildren();
-			Map<String, Object> values = newHashMap();
-			List<Node<BindDescriptor>> subNodes = newArrayList();
-			for (Node<BindDescriptor> child : children) {
-				BindDescriptor bd = child.getElement();
-				if (child.isLeaf()) {
-					values.put(bd.getInstancePropertyName(), bd.getBindValue());
-				} else {
-					subNodes.add(child);
+			if (!node.getChildren().isEmpty()) {
+				List<Node<BindDescriptor>> children = node.getChildren();
+				Map<String, Object> values = newHashMap();
+				List<Node<BindDescriptor>> subNodes = newArrayList();
+				for (Node<BindDescriptor> child : children) {
+					BindDescriptor bd = child.getElement();
+					if (child.isLeaf()) {
+						values.put(bd.getInstancePropertyName(), bd.getBindValue());
+					} else {
+						subNodes.add(child);
+					}
 				}
+				BindDescriptor descriptor = node.getElement();
+				System.out.println(descriptor.getInstancePropertyName());
+				MutablePropertyValues mpvs = new MutablePropertyValues(values);
+				Builder<?> builder = descriptor.getInstanceBuilder();
+				DataBinder binder = new DataBinder(builder);
+				binder.bind(mpvs);
+				bindLeavesToParents(subNodes);
+			} else {
+				// do something awesome
 			}
-			BindDescriptor descriptor = node.getElement();
-			System.out.println(descriptor.getInstancePropertyName());
-			MutablePropertyValues mpvs = new MutablePropertyValues(values);
-			Builder<?> builder = descriptor.getInstanceBuilder();
-			DataBinder binder = new DataBinder(builder);
-			binder.bind(mpvs);
-			bindLeavesToParents(subNodes);
 		}
 	}
 
