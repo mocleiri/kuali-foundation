@@ -2,7 +2,6 @@ package org.kuali.common.util.bind.breakfast.immutable;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
-import static java.lang.String.format;
 import static org.kuali.common.util.ReflectionUtils.newInstance;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.bind.breakfast.immutable.BindKeyFunction.newBindKeyFunction;
@@ -29,7 +28,6 @@ import org.springframework.validation.DataBinder;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 
 public class DataBinderTest {
 
@@ -38,10 +36,10 @@ public class DataBinderTest {
 	@Test
 	public void test() {
 		try {
-			Class<Bowl> type = Bowl.class;
-			Map<String, String> values = ImmutableMap.of("bowl.milk.type", "lowfat", "bowl.milk.price", "2.29");
-			Bowl bowl = getInstance(type, values);
-			logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
+			// Class<Bowl> type = Bowl.class;
+			// Map<String, String> values = ImmutableMap.of("bowl.milk.type", "lowfat", "bowl.milk.price", "2.29");
+			// Bowl bowl = getInstance(type, values);
+			// logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
 			SystemProperties vm = getInstance(SystemProperties.class, System.getProperties());
 			logger.info(vm.getFileSeparator());
 		} catch (Exception e) {

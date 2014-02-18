@@ -37,12 +37,20 @@ public class BindKeyFunction implements Function<List<Field>, List<String>> {
 	@Override
 	public List<String> apply(List<Field> fields) {
 		checkNotNull(fields, "fields");
-		List<String> strings = newArrayList();
-		addIfPresent(strings, getToken(type));
-		for (int i = 0; i < fields.size() - 1; i++) {
-			Field field = fields.get(i);
-			addIfPresent(strings, getToken(field));
+		Optional<String> prefix = getPrefix(type, fields);
+		List<String> suffixes = getSuffixes(fields);
+		List<String> bindKeys = newArrayList();
+		for (String suffix : suffixes) {
+			String bindKey = suffix;
+			if (prefix.isPresent()) {
+				bindKey = prefix.get() + "." + suffix;
+			}
+			bindKeys.add(bindKey);
 		}
+		return bindKeys;
+	}
+
+	protected List<String> getSuffixes(List<Field> fields) {
 		List<String> suffixes = newArrayList();
 		Field lastField = fields.get(fields.size() - 1);
 		Optional<Alias> annotation = extractFieldAnnotation(lastField, Alias.class);
@@ -50,12 +58,21 @@ public class BindKeyFunction implements Function<List<Field>, List<String>> {
 			suffixes.addAll(ImmutableList.copyOf(annotation.get().value()));
 		}
 		suffixes.add(lastField.getName());
-		List<String> bindKeys = newArrayList();
-		for (String suffix : suffixes) {
-			String bindKey = joiner.join(strings) + "." + suffix;
-			bindKeys.add(bindKey);
+		return suffixes;
+	}
+
+	protected Optional<String> getPrefix(Class<?> type, List<Field> fields) {
+		List<String> strings = newArrayList();
+		addIfPresent(strings, getToken(type));
+		for (int i = 0; i < fields.size() - 1; i++) {
+			Field field = fields.get(i);
+			addIfPresent(strings, getToken(field));
 		}
-		return bindKeys;
+		if (strings.isEmpty()) {
+			return absent();
+		} else {
+			return Optional.of(joiner.join(strings));
+		}
 	}
 
 	protected void addIfPresent(List<String> strings, Optional<String> optional) {
