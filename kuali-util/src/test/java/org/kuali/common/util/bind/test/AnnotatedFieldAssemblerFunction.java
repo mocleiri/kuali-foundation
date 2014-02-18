@@ -17,6 +17,10 @@ import org.kuali.common.util.tree.Node;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 
+/**
+ * Recursively examines every field in the type hierarchy of a class for the presence of an annotation. Fields containing the annotation are recursively examined. The result of the
+ * function is a tree of field objects representing the result of recursive examination.
+ */
 public final class AnnotatedFieldAssemblerFunction implements Function<Class<?>, List<Node<Field>>> {
 
 	private final Class<? extends Annotation> annotation;
