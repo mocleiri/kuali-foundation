@@ -1,5 +1,6 @@
 package org.kuali.common.util.system;
 
+import static org.kuali.common.util.bind.api.Bind.ABSENT;
 import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -8,6 +9,7 @@ import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.validate.IdiotProofImmutableWithBlanks;
 
 @IdiotProofImmutableWithBlanks
+@Bind(ABSENT)
 public final class SystemProperties {
 
 	@Bind
