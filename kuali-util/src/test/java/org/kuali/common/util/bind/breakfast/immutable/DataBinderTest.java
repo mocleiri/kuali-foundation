@@ -3,13 +3,11 @@ package org.kuali.common.util.bind.breakfast.immutable;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 import static java.lang.String.format;
-import static org.apache.commons.io.FileUtils.write;
 import static org.kuali.common.util.ReflectionUtils.newInstance;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.bind.breakfast.immutable.BindKeyFunction.newBindKeyFunction;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
-import java.io.File;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +32,18 @@ public class DataBinderTest {
 
 	private static final Logger logger = newLogger();
 
+	@Test
+	public void test() {
+		try {
+			Class<Bowl> type = Bowl.class;
+			Map<String, String> values = ImmutableMap.of("bowl.milk.type", "lowfat", "bowl.milk.price", "2.29");
+			Bowl bowl = getInstance(type, values);
+			logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static <T> T getInstance(Class<T> type, Map<String, ?> values) {
 		List<Node<Field>> nodes = AnnotatedFieldAssemblerFunction.create(Bind.class).apply(type);
 		List<Node<BindDescriptor>> descriptors = buildDescriptors(type, nodes, newBindKeyFunction(type));
@@ -55,39 +65,6 @@ public class DataBinderTest {
 		DataBinder binder = new DataBinder(builder);
 		binder.bind(mpvs);
 		return builder.build();
-	}
-
-	@Test
-	public void test() {
-		try {
-			Class<?> type = Bowl.class;
-			List<Node<Field>> nodes = AnnotatedFieldAssemblerFunction.create(Bind.class).apply(type);
-			List<Node<BindDescriptor>> objectGraphAsNodes = buildDescriptors(type, nodes, newBindKeyFunction(type));
-			Map<String, String> objectGraphAsMap = ImmutableMap.of("bowl.milk.type", "lowfat", "bowl.milk.price", "2.29");
-			bindValuesToLeaves(objectGraphAsNodes, objectGraphAsMap);
-			createBuilderInstances(objectGraphAsNodes);
-			bindLeavesToParents(objectGraphAsNodes);
-			buildInstances(objectGraphAsNodes);
-
-			Map<String, Object> bowlMap = newHashMap();
-			for (Node<BindDescriptor> node : objectGraphAsNodes) {
-				BindDescriptor bd = node.getElement();
-				String key = bd.getInstancePropertyName();
-				Object value = bd.getInstance();
-				bowlMap.put(key, value);
-			}
-
-			Bowl.Builder builder = new Bowl.Builder();
-			MutablePropertyValues mpvs = new MutablePropertyValues(bowlMap);
-			DataBinder binder = new DataBinder(builder);
-			binder.bind(mpvs);
-			Bowl bowl = builder.build();
-			logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
-			String html = Trees.html(Bowl.class.getSimpleName(), objectGraphAsNodes, new BindDescriptorFunction());
-			write(new File("/tmp/bds.htm"), html);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	protected static void buildInstances(List<Node<BindDescriptor>> nodes) {
