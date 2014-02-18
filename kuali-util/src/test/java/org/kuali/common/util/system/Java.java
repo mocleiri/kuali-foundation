@@ -1,5 +1,6 @@
 package org.kuali.common.util.system;
 
+import static com.google.common.base.Optional.absent;
 import static org.kuali.common.util.bind.api.Bind.ABSENT;
 import static org.kuali.common.util.validate.Validation.checkConstraints;
 
@@ -58,11 +59,11 @@ public final class Java {
 
 		private File home;
 		private File temporaryDirectory;
-		private Optional<String> jitCompiler;
+		private Optional<String> jitCompiler = absent();
 		private String classVersion;
-		private List<String> classpath;
-		private List<String> libraryPaths;
-		private List<String> extensionDirectories;
+		private List<String> classpath = ImmutableList.of();
+		private List<String> libraryPaths = ImmutableList.of();
+		private List<String> extensionDirectories = ImmutableList.of();
 		private RuntimeEnvironment runtimeEnvironment;
 		private VirtualMachine virtualMachine;
 
