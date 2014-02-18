@@ -32,9 +32,7 @@ import org.springframework.validation.DataBinder;
 
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 public class DataBinderTest {
 
@@ -104,32 +102,25 @@ public class DataBinderTest {
 	protected static void bindLeavesToParents(List<Node<BindDescriptor>> nodes) {
 		for (Node<BindDescriptor> node : nodes) {
 			BindDescriptor descriptor = node.getElement();
-			List<Field> fields = descriptor.getNode().getElementPath();
-			List<String> path = Lists.transform(fields, new org.kuali.common.util.function.FieldNameFunction());
-			System.out.println(Joiner.on('.').join(path));
-			if (!node.getChildren().isEmpty()) {
-				List<Node<BindDescriptor>> children = node.getChildren();
-				Map<String, Object> values = newHashMap();
-				List<Node<BindDescriptor>> subNodes = newArrayList();
-				for (Node<BindDescriptor> child : children) {
-					BindDescriptor bd = child.getElement();
-					if (child.isLeaf()) {
-						values.put(bd.getInstancePropertyName(), bd.getBindValue());
-					} else {
-						subNodes.add(child);
-					}
-				}
-				MutablePropertyValues mpvs = new MutablePropertyValues(values);
-				Builder<?> builder = descriptor.getInstanceBuilder();
-				DataBinder binder = new DataBinder(builder);
-				binder.bind(mpvs);
-				bindLeavesToParents(subNodes);
-			} else {
-				Optional<Node<BindDescriptor>> parent = node.getParent();
-				if (parent.isPresent()) {
-					updateParentDescriptor(parent.get().getElement(), descriptor);
+			if (node.getChildren().isEmpty()) {
+				continue;
+			}
+			List<Node<BindDescriptor>> children = node.getChildren();
+			Map<String, Object> values = newHashMap();
+			List<Node<BindDescriptor>> subNodes = newArrayList();
+			for (Node<BindDescriptor> child : children) {
+				BindDescriptor bd = child.getElement();
+				if (child.isLeaf()) {
+					values.put(bd.getInstancePropertyName(), bd.getBindValue());
+				} else {
+					subNodes.add(child);
 				}
 			}
+			MutablePropertyValues mpvs = new MutablePropertyValues(values);
+			Builder<?> builder = descriptor.getInstanceBuilder();
+			DataBinder binder = new DataBinder(builder);
+			binder.bind(mpvs);
+			bindLeavesToParents(subNodes);
 		}
 	}
 
