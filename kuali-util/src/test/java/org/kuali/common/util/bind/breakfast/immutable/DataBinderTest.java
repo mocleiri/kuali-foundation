@@ -17,7 +17,7 @@ import java.util.Map;
 import org.apache.commons.lang3.builder.Builder;
 import org.junit.Test;
 import org.kuali.common.util.bind.api.Bind;
-import org.kuali.common.util.bind.test.AnnotatedFieldAssembler;
+import org.kuali.common.util.bind.test.AnnotatedFieldAssemblerFunction;
 import org.kuali.common.util.tree.MutableNode;
 import org.kuali.common.util.tree.Node;
 import org.kuali.common.util.tree.Trees;
@@ -38,7 +38,7 @@ public class DataBinderTest {
 	public void test() {
 		try {
 			Class<?> type = Bowl.class;
-			List<Node<Field>> nodes = AnnotatedFieldAssembler.create(Bind.class).apply(type);
+			List<Node<Field>> nodes = AnnotatedFieldAssemblerFunction.create(Bind.class).apply(type);
 			List<Node<BindDescriptor>> objectGraphAsNodes = buildDescriptors(type, nodes, newBindKeyFunction(type));
 			Map<String, String> objectGraphAsMap = ImmutableMap.of("bowl.milk.type", "lowfat", "bowl.milk.price", "2.29");
 			bindValuesToLeaves(objectGraphAsNodes, objectGraphAsMap);

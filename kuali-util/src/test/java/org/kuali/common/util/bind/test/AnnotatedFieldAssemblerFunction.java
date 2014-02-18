@@ -17,7 +17,7 @@ import org.kuali.common.util.tree.Node;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 
-public final class AnnotatedFieldAssembler implements Function<Class<?>, List<Node<Field>>> {
+public final class AnnotatedFieldAssemblerFunction implements Function<Class<?>, List<Node<Field>>> {
 
 	private final Class<? extends Annotation> annotation;
 	private final Comparator<Field> comparator;
@@ -55,12 +55,12 @@ public final class AnnotatedFieldAssembler implements Function<Class<?>, List<No
 		return fields;
 	}
 
-	private AnnotatedFieldAssembler(Builder builder) {
+	private AnnotatedFieldAssemblerFunction(Builder builder) {
 		this.annotation = builder.annotation;
 		this.comparator = builder.comparator;
 	}
 
-	public static AnnotatedFieldAssembler create(Class<? extends Annotation> annotation) {
+	public static AnnotatedFieldAssemblerFunction create(Class<? extends Annotation> annotation) {
 		return builder(annotation).build();
 	}
 
@@ -68,7 +68,7 @@ public final class AnnotatedFieldAssembler implements Function<Class<?>, List<No
 		return new Builder(annotation);
 	}
 
-	public static class Builder implements org.apache.commons.lang3.builder.Builder<AnnotatedFieldAssembler> {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<AnnotatedFieldAssemblerFunction> {
 
 		private final Class<? extends Annotation> annotation;
 
@@ -85,8 +85,8 @@ public final class AnnotatedFieldAssembler implements Function<Class<?>, List<No
 		}
 
 		@Override
-		public AnnotatedFieldAssembler build() {
-			return checkConstraints(new AnnotatedFieldAssembler(this));
+		public AnnotatedFieldAssemblerFunction build() {
+			return checkConstraints(new AnnotatedFieldAssemblerFunction(this));
 		}
 
 		public Comparator<Field> getComparator() {
