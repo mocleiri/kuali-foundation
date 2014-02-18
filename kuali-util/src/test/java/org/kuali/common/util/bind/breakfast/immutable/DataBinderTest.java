@@ -113,13 +113,13 @@ public class DataBinderTest {
 					subNodes.add(child);
 				}
 			}
+			bindLeavesToParents(subNodes);
 			if (!values.isEmpty()) {
 				MutablePropertyValues mpvs = new MutablePropertyValues(values);
 				Builder<?> builder = descriptor.getInstanceBuilder();
 				DataBinder binder = new DataBinder(builder);
 				binder.bind(mpvs);
 			}
-			bindLeavesToParents(subNodes);
 		}
 	}
 
