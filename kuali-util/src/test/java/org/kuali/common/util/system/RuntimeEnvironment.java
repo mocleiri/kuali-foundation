@@ -7,7 +7,7 @@ import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
-public class RuntimeEnvironment {
+public final class RuntimeEnvironment {
 
 	private final String vendor;
 	private final String version;
