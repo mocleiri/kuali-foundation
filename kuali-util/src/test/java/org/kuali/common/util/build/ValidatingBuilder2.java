@@ -20,13 +20,7 @@ public abstract class ValidatingBuilder2<T> implements Builder<T> {
 	protected Validator validator = Validation.getDefaultValidator();
 	protected List<Class<?>> validationGroups = ImmutableList.of();
 
-	public abstract boolean isValid();
-
 	public abstract Set<ConstraintViolation<T>> getViolations();
-
-	protected boolean isValid(T instance) {
-		return getViolations(instance).isEmpty();
-	}
 
 	protected Set<ConstraintViolation<T>> getViolations(T instance) {
 		return validator.validate(instance, validationGroups.toArray(EMPTY_CLASS_ARRAY));

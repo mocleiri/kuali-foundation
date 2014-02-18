@@ -40,24 +40,15 @@ public final class Milk {
 			this.type = type;
 			return this;
 		}
-		
-		private Milk newMilk() {
-			return new Milk(this);
-		}
-
-		@Override
-		public boolean isValid() {
-			return isValid(newMilk());
-		}
 
 		@Override
 		public Set<ConstraintViolation<Milk>> getViolations() {
-			return getViolations(newMilk());
+			return getViolations(new Milk(this));
 		}
 
 		@Override
 		public Milk build() {
-			return validate(newMilk());
+			return validate(new Milk(this));
 		}
 
 		public double getPrice() {
