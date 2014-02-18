@@ -70,16 +70,13 @@ public class DataBinderTest {
 		List<Node<BindDescriptor>> descriptors = buildDescriptors(type, nodes, newBindKeyFunction(type));
 		bindValuesToLeaves(descriptors, values);
 		createBuilderInstances(descriptors);
-		// TODO Take this out
-		String html = Trees.html(type.getSimpleName(), descriptors, new BindDescriptorFunction());
-		write("/tmp/bds.htm", html);
 		bindLeavesToParents(descriptors);
 		buildInstances(descriptors);
 		Map<String, Object> map = newHashMap();
 		for (Node<BindDescriptor> node : descriptors) {
 			BindDescriptor bd = node.getElement();
 			String key = bd.getInstancePropertyName();
-			Object value = bd.getInstance();
+			Object value = bd.getInstance() != null ? bd.getInstance() : bd.getBindValue();
 			map.put(key, value);
 		}
 
@@ -199,7 +196,11 @@ public class DataBinderTest {
 				display = simple + ".Builder<" + simple + ">";
 			}
 			sb.append(tr("instance builder", display));
-			sb.append(tr("instance", bd.getInstance() + ""));
+			display = null;
+			if (bd.getInstance() != null) {
+				display = bd.getInstance().getClass().getSimpleName() + "@" + Integer.toHexString(bd.getInstance().hashCode());
+			}
+			sb.append(tr("instance", display));
 			sb.append("</table>");
 			return sb.toString();
 		}
