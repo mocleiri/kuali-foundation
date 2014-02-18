@@ -43,11 +43,11 @@ public class BindKeyFunction implements Function<List<Field>, List<String>> {
 		List<String> suffixes = getSuffixes(fields);
 		List<String> bindKeys = newArrayList();
 		for (String suffix : suffixes) {
-			String bindKey = suffix;
 			if (prefix.isPresent()) {
-				bindKey = prefix.get() + SEPARATOR + suffix;
+				bindKeys.add(prefix.get() + SEPARATOR + suffix);
+			} else {
+				bindKeys.add(suffix);
 			}
-			bindKeys.add(bindKey);
 		}
 		return bindKeys;
 	}
