@@ -114,7 +114,7 @@ public class DataBinderTest {
 				}
 			}
 			bindLeavesToParents(subNodes);
-			if (!values.isEmpty()) {
+			if (!children.isEmpty()) {
 				MutablePropertyValues mpvs = new MutablePropertyValues(values);
 				Builder<?> builder = descriptor.getInstanceBuilder();
 				DataBinder binder = new DataBinder(builder);
