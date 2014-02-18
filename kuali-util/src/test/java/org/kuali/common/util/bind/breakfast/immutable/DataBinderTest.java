@@ -7,14 +7,18 @@ import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.bind.breakfast.immutable.BindKeyFunction.newBindKeyFunction;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.builder.Builder;
 import org.junit.Test;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.test.AnnotatedFieldAssemblerFunction;
 import org.kuali.common.util.system.SystemProperties;
@@ -51,14 +55,23 @@ public class DataBinderTest {
 		return getInstance(type, PropertyUtils.convert(properties));
 	}
 
+	private static void write(String path, String content) {
+		try {
+			FileUtils.write(new File(path), content);
+		} catch (IOException e) {
+			throw Exceptions.illegalState(e);
+		}
+	}
+
 	public static <T> T getInstance(Class<T> type, Map<String, ?> values) {
 		List<Node<Field>> nodes = AnnotatedFieldAssemblerFunction.create(Bind.class).apply(type);
 		List<Node<BindDescriptor>> descriptors = buildDescriptors(type, nodes, newBindKeyFunction(type));
 		bindValuesToLeaves(descriptors, values);
 		createBuilderInstances(descriptors);
+		String html = Trees.html(type.getSimpleName(), descriptors, new BindDescriptorFunction());
+		write("/tmp/bds.htm", html);
 		bindLeavesToParents(descriptors);
 		buildInstances(descriptors);
-
 		Map<String, Object> map = newHashMap();
 		for (Node<BindDescriptor> node : descriptors) {
 			BindDescriptor bd = node.getElement();
@@ -152,18 +165,29 @@ public class DataBinderTest {
 		public String apply(Node<BindDescriptor> node) {
 			BindDescriptor bd = node.getElement();
 			StringBuilder sb = new StringBuilder();
+			sb.append("<table border=0>");
 			if (bd.getBindKeys() != null) {
-				sb.append(Joiner.on("<br>").join(bd.getBindKeys()));
+				sb.append(tr("bind keys", Joiner.on(", ").join(bd.getBindKeys())));
 			} else {
-				sb.append(null + "<br>");
+				sb.append(tr("bind keys", null));
 			}
-			sb.append("<br>");
-			sb.append(bd.getBindValue() + "<br>");
-			sb.append(bd.getInstancePropertyName() + "<br>");
-			sb.append(bd.getInstanceBuilder() + "<br>");
-			sb.append(bd.getInstance() + "<br>");
+			sb.append(tr("bind value", bd.getBindValue() + ""));
+			sb.append(tr("instance property name", bd.getInstancePropertyName() + ""));
+			String display = null;
+			if (bd.getInstanceBuilder() != null) {
+				String simple = bd.getInstanceBuilder().getClass().getDeclaringClass().getSimpleName();
+				display = simple + ".Builder<" + simple + ">";
+			}
+			sb.append(tr("instance builder", display));
+			sb.append(tr("instance", bd.getInstance() + ""));
+			sb.append("</table>");
 			return sb.toString();
 		}
+	}
+
+	protected static String tr(String label, String value) {
+		String display = value == null ? null : value.replace(":", "<br>").replace(",", "<br>");
+		return "<tr valign=top><td align=right>" + label + "&nbsp;</td><td>" + display + "</td></tr>";
 	}
 
 	protected static List<Node<BindDescriptor>> buildDescriptors(Class<?> type, List<Node<Field>> nodes, Function<List<Field>, List<String>> function) {
