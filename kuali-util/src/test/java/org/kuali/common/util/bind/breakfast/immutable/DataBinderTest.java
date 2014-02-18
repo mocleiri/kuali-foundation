@@ -176,7 +176,7 @@ public class DataBinderTest {
 		}
 	}
 
-	private static class BindDescriptorFunction implements Function<Node<BindDescriptor>, String> {
+	protected static class BindDescriptorFunction implements Function<Node<BindDescriptor>, String> {
 
 		@Override
 		public String apply(Node<BindDescriptor> node) {
@@ -277,7 +277,7 @@ public class DataBinderTest {
 		return getInstance(type, PropertyUtils.convert(properties));
 	}
 
-	private static void write(String path, String content) {
+	protected static void write(String path, String content) {
 		try {
 			FileUtils.write(new File(path), content);
 		} catch (IOException e) {
