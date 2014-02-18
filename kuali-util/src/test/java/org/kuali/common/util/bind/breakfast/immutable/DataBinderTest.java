@@ -118,8 +118,10 @@ public class DataBinderTest {
 					subNodes.add(child);
 				}
 			}
+			BindDescriptor descriptor = node.getElement();
+			System.out.println(descriptor.getInstancePropertyName());
 			MutablePropertyValues mpvs = new MutablePropertyValues(values);
-			Builder<?> builder = node.getElement().getInstanceBuilder();
+			Builder<?> builder = descriptor.getInstanceBuilder();
 			DataBinder binder = new DataBinder(builder);
 			binder.bind(mpvs);
 			bindLeavesToParents(subNodes);
