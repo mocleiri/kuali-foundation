@@ -20,7 +20,6 @@ import org.apache.commons.lang3.builder.Builder;
 import org.junit.Test;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.test.AnnotatedFieldAssemblerFunction;
 import org.kuali.common.util.system.SystemProperties;
@@ -49,9 +48,13 @@ public class DataBinderTest {
 			// Bowl bowl = getInstance(type, values);
 			// logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
 
-			// show(System.getProperties());
+			show(System.getProperties());
 			SystemProperties vm = getInstance(SystemProperties.class, System.getProperties());
 			logger.info(vm.getFileSeparator());
+			logger.info(vm.getUser().getName());
+			logger.info(vm.getUser().getTimeZone().isPresent() + "");
+			logger.info(vm.getUser().getLanguage().isPresent() + "");
+			logger.info(vm.getUser().getCountry().isPresent() + "");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -64,6 +67,8 @@ public class DataBinderTest {
 		createBuilderInstances(descriptors);
 		bindLeavesToParents(descriptors);
 		buildInstances(descriptors);
+		String html = Trees.html(type.getSimpleName(), descriptors, new BindDescriptorFunction());
+		write("/tmp/bds.htm", html);
 		Map<String, Object> map = newHashMap();
 		for (Node<BindDescriptor> node : descriptors) {
 			BindDescriptor bd = node.getElement();
@@ -273,7 +278,7 @@ public class DataBinderTest {
 		try {
 			FileUtils.write(new File(path), content);
 		} catch (IOException e) {
-			throw Exceptions.illegalState(e);
+			throw illegalState(e);
 		}
 	}
 
