@@ -201,7 +201,7 @@ public class DataBinderTest {
 				return (Builder<?>) newInstance(declaredClass);
 			}
 		}
-		throw illegalState("could not locate a builder for [%s]", type.getCanonicalName());
+		throw illegalState("could not locate a [%s] declared in [%s]", Builder.class.getCanonicalName(), type.getCanonicalName());
 	}
 
 	private List<Node<BindDescriptor>> convert(List<MutableNode<BindDescriptor>> bds) {
