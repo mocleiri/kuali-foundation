@@ -34,6 +34,29 @@ public class DataBinderTest {
 
 	private static final Logger logger = newLogger();
 
+	public static <T> T getInstance(Class<T> type, Map<String, ?> values) {
+		List<Node<Field>> nodes = AnnotatedFieldAssemblerFunction.create(Bind.class).apply(type);
+		List<Node<BindDescriptor>> descriptors = buildDescriptors(type, nodes, newBindKeyFunction(type));
+		bindValuesToLeaves(descriptors, values);
+		createBuilderInstances(descriptors);
+		bindLeavesToParents(descriptors);
+		buildInstances(descriptors);
+
+		Map<String, Object> map = newHashMap();
+		for (Node<BindDescriptor> node : descriptors) {
+			BindDescriptor bd = node.getElement();
+			String key = bd.getInstancePropertyName();
+			Object value = bd.getInstance();
+			map.put(key, value);
+		}
+
+		Builder<T> builder = createBuilder(type);
+		MutablePropertyValues mpvs = new MutablePropertyValues(map);
+		DataBinder binder = new DataBinder(builder);
+		binder.bind(mpvs);
+		return builder.build();
+	}
+
 	@Test
 	public void test() {
 		try {
@@ -67,7 +90,7 @@ public class DataBinderTest {
 		}
 	}
 
-	private void buildInstances(List<Node<BindDescriptor>> nodes) {
+	protected static void buildInstances(List<Node<BindDescriptor>> nodes) {
 		for (Node<BindDescriptor> node : nodes) {
 			List<Node<BindDescriptor>> children = node.getChildren();
 			for (Node<BindDescriptor> child : children) {
@@ -85,7 +108,7 @@ public class DataBinderTest {
 		}
 	}
 
-	private void bindLeavesToParents(List<Node<BindDescriptor>> nodes) {
+	protected static void bindLeavesToParents(List<Node<BindDescriptor>> nodes) {
 		for (Node<BindDescriptor> node : nodes) {
 			List<Node<BindDescriptor>> children = node.getChildren();
 			Map<String, Object> values = newHashMap();
@@ -106,7 +129,7 @@ public class DataBinderTest {
 		}
 	}
 
-	private void createBuilderInstances(List<Node<BindDescriptor>> nodes) {
+	protected static void createBuilderInstances(List<Node<BindDescriptor>> nodes) {
 		List<Node<BindDescriptor>> leaves = Trees.getLeaves(nodes);
 		for (Node<BindDescriptor> leaf : leaves) {
 			List<Node<BindDescriptor>> path = leaf.getPath();
@@ -121,13 +144,13 @@ public class DataBinderTest {
 		}
 	}
 
-	private void bindValuesToLeaves(List<Node<BindDescriptor>> nodes, Map<String, ?> values) {
+	protected static void bindValuesToLeaves(List<Node<BindDescriptor>> nodes, Map<String, ?> values) {
 		for (Node<BindDescriptor> leaf : Trees.getLeaves(nodes)) {
 			bindValuesToLeaf(leaf, values);
 		}
 	}
 
-	private void bindValuesToLeaf(Node<BindDescriptor> leaf, Map<String, ?> values) {
+	protected static void bindValuesToLeaf(Node<BindDescriptor> leaf, Map<String, ?> values) {
 		for (String bindKey : leaf.getElement().getBindKeys()) {
 			// Ordering of the bindKeys is significant here.
 			// We must return the first value that matches
@@ -159,7 +182,7 @@ public class DataBinderTest {
 		}
 	}
 
-	protected List<Node<BindDescriptor>> buildDescriptors(Class<?> type, List<Node<Field>> nodes, Function<List<Field>, List<String>> function) {
+	protected static List<Node<BindDescriptor>> buildDescriptors(Class<?> type, List<Node<Field>> nodes, Function<List<Field>, List<String>> function) {
 		return convert(getDescriptors(type, nodes, function));
 	}
 
@@ -195,16 +218,25 @@ public class DataBinderTest {
 	protected static Builder<?> createBuilder(Node<BindDescriptor> node) {
 		BindDescriptor bd = node.getElement();
 		Class<?> type = bd.getNode().getElement().getType();
+		return createBuilder(type);
+	}
+
+	/**
+	 * Suppressing this warning means that we are assuming any class implementing the Builder interface declared inside of another class produces instances of the class in which it
+	 * is declared.
+	 */
+	@SuppressWarnings("unchecked")
+	protected static <T> Builder<T> createBuilder(Class<T> type) {
 		List<Class<?>> declaredClasses = ImmutableList.copyOf(type.getDeclaredClasses());
 		for (Class<?> declaredClass : declaredClasses) {
 			if (Builder.class.isAssignableFrom(declaredClass)) {
-				return (Builder<?>) newInstance(declaredClass);
+				return (Builder<T>) newInstance(declaredClass);
 			}
 		}
 		throw illegalState("could not locate a [%s] declared in [%s]", Builder.class.getCanonicalName(), type.getCanonicalName());
 	}
 
-	private List<Node<BindDescriptor>> convert(List<MutableNode<BindDescriptor>> bds) {
+	protected static List<Node<BindDescriptor>> convert(List<MutableNode<BindDescriptor>> bds) {
 		List<Node<BindDescriptor>> list = newArrayList();
 		for (MutableNode<BindDescriptor> bd : bds) {
 			list.add(bd);
