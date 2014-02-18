@@ -207,7 +207,7 @@ public class DataBinderTest {
 	}
 
 	protected static String tr(String label, String value) {
-		String display = value == null ? null : value.replace(":", "<br>").replace(",", "<br>");
+		String display = value == null ? null : value.replace(":", "<br>").replace(",", "<br>").replace("http<br>", "http:");
 		return "<tr valign=top><td align=right>" + label + "&nbsp;</td><td>" + display + "</td></tr>";
 	}
 
@@ -230,12 +230,12 @@ public class DataBinderTest {
 		for (Node<Field> node : nodes) {
 			Field field = node.getElement();
 			BindDescriptor bd = new BindDescriptor(node);
+			bd.setInstancePropertyName(field.getName());
 			if (node.isLeaf()) {
 				List<Field> fields = node.getElementPath();
 				List<String> bindKeys = function.apply(fields);
 				bd.setBindKeys(bindKeys);
 			}
-			bd.setInstancePropertyName(field.getName());
 			MutableNode<BindDescriptor> newNode = new MutableNode<BindDescriptor>(bd);
 			List<MutableNode<BindDescriptor>> children = getDescriptors(field.getType(), node.getChildren(), function);
 			newNode.add(children);
