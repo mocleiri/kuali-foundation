@@ -1,6 +1,7 @@
 package org.kuali.common.util.bind.test;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static org.kuali.common.util.ReflectionUtils.getAllFields;
 import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.lang.annotation.Annotation;
@@ -9,21 +10,20 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.tree.ImmutableNode;
 import org.kuali.common.util.tree.MutableNode;
 import org.kuali.common.util.tree.Node;
 
+import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 
-public final class AnnotatedFieldAssembler implements Assembler<List<Node<Field>>> {
+public final class AnnotatedFieldAssembler implements Function<Class<?>, List<Node<Field>>> {
 
 	private final Class<? extends Annotation> annotation;
-	private final Class<?> type;
 	private final Comparator<Field> comparator;
 
 	@Override
-	public List<Node<Field>> assemble() {
+	public List<Node<Field>> apply(Class<?> type) {
 		List<MutableNode<Field>> assembled = assemble(type);
 		List<Node<Field>> list = newArrayList();
 		for (Node<Field> element : assembled) {
@@ -50,14 +50,13 @@ public final class AnnotatedFieldAssembler implements Assembler<List<Node<Field>
 	}
 
 	protected List<Field> getSortedFields(Class<?> type) {
-		List<Field> fields = newArrayList(ReflectionUtils.getAllFields(type));
+		List<Field> fields = newArrayList(getAllFields(type));
 		Collections.sort(fields, comparator);
 		return fields;
 	}
 
 	private AnnotatedFieldAssembler(Builder builder) {
 		this.annotation = builder.annotation;
-		this.type = builder.type;
 		this.comparator = builder.comparator;
 	}
 
@@ -112,10 +111,6 @@ public final class AnnotatedFieldAssembler implements Assembler<List<Node<Field>
 
 	public Class<? extends Annotation> getAnnotation() {
 		return annotation;
-	}
-
-	public Class<?> getType() {
-		return type;
 	}
 
 	public Comparator<Field> getComparator() {
