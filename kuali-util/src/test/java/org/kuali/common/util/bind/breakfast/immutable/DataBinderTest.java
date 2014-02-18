@@ -18,6 +18,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.builder.Builder;
 import org.junit.Test;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.test.AnnotatedFieldAssemblerFunction;
@@ -31,7 +32,9 @@ import org.springframework.validation.DataBinder;
 
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 public class DataBinderTest {
 
@@ -111,6 +114,10 @@ public class DataBinderTest {
 
 	protected static void bindLeavesToParents(List<Node<BindDescriptor>> nodes) {
 		for (Node<BindDescriptor> node : nodes) {
+			BindDescriptor descriptor = node.getElement();
+			List<Field> fields = descriptor.getNode().getElementPath();
+			List<String> path = Lists.transform(fields, new org.kuali.common.util.function.FieldNameFunction());
+			System.out.println(Joiner.on('.').join(path));
 			if (!node.getChildren().isEmpty()) {
 				List<Node<BindDescriptor>> children = node.getChildren();
 				Map<String, Object> values = newHashMap();
@@ -123,17 +130,32 @@ public class DataBinderTest {
 						subNodes.add(child);
 					}
 				}
-				BindDescriptor descriptor = node.getElement();
-				System.out.println(descriptor.getInstancePropertyName());
 				MutablePropertyValues mpvs = new MutablePropertyValues(values);
 				Builder<?> builder = descriptor.getInstanceBuilder();
 				DataBinder binder = new DataBinder(builder);
 				binder.bind(mpvs);
 				bindLeavesToParents(subNodes);
 			} else {
-				// do something awesome
+				Optional<Node<BindDescriptor>> parent = node.getParent();
+				if (parent.isPresent()) {
+					updateParentDescriptor(parent.get().getElement(), descriptor);
+				}
 			}
 		}
+	}
+
+	protected static void updateParentDescriptor(BindDescriptor parent, BindDescriptor child) {
+		if (child.getBindValue() == null) {
+			return;
+		}
+		Builder<?> parentBuilder = parent.getInstanceBuilder();
+		if (parentBuilder == null) {
+			return;
+		}
+		Object bean = parentBuilder;
+		String name = child.getInstancePropertyName();
+		Object value = child.getBindValue();
+		ReflectionUtils.copyProperty(bean, name, value);
 	}
 
 	protected static void createBuilderInstances(List<Node<BindDescriptor>> nodes) {
