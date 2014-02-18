@@ -32,6 +32,7 @@ import org.springframework.validation.DataBinder;
 
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public class DataBinderTest {
@@ -80,14 +81,30 @@ public class DataBinderTest {
 	protected static void buildInstances(List<Node<BindDescriptor>> nodes) {
 		for (Node<BindDescriptor> node : nodes) {
 			buildInstances(node.getChildren());
-			if (!node.isLeaf()) {
-				BindDescriptor bd = node.getElement();
-				Builder<?> builder = bd.getInstanceBuilder();
-				if (builder != null) {
-					Object instance = builder.build();
-					bd.setInstance(instance);
-				}
+			if (node.isLeaf()) {
+				continue;
 			}
+			BindDescriptor bd = node.getElement();
+			Builder<?> builder = bd.getInstanceBuilder();
+			if (builder == null) {
+				continue;
+			}
+			Object instance = builder.build();
+			bd.setInstance(instance);
+			Optional<Node<BindDescriptor>> parent = node.getParent();
+			if (parent.isPresent()) {
+				updateParentBuilder(parent.get().getElement(), bd);
+			}
+		}
+	}
+
+	protected static void updateParentBuilder(BindDescriptor parent, BindDescriptor child) {
+		Builder<?> parentBuilder = parent.getInstanceBuilder();
+		Object bean = parentBuilder;
+		String name = child.getInstancePropertyName();
+		Object value = child.getInstance();
+		if (value != null) {
+			ReflectionUtils.copyProperty(bean, name, value);
 		}
 	}
 
@@ -113,20 +130,6 @@ public class DataBinderTest {
 				binder.bind(mpvs);
 			}
 		}
-	}
-
-	protected static void updateParentDescriptor(BindDescriptor parent, BindDescriptor child) {
-		if (child.getBindValue() == null) {
-			return;
-		}
-		Builder<?> parentBuilder = parent.getInstanceBuilder();
-		if (parentBuilder == null) {
-			return;
-		}
-		Object bean = parentBuilder;
-		String name = child.getInstancePropertyName();
-		Object value = child.getBindValue();
-		ReflectionUtils.copyProperty(bean, name, value);
 	}
 
 	protected static void createBuilderInstances(List<Node<BindDescriptor>> nodes) {
