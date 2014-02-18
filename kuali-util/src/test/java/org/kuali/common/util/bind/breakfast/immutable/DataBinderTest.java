@@ -54,23 +54,12 @@ public class DataBinderTest {
 		}
 	}
 
-	public static <T> T getInstance(Class<T> type, Properties properties) {
-		return getInstance(type, PropertyUtils.convert(properties));
-	}
-
-	private static void write(String path, String content) {
-		try {
-			FileUtils.write(new File(path), content);
-		} catch (IOException e) {
-			throw Exceptions.illegalState(e);
-		}
-	}
-
 	public static <T> T getInstance(Class<T> type, Map<String, ?> values) {
 		List<Node<Field>> nodes = AnnotatedFieldAssemblerFunction.create(Bind.class).apply(type);
 		List<Node<BindDescriptor>> descriptors = buildDescriptors(type, nodes, newBindKeyFunction(type));
 		bindValuesToLeaves(descriptors, values);
 		createBuilderInstances(descriptors);
+		// TODO Take this out
 		String html = Trees.html(type.getSimpleName(), descriptors, new BindDescriptorFunction());
 		write("/tmp/bds.htm", html);
 		bindLeavesToParents(descriptors);
@@ -282,6 +271,18 @@ public class DataBinderTest {
 			list.add(bd);
 		}
 		return list;
+	}
+
+	public static <T> T getInstance(Class<T> type, Properties properties) {
+		return getInstance(type, PropertyUtils.convert(properties));
+	}
+
+	private static void write(String path, String content) {
+		try {
+			FileUtils.write(new File(path), content);
+		} catch (IOException e) {
+			throw Exceptions.illegalState(e);
+		}
 	}
 
 }
