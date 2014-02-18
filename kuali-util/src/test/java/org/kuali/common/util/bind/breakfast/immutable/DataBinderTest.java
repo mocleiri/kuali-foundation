@@ -38,7 +38,7 @@ public class DataBinderTest {
 	public void test() {
 		try {
 			Class<?> type = Bowl.class;
-			List<Node<Field>> nodes = AnnotatedFieldAssembler.create(type, Bind.class).assemble();
+			List<Node<Field>> nodes = AnnotatedFieldAssembler.create(type, Bind.class).apply(type);
 			List<Node<BindDescriptor>> objectGraphAsNodes = buildDescriptors(type, nodes, newBindKeyFunction(type));
 			Map<String, String> objectGraphAsMap = ImmutableMap.of("bowl.milk.type", "lowfat", "bowl.milk.price", "2.29");
 			bindValuesToLeaves(objectGraphAsNodes, objectGraphAsMap);
