@@ -49,19 +49,11 @@ public class DataBinderTest {
 			// Bowl bowl = getInstance(type, values);
 			// logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
 
-			show(System.getProperties());
+			// show(System.getProperties());
 			SystemProperties vm = getInstance(SystemProperties.class, System.getProperties());
 			logger.info(vm.getFileSeparator());
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-	}
-
-	private static void show(Properties props) {
-		SortedSet<String> keys = Sets.newTreeSet(props.stringPropertyNames());
-		for (String key : keys) {
-			String value = props.getProperty(key);
-			System.out.println(key + "=" + value);
 		}
 	}
 
@@ -282,6 +274,14 @@ public class DataBinderTest {
 			FileUtils.write(new File(path), content);
 		} catch (IOException e) {
 			throw Exceptions.illegalState(e);
+		}
+	}
+
+	protected static void show(Properties props) {
+		SortedSet<String> keys = Sets.newTreeSet(props.stringPropertyNames());
+		for (String key : keys) {
+			String value = props.getProperty(key);
+			System.out.println(key + "=" + value);
 		}
 	}
 
