@@ -8,7 +8,12 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import org.kuali.common.util.base.Optionals;
+
 @Target({ METHOD, FIELD, PARAMETER })
 @Retention(RUNTIME)
 public @interface PathListFormat {
+
+	String emptyListToken() default Optionals.EMPTY_LIST_TOKEN;
+
 }

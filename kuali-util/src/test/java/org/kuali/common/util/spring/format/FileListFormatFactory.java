@@ -20,7 +20,7 @@ public final class FileListFormatFactory extends AbstractListStringFormatFactory
 	}
 
 	protected Formatter<List<String>> getFormatter(FileListFormat annotation) {
-		return getFormatter(File.separator);
+		return getFormatter(File.separator, annotation.emptyListToken());
 	}
 
 }

@@ -19,8 +19,8 @@ public abstract class AbstractListStringFormatFactory<A extends Annotation> impl
 		return TYPES;
 	}
 
-	protected Formatter<List<String>> getFormatter(String separator) {
-		return ListStringFormatter.builder().separator(separator).build();
+	protected Formatter<List<String>> getFormatter(String separator, String emptyListToken) {
+		return ListStringFormatter.builder().separator(separator).emptyListToken(emptyListToken).build();
 	}
 
 }
