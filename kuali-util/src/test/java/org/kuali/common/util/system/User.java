@@ -8,6 +8,7 @@ import java.util.TimeZone;
 
 import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.spring.format.optional.OptionalStringFormat;
+import org.kuali.common.util.spring.format.optional.OptionalTimeZoneFormat;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
@@ -45,6 +46,7 @@ public final class User {
 		private Optional<String> language = absent();
 		@OptionalStringFormat
 		private Optional<String> country = absent();
+		@OptionalTimeZoneFormat
 		private Optional<TimeZone> timeZone = absent();
 
 		public Builder country(Optional<String> country) {
