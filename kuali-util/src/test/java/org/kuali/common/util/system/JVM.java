@@ -14,8 +14,8 @@ import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.validate.IdiotProofImmutableWithBlanks;
 
-@IdiotProofImmutableWithBlanks
 @Bind(ABSENT)
+@IdiotProofImmutableWithBlanks
 public final class JVM {
 
 	@Bind
