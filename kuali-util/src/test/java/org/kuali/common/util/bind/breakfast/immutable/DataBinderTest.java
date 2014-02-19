@@ -4,6 +4,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newHashSet;
 import static com.google.common.collect.Sets.newTreeSet;
+import static java.lang.String.format;
 import static org.kuali.common.util.ReflectionUtils.newInstance;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.bind.breakfast.immutable.BindKeysFunction.newBindKeyFunction;
@@ -67,6 +68,8 @@ public class DataBinderTest {
 			logger.info(jvm.getUser().getTimeZone().isPresent() + "");
 			logger.info(jvm.getUser().getLanguage().isPresent() + "");
 			logger.info(jvm.getUser().getCountry().isPresent() + "");
+			logger.info(format("     system properties: %s", jvm.getSystem().size()));
+			logger.info(format("environment properties: %s", jvm.getEnvironment().size()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
