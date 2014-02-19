@@ -29,6 +29,8 @@ import org.kuali.common.util.Str;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.test.AnnotatedFieldAssemblerFunction;
 import org.kuali.common.util.property.ImmutableProperties;
+import org.kuali.common.util.spring.convert.support.StringToXmlPropertiesConverter;
+import org.kuali.common.util.spring.convert.support.XmlPropertiesToStringConverter;
 import org.kuali.common.util.system.JVM;
 import org.kuali.common.util.tree.MutableNode;
 import org.kuali.common.util.tree.Node;
@@ -52,8 +54,10 @@ public class DataBinderTest {
 	private static final ConversionService SERVICE = getConversionService();
 
 	private static ConversionService getConversionService() {
-		GenericConversionService gcs = new GenericConversionService();
-		return gcs;
+		GenericConversionService service = new GenericConversionService();
+		service.addConverter(new StringToXmlPropertiesConverter());
+		service.addConverter(new XmlPropertiesToStringConverter());
+		return service;
 	}
 
 	@Test
