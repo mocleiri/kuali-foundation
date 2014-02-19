@@ -40,6 +40,9 @@ public class OptionalConverter implements GenericConverter {
 			Class<? extends Number> parameter = (Class<? extends Number>) type;
 			return newNumberFunction(parameter).apply(source.toString());
 		}
+		if (type == TimeZone.class) {
+			return TimeZoneFunction.INSTANCE.apply(source.toString());
+		}
 		return null;
 	}
 
@@ -102,10 +105,12 @@ public class OptionalConverter implements GenericConverter {
 		}
 	}
 
-	private static final class TimeZoneFunction implements Function<String, TimeZone> {
+	private static enum TimeZoneFunction implements Function<String, Optional<TimeZone>> {
+		INSTANCE;
+
 		@Override
-		public TimeZone apply(String string) {
-			return TimeZone.getTimeZone(string);
+		public Optional<TimeZone> apply(String text) {
+			return ABSENT.equals(text) ? Optional.<TimeZone> absent() : Optional.of(TimeZone.getTimeZone(text));
 		}
 	}
 
