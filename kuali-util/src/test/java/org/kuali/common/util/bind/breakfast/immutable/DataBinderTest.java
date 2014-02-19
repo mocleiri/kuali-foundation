@@ -69,8 +69,8 @@ public class DataBinderTest {
 			logger.info(jvm.getUser().getTimeZone().isPresent() + "");
 			logger.info(jvm.getUser().getLanguage().isPresent() + "");
 			logger.info(jvm.getUser().getCountry().isPresent() + "");
-			logger.info(format("     system properties: %s", jvm.getSystem().size()));
-			logger.info(format("environment properties: %s", jvm.getEnvironment().size()));
+			logger.info(format("sys props: %s", jvm.getSystem().size()));
+			logger.info(format("env props: %s", jvm.getEnvironment().size()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
