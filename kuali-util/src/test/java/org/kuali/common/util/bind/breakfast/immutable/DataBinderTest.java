@@ -159,7 +159,7 @@ public class DataBinderTest {
 		}
 	}
 
-	protected static void bindLeafValuesToParentBuilder(List<Node<BindDescriptor>> nodes) {
+	protected static void bindLeafValuesToParentBuilder(Iterable<Node<BindDescriptor>> nodes) {
 		for (Node<BindDescriptor> node : nodes) {
 			Map<String, Object> values = getValueMap(node);
 			if (!values.isEmpty()) {
@@ -167,7 +167,7 @@ public class DataBinderTest {
 			}
 			// Recurse
 			Predicate<Node<BindDescriptor>> predicate = newNoLeavesPredicate();
-			bindLeafValuesToParentBuilder(newArrayList(filter(node.getChildren(), predicate)));
+			bindLeafValuesToParentBuilder(filter(node.getChildren(), predicate));
 		}
 	}
 
