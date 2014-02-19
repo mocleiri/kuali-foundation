@@ -9,7 +9,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 
 import org.kuali.common.util.base.Optionals;
-import org.kuali.common.util.build.ValidatingBuilder2;
+import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 import org.springframework.format.Formatter;
 
@@ -59,7 +59,7 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder2<ListStringFormatter> {
+	public static class Builder extends ValidatingBuilder<ListStringFormatter> {
 
 		private String separator = ",";
 		private String emptyListToken = Optionals.EMPTY_LIST_TOKEN;

@@ -10,7 +10,7 @@ import javax.validation.ConstraintViolation;
 import org.hibernate.validator.constraints.NotBlank;
 import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.bind.api.Bind;
-import org.kuali.common.util.build.ValidatingBuilder2;
+import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.validate.IdiotProofImmutableWithBlanks;
 
@@ -59,7 +59,7 @@ public final class JVM {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder2<JVM> {
+	public static class Builder extends ValidatingBuilder<JVM> {
 
 		private User user;
 		private OperatingSystem operatingSystem;

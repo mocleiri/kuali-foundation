@@ -13,7 +13,7 @@ import org.kuali.common.util.validate.Validation;
 
 import com.google.common.collect.ImmutableList;
 
-public abstract class ValidatingBuilder2<T> implements Builder<T> {
+public abstract class ValidatingBuilder<T> implements Builder<T> {
 
 	private static final Class<?>[] EMPTY_CLASS_ARRAY = {};
 
@@ -30,12 +30,12 @@ public abstract class ValidatingBuilder2<T> implements Builder<T> {
 		return checkConstraints(instance, validator, validationGroups);
 	}
 
-	public ValidatingBuilder2<T> validator(Validator validator) {
+	public ValidatingBuilder<T> validator(Validator validator) {
 		this.validator = validator;
 		return this;
 	}
 
-	public ValidatingBuilder2<T> validationGroups(List<Class<?>> validationGroups) {
+	public ValidatingBuilder<T> validationGroups(List<Class<?>> validationGroups) {
 		this.validationGroups = validationGroups;
 		return this;
 	}
