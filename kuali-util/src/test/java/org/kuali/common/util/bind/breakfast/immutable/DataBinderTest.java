@@ -49,7 +49,7 @@ public class DataBinderTest {
 			// Bowl bowl = getInstance(type, values);
 			// logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
 
-			show(System.getProperties());
+			// show(System.getProperties());
 			SystemProperties vm = getInstance(SystemProperties.class, System.getProperties());
 			logger.info(vm.getFileSeparator());
 			logger.info(vm.getUser().getName());

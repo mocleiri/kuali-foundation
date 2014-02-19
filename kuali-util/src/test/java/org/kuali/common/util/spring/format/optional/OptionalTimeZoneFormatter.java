@@ -19,6 +19,11 @@ public final class OptionalTimeZoneFormatter extends AbstractOptionalFormatter<T
 	private static final Set<String> TIMEZONE_IDS = ImmutableSet.copyOf(TimeZone.getAvailableIDs());
 
 	@Override
+	protected String getString(TimeZone timeZone) {
+		return timeZone.getID();
+	}
+
+	@Override
 	public Optional<TimeZone> parse(String timeZoneId, Locale locale) {
 		if (getAbsentToken().equals(timeZoneId)) {
 			return absent();
@@ -27,11 +32,6 @@ public final class OptionalTimeZoneFormatter extends AbstractOptionalFormatter<T
 			checkArgument(contains, "unknown timezone id -> %s", timeZoneId);
 			return Optional.of(TimeZone.getTimeZone(timeZoneId));
 		}
-	}
-
-	@Override
-	protected String getString(TimeZone timeZone) {
-		return timeZone.getID();
 	}
 
 }
