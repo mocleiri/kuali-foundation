@@ -10,7 +10,7 @@ import org.kuali.common.util.validate.IdiotProofImmutableWithBlanks;
 
 @IdiotProofImmutableWithBlanks
 @Bind(ABSENT)
-public final class SystemProperties {
+public final class JVM {
 
 	@Bind
 	private final User user;
@@ -32,7 +32,7 @@ public final class SystemProperties {
 	@NotBlank
 	private final String fileSeparator;
 
-	private SystemProperties(Builder builder) {
+	private JVM(Builder builder) {
 		this.user = builder.user;
 		this.operatingSystem = builder.operatingSystem;
 		this.java = builder.java;
@@ -45,7 +45,7 @@ public final class SystemProperties {
 		return new Builder();
 	}
 
-	public static class Builder implements org.apache.commons.lang3.builder.Builder<SystemProperties> {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<JVM> {
 
 		private User user;
 		private OperatingSystem operatingSystem;
@@ -55,8 +55,8 @@ public final class SystemProperties {
 		private String fileSeparator;
 
 		@Override
-		public SystemProperties build() {
-			return checkConstraints(new SystemProperties(this));
+		public JVM build() {
+			return checkConstraints(new JVM(this));
 		}
 
 		public Builder user(User user) {

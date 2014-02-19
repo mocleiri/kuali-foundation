@@ -5,7 +5,7 @@ import static java.lang.String.format;
 import org.junit.Test;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.system.OperatingSystem;
-import org.kuali.common.util.system.SystemProperties;
+import org.kuali.common.util.system.JVM;
 import org.kuali.common.util.system.User;
 import org.slf4j.Logger;
 
@@ -16,7 +16,7 @@ public class BindingTest {
 	@Test
 	public void test() {
 		try {
-			SystemProperties vm = SystemProperties.builder().build();
+			JVM vm = JVM.builder().build();
 			User user = vm.getUser();
 			OperatingSystem os = vm.getOperatingSystem();
 			logger.info(format("user.name=[%s]", user.getName()));

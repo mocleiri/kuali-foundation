@@ -28,7 +28,7 @@ import org.kuali.common.util.Str;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.test.AnnotatedFieldAssemblerFunction;
 import org.kuali.common.util.spring.convert.Conversion;
-import org.kuali.common.util.system.SystemProperties;
+import org.kuali.common.util.system.JVM;
 import org.kuali.common.util.tree.MutableNode;
 import org.kuali.common.util.tree.Node;
 import org.kuali.common.util.tree.Trees;
@@ -55,7 +55,7 @@ public class DataBinderTest {
 			// logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
 
 			// show(System.getProperties());
-			SystemProperties vm = getInstance(SystemProperties.class, System.getProperties(), ImmutableSet.of("line.separator"));
+			JVM vm = getInstance(JVM.class, System.getProperties(), ImmutableSet.of("line.separator"));
 			logger.info(vm.getFileSeparator());
 			logger.info(vm.getUser().getName());
 			logger.info(vm.getUser().getTimeZone().isPresent() + "");
