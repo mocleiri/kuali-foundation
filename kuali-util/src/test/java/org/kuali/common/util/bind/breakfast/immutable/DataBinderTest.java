@@ -64,6 +64,7 @@ public class DataBinderTest {
 			// logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
 
 			// show(System.getProperties());
+			System.setProperty("user.timezone", "US/Eastern");
 
 			JVM jvm = getInstance(JVM.class, getSystemProperties());
 			logger.info(jvm.getFileSeparator());
