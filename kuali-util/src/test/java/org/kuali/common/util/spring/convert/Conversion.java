@@ -1,19 +1,17 @@
 package org.kuali.common.util.spring.convert;
 
+import org.kuali.common.util.serviceloader.ServiceProvider;
 import org.springframework.core.convert.ConversionService;
 
 public class Conversion {
 
-	public synchronized static ConversionService getDefaultConversionService() {
-		return null;
-	}
+	private static ConversionService instance;
 
-	// private static ConversionService instance;
-	// public synchronized static ConversionService getDefaultConversionService() {
-	// if (instance == null) {
-	// instance = ServiceProvider.getFirst(ConversionService.class);
-	// }
-	// return instance;
-	// }
+	public synchronized static ConversionService getDefaultConversionService() {
+		if (instance == null) {
+			instance = ServiceProvider.getFirst(ConversionService.class);
+		}
+		return instance;
+	}
 
 }
