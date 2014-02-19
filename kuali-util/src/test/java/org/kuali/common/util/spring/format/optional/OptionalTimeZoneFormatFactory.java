@@ -7,7 +7,7 @@ import org.springframework.format.Printer;
 
 import com.google.common.base.Optional;
 
-public final class OptionalTimeZoneFormatAnnotationFormatterFactory extends AbstractOptionalFormatAnnotationFormatterFactory<OptionalTimeZoneFormat> {
+public final class OptionalTimeZoneFormatFactory extends AbstractOptionalFormatFactory<OptionalTimeZoneFormat> {
 
 	@Override
 	public Printer<Optional<TimeZone>> getPrinter(OptionalTimeZoneFormat annotation, Class<?> fieldType) {

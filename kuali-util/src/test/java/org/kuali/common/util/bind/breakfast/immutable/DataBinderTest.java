@@ -20,6 +20,7 @@ import org.apache.commons.lang3.builder.Builder;
 import org.junit.Test;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.test.AnnotatedFieldAssemblerFunction;
 import org.kuali.common.util.spring.convert.Conversion;
@@ -49,7 +50,7 @@ public class DataBinderTest {
 			// Bowl bowl = getInstance(type, values);
 			// logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
 
-			// show(System.getProperties());
+			show(System.getProperties());
 			SystemProperties vm = getInstance(SystemProperties.class, System.getProperties());
 			logger.info(vm.getFileSeparator());
 			logger.info(vm.getUser().getName());
@@ -289,7 +290,7 @@ public class DataBinderTest {
 		SortedSet<String> keys = Sets.newTreeSet(props.stringPropertyNames());
 		for (String key : keys) {
 			String value = props.getProperty(key);
-			System.out.println(key + "=" + value);
+			System.out.println(key + "=[" + Str.flatten(value) + "]");
 		}
 	}
 

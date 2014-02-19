@@ -5,7 +5,7 @@ import org.springframework.format.Printer;
 
 import com.google.common.base.Optional;
 
-public final class OptionalStringFormatAnnotationFormatterFactory extends AbstractOptionalFormatAnnotationFormatterFactory<OptionalStringFormat> {
+public final class OptionalStringFormatFactory extends AbstractOptionalFormatFactory<OptionalStringFormat> {
 
 	@Override
 	public Printer<Optional<String>> getPrinter(OptionalStringFormat annotation, Class<?> fieldType) {
