@@ -105,7 +105,7 @@ public class DataBinderTest {
 		List<Node<Field>> nodes = AnnotatedFieldAssemblerFunction.create(Bind.class).apply(type);
 		BindKeysFunction function = new BindKeysFunction(type);
 		List<Node<BindDescriptor>> descriptors = buildDescriptorNodes(nodes, function, values);
-		createBuilderInstances(descriptors);
+		// createBuilderInstances(descriptors);
 		bindLeavesToParents(descriptors);
 		buildInstances(descriptors);
 		// TODO Remove this
@@ -184,21 +184,6 @@ public class DataBinderTest {
 		}
 	}
 
-	protected static void createBuilderInstances(List<Node<BindDescriptor>> nodes) {
-		List<Node<BindDescriptor>> leaves = Trees.getLeaves(nodes);
-		for (Node<BindDescriptor> leaf : leaves) {
-			List<Node<BindDescriptor>> path = leaf.getPath();
-			for (int i = 0; i < path.size() - 1; i++) {
-				Node<BindDescriptor> ancestor = path.get(i);
-				BindDescriptor bd = ancestor.getElement();
-				if (bd.getInstanceBuilder() == null) {
-					Builder<?> builder = createBuilder(ancestor);
-					bd.setInstanceBuilder(builder);
-				}
-			}
-		}
-	}
-
 	protected static class BindDescriptorFunction implements Function<Node<BindDescriptor>, String> {
 
 		@Override
@@ -258,14 +243,18 @@ public class DataBinderTest {
 			// Create a new descriptor based on this node
 			BindDescriptor descriptor = new BindDescriptor(node);
 
-			// If it's a leaf, figure out what keys hold values
-			if (node.isLeaf()) {
-				updateLeafDescriptor(node, descriptor, function, values);
-			}
-
-			// Create a new node based on the descriptor and hook it into the tree
+			// Hook the node into the tree
 			MutableNode<BindDescriptor> descriptorNode = new MutableNode<BindDescriptor>(descriptor);
 			descriptorNodes.add(descriptorNode);
+
+			if (node.isLeaf()) {
+				// If it's a leaf, extract a value from the map and store it in the descriptor
+				updateLeafDescriptor(node, descriptor, function, values);
+			} else {
+				// If it's not a leaf create an empty Builder instance and store it in the descriptor
+				Builder<?> builder = createBuilder(descriptorNode);
+				descriptor.setInstanceBuilder(builder);
+			}
 
 			// Recurse
 			List<MutableNode<BindDescriptor>> children = getDescriptors(node.getChildren(), function, values);
