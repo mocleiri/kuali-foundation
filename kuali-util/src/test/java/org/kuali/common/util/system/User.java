@@ -41,9 +41,7 @@ public final class User {
 		private String name;
 		private File home;
 		private File dir;
-		@OptionalType(String.class)
 		private Optional<String> language = absent();
-		@OptionalType(String.class)
 		private Optional<String> country = absent();
 		@OptionalType(TimeZone.class)
 		private Optional<TimeZone> timeZone = absent();
