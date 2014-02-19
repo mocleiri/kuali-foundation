@@ -36,11 +36,11 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 	}
 
 	@Override
-	public String print(List<String> files, Locale locale) {
-		if (files.isEmpty()) {
+	public String print(List<String> strings, Locale locale) {
+		if (strings.isEmpty()) {
 			return emptyListToken;
 		} else {
-			return joiner.join(files.iterator());
+			return joiner.join(strings);
 		}
 	}
 
