@@ -49,7 +49,7 @@ public class DataBinderTest {
 
 	private static final Logger logger = newLogger();
 
-	private static final ConversionService SERVICE = getConversionService();
+	private static final ConversionService conversion = getConversionService();
 
 	private static ConversionService getConversionService() {
 		return Conversion.getDefaultConversionService();
@@ -66,8 +66,8 @@ public class DataBinderTest {
 			// show(System.getProperties());
 			Map<String, Object> map = newHashMap();
 			map.putAll(PropertyUtils.convert(System.getProperties()));
-			String system = SERVICE.convert(System.getProperties(), String.class);
-			String environment = SERVICE.convert(PropertyUtils.convert(System.getenv()), String.class);
+			String system = conversion.convert(System.getProperties(), String.class);
+			String environment = conversion.convert(PropertyUtils.convert(System.getenv()), String.class);
 			map.put("system.properties", system);
 			map.put("system.environment", environment);
 
@@ -117,7 +117,7 @@ public class DataBinderTest {
 		Builder<T> builder = createBuilder(type);
 		MutablePropertyValues mpvs = new MutablePropertyValues(map);
 		DataBinder binder = new DataBinder(builder);
-		binder.setConversionService(SERVICE);
+		binder.setConversionService(conversion);
 		binder.bind(mpvs);
 		return builder.build();
 	}
@@ -173,7 +173,7 @@ public class DataBinderTest {
 				MutablePropertyValues mpvs = new MutablePropertyValues(values);
 				Builder<?> builder = descriptor.getInstanceBuilder();
 				DataBinder binder = new DataBinder(builder);
-				binder.setConversionService(SERVICE);
+				binder.setConversionService(conversion);
 				binder.bind(mpvs);
 			}
 		}
