@@ -19,7 +19,7 @@ public final class OptionalTimeZoneFormatter extends AbstractOptionalFormatter<T
 	private static final Set<String> TIMEZONE_IDS = ImmutableSet.copyOf(TimeZone.getAvailableIDs());
 
 	@Override
-	protected String getString(TimeZone timeZone) {
+	protected String getString(TimeZone timeZone, Locale locale) {
 		return timeZone.getID();
 	}
 

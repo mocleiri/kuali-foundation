@@ -21,11 +21,11 @@ public abstract class AbstractOptionalFormatter<T> implements Formatter<Optional
 		if (!optional.isPresent()) {
 			return absentToken;
 		} else {
-			return getString(optional.get());
+			return getString(optional.get(), locale);
 		}
 	}
 
-	protected String getString(T reference) {
+	protected String getString(T reference, Locale locale) {
 		return reference.toString();
 	}
 
