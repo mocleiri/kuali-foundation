@@ -2,6 +2,7 @@ package org.kuali.common.util.spring.format;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.collect.Lists.newArrayList;
 
 import java.util.List;
 import java.util.Locale;
@@ -13,7 +14,6 @@ import org.springframework.format.Formatter;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
-import com.google.common.collect.Lists;
 
 public final class ListStringFormatter implements Formatter<List<String>> {
 
@@ -27,11 +27,11 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 	private final Joiner joiner;
 
 	@Override
-	public List<String> parse(String files, Locale locale) {
-		if (magicEmptyString.isPresent() && magicEmptyString.get().equals(files)) {
-			return Lists.newArrayList();
+	public List<String> parse(String string, Locale locale) {
+		if (magicEmptyString.isPresent() && magicEmptyString.get().equals(string)) {
+			return newArrayList();
 		} else {
-			return Lists.newArrayList(splitter.split(files));
+			return newArrayList(splitter.split(string));
 		}
 	}
 

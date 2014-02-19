@@ -284,7 +284,7 @@ public class DataBinderTest {
 			String value = map.get(key);
 			boolean remove = StringUtils.isBlank(value) && !allowedBlanks.contains(key);
 			if (remove) {
-				logger.info(String.format("removing [%s] because it is blank", key));
+				logger.info(String.format("ignoring [%s] because it is blank", key));
 				map.remove(key);
 			}
 		}
