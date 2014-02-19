@@ -29,8 +29,8 @@ import org.kuali.common.util.Str;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.test.AnnotatedFieldAssemblerFunction;
 import org.kuali.common.util.property.ImmutableProperties;
-import org.kuali.common.util.spring.convert.support.StringToXmlPropertiesConverter;
-import org.kuali.common.util.spring.convert.support.XmlPropertiesToStringConverter;
+import org.kuali.common.util.spring.convert.support.XmlStringToPropertiesConverter;
+import org.kuali.common.util.spring.convert.support.PropertiesToXmlStringConverter;
 import org.kuali.common.util.system.JVM;
 import org.kuali.common.util.tree.MutableNode;
 import org.kuali.common.util.tree.Node;
@@ -55,8 +55,8 @@ public class DataBinderTest {
 
 	private static ConversionService getConversionService() {
 		GenericConversionService service = new GenericConversionService();
-		service.addConverter(new StringToXmlPropertiesConverter());
-		service.addConverter(new XmlPropertiesToStringConverter());
+		service.addConverter(new XmlStringToPropertiesConverter());
+		service.addConverter(new PropertiesToXmlStringConverter());
 		return service;
 	}
 
@@ -71,8 +71,10 @@ public class DataBinderTest {
 			// show(System.getProperties());
 			Map<String, Object> map = newHashMap();
 			map.putAll(PropertyUtils.convert(System.getProperties()));
-			map.put("system.properties", System.getProperties());
-			map.put("system.environment", PropertyUtils.convert(System.getenv()));
+			String system = SERVICE.convert(System.getProperties(), String.class);
+			String environment = SERVICE.convert(PropertyUtils.convert(System.getenv()), String.class);
+			map.put("system.properties", system);
+			map.put("system.environment", environment);
 
 			JVM jvm = getInstance(JVM.class, map, ImmutableSet.of("line.separator"));
 			logger.info(jvm.getFileSeparator());

@@ -3,8 +3,8 @@ package org.kuali.common.util.spring.convert;
 import java.io.File;
 
 import org.kohsuke.MetaInfServices;
-import org.kuali.common.util.spring.convert.support.StringToXmlPropertiesConverter;
-import org.kuali.common.util.spring.convert.support.XmlPropertiesToStringConverter;
+import org.kuali.common.util.spring.convert.support.XmlStringToPropertiesConverter;
+import org.kuali.common.util.spring.convert.support.PropertiesToXmlStringConverter;
 import org.kuali.common.util.spring.format.BytesFormatFactory;
 import org.kuali.common.util.spring.format.CanonicalFileFormatter;
 import org.kuali.common.util.spring.format.FileListFormatFactory;
@@ -29,8 +29,8 @@ public class DefaultConversionService extends DefaultFormattingConversionService
 		addFormatterForFieldAnnotation(new PathListFormatFactory());
 		addFormatterForFieldAnnotation(new XmlPropertiesFormatFactory());
 		addFormatterForFieldType(File.class, new CanonicalFileFormatter());
-		addConverter(new StringToXmlPropertiesConverter());
-		addConverter(new XmlPropertiesToStringConverter());
+		addConverter(new XmlStringToPropertiesConverter());
+		addConverter(new PropertiesToXmlStringConverter());
 	}
 
 }

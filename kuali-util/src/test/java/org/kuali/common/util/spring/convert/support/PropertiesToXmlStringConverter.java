@@ -10,13 +10,13 @@ import java.util.Properties;
 import org.kuali.common.util.Encodings;
 import org.springframework.core.convert.converter.Converter;
 
-public final class XmlPropertiesToStringConverter implements Converter<Properties, String> {
+public final class PropertiesToXmlStringConverter implements Converter<Properties, String> {
 
-	public XmlPropertiesToStringConverter() {
+	public PropertiesToXmlStringConverter() {
 		this(Encodings.UTF8);
 	}
 
-	public XmlPropertiesToStringConverter(String encoding) {
+	public PropertiesToXmlStringConverter(String encoding) {
 		this.encoding = checkNotBlank(encoding, "encoding");
 	}
 
