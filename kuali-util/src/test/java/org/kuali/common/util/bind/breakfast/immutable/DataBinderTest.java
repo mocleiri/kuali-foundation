@@ -41,6 +41,7 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Maps;
 
 public class DataBinderTest {
 
@@ -283,14 +284,20 @@ public class DataBinderTest {
 		return list;
 	}
 
-	public static <T> T getInstance(Class<T> type, Properties properties, Set<String> blanksAllowed) {
-		Map<String, String> map = PropertyUtils.convert(properties);
+	public static <T> T getInstance(Class<T> type, Properties props, Set<String> blanksAllowed) {
+		Map<String, Object> map = Maps.newHashMap();
+		for (Object key : props.keySet()) {
+			map.put((String) key, props.get(key));
+		}
 		for (String key : newHashSet(map.keySet())) {
-			String value = map.get(key);
-			boolean remove = StringUtils.isBlank(value) && !blanksAllowed.contains(key);
-			if (remove) {
-				logger.info(String.format("ignoring [%s] because it is blank", key));
-				map.remove(key);
+			Object value = map.get(key);
+			if (value instanceof String) {
+				String string = (String) value;
+				boolean remove = StringUtils.isBlank(string) && !blanksAllowed.contains(key);
+				if (remove) {
+					logger.info(String.format("ignoring [%s] because it is blank", key));
+					map.remove(key);
+				}
 			}
 		}
 		return getInstance(type, map);
