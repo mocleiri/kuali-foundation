@@ -7,7 +7,7 @@ import java.io.File;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.LegacyValidatingBuilder;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -66,7 +66,7 @@ public final class UrlToFileFunction implements Function<String, File> {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<UrlToFileFunction> {
+	public static class Builder extends LegacyValidatingBuilder<UrlToFileFunction> {
 
 		private File basedir = new CanonicalFile("./target/cache/urls");
 		private List<String> removeTokens = ImmutableList.of();

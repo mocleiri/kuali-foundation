@@ -3,7 +3,7 @@ package org.kuali.common.devops.model;
 import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import org.kuali.common.util.ObjectUtils;
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.LegacyValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
@@ -21,7 +21,7 @@ public final class CanonicalNameRecord {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<CanonicalNameRecord> {
+	public static class Builder extends LegacyValidatingBuilder<CanonicalNameRecord> {
 
 		private String alias;
 		private String canonical;

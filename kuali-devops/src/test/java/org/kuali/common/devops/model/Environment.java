@@ -7,7 +7,7 @@ import java.util.Comparator;
 
 import org.kuali.common.devops.metadata.model.EC2Instance;
 import org.kuali.common.devops.metadata.model.Memory;
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.LegacyValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
@@ -50,7 +50,7 @@ public final class Environment implements Comparable<Environment> {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<Environment> implements Comparable<Environment.Builder> {
+	public static class Builder extends LegacyValidatingBuilder<Environment> implements Comparable<Environment.Builder> {
 
 		private String name;
 		private String fqdn;

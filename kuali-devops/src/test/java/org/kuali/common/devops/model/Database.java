@@ -2,7 +2,7 @@ package org.kuali.common.devops.model;
 
 import static org.kuali.common.util.validate.Validation.checkConstraints;
 
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.LegacyValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
@@ -22,7 +22,7 @@ public final class Database {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<Database> {
+	public static class Builder extends LegacyValidatingBuilder<Database> {
 
 		private String vendor;
 		private String url;

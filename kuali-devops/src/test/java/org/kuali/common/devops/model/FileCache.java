@@ -4,7 +4,7 @@ import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.io.File;
 
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.LegacyValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
@@ -26,7 +26,7 @@ public final class FileCache {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<FileCache> {
+	public static class Builder extends LegacyValidatingBuilder<FileCache> {
 
 		private String url;
 		private Optional<String> content;

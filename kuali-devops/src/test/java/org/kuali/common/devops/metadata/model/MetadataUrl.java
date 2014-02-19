@@ -2,7 +2,7 @@ package org.kuali.common.devops.metadata.model;
 
 import static org.kuali.common.util.validate.Validation.checkConstraints;
 
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.LegacyValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Function;
@@ -27,7 +27,7 @@ public final class MetadataUrl<T> {
 		return new Builder<T>();
 	}
 
-	public static class Builder<T> extends ValidatingBuilder<MetadataUrl<T>> {
+	public static class Builder<T> extends LegacyValidatingBuilder<MetadataUrl<T>> {
 
 		private String url;
 		private Optional<String> content;

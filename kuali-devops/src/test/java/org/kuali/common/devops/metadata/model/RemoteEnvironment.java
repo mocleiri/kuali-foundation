@@ -4,7 +4,7 @@ import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.util.Properties;
 
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.LegacyValidatingBuilder;
 import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -31,7 +31,7 @@ public final class RemoteEnvironment {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<RemoteEnvironment> {
+	public static class Builder extends LegacyValidatingBuilder<RemoteEnvironment> {
 
 		private Optional<Integer> processors;
 		private Properties system;

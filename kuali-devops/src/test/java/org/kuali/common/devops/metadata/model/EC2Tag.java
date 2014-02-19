@@ -2,7 +2,7 @@ package org.kuali.common.devops.metadata.model;
 
 import static org.kuali.common.util.validate.Validation.checkConstraints;
 
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.LegacyValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
@@ -29,7 +29,7 @@ public final class EC2Tag implements Comparable<EC2Tag> {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<EC2Tag> {
+	public static class Builder extends LegacyValidatingBuilder<EC2Tag> {
 
 		private String key;
 		private String value;

@@ -5,7 +5,7 @@ import static org.apache.commons.lang.StringUtils.substringBetween;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 import static org.kuali.common.util.validate.Validation.checkConstraints;
 
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.LegacyValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Function;
@@ -36,7 +36,7 @@ public final class TomcatVersionFunction implements Function<String, Optional<St
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<TomcatVersionFunction> {
+	public static class Builder extends LegacyValidatingBuilder<TomcatVersionFunction> {
 
 		private String open = "<h3>Apache Tomcat/";
 		private String close = "</h3>";

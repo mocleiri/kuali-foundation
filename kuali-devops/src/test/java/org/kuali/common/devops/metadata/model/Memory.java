@@ -4,7 +4,7 @@ import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import javax.validation.constraints.Min;
 
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.LegacyValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
@@ -34,7 +34,7 @@ public final class Memory {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<Memory> {
+	public static class Builder extends LegacyValidatingBuilder<Memory> {
 
 		private long used;
 		private long free;

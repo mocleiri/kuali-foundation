@@ -9,7 +9,7 @@ import java.util.concurrent.Callable;
 
 import org.kuali.common.devops.metadata.logic.EnvironmentMetadataService;
 import org.kuali.common.devops.model.Environment;
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.LegacyValidatingBuilder;
 import org.kuali.common.util.inform.PercentCompleteInformer;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -43,7 +43,7 @@ public final class BuilderFillerCallable implements Callable<Long> {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<BuilderFillerCallable> {
+	public static class Builder extends LegacyValidatingBuilder<BuilderFillerCallable> {
 
 		private List<Environment.Builder> builders;
 		private EnvironmentMetadataService service;

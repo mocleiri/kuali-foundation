@@ -8,7 +8,7 @@ import java.util.List;
 import javax.validation.constraints.Min;
 
 import org.kuali.common.devops.metadata.model.format.TagListFormat;
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.LegacyValidatingBuilder;
 import org.kuali.common.util.spring.format.optional.OptionalStringFormat;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -52,7 +52,7 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<EC2Instance> {
+	public static class Builder extends LegacyValidatingBuilder<EC2Instance> {
 
 		private String id;
 		private Optional<String> name = absent();

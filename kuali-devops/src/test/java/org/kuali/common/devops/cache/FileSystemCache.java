@@ -5,7 +5,7 @@ import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.io.File;
 
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.LegacyValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Function;
@@ -70,7 +70,7 @@ public final class FileSystemCache<K, V> extends CacheLoader<K, V> {
 		return new Builder<K, V>();
 	}
 
-	public static class Builder<K, V> extends ValidatingBuilder<FileSystemCache<K, V>> {
+	public static class Builder<K, V> extends LegacyValidatingBuilder<FileSystemCache<K, V>> {
 
 		private PersistentCache<File, V> fileCache;
 		private CacheLoader<K, V> loader;

@@ -4,7 +4,7 @@ import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.util.Properties;
 
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.LegacyValidatingBuilder;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -35,7 +35,7 @@ public final class EnvironmentMetadata {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<EnvironmentMetadata> {
+	public static class Builder extends LegacyValidatingBuilder<EnvironmentMetadata> {
 
 		private MetadataUrl<Optional<String>> tomcatVersion;
 		private MetadataUrl<Optional<Long>> tomcatStartupTime;

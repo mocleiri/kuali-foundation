@@ -4,7 +4,7 @@ import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.util.Properties;
 
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.LegacyValidatingBuilder;
 import org.kuali.common.util.project.model.ImmutableProject;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.property.ImmutableProperties;
@@ -37,7 +37,7 @@ public final class Application {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<Application> {
+	public static class Builder extends LegacyValidatingBuilder<Application> {
 
 		private Project project;
 		private Properties configuration;

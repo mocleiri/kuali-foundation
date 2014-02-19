@@ -3,7 +3,7 @@ package org.kuali.common.devops.table;
 import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import org.kuali.common.util.ObjectUtils;
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.LegacyValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
@@ -25,7 +25,7 @@ public final class Label implements Comparable<Label> {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<Label> {
+	public static class Builder extends LegacyValidatingBuilder<Label> {
 
 		private int sequence;
 		private String text;
