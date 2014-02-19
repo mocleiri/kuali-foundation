@@ -1,12 +1,15 @@
 package org.kuali.common.util.system;
 
 import static com.google.common.base.Optional.absent;
-import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.io.File;
+import java.util.Set;
 import java.util.TimeZone;
 
+import javax.validation.ConstraintViolation;
+
 import org.kuali.common.util.bind.api.Alias;
+import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.spring.format.optional.OptionalStringFormat;
 import org.kuali.common.util.spring.format.optional.OptionalTimeZoneFormat;
 import org.kuali.common.util.validate.IdiotProofImmutable;
@@ -37,7 +40,7 @@ public final class User {
 		return new Builder();
 	}
 
-	public static class Builder implements org.apache.commons.lang3.builder.Builder<User> {
+	public static class Builder extends ValidatingBuilder<User> {
 
 		private String name;
 		private File home;
@@ -84,8 +87,13 @@ public final class User {
 		}
 
 		@Override
+		public Set<ConstraintViolation<User>> getViolations() {
+			return getViolations(new User(this));
+		}
+
+		@Override
 		public User build() {
-			return checkConstraints(new User(this));
+			return validate(new User(this));
 		}
 
 		public String getName() {
