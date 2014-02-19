@@ -20,7 +20,7 @@ import com.google.common.base.Splitter;
 public final class ListStringFormatter implements Formatter<List<String>> {
 
 	private final String emptyListToken;
-	private final char separator;
+	private final String separator;
 
 	// Not exposed via getters/setters
 	private final Splitter splitter;
@@ -51,7 +51,7 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 		this.emptyListToken = builder.emptyListToken;
 	}
 
-	public static ListStringFormatter make(char separator) {
+	public static ListStringFormatter make(String separator) {
 		return builder().separator(separator).build();
 	}
 
@@ -61,7 +61,7 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 
 	public static class Builder extends ValidatingBuilder2<ListStringFormatter> {
 
-		private char separator = ',';
+		private String separator = ",";
 		private String emptyListToken = Optionals.EMPTY_LIST_TOKEN;
 
 		// Filled in by the build method
@@ -73,7 +73,7 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 			return this;
 		}
 
-		public Builder separator(char separator) {
+		public Builder separator(String separator) {
 			this.separator = separator;
 			return this;
 		}
@@ -90,13 +90,13 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 			return validate(new ListStringFormatter(this));
 		}
 
-		public char getSeparator() {
+		public String getSeparator() {
 			return separator;
 		}
 
 	}
 
-	public char getSeparator() {
+	public String getSeparator() {
 		return separator;
 	}
 
