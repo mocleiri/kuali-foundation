@@ -55,7 +55,12 @@ public class DataBinderTest {
 			// logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
 
 			// show(System.getProperties());
-			JVM jvm = getInstance(JVM.class, System.getProperties(), ImmutableSet.of("line.separator"));
+			Properties props = new Properties();
+			props.putAll(System.getProperties());
+			props.put("system.properties", System.getProperties());
+			props.put("system.environment", PropertyUtils.convert(System.getenv()));
+
+			JVM jvm = getInstance(JVM.class, props, ImmutableSet.of("line.separator"));
 			logger.info(jvm.getFileSeparator());
 			logger.info(jvm.getUser().getName());
 			logger.info(jvm.getUser().getTimeZone().isPresent() + "");
