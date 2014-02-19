@@ -268,13 +268,21 @@ public class DataBinderTest {
 	}
 
 	protected static List<MutableNode<BindDescriptor>> getDescriptors(List<Node<Field>> nodes, BindKeysFunction function) {
+		// Create some storage space for descriptor nodes
 		List<MutableNode<BindDescriptor>> descriptorNodes = newArrayList();
+
+		// Convert each node containing a field into a node containing a descriptor
 		for (Node<Field> node : nodes) {
+
+			// Create a new descriptor based on this node
 			BindDescriptor descriptor = new BindDescriptor(node);
+
+			// If it's a leaf, figure out what keys hold values
 			if (node.isLeaf()) {
 				descriptor.setBindKeys(function.apply(node.getElementPath()));
 			}
 
+			// Create a new node based on the descriptor and hook it into the tree
 			MutableNode<BindDescriptor> descriptorNode = new MutableNode<BindDescriptor>(descriptor);
 			descriptorNodes.add(descriptorNode);
 
@@ -282,6 +290,8 @@ public class DataBinderTest {
 			List<MutableNode<BindDescriptor>> children = getDescriptors(node.getChildren(), function);
 			descriptorNode.add(children);
 		}
+
+		// Return the descriptor nodes
 		return descriptorNodes;
 	}
 
