@@ -39,7 +39,7 @@ public final class JVM {
 	private final String fileSeparator;
 
 	@Alias("system.properties")
-	private final ImmutableProperties properties;
+	private final ImmutableProperties system;
 
 	@Alias("system.environment")
 	private final ImmutableProperties environment;
@@ -51,7 +51,7 @@ public final class JVM {
 		this.lineSeparator = builder.lineSeparator;
 		this.pathSeparator = builder.pathSeparator;
 		this.fileSeparator = builder.fileSeparator;
-		this.properties = ImmutableProperties.copyOf(builder.properties);
+		this.system = ImmutableProperties.copyOf(builder.system);
 		this.environment = ImmutableProperties.copyOf(builder.environment);
 	}
 
@@ -67,7 +67,7 @@ public final class JVM {
 		private String pathSeparator;
 		private String lineSeparator;
 		private String fileSeparator;
-		private Properties properties;
+		private Properties system;
 		private Properties environment;
 
 		@Override
@@ -78,6 +78,16 @@ public final class JVM {
 		@Override
 		public JVM build() {
 			return validate(new JVM(this));
+		}
+
+		public Builder system(Properties system) {
+			this.system = system;
+			return this;
+		}
+
+		public Builder environment(Properties environment) {
+			this.environment = environment;
+			return this;
 		}
 
 		public Builder user(User user) {
@@ -158,6 +168,22 @@ public final class JVM {
 			this.fileSeparator = fileSeparator;
 		}
 
+		public Properties getSystem() {
+			return system;
+		}
+
+		public void setSystem(Properties system) {
+			this.system = system;
+		}
+
+		public Properties getEnvironment() {
+			return environment;
+		}
+
+		public void setEnvironment(Properties environment) {
+			this.environment = environment;
+		}
+
 	}
 
 	public User getUser() {
@@ -182,6 +208,14 @@ public final class JVM {
 
 	public String getFileSeparator() {
 		return fileSeparator;
+	}
+
+	public Properties getSystem() {
+		return system;
+	}
+
+	public Properties getEnvironment() {
+		return environment;
 	}
 
 }
