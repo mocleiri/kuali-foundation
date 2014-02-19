@@ -1,26 +1,25 @@
 package org.kuali.common.util.spring.format;
 
-import java.io.File;
-import java.util.List;
+import java.util.Properties;
 
 import org.springframework.format.Formatter;
 import org.springframework.format.Parser;
 import org.springframework.format.Printer;
 
-public final class XmlPropertiesFormatFactory extends AbstractListStringFormatFactory<PathListFormat> {
+public final class XmlPropertiesFormatFactory extends AbstractListStringFormatFactory<XmlPropertiesFormat> {
 
 	@Override
-	public Printer<List<String>> getPrinter(PathListFormat annotation, Class<?> fieldType) {
+	public Printer<Properties> getPrinter(XmlPropertiesFormat annotation, Class<?> fieldType) {
 		return getFormatter(annotation);
 	}
 
 	@Override
-	public Parser<List<String>> getParser(PathListFormat annotation, Class<?> fieldType) {
+	public Parser<Properties> getParser(XmlPropertiesFormat annotation, Class<?> fieldType) {
 		return getFormatter(annotation);
 	}
 
-	protected Formatter<List<String>> getFormatter(PathListFormat annotation) {
-		return getFormatter(File.pathSeparator, annotation.emptyListToken());
+	protected Formatter<Properties> getFormatter(XmlPropertiesFormat annotation) {
+		return new XmlPropertiesFormatter(annotation.encoding(), annotation.emptyPropertiesToken());
 	}
 
 }
