@@ -104,8 +104,8 @@ public class DataBinderTest {
 	public static <T> T getInstance(Class<T> type, Map<String, ?> values) {
 		List<Node<Field>> nodes = AnnotatedFieldAssemblerFunction.create(Bind.class).apply(type);
 		BindKeysFunction function = new BindKeysFunction(type);
-		List<Node<BindDescriptor>> descriptors = buildDescriptors(nodes, function, values);
-		bindValuesToLeaves(descriptors, values);
+		List<Node<BindDescriptor>> descriptors = buildDescriptorNodes(nodes, function, values);
+		// bindValuesToLeaves(descriptors, values);
 		createBuilderInstances(descriptors);
 		bindLeavesToParents(descriptors);
 		buildInstances(descriptors);
@@ -253,7 +253,7 @@ public class DataBinderTest {
 		return "<tr valign=top><td align=right>" + label + "&nbsp;</td><td>" + display + "</td></tr>";
 	}
 
-	protected static List<Node<BindDescriptor>> buildDescriptors(List<Node<Field>> nodes, BindKeysFunction function, Map<String, ?> values) {
+	protected static List<Node<BindDescriptor>> buildDescriptorNodes(List<Node<Field>> nodes, BindKeysFunction function, Map<String, ?> values) {
 		return convert(getDescriptors(nodes, function, values));
 	}
 
