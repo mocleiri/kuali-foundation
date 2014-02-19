@@ -8,12 +8,12 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import org.kuali.common.util.base.Optionals;
+
 @Target({ METHOD, FIELD, PARAMETER })
 @Retention(RUNTIME)
 public @interface OptionalStringFormat {
 
-	public static final String DEFAULT_OPTIONAL_ABSENT_TOKEN = "${optional.absent}";
-
-	String value() default DEFAULT_OPTIONAL_ABSENT_TOKEN;
+	String value() default Optionals.ABSENT_OPTIONAL_TOKEN;
 
 }
