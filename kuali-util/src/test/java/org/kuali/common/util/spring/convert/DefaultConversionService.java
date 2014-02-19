@@ -20,6 +20,7 @@ import org.springframework.format.support.DefaultFormattingConversionService;
 public class DefaultConversionService extends DefaultFormattingConversionService {
 
 	public DefaultConversionService() {
+		super(false);
 		addFormatterForFieldAnnotation(new BytesFormatFactory());
 		addFormatterForFieldAnnotation(new TimeFormatFactory());
 		addFormatterForFieldAnnotation(new OptionalStringFormatFactory());
