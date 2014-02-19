@@ -10,6 +10,7 @@ import org.kuali.common.util.spring.format.CanonicalFileFormatter;
 import org.kuali.common.util.spring.format.FileListFormatFactory;
 import org.kuali.common.util.spring.format.PathListFormatFactory;
 import org.kuali.common.util.spring.format.TimeFormatFactory;
+import org.kuali.common.util.spring.format.XmlPropertiesFormatFactory;
 import org.kuali.common.util.spring.format.optional.OptionalStringFormatFactory;
 import org.kuali.common.util.spring.format.optional.OptionalTimeZoneFormatFactory;
 import org.springframework.core.convert.ConversionService;
@@ -25,6 +26,7 @@ public class DefaultConversionService extends DefaultFormattingConversionService
 		addFormatterForFieldAnnotation(new OptionalTimeZoneFormatFactory());
 		addFormatterForFieldAnnotation(new FileListFormatFactory());
 		addFormatterForFieldAnnotation(new PathListFormatFactory());
+		addFormatterForFieldAnnotation(new XmlPropertiesFormatFactory());
 		addFormatterForFieldType(File.class, new CanonicalFileFormatter());
 		addConverter(new StringToXmlPropertiesConverter());
 		addConverter(new XmlPropertiesToStringConverter());

@@ -43,7 +43,6 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Maps;
 
 public class DataBinderTest {
 
@@ -58,7 +57,7 @@ public class DataBinderTest {
 			// logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
 
 			// show(System.getProperties());
-			Map<String, Object> map = Maps.newHashMap();
+			Map<String, Object> map = newHashMap();
 			map.putAll(PropertyUtils.convert(System.getProperties()));
 			map.put("system.properties", System.getProperties());
 			map.put("system.environment", PropertyUtils.convert(System.getenv()));
