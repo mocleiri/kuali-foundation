@@ -105,7 +105,7 @@ public class DataBinderTest {
 	public static <T> T getInstance(Class<T> type, Map<String, ?> data) {
 		Map<String, Object> values = newHashMap(data);
 		List<Node<Field>> nodes = AnnotatedFieldAssemblerFunction.create(Bind.class).apply(type);
-		List<Node<BindDescriptor>> descriptors = buildDescriptors(type, nodes, newBindKeyFunction(type));
+		List<Node<BindDescriptor>> descriptors = buildDescriptors(nodes, newBindKeyFunction(type));
 		bindValuesToLeaves(descriptors, values);
 		createBuilderInstances(descriptors);
 		bindLeavesToParents(descriptors);
@@ -254,8 +254,8 @@ public class DataBinderTest {
 		return "<tr valign=top><td align=right>" + label + "&nbsp;</td><td>" + display + "</td></tr>";
 	}
 
-	protected static List<Node<BindDescriptor>> buildDescriptors(Class<?> type, List<Node<Field>> nodes, Function<List<Field>, List<String>> function) {
-		return convert(getDescriptors(type, nodes, function));
+	protected static List<Node<BindDescriptor>> buildDescriptors(List<Node<Field>> nodes, Function<List<Field>, List<String>> function) {
+		return convert(getDescriptors(nodes, function));
 	}
 
 	protected static List<MutableNode<BindDescriptor>> transform(List<Node<Field>> nodes) {
@@ -268,7 +268,7 @@ public class DataBinderTest {
 		return newNodes;
 	}
 
-	protected static List<MutableNode<BindDescriptor>> getDescriptors(Class<?> type, List<Node<Field>> nodes, Function<List<Field>, List<String>> function) {
+	protected static List<MutableNode<BindDescriptor>> getDescriptors(List<Node<Field>> nodes, Function<List<Field>, List<String>> function) {
 		List<MutableNode<BindDescriptor>> newNodes = newArrayList();
 		for (Node<Field> node : nodes) {
 			Field field = node.getElement();
@@ -280,7 +280,7 @@ public class DataBinderTest {
 				bd.setBindKeys(bindKeys);
 			}
 			MutableNode<BindDescriptor> newNode = new MutableNode<BindDescriptor>(bd);
-			List<MutableNode<BindDescriptor>> children = getDescriptors(field.getType(), node.getChildren(), function);
+			List<MutableNode<BindDescriptor>> children = getDescriptors(node.getChildren(), function);
 			newNode.add(children);
 			newNodes.add(newNode);
 		}
