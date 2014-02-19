@@ -13,14 +13,17 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.SortedSet;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.Builder;
 import org.junit.Test;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.base.Optionals;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.test.AnnotatedFieldAssemblerFunction;
 import org.kuali.common.util.spring.convert.Conversion;
@@ -36,6 +39,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
 public class DataBinderTest {
@@ -51,7 +55,7 @@ public class DataBinderTest {
 			// logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
 
 			show(System.getProperties());
-			SystemProperties vm = getInstance(SystemProperties.class, System.getProperties());
+			SystemProperties vm = getInstance(SystemProperties.class, System.getProperties(), ImmutableSet.of("line.separator"));
 			logger.info(vm.getFileSeparator());
 			logger.info(vm.getUser().getName());
 			logger.info(vm.getUser().getTimeZone().isPresent() + "");
@@ -274,8 +278,18 @@ public class DataBinderTest {
 		return list;
 	}
 
-	public static <T> T getInstance(Class<T> type, Properties properties) {
-		return getInstance(type, PropertyUtils.convert(properties));
+	public static <T> T getInstance(Class<T> type, Properties properties, Set<String> exclusions) {
+		Map<String, String> map = PropertyUtils.convert(properties);
+		for (String key : map.keySet()) {
+			String value = map.get(key);
+			boolean morph = !exclusions.contains(key) && StringUtils.isBlank(value);
+			if (!morph) {
+				String absent = Optionals.ABSENT_OPTIONAL_TOKEN;
+				logger.info(String.format("converting [%s] from blank to [%s]", key, absent));
+				map.put(key, absent);
+			}
+		}
+		return getInstance(type, map);
 	}
 
 	protected static void write(String path, String content) {
