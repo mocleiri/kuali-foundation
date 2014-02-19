@@ -45,6 +45,7 @@ public final class User {
 		private Optional<String> language = absent();
 		@OptionalType(String.class)
 		private Optional<String> country = absent();
+		@OptionalType(TimeZone.class)
 		private Optional<TimeZone> timeZone = absent();
 
 		public Builder country(Optional<String> country) {
