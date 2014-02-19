@@ -115,7 +115,7 @@ public class DataBinderTest {
 		for (Node<BindDescriptor> node : descriptors) {
 			BindDescriptor bd = node.getElement();
 			String key = bd.getInstancePropertyName();
-			Object value = bd.getInstance() != null ? bd.getInstance() : bd.getBindValue();
+			Object value = bd.getInstance() != null ? bd.getInstance() : bd.getBindValue().get();
 			map.put(key, value);
 		}
 
@@ -166,8 +166,8 @@ public class DataBinderTest {
 			for (Node<BindDescriptor> child : children) {
 				BindDescriptor bd = child.getElement();
 				if (child.isLeaf()) {
-					if (bd.getBindValue() != null) {
-						values.put(bd.getInstancePropertyName(), bd.getBindValue());
+					if (bd.getBindValue().isPresent()) {
+						values.put(bd.getInstancePropertyName(), bd.getBindValue().get());
 					}
 				} else {
 					subNodes.add(child);
