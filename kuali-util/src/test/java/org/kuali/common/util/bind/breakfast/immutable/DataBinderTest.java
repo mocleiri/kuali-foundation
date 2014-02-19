@@ -7,7 +7,6 @@ import static java.lang.String.format;
 import static org.kuali.common.util.ReflectionUtils.copyProperty;
 import static org.kuali.common.util.ReflectionUtils.newInstance;
 import static org.kuali.common.util.base.Exceptions.illegalState;
-import static org.kuali.common.util.bind.breakfast.immutable.BindKeysFunction.newBindKeyFunction;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.io.File;
@@ -104,7 +103,8 @@ public class DataBinderTest {
 
 	public static <T> T getInstance(Class<T> type, Map<String, ?> values) {
 		List<Node<Field>> nodes = AnnotatedFieldAssemblerFunction.create(Bind.class).apply(type);
-		List<Node<BindDescriptor>> descriptors = buildDescriptors(nodes, newBindKeyFunction(type));
+		BindKeysFunction function = new BindKeysFunction(type);
+		List<Node<BindDescriptor>> descriptors = buildDescriptors(nodes, function, values);
 		bindValuesToLeaves(descriptors, values);
 		createBuilderInstances(descriptors);
 		bindLeavesToParents(descriptors);
@@ -253,8 +253,8 @@ public class DataBinderTest {
 		return "<tr valign=top><td align=right>" + label + "&nbsp;</td><td>" + display + "</td></tr>";
 	}
 
-	protected static List<Node<BindDescriptor>> buildDescriptors(List<Node<Field>> nodes, BindKeysFunction function) {
-		return convert(getDescriptors(nodes, function));
+	protected static List<Node<BindDescriptor>> buildDescriptors(List<Node<Field>> nodes, BindKeysFunction function, Map<String, ?> values) {
+		return convert(getDescriptors(nodes, function, values));
 	}
 
 	protected static List<MutableNode<BindDescriptor>> transform(List<Node<Field>> nodes) {
@@ -267,7 +267,7 @@ public class DataBinderTest {
 		return newNodes;
 	}
 
-	protected static List<MutableNode<BindDescriptor>> getDescriptors(List<Node<Field>> nodes, BindKeysFunction function) {
+	protected static List<MutableNode<BindDescriptor>> getDescriptors(List<Node<Field>> nodes, BindKeysFunction function, Map<String, ?> values) {
 		// Create some storage space for descriptor nodes
 		List<MutableNode<BindDescriptor>> descriptorNodes = newArrayList();
 
@@ -279,7 +279,7 @@ public class DataBinderTest {
 
 			// If it's a leaf, figure out what keys hold values
 			if (node.isLeaf()) {
-				descriptor.setBindKeys(function.apply(node.getElementPath()));
+				updateLeafDescriptor(node, descriptor, function, values);
 			}
 
 			// Create a new node based on the descriptor and hook it into the tree
@@ -287,12 +287,25 @@ public class DataBinderTest {
 			descriptorNodes.add(descriptorNode);
 
 			// Recurse
-			List<MutableNode<BindDescriptor>> children = getDescriptors(node.getChildren(), function);
+			List<MutableNode<BindDescriptor>> children = getDescriptors(node.getChildren(), function, values);
 			descriptorNode.add(children);
 		}
 
 		// Return the descriptor nodes
 		return descriptorNodes;
+	}
+
+	protected static void updateLeafDescriptor(Node<Field> node, BindDescriptor descriptor, BindKeysFunction function, Map<String, ?> values) {
+		List<String> bindKeys = function.apply(node.getElementPath());
+		descriptor.setBindKeys(bindKeys);
+		for (String bindKey : bindKeys) {
+			if (values.containsKey(bindKey)) {
+				Object value = values.get(bindKey);
+				descriptor.setBindValue(value);
+				// Order is significant, stop as soon as we find a value in the map
+				return;
+			}
+		}
 	}
 
 	protected static Builder<?> createBuilder(Node<BindDescriptor> node) {

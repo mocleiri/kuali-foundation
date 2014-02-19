@@ -30,10 +30,6 @@ public class BindKeysFunction implements Function<List<Field>, List<String>> {
 		this.type = checkNotNull(type, "type");
 	}
 
-	public static BindKeysFunction newBindKeyFunction(Class<?> type) {
-		return new BindKeysFunction(type);
-	}
-
 	private final Class<?> type;
 
 	@Override
