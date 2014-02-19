@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.bind.api.Bind;
+import org.kuali.common.util.spring.format.PathListFormat;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
@@ -61,8 +62,11 @@ public final class Java {
 		private File temporaryDirectory;
 		private Optional<String> jitCompiler = absent();
 		private String classVersion;
+		@PathListFormat
 		private List<String> classpath = ImmutableList.of();
+		@PathListFormat
 		private List<String> libraryPaths = ImmutableList.of();
+		@PathListFormat
 		private List<String> extensionDirectories = ImmutableList.of();
 		private RuntimeEnvironment runtimeEnvironment;
 		private VirtualMachine virtualMachine;
@@ -207,15 +211,15 @@ public final class Java {
 		return classVersion;
 	}
 
-	public ImmutableList<String> getClasspath() {
+	public List<String> getClasspath() {
 		return classpath;
 	}
 
-	public ImmutableList<String> getLibraryPaths() {
+	public List<String> getLibraryPaths() {
 		return libraryPaths;
 	}
 
-	public ImmutableList<String> getExtensionDirectories() {
+	public List<String> getExtensionDirectories() {
 		return extensionDirectories;
 	}
 
