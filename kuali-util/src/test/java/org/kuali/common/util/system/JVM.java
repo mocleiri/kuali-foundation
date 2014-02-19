@@ -55,6 +55,10 @@ public final class JVM {
 		this.environment = ImmutableProperties.copyOf(builder.environment);
 	}
 
+	public static JVM create() {
+		return builder().build();
+	}
+
 	public static Builder builder() {
 		return new Builder();
 	}
