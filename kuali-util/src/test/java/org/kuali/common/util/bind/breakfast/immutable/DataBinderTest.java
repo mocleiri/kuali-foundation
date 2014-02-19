@@ -55,12 +55,12 @@ public class DataBinderTest {
 			// logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
 
 			// show(System.getProperties());
-			JVM vm = getInstance(JVM.class, System.getProperties(), ImmutableSet.of("line.separator"));
-			logger.info(vm.getFileSeparator());
-			logger.info(vm.getUser().getName());
-			logger.info(vm.getUser().getTimeZone().isPresent() + "");
-			logger.info(vm.getUser().getLanguage().isPresent() + "");
-			logger.info(vm.getUser().getCountry().isPresent() + "");
+			JVM jvm = getInstance(JVM.class, System.getProperties(), ImmutableSet.of("line.separator"));
+			logger.info(jvm.getFileSeparator());
+			logger.info(jvm.getUser().getName());
+			logger.info(jvm.getUser().getTimeZone().isPresent() + "");
+			logger.info(jvm.getUser().getLanguage().isPresent() + "");
+			logger.info(jvm.getUser().getCountry().isPresent() + "");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
