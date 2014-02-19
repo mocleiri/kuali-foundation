@@ -1,6 +1,6 @@
-package org.kuali.common.util.spring.convert;
+package org.kuali.common.util.spring.format;
 
-public class Tokens {
+public class FormatTokens {
 
 	public static final String ABSENT_OPTIONAL_TOKEN = "${optional.absent}";
 

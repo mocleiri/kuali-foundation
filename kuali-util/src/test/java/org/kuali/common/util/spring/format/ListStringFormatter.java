@@ -9,7 +9,6 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 
 import org.kuali.common.util.build.ValidatingBuilder;
-import org.kuali.common.util.spring.convert.Tokens;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 import org.springframework.format.Formatter;
 
@@ -62,7 +61,7 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 	public static class Builder extends ValidatingBuilder<ListStringFormatter> {
 
 		private String separator = ",";
-		private String emptyListToken = Tokens.EMPTY_LIST_TOKEN;
+		private String emptyListToken = FormatTokens.EMPTY_LIST_TOKEN;
 
 		// Filled in by the build method
 		private Splitter splitter;
