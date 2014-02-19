@@ -166,8 +166,7 @@ public class DataBinderTest {
 				bind(node, values);
 			}
 			// Recurse
-			Predicate<Node<BindDescriptor>> predicate = newNoLeavesPredicate();
-			bindLeafValuesToParentBuilder(filter(node.getChildren(), predicate));
+			bindLeafValuesToParentBuilder(filter(node.getChildren(), new NoLeavesPredicate<BindDescriptor>()));
 		}
 	}
 
