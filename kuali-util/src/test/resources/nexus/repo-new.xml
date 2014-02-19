@@ -27,6 +27,8 @@
         <downloadRemoteIndex>false</downloadRemoteIndex>
         <checksumPolicy>WARN</checksumPolicy>
         <repositoryPolicy>RELEASE</repositoryPolicy>
+      
+      
       </externalConfiguration>
     </repository>
 
