@@ -1,25 +1,25 @@
 package org.kuali.common.util.spring.format;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.collect.Lists.newArrayList;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
-import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.util.nullify.NullUtils;
+import javax.validation.ConstraintViolation;
+
+import org.kuali.common.util.base.Optionals;
+import org.kuali.common.util.build.ValidatingBuilder2;
+import org.kuali.common.util.validate.IdiotProofImmutable;
 import org.springframework.format.Formatter;
 
 import com.google.common.base.Joiner;
-import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 
+@IdiotProofImmutable
 public final class ListStringFormatter implements Formatter<List<String>> {
 
-	private final boolean trim;
-	private final boolean omitEmpty;
-	private final Optional<String> magicEmptyString;
+	private final String emptyListToken;
 	private final char separator;
 
 	// Not exposed via getters/setters
@@ -28,7 +28,7 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 
 	@Override
 	public List<String> parse(String string, Locale locale) {
-		if (magicEmptyString.isPresent() && magicEmptyString.get().equals(string)) {
+		if (emptyListToken.equals(string)) {
 			return newArrayList();
 		} else {
 			return newArrayList(splitter.split(string));
@@ -37,8 +37,8 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 
 	@Override
 	public String print(List<String> files, Locale locale) {
-		if (magicEmptyString.isPresent() && files.isEmpty()) {
-			return magicEmptyString.get();
+		if (files.isEmpty()) {
+			return emptyListToken;
 		} else {
 			return joiner.join(files.iterator());
 		}
@@ -47,10 +47,8 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 	private ListStringFormatter(Builder builder) {
 		this.splitter = builder.splitter;
 		this.joiner = builder.joiner;
-		this.trim = builder.trim;
-		this.omitEmpty = builder.omitEmpty;
 		this.separator = builder.separator;
-		this.magicEmptyString = builder.magicEmptyString;
+		this.emptyListToken = builder.emptyListToken;
 	}
 
 	public static ListStringFormatter make(char separator) {
@@ -61,84 +59,35 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 		return new Builder();
 	}
 
-	public static class Builder implements org.apache.commons.lang3.builder.Builder<ListStringFormatter> {
+	public static class Builder extends ValidatingBuilder2<ListStringFormatter> {
 
 		private char separator = ',';
-		private boolean trim = true;
-		private boolean omitEmpty = true;
-		private Optional<String> magicEmptyString = Optional.of(NullUtils.NONE);
+		private String emptyListToken = Optionals.EMPTY_LIST_TOKEN;
 
 		// Filled in by the build method
 		private Splitter splitter;
 		private Joiner joiner;
+
+		public Builder emptyListToken(String emptyListToken) {
+			this.emptyListToken = emptyListToken;
+			return this;
+		}
 
 		public Builder separator(char separator) {
 			this.separator = separator;
 			return this;
 		}
 
-		public Builder trim(boolean trim) {
-			this.trim = trim;
-			return this;
-		}
-
-		public Builder magicEmptyString(String magicEmptyString) {
-			return magicEmptyString(Optional.of(magicEmptyString));
-		}
-
-		public Builder magicEmptyString(Optional<String> magicEmptyString) {
-			this.magicEmptyString = magicEmptyString;
-			return this;
-		}
-
-		public Builder omitEmpty(boolean omitEmpty) {
-			this.omitEmpty = omitEmpty;
-			return this;
+		@Override
+		public Set<ConstraintViolation<ListStringFormatter>> getViolations() {
+			return getViolations(new ListStringFormatter(this));
 		}
 
 		@Override
 		public ListStringFormatter build() {
-			this.splitter = getSplitter(this);
+			this.splitter = Splitter.on(separator);
 			this.joiner = Joiner.on(separator);
-			ListStringFormatter instance = new ListStringFormatter(this);
-			validate(instance);
-			return instance;
-		}
-
-		private static Splitter getSplitter(Builder builder) {
-			Splitter splitter = Splitter.on(builder.separator);
-			if (builder.trim) {
-				splitter.trimResults();
-			}
-			if (builder.omitEmpty) {
-				splitter.omitEmptyStrings();
-			}
-			return splitter;
-		}
-
-		private static void validate(ListStringFormatter instance) {
-			checkNotNull(instance.splitter, "'splitter' cannot be null");
-			checkNotNull(instance.joiner, "'joiner' cannot be null");
-			checkNotNull(instance.magicEmptyString, "'magicEmptyString' cannot be null");
-			if (instance.magicEmptyString.isPresent()) {
-				checkArgument(!StringUtils.isBlank(instance.magicEmptyString.get()), "'magicEmptyString' cannot be blank");
-			}
-		}
-
-		public boolean isTrim() {
-			return trim;
-		}
-
-		public void setTrim(boolean trim) {
-			this.trim = trim;
-		}
-
-		public boolean isOmitEmpty() {
-			return omitEmpty;
-		}
-
-		public void setOmitEmpty(boolean omitEmpty) {
-			this.omitEmpty = omitEmpty;
+			return validate(new ListStringFormatter(this));
 		}
 
 		public char getSeparator() {
@@ -147,16 +96,12 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 
 	}
 
-	public boolean isTrim() {
-		return trim;
-	}
-
-	public boolean isOmitEmpty() {
-		return omitEmpty;
-	}
-
 	public char getSeparator() {
 		return separator;
+	}
+
+	public String getEmptyListToken() {
+		return emptyListToken;
 	}
 
 }

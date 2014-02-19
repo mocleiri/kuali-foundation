@@ -20,7 +20,7 @@ public final class PathListFormatFactory extends AbstractListStringFormatFactory
 	}
 
 	protected Formatter<List<String>> getFormatter(PathListFormat annotation) {
-		return getFormatter(File.pathSeparatorChar, annotation.trim(), annotation.omitEmpty(), annotation.magicEmptyString());
+		return getFormatter(File.pathSeparatorChar);
 	}
 
 }
