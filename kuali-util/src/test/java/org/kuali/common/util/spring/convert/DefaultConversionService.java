@@ -5,6 +5,8 @@ import java.io.File;
 import org.kohsuke.MetaInfServices;
 import org.kuali.common.util.spring.format.BytesFormatFactory;
 import org.kuali.common.util.spring.format.CanonicalFileFormatter;
+import org.kuali.common.util.spring.format.FileListFormatFactory;
+import org.kuali.common.util.spring.format.PathListFormatFactory;
 import org.kuali.common.util.spring.format.TimeFormatFactory;
 import org.kuali.common.util.spring.format.optional.OptionalStringFormatFactory;
 import org.kuali.common.util.spring.format.optional.OptionalTimeZoneFormatFactory;
@@ -19,6 +21,8 @@ public class DefaultConversionService extends DefaultFormattingConversionService
 		addFormatterForFieldAnnotation(new TimeFormatFactory());
 		addFormatterForFieldAnnotation(new OptionalStringFormatFactory());
 		addFormatterForFieldAnnotation(new OptionalTimeZoneFormatFactory());
+		addFormatterForFieldAnnotation(new FileListFormatFactory());
+		addFormatterForFieldAnnotation(new PathListFormatFactory());
 		addFormatterForFieldType(File.class, new CanonicalFileFormatter());
 	}
 
