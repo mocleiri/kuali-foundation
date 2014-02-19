@@ -102,8 +102,7 @@ public class DataBinderTest {
 		return ImmutableProperties.copyOf(props);
 	}
 
-	public static <T> T getInstance(Class<T> type, Map<String, ?> data) {
-		Map<String, Object> values = newHashMap(data);
+	public static <T> T getInstance(Class<T> type, Map<String, ?> values) {
 		List<Node<Field>> nodes = AnnotatedFieldAssemblerFunction.create(Bind.class).apply(type);
 		List<Node<BindDescriptor>> descriptors = buildDescriptors(nodes, newBindKeyFunction(type));
 		bindValuesToLeaves(descriptors, values);
