@@ -108,7 +108,7 @@ public class DataBinderTest {
 		List<Node<Field>> nodes = AnnotatedFieldAssemblerFunction.create(Bind.class).apply(type);
 		BindKeysFunction function = new BindKeysFunction(type);
 		List<Node<BindDescriptor>> descriptors = buildDescriptorNodes(nodes, function, values);
-		bindLeafValuesToParentBuilder(descriptors);
+		bindLeafValues(descriptors);
 		buildInstances(descriptors);
 		// TODO Remove this
 		String html = Trees.html(type.getSimpleName(), descriptors, new BindDescriptorFunction());
@@ -159,14 +159,14 @@ public class DataBinderTest {
 		}
 	}
 
-	protected static void bindLeafValuesToParentBuilder(Iterable<Node<BindDescriptor>> nodes) {
+	protected static void bindLeafValues(Iterable<Node<BindDescriptor>> nodes) {
 		for (Node<BindDescriptor> node : nodes) {
 			Map<String, Object> values = getValueMap(node);
 			if (!values.isEmpty()) {
 				bind(node, values);
 			}
 			// Recurse
-			bindLeafValuesToParentBuilder(filter(node.getChildren(), new NoLeavesPredicate<BindDescriptor>()));
+			bindLeafValues(filter(node.getChildren(), new NoLeavesPredicate<BindDescriptor>()));
 		}
 	}
 
