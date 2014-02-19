@@ -105,7 +105,6 @@ public class DataBinderTest {
 		List<Node<Field>> nodes = AnnotatedFieldAssemblerFunction.create(Bind.class).apply(type);
 		BindKeysFunction function = new BindKeysFunction(type);
 		List<Node<BindDescriptor>> descriptors = buildDescriptorNodes(nodes, function, values);
-		// createBuilderInstances(descriptors);
 		bindLeavesToParents(descriptors);
 		buildInstances(descriptors);
 		// TODO Remove this
