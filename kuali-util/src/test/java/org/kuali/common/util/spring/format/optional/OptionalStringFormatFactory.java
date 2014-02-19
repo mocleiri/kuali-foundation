@@ -9,12 +9,12 @@ public final class OptionalStringFormatFactory extends AbstractOptionalFormatFac
 
 	@Override
 	public Printer<Optional<String>> getPrinter(OptionalStringFormat annotation, Class<?> fieldType) {
-		return new OptionalStringFormatter(annotation.value());
+		return new OptionalStringFormatter(annotation.absentToken());
 	}
 
 	@Override
 	public Parser<Optional<String>> getParser(OptionalStringFormat annotation, Class<?> fieldType) {
-		return new OptionalStringFormatter(annotation.value());
+		return new OptionalStringFormatter(annotation.absentToken());
 	}
 
 }

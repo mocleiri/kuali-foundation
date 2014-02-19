@@ -6,4 +6,6 @@ public class Optionals {
 
 	public static final String EMPTY_LIST_TOKEN = "${list.empty}";
 
+	public static final String EMPTY_PROPERTIES_TOKEN = "${properties.empty}";
+
 }

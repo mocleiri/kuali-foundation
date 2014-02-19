@@ -14,6 +14,6 @@ import org.kuali.common.util.base.Optionals;
 @Retention(RUNTIME)
 public @interface OptionalStringFormat {
 
-	String value() default Optionals.ABSENT_OPTIONAL_TOKEN;
+	String absentToken() default Optionals.ABSENT_OPTIONAL_TOKEN;
 
 }

@@ -11,12 +11,12 @@ public final class OptionalTimeZoneFormatFactory extends AbstractOptionalFormatF
 
 	@Override
 	public Printer<Optional<TimeZone>> getPrinter(OptionalTimeZoneFormat annotation, Class<?> fieldType) {
-		return new OptionalTimeZoneFormatter(annotation.value());
+		return new OptionalTimeZoneFormatter(annotation.absentToken());
 	}
 
 	@Override
 	public Parser<Optional<TimeZone>> getParser(OptionalTimeZoneFormat annotation, Class<?> fieldType) {
-		return new OptionalTimeZoneFormatter(annotation.value());
+		return new OptionalTimeZoneFormatter(annotation.absentToken());
 	}
 
 }
