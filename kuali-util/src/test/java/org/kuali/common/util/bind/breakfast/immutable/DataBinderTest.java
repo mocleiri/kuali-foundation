@@ -33,7 +33,6 @@ import org.kuali.common.util.spring.convert.Conversion;
 import org.kuali.common.util.system.JVM;
 import org.kuali.common.util.tree.MutableNode;
 import org.kuali.common.util.tree.Node;
-import org.kuali.common.util.tree.Trees;
 import org.slf4j.Logger;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.core.convert.ConversionService;
@@ -110,9 +109,6 @@ public class DataBinderTest {
 		List<Node<BindDescriptor>> descriptors = buildDescriptorNodes(nodes, function, values);
 		bindLeafValues(descriptors);
 		buildInstances(descriptors);
-		// TODO Remove this
-		String html = Trees.html(type.getSimpleName(), descriptors, new BindDescriptorFunction());
-		write("/tmp/bds.htm", html);
 		Map<String, Object> map = newHashMap();
 		for (Node<BindDescriptor> node : descriptors) {
 			BindDescriptor bd = node.getElement();
