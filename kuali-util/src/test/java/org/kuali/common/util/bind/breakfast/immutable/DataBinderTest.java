@@ -270,13 +270,13 @@ public class DataBinderTest {
 	protected static List<MutableNode<BindDescriptor>> getDescriptors(List<Node<Field>> nodes, BindKeysFunction function) {
 		List<MutableNode<BindDescriptor>> descriptorNodes = newArrayList();
 		for (Node<Field> node : nodes) {
-			BindDescriptor bd = new BindDescriptor(node);
+			BindDescriptor descriptor = new BindDescriptor(node);
 			if (node.isLeaf()) {
 				List<String> bindKeys = function.apply(node.getElementPath());
-				bd.setBindKeys(bindKeys);
+				descriptor.setBindKeys(bindKeys);
 			}
 
-			MutableNode<BindDescriptor> descriptorNode = new MutableNode<BindDescriptor>(bd);
+			MutableNode<BindDescriptor> descriptorNode = new MutableNode<BindDescriptor>(descriptor);
 			descriptorNodes.add(descriptorNode);
 
 			// Recurse
