@@ -1,12 +1,24 @@
 package org.kuali.common.util.spring.format;
 
 import java.util.Properties;
+import java.util.Set;
 
+import org.springframework.format.AnnotationFormatterFactory;
 import org.springframework.format.Formatter;
 import org.springframework.format.Parser;
 import org.springframework.format.Printer;
 
-public final class XmlPropertiesFormatFactory extends AbstractListStringFormatFactory<XmlPropertiesFormat> {
+import com.google.common.collect.ImmutableSet;
+
+public final class XmlPropertiesFormatFactory implements AnnotationFormatterFactory<XmlPropertiesFormat> {
+
+	private static final Class<?>[] ARRAY = { Properties.class };
+	private static final Set<Class<?>> TYPES = ImmutableSet.copyOf(ARRAY);
+
+	@Override
+	public Set<Class<?>> getFieldTypes() {
+		return TYPES;
+	}
 
 	@Override
 	public Printer<Properties> getPrinter(XmlPropertiesFormat annotation, Class<?> fieldType) {
