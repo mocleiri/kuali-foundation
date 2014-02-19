@@ -66,6 +66,7 @@ public class DataBinderTest {
 			JVM jvm = getInstance(JVM.class, map, ImmutableSet.of("line.separator"));
 			logger.info(jvm.getFileSeparator());
 			logger.info(jvm.getUser().getName());
+			logger.info(jvm.getUser().getDir() + "");
 			logger.info(jvm.getUser().getTimeZone().isPresent() + "");
 			logger.info(jvm.getUser().getLanguage().isPresent() + "");
 			logger.info(jvm.getUser().getCountry().isPresent() + "");
