@@ -2,6 +2,7 @@ package org.kuali.common.util.bind.breakfast.immutable;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
+import static com.google.common.collect.Sets.newHashSet;
 import static org.kuali.common.util.ReflectionUtils.newInstance;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.bind.breakfast.immutable.BindKeysFunction.newBindKeyFunction;
@@ -23,7 +24,6 @@ import org.junit.Test;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.Str;
-import org.kuali.common.util.base.Optionals;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.test.AnnotatedFieldAssemblerFunction;
 import org.kuali.common.util.spring.convert.Conversion;
@@ -54,7 +54,7 @@ public class DataBinderTest {
 			// Bowl bowl = getInstance(type, values);
 			// logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
 
-			show(System.getProperties());
+			// show(System.getProperties());
 			SystemProperties vm = getInstance(SystemProperties.class, System.getProperties(), ImmutableSet.of("line.separator"));
 			logger.info(vm.getFileSeparator());
 			logger.info(vm.getUser().getName());
@@ -280,13 +280,12 @@ public class DataBinderTest {
 
 	public static <T> T getInstance(Class<T> type, Properties properties, Set<String> exclusions) {
 		Map<String, String> map = PropertyUtils.convert(properties);
-		for (String key : map.keySet()) {
+		for (String key : newHashSet(map.keySet())) {
 			String value = map.get(key);
-			boolean morph = !exclusions.contains(key) && StringUtils.isBlank(value);
-			if (!morph) {
-				String absent = Optionals.ABSENT_OPTIONAL_TOKEN;
-				logger.info(String.format("converting [%s] from blank to [%s]", key, absent));
-				map.put(key, absent);
+			boolean remove = StringUtils.isBlank(value) && !exclusions.contains(key);
+			if (remove) {
+				logger.info(String.format("remove [%s] because it is blank", key));
+				map.remove(key);
 			}
 		}
 		return getInstance(type, map);
