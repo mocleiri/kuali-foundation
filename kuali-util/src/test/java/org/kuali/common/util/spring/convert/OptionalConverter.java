@@ -1,6 +1,8 @@
 package org.kuali.common.util.spring.convert;
 
 import static com.google.common.base.Optional.fromNullable;
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.TimeZone.getTimeZone;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 import static org.springframework.util.NumberUtils.parseNumber;
@@ -83,7 +85,7 @@ public class OptionalConverter implements GenericConverter {
 		throw illegalState("unsupported number type -> [%s]", type.getCanonicalName());
 	}
 
-	private static final class NumberFunction<T extends Number> implements Function<String, Optional<T>> {
+	public static final class NumberFunction<T extends Number> implements Function<String, Optional<?>> {
 
 		public NumberFunction(Class<T> type) {
 			this.type = checkNotNull(type, "type");
@@ -97,7 +99,7 @@ public class OptionalConverter implements GenericConverter {
 		}
 	}
 
-	private static enum StringFunction implements Function<String, Optional<String>> {
+	public static enum StringFunction implements Function<String, Optional<?>> {
 		INSTANCE;
 		@Override
 		public Optional<String> apply(String text) {
@@ -105,12 +107,15 @@ public class OptionalConverter implements GenericConverter {
 		}
 	}
 
-	private static enum TimeZoneFunction implements Function<String, Optional<TimeZone>> {
+	public static enum TimeZoneFunction implements Function<String, Optional<?>> {
 		INSTANCE;
 
+		private static final Set<String> IDS = ImmutableSet.copyOf(TimeZone.getAvailableIDs());
+
 		@Override
-		public Optional<TimeZone> apply(String text) {
-			return ABSENT.equals(text) ? Optional.<TimeZone> absent() : Optional.of(TimeZone.getTimeZone(text));
+		public Optional<TimeZone> apply(String timeZoneId) {
+			checkArgument(IDS.contains(timeZoneId), "unknown timezone -> %s", timeZoneId);
+			return ABSENT.equals(timeZoneId) ? Optional.<TimeZone> absent() : Optional.of(getTimeZone(timeZoneId));
 		}
 	}
 
