@@ -23,7 +23,8 @@ public final class OptionalTimeZoneFormatter extends AbstractOptionalFormatter<T
 		if (getAbsentToken().equals(timeZoneId)) {
 			return absent();
 		} else {
-			checkArgument(TIMEZONE_IDS.contains(timeZoneId), "unknown timezone id -> %s", timeZoneId);
+			boolean contains = TIMEZONE_IDS.contains(timeZoneId);
+			checkArgument(contains, "unknown timezone id -> %s", timeZoneId);
 			return Optional.of(TimeZone.getTimeZone(timeZoneId));
 		}
 	}
