@@ -7,7 +7,7 @@ import java.io.File;
 import java.util.TimeZone;
 
 import org.kuali.common.util.bind.api.Alias;
-import org.kuali.common.util.spring.format.OptionalStringFormat;
+import org.kuali.common.util.spring.format.optional.OptionalStringFormat;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Optional;

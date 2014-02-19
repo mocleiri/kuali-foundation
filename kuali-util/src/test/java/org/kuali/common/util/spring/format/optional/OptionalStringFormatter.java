@@ -1,4 +1,4 @@
-package org.kuali.common.util.spring.format;
+package org.kuali.common.util.spring.format.optional;
 
 import static com.google.common.base.Optional.absent;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;

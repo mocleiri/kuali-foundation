@@ -5,8 +5,8 @@ import java.io.File;
 import org.kohsuke.MetaInfServices;
 import org.kuali.common.util.spring.format.BytesFormatAnnotationFormatterFactory;
 import org.kuali.common.util.spring.format.CanonicalFileFormatter;
-import org.kuali.common.util.spring.format.OptionalStringFormatAnnotationFormatterFactory;
 import org.kuali.common.util.spring.format.TimeFormatAnnotationFormatterFactory;
+import org.kuali.common.util.spring.format.optional.OptionalStringFormatAnnotationFormatterFactory;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.format.support.DefaultFormattingConversionService;
 
