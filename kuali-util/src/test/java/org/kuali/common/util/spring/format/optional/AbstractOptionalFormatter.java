@@ -1,5 +1,6 @@
 package org.kuali.common.util.spring.format.optional;
 
+import static com.google.common.base.Optional.absent;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 import java.util.Locale;
@@ -24,6 +25,17 @@ public abstract class AbstractOptionalFormatter<T> implements Formatter<Optional
 			return getString(optional.get(), locale);
 		}
 	}
+
+	@Override
+	public Optional<T> parse(String text, Locale locale) {
+		if (getAbsentToken().equals(text)) {
+			return absent();
+		} else {
+			return getOptional(text, locale);
+		}
+	}
+
+	protected abstract Optional<T> getOptional(String text, Locale locale);
 
 	protected String getString(T reference, Locale locale) {
 		return reference.toString();

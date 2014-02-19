@@ -1,6 +1,5 @@
 package org.kuali.common.util.spring.format.optional;
 
-import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Preconditions.checkArgument;
 
 import java.util.Locale;
@@ -24,13 +23,9 @@ public final class OptionalTimeZoneFormatter extends AbstractOptionalFormatter<T
 	}
 
 	@Override
-	public Optional<TimeZone> parse(String timeZoneId, Locale locale) {
-		if (getAbsentToken().equals(timeZoneId)) {
-			return absent();
-		} else {
-			checkArgument(TIMEZONE_IDS.contains(timeZoneId), "unknown timezone id -> [%s]", timeZoneId);
-			return Optional.of(TimeZone.getTimeZone(timeZoneId));
-		}
+	public Optional<TimeZone> getOptional(String timeZoneId, Locale locale) {
+		checkArgument(TIMEZONE_IDS.contains(timeZoneId), "unknown timezone id -> [%s]", timeZoneId);
+		return Optional.of(TimeZone.getTimeZone(timeZoneId));
 	}
 
 }
