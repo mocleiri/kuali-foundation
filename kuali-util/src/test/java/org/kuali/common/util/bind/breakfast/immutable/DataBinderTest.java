@@ -48,8 +48,13 @@ import com.google.common.collect.ImmutableSet;
 public class DataBinderTest {
 
 	private static final Logger logger = newLogger();
-	
-	private static final ConversionService SERVICE = new GenericConversionService();
+
+	private static final ConversionService SERVICE = getConversionService();
+
+	private static ConversionService getConversionService() {
+		GenericConversionService gcs = new GenericConversionService();
+		return gcs;
+	}
 
 	@Test
 	public void test() {
