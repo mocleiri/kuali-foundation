@@ -85,6 +85,7 @@ public class DataBinderTest {
 		createBuilderInstances(descriptors);
 		bindLeavesToParents(descriptors);
 		buildInstances(descriptors);
+		// TODO Remove this
 		String html = Trees.html(type.getSimpleName(), descriptors, new BindDescriptorFunction());
 		write("/tmp/bds.htm", html);
 		Map<String, Object> map = newHashMap();
