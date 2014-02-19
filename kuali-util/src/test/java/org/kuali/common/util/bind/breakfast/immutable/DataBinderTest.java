@@ -1,5 +1,6 @@
 package org.kuali.common.util.bind.breakfast.immutable;
 
+import static com.google.common.base.Optional.absent;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newTreeSet;
@@ -266,15 +267,19 @@ public class DataBinderTest {
 
 	protected static void updateLeafDescriptor(Node<Field> node, BindDescriptor descriptor, BindKeysFunction function, Map<String, ?> values) {
 		List<String> bindKeys = function.apply(node.getElementPath());
+		Optional<?> value = getValue(bindKeys, values);
+
 		descriptor.setBindKeys(bindKeys);
-		for (String bindKey : bindKeys) {
-			if (values.containsKey(bindKey)) {
-				Object value = values.get(bindKey);
-				descriptor.setBindValue(value);
-				// Order is significant, stop as soon as we find a value in the map
-				return;
+		descriptor.setBindValue(value);
+	}
+
+	protected static Optional<?> getValue(List<String> keys, Map<String, ?> values) {
+		for (String key : keys) {
+			if (values.containsKey(key)) {
+				return Optional.of(values.get(key));
 			}
 		}
+		return absent();
 	}
 
 	protected static Builder<?> createBuilder(Node<BindDescriptor> node) {

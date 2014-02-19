@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.commons.lang3.builder.Builder;
 import org.kuali.common.util.tree.Node;
 
+import com.google.common.base.Optional;
+
 public class BindDescriptor {
 
 	public BindDescriptor(Node<Field> node) {
@@ -15,16 +17,16 @@ public class BindDescriptor {
 
 	Node<Field> node;
 	List<String> bindKeys;
-	Object bindValue;
+	Optional<?> bindValue;
 	String instancePropertyName;
 	Object instance;
 	Builder<?> instanceBuilder;
 
-	public Object getBindValue() {
+	public Optional<?> getBindValue() {
 		return bindValue;
 	}
 
-	public void setBindValue(Object bindValue) {
+	public void setBindValue(Optional<?> bindValue) {
 		this.bindValue = bindValue;
 	}
 
