@@ -1,6 +1,6 @@
-package org.kuali.common.util.base;
+package org.kuali.common.util.spring.convert;
 
-public class Optionals {
+public class Tokens {
 
 	public static final String ABSENT_OPTIONAL_TOKEN = "${optional.absent}";
 

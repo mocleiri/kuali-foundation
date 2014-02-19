@@ -5,7 +5,7 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import static org.kuali.common.util.Encodings.UTF8;
-import static org.kuali.common.util.base.Optionals.EMPTY_PROPERTIES_TOKEN;
+import static org.kuali.common.util.spring.convert.Tokens.EMPTY_PROPERTIES_TOKEN;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
