@@ -271,9 +271,7 @@ public class DataBinderTest {
 	protected static List<MutableNode<BindDescriptor>> getDescriptors(List<Node<Field>> nodes, Function<List<Field>, List<String>> function) {
 		List<MutableNode<BindDescriptor>> newNodes = newArrayList();
 		for (Node<Field> node : nodes) {
-			Field field = node.getElement();
 			BindDescriptor bd = new BindDescriptor(node);
-			bd.setInstancePropertyName(field.getName());
 			if (node.isLeaf()) {
 				List<Field> fields = node.getElementPath();
 				List<String> bindKeys = function.apply(fields);

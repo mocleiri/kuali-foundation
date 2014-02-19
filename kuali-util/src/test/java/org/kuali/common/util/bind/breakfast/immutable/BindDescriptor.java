@@ -10,6 +10,7 @@ public class BindDescriptor {
 
 	public BindDescriptor(Node<Field> node) {
 		this.node = node;
+		this.instancePropertyName = node.getElement().getName();
 	}
 
 	Node<Field> node;
