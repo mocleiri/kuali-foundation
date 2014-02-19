@@ -5,6 +5,7 @@ import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newHashSet;
 import static com.google.common.collect.Sets.newTreeSet;
 import static java.lang.String.format;
+import static org.kuali.common.util.ReflectionUtils.copyProperty;
 import static org.kuali.common.util.ReflectionUtils.newInstance;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.bind.breakfast.immutable.BindKeysFunction.newBindKeyFunction;
@@ -24,7 +25,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.Builder;
 import org.junit.Test;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.test.AnnotatedFieldAssemblerFunction;
@@ -142,7 +142,7 @@ public class DataBinderTest {
 		String name = child.getInstancePropertyName();
 		Object value = child.getInstance();
 		if (value != null) {
-			ReflectionUtils.copyProperty(bean, name, value);
+			copyProperty(bean, name, value);
 		}
 	}
 
