@@ -11,6 +11,10 @@ import org.kuali.common.util.validate.Validation;
 
 import com.google.common.collect.ImmutableList;
 
+/**
+ * @deprecated Use ValidatingBuilder instead
+ */
+@Deprecated
 public abstract class LegacyValidatingBuilder<T> implements Builder<T> {
 
 	protected Validator validator = Validation.getDefaultValidator();
