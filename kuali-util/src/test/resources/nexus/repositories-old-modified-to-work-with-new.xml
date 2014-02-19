@@ -450,34 +450,6 @@
       </externalConfiguration>
     </repository>
     <repository>
-      <id>m2eclipse</id>
-      <name>m2eclipse</name>
-      <providerRole>org.sonatype.nexus.proxy.repository.Repository</providerRole>
-      <providerHint>eclipse-update-site</providerHint>
-      <localStatus>IN_SERVICE</localStatus>
-      <notFoundCacheActive>true</notFoundCacheActive>
-      <notFoundCacheTTL>1440</notFoundCacheTTL>
-      <userManaged>true</userManaged>
-      <exposed>true</exposed>
-      <browseable>true</browseable>
-      <writePolicy>READ_ONLY</writePolicy>
-      <localStorage>
-        <provider>file</provider>
-      </localStorage>
-      <remoteStorage>
-        <!-- <provider>apacheHttpClient3x</provider> -->
-        <url>http://m2eclipse.sonatype.org/sites/m2e</url>
-      </remoteStorage>
-      <externalConfiguration>
-        <repositoryPolicy>RELEASE</repositoryPolicy>
-        <downloadRemoteIndex>false</downloadRemoteIndex>
-        <artifactMaxAge>-1</artifactMaxAge>
-        <metadataMaxAge>1440</metadataMaxAge>
-        <autoBlockActive>true</autoBlockActive>
-        <proxyMode>BLOCKED_AUTO</proxyMode>
-      </externalConfiguration>
-    </repository>
-    <repository>
       <id>atlassian</id>
       <name>Atlassian</name>
       <providerRole>org.sonatype.nexus.proxy.repository.Repository</providerRole>
