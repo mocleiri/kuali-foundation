@@ -7,7 +7,7 @@ import org.springframework.format.Formatter;
 import org.springframework.format.Parser;
 import org.springframework.format.Printer;
 
-public final class PathListFormatAnnotationFormatterFactory extends AbstractListStringFormatAnnotationFormatterFactory<PathListFormat> {
+public final class PathListFormatFactory extends AbstractListStringFormatFactory<PathListFormat> {
 
 	@Override
 	public Printer<List<String>> getPrinter(PathListFormat annotation, Class<?> fieldType) {
