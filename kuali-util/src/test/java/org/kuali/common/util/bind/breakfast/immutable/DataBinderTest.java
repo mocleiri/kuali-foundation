@@ -105,7 +105,6 @@ public class DataBinderTest {
 		List<Node<Field>> nodes = AnnotatedFieldAssemblerFunction.create(Bind.class).apply(type);
 		BindKeysFunction function = new BindKeysFunction(type);
 		List<Node<BindDescriptor>> descriptors = buildDescriptorNodes(nodes, function, values);
-		// bindValuesToLeaves(descriptors, values);
 		createBuilderInstances(descriptors);
 		bindLeavesToParents(descriptors);
 		buildInstances(descriptors);
@@ -196,24 +195,6 @@ public class DataBinderTest {
 					Builder<?> builder = createBuilder(ancestor);
 					bd.setInstanceBuilder(builder);
 				}
-			}
-		}
-	}
-
-	protected static void bindValuesToLeaves(List<Node<BindDescriptor>> nodes, Map<String, ?> values) {
-		for (Node<BindDescriptor> leaf : Trees.getLeaves(nodes)) {
-			bindValuesToLeaf(leaf, values);
-		}
-	}
-
-	protected static void bindValuesToLeaf(Node<BindDescriptor> leaf, Map<String, ?> values) {
-		for (String bindKey : leaf.getElement().getBindKeys()) {
-			// Ordering of the bindKeys is significant here.
-			// We must return the first value that matches
-			if (values.containsKey(bindKey)) {
-				Object value = values.get(bindKey);
-				leaf.getElement().setBindValue(value);
-				break;
 			}
 		}
 	}
