@@ -268,19 +268,22 @@ public class DataBinderTest {
 	}
 
 	protected static List<MutableNode<BindDescriptor>> getDescriptors(List<Node<Field>> nodes, BindKeysFunction function) {
-		List<MutableNode<BindDescriptor>> newNodes = newArrayList();
+		List<MutableNode<BindDescriptor>> descriptorNodes = newArrayList();
 		for (Node<Field> node : nodes) {
 			BindDescriptor bd = new BindDescriptor(node);
 			if (node.isLeaf()) {
 				List<String> bindKeys = function.apply(node.getElementPath());
 				bd.setBindKeys(bindKeys);
 			}
-			MutableNode<BindDescriptor> newNode = new MutableNode<BindDescriptor>(bd);
+
+			MutableNode<BindDescriptor> descriptorNode = new MutableNode<BindDescriptor>(bd);
+			descriptorNodes.add(descriptorNode);
+
+			// Recurse
 			List<MutableNode<BindDescriptor>> children = getDescriptors(node.getChildren(), function);
-			newNode.add(children);
-			newNodes.add(newNode);
+			descriptorNode.add(children);
 		}
-		return newNodes;
+		return descriptorNodes;
 	}
 
 	protected static Builder<?> createBuilder(Node<BindDescriptor> node) {
