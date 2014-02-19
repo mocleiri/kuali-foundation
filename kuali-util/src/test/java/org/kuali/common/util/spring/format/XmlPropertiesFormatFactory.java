@@ -3,6 +3,7 @@ package org.kuali.common.util.spring.format;
 import java.util.Properties;
 import java.util.Set;
 
+import org.kuali.common.util.property.ImmutableProperties;
 import org.springframework.format.AnnotationFormatterFactory;
 import org.springframework.format.Formatter;
 import org.springframework.format.Parser;
@@ -12,7 +13,7 @@ import com.google.common.collect.ImmutableSet;
 
 public final class XmlPropertiesFormatFactory implements AnnotationFormatterFactory<XmlPropertiesFormat> {
 
-	private static final Class<?>[] ARRAY = { Properties.class };
+	private static final Class<?>[] ARRAY = { Properties.class, ImmutableProperties.class };
 	private static final Set<Class<?>> TYPES = ImmutableSet.copyOf(ARRAY);
 
 	@Override
