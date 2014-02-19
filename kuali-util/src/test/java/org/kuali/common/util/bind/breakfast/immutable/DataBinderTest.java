@@ -28,6 +28,7 @@ import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.test.AnnotatedFieldAssemblerFunction;
+import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.spring.convert.Conversion;
 import org.kuali.common.util.system.JVM;
 import org.kuali.common.util.tree.MutableNode;
@@ -57,12 +58,12 @@ public class DataBinderTest {
 			// logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
 
 			// show(System.getProperties());
-			Properties props = new Properties();
-			props.putAll(System.getProperties());
-			props.put("system.properties", System.getProperties());
-			props.put("system.environment", PropertyUtils.convert(System.getenv()));
+			Map<String, Object> map = Maps.newHashMap();
+			map.putAll(PropertyUtils.convert(System.getProperties()));
+			map.put("system.properties", System.getProperties());
+			map.put("system.environment", PropertyUtils.convert(System.getenv()));
 
-			JVM jvm = getInstance(JVM.class, props, ImmutableSet.of("line.separator"));
+			JVM jvm = getInstance(JVM.class, map, ImmutableSet.of("line.separator"));
 			logger.info(jvm.getFileSeparator());
 			logger.info(jvm.getUser().getName());
 			logger.info(jvm.getUser().getTimeZone().isPresent() + "");
@@ -75,7 +76,8 @@ public class DataBinderTest {
 		}
 	}
 
-	public static <T> T getInstance(Class<T> type, Map<String, ?> values) {
+	public static <T> T getInstance(Class<T> type, Map<String, ?> values, Set<String> blanksAllowed) {
+		removeBlanks(values, blanksAllowed);
 		List<Node<Field>> nodes = AnnotatedFieldAssemblerFunction.create(Bind.class).apply(type);
 		List<Node<BindDescriptor>> descriptors = buildDescriptors(type, nodes, newBindKeyFunction(type));
 		bindValuesToLeaves(descriptors, values);
@@ -288,22 +290,23 @@ public class DataBinderTest {
 	}
 
 	public static <T> T getInstance(Class<T> type, Properties props, Set<String> blanksAllowed) {
-		Map<String, Object> map = Maps.newHashMap();
-		for (Object key : props.keySet()) {
-			map.put((String) key, props.get(key));
-		}
+		Map<String, String> map = PropertyUtils.convert(ImmutableProperties.copyOf(props));
+		return getInstance(type, map, blanksAllowed);
+	}
+
+	protected static void removeBlanks(Map<String, ?> map, Set<String> blanksAllowed) {
 		for (String key : newHashSet(map.keySet())) {
 			Object value = map.get(key);
-			if (value instanceof String) {
-				String string = (String) value;
-				boolean remove = StringUtils.isBlank(string) && !blanksAllowed.contains(key);
-				if (remove) {
-					logger.info(String.format("ignoring [%s] because it is blank", key));
-					map.remove(key);
-				}
+			if (!CharSequence.class.isAssignableFrom(value.getClass())) {
+				continue;
+			}
+			CharSequence cs = (CharSequence) value;
+			boolean remove = StringUtils.isBlank(cs) && !blanksAllowed.contains(key);
+			if (remove) {
+				logger.info(String.format("ignoring [%s] because it is blank", key));
+				map.remove(key);
 			}
 		}
-		return getInstance(type, map);
 	}
 
 	protected static void write(String path, String content) {
