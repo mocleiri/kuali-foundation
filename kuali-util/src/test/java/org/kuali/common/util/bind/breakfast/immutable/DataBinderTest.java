@@ -250,7 +250,7 @@ public class DataBinderTest {
 	}
 
 	protected static String tr(String label, String value) {
-		String display = value == null ? null : value.replace(":", "<br>").replace(",", "<br>").replace("http<br>", "http:");
+		String display = value == null ? null : value.replace("<", "&lt;").replace(":", "<br>").replace(",", "<br>").replace("http<br>", "http:").replace("\n", "<br>");
 		return "<tr valign=top><td align=right>" + label + "&nbsp;</td><td>" + display + "</td></tr>";
 	}
 
