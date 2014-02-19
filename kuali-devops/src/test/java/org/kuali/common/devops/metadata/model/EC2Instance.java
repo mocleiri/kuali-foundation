@@ -9,7 +9,7 @@ import javax.validation.constraints.Min;
 
 import org.kuali.common.devops.metadata.model.format.TagListFormat;
 import org.kuali.common.util.build.ValidatingBuilder;
-import org.kuali.common.util.spring.format.OptionalStringFormat;
+import org.kuali.common.util.spring.format.optional.OptionalStringFormat;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
