@@ -1,11 +1,17 @@
 package org.kuali.common.util.system;
 
 import static org.kuali.common.util.bind.api.Bind.ABSENT;
-import static org.kuali.common.util.validate.Validation.checkConstraints;
+
+import java.util.Properties;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.bind.api.Bind;
+import org.kuali.common.util.build.ValidatingBuilder2;
+import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.validate.IdiotProofImmutableWithBlanks;
 
 @IdiotProofImmutableWithBlanks
@@ -32,6 +38,12 @@ public final class JVM {
 	@NotBlank
 	private final String fileSeparator;
 
+	@Alias("system.properties")
+	private final ImmutableProperties properties;
+
+	@Alias("system.environment")
+	private final ImmutableProperties environment;
+
 	private JVM(Builder builder) {
 		this.user = builder.user;
 		this.operatingSystem = builder.operatingSystem;
@@ -39,13 +51,15 @@ public final class JVM {
 		this.lineSeparator = builder.lineSeparator;
 		this.pathSeparator = builder.pathSeparator;
 		this.fileSeparator = builder.fileSeparator;
+		this.properties = ImmutableProperties.copyOf(builder.properties);
+		this.environment = ImmutableProperties.copyOf(builder.environment);
 	}
 
 	public static Builder builder() {
 		return new Builder();
 	}
 
-	public static class Builder implements org.apache.commons.lang3.builder.Builder<JVM> {
+	public static class Builder extends ValidatingBuilder2<JVM> {
 
 		private User user;
 		private OperatingSystem operatingSystem;
@@ -53,10 +67,17 @@ public final class JVM {
 		private String pathSeparator;
 		private String lineSeparator;
 		private String fileSeparator;
+		private Properties properties;
+		private Properties environment;
+
+		@Override
+		public Set<ConstraintViolation<JVM>> getViolations() {
+			return getViolations(new JVM(this));
+		}
 
 		@Override
 		public JVM build() {
-			return checkConstraints(new JVM(this));
+			return validate(new JVM(this));
 		}
 
 		public Builder user(User user) {
