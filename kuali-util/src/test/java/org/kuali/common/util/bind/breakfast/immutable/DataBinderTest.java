@@ -109,20 +109,20 @@ public class DataBinderTest {
 		List<Node<BindDescriptor>> descriptors = buildDescriptorNodes(nodes, function, values);
 		bindLeafValues(descriptors);
 		buildInstances(descriptors);
+		Builder<T> builder = createBuilder(type);
+		bind(builder, getValueMap(descriptors));
+		return builder.build();
+	}
+
+	protected static Map<String, ?> getValueMap(List<Node<BindDescriptor>> nodes) {
 		Map<String, Object> map = newHashMap();
-		for (Node<BindDescriptor> node : descriptors) {
-			BindDescriptor bd = node.getElement();
-			String key = bd.getInstancePropertyName();
-			Object value = bd.getInstance() != null ? bd.getInstance() : bd.getBindValue().get();
+		for (Node<BindDescriptor> node : nodes) {
+			BindDescriptor descriptor = node.getElement();
+			String key = descriptor.getInstancePropertyName();
+			Object value = descriptor.getInstance() != null ? descriptor.getInstance() : descriptor.getBindValue().get();
 			map.put(key, value);
 		}
-
-		Builder<T> builder = createBuilder(type);
-		MutablePropertyValues mpvs = new MutablePropertyValues(map);
-		DataBinder binder = new DataBinder(builder);
-		binder.setConversionService(conversion);
-		binder.bind(mpvs);
-		return builder.build();
+		return map;
 	}
 
 	protected static void buildInstances(List<Node<BindDescriptor>> nodes) {
@@ -159,16 +159,15 @@ public class DataBinderTest {
 		for (Node<BindDescriptor> node : nodes) {
 			Map<String, Object> values = getValueMap(node);
 			if (!values.isEmpty()) {
-				bind(node, values);
+				bind(node.getElement().getInstanceBuilder(), values);
 			}
 			// Recurse
 			bindLeafValues(filter(node.getChildren(), new NoLeavesPredicate<BindDescriptor>()));
 		}
 	}
 
-	protected static void bind(Node<BindDescriptor> node, Map<String, Object> values) {
+	protected static void bind(Builder<?> builder, Map<String, ?> values) {
 		MutablePropertyValues mpvs = new MutablePropertyValues(values);
-		Builder<?> builder = node.getElement().getInstanceBuilder();
 		DataBinder binder = new DataBinder(builder);
 		binder.setConversionService(conversion);
 		binder.bind(mpvs);
