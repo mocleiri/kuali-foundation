@@ -29,13 +29,14 @@ import org.kuali.common.util.Str;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.test.AnnotatedFieldAssemblerFunction;
 import org.kuali.common.util.property.ImmutableProperties;
-import org.kuali.common.util.spring.convert.Conversion;
 import org.kuali.common.util.system.JVM;
 import org.kuali.common.util.tree.MutableNode;
 import org.kuali.common.util.tree.Node;
 import org.kuali.common.util.tree.Trees;
 import org.slf4j.Logger;
 import org.springframework.beans.MutablePropertyValues;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.validation.DataBinder;
 
 import com.google.common.base.Function;
@@ -47,6 +48,8 @@ import com.google.common.collect.ImmutableSet;
 public class DataBinderTest {
 
 	private static final Logger logger = newLogger();
+	
+	private static final ConversionService SERVICE = new GenericConversionService();
 
 	@Test
 	public void test() {
@@ -108,7 +111,7 @@ public class DataBinderTest {
 		Builder<T> builder = createBuilder(type);
 		MutablePropertyValues mpvs = new MutablePropertyValues(map);
 		DataBinder binder = new DataBinder(builder);
-		binder.setConversionService(Conversion.getDefaultConversionService());
+		binder.setConversionService(SERVICE);
 		binder.bind(mpvs);
 		return builder.build();
 	}
@@ -164,7 +167,7 @@ public class DataBinderTest {
 				MutablePropertyValues mpvs = new MutablePropertyValues(values);
 				Builder<?> builder = descriptor.getInstanceBuilder();
 				DataBinder binder = new DataBinder(builder);
-				binder.setConversionService(Conversion.getDefaultConversionService());
+				binder.setConversionService(SERVICE);
 				binder.bind(mpvs);
 			}
 		}
