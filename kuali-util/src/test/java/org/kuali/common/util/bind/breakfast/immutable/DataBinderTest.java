@@ -76,7 +76,8 @@ public class DataBinderTest {
 		}
 	}
 
-	public static <T> T getInstance(Class<T> type, Map<String, ?> values, Set<String> blanksAllowed) {
+	public static <T> T getInstance(Class<T> type, Map<String, ?> data, Set<String> blanksAllowed) {
+		Map<String, Object> values = newHashMap(data);
 		removeBlanks(values, blanksAllowed);
 		List<Node<Field>> nodes = AnnotatedFieldAssemblerFunction.create(Bind.class).apply(type);
 		List<Node<BindDescriptor>> descriptors = buildDescriptors(type, nodes, newBindKeyFunction(type));
