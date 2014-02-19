@@ -3,6 +3,7 @@ package org.kuali.common.util.bind.breakfast.immutable;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newHashSet;
+import static com.google.common.collect.Sets.newTreeSet;
 import static org.kuali.common.util.ReflectionUtils.newInstance;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.bind.breakfast.immutable.BindKeysFunction.newBindKeyFunction;
@@ -40,7 +41,6 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
 
 public class DataBinderTest {
 
@@ -300,7 +300,7 @@ public class DataBinderTest {
 	}
 
 	protected static void show(Properties props) {
-		SortedSet<String> keys = Sets.newTreeSet(props.stringPropertyNames());
+		SortedSet<String> keys = newTreeSet(props.stringPropertyNames());
 		for (String key : keys) {
 			String value = props.getProperty(key);
 			System.out.println(key + "=[" + Str.flatten(value) + "]");
