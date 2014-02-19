@@ -253,7 +253,7 @@ public class DataBinderTest {
 		return "<tr valign=top><td align=right>" + label + "&nbsp;</td><td>" + display + "</td></tr>";
 	}
 
-	protected static List<Node<BindDescriptor>> buildDescriptors(List<Node<Field>> nodes, Function<List<Field>, List<String>> function) {
+	protected static List<Node<BindDescriptor>> buildDescriptors(List<Node<Field>> nodes, BindKeysFunction function) {
 		return convert(getDescriptors(nodes, function));
 	}
 
@@ -267,7 +267,7 @@ public class DataBinderTest {
 		return newNodes;
 	}
 
-	protected static List<MutableNode<BindDescriptor>> getDescriptors(List<Node<Field>> nodes, Function<List<Field>, List<String>> function) {
+	protected static List<MutableNode<BindDescriptor>> getDescriptors(List<Node<Field>> nodes, BindKeysFunction function) {
 		List<MutableNode<BindDescriptor>> newNodes = newArrayList();
 		for (Node<Field> node : nodes) {
 			BindDescriptor bd = new BindDescriptor(node);
