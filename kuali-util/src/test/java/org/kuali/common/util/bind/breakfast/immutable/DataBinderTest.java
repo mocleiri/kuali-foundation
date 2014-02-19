@@ -163,23 +163,27 @@ public class DataBinderTest {
 		for (Node<BindDescriptor> node : nodes) {
 			Map<String, Object> values = getValueMap(node);
 			if (!values.isEmpty()) {
-				MutablePropertyValues mpvs = new MutablePropertyValues(values);
-				Builder<?> builder = node.getElement().getInstanceBuilder();
-				DataBinder binder = new DataBinder(builder);
-				binder.setConversionService(conversion);
-				binder.bind(mpvs);
+				bind(node, values);
 			}
-			List<Node<BindDescriptor>> subNodes = newArrayList();
-			for (Node<BindDescriptor> child : node.getChildren()) {
-				if (!child.isLeaf()) {
-					subNodes.add(child);
-				}
-			}
-			bindLeafValuesToParentsBuilder(newArrayList(filter(node.getChildren(), new IsNotLeafPredicate<BindDescriptor>())));
+			// Recurse
+			Predicate<Node<BindDescriptor>> predicate = newNoLeavesPredicate();
+			bindLeafValuesToParentsBuilder(newArrayList(filter(node.getChildren(), predicate)));
 		}
 	}
 
-	private static final class IsNotLeafPredicate<T> implements Predicate<Node<T>> {
+	protected static void bind(Node<BindDescriptor> node, Map<String, Object> values) {
+		MutablePropertyValues mpvs = new MutablePropertyValues(values);
+		Builder<?> builder = node.getElement().getInstanceBuilder();
+		DataBinder binder = new DataBinder(builder);
+		binder.setConversionService(conversion);
+		binder.bind(mpvs);
+	}
+
+	public static <T> NoLeavesPredicate<T> newNoLeavesPredicate() {
+		return new NoLeavesPredicate<T>();
+	}
+
+	private static final class NoLeavesPredicate<T> implements Predicate<Node<T>> {
 
 		@Override
 		public boolean apply(Node<T> node) {
