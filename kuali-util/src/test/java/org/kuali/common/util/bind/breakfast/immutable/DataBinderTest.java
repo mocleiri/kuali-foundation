@@ -159,29 +159,34 @@ public class DataBinderTest {
 
 	protected static void bindLeafValuesToParentsBuilder(List<Node<BindDescriptor>> nodes) {
 		for (Node<BindDescriptor> node : nodes) {
-			BindDescriptor descriptor = node.getElement();
-			List<Node<BindDescriptor>> children = node.getChildren();
-			Map<String, Object> values = newHashMap();
-			List<Node<BindDescriptor>> subNodes = newArrayList();
-			for (Node<BindDescriptor> child : children) {
-				BindDescriptor bd = child.getElement();
-				if (child.isLeaf()) {
-					if (bd.getBindValue().isPresent()) {
-						values.put(bd.getInstancePropertyName(), bd.getBindValue().get());
-					}
-				} else {
-					subNodes.add(child);
-				}
-			}
-			bindLeafValuesToParentsBuilder(subNodes);
-			if (!children.isEmpty()) {
+			Map<String, Object> values = getValueMap(node);
+			if (!values.isEmpty()) {
 				MutablePropertyValues mpvs = new MutablePropertyValues(values);
-				Builder<?> builder = descriptor.getInstanceBuilder();
+				Builder<?> builder = node.getElement().getInstanceBuilder();
 				DataBinder binder = new DataBinder(builder);
 				binder.setConversionService(conversion);
 				binder.bind(mpvs);
 			}
+			List<Node<BindDescriptor>> subNodes = newArrayList();
+			for (Node<BindDescriptor> child : node.getChildren()) {
+				if (!child.isLeaf()) {
+					subNodes.add(child);
+				}
+			}
+			bindLeafValuesToParentsBuilder(subNodes);
 		}
+	}
+
+	protected static Map<String, Object> getValueMap(Node<BindDescriptor> node) {
+		Map<String, Object> values = newHashMap();
+		for (Node<BindDescriptor> child : node.getChildren()) {
+			BindDescriptor descriptor = child.getElement();
+			Optional<?> value = descriptor.getBindValue();
+			if (child.isLeaf() && value.isPresent()) {
+				values.put(descriptor.getInstancePropertyName(), value.get());
+			}
+		}
+		return values;
 	}
 
 	protected static class BindDescriptorFunction implements Function<Node<BindDescriptor>, String> {
