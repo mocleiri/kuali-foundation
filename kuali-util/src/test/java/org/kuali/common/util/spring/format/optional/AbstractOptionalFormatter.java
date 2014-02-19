@@ -21,12 +21,15 @@ public abstract class AbstractOptionalFormatter<T> implements Formatter<Optional
 		if (!optional.isPresent()) {
 			return absentToken;
 		} else {
-			return optional.get().toString();
+			return getString(optional.get());
 		}
+	}
+
+	protected String getString(T reference) {
+		return reference.toString();
 	}
 
 	public String getAbsentToken() {
 		return absentToken;
 	}
-
 }
