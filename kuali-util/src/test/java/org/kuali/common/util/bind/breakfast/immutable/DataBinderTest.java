@@ -278,11 +278,11 @@ public class DataBinderTest {
 		return list;
 	}
 
-	public static <T> T getInstance(Class<T> type, Properties properties, Set<String> allowedBlanks) {
+	public static <T> T getInstance(Class<T> type, Properties properties, Set<String> blanksAllowed) {
 		Map<String, String> map = PropertyUtils.convert(properties);
 		for (String key : newHashSet(map.keySet())) {
 			String value = map.get(key);
-			boolean remove = StringUtils.isBlank(value) && !allowedBlanks.contains(key);
+			boolean remove = StringUtils.isBlank(value) && !blanksAllowed.contains(key);
 			if (remove) {
 				logger.info(String.format("ignoring [%s] because it is blank", key));
 				map.remove(key);
