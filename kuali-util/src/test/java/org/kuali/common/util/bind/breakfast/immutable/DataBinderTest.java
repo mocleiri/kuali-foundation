@@ -1,6 +1,7 @@
 package org.kuali.common.util.bind.breakfast.immutable;
 
 import static com.google.common.base.Optional.absent;
+import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newTreeSet;
@@ -41,6 +42,7 @@ import org.springframework.validation.DataBinder;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
@@ -173,8 +175,17 @@ public class DataBinderTest {
 					subNodes.add(child);
 				}
 			}
-			bindLeafValuesToParentsBuilder(subNodes);
+			bindLeafValuesToParentsBuilder(newArrayList(filter(node.getChildren(), new IsNotLeafPredicate<BindDescriptor>())));
 		}
+	}
+
+	private static final class IsNotLeafPredicate<T> implements Predicate<Node<T>> {
+
+		@Override
+		public boolean apply(Node<T> node) {
+			return !node.isLeaf();
+		}
+
 	}
 
 	protected static Map<String, Object> getValueMap(Node<BindDescriptor> node) {
