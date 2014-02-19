@@ -14,15 +14,13 @@ public abstract class AbstractListStringFormatFactory<A extends Annotation> impl
 	private static final Class<?>[] ARRAY = { List.class };
 	private static final Set<Class<?>> TYPES = ImmutableSet.copyOf(ARRAY);
 
-	private static final String emptyListToken = "${list.empty}";
-
 	@Override
 	public Set<Class<?>> getFieldTypes() {
 		return TYPES;
 	}
 
 	protected Formatter<List<String>> getFormatter(String separator) {
-		return ListStringFormatter.builder().separator(separator).emptyListToken(emptyListToken).build();
+		return ListStringFormatter.builder().separator(separator).build();
 	}
 
 }
