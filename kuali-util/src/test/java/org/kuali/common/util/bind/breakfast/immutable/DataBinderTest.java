@@ -272,8 +272,7 @@ public class DataBinderTest {
 		for (Node<Field> node : nodes) {
 			BindDescriptor descriptor = new BindDescriptor(node);
 			if (node.isLeaf()) {
-				List<String> bindKeys = function.apply(node.getElementPath());
-				descriptor.setBindKeys(bindKeys);
+				descriptor.setBindKeys(function.apply(node.getElementPath()));
 			}
 
 			MutableNode<BindDescriptor> descriptorNode = new MutableNode<BindDescriptor>(descriptor);
