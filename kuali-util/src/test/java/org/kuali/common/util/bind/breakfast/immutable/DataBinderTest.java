@@ -2,7 +2,6 @@ package org.kuali.common.util.bind.breakfast.immutable;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
-import static com.google.common.collect.Sets.newHashSet;
 import static com.google.common.collect.Sets.newTreeSet;
 import static java.lang.String.format;
 import static org.kuali.common.util.ReflectionUtils.copyProperty;
@@ -64,14 +63,8 @@ public class DataBinderTest {
 			// logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
 
 			// show(System.getProperties());
-			Map<String, Object> map = newHashMap();
-			map.putAll(PropertyUtils.convert(System.getProperties()));
-			String system = conversion.convert(System.getProperties(), String.class);
-			String environment = conversion.convert(PropertyUtils.convert(System.getenv()), String.class);
-			map.put("system.properties", system);
-			map.put("system.environment", environment);
 
-			JVM jvm = getInstance(JVM.class, map, ImmutableSet.of("line.separator"));
+			JVM jvm = getInstance(JVM.class, getSystemProperties());
 			logger.info(jvm.getFileSeparator());
 			logger.info(jvm.getUser().getName());
 			logger.info("classpath entries: " + jvm.getJava().getClasspath().size());
@@ -94,9 +87,23 @@ public class DataBinderTest {
 		}
 	}
 
-	public static <T> T getInstance(Class<T> type, Map<String, ?> data, Set<String> blanksAllowed) {
+	public static Properties getSystemProperties() {
+		String system = conversion.convert(System.getProperties(), String.class);
+		String environment = conversion.convert(PropertyUtils.convert(System.getenv()), String.class);
+
+		Properties props = new Properties();
+		props.putAll(System.getProperties());
+		props.put("system.properties", system);
+		props.put("system.environment", environment);
+
+		Set<String> exceptions = ImmutableSet.of("line.separator");
+		removeAllBlanks(props, exceptions);
+
+		return ImmutableProperties.copyOf(props);
+	}
+
+	public static <T> T getInstance(Class<T> type, Map<String, ?> data) {
 		Map<String, Object> values = newHashMap(data);
-		removeBlanks(values, blanksAllowed);
 		List<Node<Field>> nodes = AnnotatedFieldAssemblerFunction.create(Bind.class).apply(type);
 		List<Node<BindDescriptor>> descriptors = buildDescriptors(type, nodes, newBindKeyFunction(type));
 		bindValuesToLeaves(descriptors, values);
@@ -309,22 +316,23 @@ public class DataBinderTest {
 		return list;
 	}
 
-	public static <T> T getInstance(Class<T> type, Properties props, Set<String> blanksAllowed) {
+	public static <T> T getInstance(Class<T> type, Properties props) {
 		Map<String, String> map = PropertyUtils.convert(ImmutableProperties.copyOf(props));
-		return getInstance(type, map, blanksAllowed);
+		return getInstance(type, map);
 	}
 
-	protected static void removeBlanks(Map<String, ?> map, Set<String> blanksAllowed) {
-		for (String key : newHashSet(map.keySet())) {
-			Object value = map.get(key);
-			if (!CharSequence.class.isAssignableFrom(value.getClass())) {
-				continue;
-			}
-			CharSequence cs = (CharSequence) value;
-			boolean remove = StringUtils.isBlank(cs) && !blanksAllowed.contains(key);
+	protected static void removeAllBlanks(Properties props, String... exceptions) {
+		Set<String> keys = exceptions == null ? ImmutableSet.<String> of() : ImmutableSet.copyOf(exceptions);
+		removeAllBlanks(props, keys);
+	}
+
+	protected static void removeAllBlanks(Properties props, Set<String> exceptions) {
+		for (String key : newTreeSet(props.stringPropertyNames())) {
+			String value = props.getProperty(key);
+			boolean remove = StringUtils.isBlank(value) && !exceptions.contains(key);
 			if (remove) {
 				logger.info(String.format("ignoring [%s] because it is blank", key));
-				map.remove(key);
+				props.remove(key);
 			}
 		}
 	}
