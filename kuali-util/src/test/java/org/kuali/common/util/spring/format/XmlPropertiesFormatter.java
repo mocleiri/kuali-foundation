@@ -54,4 +54,8 @@ public final class XmlPropertiesFormatter implements Formatter<Properties> {
 		return printer;
 	}
 
+	public String getEmptyPropertiesToken() {
+		return emptyPropertiesToken;
+	}
+
 }
