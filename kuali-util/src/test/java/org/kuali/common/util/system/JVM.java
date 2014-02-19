@@ -12,6 +12,7 @@ import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.property.ImmutableProperties;
+import org.kuali.common.util.spring.format.XmlPropertiesFormat;
 import org.kuali.common.util.validate.IdiotProofImmutableWithBlanks;
 
 @IdiotProofImmutableWithBlanks
@@ -67,7 +68,9 @@ public final class JVM {
 		private String pathSeparator;
 		private String lineSeparator;
 		private String fileSeparator;
+		@XmlPropertiesFormat
 		private Properties system;
+		@XmlPropertiesFormat
 		private Properties environment;
 
 		@Override
