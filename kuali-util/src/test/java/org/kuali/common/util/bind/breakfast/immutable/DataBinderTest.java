@@ -60,7 +60,7 @@ public class DataBinderTest {
 	@Test
 	public void test() {
 		try {
-			Builder<JVM> builder = bind(JVM.builder(), getSystemProperties());
+			JVM.Builder builder = bind(JVM.builder(), getSystemProperties());
 			JVM jvm = builder.build();
 			logger.info(jvm.getFileSeparator());
 			logger.info(jvm.getUser().getName());
@@ -109,7 +109,7 @@ public class DataBinderTest {
 		return builder.build();
 	}
 
-	public static <T> Builder<T> bind(Builder<T> builder, Map<String, ?> values) {
+	public static <T extends Builder<?>> T bind(T builder, Map<String, ?> values) {
 		List<Node<Field>> nodes = AnnotatedFieldFunction.create(Bind.class).apply(builder.getClass());
 		BindKeysFunction function = new BindKeysFunction(builder.getClass());
 		List<Node<BindDescriptor>> descriptors = buildDescriptorNodes(nodes, function, values);
@@ -120,7 +120,7 @@ public class DataBinderTest {
 		return builder;
 	}
 
-	public static <T> Builder<T> bind(Builder<T> builder, Properties properties) {
+	public static <T extends Builder<?>> T bind(T builder, Properties properties) {
 		return bind(builder, PropertyUtils.convert(properties));
 	}
 
