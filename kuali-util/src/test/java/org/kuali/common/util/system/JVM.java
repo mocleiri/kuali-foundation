@@ -168,14 +168,6 @@ public final class JVM {
 			this.fileSeparator = fileSeparator;
 		}
 
-		public Properties getSystem() {
-			return properties;
-		}
-
-		public void setSystem(Properties system) {
-			this.properties = system;
-		}
-
 		public Properties getEnvironment() {
 			return environment;
 		}
@@ -210,12 +202,12 @@ public final class JVM {
 		return fileSeparator;
 	}
 
-	public Properties getSystem() {
-		return properties;
-	}
-
 	public Properties getEnvironment() {
 		return environment;
+	}
+
+	public Properties getProperties() {
+		return properties;
 	}
 
 }

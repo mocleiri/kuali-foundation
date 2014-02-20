@@ -64,7 +64,6 @@ public class DataBinderTest {
 			// logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
 
 			// show(System.getProperties());
-			System.setProperty("user.timezone", "US/Eastern");
 
 			JVM jvm = getInstance(JVM.class, getSystemProperties());
 			logger.info(jvm.getFileSeparator());
@@ -82,7 +81,7 @@ public class DataBinderTest {
 			logger.info(name + "::" + version);
 			logger.info(jvm.getJava().getHome() + "");
 
-			logger.info(format("sys props: %s", jvm.getSystem().size()));
+			logger.info(format("sys props: %s", jvm.getProperties().size()));
 			logger.info(format("env props: %s", jvm.getEnvironment().size()));
 		} catch (Exception e) {
 			e.printStackTrace();
