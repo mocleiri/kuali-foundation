@@ -110,7 +110,8 @@ public class DataBinderTest {
 		bindLeafValues(descriptors);
 		buildInstances(descriptors);
 		Builder<T> builder = createBuilder(type);
-		bind(builder, getValueMap(descriptors));
+		Map<String, ?> map = getValueMap(descriptors);
+		bind(builder, map);
 		return builder.build();
 	}
 
