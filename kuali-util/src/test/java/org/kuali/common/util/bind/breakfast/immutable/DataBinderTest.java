@@ -100,7 +100,8 @@ public class DataBinderTest {
 	}
 
 	public static <T extends Builder<T>> T build(Class<T> type, Properties props) {
-		Map<String, String> map = PropertyUtils.convert(ImmutableProperties.copyOf(props));
+		Properties immutable = ImmutableProperties.copyOf(props);
+		Map<String, String> map = PropertyUtils.convert(immutable);
 		return build(type, map);
 	}
 
