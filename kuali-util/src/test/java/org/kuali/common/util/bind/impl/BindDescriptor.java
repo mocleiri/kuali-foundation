@@ -1,4 +1,4 @@
-package org.kuali.common.util.bind.breakfast.immutable;
+package org.kuali.common.util.bind.impl;
 
 import java.lang.reflect.Field;
 import java.util.List;
