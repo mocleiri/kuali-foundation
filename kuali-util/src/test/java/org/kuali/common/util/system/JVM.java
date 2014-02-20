@@ -190,6 +190,14 @@ public final class JVM {
 		return user;
 	}
 
+	public User user() {
+		return user;
+	}
+
+	public OperatingSystem os() {
+		return operatingSystem;
+	}
+
 	public OperatingSystem getOperatingSystem() {
 		return operatingSystem;
 	}
