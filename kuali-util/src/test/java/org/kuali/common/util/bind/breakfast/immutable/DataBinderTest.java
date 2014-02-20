@@ -67,7 +67,8 @@ public class DataBinderTest {
 
 			// show(System.getProperties());
 
-			JVM jvm = bind(JVM.class, getSystemProperties());
+			Builder<JVM> builder = bind(JVM.builder(), getSystemProperties());
+			JVM jvm = builder.build();
 			logger.info(jvm.getFileSeparator());
 			logger.info(jvm.getUser().getName());
 			logger.info("classpath entries: " + jvm.getJava().getClasspath().size());
@@ -105,16 +106,29 @@ public class DataBinderTest {
 		return ImmutableProperties.copyOf(props);
 	}
 
-	public static <T> T bind(Class<T> type, Map<String, ?> values) {
-		List<Node<Field>> nodes = AnnotatedFieldFunction.create(Bind.class).apply(type);
-		BindKeysFunction function = new BindKeysFunction(type);
+	public static <T extends Builder<T>> T build(Class<T> type, Properties props) {
+		Map<String, String> map = PropertyUtils.convert(ImmutableProperties.copyOf(props));
+		return build(type, map);
+	}
+
+	public static <T extends Builder<T>> T build(Class<T> type, Map<String, ?> values) {
+		Builder<T> builder = bind(createBuilder(type), values);
+		return builder.build();
+	}
+
+	public static <T> Builder<T> bind(Builder<T> builder, Map<String, ?> values) {
+		List<Node<Field>> nodes = AnnotatedFieldFunction.create(Bind.class).apply(builder.getClass());
+		BindKeysFunction function = new BindKeysFunction(builder.getClass());
 		List<Node<BindDescriptor>> descriptors = buildDescriptorNodes(nodes, function, values);
 		bindLeafValues(descriptors);
 		buildInstances(descriptors);
-		Builder<T> builder = createBuilder(type);
 		Map<String, ?> map = getValueMap(descriptors);
-		bind(builder, map);
-		return builder.build();
+		bindValues(builder, map);
+		return builder;
+	}
+
+	public static <T> Builder<T> bind(Builder<T> builder, Properties properties) {
+		return bind(builder, PropertyUtils.convert(properties));
 	}
 
 	protected static Map<String, ?> getValueMap(List<Node<BindDescriptor>> nodes) {
@@ -162,14 +176,14 @@ public class DataBinderTest {
 		for (Node<BindDescriptor> node : nodes) {
 			Map<String, Object> values = getValueMap(node);
 			if (!values.isEmpty()) {
-				bind(node.getElement().getInstanceBuilder(), values);
+				bindValues(node.getElement().getInstanceBuilder(), values);
 			}
 			// Recurse
 			bindLeafValues(filter(node.getChildren(), new NoLeavesPredicate<BindDescriptor>()));
 		}
 	}
 
-	protected static void bind(Builder<?> builder, Map<String, ?> values) {
+	protected static void bindValues(Builder<?> builder, Map<String, ?> values) {
 		MutablePropertyValues mpvs = new MutablePropertyValues(values);
 		DataBinder binder = new DataBinder(builder);
 		binder.setConversionService(conversion);
@@ -238,16 +252,6 @@ public class DataBinderTest {
 
 	protected static List<Node<BindDescriptor>> buildDescriptorNodes(List<Node<Field>> nodes, BindKeysFunction function, Map<String, ?> values) {
 		return convert(getDescriptors(nodes, function, values));
-	}
-
-	protected static List<MutableNode<BindDescriptor>> transform(List<Node<Field>> nodes) {
-		List<MutableNode<BindDescriptor>> newNodes = newArrayList();
-		for (Node<Field> node : nodes) {
-			MutableNode<BindDescriptor> newNode = new MutableNode<BindDescriptor>(new BindDescriptor(node));
-			newNode.add(transform(node.getChildren()));
-			newNodes.add(newNode);
-		}
-		return newNodes;
 	}
 
 	protected static List<MutableNode<BindDescriptor>> getDescriptors(List<Node<Field>> nodes, BindKeysFunction function, Map<String, ?> values) {
@@ -326,11 +330,6 @@ public class DataBinderTest {
 			list.add(bd);
 		}
 		return list;
-	}
-
-	public static <T> T bind(Class<T> type, Properties props) {
-		Map<String, String> map = PropertyUtils.convert(ImmutableProperties.copyOf(props));
-		return bind(type, map);
 	}
 
 	protected static void removeAllBlanks(Properties props, String... exceptions) {
