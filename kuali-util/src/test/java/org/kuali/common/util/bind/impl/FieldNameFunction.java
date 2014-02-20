@@ -8,11 +8,9 @@ import org.kuali.common.util.tree.Node;
 
 import com.google.common.base.Function;
 
-public class FieldNameFunction implements Function<Node<Field>, String> {
-
-	public static FieldNameFunction newFieldNameFunction() {
-		return new FieldNameFunction();
-	}
+// enum singleton pattern
+public enum FieldNameFunction implements Function<Node<Field>, String> {
+	INSTANCE;
 
 	@Override
 	public String apply(Node<Field> node) {
