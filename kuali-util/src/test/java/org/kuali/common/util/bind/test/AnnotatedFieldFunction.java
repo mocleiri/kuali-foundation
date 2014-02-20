@@ -21,7 +21,7 @@ import com.google.common.collect.ImmutableList;
  * Recursively examines every field in the type hierarchy of a class for the presence of an annotation. Fields containing the annotation are recursively examined. The result of the
  * function is a tree of field objects representing the result of the recursion.
  */
-public final class AnnotatedFieldAssemblerFunction implements Function<Class<?>, List<Node<Field>>> {
+public final class AnnotatedFieldFunction implements Function<Class<?>, List<Node<Field>>> {
 
 	private final Class<? extends Annotation> annotation;
 	private final Comparator<Field> comparator;
@@ -59,12 +59,12 @@ public final class AnnotatedFieldAssemblerFunction implements Function<Class<?>,
 		return fields;
 	}
 
-	private AnnotatedFieldAssemblerFunction(Builder builder) {
+	private AnnotatedFieldFunction(Builder builder) {
 		this.annotation = builder.annotation;
 		this.comparator = builder.comparator;
 	}
 
-	public static AnnotatedFieldAssemblerFunction create(Class<? extends Annotation> annotation) {
+	public static AnnotatedFieldFunction create(Class<? extends Annotation> annotation) {
 		return builder(annotation).build();
 	}
 
@@ -72,7 +72,7 @@ public final class AnnotatedFieldAssemblerFunction implements Function<Class<?>,
 		return new Builder(annotation);
 	}
 
-	public static class Builder implements org.apache.commons.lang3.builder.Builder<AnnotatedFieldAssemblerFunction> {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<AnnotatedFieldFunction> {
 
 		private final Class<? extends Annotation> annotation;
 
@@ -89,8 +89,8 @@ public final class AnnotatedFieldAssemblerFunction implements Function<Class<?>,
 		}
 
 		@Override
-		public AnnotatedFieldAssemblerFunction build() {
-			return checkConstraints(new AnnotatedFieldAssemblerFunction(this));
+		public AnnotatedFieldFunction build() {
+			return checkConstraints(new AnnotatedFieldFunction(this));
 		}
 
 		public Comparator<Field> getComparator() {

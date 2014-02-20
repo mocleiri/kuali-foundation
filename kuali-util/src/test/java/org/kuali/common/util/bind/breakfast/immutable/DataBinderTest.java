@@ -27,7 +27,7 @@ import org.junit.Test;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.bind.api.Bind;
-import org.kuali.common.util.bind.test.AnnotatedFieldAssemblerFunction;
+import org.kuali.common.util.bind.test.AnnotatedFieldFunction;
 import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.spring.convert.Conversion;
 import org.kuali.common.util.system.JVM;
@@ -104,7 +104,7 @@ public class DataBinderTest {
 	}
 
 	public static <T> T getInstance(Class<T> type, Map<String, ?> values) {
-		List<Node<Field>> nodes = AnnotatedFieldAssemblerFunction.create(Bind.class).apply(type);
+		List<Node<Field>> nodes = AnnotatedFieldFunction.create(Bind.class).apply(type);
 		BindKeysFunction function = new BindKeysFunction(type);
 		List<Node<BindDescriptor>> descriptors = buildDescriptorNodes(nodes, function, values);
 		bindLeafValues(descriptors);
