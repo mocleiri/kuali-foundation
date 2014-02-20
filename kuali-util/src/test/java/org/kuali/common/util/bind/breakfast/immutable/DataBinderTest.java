@@ -60,13 +60,6 @@ public class DataBinderTest {
 	@Test
 	public void test() {
 		try {
-			// Class<Bowl> type = Bowl.class;
-			// Map<String, String> values = ImmutableMap.of("bowl.milk.type", "lowfat", "bowl.milk.price", "2.29");
-			// Bowl bowl = getInstance(type, values);
-			// logger.info(format("bowl.milk.price=%s", bowl.getMilk().getPrice()));
-
-			// show(System.getProperties());
-
 			Builder<JVM> builder = bind(JVM.builder(), getSystemProperties());
 			JVM jvm = builder.build();
 			logger.info(jvm.getFileSeparator());
