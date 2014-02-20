@@ -67,7 +67,7 @@ public class DataBinderTest {
 
 			// show(System.getProperties());
 
-			JVM jvm = getInstance(JVM.class, getSystemProperties());
+			JVM jvm = bind(JVM.class, getSystemProperties());
 			logger.info(jvm.getFileSeparator());
 			logger.info(jvm.getUser().getName());
 			logger.info("classpath entries: " + jvm.getJava().getClasspath().size());
@@ -105,7 +105,7 @@ public class DataBinderTest {
 		return ImmutableProperties.copyOf(props);
 	}
 
-	public static <T> T getInstance(Class<T> type, Map<String, ?> values) {
+	public static <T> T bind(Class<T> type, Map<String, ?> values) {
 		List<Node<Field>> nodes = AnnotatedFieldFunction.create(Bind.class).apply(type);
 		BindKeysFunction function = new BindKeysFunction(type);
 		List<Node<BindDescriptor>> descriptors = buildDescriptorNodes(nodes, function, values);
@@ -328,9 +328,9 @@ public class DataBinderTest {
 		return list;
 	}
 
-	public static <T> T getInstance(Class<T> type, Properties props) {
+	public static <T> T bind(Class<T> type, Properties props) {
 		Map<String, String> map = PropertyUtils.convert(ImmutableProperties.copyOf(props));
-		return getInstance(type, map);
+		return bind(type, map);
 	}
 
 	protected static void removeAllBlanks(Properties props, String... exceptions) {
