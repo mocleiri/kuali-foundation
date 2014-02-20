@@ -176,6 +176,14 @@ public final class JVM {
 			this.environment = environment;
 		}
 
+		public Properties getProperties() {
+			return properties;
+		}
+
+		public void setProperties(Properties properties) {
+			this.properties = properties;
+		}
+
 	}
 
 	public User getUser() {
