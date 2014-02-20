@@ -1,5 +1,6 @@
 package org.kuali.common.util.spring.convert.support;
 
+import static org.kuali.common.util.Encodings.UTF8;
 import static org.kuali.common.util.base.Exceptions.illegalArgument;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
@@ -7,13 +8,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.kuali.common.util.Encodings;
 import org.springframework.core.convert.converter.Converter;
 
 public final class PropertiesToXmlStringConverter implements Converter<Properties, String> {
 
 	public PropertiesToXmlStringConverter() {
-		this(Encodings.UTF8);
+		this(UTF8);
 	}
 
 	public PropertiesToXmlStringConverter(String encoding) {
