@@ -29,7 +29,7 @@ public final class PropertiesToXmlStringConverter implements Converter<Propertie
 			props.storeToXML(out, null, encoding);
 			return out.toString(encoding);
 		} catch (IOException e) {
-			throw illegalArgument(e, "unexpected io error converting properties object into an xml string - encoding[%s]", encoding);
+			throw illegalArgument(e, "unexpected io error converting properties object into an xml string - encoding=[%s]", encoding);
 		}
 	}
 
