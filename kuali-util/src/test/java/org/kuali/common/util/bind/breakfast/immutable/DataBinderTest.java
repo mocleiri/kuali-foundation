@@ -132,16 +132,16 @@ public class DataBinderTest {
 			if (node.isLeaf()) {
 				continue;
 			}
-			BindDescriptor bd = node.getElement();
-			Builder<?> builder = bd.getInstanceBuilder();
+			BindDescriptor descriptor = node.getElement();
+			Builder<?> builder = descriptor.getInstanceBuilder();
 			if (builder == null) {
 				continue;
 			}
 			Object instance = builder.build();
-			bd.setInstance(instance);
+			descriptor.setInstance(instance);
 			Optional<Node<BindDescriptor>> parent = node.getParent();
 			if (parent.isPresent()) {
-				updateParentBuilder(parent.get().getElement(), bd);
+				updateParentBuilder(parent.get().getElement(), descriptor);
 			}
 		}
 	}
