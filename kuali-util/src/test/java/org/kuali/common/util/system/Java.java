@@ -21,7 +21,7 @@ public final class Java {
 	private final File home;
 
 	@Alias("io.tmpdir")
-	private final File temporaryDirectory;
+	private final File tempDir;
 
 	@Alias("compiler")
 	private final Optional<String> jitCompiler;
@@ -46,7 +46,7 @@ public final class Java {
 
 	private Java(Builder builder) {
 		this.home = builder.home;
-		this.temporaryDirectory = builder.temporaryDirectory;
+		this.tempDir = builder.tempDir;
 		this.jitCompiler = builder.jitCompiler;
 		this.classVersion = builder.classVersion;
 		this.classpath = ImmutableList.copyOf(builder.classpath);
@@ -59,7 +59,7 @@ public final class Java {
 	public static class Builder implements org.apache.commons.lang3.builder.Builder<Java> {
 
 		private File home;
-		private File temporaryDirectory;
+		private File tempDir;
 		private Optional<String> jitCompiler = absent();
 		private String classVersion;
 		@PathListFormat
@@ -76,8 +76,8 @@ public final class Java {
 			return this;
 		}
 
-		public Builder temporaryDirectory(File temporaryDirectory) {
-			this.temporaryDirectory = temporaryDirectory;
+		public Builder tempDir(File tempDir) {
+			this.tempDir = tempDir;
 			return this;
 		}
 
@@ -127,14 +127,6 @@ public final class Java {
 
 		public void setHome(File home) {
 			this.home = home;
-		}
-
-		public File getTemporaryDirectory() {
-			return temporaryDirectory;
-		}
-
-		public void setTemporaryDirectory(File temporaryDirectory) {
-			this.temporaryDirectory = temporaryDirectory;
 		}
 
 		public Optional<String> getJitCompiler() {
@@ -193,14 +185,18 @@ public final class Java {
 			this.virtualMachine = virtualMachine;
 		}
 
+		public File getTempDir() {
+			return tempDir;
+		}
+
+		public void setTempDir(File tempDir) {
+			this.tempDir = tempDir;
+		}
+
 	}
 
 	public File getHome() {
 		return home;
-	}
-
-	public File getTemporaryDirectory() {
-		return temporaryDirectory;
 	}
 
 	public Optional<String> getJitCompiler() {
@@ -229,6 +225,10 @@ public final class Java {
 
 	public VirtualMachine getVirtualMachine() {
 		return virtualMachine;
+	}
+
+	public File getTempDir() {
+		return tempDir;
 	}
 
 }
