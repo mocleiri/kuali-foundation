@@ -1,4 +1,4 @@
-package org.kuali.common.util.bind.test;
+package org.kuali.common.util.bind.breakfast.immutable;
 
 import java.lang.reflect.Field;
 import java.util.Comparator;
