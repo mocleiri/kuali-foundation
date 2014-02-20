@@ -173,7 +173,7 @@ public class DataBinderTest {
 				bindValues(node.getElement().getInstanceBuilder(), values);
 			}
 			// Recurse
-			bindLeafValues(filter(node.getChildren(), new NoLeavesPredicate<BindDescriptor>()));
+			bindLeafValues(filter(node.getChildren(), NoLeavesPredicate.INSTANCE));
 		}
 	}
 
@@ -184,14 +184,11 @@ public class DataBinderTest {
 		binder.bind(mpvs);
 	}
 
-	public static <T> NoLeavesPredicate<T> newNoLeavesPredicate() {
-		return new NoLeavesPredicate<T>();
-	}
-
-	private static final class NoLeavesPredicate<T> implements Predicate<Node<T>> {
+	private static enum NoLeavesPredicate implements Predicate<Node<BindDescriptor>> {
+		INSTANCE;
 
 		@Override
-		public boolean apply(Node<T> node) {
+		public boolean apply(Node<BindDescriptor> node) {
 			return !node.isLeaf();
 		}
 
