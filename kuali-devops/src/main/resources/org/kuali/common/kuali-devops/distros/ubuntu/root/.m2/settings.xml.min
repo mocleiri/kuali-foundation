@@ -3,9 +3,16 @@
   <localRepository>/mnt/.m2/repository</localRepository>
   <mirrors>
     <mirror>
-      <id>kuali.public</id>
+      <id>nexus.kuali</id>
       <mirrorOf>*</mirrorOf>
-      <url>http://nexus.kuali.org/content/groups/public</url>
+      <url>http://nexus-new.kuali.org/content/groups/developer</url>
     </mirror>
   </mirrors>
+  <servers>
+    <server>
+      <id>nexus.kuali</id>
+      <username>developer</username>
+      <password>${nexus.kuali.password}</password>
+    </server>
+   </servers>
 </settings>
