@@ -5,7 +5,7 @@
     <mirror>
       <id>nexus.kuali</id>
       <mirrorOf>*</mirrorOf>
-      <url>http://nexus-new.kuali.org/content/groups/developer</url>
+      <url>http://nexus.kuali.org/content/groups/developer</url>
     </mirror>
   </mirrors>
   <servers>
