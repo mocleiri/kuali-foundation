@@ -57,6 +57,7 @@ public class BreakfastTest {
 		List<String> strings = newArrayList();
 		strings.add("container=" + node.isContainerNode() + "");
 		strings.add("value=" + node.isValueNode() + "");
+		strings.add("array=" + node.isArray());
 		List<String> fields = newArrayList(node.getFieldNames());
 		if (!fields.isEmpty()) {
 			strings.add("fields=" + Joiner.on(',').join(node.getFieldNames()));
