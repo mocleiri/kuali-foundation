@@ -1,11 +1,13 @@
 package org.kuali.common.devops.cache;
 
 import static org.kuali.common.util.base.Precondition.checkNotNull;
-import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.io.File;
+import java.util.Set;
 
-import org.kuali.common.util.build.LegacyValidatingBuilder;
+import javax.validation.ConstraintViolation;
+
+import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Function;
@@ -70,12 +72,26 @@ public final class FileSystemCache<K, V> extends CacheLoader<K, V> {
 		return new Builder<K, V>();
 	}
 
-	public static class Builder<K, V> extends LegacyValidatingBuilder<FileSystemCache<K, V>> {
+	public static class Builder<K, V> extends ValidatingBuilder<FileSystemCache<K, V>> {
 
 		private PersistentCache<File, V> fileCache;
 		private CacheLoader<K, V> loader;
 		private Function<K, File> keyConverter;
 		private boolean ignoreFileSystem;
+
+		private FileSystemCache<K, V> make() {
+			return new FileSystemCache<K, V>(this);
+		}
+
+		@Override
+		public Set<ConstraintViolation<FileSystemCache<K, V>>> getViolations() {
+			return getViolations(make());
+		}
+
+		@Override
+		public FileSystemCache<K, V> build() {
+			return validate(make());
+		}
 
 		public Builder<K, V> fileCache(PersistentCache<File, V> fileCache) {
 			this.fileCache = fileCache;
@@ -95,11 +111,6 @@ public final class FileSystemCache<K, V> extends CacheLoader<K, V> {
 		public Builder<K, V> ignoreFileSystem(boolean ignoreFileSystem) {
 			this.ignoreFileSystem = ignoreFileSystem;
 			return this;
-		}
-
-		@Override
-		public FileSystemCache<K, V> build() {
-			return checkConstraints(new FileSystemCache<K, V>(this), validator);
 		}
 
 		public PersistentCache<File, V> getFileCache() {
