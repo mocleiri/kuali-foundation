@@ -17,7 +17,6 @@ public class SimpleTest {
 	@Test
 	public void test() {
 		try {
-
 			ObjectMapper mapper = new ObjectMapper();
 			String json = mapper.writeValueAsString(ImmutableMap.<String, Object> of("name", "jeff", "age", 40 * 1D));
 			MapLikeType type = mapper.getTypeFactory().constructMapLikeType(HashMap.class, String.class, Object.class);
