@@ -1,6 +1,7 @@
 package org.kuali.common.devops.json;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -10,6 +11,7 @@ import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 
 @IdiotProofImmutable
 public final class Milk {
@@ -18,11 +20,13 @@ public final class Milk {
 	private final double price;
 	private final String type;
 	private final ImmutableList<String> ingredients;
+	private final ImmutableMap<String, String> nutritionFacts;
 
 	private Milk(Builder builder) {
 		this.price = builder.price;
 		this.type = builder.type;
 		this.ingredients = ImmutableList.copyOf(builder.ingredients);
+		this.nutritionFacts = ImmutableMap.copyOf(builder.nutritionFacts);
 	}
 
 	public static Builder builder() {
@@ -34,6 +38,12 @@ public final class Milk {
 		private double price = -1;
 		private String type;
 		private List<String> ingredients;
+		private Map<String, String> nutritionFacts;
+
+		public Builder nutritionFacts(Map<String, String> nutritionFacts) {
+			this.nutritionFacts = nutritionFacts;
+			return this;
+		}
 
 		public Builder ingredients(List<String> ingredients) {
 			this.ingredients = ingredients;
@@ -88,6 +98,14 @@ public final class Milk {
 			this.ingredients = ingredients;
 		}
 
+		public Map<String, String> getNutritionFacts() {
+			return nutritionFacts;
+		}
+
+		public void setNutritionFacts(Map<String, String> nutritionFacts) {
+			this.nutritionFacts = nutritionFacts;
+		}
+
 	}
 
 	public double getPrice() {
@@ -100,5 +118,9 @@ public final class Milk {
 
 	public List<String> getIngredients() {
 		return ingredients;
+	}
+
+	public ImmutableMap<String, String> getNutritionFacts() {
+		return nutritionFacts;
 	}
 }
