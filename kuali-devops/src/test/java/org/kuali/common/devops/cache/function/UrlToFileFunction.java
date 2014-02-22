@@ -1,13 +1,15 @@
 package org.kuali.common.devops.cache.function;
 
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
-import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.io.File;
 import java.util.List;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.common.util.build.LegacyValidatingBuilder;
+import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -66,13 +68,27 @@ public final class UrlToFileFunction implements Function<String, File> {
 		return new Builder();
 	}
 
-	public static class Builder extends LegacyValidatingBuilder<UrlToFileFunction> {
+	public static class Builder extends ValidatingBuilder<UrlToFileFunction> {
 
 		private File basedir = new CanonicalFile("./target/cache/urls");
 		private List<String> removeTokens = ImmutableList.of();
 		// This translates both http://foo.com and classpath:foo.txt correctly
 		private List<String> replaceTokens = ImmutableList.of(":", "///", "?", "#", "=");
 		private String magicSuffix = ".cached.url.properties";
+
+		private UrlToFileFunction make() {
+			return new UrlToFileFunction(this);
+		}
+
+		@Override
+		public Set<ConstraintViolation<UrlToFileFunction>> getViolations() {
+			return getViolations(make());
+		}
+
+		@Override
+		public UrlToFileFunction build() {
+			return validate(make());
+		}
 
 		public Builder magicSuffix(String magicSuffix) {
 			this.magicSuffix = magicSuffix;
@@ -92,11 +108,6 @@ public final class UrlToFileFunction implements Function<String, File> {
 		public Builder replaceTokens(List<String> replaceTokens) {
 			this.replaceTokens = replaceTokens;
 			return this;
-		}
-
-		@Override
-		public UrlToFileFunction build() {
-			return checkConstraints(new UrlToFileFunction(this), validator);
 		}
 
 		public File getBasedir() {
