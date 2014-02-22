@@ -71,7 +71,7 @@ public final class JVM {
 		private Properties environment;
 
 		@Override
-		public Set<ConstraintViolation<JVM>> getViolations() {
+		public Set<ConstraintViolation<JVM>> violations() {
 			return getViolations(new JVM(this));
 		}
 

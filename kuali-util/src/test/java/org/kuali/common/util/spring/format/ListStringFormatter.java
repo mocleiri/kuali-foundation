@@ -78,7 +78,7 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 		}
 
 		@Override
-		public Set<ConstraintViolation<ListStringFormatter>> getViolations() {
+		public Set<ConstraintViolation<ListStringFormatter>> violations() {
 			return getViolations(new ListStringFormatter(this));
 		}
 

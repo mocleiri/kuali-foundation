@@ -87,7 +87,7 @@ public final class User {
 		}
 
 		@Override
-		public Set<ConstraintViolation<User>> getViolations() {
+		public Set<ConstraintViolation<User>> violations() {
 			return getViolations(new User(this));
 		}
 
