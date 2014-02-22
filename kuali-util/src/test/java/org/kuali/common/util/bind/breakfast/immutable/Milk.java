@@ -43,7 +43,7 @@ public final class Milk {
 
 		@Override
 		public Set<ConstraintViolation<Milk>> violations() {
-			return getViolations(new Milk(this));
+			return violations(new Milk(this));
 		}
 
 		@Override

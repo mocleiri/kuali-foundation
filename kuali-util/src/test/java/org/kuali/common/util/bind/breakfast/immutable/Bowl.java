@@ -33,7 +33,7 @@ public final class Bowl {
 
 		@Override
 		public Set<ConstraintViolation<Bowl>> violations() {
-			return getViolations(new Bowl(this));
+			return violations(new Bowl(this));
 		}
 
 		@Override

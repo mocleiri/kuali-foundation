@@ -72,7 +72,7 @@ public final class JVM {
 
 		@Override
 		public Set<ConstraintViolation<JVM>> violations() {
-			return getViolations(new JVM(this));
+			return violations(new JVM(this));
 		}
 
 		@Override

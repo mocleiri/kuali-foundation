@@ -22,7 +22,7 @@ public abstract class ValidatingBuilder<T> implements Builder<T> {
 
 	public abstract Set<ConstraintViolation<T>> violations();
 
-	protected Set<ConstraintViolation<T>> getViolations(T instance) {
+	protected Set<ConstraintViolation<T>> violations(T instance) {
 		return validator.validate(instance, validationGroups.toArray(EMPTY_CLASS_ARRAY));
 	}
 
