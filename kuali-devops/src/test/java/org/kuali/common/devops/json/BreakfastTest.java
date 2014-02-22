@@ -28,17 +28,19 @@ public class BreakfastTest {
 			System.out.println(json);
 			JsonNode node = mapper.readTree(json);
 			print(node);
+			Bowl newBowl = build(Bowl.class, mapper, json);
+			System.out.println(newBowl.getDepth());
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected static <T> T read(Class<T> type, ObjectMapper mapper, String json) {
+	protected static <T> T build(Class<T> type, ObjectMapper mapper, String json) {
 		JsonNode node = readTree(mapper, json);
-		return null;
+		return build(type, mapper, node);
 	}
 
-	protected static <T> T make(Class<T> type, ObjectMapper mapper, JsonNode node) {
+	protected static <T> T build(Class<T> type, ObjectMapper mapper, JsonNode node) {
 		Optional<Class<Builder<T>>> builderClass = findPublicStaticBuilderClass(type);
 		if (builderClass.isPresent()) {
 			Builder<T> builder = readValue(mapper, node, builderClass.get());
