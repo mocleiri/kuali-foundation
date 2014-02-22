@@ -84,7 +84,7 @@ public final class FileSystemCache<K, V> extends CacheLoader<K, V> {
 		}
 
 		@Override
-		public Set<ConstraintViolation<FileSystemCache<K, V>>> getViolations() {
+		public Set<ConstraintViolation<FileSystemCache<K, V>>> violations() {
 			return getViolations(make());
 		}
 
