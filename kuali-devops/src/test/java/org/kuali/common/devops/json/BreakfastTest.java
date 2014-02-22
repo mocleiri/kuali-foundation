@@ -12,13 +12,14 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
 
 import com.google.common.base.Joiner;
+import com.google.common.collect.ImmutableList;
 
 public class BreakfastTest {
 
 	@Test
 	public void test() {
 		try {
-			Milk milk = Milk.builder().price(2.29).type("low\"fat").build();
+			Milk milk = Milk.builder().price(2.29).type("lowfat").ingredients(ImmutableList.of("sodium", "potassium")).build();
 			Bowl bowl = Bowl.builder().milk(milk).build();
 			ObjectMapper mapper = new ObjectMapper();
 			String json = mapper.writeValueAsString(bowl);
