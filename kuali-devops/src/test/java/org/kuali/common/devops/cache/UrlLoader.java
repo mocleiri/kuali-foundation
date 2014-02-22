@@ -1,14 +1,17 @@
 package org.kuali.common.devops.cache;
 
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
-import static org.kuali.common.util.validate.Validation.checkConstraints;
+
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
 
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.http.model.HttpRequestResult;
 import org.kuali.common.http.model.HttpWaitResult;
 import org.kuali.common.http.service.DefaultHttpService;
 import org.kuali.common.http.service.HttpService;
-import org.kuali.common.util.build.LegacyValidatingBuilder;
+import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 import org.springframework.beans.BeanUtils;
@@ -53,10 +56,24 @@ public final class UrlLoader extends CacheLoader<String, HttpRequestResult> {
 		return new Builder();
 	}
 
-	public static class Builder extends LegacyValidatingBuilder<UrlLoader> {
+	public static class Builder extends ValidatingBuilder<UrlLoader> {
 
 		private HttpContext context = HttpContext.builder(NullUtils.NONE).build();
 		private HttpService service = new DefaultHttpService();
+
+		@Override
+		public Set<ConstraintViolation<UrlLoader>> violations() {
+			return getViolations(make());
+		}
+
+		@Override
+		public UrlLoader build() {
+			return validate(make());
+		}
+
+		private UrlLoader make() {
+			return new UrlLoader(this);
+		}
 
 		public Builder context(HttpContext context) {
 			this.context = context;
@@ -66,11 +83,6 @@ public final class UrlLoader extends CacheLoader<String, HttpRequestResult> {
 		public Builder service(HttpService service) {
 			this.service = service;
 			return this;
-		}
-
-		@Override
-		public UrlLoader build() {
-			return checkConstraints(new UrlLoader(this), validator);
 		}
 
 		public HttpContext getContext() {
