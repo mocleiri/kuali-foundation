@@ -42,7 +42,7 @@ public class BreakfastTest {
 		if (!fields.isEmpty()) {
 			strings.add("fields=" + Joiner.on(',').join(node.getFieldNames()));
 		} else {
-			strings.add("field=none");
+			strings.add("fields=none");
 		}
 		return Joiner.on("::").join(strings);
 	}
