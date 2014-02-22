@@ -76,10 +76,6 @@ public final class UrlToFileFunction implements Function<String, File> {
 		private List<String> replaceTokens = ImmutableList.of(":", "///", "?", "#", "=");
 		private String magicSuffix = ".cached.url.properties";
 
-		private UrlToFileFunction make() {
-			return new UrlToFileFunction(this);
-		}
-
 		@Override
 		public Set<ConstraintViolation<UrlToFileFunction>> getViolations() {
 			return getViolations(make());
@@ -88,6 +84,10 @@ public final class UrlToFileFunction implements Function<String, File> {
 		@Override
 		public UrlToFileFunction build() {
 			return validate(make());
+		}
+
+		private UrlToFileFunction make() {
+			return new UrlToFileFunction(this);
 		}
 
 		public Builder magicSuffix(String magicSuffix) {
