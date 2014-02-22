@@ -1,6 +1,7 @@
 package org.kuali.common.devops.json;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static org.apache.commons.lang3.StringUtils.repeat;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 
 import java.io.IOException;
@@ -51,9 +52,14 @@ public class BreakfastTest {
 	}
 
 	protected void print(JsonNode node) {
-		System.out.println(toString(node));
+		print(node, 0);
+	}
+
+	protected void print(final JsonNode node, final int indent) {
+		System.out.println(repeat(" ", indent) + toString(node));
+		int indentation = indent + 1;
 		for (JsonNode element : newArrayList(node.iterator())) {
-			print(element);
+			print(element, indentation);
 		}
 	}
 
