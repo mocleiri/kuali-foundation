@@ -78,7 +78,7 @@ public final class UrlToFileFunction implements Function<String, File> {
 
 		@Override
 		public Set<ConstraintViolation<UrlToFileFunction>> violations() {
-			return getViolations(make());
+			return violations(make());
 		}
 
 		@Override

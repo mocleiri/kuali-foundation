@@ -62,7 +62,7 @@ public final class FancyMilk {
 
 		@Override
 		public Set<ConstraintViolation<FancyMilk>> violations() {
-			return getViolations(make());
+			return violations(make());
 		}
 
 		@Override

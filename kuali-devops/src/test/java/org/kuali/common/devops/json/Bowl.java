@@ -34,7 +34,7 @@ public final class Bowl {
 
 		@Override
 		public Set<ConstraintViolation<Bowl>> violations() {
-			return getViolations(make());
+			return violations(make());
 		}
 
 		private Bowl make() {

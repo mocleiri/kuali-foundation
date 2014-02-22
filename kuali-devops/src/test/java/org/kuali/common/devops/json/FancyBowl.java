@@ -33,7 +33,7 @@ public final class FancyBowl {
 
 		@Override
 		public Set<ConstraintViolation<FancyBowl>> violations() {
-			return getViolations(make());
+			return violations(make());
 		}
 
 		@Override

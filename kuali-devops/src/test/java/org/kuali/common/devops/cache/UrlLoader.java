@@ -63,7 +63,7 @@ public final class UrlLoader extends CacheLoader<String, HttpRequestResult> {
 
 		@Override
 		public Set<ConstraintViolation<UrlLoader>> violations() {
-			return getViolations(make());
+			return violations(make());
 		}
 
 		@Override
