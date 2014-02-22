@@ -33,12 +33,16 @@ public final class Bowl {
 
 		@Override
 		public Set<ConstraintViolation<Bowl>> violations() {
-			return getViolations(new Bowl(this));
+			return getViolations(make());
 		}
 
 		@Override
 		public Bowl build() {
-			return validate(new Bowl(this));
+			return validate(make());
+		}
+
+		private Bowl make() {
+			return new Bowl(this);
 		}
 
 		public Milk getMilk() {
