@@ -5,6 +5,7 @@ import static org.kuali.common.util.base.Exceptions.illegalState;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonProcessingException;
@@ -13,13 +14,16 @@ import org.junit.Test;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 
 public class BreakfastTest {
 
 	@Test
 	public void test() {
 		try {
-			Milk milk = Milk.builder().price(2.29).type("lowfat").ingredients(ImmutableList.of("sodium", "potassium")).build();
+			List<String> ingredients = ImmutableList.of("sodium", "potassium");
+			Map<String, String> nutritionFacts = ImmutableMap.of("calories", "220", "fat", "2g");
+			Milk milk = Milk.builder().price(2.29).type("lowfat").ingredients(ingredients).nutritionFacts(nutritionFacts).build();
 			Bowl bowl = Bowl.builder().milk(milk).build();
 			ObjectMapper mapper = new ObjectMapper();
 			String json = mapper.writeValueAsString(bowl);
