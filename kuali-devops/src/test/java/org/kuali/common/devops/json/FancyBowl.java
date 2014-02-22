@@ -26,11 +26,6 @@ public final class FancyBowl {
 
 		private Milk milk;
 
-		public Builder milk(Milk milk) {
-			this.milk = milk;
-			return this;
-		}
-
 		@Override
 		public Set<ConstraintViolation<FancyBowl>> violations() {
 			return violations(make());
@@ -43,6 +38,11 @@ public final class FancyBowl {
 
 		private FancyBowl make() {
 			return new FancyBowl(this);
+		}
+
+		public Builder milk(Milk milk) {
+			this.milk = milk;
+			return this;
 		}
 
 		public Milk getMilk() {
