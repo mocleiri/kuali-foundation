@@ -16,7 +16,7 @@ public class BreakfastTest {
 	public void test() {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			Milk milk = Milk.builder().price(2.29).type("lowfat").build();
+			Milk milk = Milk.builder().price(2.29).type("low\"fat").build();
 			Bowl bowl = Bowl.builder().milk(milk).build();
 			String json = mapper.writeValueAsString(bowl);
 			System.out.println(json);
