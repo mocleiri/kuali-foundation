@@ -10,8 +10,8 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 @IdiotProofImmutable
 public final class Bowl {
 
-	private double depth;
-	private double width;
+	private final double depth;
+	private final double width;
 
 	private Bowl(Builder builder) {
 		this.depth = builder.depth;
