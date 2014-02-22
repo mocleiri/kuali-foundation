@@ -57,7 +57,7 @@ public class BreakfastTest {
 
 	protected void print(final JsonNode node, final int indent) {
 		System.out.println(repeat(" ", indent) + toString(node));
-		int indentation = indent + 1;
+		int indentation = indent + 2;
 		for (JsonNode element : newArrayList(node.iterator())) {
 			print(element, indentation);
 		}
