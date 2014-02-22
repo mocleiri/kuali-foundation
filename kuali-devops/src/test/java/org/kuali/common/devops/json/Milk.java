@@ -1,25 +1,28 @@
 package org.kuali.common.devops.json;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.constraints.Min;
 
-import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
+
+import com.google.common.collect.ImmutableList;
 
 @IdiotProofImmutable
 public final class Milk {
 
 	@Min(0)
 	private final double price;
-	@Alias({ "kind", "brand" })
 	private final String type;
+	private final ImmutableList<String> ingredients;
 
 	private Milk(Builder builder) {
 		this.price = builder.price;
 		this.type = builder.type;
+		this.ingredients = ImmutableList.copyOf(builder.ingredients);
 	}
 
 	public static Builder builder() {
@@ -30,6 +33,12 @@ public final class Milk {
 
 		private double price = -1;
 		private String type;
+		private List<String> ingredients;
+
+		public Builder ingredients(List<String> ingredients) {
+			this.ingredients = ingredients;
+			return this;
+		}
 
 		public Builder price(double price) {
 			this.price = price;
@@ -71,6 +80,14 @@ public final class Milk {
 			this.type = type;
 		}
 
+		public List<String> getIngredients() {
+			return ingredients;
+		}
+
+		public void setIngredients(List<String> ingredients) {
+			this.ingredients = ingredients;
+		}
+
 	}
 
 	public double getPrice() {
@@ -79,5 +96,9 @@ public final class Milk {
 
 	public String getType() {
 		return type;
+	}
+
+	public List<String> getIngredients() {
+		return ingredients;
 	}
 }

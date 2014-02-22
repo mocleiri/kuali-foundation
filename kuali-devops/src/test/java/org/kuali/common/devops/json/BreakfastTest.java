@@ -6,7 +6,6 @@ import static org.kuali.common.util.base.Exceptions.illegalState;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.lang3.builder.Builder;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -33,11 +32,6 @@ public class BreakfastTest {
 
 	protected static <T> T read(Class<T> type, ObjectMapper mapper, String json) {
 		JsonNode node = readTree(mapper, json);
-		return null;
-	}
-	
-	protected static <T> Builder<T> getBuilder(Class<T> type) {
-		
 		return null;
 	}
 
