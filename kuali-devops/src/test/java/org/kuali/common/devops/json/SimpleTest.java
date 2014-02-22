@@ -1,14 +1,16 @@
 package org.kuali.common.devops.json;
 
-import static com.google.common.collect.Sets.newTreeSet;
-
-import java.util.Properties;
-import java.util.SortedSet;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.JavaType;
 import org.junit.Test;
 import org.kuali.common.util.Str;
-import org.kuali.common.util.property.ImmutableProperties;
+
+import com.google.common.collect.ImmutableMap;
 
 public class SimpleTest {
 
@@ -16,25 +18,21 @@ public class SimpleTest {
 	public void test() {
 		try {
 
-			Properties props = new Properties();
-			props.setProperty("name", "jeff");
-			props.setProperty("gender", "male\nyo\r\nhi");
-			ImmutableProperties ip = ImmutableProperties.copyOf(props);
 			ObjectMapper mapper = new ObjectMapper();
-			String json = mapper.writeValueAsString(ip);
-			ImmutableProperties properties = mapper.readValue(json, ImmutableProperties.class);
+			String json = mapper.writeValueAsString(ImmutableMap.<String, Object> of("name", "jeff", "age", 40));
+			JavaType type = mapper.getTypeFactory().constructMapLikeType(HashMap.class, String.class, Object.class);
+			Map<InputStream, OutputStream> map = mapper.readValue(json, type);
 			System.out.println(json);
-			print(properties);
+			print(map);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected void print(Properties props) {
-		SortedSet<String> keys = newTreeSet(props.stringPropertyNames());
-		for (String key : keys) {
-			String value = props.getProperty(key);
-			System.out.println(key + "=" + Str.flatten(value, "${cr}", "${lf}"));
+	protected void print(Map<?, ?> map) {
+		for (Object key : map.keySet()) {
+			Object value = map.get(key);
+			System.out.println(key + "=" + Str.flatten(value.toString(), "${cr}", "${lf}"));
 		}
 	}
 
