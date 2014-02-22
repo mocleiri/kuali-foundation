@@ -3,7 +3,6 @@ package org.kuali.common.devops.json;
 import static com.google.common.collect.Lists.newArrayList;
 import static org.apache.commons.lang3.StringUtils.repeat;
 import static org.kuali.common.util.base.Exceptions.illegalState;
-import static org.kuali.common.util.build.BuilderUtils.declaresPublicStaticBuilderClass;
 import static org.kuali.common.util.build.BuilderUtils.findPublicStaticBuilderClass;
 
 import java.io.IOException;
@@ -16,14 +15,14 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.Optional;
 
 public class BreakfastTest {
 
 	@Test
 	public void test() {
 		try {
-			Milk milk = Milk.builder().price(2.29).type("lowfat").build();
-			Bowl bowl = Bowl.builder().milk(milk).build();
+			Bowl bowl = Bowl.builder().depth(3.0).width(5.0).build();
 			ObjectMapper mapper = new ObjectMapper();
 			String json = mapper.writeValueAsString(bowl);
 			System.out.println(json);
@@ -40,9 +39,9 @@ public class BreakfastTest {
 	}
 
 	protected static <T> T make(Class<T> type, ObjectMapper mapper, JsonNode node) {
-		if (declaresPublicStaticBuilderClass(type)) {
-			Class<Builder<T>> builderType = findPublicStaticBuilderClass(type).get();
-			Builder<T> builder = readValue(mapper, node, builderType);
+		Optional<Class<Builder<T>>> builderClass = findPublicStaticBuilderClass(type);
+		if (builderClass.isPresent()) {
+			Builder<T> builder = readValue(mapper, node, builderClass.get());
 			return builder.build();
 		} else {
 			return readValue(mapper, node, type);

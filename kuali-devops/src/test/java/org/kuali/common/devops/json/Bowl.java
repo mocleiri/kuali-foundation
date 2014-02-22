@@ -4,18 +4,18 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
-import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
 public final class Bowl {
 
-	@Bind
-	private final Milk milk;
+	private double depth;
+	private double width;
 
 	private Bowl(Builder builder) {
-		this.milk = builder.milk;
+		this.depth = builder.depth;
+		this.width = builder.width;
 	}
 
 	public static Builder builder() {
@@ -24,11 +24,12 @@ public final class Bowl {
 
 	public static class Builder extends ValidatingBuilder<Bowl> {
 
-		private Milk milk;
+		private double depth;
+		private double width;
 
-		public Builder milk(Milk milk) {
-			this.milk = milk;
-			return this;
+		@Override
+		public Bowl build() {
+			return validate(make());
 		}
 
 		@Override
@@ -36,27 +37,52 @@ public final class Bowl {
 			return getViolations(make());
 		}
 
-		@Override
-		public Bowl build() {
-			return validate(make());
-		}
-
 		private Bowl make() {
 			return new Bowl(this);
 		}
 
-		public Milk getMilk() {
-			return milk;
+		public Builder depth(double depth) {
+			this.depth = depth;
+			return this;
 		}
 
-		public void setMilk(Milk milk) {
-			this.milk = milk;
+		public Builder width(double width) {
+			this.width = width;
+			return this;
+		}
+
+		public double getDepth() {
+			return depth;
+		}
+
+		public void setDepth(double depth) {
+			this.depth = depth;
+		}
+
+		public double getWidth() {
+			return width;
+		}
+
+		public void setWidth(double width) {
+			this.width = width;
 		}
 
 	}
 
-	public Milk getMilk() {
-		return milk;
+	public double getDepth() {
+		return depth;
+	}
+
+	public void setDepth(double depth) {
+		this.depth = depth;
+	}
+
+	public double getWidth() {
+		return width;
+	}
+
+	public void setWidth(double width) {
+		this.width = width;
 	}
 
 }
