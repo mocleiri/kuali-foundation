@@ -43,12 +43,16 @@ public final class Milk {
 
 		@Override
 		public Set<ConstraintViolation<Milk>> violations() {
-			return getViolations(new Milk(this));
+			return getViolations(make());
 		}
 
 		@Override
 		public Milk build() {
-			return validate(new Milk(this));
+			return validate(make());
+		}
+
+		private Milk make() {
+			return new Milk(this);
 		}
 
 		public double getPrice() {
