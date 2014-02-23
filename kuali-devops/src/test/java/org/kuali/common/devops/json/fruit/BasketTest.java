@@ -38,7 +38,7 @@ public class BasketTest {
 			ObjectMapper mapper = new ObjectMapper();
 			String json = mapper.writeValueAsString(basket);
 			System.out.println(json);
-			Basket newBasket = build(basket.getClass(), mapper, json);
+			Basket newBasket = create(basket.getClass(), mapper, json);
 			System.out.println(mapper.writeValueAsString(newBasket));
 			JsonNode node = mapper.readTree(json);
 			print(node);
@@ -47,7 +47,7 @@ public class BasketTest {
 		}
 	}
 
-	protected static <T> T build(Class<T> type, ObjectMapper mapper, String json) {
+	protected static <T> T create(Class<T> type, ObjectMapper mapper, String json) {
 		JsonNode node = readTree(mapper, json);
 		return build(type, mapper, node, Optional.<Field> absent());
 	}
@@ -91,6 +91,15 @@ public class BasketTest {
 	}
 
 	protected static <T> T buildObject(ObjectMapper mapper, JsonNode node, Class<Builder<T>> builderClass, Optional<Field> field) {
+		Map<String, Object> fields = buildFields(mapper, node, builderClass);
+		Builder<T> builder = newInstance(builderClass);
+		for (String fieldName : fields.keySet()) {
+			copyProperty(builder, fieldName, fields.get(field));
+		}
+		return builder.build();
+	}
+
+	protected static <T> Map<String, Object> buildFields(ObjectMapper mapper, JsonNode node, Class<Builder<T>> builderClass) {
 		Map<String, Object> fields = newHashMap();
 		for (String fieldName : newArrayList(node.fieldNames())) {
 			Optional<JsonNode> child = fromNullable(node.get(fieldName));
@@ -100,18 +109,17 @@ public class BasketTest {
 			Object instance = build(childField.get().getType(), mapper, child.get(), childField);
 			fields.put(fieldName, instance);
 		}
-		Builder<T> builder = newInstance(builderClass);
-		for (String fieldName : fields.keySet()) {
-			copyProperty(builder, fieldName, fields.get(field));
-		}
-		return builder.build();
+		return fields;
 	}
 
 	protected static <T> T builderSensitiveRead(ObjectMapper mapper, JsonNode node, Class<T> type) {
 		Optional<Class<Builder<T>>> builderClass = findPublicStaticBuilderClass(type);
 		if (builderClass.isPresent()) {
+			// Parse the JSON into an instance of a Builder class
+			// Invoke the build() method to produce an object instance
 			return read(mapper, node, builderClass.get()).build();
 		} else {
+			// Parse the JSON directly into an object instance
 			return read(mapper, node, type);
 		}
 	}
