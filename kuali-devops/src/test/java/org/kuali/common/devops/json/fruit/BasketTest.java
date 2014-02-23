@@ -8,7 +8,6 @@ import static org.apache.commons.lang3.StringUtils.repeat;
 import static org.kuali.common.util.ReflectionUtils.copyProperty;
 import static org.kuali.common.util.ReflectionUtils.newInstance;
 import static org.kuali.common.util.base.Exceptions.illegalState;
-import static org.kuali.common.util.build.BuilderUtils.declaresPublicStaticBuilderClass;
 import static org.kuali.common.util.build.BuilderUtils.findPublicStaticBuilderClass;
 import static org.springframework.util.ReflectionUtils.findField;
 
@@ -71,7 +70,8 @@ public class BasketTest {
 
 		// Handle JSON array's
 		if (node.isArray()) {
-			return doArray(field, node);
+			checkState(field.isPresent(), "field is required for JSON arrays");
+			return doArray(mapper, field.get(), node);
 		}
 
 		// Determine if this type contains a builder
@@ -86,18 +86,27 @@ public class BasketTest {
 		}
 	}
 
-	protected static <T> T doArray(Optional<Field> field, JsonNode node) {
-		checkState(field.isPresent(), "field is required for arrays");
-		TypeDescriptor descriptor = new TypeDescriptor(field.get());
+	protected static <T> T doArray(ObjectMapper mapper, Field field, JsonNode node) {
+		// Use Spring's TypeDescriptor abstraction to assist with determining what type of object we need to create
+		TypeDescriptor descriptor = new TypeDescriptor(field);
+
+		//
 		Optional<TypeDescriptor> etd = fromNullable(descriptor.getElementTypeDescriptor());
 		if (etd.isPresent()) {
 			Class<?> etdType = etd.get().getType();
-			if (declaresPublicStaticBuilderClass(etdType)) {
-
-			}
-			Optional<Class<Builder<T>>> builderClass = null; // findPublicStaticBuilderClass(etdType);
-			for (String fieldName : newArrayList(node.fieldNames())) {
-
+			Optional<?> builder = findPublicStaticBuilderClass(etdType);
+			if (builder.isPresent()) {
+				@SuppressWarnings("unchecked")
+				Class<Builder<T>> builderClass = (Class<Builder<T>>) builder.get();
+				List<T> list = newArrayList();
+				for (JsonNode child : newArrayList(node.elements())) {
+					Builder<T> element = newInstance(builderClass);
+					element = recurse(mapper, child, builderClass, Optional.<Field> absent());
+					list.add(element.build());
+				}
+				return null;
+			} else {
+				return null;
 			}
 		}
 		return null;

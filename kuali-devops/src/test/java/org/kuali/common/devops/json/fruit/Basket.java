@@ -13,10 +13,12 @@ import com.google.common.collect.ImmutableList;
 @IdiotProofImmutable
 public final class Basket {
 
+	private final String material;
 	private final ImmutableList<Apple> apples;
 
 	private Basket(Builder builder) {
 		this.apples = ImmutableList.copyOf(builder.apples);
+		this.material = builder.material;
 	}
 
 	public static Builder builder() {
@@ -25,7 +27,13 @@ public final class Basket {
 
 	public static class Builder extends ValidatingBuilder<Basket> {
 
+		private String material;
 		private List<Apple> apples;
+
+		public Builder material(String material) {
+			this.material = material;
+			return this;
+		}
 
 		public Builder apples(List<Apple> apples) {
 			this.apples = apples;
@@ -54,10 +62,22 @@ public final class Basket {
 			this.apples = apples;
 		}
 
+		public String getMaterial() {
+			return material;
+		}
+
+		public void setMaterial(String material) {
+			this.material = material;
+		}
+
 	}
 
 	public ImmutableList<Apple> getApples() {
 		return apples;
+	}
+
+	public String getMaterial() {
+		return material;
 	}
 
 }
