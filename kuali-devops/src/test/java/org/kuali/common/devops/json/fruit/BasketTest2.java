@@ -3,9 +3,12 @@ package org.kuali.common.devops.json.fruit;
 import static com.google.common.collect.Lists.newArrayList;
 import static org.apache.commons.lang3.StringUtils.repeat;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import org.junit.Test;
+import org.kuali.common.util.tree.Node;
+import org.springframework.core.convert.TypeDescriptor;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,6 +32,11 @@ public class BasketTest2 {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected Node<JsonDescriptor> buildTree(Class<?> type, JsonNode node) {
+		TypeDescriptor descriptor = new TypeDescriptor((Field) null);
+		return null;
 	}
 
 	protected void print(JsonNode node) {
