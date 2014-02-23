@@ -3,16 +3,25 @@ package org.kuali.common.devops.json.fruit;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
+import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.repeat;
+import static org.kuali.common.util.base.Exceptions.illegalState;
+import static org.kuali.common.util.log.Loggers.newLogger;
 import static org.springframework.util.ReflectionUtils.findField;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
+import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.tree.ImmutableNode;
 import org.kuali.common.util.tree.MutableNode;
 import org.kuali.common.util.tree.Node;
+import org.kuali.common.util.tree.Trees;
+import org.slf4j.Logger;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,6 +30,8 @@ import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public class BasketTest2 {
+
+	private static final Logger logger = newLogger();
 
 	@Test
 	public void test() {
@@ -32,13 +43,21 @@ public class BasketTest2 {
 			ObjectMapper mapper = new ObjectMapper();
 			String json = mapper.writeValueAsString(basket);
 			JsonNode node = mapper.readTree(json);
-			print(node);
-			System.out.println(json);
 			Node<JsonDescriptor> tree = ImmutableNode.copyOf(buildTree(Basket.class, node));
-			System.out.println(tree);
-			System.out.println(mapper.writeValueAsString(tree));
+			String html = Trees.html(tree, new JsonHtmlFunction());
+			write("/tmp/json.htm", html);
 		} catch (Throwable e) {
 			e.printStackTrace();
+		}
+	}
+
+	protected void write(String file, String content) {
+		try {
+			File f = new CanonicalFile(file);
+			logger.info(format("creating -> %s", f));
+			FileUtils.write(f, content);
+		} catch (IOException e) {
+			throw illegalState(e);
 		}
 	}
 
