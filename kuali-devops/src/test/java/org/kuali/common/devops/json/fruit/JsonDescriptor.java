@@ -6,7 +6,6 @@ import javax.validation.ConstraintViolation;
 
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
-import org.springframework.core.convert.TypeDescriptor;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.base.Optional;
@@ -16,7 +15,7 @@ public final class JsonDescriptor {
 
 	private final JsonNode node;
 	private final Class<?> type;
-	private final Optional<TypeDescriptor> descriptor;
+	private final Optional<FieldDescriptor> descriptor;
 
 	private JsonDescriptor(Builder builder) {
 		this.node = builder.node;
@@ -32,7 +31,7 @@ public final class JsonDescriptor {
 
 		private JsonNode node;
 		private Class<?> type;
-		private Optional<TypeDescriptor> descriptor;
+		private Optional<FieldDescriptor> descriptor;
 
 		@Override
 		public JsonDescriptor build() {
@@ -58,12 +57,12 @@ public final class JsonDescriptor {
 			return this;
 		}
 
-		public Builder descriptor(Optional<TypeDescriptor> descriptor) {
+		public Builder descriptor(Optional<FieldDescriptor> descriptor) {
 			this.descriptor = descriptor;
 			return this;
 		}
 
-		public Builder descriptor(TypeDescriptor descriptor) {
+		public Builder descriptor(FieldDescriptor descriptor) {
 			return descriptor(Optional.of(descriptor));
 		}
 
@@ -83,11 +82,11 @@ public final class JsonDescriptor {
 			this.type = type;
 		}
 
-		public Optional<TypeDescriptor> getDescriptor() {
+		public Optional<FieldDescriptor> getDescriptor() {
 			return descriptor;
 		}
 
-		public void setDescriptor(Optional<TypeDescriptor> descriptor) {
+		public void setDescriptor(Optional<FieldDescriptor> descriptor) {
 			this.descriptor = descriptor;
 		}
 
@@ -101,7 +100,7 @@ public final class JsonDescriptor {
 		return type;
 	}
 
-	public Optional<TypeDescriptor> getDescriptor() {
+	public Optional<FieldDescriptor> getDescriptor() {
 		return descriptor;
 	}
 

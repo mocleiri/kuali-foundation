@@ -13,7 +13,6 @@ import org.junit.Test;
 import org.kuali.common.util.tree.ImmutableNode;
 import org.kuali.common.util.tree.MutableNode;
 import org.kuali.common.util.tree.Node;
-import org.springframework.core.convert.TypeDescriptor;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,10 +42,10 @@ public class BasketTest2 {
 	}
 
 	protected MutableNode<JsonDescriptor> buildTree(Class<?> type, JsonNode node) {
-		return buildTree(type, Optional.<TypeDescriptor> absent(), node);
+		return buildTree(type, Optional.<FieldDescriptor> absent(), node);
 	}
 
-	protected MutableNode<JsonDescriptor> buildTree(Class<?> type, Optional<TypeDescriptor> descriptor, JsonNode node) {
+	protected MutableNode<JsonDescriptor> buildTree(Class<?> type, Optional<FieldDescriptor> descriptor, JsonNode node) {
 		JsonDescriptor jd = JsonDescriptor.builder().type(type).descriptor(descriptor).node(node).build();
 		MutableNode<JsonDescriptor> mutable = MutableNode.of(jd);
 		for (JsonDescriptor child : getChildren(type, node)) {
@@ -63,7 +62,7 @@ public class BasketTest2 {
 			Optional<Field> field = fromNullable(findField(type, fieldName));
 			checkState(node.isPresent(), "[%s] does not contain field '%s'", json, fieldName);
 			checkState(field.isPresent(), "[%s] does not contain field '%s'", type.getCanonicalName(), fieldName);
-			TypeDescriptor descriptor = new TypeDescriptor(field.get());
+			FieldDescriptor descriptor = new FieldDescriptor(field.get());
 			JsonDescriptor child = JsonDescriptor.builder().type(field.get().getType()).descriptor(descriptor).node(node.get()).build();
 			children.add(child);
 		}
