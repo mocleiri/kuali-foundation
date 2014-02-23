@@ -11,11 +11,11 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 public final class Ingredient {
 
 	private final String name;
-	private final String description;
+	private final String amount;
 
 	private Ingredient(Builder builder) {
 		this.name = builder.name;
-		this.description = builder.description;
+		this.amount = builder.amount;
 	}
 
 	public static Builder builder() {
@@ -25,7 +25,7 @@ public final class Ingredient {
 	public static class Builder extends ValidatingBuilder<Ingredient> {
 
 		private String name;
-		private String description;
+		private String amount;
 
 		@Override
 		public Ingredient build() {
@@ -46,8 +46,8 @@ public final class Ingredient {
 			return this;
 		}
 
-		public Builder description(String description) {
-			this.description = description;
+		public Builder amount(String amount) {
+			this.amount = amount;
 			return this;
 		}
 
@@ -57,8 +57,8 @@ public final class Ingredient {
 		return name;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getAmount() {
+		return amount;
 	}
 
 }

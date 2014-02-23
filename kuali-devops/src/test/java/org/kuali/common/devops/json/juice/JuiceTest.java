@@ -31,8 +31,8 @@ public class JuiceTest {
 	@Test
 	public void test() {
 		try {
-			Ingredient i1 = Ingredient.builder().name("fat").description("2g").build();
-			Ingredient i2 = Ingredient.builder().name("sodium").description("130g").build();
+			Ingredient i1 = Ingredient.builder().name("fat").amount("2g").build();
+			Ingredient i2 = Ingredient.builder().name("sodium").amount("130g").build();
 			List<Ingredient> ingredients = ImmutableList.of(i1, i2);
 			Juice juice = Juice.builder().price(2.29).ingredients(ingredients).build();
 			ObjectMapper mapper = new ObjectMapper();
@@ -41,7 +41,12 @@ public class JuiceTest {
 			JsonNode node = readTree(mapper, json);
 			print(node);
 			Juice newJuice = build(Juice.class, mapper, json);
-			System.out.println(newJuice.getIngredients().size());
+			System.out.println("price=" + newJuice.getPrice());
+			for (Object element : newJuice.getIngredients()) {
+				System.out.println(element.getClass().getCanonicalName());
+			}
+			System.out.println(newJuice.getIngredients() instanceof ImmutableList);
+
 			System.out.println(toString(new ObjectMapper(), newJuice));
 		} catch (Throwable e) {
 			e.printStackTrace();
