@@ -36,6 +36,7 @@ public class BasketTest2 {
 			System.out.println(json);
 			Node<JsonDescriptor> tree = ImmutableNode.copyOf(buildTree(Basket.class, node));
 			System.out.println(tree);
+			System.out.println(mapper.writeValueAsString(tree));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
