@@ -37,8 +37,8 @@ public final class FancyMilk {
 
 		private double price = -1;
 		private String type;
-		private List<String> ingredients;
-		private Map<String, String> nutritionFacts;
+		private List<String> ingredients = ImmutableList.of();
+		private Map<String, String> nutritionFacts = ImmutableMap.of();
 
 		public Builder nutritionFacts(Map<String, String> nutritionFacts) {
 			this.nutritionFacts = nutritionFacts;
