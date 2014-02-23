@@ -61,8 +61,8 @@ public class BasketTest2 {
 		for (String fieldName : newArrayList(node.fieldNames())) {
 			Optional<JsonNode> childNode = fromNullable(node.get(fieldName));
 			Optional<Field> childField = fromNullable(findField(type, fieldName));
-			checkState(childNode.isPresent(), "[%s] does not contain field %s", node, fieldName);
-			checkState(childField.isPresent(), "[%s] does not contain field %s", type.getCanonicalName(), fieldName);
+			checkState(childNode.isPresent(), "[%s] does not contain field '%s'", node, fieldName);
+			checkState(childField.isPresent(), "[%s] does not contain field '%s'", type.getCanonicalName(), fieldName);
 			TypeDescriptor childTypeDescriptor = new TypeDescriptor(childField.get());
 			JsonDescriptor child = JsonDescriptor.builder().type(childField.get().getType()).descriptor(childTypeDescriptor).node(childNode.get()).build();
 			children.add(child);
