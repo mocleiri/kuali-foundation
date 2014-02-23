@@ -42,7 +42,7 @@ public class JuiceTest {
 			print(node);
 			Juice newJuice = build(Juice.class, mapper, json);
 			System.out.println(newJuice.getIngredients().size());
-			System.out.println(toString(mapper, newJuice));
+			System.out.println(toString(new ObjectMapper(), newJuice));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}

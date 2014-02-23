@@ -5,7 +5,9 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 
 import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.validate.IdiotProofImmutable;
 
+@IdiotProofImmutable
 public final class Ingredient {
 
 	private final String name;
