@@ -76,6 +76,7 @@ public class BasketTest {
 
 		// Determine if this type contains a builder
 		Optional<Class<Builder<T>>> builderClass = findPublicStaticBuilderClass(type);
+
 		if (builderClass.isPresent()) {
 			// If so, parse the JSON into a builder object, then invoke it's build() method to produce an instance
 			return createBuilder(mapper, node, builderClass.get(), field).build();
@@ -103,24 +104,48 @@ public class BasketTest {
 	}
 
 	protected static <T> Builder<T> createBuilder(ObjectMapper mapper, JsonNode node, Class<Builder<T>> builderClass, Optional<Field> field) {
+		// Recursively parse the JSON text to create a Map of objects keyed by field name
 		Map<String, Object> fields = createFields(mapper, node, builderClass);
+
+		// Create a new instance of the builder (must be a POJO java bean with a no-arg constructor and getter/setter methods)
 		Builder<T> builder = newInstance(builderClass);
+
+		// Copy each field into the Builder
 		for (String fieldName : fields.keySet()) {
 			copyProperty(builder, fieldName, fields.get(field));
 		}
+
+		// Return the fully populated builder object
 		return builder;
 	}
 
 	protected static <T> Map<String, Object> createFields(ObjectMapper mapper, JsonNode node, Class<Builder<T>> builderClass) {
+		// Allocate some storage
 		Map<String, Object> fields = newHashMap();
+
+		// Cycle through the list of fields present on this JsonNode
 		for (String fieldName : newArrayList(node.fieldNames())) {
+
+			// Extract the child JsonNode from the parent node
 			Optional<JsonNode> child = fromNullable(node.get(fieldName));
+
+			// Something has gone awry if the parent node does not contain it's own child
 			checkState(child.isPresent(), "node does not contain %s", fieldName);
+
+			// Locate a Field object in the Java builder class that corresponds to the JSON field
 			Optional<Field> childField = fromNullable(findField(builderClass, fieldName));
+
+			// If there is no corresponding field on the Java builder class, we are hosed
 			checkState(childField.isPresent(), "[%s] does not contain field [%s]", builderClass.getCanonicalName(), fieldName);
+
+			// Recurse to create a 1st class java object from the JSON text
 			Object instance = build(childField.get().getType(), mapper, child.get(), childField);
+
+			// Add the instance to our map of objects
 			fields.put(fieldName, instance);
 		}
+
+		// Return the populated map
 		return fields;
 	}
 
