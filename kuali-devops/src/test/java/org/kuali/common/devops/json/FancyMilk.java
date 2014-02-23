@@ -120,7 +120,7 @@ public final class FancyMilk {
 		return ingredients;
 	}
 
-	public ImmutableMap<String, String> getNutritionFacts() {
+	public Map<String, String> getNutritionFacts() {
 		return nutritionFacts;
 	}
 }
