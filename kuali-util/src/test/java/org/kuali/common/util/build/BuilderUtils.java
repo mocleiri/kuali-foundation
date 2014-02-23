@@ -23,10 +23,10 @@ public class BuilderUtils {
 	 */
 	public static <T> Builder<T> newBuilderInstance(Class<T> type) {
 		Optional<Class<Builder<T>>> builderClass = findPublicStaticBuilderClass(type);
-		if (!builderClass.isPresent()) {
-			throw illegalArgument("no public [%s] declared in [%s]", Builder.class.getCanonicalName(), type.getCanonicalName());
-		} else {
+		if (builderClass.isPresent()) {
 			return newInstance(builderClass.get());
+		} else {
+			throw illegalArgument("no public [%s] declared in [%s]", Builder.class.getCanonicalName(), type.getCanonicalName());
 		}
 	}
 
