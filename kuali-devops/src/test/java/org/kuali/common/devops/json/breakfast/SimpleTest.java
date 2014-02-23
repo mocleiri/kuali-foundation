@@ -1,15 +1,18 @@
 package org.kuali.common.devops.json.breakfast;
 
-import java.io.InputStream;
-import java.io.OutputStream;
+import static com.google.common.collect.Lists.newArrayList;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.type.MapLikeType;
 import org.junit.Test;
 import org.kuali.common.util.Str;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.MapLikeType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.google.common.collect.ImmutableMap;
 
 public class SimpleTest {
@@ -19,10 +22,17 @@ public class SimpleTest {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			String json = mapper.writeValueAsString(ImmutableMap.<String, Object> of("name", "jeff", "age", 40 * 1D));
-			MapLikeType type = mapper.getTypeFactory().constructMapLikeType(HashMap.class, String.class, Object.class);
-			Map<InputStream, OutputStream> map = mapper.readValue(json, type);
+			TypeFactory factory = mapper.getTypeFactory();
+			MapLikeType type = factory.constructMapLikeType(HashMap.class, String.class, Object.class);
+			Map<String, Object> map = mapper.readValue(json, type);
 			System.out.println(json);
 			print(map);
+
+			JsonNode node = mapper.readTree(json);
+			List<Map.Entry<String, JsonNode>> fields = newArrayList(node.fields());
+			for (Map.Entry<String, JsonNode> field : fields) {
+
+			}
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}

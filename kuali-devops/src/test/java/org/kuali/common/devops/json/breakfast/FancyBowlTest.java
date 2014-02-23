@@ -17,11 +17,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.builder.Builder;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.JsonProcessingException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 
@@ -62,7 +62,7 @@ public class FancyBowlTest {
 
 	protected static <T> T buildManually(ObjectMapper mapper, JsonNode node, Class<Builder<T>> builderClass) {
 		Map<String, Object> fields = newHashMap();
-		for (String fieldName : newArrayList(node.getFieldNames())) {
+		for (String fieldName : newArrayList(node.fieldNames())) {
 			Optional<JsonNode> child = fromNullable(node.get(fieldName));
 			checkState(child.isPresent(), "node does not contain %s", fieldName);
 			Optional<Field> field = fromNullable(findField(builderClass, fieldName));
@@ -79,10 +79,9 @@ public class FancyBowlTest {
 
 	protected static <T> T readValue(ObjectMapper mapper, JsonNode node, Class<T> type) {
 		try {
-			return mapper.readValue(node, type);
-		} catch (JsonProcessingException e) {
-			throw illegalState(e);
-		} catch (IOException e) {
+			String json = mapper.writeValueAsString(node);
+			return mapper.readValue(json, type);
+		} catch (Exception e) {
 			throw illegalState(e);
 		}
 	}
@@ -114,9 +113,9 @@ public class FancyBowlTest {
 		strings.add("container=" + node.isContainerNode() + "");
 		strings.add("value=" + node.isValueNode() + "");
 		strings.add("array=" + node.isArray());
-		List<String> fields = newArrayList(node.getFieldNames());
+		List<String> fields = newArrayList(node.fieldNames());
 		if (!fields.isEmpty()) {
-			strings.add("fields=" + Joiner.on(',').join(node.getFieldNames()));
+			strings.add("fields=" + Joiner.on(',').join(fields));
 		} else {
 			strings.add("fields=none");
 		}

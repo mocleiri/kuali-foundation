@@ -5,15 +5,13 @@ import static org.apache.commons.lang3.StringUtils.repeat;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.build.BuilderUtils.findPublicStaticBuilderClass;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.Builder;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.JsonProcessingException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 
@@ -29,7 +27,7 @@ public class BreakfastTest {
 			JsonNode node = mapper.readTree(json);
 			print(node);
 			Bowl newBowl = build(Bowl.class, mapper, json);
-			System.out.println(newBowl.getDepth());
+			System.out.println(mapper.writeValueAsString(newBowl));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -43,8 +41,7 @@ public class BreakfastTest {
 	protected static <T> T build(Class<T> type, ObjectMapper mapper, JsonNode node) {
 		Optional<Class<Builder<T>>> builderClass = findPublicStaticBuilderClass(type);
 		if (builderClass.isPresent()) {
-			Builder<T> builder = readValue(mapper, node, builderClass.get());
-			return builder.build();
+			return readValue(mapper, node, builderClass.get()).build();
 		} else {
 			return readValue(mapper, node, type);
 		}
@@ -52,10 +49,9 @@ public class BreakfastTest {
 
 	protected static <T> T readValue(ObjectMapper mapper, JsonNode node, Class<T> type) {
 		try {
-			return mapper.readValue(node, type);
-		} catch (JsonProcessingException e) {
-			throw illegalState(e);
-		} catch (IOException e) {
+			String json = mapper.writeValueAsString(node);
+			return mapper.readValue(json, type);
+		} catch (Exception e) {
 			throw illegalState(e);
 		}
 	}
@@ -63,9 +59,7 @@ public class BreakfastTest {
 	protected static JsonNode readTree(ObjectMapper mapper, String json) {
 		try {
 			return mapper.readTree(json);
-		} catch (JsonProcessingException e) {
-			throw illegalState(e);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			throw illegalState(e);
 		}
 	}
@@ -87,13 +81,12 @@ public class BreakfastTest {
 		strings.add("container=" + node.isContainerNode() + "");
 		strings.add("value=" + node.isValueNode() + "");
 		strings.add("array=" + node.isArray());
-		List<String> fields = newArrayList(node.getFieldNames());
+		List<String> fields = newArrayList(node.fieldNames());
 		if (!fields.isEmpty()) {
-			strings.add("fields=" + Joiner.on(',').join(node.getFieldNames()));
+			strings.add("fields=" + Joiner.on(',').join(fields));
 		} else {
 			strings.add("fields=none");
 		}
 		return Joiner.on("::").join(strings);
 	}
-
 }
