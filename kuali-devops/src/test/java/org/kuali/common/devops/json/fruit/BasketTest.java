@@ -54,8 +54,12 @@ public class BasketTest {
 
 	protected static <T> T build(Class<T> type, ObjectMapper mapper, JsonNode node, Optional<Field> field) {
 		if (node.isContainerNode()) {
+			// This node is JSON text that represents a nested object reference
+			// Recursing down the tree will correctly parse the JSON text into an object
 			return recurse(mapper, node, type, field);
 		} else {
+			// This node is JSON text that is a "leaf" node
+			// It can be parsed directly into a Java object
 			return builderSensitiveRead(mapper, node, type);
 		}
 	}
