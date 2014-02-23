@@ -1,6 +1,7 @@
 package org.kuali.common.devops.json.fruit;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.util.List;
@@ -30,6 +31,8 @@ public class JsonHtmlFunction implements Function<Node<JsonDescriptor>, String> 
 	}
 
 	protected String tr(String label, Object value) {
+		checkNotBlank(label, "label");
+		checkNotNull(value, "value");
 		return "<tr><td align=right>" + label + "</td><td>&nbsp;</td><td>" + value.toString() + "</td></tr>";
 	}
 
