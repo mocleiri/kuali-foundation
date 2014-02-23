@@ -34,16 +34,23 @@ public class BuilderUtils {
 		return findPublicStaticBuilderClass(type).isPresent();
 	}
 
+	/**
+	 * The assumption implied by the {@code SuppressWarnings} annotation is that any class declaring a public static inner class implementing the {@code Builder} interface will
+	 * produce instances of the class it is declared in.
+	 */
 	@SuppressWarnings("unchecked")
 	public static <T> Optional<Class<Builder<T>>> findPublicStaticBuilderClass(Class<T> type) {
 		List<Class<?>> declaredClasses = ImmutableList.copyOf(type.getDeclaredClasses());
 		for (Class<?> declaredClass : declaredClasses) {
-			boolean assignable = Builder.class.isAssignableFrom(declaredClass);
-			if (assignable && isPublicStatic(declaredClass)) {
+			if (isBuilder(declaredClass) && isPublicStatic(declaredClass)) {
 				return Optional.of((Class<Builder<T>>) declaredClass);
 			}
 		}
 		return absent();
+	}
+
+	protected static boolean isBuilder(Class<?> type) {
+		return Builder.class.isAssignableFrom(type);
 	}
 
 	protected static boolean isPublicStatic(Class<?> type) {
