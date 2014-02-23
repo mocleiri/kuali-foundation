@@ -66,15 +66,20 @@ public class BasketTest {
 
 	protected static <T> T recurse(ObjectMapper mapper, JsonNode node, Class<T> type, Optional<Field> field) {
 		checkState(node.isContainerNode(), "[%s] is not a container node", node);
+
+		// Handle JSON array's
 		if (node.isArray()) {
 			return doArray(field, node);
+		}
+
+		// Determine if this type contains a builder
+		Optional<Class<Builder<T>>> builderClass = findPublicStaticBuilderClass(type);
+		if (builderClass.isPresent()) {
+			// If so, parse the JSON into a builder object, then invoke it's build() method to produce an instance
+			return createBuilder(mapper, node, builderClass.get(), field).build();
 		} else {
-			Optional<Class<Builder<T>>> builderClass = findPublicStaticBuilderClass(type);
-			if (builderClass.isPresent()) {
-				return buildObject(mapper, node, builderClass.get(), field);
-			} else {
-				return read(mapper, node, type);
-			}
+			// Otherwise, parse the JSON into an object directly
+			return read(mapper, node, type);
 		}
 	}
 
@@ -95,16 +100,16 @@ public class BasketTest {
 		return null;
 	}
 
-	protected static <T> T buildObject(ObjectMapper mapper, JsonNode node, Class<Builder<T>> builderClass, Optional<Field> field) {
-		Map<String, Object> fields = buildFields(mapper, node, builderClass);
+	protected static <T> Builder<T> createBuilder(ObjectMapper mapper, JsonNode node, Class<Builder<T>> builderClass, Optional<Field> field) {
+		Map<String, Object> fields = createFields(mapper, node, builderClass);
 		Builder<T> builder = newInstance(builderClass);
 		for (String fieldName : fields.keySet()) {
 			copyProperty(builder, fieldName, fields.get(field));
 		}
-		return builder.build();
+		return builder;
 	}
 
-	protected static <T> Map<String, Object> buildFields(ObjectMapper mapper, JsonNode node, Class<Builder<T>> builderClass) {
+	protected static <T> Map<String, Object> createFields(ObjectMapper mapper, JsonNode node, Class<Builder<T>> builderClass) {
 		Map<String, Object> fields = newHashMap();
 		for (String fieldName : newArrayList(node.fieldNames())) {
 			Optional<JsonNode> child = fromNullable(node.get(fieldName));
