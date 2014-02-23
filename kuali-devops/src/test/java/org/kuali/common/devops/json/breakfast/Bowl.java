@@ -1,4 +1,4 @@
-package org.kuali.common.devops.json;
+package org.kuali.common.devops.json.breakfast;
 
 import java.util.Set;
 

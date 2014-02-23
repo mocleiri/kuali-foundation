@@ -1,4 +1,4 @@
-package org.kuali.common.devops.json;
+package org.kuali.common.devops.json.breakfast;
 
 import java.util.Set;
 
@@ -9,12 +9,12 @@ import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
-public final class SuperFancyBowl {
+public final class FancyBowl {
 
 	@Bind
-	private final FancyMilk milk;
+	private final Milk milk;
 
-	private SuperFancyBowl(Builder builder) {
+	private FancyBowl(Builder builder) {
 		this.milk = builder.milk;
 	}
 
@@ -22,40 +22,40 @@ public final class SuperFancyBowl {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<SuperFancyBowl> {
+	public static class Builder extends ValidatingBuilder<FancyBowl> {
 
-		private FancyMilk milk;
+		private Milk milk;
 
 		@Override
-		public Set<ConstraintViolation<SuperFancyBowl>> violations() {
+		public Set<ConstraintViolation<FancyBowl>> violations() {
 			return violations(make());
 		}
 
 		@Override
-		public SuperFancyBowl build() {
+		public FancyBowl build() {
 			return validate(make());
 		}
 
-		private SuperFancyBowl make() {
-			return new SuperFancyBowl(this);
+		private FancyBowl make() {
+			return new FancyBowl(this);
 		}
 
-		public Builder milk(FancyMilk milk) {
+		public Builder milk(Milk milk) {
 			this.milk = milk;
 			return this;
 		}
 
-		public FancyMilk getMilk() {
+		public Milk getMilk() {
 			return milk;
 		}
 
-		public void setMilk(FancyMilk milk) {
+		public void setMilk(Milk milk) {
 			this.milk = milk;
 		}
 
 	}
 
-	public FancyMilk getMilk() {
+	public Milk getMilk() {
 		return milk;
 	}
 

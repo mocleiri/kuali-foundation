@@ -1,20 +1,12 @@
-package org.kuali.common.devops.json;
+package org.kuali.common.devops.json.breakfast;
 
-import static com.google.common.base.Optional.fromNullable;
-import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Maps.newHashMap;
 import static org.apache.commons.lang3.StringUtils.repeat;
-import static org.kuali.common.util.ReflectionUtils.copyProperty;
-import static org.kuali.common.util.ReflectionUtils.newInstance;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.build.BuilderUtils.findPublicStaticBuilderClass;
-import static org.springframework.util.ReflectionUtils.findField;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang3.builder.Builder;
 import org.codehaus.jackson.JsonNode;
@@ -25,18 +17,19 @@ import org.junit.Test;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 
-public class FancyBowlTest {
+public class BreakfastTest {
 
 	@Test
 	public void test() {
 		try {
-			Milk milk = Milk.builder().price(2.29).type("lowfat").build();
-			FancyBowl bowl = FancyBowl.builder().milk(milk).build();
+			Bowl bowl = Bowl.builder().depth(3.0).width(5.0).build();
 			ObjectMapper mapper = new ObjectMapper();
 			String json = mapper.writeValueAsString(bowl);
 			System.out.println(json);
-			FancyBowl newBowl = build(bowl.getClass(), mapper, json);
-			System.out.println(mapper.writeValueAsString(newBowl));
+			JsonNode node = mapper.readTree(json);
+			print(node);
+			Bowl newBowl = build(Bowl.class, mapper, json);
+			System.out.println(newBowl.getDepth());
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -50,31 +43,11 @@ public class FancyBowlTest {
 	protected static <T> T build(Class<T> type, ObjectMapper mapper, JsonNode node) {
 		Optional<Class<Builder<T>>> builderClass = findPublicStaticBuilderClass(type);
 		if (builderClass.isPresent()) {
-			if (node.isContainerNode()) {
-				return buildManually(mapper, node, builderClass.get());
-			} else {
-				return readValue(mapper, node, builderClass.get()).build();
-			}
+			Builder<T> builder = readValue(mapper, node, builderClass.get());
+			return builder.build();
 		} else {
 			return readValue(mapper, node, type);
 		}
-	}
-
-	protected static <T> T buildManually(ObjectMapper mapper, JsonNode node, Class<Builder<T>> builderClass) {
-		Map<String, Object> fields = newHashMap();
-		for (String fieldName : newArrayList(node.getFieldNames())) {
-			Optional<JsonNode> child = fromNullable(node.get(fieldName));
-			checkState(child.isPresent(), "node does not contain %s", fieldName);
-			Optional<Field> field = fromNullable(findField(builderClass, fieldName));
-			checkState(field.isPresent(), "[%s] does not contain field [%s]", builderClass.getCanonicalName(), fieldName);
-			Object instance = build(field.get().getType(), mapper, child.get());
-			fields.put(fieldName, instance);
-		}
-		Builder<T> builder = newInstance(builderClass);
-		for (String field : fields.keySet()) {
-			copyProperty(builder, field, fields.get(field));
-		}
-		return builder.build();
 	}
 
 	protected static <T> T readValue(ObjectMapper mapper, JsonNode node, Class<T> type) {

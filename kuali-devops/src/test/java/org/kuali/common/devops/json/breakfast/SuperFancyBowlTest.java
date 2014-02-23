@@ -1,4 +1,4 @@
-package org.kuali.common.devops.json;
+package org.kuali.common.devops.json.breakfast;
 
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkState;
