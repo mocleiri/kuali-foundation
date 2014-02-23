@@ -20,6 +20,14 @@ public class MutableNode<T> extends AbstractNode<T> {
 		return new MutableNode<T>(element);
 	}
 
+	public static <T> MutableNode<T> copyOf(Node<T> node) {
+		MutableNode<T> mutable = new MutableNode<T>(node.getElement());
+		for (Node<T> child : node.getChildren()) {
+			mutable.add(copyOf(child));
+		}
+		return mutable;
+	}
+
 	protected MutableNode() {
 	}
 
