@@ -24,6 +24,10 @@ public final class JsonDescriptor {
 		this.type = builder.type;
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder extends ValidatingBuilder<JsonDescriptor> {
 
 		private JsonNode node;

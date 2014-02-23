@@ -1,18 +1,22 @@
 package org.kuali.common.devops.json.fruit;
 
+import static com.google.common.base.Optional.fromNullable;
+import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
 import static org.apache.commons.lang3.StringUtils.repeat;
+import static org.springframework.util.ReflectionUtils.findField;
 
 import java.lang.reflect.Field;
 import java.util.List;
 
 import org.junit.Test;
-import org.kuali.common.util.tree.Node;
+import org.kuali.common.util.tree.MutableNode;
 import org.springframework.core.convert.TypeDescriptor;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Joiner;
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public class BasketTest2 {
@@ -34,9 +38,28 @@ public class BasketTest2 {
 		}
 	}
 
-	protected Node<JsonDescriptor> buildTree(Class<?> type, JsonNode node) {
-		TypeDescriptor descriptor = new TypeDescriptor((Field) null);
-		return null;
+	protected MutableNode<JsonDescriptor> buildTree(Class<?> type, Optional<TypeDescriptor> descriptor, JsonNode node) {
+		JsonDescriptor jd = JsonDescriptor.builder().type(type).descriptor(descriptor).node(node).build();
+		MutableNode<JsonDescriptor> mutable = MutableNode.of(jd);
+		for (JsonDescriptor child : getChildren(type, node)) {
+			MutableNode<JsonDescriptor> childNode = buildTree(child.getType(), child.getDescriptor(), child.getNode());
+			mutable.add(childNode);
+		}
+		return mutable;
+	}
+
+	protected List<JsonDescriptor> getChildren(Class<?> type, JsonNode node) {
+		List<JsonDescriptor> children = newArrayList();
+		for (String fieldName : newArrayList(node.fieldNames())) {
+			Optional<JsonNode> childNode = fromNullable(node.get(fieldName));
+			Optional<Field> childField = fromNullable(findField(type, fieldName));
+			checkState(childNode.isPresent(), "[%s] does not contain field %s", node, fieldName);
+			checkState(childField.isPresent(), "[%s] does not contain field %s", type.getCanonicalName(), fieldName);
+			TypeDescriptor childDescriptor = new TypeDescriptor(childField.get());
+			JsonDescriptor child = JsonDescriptor.builder().type(childField.get().getType()).descriptor(childDescriptor).node(childNode.get()).build();
+			children.add(child);
+		}
+		return children;
 	}
 
 	protected void print(JsonNode node) {
