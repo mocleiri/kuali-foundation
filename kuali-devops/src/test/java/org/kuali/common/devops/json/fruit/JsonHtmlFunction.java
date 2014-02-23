@@ -1,5 +1,7 @@
 package org.kuali.common.devops.json.fruit;
 
+import static com.google.common.base.Optional.fromNullable;
+import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
@@ -7,9 +9,11 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 import java.util.List;
 
 import org.kuali.common.util.tree.Node;
+import org.springframework.core.convert.TypeDescriptor;
 
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
+import com.google.common.base.Optional;
 
 public class JsonHtmlFunction implements Function<Node<JsonDescriptor>, String> {
 
@@ -28,6 +32,9 @@ public class JsonHtmlFunction implements Function<Node<JsonDescriptor>, String> 
 		strings.add(tr("json container", desc.getNode().isContainerNode()));
 		strings.add(tr("json array", desc.getNode().isArray()));
 		strings.addAll(getJava(desc));
+		if (node.isLeaf()) {
+			strings.add(tr("json", desc.getNode().toString()));
+		}
 		return "<table border=0>" + Joiner.on("").join(strings) + "</table>";
 	}
 
@@ -39,6 +46,13 @@ public class JsonHtmlFunction implements Function<Node<JsonDescriptor>, String> 
 		List<String> strings = newArrayList();
 		strings.add(tr("java array", fd.isArray()));
 		strings.add(tr("java collection", fd.isCollection()));
+		if (fd.isCollection() || fd.isArray()) {
+			Optional<TypeDescriptor> etd = fromNullable(fd.getElementTypeDescriptor());
+			checkState(etd.isPresent(), "type descriptor cannot be missing here");
+			strings.add(tr("java collection type", etd.get().getType().getSimpleName()));
+		} else {
+			strings.add(tr("java collection type", "n/a"));
+		}
 		return strings;
 	}
 
