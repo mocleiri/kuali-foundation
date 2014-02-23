@@ -65,6 +65,8 @@ public class BasketTest {
 	}
 
 	protected static <T> T recurse(ObjectMapper mapper, JsonNode node, Class<T> type, Optional<Field> field) {
+
+		// If we are recursing, the node must be a container node
 		checkState(node.isContainerNode(), "[%s] is not a container node", node);
 
 		// Handle JSON array's
