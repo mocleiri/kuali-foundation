@@ -131,8 +131,7 @@ public class BasketTest {
 
 	protected static <T> T read(ObjectMapper mapper, JsonNode node, Class<T> type) {
 		try {
-			String json = node.toString();
-			return mapper.readValue(json, type);
+			return mapper.readValue(node.toString(), type);
 		} catch (Exception e) {
 			throw illegalState(e);
 		}
