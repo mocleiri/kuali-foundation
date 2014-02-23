@@ -40,6 +40,20 @@ public final class FancyMilk {
 		private List<String> ingredients = ImmutableList.of();
 		private Map<String, String> nutritionFacts = ImmutableMap.of();
 
+		@Override
+		public Set<ConstraintViolation<FancyMilk>> violations() {
+			return violations(make());
+		}
+
+		@Override
+		public FancyMilk build() {
+			return validate(make());
+		}
+
+		private FancyMilk make() {
+			return new FancyMilk(this);
+		}
+
 		public Builder nutritionFacts(Map<String, String> nutritionFacts) {
 			this.nutritionFacts = nutritionFacts;
 			return this;
@@ -58,20 +72,6 @@ public final class FancyMilk {
 		public Builder type(String type) {
 			this.type = type;
 			return this;
-		}
-
-		@Override
-		public Set<ConstraintViolation<FancyMilk>> violations() {
-			return violations(make());
-		}
-
-		@Override
-		public FancyMilk build() {
-			return validate(make());
-		}
-
-		private FancyMilk make() {
-			return new FancyMilk(this);
 		}
 
 		public double getPrice() {
