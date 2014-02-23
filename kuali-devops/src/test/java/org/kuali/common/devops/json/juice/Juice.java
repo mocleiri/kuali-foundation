@@ -77,7 +77,7 @@ public final class Juice {
 		return price;
 	}
 
-	public ImmutableList<Ingredient> getIngredients() {
+	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
 }
