@@ -35,6 +35,8 @@ public class BuilderUtils {
 	}
 
 	/**
+	 * Examine {@code type} to see if it declares a public static inner class that implements the Builder interface.
+	 * 
 	 * The assumption implied by the {@code SuppressWarnings} annotation is that any class declaring a public static inner class implementing the {@code Builder} interface will
 	 * produce instances of the class it is declared in.
 	 */
