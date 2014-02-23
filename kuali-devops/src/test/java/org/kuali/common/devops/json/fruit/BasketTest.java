@@ -38,11 +38,11 @@ public class BasketTest {
 			Basket basket = Basket.builder().apples(apples).build();
 			ObjectMapper mapper = new ObjectMapper();
 			String json = mapper.writeValueAsString(basket);
+			JsonNode node = mapper.readTree(json);
+			print(node);
 			System.out.println(json);
 			Basket newBasket = create(basket.getClass(), mapper, json);
 			System.out.println(mapper.writeValueAsString(newBasket));
-			JsonNode node = mapper.readTree(json);
-			print(node);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -132,7 +132,8 @@ public class BasketTest {
 
 	protected static <T> T read(ObjectMapper mapper, JsonNode node, Class<T> type) {
 		try {
-			return mapper.readValue(node.toString(), type);
+			String json = node.toString();
+			return mapper.readValue(json, type);
 		} catch (Exception e) {
 			throw illegalState(e);
 		}
