@@ -5,12 +5,15 @@ import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
+import static org.kuali.common.util.build.BuilderUtils.findPublicStaticBuilderClass;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.Builder;
 import org.kuali.common.util.tree.Node;
 import org.springframework.core.convert.TypeDescriptor;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
@@ -35,7 +38,27 @@ public class JsonHtmlFunction implements Function<Node<JsonDescriptor>, String> 
 		if (node.isLeaf()) {
 			strings.add(tr("json", desc.getNode().toString()));
 		}
+		Class<?> typeToCreate = findTypeToCreate(desc);
+		strings.add(tr("type to create", typeToCreate.getSimpleName()));
+		Optional<?> builderClass = findPublicStaticBuilderClass(typeToCreate);
+		if (builderClass.isPresent()) {
+			@SuppressWarnings("unchecked")
+			Class<Builder<?>> builder = (Class<Builder<?>>) builderClass.get();
+			strings.add(tr("builder", builder.getCanonicalName()));
+		}
 		return "<table border=0>" + Joiner.on("").join(strings) + "</table>";
+	}
+
+	protected Class<?> findTypeToCreate(JsonDescriptor desc) {
+		JsonNode node = desc.getNode();
+		if (node.isArray()) {
+			checkState(desc.getDescriptor().isPresent(), "field descriptor must be present");
+			FieldDescriptor fd = desc.getDescriptor().get();
+			checkState(fd.getElementTypeDescriptor() != null, "element type descriptor must be present");
+			return fd.getElementTypeDescriptor().getType();
+		} else {
+			return desc.getType();
+		}
 	}
 
 	protected List<String> getJava(JsonDescriptor desc) {
