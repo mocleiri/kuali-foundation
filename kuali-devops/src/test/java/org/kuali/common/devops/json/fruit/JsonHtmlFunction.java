@@ -17,14 +17,20 @@ public class JsonHtmlFunction implements Function<Node<JsonDescriptor>, String> 
 		checkNotNull(node, "node");
 		JsonDescriptor desc = node.getElement();
 		List<String> strings = newArrayList();
-		strings.add("type: " + desc.getType().getSimpleName());
+		strings.add(tr("type", desc.getType().getSimpleName()));
 		if (desc.getDescriptor().isPresent()) {
 			FieldDescriptor fd = desc.getDescriptor().get();
-			strings.add("name:" + fd.getField().getName());
+			strings.add(tr("field name", fd.getField().getName()));
 		} else {
-			strings.add("name:none");
+			strings.add(tr("field name", "n/a"));
 		}
-		return "<table border=1><tr><td>" + Joiner.on("</td></tr><tr><td>").join(strings) + "</td></tr></table>";
+		strings.add(tr("json container", desc.getNode().isContainerNode()));
+		strings.add(tr("json array", desc.getNode().isArray()));
+		return "<table border=0>" + Joiner.on("").join(strings) + "</table>";
+	}
+
+	protected String tr(String label, Object value) {
+		return "<tr><td align=right>" + label + "</td><td>&nbsp;</td><td>" + value.toString() + "</td></tr>";
 	}
 
 }
