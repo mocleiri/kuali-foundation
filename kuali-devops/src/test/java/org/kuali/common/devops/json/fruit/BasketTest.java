@@ -24,7 +24,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
 public class BasketTest {
@@ -66,7 +65,7 @@ public class BasketTest {
 	}
 
 	protected static <T> T recurse(ObjectMapper mapper, JsonNode node, Class<T> type, Optional<Field> field) {
-		Preconditions.checkState(node.isContainerNode(), "[%s] is not a container node");
+		checkState(node.isContainerNode(), "[%s] is not a container node", node);
 		if (node.isArray()) {
 			return doArray(field, node);
 		} else {
