@@ -116,7 +116,7 @@ public class BasketTest {
 		Optional<Class<Builder<T>>> builderClass = findPublicStaticBuilderClass(type);
 		if (builderClass.isPresent()) {
 			// Parse the JSON into an instance of a Builder class
-			// Invoke the build() method to produce an object instance
+			// Invoke it's build() method to produce an object instance
 			return read(mapper, node, builderClass.get()).build();
 		} else {
 			// Parse the JSON directly into an object instance
