@@ -41,6 +41,8 @@ public class SuperFancyBowlTest {
 			System.out.println(json);
 			SuperFancyBowl newBowl = build(bowl.getClass(), mapper, json);
 			System.out.println(mapper.writeValueAsString(newBowl));
+			JsonNode node = mapper.readTree(json);
+			print(node);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -53,6 +55,9 @@ public class SuperFancyBowlTest {
 
 	protected static <T> T build(Class<T> type, ObjectMapper mapper, JsonNode node) {
 		Optional<Class<Builder<T>>> builderClass = findPublicStaticBuilderClass(type);
+		if (node.isArray()) {
+			System.out.println("yo");
+		}
 		if (builderClass.isPresent()) {
 			if (node.isContainerNode()) {
 				return recurse(mapper, node, builderClass.get()).build();
