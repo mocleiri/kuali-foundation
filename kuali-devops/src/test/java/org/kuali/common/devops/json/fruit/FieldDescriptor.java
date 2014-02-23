@@ -6,7 +6,7 @@ import java.lang.reflect.Field;
 
 import org.springframework.core.convert.TypeDescriptor;
 
-public final class FieldDescriptor extends TypeDescriptor {
+public class FieldDescriptor extends TypeDescriptor {
 
 	private static final long serialVersionUID = 1L;
 
