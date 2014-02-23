@@ -27,7 +27,19 @@ public class JsonHtmlFunction implements Function<Node<JsonDescriptor>, String> 
 		}
 		strings.add(tr("json container", desc.getNode().isContainerNode()));
 		strings.add(tr("json array", desc.getNode().isArray()));
+		strings.addAll(getJava(desc));
 		return "<table border=0>" + Joiner.on("").join(strings) + "</table>";
+	}
+
+	protected List<String> getJava(JsonDescriptor desc) {
+		if (!desc.getDescriptor().isPresent()) {
+			return newArrayList();
+		}
+		FieldDescriptor fd = desc.getDescriptor().get();
+		List<String> strings = newArrayList();
+		strings.add(tr("java array", fd.isArray()));
+		strings.add(tr("java collection", fd.isCollection()));
+		return strings;
 	}
 
 	protected String tr(String label, Object value) {
