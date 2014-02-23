@@ -3,6 +3,7 @@ package org.kuali.common.devops.json.fruit;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
+import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 import static org.kuali.common.util.build.BuilderUtils.findPublicStaticBuilderClass;
@@ -14,11 +15,15 @@ import org.kuali.common.util.tree.Node;
 import org.springframework.core.convert.TypeDescriptor;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 
 public class JsonHtmlFunction implements Function<Node<JsonDescriptor>, String> {
+
+	ObjectMapper mapper = new ObjectMapper();
+	private int count = 1;
 
 	@Override
 	public String apply(Node<JsonDescriptor> node) {
@@ -45,8 +50,20 @@ public class JsonHtmlFunction implements Function<Node<JsonDescriptor>, String> 
 			@SuppressWarnings("unchecked")
 			Class<Builder<?>> builder = (Class<Builder<?>>) builderClass.get();
 			strings.add(tr("builder", builder.getCanonicalName()));
+		} else {
+			Object instance = getInstance(desc);
+			strings.add(tr("instance", instance));
 		}
+		strings.add(tr("count", count++));
 		return "<table border=0>" + Joiner.on("").join(strings) + "</table>";
+	}
+
+	protected Object getInstance(JsonDescriptor desc) {
+		try {
+			return mapper.readValue(desc.getNode().toString(), desc.getType());
+		} catch (Exception e) {
+			throw illegalState(e);
+		}
 	}
 
 	protected Class<?> findTypeToCreate(JsonDescriptor desc) {
