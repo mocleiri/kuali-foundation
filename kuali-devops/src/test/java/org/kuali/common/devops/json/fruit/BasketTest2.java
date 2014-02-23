@@ -56,15 +56,15 @@ public class BasketTest2 {
 		return mutable;
 	}
 
-	protected List<JsonDescriptor> getChildren(Class<?> type, JsonNode node) {
+	protected List<JsonDescriptor> getChildren(Class<?> type, JsonNode json) {
 		List<JsonDescriptor> children = newArrayList();
-		for (String fieldName : newArrayList(node.fieldNames())) {
-			Optional<JsonNode> childNode = fromNullable(node.get(fieldName));
-			Optional<Field> childField = fromNullable(findField(type, fieldName));
-			checkState(childNode.isPresent(), "[%s] does not contain field '%s'", node, fieldName);
-			checkState(childField.isPresent(), "[%s] does not contain field '%s'", type.getCanonicalName(), fieldName);
-			TypeDescriptor childTypeDescriptor = new TypeDescriptor(childField.get());
-			JsonDescriptor child = JsonDescriptor.builder().type(childField.get().getType()).descriptor(childTypeDescriptor).node(childNode.get()).build();
+		for (String fieldName : newArrayList(json.fieldNames())) {
+			Optional<JsonNode> node = fromNullable(json.get(fieldName));
+			Optional<Field> field = fromNullable(findField(type, fieldName));
+			checkState(node.isPresent(), "[%s] does not contain field '%s'", json, fieldName);
+			checkState(field.isPresent(), "[%s] does not contain field '%s'", type.getCanonicalName(), fieldName);
+			TypeDescriptor descriptor = new TypeDescriptor(field.get());
+			JsonDescriptor child = JsonDescriptor.builder().type(field.get().getType()).descriptor(descriptor).node(node.get()).build();
 			children.add(child);
 		}
 		return children;
