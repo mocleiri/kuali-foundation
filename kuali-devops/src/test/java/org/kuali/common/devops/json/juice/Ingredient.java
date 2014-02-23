@@ -16,6 +16,10 @@ public final class Ingredient {
 		this.description = builder.description;
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder extends ValidatingBuilder<Ingredient> {
 
 		private String name;

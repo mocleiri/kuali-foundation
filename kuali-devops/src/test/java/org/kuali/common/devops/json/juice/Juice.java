@@ -29,8 +29,8 @@ public final class Juice {
 
 	public static class Builder extends ValidatingBuilder<Juice> {
 
-		private double price = -1;
-		private List<Ingredient> ingredients;
+		private double price;
+		private List<Ingredient> ingredients = ImmutableList.of();
 
 		@Override
 		public Set<ConstraintViolation<Juice>> violations() {
@@ -40,6 +40,16 @@ public final class Juice {
 		@Override
 		public Juice build() {
 			return validate(make());
+		}
+
+		public Builder price(double price) {
+			this.price = price;
+			return this;
+		}
+
+		public Builder ingredients(List<Ingredient> ingredients) {
+			this.ingredients = ingredients;
+			return this;
 		}
 
 		private Juice make() {
