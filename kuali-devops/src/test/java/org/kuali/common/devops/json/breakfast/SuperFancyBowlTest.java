@@ -55,7 +55,7 @@ public class SuperFancyBowlTest {
 		Optional<Class<Builder<T>>> builderClass = findPublicStaticBuilderClass(type);
 		if (builderClass.isPresent()) {
 			if (node.isContainerNode()) {
-				return recurse(mapper, node, builderClass.get());
+				return recurse(mapper, node, builderClass.get()).build();
 			} else {
 				return readValue(mapper, node, builderClass.get()).build();
 			}
@@ -64,7 +64,7 @@ public class SuperFancyBowlTest {
 		}
 	}
 
-	protected static <T> T recurse(ObjectMapper mapper, JsonNode node, Class<Builder<T>> builderClass) {
+	protected static <T> Builder<T> recurse(ObjectMapper mapper, JsonNode node, Class<Builder<T>> builderClass) {
 		Map<String, Object> fields = newHashMap();
 		for (String fieldName : newArrayList(node.getFieldNames())) {
 			Optional<JsonNode> child = fromNullable(node.get(fieldName));
@@ -78,7 +78,7 @@ public class SuperFancyBowlTest {
 		for (String field : fields.keySet()) {
 			copyProperty(builder, field, fields.get(field));
 		}
-		return builder.build();
+		return builder;
 	}
 
 	protected static <T> T readValue(ObjectMapper mapper, JsonNode node, Class<T> type) {
