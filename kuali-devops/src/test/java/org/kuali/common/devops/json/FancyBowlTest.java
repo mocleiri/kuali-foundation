@@ -35,10 +35,8 @@ public class FancyBowlTest {
 			ObjectMapper mapper = new ObjectMapper();
 			String json = mapper.writeValueAsString(bowl);
 			System.out.println(json);
-			JsonNode node = mapper.readTree(json);
-			print(node);
 			FancyBowl newBowl = build(bowl.getClass(), mapper, json);
-			System.out.println(newBowl.getMilk().getPrice());
+			System.out.println(mapper.writeValueAsString(newBowl));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -47,6 +45,19 @@ public class FancyBowlTest {
 	protected static <T> T build(Class<T> type, ObjectMapper mapper, String json) {
 		JsonNode node = readTree(mapper, json);
 		return build(type, mapper, node);
+	}
+
+	protected static <T> T build(Class<T> type, ObjectMapper mapper, JsonNode node) {
+		Optional<Class<Builder<T>>> builderClass = findPublicStaticBuilderClass(type);
+		if (builderClass.isPresent()) {
+			if (node.isContainerNode()) {
+				return buildManually(mapper, node, builderClass.get());
+			} else {
+				return readValue(mapper, node, builderClass.get()).build();
+			}
+		} else {
+			return readValue(mapper, node, type);
+		}
 	}
 
 	protected static <T> T buildManually(ObjectMapper mapper, JsonNode node, Class<Builder<T>> builderClass) {
@@ -64,19 +75,6 @@ public class FancyBowlTest {
 			copyProperty(builder, field, fields.get(field));
 		}
 		return builder.build();
-	}
-
-	protected static <T> T build(Class<T> type, ObjectMapper mapper, JsonNode node) {
-		Optional<Class<Builder<T>>> builderClass = findPublicStaticBuilderClass(type);
-		if (builderClass.isPresent()) {
-			if (node.isContainerNode()) {
-				return buildManually(mapper, node, builderClass.get());
-			} else {
-				return readValue(mapper, node, builderClass.get()).build();
-			}
-		} else {
-			return readValue(mapper, node, type);
-		}
 	}
 
 	protected static <T> T readValue(ObjectMapper mapper, JsonNode node, Class<T> type) {
