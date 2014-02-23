@@ -33,7 +33,7 @@ public class BasketTest {
 			Apple a1 = Apple.builder().color("red").build();
 			Apple a2 = Apple.builder().color("green").build();
 			List<Apple> apples = ImmutableList.of(a1, a2);
-			Basket basket = Basket.builder().apples(apples).build();
+			Basket basket = Basket.builder().apples(apples).material("straw").build();
 			ObjectMapper mapper = new ObjectMapper();
 			String json = mapper.writeValueAsString(basket);
 			JsonNode node = mapper.readTree(json);
