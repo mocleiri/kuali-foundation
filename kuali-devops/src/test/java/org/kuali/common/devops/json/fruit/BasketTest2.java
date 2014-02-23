@@ -4,7 +4,6 @@ import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
-import static org.apache.commons.lang3.StringUtils.repeat;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.log.Loggers.newLogger;
 import static org.springframework.util.ReflectionUtils.findField;
@@ -25,7 +24,6 @@ import org.slf4j.Logger;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
@@ -87,32 +85,6 @@ public class BasketTest2 {
 			children.add(child);
 		}
 		return children;
-	}
-
-	protected void print(JsonNode node) {
-		print(node, 0);
-	}
-
-	protected void print(final JsonNode node, final int indent) {
-		System.out.println(repeat(" ", indent) + toString(node));
-		int indentation = indent + 2;
-		for (JsonNode element : newArrayList(node.iterator())) {
-			print(element, indentation);
-		}
-	}
-
-	protected String toString(JsonNode node) {
-		List<String> strings = newArrayList();
-		strings.add("container=" + node.isContainerNode() + "");
-		strings.add("value=" + node.isValueNode() + "");
-		strings.add("array=" + node.isArray());
-		List<String> fields = newArrayList(node.fieldNames());
-		if (!fields.isEmpty()) {
-			strings.add("fields=" + Joiner.on(',').join(fields));
-		} else {
-			strings.add("fields=none");
-		}
-		return Joiner.on(" :: ").join(strings);
 	}
 
 }
