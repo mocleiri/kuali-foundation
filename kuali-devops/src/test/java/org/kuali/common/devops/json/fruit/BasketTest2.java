@@ -54,7 +54,7 @@ public class BasketTest2 {
 		} else {
 			strings.add("fields=none");
 		}
-		return Joiner.on("::").join(strings);
+		return Joiner.on(" :: ").join(strings);
 	}
 
 }
