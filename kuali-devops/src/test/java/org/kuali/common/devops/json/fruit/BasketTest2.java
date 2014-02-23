@@ -10,7 +10,9 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import org.junit.Test;
+import org.kuali.common.util.tree.ImmutableNode;
 import org.kuali.common.util.tree.MutableNode;
+import org.kuali.common.util.tree.Node;
 import org.springframework.core.convert.TypeDescriptor;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -33,9 +35,15 @@ public class BasketTest2 {
 			JsonNode node = mapper.readTree(json);
 			print(node);
 			System.out.println(json);
+			Node<JsonDescriptor> tree = ImmutableNode.copyOf(buildTree(Basket.class, node));
+			System.out.println(tree);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected MutableNode<JsonDescriptor> buildTree(Class<?> type, JsonNode node) {
+		return buildTree(type, Optional.<TypeDescriptor> absent(), node);
 	}
 
 	protected MutableNode<JsonDescriptor> buildTree(Class<?> type, Optional<TypeDescriptor> descriptor, JsonNode node) {
@@ -55,8 +63,8 @@ public class BasketTest2 {
 			Optional<Field> childField = fromNullable(findField(type, fieldName));
 			checkState(childNode.isPresent(), "[%s] does not contain field %s", node, fieldName);
 			checkState(childField.isPresent(), "[%s] does not contain field %s", type.getCanonicalName(), fieldName);
-			TypeDescriptor childDescriptor = new TypeDescriptor(childField.get());
-			JsonDescriptor child = JsonDescriptor.builder().type(childField.get().getType()).descriptor(childDescriptor).node(childNode.get()).build();
+			TypeDescriptor childTypeDescriptor = new TypeDescriptor(childField.get());
+			JsonDescriptor child = JsonDescriptor.builder().type(childField.get().getType()).descriptor(childTypeDescriptor).node(childNode.get()).build();
 			children.add(child);
 		}
 		return children;
