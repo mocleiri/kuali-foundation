@@ -10,10 +10,13 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.google.common.collect.ImmutableList;
 
 @IdiotProofImmutable
+@JsonDeserialize(builder = JacksonContext.Builder.class)
 public final class JacksonContext {
 
 	private final ObjectMapper mapper;
@@ -39,6 +42,7 @@ public final class JacksonContext {
 		return new Builder();
 	}
 
+	@JsonPOJOBuilder(withPrefix = "")
 	public static class Builder extends ValidatingBuilder<JacksonContext> {
 
 		private boolean prettyPrint = true;
