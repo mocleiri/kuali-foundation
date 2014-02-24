@@ -69,6 +69,26 @@ public final class Basket {
 			return this;
 		}
 
+		public List<Apple> getApples() {
+			return apples;
+		}
+
+		public void setApples(List<Apple> apples) {
+			this.apples = apples;
+		}
+
+		public Optional<Apple> getApple() {
+			return apple;
+		}
+
+		public void setApple(Optional<Apple> apple) {
+			this.apple = apple;
+		}
+
+		public String getMaterial() {
+			return material;
+		}
+
 	}
 
 	public String getMaterial() {
