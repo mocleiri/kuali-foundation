@@ -25,6 +25,7 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 import java.io.IOException;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.google.common.base.Optional;
 
 @JsonDeserialize(builder = HttpRequestResult.Builder.class)
@@ -54,6 +55,7 @@ public final class HttpRequestResult {
 		return new Builder(exception, start);
 	}
 
+	@JsonPOJOBuilder(withPrefix = "")
 	public static class Builder implements org.apache.commons.lang3.builder.Builder<HttpRequestResult> {
 
 		private String statusText;
