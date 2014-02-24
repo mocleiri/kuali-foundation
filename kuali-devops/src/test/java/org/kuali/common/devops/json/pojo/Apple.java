@@ -12,9 +12,11 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.Optional;
 
 @IdiotProofImmutable
+@JsonDeserialize(builder = Apple.Builder.class)
 public final class Apple {
 
 	private final String color;
@@ -27,12 +29,6 @@ public final class Apple {
 		this.weight = builder.weight;
 		this.rotten = builder.rotten;
 		this.purchased = builder.purchased;
-	}
-
-	@JsonCreator
-	private static Apple jsonCreator(@JsonProperty("color") String color, @JsonProperty("weight") Optional<Double> weight, @JsonProperty("rotten") boolean rotten,
-			@JsonProperty("purchased") Date purchased) {
-		return builder(color).weight(weight).rotten(rotten).purchased(purchased).build();
 	}
 
 	public static Apple newApple(String color) {
@@ -50,7 +46,8 @@ public final class Apple {
 		private boolean rotten = false;
 		private Date purchased = new Date();
 
-		public Builder(String color) {
+		@JsonCreator
+		public Builder(@JsonProperty("color") String color) {
 			this.color = color;
 		}
 
@@ -68,23 +65,23 @@ public final class Apple {
 			return new Apple(this);
 		}
 
-		public Builder purchased(Date purchased) {
+		public Builder withPurchased(Date purchased) {
 			this.purchased = purchased;
 			return this;
 		}
 
-		public Builder rotten(boolean rotten) {
+		public Builder withRotten(boolean rotten) {
 			this.rotten = rotten;
 			return this;
 		}
 
-		public Builder weight(Optional<Double> weight) {
+		public Builder withWeight(Optional<Double> weight) {
 			this.weight = weight;
 			return this;
 		}
 
-		public Builder weight(double weight) {
-			return weight(Optional.of(weight));
+		public Builder withWeight(double weight) {
+			return withWeight(Optional.of(weight));
 		}
 
 		public String getColor() {

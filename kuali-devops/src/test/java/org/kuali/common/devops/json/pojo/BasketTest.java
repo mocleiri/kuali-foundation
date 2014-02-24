@@ -17,7 +17,7 @@ public class BasketTest {
 	public void test() {
 		try {
 			System.out.println(currentTimeMillis());
-			Basket basket1 = Basket.builder("straw").apples(createApples()).apple(newApple("green")).build();
+			Basket basket1 = Basket.builder("straw").withApples(createApples()).withApple(newApple("green")).build();
 			JsonService service = newJacksonJsonService();
 			String json1 = service.writeString(basket1);
 			System.out.println(json1);

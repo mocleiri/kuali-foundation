@@ -12,10 +12,12 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 @IdiotProofImmutable
+@JsonDeserialize(builder = Basket.Builder.class)
 public final class Basket {
 
 	private final String material;
@@ -28,11 +30,6 @@ public final class Basket {
 		this.apple = builder.apple;
 	}
 
-	@JsonCreator
-	private static Basket jsonCreator(@JsonProperty("material") String material, @JsonProperty("apples") List<Apple> apples, @JsonProperty("apple") Optional<Apple> apple) {
-		return builder(material).apples(apples).apple(apple).build();
-	}
-
 	public static Builder builder(String material) {
 		return new Builder(material);
 	}
@@ -43,7 +40,8 @@ public final class Basket {
 		private List<Apple> apples = ImmutableList.of();
 		private Optional<Apple> apple = absent();
 
-		public Builder(String material) {
+		@JsonCreator
+		public Builder(@JsonProperty("material") String material) {
 			this.material = material;
 		}
 
@@ -61,16 +59,16 @@ public final class Basket {
 			return new Basket(this);
 		}
 
-		public Builder apple(Optional<Apple> apple) {
+		public Builder withApple(Optional<Apple> apple) {
 			this.apple = apple;
 			return this;
 		}
 
-		public Builder apple(Apple apple) {
-			return apple(Optional.of(apple));
+		public Builder withApple(Apple apple) {
+			return withApple(Optional.of(apple));
 		}
 
-		public Builder apples(List<Apple> apples) {
+		public Builder withApples(List<Apple> apples) {
 			this.apples = apples;
 			return this;
 		}
@@ -101,7 +99,7 @@ public final class Basket {
 		return material;
 	}
 
-	public ImmutableList<Apple> getApples() {
+	public List<Apple> getApples() {
 		return apples;
 	}
 
