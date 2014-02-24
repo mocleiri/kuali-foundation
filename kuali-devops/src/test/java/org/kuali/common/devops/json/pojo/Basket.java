@@ -29,7 +29,7 @@ public final class Basket {
 	}
 
 	@JsonCreator
-	private static Basket newBasket(@JsonProperty("material") String material, @JsonProperty("apples") List<Apple> apples, @JsonProperty("apple") Optional<Apple> apple) {
+	private static Basket jsonCreator(@JsonProperty("material") String material, @JsonProperty("apples") List<Apple> apples, @JsonProperty("apple") Optional<Apple> apple) {
 		return builder(material).apples(apples).apple(apple).build();
 	}
 

@@ -26,17 +26,9 @@ public final class Apple {
 		this.rotten = builder.rotten;
 	}
 
-	public static Apple newApple(String color) {
-		return newApple(color, Optional.<Double> absent());
-	}
-
-	public static Apple newApple(String color, double weight) {
-		return newApple(color, Optional.of(weight));
-	}
-
 	@JsonCreator
-	public static Apple newApple(@JsonProperty("color") String color, @JsonProperty("weight") Optional<Double> weight) {
-		return builder(color).weight(weight).build();
+	private static Apple jsonCreator(@JsonProperty("color") String color, @JsonProperty("weight") Optional<Double> weight, @JsonProperty("rotten") boolean rotten) {
+		return builder(color).weight(weight).rotten(rotten).build();
 	}
 
 	public static Builder builder(String color) {
@@ -47,7 +39,7 @@ public final class Apple {
 
 		private final String color;
 		private Optional<Double> weight = absent();
-		private boolean rotten;
+		private boolean rotten = false;
 
 		public Builder(String color) {
 			this.color = color;
