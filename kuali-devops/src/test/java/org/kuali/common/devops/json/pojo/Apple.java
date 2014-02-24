@@ -24,19 +24,31 @@ public final class Apple {
 		this.weight = builder.weight;
 	}
 
-	@JsonCreator
-	public static Apple create(@JsonProperty("color") String color) {
-		return builder().color(color).build();
+	public static Apple create(String color) {
+		return create(color, Optional.<Double> absent());
 	}
 
-	public static Builder builder() {
-		return new Builder();
+	public static Apple create(String color, double weight) {
+		return create(color, Optional.of(weight));
+	}
+
+	@JsonCreator
+	public static Apple create(@JsonProperty("color") String color, @JsonProperty("weight") Optional<Double> weight) {
+		return builder(color).weight(weight).build();
+	}
+
+	public static Builder builder(String color) {
+		return new Builder(color);
 	}
 
 	public static class Builder extends ValidatingBuilder<Apple> {
 
-		private String color;
+		private final String color;
 		private Optional<Double> weight = absent();
+
+		public Builder(String color) {
+			this.color = color;
+		}
 
 		@Override
 		public Apple build() {
@@ -52,23 +64,35 @@ public final class Apple {
 			return new Apple(this);
 		}
 
-		public Builder color(String color) {
-			this.color = color;
+		public Builder weight(Optional<Double> weight) {
+			this.weight = weight;
 			return this;
+		}
+
+		public Builder weight(double weight) {
+			return weight(Optional.of(weight));
 		}
 
 		public String getColor() {
 			return color;
 		}
 
-		public void setColor(String color) {
-			this.color = color;
+		public Optional<Double> getWeight() {
+			return weight;
+		}
+
+		public void setWeight(Optional<Double> weight) {
+			this.weight = weight;
 		}
 
 	}
 
 	public String getColor() {
 		return color;
+	}
+
+	public Optional<Double> getWeight() {
+		return weight;
 	}
 
 }
