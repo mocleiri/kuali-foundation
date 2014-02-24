@@ -11,14 +11,12 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.base.Optional;
 
 @IdiotProofImmutable
 public final class Apple {
 
 	private final String color;
-	@JsonSerialize(using = OptionalDoubleSerializer.class)
 	private final Optional<Double> weight;
 
 	private Apple(Builder builder) {
@@ -26,16 +24,16 @@ public final class Apple {
 		this.weight = builder.weight;
 	}
 
-	public static Apple create(String color) {
-		return create(color, Optional.<Double> absent());
+	public static Apple createApple(String color) {
+		return createApple(color, Optional.<Double> absent());
 	}
 
-	public static Apple create(String color, double weight) {
-		return create(color, Optional.of(weight));
+	public static Apple createApple(String color, double weight) {
+		return createApple(color, Optional.of(weight));
 	}
 
 	@JsonCreator
-	public static Apple create(@JsonProperty("color") String color, @JsonProperty("weight") Optional<Double> weight) {
+	public static Apple createApple(@JsonProperty("color") String color, @JsonProperty("weight") Optional<Double> weight) {
 		return builder(color).weight(weight).build();
 	}
 
