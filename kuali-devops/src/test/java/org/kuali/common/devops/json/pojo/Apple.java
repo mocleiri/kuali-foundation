@@ -18,10 +18,12 @@ public final class Apple {
 
 	private final String color;
 	private final Optional<Double> weight;
+	private final boolean rotten;
 
 	private Apple(Builder builder) {
 		this.color = builder.color;
 		this.weight = builder.weight;
+		this.rotten = builder.rotten;
 	}
 
 	public static Apple newApple(String color) {
@@ -45,6 +47,7 @@ public final class Apple {
 
 		private final String color;
 		private Optional<Double> weight = absent();
+		private boolean rotten;
 
 		public Builder(String color) {
 			this.color = color;
@@ -62,6 +65,11 @@ public final class Apple {
 
 		private Apple make() {
 			return new Apple(this);
+		}
+
+		public Builder rotten(boolean rotten) {
+			this.rotten = rotten;
+			return this;
 		}
 
 		public Builder weight(Optional<Double> weight) {
@@ -85,6 +93,14 @@ public final class Apple {
 			this.weight = weight;
 		}
 
+		public boolean isRotten() {
+			return rotten;
+		}
+
+		public void setRotten(boolean rotten) {
+			this.rotten = rotten;
+		}
+
 	}
 
 	public String getColor() {
@@ -93,6 +109,10 @@ public final class Apple {
 
 	public Optional<Double> getWeight() {
 		return weight;
+	}
+
+	public boolean isRotten() {
+		return rotten;
 	}
 
 }
