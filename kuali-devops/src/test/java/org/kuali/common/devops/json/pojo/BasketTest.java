@@ -3,6 +3,7 @@ package org.kuali.common.devops.json.pojo;
 import static java.lang.System.currentTimeMillis;
 import static org.junit.Assert.assertEquals;
 import static org.kuali.common.devops.json.pojo.Apple.newApple;
+import static org.kuali.common.devops.json.pojo.JacksonContext.newJacksonJsonContext;
 
 import java.util.List;
 
@@ -24,6 +25,9 @@ public class BasketTest {
 			String json2 = service.writeString(basket2);
 			System.out.println(json2);
 			assertEquals(json1, json2);
+			JacksonContext context = newJacksonJsonContext();
+			String json3 = service.writeString(context);
+			System.out.println(json3);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}

@@ -8,6 +8,7 @@ import javax.validation.ConstraintViolation;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -19,6 +20,7 @@ import com.google.common.collect.ImmutableList;
 @JsonDeserialize(builder = JacksonContext.Builder.class)
 public final class JacksonContext {
 
+	@JsonIgnore
 	private final ObjectMapper mapper;
 	private final boolean prettyPrint;
 	private final ImmutableList<Module> modules;
