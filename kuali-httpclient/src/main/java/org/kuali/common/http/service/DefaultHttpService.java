@@ -226,15 +226,8 @@ public class DefaultHttpService implements HttpService {
 		} catch (IOException e) {
 			throw illegalState("unexpected io error", e);
 		} finally {
-			if (context.isAsynchronousClose()) {
-				Runnable runnable = new AsynchronousCloser(response, in);
-				Thread thread = new Thread(runnable, "async http closer");
-				thread.setDaemon(true);
-				thread.start();
-			} else {
-				IOUtils.closeQuietly(response);
-				IOUtils.closeQuietly(in);
-			}
+			IOUtils.closeQuietly(response);
+			IOUtils.closeQuietly(in);
 		}
 	}
 

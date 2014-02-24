@@ -45,9 +45,6 @@ public final class HttpContext {
 	private final Optional<Integer> maxRetries;
 	// The max number of bytes to read
 	private final Optional<Long> maxBytes;
-	// HttpClient 3.1 always reads to the end of the InputStream no matter what when you close it
-	// If this flag is set to true, the closing of the InputStream is done in a separate non-blocking thread to get around that
-	private final boolean asynchronousClose;
 
 	// If Tomcat is fronted by an Apache web server, and Apache is up and running but Tomcat is still starting, http 503 is returned by Apache
 	// We don't want to fail if we get a 503, just continue waiting
@@ -87,7 +84,6 @@ public final class HttpContext {
 		private boolean quiet = false;
 		private Optional<Long> maxBytes = Optional.absent();
 		private Optional<Integer> maxRetries = Optional.absent();
-		private boolean asynchronousClose = false;
 
 		public Builder() {
 			this(NullUtils.NONE);
@@ -95,11 +91,6 @@ public final class HttpContext {
 
 		public Builder(String url) {
 			this.url = url;
-		}
-
-		public Builder asynchronousClose(boolean asynchronousClose) {
-			this.asynchronousClose = asynchronousClose;
-			return this;
 		}
 
 		public Builder maxRetries(Optional<Integer> maxRetries) {
@@ -285,14 +276,6 @@ public final class HttpContext {
 			this.maxRetries = maxRetries;
 		}
 
-		public boolean isAsynchronousClose() {
-			return asynchronousClose;
-		}
-
-		public void setAsynchronousClose(boolean asynchronousClose) {
-			this.asynchronousClose = asynchronousClose;
-		}
-
 		public void setUrl(String url) {
 			this.url = url;
 		}
@@ -311,7 +294,6 @@ public final class HttpContext {
 		this.quiet = builder.quiet;
 		this.maxBytes = builder.maxBytes;
 		this.maxRetries = builder.maxRetries;
-		this.asynchronousClose = builder.asynchronousClose;
 	}
 
 	public String getUrl() {
@@ -356,10 +338,6 @@ public final class HttpContext {
 
 	public Optional<Integer> getMaxRetries() {
 		return maxRetries;
-	}
-
-	public boolean isAsynchronousClose() {
-		return asynchronousClose;
 	}
 
 }
