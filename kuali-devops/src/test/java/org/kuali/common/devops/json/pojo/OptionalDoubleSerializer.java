@@ -8,10 +8,10 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.google.common.base.Optional;
 
-public class OptionalSerializer extends JsonSerializer<Optional<?>> {
+public class OptionalDoubleSerializer extends JsonSerializer<Optional<Double>> {
 
 	@Override
-	public void serialize(Optional<?> value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+	public void serialize(Optional<Double> number, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
 		jgen.writeStartObject();
 		jgen.writeObjectField("optional", "foo");
 		jgen.writeEndObject();

@@ -18,7 +18,7 @@ import com.google.common.base.Optional;
 public final class Apple {
 
 	private final String color;
-	@JsonSerialize(using = OptionalSerializer.class)
+	@JsonSerialize(using = OptionalDoubleSerializer.class)
 	private final Optional<Double> weight;
 
 	private Apple(Builder builder) {
