@@ -1,5 +1,7 @@
 package org.kuali.common.devops.json.pojo;
 
+import static com.google.common.base.Optional.absent;
+
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -9,14 +11,17 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.base.Optional;
 
 @IdiotProofImmutable
 public final class Apple {
 
 	private final String color;
+	private final Optional<Double> weight;
 
 	private Apple(Builder builder) {
 		this.color = builder.color;
+		this.weight = builder.weight;
 	}
 
 	@JsonCreator
@@ -31,6 +36,7 @@ public final class Apple {
 	public static class Builder extends ValidatingBuilder<Apple> {
 
 		private String color;
+		private Optional<Double> weight = absent();
 
 		@Override
 		public Apple build() {
