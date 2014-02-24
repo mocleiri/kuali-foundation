@@ -3,13 +3,11 @@ package org.kuali.common.devops.json.pojo;
 import static org.junit.Assert.assertEquals;
 import static org.kuali.common.devops.json.pojo.Apple.newApple;
 import static org.kuali.common.devops.json.pojo.JacksonJsonService.newJacksonJsonService;
-import static org.kuali.common.util.base.Exceptions.illegalState;
 
 import java.util.List;
 
 import org.junit.Test;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 
 public class BasketTest {
@@ -27,26 +25,6 @@ public class BasketTest {
 			assertEquals(json1, json2);
 		} catch (Throwable e) {
 			e.printStackTrace();
-		}
-	}
-
-	protected static <T> T readString(ObjectMapper mapper, String json, Class<T> type) {
-		try {
-			return mapper.readValue(json, type);
-		} catch (Exception e) {
-			throw illegalState(e);
-		}
-	}
-
-	protected static <T> String writeString(ObjectMapper mapper, T reference, boolean pretty) {
-		try {
-			if (pretty) {
-				return mapper.writer().withDefaultPrettyPrinter().writeValueAsString(reference);
-			} else {
-				return mapper.writeValueAsString(reference);
-			}
-		} catch (Exception e) {
-			throw illegalState(e);
 		}
 	}
 
