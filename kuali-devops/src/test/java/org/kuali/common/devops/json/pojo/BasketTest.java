@@ -2,7 +2,6 @@ package org.kuali.common.devops.json.pojo;
 
 import static org.junit.Assert.assertEquals;
 import static org.kuali.common.devops.json.pojo.Apple.newApple;
-import static org.kuali.common.devops.json.pojo.Basket.newBasket;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 
 import java.util.List;
@@ -11,7 +10,6 @@ import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public class BasketTest {
@@ -19,7 +17,7 @@ public class BasketTest {
 	@Test
 	public void test() {
 		try {
-			Basket basket1 = newBasket("straw", createApples(), Optional.of(newApple("green")));
+			Basket basket1 = Basket.builder("straw").apples(createApples()).apple(newApple("green")).build();
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.registerModule(new GuavaModule());
 			boolean pretty = false;
