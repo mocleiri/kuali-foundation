@@ -29,7 +29,7 @@ public final class JacksonContext {
 		this.modules = ImmutableList.copyOf(builder.modules);
 
 		// Register any modules they've provided
-		for (Module module : this.modules) {
+		for (Module module : modules) {
 			this.mapper.registerModule(module);
 		}
 	}
