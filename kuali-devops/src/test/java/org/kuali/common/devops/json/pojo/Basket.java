@@ -4,9 +4,6 @@ import java.util.List;
 
 public class Basket {
 
-	public Basket() {
-	}
-
 	public Basket(String material, List<Apple> apples) {
 		this.material = material;
 		this.apples = apples;

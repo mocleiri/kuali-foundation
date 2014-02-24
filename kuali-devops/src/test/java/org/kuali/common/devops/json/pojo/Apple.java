@@ -2,9 +2,6 @@ package org.kuali.common.devops.json.pojo;
 
 public class Apple {
 
-	public Apple() {
-	}
-
 	public Apple(String color) {
 		this.color = color;
 	}
