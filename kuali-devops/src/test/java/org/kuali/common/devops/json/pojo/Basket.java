@@ -12,6 +12,7 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
@@ -59,9 +60,14 @@ public final class Basket {
 			return new Basket(this);
 		}
 
+		@JsonSetter
 		public Builder withApple(Optional<Apple> apple) {
 			this.apple = apple;
 			return this;
+		}
+
+		public Builder withApple(Apple apple) {
+			return withApple(Optional.of(apple));
 		}
 
 		public Builder withApples(List<Apple> apples) {
