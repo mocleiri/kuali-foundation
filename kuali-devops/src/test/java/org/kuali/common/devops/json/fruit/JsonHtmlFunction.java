@@ -48,15 +48,21 @@ public class JsonHtmlFunction implements Function<Node<JsonDescriptor>, String> 
 		if (node.isLeaf()) {
 			strings.add(tr("json", desc.getNode().toString()));
 		}
+
+		// If the node is a JSON array, introspect the corresponding java field in order to divine
+		// what type of collection to create, otherwise just return the type of the field
+		// eg, a field declared as List<String> means we need to create String instances, and put them in a list
 		Class<?> typeToCreate = findTypeToCreate(desc);
 		strings.add(tr("type to create", typeToCreate.getSimpleName()));
+
+		// This is a builder capable of creating the elements to go into the collection or just a builder for the element itself
 		Optional<Class<Builder<?>>> builderClass = getBuilderClass(typeToCreate);
 		if (builderClass.isPresent()) {
 			strings.add(tr("builder", builderClass.get().getCanonicalName()));
 		}
 
 		if (node.isLeaf()) {
-			Object instance = getInstance(desc, builderClass);
+			Object instance = getInstance(node, builderClass);
 			strings.add(tr("instance", instance));
 		}
 
@@ -64,8 +70,8 @@ public class JsonHtmlFunction implements Function<Node<JsonDescriptor>, String> 
 		return "<table border=0>" + Joiner.on("").join(strings) + "</table>";
 	}
 
-	protected Optional<Class<Builder<?>>> getBuilderClass(Class<?> typeToCreate) {
-		Optional<?> builderClass = findPublicStaticBuilderClass(typeToCreate);
+	protected Optional<Class<Builder<?>>> getBuilderClass(Class<?> type) {
+		Optional<?> builderClass = findPublicStaticBuilderClass(type);
 		if (builderClass.isPresent()) {
 			@SuppressWarnings("unchecked")
 			Class<Builder<?>> builder = (Class<Builder<?>>) builderClass.get();
@@ -75,31 +81,29 @@ public class JsonHtmlFunction implements Function<Node<JsonDescriptor>, String> 
 		}
 	}
 
-	protected Object getInstance(JsonDescriptor desc, Optional<Class<Builder<?>>> builderClass) {
+	protected Object getInstance(Node<JsonDescriptor> node, Optional<Class<Builder<?>>> builderClass) {
 		if (!builderClass.isPresent()) {
-			return readValue(desc.getType(), desc.getNode());
+			return readValue(node.getElement().getType(), node.getElement().getNode());
 		} else {
-			if (desc.getNode().isArray()) {
-				return getCollection(desc, builderClass);
+			if (node.getElement().getNode().isArray()) {
+				return getCollection(node);
 			} else {
-				Builder<?> builder = (Builder<?>) readValue(builderClass.get(), desc.getNode());
+				Builder<?> builder = (Builder<?>) readValue(builderClass.get(), node.getElement().getNode());
 				return builder.build();
 			}
 		}
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected Collection getCollection(JsonDescriptor desc, Optional<Class<Builder<?>>> builderClass) {
+	protected Collection getCollection(Node<JsonDescriptor> node) {
+		JsonDescriptor desc = node.getElement();
 		Class<?> type = desc.getType();
+		Optional<Class<Builder<?>>> builderClass = getBuilderClass(type);
 		if (builderClass.isPresent()) {
-			Field field = desc.getDescriptor().get().getField();
-			String name = field.getName();
-			Class<?> actualBuilderClass = builderClass.get();
-			Field builderField = findField(actualBuilderClass, name);
-			Optional<Field> builderFieldType = fromNullable(builderField);
-			if (builderFieldType.isPresent()) {
-				type = builderFieldType.get().getType();
-			}
+			String fieldName = desc.getDescriptor().get().getField().getName();
+			Optional<Field> builderField = fromNullable(findField(builderClass.get(), fieldName));
+			checkState(builderField.isPresent(), "builder field must be present");
+			type = builderField.get().getType();
 		}
 		FieldDescriptor fd = desc.getDescriptor().get();
 		List<JsonNode> children = newArrayList(desc.getNode().elements());
