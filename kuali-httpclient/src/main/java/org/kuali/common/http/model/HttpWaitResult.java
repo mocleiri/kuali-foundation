@@ -21,8 +21,11 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.google.common.collect.ImmutableList;
 
+@JsonDeserialize(builder = HttpWaitResult.Builder.class)
 public final class HttpWaitResult {
 
 	private final long start;
@@ -32,6 +35,7 @@ public final class HttpWaitResult {
 	private final HttpStatus status;
 	private final HttpRequestResult finalRequestResult;
 
+	@JsonPOJOBuilder(withPrefix = "")
 	public static class Builder implements org.apache.commons.lang3.builder.Builder<HttpWaitResult> {
 
 		private final HttpStatus status;
