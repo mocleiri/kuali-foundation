@@ -1,23 +1,64 @@
 package org.kuali.common.devops.json.pojo;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Set;
 
-public class Apple {
+import javax.validation.ConstraintViolation;
 
-	@JsonCreator
-	public Apple(@JsonProperty("color") String color) {
-		this.color = color;
+import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.validate.IdiotProofImmutable;
+
+@IdiotProofImmutable
+public final class Apple {
+
+	private final String color;
+
+	private Apple(Builder builder) {
+		this.color = builder.color;
 	}
 
-	String color;
+	public static Apple create(String color) {
+		return builder().color(color).build();
+	}
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
+	public static class Builder extends ValidatingBuilder<Apple> {
+
+		private String color;
+
+		@Override
+		public Apple build() {
+			return validate(make());
+		}
+
+		@Override
+		public Set<ConstraintViolation<Apple>> violations() {
+			return violations(make());
+		}
+
+		private Apple make() {
+			return new Apple(this);
+		}
+
+		public Builder color(String color) {
+			this.color = color;
+			return this;
+		}
+
+		public String getColor() {
+			return color;
+		}
+
+		public void setColor(String color) {
+			this.color = color;
+		}
+
+	}
 
 	public String getColor() {
 		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
 	}
 
 }
