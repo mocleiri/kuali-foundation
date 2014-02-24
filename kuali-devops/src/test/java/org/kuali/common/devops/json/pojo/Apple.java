@@ -7,6 +7,9 @@ import javax.validation.ConstraintViolation;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @IdiotProofImmutable
 public final class Apple {
 
@@ -16,7 +19,8 @@ public final class Apple {
 		this.color = builder.color;
 	}
 
-	public static Apple create(String color) {
+	@JsonCreator
+	public static Apple create(@JsonProperty("color") String color) {
 		return builder().color(color).build();
 	}
 
