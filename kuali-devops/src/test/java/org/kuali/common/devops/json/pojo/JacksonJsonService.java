@@ -27,7 +27,7 @@ public final class JacksonJsonService implements JsonService {
 			ByteArrayInputStream in = new ByteArrayInputStream(json.getBytes(UTF8));
 			return read(in, valueType);
 		} catch (IOException e) {
-			throw illegalState("unexpected io error", e);
+			throw illegalState(e, "unexpected io error");
 		}
 	}
 
@@ -36,7 +36,7 @@ public final class JacksonJsonService implements JsonService {
 		try {
 			return context.getMapper().readValue(in, valueType);
 		} catch (IOException e) {
-			throw illegalState("unexpected io error", e);
+			throw illegalState(e, "unexpected io error");
 		}
 	}
 
@@ -47,7 +47,7 @@ public final class JacksonJsonService implements JsonService {
 		try {
 			return out.toString(UTF8);
 		} catch (IOException e) {
-			throw illegalState("unexpected io error", e);
+			throw illegalState(e, "unexpected io error");
 		}
 	}
 
@@ -60,7 +60,7 @@ public final class JacksonJsonService implements JsonService {
 				context.getMapper().writeValue(out, reference);
 			}
 		} catch (IOException e) {
-			throw illegalState("unexpected io error", e);
+			throw illegalState(e, "unexpected io error");
 		}
 	}
 
