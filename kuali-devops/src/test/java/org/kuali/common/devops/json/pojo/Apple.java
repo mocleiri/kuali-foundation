@@ -1,8 +1,12 @@
 package org.kuali.common.devops.json.pojo;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Apple {
 
-	public Apple(String color) {
+	@JsonCreator
+	public Apple(@JsonProperty("color") String color) {
 		this.color = color;
 	}
 

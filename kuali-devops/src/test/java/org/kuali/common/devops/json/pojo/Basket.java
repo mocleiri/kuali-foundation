@@ -2,9 +2,13 @@ package org.kuali.common.devops.json.pojo;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Basket {
 
-	public Basket(String material, List<Apple> apples) {
+	@JsonCreator
+	public Basket(@JsonProperty("material") String material, @JsonProperty("apples") List<Apple> apples) {
 		this.material = material;
 		this.apples = apples;
 	}
