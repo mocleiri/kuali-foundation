@@ -35,6 +35,14 @@ public final class HttpWaitResult {
 	private final HttpStatus status;
 	private final HttpRequestResult finalRequestResult;
 
+	public static HttpWaitResult newHttpWaitResult(HttpStatus status, HttpRequestResult finalRequestResult, long start) {
+		return builder(status, finalRequestResult, start).build();
+	}
+
+	public static Builder builder(HttpStatus status, HttpRequestResult finalRequestResult, long start) {
+		return new Builder(status, finalRequestResult, start);
+	}
+
 	@JsonPOJOBuilder(withPrefix = "")
 	public static class Builder implements org.apache.commons.lang3.builder.Builder<HttpWaitResult> {
 
