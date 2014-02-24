@@ -1,5 +1,6 @@
 package org.kuali.common.devops.json.pojo;
 
+import static org.kuali.common.devops.json.pojo.JacksonContext.newJacksonJsonContext;
 import static org.kuali.common.util.Encodings.UTF8;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 
@@ -67,9 +68,17 @@ public final class JacksonJsonService implements JsonService {
 		this.mapper = context.getMapper();
 	}
 
+	public static JacksonJsonService newJacksonJsonService() {
+		return builder().build();
+	}
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder extends ValidatingBuilder<JacksonJsonService> {
 
-		private JacksonContext context;
+		private JacksonContext context = newJacksonJsonContext();
 
 		@Override
 		public JacksonJsonService build() {
