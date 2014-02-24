@@ -13,7 +13,7 @@ public class BasketTest {
 	@Test
 	public void test() {
 		try {
-			Basket basket1 = getBasket();
+			Basket basket1 = createBasket();
 			ObjectMapper mapper = new ObjectMapper();
 			String json1 = mapper.writeValueAsString(basket1);
 			System.out.println(json1);
@@ -26,7 +26,7 @@ public class BasketTest {
 		}
 	}
 
-	protected Basket getBasket() {
+	protected Basket createBasket() {
 		Apple a1 = Apple.create("red", 1.0);
 		Apple a2 = Apple.create("green");
 		List<Apple> apples = ImmutableList.of(a1, a2);
