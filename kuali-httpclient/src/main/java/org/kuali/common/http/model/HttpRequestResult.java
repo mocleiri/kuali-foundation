@@ -24,8 +24,10 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.io.IOException;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.Optional;
 
+@JsonDeserialize(builder = HttpRequestResult.Builder.class)
 public final class HttpRequestResult {
 
 	private final Optional<Integer> statusCode;
@@ -36,28 +38,12 @@ public final class HttpRequestResult {
 	private final long stop;
 	private final long elapsed;
 
-	public Optional<Integer> getStatusCode() {
-		return statusCode;
+	public static HttpRequestResult newHttpRequestResult(String statusText, int statusCode, Optional<String> responseBody, long start) {
+		return builder(statusText, statusCode, responseBody, start).build();
 	}
 
-	public String getStatusText() {
-		return statusText;
-	}
-
-	public Optional<IOException> getException() {
-		return exception;
-	}
-
-	public long getStart() {
-		return start;
-	}
-
-	public long getStop() {
-		return stop;
-	}
-
-	public long getElapsed() {
-		return elapsed;
+	public static HttpRequestResult newHttpRequestResult(IOException exception, long start) {
+		return builder(exception, start).build();
 	}
 
 	public static Builder builder(String statusText, int statusCode, Optional<String> responseBody, long start) {
@@ -68,7 +54,7 @@ public final class HttpRequestResult {
 		return new Builder(exception, start);
 	}
 
-	public static class Builder {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<HttpRequestResult> {
 
 		private String statusText;
 		private long start;
@@ -108,6 +94,7 @@ public final class HttpRequestResult {
 			return this;
 		}
 
+		@Override
 		public HttpRequestResult build() {
 			HttpRequestResult instance = new HttpRequestResult(this);
 			validate(instance);
@@ -138,6 +125,30 @@ public final class HttpRequestResult {
 
 	public Optional<String> getResponseBody() {
 		return responseBody;
+	}
+
+	public Optional<Integer> getStatusCode() {
+		return statusCode;
+	}
+
+	public String getStatusText() {
+		return statusText;
+	}
+
+	public Optional<IOException> getException() {
+		return exception;
+	}
+
+	public long getStart() {
+		return start;
+	}
+
+	public long getStop() {
+		return stop;
+	}
+
+	public long getElapsed() {
+		return elapsed;
 	}
 
 }
