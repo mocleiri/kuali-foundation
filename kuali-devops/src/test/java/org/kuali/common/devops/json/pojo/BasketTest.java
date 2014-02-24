@@ -30,7 +30,7 @@ public class BasketTest {
 		Apple a1 = Apple.create("red");
 		Apple a2 = Apple.create("green");
 		List<Apple> apples = ImmutableList.of(a1, a2);
-		return new Basket("straw", apples);
+		return Basket.create("straw", apples);
 	}
 
 }
