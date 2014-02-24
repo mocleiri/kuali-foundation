@@ -3,7 +3,6 @@ package org.kuali.common.devops.json.pojo;
 import static java.lang.System.currentTimeMillis;
 import static org.junit.Assert.assertEquals;
 import static org.kuali.common.devops.json.pojo.Apple.newApple;
-import static org.kuali.common.devops.json.pojo.JacksonJsonService.newJacksonJsonService;
 
 import java.util.List;
 
@@ -18,7 +17,7 @@ public class BasketTest {
 		try {
 			System.out.println(currentTimeMillis());
 			Basket basket1 = Basket.builder("straw").withApples(createApples()).withApple(newApple("green")).build();
-			JsonService service = newJacksonJsonService();
+			JsonService service = new JacksonJsonService();
 			String json1 = service.writeString(basket1);
 			System.out.println(json1);
 			Basket basket2 = service.readString(json1, Basket.class);

@@ -3,21 +3,23 @@ package org.kuali.common.devops.json.pojo;
 import static org.kuali.common.devops.json.pojo.JacksonContext.newJacksonJsonContext;
 import static org.kuali.common.util.Encodings.UTF8;
 import static org.kuali.common.util.base.Exceptions.illegalState;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Set;
 
-import javax.validation.ConstraintViolation;
-
-import org.kuali.common.util.build.ValidatingBuilder;
-import org.kuali.common.util.validate.IdiotProofImmutable;
-
-@IdiotProofImmutable
 public final class JacksonJsonService implements JsonService {
+
+	public JacksonJsonService() {
+		this(newJacksonJsonContext());
+	}
+
+	public JacksonJsonService(JacksonContext context) {
+		this.context = checkNotNull(context, "context");
+	}
 
 	private final JacksonContext context;
 
@@ -62,51 +64,6 @@ public final class JacksonJsonService implements JsonService {
 		} catch (IOException e) {
 			throw illegalState(e, "unexpected io error");
 		}
-	}
-
-	private JacksonJsonService(Builder builder) {
-		this.context = builder.context;
-	}
-
-	public static JacksonJsonService newJacksonJsonService() {
-		return builder().build();
-	}
-
-	public static Builder builder() {
-		return new Builder();
-	}
-
-	public static class Builder extends ValidatingBuilder<JacksonJsonService> {
-
-		private JacksonContext context = newJacksonJsonContext();
-
-		@Override
-		public JacksonJsonService build() {
-			return validate(make());
-		}
-
-		@Override
-		public Set<ConstraintViolation<JacksonJsonService>> violations() {
-			return violations(make());
-		}
-
-		private JacksonJsonService make() {
-			return new JacksonJsonService(this);
-		}
-
-		public Builder context(JacksonContext context) {
-			this.context = context;
-			return this;
-		}
-
-		public JacksonContext getContext() {
-			return context;
-		}
-
-		public void setContext(JacksonContext context) {
-			this.context = context;
-		}
-
 	}
 
 }
