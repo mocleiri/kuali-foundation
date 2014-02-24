@@ -86,7 +86,7 @@ public class JsonHtmlFunction implements Function<Node<JsonDescriptor>, String> 
 			return readValue(node.getElement().getType(), node.getElement().getNode());
 		} else {
 			if (node.getElement().getNode().isArray()) {
-				return getCollection(node);
+				return getCollection(node, builderClass);
 			} else {
 				Builder<?> builder = (Builder<?>) readValue(builderClass.get(), node.getElement().getNode());
 				return builder.build();
@@ -95,10 +95,11 @@ public class JsonHtmlFunction implements Function<Node<JsonDescriptor>, String> 
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected Collection getCollection(Node<JsonDescriptor> node) {
+	protected Collection getCollection(Node<JsonDescriptor> node, Optional<Class<Builder<?>>> elementBuilderClass) {
 		JsonDescriptor desc = node.getElement();
 		Class<?> type = desc.getType();
-		Optional<Class<Builder<?>>> builderClass = getBuilderClass(type);
+		Node<JsonDescriptor> parent = node.getParent().get();
+		Optional<Class<Builder<?>>> builderClass = getBuilderClass(parent.getElement().getType());
 		if (builderClass.isPresent()) {
 			String fieldName = desc.getDescriptor().get().getField().getName();
 			Optional<Field> builderField = fromNullable(findField(builderClass.get(), fieldName));
@@ -109,8 +110,15 @@ public class JsonHtmlFunction implements Function<Node<JsonDescriptor>, String> 
 		List<JsonNode> children = newArrayList(desc.getNode().elements());
 		Collection c = createCollection(type, children.size());
 		for (JsonNode child : children) {
-			Object instance = readValue(fd.getElementTypeDescriptor().getType(), child);
-			c.add(instance);
+			if (elementBuilderClass.isPresent()) {
+				Object instance = readValue(elementBuilderClass.get(), child);
+				Builder<?> builder = (Builder<?>) instance;
+				c.add(builder.build());
+			} else {
+				Object instance = readValue(fd.getElementTypeDescriptor().getType(), child);
+				c.add(instance);
+
+			}
 		}
 		return c;
 	}
