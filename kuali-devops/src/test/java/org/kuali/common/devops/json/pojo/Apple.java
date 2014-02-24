@@ -2,6 +2,7 @@ package org.kuali.common.devops.json.pojo;
 
 import static com.google.common.base.Optional.absent;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -19,16 +20,19 @@ public final class Apple {
 	private final String color;
 	private final Optional<Double> weight;
 	private final boolean rotten;
+	private final Date purchased;
 
 	private Apple(Builder builder) {
 		this.color = builder.color;
 		this.weight = builder.weight;
 		this.rotten = builder.rotten;
+		this.purchased = builder.purchased;
 	}
 
 	@JsonCreator
-	private static Apple jsonCreator(@JsonProperty("color") String color, @JsonProperty("weight") Optional<Double> weight, @JsonProperty("rotten") boolean rotten) {
-		return builder(color).weight(weight).rotten(rotten).build();
+	private static Apple jsonCreator(@JsonProperty("color") String color, @JsonProperty("weight") Optional<Double> weight, @JsonProperty("rotten") boolean rotten,
+			@JsonProperty("purchased") Date purchased) {
+		return builder(color).weight(weight).rotten(rotten).purchased(purchased).build();
 	}
 
 	public static Apple newApple(String color) {
@@ -44,6 +48,7 @@ public final class Apple {
 		private final String color;
 		private Optional<Double> weight = absent();
 		private boolean rotten = false;
+		private Date purchased;
 
 		public Builder(String color) {
 			this.color = color;
@@ -61,6 +66,11 @@ public final class Apple {
 
 		private Apple make() {
 			return new Apple(this);
+		}
+
+		public Builder purchased(Date purchased) {
+			this.purchased = purchased;
+			return this;
 		}
 
 		public Builder rotten(boolean rotten) {
@@ -97,6 +107,14 @@ public final class Apple {
 			this.rotten = rotten;
 		}
 
+		public Date getPurchased() {
+			return purchased;
+		}
+
+		public void setPurchased(Date purchased) {
+			this.purchased = purchased;
+		}
+
 	}
 
 	public String getColor() {
@@ -109,6 +127,10 @@ public final class Apple {
 
 	public boolean isRotten() {
 		return rotten;
+	}
+
+	public Date getPurchased() {
+		return purchased;
 	}
 
 }
