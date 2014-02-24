@@ -4,6 +4,7 @@ import static com.google.common.base.Optional.absent;
 
 import java.util.Date;
 import java.util.Set;
+import java.util.TimeZone;
 
 import javax.validation.ConstraintViolation;
 
@@ -24,12 +25,14 @@ public final class Apple {
 	private final Optional<Double> weight;
 	private final boolean rotten;
 	private final Date purchased;
+	private final TimeZone timeZone;
 
 	private Apple(Builder builder) {
 		this.color = builder.color;
 		this.weight = builder.weight;
 		this.rotten = builder.rotten;
 		this.purchased = builder.purchased;
+		this.timeZone = builder.timeZone;
 	}
 
 	public static Apple newApple(String color) {
@@ -46,6 +49,7 @@ public final class Apple {
 		private Optional<Double> weight = absent();
 		private boolean rotten = false;
 		private Date purchased = new Date();
+		private TimeZone timeZone = TimeZone.getDefault();
 
 		@JsonCreator
 		public Builder(@JsonProperty("color") String color) {
@@ -114,6 +118,14 @@ public final class Apple {
 			this.purchased = purchased;
 		}
 
+		public TimeZone getTimeZone() {
+			return timeZone;
+		}
+
+		public void setTimeZone(TimeZone timeZone) {
+			this.timeZone = timeZone;
+		}
+
 	}
 
 	public String getColor() {
@@ -130,6 +142,10 @@ public final class Apple {
 
 	public Date getPurchased() {
 		return purchased;
+	}
+
+	public TimeZone getTimeZone() {
+		return timeZone;
 	}
 
 }
