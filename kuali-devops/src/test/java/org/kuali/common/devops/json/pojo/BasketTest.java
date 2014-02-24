@@ -1,8 +1,8 @@
 package org.kuali.common.devops.json.pojo;
 
 import static org.junit.Assert.assertEquals;
-import static org.kuali.common.devops.json.pojo.Apple.createApple;
-import static org.kuali.common.devops.json.pojo.Basket.createBasket;
+import static org.kuali.common.devops.json.pojo.Apple.newApple;
+import static org.kuali.common.devops.json.pojo.Basket.newBasket;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class BasketTest {
 	@Test
 	public void test() {
 		try {
-			Basket basket1 = createBasket("straw", createApples(), Optional.of(createApple("green")));
+			Basket basket1 = newBasket("straw", createApples(), Optional.of(newApple("green")));
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.registerModule(new GuavaModule());
 			String json1 = mapper.writeValueAsString(basket1);
@@ -33,8 +33,8 @@ public class BasketTest {
 	}
 
 	protected List<Apple> createApples() {
-		Apple a1 = createApple("red", 1.0);
-		Apple a2 = createApple("green");
+		Apple a1 = newApple("red", 1.0);
+		Apple a2 = newApple("green");
 		return ImmutableList.of(a1, a2);
 	}
 

@@ -24,16 +24,16 @@ public final class Apple {
 		this.weight = builder.weight;
 	}
 
-	public static Apple createApple(String color) {
-		return createApple(color, Optional.<Double> absent());
+	public static Apple newApple(String color) {
+		return newApple(color, Optional.<Double> absent());
 	}
 
-	public static Apple createApple(String color, double weight) {
-		return createApple(color, Optional.of(weight));
+	public static Apple newApple(String color, double weight) {
+		return newApple(color, Optional.of(weight));
 	}
 
 	@JsonCreator
-	public static Apple createApple(@JsonProperty("color") String color, @JsonProperty("weight") Optional<Double> weight) {
+	public static Apple newApple(@JsonProperty("color") String color, @JsonProperty("weight") Optional<Double> weight) {
 		return builder(color).weight(weight).build();
 	}
 
