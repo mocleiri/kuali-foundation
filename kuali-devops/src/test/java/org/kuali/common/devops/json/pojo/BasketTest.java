@@ -31,7 +31,7 @@ public class BasketTest {
 	}
 
 	protected List<Apple> createApples() {
-		Apple a1 = newApple("red");
+		Apple a1 = Apple.builder("red").withWeight(2.0).build();
 		Apple a2 = newApple("green");
 		return ImmutableList.of(a1, a2);
 	}
