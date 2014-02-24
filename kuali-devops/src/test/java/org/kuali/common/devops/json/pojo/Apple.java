@@ -31,6 +31,10 @@ public final class Apple {
 		return builder(color).weight(weight).rotten(rotten).build();
 	}
 
+	public static Apple newApple(String color) {
+		return builder(color).build();
+	}
+
 	public static Builder builder(String color) {
 		return new Builder(color);
 	}

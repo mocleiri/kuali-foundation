@@ -1,6 +1,7 @@
 package org.kuali.common.devops.json.pojo;
 
 import static org.junit.Assert.assertEquals;
+import static org.kuali.common.devops.json.pojo.Apple.newApple;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 
 import java.util.List;
@@ -16,14 +17,14 @@ public class BasketTest {
 	@Test
 	public void test() {
 		try {
-			Basket basket1 = Basket.builder("straw").apples(createApples()).apple(Apple.builder("green").build()).build();
+			Basket basket1 = Basket.builder("straw").apples(createApples()).apple(newApple("green")).build();
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.registerModule(new GuavaModule());
 			boolean pretty = false;
-			String json1 = write(mapper, basket1, pretty);
+			String json1 = writeString(mapper, basket1, pretty);
 			System.out.println(json1);
-			Basket basket2 = read(mapper, json1, Basket.class);
-			String json2 = write(mapper, basket2, pretty);
+			Basket basket2 = readString(mapper, json1, Basket.class);
+			String json2 = writeString(mapper, basket2, pretty);
 			System.out.println(json2);
 			assertEquals(json1, json2);
 		} catch (Throwable e) {
@@ -31,7 +32,7 @@ public class BasketTest {
 		}
 	}
 
-	protected static <T> T read(ObjectMapper mapper, String json, Class<T> type) {
+	protected static <T> T readString(ObjectMapper mapper, String json, Class<T> type) {
 		try {
 			return mapper.readValue(json, type);
 		} catch (Exception e) {
@@ -39,7 +40,7 @@ public class BasketTest {
 		}
 	}
 
-	protected static <T> String write(ObjectMapper mapper, T reference, boolean pretty) {
+	protected static <T> String writeString(ObjectMapper mapper, T reference, boolean pretty) {
 		try {
 			if (pretty) {
 				return mapper.writer().withDefaultPrettyPrinter().writeValueAsString(reference);
@@ -52,8 +53,8 @@ public class BasketTest {
 	}
 
 	protected List<Apple> createApples() {
-		Apple a1 = Apple.builder("red").weight(1.0).build();
-		Apple a2 = Apple.builder("green").build();
+		Apple a1 = newApple("red");
+		Apple a2 = newApple("green");
 		return ImmutableList.of(a1, a2);
 	}
 
