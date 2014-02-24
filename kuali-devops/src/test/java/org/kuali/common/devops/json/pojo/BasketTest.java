@@ -22,10 +22,11 @@ public class BasketTest {
 			Basket basket1 = newBasket("straw", createApples(), Optional.of(newApple("green")));
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.registerModule(new GuavaModule());
-			String json1 = write(mapper, basket1);
+			boolean pretty = false;
+			String json1 = write(mapper, basket1, pretty);
 			System.out.println(json1);
 			Basket basket2 = read(mapper, json1, Basket.class);
-			String json2 = write(mapper, basket2);
+			String json2 = write(mapper, basket2, pretty);
 			System.out.println(json2);
 			assertEquals(json1, json2);
 		} catch (Throwable e) {
@@ -41,9 +42,13 @@ public class BasketTest {
 		}
 	}
 
-	protected static <T> String write(ObjectMapper mapper, T reference) {
+	protected static <T> String write(ObjectMapper mapper, T reference, boolean pretty) {
 		try {
-			return mapper.writer().withDefaultPrettyPrinter().writeValueAsString(reference);
+			if (pretty) {
+				return mapper.writer().withDefaultPrettyPrinter().writeValueAsString(reference);
+			} else {
+				return mapper.writeValueAsString(reference);
+			}
 		} catch (Exception e) {
 			throw illegalState(e);
 		}
