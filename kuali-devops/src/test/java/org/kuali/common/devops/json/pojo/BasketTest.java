@@ -27,7 +27,7 @@ public class BasketTest {
 	}
 
 	protected Basket getBasket() {
-		Apple a1 = Apple.create("red");
+		Apple a1 = Apple.create("red", 1.0);
 		Apple a2 = Apple.create("green");
 		List<Apple> apples = ImmutableList.of(a1, a2);
 		return Basket.create("straw", apples);
