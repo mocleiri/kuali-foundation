@@ -44,8 +44,9 @@
     <javax.el.version>2.2.4</javax.el.version>
     <javax.el-api.version>${javax.el.version}</javax.el-api.version>
     <jsr305.version>2.0.3</jsr305.version>
-    <jackson-databind.version>2.3.1</jackson-databind.version>
-    <jackson-datatype-guava.version>2.2.0</jackson-datatype-guava.version>
+    <jackson.version>2.3.1</jackson.version>
+    <jackson-databind.version>${jackson.version}</jackson-databind.version>
+    <jackson-datatype-guava.version>${jackson.version}</jackson-datatype-guava.version>
 
     <tomcat7.version>7.0.47</tomcat7.version>
     <tomcat6.version>6.0.37</tomcat6.version>
