@@ -48,7 +48,7 @@ public final class Apple {
 		private final String color;
 		private Optional<Double> weight = absent();
 		private boolean rotten = false;
-		private Date purchased;
+		private Date purchased = new Date();
 
 		public Builder(String color) {
 			this.color = color;
