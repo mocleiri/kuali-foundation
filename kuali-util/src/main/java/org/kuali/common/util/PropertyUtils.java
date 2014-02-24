@@ -1175,6 +1175,13 @@ public class PropertyUtils {
 	 * Convert the <code>Properties</code> to a <code>Map</code> object.
 	 */
 	public static Map<String, String> convert(Properties properties) {
+		return convertToMap(properties);
+	}
+
+	/**
+	 * Convert the {@code Properties} to a {@code Map<String,String>} object.
+	 */
+	public static Map<String, String> convertToMap(Properties properties) {
 		Map<String, String> map = Maps.newHashMap();
 		for (String key : properties.stringPropertyNames()) {
 			map.put(key, properties.getProperty(key));
