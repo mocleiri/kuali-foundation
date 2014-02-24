@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public class BasketTest {
@@ -17,7 +18,7 @@ public class BasketTest {
 	@Test
 	public void test() {
 		try {
-			Basket basket1 = createBasket("straw", createApples());
+			Basket basket1 = createBasket("straw", createApples(), Optional.of(createApple("green")));
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.registerModule(new GuavaModule());
 			String json1 = mapper.writeValueAsString(basket1);
