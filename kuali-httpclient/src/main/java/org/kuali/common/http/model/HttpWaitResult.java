@@ -32,30 +32,6 @@ public final class HttpWaitResult {
 	private final HttpStatus status;
 	private final HttpRequestResult finalRequestResult;
 
-	public long getStart() {
-		return start;
-	}
-
-	public long getStop() {
-		return stop;
-	}
-
-	public long getElapsed() {
-		return elapsed;
-	}
-
-	public List<HttpRequestResult> getRequestResults() {
-		return requestResults;
-	}
-
-	public HttpStatus getStatus() {
-		return status;
-	}
-
-	public HttpRequestResult getFinalRequestResult() {
-		return finalRequestResult;
-	}
-
 	public static class Builder implements org.apache.commons.lang3.builder.Builder<HttpWaitResult> {
 
 		private final HttpStatus status;
@@ -104,6 +80,30 @@ public final class HttpWaitResult {
 		this.stop = builder.stop;
 		this.elapsed = builder.elapsed;
 		this.requestResults = builder.requestResults;
+	}
+
+	public long getStart() {
+		return start;
+	}
+
+	public long getStop() {
+		return stop;
+	}
+
+	public long getElapsed() {
+		return elapsed;
+	}
+
+	public List<HttpRequestResult> getRequestResults() {
+		return requestResults;
+	}
+
+	public HttpStatus getStatus() {
+		return status;
+	}
+
+	public HttpRequestResult getFinalRequestResult() {
+		return finalRequestResult;
 	}
 
 }
