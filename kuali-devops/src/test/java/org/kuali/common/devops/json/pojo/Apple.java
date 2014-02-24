@@ -12,6 +12,7 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.Optional;
 
@@ -75,9 +76,14 @@ public final class Apple {
 			return this;
 		}
 
+		@JsonSetter
 		public Builder withWeight(Optional<Double> weight) {
 			this.weight = weight;
 			return this;
+		}
+
+		public Builder withWeight(double weight) {
+			return withWeight(Optional.of(weight));
 		}
 
 		public String getColor() {
