@@ -11,12 +11,14 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.base.Optional;
 
 @IdiotProofImmutable
 public final class Apple {
 
 	private final String color;
+	@JsonSerialize(using = OptionalSerializer.class)
 	private final Optional<Double> weight;
 
 	private Apple(Builder builder) {
