@@ -21,6 +21,7 @@ import static org.kuali.common.util.base.Exceptions.illegalState;
 
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
@@ -42,7 +43,9 @@ public class Callables {
 	protected static <T> T get(Future<T> future) {
 		try {
 			return future.get();
-		} catch (Exception e) {
+		} catch (InterruptedException e) {
+			throw illegalState(e);
+		} catch (ExecutionException e) {
 			throw illegalState(e);
 		}
 	}
