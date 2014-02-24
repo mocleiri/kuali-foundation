@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public class BasketTest {
@@ -17,7 +18,7 @@ public class BasketTest {
 	public void test() {
 		try {
 			System.out.println(currentTimeMillis());
-			Basket basket1 = Basket.builder("straw").withApples(createApples()).withApple(newApple("green")).build();
+			Basket basket1 = Basket.builder("straw").withApples(createApples()).withApple(Optional.of(newApple("green"))).build();
 			JsonService service = newJacksonJsonService();
 			String json1 = service.writeString(basket1);
 			System.out.println(json1);

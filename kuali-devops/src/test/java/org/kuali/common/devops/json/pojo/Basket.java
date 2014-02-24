@@ -64,33 +64,9 @@ public final class Basket {
 			return this;
 		}
 
-		public Builder withApple(Apple apple) {
-			return withApple(Optional.of(apple));
-		}
-
 		public Builder withApples(List<Apple> apples) {
 			this.apples = apples;
 			return this;
-		}
-
-		public String getMaterial() {
-			return material;
-		}
-
-		public List<Apple> getApples() {
-			return apples;
-		}
-
-		public void setApples(List<Apple> apples) {
-			this.apples = apples;
-		}
-
-		public Optional<Apple> getApple() {
-			return apple;
-		}
-
-		public void setApple(Optional<Apple> apple) {
-			this.apple = apple;
 		}
 
 	}

@@ -80,10 +80,6 @@ public final class Apple {
 			return this;
 		}
 
-		public Builder withWeight(double weight) {
-			return withWeight(Optional.of(weight));
-		}
-
 		public String getColor() {
 			return color;
 		}
