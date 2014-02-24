@@ -16,16 +16,16 @@ import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.google.common.collect.ImmutableList;
 
 @IdiotProofImmutable
-public class JacksonContext {
+public final class JacksonContext {
 
 	private final ObjectMapper mapper;
 	private final boolean prettyPrint;
-	private final List<Module> modules;
+	private final ImmutableList<Module> modules;
 
 	private JacksonContext(Builder builder) {
 		this.mapper = builder.mapper;
 		this.prettyPrint = builder.prettyPrint;
-		this.modules = builder.modules;
+		this.modules = ImmutableList.copyOf(builder.modules);
 
 		// Register any modules they've provided
 		for (Module module : this.modules) {

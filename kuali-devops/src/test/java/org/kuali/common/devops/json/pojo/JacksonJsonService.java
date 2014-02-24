@@ -54,7 +54,11 @@ public final class JacksonJsonService implements JsonService {
 	@Override
 	public <T> void write(OutputStream out, T reference) {
 		try {
-			context.getMapper().writeValue(out, reference);
+			if (context.isPrettyPrint()) {
+				context.getMapper().writer().withDefaultPrettyPrinter().writeValue(out, reference);
+			} else {
+				context.getMapper().writeValue(out, reference);
+			}
 		} catch (IOException e) {
 			throw illegalState("unexpected io error", e);
 		}

@@ -2,6 +2,7 @@ package org.kuali.common.devops.json.pojo;
 
 import static org.junit.Assert.assertEquals;
 import static org.kuali.common.devops.json.pojo.Apple.newApple;
+import static org.kuali.common.devops.json.pojo.JacksonJsonService.newJacksonJsonService;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 
 import java.util.List;
@@ -9,7 +10,6 @@ import java.util.List;
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.google.common.collect.ImmutableList;
 
 public class BasketTest {
@@ -18,13 +18,11 @@ public class BasketTest {
 	public void test() {
 		try {
 			Basket basket1 = Basket.builder("straw").apples(createApples()).apple(newApple("green")).build();
-			ObjectMapper mapper = new ObjectMapper();
-			mapper.registerModule(new GuavaModule());
-			boolean pretty = false;
-			String json1 = writeString(mapper, basket1, pretty);
+			JsonService service = newJacksonJsonService();
+			String json1 = service.writeString(basket1);
 			System.out.println(json1);
-			Basket basket2 = readString(mapper, json1, Basket.class);
-			String json2 = writeString(mapper, basket2, pretty);
+			Basket basket2 = service.readString(json1, Basket.class);
+			String json2 = service.writeString(basket2);
 			System.out.println(json2);
 			assertEquals(json1, json2);
 		} catch (Throwable e) {
