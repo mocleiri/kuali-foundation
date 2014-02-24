@@ -8,8 +8,6 @@ import javax.validation.ConstraintViolation;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
@@ -33,12 +31,6 @@ public final class JacksonContext {
 		}
 	}
 
-	@JsonCreator
-	private static JacksonContext jsonCreator(@JsonProperty("mapper") ObjectMapper mapper, @JsonProperty("prettyPrint") boolean prettyPrint,
-			@JsonProperty("modules") List<Module> modules) {
-		return builder().mapper(mapper).prettyPrint(prettyPrint).modules(modules).build();
-	}
-
 	public static JacksonContext newJacksonJsonContext() {
 		return builder().build();
 	}
@@ -49,7 +41,7 @@ public final class JacksonContext {
 
 	public static class Builder extends ValidatingBuilder<JacksonContext> {
 
-		private boolean prettyPrint = false;
+		private boolean prettyPrint = true;
 		private List<Module> modules = ImmutableList.<Module> of(new GuavaModule());
 		private ObjectMapper mapper = new ObjectMapper();
 
