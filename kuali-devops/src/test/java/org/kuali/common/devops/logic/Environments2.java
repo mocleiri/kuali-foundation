@@ -5,6 +5,8 @@ import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newTreeMap;
+import static java.lang.Math.ceil;
+import static java.lang.Math.max;
 import static java.lang.String.format;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.kuali.common.util.base.Callables.submitCallables;
@@ -123,10 +125,10 @@ public class Environments2 {
 			map.put(group, elements);
 		}
 		EnvironmentMetadataService service = new DefaultEnvironmentMetadataService();
-		int threads = 10;
-		int size = Math.max(builders.size() / threads, 1);
+		int maxThreads = 8;
+		int size = (int) max(ceil(builders.size() / (maxThreads * 1D)), 1);
 		List<List<Environment.Builder>> partitions = Lists.partition(builders, size);
-		System.out.println(partitions.size());
+		System.out.println("max threads=" + maxThreads + " size=" + size + " partitions=" + partitions.size() + " elements=" + builders.size());
 		PercentCompleteInformer informer = new PercentCompleteInformer(builders.size());
 		List<Callable<Long>> callables = newArrayList();
 		for (List<Environment.Builder> partition : partitions) {
