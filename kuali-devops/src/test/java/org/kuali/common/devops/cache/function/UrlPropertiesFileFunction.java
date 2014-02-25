@@ -1,6 +1,6 @@
 package org.kuali.common.devops.cache.function;
 
-import static com.google.common.base.Optional.fromNullable;
+import static java.lang.String.format;
 import static org.apache.commons.lang.StringUtils.leftPad;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
@@ -19,7 +19,6 @@ import org.kuali.common.util.validate.NoNullFields;
 import org.kuali.common.util.validate.StronglyImmutable;
 
 import com.google.common.base.Function;
-import com.google.common.base.Optional;
 
 @NoNullFields
 @StronglyImmutable
@@ -33,21 +32,19 @@ public final class UrlPropertiesFileFunction implements Function<String, File> {
 	@Override
 	public File apply(String url) {
 		checkNotBlank(url, "url");
-		synchronized (urlToFileMapping) {
-			return getFile(url);
-		}
+		return new CanonicalFile(basedir, getPath(url));
 	}
 
-	protected File getFile(String url) {
-		Optional<String> path = fromNullable(urlToFileMapping.getProperty(url));
-		if (path.isPresent()) {
-			return new File(basedir, path.get());
-		} else {
-			counter.increment();
-			String filename = leftPad(counter.getValue() + "", 3, "0") + ".json";
-			urlToFileMapping.put(url, filename);
-			PropertyUtils.storeSilently(urlToFileMapping, cacheManager);
-			return new CanonicalFile(basedir, filename);
+	protected String getPath(String url) {
+		synchronized (urlToFileMapping) {
+			String path = urlToFileMapping.getProperty(url);
+			if (path == null) {
+				counter.increment();
+				path = leftPad(format("%s", counter.getValue()), 3, "0") + ".json";
+				urlToFileMapping.put(url, path);
+				PropertyUtils.storeSilently(urlToFileMapping, cacheManager);
+			}
+			return path;
 		}
 	}
 
