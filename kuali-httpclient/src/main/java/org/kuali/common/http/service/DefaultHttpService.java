@@ -43,7 +43,6 @@ import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.http.model.HttpRequestResult;
 import org.kuali.common.http.model.HttpStatus;
 import org.kuali.common.http.model.HttpWaitResult;
-import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.slf4j.Logger;
 
@@ -140,7 +139,7 @@ public class DefaultHttpService implements HttpService {
 		}
 
 		// If we have not timed out and there is no exception, we must have gotten a valid http response code back
-		Assert.isTrue(rr.getStatusCode().isPresent(), "statusCode should never be null here");
+		checkState(rr.getStatusCode().isPresent(), "statusCode should never be null here");
 
 		// If there is a status code and it matches a success code, we are done
 		if (isSuccess(context.getSuccessCodes(), rr.getStatusCode().get())) {
