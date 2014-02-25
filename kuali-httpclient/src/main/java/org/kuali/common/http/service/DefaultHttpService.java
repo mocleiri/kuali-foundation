@@ -22,6 +22,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.System.currentTimeMillis;
 import static org.kuali.common.http.model.HttpStatus.SUCCESS;
 import static org.kuali.common.util.base.Exceptions.illegalState;
+import static org.kuali.common.util.base.Threads.sleep;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.io.IOException;
@@ -44,7 +45,6 @@ import org.kuali.common.http.model.HttpStatus;
 import org.kuali.common.http.model.HttpWaitResult;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.base.Threads;
 import org.slf4j.Logger;
 
 import com.google.common.base.Optional;
@@ -84,7 +84,7 @@ public class DefaultHttpService implements HttpService {
 			requestResults.add(rr);
 			if (!isFinishState(context, rr, end, retryAttempts)) {
 				logHttpRequestResult(context.getLogMsgPrefix(), rr, context.getUrl(), end, context.isQuiet());
-				Threads.sleep(context.getSleepIntervalMillis());
+				sleep(context.getSleepIntervalMillis());
 			} else {
 				HttpStatus status = getResultStatus(context, retryAttempts, rr, end);
 				HttpWaitResult waitResult = HttpWaitResult.builder(status, rr, start).requestResults(requestResults).build();
