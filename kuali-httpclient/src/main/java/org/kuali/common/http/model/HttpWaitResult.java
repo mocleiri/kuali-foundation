@@ -21,6 +21,8 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.google.common.collect.ImmutableList;
@@ -54,7 +56,8 @@ public final class HttpWaitResult {
 
 		private List<HttpRequestResult> requestResults = ImmutableList.of();
 
-		public Builder(HttpStatus status, HttpRequestResult finalRequestResult, long start) {
+		@JsonCreator
+		public Builder(@JsonProperty("status") HttpStatus status, @JsonProperty("finalRequestResult") HttpRequestResult finalRequestResult, @JsonProperty("start") long start) {
 			this.status = status;
 			this.finalRequestResult = finalRequestResult;
 			this.start = start;
