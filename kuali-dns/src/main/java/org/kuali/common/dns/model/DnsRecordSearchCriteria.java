@@ -1,42 +1,12 @@
 package org.kuali.common.dns.model;
 
-import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.util.Assert;
+import static com.google.common.base.Optional.absent;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import com.google.common.base.Optional;
 
 public final class DnsRecordSearchCriteria {
-
-	private static final Optional<String> ABSENT = Optional.<String> absent();
-
-	public DnsRecordSearchCriteria() {
-		this(ABSENT, Optional.<DnsRecordType> absent(), ABSENT);
-	}
-
-	public DnsRecordSearchCriteria(DnsRecordType type) {
-		this(ABSENT, Optional.of(type), ABSENT);
-	}
-
-	public DnsRecordSearchCriteria(String nameContains) {
-		this(Optional.of(nameContains), Optional.<DnsRecordType> absent(), ABSENT);
-	}
-
-	public DnsRecordSearchCriteria(String nameContains, DnsRecordType type) {
-		this(Optional.of(nameContains), Optional.of(type), ABSENT);
-	}
-
-	public DnsRecordSearchCriteria(Optional<String> nameContains, Optional<DnsRecordType> type, Optional<String> valueContains) {
-		Assert.noNulls(nameContains, type, valueContains);
-		if (nameContains.isPresent()) {
-			Assert.isFalse(StringUtils.isBlank(nameContains.get()));
-		}
-		if (valueContains.isPresent()) {
-			Assert.isFalse(StringUtils.isBlank(valueContains.get()));
-		}
-		this.nameContains = nameContains;
-		this.type = type;
-		this.valueContains = valueContains;
-	}
 
 	private final Optional<String> nameContains;
 	private final Optional<DnsRecordType> type;
@@ -52,6 +22,63 @@ public final class DnsRecordSearchCriteria {
 
 	public Optional<String> getValueContains() {
 		return valueContains;
+	}
+
+	private DnsRecordSearchCriteria(Builder builder) {
+		this.nameContains = builder.nameContains;
+		this.type = builder.type;
+		this.valueContains = builder.valueContains;
+	}
+
+	public static DnsRecordSearchCriteria newDnsRecordSearchCriteria(DnsRecordType type) {
+		return builder().type(type).build();
+	}
+
+	public static DnsRecordSearchCriteria newDnsRecordSearchCriteria() {
+		return builder().build();
+	}
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<DnsRecordSearchCriteria> {
+
+		private Optional<String> nameContains = absent();
+		private Optional<DnsRecordType> type = absent();
+		private Optional<String> valueContains = absent();
+
+		public Builder nameContains(Optional<String> nameContains) {
+			this.nameContains = nameContains;
+			return this;
+		}
+
+		public Builder type(Optional<DnsRecordType> type) {
+			this.type = type;
+			return this;
+		}
+
+		public Builder type(DnsRecordType type) {
+			return type(Optional.of(type));
+		}
+
+		public Builder valueContains(Optional<String> valueContains) {
+			this.valueContains = valueContains;
+			return this;
+		}
+
+		@Override
+		public DnsRecordSearchCriteria build() {
+			DnsRecordSearchCriteria instance = new DnsRecordSearchCriteria(this);
+			validate(instance);
+			return instance;
+		}
+
+		private static void validate(DnsRecordSearchCriteria instance) {
+			checkNotBlank(instance.nameContains, "nameContains");
+			checkNotBlank(instance.valueContains, "valueContains");
+			checkNotNull(instance.type, "type");
+		}
 	}
 
 }

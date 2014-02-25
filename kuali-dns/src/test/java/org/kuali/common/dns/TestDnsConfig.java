@@ -15,6 +15,8 @@
  */
 package org.kuali.common.dns;
 
+import static org.kuali.common.dns.model.DnsRecordSearchCriteria.newDnsRecordSearchCriteria;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +51,7 @@ public class TestDnsConfig {
 	@Bean
 	public Executable main() {
 		try {
-			DnsRecordSearchCriteria criteria = new DnsRecordSearchCriteria();
+			DnsRecordSearchCriteria criteria = newDnsRecordSearchCriteria();
 			DnsService service = config.dnsService();
 			List<DnsRecord> records = service.getRecords(criteria);
 			List<String> columns = ImmutableList.of("Name", "Type", "Value");
