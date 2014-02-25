@@ -1,5 +1,6 @@
 package org.kuali.common.dns.util;
 
+import static java.lang.String.format;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
@@ -49,13 +50,13 @@ public final class CreateOrReplaceCNAME implements Executable {
 		if (record.isPresent()) {
 
 			// There is an existing record but it doesn't match, we must delete it
-			logger.info("deleting DNS CNAME record for [{}]", context.getAliasFQDN());
+			logger.info(format("deleting cname record for [%s]", context.getAliasFQDN()));
 			service.deleteCNAMERecord(context.getAliasFQDN());
 		}
 
 		// There may have never been a DNS record OR we just deleted one
 		// Either way, need to create a new one
-		logger.info("creating DNS CNAME record for [{}] -> [{}]", context.getAliasFQDN(), context.getCanonicalFQDN());
+		logger.info(format("creating cname record for [%s] -> [%s]", context.getAliasFQDN(), context.getCanonicalFQDN()));
 		service.createCNAMERecord(context.getAliasFQDN(), context.getCanonicalFQDN(), context.getTimeToLiveInSeconds());
 	}
 
