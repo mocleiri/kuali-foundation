@@ -15,6 +15,8 @@
  */
 package org.kuali.common.dns.dnsme;
 
+import static org.kuali.common.dns.model.DnsRecord.newDnsRecord;
+
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.URLEncoder;
@@ -429,7 +431,7 @@ public final class DNSMadeEasyDnsService implements DnsService {
 		DnsMadeEasyDnsRecord added = addRecord(domain, record);
 
 		// Convert to a DnsRecord and return
-		return new DnsRecord(added.getName(), added.getType(), record.getData());
+		return newDnsRecord(added.getName(), added.getType(), record.getData());
 	}
 
 	@Override
@@ -489,7 +491,7 @@ public final class DNSMadeEasyDnsService implements DnsService {
 			DnsMadeEasyDnsRecord dnsme = records.get(0);
 
 			// Create a new DnsRecord from the DNSME record
-			DnsRecord record = new DnsRecord(dnsme.getName(), dnsme.getType(), dnsme.getData());
+			DnsRecord record = newDnsRecord(dnsme.getName(), dnsme.getType(), dnsme.getData());
 
 			// Return an Optional containing the DnsRecord
 			return Optional.of(record);
@@ -524,7 +526,7 @@ public final class DNSMadeEasyDnsService implements DnsService {
 		for (DnsMadeEasyDnsRecord record : records) {
 			String name = NullUtils.trimToNone(record.getName());
 			String value = NullUtils.trimToNone(record.getData());
-			DnsRecord element = new DnsRecord(name, record.getType(), value);
+			DnsRecord element = newDnsRecord(name, record.getType(), value);
 			list.add(element);
 		}
 		Collections.sort(list);
