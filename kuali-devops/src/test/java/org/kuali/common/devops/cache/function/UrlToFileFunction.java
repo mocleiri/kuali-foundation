@@ -56,7 +56,7 @@ public final class UrlToFileFunction implements Function<String, File> {
 		this.magicSuffix = builder.magicSuffix;
 	}
 
-	public static UrlToFileFunction create(File basedir) {
+	public static UrlToFileFunction newUrlToFileFunction(File basedir) {
 		return builder().basedir(basedir).build();
 	}
 

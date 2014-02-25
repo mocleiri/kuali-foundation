@@ -1,6 +1,8 @@
 package org.kuali.common.devops.cache;
 
 import static org.kuali.common.devops.cache.UrlLoader.newUrlLoader;
+import static org.kuali.common.devops.cache.function.UrlToFileFunction.newUrlToFileFunction;
+import static org.kuali.common.http.model.HttpContext.newHttpContext;
 
 import java.io.File;
 
@@ -14,7 +16,7 @@ import com.google.common.cache.CacheLoader;
 public class Caches {
 
 	public static <T, V> FileSystemCache<String, HttpWaitResult> buildUrlCache() {
-		return buildUrlCache(HttpContext.create());
+		return buildUrlCache(newHttpContext());
 	}
 
 	public static <T, V> FileSystemCache<String, HttpWaitResult> buildUrlCache(HttpContext context) {
@@ -28,7 +30,7 @@ public class Caches {
 	public static <T, V> FileSystemCache<String, HttpWaitResult> buildUrlCache(HttpContext context, File basedir, String encoding) {
 		CacheLoader<String, HttpWaitResult> loader = newUrlLoader(context);
 		PersistentCache<File, HttpWaitResult> fileCache = new UrlFileCache();
-		Function<String, File> keyConverter = UrlToFileFunction.create(basedir);
+		Function<String, File> keyConverter = newUrlToFileFunction(basedir);
 
 		FileSystemCache.Builder<String, HttpWaitResult> builder = FileSystemCache.builder();
 		builder.keyConverter(keyConverter);
