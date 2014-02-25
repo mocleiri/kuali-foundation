@@ -1,7 +1,7 @@
 package org.kuali.common.devops.cache;
 
 import static org.kuali.common.devops.cache.UrlLoader.newUrlLoader;
-import static org.kuali.common.devops.cache.function.UrlPropertiesFileFunction.newUrlPropertiesFileFunction;
+import static org.kuali.common.devops.cache.UrlPropertiesFileFunction.newUrlPropertiesFileFunction;
 import static org.kuali.common.http.model.HttpContext.newHttpContext;
 
 import java.io.File;

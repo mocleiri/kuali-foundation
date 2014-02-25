@@ -1,4 +1,4 @@
-package org.kuali.common.devops.cache.function;
+package org.kuali.common.devops.cache;
 
 import static java.lang.String.format;
 import static org.apache.commons.lang.StringUtils.leftPad;
