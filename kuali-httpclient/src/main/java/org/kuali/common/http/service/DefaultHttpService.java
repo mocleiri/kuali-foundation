@@ -150,19 +150,18 @@ public class DefaultHttpService implements HttpService {
 	}
 
 	protected boolean maxRetriesExceeded(HttpContext context, int retryAttempts) {
-		if (!context.getMaxRetries().isPresent()) {
-			return false;
-		} else {
+		if (context.getMaxRetries().isPresent()) {
 			return retryAttempts > context.getMaxRetries().get();
+		} else {
+			return false;
 		}
 	}
 
 	protected boolean quitTrying(HttpContext context, int retryAttempts) {
-		if (!context.getMaxRetries().isPresent()) {
-			return false;
-		} else {
+		if (context.getMaxRetries().isPresent()) {
 			return retryAttempts >= context.getMaxRetries().get();
-
+		} else {
+			return false;
 		}
 	}
 
