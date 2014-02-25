@@ -15,7 +15,7 @@ public class MutableNode<T> extends AbstractNode<T> {
 	protected Optional<MutableNode<T>> mutableParent = absent();
 	protected List<MutableNode<T>> mutableChildren = newArrayList();
 	protected T element;
-
+	
 	public static <T> MutableNode<T> of(T element) {
 		return new MutableNode<T>(element);
 	}
