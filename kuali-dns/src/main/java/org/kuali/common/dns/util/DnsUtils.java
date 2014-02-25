@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.kuali.common.util.Ascii;
 
-import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 
 public class DnsUtils {
@@ -17,19 +16,6 @@ public class DnsUtils {
 	private static final int MAX_FQDN_LENGTH = 253;
 	private static final int MAX_LABEL_LENGTH = 63;
 	private static final Splitter SPLITTER = Splitter.on(DOT);
-	private static final Joiner JOINER = Joiner.on(DOT);
-
-	/**
-	 * <pre>
-	 *  env1, ks, kuali.org -> env1.ks.kuali.org
-	 * </pre>
-	 */
-	public static String getHostname(String prefix, String subdomain, String domain) {
-		checkNotBlank(prefix, "prefix");
-		checkNotBlank(subdomain, "subdomain");
-		checkNotBlank(domain, "domain");
-		return JOINER.join(prefix, subdomain, domain);
-	}
 
 	/**
 	 * <p>

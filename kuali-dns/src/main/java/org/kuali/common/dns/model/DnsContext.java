@@ -2,6 +2,8 @@ package org.kuali.common.dns.model;
 
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
+import com.google.common.base.Joiner;
+
 public final class DnsContext {
 
 	private final String domain;
@@ -56,6 +58,7 @@ public final class DnsContext {
 
 		@Override
 		public DnsContext build() {
+			this.hostname = (hostname == null) ? Joiner.on('.').join(prefix, subdomain, domain) : hostname;
 			DnsContext instance = new DnsContext(this);
 			validate(instance);
 			return instance;
