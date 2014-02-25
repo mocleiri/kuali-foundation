@@ -1,6 +1,7 @@
 package org.kuali.common.dns.model;
 
-import org.kuali.common.util.Assert;
+import static org.kuali.common.util.base.Precondition.checkMin;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 public final class CNAMEContext {
 
@@ -8,7 +9,15 @@ public final class CNAMEContext {
 	private final String canonicalFQDN;
 	private final int timeToLiveInSeconds;
 
-	public static class Builder {
+	public static CNAMEContext newCNAMEContext(String aliasFQDN, String canonicalFQDN) {
+		return builder(aliasFQDN, canonicalFQDN).build();
+	}
+
+	public static Builder builder(String aliasFQDN, String canonicalFQDN) {
+		return new Builder(aliasFQDN, canonicalFQDN);
+	}
+
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<CNAMEContext> {
 
 		// Required
 		private final String aliasFQDN;
@@ -22,12 +31,18 @@ public final class CNAMEContext {
 			this.canonicalFQDN = canonicalFQDN;
 		}
 
+		@Override
 		public CNAMEContext build() {
-			Assert.noBlanks(aliasFQDN, canonicalFQDN);
-			Assert.notNegative(timeToLiveInSeconds);
-			return new CNAMEContext(this);
+			CNAMEContext instance = new CNAMEContext(this);
+			validate(instance);
+			return instance;
 		}
 
+		private static void validate(CNAMEContext instance) {
+			checkNotBlank(instance.aliasFQDN, "aliasFQDN");
+			checkNotBlank(instance.canonicalFQDN, "canonicalFQDN");
+			checkMin(instance.timeToLiveInSeconds, 0, "timeToLiveInSeconds");
+		}
 	}
 
 	private CNAMEContext(Builder builder) {
