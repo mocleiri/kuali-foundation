@@ -21,15 +21,18 @@ public class HttpWaitResultTest {
 			mapper.registerModule(new GuavaModule());
 			HttpRequestResult hrr = newHttpRequestResult(new IOException("uhoh"), currentTimeMillis());
 			HttpWaitResult result1 = newHttpWaitResult(HttpStatus.SUCCESS, hrr, currentTimeMillis());
-			// String json1 = mapper.writer().withDefaultPrettyPrinter().writeValueAsString(result1);
-			String json1 = mapper.writeValueAsString(result1);
+			String json1 = writeString(mapper, result1);
 			System.out.println(json1);
 			HttpWaitResult result2 = mapper.readValue(json1, HttpWaitResult.class);
-			String json2 = mapper.writeValueAsString(result2);
+			String json2 = writeString(mapper, result2);
 			System.out.println(json2);
 			assertEquals(json1, json2);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected <T> String writeString(ObjectMapper mapper, T reference) throws IOException {
+		return mapper.writer().withDefaultPrettyPrinter().writeValueAsString(reference);
 	}
 }
