@@ -123,7 +123,7 @@ public class Environments2 {
 			map.put(group, elements);
 		}
 		EnvironmentMetadataService service = new DefaultEnvironmentMetadataService();
-		int threads = 1;
+		int threads = 10;
 		int size = builders.size() / threads;
 		List<List<Environment.Builder>> partitions = Lists.partition(builders, size);
 		System.out.println(partitions.size());
