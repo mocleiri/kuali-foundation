@@ -17,7 +17,7 @@ import com.google.common.base.Optional;
 
 public class HttpWaitResultTest {
 
-	private final boolean pretty = false;
+	private final boolean pretty = true;
 
 	@Test
 	public void testWithException() throws Exception {
