@@ -27,11 +27,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.TextNode;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 
 public class SystemTest {
+
+	private static final JsonNodeFactory FACTORY = new JsonNodeFactory(true);
 
 	@Test
 	public void test() {
@@ -56,8 +59,26 @@ public class SystemTest {
 			Node<String> tree = buildTree(keys);
 			String html = Trees.html(tree);
 			FileUtils.write(new File("/tmp/system.htm"), html);
+			JsonNode jsonNode = buildJson(tree);
+			System.out.println(service.writeString(jsonNode));
 		} catch (Throwable e) {
 			e.printStackTrace();
+		}
+	}
+
+	protected JsonNode buildJson(Node<String> node) {
+		if (node.isLeaf()) {
+			List<String> tokens = node.getElementPath();
+			tokens.remove(0);
+			String key = Joiner.on('.').join(tokens);
+			String value = System.getProperty(key);
+			return new TextNode(value);
+		} else {
+			ObjectNode objectNode = new ObjectNode(FACTORY);
+			for (Node<String> child : node.getChildren()) {
+				objectNode.put(child.getElement(), buildJson(child));
+			}
+			return objectNode;
 		}
 	}
 
