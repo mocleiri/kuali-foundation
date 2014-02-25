@@ -4,6 +4,7 @@ import static com.google.common.base.Optional.absent;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.kuali.common.http.model.HttpStatus.SUCCESS;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
@@ -24,6 +25,7 @@ import org.kuali.common.devops.metadata.model.MetadataUrl;
 import org.kuali.common.devops.metadata.model.RemoteEnvironment;
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.http.model.HttpRequestResult;
+import org.kuali.common.http.model.HttpWaitResult;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.project.model.Project;
 import org.slf4j.Logger;
@@ -43,7 +45,7 @@ public class DefaultEnvironmentMetadataService implements EnvironmentMetadataSer
 	private static final String JSP_SUFFIX = "/tomcat/logs/env.jsp";
 	private static final String MANIFEST_SUFFIX = "/tomcat/webapps/ROOT/META-INF/MANIFEST.MF";
 	private static final String HEAP_LOG_SUFFIX = "/tomcat/logs/heap.log";
-	private final LoadingCache<String, HttpRequestResult> urlCache = getFastFileSystemCacher();
+	private final LoadingCache<String, HttpWaitResult> urlCache = getFastFileSystemCacher();
 
 	@Override
 	public EnvironmentMetadata getMetadata(String fqdn) {
@@ -61,7 +63,7 @@ public class DefaultEnvironmentMetadataService implements EnvironmentMetadataSer
 		return list;
 	}
 
-	protected EnvironmentMetadata build(String fqdn, LoadingCache<String, HttpRequestResult> urlCache) {
+	protected EnvironmentMetadata build(String fqdn, LoadingCache<String, HttpWaitResult> urlCache) {
 		MetadataUrlHelper helper = new MetadataUrlHelper(PREFIX, fqdn, urlCache);
 		EnvironmentMetadata.Builder builder = EnvironmentMetadata.builder();
 		builder.tomcatVersion(build(helper, VERSION_SUFFIX, TomcatVersionFunction.create()));
@@ -122,42 +124,32 @@ public class DefaultEnvironmentMetadataService implements EnvironmentMetadataSer
 		checkNotBlank(suffix, "suffix");
 		checkNotNull(converter, "converter");
 		String url = helper.prefix + helper.fqdn + (suffix.isPresent() ? suffix.get() : "");
-		HttpRequestResult result = helper.urlCache.getUnchecked(url);
+		HttpWaitResult result = helper.urlCache.getUnchecked(url);
 		Optional<String> content = getContent(result);
 		Optional<T> metadata = content.isPresent() ? Optional.of(converter.apply(content.get())) : Optional.<T> absent();
 		MetadataUrl.Builder<T> builder = MetadataUrl.builder();
 		return builder.url(url).content(content).converter(converter).metadata(metadata).build();
 	}
 
-	private static Optional<String> getContent(HttpRequestResult result) {
-		if (result.getException().isPresent()) {
+	private static Optional<String> getContent(HttpWaitResult result) {
+		if (!SUCCESS.equals(result.getStatus())) {
 			return absent();
 		}
-		if (!result.getStatusCode().isPresent()) {
-			return absent();
-		}
-		int statusCode = result.getStatusCode().get();
-		if (statusCode != 200) {
-			return absent();
-		}
-		Optional<String> optional = result.getResponseBody();
-		if (!optional.isPresent()) {
-			return absent();
-		}
-		String content = optional.get();
-		if (isBlank(content)) {
+		HttpRequestResult request = result.getFinalRequestResult();
+		Optional<String> responseBody = request.getResponseBody();
+		if (!responseBody.isPresent() || isBlank(responseBody.get())) {
 			return absent();
 		} else {
-			return optional;
+			return responseBody;
 		}
 	}
 
 	/**
 	 * Grabs the first 25k in content from a URL and stashes it onto the local file system. Times out after 5 seconds, no re-tries.
 	 */
-	protected LoadingCache<String, HttpRequestResult> getFastFileSystemCacher() {
+	protected LoadingCache<String, HttpWaitResult> getFastFileSystemCacher() {
 		HttpContext context = HttpContext.builder().quiet(true).maxBytes("25k").maxRetries(0).overallTimeout("5s").build();
-		CacheLoader<String, HttpRequestResult> loader = Caches.buildUrlCache(context);
+		CacheLoader<String, HttpWaitResult> loader = Caches.buildUrlCache(context);
 		return CacheBuilder.newBuilder().build(loader);
 	}
 
@@ -165,9 +157,9 @@ public class DefaultEnvironmentMetadataService implements EnvironmentMetadataSer
 
 		private final String prefix;
 		private final String fqdn;
-		private final LoadingCache<String, HttpRequestResult> urlCache;
+		private final LoadingCache<String, HttpWaitResult> urlCache;
 
-		public MetadataUrlHelper(String prefix, String fqdn, LoadingCache<String, HttpRequestResult> urlCache) {
+		public MetadataUrlHelper(String prefix, String fqdn, LoadingCache<String, HttpWaitResult> urlCache) {
 			this.prefix = checkNotBlank(prefix, "prefix");
 			this.fqdn = checkNotBlank(fqdn, "fqdn");
 			this.urlCache = checkNotNull(urlCache, "urlCache");

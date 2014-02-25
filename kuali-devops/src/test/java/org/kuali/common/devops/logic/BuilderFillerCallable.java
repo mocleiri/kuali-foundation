@@ -2,14 +2,16 @@ package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Stopwatch.createStarted;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Callable;
+
+import javax.validation.ConstraintViolation;
 
 import org.kuali.common.devops.metadata.logic.EnvironmentMetadataService;
 import org.kuali.common.devops.model.Environment;
-import org.kuali.common.util.build.LegacyValidatingBuilder;
+import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.inform.PercentCompleteInformer;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -43,7 +45,7 @@ public final class BuilderFillerCallable implements Callable<Long> {
 		return new Builder();
 	}
 
-	public static class Builder extends LegacyValidatingBuilder<BuilderFillerCallable> {
+	public static class Builder extends ValidatingBuilder<BuilderFillerCallable> {
 
 		private List<Environment.Builder> builders;
 		private EnvironmentMetadataService service;
@@ -66,7 +68,16 @@ public final class BuilderFillerCallable implements Callable<Long> {
 
 		@Override
 		public BuilderFillerCallable build() {
-			return checkConstraints(new BuilderFillerCallable(this), validator);
+			return validate(make());
+		}
+
+		@Override
+		public Set<ConstraintViolation<BuilderFillerCallable>> violations() {
+			return violations(make());
+		}
+
+		private BuilderFillerCallable make() {
+			return new BuilderFillerCallable(this);
 		}
 
 		public List<Environment.Builder> getBuilders() {

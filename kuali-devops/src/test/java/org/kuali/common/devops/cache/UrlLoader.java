@@ -7,7 +7,6 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 
 import org.kuali.common.http.model.HttpContext;
-import org.kuali.common.http.model.HttpRequestResult;
 import org.kuali.common.http.model.HttpWaitResult;
 import org.kuali.common.http.service.DefaultHttpService;
 import org.kuali.common.http.service.HttpService;
@@ -19,20 +18,19 @@ import org.springframework.beans.BeanUtils;
 import com.google.common.cache.CacheLoader;
 
 @IdiotProofImmutable
-public final class UrlLoader extends CacheLoader<String, HttpRequestResult> {
+public final class UrlLoader extends CacheLoader<String, HttpWaitResult> {
 
 	private final HttpContext context;
 	private final HttpService service;
 
 	@Override
-	public HttpRequestResult load(String url) {
+	public HttpWaitResult load(String url) {
 		checkNotBlank(url, "url");
 		HttpContext.Builder builder = HttpContext.builder();
 		BeanUtils.copyProperties(context, builder);
 		builder.setUrl(url);
 		HttpContext context = builder.build();
-		HttpWaitResult result = service.wait(context);
-		return result.getFinalRequestResult();
+		return service.wait(context);
 	}
 
 	private UrlLoader(Builder builder) {
@@ -40,15 +38,15 @@ public final class UrlLoader extends CacheLoader<String, HttpRequestResult> {
 		this.service = builder.service;
 	}
 
-	public static UrlLoader create(HttpContext context) {
+	public static UrlLoader newUrlLoader(HttpContext context) {
 		return builder().context(context).build();
 	}
 
-	public static UrlLoader create(HttpContext context, HttpService service) {
+	public static UrlLoader newUrlLoader(HttpContext context, HttpService service) {
 		return builder().context(context).service(service).build();
 	}
 
-	public static UrlLoader create() {
+	public static UrlLoader newUrlLoader() {
 		return builder().build();
 	}
 

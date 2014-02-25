@@ -8,6 +8,7 @@ import static com.google.common.collect.Maps.newTreeMap;
 import static java.lang.String.format;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.kuali.common.util.base.Callables.submitCallables;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.io.File;
 import java.util.Collections;
@@ -31,7 +32,6 @@ import org.kuali.common.devops.model.Scm;
 import org.kuali.common.devops.model.Tomcat;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.base.Precondition;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.inform.PercentCompleteInformer;
 import org.kuali.common.util.log.Loggers;
@@ -123,7 +123,10 @@ public class Environments2 {
 			map.put(group, elements);
 		}
 		EnvironmentMetadataService service = new DefaultEnvironmentMetadataService();
-		List<List<Environment.Builder>> partitions = Lists.partition(builders, 10);
+		int threads = 1;
+		int size = builders.size() / threads;
+		List<List<Environment.Builder>> partitions = Lists.partition(builders, size);
+		System.out.println(partitions.size());
 		PercentCompleteInformer informer = new PercentCompleteInformer(builders.size());
 		List<Callable<Long>> callables = newArrayList();
 		for (List<Environment.Builder> partition : partitions) {
@@ -148,9 +151,9 @@ public class Environments2 {
 
 		@Override
 		public Long apply(List<Long> input) {
-			Precondition.checkNotNull(input, "input");
+			checkNotNull(input, "input");
 			long sum = 0;
-			for (Long element : input) {
+			for (long element : input) {
 				sum += element;
 			}
 			return sum;
