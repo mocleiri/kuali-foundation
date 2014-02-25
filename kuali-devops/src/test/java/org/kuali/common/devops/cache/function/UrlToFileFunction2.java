@@ -31,10 +31,12 @@ public final class UrlToFileFunction2 implements Function<String, File> {
 	@Override
 	public File apply(String url) {
 		checkNotBlank(url, "url");
-		return getFile(url);
+		synchronized (urlToFileMapping) {
+			return getFile(url);
+		}
 	}
 
-	protected synchronized File getFile(String url) {
+	protected File getFile(String url) {
 		Optional<String> path = fromNullable(urlToFileMapping.getProperty(url));
 		if (path.isPresent()) {
 			return new File(path.get());
