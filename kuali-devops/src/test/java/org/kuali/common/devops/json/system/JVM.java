@@ -29,6 +29,7 @@ public final class JVM {
 
 	public static class Builder extends ValidatingBuilder<JVM> {
 
+		@JsonProperty("os")
 		private OperatingSystem operatingSystem;
 
 		@Override

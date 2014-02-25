@@ -49,7 +49,7 @@ public class SystemTest {
 			JVM jvm = JVM.builder().withOperatingSystem(os).build();
 			JsonNode root = manual();
 			String json = service.writeString(jvm);
-			System.out.println(service.writeString(jvm));
+			System.out.println(json);
 			System.out.println(service.writeString(map));
 			System.out.println(service.writeString(root));
 			JVM jvm2 = service.readString(json, JVM.class);
