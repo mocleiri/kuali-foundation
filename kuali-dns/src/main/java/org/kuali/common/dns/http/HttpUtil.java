@@ -15,6 +15,9 @@
  */
 package org.kuali.common.dns.http;
 
+import static java.lang.System.currentTimeMillis;
+import static org.kuali.common.util.base.Threads.sleep;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -27,7 +30,6 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.io.IOUtils;
-import org.kuali.common.util.ThreadUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,7 +73,7 @@ public class HttpUtil {
 	}
 
 	protected int getSecondsRemaining(long endMillis) {
-		long currentMillis = System.currentTimeMillis();
+		long currentMillis = currentTimeMillis();
 		long millisRemaining = endMillis - currentMillis;
 		double secondsRemaining = millisRemaining / 1000D;
 		return (int) Math.ceil(secondsRemaining);
@@ -79,7 +81,7 @@ public class HttpUtil {
 
 	public HttpRequestResult doWait(String url) {
 		HttpClient client = getHttpClient();
-		long now = System.currentTimeMillis();
+		long now = currentTimeMillis();
 		long timeoutMillis = timeout * 1000;
 		long end = now + timeoutMillis;
 		logger.info("Determining status for '" + url + "'");
@@ -90,12 +92,12 @@ public class HttpUtil {
 			if (HttpRequestResultType.COMPLETED.equals(result.getType())) {
 				return result;
 			}
-			if (System.currentTimeMillis() > end) {
+			if (currentTimeMillis() > end) {
 				result.setType(HttpRequestResultType.TIMEOUT);
 				log(url, result, -1);
 				return result;
 			}
-			ThreadUtils.sleep(sleepInterval);
+			sleep(sleepInterval);
 		}
 	}
 
