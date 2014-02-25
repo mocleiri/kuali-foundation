@@ -1,12 +1,13 @@
 package org.kuali.common.util.metainf.model;
 
+import static org.kuali.common.util.log.Loggers.newLogger;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.kuali.common.util.log.Loggers;
 import org.kuali.common.util.metainf.spring.MetaInfDataLocation;
 import org.kuali.common.util.metainf.spring.MetaInfDataType;
 import org.slf4j.Logger;
@@ -15,7 +16,7 @@ import com.google.common.collect.Lists;
 
 public class MetaInfResourceConfigurablePathComparatorTest {
 
-	private static final Logger logger = Loggers.make();
+	private static final Logger logger = newLogger();
 
 	private static final List<String> qualifierOrder = Lists.newArrayList("1.0.0", "1.0.1");
 	private static final List<MetaInfDataLocation> locationOrder = Lists.newArrayList(MetaInfDataLocation.values());

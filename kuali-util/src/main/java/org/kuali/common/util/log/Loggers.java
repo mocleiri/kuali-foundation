@@ -44,9 +44,15 @@ public class Loggers {
 	 * <pre>
 	 * private static final Logger logger = LoggerUtils.make();
 	 * </pre>
+	 * 
+	 * @deprecated Use newLogger() instead
 	 */
+	@Deprecated
 	public static Logger make() {
-		return newLogger();
+		Throwable throwable = new Throwable();
+		StackTraceElement[] elements = throwable.getStackTrace();
+		StackTraceElement directCaller = elements[1];
+		return LoggerFactory.getLogger(directCaller.getClassName());
 	}
 
 }
