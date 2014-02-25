@@ -24,11 +24,14 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.io.IOException;
 
+import org.kuali.common.http.json.IOExceptionSerializer;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.base.Optional;
 
 @JsonPropertyOrder(alphabetic = true)
@@ -38,6 +41,7 @@ public final class HttpRequestResult {
 	private final Optional<Integer> statusCode;
 	private final Optional<String> responseBody;
 	private final String statusText;
+	@JsonSerialize(using = IOExceptionSerializer.class)
 	private final Optional<IOException> exception;
 	private final long start;
 	private final long stop;

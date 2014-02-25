@@ -8,6 +8,7 @@ import static org.kuali.common.http.model.HttpStatus.SUCCESS;
 import static org.kuali.common.http.model.HttpWaitResult.newHttpWaitResult;
 
 import java.io.IOException;
+import java.net.ConnectException;
 
 import org.junit.Test;
 
@@ -23,7 +24,7 @@ public class HttpWaitResultTest {
 	public void testWithException() throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new GuavaModule());
-		HttpRequestResult hrr = newHttpRequestResult(new IOException("uhoh"), currentTimeMillis());
+		HttpRequestResult hrr = newHttpRequestResult(new ConnectException("uhoh"), currentTimeMillis());
 		HttpWaitResult result1 = newHttpWaitResult(IO_EXCEPTION, hrr, currentTimeMillis());
 		String json1 = writeString(mapper, result1);
 		System.out.println(json1);
