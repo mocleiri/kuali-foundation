@@ -18,7 +18,10 @@ package org.kuali.common.dns.project;
 import org.kuali.common.util.project.KualiProjectConstants;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 
-public abstract class DnsProjectConstants {
+public final class DnsProjectConstants {
+
+	private DnsProjectConstants() {
+	}
 
 	// These 2 must exactly match what is in the Maven pom
 	private static final String GROUP_ID = KualiProjectConstants.COMMON_GROUP_ID;
