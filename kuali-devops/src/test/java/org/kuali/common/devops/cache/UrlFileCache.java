@@ -5,9 +5,12 @@ import static org.kuali.common.util.base.Exceptions.illegalState;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
+import org.kuali.common.http.model.HttpRequestResult;
 import org.kuali.common.http.model.HttpWaitResult;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 
@@ -37,7 +40,14 @@ public class UrlFileCache extends PersistentCache<File, HttpWaitResult> {
 	protected ObjectMapper getObjectMapper() {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new GuavaModule());
+		mapper.addMixInAnnotations(HttpWaitResult.class, MixIn.class);
 		return mapper;
+	}
+
+	private abstract class MixIn {
+		@JsonIgnore
+		private List<HttpRequestResult> requestResults;
+
 	}
 
 }
