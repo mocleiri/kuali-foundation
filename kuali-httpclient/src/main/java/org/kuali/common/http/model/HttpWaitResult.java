@@ -51,8 +51,8 @@ public final class HttpWaitResult {
 		private final HttpStatus status;
 		private final HttpRequestResult finalRequestResult;
 		private final long start;
-		private final long stop; // filled in automatically
-		private final long elapsed; // filled in automatically
+		private long stop; // filled in automatically
+		private long elapsed; // filled in automatically
 
 		private List<HttpRequestResult> requestResults = ImmutableList.of();
 
@@ -63,6 +63,16 @@ public final class HttpWaitResult {
 			this.start = start;
 			this.stop = currentTimeMillis();
 			this.elapsed = stop - start;
+		}
+
+		public Builder elapsed(long elapsed) {
+			this.elapsed = elapsed;
+			return this;
+		}
+
+		public Builder stop(long stop) {
+			this.stop = stop;
+			return this;
 		}
 
 		public Builder requestResults(List<HttpRequestResult> requestResults) {

@@ -90,6 +90,11 @@ public final class HttpRequestResult {
 			this.elapsed = stop - start;
 		}
 
+		public Builder exception(Optional<IOException> exception) {
+			this.exception = exception;
+			return this;
+		}
+
 		public Builder elapsed(long elapsed) {
 			this.elapsed = elapsed;
 			return this;
