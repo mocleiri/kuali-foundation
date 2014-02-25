@@ -7,7 +7,11 @@ import javax.validation.ConstraintViolation;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
 @IdiotProofImmutable
+@JsonDeserialize(builder = OperatingSystem.Builder.class)
 public final class OperatingSystem {
 
 	private final String name;
@@ -24,6 +28,7 @@ public final class OperatingSystem {
 		return new Builder();
 	}
 
+	@JsonPOJOBuilder(withPrefix = "")
 	public static class Builder extends ValidatingBuilder<OperatingSystem> {
 
 		private String name;
