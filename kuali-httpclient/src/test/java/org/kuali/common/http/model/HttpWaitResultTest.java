@@ -15,6 +15,8 @@ import com.fasterxml.jackson.datatype.guava.GuavaModule;
 
 public class HttpWaitResultTest {
 
+	private final boolean pretty = false;
+
 	@Test
 	public void test() throws Exception {
 		try {
@@ -34,6 +36,10 @@ public class HttpWaitResultTest {
 	}
 
 	protected <T> String writeString(ObjectMapper mapper, T reference) throws IOException {
-		return mapper.writer().withDefaultPrettyPrinter().writeValueAsString(reference);
+		if (pretty) {
+			return mapper.writer().withDefaultPrettyPrinter().writeValueAsString(reference);
+		} else {
+			return mapper.writeValueAsString(reference);
+		}
 	}
 }
