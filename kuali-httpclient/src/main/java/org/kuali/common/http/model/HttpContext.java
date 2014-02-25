@@ -56,12 +56,20 @@ public final class HttpContext {
 	// We don't want to fail if we get a 503, just continue waiting
 	private final ImmutableList<Integer> continueWaitingCodes;
 
-	public static HttpContext create(String url) {
+	public static HttpContext newHttpContext() {
+		return builder().build();
+	}
+
+	public static HttpContext newHttpContext(String url) {
 		return builder(url).build();
 	}
 
+	public static HttpContext create(String url) {
+		return newHttpContext(url);
+	}
+
 	public static HttpContext create() {
-		return builder().build();
+		return newHttpContext();
 	}
 
 	public static Builder builder(String url) {
