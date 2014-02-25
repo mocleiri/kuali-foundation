@@ -49,7 +49,7 @@ public final class UrlToFileFunction2 implements Function<String, File> {
 
 	private UrlToFileFunction2(Builder builder) {
 		this.basedir = builder.basedir;
-		this.cacheManager = builder.cacheManager;
+		this.cacheManager = new CanonicalFile(basedir, "cache.properties");
 		if (this.cacheManager.exists()) {
 			this.urlToFileMapping = PropertyUtils.load(cacheManager);
 		} else {
@@ -57,7 +57,7 @@ public final class UrlToFileFunction2 implements Function<String, File> {
 		}
 	}
 
-	public static UrlToFileFunction2 newUrlToFileFunction(File basedir) {
+	public static UrlToFileFunction2 newUrlToFileFunction2(File basedir) {
 		return builder().basedir(basedir).build();
 	}
 
@@ -72,7 +72,6 @@ public final class UrlToFileFunction2 implements Function<String, File> {
 	public static class Builder extends ValidatingBuilder<UrlToFileFunction2> {
 
 		private File basedir = new CanonicalFile("./target/cache/urls");
-		private File cacheManager = new CanonicalFile(basedir, "cache.properties");
 
 		@Override
 		public Set<ConstraintViolation<UrlToFileFunction2>> violations() {
@@ -93,25 +92,12 @@ public final class UrlToFileFunction2 implements Function<String, File> {
 			return this;
 		}
 
-		public Builder cacheManager(File cacheManager) {
-			this.cacheManager = cacheManager;
-			return this;
-		}
-
 		public File getBasedir() {
 			return basedir;
 		}
 
 		public void setBasedir(File basedir) {
 			this.basedir = basedir;
-		}
-
-		public File getCacheManager() {
-			return cacheManager;
-		}
-
-		public void setCacheManager(File cacheManager) {
-			this.cacheManager = cacheManager;
 		}
 
 	}
