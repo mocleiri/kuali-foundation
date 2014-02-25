@@ -26,7 +26,7 @@ public final class DnsRecord implements Comparable<DnsRecord> {
 	 */
 	@Override
 	public int compareTo(DnsRecord other) {
-		if (type != other.getType()) {
+		if (!type.equals(other.getType())) {
 			// Sort by type first
 			return type.name().compareTo(other.getType().name());
 		} else {
