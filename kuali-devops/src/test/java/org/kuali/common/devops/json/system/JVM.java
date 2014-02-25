@@ -8,11 +8,13 @@ import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutableWithBlanks;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 @IdiotProofImmutableWithBlanks
 @JsonDeserialize(builder = JVM.Builder.class)
+@JsonPropertyOrder(alphabetic = true)
 public final class JVM {
 
 	@JsonProperty("os")
