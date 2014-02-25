@@ -44,7 +44,7 @@ public class UrlFileCache extends PersistentCache<File, HttpWaitResult> {
 		return mapper;
 	}
 
-	private abstract class MixIn {
+	private static final class MixIn {
 		@JsonIgnore
 		private List<HttpRequestResult> requestResults;
 

@@ -5,6 +5,7 @@ import static com.google.common.collect.Sets.newHashSet;
 import static com.google.common.collect.Sets.newTreeSet;
 import static java.lang.String.format;
 import static org.kuali.common.util.FormatUtils.JAVA_UTIL_DATE_TO_STRING_FORMAT;
+import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -26,7 +27,6 @@ import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.table.Label;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.file.CanonicalFile;
-import org.kuali.common.util.log.Loggers;
 import org.kuali.common.util.validate.Validation;
 import org.slf4j.Logger;
 import org.springframework.util.PropertyPlaceholderHelper;
@@ -37,7 +37,7 @@ import com.google.common.collect.Table;
 
 public class EnvironmentsTest {
 
-	private static final Logger logger = Loggers.make();
+	private static final Logger logger = newLogger();
 	private static final File HTML_DIR = new CanonicalFile("./target/site/status");
 	private static final String US_EASTERN_TIMEZONE_ID = "US/Eastern";
 
