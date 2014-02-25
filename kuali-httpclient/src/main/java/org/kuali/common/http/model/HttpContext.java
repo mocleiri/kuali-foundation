@@ -26,9 +26,11 @@ import org.kuali.common.util.Encodings;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.nullify.NullUtils;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
+@JsonDeserialize(builder = HttpContext.Builder.class)
 public final class HttpContext {
 
 	private final String url; // Url to contact
