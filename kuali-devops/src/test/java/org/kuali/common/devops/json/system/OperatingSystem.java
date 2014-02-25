@@ -17,8 +17,10 @@ public final class OperatingSystem {
 
 	@JsonProperty(value = "os.name")
 	private final String name;
+
 	@JsonProperty(value = "os.arch")
 	private final String architecture;
+
 	@JsonProperty(value = "os.version")
 	private final String version;
 
