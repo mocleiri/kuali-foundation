@@ -26,7 +26,9 @@ import org.kuali.common.util.Encodings;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.nullify.NullUtils;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
@@ -68,6 +70,7 @@ public final class HttpContext {
 		return new Builder();
 	}
 
+	@JsonPOJOBuilder(withPrefix = "")
 	public static class Builder implements org.apache.commons.lang3.builder.Builder<HttpContext> {
 
 		private static final int OK = 200;
@@ -95,6 +98,7 @@ public final class HttpContext {
 			this.url = url;
 		}
 
+		@JsonSetter
 		public Builder maxRetries(Optional<Integer> maxRetries) {
 			this.maxRetries = maxRetries;
 			return this;
@@ -104,6 +108,7 @@ public final class HttpContext {
 			return maxRetries(Optional.of(maxRetries));
 		}
 
+		@JsonSetter
 		public Builder maxBytes(Optional<Long> maxBytes) {
 			this.maxBytes = maxBytes;
 			return this;
