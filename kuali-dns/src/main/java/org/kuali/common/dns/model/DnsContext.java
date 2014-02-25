@@ -1,7 +1,6 @@
 package org.kuali.common.dns.model;
 
-import org.kuali.common.dns.util.DnsUtils;
-import org.kuali.common.util.Assert;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 public final class DnsContext {
 
@@ -26,7 +25,15 @@ public final class DnsContext {
 		return hostname;
 	}
 
-	public static class Builder {
+	public static DnsContext newDnsContext(String prefix, String subdomain, String domain) {
+		return builder(prefix, subdomain, domain).build();
+	}
+
+	public static Builder builder(String prefix, String subdomain, String domain) {
+		return new Builder(prefix, subdomain, domain);
+	}
+
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<DnsContext> {
 
 		// Required
 		private final String prefix;
@@ -47,14 +54,18 @@ public final class DnsContext {
 			return this;
 		}
 
+		@Override
 		public DnsContext build() {
-			Assert.noBlanks(prefix, subdomain, domain);
-			if (hostname == null) {
-				this.hostname = DnsUtils.getHostname(prefix, subdomain, domain);
-			} else {
-				Assert.noBlanks(hostname);
-			}
-			return new DnsContext(this);
+			DnsContext instance = new DnsContext(this);
+			validate(instance);
+			return instance;
+		}
+
+		private static void validate(DnsContext instance) {
+			checkNotBlank(instance.prefix, "prefix");
+			checkNotBlank(instance.subdomain, "subdomain");
+			checkNotBlank(instance.domain, "domain");
+			checkNotBlank(instance.hostname, "hostname");
 		}
 
 	}
