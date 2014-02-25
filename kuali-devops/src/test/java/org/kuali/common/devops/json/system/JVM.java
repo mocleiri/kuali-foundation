@@ -10,7 +10,6 @@ import org.kuali.common.util.validate.IdiotProofImmutableWithBlanks;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 @IdiotProofImmutableWithBlanks
 @JsonDeserialize(builder = JVM.Builder.class)
@@ -28,7 +27,6 @@ public final class JVM {
 		return new Builder();
 	}
 
-	@JsonPOJOBuilder(withPrefix = "")
 	public static class Builder extends ValidatingBuilder<JVM> {
 
 		private OperatingSystem operatingSystem;

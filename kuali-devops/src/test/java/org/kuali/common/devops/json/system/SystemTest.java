@@ -45,12 +45,14 @@ public class SystemTest {
 			for (String key : keys) {
 				map.put(key, System.getProperty(key));
 			}
-			OperatingSystem os = OperatingSystem.builder().architecture("x86_64").name("Mac OS X").version("10.8.5").build();
+			OperatingSystem os = OperatingSystem.builder().withArchitecture("x86_64").withName("Mac OS X").withVersion("10.8.5").build();
 			JVM jvm = JVM.builder().withOperatingSystem(os).build();
 			JsonNode root = manual();
+			String json = service.writeString(jvm);
 			System.out.println(service.writeString(jvm));
 			System.out.println(service.writeString(map));
 			System.out.println(service.writeString(root));
+			JVM jvm2 = service.readString(json, JVM.class);
 			Node<String> tree = buildTree(keys);
 			String html = Trees.html(tree);
 			FileUtils.write(new File("/tmp/system.htm"), html);

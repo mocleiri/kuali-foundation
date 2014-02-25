@@ -49,17 +49,17 @@ public final class OperatingSystem {
 			return violations(new OperatingSystem(this));
 		}
 
-		public Builder name(String name) {
+		public Builder withName(String name) {
 			this.name = name;
 			return this;
 		}
 
-		public Builder architecture(String architecture) {
+		public Builder withArchitecture(String architecture) {
 			this.architecture = architecture;
 			return this;
 		}
 
-		public Builder version(String version) {
+		public Builder withVersion(String version) {
 			this.version = version;
 			return this;
 		}
