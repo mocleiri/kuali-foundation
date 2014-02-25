@@ -12,18 +12,6 @@ public final class DnsRecordSearchCriteria {
 	private final Optional<DnsRecordType> type;
 	private final Optional<String> valueContains;
 
-	public Optional<String> getNameContains() {
-		return nameContains;
-	}
-
-	public Optional<DnsRecordType> getType() {
-		return type;
-	}
-
-	public Optional<String> getValueContains() {
-		return valueContains;
-	}
-
 	private DnsRecordSearchCriteria(Builder builder) {
 		this.nameContains = builder.nameContains;
 		this.type = builder.type;
@@ -79,6 +67,18 @@ public final class DnsRecordSearchCriteria {
 			checkNotBlank(instance.valueContains, "valueContains");
 			checkNotNull(instance.type, "type");
 		}
+	}
+
+	public Optional<String> getNameContains() {
+		return nameContains;
+	}
+
+	public Optional<DnsRecordType> getType() {
+		return type;
+	}
+
+	public Optional<String> getValueContains() {
+		return valueContains;
 	}
 
 }
