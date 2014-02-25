@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.SortedMap;
 import java.util.TreeSet;
 
 import org.apache.commons.io.FileUtils;
@@ -1182,14 +1183,25 @@ public class PropertyUtils {
 	 * Convert the <code>Properties</code> to a <code>Map</code> object.
 	 */
 	public static Map<String, String> convert(Properties properties) {
-		return convertToMap(properties);
+		return newHashMap(properties);
 	}
 
 	/**
 	 * Convert the {@code Properties} to a {@code Map<String,String>} object.
 	 */
-	public static Map<String, String> convertToMap(Properties properties) {
+	public static Map<String, String> newHashMap(Properties properties) {
 		Map<String, String> map = Maps.newHashMap();
+		for (String key : properties.stringPropertyNames()) {
+			map.put(key, properties.getProperty(key));
+		}
+		return map;
+	}
+
+	/**
+	 * Convert the {@code Properties} to a {@code Map<String,String>} object.
+	 */
+	public static SortedMap<String, String> newTreeMap(Properties properties) {
+		SortedMap<String, String> map = Maps.newTreeMap();
 		for (String key : properties.stringPropertyNames()) {
 			map.put(key, properties.getProperty(key));
 		}

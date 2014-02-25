@@ -6,7 +6,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newTreeSet;
 import static java.lang.String.format;
-import static org.kuali.common.util.PropertyUtils.convertToMap;
+import static org.kuali.common.util.PropertyUtils.newHashMap;
 import static org.kuali.common.util.ReflectionUtils.copyProperty;
 import static org.kuali.common.util.ReflectionUtils.newInstance;
 import static org.kuali.common.util.base.Exceptions.illegalState;
@@ -123,7 +123,7 @@ public class DataBinderTest {
 	}
 
 	public static <T extends Builder<?>> T bind(T builder, Properties properties) {
-		return bind(builder, convertToMap(properties));
+		return bind(builder, newHashMap(properties));
 	}
 
 	protected static Map<String, ?> getValueMap(List<Node<BindDescriptor>> nodes) {
