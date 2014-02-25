@@ -16,50 +16,39 @@
 package org.kuali.common.dns.dnsme.model;
 
 import static com.google.common.base.Preconditions.checkArgument;
-
-import org.apache.commons.lang3.StringUtils;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
+import static org.kuali.common.util.enc.EncUtils.isEncrypted;
 
 public final class DNSMadeEasyCredentials {
 
 	private final String apiKey;
 	private final String secretKey;
 
-	public String getApiKey() {
-		return apiKey;
-	}
-
-	public String getSecretKey() {
-		return secretKey;
-	}
-
 	private DNSMadeEasyCredentials(Builder builder) {
 		this.apiKey = builder.apiKey;
 		this.secretKey = builder.secretKey;
-	}
-
-	public static DNSMadeEasyCredentials create(String apiKey, String secretKey) {
-		return builder().apiKey(apiKey).secretKey(secretKey).build();
 	}
 
 	public static Builder builder() {
 		return new Builder();
 	}
 
-	public static class Builder {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<DNSMadeEasyCredentials> {
 
 		private String apiKey;
 		private String secretKey;
 
-		public Builder apiKey(String apiKey) {
+		public Builder withApiKey(String apiKey) {
 			this.apiKey = apiKey;
 			return this;
 		}
 
-		public Builder secretKey(String secretKey) {
+		public Builder withSecretKey(String secretKey) {
 			this.secretKey = secretKey;
 			return this;
 		}
 
+		@Override
 		public DNSMadeEasyCredentials build() {
 			DNSMadeEasyCredentials instance = new DNSMadeEasyCredentials(this);
 			validate(instance);
@@ -67,25 +56,27 @@ public final class DNSMadeEasyCredentials {
 		}
 
 		private static void validate(DNSMadeEasyCredentials instance) {
-			checkArgument(!StringUtils.isBlank(instance.apiKey), "'apiKey' cannot be blank");
-			checkArgument(!StringUtils.isBlank(instance.secretKey), "'secretKey' cannot be blank");
+			checkNotBlank(instance.apiKey, "apiKey");
+			checkNotBlank(instance.secretKey, "secretKey");
+			checkArgument(!isEncrypted(instance.secretKey), "secretKey cannot be encrypted");
 		}
 
 		public String getApiKey() {
 			return apiKey;
 		}
 
-		public void setApiKey(String apiKey) {
-			this.apiKey = apiKey;
-		}
-
 		public String getSecretKey() {
 			return secretKey;
 		}
 
-		public void setSecretKey(String secretKey) {
-			this.secretKey = secretKey;
-		}
+	}
+
+	public String getApiKey() {
+		return apiKey;
+	}
+
+	public String getSecretKey() {
+		return secretKey;
 	}
 
 }

@@ -35,10 +35,9 @@ public class DNSMEUnitTestConfig implements DNSMEServiceContextConfig, DomainNam
 	@Override
 	@Bean
 	public DNSMadeEasyServiceContext dnsMadeEasyServiceContext() {
-		DNSMadeEasyCredentials credentials = Credentials.PRODUCTION.getCredentials();
+		DNSMadeEasyCredentials.Builder credentials = Credentials.PRODUCTION.getCredentials();
 		String restApiURL = URLS.PRODUCTION;
-		DNSMadeEasyServiceContext provided = new DNSMadeEasyServiceContext(credentials, restApiURL, domainName());
-		return DNSMadeEasyUtils.getServiceContext(env, enc, provided);
+		return DNSMadeEasyUtils.getServiceContext(env, enc, restApiURL, domainName(), credentials);
 	}
 
 }
