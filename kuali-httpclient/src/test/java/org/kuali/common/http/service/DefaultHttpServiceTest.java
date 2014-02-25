@@ -15,6 +15,8 @@
  */
 package org.kuali.common.http.service;
 
+import static org.kuali.common.util.log.Loggers.newLogger;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +24,6 @@ import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.http.model.HttpStatus;
 import org.kuali.common.http.model.HttpWaitResult;
 import org.kuali.common.http.spring.DefaultHttpServiceConfig;
-import org.kuali.common.util.log.Loggers;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -32,7 +33,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = { DefaultHttpServiceConfig.class })
 public class DefaultHttpServiceTest {
 
-	private static final Logger logger = Loggers.make();
+	private static final Logger logger = newLogger();
 
 	@Autowired
 	HttpService service;
