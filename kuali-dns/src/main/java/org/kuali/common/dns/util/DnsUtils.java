@@ -1,14 +1,23 @@
 package org.kuali.common.dns.util;
 
-import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.util.Assert;
+import static com.google.common.base.Preconditions.checkArgument;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
+
+import java.util.List;
+
+import org.kuali.common.util.Ascii;
+
+import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
 
 public class DnsUtils {
 
-	private static final String DOT = ".";
+	private static final char DOT = '.';
 	private static final char HYPHEN = '-';
 	private static final int MAX_FQDN_LENGTH = 253;
 	private static final int MAX_LABEL_LENGTH = 63;
+	private static final Splitter SPLITTER = Splitter.on(DOT);
+	private static final Joiner JOINER = Joiner.on(DOT);
 
 	/**
 	 * <pre>
@@ -16,8 +25,10 @@ public class DnsUtils {
 	 * </pre>
 	 */
 	public static String getHostname(String prefix, String subdomain, String domain) {
-		Assert.noBlanks(prefix, subdomain, domain);
-		return prefix + DOT + subdomain + DOT + domain;
+		checkNotBlank(prefix, "prefix");
+		checkNotBlank(subdomain, "subdomain");
+		checkNotBlank(domain, "domain");
+		return JOINER.join(prefix, subdomain, domain);
 	}
 
 	/**
@@ -35,13 +46,13 @@ public class DnsUtils {
 	public static void validateFQDN(String fqdn) {
 
 		// Null, the empty string, and pure whitespace are not allowed
-		Assert.noBlanks(fqdn);
+		checkNotBlank(fqdn, "fqdn");
 
 		// Max length is 253 characters
-		Assert.isTrue(fqdn.length() <= MAX_FQDN_LENGTH, "[" + fqdn + "] is " + fqdn.length() + " characters long.  Max is " + MAX_FQDN_LENGTH);
+		checkArgument(fqdn.length() <= MAX_FQDN_LENGTH, "[%s] is %s characters long.  Max is %s", fqdn, fqdn.length(), MAX_FQDN_LENGTH);
 
 		// Split up the string using dot as a separator
-		String[] labels = StringUtils.splitPreserveAllTokens(fqdn, DOT);
+		List<String> labels = SPLITTER.splitToList(fqdn);
 
 		// Validate each portion of the dns name
 		for (String label : labels) {
@@ -52,18 +63,17 @@ public class DnsUtils {
 	protected static void validateLabel(String label) {
 
 		// Null, the empty string, and pure whitespace are not allowed
-		Assert.noBlanks(label);
+		checkNotBlank(label, "label");
 
 		// Max length for an individual label is 63 characters
-		int len = label.length();
-		Assert.isTrue(len <= MAX_LABEL_LENGTH, "[" + label + "] is " + len + " characters long.  Max is " + MAX_LABEL_LENGTH);
+		checkArgument(label.length() <= MAX_LABEL_LENGTH, "[%s] is %s characters long.  Max is %s", label, label.length(), MAX_LABEL_LENGTH);
 
 		// Can't begin or end with a hyphen
-		Assert.isFalse(label.charAt(0) == HYPHEN, "[" + label + "] begins with " + HYPHEN);
-		Assert.isFalse(label.charAt(len - 1) == HYPHEN, "[" + label + "] ends with " + HYPHEN);
+		checkArgument(label.charAt(0) != HYPHEN, "[%s] begins with %s", label, HYPHEN);
+		checkArgument(label.charAt(label.length() - 1) != HYPHEN, "[%s] ends with %s", label, HYPHEN);
 
 		// Only characters allowed are a..z, A..Z, 0..9, and the hyphen
-		Assert.isTrue(isLetterDigitHyphen(label), "Only a..z, A..Z, 0..9, and the hyphen character are allowed");
+		checkArgument(isLetterDigitHyphen(label), "Only a..z, A..Z, 0..9, and the hyphen character are allowed");
 	}
 
 	protected static boolean isLetterDigitHyphen(String label) {
@@ -77,22 +87,7 @@ public class DnsUtils {
 	}
 
 	protected static boolean isLetterDigitHyphen(char c) {
-		return isLetter(c) || c == HYPHEN || isDigit(c);
+		return Ascii.isLetter(c) || c == HYPHEN || Ascii.isDigit(c);
 	}
 
-	protected static boolean isDigit(char c) {
-		return c >= '0' && c <= '9';
-	}
-
-	protected static boolean isLetter(char c) {
-		return isLowerCaseLetter(c) || isUpperCaseLetter(c);
-	}
-
-	protected static boolean isLowerCaseLetter(char c) {
-		return c >= 'a' && c <= 'z';
-	}
-
-	protected static boolean isUpperCaseLetter(char c) {
-		return c >= 'A' && c <= 'Z';
-	}
 }
