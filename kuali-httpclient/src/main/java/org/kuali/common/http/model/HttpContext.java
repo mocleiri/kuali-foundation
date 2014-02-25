@@ -26,12 +26,14 @@ import org.kuali.common.util.Encodings;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.nullify.NullUtils;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
+@JsonPropertyOrder(alphabetic = true)
 @JsonDeserialize(builder = HttpContext.Builder.class)
 public final class HttpContext {
 

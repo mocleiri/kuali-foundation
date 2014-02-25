@@ -23,10 +23,12 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.google.common.collect.ImmutableList;
 
+@JsonPropertyOrder(alphabetic = true)
 @JsonDeserialize(builder = HttpWaitResult.Builder.class)
 public final class HttpWaitResult {
 

@@ -26,10 +26,12 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.google.common.base.Optional;
 
+@JsonPropertyOrder(alphabetic = true)
 @JsonDeserialize(builder = HttpRequestResult.Builder.class)
 public final class HttpRequestResult {
 
