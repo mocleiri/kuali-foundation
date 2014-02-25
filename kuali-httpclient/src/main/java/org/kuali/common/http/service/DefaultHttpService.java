@@ -17,8 +17,10 @@ package org.kuali.common.http.service;
 
 import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
+import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.System.currentTimeMillis;
+import static org.kuali.common.http.model.HttpStatus.SUCCESS;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 
 import java.io.IOException;
@@ -61,7 +63,7 @@ public class DefaultHttpService implements HttpService {
 		HttpWaitResult result = getWaitResult(context);
 		HttpStatus actual = result.getStatus();
 		if (!context.isQuiet()) {
-			Assert.isTrue(HttpStatus.SUCCESS.equals(result.getStatus()), "[" + context.getUrl() + "] returned [" + actual + "].");
+			checkState(SUCCESS.equals(result.getStatus()), "[%s] returned [%s]", context.getUrl(), actual);
 		}
 		return result;
 	}
