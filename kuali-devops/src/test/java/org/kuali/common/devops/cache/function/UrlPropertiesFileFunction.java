@@ -15,7 +15,6 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.property.ImmutableProperties;
-import org.kuali.common.util.validate.IdiotProofImmutable;
 import org.kuali.common.util.validate.NoNullFields;
 import org.kuali.common.util.validate.StronglyImmutable;
 
@@ -24,7 +23,6 @@ import com.google.common.base.Optional;
 
 @NoNullFields
 @StronglyImmutable
-@IdiotProofImmutable
 public final class UrlPropertiesFileFunction implements Function<String, File> {
 
 	private final Counter counter = new Counter();
