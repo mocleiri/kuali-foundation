@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.startsWith;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
+import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +20,6 @@ import org.kuali.common.util.Encodings;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.file.CanonicalFile;
-import org.kuali.common.util.log.Loggers;
 import org.slf4j.Logger;
 
 import com.google.common.base.Optional;
@@ -29,7 +29,7 @@ public class HttpCacher {
 	private static final HttpService SERVICE = new DefaultHttpService();
 	private static final File CACHE_DIR = new CanonicalFile("./target/http/cache");
 	private static final String PROTOCOL = "http://";
-	private static final Logger logger = Loggers.make();
+	private static final Logger logger = newLogger();
 
 	public static FileCache refresh(String url) {
 		checkNotBlank(url, "url");

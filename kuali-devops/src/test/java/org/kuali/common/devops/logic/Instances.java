@@ -12,6 +12,7 @@ import static org.kuali.common.util.Encodings.UTF8;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
+import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,7 +39,6 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.file.CanonicalFile;
-import org.kuali.common.util.log.Loggers;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
@@ -54,7 +54,7 @@ import com.google.common.collect.Table;
 public class Instances {
 
 	private static final File CACHE_DIR = new CanonicalFile("./target/cache/servers/aws/ec2");
-	private static final Logger logger = Loggers.make();
+	private static final Logger logger = newLogger();
 	private static final String EC2_NAME_TAG_KEY = "Name";
 
 	/**

@@ -31,10 +31,9 @@ public class ProductionDNSMEContextConfig implements DNSMEServiceContextConfig {
 	@Override
 	@Bean
 	public DNSMadeEasyServiceContext dnsMadeEasyServiceContext() {
-		DNSMadeEasyCredentials credentials = DNSMadeEasyCreds.PRODUCTION.getCredentials();
+		DNSMadeEasyCredentials.Builder credentials = DNSMadeEasyCreds.PRODUCTION.getCredentials();
 		String restApiURL = URLS.PRODUCTION;
-		DNSMadeEasyServiceContext provided = new DNSMadeEasyServiceContext(credentials, restApiURL, config.domainName());
-		return DNSMadeEasyUtils.getServiceContext(env, enc, provided);
+		return DNSMadeEasyUtils.getServiceContext(env, enc, restApiURL, config.domainName(), credentials);
 	}
 
 }

@@ -24,7 +24,7 @@ public class Auth {
 		String apiKey = DNSMadeEasyCreds.PRODUCTION.getCredentials().getApiKey();
 		String secretKey = DNSMadeEasyCreds.PRODUCTION.getCredentials().getSecretKey();
 		secretKey = enc.decrypt(EncUtils.unwrap(secretKey));
-		return DNSMadeEasyCredentials.create(apiKey, secretKey);
+		return DNSMadeEasyCredentials.builder().withApiKey(apiKey).withSecretKey(secretKey).build();
 	}
 
 	public static SortedSet<String> getAwsAccountNames() {
