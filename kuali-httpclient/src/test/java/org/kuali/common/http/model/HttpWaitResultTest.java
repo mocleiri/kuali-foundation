@@ -3,6 +3,7 @@ package org.kuali.common.http.model;
 import static java.lang.System.currentTimeMillis;
 import static org.junit.Assert.assertEquals;
 import static org.kuali.common.http.model.HttpRequestResult.newHttpRequestResult;
+import static org.kuali.common.http.model.HttpStatus.SUCCESS;
 import static org.kuali.common.http.model.HttpWaitResult.newHttpWaitResult;
 
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class HttpWaitResultTest {
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.registerModule(new GuavaModule());
 			HttpRequestResult hrr = newHttpRequestResult(new IOException("uhoh"), currentTimeMillis());
-			HttpWaitResult result1 = newHttpWaitResult(HttpStatus.SUCCESS, hrr, currentTimeMillis());
+			HttpWaitResult result1 = newHttpWaitResult(SUCCESS, hrr, currentTimeMillis());
 			String json1 = writeString(mapper, result1);
 			System.out.println(json1);
 			HttpWaitResult result2 = mapper.readValue(json1, HttpWaitResult.class);
