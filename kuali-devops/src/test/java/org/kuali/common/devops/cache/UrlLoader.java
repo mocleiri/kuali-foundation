@@ -38,16 +38,16 @@ public final class UrlLoader extends CacheLoader<String, HttpWaitResult> {
 		this.service = builder.service;
 	}
 
+	public static UrlLoader newUrlLoader() {
+		return builder().build();
+	}
+
 	public static UrlLoader newUrlLoader(HttpContext context) {
 		return builder().context(context).build();
 	}
 
 	public static UrlLoader newUrlLoader(HttpContext context, HttpService service) {
 		return builder().context(context).service(service).build();
-	}
-
-	public static UrlLoader newUrlLoader() {
-		return builder().build();
 	}
 
 	public static Builder builder() {
