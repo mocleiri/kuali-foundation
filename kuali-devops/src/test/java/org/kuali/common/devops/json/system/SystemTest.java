@@ -30,7 +30,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
-import com.google.common.collect.Lists;
 
 public class SystemTest {
 
@@ -81,7 +80,7 @@ public class SystemTest {
 
 	protected String getParentKey(String key) {
 		List<String> tokens = Splitter.on('.').splitToList(key);
-		List<String> list = Lists.newArrayList();
+		List<String> list = newArrayList();
 		for (int i = 0; i < tokens.size() - 1; i++) {
 			list.add(tokens.get(i));
 		}
