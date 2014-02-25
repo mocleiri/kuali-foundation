@@ -19,7 +19,7 @@ import org.kuali.common.util.property.ImmutableProperties;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 
-public final class UrlToFileFunction2 implements Function<String, File> {
+public final class UrlPropertiesFileFunction implements Function<String, File> {
 
 	private final Properties urlToFileMapping;
 	private final Counter counter = new Counter();
@@ -48,7 +48,7 @@ public final class UrlToFileFunction2 implements Function<String, File> {
 		}
 	}
 
-	private UrlToFileFunction2(Builder builder) {
+	private UrlPropertiesFileFunction(Builder builder) {
 		this.basedir = builder.basedir;
 		this.cacheManager = new CanonicalFile(basedir, "cache.properties");
 		if (this.cacheManager.exists()) {
@@ -58,11 +58,11 @@ public final class UrlToFileFunction2 implements Function<String, File> {
 		}
 	}
 
-	public static UrlToFileFunction2 newUrlToFileFunction2(File basedir) {
+	public static UrlPropertiesFileFunction newUrlPropertiesFileFunction(File basedir) {
 		return builder().basedir(basedir).build();
 	}
 
-	public static UrlToFileFunction2 create() {
+	public static UrlPropertiesFileFunction newUrlPropertiesFileFunction() {
 		return builder().build();
 	}
 
@@ -70,22 +70,22 @@ public final class UrlToFileFunction2 implements Function<String, File> {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<UrlToFileFunction2> {
+	public static class Builder extends ValidatingBuilder<UrlPropertiesFileFunction> {
 
 		private File basedir = new CanonicalFile("./target/cache/urls");
 
 		@Override
-		public Set<ConstraintViolation<UrlToFileFunction2>> violations() {
+		public Set<ConstraintViolation<UrlPropertiesFileFunction>> violations() {
 			return violations(make());
 		}
 
 		@Override
-		public UrlToFileFunction2 build() {
+		public UrlPropertiesFileFunction build() {
 			return validate(make());
 		}
 
-		private UrlToFileFunction2 make() {
-			return new UrlToFileFunction2(this);
+		private UrlPropertiesFileFunction make() {
+			return new UrlPropertiesFileFunction(this);
 		}
 
 		public Builder basedir(File basedir) {
