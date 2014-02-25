@@ -7,6 +7,7 @@ import javax.validation.ConstraintViolation;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
@@ -14,8 +15,11 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 @JsonDeserialize(builder = OperatingSystem.Builder.class)
 public final class OperatingSystem {
 
+	@JsonProperty(value = "os.name")
 	private final String name;
+	@JsonProperty(value = "os.arch")
 	private final String architecture;
+	@JsonProperty(value = "os.version")
 	private final String version;
 
 	private OperatingSystem(Builder builder) {
