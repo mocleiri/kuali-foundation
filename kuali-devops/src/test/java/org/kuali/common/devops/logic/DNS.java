@@ -1,5 +1,8 @@
 package org.kuali.common.devops.logic;
 
+import static org.kuali.common.dns.model.DnsRecordSearchCriteria.newDnsRecordSearchCriteria;
+import static org.kuali.common.dns.model.DnsRecordType.CNAME;
+
 import java.io.File;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +15,6 @@ import org.kuali.common.dns.dnsme.URLS;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
 import org.kuali.common.dns.model.DnsRecord;
 import org.kuali.common.dns.model.DnsRecordSearchCriteria;
-import org.kuali.common.dns.model.DnsRecordType;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.LoggerUtils;
@@ -97,7 +99,7 @@ public class DNS {
 	protected static Map<String, String> queryProvider() {
 		DNSMadeEasyServiceContext context = new DNSMadeEasyServiceContext(Auth.getDnsmeCredentials(), URLS.PRODUCTION, DOMAIN);
 		DnsService dns = new DNSMadeEasyDnsService(context);
-		DnsRecordSearchCriteria criteria = new DnsRecordSearchCriteria(DnsRecordType.CNAME);
+		DnsRecordSearchCriteria criteria = newDnsRecordSearchCriteria(CNAME);
 		List<DnsRecord> records = dns.getRecords(criteria);
 		logger.info(String.format("Located %s dns records for [%s]", records.size(), DOMAIN));
 		Map<String, String> map = Maps.newTreeMap();
