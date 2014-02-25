@@ -10,21 +10,20 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
-import org.kuali.common.util.Counter;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.property.ImmutableProperties;
+import org.kuali.common.util.validate.FinalClass;
 import org.kuali.common.util.validate.NoNullFields;
-import org.kuali.common.util.validate.StronglyImmutable;
 
 import com.google.common.base.Function;
 
 @NoNullFields
-@StronglyImmutable
+@FinalClass
 public final class UrlPropertiesFileFunction implements Function<String, File> {
 
-	private final Counter counter = new Counter();
+	private int sequence = 1;
 	private final Properties urlToFileMapping;
 	private final File basedir;
 	private final File cacheManager;
@@ -39,8 +38,7 @@ public final class UrlPropertiesFileFunction implements Function<String, File> {
 		synchronized (urlToFileMapping) {
 			String path = urlToFileMapping.getProperty(url);
 			if (path == null) {
-				counter.increment();
-				path = leftPad(format("%s", counter.getValue()), 3, "0") + ".json";
+				path = leftPad(format("%s", sequence++), 3, "0") + ".json";
 				urlToFileMapping.put(url, path);
 				PropertyUtils.storeSilently(urlToFileMapping, cacheManager);
 			}
@@ -109,10 +107,6 @@ public final class UrlPropertiesFileFunction implements Function<String, File> {
 
 	public Properties getUrlToFileMapping() {
 		return ImmutableProperties.copyOf(urlToFileMapping);
-	}
-
-	public Counter getCounter() {
-		return counter;
 	}
 
 	public File getCacheManager() {
