@@ -154,6 +154,14 @@ public class DefaultHttpService implements HttpService {
 		if (!context.getMaxRetries().isPresent()) {
 			return false;
 		} else {
+			return retryAttempts > context.getMaxRetries().get();
+		}
+	}
+
+	protected boolean quitTrying(HttpContext context, int retryAttempts) {
+		if (!context.getMaxRetries().isPresent()) {
+			return false;
+		} else {
 			return retryAttempts >= context.getMaxRetries().get();
 
 		}
@@ -161,7 +169,7 @@ public class DefaultHttpService implements HttpService {
 
 	protected boolean isFinishState(HttpContext context, HttpRequestResult rr, long end, int retryAttempts) {
 		// If we've gone past the number of max retries allowed, we are done
-		if (maxRetriesExceeded(context, retryAttempts)) {
+		if (quitTrying(context, retryAttempts)) {
 			return true;
 		}
 
