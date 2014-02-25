@@ -33,9 +33,9 @@ public class SystemTest {
 			}
 			OperatingSystem os = OperatingSystem.builder().architecture("x86_64").name("Mac OS X").version("10.8.5").build();
 			JVM jvm = JVM.builder().withOperatingSystem(os).build();
+			JsonNode root = manual();
 			System.out.println(service.writeString(jvm));
 			System.out.println(service.writeString(map));
-			JsonNode root = manual();
 			System.out.println(service.writeString(root));
 		} catch (Throwable e) {
 			e.printStackTrace();
