@@ -1,6 +1,7 @@
 package org.kuali.common.devops.cache;
 
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
+import static org.springframework.beans.BeanUtils.copyProperties;
 
 import java.util.Set;
 
@@ -13,7 +14,6 @@ import org.kuali.common.http.service.HttpService;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.validate.IdiotProofImmutable;
-import org.springframework.beans.BeanUtils;
 
 import com.google.common.cache.CacheLoader;
 
@@ -27,7 +27,7 @@ public final class UrlLoader extends CacheLoader<String, HttpWaitResult> {
 	public HttpWaitResult load(String url) {
 		checkNotBlank(url, "url");
 		HttpContext.Builder builder = HttpContext.builder();
-		BeanUtils.copyProperties(context, builder);
+		copyProperties(context, builder);
 		builder.setUrl(url);
 		HttpContext context = builder.build();
 		return service.wait(context);
