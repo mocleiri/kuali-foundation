@@ -1,29 +1,27 @@
 package org.kuali.common.dns.util;
 
+import static org.kuali.common.util.base.Precondition.checkNotNull;
+import static org.kuali.common.util.log.Loggers.newLogger;
+
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.model.CNAMEContext;
 import org.kuali.common.dns.model.DnsRecord;
-import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
 
 public final class CreateOrReplaceCNAME implements Executable {
 
-	private static final Logger logger = LoggerFactory.getLogger(CreateOrReplaceCNAME.class);
-
-	public static final boolean DEFAULT_SKIP = false;
+	private static final Logger logger = newLogger();
 
 	public CreateOrReplaceCNAME(DnsService service, CNAMEContext context) {
-		this(service, context, DEFAULT_SKIP);
+		this(service, context, false);
 	}
 
 	public CreateOrReplaceCNAME(DnsService service, CNAMEContext context, boolean skip) {
-		Assert.noNulls(service, context);
-		this.service = service;
-		this.context = context;
+		this.service = checkNotNull(service, "service");
+		this.context = checkNotNull(context, "context");
 		this.skip = skip;
 	}
 
