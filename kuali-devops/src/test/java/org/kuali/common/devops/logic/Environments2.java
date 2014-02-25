@@ -124,7 +124,7 @@ public class Environments2 {
 		}
 		EnvironmentMetadataService service = new DefaultEnvironmentMetadataService();
 		int threads = 10;
-		int size = builders.size() / threads;
+		int size = Math.max(builders.size() / threads, 1);
 		List<List<Environment.Builder>> partitions = Lists.partition(builders, size);
 		System.out.println(partitions.size());
 		PercentCompleteInformer informer = new PercentCompleteInformer(builders.size());
