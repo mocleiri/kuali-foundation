@@ -46,7 +46,7 @@ public final class UrlPropertiesFileFunction implements Function<String, File> {
 			return new File(basedir, path.get());
 		} else {
 			counter.increment();
-			String filename = leftPad(counter.getValue() + "", 5, "0") + ".json";
+			String filename = leftPad(counter.getValue() + "", 3, "0") + ".json";
 			File file = new CanonicalFile(basedir, filename);
 			urlToFileMapping.put(url, filename);
 			PropertyUtils.storeSilently(urlToFileMapping, cacheManager);
