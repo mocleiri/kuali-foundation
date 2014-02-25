@@ -24,6 +24,8 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.io.IOException;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.google.common.base.Optional;
@@ -69,18 +71,20 @@ public final class HttpRequestResult {
 		private Optional<String> responseBody = absent();
 		private Optional<IOException> exception = absent();
 
-		public Builder(IOException exception, long start) {
-			this.exception = Optional.of(exception);
-			this.statusText = isBlank(exception.getMessage()) ? "n/a" : exception.getMessage();
+		@JsonCreator
+		public Builder(@JsonProperty("statusText") String statusText, @JsonProperty("statusCode") int statusCode, @JsonProperty("responseBody") Optional<String> responseBody,
+				@JsonProperty("start") long start) {
+			this.statusText = statusText;
+			this.statusCode = Optional.of(statusCode);
+			this.responseBody = responseBody;
 			this.start = start;
 			this.stop = currentTimeMillis();
 			this.elapsed = stop - start;
 		}
 
-		public Builder(String statusText, int statusCode, Optional<String> responseBody, long start) {
-			this.statusText = statusText;
-			this.statusCode = Optional.of(statusCode);
-			this.responseBody = responseBody;
+		public Builder(IOException exception, long start) {
+			this.exception = Optional.of(exception);
+			this.statusText = isBlank(exception.getMessage()) ? "n/a" : exception.getMessage();
 			this.start = start;
 			this.stop = currentTimeMillis();
 			this.elapsed = stop - start;
