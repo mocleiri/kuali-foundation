@@ -15,12 +15,10 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.property.ImmutableProperties;
-import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 
-@IdiotProofImmutable
 public final class UrlToFileFunction2 implements Function<String, File> {
 
 	private final Properties urlToFileMapping;
@@ -39,11 +37,12 @@ public final class UrlToFileFunction2 implements Function<String, File> {
 	protected File getFile(String url) {
 		Optional<String> path = fromNullable(urlToFileMapping.getProperty(url));
 		if (path.isPresent()) {
-			return new File(path.get());
+			return new File(basedir, path.get());
 		} else {
 			counter.increment();
-			File file = new CanonicalFile(basedir, leftPad(counter.getValue() + "", 5, "0") + ".json");
-			urlToFileMapping.put(url, file.getPath());
+			String filename = leftPad(counter.getValue() + "", 5, "0") + ".json";
+			File file = new CanonicalFile(basedir, filename);
+			urlToFileMapping.put(url, filename);
 			PropertyUtils.store(urlToFileMapping, cacheManager);
 			return file;
 		}
