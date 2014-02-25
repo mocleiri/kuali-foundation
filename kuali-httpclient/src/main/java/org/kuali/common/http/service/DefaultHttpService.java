@@ -78,20 +78,20 @@ public class DefaultHttpService implements HttpService {
 		if (!context.isQuiet()) {
 			logger.info("{} - [{}] - [Timeout in {}]", args);
 		}
-		int retryAttmpts = 0;
+		int retryAttempts = 0;
 		for (;;) {
 			HttpRequestResult rr = doRequest(client, context);
 			requestResults.add(rr);
-			if (!isFinishState(context, rr, end, retryAttmpts)) {
+			if (!isFinishState(context, rr, end, retryAttempts)) {
 				logHttpRequestResult(context.getLogMsgPrefix(), rr, context.getUrl(), end, context.isQuiet());
 				Threads.sleep(context.getSleepIntervalMillis());
 			} else {
-				HttpStatus status = getResultStatus(context, retryAttmpts, rr, end);
+				HttpStatus status = getResultStatus(context, retryAttempts, rr, end);
 				HttpWaitResult waitResult = HttpWaitResult.builder(status, rr, start).requestResults(requestResults).build();
 				logWaitResult(waitResult, context.getUrl(), context.getLogMsgPrefix(), context.isQuiet());
 				return waitResult;
 			}
-			retryAttmpts++;
+			retryAttempts++;
 		}
 	}
 
