@@ -4,14 +4,12 @@ import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKN
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
-import static com.google.common.collect.Maps.newTreeMap;
 import static com.google.common.collect.Sets.newTreeSet;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.SortedMap;
+import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
@@ -43,49 +41,47 @@ public class SystemTest {
 			mapper.configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
 			JacksonContext context = JacksonContext.builder().mapper(mapper).build();
 			JsonService service = new JacksonJsonService(context);
-			List<String> keys = PropertyUtils.getStartsWithKeys(System.getProperties(), "os.");
-			SortedMap<String, String> map = newTreeMap();
-			for (String key : keys) {
-				map.put(key, System.getProperty(key));
-			}
+			List<String> keys = PropertyUtils.getStartsWithKeys(System.getProperties(), "java.");
 			OperatingSystem os = OperatingSystem.builder().withArchitecture("x86_64").withName("Mac OS X").withVersion("10.8.5").build();
-			JVM jvm = JVM.builder().withOperatingSystem(os).build();
+			JVM jvm1 = JVM.builder().withOperatingSystem(os).build();
 			JsonNode root = manual();
 			String json = service.writeString(root);
-			System.out.println(json);
-			System.out.println(service.writeString(map));
-			System.out.println(service.writeString(root));
+			// System.out.println(json);
+			// System.out.println(service.writeString(root));
 			JVM jvm2 = service.readString(json, JVM.class);
-			Node<String> tree = buildTree(keys);
+			Properties duplicate = PropertyUtils.duplicate(System.getProperties());
+			PropertyUtils.trim(duplicate, keys, null);
+			Node<String> tree = buildTree(duplicate);
 			String html = Trees.html(tree);
 			FileUtils.write(new File("/tmp/system.htm"), html);
-			JsonNode jsonNode = buildJson(tree);
-			System.out.println(service.writeString(jsonNode));
+			JsonNode jsonNode = buildJson(tree, duplicate);
+			String propsJson = service.writeString(jsonNode);
+			FileUtils.write(new File("/tmp/system.json"), propsJson);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected JsonNode buildJson(Node<String> node) {
+	protected JsonNode buildJson(Node<String> node, Properties properties) {
 		if (node.isLeaf()) {
 			List<String> tokens = node.getElementPath();
 			tokens.remove(0);
 			String key = Joiner.on('.').join(tokens);
-			String value = System.getProperty(key);
+			String value = properties.getProperty(key);
 			return new TextNode(value);
 		} else {
 			ObjectNode objectNode = new ObjectNode(FACTORY);
 			for (Node<String> child : node.getChildren()) {
-				objectNode.put(child.getElement(), buildJson(child));
+				objectNode.put(child.getElement(), buildJson(child, properties));
 			}
 			return objectNode;
 		}
 	}
 
-	protected Node<String> buildTree(Collection<String> keys) {
-		MutableNode<String> root = MutableNode.of("system");
+	protected Node<String> buildTree(Properties properties) {
+		MutableNode<String> root = MutableNode.of("root");
 		Map<String, MutableNode<String>> map = newHashMap();
-		for (String key : keys) {
+		for (String key : properties.stringPropertyNames()) {
 			addNodes(map, key);
 		}
 		for (String key : newTreeSet(map.keySet())) {
