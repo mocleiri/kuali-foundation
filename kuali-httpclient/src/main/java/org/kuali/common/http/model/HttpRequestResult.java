@@ -72,14 +72,18 @@ public final class HttpRequestResult {
 		private Optional<IOException> exception = absent();
 
 		@JsonCreator
-		public Builder(@JsonProperty("statusText") String statusText, @JsonProperty("statusCode") int statusCode, @JsonProperty("responseBody") Optional<String> responseBody,
-				@JsonProperty("start") long start) {
+		public Builder(@JsonProperty("statusText") String statusText, @JsonProperty("statusCode") Optional<Integer> statusCode,
+				@JsonProperty("responseBody") Optional<String> responseBody, @JsonProperty("start") long start) {
 			this.statusText = statusText;
-			this.statusCode = Optional.of(statusCode);
+			this.statusCode = statusCode;
 			this.responseBody = responseBody;
 			this.start = start;
 			this.stop = currentTimeMillis();
 			this.elapsed = stop - start;
+		}
+
+		public Builder(String statusText, int statusCode, Optional<String> responseBody, long start) {
+			this(statusText, Optional.of(statusCode), responseBody, start);
 		}
 
 		public Builder(IOException exception, long start) {
