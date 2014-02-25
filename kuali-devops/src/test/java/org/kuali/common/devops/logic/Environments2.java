@@ -229,7 +229,7 @@ public class Environments2 {
 
 	public static List<Environment.Builder> getBuilders(String group, List<EC2Instance> instances, BiMap<String, String> cnames) {
 		List<EC2Instance> servers = getDeployServers(group, instances, cnames);
-		List<Environment.Builder> builders = Lists.newArrayList();
+		List<Environment.Builder> builders = newArrayList();
 		for (EC2Instance server : servers) {
 			Environment.Builder builder = getBuilder(group, server, cnames);
 			builders.add(builder);
@@ -255,7 +255,7 @@ public class Environments2 {
 	}
 
 	protected static List<EC2Instance> getDeployServers(String group, List<EC2Instance> instances, BiMap<String, String> cnames) {
-		List<EC2Instance> list = Lists.newArrayList();
+		List<EC2Instance> list = newArrayList();
 		for (EC2Instance instance : instances) {
 			if (isActiveDeployServer(instance)) {
 				list.add(instance);
