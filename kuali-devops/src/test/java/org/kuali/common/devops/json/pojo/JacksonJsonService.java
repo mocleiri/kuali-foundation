@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public final class JacksonJsonService implements JsonService {
 
 	public JacksonJsonService() {
@@ -19,9 +21,11 @@ public final class JacksonJsonService implements JsonService {
 
 	public JacksonJsonService(JacksonContext context) {
 		this.context = checkNotNull(context, "context");
+		this.mapper = checkNotNull(context.getMapper().copy(), "mapper");
 	}
 
 	private final JacksonContext context;
+	private final ObjectMapper mapper;
 
 	@Override
 	public <T> T readString(String json, Class<T> valueType) {
@@ -36,7 +40,7 @@ public final class JacksonJsonService implements JsonService {
 	@Override
 	public <T> T read(InputStream in, Class<T> valueType) {
 		try {
-			return context.getMapper().readValue(in, valueType);
+			return mapper.readValue(in, valueType);
 		} catch (IOException e) {
 			throw illegalState(e, "unexpected io error");
 		}
@@ -57,13 +61,17 @@ public final class JacksonJsonService implements JsonService {
 	public <T> void write(OutputStream out, T reference) {
 		try {
 			if (context.isPrettyPrint()) {
-				context.getMapper().writer().withDefaultPrettyPrinter().writeValue(out, reference);
+				mapper.writer().withDefaultPrettyPrinter().writeValue(out, reference);
 			} else {
-				context.getMapper().writeValue(out, reference);
+				mapper.writeValue(out, reference);
 			}
 		} catch (IOException e) {
 			throw illegalState(e, "unexpected io error");
 		}
+	}
+
+	public JacksonContext getContext() {
+		return context;
 	}
 
 }
