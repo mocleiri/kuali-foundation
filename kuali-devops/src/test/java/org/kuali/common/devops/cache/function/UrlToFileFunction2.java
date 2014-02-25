@@ -43,7 +43,7 @@ public final class UrlToFileFunction2 implements Function<String, File> {
 			String filename = leftPad(counter.getValue() + "", 5, "0") + ".json";
 			File file = new CanonicalFile(basedir, filename);
 			urlToFileMapping.put(url, filename);
-			PropertyUtils.store(urlToFileMapping, cacheManager);
+			PropertyUtils.storeSilently(urlToFileMapping, cacheManager);
 			return file;
 		}
 	}
