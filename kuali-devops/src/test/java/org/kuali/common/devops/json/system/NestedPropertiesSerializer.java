@@ -48,7 +48,7 @@ import com.google.common.collect.ImmutableMap;
  * }
  * </pre>
  */
-public class JsonPropertiesService {
+public class NestedPropertiesSerializer {
 
 	private final String rootNodeElement = "root";
 	private final JsonNodeFactory nodeFactory = new JsonNodeFactory(true);

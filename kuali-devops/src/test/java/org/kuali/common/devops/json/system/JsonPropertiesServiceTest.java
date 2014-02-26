@@ -13,7 +13,7 @@ public class JsonPropertiesServiceTest {
 		try {
 			Properties props = new Properties();
 			props.setProperty("foo.bar", "baz");
-			JsonPropertiesService service = new JsonPropertiesService();
+			NestedPropertiesSerializer service = new NestedPropertiesSerializer();
 			System.out.println(service.getJson(props));
 			JsonService json = new JacksonJsonService();
 			System.out.println(json.writeString(props));
