@@ -104,7 +104,7 @@ public class JsonPropertiesService {
 	 * </pre>
 	 * 
 	 * @throws IllegalArgumentException
-	 *             If splitting the key up into tokens using dot's produces blank tokens or duplicate path elements
+	 *             If splitting the key into path elements produces blank tokens or duplicates
 	 */
 	protected Set<String> getPaths(String key) {
 
