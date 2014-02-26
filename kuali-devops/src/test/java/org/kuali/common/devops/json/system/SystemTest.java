@@ -39,7 +39,7 @@ public class SystemTest {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
-			JacksonContext context = JacksonContext.builder().mapper(mapper).build();
+			JacksonContext context = JacksonContext.builder().withMapper(mapper).build();
 			JsonService service = new JacksonJsonService(context);
 			List<String> keys = PropertyUtils.getStartsWithKeys(System.getProperties(), "java.");
 			OperatingSystem os = OperatingSystem.builder().withArchitecture("x86_64").withName("Mac OS X").withVersion("10.8.5").build();
