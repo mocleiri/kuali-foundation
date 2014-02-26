@@ -21,7 +21,7 @@ import com.google.common.collect.ImmutableSet;
 
 @IdiotProofImmutable
 @JsonDeserialize(builder = SplitterFunction.Builder.class)
-public class SplitterFunction implements Function<Set<String>, Set<String>> {
+public final class SplitterFunction implements Function<Set<String>, Set<String>> {
 
 	private final char separator;
 	private final boolean allowBlanks;
