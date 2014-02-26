@@ -3,6 +3,8 @@ package org.kuali.common.devops.json.system;
 import java.util.Properties;
 
 import org.junit.Test;
+import org.kuali.common.devops.json.pojo.JacksonJsonService;
+import org.kuali.common.devops.json.pojo.JsonService;
 
 public class JsonPropertiesServiceTest {
 
@@ -12,8 +14,9 @@ public class JsonPropertiesServiceTest {
 			Properties props = new Properties();
 			props.setProperty("foo.bar", "baz");
 			JsonPropertiesService service = new JsonPropertiesService();
-			String json = service.getJson(props);
-			System.out.println(json);
+			System.out.println(service.getJson(props));
+			JsonService json = new JacksonJsonService();
+			System.out.println(json.writeString(props));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}

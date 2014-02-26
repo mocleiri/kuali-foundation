@@ -29,7 +29,23 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableMap;
 
 /**
+ * Converts key/value pairs into correctly nested json. The pair {@code foo.bar=baz} would normally be translated to json like this:
  * 
+ * <pre>
+ * {
+ *   "foo.bar" : "baz"
+ * }
+ * </pre>
+ * 
+ * This class converts {@code foo.bar=baz} into json using the nested structure implied by the key:
+ * 
+ * <pre>
+ * {
+ *   "foo" : {
+ *     "bar" : "baz"
+ *   }
+ * }
+ * </pre>
  */
 public class JsonPropertiesService {
 
