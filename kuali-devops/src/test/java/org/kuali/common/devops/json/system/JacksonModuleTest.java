@@ -21,9 +21,9 @@ public class JacksonModuleTest {
 		try {
 			Properties props = new Properties();
 			props.setProperty("foo.bar", "baz");
-			// props.setProperty("a", "1");
-			// props.setProperty("b", "2");
-			// props.setProperty("c", "3");
+			props.setProperty("a", "1");
+			props.setProperty("b", "2");
+			props.setProperty("c", "3");
 
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.registerModule(getModule());
@@ -31,7 +31,7 @@ public class JacksonModuleTest {
 			JacksonContext context = JacksonContext.builder().withModules(modules).build();
 			JsonService service1 = new JacksonJsonService(context);
 			System.out.println(service1.writeString(props));
-			 JsonService service2 = new JacksonJsonService();
+			JsonService service2 = new JacksonJsonService();
 			System.out.println(service2.writeString(props));
 		} catch (Throwable e) {
 			e.printStackTrace();
