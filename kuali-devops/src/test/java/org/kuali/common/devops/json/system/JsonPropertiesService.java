@@ -55,9 +55,9 @@ public class JsonPropertiesService {
 			Optional<String> parentKey = getParentKey(key);
 			if (parentKey.isPresent()) {
 				String mapKey = parentKey.get();
-				Optional<MutableNode<String>> parent = fromNullable(map.get(mapKey));
-				checkState(parent.isPresent(), "unable to locate node -> %s", mapKey);
-				parent.get().add(child);
+				MutableNode<String> parent = map.get(mapKey);
+				checkState(parent != null, "unable to locate node -> %s", mapKey);
+				parent.add(child);
 			} else {
 				root.add(child);
 			}
@@ -67,21 +67,59 @@ public class JsonPropertiesService {
 
 	protected JsonNode buildJsonTree(Node<String> node, Properties properties) {
 		if (node.isLeaf()) {
-			List<String> tokens = node.getElementPath();
-			tokens.remove(0); // Remove the root token we've superficially added
-			String key = joiner.join(tokens);
-			Optional<String> value = fromNullable(properties.getProperty(key));
-			checkState(value.isPresent(), "unable to locate value for key -> %s", key);
-			return new TextNode(value.get());
+			// base case, return a new text node containing the property value corresponding to this node of the tree
+			return buildTextNode(node, properties);
 		} else {
-			ObjectNode objectNode = new ObjectNode(nodeFactory);
-			for (Node<String> child : node.getChildren()) {
-				objectNode.put(child.getElement(), buildJsonTree(child, properties));
-			}
-			return objectNode;
+			// recursively build a json tree that copies the regular tree rooted at node
+			return buildObjectNode(node, properties);
 		}
 	}
 
+	protected ObjectNode buildObjectNode(Node<String> node, Properties properties) {
+		// Create a new json node to hold the contents of the tree rooted at the regular node
+		ObjectNode objectNode = new ObjectNode(nodeFactory);
+
+		// Recurse down the regular tree creating and linking in json trees as we go
+		for (Node<String> child : node.getChildren()) {
+
+			// Create a new JsonNode, this will be either an ObjectNode or a TextNode
+			JsonNode jsonNode = buildJsonTree(child, properties);
+
+			// Add the new json node into the json tree using the name from the regular node
+			objectNode.put(child.getElement(), jsonNode);
+		}
+
+		// Return the fully populated tree
+		return objectNode;
+	}
+
+	protected TextNode buildTextNode(Node<String> node, Properties properties) {
+		// The key to the property file is based on the node's position in the tree
+		List<String> tokens = node.getElementPath();
+
+		// Remove the token representing the root node we've superficially added
+		tokens.remove(0);
+
+		// Getting the property key is now as simple as joining the tokens
+		String key = joiner.join(tokens);
+
+		// Extract a property value
+		Optional<String> value = fromNullable(properties.getProperty(key));
+
+		// Make sure the properties object contains a value for this key
+		checkState(value.isPresent(), "unable to locate value for key -> %s", key);
+
+		// Create a new text node based on the property value
+		return new TextNode(value.get());
+	}
+
+	/**
+	 * <pre>
+	 * java.class.path -> java.class
+	 * java.class      -> java
+	 * java            -> Optional.absent()
+	 * </pre>
+	 */
 	protected Optional<String> getParentKey(String key) {
 		List<String> tokens = newArrayList(splitter.splitToList(key));
 		if (tokens.size() == 1) {
