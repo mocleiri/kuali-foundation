@@ -36,7 +36,7 @@ public class JsonPropertiesService {
 	private final Splitter splitter = Splitter.on(separator);
 	private final Joiner joiner = Joiner.on(separator);
 	private final JsonService service = new JacksonJsonService();
-	private final SplitterFunction pathSplitter = newSplitterFunction(separator, false);
+	private final SplitterFunction pathSplitter = newSplitterFunction(separator);
 
 	public String getJson(Properties properties) {
 		Set<String> paths = pathSplitter.apply(properties.stringPropertyNames());

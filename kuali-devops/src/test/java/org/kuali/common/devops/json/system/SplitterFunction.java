@@ -25,6 +25,7 @@ public class SplitterFunction implements Function<Set<String>, Set<String>> {
 
 	private final char separator;
 	private final boolean allowBlanks;
+	private final boolean allowDuplicateTokens;
 	@JsonIgnore
 	private final Splitter splitter;
 
@@ -87,8 +88,12 @@ public class SplitterFunction implements Function<Set<String>, Set<String>> {
 			String element = sb.append(token).toString();
 
 			// Add the new path element to our set
-			// TODO This checkArgument call should be superfluous now that checkNotBlank is called on each token
-			checkArgument(strings.add(element), "%s is a duplicate element", element);
+			boolean added = strings.add(element);
+
+			// Make sure it was actually added if duplicate tokens are not allowed
+			if (!allowDuplicateTokens) {
+				checkArgument(added, "%s is a duplicate token -> [%s]", element, string);
+			}
 		}
 
 		// Return what we've got
@@ -98,11 +103,12 @@ public class SplitterFunction implements Function<Set<String>, Set<String>> {
 	private SplitterFunction(Builder builder) {
 		this.separator = builder.separator;
 		this.allowBlanks = builder.allowBlanks;
+		this.allowDuplicateTokens = builder.allowDuplicateTokens;
 		this.splitter = Splitter.on(separator);
 	}
 
-	public static SplitterFunction newSplitterFunction(char separator, boolean allowBlanks) {
-		return builder().withAllowBlanks(allowBlanks).withSeparator(separator).build();
+	public static SplitterFunction newSplitterFunction(char separator) {
+		return builder().withSeparator(separator).build();
 	}
 
 	public static SplitterFunction newSplitterFunction() {
@@ -117,9 +123,15 @@ public class SplitterFunction implements Function<Set<String>, Set<String>> {
 
 		private char separator = '.';
 		private boolean allowBlanks = false;
+		private boolean allowDuplicateTokens = false;
 
 		public Builder withSeparator(char separator) {
 			this.separator = separator;
+			return this;
+		}
+
+		public Builder withAllowDuplicateTokens(boolean allowDuplicateTokens) {
+			this.allowDuplicateTokens = allowDuplicateTokens;
 			return this;
 		}
 
@@ -150,6 +162,10 @@ public class SplitterFunction implements Function<Set<String>, Set<String>> {
 
 	public boolean isAllowBlanks() {
 		return allowBlanks;
+	}
+
+	public boolean isAllowDuplicateTokens() {
+		return allowDuplicateTokens;
 	}
 
 }
