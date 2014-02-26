@@ -31,8 +31,8 @@ public class JacksonModuleTest {
 			JacksonContext context = JacksonContext.builder().withModules(modules).build();
 			JsonService service1 = new JacksonJsonService(context);
 			System.out.println(service1.writeString(props));
-			// JsonService service2 = new JacksonJsonService();
-			// System.out.println(service2.writeString(props));
+			 JsonService service2 = new JacksonJsonService();
+			System.out.println(service2.writeString(props));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
