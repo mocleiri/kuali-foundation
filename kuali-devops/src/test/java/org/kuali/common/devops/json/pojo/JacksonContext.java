@@ -59,12 +59,16 @@ public final class JacksonContext {
 			return new JacksonContext(this);
 		}
 
-		public Builder mapper(ObjectMapper mapper) {
+		public Builder withMapper(ObjectMapper mapper) {
 			this.mapper = mapper;
 			return this;
 		}
 
-		public Builder modules(List<Module> modules) {
+		public Builder withModule(Module module) {
+			return withModules(ImmutableList.of(module));
+		}
+
+		public Builder withModules(List<Module> modules) {
 			this.modules = modules;
 			return this;
 		}
