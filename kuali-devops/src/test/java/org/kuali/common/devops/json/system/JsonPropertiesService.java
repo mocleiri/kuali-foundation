@@ -6,6 +6,7 @@ import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newTreeSet;
+import static org.kuali.common.devops.json.system.SplitterFunction.newSplitterFunction;
 
 import java.util.List;
 import java.util.Map;
@@ -35,7 +36,7 @@ public class JsonPropertiesService {
 	private final Splitter splitter = Splitter.on(separator);
 	private final Joiner joiner = Joiner.on(separator);
 	private final JsonService service = new JacksonJsonService();
-	private final SplitterFunction pathSplitter = new SplitterFunction(separator, false);
+	private final SplitterFunction pathSplitter = newSplitterFunction(separator, false);
 
 	public String getJson(Properties properties) {
 		Set<String> paths = pathSplitter.apply(properties.stringPropertyNames());

@@ -8,21 +8,17 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.ConstraintViolation;
+
+import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.validate.IdiotProofImmutable;
+
 import com.google.common.base.Function;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableSet;
 
+@IdiotProofImmutable
 public class SplitterFunction implements Function<Set<String>, Set<String>> {
-
-	public SplitterFunction() {
-		this('.', false);
-	}
-
-	public SplitterFunction(char separator, boolean allowBlanks) {
-		this.separator = separator;
-		this.allowBlanks = allowBlanks;
-		this.splitter = Splitter.on(separator);
-	}
 
 	private final char separator;
 	private final boolean allowBlanks;
@@ -39,7 +35,7 @@ public class SplitterFunction implements Function<Set<String>, Set<String>> {
 	 * </pre>
 	 * 
 	 * @throws IllegalArgumentException
-	 *             If splitting the individual keys into path elements produces blank tokens and allowBlanks is false
+	 *             If splitting the individual strings into elements produces blank tokens and allowBlanks is false
 	 */
 	@Override
 	public Set<String> apply(Set<String> strings) {
@@ -61,20 +57,20 @@ public class SplitterFunction implements Function<Set<String>, Set<String>> {
 	 * </pre>
 	 * 
 	 * @throws IllegalArgumentException
-	 *             If splitting the key into path elements produces blank tokens and allow blanks is false
+	 *             If splitting the string into elements produces blank tokens and allow blanks is false
 	 */
-	protected Set<String> apply(String key) {
+	protected Set<String> apply(String string) {
 
 		// Split the key into tokens
-		List<String> tokens = splitter.splitToList(key);
+		List<String> tokens = splitter.splitToList(string);
 
-		// Setup some storage for the paths we are creating
-		Set<String> paths = newHashSet();
+		// Setup some storage for the strings we are creating
+		Set<String> strings = newHashSet();
 
 		// Allocate a string builder
 		StringBuilder sb = new StringBuilder();
 
-		// Iterate over the tokens to create path elements
+		// Iterate over the tokens to create unique string elements
 		for (int i = 0; i < tokens.size(); i++) {
 
 			// append the separator char unless this is the first loop iteration
@@ -84,15 +80,64 @@ public class SplitterFunction implements Function<Set<String>, Set<String>> {
 			String token = allowBlanks ? tokens.get(i) : checkNotBlank(tokens.get(i), "token");
 
 			// Append the current token to create a new path element
-			String path = sb.append(token).toString();
+			String element = sb.append(token).toString();
 
 			// Add the new path element to our set
 			// TODO This checkArgument call should be superfluous now that checkNotBlank is called on each token
-			checkArgument(paths.add(path), "%s is a duplicate path element", path);
+			checkArgument(strings.add(element), "%s is a duplicate element", element);
 		}
 
 		// Return what we've got
-		return ImmutableSet.copyOf(paths);
+		return ImmutableSet.copyOf(strings);
+	}
+
+	private SplitterFunction(Builder builder) {
+		this.separator = builder.separator;
+		this.allowBlanks = builder.allowBlanks;
+		this.splitter = Splitter.on(separator);
+	}
+
+	public static SplitterFunction newSplitterFunction(char separator, boolean allowBlanks) {
+		return builder().withAllowBlanks(allowBlanks).withSeparator(separator).build();
+	}
+
+	public static SplitterFunction newSplitterFunction() {
+		return builder().build();
+	}
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
+	public static class Builder extends ValidatingBuilder<SplitterFunction> {
+
+		private char separator = '.';
+		private boolean allowBlanks = false;
+
+		public Builder withSeparator(char separator) {
+			this.separator = separator;
+			return this;
+		}
+
+		public Builder withAllowBlanks(boolean allowBlanks) {
+			this.allowBlanks = allowBlanks;
+			return this;
+		}
+
+		@Override
+		public SplitterFunction build() {
+			return validate(make());
+		}
+
+		@Override
+		public Set<ConstraintViolation<SplitterFunction>> violations() {
+			return violations(make());
+		}
+
+		private SplitterFunction make() {
+			return new SplitterFunction(this);
+		}
+
 	}
 
 }
