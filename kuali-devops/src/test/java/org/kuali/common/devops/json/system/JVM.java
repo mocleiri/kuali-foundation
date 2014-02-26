@@ -15,10 +15,12 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonPropertyOrder(alphabetic = true)
 public final class JVM {
 
-	private final OperatingSystem os;
+	private final String lineSeparator;
+	private final OperatingSystem operatingSystem;
 
 	private JVM(Builder builder) {
-		this.os = builder.os;
+		this.operatingSystem = builder.operatingSystem;
+		this.lineSeparator = builder.lineSeparator;
 	}
 
 	public static Builder builder() {
@@ -27,35 +29,57 @@ public final class JVM {
 
 	public static class Builder extends ValidatingBuilder<JVM> {
 
-		private OperatingSystem os;
+		private OperatingSystem operatingSystem;
+		private String lineSeparator;
 
 		@Override
 		public Set<ConstraintViolation<JVM>> violations() {
-			return violations(new JVM(this));
+			return violations(make());
 		}
 
 		@Override
 		public JVM build() {
-			return validate(new JVM(this));
+			return validate(make());
 		}
 
-		public Builder withOs(OperatingSystem os) {
-			this.os = os;
+		private JVM make() {
+			return new JVM(this);
+		}
+
+		public Builder withLineSeparator(String lineSeparator) {
+			this.lineSeparator = lineSeparator;
 			return this;
 		}
 
-		public OperatingSystem getOs() {
-			return os;
+		public Builder withOperatingSystem(OperatingSystem operatingSystem) {
+			this.operatingSystem = operatingSystem;
+			return this;
 		}
 
-		public void setOs(OperatingSystem os) {
-			this.os = os;
+		public OperatingSystem getOperatingSystem() {
+			return operatingSystem;
+		}
+
+		public void setOperatingSystem(OperatingSystem operatingSystem) {
+			this.operatingSystem = operatingSystem;
+		}
+
+		public String getLineSeparator() {
+			return lineSeparator;
+		}
+
+		public void setLineSeparator(String lineSeparator) {
+			this.lineSeparator = lineSeparator;
 		}
 
 	}
 
-	public OperatingSystem getOs() {
-		return os;
+	public String getLineSeparator() {
+		return lineSeparator;
+	}
+
+	public OperatingSystem getOperatingSystem() {
+		return operatingSystem;
 	}
 
 }
