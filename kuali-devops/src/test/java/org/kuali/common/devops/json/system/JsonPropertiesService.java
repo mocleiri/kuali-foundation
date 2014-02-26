@@ -36,7 +36,8 @@ public class JsonPropertiesService {
 	private final JsonService service = new JacksonJsonService();
 
 	public String getJson(Properties properties) {
-		Map<String, MutableNode<String>> map = getNodeMap(properties.stringPropertyNames());
+		Set<String> paths = getPaths(properties.stringPropertyNames());
+		Map<String, MutableNode<String>> map = getNodeMap(paths);
 		Node<String> node = buildTree(map, properties);
 		JsonNode jsonNode = buildJsonTree(node, properties);
 		return service.writeString(jsonNode);
@@ -82,12 +83,16 @@ public class JsonPropertiesService {
 		return joiner.join(list);
 	}
 
-	protected Map<String, MutableNode<String>> getNodeMap(Set<String> keys) {
-		Map<String, MutableNode<String>> map = newHashMap();
+	protected Set<String> getPaths(Set<String> keys) {
 		Set<String> paths = newHashSet();
 		for (String key : keys) {
 			paths.addAll(getPaths(key));
 		}
+		return paths;
+	}
+
+	protected Map<String, MutableNode<String>> getNodeMap(Set<String> paths) {
+		Map<String, MutableNode<String>> map = newHashMap();
 		for (String path : paths) {
 			List<String> tokens = splitter.splitToList(path);
 			String token = tokens.get(tokens.size() - 1);
