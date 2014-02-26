@@ -3,6 +3,7 @@ package org.kuali.common.devops.json.system;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
+import static com.google.common.collect.Sets.newHashSet;
 import static com.google.common.collect.Sets.newTreeSet;
 
 import java.util.List;
@@ -81,30 +82,33 @@ public class JsonPropertiesService {
 
 	protected Map<String, MutableNode<String>> getNodeMap(Set<String> keys) {
 		Map<String, MutableNode<String>> map = newHashMap();
+		Set<String> paths = newHashSet();
 		for (String key : keys) {
-			List<String> paths = getPaths(key);
-			for (String path : paths) {
-				Optional<MutableNode<String>> node = fromNullable(map.get(path));
-				if (!node.isPresent()) {
-					List<String> tokens = splitter.splitToList(path);
-					String token = tokens.get(tokens.size() - 1);
-					map.put(path, MutableNode.of(token));
-				}
-			}
+			paths.addAll(getPaths(key));
+		}
+		for (String path : paths) {
+			List<String> tokens = splitter.splitToList(path);
+			String token = tokens.get(tokens.size() - 1);
+			map.put(path, MutableNode.of(token));
 		}
 		return map;
 	}
 
-	protected List<String> getPaths(String key) {
+	/**
+	 * <pre>
+	 * java.io.tmpdir -> java
+	 *                   java.io
+	 *                   java.io.tmpdir
+	 * </pre>
+	 */
+	protected Set<String> getPaths(String key) {
 		List<String> tokens = splitter.splitToList(key);
-		List<String> paths = newArrayList();
+		Set<String> paths = newHashSet();
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < tokens.size(); i++) {
-			if (i != 0) {
-				sb.append(separator);
-			}
-			String token = tokens.get(i);
-			paths.add(sb.append(token).toString());
+			sb = (i != 0) ? sb.append(separator) : sb;
+			sb.append(tokens.get(i));
+			paths.add(sb.toString());
 		}
 		return paths;
 	}
