@@ -38,12 +38,12 @@ public class JsonPropertiesService {
 	public String getJson(Properties properties) {
 		Set<String> paths = getPaths(properties.stringPropertyNames());
 		Map<String, MutableNode<String>> map = getNodeMap(paths);
-		Node<String> node = buildTree(map, properties);
+		Node<String> node = buildTree(map);
 		JsonNode jsonNode = buildJsonTree(node, properties);
 		return service.writeString(jsonNode);
 	}
 
-	protected Node<String> buildTree(Map<String, MutableNode<String>> map, Properties properties) {
+	protected Node<String> buildTree(Map<String, MutableNode<String>> map) {
 		MutableNode<String> root = MutableNode.of(rootNodeElement);
 		for (String key : newTreeSet(map.keySet())) {
 			MutableNode<String> child = map.get(key);
