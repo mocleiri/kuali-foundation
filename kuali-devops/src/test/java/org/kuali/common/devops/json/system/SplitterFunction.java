@@ -13,15 +13,19 @@ import javax.validation.ConstraintViolation;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.Function;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableSet;
 
 @IdiotProofImmutable
+@JsonDeserialize(builder = SplitterFunction.Builder.class)
 public class SplitterFunction implements Function<Set<String>, Set<String>> {
 
 	private final char separator;
 	private final boolean allowBlanks;
+	@JsonIgnore
 	private final Splitter splitter;
 
 	/**
@@ -138,6 +142,14 @@ public class SplitterFunction implements Function<Set<String>, Set<String>> {
 			return new SplitterFunction(this);
 		}
 
+	}
+
+	public char getSeparator() {
+		return separator;
+	}
+
+	public boolean isAllowBlanks() {
+		return allowBlanks;
 	}
 
 }
