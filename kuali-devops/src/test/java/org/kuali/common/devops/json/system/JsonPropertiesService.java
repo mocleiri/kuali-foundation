@@ -8,6 +8,7 @@ import static com.google.common.collect.Sets.newTreeSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.kuali.common.devops.json.pojo.JacksonJsonService;
 import org.kuali.common.devops.json.pojo.JsonService;
@@ -32,17 +33,14 @@ public class JsonPropertiesService {
 	private final JsonService service = new JacksonJsonService();
 
 	public String getJson(Properties properties) {
-		Node<String> node = buildTree(properties);
+		Map<String, MutableNode<String>> map = getNodeMap(properties.stringPropertyNames());
+		Node<String> node = buildTree(map, properties);
 		JsonNode jsonNode = buildJsonTree(node, properties);
 		return service.writeString(jsonNode);
 	}
 
-	protected Node<String> buildTree(Properties properties) {
+	protected Node<String> buildTree(Map<String, MutableNode<String>> map, Properties properties) {
 		MutableNode<String> root = MutableNode.of(rootNodeElement);
-		Map<String, MutableNode<String>> map = newHashMap();
-		for (String key : properties.stringPropertyNames()) {
-			addNodes(map, key);
-		}
 		for (String key : newTreeSet(map.keySet())) {
 			MutableNode<String> child = map.get(key);
 			String parentKey = getParentKey(key);
@@ -81,16 +79,20 @@ public class JsonPropertiesService {
 		return joiner.join(list);
 	}
 
-	protected void addNodes(Map<String, MutableNode<String>> map, String key) {
-		List<String> paths = getPaths(key);
-		for (String path : paths) {
-			Optional<MutableNode<String>> node = fromNullable(map.get(path));
-			if (!node.isPresent()) {
-				List<String> tokens = splitter.splitToList(path);
-				String token = tokens.get(tokens.size() - 1);
-				map.put(path, MutableNode.of(token));
+	protected Map<String, MutableNode<String>> getNodeMap(Set<String> keys) {
+		Map<String, MutableNode<String>> map = newHashMap();
+		for (String key : keys) {
+			List<String> paths = getPaths(key);
+			for (String path : paths) {
+				Optional<MutableNode<String>> node = fromNullable(map.get(path));
+				if (!node.isPresent()) {
+					List<String> tokens = splitter.splitToList(path);
+					String token = tokens.get(tokens.size() - 1);
+					map.put(path, MutableNode.of(token));
+				}
 			}
 		}
+		return map;
 	}
 
 	protected List<String> getPaths(String key) {

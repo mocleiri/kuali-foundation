@@ -21,7 +21,9 @@ public final class JacksonJsonService implements JsonService {
 
 	public JacksonJsonService(JacksonContext context) {
 		this.context = checkNotNull(context, "context");
-		this.mapper = context.getMapper();
+		// Make our own defensive copy of the mapper so it's impossible for anything to alter
+		// service behavior by messing with the mapper reference from the context object
+		this.mapper = checkNotNull(context.getMapper().copy(), "mapper");
 	}
 
 	private final JacksonContext context;
