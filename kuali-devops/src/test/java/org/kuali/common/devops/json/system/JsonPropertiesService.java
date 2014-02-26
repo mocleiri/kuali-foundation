@@ -148,6 +148,7 @@ public class JsonPropertiesService {
 			String path = sb.append(token).toString();
 
 			// Add the new path element to our set
+			// TODO I think this checkArgument call is superfluous now that checkNotBlank is called on each token
 			checkArgument(paths.add(path), "%s is a duplicate path element", path);
 		}
 
