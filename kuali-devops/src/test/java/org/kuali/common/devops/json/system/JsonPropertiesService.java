@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import java.util.SortedSet;
 
 import org.kuali.common.devops.json.pojo.JacksonJsonService;
 import org.kuali.common.devops.json.pojo.JsonService;
@@ -43,10 +42,6 @@ public class JsonPropertiesService {
 
 	public String getJson(Properties properties) {
 		Set<String> paths = getPaths(properties.stringPropertyNames());
-		SortedSet<String> sorted = newTreeSet(paths);
-		for (String element : sorted) {
-			System.out.println(element);
-		}
 		Map<String, MutableNode<String>> map = getNodeMap(paths);
 		Node<String> node = buildTree(map);
 		JsonNode jsonNode = buildJsonTree(node, properties);
@@ -59,8 +54,9 @@ public class JsonPropertiesService {
 			MutableNode<String> child = map.get(key);
 			Optional<String> parentKey = getParentKey(key);
 			if (parentKey.isPresent()) {
-				Optional<MutableNode<String>> parent = fromNullable(map.get(parentKey));
-				checkState(parent.isPresent(), "unable to locate node -> %s", parentKey.get());
+				String mapKey = parentKey.get();
+				Optional<MutableNode<String>> parent = fromNullable(map.get(mapKey));
+				checkState(parent.isPresent(), "unable to locate node -> %s", mapKey);
 				parent.get().add(child);
 			} else {
 				root.add(child);
@@ -104,7 +100,7 @@ public class JsonPropertiesService {
 	 */
 	protected Map<String, MutableNode<String>> getNodeMap(Set<String> paths) {
 		Map<String, MutableNode<String>> map = newHashMap();
-		for (String path : paths) {
+		for (String path : newTreeSet(paths)) {
 			List<String> tokens = splitter.splitToList(path);
 			String nodeElement = tokens.get(tokens.size() - 1);
 			MutableNode<String> node = MutableNode.of(nodeElement);
