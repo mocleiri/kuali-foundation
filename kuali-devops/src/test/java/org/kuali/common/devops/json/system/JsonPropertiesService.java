@@ -83,14 +83,6 @@ public class JsonPropertiesService {
 		return joiner.join(list);
 	}
 
-	protected Set<String> getPaths(Set<String> keys) {
-		Set<String> paths = newHashSet();
-		for (String key : keys) {
-			paths.addAll(getPaths(key));
-		}
-		return paths;
-	}
-
 	protected Map<String, MutableNode<String>> getNodeMap(Set<String> paths) {
 		Map<String, MutableNode<String>> map = newHashMap();
 		for (String path : paths) {
@@ -102,10 +94,33 @@ public class JsonPropertiesService {
 	}
 
 	/**
+	 * Convert a series of dot separated strings into a unique set of individual path elements.
+	 * 
 	 * <pre>
-	 * java.io.tmpdir -> java
-	 *                   java.io
-	 *                   java.io.tmpdir
+	 * java.class.path    -> java
+	 * java.class.version    java.class
+	 *                       java.class.path
+	 *                       java.class.version
+	 * </pre>
+	 * 
+	 * @throws IllegalArgumentException
+	 *             If splitting the individual keys into path elements produces blank tokens
+	 */
+	protected Set<String> getPaths(Set<String> keys) {
+		Set<String> paths = newHashSet();
+		for (String key : keys) {
+			paths.addAll(getPaths(key));
+		}
+		return paths;
+	}
+
+	/**
+	 * Convert a dot separated string into a unique set of individual path elements.
+	 * 
+	 * <pre>
+	 * java.class.path -> java
+	 *                    java.class
+	 *                    java.class.path
 	 * </pre>
 	 * 
 	 * @throws IllegalArgumentException
