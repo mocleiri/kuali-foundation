@@ -7,7 +7,6 @@ import javax.validation.ConstraintViolation;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutableWithBlanks;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -16,11 +15,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonPropertyOrder(alphabetic = true)
 public final class JVM {
 
-	@JsonProperty("os")
-	private final OperatingSystem operatingSystem;
+	private final OperatingSystem os;
 
 	private JVM(Builder builder) {
-		this.operatingSystem = builder.operatingSystem;
+		this.os = builder.os;
 	}
 
 	public static Builder builder() {
@@ -29,8 +27,7 @@ public final class JVM {
 
 	public static class Builder extends ValidatingBuilder<JVM> {
 
-		@JsonProperty("os")
-		private OperatingSystem operatingSystem;
+		private OperatingSystem os;
 
 		@Override
 		public Set<ConstraintViolation<JVM>> violations() {
@@ -42,23 +39,23 @@ public final class JVM {
 			return validate(new JVM(this));
 		}
 
-		public Builder withOperatingSystem(OperatingSystem operatingSystem) {
-			this.operatingSystem = operatingSystem;
+		public Builder withOs(OperatingSystem os) {
+			this.os = os;
 			return this;
 		}
 
-		public OperatingSystem getOperatingSystem() {
-			return operatingSystem;
+		public OperatingSystem getOs() {
+			return os;
 		}
 
-		public void setOperatingSystem(OperatingSystem operatingSystem) {
-			this.operatingSystem = operatingSystem;
+		public void setOs(OperatingSystem os) {
+			this.os = os;
 		}
 
 	}
 
-	public OperatingSystem getOperatingSystem() {
-		return operatingSystem;
+	public OperatingSystem getOs() {
+		return os;
 	}
 
 }

@@ -43,7 +43,7 @@ public class SystemTest {
 			JsonService service = new JacksonJsonService(context);
 			List<String> keys = PropertyUtils.getStartsWithKeys(System.getProperties(), "java.");
 			OperatingSystem os = OperatingSystem.builder().withArchitecture("x86_64").withName("Mac OS X").withVersion("10.8.5").build();
-			JVM jvm1 = JVM.builder().withOperatingSystem(os).build();
+			JVM jvm1 = JVM.builder().withOs(os).build();
 			JsonNode root = manual();
 			String json = service.writeString(root);
 			// System.out.println(json);
