@@ -2,13 +2,10 @@ package org.kuali.common.devops.json.system;
 
 import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
-import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
-import static com.google.common.collect.Sets.newHashSet;
 import static com.google.common.collect.Sets.newTreeSet;
-import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 import java.util.List;
 import java.util.Map;
@@ -29,7 +26,6 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
 
 public class JsonPropertiesService {
 
@@ -39,9 +35,10 @@ public class JsonPropertiesService {
 	private final Splitter splitter = Splitter.on(separator);
 	private final Joiner joiner = Joiner.on(separator);
 	private final JsonService service = new JacksonJsonService();
+	private final SplitterFunction pathSplitter = new SplitterFunction(separator, false);
 
 	public String getJson(Properties properties) {
-		Set<String> paths = getPaths(properties.stringPropertyNames());
+		Set<String> paths = pathSplitter.apply(properties.stringPropertyNames());
 		Map<String, MutableNode<String>> map = getNodeMap(paths);
 		Node<String> node = buildTree(map);
 		JsonNode jsonNode = buildJsonTree(node, properties);
@@ -164,71 +161,6 @@ public class JsonPropertiesService {
 			map.put(path, node);
 		}
 		return ImmutableMap.copyOf(map);
-	}
-
-	/**
-	 * Convert a series of dot separated strings into a unique set of individual path elements.
-	 * 
-	 * <pre>
-	 * java.class.path    -> java
-	 * java.class.version    java.class
-	 *                       java.class.path
-	 *                       java.class.version
-	 * </pre>
-	 * 
-	 * @throws IllegalArgumentException
-	 *             If splitting the individual keys into path elements produces blank tokens
-	 */
-	protected Set<String> getPaths(Set<String> keys) {
-		Set<String> paths = newHashSet();
-		for (String key : keys) {
-			paths.addAll(getPaths(key));
-		}
-		return ImmutableSet.copyOf(paths);
-	}
-
-	/**
-	 * Convert a dot separated string into a unique set of individual path elements.
-	 * 
-	 * <pre>
-	 * java.class.path -> java
-	 *                    java.class
-	 *                    java.class.path
-	 * </pre>
-	 * 
-	 * @throws IllegalArgumentException
-	 *             If splitting the key into path elements produces blank tokens or duplicates
-	 */
-	protected Set<String> getPaths(String key) {
-
-		// Split the key into tokens
-		List<String> tokens = splitter.splitToList(key);
-
-		// Setup some storage for the paths we are creating
-		Set<String> paths = newHashSet();
-
-		// Allocate a string builder
-		StringBuilder sb = new StringBuilder();
-
-		// Iterate over the tokens to create path elements
-		for (int i = 0; i < tokens.size(); i++) {
-
-			// append the separator char unless this is the first loop iteration
-			sb = (i != 0) ? sb.append(separator) : sb;
-
-			// Extract the token, checking to make sure it isn't blank
-			String token = checkNotBlank(tokens.get(i), "token");
-
-			// Append the current token to create a new path element
-			String path = sb.append(token).toString();
-
-			// Add the new path element to our set
-			// TODO This checkArgument call should be superfluous now that checkNotBlank is called on each token
-			checkArgument(paths.add(path), "%s is a duplicate path element", path);
-		}
-
-		// Return what we've got
-		return ImmutableSet.copyOf(paths);
 	}
 
 }
