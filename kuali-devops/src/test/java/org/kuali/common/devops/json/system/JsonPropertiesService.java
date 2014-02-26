@@ -1,7 +1,9 @@
 package org.kuali.common.devops.json.system;
 
+import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newHashSet;
@@ -15,6 +17,7 @@ import java.util.Set;
 
 import org.kuali.common.devops.json.pojo.JacksonJsonService;
 import org.kuali.common.devops.json.pojo.JsonService;
+import org.kuali.common.util.tree.ImmutableNode;
 import org.kuali.common.util.tree.MutableNode;
 import org.kuali.common.util.tree.Node;
 
@@ -25,6 +28,8 @@ import com.fasterxml.jackson.databind.node.TextNode;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 
 public class JsonPropertiesService {
 
@@ -47,15 +52,16 @@ public class JsonPropertiesService {
 		MutableNode<String> root = MutableNode.of(rootNodeElement);
 		for (String key : newTreeSet(map.keySet())) {
 			MutableNode<String> child = map.get(key);
-			String parentKey = getParentKey(key);
-			Optional<MutableNode<String>> parent = fromNullable(map.get(parentKey));
-			if (parent.isPresent()) {
+			Optional<String> parentKey = getParentKey(key);
+			if (parentKey.isPresent()) {
+				Optional<MutableNode<String>> parent = fromNullable(map.get(parentKey));
+				checkState(parent.isPresent(), "unable to locate node -> %s", parentKey.get());
 				parent.get().add(child);
 			} else {
 				root.add(child);
 			}
 		}
-		return root;
+		return ImmutableNode.copyOf(root);
 	}
 
 	protected JsonNode buildJsonTree(Node<String> node, Properties properties) {
@@ -74,13 +80,14 @@ public class JsonPropertiesService {
 		}
 	}
 
-	protected String getParentKey(String key) {
-		List<String> tokens = splitter.splitToList(key);
-		List<String> list = newArrayList();
-		for (int i = 0; i < tokens.size() - 1; i++) {
-			list.add(tokens.get(i));
+	protected Optional<String> getParentKey(String key) {
+		List<String> tokens = newArrayList(splitter.splitToList(key));
+		if (tokens.size() == 1) {
+			return absent();
+		} else {
+			tokens.remove(tokens.size() - 1);
+			return Optional.of(joiner.join(tokens));
 		}
-		return joiner.join(list);
 	}
 
 	protected Map<String, MutableNode<String>> getNodeMap(Set<String> paths) {
@@ -88,7 +95,7 @@ public class JsonPropertiesService {
 		for (String path : paths) {
 			map.put(path, MutableNode.of(path));
 		}
-		return map;
+		return ImmutableMap.copyOf(map);
 	}
 
 	/**
@@ -109,7 +116,7 @@ public class JsonPropertiesService {
 		for (String key : keys) {
 			paths.addAll(getPaths(key));
 		}
-		return paths;
+		return ImmutableSet.copyOf(paths);
 	}
 
 	/**
@@ -153,7 +160,7 @@ public class JsonPropertiesService {
 		}
 
 		// Return what we've got
-		return paths;
+		return ImmutableSet.copyOf(paths);
 	}
 
 }
