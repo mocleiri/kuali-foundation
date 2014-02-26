@@ -96,6 +96,12 @@ public class JsonPropertiesService {
 		}
 	}
 
+	/**
+	 * <pre>
+	 * java.class.path -> key  == java.class.path
+	 *                    node == path
+	 * </pre>
+	 */
 	protected Map<String, MutableNode<String>> getNodeMap(Set<String> paths) {
 		Map<String, MutableNode<String>> map = newHashMap();
 		for (String path : paths) {
