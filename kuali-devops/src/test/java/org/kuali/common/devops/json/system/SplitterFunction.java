@@ -33,10 +33,10 @@ public final class SplitterFunction implements Function<Set<String>, Set<String>
 	 * Convert a series of delimited strings into a unique set of individual elements.
 	 * 
 	 * <pre>
-	 * java.class.path    -> java
-	 * java.class.version    java.class
-	 *                       java.class.path
-	 *                       java.class.version
+	 * java.class.path         java
+	 * java.class.version      java.class
+	 *                         java.class.path
+	 *                         java.class.version
 	 * </pre>
 	 * 
 	 * @throws IllegalArgumentException
