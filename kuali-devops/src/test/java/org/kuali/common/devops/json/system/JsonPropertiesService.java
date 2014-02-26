@@ -48,6 +48,11 @@ public class JsonPropertiesService {
 		return service.writeString(jsonNode);
 	}
 
+	/**
+	 * Create a new json tree mimicking the structure of the regular tree rooted at node.
+	 * 
+	 * The leaves of the json tree contain the values from the properties object.
+	 */
 	protected Node<String> buildTree(Map<String, MutableNode<String>> map) {
 		MutableNode<String> root = MutableNode.of(rootNodeElement);
 		for (String key : newTreeSet(map.keySet())) {
@@ -65,6 +70,11 @@ public class JsonPropertiesService {
 		return ImmutableNode.copyOf(root);
 	}
 
+	/**
+	 * Create a new json tree mimicking the structure of the regular tree rooted at node.
+	 * 
+	 * The leaves of the json tree contain the values from the properties object.
+	 */
 	protected JsonNode buildJsonTree(Node<String> node, Properties properties) {
 		if (node.isLeaf()) {
 			// base case, return a new text node containing the property value corresponding to this node of the tree
@@ -75,7 +85,13 @@ public class JsonPropertiesService {
 		}
 	}
 
+	/**
+	 * Create a new json object node that copes the regular tree rooted at node.
+	 * 
+	 * The leaves of the json tree contain the values from the properties object.
+	 */
 	protected ObjectNode buildObjectNode(Node<String> node, Properties properties) {
+
 		// Create a new json node to hold the contents of the tree rooted at the regular node
 		ObjectNode objectNode = new ObjectNode(nodeFactory);
 
@@ -93,6 +109,9 @@ public class JsonPropertiesService {
 		return objectNode;
 	}
 
+	/**
+	 * Create a new TextNode based on the property value stored under the key corresponding to the element path from the regular node.
+	 */
 	protected TextNode buildTextNode(Node<String> node, Properties properties) {
 		// The key to the property file is based on the node's position in the tree
 		List<String> tokens = node.getElementPath();
@@ -204,7 +223,7 @@ public class JsonPropertiesService {
 			String path = sb.append(token).toString();
 
 			// Add the new path element to our set
-			// TODO I think this checkArgument call is superfluous now that checkNotBlank is called on each token
+			// TODO This checkArgument call should be superfluous now that checkNotBlank is called on each token
 			checkArgument(paths.add(path), "%s is a duplicate path element", path);
 		}
 
