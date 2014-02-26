@@ -15,6 +15,7 @@ import java.util.Set;
 
 import org.kuali.common.devops.json.pojo.JacksonJsonService;
 import org.kuali.common.devops.json.pojo.JsonService;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.tree.ImmutableNode;
 import org.kuali.common.util.tree.MutableNode;
 import org.kuali.common.util.tree.Node;
@@ -57,12 +58,16 @@ public class JsonPropertiesService {
 	private final JsonService service = new JacksonJsonService();
 	private final SplitterFunction pathSplitter = newSplitterFunction(separator);
 
-	public String getJson(Properties properties) {
-		Set<String> paths = pathSplitter.apply(properties.stringPropertyNames());
-		Map<String, MutableNode<String>> map = getNodeMap(paths);
-		Node<String> node = buildTree(map);
+	public String getJson(Map<String, String> properties) {
+		Set<String> paths = pathSplitter.apply(properties.keySet());
+		Map<String, MutableNode<String>> nodeMap = getNodeMap(paths);
+		Node<String> node = buildTree(nodeMap);
 		JsonNode jsonNode = buildJsonTree(node, properties);
 		return service.writeString(jsonNode);
+	}
+
+	public String getJson(Properties properties) {
+		return getJson(PropertyUtils.newHashMap(properties));
 	}
 
 	/**
@@ -92,7 +97,7 @@ public class JsonPropertiesService {
 	 * 
 	 * The leaves of the json tree contain the values from the properties object.
 	 */
-	protected JsonNode buildJsonTree(Node<String> node, Properties properties) {
+	protected JsonNode buildJsonTree(Node<String> node, Map<String, String> properties) {
 		if (node.isLeaf()) {
 			// base case, return a new text node containing the property value corresponding to this node of the tree
 			return buildTextNode(node, properties);
@@ -107,7 +112,7 @@ public class JsonPropertiesService {
 	 * 
 	 * The leaves of the json tree contain the values from the properties object.
 	 */
-	protected ObjectNode buildObjectNode(Node<String> node, Properties properties) {
+	protected ObjectNode buildObjectNode(Node<String> node, Map<String, String> properties) {
 
 		// Create a new json node to hold the contents of the tree rooted at the regular node
 		ObjectNode objectNode = new ObjectNode(nodeFactory);
@@ -129,7 +134,7 @@ public class JsonPropertiesService {
 	/**
 	 * Create a new TextNode based on the property value stored under the key corresponding to the element path from the regular node.
 	 */
-	protected TextNode buildTextNode(Node<String> node, Properties properties) {
+	protected TextNode buildTextNode(Node<String> node, Map<String, String> properties) {
 		// The key to the property file is based on the node's position in the tree
 		List<String> tokens = node.getElementPath();
 
@@ -140,7 +145,7 @@ public class JsonPropertiesService {
 		String key = joiner.join(tokens);
 
 		// Extract a property value
-		Optional<String> value = fromNullable(properties.getProperty(key));
+		Optional<String> value = fromNullable(properties.get(key));
 
 		// Make sure the properties object contains a value for this key
 		checkState(value.isPresent(), "unable to locate value for key -> %s", key);
