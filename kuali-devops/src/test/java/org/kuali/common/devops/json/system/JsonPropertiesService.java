@@ -1,10 +1,12 @@
 package org.kuali.common.devops.json.system;
 
 import static com.google.common.base.Optional.fromNullable;
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newHashSet;
 import static com.google.common.collect.Sets.newTreeSet;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 import java.util.List;
 import java.util.Map;
@@ -100,16 +102,38 @@ public class JsonPropertiesService {
 	 *                   java.io
 	 *                   java.io.tmpdir
 	 * </pre>
+	 * 
+	 * @throws IllegalArgumentException
+	 *             If splitting the key up into tokens using dot's produces blank tokens or duplicate path elements
 	 */
 	protected Set<String> getPaths(String key) {
+
+		// Split the key into tokens
 		List<String> tokens = splitter.splitToList(key);
+
+		// Setup some storage for the paths we are creating
 		Set<String> paths = newHashSet();
+
+		// Allocate a string builder
 		StringBuilder sb = new StringBuilder();
+
+		// Iterate over the tokens to create path elements
 		for (int i = 0; i < tokens.size(); i++) {
+
+			// append the separator char unless this is the first loop iteration
 			sb = (i != 0) ? sb.append(separator) : sb;
-			sb.append(tokens.get(i));
-			paths.add(sb.toString());
+
+			// Extract the token, checking to make sure it isn't blank
+			String token = checkNotBlank(tokens.get(i), "token");
+
+			// Append the current token to create a new path element
+			String path = sb.append(token).toString();
+
+			// Add the new path element to our set
+			checkArgument(paths.add(path), "%s is a duplicate path element", path);
 		}
+
+		// Return what we've got
 		return paths;
 	}
 
