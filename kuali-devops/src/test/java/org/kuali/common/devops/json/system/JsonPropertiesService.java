@@ -28,6 +28,9 @@ import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableMap;
 
+/**
+ * 
+ */
 public class JsonPropertiesService {
 
 	private final String rootNodeElement = "root";
