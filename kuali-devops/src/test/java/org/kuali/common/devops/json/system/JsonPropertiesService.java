@@ -100,7 +100,7 @@ public class JsonPropertiesService {
 	 */
 	protected Map<String, MutableNode<String>> getNodeMap(Set<String> paths) {
 		Map<String, MutableNode<String>> map = newHashMap();
-		for (String path : newTreeSet(paths)) {
+		for (String path : paths) {
 			List<String> tokens = splitter.splitToList(path);
 			String nodeElement = tokens.get(tokens.size() - 1);
 			MutableNode<String> node = MutableNode.of(nodeElement);
