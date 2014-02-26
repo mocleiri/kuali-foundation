@@ -70,7 +70,7 @@ public class JsonPropertiesService {
 			// base case, return a new text node containing the property value corresponding to this node of the tree
 			return buildTextNode(node, properties);
 		} else {
-			// recursively build a json tree that copies the regular tree rooted at node
+			// recursive case, build a json tree that copies the regular tree rooted at node
 			return buildObjectNode(node, properties);
 		}
 	}
