@@ -68,7 +68,7 @@ public class JsonPropertiesService {
 	protected JsonNode buildJsonTree(Node<String> node, Properties properties) {
 		if (node.isLeaf()) {
 			List<String> tokens = node.getElementPath();
-			tokens.remove(0);
+			tokens.remove(0); // Remove the root token we've superficially added
 			String key = joiner.join(tokens);
 			Optional<String> value = fromNullable(properties.getProperty(key));
 			checkState(value.isPresent(), "unable to locate value for key -> %s", key);
