@@ -1,5 +1,6 @@
 package org.kuali.common.devops.json.system;
 
+import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newTreeSet;
 
 import java.util.List;
@@ -17,7 +18,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
 
 public class SystemTest {
 
@@ -25,8 +25,8 @@ public class SystemTest {
 	public void test() {
 		try {
 			Properties props = PropertyUtils.duplicate(System.getProperties());
-			List<String> includes = PropertyUtils.getStartsWithKeys(props, "java.");
-			PropertyUtils.trim(props, includes, null);
+			// List<String> includes = PropertyUtils.getStartsWithKeys(props, "java.");
+			// PropertyUtils.trim(props, includes, null);
 			Map<String, List<String>> aliases = getSystemPropertyAliases();
 			translate(props, aliases);
 			JsonService service = getJsonService();
@@ -37,18 +37,27 @@ public class SystemTest {
 	}
 
 	protected Map<String, List<String>> getSystemPropertyAliases() {
-		Map<String, List<String>> aliases = Maps.newHashMap();
-		aliases.put("lineSeparator", ImmutableList.of("line.separator"));
-		aliases.put("pathSeparator", ImmutableList.of("path.separator"));
-		aliases.put("fileSeparator", ImmutableList.of("file.separator"));
-		aliases.put("java.classpath", ImmutableList.of("java.class.path"));
-		aliases.put("java.classVersion", ImmutableList.of("java.class.version"));
-		aliases.put("java.tempDir", ImmutableList.of("java.io.tmpdir"));
-		aliases.put("java.extensionDirs", ImmutableList.of("java.ext.dirs"));
-		aliases.put("java.endorsedDirs", ImmutableList.of("java.endorsed.dirs"));
-		aliases.put("java.libraryPaths", ImmutableList.of("java.library.path"));
-		aliases.put("os.architecture", ImmutableList.of("os.arch"));
+		Map<String, List<String>> aliases = newHashMap();
+		add(aliases, "pathSeparator", "path.separator");
+		add(aliases, "fileSeparator", "file.separator");
+		add(aliases, "lineSeparator", "line.separator");
+		add(aliases, "java.classpath", "java.class.path");
+		add(aliases, "java.classVersion", "java.class.version");
+		add(aliases, "java.tempDir", "java.io.tmpdir");
+		add(aliases, "java.extensionDirs", "java.ext.dirs");
+		add(aliases, "java.endorsedDirs", "java.endorsed.dirs");
+		add(aliases, "java.libraryPaths", "java.library.path");
+		add(aliases, "java.runtime.version", "java.version");
+		add(aliases, "java.runtime.vendor", "java.vendor");
+		add(aliases, "java.runtime.url", "java.vendor.url");
+		add(aliases, "java.runtime.specification.version", "java.specification.version");
+		add(aliases, "java.runtime.specification.vendor", "java.specification.vendor");
+		add(aliases, "java.runtime.specification.name", "java.specification.name");
 		return aliases;
+	}
+
+	protected void add(Map<String, List<String>> aliases, String key, String alias) {
+		aliases.put(key, ImmutableList.of(alias));
 	}
 
 	protected void translate(Properties props, Map<String, List<String>> aliases) {
