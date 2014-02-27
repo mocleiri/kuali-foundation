@@ -1,11 +1,11 @@
 package org.kuali.common.util.system;
 
 import static com.google.common.base.Optional.absent;
-import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.io.File;
 import java.util.List;
 
+import org.kuali.common.util.build.SimpleValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
@@ -22,7 +22,7 @@ public final class Java {
 	private final ImmutableList<String> libraryPaths;
 	private final ImmutableList<String> extensionDirs;
 	private final RuntimeEnvironment runtime;
-	private final VirtualMachine virtualMachine;
+	private final VirtualMachine vm;
 
 	private Java(Builder builder) {
 		this.home = builder.home;
@@ -33,10 +33,10 @@ public final class Java {
 		this.libraryPaths = ImmutableList.copyOf(builder.libraryPaths);
 		this.extensionDirs = ImmutableList.copyOf(builder.extensionDirs);
 		this.runtime = builder.runtime;
-		this.virtualMachine = builder.virtualMachine;
+		this.vm = builder.vm;
 	}
 
-	public static class Builder implements org.apache.commons.lang3.builder.Builder<Java> {
+	public static class Builder extends SimpleValidatingBuilder<Java> {
 
 		private File home;
 		private File tmpDir;
@@ -46,7 +46,7 @@ public final class Java {
 		private List<String> libraryPaths = ImmutableList.of();
 		private List<String> extensionDirs = ImmutableList.of();
 		private RuntimeEnvironment runtime;
-		private VirtualMachine virtualMachine;
+		private VirtualMachine vm;
 
 		public Builder home(File home) {
 			this.home = home;
@@ -83,97 +83,29 @@ public final class Java {
 			return this;
 		}
 
-		public Builder runtimeEnvironment(RuntimeEnvironment runtimeEnvironment) {
-			this.runtime = runtimeEnvironment;
+		public Builder runtime(RuntimeEnvironment runtime) {
+			this.runtime = runtime;
 			return this;
 		}
 
-		public Builder virtualMachine(VirtualMachine virtualMachine) {
-			this.virtualMachine = virtualMachine;
+		public Builder vm(VirtualMachine vm) {
+			this.vm = vm;
 			return this;
 		}
 
 		@Override
 		public Java build() {
-			return checkConstraints(new Java(this));
-		}
-
-		public File getHome() {
-			return home;
-		}
-
-		public void setHome(File home) {
-			this.home = home;
-		}
-
-		public Optional<String> getJitCompiler() {
-			return jitCompiler;
-		}
-
-		public void setJitCompiler(Optional<String> jitCompiler) {
-			this.jitCompiler = jitCompiler;
-		}
-
-		public String getClassVersion() {
-			return classVersion;
-		}
-
-		public void setClassVersion(String classVersion) {
-			this.classVersion = classVersion;
-		}
-
-		public List<String> getClasspath() {
-			return classpath;
-		}
-
-		public void setClasspath(List<String> classpath) {
-			this.classpath = classpath;
-		}
-
-		public List<String> getLibraryPaths() {
-			return libraryPaths;
-		}
-
-		public void setLibraryPaths(List<String> libraryPaths) {
-			this.libraryPaths = libraryPaths;
-		}
-
-		public List<String> getExtensionDirectories() {
-			return extensionDirs;
-		}
-
-		public void setExtensionDirectories(List<String> extensionDirectories) {
-			this.extensionDirs = extensionDirectories;
-		}
-
-		public RuntimeEnvironment getRuntimeEnvironment() {
-			return runtime;
-		}
-
-		public void setRuntimeEnvironment(RuntimeEnvironment runtimeEnvironment) {
-			this.runtime = runtimeEnvironment;
-		}
-
-		public VirtualMachine getVirtualMachine() {
-			return virtualMachine;
-		}
-
-		public void setVirtualMachine(VirtualMachine virtualMachine) {
-			this.virtualMachine = virtualMachine;
-		}
-
-		public File getTempDir() {
-			return tmpDir;
-		}
-
-		public void setTempDir(File tempDir) {
-			this.tmpDir = tempDir;
+			return validate(new Java(this));
 		}
 
 	}
 
 	public File getHome() {
 		return home;
+	}
+
+	public File getTmpDir() {
+		return tmpDir;
 	}
 
 	public Optional<String> getJitCompiler() {
@@ -184,28 +116,24 @@ public final class Java {
 		return classVersion;
 	}
 
-	public List<String> getClasspath() {
+	public ImmutableList<String> getClasspath() {
 		return classpath;
 	}
 
-	public List<String> getLibraryPaths() {
+	public ImmutableList<String> getLibraryPaths() {
 		return libraryPaths;
 	}
 
-	public List<String> getExtensionDirs() {
+	public ImmutableList<String> getExtensionDirs() {
 		return extensionDirs;
 	}
 
-	public RuntimeEnvironment getRuntimeEnvironment() {
+	public RuntimeEnvironment getRuntime() {
 		return runtime;
 	}
 
-	public VirtualMachine getVirtualMachine() {
-		return virtualMachine;
-	}
-
-	public File getTmpDir() {
-		return tmpDir;
+	public VirtualMachine getVm() {
+		return vm;
 	}
 
 }
