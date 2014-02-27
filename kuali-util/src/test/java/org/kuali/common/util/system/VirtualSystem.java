@@ -1,12 +1,9 @@
 package org.kuali.common.util.system;
 
 import java.util.Properties;
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.BasicValidatingBuilder;
 import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.validate.IdiotProofImmutableWithBlanks;
 
@@ -39,7 +36,7 @@ public final class VirtualSystem {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<VirtualSystem> {
+	public static class Builder extends BasicValidatingBuilder<VirtualSystem> {
 
 		private User user;
 		private OperatingSystem os;
@@ -49,11 +46,6 @@ public final class VirtualSystem {
 		private String fileSeparator;
 		private Properties properties;
 		private Properties environment;
-
-		@Override
-		public Set<ConstraintViolation<VirtualSystem>> violations() {
-			return violations(new VirtualSystem(this));
-		}
 
 		@Override
 		public VirtualSystem build() {
