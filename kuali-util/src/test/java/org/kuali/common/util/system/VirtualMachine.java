@@ -2,7 +2,6 @@ package org.kuali.common.util.system;
 
 import static org.kuali.common.util.validate.Validation.checkConstraints;
 
-import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
@@ -11,8 +10,6 @@ public final class VirtualMachine {
 	private final String name;
 	private final String vendor;
 	private final String version;
-
-	@Bind
 	private final Specification specification;
 
 	private VirtualMachine(Builder builder) {

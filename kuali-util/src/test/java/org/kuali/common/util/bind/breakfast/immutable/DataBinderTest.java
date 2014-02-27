@@ -69,10 +69,10 @@ public class DataBinderTest {
 			logger.info("   extension dirs: " + jvm.getJava().getExtensionDirectories().size());
 			logger.info("    library paths: " + jvm.getJava().getLibraryPaths().size());
 
-			logger.info(jvm.user().getDir() + "");
-			logger.info(jvm.user().getTimeZone().isPresent() + "");
-			logger.info(jvm.user().getLanguage().isPresent() + "");
-			logger.info(jvm.user().getCountry().isPresent() + "");
+			logger.info(jvm.getUser().getDir() + "");
+			logger.info(jvm.getUser().getTimeZone().isPresent() + "");
+			logger.info(jvm.getUser().getLanguage().isPresent() + "");
+			logger.info(jvm.getUser().getCountry().isPresent() + "");
 			String version = jvm.getJava().getRuntimeEnvironment().getVersion();
 			String name = jvm.getJava().getVirtualMachine().getName();
 			logger.info(name + "::" + version);
