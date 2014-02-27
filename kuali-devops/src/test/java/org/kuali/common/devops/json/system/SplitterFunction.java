@@ -48,13 +48,24 @@ public final class SplitterFunction implements Function<Set<String>, Set<String>
 	private final String separator;
 
 	/**
-	 * Convert a series of delimited strings into an immutable unique set of individual elements.
+	 * <p>
+	 * Convert a set of delimited strings into an immutable set of individual elements.
+	 * </p>
+	 * 
+	 * A set containing these two strings:
 	 * 
 	 * <pre>
-	 * java.class.path         java
-	 * java.class.version      java.class
-	 *                         java.class.path
-	 *                         java.class.version
+	 * java.class.path
+	 * java.class.version
+	 * </pre>
+	 * 
+	 * Converts to a set containing these four strings:
+	 * 
+	 * <pre>
+	 * java
+	 * java.class
+	 * java.class.path
+	 * java.class.version
 	 * </pre>
 	 * 
 	 * @throws IllegalArgumentException
@@ -73,7 +84,7 @@ public final class SplitterFunction implements Function<Set<String>, Set<String>
 	}
 
 	/**
-	 * Convert a delimited string into a unique set of individual elements.
+	 * Convert a delimited string into a set of individual elements.
 	 * 
 	 * <pre>
 	 * java.class.path -> java
@@ -85,6 +96,7 @@ public final class SplitterFunction implements Function<Set<String>, Set<String>
 	 *             If splitting the string into elements produces blank tokens
 	 */
 	protected Set<String> apply(String string) {
+		checkNotNull(string, "string");
 
 		// Split the key into tokens
 		List<String> tokens = splitter.splitToList(string);
