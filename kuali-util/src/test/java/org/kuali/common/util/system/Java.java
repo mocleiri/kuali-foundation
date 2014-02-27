@@ -21,7 +21,7 @@ public final class Java {
 	private final ImmutableList<String> classpath;
 	private final ImmutableList<String> libraryPaths;
 	private final ImmutableList<String> extensionDirs;
-	private final RuntimeEnvironment runtimeEnvironment;
+	private final RuntimeEnvironment runtime;
 	private final VirtualMachine virtualMachine;
 
 	private Java(Builder builder) {
@@ -32,7 +32,7 @@ public final class Java {
 		this.classpath = ImmutableList.copyOf(builder.classpath);
 		this.libraryPaths = ImmutableList.copyOf(builder.libraryPaths);
 		this.extensionDirs = ImmutableList.copyOf(builder.extensionDirs);
-		this.runtimeEnvironment = builder.runtimeEnvironment;
+		this.runtime = builder.runtime;
 		this.virtualMachine = builder.virtualMachine;
 	}
 
@@ -45,7 +45,7 @@ public final class Java {
 		private List<String> classpath = ImmutableList.of();
 		private List<String> libraryPaths = ImmutableList.of();
 		private List<String> extensionDirs = ImmutableList.of();
-		private RuntimeEnvironment runtimeEnvironment;
+		private RuntimeEnvironment runtime;
 		private VirtualMachine virtualMachine;
 
 		public Builder home(File home) {
@@ -84,7 +84,7 @@ public final class Java {
 		}
 
 		public Builder runtimeEnvironment(RuntimeEnvironment runtimeEnvironment) {
-			this.runtimeEnvironment = runtimeEnvironment;
+			this.runtime = runtimeEnvironment;
 			return this;
 		}
 
@@ -147,11 +147,11 @@ public final class Java {
 		}
 
 		public RuntimeEnvironment getRuntimeEnvironment() {
-			return runtimeEnvironment;
+			return runtime;
 		}
 
 		public void setRuntimeEnvironment(RuntimeEnvironment runtimeEnvironment) {
-			this.runtimeEnvironment = runtimeEnvironment;
+			this.runtime = runtimeEnvironment;
 		}
 
 		public VirtualMachine getVirtualMachine() {
@@ -197,7 +197,7 @@ public final class Java {
 	}
 
 	public RuntimeEnvironment getRuntimeEnvironment() {
-		return runtimeEnvironment;
+		return runtime;
 	}
 
 	public VirtualMachine getVirtualMachine() {
