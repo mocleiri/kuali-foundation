@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import com.google.common.base.Function;
 
 /**
  * Converts key/value pairs into correctly nested json. The pair {@code foo.bar=baz} would normally be translated to json as:
@@ -32,8 +33,8 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
  */
 public class NestedPropertiesSerializer extends StdSerializer<Properties> {
 
-	private final NestedPropertiesFunction function1 = new NestedPropertiesFunction();
-	private final JsonNodeFunction function2 = new JsonNodeFunction();
+	private final Function<Properties, Node<String>> function1 = new NestedPropertiesFunction();
+	private final Function<Node<String>, JsonNode> function2 = new JsonNodeFunction();
 
 	public NestedPropertiesSerializer(Class<Properties> type) {
 		super(type);
