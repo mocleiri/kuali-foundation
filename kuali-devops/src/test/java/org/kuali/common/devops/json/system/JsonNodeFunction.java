@@ -1,6 +1,11 @@
 package org.kuali.common.devops.json.system;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
+
+import java.util.List;
+import java.util.Properties;
 
 import org.kuali.common.util.tree.Node;
 
@@ -9,31 +14,49 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import com.google.common.base.Function;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
 
 /**
  * 
  */
 public class JsonNodeFunction implements Function<Node<String>, JsonNode> {
 
-	private final JsonNodeFactory factory = new JsonNodeFactory(false);
+	private static final JsonNodeFactory FACTORY = new JsonNodeFactory(false);
+
+	public JsonNodeFunction(String separator, Properties properties) {
+		this.properties = checkNotNull(properties, "properties");
+		this.joiner = Joiner.on(checkNotBlank(separator, "separator"));
+	}
+
+	private final Properties properties;
+	private final Joiner joiner;
 
 	@Override
 	public JsonNode apply(Node<String> node) {
 		checkNotNull(node, "node");
-		return buildTree(node);
+		return buildTree(node, properties);
 	}
 
-	protected JsonNode buildTree(Node<String> node) {
+	protected JsonNode buildTree(Node<String> node, Properties properties) {
 		if (node.isLeaf()) {
-			return new TextNode(node.getElement());
+			return new TextNode(getValue(node, properties));
 		} else {
-			ObjectNode objectNode = new ObjectNode(factory);
+			ObjectNode objectNode = new ObjectNode(FACTORY);
 			for (Node<String> child : node.getChildren()) {
-				JsonNode jsonNode = buildTree(child);
+				JsonNode jsonNode = buildTree(child, properties);
 				objectNode.put(child.getElement(), jsonNode);
 			}
 			return objectNode;
 		}
 	}
 
+	protected String getValue(Node<String> leaf, Properties properties) {
+		checkArgument(leaf.isLeaf(), "not a leaf node");
+		List<String> tokens = Lists.newArrayList(leaf.getElementPath());
+		tokens.remove(0);
+		String key = joiner.join(tokens);
+		String value = properties.getProperty(key);
+		return value;
+	}
 }

@@ -29,7 +29,11 @@ import com.google.common.base.Splitter;
 public class NestedPropertiesFunction implements Function<Properties, Node<String>> {
 
 	public NestedPropertiesFunction() {
-		this(".", "root");
+		this(".");
+	}
+
+	public NestedPropertiesFunction(String separator) {
+		this(separator, "root");
 	}
 
 	public NestedPropertiesFunction(String separator, String rootNodeElement) {
@@ -50,26 +54,7 @@ public class NestedPropertiesFunction implements Function<Properties, Node<Strin
 		checkNotNull(properties, "properties");
 		Set<String> paths = pathSplitter.apply(properties.stringPropertyNames());
 		Map<String, MutableNode<String>> nodeMap = getNodeMap(paths);
-		MutableNode<String> node = buildTree(nodeMap);
-		addValueNodes(asList(node), properties);
-		return ImmutableNode.copyOf(node);
-	}
-
-	protected <T> List<MutableNode<T>> asList(MutableNode<T> node) {
-		List<MutableNode<T>> list = newArrayList();
-		list.add(node);
-		for (Node<T> child : node.getChildren()) {
-			list.addAll(asList((MutableNode<T>) child));
-		}
-		return list;
-	}
-
-	protected void addValueNodes(List<MutableNode<String>> nodes, Properties properties) {
-		for (MutableNode<String> node : nodes) {
-			if (node.isLeaf()) {
-				node.add(getValueNode(node, properties));
-			}
-		}
+		return ImmutableNode.copyOf(buildTree(nodeMap));
 	}
 
 	protected MutableNode<String> getValueNode(MutableNode<String> node, Properties properties) {

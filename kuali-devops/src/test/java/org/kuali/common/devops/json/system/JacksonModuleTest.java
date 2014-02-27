@@ -20,7 +20,8 @@ public class JacksonModuleTest {
 		try {
 			Properties props = new Properties();
 			props.setProperty("foo.bar", "baz");
-			props.setProperty("a", "b");
+			props.setProperty("a", "1");
+			props.setProperty("b", "2");
 
 			List<Module> modules = ImmutableList.of(new GuavaModule(), getModule());
 			JacksonContext context = JacksonContext.builder().withModules(modules).build();
