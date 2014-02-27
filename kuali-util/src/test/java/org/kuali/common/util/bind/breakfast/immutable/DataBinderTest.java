@@ -70,7 +70,7 @@ public class DataBinderTest {
 			logger.info("    library paths: " + jvm.getJava().getLibraryPaths().size());
 
 			logger.info(jvm.getUser().getDir() + "");
-			logger.info(jvm.getUser().getTimeZone().isPresent() + "");
+			logger.info(jvm.getUser().getTimezone().isPresent() + "");
 			logger.info(jvm.getUser().getLanguage().isPresent() + "");
 			logger.info(jvm.getUser().getCountry().isPresent() + "");
 			String version = jvm.getJava().getRuntimeEnvironment().getVersion();
