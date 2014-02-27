@@ -25,6 +25,8 @@ public class SystemTest {
 	public void test() {
 		try {
 			Properties props = PropertyUtils.duplicate(System.getProperties());
+			List<String> includes = PropertyUtils.getStartsWithKeys(props, "java.");
+			PropertyUtils.trim(props, includes, null);
 			Map<String, List<String>> aliases = getSystemPropertyAliases();
 			translate(props, aliases);
 			JsonService service = getJsonService();

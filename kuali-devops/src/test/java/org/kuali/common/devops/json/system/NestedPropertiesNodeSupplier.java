@@ -144,7 +144,7 @@ public class NestedPropertiesNodeSupplier {
 		Optional<String> value = fromNullable(properties.get(key));
 
 		// Make sure the properties object contains a value for this key
-		checkState(value.isPresent(), "unable to locate value for key -> %s", key);
+		checkState(value.isPresent(), "unable to locate value for key -> [%s]", key);
 
 		// Create a new text node based on the property value
 		return new TextNode(value.get());
