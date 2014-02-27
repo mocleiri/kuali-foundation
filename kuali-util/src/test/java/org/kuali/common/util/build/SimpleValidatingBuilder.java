@@ -20,12 +20,12 @@ public abstract class SimpleValidatingBuilder<T> implements Builder<T> {
 		return checkConstraints(instance, validator, validationGroups);
 	}
 
-	public SimpleValidatingBuilder<T> validator(Validator validator) {
+	public SimpleValidatingBuilder<T> withValidator(Validator validator) {
 		this.validator = validator;
 		return this;
 	}
 
-	public SimpleValidatingBuilder<T> validationGroups(List<Class<?>> validationGroups) {
+	public SimpleValidatingBuilder<T> withValidationGroups(List<Class<?>> validationGroups) {
 		this.validationGroups = validationGroups;
 		return this;
 	}
