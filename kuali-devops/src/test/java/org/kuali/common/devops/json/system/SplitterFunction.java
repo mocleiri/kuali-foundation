@@ -8,25 +8,19 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 import java.util.List;
 import java.util.Set;
 
-import javax.validation.ConstraintViolation;
-
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.SimpleValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.Function;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableSet;
 
 @IdiotProofImmutable
-@JsonDeserialize(builder = SplitterFunction.Builder.class)
 public final class SplitterFunction implements Function<Set<String>, Set<String>> {
 
 	private final char separator;
 	private final boolean allowBlanks;
 	private final boolean allowDuplicateTokens;
-	@JsonIgnore
 	private final Splitter splitter;
 
 	/**
@@ -119,7 +113,7 @@ public final class SplitterFunction implements Function<Set<String>, Set<String>
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<SplitterFunction> {
+	public static class Builder extends SimpleValidatingBuilder<SplitterFunction> {
 
 		private char separator = '.';
 		private boolean allowBlanks = false;
@@ -142,16 +136,7 @@ public final class SplitterFunction implements Function<Set<String>, Set<String>
 
 		@Override
 		public SplitterFunction build() {
-			return validate(make());
-		}
-
-		@Override
-		public Set<ConstraintViolation<SplitterFunction>> violations() {
-			return violations(make());
-		}
-
-		private SplitterFunction make() {
-			return new SplitterFunction(this);
+			return validate(new SplitterFunction(this));
 		}
 
 	}
