@@ -8,10 +8,7 @@ import java.util.TimeZone;
 
 import javax.validation.ConstraintViolation;
 
-import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.build.ValidatingBuilder;
-import org.kuali.common.util.spring.format.optional.OptionalStringFormat;
-import org.kuali.common.util.spring.format.optional.OptionalTimeZoneFormat;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
@@ -24,8 +21,7 @@ public final class User {
 	private final File dir;
 	private final Optional<String> language;
 	private final Optional<String> country;
-	@Alias("timezone")
-	private final Optional<TimeZone> timeZone;
+	private final Optional<TimeZone> timezone;
 
 	private User(Builder builder) {
 		this.name = builder.name;
@@ -33,7 +29,7 @@ public final class User {
 		this.dir = builder.dir;
 		this.language = builder.language;
 		this.country = builder.country;
-		this.timeZone = builder.timeZone;
+		this.timezone = builder.timezone;
 	}
 
 	public static Builder builder() {
@@ -45,12 +41,9 @@ public final class User {
 		private String name;
 		private File home;
 		private File dir;
-		@OptionalStringFormat
 		private Optional<String> language = absent();
-		@OptionalStringFormat
 		private Optional<String> country = absent();
-		@OptionalTimeZoneFormat
-		private Optional<TimeZone> timeZone = absent();
+		private Optional<TimeZone> timezone = absent();
 
 		public Builder country(Optional<String> country) {
 			this.country = country;
@@ -62,13 +55,13 @@ public final class User {
 			return this;
 		}
 
-		public Builder timeZone(Optional<TimeZone> timeZone) {
-			this.timeZone = timeZone;
+		public Builder timezone(Optional<TimeZone> timezone) {
+			this.timezone = timezone;
 			return this;
 		}
 
-		public Builder timeZone(TimeZone timeZone) {
-			return timeZone(Optional.of(timeZone));
+		public Builder timezone(TimeZone timezone) {
+			return timezone(Optional.of(timezone));
 		}
 
 		public Builder name(String name) {
@@ -136,13 +129,6 @@ public final class User {
 			this.country = country;
 		}
 
-		public Optional<TimeZone> getTimeZone() {
-			return timeZone;
-		}
-
-		public void setTimeZone(Optional<TimeZone> timeZone) {
-			this.timeZone = timeZone;
-		}
 	}
 
 	public String getName() {
@@ -165,8 +151,8 @@ public final class User {
 		return country;
 	}
 
-	public Optional<TimeZone> getTimeZone() {
-		return timeZone;
+	public Optional<TimeZone> getTimezone() {
+		return timezone;
 	}
 
 }
