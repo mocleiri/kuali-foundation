@@ -116,15 +116,15 @@ public final class Java {
 		return classVersion;
 	}
 
-	public ImmutableList<String> getClasspath() {
+	public List<String> getClasspath() {
 		return classpath;
 	}
 
-	public ImmutableList<String> getLibraryPaths() {
+	public List<String> getLibraryPaths() {
 		return libraryPaths;
 	}
 
-	public ImmutableList<String> getExtensionDirs() {
+	public List<String> getExtensionDirs() {
 		return extensionDirs;
 	}
 
