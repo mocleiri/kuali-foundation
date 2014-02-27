@@ -36,7 +36,7 @@ import com.google.common.collect.ImmutableMap;
  * }
  * </pre>
  * 
- * This class converts {@code foo.bar=baz} into JsonNode objects using the nested structure implied by the key:
+ * This class converts {@code foo.bar=baz} into JsonNode objects corresponding to the nested structure implied by the key:
  * 
  * <pre>
  * {
