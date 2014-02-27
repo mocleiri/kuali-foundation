@@ -14,7 +14,6 @@ import org.kuali.common.devops.json.pojo.JsonService;
 import org.kuali.common.util.PropertyUtils;
 
 import com.fasterxml.jackson.databind.Module;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.google.common.collect.ImmutableList;
@@ -79,8 +78,6 @@ public class SystemTest {
 	}
 
 	protected JsonService getJsonService() {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(getModule());
 		List<Module> modules = ImmutableList.of(new GuavaModule(), getModule());
 		JacksonContext context = JacksonContext.builder().withModules(modules).build();
 		return new JacksonJsonService(context);
