@@ -20,7 +20,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
-import org.tmatesoft.svn.core.SVNCommitInfo;
 
 import java.io.File;
 import java.io.IOException;
