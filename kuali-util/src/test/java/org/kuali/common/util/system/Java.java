@@ -1,15 +1,11 @@
 package org.kuali.common.util.system;
 
 import static com.google.common.base.Optional.absent;
-import static org.kuali.common.util.bind.api.Bind.ABSENT;
 import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.io.File;
 import java.util.List;
 
-import org.kuali.common.util.bind.api.Alias;
-import org.kuali.common.util.bind.api.Bind;
-import org.kuali.common.util.spring.format.PathListFormat;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
@@ -19,39 +15,23 @@ import com.google.common.collect.ImmutableList;
 public final class Java {
 
 	private final File home;
-
-	@Alias("io.tmpdir")
-	private final File tempDir;
-
-	@Alias("compiler")
+	private final File tmpDir;
 	private final Optional<String> jitCompiler;
-
-	@Alias("class.version")
 	private final String classVersion;
-
-	@Alias("class.path")
 	private final ImmutableList<String> classpath;
-
-	@Alias("library.path")
 	private final ImmutableList<String> libraryPaths;
-
-	@Alias("ext.dirs")
-	private final ImmutableList<String> extensionDirectories;
-
-	@Bind(ABSENT)
+	private final ImmutableList<String> extensionDirs;
 	private final RuntimeEnvironment runtimeEnvironment;
-
-	@Bind("vm")
 	private final VirtualMachine virtualMachine;
 
 	private Java(Builder builder) {
 		this.home = builder.home;
-		this.tempDir = builder.tempDir;
+		this.tmpDir = builder.tmpDir;
 		this.jitCompiler = builder.jitCompiler;
 		this.classVersion = builder.classVersion;
 		this.classpath = ImmutableList.copyOf(builder.classpath);
 		this.libraryPaths = ImmutableList.copyOf(builder.libraryPaths);
-		this.extensionDirectories = ImmutableList.copyOf(builder.extensionDirectories);
+		this.extensionDirs = ImmutableList.copyOf(builder.extensionDirs);
 		this.runtimeEnvironment = builder.runtimeEnvironment;
 		this.virtualMachine = builder.virtualMachine;
 	}
@@ -59,15 +39,12 @@ public final class Java {
 	public static class Builder implements org.apache.commons.lang3.builder.Builder<Java> {
 
 		private File home;
-		private File tempDir;
+		private File tmpDir;
 		private Optional<String> jitCompiler = absent();
 		private String classVersion;
-		@PathListFormat
 		private List<String> classpath = ImmutableList.of();
-		@PathListFormat
 		private List<String> libraryPaths = ImmutableList.of();
-		@PathListFormat
-		private List<String> extensionDirectories = ImmutableList.of();
+		private List<String> extensionDirs = ImmutableList.of();
 		private RuntimeEnvironment runtimeEnvironment;
 		private VirtualMachine virtualMachine;
 
@@ -76,8 +53,8 @@ public final class Java {
 			return this;
 		}
 
-		public Builder tempDir(File tempDir) {
-			this.tempDir = tempDir;
+		public Builder tmpDir(File tmpDir) {
+			this.tmpDir = tmpDir;
 			return this;
 		}
 
@@ -101,8 +78,8 @@ public final class Java {
 			return this;
 		}
 
-		public Builder extensionDirectories(List<String> extensionDirectories) {
-			this.extensionDirectories = extensionDirectories;
+		public Builder extensionDirs(List<String> extensionDirs) {
+			this.extensionDirs = extensionDirs;
 			return this;
 		}
 
@@ -162,11 +139,11 @@ public final class Java {
 		}
 
 		public List<String> getExtensionDirectories() {
-			return extensionDirectories;
+			return extensionDirs;
 		}
 
 		public void setExtensionDirectories(List<String> extensionDirectories) {
-			this.extensionDirectories = extensionDirectories;
+			this.extensionDirs = extensionDirectories;
 		}
 
 		public RuntimeEnvironment getRuntimeEnvironment() {
@@ -186,11 +163,11 @@ public final class Java {
 		}
 
 		public File getTempDir() {
-			return tempDir;
+			return tmpDir;
 		}
 
 		public void setTempDir(File tempDir) {
-			this.tempDir = tempDir;
+			this.tmpDir = tempDir;
 		}
 
 	}
@@ -215,8 +192,8 @@ public final class Java {
 		return libraryPaths;
 	}
 
-	public List<String> getExtensionDirectories() {
-		return extensionDirectories;
+	public List<String> getExtensionDirs() {
+		return extensionDirs;
 	}
 
 	public RuntimeEnvironment getRuntimeEnvironment() {
@@ -227,8 +204,8 @@ public final class Java {
 		return virtualMachine;
 	}
 
-	public File getTempDir() {
-		return tempDir;
+	public File getTmpDir() {
+		return tmpDir;
 	}
 
 }
