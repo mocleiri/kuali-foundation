@@ -1,17 +1,18 @@
 package org.kuali.common.devops.json.system;
 
 import static com.google.common.base.Optional.absent;
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newTreeSet;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import org.kuali.common.util.tree.ImmutableNode;
 import org.kuali.common.util.tree.MutableNode;
 import org.kuali.common.util.tree.Node;
 
@@ -21,23 +22,7 @@ import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 
 /**
- * Converts key/value pairs into correctly nested json. The pair {@code foo.bar=baz} would normally be translated to json as:
  * 
- * <pre>
- * {
- *   "foo.bar" : "baz"
- * }
- * </pre>
- * 
- * This class converts {@code foo.bar=baz} into JsonNode objects corresponding to the nested structure implied by the key:
- * 
- * <pre>
- * {
- *   "foo" : {
- *     "bar" : "baz"
- *   }
- * }
- * </pre>
  */
 public class NestedPropertiesFunction implements Function<Properties, Node<String>> {
 
@@ -49,12 +34,40 @@ public class NestedPropertiesFunction implements Function<Properties, Node<Strin
 
 	@Override
 	public Node<String> apply(Properties properties) {
+		checkNotNull(properties, "properties");
 		Set<String> paths = pathSplitter.apply(properties.stringPropertyNames());
 		Map<String, MutableNode<String>> nodeMap = getNodeMap(paths);
-		return buildTree(nodeMap);
+		MutableNode<String> node = buildTree(nodeMap);
+		addValues(node, properties);
+		return node;
 	}
 
-	protected Node<String> buildTree(Map<String, MutableNode<String>> map) {
+	protected void addValues(MutableNode<String> node, Properties properties) {
+		if (node.isLeaf()) {
+			node.add(getValueNode(node, properties));
+		} else {
+			for (Node<String> child : node.getChildren()) {
+				addValues((MutableNode<String>) child, properties);
+			}
+		}
+	}
+
+	protected MutableNode<String> getValueNode(MutableNode<String> node, Properties properties) {
+		checkArgument(node.isLeaf(), "node must be a leaf");
+		String key = getPropertyKey(node);
+		String value = properties.getProperty(key);
+		checkState(value != null, "no value for [%s]", key);
+		return MutableNode.of(value);
+	}
+
+	protected String getPropertyKey(Node<String> node) {
+		checkArgument(node.isLeaf(), "node must be a leaf");
+		List<String> path = newArrayList(node.getElementPath());
+		path.remove(0);
+		return joiner.join(path);
+	}
+
+	protected MutableNode<String> buildTree(Map<String, MutableNode<String>> map) {
 		MutableNode<String> root = MutableNode.of(rootNodeElement);
 		for (String key : newTreeSet(map.keySet())) {
 			MutableNode<String> child = map.get(key);
@@ -67,7 +80,7 @@ public class NestedPropertiesFunction implements Function<Properties, Node<Strin
 				root.add(child);
 			}
 		}
-		return ImmutableNode.copyOf(root);
+		return root;
 	}
 
 	/**
