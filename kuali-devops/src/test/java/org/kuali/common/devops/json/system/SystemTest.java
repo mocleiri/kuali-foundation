@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.kuali.common.devops.json.pojo.JacksonContext;
 import org.kuali.common.devops.json.pojo.JacksonJsonService;
 import org.kuali.common.devops.json.pojo.JsonService;
+import org.kuali.common.util.PropertyUtils;
 
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,15 +24,10 @@ public class SystemTest {
 	@Test
 	public void test() {
 		try {
-			Properties props = new Properties();
-			props.setProperty("line.separator", "\n");
-
+			Properties props = PropertyUtils.duplicate(System.getProperties());
 			Map<String, List<String>> aliases = getSystemPropertyAliases();
-
 			translate(props, aliases);
-
 			JsonService service = getJsonService();
-
 			System.out.println(service.writeString(props));
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -44,6 +40,8 @@ public class SystemTest {
 		aliases.put("pathSeparator", ImmutableList.of("path.separator"));
 		aliases.put("fileSeparator", ImmutableList.of("file.separator"));
 		aliases.put("java.classpath", ImmutableList.of("java.class.path"));
+		aliases.put("java.classVersion", ImmutableList.of("java.classVersion"));
+		aliases.put("java.tempDir", ImmutableList.of("java.io.tmpdir"));
 		return aliases;
 	}
 
