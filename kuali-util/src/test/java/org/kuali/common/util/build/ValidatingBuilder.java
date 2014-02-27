@@ -4,7 +4,7 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
-public abstract class ValidatingBuilder<T> extends BasicValidatingBuilder<T> {
+public abstract class ValidatingBuilder<T> extends SimpleValidatingBuilder<T> {
 
 	private static final Class<?>[] EMPTY_CLASS_ARRAY = {};
 
