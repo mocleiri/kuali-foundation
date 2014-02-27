@@ -16,10 +16,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public final class JVM {
 
 	private final String lineSeparator;
-	private final OperatingSystem operatingSystem;
+	private final OperatingSystem os;
 
 	private JVM(Builder builder) {
-		this.operatingSystem = builder.operatingSystem;
+		this.os = builder.os;
 		this.lineSeparator = builder.lineSeparator;
 	}
 
@@ -29,7 +29,7 @@ public final class JVM {
 
 	public static class Builder extends ValidatingBuilder<JVM> {
 
-		private OperatingSystem operatingSystem;
+		private OperatingSystem os;
 		private String lineSeparator;
 
 		@Override
@@ -51,25 +51,9 @@ public final class JVM {
 			return this;
 		}
 
-		public Builder withOperatingSystem(OperatingSystem operatingSystem) {
-			this.operatingSystem = operatingSystem;
+		public Builder withOperatingSystem(OperatingSystem os) {
+			this.os = os;
 			return this;
-		}
-
-		public OperatingSystem getOperatingSystem() {
-			return operatingSystem;
-		}
-
-		public void setOperatingSystem(OperatingSystem operatingSystem) {
-			this.operatingSystem = operatingSystem;
-		}
-
-		public String getLineSeparator() {
-			return lineSeparator;
-		}
-
-		public void setLineSeparator(String lineSeparator) {
-			this.lineSeparator = lineSeparator;
 		}
 
 	}
@@ -78,8 +62,8 @@ public final class JVM {
 		return lineSeparator;
 	}
 
-	public OperatingSystem getOperatingSystem() {
-		return operatingSystem;
+	public OperatingSystem getOs() {
+		return os;
 	}
 
 }
