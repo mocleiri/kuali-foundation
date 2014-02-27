@@ -2,14 +2,12 @@ package org.kuali.common.util.system;
 
 import static org.kuali.common.util.validate.Validation.checkConstraints;
 
-import org.kuali.common.util.bind.api.Alias;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
 public final class OperatingSystem {
 
 	private final String name;
-	@Alias("arch")
 	private final String architecture;
 	private final String version;
 

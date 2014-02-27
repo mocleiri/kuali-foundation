@@ -1,52 +1,32 @@
 package org.kuali.common.util.system;
 
-import static org.kuali.common.util.bind.api.Bind.ABSENT;
-
 import java.util.Properties;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.kuali.common.util.bind.api.Alias;
-import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.validate.IdiotProofImmutableWithBlanks;
 
-@Bind(ABSENT)
 @IdiotProofImmutableWithBlanks
 public final class VirtualSystem {
 
-	@Bind
 	private final User user;
-
-	@Bind("os")
-	private final OperatingSystem operatingSystem;
-
-	@Bind
+	private final OperatingSystem os;
 	private final Java java;
-
-	@Alias("line.separator")
 	private final String lineSeparator;
-
-	@Alias("path.separator")
 	@NotBlank
 	private final String pathSeparator;
-
-	@Alias("file.separator")
 	@NotBlank
 	private final String fileSeparator;
-
-	@Alias("system.properties")
 	private final ImmutableProperties properties;
-
-	@Alias("system.environment")
 	private final ImmutableProperties environment;
 
 	private VirtualSystem(Builder builder) {
 		this.user = builder.user;
-		this.operatingSystem = builder.operatingSystem;
+		this.os = builder.os;
 		this.java = builder.java;
 		this.lineSeparator = builder.lineSeparator;
 		this.pathSeparator = builder.pathSeparator;
@@ -62,7 +42,7 @@ public final class VirtualSystem {
 	public static class Builder extends ValidatingBuilder<VirtualSystem> {
 
 		private User user;
-		private OperatingSystem operatingSystem;
+		private OperatingSystem os;
 		private Java java;
 		private String pathSeparator;
 		private String lineSeparator;
@@ -95,8 +75,8 @@ public final class VirtualSystem {
 			return this;
 		}
 
-		public Builder operatingSystem(OperatingSystem operatingSystem) {
-			this.operatingSystem = operatingSystem;
+		public Builder os(OperatingSystem os) {
+			this.os = os;
 			return this;
 		}
 
@@ -120,86 +100,14 @@ public final class VirtualSystem {
 			return this;
 		}
 
-		public User getUser() {
-			return user;
-		}
-
-		public void setUser(User user) {
-			this.user = user;
-		}
-
-		public OperatingSystem getOperatingSystem() {
-			return operatingSystem;
-		}
-
-		public void setOperatingSystem(OperatingSystem operatingSystem) {
-			this.operatingSystem = operatingSystem;
-		}
-
-		public Java getJava() {
-			return java;
-		}
-
-		public void setJava(Java java) {
-			this.java = java;
-		}
-
-		public String getLineSeparator() {
-			return lineSeparator;
-		}
-
-		public void setLineSeparator(String lineSeparator) {
-			this.lineSeparator = lineSeparator;
-		}
-
-		public String getPathSeparator() {
-			return pathSeparator;
-		}
-
-		public void setPathSeparator(String pathSeparator) {
-			this.pathSeparator = pathSeparator;
-		}
-
-		public String getFileSeparator() {
-			return fileSeparator;
-		}
-
-		public void setFileSeparator(String fileSeparator) {
-			this.fileSeparator = fileSeparator;
-		}
-
-		public Properties getEnvironment() {
-			return environment;
-		}
-
-		public void setEnvironment(Properties environment) {
-			this.environment = environment;
-		}
-
-		public Properties getProperties() {
-			return properties;
-		}
-
-		public void setProperties(Properties properties) {
-			this.properties = properties;
-		}
-
 	}
 
 	public User getUser() {
 		return user;
 	}
 
-	public User user() {
-		return user;
-	}
-
-	public OperatingSystem os() {
-		return operatingSystem;
-	}
-
-	public OperatingSystem getOperatingSystem() {
-		return operatingSystem;
+	public OperatingSystem getOs() {
+		return os;
 	}
 
 	public Java getJava() {
@@ -218,12 +126,12 @@ public final class VirtualSystem {
 		return fileSeparator;
 	}
 
-	public Properties getEnvironment() {
-		return environment;
+	public ImmutableProperties getProperties() {
+		return properties;
 	}
 
-	public Properties getProperties() {
-		return properties;
+	public ImmutableProperties getEnvironment() {
+		return environment;
 	}
 
 }
