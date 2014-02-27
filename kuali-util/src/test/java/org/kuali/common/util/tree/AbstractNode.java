@@ -1,6 +1,6 @@
 package org.kuali.common.util.tree;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.util.List;
 
@@ -66,7 +66,7 @@ public abstract class AbstractNode<T> implements Node<T> {
 	 */
 	@Override
 	public boolean isChild(Node<T> parent) {
-		checkNotNull(parent, "'parent' cannot be null");
+		checkNotNull(parent, "parent");
 		return parent.getChildren().contains(this);
 	}
 
@@ -75,7 +75,7 @@ public abstract class AbstractNode<T> implements Node<T> {
 	 */
 	@Override
 	public boolean isParent(Node<T> child) {
-		checkNotNull(child, "'child' cannot be null");
+		checkNotNull(child, "child");
 		return getChildren().contains(child);
 	}
 
@@ -84,7 +84,7 @@ public abstract class AbstractNode<T> implements Node<T> {
 	 */
 	@Override
 	public boolean isAncestor(Node<T> parent) {
-		checkNotNull(parent, "'parent' cannot be null");
+		checkNotNull(parent, "parent");
 		return getPath().contains(parent);
 	}
 
