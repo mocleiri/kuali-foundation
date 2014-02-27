@@ -26,7 +26,7 @@ public abstract class AbstractNode<T> implements Node<T> {
 	}
 
 	/**
-	 * Returns the number of levels above this node -- the distance from the root to this node. If this node is the root, returns 0.
+	 * Returns the number of levels above this node. The distance from the root to this node. If this node is the root, returns 0.
 	 */
 	@Override
 	public int getLevel() {
