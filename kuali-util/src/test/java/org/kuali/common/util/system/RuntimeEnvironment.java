@@ -2,8 +2,6 @@ package org.kuali.common.util.system;
 
 import static org.kuali.common.util.validate.Validation.checkConstraints;
 
-import org.kuali.common.util.bind.api.Alias;
-import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
@@ -11,11 +9,7 @@ public final class RuntimeEnvironment {
 
 	private final String vendor;
 	private final String version;
-
-	@Alias("vendor.url")
 	private final String url;
-
-	@Bind
 	private final Specification specification;
 
 	private RuntimeEnvironment(Builder builder) {
