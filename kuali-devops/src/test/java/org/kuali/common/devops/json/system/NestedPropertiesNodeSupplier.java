@@ -6,7 +6,6 @@ import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newTreeSet;
-import static org.kuali.common.devops.json.system.SplitterFunction.newSplitterFunction;
 import static org.kuali.common.util.PropertyUtils.newHashMap;
 
 import java.util.List;
@@ -53,7 +52,7 @@ public class NestedPropertiesNodeSupplier {
 	private final char separator = '.';
 	private final Splitter splitter = Splitter.on(separator);
 	private final Joiner joiner = Joiner.on(separator);
-	private final SplitterFunction pathSplitter = newSplitterFunction(separator);
+	private final SplitterFunction pathSplitter = new SplitterFunction(".");
 
 	public JsonNode getJsonNode(Map<String, String> properties) {
 		Set<String> paths = pathSplitter.apply(properties.keySet());

@@ -8,23 +8,36 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 import java.util.List;
 import java.util.Set;
 
-import org.kuali.common.util.build.SimpleValidatingBuilder;
-import org.kuali.common.util.validate.IdiotProofImmutable;
-
 import com.google.common.base.Function;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableSet;
 
-@IdiotProofImmutable
+/**
+ * Convert a series of delimited strings into an immutable unique set of individual elements.
+ * 
+ * <pre>
+ * java.class.path         java
+ * java.class.version      java.class
+ *                         java.class.path
+ *                         java.class.version
+ * </pre>
+ */
 public final class SplitterFunction implements Function<Set<String>, Set<String>> {
 
-	private final char separator;
-	private final boolean allowBlanks;
-	private final boolean allowDuplicateTokens;
+	public SplitterFunction() {
+		this(".");
+	}
+
+	public SplitterFunction(String separator) {
+		this.separator = separator;
+		this.splitter = Splitter.on(separator);
+	}
+
 	private final Splitter splitter;
+	private final String separator;
 
 	/**
-	 * Convert a series of delimited strings into a unique set of individual elements.
+	 * Convert a series of delimited strings into an immutable unique set of individual elements.
 	 * 
 	 * <pre>
 	 * java.class.path         java
@@ -34,7 +47,9 @@ public final class SplitterFunction implements Function<Set<String>, Set<String>
 	 * </pre>
 	 * 
 	 * @throws IllegalArgumentException
-	 *             If splitting the individual strings into elements produces blank tokens and allowBlanks is false
+	 *             If splitting the individual strings into elements produces blank tokens
+	 * @throws NullPointerException
+	 *             If strings is null or contains null elements
 	 */
 	@Override
 	public Set<String> apply(Set<String> strings) {
@@ -56,7 +71,7 @@ public final class SplitterFunction implements Function<Set<String>, Set<String>
 	 * </pre>
 	 * 
 	 * @throws IllegalArgumentException
-	 *             If splitting the string into elements produces blank tokens and allow blanks is false
+	 *             If splitting the string into elements produces blank tokens
 	 */
 	protected Set<String> apply(String string) {
 
@@ -72,85 +87,25 @@ public final class SplitterFunction implements Function<Set<String>, Set<String>
 		// Iterate over the tokens to create unique string elements
 		for (int i = 0; i < tokens.size(); i++) {
 
-			// append the separator char unless this is the first loop iteration
+			// append the separator unless this is the first loop iteration
 			sb = (i != 0) ? sb.append(separator) : sb;
 
 			// Extract the token, checking to make sure it isn't blank
-			String token = allowBlanks ? tokens.get(i) : checkNotBlank(tokens.get(i), "token");
+			String token = checkNotBlank(tokens.get(i), "token");
 
-			// Append the current token to create a new path element
+			// Append the current token to create a new element
 			String element = sb.append(token).toString();
 
-			// Add the new path element to our set
-			boolean added = strings.add(element);
-
-			// Make sure it was actually added if duplicate tokens are not allowed
-			if (!allowDuplicateTokens) {
-				checkArgument(added, "%s is a duplicate token -> [%s]", element, string);
-			}
+			// Make sure it was actually added
+			checkArgument(strings.add(element), "%s is a duplicate token -> [%s]", element, string);
 		}
 
 		// Return what we've got
-		return ImmutableSet.copyOf(strings);
+		return strings;
 	}
 
-	private SplitterFunction(Builder builder) {
-		this.separator = builder.separator;
-		this.allowBlanks = builder.allowBlanks;
-		this.allowDuplicateTokens = builder.allowDuplicateTokens;
-		this.splitter = Splitter.on(separator);
-	}
-
-	public static SplitterFunction newSplitterFunction(char separator) {
-		return builder().withSeparator(separator).build();
-	}
-
-	public static SplitterFunction newSplitterFunction() {
-		return builder().build();
-	}
-
-	public static Builder builder() {
-		return new Builder();
-	}
-
-	public static class Builder extends SimpleValidatingBuilder<SplitterFunction> {
-
-		private char separator = '.';
-		private boolean allowBlanks = false;
-		private boolean allowDuplicateTokens = false;
-
-		public Builder withSeparator(char separator) {
-			this.separator = separator;
-			return this;
-		}
-
-		public Builder withAllowDuplicateTokens(boolean allowDuplicateTokens) {
-			this.allowDuplicateTokens = allowDuplicateTokens;
-			return this;
-		}
-
-		public Builder withAllowBlanks(boolean allowBlanks) {
-			this.allowBlanks = allowBlanks;
-			return this;
-		}
-
-		@Override
-		public SplitterFunction build() {
-			return validate(new SplitterFunction(this));
-		}
-
-	}
-
-	public char getSeparator() {
+	public String getSeparator() {
 		return separator;
-	}
-
-	public boolean isAllowBlanks() {
-		return allowBlanks;
-	}
-
-	public boolean isAllowDuplicateTokens() {
-		return allowDuplicateTokens;
 	}
 
 }
