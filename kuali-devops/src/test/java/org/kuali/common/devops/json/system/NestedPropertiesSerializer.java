@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 /**
- * Converts key/value pairs into correctly nested json. The pair {@code foo.bar=baz} would normally be translated to json like this:
+ * Converts key/value pairs into correctly nested json. The pair {@code foo.bar=baz} would normally be translated to json as:
  * 
  * <pre>
  * {
