@@ -120,6 +120,7 @@ public final class SplitterFunction implements Function<Set<String>, Set<String>
 			String element = sb.append(token).toString();
 
 			// Make sure it was actually added
+			// TODO Don't think checkArgument() here is necessary since checkNotBlank() prevents token from being the empty string
 			checkArgument(strings.add(element), "%s is a duplicate token -> [%s]", element, string);
 		}
 
