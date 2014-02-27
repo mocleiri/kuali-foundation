@@ -73,8 +73,8 @@ public class DataBinderTest {
 			logger.info(jvm.getUser().getTimezone().isPresent() + "");
 			logger.info(jvm.getUser().getLanguage().isPresent() + "");
 			logger.info(jvm.getUser().getCountry().isPresent() + "");
-			String version = jvm.getJava().getRuntimeEnvironment().getVersion();
-			String name = jvm.getJava().getVirtualMachine().getName();
+			String version = jvm.getJava().getRuntime().getVersion();
+			String name = jvm.getJava().getVm().getName();
 			logger.info(name + "::" + version);
 			logger.info(jvm.getJava().getHome() + "");
 
