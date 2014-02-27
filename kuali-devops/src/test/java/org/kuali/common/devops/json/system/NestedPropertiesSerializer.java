@@ -3,6 +3,8 @@ package org.kuali.common.devops.json.system;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.kuali.common.util.tree.Node;
+
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -30,7 +32,8 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
  */
 public class NestedPropertiesSerializer extends StdSerializer<Properties> {
 
-	private final NestedPropertiesNodeSupplier supplier = new NestedPropertiesNodeSupplier();
+	private final NestedPropertiesFunction function1 = new NestedPropertiesFunction();
+	private final JsonNodeFunction function2 = new JsonNodeFunction();
 
 	public NestedPropertiesSerializer(Class<Properties> type) {
 		super(type);
@@ -38,7 +41,8 @@ public class NestedPropertiesSerializer extends StdSerializer<Properties> {
 
 	@Override
 	public void serialize(Properties properties, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonGenerationException {
-		JsonNode jsonNode = supplier.getJsonNode(properties);
+		Node<String> node = function1.apply(properties);
+		JsonNode jsonNode = function2.apply(node);
 		jgen.writeObject(jsonNode);
 	}
 

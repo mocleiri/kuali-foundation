@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import org.kuali.common.util.tree.ImmutableNode;
 import org.kuali.common.util.tree.MutableNode;
 import org.kuali.common.util.tree.Node;
 
@@ -51,7 +52,7 @@ public class NestedPropertiesFunction implements Function<Properties, Node<Strin
 		Map<String, MutableNode<String>> nodeMap = getNodeMap(paths);
 		MutableNode<String> node = buildTree(nodeMap);
 		addValueNodes(asList(node), properties);
-		return node;
+		return ImmutableNode.copyOf(node);
 	}
 
 	protected <T> List<MutableNode<T>> asList(MutableNode<T> node) {
