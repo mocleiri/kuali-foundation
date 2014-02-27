@@ -6,6 +6,7 @@ import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newTreeSet;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.util.List;
@@ -26,11 +27,22 @@ import com.google.common.base.Splitter;
  */
 public class NestedPropertiesFunction implements Function<Properties, Node<String>> {
 
-	private final String rootNodeElement = "properties";
-	private final String separator = ".";
-	private final Splitter splitter = Splitter.on(separator);
-	private final Joiner joiner = Joiner.on(separator);
-	private final SplitterFunction pathSplitter = new SplitterFunction(separator);
+	public NestedPropertiesFunction() {
+		this(".", "root");
+	}
+
+	public NestedPropertiesFunction(String separator, String rootNodeElement) {
+		checkNotBlank(separator, "separator");
+		this.rootNodeElement = checkNotBlank(rootNodeElement, "rootNodeElement");
+		this.splitter = Splitter.on(separator);
+		this.joiner = Joiner.on(separator);
+		this.pathSplitter = new SplitterFunction(separator);
+	}
+
+	private final String rootNodeElement;
+	private final Splitter splitter;
+	private final Joiner joiner;
+	private final SplitterFunction pathSplitter;
 
 	@Override
 	public Node<String> apply(Properties properties) {
@@ -38,17 +50,23 @@ public class NestedPropertiesFunction implements Function<Properties, Node<Strin
 		Set<String> paths = pathSplitter.apply(properties.stringPropertyNames());
 		Map<String, MutableNode<String>> nodeMap = getNodeMap(paths);
 		MutableNode<String> node = buildTree(nodeMap);
-		addValues(node, properties);
+		addValueNodes(asList(node), properties);
 		return node;
 	}
 
-	protected void addValues(MutableNode<String> node, Properties properties) {
-		if (node.isLeaf()) {
-			MutableNode<String> valueNode = getValueNode(node, properties);
-			node.add(valueNode);
-		} else {
-			for (Node<String> child : node.getChildren()) {
-				addValues((MutableNode<String>) child, properties);
+	protected <T> List<MutableNode<T>> asList(MutableNode<T> node) {
+		List<MutableNode<T>> list = newArrayList();
+		list.add(node);
+		for (Node<T> child : node.getChildren()) {
+			list.addAll(asList((MutableNode<T>) child));
+		}
+		return list;
+	}
+
+	protected void addValueNodes(List<MutableNode<String>> nodes, Properties properties) {
+		for (MutableNode<String> node : nodes) {
+			if (node.isLeaf()) {
+				node.add(getValueNode(node, properties));
 			}
 		}
 	}
