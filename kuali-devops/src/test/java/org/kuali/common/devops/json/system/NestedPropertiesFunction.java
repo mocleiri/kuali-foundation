@@ -44,7 +44,8 @@ public class NestedPropertiesFunction implements Function<Properties, Node<Strin
 
 	protected void addValues(MutableNode<String> node, Properties properties) {
 		if (node.isLeaf()) {
-			node.add(getValueNode(node, properties));
+			MutableNode<String> valueNode = getValueNode(node, properties);
+			node.add(valueNode);
 		} else {
 			for (Node<String> child : node.getChildren()) {
 				addValues((MutableNode<String>) child, properties);
