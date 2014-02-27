@@ -1,5 +1,6 @@
 package org.kuali.common.util.tree;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public abstract class AbstractNode<T> implements Node<T> {
 	@Override
 	public List<Node<T>> getPath() {
 		Node<T> ancestor = this;
-		List<Node<T>> list = Lists.newArrayList();
+		List<Node<T>> list = newArrayList();
 		list.add(ancestor);
 		while (ancestor.getParent().isPresent()) {
 			ancestor = ancestor.getParent().get();
