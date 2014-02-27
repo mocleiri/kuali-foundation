@@ -66,7 +66,7 @@ public class DataBinderTest {
 			logger.info(jvm.getFileSeparator());
 			logger.info(jvm.getUser().getName());
 			logger.info("classpath entries: " + jvm.getJava().getClasspath().size());
-			logger.info("   extension dirs: " + jvm.getJava().getExtensionDirectories().size());
+			logger.info("   extension dirs: " + jvm.getJava().getExtensionDirs().size());
 			logger.info("    library paths: " + jvm.getJava().getLibraryPaths().size());
 
 			logger.info(jvm.getUser().getDir() + "");
