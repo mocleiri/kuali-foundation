@@ -40,8 +40,12 @@ public class SystemTest {
 		aliases.put("pathSeparator", ImmutableList.of("path.separator"));
 		aliases.put("fileSeparator", ImmutableList.of("file.separator"));
 		aliases.put("java.classpath", ImmutableList.of("java.class.path"));
-		aliases.put("java.classVersion", ImmutableList.of("java.classVersion"));
+		aliases.put("java.classVersion", ImmutableList.of("java.class.version"));
 		aliases.put("java.tempDir", ImmutableList.of("java.io.tmpdir"));
+		aliases.put("java.extensionDirs", ImmutableList.of("java.ext.dirs"));
+		aliases.put("java.endorsedDirs", ImmutableList.of("java.endorsed.dirs"));
+		aliases.put("java.libraryPaths", ImmutableList.of("java.library.path"));
+		aliases.put("os.architecture", ImmutableList.of("os.arch"));
 		return aliases;
 	}
 
