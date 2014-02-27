@@ -1,9 +1,9 @@
 package org.kuali.common.util.system.spring;
 
-import org.kuali.common.util.system.JVM;
+import org.kuali.common.util.system.VirtualSystem;
 
 public interface SystemConfig {
 
-	JVM systemProperties();
+	VirtualSystem systemProperties();
 
 }

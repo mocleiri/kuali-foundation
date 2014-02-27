@@ -16,7 +16,7 @@ import org.kuali.common.util.validate.IdiotProofImmutableWithBlanks;
 
 @Bind(ABSENT)
 @IdiotProofImmutableWithBlanks
-public final class JVM {
+public final class VirtualSystem {
 
 	@Bind
 	private final User user;
@@ -44,7 +44,7 @@ public final class JVM {
 	@Alias("system.environment")
 	private final ImmutableProperties environment;
 
-	private JVM(Builder builder) {
+	private VirtualSystem(Builder builder) {
 		this.user = builder.user;
 		this.operatingSystem = builder.operatingSystem;
 		this.java = builder.java;
@@ -59,7 +59,7 @@ public final class JVM {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<JVM> {
+	public static class Builder extends ValidatingBuilder<VirtualSystem> {
 
 		private User user;
 		private OperatingSystem operatingSystem;
@@ -71,13 +71,13 @@ public final class JVM {
 		private Properties environment;
 
 		@Override
-		public Set<ConstraintViolation<JVM>> violations() {
-			return violations(new JVM(this));
+		public Set<ConstraintViolation<VirtualSystem>> violations() {
+			return violations(new VirtualSystem(this));
 		}
 
 		@Override
-		public JVM build() {
-			return validate(new JVM(this));
+		public VirtualSystem build() {
+			return validate(new VirtualSystem(this));
 		}
 
 		public Builder properties(Properties properties) {
