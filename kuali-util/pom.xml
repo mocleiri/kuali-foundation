@@ -66,6 +66,7 @@
     <javax.el-api.version>${javax.el.version}</javax.el-api.version>
     <metainf-services.version>1.5</metainf-services.version>
     <jsr305.version>2.0.3</jsr305.version>
+    <jackson-databind.version>${jackson.version}</jackson-databind.version>
   </properties>
   <profiles>
     <profile>
@@ -257,6 +258,12 @@
       <artifactId>jsr305</artifactId>
       <version>${jsr305.version}</version>
       <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson-databind.version}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>
