@@ -29,7 +29,7 @@ public final class SystemPropertiesFunction implements Function<Properties, Prop
 		removeBlanks(newProperties, blanksAllowed);
 		for (String newKey : newTreeSet(mappings.keySet())) {
 			String oldKey = mappings.get(newKey);
-			newProperties.setProperty(newKey, newProperties.getProperty(oldKey));
+			newProperties.setProperty(newKey, checkNotNull(newProperties.getProperty(oldKey), oldKey));
 			newProperties.remove(oldKey);
 		}
 		return newProperties;
