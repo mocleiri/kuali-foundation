@@ -2,15 +2,15 @@ package org.kuali.common.util.system;
 
 import java.util.Properties;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.property.ImmutableProperties;
-import org.kuali.common.util.validate.IdiotProofImmutableWithBlanks;
+import org.kuali.common.util.validate.IdiotProofImmutable;
+import org.kuali.common.util.validate.IgnoreBlanks;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-@IdiotProofImmutableWithBlanks
+@IdiotProofImmutable
 @JsonDeserialize(builder = VirtualSystem.Builder.class)
 @JsonPropertyOrder(alphabetic = true)
 public final class VirtualSystem {
@@ -18,10 +18,9 @@ public final class VirtualSystem {
 	private final User user;
 	private final OperatingSystem os;
 	private final Java java;
+	@IgnoreBlanks
 	private final String lineSeparator;
-	@NotBlank
 	private final String pathSeparator;
-	@NotBlank
 	private final String fileSeparator;
 	private final ImmutableProperties properties;
 	private final ImmutableProperties environment;
