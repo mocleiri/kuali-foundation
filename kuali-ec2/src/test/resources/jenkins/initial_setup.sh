@@ -1,23 +1,17 @@
 #!/bin/bash
+
+# Usage:
+# Interactive:
+#   ./initial_setup.sh
 #
-# Copyright 2004-2014 The Kuali Foundation
+# Silent:
+#   ./initial_setup.sh silent <nexus_password> <hostname> <domain>
 #
-# Licensed under the Educational Community License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-# http://www.opensource.org/licenses/ecl2.php
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# Example for testserver.kuali.org:
+#   ./initial_setup.sh silent MyNexusPassword testserver kuali.org
 #
 
-
-
-AUTH_KEY_FILE=~/.ssh/authorized_keys
+AUTH_KEY_FILE=/root/.ssh/authorized_keys
 NEXUS_AUTH_ERROR="This request requires HTTP authentication"
 INSTALL_DIR="/root/installs/"
 NEXUS_TEST_AUTH_URL="http://nexus.kuali.org/content/repositories/hosted-private"
@@ -46,6 +40,7 @@ MYPWD=$PWD
 echo $MYPWD
 
 SILENT=${1-NOTDEFINED}
+
 
 # Create installation directory.  This directory will contain install files.
 if [ ! -d $INSTALL_DIR ]; then
@@ -155,6 +150,19 @@ fi
 }
 
 function test_nexus_access {
+if [[ $SILENT == "-y" ]];
+then
+TestPass=$(curl -sL -w "%{http_code}" --user admin:$PASSWORD  "$NEXUS_TEST_AUTH_URL")
+echo
+if [[ "$TestPass" == *$NEXUS_AUTH_ERROR* ]]; then
+  echo "Authentication failed.  Please re-enter password for the $NEXUS_USER account on $NEXUS_TEST_AUTH_URL"
+  exit 1
+else
+  echo "Authenticated succesfully"
+  COUNT=1
+fi
+
+else
 COUNT=0
 while [[ $COUNT -lt 1 ]];do
 read -s -p "Password for admin account on Nexus:" PASSWORD
@@ -168,6 +176,7 @@ else
 fi
 
 done
+fi
 }
 
 # Install JDK
@@ -218,6 +227,7 @@ echo
 echo "Adding to /etc/hostname:"
 echo "$HOSTNAME"
 echo
+
 cp /etc/hostname /etc/hostname.$TIMESTAMP
 cp /etc/hosts /etc/hosts.$TIMESTAMP
 
@@ -228,8 +238,35 @@ hostname $HOSTNAME
 
 if [ $SILENT == "silent" ]; then
 SILENT="-y"
+PASSWORD=${2-NOTDEFINED}
+HOSTNAME=${3-NOT_DEFINED}
+DOMAIN=${4-NOT_DEFINED}
+
+if [[ $PASSWORD == "NOTDEFINED" ]]; then
+echo "One or more parameters not set.  silent, Nexus password, hostname, and domain must all be defined when running in silent mode:"
+echo
+echo "  initial_setup silent password hostname domain"
+echo
+exit 1
+fi;
+
+if [[ $HOSTNAME == "NOT_DEFINED" ]]; then
+echo "One or more parameters not set.  silent, Nexus password, hostname, and domain must all be defined when running in silent mode:"
+echo
+echo "  initial_setup silent password hostname domain"
+echo
+exit 1
+fi;
+
+if [[ $DOMAIN == "NOT_DEFINED" ]]; then
+echo "One or more parameters not set.  silent, Nexus password, hostname, and domain must all be defined when running in silent mode:"
+echo
+echo "  initial_setup silent password hostname domain"
+echo
+exit 1
+fi;
+
 test_nexus_access
-get_hostname
 get_upgrades
 root_access
 install_unzip
