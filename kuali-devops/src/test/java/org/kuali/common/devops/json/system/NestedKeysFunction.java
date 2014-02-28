@@ -1,7 +1,6 @@
 package org.kuali.common.devops.json.system;
 
 import static com.google.common.base.Optional.absent;
-import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
@@ -11,7 +10,6 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 
 import org.kuali.common.util.tree.ImmutableNode;
@@ -55,21 +53,6 @@ public class NestedKeysFunction implements Function<Set<String>, Node<String>> {
 		Set<String> paths = pathSplitter.apply(strings);
 		Map<String, MutableNode<String>> nodeMap = getNodeMap(paths);
 		return ImmutableNode.copyOf(buildTree(nodeMap));
-	}
-
-	protected MutableNode<String> getValueNode(MutableNode<String> node, Properties properties) {
-		checkArgument(node.isLeaf(), "node must be a leaf");
-		String key = getPropertyKey(node);
-		String value = properties.getProperty(key);
-		checkState(value != null, "no value for [%s]", key);
-		return MutableNode.of(value);
-	}
-
-	protected String getPropertyKey(Node<String> node) {
-		checkArgument(node.isLeaf(), "node must be a leaf");
-		List<String> path = newArrayList(node.getElementPath());
-		path.remove(0);
-		return joiner.join(path);
 	}
 
 	protected MutableNode<String> buildTree(Map<String, MutableNode<String>> map) {
