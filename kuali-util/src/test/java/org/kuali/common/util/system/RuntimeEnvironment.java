@@ -1,7 +1,6 @@
 package org.kuali.common.util.system;
 
-import static org.kuali.common.util.validate.Validation.checkConstraints;
-
+import org.kuali.common.util.build.SimpleValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -22,74 +21,37 @@ public final class RuntimeEnvironment {
 		this.url = builder.url;
 	}
 
-	public static class Builder implements org.apache.commons.lang3.builder.Builder<RuntimeEnvironment> {
+	public static class Builder extends SimpleValidatingBuilder<RuntimeEnvironment> {
 
 		private String vendor;
 		private String version;
 		private String url;
 		private Specification specification;
 
-		public Builder specification(Specification specification) {
-			this.specification = specification;
-			return this;
-		}
-
-		public Builder vendor(String vendor) {
+		public Builder withVendor(String vendor) {
 			this.vendor = vendor;
 			return this;
 		}
 
-		public Builder version(String version) {
+		public Builder withVersion(String version) {
 			this.version = version;
 			return this;
 		}
 
-		public Builder url(String url) {
+		public Builder withUrl(String url) {
 			this.url = url;
+			return this;
+		}
+
+		public Builder withSpecification(Specification specification) {
+			this.specification = specification;
 			return this;
 		}
 
 		@Override
 		public RuntimeEnvironment build() {
-			return checkConstraints(new RuntimeEnvironment(this));
+			return validate(new RuntimeEnvironment(this));
 		}
-
-		public Specification getSpecification() {
-			return specification;
-		}
-
-		public void setSpecification(Specification specification) {
-			this.specification = specification;
-		}
-
-		public String getVendor() {
-			return vendor;
-		}
-
-		public void setVendor(String vendor) {
-			this.vendor = vendor;
-		}
-
-		public String getVersion() {
-			return version;
-		}
-
-		public void setVersion(String version) {
-			this.version = version;
-		}
-
-		public String getUrl() {
-			return url;
-		}
-
-		public void setUrl(String url) {
-			this.url = url;
-		}
-
-	}
-
-	public Specification getSpecification() {
-		return specification;
 	}
 
 	public String getVendor() {
@@ -102,6 +64,10 @@ public final class RuntimeEnvironment {
 
 	public String getUrl() {
 		return url;
+	}
+
+	public Specification getSpecification() {
+		return specification;
 	}
 
 }

@@ -1,7 +1,6 @@
 package org.kuali.common.util.system;
 
-import static org.kuali.common.util.validate.Validation.checkConstraints;
-
+import org.kuali.common.util.build.SimpleValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -20,68 +19,39 @@ public final class Specification {
 		this.name = builder.name;
 	}
 
-	public static Builder builder() {
-		return new Builder();
-	}
-
-	public static class Builder implements org.apache.commons.lang3.builder.Builder<Specification> {
+	public static class Builder extends SimpleValidatingBuilder<Specification> {
 
 		private String vendor;
 		private String version;
 		private String name;
 
-		public Builder vendor(String vendor) {
+		public Builder withVendor(String vendor) {
 			this.vendor = vendor;
 			return this;
 		}
 
-		public Builder version(String version) {
+		public Builder withVersion(String version) {
 			this.version = version;
 			return this;
 		}
 
-		public Builder name(String name) {
+		public Builder withName(String name) {
 			this.name = name;
 			return this;
 		}
 
 		@Override
 		public Specification build() {
-			return checkConstraints(new Specification(this));
+			return validate(new Specification(this));
 		}
-
-		public String getVersion() {
-			return version;
-		}
-
-		public void setVersion(String version) {
-			this.version = version;
-		}
-
-		public String getVendor() {
-			return vendor;
-		}
-
-		public void setVendor(String vendor) {
-			this.vendor = vendor;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-
-	}
-
-	public String getVersion() {
-		return version;
 	}
 
 	public String getVendor() {
 		return vendor;
+	}
+
+	public String getVersion() {
+		return version;
 	}
 
 	public String getName() {

@@ -1,7 +1,6 @@
 package org.kuali.common.util.system;
 
-import static org.kuali.common.util.validate.Validation.checkConstraints;
-
+import org.kuali.common.util.build.SimpleValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -16,80 +15,43 @@ public final class VirtualMachine {
 	private final Specification specification;
 
 	private VirtualMachine(Builder builder) {
-		this.specification = builder.specification;
 		this.name = builder.name;
 		this.vendor = builder.vendor;
 		this.version = builder.version;
+		this.specification = builder.specification;
 	}
 
-	public static class Builder implements org.apache.commons.lang3.builder.Builder<VirtualMachine> {
+	public static class Builder extends SimpleValidatingBuilder<VirtualMachine> {
 
-		private Specification specification;
 		private String name;
 		private String vendor;
 		private String version;
+		private Specification specification;
 
-		public Builder specification(Specification specification) {
-			this.specification = specification;
-			return this;
-		}
-
-		public Builder name(String name) {
+		public Builder withName(String name) {
 			this.name = name;
 			return this;
 		}
 
-		public Builder vendor(String vendor) {
+		public Builder withVendor(String vendor) {
 			this.vendor = vendor;
 			return this;
 		}
 
-		public Builder version(String version) {
+		public Builder withVersion(String version) {
 			this.version = version;
+			return this;
+		}
+
+		public Builder withSpecification(Specification specification) {
+			this.specification = specification;
 			return this;
 		}
 
 		@Override
 		public VirtualMachine build() {
-			return checkConstraints(new VirtualMachine(this));
+			return validate(new VirtualMachine(this));
 		}
-
-		public Specification getSpecification() {
-			return specification;
-		}
-
-		public void setSpecification(Specification specification) {
-			this.specification = specification;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		public String getVendor() {
-			return vendor;
-		}
-
-		public void setVendor(String vendor) {
-			this.vendor = vendor;
-		}
-
-		public String getVersion() {
-			return version;
-		}
-
-		public void setVersion(String version) {
-			this.version = version;
-		}
-
-	}
-
-	public Specification getSpecification() {
-		return specification;
 	}
 
 	public String getName() {
@@ -102,6 +64,10 @@ public final class VirtualMachine {
 
 	public String getVersion() {
 		return version;
+	}
+
+	public Specification getSpecification() {
+		return specification;
 	}
 
 }

@@ -24,6 +24,10 @@ public final class VirtualSystem {
 	private final ImmutableProperties properties;
 	private final ImmutableProperties environment;
 
+	public Builder builder() {
+		return new Builder();
+	}
+
 	private VirtualSystem(Builder builder) {
 		this.user = builder.user;
 		this.os = builder.os;
