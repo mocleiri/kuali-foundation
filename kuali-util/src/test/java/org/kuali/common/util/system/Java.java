@@ -62,17 +62,17 @@ public final class Java {
 			return this;
 		}
 
-		public Builder withClasspath(ImmutableList<String> classpath) {
+		public Builder withClasspath(List<String> classpath) {
 			this.classpath = classpath;
 			return this;
 		}
 
-		public Builder withLibraryPaths(ImmutableList<String> libraryPaths) {
+		public Builder withLibraryPaths(List<String> libraryPaths) {
 			this.libraryPaths = libraryPaths;
 			return this;
 		}
 
-		public Builder withExtensionDirs(ImmutableList<String> extensionDirs) {
+		public Builder withExtensionDirs(List<String> extensionDirs) {
 			this.extensionDirs = extensionDirs;
 			return this;
 		}
