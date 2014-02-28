@@ -152,7 +152,7 @@ fi
 function test_nexus_access {
 if [[ $SILENT == "-y" ]];
 then
-TestPass=$(curl -sL -w "%{http_code}" --user admin:$PASSWORD  "$NEXUS_TEST_AUTH_URL")
+TestPass=$(curl -sL -w "%{http_code}" --user $NEXUS_USER:$PASSWORD  "$NEXUS_TEST_AUTH_URL")
 echo
 if [[ "$TestPass" == *$NEXUS_AUTH_ERROR* ]]; then
   echo "Authentication failed.  Please re-enter password for the $NEXUS_USER account on $NEXUS_TEST_AUTH_URL"
@@ -165,8 +165,8 @@ fi
 else
 COUNT=0
 while [[ $COUNT -lt 1 ]];do
-read -s -p "Password for admin account on Nexus:" PASSWORD
-TestPass=$(curl -sL -w "%{http_code}" --user admin:$PASSWORD  "$NEXUS_TEST_AUTH_URL")
+read -s -p "Password for $NEXUS_USER account on Nexus:" PASSWORD
+TestPass=$(curl -sL -w "%{http_code}" --user $NEXUS_USER:$PASSWORD  "$NEXUS_TEST_AUTH_URL")
 echo
 if [[ "$TestPass" == *$NEXUS_AUTH_ERROR* ]]; then
   echo "Authentication failed.  Please re-enter password for the $NEXUS_USER account on $NEXUS_TEST_AUTH_URL"
