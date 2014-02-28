@@ -4,9 +4,9 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-public final class SerializationFeatureContext {
+public final class SerializeFeatureContext {
 
-	public SerializationFeatureContext(SerializationFeature feature, boolean state) {
+	public SerializeFeatureContext(SerializationFeature feature, boolean state) {
 		this.feature = checkNotNull(feature, "feature");
 		this.state = state;
 	}

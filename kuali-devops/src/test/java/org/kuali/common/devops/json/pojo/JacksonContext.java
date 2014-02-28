@@ -1,6 +1,7 @@
 package org.kuali.common.devops.json.pojo;
 
 import static com.fasterxml.jackson.databind.SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS;
+import static com.google.common.collect.Lists.newArrayList;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.google.common.collect.ImmutableList;
 
@@ -18,8 +20,8 @@ public final class JacksonContext {
 	private final ObjectMapper mapper;
 	private final boolean prettyPrint;
 	private final ImmutableList<Module> modules;
-	private final ImmutableList<SerializationFeatureContext> serializationFeatures;
-	private final ImmutableList<DeserializationFeatureContext> deserializationFeatures;
+	private final ImmutableList<SerializeFeatureContext> serializationFeatures;
+	private final ImmutableList<DeserializeFeatureContext> deserializationFeatures;
 
 	private JacksonContext(Builder builder) {
 		this.mapper = builder.mapper;
@@ -32,10 +34,10 @@ public final class JacksonContext {
 		for (Module module : modules) {
 			this.mapper.registerModule(module);
 		}
-		for (SerializationFeatureContext sfc : serializationFeatures) {
+		for (SerializeFeatureContext sfc : serializationFeatures) {
 			this.mapper.configure(sfc.getFeature(), sfc.isState());
 		}
-		for (DeserializationFeatureContext dfc : deserializationFeatures) {
+		for (DeserializeFeatureContext dfc : deserializationFeatures) {
 			this.mapper.configure(dfc.getFeature(), dfc.isState());
 		}
 
@@ -54,12 +56,27 @@ public final class JacksonContext {
 		private boolean prettyPrint = true;
 		private List<Module> modules = ImmutableList.<Module> of(new GuavaModule());
 		private ObjectMapper mapper = new ObjectMapper();
-		private final List<SerializationFeatureContext> serializationFeatures = ImmutableList.of(new SerializationFeatureContext(ORDER_MAP_ENTRIES_BY_KEYS, true));
-		private final List<DeserializationFeatureContext> deserializationFeatures = ImmutableList.of();
+		private List<SerializeFeatureContext> serializationFeatures = newArrayList(new SerializeFeatureContext(ORDER_MAP_ENTRIES_BY_KEYS, true));
+		private List<DeserializeFeatureContext> deserializationFeatures = ImmutableList.of();
 
 		@Override
 		public JacksonContext build() {
 			return validate(new JacksonContext(this));
+		}
+
+		public Builder withSerializationFeatures(List<SerializeFeatureContext> serializationFeatures) {
+			this.serializationFeatures = serializationFeatures;
+			return this;
+		}
+
+		public Builder withSerializationFeature(SerializationFeature feature, boolean state) {
+			this.serializationFeatures = serializationFeatures;
+			return this;
+		}
+
+		public Builder withDeserializationFeatures(List<DeserializeFeatureContext> deserializationFeatures) {
+			this.deserializationFeatures = deserializationFeatures;
+			return this;
 		}
 
 		public Builder withMapper(ObjectMapper mapper) {
