@@ -12,6 +12,7 @@ import com.google.common.base.Preconditions;
  * <pre>
  * Guava 
  * checkArgument(!StringUtils.isBlank(foo), &quot;'foo' cannot be blank&quot;);
+ * this.foo = foo;
  * 
  * Kuali 
  * this.foo = checkNotBlank(foo, &quot;foo&quot;);
