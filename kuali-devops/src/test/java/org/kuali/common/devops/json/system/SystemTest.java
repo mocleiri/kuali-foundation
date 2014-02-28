@@ -2,7 +2,6 @@ package org.kuali.common.devops.json.system;
 
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 import static com.google.common.collect.Sets.newTreeSet;
-import static org.kuali.common.devops.json.system.SystemPropertiesFunction.newSystemPropertiesFunction;
 import static org.kuali.common.util.PropertyUtils.newHashMap;
 
 import java.util.List;
@@ -34,7 +33,7 @@ public class SystemTest {
 	public void test() {
 		try {
 			String separator = ".";
-			Properties props = newSystemPropertiesFunction().apply(System.getProperties());
+			Properties props = new SystemPropertiesFunction().apply(System.getProperties());
 			Node<String> node = new NestedKeysFunction(separator).apply(props.stringPropertyNames());
 			ObjectNode objectNode = new JsonNodeFunction(separator, props).apply(node);
 			objectNode.put("properties", getObjectNode(System.getProperties()));
