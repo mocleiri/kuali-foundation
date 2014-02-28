@@ -1,6 +1,6 @@
 package org.kuali.common.util.log;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import org.kuali.common.util.execute.Executable;
 
@@ -31,7 +31,7 @@ public class LoggerExecutable implements Executable {
 		return new Builder(context);
 	}
 
-	public static class Builder {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<LoggerExecutable> {
 
 		// Required
 		private final LoggerContext context;
@@ -48,6 +48,7 @@ public class LoggerExecutable implements Executable {
 			return this;
 		}
 
+		@Override
 		public LoggerExecutable build() {
 			LoggerExecutable instance = new LoggerExecutable(this);
 			validate(instance);
@@ -55,7 +56,7 @@ public class LoggerExecutable implements Executable {
 		}
 
 		private static void validate(LoggerExecutable instance) {
-			checkNotNull(instance.context, "context may not be null");
+			checkNotNull(instance.context, "context");
 		}
 	}
 
