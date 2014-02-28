@@ -1,10 +1,10 @@
 package org.kuali.common.devops.json.system;
 
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
+import static com.fasterxml.jackson.databind.SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS;
 import static com.google.common.collect.Sets.newTreeSet;
 import static org.kuali.common.util.PropertyUtils.newHashMap;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -16,38 +16,39 @@ import org.kuali.common.util.system.VirtualSystem;
 import org.kuali.common.util.tree.Node;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
-import com.fasterxml.jackson.datatype.guava.GuavaModule;
-import com.google.common.collect.ImmutableList;
 
 public class SystemTest {
 
 	private static final JsonNodeFactory FACTORY = new JsonNodeFactory(false);
+	private static final String PROPERTIES = "properties";
+	private static final String ENVIRONMENT = "environment";
+	private static final String SEPARATOR = ".";
 
 	@Test
 	public void test() {
 		try {
-			String separator = ".";
-			Properties system = System.getProperties();
-			Properties props = new SystemPropertiesFunction().apply(system);
-			Node<String> node = new NestedKeysFunction(separator).apply(props.stringPropertyNames());
-			ObjectNode objectNode = new JsonNodeFunction(separator, props).apply(node);
-			objectNode.put("properties", getObjectNode(system));
-			objectNode.put("environment", getObjectNode(System.getenv()));
-
-			JsonService service = getJsonService();
-			String json = service.writeString(objectNode);
+			JsonService service = getService();
+			JsonNode jsonNode = getSystemNode();
+			String json = service.writeString(jsonNode);
 			VirtualSystem vs = service.readString(json, VirtualSystem.class);
-			JsonService simple = getSimpleJsonService();
-			System.out.println(simple.writeString(vs));
+			System.out.println(service.writeString(vs));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected JsonNode getSystemNode() {
+		Properties system = System.getProperties();
+		Properties props = new SystemPropertiesFunction().apply(system);
+		Node<String> node = new NestedKeysFunction(SEPARATOR).apply(props.stringPropertyNames());
+		ObjectNode objectNode = new JsonNodeFunction(SEPARATOR, props).apply(node);
+		objectNode.put(PROPERTIES, getObjectNode(system));
+		objectNode.put(ENVIRONMENT, getObjectNode(System.getenv()));
+		return objectNode;
 	}
 
 	protected JsonNode getObjectNode(Properties props) {
@@ -63,30 +64,12 @@ public class SystemTest {
 		return objectNode;
 	}
 
-	protected JsonService getSimpleJsonService() {
+	protected JsonService getService() {
 		ObjectMapper mapper = new ObjectMapper();
-		List<Module> modules = ImmutableList.of(new GuavaModule(), getSimpleModule());
-		JacksonContext context = JacksonContext.builder().withModules(modules).withMapper(mapper).build();
-		return new JacksonJsonService(context);
-	}
-
-	protected JsonService getJsonService() {
-		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(ORDER_MAP_ENTRIES_BY_KEYS, true);
 		mapper.configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
-		List<Module> modules = ImmutableList.of(new GuavaModule(), getModule());
-		JacksonContext context = JacksonContext.builder().withModules(modules).withMapper(mapper).build();
+		JacksonContext context = JacksonContext.builder().withMapper(mapper).build();
 		return new JacksonJsonService(context);
 	}
 
-	protected Module getSimpleModule() {
-		SimpleModule module = new SimpleModule();
-		module.addSerializer(new SortedPropertiesSerializer(Properties.class));
-		return module;
-	}
-
-	protected Module getModule() {
-		SimpleModule module = new SimpleModule();
-		module.addSerializer(new NestedPropertiesSerializer(Properties.class));
-		return module;
-	}
 }

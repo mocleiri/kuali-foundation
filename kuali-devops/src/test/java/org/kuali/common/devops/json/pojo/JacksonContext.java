@@ -1,11 +1,10 @@
 package org.kuali.common.devops.json.pojo;
 
+import static com.fasterxml.jackson.databind.SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS;
+
 import java.util.List;
-import java.util.Set;
 
-import javax.validation.ConstraintViolation;
-
-import org.kuali.common.util.build.ViolationsBuilder;
+import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.fasterxml.jackson.databind.Module;
@@ -18,17 +17,21 @@ public final class JacksonContext {
 
 	private final ObjectMapper mapper;
 	private final boolean prettyPrint;
+	private final boolean orderMapEntriesByKeys;
 	private final ImmutableList<Module> modules;
 
 	private JacksonContext(Builder builder) {
 		this.mapper = builder.mapper;
 		this.prettyPrint = builder.prettyPrint;
+		this.orderMapEntriesByKeys = builder.orderMapEntriesByKeys;
 		this.modules = ImmutableList.copyOf(builder.modules);
 
 		// Register any modules they've provided
 		for (Module module : modules) {
 			this.mapper.registerModule(module);
 		}
+
+		this.mapper.configure(ORDER_MAP_ENTRIES_BY_KEYS, orderMapEntriesByKeys);
 	}
 
 	public static JacksonContext newJacksonJsonContext() {
@@ -39,24 +42,25 @@ public final class JacksonContext {
 		return new Builder();
 	}
 
-	public static class Builder extends ViolationsBuilder<JacksonContext> {
+	public static class Builder extends ValidatingBuilder<JacksonContext> {
 
 		private boolean prettyPrint = true;
 		private List<Module> modules = ImmutableList.<Module> of(new GuavaModule());
 		private ObjectMapper mapper = new ObjectMapper();
+		private boolean orderMapEntriesByKeys;
 
 		@Override
 		public JacksonContext build() {
 			return validate(make());
 		}
 
-		@Override
-		public Set<ConstraintViolation<JacksonContext>> violations() {
-			return violations(make());
-		}
-
 		private JacksonContext make() {
 			return new JacksonContext(this);
+		}
+
+		public Builder withOrderMapEntriesByKeys(boolean orderMapEntriesByKeys) {
+			this.orderMapEntriesByKeys = orderMapEntriesByKeys;
+			return this;
 		}
 
 		public Builder withMapper(ObjectMapper mapper) {
