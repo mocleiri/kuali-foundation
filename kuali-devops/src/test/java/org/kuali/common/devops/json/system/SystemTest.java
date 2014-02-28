@@ -1,5 +1,6 @@
 package org.kuali.common.devops.json.system;
 
+import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newTreeSet;
 
@@ -12,8 +13,10 @@ import org.kuali.common.devops.json.pojo.JacksonContext;
 import org.kuali.common.devops.json.pojo.JacksonJsonService;
 import org.kuali.common.devops.json.pojo.JsonService;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.system.VirtualSystem;
 
 import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.google.common.collect.ImmutableList;
@@ -24,12 +27,11 @@ public class SystemTest {
 	public void test() {
 		try {
 			Properties props = PropertyUtils.duplicate(System.getProperties());
-			// List<String> includes = PropertyUtils.getStartsWithKeys(props, "java.");
-			// PropertyUtils.trim(props, includes, null);
 			Map<String, List<String>> aliases = getSystemPropertyAliases();
 			translate(props, aliases);
 			JsonService service = getJsonService();
-			System.out.println(service.writeString(props));
+			String json = service.writeString(props);
+			VirtualSystem vs = service.readString(json, VirtualSystem.class);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -78,8 +80,10 @@ public class SystemTest {
 	}
 
 	protected JsonService getJsonService() {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
 		List<Module> modules = ImmutableList.of(new GuavaModule(), getModule());
-		JacksonContext context = JacksonContext.builder().withModules(modules).build();
+		JacksonContext context = JacksonContext.builder().withModules(modules).withMapper(mapper).build();
 		return new JacksonJsonService(context);
 	}
 
