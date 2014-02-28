@@ -24,7 +24,7 @@ public final class VirtualSystem {
 	private final ImmutableProperties properties;
 	private final ImmutableProperties environment;
 
-	public Builder builder() {
+	public static Builder builder() {
 		return new Builder();
 	}
 
@@ -37,7 +37,6 @@ public final class VirtualSystem {
 		this.fileSeparator = builder.fileSeparator;
 		this.properties = ImmutableProperties.copyOf(builder.properties);
 		this.environment = ImmutableProperties.copyOf(builder.environment);
-
 	}
 
 	public static class Builder extends SimpleValidatingBuilder<VirtualSystem> {
