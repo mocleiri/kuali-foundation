@@ -48,6 +48,14 @@ public final class SystemPropertiesFunction implements Function<Properties, Prop
 		this.mappings = ImmutableMap.copyOf(builder.mappings);
 	}
 
+	public static SystemPropertiesFunction newSystemPropertiesFunction() {
+		return builder().build();
+	}
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder extends ValidatingBuilder<SystemPropertiesFunction> {
 
 		private Set<String> blanksAllowed = ImmutableSet.of("line.separator");
