@@ -35,7 +35,7 @@ import com.google.common.base.Function;
 public class NestedPropertiesSerializer extends StdSerializer<Properties> {
 
 	private final String separator = ".";
-	private final Function<Set<String>, Node<String>> function1 = new NestedKeysFunction(separator);
+	private final Function<Set<String>, Node<String>> keys = new NestedKeysFunction(separator);
 
 	public NestedPropertiesSerializer(Class<Properties> type) {
 		super(type);
@@ -43,9 +43,9 @@ public class NestedPropertiesSerializer extends StdSerializer<Properties> {
 
 	@Override
 	public void serialize(Properties properties, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonGenerationException {
-		Node<String> node = function1.apply(properties.stringPropertyNames());
-		Function<Node<String>, JsonNode> function2 = new JsonNodeFunction(separator, properties);
-		JsonNode jsonNode = function2.apply(node);
+		Node<String> node = keys.apply(properties.stringPropertyNames());
+		Function<Node<String>, JsonNode> nodes = new JsonNodeFunction(separator, properties);
+		JsonNode jsonNode = nodes.apply(node);
 		jgen.writeObject(jsonNode);
 	}
 
