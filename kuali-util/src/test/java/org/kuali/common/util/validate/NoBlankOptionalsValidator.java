@@ -14,6 +14,11 @@ public class NoBlankOptionalsValidator extends AbstractFieldsValidator<NoBlankOp
 	@Override
 	protected Optional<String> validate(Field field, Object instance) {
 
+		// Might be ignoring blanks on this particular field
+		if (field.getAnnotation(IgnoreBlanks.class) != null) {
+			return absent();
+		}
+
 		// If this field isn't an Optional<String> we are good to go
 		if (!isOptionalString(field)) {
 			return absent();

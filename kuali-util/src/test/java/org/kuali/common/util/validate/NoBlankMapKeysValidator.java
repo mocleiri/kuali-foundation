@@ -17,6 +17,11 @@ public class NoBlankMapKeysValidator extends AbstractFieldsValidator<NoBlankMapK
 	@Override
 	protected Optional<String> validate(Field field, Object instance) {
 
+		// Might be ignoring blanks on this particular field
+		if (field.getAnnotation(IgnoreBlanks.class) != null) {
+			return absent();
+		}
+
 		// This field may not be a Map<String,?>
 		if (!isStringKeyedMap(field)) {
 			return absent();
