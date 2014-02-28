@@ -4,6 +4,7 @@ import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKN
 import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newTreeSet;
 import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.kuali.common.util.PropertyUtils.newHashMap;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.util.List;
@@ -16,35 +17,62 @@ import org.kuali.common.devops.json.pojo.JacksonContext;
 import org.kuali.common.devops.json.pojo.JacksonJsonService;
 import org.kuali.common.devops.json.pojo.JsonService;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.system.VirtualSystem;
+import org.kuali.common.util.tree.Node;
 import org.slf4j.Logger;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.TextNode;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
+import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
 public class SystemTest {
 
 	private static final Logger logger = newLogger();
+	private static final JsonNodeFactory FACTORY = new JsonNodeFactory(false);
 
 	@Test
 	public void test() {
 		try {
+			String separator = ".";
+			Function<Set<String>, Node<String>> keys = new NestedKeysFunction(separator);
 			Properties props = PropertyUtils.duplicate(System.getProperties());
 			trimBlanks(props, ImmutableSet.of("line.separator"));
 			Map<String, List<String>> aliases = getSystemPropertyAliases();
 			translate(props, aliases);
+			Function<Node<String>, ObjectNode> nodes = new JsonNodeFunction(separator, props);
+			Node<String> node = keys.apply(props.stringPropertyNames());
+			ObjectNode objectNode = nodes.apply(node);
+			objectNode.put("properties", getObjectNode(System.getProperties()));
+			objectNode.put("environment", getObjectNode(System.getenv()));
+
 			JsonService service = getJsonService();
-			String json = service.writeString(props);
-			// System.out.println(json);
-			VirtualSystem vs = service.readString(json, VirtualSystem.class);
-			System.out.println(service.writeString(vs));
+			String json = service.writeString(objectNode);
+			System.out.println(json);
+			// VirtualSystem vs = service.readString(json, VirtualSystem.class);
+			// System.out.println(service.writeString(vs));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected JsonNode getObjectNode(Properties props) {
+		return getObjectNode(newHashMap(props));
+	}
+
+	protected ObjectNode getObjectNode(Map<String, String> props) {
+		ObjectNode objectNode = new ObjectNode(FACTORY);
+		for (String key : newTreeSet(props.keySet())) {
+			TextNode textNode = new TextNode(props.get(key));
+			objectNode.put(key, textNode);
+		}
+		return objectNode;
 	}
 
 	protected void trimBlanks(Properties properties, Set<String> exceptions) {

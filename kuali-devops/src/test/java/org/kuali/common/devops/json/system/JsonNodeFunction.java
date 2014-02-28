@@ -20,7 +20,7 @@ import com.google.common.collect.Lists;
 /**
  * 
  */
-public class JsonNodeFunction implements Function<Node<String>, JsonNode> {
+public class JsonNodeFunction implements Function<Node<String>, ObjectNode> {
 
 	private static final JsonNodeFactory FACTORY = new JsonNodeFactory(false);
 
@@ -33,9 +33,9 @@ public class JsonNodeFunction implements Function<Node<String>, JsonNode> {
 	private final Joiner joiner;
 
 	@Override
-	public JsonNode apply(Node<String> node) {
+	public ObjectNode apply(Node<String> node) {
 		checkNotNull(node, "node");
-		return buildTree(node, properties);
+		return (ObjectNode) buildTree(node, properties);
 	}
 
 	protected JsonNode buildTree(Node<String> node, Properties properties) {
