@@ -16,9 +16,9 @@ public final class Java {
 	private final File home;
 	private final File tmpDir;
 	private final String classVersion;
-	private final ImmutableList<String> classpath;
-	private final ImmutableList<String> libraryPaths;
-	private final ImmutableList<String> extensionDirs;
+	private final ImmutableList<File> classpath;
+	private final ImmutableList<File> libraryPaths;
+	private final ImmutableList<File> extensionDirs;
 	private final RuntimeEnvironment runtime;
 	private final VirtualMachine vm;
 
@@ -38,12 +38,16 @@ public final class Java {
 		private File home;
 		private File tmpDir;
 		private String classVersion;
+
 		@JsonDeserialize(using = PathDeserializer.class)
-		private List<String> classpath = ImmutableList.of();
+		private List<File> classpath = ImmutableList.of();
+
 		@JsonDeserialize(using = PathDeserializer.class)
-		private List<String> libraryPaths = ImmutableList.of();
+		private List<File> libraryPaths = ImmutableList.of();
+
 		@JsonDeserialize(using = PathDeserializer.class)
-		private List<String> extensionDirs = ImmutableList.of();
+		private List<File> extensionDirs = ImmutableList.of();
+
 		private RuntimeEnvironment runtime;
 		private VirtualMachine vm;
 
@@ -62,17 +66,17 @@ public final class Java {
 			return this;
 		}
 
-		public Builder withClasspath(List<String> classpath) {
+		public Builder withClasspath(List<File> classpath) {
 			this.classpath = classpath;
 			return this;
 		}
 
-		public Builder withLibraryPaths(List<String> libraryPaths) {
+		public Builder withLibraryPaths(List<File> libraryPaths) {
 			this.libraryPaths = libraryPaths;
 			return this;
 		}
 
-		public Builder withExtensionDirs(List<String> extensionDirs) {
+		public Builder withExtensionDirs(List<File> extensionDirs) {
 			this.extensionDirs = extensionDirs;
 			return this;
 		}
@@ -105,15 +109,15 @@ public final class Java {
 		return classVersion;
 	}
 
-	public List<String> getClasspath() {
+	public List<File> getClasspath() {
 		return classpath;
 	}
 
-	public List<String> getLibraryPaths() {
+	public List<File> getLibraryPaths() {
 		return libraryPaths;
 	}
 
-	public List<String> getExtensionDirs() {
+	public List<File> getExtensionDirs() {
 		return extensionDirs;
 	}
 
