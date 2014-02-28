@@ -5,7 +5,7 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.ViolationsBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.collect.ImmutableList;
@@ -25,7 +25,7 @@ public final class Basket {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<Basket> {
+	public static class Builder extends ViolationsBuilder<Basket> {
 
 		private String material;
 		private List<Apple> apples;

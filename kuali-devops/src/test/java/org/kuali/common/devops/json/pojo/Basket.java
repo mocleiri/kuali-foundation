@@ -7,7 +7,7 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.ViolationsBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,7 +35,7 @@ public final class Basket {
 		return new Builder(material);
 	}
 
-	public static class Builder extends ValidatingBuilder<Basket> {
+	public static class Builder extends ViolationsBuilder<Basket> {
 
 		private final String material;
 		private List<Apple> apples = ImmutableList.of();

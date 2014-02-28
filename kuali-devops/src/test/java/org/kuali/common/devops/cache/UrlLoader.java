@@ -11,7 +11,7 @@ import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.http.model.HttpWaitResult;
 import org.kuali.common.http.service.DefaultHttpService;
 import org.kuali.common.http.service.HttpService;
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.ViolationsBuilder;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
@@ -54,7 +54,7 @@ public final class UrlLoader extends CacheLoader<String, HttpWaitResult> {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<UrlLoader> {
+	public static class Builder extends ViolationsBuilder<UrlLoader> {
 
 		private HttpContext context = HttpContext.builder(NullUtils.NONE).build();
 		private HttpService service = new DefaultHttpService();

@@ -11,7 +11,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.ViolationsBuilder;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.validate.FinalClass;
@@ -68,7 +68,7 @@ public final class UrlPropertiesFileFunction implements Function<String, File> {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<UrlPropertiesFileFunction> {
+	public static class Builder extends ViolationsBuilder<UrlPropertiesFileFunction> {
 
 		private File basedir = new CanonicalFile("./target/cache/urls");
 

@@ -7,7 +7,7 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.ViolationsBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Function;
@@ -72,7 +72,7 @@ public final class FileSystemCache<K, V> extends CacheLoader<K, V> {
 		return new Builder<K, V>();
 	}
 
-	public static class Builder<K, V> extends ValidatingBuilder<FileSystemCache<K, V>> {
+	public static class Builder<K, V> extends ViolationsBuilder<FileSystemCache<K, V>> {
 
 		private PersistentCache<File, V> fileCache;
 		private CacheLoader<K, V> loader;

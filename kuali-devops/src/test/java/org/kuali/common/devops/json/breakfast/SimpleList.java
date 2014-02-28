@@ -5,7 +5,7 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.ViolationsBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.collect.ImmutableList;
@@ -23,7 +23,7 @@ public final class SimpleList {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<SimpleList> {
+	public static class Builder extends ViolationsBuilder<SimpleList> {
 
 		private List<String> names;
 

@@ -6,7 +6,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.constraints.Min;
 
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.ViolationsBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.collect.ImmutableList;
@@ -27,7 +27,7 @@ public final class Juice {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<Juice> {
+	public static class Builder extends ViolationsBuilder<Juice> {
 
 		private double price;
 		private List<Ingredient> ingredients = ImmutableList.of();

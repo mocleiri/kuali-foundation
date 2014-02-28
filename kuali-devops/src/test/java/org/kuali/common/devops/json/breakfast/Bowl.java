@@ -4,7 +4,7 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.ViolationsBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
@@ -22,7 +22,7 @@ public final class Bowl {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<Bowl> {
+	public static class Builder extends ViolationsBuilder<Bowl> {
 
 		private double depth;
 		private double width;

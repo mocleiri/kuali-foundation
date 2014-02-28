@@ -7,7 +7,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.constraints.Min;
 
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.ViolationsBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.collect.ImmutableList;
@@ -33,7 +33,7 @@ public final class FancyMilk {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<FancyMilk> {
+	public static class Builder extends ViolationsBuilder<FancyMilk> {
 
 		private double price = -1;
 		private String type;

@@ -4,14 +4,12 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
-import org.kuali.common.util.bind.api.Bind;
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.ViolationsBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
 public final class SuperFancyBowl {
 
-	@Bind
 	private final FancyMilk milk;
 
 	private SuperFancyBowl(Builder builder) {
@@ -22,7 +20,7 @@ public final class SuperFancyBowl {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<SuperFancyBowl> {
+	public static class Builder extends ViolationsBuilder<SuperFancyBowl> {
 
 		private FancyMilk milk;
 

@@ -5,7 +5,7 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.ViolationsBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.fasterxml.jackson.databind.Module;
@@ -39,7 +39,7 @@ public final class JacksonContext {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<JacksonContext> {
+	public static class Builder extends ViolationsBuilder<JacksonContext> {
 
 		private boolean prettyPrint = true;
 		private List<Module> modules = ImmutableList.<Module> of(new GuavaModule());
