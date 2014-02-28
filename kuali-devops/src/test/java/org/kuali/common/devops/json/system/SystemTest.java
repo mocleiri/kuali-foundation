@@ -17,6 +17,7 @@ import org.kuali.common.devops.json.pojo.JacksonContext;
 import org.kuali.common.devops.json.pojo.JacksonJsonService;
 import org.kuali.common.devops.json.pojo.JsonService;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.system.VirtualSystem;
 import org.kuali.common.util.tree.Node;
 import org.slf4j.Logger;
 
@@ -52,11 +53,11 @@ public class SystemTest {
 			objectNode.put("properties", getObjectNode(System.getProperties()));
 			objectNode.put("environment", getObjectNode(System.getenv()));
 
-			JsonService service = getJsonService();
+			JsonService service = getSimpleJsonService();
 			String json = service.writeString(objectNode);
-			System.out.println(json);
-			// VirtualSystem vs = service.readString(json, VirtualSystem.class);
-			// System.out.println(service.writeString(vs));
+			VirtualSystem vs = service.readString(json, VirtualSystem.class);
+			JsonService simple = new JacksonJsonService();
+			System.out.println(simple.writeString(vs));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -129,12 +130,25 @@ public class SystemTest {
 		}
 	}
 
+	protected JsonService getSimpleJsonService() {
+		ObjectMapper mapper = new ObjectMapper();
+		List<Module> modules = ImmutableList.of(new GuavaModule(), getSimpleModule());
+		JacksonContext context = JacksonContext.builder().withModules(modules).withMapper(mapper).build();
+		return new JacksonJsonService(context);
+	}
+
 	protected JsonService getJsonService() {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
 		List<Module> modules = ImmutableList.of(new GuavaModule(), getModule());
 		JacksonContext context = JacksonContext.builder().withModules(modules).withMapper(mapper).build();
 		return new JacksonJsonService(context);
+	}
+
+	protected Module getSimpleModule() {
+		SimpleModule module = new SimpleModule();
+		module.addSerializer(new SortedPropertiesSerializer(Properties.class));
+		return module;
 	}
 
 	protected Module getModule() {
