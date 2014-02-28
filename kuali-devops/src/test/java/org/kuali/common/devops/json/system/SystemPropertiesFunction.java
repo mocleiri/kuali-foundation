@@ -30,7 +30,8 @@ public final class SystemPropertiesFunction implements Function<Properties, Prop
 	@Override
 	public Properties apply(Properties oldProperties) {
 		checkNotNull(oldProperties, "oldProperties");
-		Properties newProperties = new Properties(oldProperties);
+		Properties newProperties = new Properties();
+		newProperties.putAll(oldProperties);
 		removeBlanks(newProperties, blanksAllowed);
 		for (String newKey : newTreeSet(mappings.keySet())) {
 			String oldKey = mappings.get(newKey);
