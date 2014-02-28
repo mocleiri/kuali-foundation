@@ -18,7 +18,9 @@ import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 
 /**
+ * Convert a generic tree structure containing strings into the ObjectNode tree structure needed by Jackson's json api.
  * 
+ * The leaves of the ObjectNode tree contain the values from the properties object passed into the constructor.
  */
 public class JsonNodeFunction implements Function<Node<String>, ObjectNode> {
 
