@@ -38,8 +38,11 @@ public final class Java {
 		private File home;
 		private File tmpDir;
 		private String classVersion;
+		@JsonDeserialize(using = PathDeserializer.class)
 		private List<String> classpath;
+		@JsonDeserialize(using = PathDeserializer.class)
 		private List<String> libraryPaths;
+		@JsonDeserialize(using = PathDeserializer.class)
 		private List<String> extensionDirs;
 		private RuntimeEnvironment runtime;
 		private VirtualMachine vm;
