@@ -17,21 +17,28 @@ public final class JacksonContext {
 
 	private final ObjectMapper mapper;
 	private final boolean prettyPrint;
-	private final boolean orderMapEntriesByKeys;
 	private final ImmutableList<Module> modules;
+	private final ImmutableList<SerializationFeatureContext> serializationFeatures;
+	private final ImmutableList<DeserializationFeatureContext> deserializationFeatures;
 
 	private JacksonContext(Builder builder) {
 		this.mapper = builder.mapper;
 		this.prettyPrint = builder.prettyPrint;
-		this.orderMapEntriesByKeys = builder.orderMapEntriesByKeys;
 		this.modules = ImmutableList.copyOf(builder.modules);
+		this.serializationFeatures = ImmutableList.copyOf(builder.serializationFeatures);
+		this.deserializationFeatures = ImmutableList.copyOf(builder.deserializationFeatures);
 
 		// Register any modules they've provided
 		for (Module module : modules) {
 			this.mapper.registerModule(module);
 		}
+		for (SerializationFeatureContext sfc : serializationFeatures) {
+			this.mapper.configure(sfc.getFeature(), sfc.isState());
+		}
+		for (DeserializationFeatureContext dfc : deserializationFeatures) {
+			this.mapper.configure(dfc.getFeature(), dfc.isState());
+		}
 
-		this.mapper.configure(ORDER_MAP_ENTRIES_BY_KEYS, orderMapEntriesByKeys);
 	}
 
 	public static JacksonContext newJacksonJsonContext() {
@@ -47,7 +54,8 @@ public final class JacksonContext {
 		private boolean prettyPrint = true;
 		private List<Module> modules = ImmutableList.<Module> of(new GuavaModule());
 		private ObjectMapper mapper = new ObjectMapper();
-		private boolean orderMapEntriesByKeys = true;
+		private final List<SerializationFeatureContext> serializationFeatures = ImmutableList.of(new SerializationFeatureContext(ORDER_MAP_ENTRIES_BY_KEYS, true));
+		private final List<DeserializationFeatureContext> deserializationFeatures = ImmutableList.of();
 
 		@Override
 		public JacksonContext build() {
@@ -56,11 +64,6 @@ public final class JacksonContext {
 
 		private JacksonContext make() {
 			return new JacksonContext(this);
-		}
-
-		public Builder withOrderMapEntriesByKeys(boolean orderMapEntriesByKeys) {
-			this.orderMapEntriesByKeys = orderMapEntriesByKeys;
-			return this;
 		}
 
 		public Builder withMapper(ObjectMapper mapper) {
