@@ -90,4 +90,12 @@ public final class SystemPropertiesFunction implements Function<Properties, Prop
 
 		}
 	}
+
+	public ImmutableSet<String> getBlanksAllowed() {
+		return blanksAllowed;
+	}
+
+	public ImmutableMap<String, String> getMappings() {
+		return mappings;
+	}
 }
