@@ -38,48 +38,48 @@ public final class Java {
 		private File home;
 		private File tmpDir;
 		private String classVersion;
-		private List<String> classpath = ImmutableList.of();
-		private List<String> libraryPaths = ImmutableList.of();
-		private List<String> extensionDirs = ImmutableList.of();
+		private List<String> classpath;
+		private List<String> libraryPaths;
+		private List<String> extensionDirs;
 		private RuntimeEnvironment runtime;
 		private VirtualMachine vm;
 
-		public Builder home(File home) {
+		public Builder withHome(File home) {
 			this.home = home;
 			return this;
 		}
 
-		public Builder tmpDir(File tmpDir) {
+		public Builder withTmpDir(File tmpDir) {
 			this.tmpDir = tmpDir;
 			return this;
 		}
 
-		public Builder classVersion(String classVersion) {
+		public Builder withClassVersion(String classVersion) {
 			this.classVersion = classVersion;
 			return this;
 		}
 
-		public Builder classpath(List<String> classpath) {
+		public Builder withClasspath(ImmutableList<String> classpath) {
 			this.classpath = classpath;
 			return this;
 		}
 
-		public Builder libraryPaths(List<String> libraryPaths) {
+		public Builder withLibraryPaths(ImmutableList<String> libraryPaths) {
 			this.libraryPaths = libraryPaths;
 			return this;
 		}
 
-		public Builder extensionDirs(List<String> extensionDirs) {
+		public Builder withExtensionDirs(ImmutableList<String> extensionDirs) {
 			this.extensionDirs = extensionDirs;
 			return this;
 		}
 
-		public Builder runtime(RuntimeEnvironment runtime) {
+		public Builder withRuntime(RuntimeEnvironment runtime) {
 			this.runtime = runtime;
 			return this;
 		}
 
-		public Builder vm(VirtualMachine vm) {
+		public Builder withVm(VirtualMachine vm) {
 			this.vm = vm;
 			return this;
 		}
@@ -88,7 +88,6 @@ public final class Java {
 		public Java build() {
 			return validate(new Java(this));
 		}
-
 	}
 
 	public File getHome() {

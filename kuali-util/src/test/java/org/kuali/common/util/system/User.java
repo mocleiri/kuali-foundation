@@ -1,14 +1,9 @@
 package org.kuali.common.util.system;
 
-import static com.google.common.base.Optional.absent;
-
 import java.io.File;
-import java.util.Set;
 import java.util.TimeZone;
 
-import javax.validation.ConstraintViolation;
-
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.SimpleValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -34,103 +29,49 @@ public final class User {
 		this.timezone = builder.timezone;
 	}
 
-	public static Builder builder() {
-		return new Builder();
-	}
-
-	public static class Builder extends ValidatingBuilder<User> {
+	public static class Builder extends SimpleValidatingBuilder<User> {
 
 		private String name;
 		private File home;
 		private File dir;
-		private Optional<String> language = absent();
-		private Optional<String> country = absent();
-		private Optional<TimeZone> timezone = absent();
+		private Optional<String> language;
+		private Optional<String> country;
+		private Optional<TimeZone> timezone;
 
-		public Builder country(Optional<String> country) {
-			this.country = country;
-			return this;
-		}
-
-		public Builder language(Optional<String> language) {
-			this.language = language;
-			return this;
-		}
-
-		public Builder timezone(Optional<TimeZone> timezone) {
-			this.timezone = timezone;
-			return this;
-		}
-
-		public Builder timezone(TimeZone timezone) {
-			return timezone(Optional.of(timezone));
-		}
-
-		public Builder name(String name) {
+		public Builder withName(String name) {
 			this.name = name;
 			return this;
 		}
 
-		public Builder home(File home) {
+		public Builder withHome(File home) {
 			this.home = home;
 			return this;
 		}
 
-		public Builder dir(File dir) {
+		public Builder withDir(File dir) {
 			this.dir = dir;
 			return this;
 		}
 
-		@Override
-		public Set<ConstraintViolation<User>> violations() {
-			return violations(new User(this));
+		public Builder withLanguage(Optional<String> language) {
+			this.language = language;
+			return this;
+		}
+
+		public Builder withCountry(Optional<String> country) {
+			this.country = country;
+			return this;
+		}
+
+		public Builder withTimezone(Optional<TimeZone> timezone) {
+			this.timezone = timezone;
+			return this;
 		}
 
 		@Override
 		public User build() {
 			return validate(new User(this));
 		}
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		public File getHome() {
-			return home;
-		}
-
-		public void setHome(File home) {
-			this.home = home;
-		}
-
-		public File getDir() {
-			return dir;
-		}
-
-		public void setDir(File dir) {
-			this.dir = dir;
-		}
-
-		public Optional<String> getLanguage() {
-			return language;
-		}
-
-		public void setLanguage(Optional<String> language) {
-			this.language = language;
-		}
-
-		public Optional<String> getCountry() {
-			return country;
-		}
-
-		public void setCountry(Optional<String> country) {
-			this.country = country;
-		}
-
 	}
 
 	public String getName() {

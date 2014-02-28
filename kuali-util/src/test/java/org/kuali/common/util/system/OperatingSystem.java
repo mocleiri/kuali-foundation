@@ -19,14 +19,6 @@ public final class OperatingSystem {
 		this.version = builder.version;
 	}
 
-	public static OperatingSystem create() {
-		return builder().build();
-	}
-
-	public static Builder builder() {
-		return new Builder();
-	}
-
 	public static class Builder extends SimpleValidatingBuilder<OperatingSystem> {
 
 		private String name;
@@ -52,7 +44,6 @@ public final class OperatingSystem {
 		public OperatingSystem build() {
 			return validate(new OperatingSystem(this));
 		}
-
 	}
 
 	public String getName() {
@@ -66,5 +57,4 @@ public final class OperatingSystem {
 	public String getVersion() {
 		return version;
 	}
-
 }
