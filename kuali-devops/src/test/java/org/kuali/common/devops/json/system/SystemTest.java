@@ -32,6 +32,7 @@ public class SystemTest {
 	@Test
 	public void test() {
 		try {
+			Properties yo = new Properties();
 			String separator = ".";
 			Properties system = System.getProperties();
 			Properties props = new SystemPropertiesFunction().apply(system);
