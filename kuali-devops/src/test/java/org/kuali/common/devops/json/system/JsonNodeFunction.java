@@ -56,7 +56,6 @@ public class JsonNodeFunction implements Function<Node<String>, ObjectNode> {
 		List<String> tokens = newArrayList(leaf.getElementPath());
 		tokens.remove(0);
 		String key = joiner.join(tokens);
-		String value = properties.getProperty(key);
-		return value;
+		return checkNotNull(properties.getProperty(key), key);
 	}
 }
