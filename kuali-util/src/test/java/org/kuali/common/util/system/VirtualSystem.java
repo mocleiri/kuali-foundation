@@ -1,4 +1,4 @@
-	package org.kuali.common.util.system;
+package org.kuali.common.util.system;
 
 import java.util.Properties;
 
@@ -7,7 +7,10 @@ import org.kuali.common.util.build.SimpleValidatingBuilder;
 import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.validate.IdiotProofImmutableWithBlanks;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 @IdiotProofImmutableWithBlanks
+@JsonDeserialize(builder = VirtualSystem.Builder.class)
 public final class VirtualSystem {
 
 	private final User user;
@@ -118,11 +121,11 @@ public final class VirtualSystem {
 		return fileSeparator;
 	}
 
-	public ImmutableProperties getProperties() {
+	public Properties getProperties() {
 		return properties;
 	}
 
-	public ImmutableProperties getEnvironment() {
+	public Properties getEnvironment() {
 		return environment;
 	}
 
