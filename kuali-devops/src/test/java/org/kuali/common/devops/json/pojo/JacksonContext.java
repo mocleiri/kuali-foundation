@@ -59,11 +59,7 @@ public final class JacksonContext {
 
 		@Override
 		public JacksonContext build() {
-			return validate(make());
-		}
-
-		private JacksonContext make() {
-			return new JacksonContext(this);
+			return validate(new JacksonContext(this));
 		}
 
 		public Builder withMapper(ObjectMapper mapper) {
