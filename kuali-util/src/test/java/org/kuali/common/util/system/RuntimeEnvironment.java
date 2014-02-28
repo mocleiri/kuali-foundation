@@ -4,7 +4,10 @@ import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 @IdiotProofImmutable
+@JsonDeserialize(builder = RuntimeEnvironment.Builder.class)
 public final class RuntimeEnvironment {
 
 	private final String vendor;

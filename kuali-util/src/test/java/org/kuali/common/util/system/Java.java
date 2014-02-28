@@ -1,22 +1,20 @@
 package org.kuali.common.util.system;
 
-import static com.google.common.base.Optional.absent;
-
 import java.io.File;
 import java.util.List;
 
 import org.kuali.common.util.build.SimpleValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
-import com.google.common.base.Optional;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.collect.ImmutableList;
 
 @IdiotProofImmutable
+@JsonDeserialize(builder = Java.Builder.class)
 public final class Java {
 
 	private final File home;
 	private final File tmpDir;
-	private final Optional<String> jitCompiler;
 	private final String classVersion;
 	private final ImmutableList<String> classpath;
 	private final ImmutableList<String> libraryPaths;
@@ -27,7 +25,6 @@ public final class Java {
 	private Java(Builder builder) {
 		this.home = builder.home;
 		this.tmpDir = builder.tmpDir;
-		this.jitCompiler = builder.jitCompiler;
 		this.classVersion = builder.classVersion;
 		this.classpath = ImmutableList.copyOf(builder.classpath);
 		this.libraryPaths = ImmutableList.copyOf(builder.libraryPaths);
@@ -40,7 +37,6 @@ public final class Java {
 
 		private File home;
 		private File tmpDir;
-		private Optional<String> jitCompiler = absent();
 		private String classVersion;
 		private List<String> classpath = ImmutableList.of();
 		private List<String> libraryPaths = ImmutableList.of();
@@ -55,11 +51,6 @@ public final class Java {
 
 		public Builder tmpDir(File tmpDir) {
 			this.tmpDir = tmpDir;
-			return this;
-		}
-
-		public Builder jitCompiler(Optional<String> jitCompiler) {
-			this.jitCompiler = jitCompiler;
 			return this;
 		}
 
@@ -106,10 +97,6 @@ public final class Java {
 
 	public File getTmpDir() {
 		return tmpDir;
-	}
-
-	public Optional<String> getJitCompiler() {
-		return jitCompiler;
 	}
 
 	public String getClassVersion() {

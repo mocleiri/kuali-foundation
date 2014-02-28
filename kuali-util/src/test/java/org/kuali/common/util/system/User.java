@@ -11,9 +11,11 @@ import javax.validation.ConstraintViolation;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.Optional;
 
 @IdiotProofImmutable
+@JsonDeserialize(builder = User.Builder.class)
 public final class User {
 
 	private final String name;

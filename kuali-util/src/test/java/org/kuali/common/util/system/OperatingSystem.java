@@ -3,7 +3,10 @@ package org.kuali.common.util.system;
 import org.kuali.common.util.build.SimpleValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 @IdiotProofImmutable
+@JsonDeserialize(builder = OperatingSystem.Builder.class)
 public final class OperatingSystem {
 
 	private final String name;
