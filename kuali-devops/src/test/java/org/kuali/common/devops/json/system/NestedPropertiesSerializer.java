@@ -2,6 +2,7 @@ package org.kuali.common.devops.json.system;
 
 import java.io.IOException;
 import java.util.Properties;
+import java.util.Set;
 
 import org.kuali.common.util.tree.Node;
 
@@ -34,7 +35,7 @@ import com.google.common.base.Function;
 public class NestedPropertiesSerializer extends StdSerializer<Properties> {
 
 	private final String separator = ".";
-	private final Function<Properties, Node<String>> function1 = new NestedPropertiesFunction(separator);
+	private final Function<Set<String>, Node<String>> function1 = new NestedPropertiesFunction(separator);
 
 	public NestedPropertiesSerializer(Class<Properties> type) {
 		super(type);
@@ -42,7 +43,7 @@ public class NestedPropertiesSerializer extends StdSerializer<Properties> {
 
 	@Override
 	public void serialize(Properties properties, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonGenerationException {
-		Node<String> node = function1.apply(properties);
+		Node<String> node = function1.apply(properties.stringPropertyNames());
 		Function<Node<String>, JsonNode> function2 = new JsonNodeFunction(separator, properties);
 		JsonNode jsonNode = function2.apply(node);
 		jgen.writeObject(jsonNode);

@@ -26,7 +26,7 @@ import com.google.common.base.Splitter;
 /**
  * 
  */
-public class NestedPropertiesFunction implements Function<Properties, Node<String>> {
+public class NestedPropertiesFunction implements Function<Set<String>, Node<String>> {
 
 	public NestedPropertiesFunction() {
 		this(".");
@@ -50,9 +50,9 @@ public class NestedPropertiesFunction implements Function<Properties, Node<Strin
 	private final SplitterFunction pathSplitter;
 
 	@Override
-	public Node<String> apply(Properties properties) {
-		checkNotNull(properties, "properties");
-		Set<String> paths = pathSplitter.apply(properties.stringPropertyNames());
+	public Node<String> apply(Set<String> strings) {
+		checkNotNull(strings, "strings");
+		Set<String> paths = pathSplitter.apply(strings);
 		Map<String, MutableNode<String>> nodeMap = getNodeMap(paths);
 		return ImmutableNode.copyOf(buildTree(nodeMap));
 	}
