@@ -8,7 +8,7 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.util.build.ViolationsBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 import org.springframework.format.Formatter;
 
@@ -58,7 +58,7 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<ListStringFormatter> {
+	public static class Builder extends ViolationsBuilder<ListStringFormatter> {
 
 		private String separator = ",";
 		private String emptyListToken = FormatTokens.EMPTY_LIST_TOKEN;
