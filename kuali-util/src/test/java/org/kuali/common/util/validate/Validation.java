@@ -25,8 +25,8 @@ import com.google.common.collect.ImmutableList;
 
 public class Validation {
 
-	private static ValidatorFactory FACTORY = buildDefaultValidatorFactory();
-	private static Validator VALIDATOR = FACTORY.getValidator();
+	private static final ValidatorFactory FACTORY = buildDefaultValidatorFactory();
+	private static final Validator VALIDATOR = FACTORY.getValidator();
 	private static final Class<?>[] EMPTY_CLASS_ARRAY = {};
 
 	public static Validator getDefaultValidator() {
