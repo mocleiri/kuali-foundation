@@ -26,7 +26,7 @@ public class Loggers {
 	 * </p>
 	 * 
 	 * <pre>
-	 * private static final Logger logger = LoggerUtils.make();
+	 * private static final Logger logger = Loggers.newLogger();
 	 * </pre>
 	 */
 	public static Logger newLogger() {
@@ -42,7 +42,7 @@ public class Loggers {
 	 * </p>
 	 * 
 	 * <pre>
-	 * private static final Logger logger = LoggerUtils.make();
+	 * private static final Logger logger = Loggers.make();
 	 * </pre>
 	 * 
 	 * @deprecated Use newLogger() instead
