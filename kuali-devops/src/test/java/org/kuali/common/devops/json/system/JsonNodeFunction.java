@@ -1,6 +1,7 @@
 package org.kuali.common.devops.json.system;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.collect.Lists.newArrayList;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
@@ -15,7 +16,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
-import com.google.common.collect.Lists;
 
 /**
  * 
@@ -53,7 +53,7 @@ public class JsonNodeFunction implements Function<Node<String>, ObjectNode> {
 
 	protected String getValue(Node<String> leaf, Properties properties) {
 		checkArgument(leaf.isLeaf(), "not a leaf node");
-		List<String> tokens = Lists.newArrayList(leaf.getElementPath());
+		List<String> tokens = newArrayList(leaf.getElementPath());
 		tokens.remove(0);
 		String key = joiner.join(tokens);
 		String value = properties.getProperty(key);
