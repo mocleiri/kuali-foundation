@@ -33,10 +33,11 @@ public class SystemTest {
 	public void test() {
 		try {
 			String separator = ".";
-			Properties props = new SystemPropertiesFunction().apply(System.getProperties());
+			Properties system = System.getProperties();
+			Properties props = new SystemPropertiesFunction().apply(system);
 			Node<String> node = new NestedKeysFunction(separator).apply(props.stringPropertyNames());
 			ObjectNode objectNode = new JsonNodeFunction(separator, props).apply(node);
-			objectNode.put("properties", getObjectNode(System.getProperties()));
+			objectNode.put("properties", getObjectNode(system));
 			objectNode.put("environment", getObjectNode(System.getenv()));
 
 			JsonService service = getJsonService();
