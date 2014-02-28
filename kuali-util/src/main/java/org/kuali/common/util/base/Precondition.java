@@ -10,11 +10,11 @@ import com.google.common.base.Preconditions;
  * Strongly mimic's Guava's {@code Preconditions} class with a sensible default error message for common situations
  * 
  * <pre>
- * Guava 
+ * {@code Guava:}
  * checkArgument(!StringUtils.isBlank(foo), &quot;'foo' cannot be blank&quot;);
  * this.foo = foo;
  * 
- * Kuali 
+ * {@code Kuali:}
  * this.foo = checkNotBlank(foo, &quot;foo&quot;);
  * </pre>
  */
