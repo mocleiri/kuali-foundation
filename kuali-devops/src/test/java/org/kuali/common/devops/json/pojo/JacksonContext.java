@@ -47,7 +47,7 @@ public final class JacksonContext {
 		private boolean prettyPrint = true;
 		private List<Module> modules = ImmutableList.<Module> of(new GuavaModule());
 		private ObjectMapper mapper = new ObjectMapper();
-		private boolean orderMapEntriesByKeys;
+		private boolean orderMapEntriesByKeys = true;
 
 		@Override
 		public JacksonContext build() {

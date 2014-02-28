@@ -1,7 +1,6 @@
 package org.kuali.common.devops.json.system;
 
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
-import static com.fasterxml.jackson.databind.SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS;
 import static com.google.common.collect.Sets.newTreeSet;
 import static org.kuali.common.util.PropertyUtils.newHashMap;
 
@@ -66,7 +65,6 @@ public class SystemTest {
 
 	protected JsonService getService() {
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(ORDER_MAP_ENTRIES_BY_KEYS, true);
 		mapper.configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
 		JacksonContext context = JacksonContext.builder().withMapper(mapper).build();
 		return new JacksonJsonService(context);
