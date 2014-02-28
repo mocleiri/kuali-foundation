@@ -3,7 +3,7 @@ package org.kuali.common.util.system;
 import java.util.Properties;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.kuali.common.util.build.SimpleValidatingBuilder;
+import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.validate.IdiotProofImmutableWithBlanks;
 
@@ -41,7 +41,7 @@ public final class VirtualSystem {
 		this.environment = ImmutableProperties.copyOf(builder.environment);
 	}
 
-	public static class Builder extends SimpleValidatingBuilder<VirtualSystem> {
+	public static class Builder extends ValidatingBuilder<VirtualSystem> {
 
 		private User user;
 		private OperatingSystem os;

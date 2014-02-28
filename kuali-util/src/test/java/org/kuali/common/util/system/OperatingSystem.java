@@ -1,6 +1,6 @@
 package org.kuali.common.util.system;
 
-import org.kuali.common.util.build.SimpleValidatingBuilder;
+import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -21,7 +21,7 @@ public final class OperatingSystem {
 		this.version = builder.version;
 	}
 
-	public static class Builder extends SimpleValidatingBuilder<OperatingSystem> {
+	public static class Builder extends ValidatingBuilder<OperatingSystem> {
 
 		private String name;
 		private String arch;

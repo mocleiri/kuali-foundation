@@ -2,7 +2,7 @@ package org.kuali.common.util.system;
 
 import java.io.File;
 
-import org.kuali.common.util.build.SimpleValidatingBuilder;
+import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -23,7 +23,7 @@ public final class User {
 		this.dir = builder.dir;
 	}
 
-	public static class Builder extends SimpleValidatingBuilder<User> {
+	public static class Builder extends ValidatingBuilder<User> {
 
 		private String name;
 		private File home;

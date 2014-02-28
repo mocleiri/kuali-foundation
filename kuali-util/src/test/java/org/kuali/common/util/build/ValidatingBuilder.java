@@ -11,7 +11,7 @@ import org.kuali.common.util.validate.Validation;
 
 import com.google.common.collect.ImmutableList;
 
-public abstract class SimpleValidatingBuilder<T> implements Builder<T> {
+public abstract class ValidatingBuilder<T> implements Builder<T> {
 
 	protected Validator validator = Validation.getDefaultValidator();
 	protected List<Class<?>> validationGroups = ImmutableList.of();
@@ -20,12 +20,12 @@ public abstract class SimpleValidatingBuilder<T> implements Builder<T> {
 		return checkConstraints(instance, validator, validationGroups);
 	}
 
-	public SimpleValidatingBuilder<T> withValidator(Validator validator) {
+	public ValidatingBuilder<T> withValidator(Validator validator) {
 		this.validator = validator;
 		return this;
 	}
 
-	public SimpleValidatingBuilder<T> withValidationGroups(List<Class<?>> validationGroups) {
+	public ValidatingBuilder<T> withValidationGroups(List<Class<?>> validationGroups) {
 		this.validationGroups = validationGroups;
 		return this;
 	}

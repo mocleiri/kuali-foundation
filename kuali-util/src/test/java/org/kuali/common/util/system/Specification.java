@@ -1,6 +1,6 @@
 package org.kuali.common.util.system;
 
-import org.kuali.common.util.build.SimpleValidatingBuilder;
+import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -21,7 +21,7 @@ public final class Specification {
 		this.name = builder.name;
 	}
 
-	public static class Builder extends SimpleValidatingBuilder<Specification> {
+	public static class Builder extends ValidatingBuilder<Specification> {
 
 		private String vendor;
 		private String version;

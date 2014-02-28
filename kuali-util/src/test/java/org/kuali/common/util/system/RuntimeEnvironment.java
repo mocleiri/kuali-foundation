@@ -1,6 +1,6 @@
 package org.kuali.common.util.system;
 
-import org.kuali.common.util.build.SimpleValidatingBuilder;
+import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -23,7 +23,7 @@ public final class RuntimeEnvironment {
 		this.url = builder.url;
 	}
 
-	public static class Builder extends SimpleValidatingBuilder<RuntimeEnvironment> {
+	public static class Builder extends ValidatingBuilder<RuntimeEnvironment> {
 
 		private String vendor;
 		private String version;
