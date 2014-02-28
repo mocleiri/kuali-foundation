@@ -20,8 +20,8 @@ public final class SystemPropertiesFunction implements Function<Properties, Prop
 	}
 
 	public SystemPropertiesFunction(Set<String> blanksAllowed, Map<String, String> mappings) {
-		this.blanksAllowed = ImmutableSet.copyOf(checkNotNull(blanksAllowed, "blanksAllowed"));
-		this.mappings = ImmutableMap.copyOf(checkNotNull(mappings, "mappings"));
+		this.blanksAllowed = ImmutableSet.copyOf(blanksAllowed);
+		this.mappings = ImmutableMap.copyOf(mappings);
 	}
 
 	private final ImmutableSet<String> blanksAllowed;
