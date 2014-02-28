@@ -26,17 +26,17 @@ import com.google.common.base.Splitter;
 /**
  * 
  */
-public class NestedPropertiesFunction implements Function<Set<String>, Node<String>> {
+public class NestedKeysFunction implements Function<Set<String>, Node<String>> {
 
-	public NestedPropertiesFunction() {
+	public NestedKeysFunction() {
 		this(".");
 	}
 
-	public NestedPropertiesFunction(String separator) {
+	public NestedKeysFunction(String separator) {
 		this(separator, "root");
 	}
 
-	public NestedPropertiesFunction(String separator, String rootNodeElement) {
+	public NestedKeysFunction(String separator, String rootNodeElement) {
 		checkNotBlank(separator, "separator");
 		this.rootNodeElement = checkNotBlank(rootNodeElement, "rootNodeElement");
 		this.splitter = Splitter.on(separator);

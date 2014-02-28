@@ -35,7 +35,7 @@ import com.google.common.base.Function;
 public class NestedPropertiesSerializer extends StdSerializer<Properties> {
 
 	private final String separator = ".";
-	private final Function<Set<String>, Node<String>> function1 = new NestedPropertiesFunction(separator);
+	private final Function<Set<String>, Node<String>> function1 = new NestedKeysFunction(separator);
 
 	public NestedPropertiesSerializer(Class<Properties> type) {
 		super(type);
