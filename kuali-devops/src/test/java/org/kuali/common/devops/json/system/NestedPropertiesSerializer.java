@@ -43,8 +43,8 @@ public class NestedPropertiesSerializer extends StdSerializer<Properties> {
 
 	@Override
 	public void serialize(Properties properties, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonGenerationException {
-		Node<String> node = keys.apply(properties.stringPropertyNames());
 		Function<Node<String>, JsonNode> nodes = new JsonNodeFunction(separator, properties);
+		Node<String> node = keys.apply(properties.stringPropertyNames());
 		JsonNode jsonNode = nodes.apply(node);
 		jgen.writeObject(jsonNode);
 	}
