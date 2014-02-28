@@ -53,10 +53,10 @@ public class SystemTest {
 			objectNode.put("properties", getObjectNode(System.getProperties()));
 			objectNode.put("environment", getObjectNode(System.getenv()));
 
-			JsonService service = getSimpleJsonService();
+			JsonService service = getJsonService();
 			String json = service.writeString(objectNode);
 			VirtualSystem vs = service.readString(json, VirtualSystem.class);
-			JsonService simple = new JacksonJsonService();
+			JsonService simple = getSimpleJsonService();
 			System.out.println(simple.writeString(vs));
 		} catch (Throwable e) {
 			e.printStackTrace();
