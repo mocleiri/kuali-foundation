@@ -37,8 +37,7 @@ public final class SystemPropertiesFunction implements Function<Properties, Prop
 
 	protected void removeBlanks(Properties properties, Set<String> exceptions) {
 		for (String key : newTreeSet(properties.stringPropertyNames())) {
-			String value = properties.getProperty(key);
-			if (isBlank(value) && !blanksAllowed.contains(key)) {
+			if (isBlank(properties.getProperty(key)) && !blanksAllowed.contains(key)) {
 				properties.remove(key);
 			}
 		}
