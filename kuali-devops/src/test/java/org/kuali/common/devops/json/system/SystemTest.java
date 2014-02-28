@@ -101,7 +101,7 @@ public class SystemTest {
 		add(aliases, "java.libraryPaths", "java.library.path");
 		add(aliases, "java.runtime.version", "java.version");
 		add(aliases, "java.runtime.vendor", "java.vendor");
-		add(aliases, "java.runtime.url", "java.vendor.url");
+		add(aliases, "java.runtime.vendorUrl", "java.vendor.url");
 		add(aliases, "java.runtime.specification.version", "java.specification.version");
 		add(aliases, "java.runtime.specification.vendor", "java.specification.vendor");
 		add(aliases, "java.runtime.specification.name", "java.specification.name");
