@@ -5,10 +5,12 @@ import java.io.File;
 import org.kuali.common.util.build.SimpleValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @IdiotProofImmutable
 @JsonDeserialize(builder = User.Builder.class)
+@JsonPropertyOrder(alphabetic = true)
 public final class User {
 
 	private final String name;

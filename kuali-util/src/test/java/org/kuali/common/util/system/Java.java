@@ -6,11 +6,13 @@ import java.util.List;
 import org.kuali.common.util.build.SimpleValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.collect.ImmutableList;
 
 @IdiotProofImmutable
 @JsonDeserialize(builder = Java.Builder.class)
+@JsonPropertyOrder(alphabetic = true)
 public final class Java {
 
 	private final File home;

@@ -3,10 +3,12 @@ package org.kuali.common.util.system;
 import org.kuali.common.util.build.SimpleValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @IdiotProofImmutable
 @JsonDeserialize(builder = VirtualMachine.Builder.class)
+@JsonPropertyOrder(alphabetic = true)
 public final class VirtualMachine {
 
 	private final String name;

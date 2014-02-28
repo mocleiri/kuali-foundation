@@ -7,10 +7,12 @@ import org.kuali.common.util.build.SimpleValidatingBuilder;
 import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.validate.IdiotProofImmutableWithBlanks;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @IdiotProofImmutableWithBlanks
 @JsonDeserialize(builder = VirtualSystem.Builder.class)
+@JsonPropertyOrder(alphabetic = true)
 public final class VirtualSystem {
 
 	private final User user;
