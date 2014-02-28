@@ -39,11 +39,11 @@ public final class Java {
 		private File tmpDir;
 		private String classVersion;
 		@JsonDeserialize(using = PathDeserializer.class)
-		private List<String> classpath;
+		private List<String> classpath = ImmutableList.of();
 		@JsonDeserialize(using = PathDeserializer.class)
-		private List<String> libraryPaths;
+		private List<String> libraryPaths = ImmutableList.of();
 		@JsonDeserialize(using = PathDeserializer.class)
-		private List<String> extensionDirs;
+		private List<String> extensionDirs = ImmutableList.of();
 		private RuntimeEnvironment runtime;
 		private VirtualMachine vm;
 

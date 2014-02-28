@@ -47,8 +47,8 @@ public final class VirtualSystem {
 		private String lineSeparator;
 		private String pathSeparator;
 		private String fileSeparator;
-		private Properties properties;
-		private Properties environment;
+		private Properties properties = new Properties();
+		private Properties environment = new Properties();
 
 		public Builder withUser(User user) {
 			this.user = user;

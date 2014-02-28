@@ -1,5 +1,7 @@
 package org.kuali.common.util.system;
 
+import static com.google.common.base.Optional.absent;
+
 import java.io.File;
 import java.util.TimeZone;
 
@@ -34,9 +36,9 @@ public final class User {
 		private String name;
 		private File home;
 		private File dir;
-		private Optional<String> language;
-		private Optional<String> country;
-		private Optional<TimeZone> timezone;
+		private Optional<String> language = absent();
+		private Optional<String> country = absent();
+		private Optional<TimeZone> timezone = absent();
 
 		public Builder withName(String name) {
 			this.name = name;
