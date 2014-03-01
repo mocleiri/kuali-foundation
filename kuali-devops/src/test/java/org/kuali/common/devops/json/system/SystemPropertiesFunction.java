@@ -16,7 +16,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 
 /**
- * Converts default JDK system properties into the properties needed by the VirtualSystem object. Also removes any blank properties except for {@code line.separator}
+ * Converts default JDK system properties into the properties needed by {@code VirtualSystem}, and in the process removes any blank properties except for {@code line.separator}
  */
 @IdiotProofImmutable
 public final class SystemPropertiesFunction implements Function<Properties, Properties> {
