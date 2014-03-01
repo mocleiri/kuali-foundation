@@ -15,7 +15,6 @@ import org.kuali.common.util.system.VirtualSystem;
 import org.kuali.common.util.tree.Node;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
@@ -64,9 +63,7 @@ public class SystemTest {
 	}
 
 	protected JsonService getService() {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
-		JacksonContext context = JacksonContext.builder().withMapper(mapper).build();
+		JacksonContext context = JacksonContext.builder().addFeature(FAIL_ON_UNKNOWN_PROPERTIES, false).build();
 		return new JacksonJsonService(context);
 	}
 
