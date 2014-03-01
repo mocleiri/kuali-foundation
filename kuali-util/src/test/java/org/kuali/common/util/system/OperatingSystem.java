@@ -3,12 +3,10 @@ package org.kuali.common.util.system;
 import org.kuali.common.util.build.ValidatingBuilder;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @IdiotProofImmutable
 @JsonDeserialize(builder = OperatingSystem.Builder.class)
-@JsonPropertyOrder(alphabetic = true)
 public final class OperatingSystem {
 
 	private final String name;
