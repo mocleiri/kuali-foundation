@@ -18,30 +18,30 @@ public final class RuntimeEnvironment {
 
 	private RuntimeEnvironment(Builder builder) {
 		this.specification = builder.specification;
-		this.vendor = builder.vendorUrl;
+		this.vendor = builder.vendor;
 		this.version = builder.version;
-		this.vendorUrl = builder.url;
+		this.vendorUrl = builder.vendorUrl;
 	}
 
 	public static class Builder extends ValidatingBuilder<RuntimeEnvironment> {
 
-		private String vendorUrl;
 		private String version;
-		private String url;
+		private String vendor;
+		private String vendorUrl;
 		private Specification specification;
-
-		public Builder withVendorUrl(String vendorUrl) {
-			this.vendorUrl = vendorUrl;
-			return this;
-		}
 
 		public Builder withVersion(String version) {
 			this.version = version;
 			return this;
 		}
 
-		public Builder withUrl(String url) {
-			this.url = url;
+		public Builder withVendor(String vendor) {
+			this.vendor = vendor;
+			return this;
+		}
+
+		public Builder withVendorUrl(String vendorUrl) {
+			this.vendorUrl = vendorUrl;
 			return this;
 		}
 
