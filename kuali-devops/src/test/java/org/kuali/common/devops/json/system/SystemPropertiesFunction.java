@@ -4,15 +4,22 @@ import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newTreeSet;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
+import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import org.kuali.common.util.validate.IdiotProofImmutable;
+
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 
+/**
+ * Convert default JDK system properties into the properties needed by the VirtualSystem object
+ */
+@IdiotProofImmutable
 public final class SystemPropertiesFunction implements Function<Properties, Properties> {
 
 	public SystemPropertiesFunction() {
@@ -22,6 +29,7 @@ public final class SystemPropertiesFunction implements Function<Properties, Prop
 	public SystemPropertiesFunction(Set<String> blanksAllowed, Map<String, String> mappings) {
 		this.blanksAllowed = ImmutableSet.copyOf(blanksAllowed);
 		this.mappings = ImmutableMap.copyOf(mappings);
+		checkConstraints(this);
 	}
 
 	private final ImmutableSet<String> blanksAllowed;
