@@ -43,14 +43,17 @@ public final class JacksonContext {
 		for (Module module : modules) {
 			this.mapper.registerModule(module);
 		}
+		
 		// Register any serialize features they've provided
 		for (SerializeFeatureContext ctx : serializeFeatures) {
 			this.mapper.configure(ctx.getFeature(), ctx.isEnabled());
 		}
+		
 		// Register any deserialize features they've provided
 		for (DeserializeFeatureContext ctx : deserializeFeatures) {
 			this.mapper.configure(ctx.getFeature(), ctx.isEnabled());
 		}
+		
 		// Register any mapper features they've provided
 		for (MapperFeatureContext ctx : mapperFeatures) {
 			this.mapper.configure(ctx.getFeature(), ctx.isEnabled());
