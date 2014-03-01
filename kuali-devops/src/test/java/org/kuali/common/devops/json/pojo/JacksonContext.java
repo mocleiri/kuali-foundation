@@ -85,11 +85,11 @@ public final class JacksonContext {
 			return this;
 		}
 
-		public Builder withMapperFeature(MapperFeature feature, boolean enabled) {
+		public Builder withFeature(MapperFeature feature, boolean enabled) {
 			return withMapperFeatures(newArrayList(new MapperFeatureContext(feature, enabled)));
 		}
 
-		public Builder addMapperFeature(MapperFeature feature, boolean enabled) {
+		public Builder addFeature(MapperFeature feature, boolean enabled) {
 			this.mapperFeatures.add(new MapperFeatureContext(feature, enabled));
 			return this;
 		}
@@ -99,11 +99,11 @@ public final class JacksonContext {
 			return this;
 		}
 
-		public Builder withDeserializeFeature(DeserializationFeature feature, boolean enabled) {
+		public Builder withFeature(DeserializationFeature feature, boolean enabled) {
 			return withDeserializeFeatures(newArrayList(new DeserializeFeatureContext(feature, enabled)));
 		}
 
-		public Builder addDeserializeFeature(DeserializationFeature feature, boolean enabled) {
+		public Builder addFeature(DeserializationFeature feature, boolean enabled) {
 			this.deserializeFeatures.add(new DeserializeFeatureContext(feature, enabled));
 			return this;
 		}
@@ -113,11 +113,11 @@ public final class JacksonContext {
 			return this;
 		}
 
-		public Builder withSerializeFeature(SerializationFeature feature, boolean enabled) {
+		public Builder withFeature(SerializationFeature feature, boolean enabled) {
 			return withSerializeFeatures(newArrayList(new SerializeFeatureContext(feature, enabled)));
 		}
 
-		public Builder addSerializeFeature(SerializationFeature feature, boolean enabled) {
+		public Builder addFeature(SerializationFeature feature, boolean enabled) {
 			this.serializeFeatures.add(new SerializeFeatureContext(feature, enabled));
 			return this;
 		}
