@@ -27,7 +27,7 @@ public final class JacksonJsonService implements JsonService {
 	}
 
 	private final JacksonContext context;
-	// Don't expose this via a getter, since it is mutable
+	// This is mutable, don't expose it via a getter
 	private final ObjectMapper mapper;
 
 	@Override
