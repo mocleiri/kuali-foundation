@@ -14,7 +14,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Optional;
 
 /**
- * Convert default system properties into the properties needed by {@code VirtualSystem}
+ * Convert system properties into the properties needed by {@code VirtualSystem}
  */
 @IdiotProofImmutable
 public final class SystemPropertiesFunction implements Function<Properties, Properties> {
