@@ -21,6 +21,7 @@ public class VirtualSystemTest {
 		String actual = service.writeString(service.readString(expected, VirtualSystem.class));
 		assertEquals(expected, actual);
 		System.out.println(FormatUtils.getTime(sw));
+		System.out.println(service.writeString(sw));
 	}
 
 }
