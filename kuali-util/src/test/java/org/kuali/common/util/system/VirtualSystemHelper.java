@@ -50,7 +50,6 @@ public class VirtualSystemHelper {
 	 */
 	public static final ImmutableBiMap<String, String> DEFAULT_REQUIRED_SYSTEM_PROPERTY_KEY_MAPPINGS = getPropertyMappings();
 
-
 	/**
 	 * Produce an immutable {@code VirtualSystem} representing the current state of the system we are running on.
 	 */
