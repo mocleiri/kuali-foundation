@@ -2,6 +2,7 @@ package org.kuali.common.core.system;
 
 import static java.lang.String.format;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import org.junit.Test;
@@ -31,5 +32,14 @@ public class VirtualSystemTest {
 		assertEquals(expected, actual);
 
 		logger.info(format("user.name=%s", vs.getUser().getName()));
+	}
+
+	@Test
+	public void testValidationFail() {
+		try {
+			VirtualSystem.builder().build();
+			fail("This should have failed");
+		} catch (IllegalArgumentException e) {
+		}
 	}
 }
