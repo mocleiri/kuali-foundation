@@ -27,7 +27,7 @@ public class VirtualSystemTest {
 		// Test string -> object -> string
 		String actual = service.writeString(service.readString(expected, VirtualSystem.class));
 
-		// If everything is in working order, these 2 strings will be exactly equal
+		// If everything is in working order, these 2 strings will be equal
 		assertEquals(expected, actual);
 
 		logger.info(format("user.name=%s", vs.getUser().getName()));
