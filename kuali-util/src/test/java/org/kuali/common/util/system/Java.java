@@ -1,5 +1,7 @@
 package org.kuali.common.util.system;
 
+import static com.google.common.collect.Lists.newArrayList;
+
 import java.io.File;
 import java.util.List;
 
@@ -38,15 +40,9 @@ public final class Java {
 		private File home;
 		private File tmpDir;
 		private String classVersion;
-
-		@JsonDeserialize(using = PathDeserializer.class)
-		private List<File> classpath = ImmutableList.of();
-
-		@JsonDeserialize(using = PathDeserializer.class)
-		private List<File> libraryPaths = ImmutableList.of();
-
-		@JsonDeserialize(using = PathDeserializer.class)
-		private List<File> extensionDirs = ImmutableList.of();
+		private List<File> classpath = newArrayList();
+		private List<File> libraryPaths = newArrayList();
+		private List<File> extensionDirs = newArrayList();
 
 		private RuntimeEnvironment runtime;
 		private VirtualMachine vm;
