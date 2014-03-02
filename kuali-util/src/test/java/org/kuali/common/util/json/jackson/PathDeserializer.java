@@ -1,4 +1,4 @@
-package org.kuali.common.util.system;
+package org.kuali.common.util.json.jackson;
 
 import static com.google.common.collect.Lists.newArrayList;
 
