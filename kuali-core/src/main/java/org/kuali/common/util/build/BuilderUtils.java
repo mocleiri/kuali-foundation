@@ -19,7 +19,7 @@ public class BuilderUtils {
 	 * Locates a public static class declared in type that implements {@code Builder<T>} and creates a new instance of it.
 	 * 
 	 * @throws IllegalArgumentException
-	 *             if there is no public static class declared in type that implements {@code Builder<T>}
+	 *             if there is no public static class declared in {@code type} that implements {@code Builder<T>}
 	 */
 	public static <T> Builder<T> newBuilderInstance(Class<T> type) {
 		Optional<Class<Builder<T>>> builderClass = findPublicStaticBuilderClass(type);
