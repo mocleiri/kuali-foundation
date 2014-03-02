@@ -31,7 +31,7 @@ public final class VirtualSystemPropertiesFunction implements Function<Propertie
 		checkNotNull(oldProperties, "oldProperties");
 		Properties properties = new Properties();
 		for (String key : requiredSystemPropertyKeys) {
-			String value = checkNotNull(System.getProperty(key), key);
+			String value = checkNotNull(oldProperties.getProperty(key), key);
 			Optional<String> mappedKey = fromNullable(requiredSystemPropertyKeyMappings.get(key));
 			String actualKey = mappedKey.isPresent() ? mappedKey.get() : key;
 
