@@ -3,11 +3,14 @@ package org.kuali.common.devops.json.pojo;
 import static java.lang.System.currentTimeMillis;
 import static org.junit.Assert.assertEquals;
 import static org.kuali.common.devops.json.pojo.Apple.newApple;
-import static org.kuali.common.devops.json.pojo.JacksonContext.newJacksonContext;
+import static org.kuali.common.util.json.jackson.JacksonContext.newJacksonContext;
 
 import java.util.List;
 
 import org.junit.Test;
+import org.kuali.common.util.json.api.JsonService;
+import org.kuali.common.util.json.jackson.JacksonContext;
+import org.kuali.common.util.json.jackson.JacksonJsonService;
 
 import com.google.common.collect.ImmutableList;
 
