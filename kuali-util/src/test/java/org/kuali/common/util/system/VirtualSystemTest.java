@@ -1,27 +1,28 @@
 package org.kuali.common.util.system;
 
-import static com.google.common.base.Stopwatch.createStarted;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.json.api.JsonService;
 import org.kuali.common.util.json.jackson.JacksonJsonService;
-
-import com.google.common.base.Stopwatch;
 
 public class VirtualSystemTest {
 
 	@Test
 	public void test() {
-		Stopwatch sw = createStarted();
+		// This implicitly tests jackson + hibernate validator
 		VirtualSystem vs = VirtualSystem.create();
-		JsonService service = new JacksonJsonService();
-		String expected = service.writeString(vs);
-		String actual = service.writeString(service.readString(expected, VirtualSystem.class));
-		assertEquals(expected, actual);
-		System.out.println(FormatUtils.getTime(sw));
-		System.out.println(service.writeString(sw));
-	}
 
+		// Get a reference to the default json service (no custom mixin's)
+		JsonService service = new JacksonJsonService();
+
+		// Test object -> string
+		String expected = service.writeString(vs);
+
+		// Test string -> object -> string
+		String actual = service.writeString(service.readString(expected, VirtualSystem.class));
+
+		// Make sure both strings are equal and that no information was lost
+		assertEquals(expected, actual);
+	}
 }
