@@ -59,7 +59,7 @@
     <beanutils.version>1.8.3-kuali-4</beanutils.version>
     <jsch.version>0.1.50</jsch.version>
     <plexus-utils.version>3.0.15</plexus-utils.version>
-    <guava.version>15.0</guava.version>
+    <guava.version>16.0.1</guava.version>
     <eclipse-moxy.version>2.5.1</eclipse-moxy.version>
     <hibernate-validator.version>5.0.1.Final</hibernate-validator.version>
     <javax.el.version>2.2.4</javax.el.version>
