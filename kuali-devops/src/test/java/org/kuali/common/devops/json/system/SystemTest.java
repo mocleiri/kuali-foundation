@@ -35,7 +35,7 @@ public class SystemTest {
 	@Test
 	public void test() {
 		try {
-			JsonService service = getService();
+			JsonService service = new JacksonJsonService();
 			JsonNode jsonNode = getSystemNode();
 			// This json still represents classpath as a single string delimited with ":" (vs an array of strings)
 			String json1 = service.writeString(jsonNode);
@@ -75,11 +75,6 @@ public class SystemTest {
 		ObjectMapper mapper = JacksonContext.getNewDefaultObjectMapper();
 		mapper.addMixInAnnotations(Java.Builder.class, SystemPropertyPathDeserializer.class);
 		JacksonContext context = JacksonContext.builder().withMapper(mapper).build();
-		return new JacksonJsonService(context);
-	}
-
-	protected JsonService getService() {
-		JacksonContext context = JacksonContext.builder().withPrettyPrint(true).build();
 		return new JacksonJsonService(context);
 	}
 
