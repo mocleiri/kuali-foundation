@@ -18,8 +18,10 @@ public class VirtualRuntimeTest {
 		VirtualRuntime runtime = VirtualRuntime.create();
 		JsonService service = new JacksonJsonService();
 		logger.info(format("\n%s", service.writeString(runtime)));
-		Object[] args = { runtime.getProcessors(), FormatUtils.getSize(runtime.getMemory().getUsed()), FormatUtils.getSize(runtime.getMemory().getFree()) };
-		logger.info(format("procs: %s  used: %s  free: %s", args));
+		Memory mem = runtime.getMemory();
+		int percent = (int) ((mem.getUsed() / mem.getFree()) * 100);
+		Object[] args = { runtime.getProcessors(), percent, FormatUtils.getSize(runtime.getMemory().getFree()) };
+		logger.info(format("procs: %s  memory: %s%% of %s", args));
 	}
 
 }
