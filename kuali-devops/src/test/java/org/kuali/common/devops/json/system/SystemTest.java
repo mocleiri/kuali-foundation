@@ -37,9 +37,11 @@ public class SystemTest {
 		try {
 			JsonService service = getService();
 			JsonNode jsonNode = getSystemNode();
+			// This json still represents classpath as a single string delimited with ":" (vs an array of strings)
 			String json1 = service.writeString(jsonNode);
-			System.out.println(json1);
-			VirtualSystem vs1 = getSourceDeserializerService().readString(json1, VirtualSystem.class);
+			// This service parsed the delimited string into a list of File objects
+			VirtualSystem vs1 = getSystemPropertyDeserializerService().readString(json1, VirtualSystem.class);
+			// This json represents classpath as an array of strings (vs a single string delimited with ":")
 			String json2 = service.writeString(vs1);
 			System.out.println(json2);
 			VirtualSystem vs2 = service.readString(json2, VirtualSystem.class);
@@ -69,14 +71,14 @@ public class SystemTest {
 		return objectNode;
 	}
 
-	protected JsonService getSourceDeserializerService() {
+	protected JsonService getSystemPropertyDeserializerService() {
 		MixInContext mixin = new MixInContext(Java.Builder.class, SystemPropertyPathDeserializer.class);
 		JacksonContext context = JacksonContext.builder().addMixin(mixin).build();
 		return new JacksonJsonService(context);
 	}
 
 	protected JsonService getService() {
-		JacksonContext context = JacksonContext.builder().withPrettyPrint(false).build();
+		JacksonContext context = JacksonContext.builder().withPrettyPrint(true).build();
 		return new JacksonJsonService(context);
 	}
 
