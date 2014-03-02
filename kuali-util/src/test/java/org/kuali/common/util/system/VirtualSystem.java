@@ -1,10 +1,8 @@
 package org.kuali.common.util.system;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newHashSet;
 
-import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -15,7 +13,9 @@ import org.kuali.common.util.validate.IgnoreBlanks;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableSet;
 
 @IdiotProofImmutable
@@ -32,7 +32,7 @@ public final class VirtualSystem {
 	 * Mappings between universal property keys and the strongly typed field they correspond to in the VirtualSystem object
 	 */
 	@JsonIgnore
-	public static final ImmutableMap<String, String> PROPERTY_MAPPINGS = getPropertyMappings();
+	public static final ImmutableBiMap<String, String> PROPERTY_MAPPINGS = getPropertyMappings();
 
 	private final User user;
 	private final OperatingSystem os;
@@ -149,30 +149,30 @@ public final class VirtualSystem {
 		return ImmutableSet.copyOf(keys);
 	}
 
-	private static final ImmutableMap<String, String> getPropertyMappings() {
-		Map<String, String> mappings = newHashMap();
-		mappings.put("pathSeparator", "path.separator");
-		mappings.put("fileSeparator", "file.separator");
-		mappings.put("lineSeparator", "line.separator");
-		mappings.put("java.classpath", "java.class.path");
-		mappings.put("java.classVersion", "java.class.version");
-		mappings.put("java.tmpDir", "java.io.tmpdir");
-		mappings.put("java.extensionDirs", "java.ext.dirs");
-		mappings.put("java.endorsedDirs", "java.endorsed.dirs");
-		mappings.put("java.libraryPaths", "java.library.path");
-		mappings.put("java.runtime.version", "java.version");
-		mappings.put("java.runtime.vendor", "java.vendor");
-		mappings.put("java.runtime.vendorUrl", "java.vendor.url");
-		mappings.put("java.runtime.specification.version", "java.specification.version");
-		mappings.put("java.runtime.specification.vendor", "java.specification.vendor");
-		mappings.put("java.runtime.specification.name", "java.specification.name");
+	private static final ImmutableBiMap<String, String> getPropertyMappings() {
+		BiMap<String, String> mappings = HashBiMap.create();
+		mappings.put("path.separator", "pathSeparator");
+		mappings.put("file.separator", "fileSeparator");
+		mappings.put("line.separator", "lineSeparator");
+		mappings.put("java.class.path", "java.classpath");
+		mappings.put("java.class.version", "java.classVersion");
+		mappings.put("java.io.tmpdir", "java.tmpDir");
+		mappings.put("java.ext.dirs", "java.extensionDirs");
+		mappings.put("java.endorsed.dirs", "java.endorsedDirs");
+		mappings.put("java.library.path", "java.libraryPaths");
+		mappings.put("java.version", "java.runtime.version");
+		mappings.put("java.vendor", "java.runtime.vendor");
+		mappings.put("java.vendor.url", "java.runtime.vendorUrl");
+		mappings.put("java.specification.version", "java.runtime.specification.version");
+		mappings.put("java.specification.vendor", "java.runtime.specification.vendor");
+		mappings.put("java.specification.name", "java.runtime.specification.name");
 
 		Set<String> universal = getUniversalPropertyKeys();
-		for (String value : mappings.values()) {
-			checkArgument(universal.contains(value));
+		for (String key : mappings.keySet()) {
+			checkArgument(universal.contains(key));
 		}
 
-		return ImmutableMap.copyOf(mappings);
+		return ImmutableBiMap.copyOf(mappings);
 
 	}
 
