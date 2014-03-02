@@ -25,11 +25,11 @@ import com.google.common.base.Splitter;
  * Convert a set of strings containing paths into a tree structure.
  * 
  * <pre>
- * a               a
- * a.b             |                    
- * a.b.1           b          
- * a.b.2          / \
- *               1   2
+ * a.1            root
+ * a.2           /    \                  
+ * b.1          a      b      
+ * b.2         / \    / \
+ *            1   2  1   2  
  * </pre>
  */
 public class NestedKeysFunction implements Function<Set<String>, Node<String>> {
