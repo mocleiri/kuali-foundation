@@ -3,6 +3,7 @@ package org.kuali.common.devops.json.system;
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 import static com.google.common.collect.Sets.newTreeSet;
 import static org.kuali.common.util.PropertyUtils.newHashMap;
+import static org.kuali.common.util.system.VirtualSystem.MAPPED_SYSTEM_PROPERTIES;
 
 import java.util.Map;
 import java.util.Properties;
@@ -42,11 +43,9 @@ public class SystemTest {
 	}
 
 	protected JsonNode getSystemNode() {
-		Properties system = System.getProperties();
-		Properties props = VirtualSystem.MAPPED_SYSTEM_PROPERTIES;
-		Node<String> node = new NestedKeysFunction(SEPARATOR).apply(props.stringPropertyNames());
-		ObjectNode objectNode = new JsonNodeFunction(SEPARATOR, props).apply(node);
-		objectNode.put(PROPERTIES, getObjectNode(system));
+		Node<String> node = new NestedKeysFunction(SEPARATOR).apply(MAPPED_SYSTEM_PROPERTIES.stringPropertyNames());
+		ObjectNode objectNode = new JsonNodeFunction(SEPARATOR, MAPPED_SYSTEM_PROPERTIES).apply(node);
+		objectNode.put(PROPERTIES, getObjectNode(System.getProperties()));
 		objectNode.put(ENVIRONMENT, getObjectNode(System.getenv()));
 		return objectNode;
 	}
