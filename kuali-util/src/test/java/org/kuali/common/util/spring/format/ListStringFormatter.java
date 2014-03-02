@@ -4,18 +4,12 @@ import static com.google.common.collect.Lists.newArrayList;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 
-import javax.validation.ConstraintViolation;
-
-import org.kuali.common.util.build.ViolationsBuilder;
-import org.kuali.common.util.validate.IdiotProofImmutable;
 import org.springframework.format.Formatter;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 
-@IdiotProofImmutable
 public final class ListStringFormatter implements Formatter<List<String>> {
 
 	private final String emptyListToken;
@@ -58,7 +52,7 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 		return new Builder();
 	}
 
-	public static class Builder extends ViolationsBuilder<ListStringFormatter> {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<ListStringFormatter> {
 
 		private String separator = ",";
 		private String emptyListToken = FormatTokens.EMPTY_LIST_TOKEN;
@@ -78,15 +72,10 @@ public final class ListStringFormatter implements Formatter<List<String>> {
 		}
 
 		@Override
-		public Set<ConstraintViolation<ListStringFormatter>> violations() {
-			return violations(new ListStringFormatter(this));
-		}
-
-		@Override
 		public ListStringFormatter build() {
 			this.splitter = Splitter.on(separator);
 			this.joiner = Joiner.on(separator);
-			return validate(new ListStringFormatter(this));
+			return new ListStringFormatter(this);
 		}
 
 		public String getSeparator() {

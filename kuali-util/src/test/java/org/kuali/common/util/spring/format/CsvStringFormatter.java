@@ -1,14 +1,10 @@
 package org.kuali.common.util.spring.format;
 
-import static org.kuali.common.util.validate.Validation.checkConstraints;
-
 import java.util.Locale;
 
 import org.kuali.common.util.base.string.Replacer;
-import org.kuali.common.util.validate.IdiotProofImmutable;
 import org.springframework.format.Formatter;
 
-@IdiotProofImmutable
 public final class CsvStringFormatter implements Formatter<String> {
 
 	private final String nullToken;
@@ -75,7 +71,7 @@ public final class CsvStringFormatter implements Formatter<String> {
 
 		@Override
 		public CsvStringFormatter build() {
-			return checkConstraints(new CsvStringFormatter(this));
+			return new CsvStringFormatter(this);
 		}
 
 		public String getNullToken() {
