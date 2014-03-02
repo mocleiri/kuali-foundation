@@ -28,12 +28,12 @@ public final class VirtualSystem {
 	/**
 	 * Set of system property keys required to be present on every JVM
 	 */
-	private static final ImmutableSet<String> UNIVERSAL_SYSTEM_PROPERTY_KEYS = getUniversalPropertyKeys();
+	private static final ImmutableSet<String> REQUIRED_SYSTEM_PROPERTY_KEYS = getUniversalPropertyKeys();
 
 	/**
 	 * Mappings between universal property keys and the strongly typed field they correspond to in the VirtualSystem object
 	 */
-	private static final ImmutableBiMap<String, String> UNIVERSAL_SYSTEM_PROPERTY_KEY_MAPPINGS = getPropertyMappings();
+	private static final ImmutableBiMap<String, String> REQUIRED_SYSTEM_PROPERTY_KEY_MAPPINGS = getPropertyMappings();
 
 	public static final ImmutableProperties MAPPED_SYSTEM_PROPERTIES = getMappedProperties();
 
@@ -140,7 +140,7 @@ public final class VirtualSystem {
 		keys.add("java.class.path");
 		keys.add("java.library.path");
 		keys.add("java.io.tmpdir");
-		// keys.add("java.compiler"); javadoc's state this is a required property but it sure isn't
+		// keys.add("java.compiler"); javadoc states this is a required property but it sure isn't
 		keys.add("java.ext.dirs");
 		keys.add("os.name");
 		keys.add("os.arch");
@@ -182,9 +182,9 @@ public final class VirtualSystem {
 
 	private static ImmutableProperties getMappedProperties() {
 		Properties properties = new Properties();
-		for (String key : UNIVERSAL_SYSTEM_PROPERTY_KEYS) {
+		for (String key : REQUIRED_SYSTEM_PROPERTY_KEYS) {
 			String value = checkNotNull(System.getProperty(key), key);
-			Optional<String> mappedKey = fromNullable(UNIVERSAL_SYSTEM_PROPERTY_KEY_MAPPINGS.get(key));
+			Optional<String> mappedKey = fromNullable(REQUIRED_SYSTEM_PROPERTY_KEY_MAPPINGS.get(key));
 			String actualKey = mappedKey.isPresent() ? mappedKey.get() : key;
 
 			// The only universal system property allowed to be blank is the line separator
