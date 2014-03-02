@@ -14,6 +14,7 @@ import com.fasterxml.jackson.datatype.guava.GuavaModule;
  * 
  * <ul>
  * <li>registers GuavaModule</li>
+ * <li>registers CanonicalFileModule</li>
  * <li>sorts properties alphabetically when serializing</li>
  * <li>sorts map entries based on their keys</li>
  * <li>turns on pretty printing</li>
@@ -46,6 +47,7 @@ public final class JacksonContext {
 	public static ObjectMapper getNewDefaultObjectMapper() {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new GuavaModule());
+		mapper.registerModule(new CanonicalFileModule());
 		mapper.configure(SORT_PROPERTIES_ALPHABETICALLY, true);
 		mapper.configure(ORDER_MAP_ENTRIES_BY_KEYS, true);
 		return mapper;
