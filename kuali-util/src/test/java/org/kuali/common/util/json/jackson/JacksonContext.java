@@ -10,7 +10,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 
 /**
- * Default context turns on pretty printing, sorts properties alphabetically, and sorts maps based on their keys
+ * The default context differs from the default Jackson ObjectMapper in the following ways:
+ * 
+ * <ul>
+ * <li>registers GuavaModule</li>
+ * <li>sorts properties alphabetically when serializing</li>
+ * <li>sorts map entries based on their keys</li>
+ * <li>turns on pretty printing</li>
+ * </ul>
  */
 @IdiotProofImmutable
 public final class JacksonContext {
