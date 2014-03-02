@@ -2,19 +2,19 @@ package org.kuali.common.devops.json.pojo;
 
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
-public final class DeserializeFeatureContext {
+public final class SerializeContext {
 
-	public DeserializeFeatureContext(DeserializationFeature feature, boolean enabled) {
+	public SerializeContext(SerializationFeature feature, boolean enabled) {
 		this.feature = checkNotNull(feature, "feature");
 		this.enabled = enabled;
 	}
 
-	private final DeserializationFeature feature;
+	private final SerializationFeature feature;
 	private final boolean enabled;
 
-	public DeserializationFeature getFeature() {
+	public SerializationFeature getFeature() {
 		return feature;
 	}
 

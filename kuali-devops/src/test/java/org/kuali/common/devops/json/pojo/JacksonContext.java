@@ -27,8 +27,8 @@ public final class JacksonContext {
 	private final ObjectMapper mapper;
 	private final boolean prettyPrint;
 	private final ImmutableList<Module> modules;
-	private final ImmutableList<SerializeFeatureContext> serializeFeatures;
-	private final ImmutableList<DeserializeFeatureContext> deserializeFeatures;
+	private final ImmutableList<SerializeContext> serializeFeatures;
+	private final ImmutableList<DeserializeContext> deserializeFeatures;
 	private final ImmutableList<MapperFeatureContext> mapperFeatures;
 	private final ImmutableList<MixInContext> mixins;
 
@@ -47,12 +47,12 @@ public final class JacksonContext {
 		}
 
 		// Register any serialize features they've provided
-		for (SerializeFeatureContext ctx : serializeFeatures) {
+		for (SerializeContext ctx : serializeFeatures) {
 			this.mapper.configure(ctx.getFeature(), ctx.isEnabled());
 		}
 
 		// Register any deserialize features they've provided
-		for (DeserializeFeatureContext ctx : deserializeFeatures) {
+		for (DeserializeContext ctx : deserializeFeatures) {
 			this.mapper.configure(ctx.getFeature(), ctx.isEnabled());
 		}
 
@@ -81,9 +81,9 @@ public final class JacksonContext {
 		private boolean prettyPrint = true;
 		private List<Module> modules = Lists.<Module> newArrayList(new GuavaModule());
 		private ObjectMapper mapper = new ObjectMapper();
-		private List<SerializeFeatureContext> serializeFeatures = newArrayList(new SerializeFeatureContext(ORDER_MAP_ENTRIES_BY_KEYS, true));
+		private List<SerializeContext> serializeFeatures = newArrayList(new SerializeContext(ORDER_MAP_ENTRIES_BY_KEYS, true));
 		private List<MapperFeatureContext> mapperFeatures = newArrayList(new MapperFeatureContext(SORT_PROPERTIES_ALPHABETICALLY, true));
-		private List<DeserializeFeatureContext> deserializeFeatures = newArrayList();
+		private List<DeserializeContext> deserializeFeatures = newArrayList();
 		private List<MixInContext> mixins = newArrayList();
 
 		@Override
@@ -115,31 +115,31 @@ public final class JacksonContext {
 			return this;
 		}
 
-		public Builder withDeserializeFeatures(List<DeserializeFeatureContext> deserializeFeatures) {
+		public Builder withDeserializeFeatures(List<DeserializeContext> deserializeFeatures) {
 			this.deserializeFeatures = deserializeFeatures;
 			return this;
 		}
 
 		public Builder withFeature(DeserializationFeature feature, boolean enabled) {
-			return withDeserializeFeatures(newArrayList(new DeserializeFeatureContext(feature, enabled)));
+			return withDeserializeFeatures(newArrayList(new DeserializeContext(feature, enabled)));
 		}
 
 		public Builder addFeature(DeserializationFeature feature, boolean enabled) {
-			this.deserializeFeatures.add(new DeserializeFeatureContext(feature, enabled));
+			this.deserializeFeatures.add(new DeserializeContext(feature, enabled));
 			return this;
 		}
 
-		public Builder withSerializeFeatures(List<SerializeFeatureContext> serializeFeatures) {
+		public Builder withSerializeFeatures(List<SerializeContext> serializeFeatures) {
 			this.serializeFeatures = serializeFeatures;
 			return this;
 		}
 
 		public Builder withFeature(SerializationFeature feature, boolean enabled) {
-			return withSerializeFeatures(newArrayList(new SerializeFeatureContext(feature, enabled)));
+			return withSerializeFeatures(newArrayList(new SerializeContext(feature, enabled)));
 		}
 
 		public Builder addFeature(SerializationFeature feature, boolean enabled) {
-			this.serializeFeatures.add(new SerializeFeatureContext(feature, enabled));
+			this.serializeFeatures.add(new SerializeContext(feature, enabled));
 			return this;
 		}
 
@@ -191,11 +191,11 @@ public final class JacksonContext {
 			this.modules = modules;
 		}
 
-		public List<SerializeFeatureContext> getSerializeFeatures() {
+		public List<SerializeContext> getSerializeFeatures() {
 			return serializeFeatures;
 		}
 
-		public void setSerializeFeatures(List<SerializeFeatureContext> serializeFeatures) {
+		public void setSerializeFeatures(List<SerializeContext> serializeFeatures) {
 			this.serializeFeatures = serializeFeatures;
 		}
 
@@ -207,11 +207,11 @@ public final class JacksonContext {
 			this.mapperFeatures = mapperFeatures;
 		}
 
-		public List<DeserializeFeatureContext> getDeserializeFeatures() {
+		public List<DeserializeContext> getDeserializeFeatures() {
 			return deserializeFeatures;
 		}
 
-		public void setDeserializeFeatures(List<DeserializeFeatureContext> deserializeFeatures) {
+		public void setDeserializeFeatures(List<DeserializeContext> deserializeFeatures) {
 			this.deserializeFeatures = deserializeFeatures;
 		}
 
@@ -229,11 +229,11 @@ public final class JacksonContext {
 		return modules;
 	}
 
-	public List<SerializeFeatureContext> getSerializeFeatures() {
+	public List<SerializeContext> getSerializeFeatures() {
 		return serializeFeatures;
 	}
 
-	public List<DeserializeFeatureContext> getDeserializeFeatures() {
+	public List<DeserializeContext> getDeserializeFeatures() {
 		return deserializeFeatures;
 	}
 
