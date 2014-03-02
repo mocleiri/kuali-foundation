@@ -39,16 +39,16 @@ public class SystemTest {
 	@Test
 	public void test() {
 		try {
-			JsonService service = new JacksonJsonService();
+			JsonService service = getCustomJsonService();
 			JsonNode jsonNode = getVirtualSystemJsonNode();
 			// This json still represents classpath as a single string delimited with ":" (vs an array of strings)
 			String json1 = service.writeString(jsonNode);
 			// This service parses the delimited string into a list of File objects
-			VirtualSystem vs1 = getSystemPropertyDeserializerService().readString(json1, VirtualSystem.class);
+			VirtualSystem vs1 = service.readString(json1, VirtualSystem.class);
 			// This json represents classpath as an array of strings (vs a single string delimited with ":")
 			String json2 = service.writeString(vs1);
 			System.out.println(json2);
-			VirtualSystem vs2 = service.readString(json2, VirtualSystem.class);
+			VirtualSystem vs2 = new JacksonJsonService().readString(json2, VirtualSystem.class);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -60,7 +60,7 @@ public class SystemTest {
 		Set<String> paths = new SplitterFunction(SEPARATOR).apply(mapped.stringPropertyNames());
 		Node<String> node = new NestedKeysFunction(SEPARATOR).apply(paths);
 		ObjectNode objectNode = new JsonNodeFunction(SEPARATOR, mapped).apply(node);
-		objectNode.put(PROPERTIES, getObjectNode(newHashMap(System.getProperties())));
+		objectNode.put(PROPERTIES, getObjectNode(newHashMap(system)));
 		objectNode.put(ENVIRONMENT, getObjectNode(System.getenv()));
 		return objectNode;
 	}
@@ -73,7 +73,7 @@ public class SystemTest {
 		return objectNode;
 	}
 
-	protected JsonService getSystemPropertyDeserializerService() {
+	protected JsonService getCustomJsonService() {
 		ObjectMapper mapper = JacksonContext.newDefaultObjectMapper();
 		mapper.addMixInAnnotations(Java.Builder.class, SystemPropertyPathDeserializer.class);
 		JacksonContext context = JacksonContext.builder().withMapper(mapper).build();
