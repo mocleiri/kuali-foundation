@@ -36,7 +36,12 @@ public final class VirtualSystem {
 	private static final ImmutableBiMap<String, String> REQUIRED_SYSTEM_PROPERTY_KEY_MAPPINGS = getPropertyMappings();
 
 	/**
-	 * Required system properties mapped to the strongly typed field they correspond to in the virtual system object
+	 * Required system properties mapped to the strongly typed field they correspond to in the virtual system object.
+	 * 
+	 * <pre>
+	 * java.class.path -> java.classpath
+	 * java.io.tmpdir  -> java.tmpDir
+	 * </pre>
 	 */
 	public static final ImmutableProperties MAPPED_SYSTEM_PROPERTIES = getMappedSystemProperties();
 
@@ -174,11 +179,10 @@ public final class VirtualSystem {
 		mappings.put("java.specification.vendor", "java.runtime.specification.vendor");
 		mappings.put("java.specification.name", "java.runtime.specification.name");
 
-		Set<String> universal = getRequiredPropertyKeys();
+		Set<String> required = getRequiredPropertyKeys();
 		for (String key : mappings.keySet()) {
-			checkArgument(universal.contains(key), "unknown key [%s]", key);
+			checkArgument(required.contains(key), "unknown key [%s]", key);
 		}
-
 		return ImmutableBiMap.copyOf(mappings);
 
 	}
