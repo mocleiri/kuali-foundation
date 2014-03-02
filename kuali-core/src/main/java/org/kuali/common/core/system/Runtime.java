@@ -17,6 +17,16 @@ public final class Runtime {
 		this.memory = builder.memory;
 	}
 
+	public static Runtime create() {
+		int processors = java.lang.Runtime.getRuntime().availableProcessors();
+		Memory memory = Memory.create();
+		return builder().withMemory(memory).withProcessors(processors).build();
+	}
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder extends ValidatingBuilder<Runtime> {
 
 		private int processors;
