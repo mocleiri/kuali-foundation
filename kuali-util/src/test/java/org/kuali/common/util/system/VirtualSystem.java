@@ -38,7 +38,7 @@ public final class VirtualSystem {
 	/**
 	 * Required system properties mapped to the strongly typed field they correspond to in the virtual system object
 	 */
-	public static final ImmutableProperties MAPPED_SYSTEM_PROPERTIES = getMappedProperties();
+	public static final ImmutableProperties MAPPED_SYSTEM_PROPERTIES = getMappedSystemProperties();
 
 	private static final String LINE_SEPARATOR_KEY = "line.separator";
 
@@ -183,7 +183,7 @@ public final class VirtualSystem {
 
 	}
 
-	private static ImmutableProperties getMappedProperties() {
+	private static ImmutableProperties getMappedSystemProperties() {
 		Properties properties = new Properties();
 		for (String key : REQUIRED_SYSTEM_PROPERTY_KEYS) {
 			String value = checkNotNull(System.getProperty(key), key);
