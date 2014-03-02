@@ -1,0 +1,3 @@
+/artifacts.xml,5903
+/content.xml,85915
+/features/org.maven.ide.eclipse.feature_0.10.0.20100209-0800.jar,2739
