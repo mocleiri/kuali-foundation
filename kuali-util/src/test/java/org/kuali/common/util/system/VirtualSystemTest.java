@@ -2,7 +2,7 @@ package org.kuali.common.util.system;
 
 import static com.google.common.base.Stopwatch.createStarted;
 import static org.junit.Assert.assertEquals;
-import static org.kuali.common.util.system.VirtualSystemFactory.newVirtualSystem;
+import static org.kuali.common.util.system.VirtualSystemHelper.newVirtualSystem;
 
 import org.junit.Test;
 import org.kuali.common.util.FormatUtils;

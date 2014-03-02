@@ -33,7 +33,7 @@ import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableSet;
 
-public class VirtualSystemFactory {
+public class VirtualSystemHelper {
 
 	private static final JsonNodeFactory FACTORY = new JsonNodeFactory(false);
 	private static final String PROPERTIES = "properties";
