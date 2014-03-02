@@ -15,10 +15,11 @@ public class VirtualRuntimeTest {
 
 	@Test
 	public void test() {
-		Memory mem = Memory.create();
+		VirtualRuntime runtime = VirtualRuntime.create();
 		JsonService service = new JacksonJsonService();
-		logger.info(format("\n%s", service.writeString(mem)));
-		logger.info(format("used: %s  free: %s", FormatUtils.getSize(mem.getUsed()), FormatUtils.getSize(mem.getFree())));
+		logger.info(format("\n%s", service.writeString(runtime)));
+		Object[] args = { runtime.getProcessors(), FormatUtils.getSize(runtime.getMemory().getUsed()), FormatUtils.getSize(runtime.getMemory().getFree()) };
+		logger.info(format("procs: %s  used: %s  free: %s", args));
 	}
 
 }
