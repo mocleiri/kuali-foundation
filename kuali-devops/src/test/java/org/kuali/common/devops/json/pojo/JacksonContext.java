@@ -91,7 +91,7 @@ public final class JacksonContext {
 
 		private boolean prettyPrint = true;
 		private List<Module> modules = Lists.<Module> newArrayList(new GuavaModule());
-		private ObjectMapper mapper = new ObjectMapper();
+		private ObjectMapper mapper = getNewDefaultObjectMapper();
 		private List<SerializeContext> serializeFeatures = newArrayList(new SerializeContext(ORDER_MAP_ENTRIES_BY_KEYS, true));
 		private List<MapperContext> mapperFeatures = newArrayList(new MapperContext(SORT_PROPERTIES_ALPHABETICALLY, true));
 		private List<DeserializeContext> deserializeFeatures = newArrayList();
