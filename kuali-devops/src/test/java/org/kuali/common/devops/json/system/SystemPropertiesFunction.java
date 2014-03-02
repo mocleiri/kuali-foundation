@@ -3,8 +3,8 @@ package org.kuali.common.devops.json.system;
 import static com.google.common.base.Optional.fromNullable;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
-import static org.kuali.common.util.system.VirtualSystem.PROPERTY_MAPPINGS;
 import static org.kuali.common.util.system.VirtualSystem.UNIVERSAL_SYSTEM_PROPERTY_KEYS;
+import static org.kuali.common.util.system.VirtualSystem.UNIVERSAL_SYSTEM_PROPERTY_KEY_MAPPINGS;
 
 import java.util.Properties;
 
@@ -27,7 +27,7 @@ public final class SystemPropertiesFunction implements Function<Properties, Prop
 		Properties newProperties = new Properties();
 		for (String key : UNIVERSAL_SYSTEM_PROPERTY_KEYS) {
 			String value = checkNotNull(oldProperties.getProperty(key), key);
-			Optional<String> mappedKey = fromNullable(PROPERTY_MAPPINGS.get(key));
+			Optional<String> mappedKey = fromNullable(UNIVERSAL_SYSTEM_PROPERTY_KEY_MAPPINGS.get(key));
 			String actualKey = mappedKey.isPresent() ? mappedKey.get() : key;
 			if (LINE_SEPARATOR_KEY.equals(key)) {
 				// The only universal system property allowed to be blank is the line separator
