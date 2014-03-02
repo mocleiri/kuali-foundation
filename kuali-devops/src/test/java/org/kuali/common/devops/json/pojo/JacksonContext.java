@@ -25,7 +25,7 @@ public final class JacksonContext {
 		this.copyObjectMapper = builder.copyObjectMapper;
 	}
 
-	public static JacksonContext newJacksonJsonContext() {
+	public static JacksonContext newJacksonContext() {
 		return builder().build();
 	}
 
