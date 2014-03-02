@@ -1,4 +1,4 @@
-package org.kuali.common.util.validate;
+package org.kuali.common.util.validate.annotation;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -6,24 +6,26 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
+import java.util.Map;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+import org.kuali.common.util.property.ImmutableProperties;
+
+import com.google.common.collect.ImmutableMap;
+
 /**
- * No blank strings are allowed in member variables, Optional's, map keys, or collection elements.
+ * All field's on the annotated class that are map's must extend from Guava {@code ImmutableMap}
  */
 @Target({ TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = {})
-@NoBlankStrings
-@NoBlankOptionals
-@NoBlankMapKeys
-@NoBlankCollectionElements
+@ValidType(superType = Map.class, type = ImmutableMap.class, exclude = ImmutableProperties.class)
 @Documented
-public @interface NoBlanks {
+public @interface ImmutableGuavaMaps {
 
-	String message() default "blank strings not allowed";
+	String message() default "maps must be immutable";
 
 	Class<?>[] groups() default {};
 

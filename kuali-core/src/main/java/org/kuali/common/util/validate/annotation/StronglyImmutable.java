@@ -1,4 +1,4 @@
-package org.kuali.common.util.validate;
+package org.kuali.common.util.validate.annotation;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -11,15 +11,17 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 /**
- * The annotated class must be declared as {@code final}
+ * The annotated class must be declared final, and all fields declared in the class must be final.
  */
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = FinalClassValidator.class)
+@Constraint(validatedBy = {})
+@FinalClass
+@FinalFields
 @Documented
-public @interface FinalClass {
+public @interface StronglyImmutable {
 
-	String message() default "class must be final";
+	String message() default "strongly immutable checks failed";
 
 	Class<?>[] groups() default {};
 

@@ -7,6 +7,9 @@ import static org.kuali.common.util.ReflectionUtils.isOptionalString;
 
 import java.lang.reflect.Field;
 
+import org.kuali.common.util.validate.annotation.IgnoreBlanks;
+import org.kuali.common.util.validate.annotation.NoBlankOptionals;
+
 import com.google.common.base.Optional;
 
 public class NoBlankOptionalsValidator extends AbstractFieldsValidator<NoBlankOptionals, Object> {

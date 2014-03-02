@@ -5,6 +5,7 @@ import static com.google.common.base.Optional.absent;
 import java.lang.reflect.Field;
 
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.validate.annotation.NoNullFields;
 
 import com.google.common.base.Optional;
 

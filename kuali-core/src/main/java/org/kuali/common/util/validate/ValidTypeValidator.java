@@ -3,6 +3,7 @@ package org.kuali.common.util.validate;
 import java.lang.reflect.Field;
 
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.validate.annotation.ValidType;
 
 import com.google.common.base.Optional;
 

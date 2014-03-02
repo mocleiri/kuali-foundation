@@ -1,4 +1,4 @@
-package org.kuali.common.util.validate;
+package org.kuali.common.util.validate.annotation;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -10,16 +10,18 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+import org.kuali.common.util.validate.NoBlankMapKeysValidator;
+
 /**
- * All fields in the annotated class must be declared as {@code final}
+ * 
  */
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = FinalFieldsValidator.class)
+@Constraint(validatedBy = NoBlankMapKeysValidator.class)
 @Documented
-public @interface FinalFields {
+public @interface NoBlankMapKeys {
 
-	String message() default "fields must be final";
+	String message() default "blank map keys are not allowed";
 
 	Class<?>[] groups() default {};
 

@@ -1,4 +1,4 @@
-package org.kuali.common.util.validate;
+package org.kuali.common.util.validate.annotation;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -12,20 +12,19 @@ import javax.validation.Payload;
 
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = ValidTypeValidator.class)
+@Constraint(validatedBy = {})
+@StronglyImmutable
+@NoNullFields
+@NoBlanks
+@ImmutableGuavaMaps
+@ImmutableGuavaCollections
 @Documented
-public @interface ValidType {
+public @interface IdiotProofImmutable {
 
-	String message() default "invalid type";
+	String message() default "immutability checks failed";
 
 	Class<?>[] groups() default {};
 
 	Class<? extends Payload>[] payload() default {};
-
-	Class<?> type();
-
-	Class<?> superType();
-
-	Class<?>[] exclude() default {};
 
 }

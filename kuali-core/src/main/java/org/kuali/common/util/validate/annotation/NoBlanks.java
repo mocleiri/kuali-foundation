@@ -1,4 +1,4 @@
-package org.kuali.common.util.validate;
+package org.kuali.common.util.validate.annotation;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -10,14 +10,20 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+import org.kuali.common.util.validate.NoBlankStrings;
+
 /**
- * Any fields that extend from {@code java.util.Collection} and are parameterized as type {@code String} must not contain the empty string or pure whitespace
+ * No blank strings are allowed in member variables, Optional's, map keys, or collection elements.
  */
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = NoBlankCollectionElementsValidator.class)
+@Constraint(validatedBy = {})
+@NoBlankStrings
+@NoBlankOptionals
+@NoBlankMapKeys
+@NoBlankCollectionElements
 @Documented
-public @interface NoBlankCollectionElements {
+public @interface NoBlanks {
 
 	String message() default "blank strings not allowed";
 

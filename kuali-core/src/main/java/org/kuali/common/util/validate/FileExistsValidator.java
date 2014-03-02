@@ -4,6 +4,8 @@ import java.io.File;
 
 import javax.validation.ConstraintValidatorContext;
 
+import org.kuali.common.util.validate.annotation.Exists;
+
 public class FileExistsValidator extends AbstractExistsValidator<File> {
 
 	@Override

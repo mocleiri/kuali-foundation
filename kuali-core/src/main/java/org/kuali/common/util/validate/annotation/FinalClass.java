@@ -1,4 +1,4 @@
-package org.kuali.common.util.validate;
+package org.kuali.common.util.validate.annotation;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -10,16 +10,18 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+import org.kuali.common.util.validate.FinalClassValidator;
+
 /**
- * The annotated class must not contain any fields whose runtime value is {@code null}
+ * The annotated class must be declared as {@code final}
  */
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = NoNullFieldsValidator.class)
+@Constraint(validatedBy = FinalClassValidator.class)
 @Documented
-public @interface NoNullFields {
+public @interface FinalClass {
 
-	String message() default "null not allowed";
+	String message() default "class must be final";
 
 	Class<?>[] groups() default {};
 

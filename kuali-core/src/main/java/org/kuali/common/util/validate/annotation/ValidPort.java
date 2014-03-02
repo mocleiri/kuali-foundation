@@ -1,4 +1,4 @@
-package org.kuali.common.util.validate;
+package org.kuali.common.util.validate.annotation;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
@@ -13,14 +13,20 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
+import org.kuali.common.util.Ports;
+
+@Min(Ports.MIN)
+@Max(Ports.MAX)
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
-@Constraint(validatedBy = { LocationExistsValidator.class, FileExistsValidator.class })
+@Constraint(validatedBy = {})
 @Documented
-public @interface Exists {
+public @interface ValidPort {
 
-	String message() default "resource does not exist";
+	String message() default "Port must be an integer between " + Ports.MIN + " and " + Ports.MAX + " (inclusive)";
 
 	Class<?>[] groups() default {};
 
