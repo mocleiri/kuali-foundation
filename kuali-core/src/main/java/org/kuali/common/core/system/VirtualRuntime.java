@@ -6,19 +6,19 @@ import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @IdiotProofImmutable
-@JsonDeserialize(builder = Runtime.Builder.class)
-public final class Runtime {
+@JsonDeserialize(builder = VirtualRuntime.Builder.class)
+public final class VirtualRuntime {
 
 	private final int processors;
 	private final Memory memory;
 
-	private Runtime(Builder builder) {
+	private VirtualRuntime(Builder builder) {
 		this.processors = builder.processors;
 		this.memory = builder.memory;
 	}
 
-	public static Runtime create() {
-		int processors = java.lang.Runtime.getRuntime().availableProcessors();
+	public static VirtualRuntime create() {
+		int processors = Runtime.getRuntime().availableProcessors();
 		Memory memory = Memory.create();
 		return builder().withMemory(memory).withProcessors(processors).build();
 	}
@@ -27,7 +27,7 @@ public final class Runtime {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<Runtime> {
+	public static class Builder extends ValidatingBuilder<VirtualRuntime> {
 
 		private int processors;
 		private Memory memory;
@@ -43,8 +43,8 @@ public final class Runtime {
 		}
 
 		@Override
-		public Runtime build() {
-			return validate(new Runtime(this));
+		public VirtualRuntime build() {
+			return validate(new VirtualRuntime(this));
 		}
 	}
 
