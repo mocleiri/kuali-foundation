@@ -39,18 +39,15 @@ public class NestedKeysFunction implements Function<Set<String>, Node<String>> {
 		this.rootNodeElement = checkNotBlank(rootNodeElement, "rootNodeElement");
 		this.splitter = Splitter.on(separator);
 		this.joiner = Joiner.on(separator);
-		this.pathSplitter = new SplitterFunction(separator);
 	}
 
 	private final String rootNodeElement;
 	private final Splitter splitter;
 	private final Joiner joiner;
-	private final SplitterFunction pathSplitter;
 
 	@Override
-	public Node<String> apply(Set<String> strings) {
-		checkNotNull(strings, "strings");
-		Set<String> paths = pathSplitter.apply(strings);
+	public Node<String> apply(Set<String> paths) {
+		checkNotNull(paths, "paths");
 		Map<String, MutableNode<String>> nodeMap = getNodeMap(paths);
 		return ImmutableNode.copyOf(buildTree(nodeMap));
 	}
@@ -103,6 +100,18 @@ public class NestedKeysFunction implements Function<Set<String>, Node<String>> {
 			map.put(path, node);
 		}
 		return map;
+	}
+
+	public String getRootNodeElement() {
+		return rootNodeElement;
+	}
+
+	public Splitter getSplitter() {
+		return splitter;
+	}
+
+	public Joiner getJoiner() {
+		return joiner;
 	}
 
 }
