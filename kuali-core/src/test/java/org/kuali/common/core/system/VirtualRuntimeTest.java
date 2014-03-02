@@ -9,7 +9,7 @@ import org.kuali.common.core.json.jackson.JacksonJsonService;
 import org.kuali.common.util.FormatUtils;
 import org.slf4j.Logger;
 
-public class MemoryTest {
+public class VirtualRuntimeTest {
 
 	private static final Logger logger = newLogger();
 
