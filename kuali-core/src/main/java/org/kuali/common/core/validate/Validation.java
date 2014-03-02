@@ -8,20 +8,16 @@ import static org.kuali.common.util.ReflectionUtils.getDeclarationPath;
 import static org.kuali.common.util.base.Exceptions.illegalArgument;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.validation.Constraint;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
-import com.google.common.collect.ImmutableList;
 
 public class Validation {
 
@@ -31,28 +27,6 @@ public class Validation {
 
 	public static Validator getDefaultValidator() {
 		return VALIDATOR;
-	}
-
-	public static List<Annotation> getConstraints(Field field) {
-		return getConstraints(field.getAnnotations());
-	}
-
-	public static List<Annotation> getConstraints(Class<?> type) {
-		return getConstraints(type.getAnnotations());
-	}
-
-	public static List<Annotation> getConstraints(Annotation[] annotations) {
-		List<Annotation> list = new ArrayList<Annotation>();
-		for (Annotation element : annotations) {
-			if (isConstraint(element)) {
-				list.add(element);
-			}
-		}
-		return ImmutableList.copyOf(list);
-	}
-
-	public static boolean isConstraint(Annotation annotation) {
-		return annotation.annotationType().isAnnotationPresent(Constraint.class);
 	}
 
 	public static Optional<String> errorMessage(Field field, String suffix) {
