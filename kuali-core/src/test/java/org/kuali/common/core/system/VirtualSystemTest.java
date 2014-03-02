@@ -5,8 +5,8 @@ import static org.junit.Assert.assertEquals;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import org.junit.Test;
-import org.kuali.common.util.json.api.JsonService;
-import org.kuali.common.util.json.jackson.JacksonJsonService;
+import org.kuali.common.core.json.api.JsonService;
+import org.kuali.common.core.json.jackson.JacksonJsonService;
 import org.slf4j.Logger;
 
 public class VirtualSystemTest {
