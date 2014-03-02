@@ -13,9 +13,10 @@ public class HeapTest {
 
 	@Test
 	public void test() {
-		Heap memory = Heap.create();
+		Heap heap = Heap.create();
 		JsonService service = new JacksonJsonService();
-		logger.info("\n" + service.writeString(memory));
+		logger.info(String.format("\n%s", service.writeString(heap)));
+		logger.info(String.format("used: %s free: %s", heap.getUsed(), heap.getFree()));
 	}
 
 }
