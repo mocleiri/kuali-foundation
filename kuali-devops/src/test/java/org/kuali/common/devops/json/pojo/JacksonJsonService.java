@@ -21,13 +21,17 @@ public final class JacksonJsonService implements JsonService {
 
 	public JacksonJsonService(JacksonContext context) {
 		this.context = checkNotNull(context, "context");
-		// Make our own defensive copy of the mapper so it's impossible for anything to alter
-		// service behavior by messing with the mapper reference from the context object
-		this.mapper = context.getMapper().copy();
+		if (context.isCopyObjectMapper()) {
+			// Make our own defensive copy of the mapper so it's impossible for anything to alter
+			// service behavior by messing with the mapper reference from the context object
+			this.mapper = context.getMapper().copy();
+		} else {
+			this.mapper = context.getMapper();
+		}
 	}
 
 	private final JacksonContext context;
-	// This is mutable, don't expose it via a getter
+	// ObjectMapper is mutable, don't expose it via a getter
 	private final ObjectMapper mapper;
 
 	@Override

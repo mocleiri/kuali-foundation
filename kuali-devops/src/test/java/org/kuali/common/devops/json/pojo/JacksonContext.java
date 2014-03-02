@@ -17,10 +17,12 @@ public final class JacksonContext {
 
 	private final ObjectMapper mapper;
 	private final boolean prettyPrint;
+	private final boolean copyObjectMapper;
 
 	private JacksonContext(Builder builder) {
 		this.mapper = builder.mapper;
 		this.prettyPrint = builder.prettyPrint;
+		this.copyObjectMapper = builder.copyObjectMapper;
 	}
 
 	public static JacksonContext newJacksonJsonContext() {
@@ -46,10 +48,16 @@ public final class JacksonContext {
 
 		private boolean prettyPrint = true;
 		private ObjectMapper mapper = getNewDefaultObjectMapper();
+		private boolean copyObjectMapper = true;
 
 		@Override
 		public JacksonContext build() {
 			return validate(new JacksonContext(this));
+		}
+
+		public Builder withCopyObjectMapper(boolean copyObjectMapper) {
+			this.copyObjectMapper = copyObjectMapper;
+			return this;
 		}
 
 		public Builder withPrettyPrint(boolean prettyPrint) {
@@ -69,5 +77,9 @@ public final class JacksonContext {
 
 	public boolean isPrettyPrint() {
 		return prettyPrint;
+	}
+
+	public boolean isCopyObjectMapper() {
+		return copyObjectMapper;
 	}
 }
