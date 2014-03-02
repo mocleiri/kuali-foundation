@@ -4,7 +4,6 @@ import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.collect.Sets.newHashSet;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
-import static org.kuali.common.util.system.VirtualSystem.REQUIRED_SYSTEM_PROPERTY_KEYS;
 
 import java.util.Properties;
 import java.util.Set;
@@ -64,8 +63,8 @@ public final class VirtualSystemPropertiesFunction implements Function<Propertie
 
 		private static final String LINE_SEPARATOR_KEY = "line.separator";
 
-		private Set<String> requiredSystemPropertyKeys = newHashSet(REQUIRED_SYSTEM_PROPERTY_KEYS);
-		private BiMap<String, String> requiredSystemPropertyKeyMappings = HashBiMap.create(VirtualSystem.REQUIRED_SYSTEM_PROPERTY_KEY_MAPPINGS);
+		private Set<String> requiredSystemPropertyKeys = newHashSet(VirtualSystem.Builder.DEFAULT_REQUIRED_SYSTEM_PROPERTY_KEYS);
+		private BiMap<String, String> requiredSystemPropertyKeyMappings = HashBiMap.create(VirtualSystem.Builder.DEFAULT_REQUIRED_SYSTEM_PROPERTY_KEY_MAPPINGS);
 		private Set<String> blanksAllowedKeys = newHashSet(ImmutableSet.of(LINE_SEPARATOR_KEY));
 
 		public Builder withRequiredSystemPropertyKeys(Set<String> requiredSystemPropertyKeys) {

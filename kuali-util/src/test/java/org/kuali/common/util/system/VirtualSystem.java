@@ -21,16 +21,6 @@ import com.google.common.collect.ImmutableSet;
 @JsonDeserialize(builder = VirtualSystem.Builder.class)
 public final class VirtualSystem {
 
-	/**
-	 * Set of system property keys required to be present on every JVM
-	 */
-	static final ImmutableSet<String> REQUIRED_SYSTEM_PROPERTY_KEYS = getRequiredPropertyKeys();
-
-	/**
-	 * Mappings between required system property keys and the strongly typed field they correspond to in the VirtualSystem object
-	 */
-	static final ImmutableBiMap<String, String> REQUIRED_SYSTEM_PROPERTY_KEY_MAPPINGS = getPropertyMappings();
-
 	private final User user;
 	private final OperatingSystem os;
 	private final Java java;
@@ -57,6 +47,16 @@ public final class VirtualSystem {
 	}
 
 	public static class Builder extends ValidatingBuilder<VirtualSystem> {
+
+		/**
+		 * Set of system property keys required to be present on every JVM
+		 */
+		public static final ImmutableSet<String> DEFAULT_REQUIRED_SYSTEM_PROPERTY_KEYS = getRequiredPropertyKeys();
+
+		/**
+		 * Mappings between required system property keys and the strongly typed field they correspond to in the VirtualSystem object
+		 */
+		public static final ImmutableBiMap<String, String> DEFAULT_REQUIRED_SYSTEM_PROPERTY_KEY_MAPPINGS = getPropertyMappings();
 
 		private User user;
 		private OperatingSystem os;
@@ -111,63 +111,64 @@ public final class VirtualSystem {
 		public VirtualSystem build() {
 			return validate(new VirtualSystem(this));
 		}
-	}
 
-	private static final ImmutableSet<String> getRequiredPropertyKeys() {
-		Set<String> keys = newHashSet();
-		keys.add("java.version");
-		keys.add("java.vendor");
-		keys.add("java.vendor.url");
-		keys.add("java.home");
-		keys.add("java.vm.specification.version");
-		keys.add("java.vm.specification.vendor");
-		keys.add("java.vm.specification.name");
-		keys.add("java.vm.version");
-		keys.add("java.vm.vendor");
-		keys.add("java.vm.name");
-		keys.add("java.specification.version");
-		keys.add("java.specification.vendor");
-		keys.add("java.specification.name");
-		keys.add("java.class.version");
-		keys.add("java.class.path");
-		keys.add("java.library.path");
-		keys.add("java.io.tmpdir");
-		// keys.add("java.compiler"); javadoc states this is required, but it sure isn't
-		keys.add("java.ext.dirs");
-		keys.add("os.name");
-		keys.add("os.arch");
-		keys.add("os.version");
-		keys.add("file.separator");
-		keys.add("path.separator");
-		keys.add("line.separator");
-		keys.add("user.name");
-		keys.add("user.home");
-		keys.add("user.dir");
-		return ImmutableSet.copyOf(keys);
-	}
+		private static final ImmutableBiMap<String, String> getPropertyMappings() {
+			BiMap<String, String> mappings = HashBiMap.create();
+			mappings.put("path.separator", "pathSeparator");
+			mappings.put("file.separator", "fileSeparator");
+			mappings.put("line.separator", "lineSeparator");
+			mappings.put("java.class.path", "java.classpath");
+			mappings.put("java.class.version", "java.classVersion");
+			mappings.put("java.io.tmpdir", "java.tmpDir");
+			mappings.put("java.ext.dirs", "java.extensionDirs");
+			mappings.put("java.library.path", "java.libraryPaths");
+			mappings.put("java.version", "java.runtime.version");
+			mappings.put("java.vendor", "java.runtime.vendor");
+			mappings.put("java.vendor.url", "java.runtime.vendorUrl");
+			mappings.put("java.specification.version", "java.runtime.specification.version");
+			mappings.put("java.specification.vendor", "java.runtime.specification.vendor");
+			mappings.put("java.specification.name", "java.runtime.specification.name");
 
-	private static final ImmutableBiMap<String, String> getPropertyMappings() {
-		BiMap<String, String> mappings = HashBiMap.create();
-		mappings.put("path.separator", "pathSeparator");
-		mappings.put("file.separator", "fileSeparator");
-		mappings.put("line.separator", "lineSeparator");
-		mappings.put("java.class.path", "java.classpath");
-		mappings.put("java.class.version", "java.classVersion");
-		mappings.put("java.io.tmpdir", "java.tmpDir");
-		mappings.put("java.ext.dirs", "java.extensionDirs");
-		mappings.put("java.library.path", "java.libraryPaths");
-		mappings.put("java.version", "java.runtime.version");
-		mappings.put("java.vendor", "java.runtime.vendor");
-		mappings.put("java.vendor.url", "java.runtime.vendorUrl");
-		mappings.put("java.specification.version", "java.runtime.specification.version");
-		mappings.put("java.specification.vendor", "java.runtime.specification.vendor");
-		mappings.put("java.specification.name", "java.runtime.specification.name");
+			Set<String> required = getRequiredPropertyKeys();
+			for (String key : mappings.keySet()) {
+				checkArgument(required.contains(key), "unknown key [%s]", key);
+			}
+			return ImmutableBiMap.copyOf(mappings);
 
-		Set<String> required = getRequiredPropertyKeys();
-		for (String key : mappings.keySet()) {
-			checkArgument(required.contains(key), "unknown key [%s]", key);
 		}
-		return ImmutableBiMap.copyOf(mappings);
+
+		private static final ImmutableSet<String> getRequiredPropertyKeys() {
+			Set<String> keys = newHashSet();
+			keys.add("java.version");
+			keys.add("java.vendor");
+			keys.add("java.vendor.url");
+			keys.add("java.home");
+			keys.add("java.vm.specification.version");
+			keys.add("java.vm.specification.vendor");
+			keys.add("java.vm.specification.name");
+			keys.add("java.vm.version");
+			keys.add("java.vm.vendor");
+			keys.add("java.vm.name");
+			keys.add("java.specification.version");
+			keys.add("java.specification.vendor");
+			keys.add("java.specification.name");
+			keys.add("java.class.version");
+			keys.add("java.class.path");
+			keys.add("java.library.path");
+			keys.add("java.io.tmpdir");
+			// keys.add("java.compiler"); javadoc states this is required, but it sure isn't
+			keys.add("java.ext.dirs");
+			keys.add("os.name");
+			keys.add("os.arch");
+			keys.add("os.version");
+			keys.add("file.separator");
+			keys.add("path.separator");
+			keys.add("line.separator");
+			keys.add("user.name");
+			keys.add("user.home");
+			keys.add("user.dir");
+			return ImmutableSet.copyOf(keys);
+		}
 
 	}
 
