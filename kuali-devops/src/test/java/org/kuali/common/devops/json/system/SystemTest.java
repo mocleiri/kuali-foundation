@@ -43,7 +43,7 @@ public class SystemTest {
 
 	protected JsonNode getSystemNode() {
 		Properties system = System.getProperties();
-		Properties props = new SystemPropertiesFunction().apply(system);
+		Properties props = VirtualSystem.MAPPED_PROPERTIES;
 		Node<String> node = new NestedKeysFunction(SEPARATOR).apply(props.stringPropertyNames());
 		ObjectNode objectNode = new JsonNodeFunction(SEPARATOR, props).apply(node);
 		objectNode.put(PROPERTIES, getObjectNode(system));

@@ -30,6 +30,7 @@ public final class JacksonContext {
 	private final ImmutableList<SerializeFeatureContext> serializeFeatures;
 	private final ImmutableList<DeserializeFeatureContext> deserializeFeatures;
 	private final ImmutableList<MapperFeatureContext> mapperFeatures;
+	private final ImmutableList<MixInContext> mixins;
 
 	private JacksonContext(Builder builder) {
 		this.mapper = builder.mapper;
@@ -38,25 +39,31 @@ public final class JacksonContext {
 		this.serializeFeatures = ImmutableList.copyOf(builder.serializeFeatures);
 		this.deserializeFeatures = ImmutableList.copyOf(builder.deserializeFeatures);
 		this.mapperFeatures = ImmutableList.copyOf(builder.mapperFeatures);
+		this.mixins = ImmutableList.copyOf(builder.mixins);
 
 		// Register any modules they've provided
 		for (Module module : modules) {
 			this.mapper.registerModule(module);
 		}
-		
+
 		// Register any serialize features they've provided
 		for (SerializeFeatureContext ctx : serializeFeatures) {
 			this.mapper.configure(ctx.getFeature(), ctx.isEnabled());
 		}
-		
+
 		// Register any deserialize features they've provided
 		for (DeserializeFeatureContext ctx : deserializeFeatures) {
 			this.mapper.configure(ctx.getFeature(), ctx.isEnabled());
 		}
-		
+
 		// Register any mapper features they've provided
 		for (MapperFeatureContext ctx : mapperFeatures) {
 			this.mapper.configure(ctx.getFeature(), ctx.isEnabled());
+		}
+
+		// Register any mixin's they've provided
+		for (MixInContext mixin : mixins) {
+			this.mapper.addMixInAnnotations(mixin.getTarget(), mixin.getSource());
 		}
 
 	}
@@ -77,10 +84,21 @@ public final class JacksonContext {
 		private List<SerializeFeatureContext> serializeFeatures = newArrayList(new SerializeFeatureContext(ORDER_MAP_ENTRIES_BY_KEYS, true));
 		private List<MapperFeatureContext> mapperFeatures = newArrayList(new MapperFeatureContext(SORT_PROPERTIES_ALPHABETICALLY, true));
 		private List<DeserializeFeatureContext> deserializeFeatures = newArrayList();
+		private List<MixInContext> mixins = newArrayList();
 
 		@Override
 		public JacksonContext build() {
 			return validate(new JacksonContext(this));
+		}
+
+		public Builder withMixins(List<MixInContext> mixins) {
+			this.mixins = mixins;
+			return this;
+		}
+
+		public Builder addMixins(MixInContext mixin) {
+			this.mixins.add(mixin);
+			return this;
 		}
 
 		public Builder withMapperFeatures(List<MapperFeatureContext> mapperFeatures) {
