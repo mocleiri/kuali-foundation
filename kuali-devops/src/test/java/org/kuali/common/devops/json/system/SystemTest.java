@@ -7,7 +7,6 @@ import static org.kuali.common.util.system.VirtualSystem.MAPPED_SYSTEM_PROPERTIE
 import java.io.File;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 
 import org.junit.Test;
@@ -58,26 +57,21 @@ public class SystemTest {
 		Set<String> paths = new SplitterFunction(SEPARATOR).apply(MAPPED_SYSTEM_PROPERTIES.stringPropertyNames());
 		Node<String> node = new NestedKeysFunction(SEPARATOR).apply(paths);
 		ObjectNode objectNode = new JsonNodeFunction(SEPARATOR, MAPPED_SYSTEM_PROPERTIES).apply(node);
-		objectNode.put(PROPERTIES, getObjectNode(System.getProperties()));
+		objectNode.put(PROPERTIES, getObjectNode(newHashMap(System.getProperties())));
 		objectNode.put(ENVIRONMENT, getObjectNode(System.getenv()));
 		return objectNode;
 	}
 
-	protected JsonNode getObjectNode(Properties props) {
-		return getObjectNode(newHashMap(props));
-	}
-
-	protected ObjectNode getObjectNode(Map<String, String> props) {
+	protected ObjectNode getObjectNode(Map<String, String> properties) {
 		ObjectNode objectNode = new ObjectNode(FACTORY);
-		for (String key : newTreeSet(props.keySet())) {
-			TextNode textNode = new TextNode(props.get(key));
-			objectNode.put(key, textNode);
+		for (String key : newTreeSet(properties.keySet())) {
+			objectNode.put(key, new TextNode(properties.get(key)));
 		}
 		return objectNode;
 	}
 
 	protected JsonService getSystemPropertyDeserializerService() {
-		ObjectMapper mapper = JacksonContext.getNewDefaultObjectMapper();
+		ObjectMapper mapper = JacksonContext.newDefaultObjectMapper();
 		mapper.addMixInAnnotations(Java.Builder.class, SystemPropertyPathDeserializer.class);
 		JacksonContext context = JacksonContext.builder().withMapper(mapper).build();
 		return new JacksonJsonService(context);
