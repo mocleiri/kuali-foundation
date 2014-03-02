@@ -1,7 +1,10 @@
 package org.kuali.common.util.system;
 
+import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.collect.Sets.newHashSet;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.util.Properties;
 import java.util.Set;
@@ -11,8 +14,8 @@ import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.validate.IdiotProofImmutable;
 import org.kuali.common.util.validate.IgnoreBlanks;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.common.base.Optional;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableBiMap;
@@ -25,14 +28,16 @@ public final class VirtualSystem {
 	/**
 	 * Set of system property keys required to be present on every JVM
 	 */
-	@JsonIgnore
-	public static final ImmutableSet<String> UNIVERSAL_SYSTEM_PROPERTY_KEYS = getUniversalPropertyKeys();
+	private static final ImmutableSet<String> UNIVERSAL_SYSTEM_PROPERTY_KEYS = getUniversalPropertyKeys();
 
 	/**
 	 * Mappings between universal property keys and the strongly typed field they correspond to in the VirtualSystem object
 	 */
-	@JsonIgnore
-	public static final ImmutableBiMap<String, String> PROPERTY_MAPPINGS = getPropertyMappings();
+	private static final ImmutableBiMap<String, String> UNIVERSAL_SYSTEM_PROPERTY_KEY_MAPPINGS = getPropertyMappings();
+
+	public static final ImmutableProperties MAPPED_PROPERTIES = getMappedProperties();
+
+	private static final String LINE_SEPARATOR_KEY = "line.separator";
 
 	private final User user;
 	private final OperatingSystem os;
@@ -173,6 +178,23 @@ public final class VirtualSystem {
 
 		return ImmutableBiMap.copyOf(mappings);
 
+	}
+
+	private static ImmutableProperties getMappedProperties() {
+		Properties properties = new Properties();
+		for (String key : UNIVERSAL_SYSTEM_PROPERTY_KEYS) {
+			String value = checkNotNull(System.getProperty(key), key);
+			Optional<String> mappedKey = fromNullable(UNIVERSAL_SYSTEM_PROPERTY_KEY_MAPPINGS.get(key));
+			String actualKey = mappedKey.isPresent() ? mappedKey.get() : key;
+
+			// The only universal system property allowed to be blank is the line separator
+			if (!LINE_SEPARATOR_KEY.equals(key)) {
+				checkNotBlank(value, key);
+			}
+
+			properties.setProperty(actualKey, value);
+		}
+		return ImmutableProperties.copyOf(properties);
 	}
 
 	public User getUser() {
