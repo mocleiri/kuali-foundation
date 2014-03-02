@@ -5,7 +5,10 @@ import javax.validation.constraints.Min;
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 @IdiotProofImmutable
+@JsonDeserialize(builder = Memory.Builder.class)
 public final class Memory {
 	// used=0.62g, free=1.16g, allocated=0.94g, max=1.78g
 
