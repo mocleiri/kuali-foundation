@@ -8,9 +8,9 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
-public class FileSerializer extends StdSerializer<File> {
+public class CanonicalFileSerializer extends StdSerializer<File> {
 
-	public FileSerializer(Class<File> type) {
+	public CanonicalFileSerializer(Class<File> type) {
 		super(type);
 	}
 
