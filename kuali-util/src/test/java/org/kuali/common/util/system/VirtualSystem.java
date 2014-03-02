@@ -28,7 +28,7 @@ public final class VirtualSystem {
 	/**
 	 * Set of system property keys required to be present on every JVM
 	 */
-	public static final ImmutableSet<String> REQUIRED_SYSTEM_PROPERTY_KEYS = getRequiredPropertyKeys();
+	private static final ImmutableSet<String> REQUIRED_SYSTEM_PROPERTY_KEYS = getRequiredPropertyKeys();
 
 	/**
 	 * Mappings between required system property keys and the strongly typed field they correspond to in the VirtualSystem object
