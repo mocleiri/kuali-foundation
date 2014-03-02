@@ -42,9 +42,9 @@ public class SystemTest {
 	public void test() {
 		VirtualSystem vs = newVirtualSystem();
 		JsonService service = new JacksonJsonService();
-		String json1 = service.writeString(vs);
-		String json2 = service.writeString(service.readString(json1, VirtualSystem.class));
-		assertEquals(json1, json2);
+		String expected = service.writeString(vs);
+		String actual = service.writeString(service.readString(expected, VirtualSystem.class));
+		assertEquals(expected, actual);
 	}
 
 	protected VirtualSystem newVirtualSystem() {
