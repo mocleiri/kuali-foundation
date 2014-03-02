@@ -41,7 +41,7 @@ public class VirtualSystemHelper {
 	private static final String SEPARATOR = ".";
 
 	/**
-	 * Set of system property keys required to be present on every JVM
+	 * System property keys that are required to be present on every JVM
 	 */
 	public static final ImmutableSet<String> DEFAULT_REQUIRED_SYSTEM_PROPERTY_KEYS = getRequiredPropertyKeys();
 
