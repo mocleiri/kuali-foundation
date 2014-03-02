@@ -13,13 +13,13 @@ import org.junit.Test;
 import org.kuali.common.devops.json.pojo.JacksonContext;
 import org.kuali.common.devops.json.pojo.JacksonJsonService;
 import org.kuali.common.devops.json.pojo.JsonService;
-import org.kuali.common.devops.json.pojo.MixInContext;
 import org.kuali.common.util.system.Java;
 import org.kuali.common.util.system.PathDeserializer;
 import org.kuali.common.util.system.VirtualSystem;
 import org.kuali.common.util.tree.Node;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -72,8 +72,9 @@ public class SystemTest {
 	}
 
 	protected JsonService getSystemPropertyDeserializerService() {
-		MixInContext mixin = new MixInContext(Java.Builder.class, SystemPropertyPathDeserializer.class);
-		JacksonContext context = JacksonContext.builder().addMixin(mixin).build();
+		ObjectMapper mapper = JacksonContext.getNewDefaultObjectMapper();
+		mapper.addMixInAnnotations(Java.Builder.class, SystemPropertyPathDeserializer.class);
+		JacksonContext context = JacksonContext.builder().withMapper(mapper).build();
 		return new JacksonJsonService(context);
 	}
 

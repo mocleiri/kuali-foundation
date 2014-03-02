@@ -76,6 +76,14 @@ public final class JacksonContext {
 		return new Builder();
 	}
 
+	public static ObjectMapper getNewDefaultObjectMapper() {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new GuavaModule());
+		mapper.configure(ORDER_MAP_ENTRIES_BY_KEYS, true);
+		mapper.configure(SORT_PROPERTIES_ALPHABETICALLY, true);
+		return mapper;
+	}
+
 	public static class Builder extends ValidatingBuilder<JacksonContext> {
 
 		private boolean prettyPrint = true;
