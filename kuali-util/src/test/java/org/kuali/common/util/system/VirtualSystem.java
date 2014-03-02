@@ -158,7 +158,6 @@ public final class VirtualSystem {
 		mappings.put("java.class.version", "java.classVersion");
 		mappings.put("java.io.tmpdir", "java.tmpDir");
 		mappings.put("java.ext.dirs", "java.extensionDirs");
-		mappings.put("java.endorsed.dirs", "java.endorsedDirs");
 		mappings.put("java.library.path", "java.libraryPaths");
 		mappings.put("java.version", "java.runtime.version");
 		mappings.put("java.vendor", "java.runtime.vendor");
@@ -169,7 +168,7 @@ public final class VirtualSystem {
 
 		Set<String> universal = getUniversalPropertyKeys();
 		for (String key : mappings.keySet()) {
-			checkArgument(universal.contains(key));
+			checkArgument(universal.contains(key), "unknown key [%s]", key);
 		}
 
 		return ImmutableBiMap.copyOf(mappings);
