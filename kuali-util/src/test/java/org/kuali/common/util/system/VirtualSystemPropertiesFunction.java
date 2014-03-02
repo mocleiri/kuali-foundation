@@ -52,6 +52,14 @@ public final class VirtualSystemPropertiesFunction implements Function<Propertie
 		this.blanksAllowedKeys = ImmutableSet.copyOf(builder.blanksAllowedKeys);
 	}
 
+	public static VirtualSystemPropertiesFunction newVirtualSystemPropertiesFunction() {
+		return builder().build();
+	}
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder extends ValidatingBuilder<VirtualSystemPropertiesFunction> {
 
 		private static final String LINE_SEPARATOR_KEY = "line.separator";
