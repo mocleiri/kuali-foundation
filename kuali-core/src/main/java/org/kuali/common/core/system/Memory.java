@@ -8,8 +8,8 @@ import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @IdiotProofImmutable
-@JsonDeserialize(builder = Heap.Builder.class)
-public final class Heap {
+@JsonDeserialize(builder = Memory.Builder.class)
+public final class Memory {
 	// used=0.62g, free=1.16g, allocated=0.94g, max=1.78g
 
 	@Min(0)
@@ -24,14 +24,14 @@ public final class Heap {
 	@Min(0)
 	private final long max;
 
-	private Heap(Builder builder) {
+	private Memory(Builder builder) {
 		this.used = builder.used;
 		this.free = builder.free;
 		this.allocated = builder.allocated;
 		this.max = builder.max;
 	}
 
-	public static Heap create() {
+	public static Memory create() {
 		Runtime runtime = Runtime.getRuntime();
 
 		// Total amount of memory the JVM is allowed to use
@@ -55,7 +55,7 @@ public final class Heap {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<Heap> {
+	public static class Builder extends ValidatingBuilder<Memory> {
 
 		private long used;
 		private long free;
@@ -83,8 +83,8 @@ public final class Heap {
 		}
 
 		@Override
-		public Heap build() {
-			return validate(new Heap(this));
+		public Memory build() {
+			return validate(new Memory(this));
 		}
 
 	}
