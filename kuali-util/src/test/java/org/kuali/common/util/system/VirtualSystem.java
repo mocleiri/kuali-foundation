@@ -31,10 +31,13 @@ public final class VirtualSystem {
 	public static final ImmutableSet<String> REQUIRED_SYSTEM_PROPERTY_KEYS = getRequiredPropertyKeys();
 
 	/**
-	 * Mappings between universal property keys and the strongly typed field they correspond to in the VirtualSystem object
+	 * Mappings between required system property keys and the strongly typed field they correspond to in the VirtualSystem object
 	 */
 	private static final ImmutableBiMap<String, String> REQUIRED_SYSTEM_PROPERTY_KEY_MAPPINGS = getPropertyMappings();
 
+	/**
+	 * Required system properties mapped to the strongly typed field they correspond to in the virtual system object
+	 */
 	public static final ImmutableProperties MAPPED_SYSTEM_PROPERTIES = getMappedProperties();
 
 	private static final String LINE_SEPARATOR_KEY = "line.separator";
