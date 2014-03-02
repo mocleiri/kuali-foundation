@@ -3,7 +3,6 @@ package org.kuali.common.core.json.jackson;
 import static org.kuali.common.util.Encodings.UTF8;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
-import static org.kuali.common.util.json.jackson.JacksonContext.newJacksonContext;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -12,14 +11,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.kuali.common.core.json.api.JsonService;
-import org.kuali.common.util.json.jackson.JacksonContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public final class JacksonJsonService implements JsonService {
 
 	public JacksonJsonService() {
-		this(newJacksonContext());
+		this(JacksonContext.newJacksonContext());
 
 	}
 

@@ -3,7 +3,6 @@ package org.kuali.common.core.validate;
 import javax.validation.ConstraintValidatorContext;
 
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.validate.AbstractExistsValidator;
 
 public class LocationExistsValidator extends AbstractExistsValidator<String> {
 

@@ -2,10 +2,10 @@ package org.kuali.common.core.system;
 
 import java.util.Properties;
 
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.core.build.ValidatingBuilder;
+import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
+import org.kuali.common.core.validate.annotation.IgnoreBlanks;
 import org.kuali.common.util.property.ImmutableProperties;
-import org.kuali.common.util.validate.IdiotProofImmutable;
-import org.kuali.common.util.validate.IgnoreBlanks;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 

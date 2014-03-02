@@ -5,7 +5,6 @@ import static com.fasterxml.jackson.databind.SerializationFeature.ORDER_MAP_ENTR
 
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
-import org.kuali.common.util.json.jackson.CanonicalFileModule;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;

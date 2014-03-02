@@ -2,17 +2,17 @@ package org.kuali.common.core.system;
 
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.collect.Sets.newHashSet;
+import static org.kuali.common.core.system.VirtualSystemHelper.DEFAULT_REQUIRED_SYSTEM_PROPERTY_KEYS;
+import static org.kuali.common.core.system.VirtualSystemHelper.DEFAULT_REQUIRED_SYSTEM_PROPERTY_KEY_MAPPINGS;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
-import static org.kuali.common.util.system.VirtualSystemHelper.DEFAULT_REQUIRED_SYSTEM_PROPERTY_KEYS;
-import static org.kuali.common.util.system.VirtualSystemHelper.DEFAULT_REQUIRED_SYSTEM_PROPERTY_KEY_MAPPINGS;
 
 import java.util.Properties;
 import java.util.Set;
 
-import org.kuali.common.util.build.ValidatingBuilder;
+import org.kuali.common.core.build.ValidatingBuilder;
+import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import org.kuali.common.util.property.ImmutableProperties;
-import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;

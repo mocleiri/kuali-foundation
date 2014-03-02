@@ -3,9 +3,9 @@ package org.kuali.common.core.system;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.collect.Sets.newHashSet;
 import static com.google.common.collect.Sets.newTreeSet;
+import static org.kuali.common.core.json.jackson.JacksonContext.newDefaultObjectMapper;
+import static org.kuali.common.core.system.VirtualSystemPropertiesFunction.newVirtualSystemPropertiesFunction;
 import static org.kuali.common.util.PropertyUtils.newHashMap;
-import static org.kuali.common.util.json.jackson.JacksonContext.newDefaultObjectMapper;
-import static org.kuali.common.util.system.VirtualSystemPropertiesFunction.newVirtualSystemPropertiesFunction;
 
 import java.io.File;
 import java.util.List;
@@ -13,13 +13,13 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import org.kuali.common.core.json.api.JsonService;
+import org.kuali.common.core.json.jackson.JacksonContext;
+import org.kuali.common.core.json.jackson.JacksonJsonService;
+import org.kuali.common.core.json.jackson.JsonNodeFunction;
+import org.kuali.common.core.json.jackson.NestedKeysFunction;
+import org.kuali.common.core.json.jackson.PathDeserializer;
 import org.kuali.common.util.base.string.SplitterFunction;
-import org.kuali.common.util.json.api.JsonService;
-import org.kuali.common.util.json.jackson.JacksonContext;
-import org.kuali.common.util.json.jackson.JacksonJsonService;
-import org.kuali.common.util.json.jackson.JsonNodeFunction;
-import org.kuali.common.util.json.jackson.NestedKeysFunction;
-import org.kuali.common.util.json.jackson.PathDeserializer;
 import org.kuali.common.util.tree.Node;
 
 import com.fasterxml.jackson.databind.JsonNode;

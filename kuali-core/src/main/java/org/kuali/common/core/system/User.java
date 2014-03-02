@@ -2,8 +2,8 @@ package org.kuali.common.core.system;
 
 import java.io.File;
 
-import org.kuali.common.util.build.ValidatingBuilder;
-import org.kuali.common.util.validate.IdiotProofImmutable;
+import org.kuali.common.core.build.ValidatingBuilder;
+import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 

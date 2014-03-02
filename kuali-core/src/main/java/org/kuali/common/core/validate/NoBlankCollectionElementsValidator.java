@@ -10,8 +10,6 @@ import java.util.Collection;
 import org.kuali.common.core.validate.annotation.IgnoreBlanks;
 import org.kuali.common.core.validate.annotation.NoBlankCollectionElements;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.validate.AbstractFieldsValidator;
-import org.kuali.common.util.validate.Validation;
 
 import com.google.common.base.Optional;
 

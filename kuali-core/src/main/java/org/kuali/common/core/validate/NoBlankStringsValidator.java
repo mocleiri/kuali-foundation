@@ -9,8 +9,6 @@ import java.lang.reflect.Field;
 import org.kuali.common.core.validate.annotation.IgnoreBlanks;
 import org.kuali.common.core.validate.annotation.NoBlankStrings;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.validate.AbstractFieldsValidator;
-import org.kuali.common.util.validate.Validation;
 
 import com.google.common.base.Optional;
 

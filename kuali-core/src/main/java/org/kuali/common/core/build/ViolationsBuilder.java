@@ -4,8 +4,6 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
-import org.kuali.common.util.build.ValidatingBuilder;
-
 public abstract class ViolationsBuilder<T> extends ValidatingBuilder<T> {
 
 	private static final Class<?>[] EMPTY_CLASS_ARRAY = {};
