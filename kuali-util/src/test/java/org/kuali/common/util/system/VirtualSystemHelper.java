@@ -53,7 +53,7 @@ public class VirtualSystemHelper {
 	/**
 	 * Produce an immutable {@code VirtualSystem} representing the current state of the system we are running on.
 	 */
-	public static VirtualSystem newVirtualSystem() {
+	public static VirtualSystem createVirtualSystem() {
 		// Get a handle to our customized json service
 		JsonService service = newCustomJsonService();
 
