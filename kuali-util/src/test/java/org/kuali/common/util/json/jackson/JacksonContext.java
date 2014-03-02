@@ -44,7 +44,7 @@ public final class JacksonContext {
 	/**
 	 * ObjectMapper with {@code GuavaModule} registered, sorts properties alphabetically, and sorts map entries by their keys.
 	 */
-	public static ObjectMapper getNewDefaultObjectMapper() {
+	public static ObjectMapper newDefaultObjectMapper() {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new GuavaModule());
 		mapper.registerModule(new CanonicalFileModule());
@@ -56,7 +56,7 @@ public final class JacksonContext {
 	public static class Builder extends ValidatingBuilder<JacksonContext> {
 
 		private boolean prettyPrint = true;
-		private ObjectMapper mapper = getNewDefaultObjectMapper();
+		private ObjectMapper mapper = newDefaultObjectMapper();
 		private boolean copyObjectMapper = true;
 
 		@Override
