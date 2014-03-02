@@ -39,7 +39,7 @@ public class SystemTest {
 			JsonNode jsonNode = getSystemNode();
 			// This json still represents classpath as a single string delimited with ":" (vs an array of strings)
 			String json1 = service.writeString(jsonNode);
-			// This service parsed the delimited string into a list of File objects
+			// This service parses the delimited string into a list of File objects
 			VirtualSystem vs1 = getSystemPropertyDeserializerService().readString(json1, VirtualSystem.class);
 			// This json represents classpath as an array of strings (vs a single string delimited with ":")
 			String json2 = service.writeString(vs1);

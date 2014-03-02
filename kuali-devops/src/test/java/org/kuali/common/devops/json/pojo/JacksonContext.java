@@ -76,11 +76,14 @@ public final class JacksonContext {
 		return new Builder();
 	}
 
+	/**
+	 * ObjectMapper with {@code GuavaModule} registered, sorts properties alphabetically, and sorts map entries by their keys.
+	 */
 	public static ObjectMapper getNewDefaultObjectMapper() {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new GuavaModule());
-		mapper.configure(ORDER_MAP_ENTRIES_BY_KEYS, true);
 		mapper.configure(SORT_PROPERTIES_ALPHABETICALLY, true);
+		mapper.configure(ORDER_MAP_ENTRIES_BY_KEYS, true);
 		return mapper;
 	}
 
