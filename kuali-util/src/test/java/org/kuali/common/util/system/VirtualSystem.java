@@ -1,5 +1,6 @@
 package org.kuali.common.util.system;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newHashSet;
 
@@ -25,7 +26,7 @@ public final class VirtualSystem {
 	 * Set of system property keys required to be present on every JVM
 	 */
 	@JsonIgnore
-	public static final ImmutableSet<String> UNIVERSAL_PROPERTY_KEYS = getUniversalPropertyKeys();
+	public static final ImmutableSet<String> UNIVERSAL_SYSTEM_PROPERTY_KEYS = getUniversalPropertyKeys();
 
 	/**
 	 * Mappings between universal property keys and the strongly typed field they correspond to in the VirtualSystem object
@@ -165,6 +166,12 @@ public final class VirtualSystem {
 		mappings.put("java.runtime.specification.version", "java.specification.version");
 		mappings.put("java.runtime.specification.vendor", "java.specification.vendor");
 		mappings.put("java.runtime.specification.name", "java.specification.name");
+
+		Set<String> universal = getUniversalPropertyKeys();
+		for (String value : mappings.values()) {
+			checkArgument(universal.contains(value));
+		}
+
 		return ImmutableMap.copyOf(mappings);
 
 	}
