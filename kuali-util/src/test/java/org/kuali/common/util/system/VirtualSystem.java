@@ -23,7 +23,7 @@ public final class VirtualSystem {
 	private final ImmutableProperties properties;
 	private final ImmutableProperties environment;
 
-	public VirtualSystem create() {
+	public static VirtualSystem create() {
 		return VirtualSystemHelper.newVirtualSystem();
 	}
 

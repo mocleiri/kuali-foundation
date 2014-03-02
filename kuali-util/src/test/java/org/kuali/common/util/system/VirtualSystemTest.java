@@ -2,7 +2,6 @@ package org.kuali.common.util.system;
 
 import static com.google.common.base.Stopwatch.createStarted;
 import static org.junit.Assert.assertEquals;
-import static org.kuali.common.util.system.VirtualSystemHelper.newVirtualSystem;
 
 import org.junit.Test;
 import org.kuali.common.util.FormatUtils;
@@ -16,7 +15,7 @@ public class VirtualSystemTest {
 	@Test
 	public void test() {
 		Stopwatch sw = createStarted();
-		VirtualSystem vs = newVirtualSystem();
+		VirtualSystem vs = VirtualSystem.create();
 		JsonService service = new JacksonJsonService();
 		String expected = service.writeString(vs);
 		String actual = service.writeString(service.readString(expected, VirtualSystem.class));
