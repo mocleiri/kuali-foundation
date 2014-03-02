@@ -1,7 +1,9 @@
 package org.kuali.common.devops.json.system;
 
 import static com.google.common.collect.Sets.newTreeSet;
+import static org.junit.Assert.assertEquals;
 import static org.kuali.common.util.PropertyUtils.newHashMap;
+import static org.kuali.common.util.json.jackson.JacksonContext.newDefaultObjectMapper;
 import static org.kuali.common.util.system.VirtualSystemPropertiesFunction.newVirtualSystemPropertiesFunction;
 
 import java.io.File;
@@ -38,20 +40,22 @@ public class SystemTest {
 
 	@Test
 	public void test() {
-		try {
-			JsonService service = getCustomJsonService();
-			JsonNode jsonNode = getVirtualSystemJsonNode();
-			// This json still represents classpath as a single string delimited with ":" (vs an array of strings)
-			String json1 = service.writeString(jsonNode);
-			// This service parses the delimited string into a list of File objects
-			VirtualSystem vs1 = service.readString(json1, VirtualSystem.class);
-			// This json represents classpath as an array of strings (vs a single string delimited with ":")
-			String json2 = service.writeString(vs1);
-			System.out.println(json2);
-			VirtualSystem vs2 = new JacksonJsonService().readString(json2, VirtualSystem.class);
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
+		VirtualSystem vs = newVirtualSystem();
+		JsonService service = new JacksonJsonService();
+		String json1 = service.writeString(vs);
+		String json2 = service.writeString(service.readString(json1, VirtualSystem.class));
+		assertEquals(json1, json2);
+	}
+
+	protected VirtualSystem newVirtualSystem() {
+		// Get a handle to our customized json service
+		JsonService service = getCustomJsonService();
+		// Create a json node representing the current state of the system we are running on
+		JsonNode jsonNode = getVirtualSystemJsonNode();
+		// This json represents java.class.path, java.library.path, and java.ext,dirs as delimited strings (vs List<File>)
+		String json = service.writeString(jsonNode);
+		// This service contains a custom deserializer mixin that parses delimited strings into List<File>
+		return service.readString(json, VirtualSystem.class);
 	}
 
 	protected JsonNode getVirtualSystemJsonNode() {
@@ -74,7 +78,7 @@ public class SystemTest {
 	}
 
 	protected JsonService getCustomJsonService() {
-		ObjectMapper mapper = JacksonContext.newDefaultObjectMapper();
+		ObjectMapper mapper = newDefaultObjectMapper();
 		mapper.addMixInAnnotations(Java.Builder.class, SystemPropertyPathDeserializer.class);
 		JacksonContext context = JacksonContext.builder().withMapper(mapper).build();
 		return new JacksonJsonService(context);
