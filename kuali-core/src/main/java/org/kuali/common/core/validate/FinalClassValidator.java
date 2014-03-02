@@ -5,7 +5,7 @@ import static org.kuali.common.util.ReflectionUtils.isFinal;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import org.kuali.common.util.validate.annotation.FinalClass;
+import org.kuali.common.core.validate.annotation.FinalClass;
 
 public class FinalClassValidator implements ConstraintValidator<FinalClass, Object> {
 

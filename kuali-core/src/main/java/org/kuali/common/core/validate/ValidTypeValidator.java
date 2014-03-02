@@ -2,10 +2,10 @@ package org.kuali.common.core.validate;
 
 import java.lang.reflect.Field;
 
+import org.kuali.common.core.validate.annotation.ValidType;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.validate.AbstractFieldsValidator;
 import org.kuali.common.util.validate.Validation;
-import org.kuali.common.util.validate.annotation.ValidType;
 
 import com.google.common.base.Optional;
 

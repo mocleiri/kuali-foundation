@@ -1,4 +1,4 @@
-package org.kuali.common.util.validate.annotation;
+package org.kuali.common.core.validate.annotation;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -10,18 +10,18 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+import org.kuali.common.core.validate.FinalFieldsValidator;
+
+/**
+ * All fields in the annotated class must be declared as {@code final}
+ */
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = {})
-@StronglyImmutable
-@NoNullFields
-@NoBlanks
-@ImmutableGuavaMaps
-@ImmutableGuavaCollections
+@Constraint(validatedBy = FinalFieldsValidator.class)
 @Documented
-public @interface IdiotProofImmutable {
+public @interface FinalFields {
 
-	String message() default "immutability checks failed";
+	String message() default "fields must be final";
 
 	Class<?>[] groups() default {};
 

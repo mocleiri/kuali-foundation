@@ -7,10 +7,10 @@ import static org.kuali.common.util.ReflectionUtils.isOptionalString;
 
 import java.lang.reflect.Field;
 
+import org.kuali.common.core.validate.annotation.IgnoreBlanks;
+import org.kuali.common.core.validate.annotation.NoBlankOptionals;
 import org.kuali.common.util.validate.AbstractFieldsValidator;
 import org.kuali.common.util.validate.Validation;
-import org.kuali.common.util.validate.annotation.IgnoreBlanks;
-import org.kuali.common.util.validate.annotation.NoBlankOptionals;
 
 import com.google.common.base.Optional;
 

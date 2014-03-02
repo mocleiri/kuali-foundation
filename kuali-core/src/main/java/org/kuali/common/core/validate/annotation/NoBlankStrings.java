@@ -1,4 +1,4 @@
-package org.kuali.common.util.validate.annotation;
+package org.kuali.common.core.validate.annotation;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -10,16 +10,16 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import org.kuali.common.core.validate.NoBlankCollectionElementsValidator;
+import org.kuali.common.core.validate.NoBlankStringsValidator;
 
 /**
- * Any fields that extend from {@code java.util.Collection} and are parameterized as type {@code String} must not contain the empty string or pure whitespace
+ * 
  */
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = NoBlankCollectionElementsValidator.class)
+@Constraint(validatedBy = NoBlankStringsValidator.class)
 @Documented
-public @interface NoBlankCollectionElements {
+public @interface NoBlankStrings {
 
 	String message() default "blank strings not allowed";
 

@@ -1,4 +1,4 @@
-package org.kuali.common.util.validate.annotation;
+package org.kuali.common.core.validate.annotation;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -10,18 +10,21 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import org.kuali.common.core.validate.NoBlankMapKeysValidator;
 
 /**
- * 
+ * No blank strings are allowed in member variables, Optional's, map keys, or collection elements.
  */
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = NoBlankMapKeysValidator.class)
+@Constraint(validatedBy = {})
+@NoBlankStrings
+@NoBlankOptionals
+@NoBlankMapKeys
+@NoBlankCollectionElements
 @Documented
-public @interface NoBlankMapKeys {
+public @interface NoBlanks {
 
-	String message() default "blank map keys are not allowed";
+	String message() default "blank strings not allowed";
 
 	Class<?>[] groups() default {};
 

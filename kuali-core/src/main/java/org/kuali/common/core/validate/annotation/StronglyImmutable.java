@@ -1,4 +1,4 @@
-package org.kuali.common.util.validate.annotation;
+package org.kuali.common.core.validate.annotation;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -6,24 +6,22 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-import java.util.Collection;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import com.google.common.collect.ImmutableCollection;
-
 /**
- * All field's on the annotated class that are collection's must extend from Guava {@code ImmutableCollection}
+ * The annotated class must be declared final, and all fields declared in the class must be final.
  */
 @Target({ TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = {})
-@ValidType(superType = Collection.class, type = ImmutableCollection.class)
+@FinalClass
+@FinalFields
 @Documented
-public @interface ImmutableGuavaCollections {
+public @interface StronglyImmutable {
 
-	String message() default "collections must be immutable";
+	String message() default "strongly immutable checks failed";
 
 	Class<?>[] groups() default {};
 

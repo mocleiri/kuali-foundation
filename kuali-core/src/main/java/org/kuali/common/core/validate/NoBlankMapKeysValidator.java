@@ -8,11 +8,11 @@ import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Map;
 
+import org.kuali.common.core.validate.annotation.IgnoreBlanks;
+import org.kuali.common.core.validate.annotation.NoBlankMapKeys;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.validate.AbstractFieldsValidator;
 import org.kuali.common.util.validate.Validation;
-import org.kuali.common.util.validate.annotation.IgnoreBlanks;
-import org.kuali.common.util.validate.annotation.NoBlankMapKeys;
 
 import com.google.common.base.Optional;
 

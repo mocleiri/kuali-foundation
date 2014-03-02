@@ -1,4 +1,4 @@
-package org.kuali.common.util.validate.annotation;
+package org.kuali.common.core.validate.annotation;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -10,18 +10,18 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import org.kuali.common.core.validate.NoNullFieldsValidator;
+import org.kuali.common.core.validate.NoBlankOptionalsValidator;
 
 /**
- * The annotated class must not contain any fields whose runtime value is {@code null}
+ * 
  */
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = NoNullFieldsValidator.class)
+@Constraint(validatedBy = NoBlankOptionalsValidator.class)
 @Documented
-public @interface NoNullFields {
+public @interface NoBlankOptionals {
 
-	String message() default "null not allowed";
+	String message() default "optional value cannot be blank";
 
 	Class<?>[] groups() default {};
 

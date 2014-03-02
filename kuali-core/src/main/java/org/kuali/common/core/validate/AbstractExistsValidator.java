@@ -3,7 +3,7 @@ package org.kuali.common.core.validate;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import org.kuali.common.util.validate.annotation.Exists;
+import org.kuali.common.core.validate.annotation.Exists;
 
 public abstract class AbstractExistsValidator<T> implements ConstraintValidator<Exists, T> {
 

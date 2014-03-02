@@ -5,9 +5,9 @@ import static org.kuali.common.util.ReflectionUtils.extractFieldValue;
 
 import java.lang.reflect.Field;
 
+import org.kuali.common.core.validate.annotation.NoNullFields;
 import org.kuali.common.util.validate.AbstractFieldsValidator;
 import org.kuali.common.util.validate.Validation;
-import org.kuali.common.util.validate.annotation.NoNullFields;
 
 import com.google.common.base.Optional;
 
