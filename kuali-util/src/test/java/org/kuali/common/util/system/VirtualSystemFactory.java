@@ -44,7 +44,7 @@ public class VirtualSystemFactory {
 		// Create a json node representing the current state of the system we are running on
 		JsonNode jsonNode = newVirtualSystemJsonNode();
 
-		// This json represents java.class.path, java.library.path, and java.ext.dirs as delimited strings (vs List<File>)
+		// This json represents java.class.path, java.library.path, and java.ext.dirs as delimited strings
 		String json = service.writeString(jsonNode);
 
 		// This service contains a custom deserializer mixin that parses delimited strings into List<File>
