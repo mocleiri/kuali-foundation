@@ -68,6 +68,7 @@
     <jsr305.version>2.0.3</jsr305.version>
     <jackson.version>2.3.1</jackson.version>
     <jackson-databind.version>${jackson.version}</jackson-databind.version>
+    <jackson-datatype-guava.version>${jackson.version}</jackson-datatype-guava.version>
   </properties>
   <profiles>
     <profile>
@@ -264,6 +265,12 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>${jackson-databind.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-guava</artifactId>
+      <version>${jackson-datatype-guava.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
