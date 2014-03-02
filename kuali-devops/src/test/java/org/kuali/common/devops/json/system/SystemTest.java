@@ -2,11 +2,12 @@ package org.kuali.common.devops.json.system;
 
 import static com.google.common.collect.Sets.newTreeSet;
 import static org.kuali.common.util.PropertyUtils.newHashMap;
-import static org.kuali.common.util.system.VirtualSystem.MAPPED_SYSTEM_PROPERTIES;
+import static org.kuali.common.util.system.VirtualSystemPropertiesFunction.newVirtualSystemPropertiesFunction;
 
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import org.junit.Test;
@@ -39,7 +40,7 @@ public class SystemTest {
 	public void test() {
 		try {
 			JsonService service = new JacksonJsonService();
-			JsonNode jsonNode = getSystemNode();
+			JsonNode jsonNode = getVirtualSystemJsonNode();
 			// This json still represents classpath as a single string delimited with ":" (vs an array of strings)
 			String json1 = service.writeString(jsonNode);
 			// This service parses the delimited string into a list of File objects
@@ -53,10 +54,12 @@ public class SystemTest {
 		}
 	}
 
-	protected JsonNode getSystemNode() {
-		Set<String> paths = new SplitterFunction(SEPARATOR).apply(MAPPED_SYSTEM_PROPERTIES.stringPropertyNames());
+	protected JsonNode getVirtualSystemJsonNode() {
+		Properties system = System.getProperties();
+		Properties mapped = newVirtualSystemPropertiesFunction().apply(system);
+		Set<String> paths = new SplitterFunction(SEPARATOR).apply(mapped.stringPropertyNames());
 		Node<String> node = new NestedKeysFunction(SEPARATOR).apply(paths);
-		ObjectNode objectNode = new JsonNodeFunction(SEPARATOR, MAPPED_SYSTEM_PROPERTIES).apply(node);
+		ObjectNode objectNode = new JsonNodeFunction(SEPARATOR, mapped).apply(node);
 		objectNode.put(PROPERTIES, getObjectNode(newHashMap(System.getProperties())));
 		objectNode.put(ENVIRONMENT, getObjectNode(System.getenv()));
 		return objectNode;
