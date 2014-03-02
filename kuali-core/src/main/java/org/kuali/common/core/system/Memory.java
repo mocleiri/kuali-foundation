@@ -32,7 +32,7 @@ public final class Memory {
 	}
 
 	public static Memory create() {
-		java.lang.Runtime runtime = java.lang.Runtime.getRuntime();
+		Runtime runtime = Runtime.getRuntime();
 
 		// Total amount of memory the JVM is allowed to use
 		long max = runtime.maxMemory();
