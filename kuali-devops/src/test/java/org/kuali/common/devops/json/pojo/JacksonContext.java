@@ -96,8 +96,8 @@ public final class JacksonContext {
 			return this;
 		}
 
-		public Builder addMixins(MixInContext mixin) {
-			this.mixins.add(mixin);
+		public Builder addMixin(Class<?> target, Class<?> source) {
+			this.mixins.add(new MixInContext(target, source));
 			return this;
 		}
 

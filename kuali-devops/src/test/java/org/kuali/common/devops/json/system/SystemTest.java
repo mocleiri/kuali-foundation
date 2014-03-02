@@ -1,10 +1,11 @@
 package org.kuali.common.devops.json.system;
 
-import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 import static com.google.common.collect.Sets.newTreeSet;
 import static org.kuali.common.util.PropertyUtils.newHashMap;
 import static org.kuali.common.util.system.VirtualSystem.MAPPED_SYSTEM_PROPERTIES;
 
+import java.io.File;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -12,10 +13,13 @@ import org.junit.Test;
 import org.kuali.common.devops.json.pojo.JacksonContext;
 import org.kuali.common.devops.json.pojo.JacksonJsonService;
 import org.kuali.common.devops.json.pojo.JsonService;
+import org.kuali.common.util.system.Java;
+import org.kuali.common.util.system.PathDeserializer;
 import org.kuali.common.util.system.VirtualSystem;
 import org.kuali.common.util.tree.Node;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
@@ -33,7 +37,8 @@ public class SystemTest {
 			JsonService service = getService();
 			JsonNode jsonNode = getSystemNode();
 			String json1 = service.writeString(jsonNode);
-			VirtualSystem vs1 = service.readString(json1, VirtualSystem.class);
+			System.out.println(json1);
+			VirtualSystem vs1 = getSourceDeserializerService().readString(json1, VirtualSystem.class);
 			String json2 = service.writeString(vs1);
 			System.out.println(json2);
 			VirtualSystem vs2 = service.readString(json2, VirtualSystem.class);
@@ -63,9 +68,27 @@ public class SystemTest {
 		return objectNode;
 	}
 
-	protected JsonService getService() {
-		JacksonContext context = JacksonContext.builder().addFeature(FAIL_ON_UNKNOWN_PROPERTIES, false).build();
+	protected JsonService getSourceDeserializerService() {
+		JacksonContext context = JacksonContext.builder().addMixin(Java.Builder.class, JavaPathDeserializer.class).build();
 		return new JacksonJsonService(context);
+	}
+
+	protected JsonService getService() {
+		JacksonContext context = JacksonContext.builder().build();
+		return new JacksonJsonService(context);
+	}
+
+	private static final class JavaPathDeserializer {
+
+		@JsonDeserialize(using = PathDeserializer.class)
+		private List<File> classpath;
+
+		@JsonDeserialize(using = PathDeserializer.class)
+		private List<File> libraryPaths;
+
+		@JsonDeserialize(using = PathDeserializer.class)
+		private List<File> extensionDirs;
+
 	}
 
 }
