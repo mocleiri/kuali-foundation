@@ -10,7 +10,6 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import org.kuali.common.util.validate.NoBlankStrings;
 
 /**
  * No blank strings are allowed in member variables, Optional's, map keys, or collection elements.
