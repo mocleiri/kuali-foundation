@@ -132,4 +132,8 @@ public final class SplitterFunction implements Function<Set<String>, Set<String>
 		return separator;
 	}
 
+	public Splitter getSplitter() {
+		return splitter;
+	}
+
 }
