@@ -21,8 +21,10 @@ import com.google.common.collect.ImmutableSet;
 @IdiotProofImmutable
 public final class SystemPropertiesFunction implements Function<Properties, Properties> {
 
+	private static final Map<String, String> DEFAULT_MAPPINGS = getDefaultMappings();
+
 	public SystemPropertiesFunction() {
-		this(ImmutableSet.of("line.separator"), getDefaultMappings());
+		this(ImmutableSet.of("line.separator"), DEFAULT_MAPPINGS);
 	}
 
 	public SystemPropertiesFunction(Set<String> blanksAllowed, Map<String, String> mappings) {

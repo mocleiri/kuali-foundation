@@ -31,9 +31,11 @@ public class SystemTest {
 		try {
 			JsonService service = getService();
 			JsonNode jsonNode = getSystemNode();
-			String json = service.writeString(jsonNode);
-			VirtualSystem vs = service.readString(json, VirtualSystem.class);
-			System.out.println(service.writeString(vs));
+			String json1 = service.writeString(jsonNode);
+			VirtualSystem vs1 = service.readString(json1, VirtualSystem.class);
+			String json2 = service.writeString(vs1);
+			System.out.println(json2);
+			VirtualSystem vs2 = service.readString(json2, VirtualSystem.class);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
