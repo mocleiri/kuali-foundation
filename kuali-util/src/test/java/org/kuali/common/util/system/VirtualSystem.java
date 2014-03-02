@@ -35,7 +35,7 @@ public final class VirtualSystem {
 	 */
 	private static final ImmutableBiMap<String, String> UNIVERSAL_SYSTEM_PROPERTY_KEY_MAPPINGS = getPropertyMappings();
 
-	public static final ImmutableProperties MAPPED_PROPERTIES = getMappedProperties();
+	public static final ImmutableProperties MAPPED_SYSTEM_PROPERTIES = getMappedProperties();
 
 	private static final String LINE_SEPARATOR_KEY = "line.separator";
 
@@ -140,7 +140,7 @@ public final class VirtualSystem {
 		keys.add("java.class.path");
 		keys.add("java.library.path");
 		keys.add("java.io.tmpdir");
-		keys.add("java.compiler");
+		// keys.add("java.compiler"); javadoc's state this is a required property but it sure isn't
 		keys.add("java.ext.dirs");
 		keys.add("os.name");
 		keys.add("os.arch");
