@@ -187,7 +187,7 @@ public final class VirtualSystem {
 			Optional<String> mappedKey = fromNullable(REQUIRED_SYSTEM_PROPERTY_KEY_MAPPINGS.get(key));
 			String actualKey = mappedKey.isPresent() ? mappedKey.get() : key;
 
-			// The only universal system property allowed to be blank is the line separator
+			// The only required system property allowed to be blank is the line separator
 			if (!LINE_SEPARATOR_KEY.equals(key)) {
 				checkNotBlank(value, key);
 			}
