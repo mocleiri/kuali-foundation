@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.junit.Test;
 import org.kuali.common.devops.json.pojo.JacksonContext;
@@ -51,7 +52,8 @@ public class SystemTest {
 	}
 
 	protected JsonNode getSystemNode() {
-		Node<String> node = new NestedKeysFunction(SEPARATOR).apply(MAPPED_SYSTEM_PROPERTIES.stringPropertyNames());
+		Set<String> paths = new SplitterFunction(SEPARATOR).apply(MAPPED_SYSTEM_PROPERTIES.stringPropertyNames());
+		Node<String> node = new NestedKeysFunction(SEPARATOR).apply(paths);
 		ObjectNode objectNode = new JsonNodeFunction(SEPARATOR, MAPPED_SYSTEM_PROPERTIES).apply(node);
 		objectNode.put(PROPERTIES, getObjectNode(System.getProperties()));
 		objectNode.put(ENVIRONMENT, getObjectNode(System.getenv()));
