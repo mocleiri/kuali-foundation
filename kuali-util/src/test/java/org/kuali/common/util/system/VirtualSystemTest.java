@@ -22,7 +22,7 @@ public class VirtualSystemTest {
 		// Test string -> object -> string
 		String actual = service.writeString(service.readString(expected, VirtualSystem.class));
 
-		// Make sure both strings are equal and that no information was lost
+		// If everything is in working order, these 2 strings will be exactly equal
 		assertEquals(expected, actual);
 	}
 }
