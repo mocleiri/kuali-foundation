@@ -20,8 +20,6 @@ import org.kuali.common.util.json.jackson.JacksonJsonService;
 import org.kuali.common.util.json.jackson.JsonNodeFunction;
 import org.kuali.common.util.json.jackson.NestedKeysFunction;
 import org.kuali.common.util.json.jackson.PathDeserializer;
-import org.kuali.common.util.system.Java;
-import org.kuali.common.util.system.VirtualSystem;
 import org.kuali.common.util.tree.Node;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -52,7 +50,7 @@ public class VirtualSystemTest {
 		JsonService service = newCustomJsonService();
 		// Create a json node representing the current state of the system we are running on
 		JsonNode jsonNode = newVirtualSystemJsonNode();
-		// This json represents java.class.path, java.library.path, and java.ext,dirs as delimited strings (vs List<File>)
+		// This json represents java.class.path, java.library.path, and java.ext.dirs as delimited strings (vs List<File>)
 		String json = service.writeString(jsonNode);
 		// This service contains a custom deserializer mixin that parses delimited strings into List<File>
 		return service.readString(json, VirtualSystem.class);
