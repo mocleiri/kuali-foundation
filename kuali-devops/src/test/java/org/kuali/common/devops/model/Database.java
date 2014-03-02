@@ -1,9 +1,7 @@
 package org.kuali.common.devops.model;
 
-import static org.kuali.common.util.validate.Validation.checkConstraints;
-
-import org.kuali.common.util.build.LegacyValidatingBuilder;
-import org.kuali.common.util.validate.IdiotProofImmutable;
+import org.kuali.common.core.build.ValidatingBuilder;
+import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
 @IdiotProofImmutable
 public final class Database {
@@ -22,7 +20,7 @@ public final class Database {
 		return new Builder();
 	}
 
-	public static class Builder extends LegacyValidatingBuilder<Database> {
+	public static class Builder extends ValidatingBuilder<Database> {
 
 		private String vendor;
 		private String url;
@@ -45,7 +43,7 @@ public final class Database {
 
 		@Override
 		public Database build() {
-			return checkConstraints(new Database(this), validator);
+			return validate(new Database(this));
 		}
 
 		public String getVendor() {

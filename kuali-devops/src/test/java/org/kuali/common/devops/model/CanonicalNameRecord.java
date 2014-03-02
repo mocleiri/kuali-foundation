@@ -1,10 +1,8 @@
 package org.kuali.common.devops.model;
 
-import static org.kuali.common.util.validate.Validation.checkConstraints;
-
+import org.kuali.common.core.build.ValidatingBuilder;
+import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import org.kuali.common.util.ObjectUtils;
-import org.kuali.common.util.build.LegacyValidatingBuilder;
-import org.kuali.common.util.validate.IdiotProofImmutable;
 
 @IdiotProofImmutable
 public final class CanonicalNameRecord {
@@ -21,14 +19,14 @@ public final class CanonicalNameRecord {
 		return new Builder();
 	}
 
-	public static class Builder extends LegacyValidatingBuilder<CanonicalNameRecord> {
+	public static class Builder extends ValidatingBuilder<CanonicalNameRecord> {
 
 		private String alias;
 		private String canonical;
 
 		@Override
 		public CanonicalNameRecord build() {
-			return checkConstraints(new CanonicalNameRecord(this));
+			return validate(new CanonicalNameRecord(this));
 		}
 
 		public Builder alias(String alias) {

@@ -10,12 +10,12 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
+import org.kuali.common.core.build.ViolationsBuilder;
+import org.kuali.common.core.validate.annotation.FinalClass;
+import org.kuali.common.core.validate.annotation.NoNullFields;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.build.ViolationsBuilder;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.property.ImmutableProperties;
-import org.kuali.common.util.validate.FinalClass;
-import org.kuali.common.util.validate.NoNullFields;
 
 import com.google.common.base.Function;
 

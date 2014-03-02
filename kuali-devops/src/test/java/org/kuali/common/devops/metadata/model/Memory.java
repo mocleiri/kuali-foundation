@@ -1,11 +1,9 @@
 package org.kuali.common.devops.metadata.model;
 
-import static org.kuali.common.util.validate.Validation.checkConstraints;
-
 import javax.validation.constraints.Min;
 
-import org.kuali.common.util.build.LegacyValidatingBuilder;
-import org.kuali.common.util.validate.IdiotProofImmutable;
+import org.kuali.common.core.build.ValidatingBuilder;
+import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
 @IdiotProofImmutable
 public final class Memory {
@@ -34,7 +32,7 @@ public final class Memory {
 		return new Builder();
 	}
 
-	public static class Builder extends LegacyValidatingBuilder<Memory> {
+	public static class Builder extends ValidatingBuilder<Memory> {
 
 		private long used;
 		private long free;
@@ -63,7 +61,7 @@ public final class Memory {
 
 		@Override
 		public Memory build() {
-			return checkConstraints(new Memory(this), validator);
+			return validate(new Memory(this));
 		}
 
 	}

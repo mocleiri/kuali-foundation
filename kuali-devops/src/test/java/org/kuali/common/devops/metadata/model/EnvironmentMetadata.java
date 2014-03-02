@@ -1,12 +1,10 @@
 package org.kuali.common.devops.metadata.model;
 
-import static org.kuali.common.util.validate.Validation.checkConstraints;
-
 import java.util.Properties;
 
-import org.kuali.common.util.build.LegacyValidatingBuilder;
+import org.kuali.common.core.build.ValidatingBuilder;
+import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import org.kuali.common.util.project.model.Project;
-import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
 
@@ -35,7 +33,7 @@ public final class EnvironmentMetadata {
 		return new Builder();
 	}
 
-	public static class Builder extends LegacyValidatingBuilder<EnvironmentMetadata> {
+	public static class Builder extends ValidatingBuilder<EnvironmentMetadata> {
 
 		private MetadataUrl<Optional<String>> tomcatVersion;
 		private MetadataUrl<Optional<Long>> tomcatStartupTime;
@@ -92,7 +90,7 @@ public final class EnvironmentMetadata {
 
 		@Override
 		public EnvironmentMetadata build() {
-			return checkConstraints(new EnvironmentMetadata(this), validator);
+			return validate(new EnvironmentMetadata(this));
 		}
 
 		public MetadataUrl<Optional<String>> getTomcatVersion() {

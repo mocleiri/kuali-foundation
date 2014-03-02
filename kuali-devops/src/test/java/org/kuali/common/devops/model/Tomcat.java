@@ -1,9 +1,7 @@
 package org.kuali.common.devops.model;
 
-import static org.kuali.common.util.validate.Validation.checkConstraints;
-
-import org.kuali.common.util.build.LegacyValidatingBuilder;
-import org.kuali.common.util.validate.IdiotProofImmutable;
+import org.kuali.common.core.build.ValidatingBuilder;
+import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
 
@@ -30,7 +28,7 @@ public final class Tomcat {
 		return new Builder();
 	}
 
-	public static class Builder extends LegacyValidatingBuilder<Tomcat> {
+	public static class Builder extends ValidatingBuilder<Tomcat> {
 
 		private String version;
 		private Optional<Long> startupTime = Optional.absent();
@@ -47,7 +45,7 @@ public final class Tomcat {
 
 		@Override
 		public Tomcat build() {
-			return checkConstraints(new Tomcat(this), validator);
+			return validate(new Tomcat(this));
 		}
 
 		public String getVersion() {

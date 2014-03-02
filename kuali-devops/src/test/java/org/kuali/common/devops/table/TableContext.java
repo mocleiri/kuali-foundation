@@ -1,9 +1,7 @@
 package org.kuali.common.devops.table;
 
-import static org.kuali.common.util.validate.Validation.checkConstraints;
-
-import org.kuali.common.util.build.LegacyValidatingBuilder;
-import org.kuali.common.util.validate.IdiotProofImmutable;
+import org.kuali.common.core.build.ValidatingBuilder;
+import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
 
@@ -28,7 +26,7 @@ public final class TableContext {
 		return new Builder();
 	}
 
-	public static class Builder extends LegacyValidatingBuilder<TableContext> {
+	public static class Builder extends ValidatingBuilder<TableContext> {
 
 		private int indent = 0;
 		private boolean columnLabels = true;
@@ -75,7 +73,7 @@ public final class TableContext {
 
 		@Override
 		public TableContext build() {
-			return checkConstraints(new TableContext(this));
+			return validate(new TableContext(this));
 		}
 
 	}

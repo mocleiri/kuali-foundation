@@ -1,9 +1,7 @@
 package org.kuali.common.devops.model;
 
-import static org.kuali.common.util.validate.Validation.checkConstraints;
-
-import org.kuali.common.util.build.LegacyValidatingBuilder;
-import org.kuali.common.util.validate.IdiotProofImmutable;
+import org.kuali.common.core.build.ValidatingBuilder;
+import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
 @IdiotProofImmutable
 public final class Scm {
@@ -24,7 +22,7 @@ public final class Scm {
 		return new Builder();
 	}
 
-	public static class Builder extends LegacyValidatingBuilder<Scm> {
+	public static class Builder extends ValidatingBuilder<Scm> {
 
 		private String url;
 		private String revision;
@@ -41,7 +39,7 @@ public final class Scm {
 
 		@Override
 		public Scm build() {
-			return checkConstraints(new Scm(this), validator);
+			return validate(new Scm(this));
 		}
 
 		public String getUrl() {

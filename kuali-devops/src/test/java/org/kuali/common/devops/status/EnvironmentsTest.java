@@ -20,6 +20,7 @@ import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
+import org.kuali.common.core.validate.Validation;
 import org.kuali.common.devops.logic.Environments;
 import org.kuali.common.devops.logic.Environments2;
 import org.kuali.common.devops.logic.Html;
@@ -27,7 +28,6 @@ import org.kuali.common.devops.model.Environment;
 import org.kuali.common.devops.table.Label;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.file.CanonicalFile;
-import org.kuali.common.util.validate.Validation;
 import org.slf4j.Logger;
 import org.springframework.util.PropertyPlaceholderHelper;
 

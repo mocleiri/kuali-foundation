@@ -1,14 +1,12 @@
 package org.kuali.common.devops.model;
 
-import static org.kuali.common.util.validate.Validation.checkConstraints;
-
 import java.util.Properties;
 
-import org.kuali.common.util.build.LegacyValidatingBuilder;
+import org.kuali.common.core.build.ValidatingBuilder;
+import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import org.kuali.common.util.project.model.ImmutableProject;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.property.ImmutableProperties;
-import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
 
@@ -37,7 +35,7 @@ public final class Application {
 		return new Builder();
 	}
 
-	public static class Builder extends LegacyValidatingBuilder<Application> {
+	public static class Builder extends ValidatingBuilder<Application> {
 
 		private Project project;
 		private Properties configuration;
@@ -80,7 +78,7 @@ public final class Application {
 
 		@Override
 		public Application build() {
-			return checkConstraints(new Application(this));
+			return validate(new Application(this));
 		}
 
 		public Project getProject() {

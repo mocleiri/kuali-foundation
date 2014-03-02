@@ -1,12 +1,10 @@
 package org.kuali.common.devops.metadata.model;
 
-import static org.kuali.common.util.validate.Validation.checkConstraints;
-
 import java.util.Properties;
 
-import org.kuali.common.util.build.LegacyValidatingBuilder;
+import org.kuali.common.core.build.ValidatingBuilder;
+import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import org.kuali.common.util.property.ImmutableProperties;
-import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
 
@@ -31,7 +29,7 @@ public final class RemoteEnvironment {
 		return new Builder();
 	}
 
-	public static class Builder extends LegacyValidatingBuilder<RemoteEnvironment> {
+	public static class Builder extends ValidatingBuilder<RemoteEnvironment> {
 
 		private Optional<Integer> processors;
 		private Properties system;
@@ -66,7 +64,7 @@ public final class RemoteEnvironment {
 
 		@Override
 		public RemoteEnvironment build() {
-			return checkConstraints(new RemoteEnvironment(this), validator);
+			return validate(new RemoteEnvironment(this));
 		}
 	}
 

@@ -9,11 +9,11 @@ import java.util.concurrent.Callable;
 
 import javax.validation.ConstraintViolation;
 
+import org.kuali.common.core.build.ViolationsBuilder;
+import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import org.kuali.common.devops.metadata.logic.EnvironmentMetadataService;
 import org.kuali.common.devops.model.Environment;
-import org.kuali.common.util.build.ViolationsBuilder;
 import org.kuali.common.util.inform.PercentCompleteInformer;
-import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;

@@ -1,16 +1,15 @@
 package org.kuali.common.devops.metadata.model;
 
 import static com.google.common.base.Optional.absent;
-import static org.kuali.common.util.validate.Validation.checkConstraints;
 
 import java.util.List;
 
 import javax.validation.constraints.Min;
 
+import org.kuali.common.core.build.ValidatingBuilder;
+import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import org.kuali.common.devops.metadata.model.format.TagListFormat;
-import org.kuali.common.util.build.LegacyValidatingBuilder;
 import org.kuali.common.util.spring.format.optional.OptionalStringFormat;
-import org.kuali.common.util.validate.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
@@ -52,7 +51,7 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 		return new Builder();
 	}
 
-	public static class Builder extends LegacyValidatingBuilder<EC2Instance> {
+	public static class Builder extends ValidatingBuilder<EC2Instance> {
 
 		private String id;
 		private Optional<String> name = absent();
@@ -113,7 +112,7 @@ public final class EC2Instance implements Comparable<EC2Instance> {
 
 		@Override
 		public EC2Instance build() {
-			return checkConstraints(new EC2Instance(this), validator);
+			return validate(new EC2Instance(this));
 		}
 
 		public Optional<String> getName() {

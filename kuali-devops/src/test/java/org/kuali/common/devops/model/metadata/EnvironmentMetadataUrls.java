@@ -1,9 +1,7 @@
 package org.kuali.common.devops.model.metadata;
 
-import static org.kuali.common.util.validate.Validation.checkConstraints;
-
-import org.kuali.common.util.build.LegacyValidatingBuilder;
-import org.kuali.common.util.validate.IdiotProofImmutable;
+import org.kuali.common.core.build.ValidatingBuilder;
+import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
 
@@ -32,7 +30,7 @@ public final class EnvironmentMetadataUrls {
 		return new Builder(fqdn);
 	}
 
-	public static class Builder extends LegacyValidatingBuilder<EnvironmentMetadataUrls> {
+	public static class Builder extends ValidatingBuilder<EnvironmentMetadataUrls> {
 
 		public static final String DEFAULT_PREFIX = "http://";
 		private static final String SYSTEM_PROPERTIES_URL_FRAGMENT = "/tomcat/logs/env.jsp";
@@ -61,7 +59,7 @@ public final class EnvironmentMetadataUrls {
 
 		@Override
 		public EnvironmentMetadataUrls build() {
-			return checkConstraints(new EnvironmentMetadataUrls(this));
+			return validate(new EnvironmentMetadataUrls(this));
 		}
 
 		public Builder fqdn(String fqdn) {

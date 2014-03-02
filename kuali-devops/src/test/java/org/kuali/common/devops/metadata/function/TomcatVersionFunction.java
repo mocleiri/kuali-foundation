@@ -3,10 +3,9 @@ package org.kuali.common.devops.metadata.function;
 import static com.google.common.base.Optional.fromNullable;
 import static org.apache.commons.lang.StringUtils.substringBetween;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
-import static org.kuali.common.util.validate.Validation.checkConstraints;
 
-import org.kuali.common.util.build.LegacyValidatingBuilder;
-import org.kuali.common.util.validate.IdiotProofImmutable;
+import org.kuali.common.core.build.ValidatingBuilder;
+import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
@@ -36,7 +35,7 @@ public final class TomcatVersionFunction implements Function<String, Optional<St
 		return new Builder();
 	}
 
-	public static class Builder extends LegacyValidatingBuilder<TomcatVersionFunction> {
+	public static class Builder extends ValidatingBuilder<TomcatVersionFunction> {
 
 		private String open = "<h3>Apache Tomcat/";
 		private String close = "</h3>";
@@ -53,7 +52,7 @@ public final class TomcatVersionFunction implements Function<String, Optional<St
 
 		@Override
 		public TomcatVersionFunction build() {
-			return checkConstraints(new TomcatVersionFunction(this), validator);
+			return validate(new TomcatVersionFunction(this));
 		}
 
 		public String getOpen() {
