@@ -49,7 +49,7 @@ public class SystemTest {
 
 	protected VirtualSystem newVirtualSystem() {
 		// Get a handle to our customized json service
-		JsonService service = getCustomJsonService();
+		JsonService service = newCustomJsonService();
 		// Create a json node representing the current state of the system we are running on
 		JsonNode jsonNode = newVirtualSystemJsonNode();
 		// This json represents java.class.path, java.library.path, and java.ext,dirs as delimited strings (vs List<File>)
@@ -77,7 +77,7 @@ public class SystemTest {
 		return objectNode;
 	}
 
-	protected JsonService getCustomJsonService() {
+	protected JsonService newCustomJsonService() {
 		ObjectMapper mapper = newDefaultObjectMapper();
 		mapper.addMixInAnnotations(Java.Builder.class, SystemPropertyPathDeserializer.class);
 		JacksonContext context = JacksonContext.builder().withMapper(mapper).build();
