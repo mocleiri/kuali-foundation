@@ -29,7 +29,7 @@ public final class JacksonContext {
 	private final ImmutableList<Module> modules;
 	private final ImmutableList<SerializeContext> serializeFeatures;
 	private final ImmutableList<DeserializeContext> deserializeFeatures;
-	private final ImmutableList<MapperFeatureContext> mapperFeatures;
+	private final ImmutableList<MapperContext> mapperFeatures;
 	private final ImmutableList<MixInContext> mixins;
 
 	private JacksonContext(Builder builder) {
@@ -57,7 +57,7 @@ public final class JacksonContext {
 		}
 
 		// Register any mapper features they've provided
-		for (MapperFeatureContext ctx : mapperFeatures) {
+		for (MapperContext ctx : mapperFeatures) {
 			this.mapper.configure(ctx.getFeature(), ctx.isEnabled());
 		}
 
@@ -82,7 +82,7 @@ public final class JacksonContext {
 		private List<Module> modules = Lists.<Module> newArrayList(new GuavaModule());
 		private ObjectMapper mapper = new ObjectMapper();
 		private List<SerializeContext> serializeFeatures = newArrayList(new SerializeContext(ORDER_MAP_ENTRIES_BY_KEYS, true));
-		private List<MapperFeatureContext> mapperFeatures = newArrayList(new MapperFeatureContext(SORT_PROPERTIES_ALPHABETICALLY, true));
+		private List<MapperContext> mapperFeatures = newArrayList(new MapperContext(SORT_PROPERTIES_ALPHABETICALLY, true));
 		private List<DeserializeContext> deserializeFeatures = newArrayList();
 		private List<MixInContext> mixins = newArrayList();
 
@@ -101,17 +101,17 @@ public final class JacksonContext {
 			return this;
 		}
 
-		public Builder withMapperFeatures(List<MapperFeatureContext> mapperFeatures) {
+		public Builder withMapperFeatures(List<MapperContext> mapperFeatures) {
 			this.mapperFeatures = mapperFeatures;
 			return this;
 		}
 
 		public Builder withFeature(MapperFeature feature, boolean enabled) {
-			return withMapperFeatures(newArrayList(new MapperFeatureContext(feature, enabled)));
+			return withMapperFeatures(newArrayList(new MapperContext(feature, enabled)));
 		}
 
 		public Builder addFeature(MapperFeature feature, boolean enabled) {
-			this.mapperFeatures.add(new MapperFeatureContext(feature, enabled));
+			this.mapperFeatures.add(new MapperContext(feature, enabled));
 			return this;
 		}
 
@@ -199,11 +199,11 @@ public final class JacksonContext {
 			this.serializeFeatures = serializeFeatures;
 		}
 
-		public List<MapperFeatureContext> getMapperFeatures() {
+		public List<MapperContext> getMapperFeatures() {
 			return mapperFeatures;
 		}
 
-		public void setMapperFeatures(List<MapperFeatureContext> mapperFeatures) {
+		public void setMapperFeatures(List<MapperContext> mapperFeatures) {
 			this.mapperFeatures = mapperFeatures;
 		}
 
@@ -237,7 +237,7 @@ public final class JacksonContext {
 		return deserializeFeatures;
 	}
 
-	public List<MapperFeatureContext> getMapperFeatures() {
+	public List<MapperContext> getMapperFeatures() {
 		return mapperFeatures;
 	}
 

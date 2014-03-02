@@ -4,9 +4,9 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import com.fasterxml.jackson.databind.MapperFeature;
 
-public final class MapperFeatureContext {
+public final class MapperContext {
 
-	public MapperFeatureContext(MapperFeature feature, boolean enabled) {
+	public MapperContext(MapperFeature feature, boolean enabled) {
 		this.feature = checkNotNull(feature, "feature");
 		this.enabled = enabled;
 	}
