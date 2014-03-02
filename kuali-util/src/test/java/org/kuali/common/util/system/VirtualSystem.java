@@ -28,7 +28,7 @@ public final class VirtualSystem {
 	/**
 	 * Set of system property keys required to be present on every JVM
 	 */
-	private static final ImmutableSet<String> REQUIRED_SYSTEM_PROPERTY_KEYS = getUniversalPropertyKeys();
+	public static final ImmutableSet<String> REQUIRED_SYSTEM_PROPERTY_KEYS = getRequiredPropertyKeys();
 
 	/**
 	 * Mappings between universal property keys and the strongly typed field they correspond to in the VirtualSystem object
@@ -121,7 +121,7 @@ public final class VirtualSystem {
 		}
 	}
 
-	private static final ImmutableSet<String> getUniversalPropertyKeys() {
+	private static final ImmutableSet<String> getRequiredPropertyKeys() {
 		Set<String> keys = newHashSet();
 		keys.add("java.version");
 		keys.add("java.vendor");
@@ -171,7 +171,7 @@ public final class VirtualSystem {
 		mappings.put("java.specification.vendor", "java.runtime.specification.vendor");
 		mappings.put("java.specification.name", "java.runtime.specification.name");
 
-		Set<String> universal = getUniversalPropertyKeys();
+		Set<String> universal = getRequiredPropertyKeys();
 		for (String key : mappings.keySet()) {
 			checkArgument(universal.contains(key), "unknown key [%s]", key);
 		}
