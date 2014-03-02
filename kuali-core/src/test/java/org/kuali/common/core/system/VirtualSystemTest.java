@@ -22,10 +22,10 @@ public class VirtualSystemTest {
 		// Get a reference to the default json service (no custom mixin's)
 		JsonService service = new JacksonJsonService();
 
-		// Test object -> string
+		// object -> string
 		String expected = service.writeString(vs);
 
-		// Test string -> object -> string
+		// string -> object -> string
 		String actual = service.writeString(service.readString(expected, VirtualSystem.class));
 
 		// If everything is in working order, these 2 strings will be equal
