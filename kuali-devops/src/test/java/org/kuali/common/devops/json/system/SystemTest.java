@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.kuali.common.devops.json.pojo.JacksonContext;
 import org.kuali.common.devops.json.pojo.JacksonJsonService;
 import org.kuali.common.devops.json.pojo.JsonService;
+import org.kuali.common.devops.json.pojo.MixInContext;
 import org.kuali.common.util.system.Java;
 import org.kuali.common.util.system.PathDeserializer;
 import org.kuali.common.util.system.VirtualSystem;
@@ -69,16 +70,17 @@ public class SystemTest {
 	}
 
 	protected JsonService getSourceDeserializerService() {
-		JacksonContext context = JacksonContext.builder().addMixin(Java.Builder.class, JavaPathDeserializer.class).build();
+		MixInContext mixin = new MixInContext(Java.Builder.class, SystemPropertyPathDeserializer.class);
+		JacksonContext context = JacksonContext.builder().addMixin(mixin).build();
 		return new JacksonJsonService(context);
 	}
 
 	protected JsonService getService() {
-		JacksonContext context = JacksonContext.builder().build();
+		JacksonContext context = JacksonContext.builder().withPrettyPrint(false).build();
 		return new JacksonJsonService(context);
 	}
 
-	private static final class JavaPathDeserializer {
+	private static final class SystemPropertyPathDeserializer {
 
 		@JsonDeserialize(using = PathDeserializer.class)
 		private List<File> classpath;

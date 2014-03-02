@@ -96,9 +96,13 @@ public final class JacksonContext {
 			return this;
 		}
 
-		public Builder addMixin(Class<?> target, Class<?> source) {
-			this.mixins.add(new MixInContext(target, source));
+		public Builder addMixin(MixInContext mixin) {
+			this.mixins.add(mixin);
 			return this;
+		}
+
+		public Builder addMixin(Class<?> target, Class<?> source) {
+			return addMixin(new MixInContext(target, source));
 		}
 
 		public Builder withMapperFeatures(List<MapperContext> mapperFeatures) {
@@ -162,7 +166,7 @@ public final class JacksonContext {
 			return withModules(newArrayList(module));
 		}
 
-		public Builder prettyPrint(boolean prettyPrint) {
+		public Builder withPrettyPrint(boolean prettyPrint) {
 			this.prettyPrint = prettyPrint;
 			return this;
 		}
@@ -213,6 +217,14 @@ public final class JacksonContext {
 
 		public void setDeserializeFeatures(List<DeserializeContext> deserializeFeatures) {
 			this.deserializeFeatures = deserializeFeatures;
+		}
+
+		public List<MixInContext> getMixins() {
+			return mixins;
+		}
+
+		public void setMixins(List<MixInContext> mixins) {
+			this.mixins = mixins;
 		}
 
 	}
