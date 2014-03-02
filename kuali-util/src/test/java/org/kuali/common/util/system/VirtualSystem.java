@@ -1,10 +1,7 @@
 package org.kuali.common.util.system;
 
-import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.collect.Sets.newHashSet;
-import static org.kuali.common.util.base.Precondition.checkNotBlank;
-import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.util.Properties;
 import java.util.Set;
@@ -15,7 +12,6 @@ import org.kuali.common.util.validate.IdiotProofImmutable;
 import org.kuali.common.util.validate.IgnoreBlanks;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.google.common.base.Optional;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableBiMap;
@@ -28,24 +24,12 @@ public final class VirtualSystem {
 	/**
 	 * Set of system property keys required to be present on every JVM
 	 */
-	private static final ImmutableSet<String> REQUIRED_SYSTEM_PROPERTY_KEYS = getRequiredPropertyKeys();
+	static final ImmutableSet<String> REQUIRED_SYSTEM_PROPERTY_KEYS = getRequiredPropertyKeys();
 
 	/**
 	 * Mappings between required system property keys and the strongly typed field they correspond to in the VirtualSystem object
 	 */
-	private static final ImmutableBiMap<String, String> REQUIRED_SYSTEM_PROPERTY_KEY_MAPPINGS = getPropertyMappings();
-
-	/**
-	 * Required system properties mapped to the strongly typed field they correspond to in the virtual system object.
-	 * 
-	 * <pre>
-	 * java.class.path -> java.classpath
-	 * java.io.tmpdir  -> java.tmpDir
-	 * </pre>
-	 */
-	public static final ImmutableProperties MAPPED_SYSTEM_PROPERTIES = getMappedSystemProperties();
-
-	private static final String LINE_SEPARATOR_KEY = "line.separator";
+	static final ImmutableBiMap<String, String> REQUIRED_SYSTEM_PROPERTY_KEY_MAPPINGS = getPropertyMappings();
 
 	private final User user;
 	private final OperatingSystem os;
@@ -148,7 +132,7 @@ public final class VirtualSystem {
 		keys.add("java.class.path");
 		keys.add("java.library.path");
 		keys.add("java.io.tmpdir");
-		// keys.add("java.compiler"); javadoc states this is a required property but it sure isn't
+		// keys.add("java.compiler"); javadoc states this is required, but it sure isn't
 		keys.add("java.ext.dirs");
 		keys.add("os.name");
 		keys.add("os.arch");
@@ -185,23 +169,6 @@ public final class VirtualSystem {
 		}
 		return ImmutableBiMap.copyOf(mappings);
 
-	}
-
-	private static ImmutableProperties getMappedSystemProperties() {
-		Properties properties = new Properties();
-		for (String key : REQUIRED_SYSTEM_PROPERTY_KEYS) {
-			String value = checkNotNull(System.getProperty(key), key);
-			Optional<String> mappedKey = fromNullable(REQUIRED_SYSTEM_PROPERTY_KEY_MAPPINGS.get(key));
-			String actualKey = mappedKey.isPresent() ? mappedKey.get() : key;
-
-			// The only required system property allowed to be blank is the line separator
-			if (!LINE_SEPARATOR_KEY.equals(key)) {
-				checkNotBlank(value, key);
-			}
-
-			properties.setProperty(actualKey, value);
-		}
-		return ImmutableProperties.copyOf(properties);
 	}
 
 	public User getUser() {
