@@ -1,12 +1,17 @@
 package org.kuali.common.util.system;
 
+import static java.lang.String.format;
 import static org.junit.Assert.assertEquals;
+import static org.kuali.common.util.log.Loggers.newLogger;
 
 import org.junit.Test;
 import org.kuali.common.util.json.api.JsonService;
 import org.kuali.common.util.json.jackson.JacksonJsonService;
+import org.slf4j.Logger;
 
 public class VirtualSystemTest {
+
+	private static final Logger logger = newLogger();
 
 	@Test
 	public void test() {
@@ -24,5 +29,7 @@ public class VirtualSystemTest {
 
 		// If everything is in working order, these 2 strings will be exactly equal
 		assertEquals(expected, actual);
+
+		logger.info(format("user.name=%s", vs.getUser().getName()));
 	}
 }
