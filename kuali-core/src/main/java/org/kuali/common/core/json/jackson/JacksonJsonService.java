@@ -1,5 +1,6 @@
 package org.kuali.common.core.json.jackson;
 
+import static org.kuali.common.core.json.jackson.JacksonContext.newJacksonContext;
 import static org.kuali.common.util.Encodings.UTF8;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
@@ -17,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public final class JacksonJsonService implements JsonService {
 
 	public JacksonJsonService() {
-		this(JacksonContext.newJacksonContext());
+		this(newJacksonContext());
 
 	}
 
