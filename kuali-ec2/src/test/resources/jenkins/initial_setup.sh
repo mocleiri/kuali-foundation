@@ -30,9 +30,9 @@
 NEXUS_AUTH_ERROR="This request requires HTTP authentication"
 INSTALL_DIR="/root/installs/"
 NEXUS_TEST_AUTH_URL="http://nexus.kuali.org/content/groups/developer"
-NEXUS_JDK_LOCATION="/com/oracle/jdk7/1.7.0-u51/"
-NEXUS_JDK_FILE="jdk7-1.7.0-u51-linux-x64.zip"
-JDK_VERSION=jdk7-1.7.0-u51
+JDK_VERSION=1.7.0-u51
+NEXUS_JDK_LOCATION="/com/oracle/jdk7/$JDK_VERSION/"
+NEXUS_JDK_FILE="$JDK_VERSION-linux-x64.zip"
 NEXUS_USER=developer
 LOCAL_JDK_DIR=/usr/java
 TOMCAT7_OPT_FILE_DIR=/etc/default
@@ -137,15 +137,10 @@ echo "TOMCAT7_USER=$TOMCAT7_GROUP" >> $TOMCAT7_OPT_FILE_DIR/$TOMCAT7_OPT_FILE
 echo "JAVA_OPTS=$JAVA_OPTS" >> $TOMCAT7_OPT_FILE_DIR/$TOMCAT7_OPT_FILE
 echo "JAVA_HOME=$JAVA_HOME" >>  $TOMCAT7_OPT_FILE_DIR/$TOMCAT7_OPT_FILE
 
-wget "https://svn.kuali.org/repos/foundation/trunk/kuali-ec2/src/main/resources/apache-tomcat/7/conf/server.xml"
-wget "https://svn.kuali.org/repos/foundation/trunk/kuali-ec2/src/main/resources/apache-tomcat/7/conf/web.xml"
+wget -N "https://svn.kuali.org/repos/foundation/trunk/kuali-ec2/src/main/resources/apache-tomcat/7/conf/server.xml"
+wget -N "https://svn.kuali.org/repos/foundation/trunk/kuali-ec2/src/main/resources/apache-tomcat/7/conf/web.xml"
 cp $TOMCAT7_CONF_FILE_DIR/server.xml $TOMCAT7_CONF_FILE_DIR/server.xml.$TIMESTAMP
 cp $TOMCAT7_CONF_FILE_DIR/web.xml $TOMCAT7_CONF_FILE_DIR/web.xml.$TIMESTAMP
-sed -i.bak s/\"SHUTDOWN\"/\"SHUTDOWN_Kuali\"/g server.xml
-sed -i.bak s/\$\{tomcat.http.port\}/8080/g server.xml
-sed -i.bak s/\$\{tomcat.https.port\}/80/g server.xml
-sed -i.bak s/\$\{tomcat.shutdown.port\}/8005/g server.xml
-sed -i.bak s/\$\{catalina.base\}\"\/\\/var\\/lib\\/tomcat7\"\ allowLinking\=\"\true\"\/g server.xml
 cp web.xml $TOMCAT7_CONF_FILE_DIR/web.xml
 cp server.xml $TOMCAT7_CONF_FILE_DIR/server.xml
 
