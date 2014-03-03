@@ -27,10 +27,9 @@
 #   ./initial_setup.sh silent MyNexusPassword testserver kuali.org
 #
 
-AUTH_KEY_FILE=/root/.ssh/authorized_keys
 NEXUS_AUTH_ERROR="This request requires HTTP authentication"
 INSTALL_DIR="/root/installs/"
-NEXUS_TEST_AUTH_URL="http://nexus.kuali.org/content/repositories/hosted-private"
+NEXUS_TEST_AUTH_URL="http://nexus.kuali.org/content/groups/developer"
 NEXUS_JDK_LOCATION="/com/oracle/jdk7/1.7.0-u51/"
 NEXUS_JDK_FILE="jdk7-1.7.0-u51-linux-x64.zip"
 JDK_VERSION=jdk7-1.7.0-u51
@@ -73,16 +72,6 @@ apt-get $SILENT update
 apt-get $SILENT upgrade
 }
 
-# Grant ability for the root user to log in.
-function root_access {
-sed -n 's/.*ssh/ssh/p' $AUTH_KEY_FILE > tmp.txt
-mv tmp.txt $AUTH_KEY_FILE
-chmod og-rw $AUTH_KEY_FILE
-echo
-echo$AUTH_KEYFILE now:
-cat $AUTH_KEY_FILE
-echo
-}
 
 function install_expect {
 echo
@@ -284,7 +273,6 @@ fi;
 
 test_nexus_access
 get_upgrades
-root_access
 install_unzip
 install_ntp
 install_expect
@@ -301,10 +289,6 @@ SILENT=""
 read -p "Update server (apt-get update & upgrade)?  This updates any installed packages (y/n)  " RUN_UPGRADE
 if [[ $RUN_UPGRADE == "y" ]]; then
   get_upgrades
-fi
-read -p "Allow root login access? (y/n)  " ROOT_ACCESS
-if [[ $ROOT_ACCESS == "y" ]]; then
-  root_access
 fi
 read -p "Install unzip? (y/n)  " RUN_UNZIP_INSTALL
 if [[ $RUN_UNZIP_INSTALL == "y" ]]; then
