@@ -30,7 +30,6 @@
 NEXUS_AUTH_ERROR="This request requires HTTP authentication"
 BASEDIR=/mnt/kuali-ec2
 DOWNLOADS="$BASEDIR/target/downloads/"
-NEXUS_TEST_AUTH_URL="http://nexus.kuali.org/content/groups/developer"
 
 JDK_GROUP_ID=com/oracle
 JDK_ARTIFACT_ID=jdk7
@@ -41,6 +40,7 @@ JDK_UNZIP_DIR=$JDK_ARTIFACT_ID-$JDK_VERSION
 JDK_ZIP_FILE=$JDK_ARTIFACT_ID-$JDK_VERSION-$JDK_CLASSIFIER.zip
 LOCAL_JDK_DIR=/usr/java
 
+NEXUS_URL="http://nexus.kuali.org/content/groups/developer"
 NEXUS_JDK_LOCATION="/$JDK_GROUP_ID/$JDK_ARTIFACT_ID/$JDK_VERSION/"
 NEXUS_JDK_FILE="$JDK_ZIP_FILE"
 NEXUS_USER=developer
@@ -128,10 +128,10 @@ rm -rf /var/lib/tomcat7/webapps/ROOT
 function test_nexus_access {
 if [[ $SILENT == "-y" ]];
 then
-TestPass=$(curl -sL -w "%{http_code}" --user $NEXUS_USER:$PASSWORD  "$NEXUS_TEST_AUTH_URL")
+TestPass=$(curl -sL -w "%{http_code}" --user $NEXUS_USER:$PASSWORD  "$NEXUS_URL")
 echo
 if [[ "$TestPass" == *$NEXUS_AUTH_ERROR* ]]; then
-  echo "Authentication failed.  Please re-enter password for the $NEXUS_USER account on $NEXUS_TEST_AUTH_URL"
+  echo "Authentication failed.  Please re-enter password for the $NEXUS_USER account on $NEXUS_URL"
   exit 1
 else
   echo "Authenticated successfully"
@@ -142,10 +142,10 @@ else
 COUNT=0
 while [[ $COUNT -lt 1 ]];do
 read -s -p "Password for $NEXUS_USER account on Nexus:" PASSWORD
-TestPass=$(curl -sL -w "%{http_code}" --user $NEXUS_USER:$PASSWORD  "$NEXUS_TEST_AUTH_URL")
+TestPass=$(curl -sL -w "%{http_code}" --user $NEXUS_USER:$PASSWORD  "$NEXUS_URL")
 echo
 if [[ "$TestPass" == *$NEXUS_AUTH_ERROR* ]]; then
-  echo "Authentication failed.  Please re-enter password for the $NEXUS_USER account on $NEXUS_TEST_AUTH_URL"
+  echo "Authentication failed.  Please re-enter password for the $NEXUS_USER account on $NEXUS_URL"
 else
   echo "Authenticated succesfully"
   COUNT=1
@@ -161,12 +161,12 @@ if [ $PASSWORD = ""]; then
 test_nexus_access
 fi
 
-wget -N --user $NEXUS_USER --password $PASSWORD $NEXUS_TEST_AUTH_URL$NEXUS_JDK_LOCATION$NEXUS_JDK_FILE
+wget -N --user $NEXUS_USER --password $PASSWORD $NEXUS_URL$NEXUS_JDK_LOCATION$NEXUS_JDK_FILE
 
 if [ ! -f $DOWNLOADS/$NEXUS_JDK_FILE ]; then
   echo "$DOWNLOADS/$NEXUS_JDK_FILE does not exist!"
   echo "Check to see if location is correct for the JDK.  Attempting to get:"
-  echo "$NEXUS_TEST_AUTH_URL$NEXUS_JDK_LOCATION$NEXUS_JDK_FILE"
+  echo "$NEXUS_URL$NEXUS_JDK_LOCATION$NEXUS_JDK_FILE"
   echo "Quitting."
   exit 1
 fi
