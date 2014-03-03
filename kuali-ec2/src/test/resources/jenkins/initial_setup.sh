@@ -65,14 +65,8 @@ echo $MYPWD
 
 SILENT=${1-NOTDEFINED}
 
-
 # Create installation directory.  This directory will contain install files.
-if [ ! -d $INSTALL_DIR ]; then
-echo "Creating directory $INSTALL_DIR"
-mkdir $INSTALL_DIR
-else
-echo "The directory \"$INSTALL_DIR\" already exists. No need to create."
-fi
+mkdir -p $INSTALL_DIR
 cd $INSTALL_DIR
 
 #Update Ubuntu repos and packages
