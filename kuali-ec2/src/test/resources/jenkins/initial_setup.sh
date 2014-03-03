@@ -28,7 +28,7 @@
 #
 
 NEXUS_AUTH_ERROR="This request requires HTTP authentication"
-BASEDIR=/tmp/kuali-ec2
+BASEDIR=/mnt/kuali-ec2
 DOWNLOADS_DIR="$SCRIPT_DIR/target/downloads/"
 NEXUS_TEST_AUTH_URL="http://nexus.kuali.org/content/groups/developer"
 
