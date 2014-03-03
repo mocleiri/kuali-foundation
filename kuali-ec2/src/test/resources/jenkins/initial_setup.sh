@@ -60,8 +60,6 @@ PASSWORD=""
 HOSTNAME="NOTDEFINED"
 TIMESTAMP=$(date +%Y%m%d_%H_%M_%S)
 PWD=$(pwd)
-MYPWD=$PWD
-echo $MYPWD
 
 SILENT=${1-NOTDEFINED}
 
@@ -82,8 +80,7 @@ echo
 echo "Enabling unattended upgrades.  Enter "yes" to enable..."
 echo
 #dpkg-reco.nfigure unattended-upgrades
-echo "PWD=$MYPWD"
-$MYPWD/unattended-upgrades.sh
+$PWD/unattended-upgrades.sh
 }
 
 # Setup port redirect rules
