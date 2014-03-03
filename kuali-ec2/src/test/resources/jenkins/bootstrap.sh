@@ -11,8 +11,11 @@ FQDN=$HOSTNAME.$DOMAIN
 
 # Nexus
 NEXUS_PASSWORD=$1
+
+
 BOOTSTRAP=$SVN_DIR/bootstrap.sh
+SETUP=$SVN_DIR/src/test/resources/jenkins/initial_setup.sh
 
 ssh ubuntu@$FQDN 'sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys'
 ssh root@$FQDN 'apt-get install subversion -y; rm -rf /mnt/kuali-ec2; svn --quiet checkout '$SVN_URL' '$SVN_DIR''
-ssh root@$FQDN 'rm -rf '$BOOTSTRAP'; echo '$SVN_DIR'/src/test/resources/jenkins/initial_setup.sh '$NEXUS_PASSWORD' > '$BOOTSTRAP'; chmod 744 '$BOOTSTRAP''
+ssh root@$FQDN 'rm -rf '$BOOTSTRAP'; echo '$SETUP' '$NEXUS_PASSWORD' > '$BOOTSTRAP'; chmod 755 '$BOOTSTRAP''
