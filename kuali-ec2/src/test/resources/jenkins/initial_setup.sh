@@ -106,8 +106,8 @@ function install_tomcat7 {
 echo
 echo "Installing Tomcat7..."
 echo
-apt-get $SILENT install tomcat7
-apt-get $SILENT install libtcnative-1
+apt-get -y install tomcat7
+apt-get -y install libtcnative-1
 echo "Stopping Tomcat7..."
 service tomcat7 stop
 
