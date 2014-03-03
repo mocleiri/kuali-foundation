@@ -18,7 +18,7 @@ fi;
 
 # Bash resources
 BOOTSTRAP=$SVN_DIR/bootstrap.sh
-SETUP=$SVN_DIR/src/test/resources/jenkins/initial_setup.sh
+SETUP=$SVN_DIR/src/test/resources/ubuntu/12.04/appserver/initial_setup.sh
 
 # Enable root ssh
 ssh ubuntu@$FQDN 'sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys'
