@@ -243,8 +243,6 @@ fi;
 
 test_nexus_access
 get_upgrades
-apt-get install unzip ntp expect -y
-unattnded_upgrades
 redirect_rules
 get_jdk
 install_tomcat7
@@ -258,6 +256,9 @@ read -p "Update server (apt-get update & upgrade)?  This updates any installed p
 if [[ $RUN_UPGRADE == "y" ]]; then
   get_upgrades
 fi
+
+apt-get install unzip ntp expect -y
+
 echo "If allow unattnded upgrade, select \"Yes\" on the interactive screen that appears."
 read -p "Allow unattended ugrades? (y/n)  " ALLOW_UNATTENDED_UPGRADES
 if [[ $ALLOW_UNATTENDED_UPGRADES == "y" ]]; then
