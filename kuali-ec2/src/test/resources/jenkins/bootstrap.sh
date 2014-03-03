@@ -12,7 +12,7 @@ FQDN=$HOSTNAME.$DOMAIN
 # Nexus
 NEXUS_PASSWORD=$1
 
-
+# bash
 BOOTSTRAP=$SVN_DIR/bootstrap.sh
 SETUP=$SVN_DIR/src/test/resources/jenkins/initial_setup.sh
 
