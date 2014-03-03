@@ -180,14 +180,10 @@ if [ ! -f $INSTALL_DIR/$NEXUS_JDK_FILE ]; then
   exit 1
 fi
 
-if [ ! -d $LOCAL_JDK_DIR ]; then
-echo "Creating directory $LOCAL_JDK_DIR"
-mkdir $LOCAL_JDK_DIR
-else
-echo "$LOCAL_JDK_DIR already exists."
-fi
+rm -rf $LOCAL_JDK_DIR
+mkdir -p $LOCAL_JDK_DIR
 
-unzip $NEXUS_JDK_FILE -d $LOCAL_JDK_DIR
+unzip -o $NEXUS_JDK_FILE -d $LOCAL_JDK_DIR
 ln -s $JDK_DIR $LOCAL_JDK_DIR/jdk7
 }
 
