@@ -10,7 +10,11 @@ DOMAIN=kuali.org
 FQDN=$HOSTNAME.$DOMAIN
 
 # Nexus
-NEXUS_PASSWORD=$1
+NEXUS_PASSWORD=${1-NOTDEFINED}
+if [[ $NEXUS_PASSWORD == "NOTDEFINED" ]]; then
+echo "Nexus password is required"
+exit 1
+fi;
 
 # Bash
 BOOTSTRAP=$SVN_DIR/bootstrap.sh
