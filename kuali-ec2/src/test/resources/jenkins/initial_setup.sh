@@ -81,29 +81,6 @@ apt-get $SILENT upgrade
 }
 
 
-function install_expect {
-echo
-echo "Installing expect..."
-echo
-apt-get $SILENT install expect
-}
-
-# Install unzip
-function install_unzip {
-echo
-echo "Installing unzip...."
-echo
-apt-get $SILENT install unzip
-}
-
-# Install Network Time Protocol (NTP)
-function install_ntp {
-echo
-echo "Installing NTP..."
-echo
-apt-get $SILENT install ntp
-}
-
 # Enable unattended upgrades
 function unattended_upgrades {
 echo
