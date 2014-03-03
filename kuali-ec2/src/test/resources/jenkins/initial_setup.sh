@@ -41,7 +41,6 @@ JDK_BASEDIR=/usr/java
 
 NEXUS_URL="http://nexus.kuali.org/content/groups/developer"
 NEXUS_JDK_LOCATION="/$JDK_GROUP_ID/$JDK_ARTIFACT_ID/$JDK_VERSION/"
-NEXUS_JDK_FILE="$JDK_ZIP_FILE"
 NEXUS_USER=developer
 NEXUS_AUTH_ERROR="This request requires HTTP authentication"
 NEXUS_JDK_DOWNLOAD_FILE=$DOWNLOADS/$JDK_ZIP_FILE
@@ -162,12 +161,12 @@ if [ $PASSWORD = ""]; then
 test_nexus_access
 fi
 
-wget -N --user $NEXUS_USER --password $PASSWORD $NEXUS_URL$NEXUS_JDK_LOCATION$NEXUS_JDK_FILE -O $DOWNLOADS/$NEXUS_JDK_FILE
+wget -N --user $NEXUS_USER --password $PASSWORD $NEXUS_URL$NEXUS_JDK_LOCATION$JDK_ZIP_FILE -O $DOWNLOADS/$JDK_ZIP_FILE
 
-if [ ! -f $DOWNLOADS/$NEXUS_JDK_FILE ]; then
-  echo "$DOWNLOADS/$NEXUS_JDK_FILE does not exist!"
+if [ ! -f $DOWNLOADS/$JDK_ZIP_FILE ]; then
+  echo "$DOWNLOADS/$JDK_ZIP_FILE does not exist!"
   echo "Check to see if location is correct for the JDK.  Attempting to get:"
-  echo "$NEXUS_URL$NEXUS_JDK_LOCATION$NEXUS_JDK_FILE"
+  echo "$NEXUS_URL$NEXUS_JDK_LOCATION$JDK_ZIP_FILE"
   echo "Quitting."
   exit 1
 fi
@@ -175,7 +174,7 @@ fi
 rm -rf $JDK_BASEDIR
 mkdir -p $JDK_BASEDIR
 
-unzip -o $NEXUS_JDK_FILE -d $JDK_BASEDIR
+unzip -o $DOWNLOADS/$JDK_ZIP_FILE -d $JDK_BASEDIR
 ln -s $JDK_BASEDIR/$JDK_UNZIP_DIR $JDK_BASEDIR/$JDK_ARTIFACT_ID
 }
 
