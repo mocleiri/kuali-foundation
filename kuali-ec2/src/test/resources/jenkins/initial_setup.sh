@@ -282,6 +282,5 @@ fi
 
 fi
 
-cd -
 echo "Completed"
 exit 0
