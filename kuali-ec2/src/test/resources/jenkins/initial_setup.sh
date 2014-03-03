@@ -30,9 +30,17 @@
 NEXUS_AUTH_ERROR="This request requires HTTP authentication"
 INSTALL_DIR="/root/installs/"
 NEXUS_TEST_AUTH_URL="http://nexus.kuali.org/content/groups/developer"
+
+JDK_GROUP_ID=com/oracle
+JDK_ARTIFACT_ID=jdk7
 JDK_VERSION=1.7.0-u51
-NEXUS_JDK_LOCATION="/com/oracle/jdk7/$JDK_VERSION/"
-NEXUS_JDK_FILE="$JDK_VERSION-linux-x64.zip"
+JDK_CLASSIFIER=linux-x64
+
+JDK_UNZIP_DIR=$JDK_ARTIFACT_ID-$JDK_VERSION
+JDK_ZIP_FILE=$JDK_ARTIFACT_ID-$JDK_VERSION-$JDK_CLASSIFIER.zip
+
+NEXUS_JDK_LOCATION="/$JDK_GROUP_ID/$JDK_ARTIFACT_ID/$JDK_VERSION/"
+NEXUS_JDK_FILE="$JDK_ZIP_FILE"
 NEXUS_USER=developer
 LOCAL_JDK_DIR=/usr/java
 TOMCAT7_OPT_FILE_DIR=/etc/default
@@ -185,7 +193,7 @@ if [ $PASSWORD = ""]; then
 test_nexus_access
 fi
 
-wget --user $NEXUS_USER --password $PASSWORD $NEXUS_TEST_AUTH_URL$NEXUS_JDK_LOCATION$NEXUS_JDK_FILE
+wget -N --user $NEXUS_USER --password $PASSWORD $NEXUS_TEST_AUTH_URL$NEXUS_JDK_LOCATION$NEXUS_JDK_FILE
 
 if [ ! -f $INSTALL_DIR/$NEXUS_JDK_FILE ]; then
   echo "$INSTALL_DIR/$NEXUS_JDK_FILE does not exist!"
@@ -203,7 +211,7 @@ echo "$LOCAL_JDK_DIR already exists."
 fi
 
 unzip $NEXUS_JDK_FILE -d $LOCAL_JDK_DIR
-ln -s $JDK_VERSION $LOCAL_JDK_DIR/jdk7
+ln -s $JDK_DIR $LOCAL_JDK_DIR/jdk7
 }
 
 # Request hostname and FQDN
