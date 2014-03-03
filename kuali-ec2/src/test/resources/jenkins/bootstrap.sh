@@ -13,3 +13,4 @@ NEXUS_PASSWORD=$1
 
 ssh ubuntu@$FQDN 'sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys'
 ssh root@$FQDN 'apt-get install subversion -y; rm -rf /mnt/kuali-ec2; svn --quiet checkout '$SVN_URL' /mnt/kuali-ec2'
+ssh root@$FQDN 'echo "Server1" >> /mnt/kuali-ec2/foo.txt'
