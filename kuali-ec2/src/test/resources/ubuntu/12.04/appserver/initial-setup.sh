@@ -47,12 +47,17 @@ NEXUS_USER=developer
 NEXUS_AUTH_ERROR="This request requires HTTP authentication"
 NEXUS_JDK_DOWNLOAD_FILE=$DOWNLOADS/$JDK_ZIP_FILE
 
-TOMCAT7_OPT_FILE=/etc/default/tomcat7
-TOMCAT7_OPT_FILE_BAK=$TOMCAT7_OPT_FILE.$TIMESTAMP
-TOMCAT7_CONF_FILE_DIR=/etc/tomcat7
-TOMCAT7_USER=tomcat7
-TOMCAT7_GROUP=tomcat7
-JAVA_OPTS="\"-Djava.awt.headless=true -Xms512m -Xmx2g -XX:MaxPermSize=256m -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC -XX:+PrintTenuringDistribution -Xloggc:/var/log/tomcat7/heap.log -XX:HeapDumpPath=/var/log/tomcat7/logs -XX:+HeapDumpOnOutOfMemoryError"\"
+TOMCAT_VERSION=7
+TOMCAT=tomcat$TOMCAT_VERSION
+
+TOMCAT_OPT_FILE=/etc/default/$TOMCAT
+TOMCAT_OPT_FILE_BAK=$TOMCAT_OPT_FILE.$TIMESTAMP
+TOMCAT_CONF_FILE_DIR=/etc/$TOMCAT
+TOMCAT_USER=$TOMCAT
+TOMCAT_GROUP=$TOMCAT
+TOMCAT_DIR=/var/lib/$TOMCAT
+TOMCAT_LOGS=$TOMCAT_DIR/logs
+JAVA_OPTS="\"-Djava.awt.headless=true -Xms512m -Xmx2g -XX:MaxPermSize=256m -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC -XX:+PrintTenuringDistribution -Xloggc:$TOMCAT_LOGS/heap.log -XX:HeapDumpPath=$TOMCAT_LOGS -XX:+HeapDumpOnOutOfMemoryError"\"
 JAVA_HOME=/usr/java/jdk7
 
 
@@ -108,19 +113,19 @@ apt-get -y install tomcat7 libtcnative-1
 echo "Stopping Tomcat7..."
 service tomcat7 stop
 
-cp $TOMCAT7_OPT_FILE $TOMCAT7_OPT_FILE_BAK
-echo "TOMCAT7_USER=$TOMCAT7_USER" > $TOMCAT7_OPT_FILE
-echo "TOMCAT7_USER=$TOMCAT7_GROUP" >> $TOMCAT7_OPT_FILE
-echo "JAVA_OPTS=$JAVA_OPTS" >> $TOMCAT7_OPT_FILE
-echo "JAVA_HOME=$JAVA_HOME" >> $TOMCAT7_OPT_FILE
+cp $TOMCAT_OPT_FILE $TOMCAT_OPT_FILE_BAK
+echo "TOMCAT_USER=$TOMCAT_USER" > $TOMCAT_OPT_FILE
+echo "TOMCAT_USER=$TOMCAT_GROUP" >> $TOMCAT_OPT_FILE
+echo "JAVA_OPTS=$JAVA_OPTS" >> $TOMCAT_OPT_FILE
+echo "JAVA_HOME=$JAVA_HOME" >> $TOMCAT_OPT_FILE
 
 SERVER_XML=$BASEDIR/src/main/resources/apache-tomcat/7/conf/server.xml
 WEB_XML=$BASEDIR/src/main/resources/apache-tomcat/7/conf/web.xml
 
-cp $TOMCAT7_CONF_FILE_DIR/server.xml $TOMCAT7_CONF_FILE_DIR/server.xml.$TIMESTAMP
-cp $TOMCAT7_CONF_FILE_DIR/web.xml $TOMCAT7_CONF_FILE_DIR/web.xml.$TIMESTAMP
-cp $WEB_XML $TOMCAT7_CONF_FILE_DIR/web.xml
-cp $SERVER_XML $TOMCAT7_CONF_FILE_DIR/server.xml
+cp $TOMCAT_CONF_FILE_DIR/server.xml $TOMCAT_CONF_FILE_DIR/server.xml.$TIMESTAMP
+cp $TOMCAT_CONF_FILE_DIR/web.xml $TOMCAT_CONF_FILE_DIR/web.xml.$TIMESTAMP
+cp $WEB_XML $TOMCAT_CONF_FILE_DIR/web.xml
+cp $SERVER_XML $TOMCAT_CONF_FILE_DIR/server.xml
 
 rm -rf /var/lib/tomcat7/webapps/ROOT
 
