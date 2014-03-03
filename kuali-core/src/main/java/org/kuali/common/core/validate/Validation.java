@@ -18,6 +18,7 @@ import javax.validation.ValidatorFactory;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 
 public class Validation {
 
@@ -49,7 +50,7 @@ public class Validation {
 	public static <T> T checkConstraints(T instance, Validator validator) {
 		checkNotNull(instance, "instance");
 		checkNotNull(validator, "validator");
-		checkViolations(validator.validate(instance));
+		checkViolations(getViolations(instance, validator, ImmutableList.<Class<?>> of()));
 		return instance;
 	}
 
@@ -57,7 +58,7 @@ public class Validation {
 		checkNotNull(instance, "instance");
 		checkNotNull(validator, "validator");
 		checkNotNull(groups, "groups");
-		checkViolations(validator.validate(instance, groups.toArray(EMPTY_CLASS_ARRAY)));
+		checkViolations(getViolations(instance, validator, groups));
 		return instance;
 	}
 
