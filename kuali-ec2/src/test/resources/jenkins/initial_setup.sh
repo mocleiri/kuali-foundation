@@ -258,18 +258,6 @@ read -p "Update server (apt-get update & upgrade)?  This updates any installed p
 if [[ $RUN_UPGRADE == "y" ]]; then
   get_upgrades
 fi
-read -p "Install unzip? (y/n)  " RUN_UNZIP_INSTALL
-if [[ $RUN_UNZIP_INSTALL == "y" ]]; then
-  install_unzip
-fi
-read -p "Install Network Time Protocal (NTP)? (y/n)  " RUN_NTP_INSTALL
-if [[ $RUN_NTP_INSTALL == "y" ]]; then
-  install_ntp
-fi
-read -p "Install expect? (y/n)  " RUN_EXPECT_INSTALL
-if [[ $RUN_EXPECT_INSTALL == "y" ]]; then
-  install_expect
-fi
 echo "If allow unattnded upgrade, select \"Yes\" on the interactive screen that appears."
 read -p "Allow unattended ugrades? (y/n)  " ALLOW_UNATTENDED_UPGRADES
 if [[ $ALLOW_UNATTENDED_UPGRADES == "y" ]]; then
