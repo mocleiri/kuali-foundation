@@ -28,3 +28,6 @@ ssh root@$FQDN 'apt-get install subversion -y; rm -rf $SVN_DIR; svn --quiet chec
 
 # Create the bootstrap.sh script
 ssh root@$FQDN 'rm -rf '$BOOTSTRAP'; echo '$SETUP' silent '$NEXUS_PASSWORD' '$HOSTNAME' '$DOMAIN' > '$BOOTSTRAP'; chmod 755 '$BOOTSTRAP''
+
+# Run the bootstrap script
+ssh root@$FQDN $BOOTSTRAP
