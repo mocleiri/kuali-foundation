@@ -137,7 +137,7 @@ if [[ "$TestPass" == *$NEXUS_AUTH_ERROR* ]]; then
   echo "Authentication failed.  Please re-enter password for the $NEXUS_USER account on $NEXUS_TEST_AUTH_URL"
   exit 1
 else
-  echo "Authenticated succesfully"
+  echo "Authenticated successfully"
   COUNT=1
 fi
 
