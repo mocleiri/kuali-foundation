@@ -28,7 +28,8 @@
 #
 
 NEXUS_AUTH_ERROR="This request requires HTTP authentication"
-INSTALL_DIR="/root/installs/"
+SCRIPT_DIR=/root
+INSTALL_DIR="$SCRIPT_DIR/installs/"
 NEXUS_TEST_AUTH_URL="http://nexus.kuali.org/content/groups/developer"
 
 JDK_GROUP_ID=com/oracle
@@ -59,7 +60,6 @@ JAVA_HOME=/usr/java/jdk7
 PASSWORD=""
 HOSTNAME="NOTDEFINED"
 TIMESTAMP=$(date +%Y%m%d_%H_%M_%S)
-PWD=$(pwd)
 
 SILENT=${1-NOTDEFINED}
 
@@ -81,7 +81,7 @@ echo
 echo "Enabling unattended upgrades.  Enter "yes" to enable..."
 echo
 #dpkg-reco.nfigure unattended-upgrades
-$PWD/unattended-upgrades.sh
+$SCRIPT_DIR/unattended-upgrades.sh
 }
 
 # Setup port redirect rules
