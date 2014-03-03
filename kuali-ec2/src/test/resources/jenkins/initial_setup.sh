@@ -63,7 +63,7 @@ TIMESTAMP=$(date +%Y%m%d_%H_%M_%S)
 
 SILENT=${1-NOTDEFINED}
 
-# Create installation directory.  This directory will contain install files.
+# Create downloads dir.  This dir will contain downloaded files to install
 rm -rf $DOWNLOADS_DIR
 mkdir -p $DOWNLOADS_DIR
 
@@ -80,7 +80,7 @@ echo
 echo "Enabling unattended upgrades.  Enter "yes" to enable..."
 echo
 #dpkg-reco.nfigure unattended-upgrades
-$SCRIPT_DIR/unattended-upgrades.sh
+$BASEDIR/src/test/resources/jenkins/unattended-upgrades.sh
 }
 
 # Setup port redirect rules
