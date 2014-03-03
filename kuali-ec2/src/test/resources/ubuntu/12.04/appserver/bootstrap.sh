@@ -19,7 +19,7 @@ fi;
 
 # Bash resources
 BOOTSTRAP=$SVN_DIR/bootstrap.sh
-SETUP=$SCRIPTS_DIR/initial_setup.sh
+SETUP=$SCRIPTS_DIR/initial-setup.sh
 
 # Enable root ssh
 ssh ubuntu@$FQDN 'sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys'
