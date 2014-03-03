@@ -28,8 +28,8 @@
 #
 
 NEXUS_AUTH_ERROR="This request requires HTTP authentication"
-SCRIPT_DIR=/root
-INSTALL_DIR="$SCRIPT_DIR/installs/"
+BASEDIR=/tmp/kuali-ec2
+DOWNLOADS_DIR="$SCRIPT_DIR/target/downloads/"
 NEXUS_TEST_AUTH_URL="http://nexus.kuali.org/content/groups/developer"
 
 JDK_GROUP_ID=com/oracle
@@ -64,9 +64,9 @@ TIMESTAMP=$(date +%Y%m%d_%H_%M_%S)
 SILENT=${1-NOTDEFINED}
 
 # Create installation directory.  This directory will contain install files.
-rm -rf $INSTALL_DIR
-mkdir -p $INSTALL_DIR
-cd $INSTALL_DIR
+rm -rf $DOWNLOADS_DIR
+mkdir -p $DOWNLOADS_DIR
+cd $DOWNLOADS_DIR
 
 #Update Ubuntu repos and packages
 function get_upgrades {
@@ -164,8 +164,8 @@ fi
 
 wget -N --user $NEXUS_USER --password $PASSWORD $NEXUS_TEST_AUTH_URL$NEXUS_JDK_LOCATION$NEXUS_JDK_FILE
 
-if [ ! -f $INSTALL_DIR/$NEXUS_JDK_FILE ]; then
-  echo "$INSTALL_DIR/$NEXUS_JDK_FILE does not exist!"
+if [ ! -f $DOWNLOADS_DIR/$NEXUS_JDK_FILE ]; then
+  echo "$DOWNLOADS_DIR/$NEXUS_JDK_FILE does not exist!"
   echo "Check to see if location is correct for the JDK.  Attempting to get:"
   echo "$NEXUS_TEST_AUTH_URL$NEXUS_JDK_LOCATION$NEXUS_JDK_FILE"
   echo "Quitting."
