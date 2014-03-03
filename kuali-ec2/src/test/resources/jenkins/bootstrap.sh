@@ -1,5 +1,5 @@
 FQDN=$1
-FQDN=ec2-54-81-229-17.compute-1.amazonaws.com
+FQDN=jeff.ci.kuali.org
 
 ssh ubuntu@$FQDN 'sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys'
 
