@@ -64,6 +64,7 @@ PWD=$(pwd)
 SILENT=${1-NOTDEFINED}
 
 # Create installation directory.  This directory will contain install files.
+rm -rf $INSTALL_DIR
 mkdir -p $INSTALL_DIR
 cd $INSTALL_DIR
 
