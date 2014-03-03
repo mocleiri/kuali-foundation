@@ -178,7 +178,7 @@ rm -rf $LOCAL_JDK_DIR
 mkdir -p $LOCAL_JDK_DIR
 
 unzip -o $NEXUS_JDK_FILE -d $LOCAL_JDK_DIR
-ln -s $JDK_DIR $LOCAL_JDK_DIR/jdk7
+ln -s $LOCAL_JDK_DIR/JDK_UNZIP_DIR $LOCAL_JDK_DIR/$JDK_ARTIFACT_ID
 }
 
 # Request hostname and FQDN
