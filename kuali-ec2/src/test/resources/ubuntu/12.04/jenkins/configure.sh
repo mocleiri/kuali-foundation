@@ -8,3 +8,5 @@ TOMCAT_DIR=/var/lib/$TOMCAT
 TOMCAT_ROOT=$TOMCAT_DIR/webapps/ROOT
 
 service $TOMCAT stop
+
+rm -rf $TOMCAT_ROOT; mkdir -p $TOMCAT_ROOT;
