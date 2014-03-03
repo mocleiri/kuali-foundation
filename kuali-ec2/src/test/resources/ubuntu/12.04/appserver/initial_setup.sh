@@ -64,7 +64,7 @@ HOSTNAME="NOTDEFINED"
 
 SILENT=${1-NOTDEFINED}
 
-# Create downloads dir.  This dir will contain downloaded files to install
+# This dir contains downloaded files to install
 rm -rf $DOWNLOADS
 mkdir -p $DOWNLOADS
 
