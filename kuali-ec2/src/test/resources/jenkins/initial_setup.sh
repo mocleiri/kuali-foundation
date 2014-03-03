@@ -66,7 +66,6 @@ SILENT=${1-NOTDEFINED}
 # Create installation directory.  This directory will contain install files.
 rm -rf $DOWNLOADS_DIR
 mkdir -p $DOWNLOADS_DIR
-cd $DOWNLOADS_DIR
 
 #Update Ubuntu repos and packages
 function get_upgrades {
