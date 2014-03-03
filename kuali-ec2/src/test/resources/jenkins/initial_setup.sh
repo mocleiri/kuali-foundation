@@ -257,7 +257,7 @@ fi
 
 apt-get install unzip ntp expect -y
 
-echo "If allow unattnded upgrade, select \"Yes\" on the interactive screen that appears."
+echo "If allow unattended upgrade, select \"Yes\" on the interactive screen that appears."
 read -p "Allow unattended ugrades? (y/n)  " ALLOW_UNATTENDED_UPGRADES
 if [[ $ALLOW_UNATTENDED_UPGRADES == "y" ]]; then
   unattended_upgrades
