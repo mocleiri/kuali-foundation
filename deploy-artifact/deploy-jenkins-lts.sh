@@ -1,6 +1,12 @@
 #!/bin/sh
 
 #
+# This script uploads the latest LTS Jenkins war file to S3
+#
+# Browse for it here -> http://shrub.appspot.com/maven.kuali.org/external/org/jenkins/jenkins/
+#
+
+#
 # Change this to match whatever the latest LTS version is
 # http://mirrors.jenkins-ci.org/war-stable/
 #
