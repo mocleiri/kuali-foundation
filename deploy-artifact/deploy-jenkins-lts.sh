@@ -5,9 +5,8 @@
 #
 # Browse for it here -> http://shrub.appspot.com/maven.kuali.org/external/org/jenkins/jenkins/
 #
-
 #
-# Change this to match whatever the latest LTS version is
+# Change the version # to match whatever the latest LTS version is
 # http://mirrors.jenkins-ci.org/war-stable/
 #
 VERSION=1.532.2
