@@ -27,6 +27,7 @@
 #   ./initial_setup.sh silent MyNexusPassword testserver kuali.org
 #
 
+TIMESTAMP=$(date +%Y%m%d_%H_%M_%S)
 BASEDIR=/mnt/kuali-ec2
 DOWNLOADS="$BASEDIR/target/downloads/"
 
@@ -46,7 +47,8 @@ NEXUS_AUTH_ERROR="This request requires HTTP authentication"
 NEXUS_JDK_DOWNLOAD_FILE=$DOWNLOADS/$JDK_ZIP_FILE
 
 TOMCAT7_OPT_FILE_DIR=/etc/default
-TOMCAT7_OPT_FILE=tomcat7
+TOMCAT7_OPT_FILE=/etc/default/tomcat7
+TOMCAT7_OPT_FILE_BAK=$TOMCAT7_OPT_FILE.$TIMESTAMP
 TOMCAT7_CONF_FILE_DIR=/etc/tomcat7
 TOMCAT7_USER=tomcat7
 TOMCAT7_GROUP=tomcat7
@@ -59,7 +61,6 @@ JAVA_HOME=/usr/java/jdk7
 #####################################################################
 PASSWORD=""
 HOSTNAME="NOTDEFINED"
-TIMESTAMP=$(date +%Y%m%d_%H_%M_%S)
 
 SILENT=${1-NOTDEFINED}
 
@@ -107,14 +108,15 @@ apt-get -y install tomcat7 libtcnative-1
 echo "Stopping Tomcat7..."
 service tomcat7 stop
 
-cp $TOMCAT7_OPT_FILE_DIR/$TOMCAT7_OPT_FILE $TOMCAT7_OPT_FILE_DIR/$TOMCAT7_OPT_FILE.$TIMESTAMP
-echo "TOMCAT7_USER=$TOMCAT7_USER" > $TOMCAT7_OPT_FILE_DIR/$TOMCAT7_OPT_FILE
-echo "TOMCAT7_USER=$TOMCAT7_GROUP" >> $TOMCAT7_OPT_FILE_DIR/$TOMCAT7_OPT_FILE
-echo "JAVA_OPTS=$JAVA_OPTS" >> $TOMCAT7_OPT_FILE_DIR/$TOMCAT7_OPT_FILE
-echo "JAVA_HOME=$JAVA_HOME" >>  $TOMCAT7_OPT_FILE_DIR/$TOMCAT7_OPT_FILE
+cp $TOMCAT7_OPT_FILE $TOMCAT7_OPT_FILE_BAK
+echo "TOMCAT7_USER=$TOMCAT7_USER" > $TOMCAT7_OPT_FILE
+echo "TOMCAT7_USER=$TOMCAT7_GROUP" >> $TOMCAT7_OPT_FILE
+echo "JAVA_OPTS=$JAVA_OPTS" >> $TOMCAT7_OPT_FILE
+echo "JAVA_HOME=$JAVA_HOME" >> $TOMCAT7_OPT_FILE
 
 SERVER_XML=$BASEDIR/src/main/resources/apache-tomcat/7/conf/server.xml
 WEB_XML=$BASEDIR/src/main/resources/apache-tomcat/7/conf/web.xml
+
 cp $TOMCAT7_CONF_FILE_DIR/server.xml $TOMCAT7_CONF_FILE_DIR/server.xml.$TIMESTAMP
 cp $TOMCAT7_CONF_FILE_DIR/web.xml $TOMCAT7_CONF_FILE_DIR/web.xml.$TIMESTAMP
 cp $WEB_XML $TOMCAT7_CONF_FILE_DIR/web.xml
