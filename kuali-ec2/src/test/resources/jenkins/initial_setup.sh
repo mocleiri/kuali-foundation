@@ -211,8 +211,8 @@ hostname $HOSTNAME
 if [ $SILENT == "silent" ]; then
 SILENT="-y"
 PASSWORD=${2-NOTDEFINED}
-HOSTNAME=${3-NOT_DEFINED}
-DOMAIN=${4-NOT_DEFINED}
+HOSTNAME=${3-NOTDEFINED}
+DOMAIN=${4-NOTDEFINED}
 
 if [[ $PASSWORD == "NOTDEFINED" ]]; then
 echo "One or more parameters not set.  silent, Nexus password, hostname, and domain must all be defined when running in silent mode:"
@@ -222,7 +222,7 @@ echo
 exit 1
 fi;
 
-if [[ $HOSTNAME == "NOT_DEFINED" ]]; then
+if [[ $HOSTNAME == "NOTDEFINED" ]]; then
 echo "One or more parameters not set.  silent, Nexus password, hostname, and domain must all be defined when running in silent mode:"
 echo
 echo "  initial_setup silent password hostname domain"
@@ -230,7 +230,7 @@ echo
 exit 1
 fi;
 
-if [[ $DOMAIN == "NOT_DEFINED" ]]; then
+if [[ $DOMAIN == "NOTDEFINED" ]]; then
 echo "One or more parameters not set.  silent, Nexus password, hostname, and domain must all be defined when running in silent mode:"
 echo
 echo "  initial_setup silent password hostname domain"
