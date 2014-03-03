@@ -27,7 +27,6 @@
 #   ./initial_setup.sh silent MyNexusPassword testserver kuali.org
 #
 
-NEXUS_AUTH_ERROR="This request requires HTTP authentication"
 BASEDIR=/mnt/kuali-ec2
 DOWNLOADS="$BASEDIR/target/downloads/"
 
@@ -44,6 +43,7 @@ NEXUS_URL="http://nexus.kuali.org/content/groups/developer"
 NEXUS_JDK_LOCATION="/$JDK_GROUP_ID/$JDK_ARTIFACT_ID/$JDK_VERSION/"
 NEXUS_JDK_FILE="$JDK_ZIP_FILE"
 NEXUS_USER=developer
+NEXUS_AUTH_ERROR="This request requires HTTP authentication"
 
 TOMCAT7_OPT_FILE_DIR=/etc/default
 TOMCAT7_OPT_FILE=tomcat7
