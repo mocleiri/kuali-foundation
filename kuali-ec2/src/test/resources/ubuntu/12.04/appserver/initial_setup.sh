@@ -30,6 +30,7 @@
 TIMESTAMP=$(date +%Y%m%d_%H_%M_%S)
 BASEDIR=/mnt/kuali-ec2
 DOWNLOADS="$BASEDIR/target/downloads/"
+SCRIPTS_DIR=$BASEDIR/src/test/resources/ubuntu/12.04/appserver
 
 JDK_GROUP_ID=com/oracle
 JDK_ARTIFACT_ID=jdk7
@@ -81,7 +82,7 @@ echo
 echo "Enabling unattended upgrades.  Enter "yes" to enable..."
 echo
 #dpkg-reco.nfigure unattended-upgrades
-$BASEDIR/src/test/resources/jenkins/unattended-upgrades.sh
+$SCRIPTS_DIR/unattended-upgrades.sh
 }
 
 # Setup port redirect rules
