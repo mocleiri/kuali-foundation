@@ -20,11 +20,15 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
-public class Validation {
+public final class Validation {
 
 	private static final ValidatorFactory FACTORY = buildDefaultValidatorFactory();
 	private static final Validator VALIDATOR = FACTORY.getValidator();
 	private static final Class<?>[] EMPTY_CLASS_ARRAY = {};
+
+	public static ValidatorFactory getDefaultValidatorFactory() {
+		return FACTORY;
+	}
 
 	public static Validator getDefaultValidator() {
 		return VALIDATOR;
