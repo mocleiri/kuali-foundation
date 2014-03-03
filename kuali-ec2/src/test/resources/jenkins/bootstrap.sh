@@ -16,7 +16,7 @@ echo "Nexus password is required"
 exit 1
 fi;
 
-# Bash
+# Bash resources
 BOOTSTRAP=$SVN_DIR/bootstrap.sh
 SETUP=$SVN_DIR/src/test/resources/jenkins/initial_setup.sh
 
