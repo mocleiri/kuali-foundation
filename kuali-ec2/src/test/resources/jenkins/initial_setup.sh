@@ -152,9 +152,8 @@ cp $TOMCAT7_CONF_FILE_DIR/web.xml $TOMCAT7_CONF_FILE_DIR/web.xml.$TIMESTAMP
 cp web.xml $TOMCAT7_CONF_FILE_DIR/web.xml
 cp server.xml $TOMCAT7_CONF_FILE_DIR/server.xml
 
-if [ -d "/var/lib/tomcat7/webapps/ROOT" ]; then
-rm -R /var/lib/tomcat7/webapps/ROOT
-fi
+rm -rf /var/lib/tomcat7/webapps/ROOT
+
 }
 
 function test_nexus_access {
@@ -276,9 +275,7 @@ fi;
 
 test_nexus_access
 get_upgrades
-install_unzip
-install_ntp
-install_expect
+apt-get install unzip ntp expect -y
 unattnded_upgrades
 redirect_rules
 get_jdk
