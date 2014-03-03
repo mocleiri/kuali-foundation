@@ -39,7 +39,11 @@ public class Validation {
 	}
 
 	public static <T> boolean isValid(T instance, Validator validator, List<Class<?>> groups) {
-		return validator.validate(instance, groups.toArray(EMPTY_CLASS_ARRAY)).size() == 0;
+		return getViolations(instance, validator, groups).size() == 0;
+	}
+
+	public static <T> Set<ConstraintViolation<T>> getViolations(T instance, Validator validator, List<Class<?>> groups) {
+		return validator.validate(instance, groups.toArray(EMPTY_CLASS_ARRAY));
 	}
 
 	public static <T> T checkConstraints(T instance, Validator validator) {
