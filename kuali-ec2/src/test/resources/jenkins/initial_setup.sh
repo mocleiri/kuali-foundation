@@ -69,8 +69,8 @@ cd $INSTALL_DIR
 
 #Update Ubuntu repos and packages
 function get_upgrades {
-apt-get $SILENT update
-apt-get $SILENT upgrade
+apt-get -y update
+apt-get -y upgrade
 }
 
 
