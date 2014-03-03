@@ -8,5 +8,8 @@ HOSTNAME=jeff.ci
 DOMAIN=kuali.org
 FQDN=$HOSTNAME.$DOMAIN
 
+# Nexus
+NEXUS_PASSWORD=$1
+
 ssh ubuntu@$FQDN 'sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys'
 ssh root@$FQDN 'apt-get install subversion -y; rm -rf /tmp/kuali-ec2; svn --quiet checkout $SVN_URL /tmp/kuali-ec2'
