@@ -27,8 +27,8 @@ ssh ubuntu@$FQDN 'sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorize
 # Checkout kuali-ec2
 ssh root@$FQDN 'apt-get install subversion -y; rm -rf $SVN_DIR; svn --quiet checkout '$SVN_URL' '$SVN_DIR''
 
-# Create the bootstrap.sh script
+# Create the bootstrap.sh script on the remote server
 ssh root@$FQDN 'rm -rf '$BOOTSTRAP'; echo '$SETUP' silent '$NEXUS_PASSWORD' '$HOSTNAME' '$DOMAIN' > '$BOOTSTRAP'; chmod 755 '$BOOTSTRAP''
 
-# Run the bootstrap script
+# Run the bootstrap script on the remove server
 ssh root@$FQDN $BOOTSTRAP
