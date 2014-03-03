@@ -114,12 +114,12 @@ echo "TOMCAT7_USER=$TOMCAT7_GROUP" >> $TOMCAT7_OPT_FILE_DIR/$TOMCAT7_OPT_FILE
 echo "JAVA_OPTS=$JAVA_OPTS" >> $TOMCAT7_OPT_FILE_DIR/$TOMCAT7_OPT_FILE
 echo "JAVA_HOME=$JAVA_HOME" >>  $TOMCAT7_OPT_FILE_DIR/$TOMCAT7_OPT_FILE
 
-wget -N "https://svn.kuali.org/repos/foundation/trunk/kuali-ec2/src/main/resources/apache-tomcat/7/conf/server.xml"
-wget -N "https://svn.kuali.org/repos/foundation/trunk/kuali-ec2/src/main/resources/apache-tomcat/7/conf/web.xml"
+SERVER_XML=$BASEDIR/src/main/resources/apache-tomcat/7/conf/server.xml
+WEB_XML=$BASEDIR/src/main/resources/apache-tomcat/7/conf/web.xml
 cp $TOMCAT7_CONF_FILE_DIR/server.xml $TOMCAT7_CONF_FILE_DIR/server.xml.$TIMESTAMP
 cp $TOMCAT7_CONF_FILE_DIR/web.xml $TOMCAT7_CONF_FILE_DIR/web.xml.$TIMESTAMP
-cp web.xml $TOMCAT7_CONF_FILE_DIR/web.xml
-cp server.xml $TOMCAT7_CONF_FILE_DIR/server.xml
+cp $WEB_XML $TOMCAT7_CONF_FILE_DIR/web.xml
+cp $SERVER_XML $TOMCAT7_CONF_FILE_DIR/server.xml
 
 rm -rf /var/lib/tomcat7/webapps/ROOT
 
