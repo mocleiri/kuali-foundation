@@ -1,0 +1,13 @@
+Ant Plugin
+Credentials Plugin
+CVS Plugin
+Javadoc Plugin
+LDAP Plugin
+Mailer
+Maven Project Plugin
+Monitoring external jobs
+PAM Authentication Plugin
+SSH Credentials Plugin
+SSH Slaves plugin
+Subversion Plugin
+Translation Assistance Plugin
