@@ -52,8 +52,11 @@ function install_plugin {
   
 }
 
-service $TOMCAT stop
+echo "stop     -> $TOMCAT"
+service $TOMCAT stop > /dev/null 2>&1
+echo "install  -> Jenkins $JENKINS_VERSION"
 install_jenkins
 install_plugin node-iterator-api 1.2
 install_plugin ec2               1.21
-service $TOMCAT start
+echo "start    -> $TOMCAT"
+service $TOMCAT start > /dev/null 2>&1
