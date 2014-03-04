@@ -106,7 +106,7 @@ echo
 iptables --table nat --append PREROUTING --protocol tcp --dport 80 --jump REDIRECT --to-port 8080
 iptables -t nat -A OUTPUT -p tcp -o lo --dport 80 -j DNAT --to 127.0.0.1:8080
 export DEBIAN_FRONTEND=noninteractive
-apt-get -q $SILENT install iptables-persistent
+apt-get -qq $SILENT install iptables-persistent
 iptables-save > /etc/iptables/rules.v4
 ip6tables-save > /etc/iptables/rules.v6
 unset DEBIAN_FRONTEND
@@ -115,9 +115,6 @@ unset DEBIAN_FRONTEND
 
 # Install Tomcat
 function install_tomcat {
-echo
-echo "Installing $TOMCAT..."
-echo
 apt-get -qq -y install $TOMCAT libtcnative-1
 service $TOMCAT stop
 
