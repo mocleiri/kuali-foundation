@@ -181,8 +181,8 @@ fi;
 
 ETC_HOSTS="$MYIP $HOSTNAME.$DOMAIN $HOSTNAME"
 echo
-echo "Adding to /etc/hosts    -> $ETC_HOSTS"
-echo "Adding to /etc/hostname -> $HOSTNAME"
+echo "setting /etc/hostname -> $HOSTNAME"
+echo "adding to /etc/hosts  -> $ETC_HOSTS"
 echo
 
 echo "$HOSTNAME" > /etc/hostname
