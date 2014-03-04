@@ -31,6 +31,7 @@ TIMESTAMP=$(date +%Y%m%d_%H_%M_%S)
 BASEDIR=/mnt/kuali-ec2
 DOWNLOADS="$BASEDIR/target/downloads/"
 SCRIPTS_DIR=$BASEDIR/src/test/resources/ubuntu/12.04/appserver
+TOMCAT_VERSION=7
 
 JDK_GROUP_ID=com/oracle
 JDK_ARTIFACT_ID=jdk7
@@ -47,9 +48,7 @@ NEXUS_USER=developer
 NEXUS_AUTH_ERROR="This request requires HTTP authentication"
 NEXUS_JDK_DOWNLOAD_FILE=$DOWNLOADS/$JDK_ZIP_FILE
 
-TOMCAT_VERSION=7
 TOMCAT=tomcat$TOMCAT_VERSION
-
 TOMCAT_OPT_FILE=/etc/default/$TOMCAT
 TOMCAT_OPT_FILE_BAK=$TOMCAT_OPT_FILE.$TIMESTAMP
 TOMCAT_CONF_FILE_DIR=/etc/$TOMCAT
@@ -104,14 +103,14 @@ unset DEBIAN_FRONTEND
 }
 
 
-# Install Tomcat7
-function install_tomcat7 {
+# Install Tomcat
+function install_tomcat {
 echo
-echo "Installing Tomcat7..."
+echo "Installing $TOMCAT..."
 echo
-apt-get -y install tomcat7 libtcnative-1
-echo "Stopping Tomcat7..."
-service tomcat7 stop
+apt-get -y install $TOMCAT libtcnative-1
+echo "Stopping Tomcat..."
+service $TOMCAT stop
 
 cp $TOMCAT_OPT_FILE $TOMCAT_OPT_FILE_BAK
 echo "TOMCAT_USER=$TOMCAT_USER" > $TOMCAT_OPT_FILE
@@ -119,15 +118,15 @@ echo "TOMCAT_USER=$TOMCAT_GROUP" >> $TOMCAT_OPT_FILE
 echo "JAVA_OPTS=$JAVA_OPTS" >> $TOMCAT_OPT_FILE
 echo "JAVA_HOME=$JAVA_HOME" >> $TOMCAT_OPT_FILE
 
-SERVER_XML=$BASEDIR/src/main/resources/apache-tomcat/7/conf/server.xml
-WEB_XML=$BASEDIR/src/main/resources/apache-tomcat/7/conf/web.xml
+SERVER_XML=$BASEDIR/src/main/resources/apache-tomcat/$TOMCAT_VERSION/conf/server.xml
+WEB_XML=$BASEDIR/src/main/resources/apache-tomcat/$TOMCAT_VERSION/conf/web.xml
 
 cp $TOMCAT_CONF_FILE_DIR/server.xml $TOMCAT_CONF_FILE_DIR/server.xml.$TIMESTAMP
 cp $TOMCAT_CONF_FILE_DIR/web.xml $TOMCAT_CONF_FILE_DIR/web.xml.$TIMESTAMP
 cp $WEB_XML $TOMCAT_CONF_FILE_DIR/web.xml
 cp $SERVER_XML $TOMCAT_CONF_FILE_DIR/server.xml
 
-rm -rf /var/lib/tomcat7/webapps/ROOT
+rm -rf /var/lib/$TOMCAT/webapps/ROOT
 
 }
 
