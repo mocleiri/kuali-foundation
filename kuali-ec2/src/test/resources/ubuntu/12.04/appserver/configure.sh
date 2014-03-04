@@ -164,13 +164,13 @@ if [ ! -f $OUTPUT_FILE ]; then
 fi
 
 # Make sure the JDK and the symbolic link are both gone
-rm -rf $JDK_BASEDIR/$JDK_ARTIFACT_ID $JDK_BASEDIR/$JDK_UNZIP_DIR
+JDK_TARGET=$JDK_BASEDIR/$JDK_UNZIP_DIR
+rm -rf $JDK_BASEDIR/$JDK_ARTIFACT_ID $JDK_TARGET
 
 # Unpack the JDK into /usr/java
 unzip $QUIET -o $DOWNLOADS/$JDK_ZIP_FILE -d $JDK_BASEDIR
 
 # Create a symbolic link for /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
-JDK_TARGET=$JDK_BASEDIR/$JDK_UNZIP_DIR
 JDK_LINK=$JDK_BASEDIR/$JDK_ARTIFACT_ID
 ln -s $JDK_TARGET $JDK_LINK
 echo "installed -> $JDK_LINK - [$JDK_TARGET]"
