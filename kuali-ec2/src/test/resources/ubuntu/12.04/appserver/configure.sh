@@ -221,4 +221,3 @@ redirect_rules
 get_jdk
 install_tomcat
 set_hostname
-fi
