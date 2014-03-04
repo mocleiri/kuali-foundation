@@ -130,6 +130,7 @@ cp $WEB_XML $TOMCAT_CONF_FILE_DIR/web.xml
 cp $SERVER_XML $TOMCAT_CONF_FILE_DIR/server.xml
 
 rm -rf /var/lib/$TOMCAT/webapps/*
+rm -rf /var/lib/$TOMCAT/logs/*
 
 }
 
