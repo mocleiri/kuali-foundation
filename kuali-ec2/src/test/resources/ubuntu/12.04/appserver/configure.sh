@@ -79,7 +79,7 @@ function get_upgrades {
 echo "update    -> package indexes"
 apt-get $QUIET -y update
 echo "upgrade   -> packages"
-apt-get $QUIET -y upgrade
+apt-get $QUIET -y upgrade > /dev/null 2>&1
 }
 
 
