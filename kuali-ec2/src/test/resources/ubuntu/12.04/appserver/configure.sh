@@ -110,9 +110,11 @@ unset DEBIAN_FRONTEND
 # Install Tomcat
 function install_tomcat {
 apt-get $QUIET -y --purge remove $TOMCAT6 $TOMCAT7
+echo "install   -> $TOMCAT"
 apt-get $QUIET -y install $TOMCAT libtcnative-1
 service $TOMCAT stop
 
+echo "configure -> $TOMCAT"
 echo "TOMCAT_USER=$TOMCAT_USER" > $TOMCAT_OPT_FILE
 echo "TOMCAT_USER=$TOMCAT_GROUP" >> $TOMCAT_OPT_FILE
 echo "JAVA_OPTS=$JAVA_OPTS" >> $TOMCAT_OPT_FILE
