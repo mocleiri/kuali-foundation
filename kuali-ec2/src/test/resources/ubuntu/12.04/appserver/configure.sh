@@ -170,7 +170,7 @@ unzip $QUIET -o $DOWNLOADS/$JDK_ZIP_FILE -d $JDK_BASEDIR
 # Create a symbolic link for /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
 JDK_LINK=$JDK_BASEDIR/$JDK_ARTIFACT_ID
 ln -s $JDK_TARGET $JDK_LINK
-echo "installed -> $JDK_LINK - [$JDK_TARGET]"
+echo "installed -> $JDK_LINK -> $JDK_TARGET"
 }
 
 # Set hostname and FQDN
