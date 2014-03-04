@@ -202,6 +202,10 @@ hostname $HOSTNAME
 
 echo '127.0.0.1 localhost' > /etc/hosts
 echo $ETC_HOSTS >> /etc/hosts
+
+# Mike's magic line here always appends to /etc/hosts
+# This breaks with the concept of idempotence
+# And also if for some reason we recycled the machines DNS name I think we'd have issues 
 #eval "sed -i -e '/127.0.0.1/a$ETC_HOSTS' /etc/hosts"
 }
 
