@@ -47,7 +47,6 @@ TOMCAT=${4-7}
 MAX_HEAP=${5-4g}
 MAX_PERM=${6-512m}
 
-# Bash resources
 CONFIGURE=$SCRIPTS_DIR/configure.sh
 
 # Enable root ssh
