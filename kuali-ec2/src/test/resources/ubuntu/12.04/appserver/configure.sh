@@ -133,7 +133,7 @@ TOMCAT_LOGS=/var/lib/$TOMCAT/logs
 TOMCAT_WEBAPPS=/var/lib/$TOMCAT/webapps
 TOMCAT_BIN=/var/lib/$TOMCAT/bin
 JSPS=$BASEDIR/src/main/resources/apache-tomcat/jsps/*.jsp
-CLEANUP=/usr/local/bin/cleanup.sh 
+CLEANUP=/usr/bin/cleanup 
 
 rm -rf $TOMCAT_WEBAPPS/* $TOMCAT_LOGS/*
 mkdir -p $TOMCAT_BIN
