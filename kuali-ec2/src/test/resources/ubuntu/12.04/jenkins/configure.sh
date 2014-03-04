@@ -23,14 +23,13 @@ TOMCAT=$TOMCAT7
 JENKINS_VERSION=1.532.2
 
 TOMCAT_DIR=/var/lib/$TOMCAT
+TOMCAT_CLEANUP=/var/lib/$TOMCAT/bin/cleanup.sh
 TOMCAT_ROOT=$TOMCAT_DIR/webapps/ROOT
 TOMCAT_ROOT_WAR=$TOMCAT_DIR/webapps/ROOT.war
 
 service $TOMCAT stop
-
 rm -rf $TOMCAT_ROOT $TOMCAT_ROOT_WAR
-
 wget http://maven.kuali.org/external/org/jenkins/jenkins/$JENKINS_VERSION/jenkins-$JENKINS_VERSION.war --output-document $TOMCAT_ROOT_WAR
 chown $TOMCAT:$TOMCAT $TOMCAT_ROOT_WAR
-
+$TOMCAT_CLEANUP
 service $TOMCAT start
