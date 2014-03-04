@@ -48,12 +48,12 @@ MAX_HEAP=${5-5g}
 MAX_PERM=${6-512m}
 QUIET=${7-""}
 
-CONFIGURE="$SCRIPTS_DIR/configure.sh $NEXUS_PASSWORD $HOSTNAME $JDK $TOMCAT $MAX_HEAP $MAX_PERM $QUIET"
-
 SVN1="apt-get install subversion -y $QUIET"
 SVN2="rm -rf $SVN_DIR"
 SVN3="svn $QUIET checkout $SVN_URL $SVN_DIR"
 SVN="$SVN1; $SVN2; $SVN3"
+
+CONFIGURE="$SCRIPTS_DIR/configure.sh $NEXUS_PASSWORD $HOSTNAME $JDK $TOMCAT $MAX_HEAP $MAX_PERM $QUIET"
 
 # Enable root ssh
 echo "enable    -> root ssh"
