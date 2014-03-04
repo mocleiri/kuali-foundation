@@ -77,9 +77,8 @@ HOSTNAME="NOTDEFINED"
 
 SILENT=${1-NOTDEFINED}
 
-# This dir contains downloaded files to install
-rm -rf $DOWNLOADS
-mkdir -p $DOWNLOADS
+# Directory for the JDK download
+rm -rf $DOWNLOADS; mkdir -p $DOWNLOADS
 
 #Update Ubuntu repos and packages
 function get_upgrades {
