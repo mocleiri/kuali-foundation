@@ -24,6 +24,7 @@ JDK_LEVEL=${3-6}
 TOMCAT_VERSION=${4-7}
 MAX_HEAP=${5-5g}
 MAX_PERM=${6-512m}
+QUIET=${7--qq}
 
 JDK6_VERSION=1.6.0-u45
 JDK7_VERSION=1.7.0-u51
@@ -32,7 +33,6 @@ DOMAIN=kuali.org
 BASEDIR=/mnt/kuali-ec2
 DOWNLOADS=$BASEDIR/target/downloads
 SCRIPTS_DIR=$BASEDIR/src/test/resources/ubuntu/12.04/appserver
-QUIET=-qq
 
 JDK6=jdk6
 JDK7=jdk7
@@ -209,7 +209,7 @@ echo $ETC_HOSTS >> /etc/hosts
 
 function show_usage {
   echo
-  echo usage: configure.sh password hostname [jdk] [tomcat] [max_heap] [max_perm]
+  echo usage: configure.sh password hostname [jdk] [tomcat] [max_heap] [max_perm] [quiet]
   echo
   exit 1 
 }
