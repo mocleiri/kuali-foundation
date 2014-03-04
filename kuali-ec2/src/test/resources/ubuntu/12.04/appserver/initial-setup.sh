@@ -134,7 +134,7 @@ rm -rf /var/lib/$TOMCAT/webapps/ROOT
 function test_nexus_access {
 if [[ $SILENT == "-y" ]];
 then
-TestPass=$(curl -sL -w "%{http_code}" --user $NEXUS_USER:$PASSWORD  "$NEXUS_URL")
+TestPass=$(curl -sL -w "%{http_code}" --user $NEXUS_USER:$NEXUS_PASSWORD  "$NEXUS_URL")
 echo
 if [[ "$TestPass" == *$NEXUS_AUTH_ERROR* ]]; then
   echo "Authentication failed.  Please re-enter password for the $NEXUS_USER account on $NEXUS_URL"
@@ -148,7 +148,7 @@ else
 COUNT=0
 while [[ $COUNT -lt 1 ]];do
 read -s -p "Password for $NEXUS_USER account on Nexus:" PASSWORD
-TestPass=$(curl -sL -w "%{http_code}" --user $NEXUS_USER:$PASSWORD  "$NEXUS_URL")
+TestPass=$(curl -sL -w "%{http_code}" --user $NEXUS_USER:$NEXUS_PASSWORD  "$NEXUS_URL")
 echo
 if [[ "$TestPass" == *$NEXUS_AUTH_ERROR* ]]; then
   echo "Authentication failed.  Please re-enter password for the $NEXUS_USER account on $NEXUS_URL"
@@ -163,11 +163,11 @@ fi
 
 # Install JDK
 function get_jdk {
-if [ $PASSWORD = ""]; then
+if [ $NEXUS_PASSWORD = ""]; then
 test_nexus_access
 fi
 
-wget --quiet --user $NEXUS_USER --password $PASSWORD $NEXUS_URL$NEXUS_JDK_LOCATION$JDK_ZIP_FILE --output-document $DOWNLOADS/$JDK_ZIP_FILE
+wget --quiet --user $NEXUS_USER --password $NEXUS_PASSWORD $NEXUS_URL$NEXUS_JDK_LOCATION$JDK_ZIP_FILE --output-document $DOWNLOADS/$JDK_ZIP_FILE
 
 if [ ! -f $DOWNLOADS/$JDK_ZIP_FILE ]; then
   echo "$DOWNLOADS/$JDK_ZIP_FILE does not exist!"
@@ -220,7 +220,7 @@ PASSWORD=${2-NOTDEFINED}
 HOSTNAME=${3-NOTDEFINED}
 DOMAIN=${4-NOTDEFINED}
 
-if [[ $PASSWORD == "NOTDEFINED" ]]; then
+if [[ $NEXUS_PASSWORD == "NOTDEFINED" ]]; then
 echo "One or more parameters not set.  silent, Nexus password, hostname, and domain must all be defined when running in silent mode:"
 echo
 echo "  initial_setup silent password hostname domain"
