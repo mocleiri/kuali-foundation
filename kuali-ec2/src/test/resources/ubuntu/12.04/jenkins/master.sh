@@ -37,7 +37,7 @@ function install_jenkins {
 
 function install_plugin {
 
-	PLUGIN_DOWNLOADS=https://updates.jenkins-ci.org/download/plugins/
+	PLUGIN_DOWNLOADS=https://updates.jenkins-ci.org/download/plugins
 	PLUGIN_NAME=$1
 	PLUGIN_VERSION=$2
 	PLUGIN_URL=$PLUGIN_DOWNLOADS/$PLUGIN_NAME/$PLUGIN_VERSION/$PLUGIN_NAME.hpi
