@@ -32,8 +32,12 @@ BASEDIR=/mnt/kuali-ec2
 DOWNLOADS="$BASEDIR/target/downloads/"
 SCRIPTS_DIR=$BASEDIR/src/test/resources/ubuntu/12.04/appserver
 
+JDK6=jdk6
+JDK7=jdk7
+JDK=$JDK7
+
 JDK_GROUP_ID=com/oracle
-JDK_ARTIFACT_ID=jdk7
+JDK_ARTIFACT_ID=$JDK
 JDK_VERSION=1.7.0-u51
 JDK_CLASSIFIER=linux-x64
 
