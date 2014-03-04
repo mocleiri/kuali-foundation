@@ -137,9 +137,9 @@ fi;
 
 URL=$NEXUS_URL/$NEXUS_JDK_LOCATION/$JDK_ZIP_FILE
 OUTPUT_FILE=$DOWNLOADS/$JDK_ZIP_FILE
-echo "downloading -> $URL"
+echo "download -> $URL"
 wget $QUIET --user $NEXUS_USER --password $NEXUS_PASSWORD $URL --output-document $OUTPUT_FILE
-echo "created     -> $OUTPUT_FILE"
+echo "created  -> $OUTPUT_FILE"
 
 if [ ! -f $DOWNLOADS/$JDK_ZIP_FILE ]; then
   echo "$DOWNLOADS/$JDK_ZIP_FILE does not exist!"
