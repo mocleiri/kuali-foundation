@@ -163,7 +163,7 @@ fi
 
 # Install JDK
 function get_jdk {
-if [ $NEXUS_PASSWORD = ""]; then
+if [[ $NEXUS_PASSWORD == "" ]]; then
 test_nexus_access
 fi
 
