@@ -149,6 +149,7 @@ cp $JSPS $TOMCAT_LOGS
 chown -R $TOMCAT_USER:$TOMCAT_GROUP $TOMCAT_LOGS/*.jsp
 
 echo "start     -> $TOMCAT"
+$USR_BIN_CLEANUP
 service $TOMCAT start > /dev/null 2>&1
 }
 
