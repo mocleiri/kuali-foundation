@@ -49,7 +49,6 @@ function install_plugin {
   echo "install  -> $PLUGIN_URL"
   curl $PLUGIN_URL --silent --location --create-dirs --output $PLUGIN_FILE
   touch $PLUGIN_FILE.pinned 
-  chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME  
   
 }
 
@@ -69,6 +68,7 @@ function install_plugins {
   install_plugin next-build-number     1.1
   install_plugin parameterized-trigger 2.22
   
+  chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME  
 }
 
 function install_packages {
