@@ -186,8 +186,8 @@ echo "adding to /etc/hosts  -> $ETC_HOSTS"
 echo
 
 echo "$HOSTNAME" > /etc/hostname
-eval "sed -i -e '/127.0.0.1/a$ETC_HOSTS' /etc/hosts"
 hostname $HOSTNAME
+eval "sed -i -e '/127.0.0.1/a$ETC_HOSTS' /etc/hosts"
 }
 
 if [ $SILENT == "silent" ]; then
