@@ -143,7 +143,9 @@ rm -rf $TOMCAT_WEBAPPS/* $TOMCAT_LOGS/*
 echo $TOMCAT_CLEANUP
 cp $BASEDIR/src/main/resources/apache-tomcat/$TOMCAT_VERSION/bin/cleanup.sh $TOMCAT_CLEANUP
 chmod 755 $TOMCAT_BIN/cleanup.sh
-rm -f $USR_BIN_CLEANUP; ln -s $TOMCAT_CLEANUP $USR_BIN_CLEANUP
+rm -f $USR_BIN_CLEANUP 
+ls -la /usr/bin/c*.sh
+ln -s $TOMCAT_CLEANUP $USR_BIN_CLEANUP
 
 cp $JSPS $TOMCAT_LOGS
 chown -R $TOMCAT_USER:$TOMCAT_GROUP $TOMCAT_LOGS/*.jsp
