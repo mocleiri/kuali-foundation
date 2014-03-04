@@ -25,7 +25,7 @@ SVN_DIR=/mnt/kuali-ec2
 SCRIPTS_DIR=$SVN_DIR/src/test/resources/ubuntu/12.04/appserver
 
 # DNS
-HOSTNAME=jeff.ci
+HOST=jeff.ci
 DOMAIN=kuali.org
 FQDN=$HOSTNAME.$DOMAIN
 
@@ -50,7 +50,7 @@ ssh ubuntu@$FQDN 'sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorize
 ssh root@$FQDN 'apt-get install subversion -y -qq; rm -rf $SVN_DIR; svn --quiet checkout '$SVN_URL' '$SVN_DIR''
 
 # Create the bootstrap.sh script on the remote server
-ssh root@$FQDN 'rm -rf '$BOOTSTRAP'; echo '$SETUP' '$NEXUS_PASSWORD' '$HOSTNAME' '$JDK' '$TOMCAT' > '$BOOTSTRAP'; chmod 755 '$BOOTSTRAP''
+ssh root@$FQDN 'rm -rf '$BOOTSTRAP'; echo '$SETUP' '$NEXUS_PASSWORD' '$HOST' '$JDK' '$TOMCAT' > '$BOOTSTRAP'; chmod 755 '$BOOTSTRAP''
 
 # Run the bootstrap script on the remote server
 ssh root@$FQDN $BOOTSTRAP
