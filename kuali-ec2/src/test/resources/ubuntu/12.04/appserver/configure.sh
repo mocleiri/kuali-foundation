@@ -110,7 +110,7 @@ unset DEBIAN_FRONTEND
 # Install Tomcat
 function install_tomcat {
 TOMCAT_PURGE="libtcnative-1 tomcat6-common tomcat6 tomcat7"
-echo "purge       -> $TOMCAT_PURGE"
+echo "purge     -> $TOMCAT_PURGE"
 apt-get $QUIET -y purge $TOMCAT_PURGE > /dev/null 2>&1
 apt-get $QUIET -y autoremove > /dev/null 2>&1
 if [ $TOMCAT_VERSION == "6" ]; then
