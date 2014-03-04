@@ -31,6 +31,7 @@ TIMESTAMP=$(date +%Y%m%d_%H_%M_%S)
 BASEDIR=/mnt/kuali-ec2
 DOWNLOADS="$BASEDIR/target/downloads/"
 SCRIPTS_DIR=$BASEDIR/src/test/resources/ubuntu/12.04/appserver
+QUIET=-qq
 
 JDK6=jdk6
 JDK6_VERSION=1.6.0-u45
@@ -38,6 +39,7 @@ JDK6_VERSION=1.6.0-u45
 JDK7=jdk7
 JDK7_VERSION=1.7.0-u51
 
+#JDK_LEVEL=7
 JDK_LEVEL=7
 JDK=$(eval echo \${JDK${JDK_LEVEL}})
 JDK_VERSION=$(eval echo \${JDK${JDK_LEVEL}_VERSION})
@@ -84,8 +86,8 @@ mkdir -p $DOWNLOADS
 
 #Update Ubuntu repos and packages
 function get_upgrades {
-apt-get -qq -y update
-apt-get -qq -y upgrade
+apt-get $QUIET -y update
+apt-get $QUIET -y upgrade
 }
 
 
@@ -106,7 +108,7 @@ echo
 iptables --table nat --append PREROUTING --protocol tcp --dport 80 --jump REDIRECT --to-port 8080
 iptables -t nat -A OUTPUT -p tcp -o lo --dport 80 -j DNAT --to 127.0.0.1:8080
 export DEBIAN_FRONTEND=noninteractive
-apt-get -qq $SILENT install iptables-persistent
+apt-get $QUIET $SILENT install iptables-persistent
 iptables-save > /etc/iptables/rules.v4
 ip6tables-save > /etc/iptables/rules.v6
 unset DEBIAN_FRONTEND
@@ -115,7 +117,7 @@ unset DEBIAN_FRONTEND
 
 # Install Tomcat
 function install_tomcat {
-apt-get -qq -y install $TOMCAT libtcnative-1
+apt-get $QUIET -y install $TOMCAT libtcnative-1
 service $TOMCAT stop
 
 cp $TOMCAT_OPT_FILE $TOMCAT_OPT_FILE_BAK
@@ -265,7 +267,7 @@ if [[ $RUN_UPGRADE == "y" ]]; then
   get_upgrades
 fi
 
-apt-get install unzip ntp expect -y -qq 
+apt-get install unzip ntp expect -y $QUIET 
 
 echo "If allow unattended upgrade, select \"Yes\" on the interactive screen that appears."
 read -p "Allow unattended ugrades? (y/n)  " ALLOW_UNATTENDED_UPGRADES
