@@ -205,7 +205,7 @@ echo $ETC_HOSTS >> /etc/hosts
 
 function show_usage {
   echo
-  echo usage: configure.sh password hostname
+  echo usage: configure.sh password hostname [jdk] [tomcat] [max_heap] [max_perm]
   echo
   exit 1 
 }
