@@ -51,6 +51,7 @@ QUIET=${7-""}
 CONFIGURE=$SCRIPTS_DIR/configure.sh
 
 # Enable root ssh
+echo "enable  -> root ssh"
 ssh ubuntu@$FQDN 'sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys'
 
 # Checkout kuali-ec2 on the remote server and run configure.sh
