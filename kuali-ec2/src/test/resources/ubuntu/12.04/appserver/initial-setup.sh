@@ -72,7 +72,7 @@ JAVA_HOME=/usr/java/jdk7
 #####################################################################
 # Do not modify below
 #####################################################################
-NEXUS_PASSWORD=""
+NEXUS_PASSWORD="NOTDEFINED"
 HOSTNAME="NOTDEFINED"
 
 SILENT=${1-NOTDEFINED}
