@@ -35,6 +35,11 @@ if [ $HOSTNAME == "NOTDEFINED" ]; then
   show_usage
 fi
 
+echo "password: $NEXUS_PASSWORD"
+echo "hostname: $HOSTNAME"
+echo "     jdk: $JDK_LEVEL"
+echo "  tomcat: $TOMCAT_VERSION"
+
 JDK6_VERSION=1.6.0-u45
 JDK7_VERSION=1.7.0-u51
 
