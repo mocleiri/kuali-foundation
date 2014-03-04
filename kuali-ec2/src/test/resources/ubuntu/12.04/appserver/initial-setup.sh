@@ -27,6 +27,7 @@
 #   ./initial_setup.sh silent MyNexusPassword testserver kuali.org
 #
 
+echo $(date)
 TIMESTAMP=$(date +%Y%m%d_%H_%M_%S)
 BASEDIR=/mnt/kuali-ec2
 DOWNLOADS="$BASEDIR/target/downloads/"
@@ -287,5 +288,5 @@ fi
 
 fi
 
-echo "Completed"
+echo $(date)
 exit 0
