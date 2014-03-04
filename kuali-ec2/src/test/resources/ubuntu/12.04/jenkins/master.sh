@@ -44,7 +44,7 @@ function install_plugin {
 	PLUGIN_DIR=$JENKINS_HOME/plugins
 	PLUGIN_FILE=$PLUGIN_DIR/$PLUGIN_NAME.jpi
 	curl $PLUGIN_URL --create-dirs --output $PLUGIN_FILE
-	chown -R $TOMCAT:TOMCAT $PLUGIN_DIR  
+	chown -R $TOMCAT:$TOMCAT $PLUGIN_DIR  
   
 }
 
