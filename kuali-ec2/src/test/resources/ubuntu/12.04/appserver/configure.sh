@@ -112,11 +112,7 @@ unset DEBIAN_FRONTEND
 # Install Tomcat
 function install_tomcat {
 echo "remove    -> $TOMCAT6 $TOMCAT7"
-apt-get $QUIET -y install dialog
-apt-get $QUIET -y purge $TOMCAT6 $TOMCAT7
-echo "remove    -> openjdk-6-jre-headless openjdk-6-jre-lib"
-apt-get $QUIET -y purge openjdk-6-jre-headless openjdk-6-jre-lib                               
-apt-get $QUIET -y autoremove
+apt-get $QUIET -y purge $TOMCAT6 $TOMCAT7 > /dev/null 2>&1
 echo "install   -> $TOMCAT"
 apt-get $QUIET -y install $TOMCAT libtcnative-1
 service $TOMCAT stop
