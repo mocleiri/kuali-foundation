@@ -60,7 +60,8 @@ TOMCAT_USER=$TOMCAT
 TOMCAT_GROUP=$TOMCAT
 TOMCAT_DIR=/var/lib/$TOMCAT
 TOMCAT_LOGS=$TOMCAT_DIR/logs
-JAVA_OPTS="\"-Duser.home=/home/$TOMCAT -Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xms512m -Xmx$MAX_HEAP -XX:MaxPermSize=$MAX_PERM -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC -XX:+PrintTenuringDistribution -Xloggc:$TOMCAT_LOGS/heap.log -XX:HeapDumpPath=$TOMCAT_LOGS -XX:+HeapDumpOnOutOfMemoryError"\"
+TOMCAT_HOME=/home/$TOMCAT
+JAVA_OPTS="\"-Duser.home=$TOMCAT_HOME -Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xms512m -Xmx$MAX_HEAP -XX:MaxPermSize=$MAX_PERM -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC -XX:+PrintTenuringDistribution -Xloggc:$TOMCAT_LOGS/heap.log -XX:HeapDumpPath=$TOMCAT_LOGS -XX:+HeapDumpOnOutOfMemoryError"\"
 JAVA_HOME=/usr/java/$JDK
 
 
@@ -147,6 +148,8 @@ cp $BASEDIR/src/main/resources/apache-tomcat/$TOMCAT_VERSION/bin/cleanup.sh $TOM
 chmod 755 $TOMCAT_BIN/cleanup.sh
 rm -f $USR_BIN_CLEANUP
 ln -s $TOMCAT_CLEANUP $USR_BIN_CLEANUP
+
+rm -rf $TOMCAT_HOME; mkdir -p $TOMCAT_HOME; chown -R $TOMCAT_USER:$TOMCAT_GROUP $TOMCAT_HOME
 
 cp $JSPS $TOMCAT_LOGS
 chown -R $TOMCAT_USER:$TOMCAT_GROUP $TOMCAT_LOGS/*.jsp
