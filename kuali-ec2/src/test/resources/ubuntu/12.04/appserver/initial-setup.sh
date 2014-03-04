@@ -276,7 +276,7 @@ read -p "Install JDK? (y/n)  " RUN_GET_JDK
 if [[ $RUN_GET_JDK == "y" ]]; then
   get_jdk
 fi
-read -p "Install Tomcat7? (y/n)  " RUN_TOMCAT_INSTALL
+read -p "Install Tomcat? (y/n)  " RUN_TOMCAT_INSTALL
 if [[ $RUN_TOMCAT_INSTALL == "y" ]]; then
   install_tomcat7
 fi
