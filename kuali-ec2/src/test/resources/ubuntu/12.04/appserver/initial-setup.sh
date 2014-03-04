@@ -31,7 +31,7 @@ BASEDIR=/mnt/kuali-ec2
 DOWNLOADS="$BASEDIR/target/downloads/"
 SCRIPTS_DIR=$BASEDIR/src/test/resources/ubuntu/12.04/appserver
 QUIET1=-qq
-QUIET2=--quiet
+QUIET2=-q
 
 JDK6=jdk6
 JDK6_VERSION=1.6.0-u45
