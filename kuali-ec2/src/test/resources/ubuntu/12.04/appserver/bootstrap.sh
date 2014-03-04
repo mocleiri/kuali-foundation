@@ -15,6 +15,8 @@
 # limitations under the License.
 #
 
+echo $(date)
+
 # Subversion
 SVN_REPO=https://svn.kuali.org/repos/foundation
 SVN_PATH=trunk/kuali-ec2
@@ -49,3 +51,5 @@ ssh root@$FQDN 'rm -rf '$BOOTSTRAP'; echo '$SETUP' silent '$NEXUS_PASSWORD' '$HO
 
 # Run the bootstrap script on the remote server
 ssh root@$FQDN $BOOTSTRAP
+
+echo $(date)
