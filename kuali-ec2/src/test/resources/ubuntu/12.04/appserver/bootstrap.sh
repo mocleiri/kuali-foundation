@@ -52,7 +52,7 @@ CONFIGURE=$SCRIPTS_DIR/configure.sh
 
 SVN1="apt-get install subversion -y $QUIET"
 SVN2="rm -rf $SVN_DIR"
-SVN2="svn $QUIET checkout $SVN_URL $SVN_DIR"
+SVN3="svn $QUIET checkout $SVN_URL $SVN_DIR"
 
 # Enable root ssh
 echo "enable    -> root ssh"
