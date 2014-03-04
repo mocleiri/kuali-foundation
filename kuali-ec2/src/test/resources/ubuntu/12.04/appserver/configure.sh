@@ -175,7 +175,7 @@ ln -s $JDK_BASEDIR/$JDK_UNZIP_DIR $JDK_BASEDIR/$JDK_ARTIFACT_ID
 
 # Request hostname
 function get_hostname {
-read -p "Enter the hostname of this server(ie: nexus): " HOSTNAME
+read -p "Enter the hostname of this server (eg: nexus): " HOSTNAME
 }
 
 # Request nexus password
