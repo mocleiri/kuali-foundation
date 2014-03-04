@@ -69,8 +69,6 @@ JAVA_HOME=/usr/java/$JDK
 NEXUS_PASSWORD="NOTDEFINED"
 HOSTNAME="NOTDEFINED"
 
-SILENT=${1-NOTDEFINED}
-
 # Directory for the JDK download
 rm -rf $DOWNLOADS; mkdir -p $DOWNLOADS
 
