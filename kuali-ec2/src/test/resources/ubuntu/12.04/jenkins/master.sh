@@ -67,5 +67,8 @@ install_plugin ssh-credentials   1.6.1
 install_plugin jobConfigHistory  2.5
 install_plugin maven-plugin      2.1
 install_plugin mailer            1.8
+install_plugin next-build-number 1.1
+  
+
 echo "start    -> $TOMCAT"
 service $TOMCAT start > /dev/null 2>&1
