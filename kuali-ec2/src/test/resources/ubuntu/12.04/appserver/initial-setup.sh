@@ -89,9 +89,6 @@ apt-get $QUIET -y upgrade
 
 # Enable unattended upgrades
 function unattended_upgrades {
-echo
-echo "Enabling unattended upgrades.  Enter "yes" to enable..."
-echo
 #dpkg-reco.nfigure unattended-upgrades
 $SCRIPTS_DIR/unattended-upgrades.sh
 }
