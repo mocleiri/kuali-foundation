@@ -96,9 +96,7 @@ $SCRIPTS_DIR/unattended-upgrades.sh
 
 # Setup port redirect rules
 function redirect_rules {
-echo
-echo "redirecting all internal/external traffic on port 80 -> 8080"
-echo
+echo "redirect all internal/external traffic on port 80 -> 8080"
 iptables --table nat --append PREROUTING --protocol tcp --dport 80 --jump REDIRECT --to-port 8080
 iptables -t nat -A OUTPUT -p tcp -o lo --dport 80 -j DNAT --to 127.0.0.1:8080
 export DEBIAN_FRONTEND=noninteractive
