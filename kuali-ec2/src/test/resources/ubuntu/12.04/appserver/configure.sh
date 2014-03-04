@@ -157,9 +157,6 @@ echo "to        -> $OUTPUT_FILE"
 
 if [ ! -f $OUTPUT_FILE ]; then
   echo "$OUTPUT_FILE does not exist!"
-  echo "Check to see if location is correct for the JDK.  Attempting to get:"
-  echo "$URL"
-  echo "Quitting."
   exit 1
 fi
 
