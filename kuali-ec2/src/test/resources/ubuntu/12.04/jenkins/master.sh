@@ -54,8 +54,10 @@ function install_plugin {
 
 echo "stop     -> $TOMCAT"
 service $TOMCAT stop > /dev/null 2>&1
+
 echo "install  -> Jenkins $JENKINS_VERSION"
 install_jenkins
+
 install_plugin node-iterator-api     1.2
 install_plugin ec2                   1.21
 install_plugin cas-plugin            1.1.1
@@ -70,6 +72,5 @@ install_plugin mailer                1.8
 install_plugin next-build-number     1.1
 install_plugin parameterized-trigger 2.22
   
-
 echo "start    -> $TOMCAT"
 service $TOMCAT start > /dev/null 2>&1
