@@ -131,14 +131,12 @@ TOMCAT_LOGS=/var/lib/$TOMCAT/logs
 TOMCAT_WEBAPPS=/var/lib/$TOMCAT/webapps
 TOMCAT_BIN=/var/lib/$TOMCAT/bin
 JSPS=$BASEDIR/src/main/resources/apache-tomcat/jsps/*.jsp
-CLEANUP=/usr/bin/cleanup.sh
 
 rm -rf $TOMCAT_WEBAPPS/* $TOMCAT_LOGS/*
 mkdir -p $TOMCAT_BIN
 cp $BASEDIR/src/main/resources/apache-tomcat/$TOMCAT_VERSION/bin/cleanup.sh $TOMCAT_BIN/cleanup.sh
 chmod 755 $TOMCAT_BIN/cleanup.sh
-rm -f $CLEANUP
-ln -s $TOMCAT_BIN/cleanup.sh $CLEANUP
+rm -f /usr/bin/cleanup.sh; ln -s $TOMCAT_BIN/cleanup.sh /usr/bin/cleanup.sh
 
 cp $JSPS $TOMCAT_LOGS
 chown -R $TOMCAT_GROUP:$TOMCAT_USER $TOMCAT_LOGS/*.jsp $TOMCAT_BIN
