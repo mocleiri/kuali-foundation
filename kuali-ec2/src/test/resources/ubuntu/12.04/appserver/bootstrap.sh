@@ -30,7 +30,7 @@ DOMAIN=kuali.org
 # Nexus
 NEXUS_PASSWORD=${1-NOTDEFINED}
 if [[ $NEXUS_PASSWORD == "NOTDEFINED" ]]; then
-echo "Nexus password is required"
+echo "nexus password is required"
 exit 1
 fi
 
