@@ -15,16 +15,9 @@
 # limitations under the License.
 #
 
-
+#
 # Usage:
-# Interactive:
-#   ./configure.sh
-#
-# Silent:
-#   ./configure.sh silent <nexus_password> <hostname> <domain>
-#
-# Example for testserver.kuali.org:
-#   ./configure.sh silent MyNexusPassword testserver kuali.org
+#   ./configure.sh [nexus password] [hostname]
 #
 
 DOMAIN=kuali.org
@@ -156,10 +149,6 @@ chown -R $TOMCAT_USER:$TOMCAT_GROUP $TOMCAT_LOGS/*.jsp
 # Install JDK
 function get_jdk {
 
-if [ $NEXUS_PASSWORD == "NOTDEFINED" ]; then
-get_nexus_password
-fi;
-
 URL=$NEXUS_URL/$NEXUS_JDK_LOCATION/$JDK_ZIP_FILE
 OUTPUT_FILE=$DOWNLOADS/$JDK_ZIP_FILE
 echo "download  -> $URL"
@@ -198,10 +187,6 @@ read -p "Enter the password for the Nexus user 'developer': " NEXUS_PASSWORD
 function set_hostname {
 MYIP=$(ifconfig eth0 |grep inet | awk '{ print $2 }' | awk 'BEGIN { FS=":" } { print $2 }')
 
-if [ $HOSTNAME == "NOTDEFINED" ]; then
-get_hostname
-fi;
-
 ETC_HOSTS="$MYIP $HOSTNAME.$DOMAIN $HOSTNAME"
 echo "hostname  -> $HOSTNAME"
 echo "hosts     -> $ETC_HOSTS"
@@ -218,25 +203,15 @@ echo $ETC_HOSTS >> /etc/hosts
 #eval "sed -i -e '/127.0.0.1/a$ETC_HOSTS' /etc/hosts"
 }
 
-if [ $SILENT == "silent" ]; then
-SILENT="-y"
-NEXUS_PASSWORD=${2-NOTDEFINED}
-HOSTNAME=${3-NOTDEFINED}
+NEXUS_PASSWORD=${1-NOTDEFINED}
+HOSTNAME=${2-NOTDEFINED}
 
-if [[ $NEXUS_PASSWORD == "NOTDEFINED" ]]; then
-echo "One or more parameters not set.  silent, Nexus password, hostname, and domain must all be defined when running in silent mode:"
-echo
-echo "  configure silent password hostname"
-echo
-exit 1
+if [ $NEXUS_PASSWORD == "NOTDEFINED" ]; then
+get_nexus_password
 fi;
 
-if [[ $HOSTNAME == "NOTDEFINED" ]]; then
-echo "One or more parameters not set.  silent, Nexus password, hostname, and domain must all be defined when running in silent mode:"
-echo
-echo "  configure silent password hostname"
-echo
-exit 1
+if [ $HOSTNAME == "NOTDEFINED" ]; then
+get_hostname
 fi;
 
 get_upgrades
@@ -247,38 +222,3 @@ get_jdk
 install_tomcat
 set_hostname
 fi
-
-if [ $SILENT == "NOTDEFINED" ]; then
-SILENT=""
-
-read -p "Update server (apt-get update & upgrade)?  This updates any installed packages (y/n)  " RUN_UPGRADE
-if [[ $RUN_UPGRADE == "y" ]]; then
-  get_upgrades
-fi
-
-install_packages
-
-read -p "Allow unattended ugrades? (y/n)  " ALLOW_UNATTENDED_UPGRADES
-if [[ $ALLOW_UNATTENDED_UPGRADES == "y" ]]; then
-  unattended_upgrades
-fi
-read -p "Setup port redirect rules (8080 -> 80)? (y/n)  " SETUP_PORT_REDIRECT
-if [[ $SETUP_PORT_REDIRECT == "y" ]]; then
-  redirect_rules
-fi
-read -p "Install JDK? (y/n)  " RUN_GET_JDK
-if [[ $RUN_GET_JDK == "y" ]]; then
-  get_jdk
-fi
-read -p "Install Tomcat? (y/n)  " RUN_TOMCAT_INSTALL
-if [[ $RUN_TOMCAT_INSTALL == "y" ]]; then
-  install_tomcat
-fi
-read -p "Setup hostname and FQDN? (y/n)  " SET_HOSTNAME
-if [[ $SET_HOSTNAME == "y" ]]; then
-  set_hostname
-fi
-
-fi
-
-exit 0
