@@ -27,6 +27,7 @@
 #   ./initial_setup.sh silent MyNexusPassword testserver kuali.org
 #
 
+DOMAIN=kuali.org
 BASEDIR=/mnt/kuali-ec2
 DOWNLOADS="$BASEDIR/target/downloads/"
 SCRIPTS_DIR=$BASEDIR/src/test/resources/ubuntu/12.04/appserver
@@ -154,7 +155,6 @@ ln -s $JDK_BASEDIR/$JDK_UNZIP_DIR $JDK_BASEDIR/$JDK_ARTIFACT_ID
 # Request hostname and FQDN
 function get_hostname {
 read -p "Enter the hostname of this server(ie: nexus): " HOSTNAME
-read -p "Enter the domain name for this server (ie: fn.kuali.org):" DOMAIN
 }
 
 # Set hostname and FQDN
@@ -180,7 +180,6 @@ if [ $SILENT == "silent" ]; then
 SILENT="-y"
 NEXUS_PASSWORD=${2-NOTDEFINED}
 HOSTNAME=${3-NOTDEFINED}
-DOMAIN=${4-NOTDEFINED}
 
 if [[ $NEXUS_PASSWORD == "NOTDEFINED" ]]; then
 echo "One or more parameters not set.  silent, Nexus password, hostname, and domain must all be defined when running in silent mode:"
@@ -191,14 +190,6 @@ exit 1
 fi;
 
 if [[ $HOSTNAME == "NOTDEFINED" ]]; then
-echo "One or more parameters not set.  silent, Nexus password, hostname, and domain must all be defined when running in silent mode:"
-echo
-echo "  initial_setup silent password hostname domain"
-echo
-exit 1
-fi;
-
-if [[ $DOMAIN == "NOTDEFINED" ]]; then
 echo "One or more parameters not set.  silent, Nexus password, hostname, and domain must all be defined when running in silent mode:"
 echo
 echo "  initial_setup silent password hostname domain"
