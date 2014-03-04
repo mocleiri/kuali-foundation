@@ -129,8 +129,7 @@ WEB_XML=$BASEDIR/src/main/resources/apache-tomcat/$TOMCAT_VERSION/conf/web.xml
 cp $WEB_XML $TOMCAT_CONF_FILE_DIR/web.xml
 cp $SERVER_XML $TOMCAT_CONF_FILE_DIR/server.xml
 
-rm -rf /var/lib/$TOMCAT/webapps/ROOT
-rm -rf /var/lib/$TOMCAT/webapps/ROOT.war
+rm -rf /var/lib/$TOMCAT/webapps/*
 
 }
 
