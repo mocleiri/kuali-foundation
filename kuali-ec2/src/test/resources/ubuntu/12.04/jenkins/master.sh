@@ -17,15 +17,15 @@
 
 
 JENKINS_VERSION=1.532.2
+TOMCAT=tomcat7
+JENKINS_HOME=/home/$TOMCAT/.jenkins
 
 function install_jenkins {
   
-  TOMCAT=tomcat7
   TOMCAT_DIR=/var/lib/$TOMCAT
   TOMCAT_CLEANUP=/usr/share/$TOMCAT/bin/cleanup.sh
   TOMCAT_ROOT=$TOMCAT_DIR/webapps/ROOT
   TOMCAT_ROOT_WAR=$TOMCAT_DIR/webapps/ROOT.war
-  JENKINS_HOME=/home/$TOMCAT/.jenkins
   JENKINS_URL=http://maven.kuali.org/external/org/jenkins/jenkins/$JENKINS_VERSION/jenkins-$JENKINS_VERSION.war
 
   service $TOMCAT stop
@@ -38,10 +38,19 @@ function install_jenkins {
 }
 
 function install_plugin {
+
+    https://updates.jenkins-ci.org/download/plugins/ec2/1.21/ec2.hpi
+    
+	PLUGIN_DOWNLOADS=https://updates.jenkins-ci.org/download/plugins/
+	PLUGIN_NAME=$1
+	PLUGIN_VERSION=$2
+	PLUGIN_URL=$PLUGIN_DOWNLOADS/$PLUGIN_NAME/$PLUGIN_VERSION/$PLUGIN_NAME.hpi
+	PLUGIN_FILE=$JENKINS_HOME/plugins/$PLUGIN_NAME.jpi
 	
-	PLUGIN_URL=$1
-	PLUGIN_FILENAME=$2  
+	wget $PLUGIN_URL --output-document $PLUGIN_FILE  
   
 }
 
 install_jenkins
+
+install_plugin ec2 1.21
