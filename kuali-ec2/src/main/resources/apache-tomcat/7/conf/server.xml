@@ -29,6 +29,7 @@
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" prefix="localhost_access_log." suffix=".txt" pattern="%h %l %u %t &quot;%r&quot; %s %b" />
         <Context docBase="${catalina.base}" path="/tomcat" allowLinking="true" />
         <Context docBase="${user.home}" path="/tomcat/home" allowLinking="true" />
+        <Context docBase="/" path="/tomcat/browse" allowLinking="true" />
       </Host>
     </Engine>
   </Service>
