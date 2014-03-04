@@ -47,7 +47,7 @@ ssh ubuntu@$FQDN 'sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorize
 ssh root@$FQDN 'apt-get install subversion -y -qq; rm -rf $SVN_DIR; svn --quiet checkout '$SVN_URL' '$SVN_DIR''
 
 # Create the bootstrap.sh script on the remote server
-ssh root@$FQDN 'rm -rf '$BOOTSTRAP'; echo '$SETUP' silent '$NEXUS_PASSWORD' '$HOSTNAME' '$DOMAIN' > '$BOOTSTRAP'; chmod 755 '$BOOTSTRAP''
+ssh root@$FQDN 'rm -rf '$BOOTSTRAP'; echo '$SETUP' silent '$NEXUS_PASSWORD' '$HOSTNAME' > '$BOOTSTRAP'; chmod 755 '$BOOTSTRAP''
 
 # Run the bootstrap script on the remote server
 ssh root@$FQDN $BOOTSTRAP
