@@ -17,7 +17,7 @@
 
 #
 # Usage:
-#   ./configure.sh password hostname [jdk] [tomcat]
+#   ./configure.sh password hostname [jdk] [tomcat] [max_heap] [max_perm]
 #
 
 JDK_LEVEL=${3-6}
