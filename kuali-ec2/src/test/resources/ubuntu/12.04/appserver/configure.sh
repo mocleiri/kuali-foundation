@@ -129,13 +129,13 @@ WEB_XML=$BASEDIR/src/main/resources/apache-tomcat/$TOMCAT_VERSION/conf/web.xml
 cp $WEB_XML $TOMCAT_CONF_FILE_DIR/web.xml
 cp $SERVER_XML $TOMCAT_CONF_FILE_DIR/server.xml
 
-rm -rf /var/lib/$TOMCAT/webapps/*
-rm -rf /var/lib/$TOMCAT/logs/*
+TOMCAT_LOGS=/var/lib/$TOMCAT/logs
+TOMCAT_WEBAPPS=/var/lib/$TOMCAT/webapps
 
-JSP_DIR=/var/lib/$TOMCAT/logs
-cp $BASEDIR/src/main/resources/apache-tomcat/jsps/*.jsp $JSP_DIR
-chown $TOMCAT_GROUP:$TOMCAT_USER $JSP_DIR/*.jsp
+rm -rf $TOMCAT_WEBAPPS/* $TOMCAT_LOGS/*
 
+cp $BASEDIR/src/main/resources/apache-tomcat/jsps/*.jsp $TOMCAT_LOGS
+chown $TOMCAT_GROUP:$TOMCAT_USER $TOMCAT_LOGS/*.jsp
 
 }
 
