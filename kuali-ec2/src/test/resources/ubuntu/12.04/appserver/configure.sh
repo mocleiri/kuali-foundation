@@ -176,16 +176,6 @@ ln -s $JDK_TARGET $JDK_LINK
 echo "installed -> $JDK_LINK - [$JDK_TARGET]"
 }
 
-# Request hostname
-function get_hostname {
-read -p "Enter the hostname of this server (eg: nexus): " HOSTNAME
-}
-
-# Request nexus password
-function get_nexus_password {
-read -p "Enter the password for the Nexus user 'developer': " NEXUS_PASSWORD
-}
-
 # Set hostname and FQDN
 function set_hostname {
 MYIP=$(ifconfig eth0 |grep inet | awk '{ print $2 }' | awk 'BEGIN { FS=":" } { print $2 }')
@@ -204,6 +194,16 @@ echo $ETC_HOSTS >> /etc/hosts
 # This breaks with the concept of idempotence
 # And also if for some reason we gave the machine a new DNS name I think we'd have issues 
 #eval "sed -i -e '/127.0.0.1/a$ETC_HOSTS' /etc/hosts"
+}
+
+# Request hostname
+function get_hostname {
+read -p "Enter the hostname of this server (eg: nexus): " HOSTNAME
+}
+
+# Request nexus password
+function get_nexus_password {
+read -p "Enter the password for the Nexus user 'developer': " NEXUS_PASSWORD
 }
 
 NEXUS_PASSWORD=${1-NOTDEFINED}
