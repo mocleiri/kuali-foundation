@@ -29,7 +29,7 @@ function install_jenkins {
   JENKINS_URL=http://maven.kuali.org/external/org/jenkins/jenkins/$JENKINS_VERSION/jenkins-$JENKINS_VERSION.war
 
   rm -rf $TOMCAT_ROOT $TOMCAT_ROOT_WAR $JENKINS_HOME
-  wget $JENKINS_URL --output-document $TOMCAT_ROOT_WAR
+  curl $JENKINS_URL --output $TOMCAT_ROOT_WAR
   chown $TOMCAT:$TOMCAT $TOMCAT_ROOT_WAR
   $TOMCAT_CLEANUP
   
