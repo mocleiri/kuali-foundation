@@ -42,7 +42,6 @@ function install_plugin {
 	PLUGIN_NAME=$1
 	PLUGIN_VERSION=$2
 	PLUGIN_URL=$PLUGIN_DOWNLOADS/$PLUGIN_NAME/$PLUGIN_VERSION/$PLUGIN_NAME.hpi
-	echo $PLUGIN_URL
 	PLUGIN_DIR=$JENKINS_HOME/plugins
 	PLUGIN_FILE=$PLUGIN_DIR/$PLUGIN_NAME.jpi
 	curl $PLUGIN_URL --silent --location --create-dirs --output $PLUGIN_FILE
