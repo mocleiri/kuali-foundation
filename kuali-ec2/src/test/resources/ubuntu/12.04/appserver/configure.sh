@@ -20,20 +20,8 @@
 #   ./configure.sh password hostname [jdk] [tomcat]
 #
 
-NEXUS_PASSWORD=${1-NOTDEFINED}
-HOSTNAME=${2-NOTDEFINED}
 JDK_LEVEL=${3-6}
 TOMCAT_VERSION=${4-7}
-
-if [ $NEXUS_PASSWORD == "NOTDEFINED" ]; then
-  echo no password!
-  show_usage
-fi
-
-if [ $HOSTNAME == "NOTDEFINED" ]; then
-  echo no hostname!
-  show_usage
-fi
 
 echo "password: $NEXUS_PASSWORD"
 echo "hostname: $HOSTNAME"
@@ -220,6 +208,19 @@ function show_usage {
   echo
   exit 1 
 }
+
+NEXUS_PASSWORD=${1-NOTDEFINED}
+HOSTNAME=${2-NOTDEFINED}
+
+if [ $NEXUS_PASSWORD == "NOTDEFINED" ]; then
+  echo no password!
+  show_usage
+fi
+
+if [ $HOSTNAME == "NOTDEFINED" ]; then
+  echo no hostname!
+  show_usage
+fi
 
 get_upgrades
 unattended_upgrades
