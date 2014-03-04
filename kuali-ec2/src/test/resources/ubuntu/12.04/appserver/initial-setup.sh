@@ -278,7 +278,7 @@ if [[ $RUN_GET_JDK == "y" ]]; then
 fi
 read -p "Install Tomcat? (y/n)  " RUN_TOMCAT_INSTALL
 if [[ $RUN_TOMCAT_INSTALL == "y" ]]; then
-  install_tomcat7
+  install_tomcat
 fi
 read -p "Setup hostname and FQDN? (y/n)  " SET_HOSTNAME
 if [[ $SET_HOSTNAME == "y" ]]; then
