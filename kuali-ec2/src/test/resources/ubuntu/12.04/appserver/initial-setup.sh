@@ -137,10 +137,7 @@ if [ $NEXUS_PASSWORD == "NOTDEFINED" ]; then
 get_nexus_password
 fi;
 
-#wget $QUIET --user $NEXUS_USER --password $NEXUS_PASSWORD $NEXUS_URL/$NEXUS_JDK_LOCATION/$JDK_ZIP_FILE --output-document $DOWNLOADS/$JDK_ZIP_FILE
-WGET="--user $NEXUS_USER --password $NEXUS_PASSWORD $NEXUS_URL/$NEXUS_JDK_LOCATION/$JDK_ZIP_FILE --output-document $DOWNLOADS/$JDK_ZIP_FILE"
-echo $WGET
-wget $WGET
+wget $QUIET --user $NEXUS_USER --password $NEXUS_PASSWORD $NEXUS_URL/$NEXUS_JDK_LOCATION/$JDK_ZIP_FILE --output-document $DOWNLOADS/$JDK_ZIP_FILE
 
 if [ ! -f $DOWNLOADS/$JDK_ZIP_FILE ]; then
   echo "$DOWNLOADS/$JDK_ZIP_FILE does not exist!"
@@ -154,7 +151,7 @@ fi
 rm -rf $JDK_BASEDIR/$JDK_ARTIFACT_ID $JDK_BASEDIR/$JDK_UNZIP_DIR
 
 # Unpack the JDK into /usr/java
-unzip -o $DOWNLOADS/$JDK_ZIP_FILE -d $JDK_BASEDIR
+unzip $QUIET -o $DOWNLOADS/$JDK_ZIP_FILE -d $JDK_BASEDIR
 
 # Symbolic link for /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
 ln -s $JDK_BASEDIR/$JDK_UNZIP_DIR $JDK_BASEDIR/$JDK_ARTIFACT_ID
