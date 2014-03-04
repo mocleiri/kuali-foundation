@@ -167,7 +167,7 @@ if [ $PASSWORD = ""]; then
 test_nexus_access
 fi
 
-wget -quiet -N --user $NEXUS_USER --password $PASSWORD $NEXUS_URL$NEXUS_JDK_LOCATION$JDK_ZIP_FILE -O $DOWNLOADS/$JDK_ZIP_FILE
+wget --quiet --user $NEXUS_USER --password $PASSWORD $NEXUS_URL$NEXUS_JDK_LOCATION$JDK_ZIP_FILE --output-document $DOWNLOADS/$JDK_ZIP_FILE
 
 if [ ! -f $DOWNLOADS/$JDK_ZIP_FILE ]; then
   echo "$DOWNLOADS/$JDK_ZIP_FILE does not exist!"
