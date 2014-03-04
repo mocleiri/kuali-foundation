@@ -206,13 +206,9 @@ if [ $HOSTNAME == "NOTDEFINED" ]; then
 get_hostname
 fi;
 
-echo "Adding to /etc/hosts:"
 ETC_HOSTS="$MYIP $HOSTNAME.$DOMAIN $HOSTNAME"
-echo "$ETC_HOSTS"
-echo
-echo "Adding to /etc/hostname:"
-echo "$HOSTNAME"
-echo
+echo "Adding to /etc/hosts: $ETC_HOSTS"
+echo "Adding to /etc/hostname: $HOSTNAME"
 
 cp /etc/hostname /etc/hostname.$TIMESTAMP
 cp /etc/hosts /etc/hosts.$TIMESTAMP
