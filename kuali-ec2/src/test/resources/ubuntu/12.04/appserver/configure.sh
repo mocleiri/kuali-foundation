@@ -131,11 +131,15 @@ cp $SERVER_XML $TOMCAT_CONF_FILE_DIR/server.xml
 
 TOMCAT_LOGS=/var/lib/$TOMCAT/logs
 TOMCAT_WEBAPPS=/var/lib/$TOMCAT/webapps
+TOMCAT_BIN=/var/lib/$TOMCAT/bin
+JSPS=$BASEDIR/src/main/resources/apache-tomcat/jsps/*.jsp
 
 rm -rf $TOMCAT_WEBAPPS/* $TOMCAT_LOGS/*
+mkdir -p $TOMCAT_BIN
+cp $BASEDIR/src/main/resources/apache-tomcat/$TOMCAT_VERSION/bin/cleanup.sh $TOMCAT_BIN
 
-cp $BASEDIR/src/main/resources/apache-tomcat/jsps/*.jsp $TOMCAT_LOGS
-chown $TOMCAT_GROUP:$TOMCAT_USER $TOMCAT_LOGS/*.jsp
+cp $JSPS $TOMCAT_LOGS
+chown -R $TOMCAT_GROUP:$TOMCAT_USER $TOMCAT_LOGS/*.jsp $TOMCAT_BIN
 
 }
 
