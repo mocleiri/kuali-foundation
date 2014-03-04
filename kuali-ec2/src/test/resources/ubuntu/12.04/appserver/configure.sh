@@ -132,6 +132,8 @@ cp $SERVER_XML $TOMCAT_CONF_FILE_DIR/server.xml
 rm -rf /var/lib/$TOMCAT/webapps/*
 rm -rf /var/lib/$TOMCAT/logs/*
 
+cp $BASEDIR/src/main/resources/apache-tomcat/$TOMCAT_VERSION/jsps/*.jsp /var/lib/$TOMCAT/logs
+
 }
 
 # Install JDK
