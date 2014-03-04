@@ -31,4 +31,4 @@ rm -rf $LOGS/* $WORK/* $CONF/Catalina/localhost/*
 cp $CONF/*.jsp $LOGS
 
 # Make sure the jsp's are owned by tomcat
-chown $TOMCAT:TOMCAT $LOGS/*.jsp
+chown $TOMCAT:$TOMCAT $LOGS/*.jsp
