@@ -31,6 +31,7 @@ TIMESTAMP=$(date +%Y%m%d_%H_%M_%S)
 BASEDIR=/mnt/kuali-ec2
 DOWNLOADS="$BASEDIR/target/downloads/"
 SCRIPTS_DIR=$BASEDIR/src/test/resources/ubuntu/12.04/appserver
+#TOMCAT_VERSION=6
 TOMCAT_VERSION=7
 
 JDK_GROUP_ID=com/oracle
