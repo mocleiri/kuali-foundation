@@ -29,7 +29,7 @@
 
 DOMAIN=kuali.org
 BASEDIR=/mnt/kuali-ec2
-DOWNLOADS="$BASEDIR/target/downloads/"
+DOWNLOADS=$BASEDIR/target/downloads
 SCRIPTS_DIR=$BASEDIR/src/test/resources/ubuntu/12.04/appserver
 QUIET=-qq
 
@@ -52,8 +52,8 @@ JDK_UNZIP_DIR=$JDK_ARTIFACT_ID-$JDK_VERSION
 JDK_ZIP_FILE=$JDK_ARTIFACT_ID-$JDK_VERSION-$JDK_CLASSIFIER.zip
 JDK_BASEDIR=/usr/java
 
-NEXUS_URL="http://nexus.kuali.org/content/groups/developer"
-NEXUS_JDK_LOCATION="/$JDK_GROUP_ID/$JDK_ARTIFACT_ID/$JDK_VERSION/"
+NEXUS_URL=http://nexus.kuali.org/content/groups/developer
+NEXUS_JDK_LOCATION=$JDK_GROUP_ID/$JDK_ARTIFACT_ID/$JDK_VERSION
 NEXUS_USER=developer
 NEXUS_JDK_DOWNLOAD_FILE=$DOWNLOADS/$JDK_ZIP_FILE
 
@@ -137,7 +137,7 @@ if [ $NEXUS_PASSWORD == "NOTDEFINED" ]; then
 get_nexus_password
 fi;
 
-wget $QUIET --user $NEXUS_USER --password $NEXUS_PASSWORD $NEXUS_URL$NEXUS_JDK_LOCATION$JDK_ZIP_FILE --output-document $DOWNLOADS/$JDK_ZIP_FILE
+wget $QUIET --user $NEXUS_USER --password $NEXUS_PASSWORD $NEXUS_URL/$NEXUS_JDK_LOCATION/$JDK_ZIP_FILE --output-document $DOWNLOADS/$JDK_ZIP_FILE
 
 if [ ! -f $DOWNLOADS/$JDK_ZIP_FILE ]; then
   echo "$DOWNLOADS/$JDK_ZIP_FILE does not exist!"
