@@ -34,7 +34,7 @@ NEXUS_PASSWORD=${1-NOTDEFINED}
 if [[ $NEXUS_PASSWORD == "NOTDEFINED" ]]; then
 echo "Nexus password is required"
 exit 1
-fi;
+fi
 
 JDK=${2-7}
 TOMCAT=${3-7}

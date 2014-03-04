@@ -28,12 +28,12 @@ TOMCAT_VERSION=${4-7}
 if [ $NEXUS_PASSWORD == "NOTDEFINED" ]; then
   echo no password!
   show_usage
-fi;
+fi
 
 if [ $HOSTNAME == "NOTDEFINED" ]; then
   echo no hostname!
   show_usage
-fi;
+fi
 
 JDK6_VERSION=1.6.0-u45
 JDK7_VERSION=1.7.0-u51
