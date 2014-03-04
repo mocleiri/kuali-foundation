@@ -241,6 +241,7 @@ fi;
 
 get_upgrades
 unattended_upgrades
+install_packages
 redirect_rules
 get_jdk
 install_tomcat
@@ -255,6 +256,7 @@ if [[ $RUN_UPGRADE == "y" ]]; then
   get_upgrades
 fi
 
+install_packages
 
 read -p "Allow unattended ugrades? (y/n)  " ALLOW_UNATTENDED_UPGRADES
 if [[ $ALLOW_UNATTENDED_UPGRADES == "y" ]]; then
