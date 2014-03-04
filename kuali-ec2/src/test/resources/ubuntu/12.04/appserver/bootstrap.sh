@@ -36,8 +36,8 @@ echo "Nexus password is required"
 exit 1
 fi;
 
-JDK=7
-TOMCAT=7
+JDK=${2-7}
+TOMCAT=${3-7}
 
 # Bash resources
 BOOTSTRAP=$SVN_DIR/bootstrap.sh
