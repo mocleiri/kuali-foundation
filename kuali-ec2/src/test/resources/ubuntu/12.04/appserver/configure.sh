@@ -94,7 +94,7 @@ apt-get $QUIET -y upgrade
 function unattended_upgrades {
 #dpkg-reco.nfigure unattended-upgrades
 echo "configure -> unattended upgrades"
-$SCRIPTS_DIR/unattended-upgrades.sh
+$SCRIPTS_DIR/unattended-upgrades.sh > /dev/null 2>&1
 }
 
 # install custom packages
