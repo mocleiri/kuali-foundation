@@ -114,15 +114,12 @@ echo "remove    -> $TOMCAT_PURGE"
 apt-get $QUIET -y purge $TOMCAT_PURGE > /dev/null 2>&1
 apt-get $QUIET -y autoremove > /dev/null 2>&1
 if [ $TOMCAT_VERSION == "6" ]; then
-  TOMCAT_INSTALL=$TOMCAT $TOMCAT-common libtcnative-1
-  echo "install   -> $TOMCAT_INSTALL"
-  apt-get $QUIET -y install $TOMCAT_INSTALL > /dev/null 2>&1
-fi;
-if [ $TOMCAT_VERSION == "7" ]; then
-  TOMCAT_INSTALL=$TOMCAT libtcnative-1
-  echo "install   -> $TOMCAT_INSTALL"
-  apt-get $QUIET -y install $TOMCAT_INSTALL > /dev/null 2>&1
-fi;
+  echo "install   -> $TOMCAT-common libtcnative-1 $TOMCAT"
+  apt-get $QUIET -y install $TOMCAT-common libtcnative-1 $TOMCAT > /dev/null 2>&1
+else
+  echo "install   -> libtcnative-1 $TOMCAT"
+  apt-get $QUIET -y install libtcnative-1 $TOMCAT > /dev/null 2>&1
+fi
 service $TOMCAT stop > /dev/null 2>&1
 echo "configure -> $TOMCAT"
 echo "TOMCAT_USER=$TOMCAT_USER" > $TOMCAT_OPT_FILE
