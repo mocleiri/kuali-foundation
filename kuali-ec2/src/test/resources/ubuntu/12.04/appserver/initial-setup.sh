@@ -27,7 +27,6 @@
 #   ./initial_setup.sh silent MyNexusPassword testserver kuali.org
 #
 
-TIMESTAMP=$(date +%Y%m%d_%H_%M_%S)
 BASEDIR=/mnt/kuali-ec2
 DOWNLOADS="$BASEDIR/target/downloads/"
 SCRIPTS_DIR=$BASEDIR/src/test/resources/ubuntu/12.04/appserver
@@ -175,9 +174,6 @@ echo
 echo "Adding to /etc/hosts    -> $ETC_HOSTS"
 echo "Adding to /etc/hostname -> $HOSTNAME"
 echo
-
-cp /etc/hostname /etc/hostname.$TIMESTAMP
-cp /etc/hosts /etc/hosts.$TIMESTAMP
 
 echo "$HOSTNAME" > /etc/hostname
 eval "sed -i -e '/127.0.0.1/a$ETC_HOSTS' /etc/hosts"
