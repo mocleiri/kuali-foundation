@@ -132,6 +132,11 @@ rm -rf /var/lib/$TOMCAT/webapps/ROOT
 
 # Install JDK
 function get_jdk {
+
+if [ $NEXUS_PASSWORD == "NOTDEFINED" ]; then
+get_nexus_password
+fi;
+
 wget $QUIET --user $NEXUS_USER --password $NEXUS_PASSWORD $NEXUS_URL$NEXUS_JDK_LOCATION$JDK_ZIP_FILE --output-document $DOWNLOADS/$JDK_ZIP_FILE
 
 if [ ! -f $DOWNLOADS/$JDK_ZIP_FILE ]; then
@@ -155,6 +160,11 @@ ln -s $JDK_BASEDIR/$JDK_UNZIP_DIR $JDK_BASEDIR/$JDK_ARTIFACT_ID
 # Request hostname and FQDN
 function get_hostname {
 read -p "Enter the hostname of this server(ie: nexus): " HOSTNAME
+}
+
+# Request nexus password
+function get_hostname {
+read -p "Enter the password for nexus user developer: " $NEXUS_PASSWORD
 }
 
 # Set hostname and FQDN
