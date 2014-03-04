@@ -248,7 +248,7 @@ test_nexus_access
 get_upgrades
 redirect_rules
 get_jdk
-install_tomcat7
+install_tomcat
 set_hostname
 fi
 
