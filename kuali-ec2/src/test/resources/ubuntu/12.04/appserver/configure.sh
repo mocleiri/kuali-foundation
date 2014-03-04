@@ -20,8 +20,8 @@
 #   ./configure.sh password hostname [jdk] [tomcat]
 #
 
-JDK_LEVEL=${3-7}
-TOMCAT_VERSION=${4-7}
+JDK_LEVEL=${3-6}
+TOMCAT_VERSION=${4-6}
 
 DOMAIN=kuali.org
 BASEDIR=/mnt/kuali-ec2
