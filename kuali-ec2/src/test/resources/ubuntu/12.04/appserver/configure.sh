@@ -25,6 +25,16 @@ HOSTNAME=${2-NOTDEFINED}
 JDK_LEVEL=${3-6}
 TOMCAT_VERSION=${4-7}
 
+if [ $NEXUS_PASSWORD == "NOTDEFINED" ]; then
+  echo no password!
+  show_usage
+fi;
+
+if [ $HOSTNAME == "NOTDEFINED" ]; then
+  echo no hostname!
+  show_usage
+fi;
+
 JDK6_VERSION=1.6.0-u45
 JDK7_VERSION=1.7.0-u51
 
@@ -205,16 +215,6 @@ function show_usage {
   echo
   exit 1 
 }
-
-if [ $NEXUS_PASSWORD == "NOTDEFINED" ]; then
-  echo no password!
-  show_usage
-fi;
-
-if [ $HOSTNAME == "NOTDEFINED" ]; then
-  echo no hostname!
-  show_usage
-fi;
 
 get_upgrades
 unattended_upgrades
