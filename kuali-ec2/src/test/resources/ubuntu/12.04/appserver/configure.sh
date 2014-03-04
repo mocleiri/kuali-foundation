@@ -187,7 +187,10 @@ echo
 
 echo "$HOSTNAME" > /etc/hostname
 hostname $HOSTNAME
-eval "sed -i -e '/127.0.0.1/a$ETC_HOSTS' /etc/hosts"
+
+echo '127.0.0.1 localhost' > /etc/hosts
+echo $ETC_HOSTS >> /etc/hosts
+#eval "sed -i -e '/127.0.0.1/a$ETC_HOSTS' /etc/hosts"
 }
 
 if [ $SILENT == "silent" ]; then
