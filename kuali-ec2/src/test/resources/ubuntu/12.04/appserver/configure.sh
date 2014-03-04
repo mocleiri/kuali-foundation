@@ -199,17 +199,21 @@ echo $ETC_HOSTS >> /etc/hosts
 #eval "sed -i -e '/127.0.0.1/a$ETC_HOSTS' /etc/hosts"
 }
 
-if [ $NEXUS_PASSWORD == "NOTDEFINED" ]; then
+function show_usage {
   echo
-  echo usage: configure.sh [nexus password] [hostname]
-  echo 
-  exit 1
+  echo usage: configure.sh password hostname
+  echo
+  exit 1 
+}
+
+if [ $NEXUS_PASSWORD == "NOTDEFINED" ]; then
+  echo no password!
+  show_usage
 fi;
 
 if [ $HOSTNAME == "NOTDEFINED" ]; then
-  echo
-  echo usage: configure.sh [nexus password] [hostname]
-  echo 
+  echo no hostname!
+  show_usage
 fi;
 
 get_upgrades
