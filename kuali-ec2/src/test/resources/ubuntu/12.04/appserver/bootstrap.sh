@@ -49,7 +49,7 @@ MAX_PERM=${6-512m}
 
 # Bash resources
 BOOTSTRAP=$SVN_DIR/bootstrap.sh
-SETUP=$SCRIPTS_DIR/configure.sh
+CONFIGURE=$SCRIPTS_DIR/configure.sh
 
 # Enable root ssh
 ssh ubuntu@$FQDN 'sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys'
@@ -58,7 +58,7 @@ ssh ubuntu@$FQDN 'sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorize
 ssh root@$FQDN 'apt-get install subversion -y -qq; rm -rf $SVN_DIR; svn --quiet checkout '$SVN_URL' '$SVN_DIR''
 
 # Create the bootstrap.sh script on the remote server
-ssh root@$FQDN 'rm -rf '$BOOTSTRAP'; echo '$SETUP' '$NEXUS_PASSWORD' '$HOSTNAME' '$JDK' '$TOMCAT' '$MAX_HEAP' '$MAX_PERM' > '$BOOTSTRAP'; chmod 755 '$BOOTSTRAP''
+ssh root@$FQDN 'rm -rf '$BOOTSTRAP'; echo '$CONFIGURE' '$NEXUS_PASSWORD' '$HOSTNAME' '$JDK' '$TOMCAT' '$MAX_HEAP' '$MAX_PERM' > '$BOOTSTRAP'; chmod 755 '$BOOTSTRAP''
 
 # Run the bootstrap script on the remote server
 ssh root@$FQDN $BOOTSTRAP
