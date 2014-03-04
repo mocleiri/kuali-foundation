@@ -18,13 +18,13 @@
 
 # Usage:
 # Interactive:
-#   ./initial_setup.sh
+#   ./configure.sh
 #
 # Silent:
-#   ./initial_setup.sh silent <nexus_password> <hostname> <domain>
+#   ./configure.sh silent <nexus_password> <hostname> <domain>
 #
 # Example for testserver.kuali.org:
-#   ./initial_setup.sh silent MyNexusPassword testserver kuali.org
+#   ./configure.sh silent MyNexusPassword testserver kuali.org
 #
 
 DOMAIN=kuali.org
@@ -217,7 +217,7 @@ HOSTNAME=${3-NOTDEFINED}
 if [[ $NEXUS_PASSWORD == "NOTDEFINED" ]]; then
 echo "One or more parameters not set.  silent, Nexus password, hostname, and domain must all be defined when running in silent mode:"
 echo
-echo "  initial_setup silent password hostname domain"
+echo "  configure silent password hostname domain"
 echo
 exit 1
 fi;
@@ -225,7 +225,7 @@ fi;
 if [[ $HOSTNAME == "NOTDEFINED" ]]; then
 echo "One or more parameters not set.  silent, Nexus password, hostname, and domain must all be defined when running in silent mode:"
 echo
-echo "  initial_setup silent password hostname domain"
+echo "  configure silent password hostname domain"
 echo
 exit 1
 fi;
