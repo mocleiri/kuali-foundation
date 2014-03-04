@@ -230,7 +230,6 @@ read -p "Allow unattended ugrades? (y/n)  " ALLOW_UNATTENDED_UPGRADES
 if [[ $ALLOW_UNATTENDED_UPGRADES == "y" ]]; then
   unattended_upgrades
 fi
-echo "If setup port redirect rules, select \"Yes\" on the interactive screen that appears."
 read -p "Setup port redirect rules (8080 -> 80)? (y/n)  " SETUP_PORT_REDIRECT
 if [[ $SETUP_PORT_REDIRECT == "y" ]]; then
   redirect_rules
