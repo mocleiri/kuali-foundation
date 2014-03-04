@@ -41,7 +41,7 @@ SETUP=$SCRIPTS_DIR/initial-setup.sh
 ssh ubuntu@$FQDN 'sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys'
 
 # Checkout kuali-ec2
-ssh root@$FQDN 'apt-get install subversion -y; rm -rf $SVN_DIR; svn --quiet checkout '$SVN_URL' '$SVN_DIR''
+ssh root@$FQDN 'apt-get install subversion -y -qq; rm -rf $SVN_DIR; svn --quiet checkout '$SVN_URL' '$SVN_DIR''
 
 # Create the bootstrap.sh script on the remote server
 ssh root@$FQDN 'rm -rf '$BOOTSTRAP'; echo '$SETUP' silent '$NEXUS_PASSWORD' '$HOSTNAME' '$DOMAIN' > '$BOOTSTRAP'; chmod 755 '$BOOTSTRAP''
