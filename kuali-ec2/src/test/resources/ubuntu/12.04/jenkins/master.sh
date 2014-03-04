@@ -22,7 +22,7 @@ TOMCAT=tomcat7
 function install_jenkins () {
   
   TOMCAT_DIR=/var/lib/$TOMCAT
-  TOMCAT_CLEANUP=cleanup.sh
+  TOMCAT_CLEANUP=/usr/share/$TOMCAT/bin/cleanup.sh
   TOMCAT_ROOT=$TOMCAT_DIR/webapps/ROOT
   TOMCAT_ROOT_WAR=$TOMCAT_DIR/webapps/ROOT.war
 
