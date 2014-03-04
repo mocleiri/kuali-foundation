@@ -28,12 +28,10 @@ function install_jenkins {
   TOMCAT_ROOT_WAR=$TOMCAT_DIR/webapps/ROOT.war
   JENKINS_URL=http://maven.kuali.org/external/org/jenkins/jenkins/$JENKINS_VERSION/jenkins-$JENKINS_VERSION.war
 
-  service $TOMCAT stop
   rm -rf $TOMCAT_ROOT $TOMCAT_ROOT_WAR $JENKINS_HOME
   wget $JENKINS_URL --output-document $TOMCAT_ROOT_WAR
   chown $TOMCAT:$TOMCAT $TOMCAT_ROOT_WAR
   $TOMCAT_CLEANUP
-  service $TOMCAT start
   
 }
 
@@ -51,6 +49,7 @@ function install_plugin {
   
 }
 
+service $TOMCAT stop
 install_jenkins
-
 install_plugin ec2 1.21
+service $TOMCAT start
