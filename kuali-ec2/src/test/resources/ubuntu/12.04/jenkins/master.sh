@@ -18,7 +18,8 @@
 
 JENKINS_VERSION=1.532.2
 TOMCAT=tomcat7
-JENKINS_HOME=/home/$TOMCAT/.jenkins
+TOMCAT_HOME=/home/$TOMCAT
+JENKINS_HOME=$TOMCAT_HOME/.jenkins
 
 function install_jenkins {
   
@@ -45,7 +46,7 @@ function install_plugin {
 	PLUGIN_DIR=$JENKINS_HOME/plugins
 	PLUGIN_FILE=$PLUGIN_DIR/$PLUGIN_NAME.jpi
 	curl $PLUGIN_URL --location --create-dirs --output $PLUGIN_FILE
-	chown -R $TOMCAT:$TOMCAT $JENKINS_HOME  
+	chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME  
   
 }
 
