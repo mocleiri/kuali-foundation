@@ -51,5 +51,5 @@ function install_plugin {
 
 service $TOMCAT stop
 install_jenkins
-install_plugin ec2 1.21
+# install_plugin ec2 1.21
 service $TOMCAT start
