@@ -180,10 +180,8 @@ get_hostname
 fi;
 
 ETC_HOSTS="$MYIP $HOSTNAME.$DOMAIN $HOSTNAME"
-echo
 echo "hostname  -> $HOSTNAME"
 echo "hosts     -> $ETC_HOSTS"
-echo
 
 echo "$HOSTNAME" > /etc/hostname
 hostname $HOSTNAME
