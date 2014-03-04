@@ -18,7 +18,7 @@
 
 JENKINS_VERSION=1.532.2
 
-function install_jenkins () {
+function install_jenkins {
   
   TOMCAT=tomcat7
   TOMCAT_DIR=/var/lib/$TOMCAT
