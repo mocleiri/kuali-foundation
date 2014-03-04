@@ -64,5 +64,8 @@ install_plugin git-client        1.6.3
 install_plugin credentials       1.10
 install_plugin scm-api           0.2
 install_plugin ssh-credentials   1.6.1
+install_plugin jobConfigHistory  2.5
+install_plugin maven-plugin      2.1
+install_plugin mailer            1.8
 echo "start    -> $TOMCAT"
 service $TOMCAT start > /dev/null 2>&1
