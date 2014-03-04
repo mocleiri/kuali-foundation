@@ -179,7 +179,7 @@ fi;
 
 ETC_HOSTS="$MYIP $HOSTNAME.$DOMAIN $HOSTNAME"
 echo
-echo "setting /etc/hostname -> $HOSTNAME"
+echo "hostname -> $HOSTNAME"
 echo "adding to /etc/hosts  -> $ETC_HOSTS"
 echo
 
