@@ -29,6 +29,7 @@ function install_jenkins {
   TOMCAT_ROOT_WAR=$TOMCAT_DIR/webapps/ROOT.war
   JENKINS_URL=http://maven.kuali.org/external/org/jenkins/jenkins/$JENKINS_VERSION/jenkins-$JENKINS_VERSION.war
 
+  echo "download -> $JENKINS_URL"
   rm -rf $TOMCAT_ROOT $TOMCAT_ROOT_WAR $JENKINS_HOME
   curl $JENKINS_URL --silent --output $TOMCAT_ROOT_WAR
   chown $TOMCAT:$TOMCAT $TOMCAT_ROOT_WAR
@@ -42,6 +43,7 @@ function install_plugin {
 	PLUGIN_NAME=$1
 	PLUGIN_VERSION=$2
 	PLUGIN_URL=$PLUGIN_DOWNLOADS/$PLUGIN_NAME/$PLUGIN_VERSION/$PLUGIN_NAME.hpi
+    echo "download -> $PLUGIN_URL"
 	PLUGIN_DIR=$JENKINS_HOME/plugins
 	PLUGIN_FILE=$PLUGIN_DIR/$PLUGIN_NAME.jpi
 	curl $PLUGIN_URL --silent --location --create-dirs --output $PLUGIN_FILE
