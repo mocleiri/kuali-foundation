@@ -53,10 +53,10 @@ CONFIGURE=$SCRIPTS_DIR/configure.sh
 # Enable root ssh
 ssh ubuntu@$FQDN 'sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys'
 
-# Checkout kuali-ec2 on the remote server
-ssh root@$FQDN 'apt-get install subversion -y -qq; rm -rf $SVN_DIR; svn --quiet checkout '$SVN_URL' '$SVN_DIR''
+# Checkout kuali-ec2 on the remote server and run configure.sh
+ssh root@$FQDN "apt-get install subversion -y -qq; rm -rf $SVN_DIR; svn --quiet checkout '$SVN_URL' '$SVN_DIR'; '$CONFIGURE' '$NEXUS_PASSWORD' '$HOSTNAME' '$JDK' '$TOMCAT' '$MAX_HEAP' '$MAX_PERM' '$QUIET'"
 
 # Run configure.sh on the remote server
-ssh root@$FQDN ''$CONFIGURE' '$NEXUS_PASSWORD' '$HOSTNAME' '$JDK' '$TOMCAT' '$MAX_HEAP' '$MAX_PERM' '$QUIET''
+#ssh root@$FQDN ''$CONFIGURE' '$NEXUS_PASSWORD' '$HOSTNAME' '$JDK' '$TOMCAT' '$MAX_HEAP' '$MAX_PERM' '$QUIET''
 
 echo $(date)
