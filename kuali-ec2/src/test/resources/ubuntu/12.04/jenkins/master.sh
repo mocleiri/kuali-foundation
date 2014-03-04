@@ -71,9 +71,15 @@ function install_plugins {
   
 }
 
+function install_packages {
+  echo "install  -> custom packages"
+  apt-get install subversion git -y -qq
+}
+
 echo "stop     -> $TOMCAT"
 service $TOMCAT stop > /dev/null 2>&1
 install_jenkins
 install_plugins
+install_packages
 echo "start    -> $TOMCAT"
 service $TOMCAT start > /dev/null 2>&1
