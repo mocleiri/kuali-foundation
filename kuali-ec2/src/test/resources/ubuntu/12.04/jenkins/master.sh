@@ -59,5 +59,10 @@ install_jenkins
 install_plugin node-iterator-api 1.2
 install_plugin ec2               1.21
 install_plugin cas-plugin        1.1.1
+install_plugin git               2.0.3
+install_plugin git-client        1.6.3
+install_plugin credentials       1.10
+install_plugin scm-api           0.2
+install_plugin ssh-credentials   1.6.1
 echo "start    -> $TOMCAT"
 service $TOMCAT start > /dev/null 2>&1
