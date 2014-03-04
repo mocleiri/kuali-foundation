@@ -118,6 +118,7 @@ fi;
 if [ $TOMCAT_VERSION == "7" ]; then
   TOMCAT_INSTALL=$TOMCAT libtcnative-1
 fi;
+apt-get $QUIET -y autoremove > /dev/null 2>&1
 echo "install   -> $TOMCAT_INSTALL"
 apt-get $QUIET -y install $TOMCAT_INSTALL > /dev/null 2>&1
 service $TOMCAT stop > /dev/null 2>&1
