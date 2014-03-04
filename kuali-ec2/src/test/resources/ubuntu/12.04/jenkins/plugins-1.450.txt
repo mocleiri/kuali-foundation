@@ -1,0 +1,39 @@
+Ant Plugin
+Javadoc Plugin
+Amazon EC2 Plugin
+Selenium Plugin
+Subversion Plugin
+Parameterized Trigger Plugin
+Maven Project Plugin
+CVS Plugin
+Git Plugin
+Jenkins Subversion Tagging Plugin
+SSH plugin
+SVN 1.3 Compatibility Plugin
+Cobertura Plugin
+Static Code Analysis Plug-ins
+jQuery Plugin
+Checkstyle Plugin
+Jenkins jQuery UI plugin
+M2 Extra Steps Plugin
+SVN 1.4 Compatibility Plugin
+Jenkins Environment File Plugin
+FindBugs Plugin
+Green Balls
+Copy Artifact Plugin
+SCM Sync configuration plugin
+CAS protocol version 1 plugin
+GitHub API Plugin
+GitHub Plugin
+Template Project Plugin
+JobConfigHistory Plugin
+M2 Release Plugin
+Clover Plugin
+Copy To Slave Plugin
+EnvInject Plugin
+Translation Assistance Plugin
+Jenkins Sonar Plugin
+Next Build Number Plugin
+SSH Slaves plugin
+Performance Plugin
+Email-ext plugin
