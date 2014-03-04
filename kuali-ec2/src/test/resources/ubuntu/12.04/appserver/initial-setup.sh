@@ -30,7 +30,8 @@
 BASEDIR=/mnt/kuali-ec2
 DOWNLOADS="$BASEDIR/target/downloads/"
 SCRIPTS_DIR=$BASEDIR/src/test/resources/ubuntu/12.04/appserver
-QUIET=-qq
+QUIET1=-qq
+QUIET2=--quiet
 
 JDK6=jdk6
 JDK6_VERSION=1.6.0-u45
@@ -83,8 +84,8 @@ mkdir -p $DOWNLOADS
 
 #Update Ubuntu repos and packages
 function get_upgrades {
-apt-get $QUIET -y update
-apt-get $QUIET -y upgrade
+apt-get $QUIET1 -y update
+apt-get $QUIET1 -y upgrade
 }
 
 
@@ -105,7 +106,7 @@ echo
 iptables --table nat --append PREROUTING --protocol tcp --dport 80 --jump REDIRECT --to-port 8080
 iptables -t nat -A OUTPUT -p tcp -o lo --dport 80 -j DNAT --to 127.0.0.1:8080
 export DEBIAN_FRONTEND=noninteractive
-apt-get $QUIET -y install iptables-persistent
+apt-get $QUIET1 -y install iptables-persistent
 iptables-save > /etc/iptables/rules.v4
 ip6tables-save > /etc/iptables/rules.v6
 unset DEBIAN_FRONTEND
@@ -114,8 +115,8 @@ unset DEBIAN_FRONTEND
 
 # Install Tomcat
 function install_tomcat {
-apt-get $QUIET -y --purge remove $TOMCAT6 $TOMCAT7
-apt-get $QUIET -y install $TOMCAT libtcnative-1
+apt-get $QUIET1 -y --purge remove $TOMCAT6 $TOMCAT7
+apt-get $QUIET1 -y install $TOMCAT libtcnative-1
 service $TOMCAT stop
 
 echo "TOMCAT_USER=$TOMCAT_USER" > $TOMCAT_OPT_FILE
@@ -135,7 +136,7 @@ rm -rf /var/lib/$TOMCAT/webapps/ROOT
 
 # Install JDK
 function get_jdk {
-wget --quiet --user $NEXUS_USER --password $NEXUS_PASSWORD $NEXUS_URL$NEXUS_JDK_LOCATION$JDK_ZIP_FILE --output-document $DOWNLOADS/$JDK_ZIP_FILE
+wget $QUIET2 --user $NEXUS_USER --password $NEXUS_PASSWORD $NEXUS_URL$NEXUS_JDK_LOCATION$JDK_ZIP_FILE --output-document $DOWNLOADS/$JDK_ZIP_FILE
 
 if [ ! -f $DOWNLOADS/$JDK_ZIP_FILE ]; then
   echo "$DOWNLOADS/$JDK_ZIP_FILE does not exist!"
@@ -149,7 +150,7 @@ fi
 rm -rf $JDK_BASEDIR/$JDK_ARTIFACT_ID $JDK_BASEDIR/$JDK_UNZIP_DIR
 
 # Unpack the JDK into /usr/java
-unzip -q -o $DOWNLOADS/$JDK_ZIP_FILE -d $JDK_BASEDIR
+unzip $QUIET2 -o $DOWNLOADS/$JDK_ZIP_FILE -d $JDK_BASEDIR
 
 # Symbolic link for /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
 ln -s $JDK_BASEDIR/$JDK_UNZIP_DIR $JDK_BASEDIR/$JDK_ARTIFACT_ID
@@ -225,7 +226,7 @@ if [[ $RUN_UPGRADE == "y" ]]; then
   get_upgrades
 fi
 
-apt-get install unzip ntp expect -y $QUIET 
+apt-get install unzip ntp expect -y $QUIET1 
 
 echo "If allow unattended upgrade, select \"Yes\" on the interactive screen that appears."
 read -p "Allow unattended ugrades? (y/n)  " ALLOW_UNATTENDED_UPGRADES
