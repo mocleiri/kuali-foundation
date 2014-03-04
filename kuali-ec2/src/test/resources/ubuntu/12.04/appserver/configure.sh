@@ -175,7 +175,7 @@ unzip $QUIET -o $DOWNLOADS/$JDK_ZIP_FILE -d $JDK_BASEDIR
 ln -s $JDK_BASEDIR/$JDK_UNZIP_DIR $JDK_BASEDIR/$JDK_ARTIFACT_ID
 }
 
-# Request hostname and FQDN
+# Request hostname
 function get_hostname {
 read -p "Enter the hostname of this server(ie: nexus): " HOSTNAME
 }
