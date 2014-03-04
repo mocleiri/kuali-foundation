@@ -28,8 +28,9 @@ TOMCAT_ROOT_WAR=$TOMCAT_DIR/webapps/ROOT.war
 
 service $TOMCAT stop
 
-rm -rf $TOMCAT_ROOT TOMCAT_ROOT_WAR
+rm -rf $TOMCAT_ROOT $TOMCAT_ROOT_WAR
 
 wget http://maven.kuali.org/external/org/jenkins/jenkins/$JENKINS_VERSION/jenkins-$JENKINS_VERSION.war --output-document $TOMCAT_ROOT_WAR
+chown $TOMCAT:$TOMCAT $TOMCAT_ROOT_WAR
 
 service $TOMCAT start
