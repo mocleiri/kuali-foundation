@@ -22,7 +22,7 @@ SVN_REPO=https://svn.kuali.org/repos/foundation
 SVN_PATH=trunk/kuali-ec2
 SVN_URL=$SVN_REPO/$SVN_PATH
 SVN_DIR=/mnt/kuali-ec2
-SCRIPTS_DIR=$SVN_DIR/src/test/resources/ubuntu/12.04/appserver
+SCRIPTS=$SVN_DIR/src/test/resources/ubuntu/12.04/appserver
 
 # DNS
 DOMAIN=kuali.org
@@ -53,7 +53,7 @@ SVN2="rm -rf $SVN_DIR"
 SVN3="svn $QUIET checkout $SVN_URL $SVN_DIR"
 SVN="$SVN1; $SVN2; $SVN3"
 
-CONFIGURE="$SCRIPTS_DIR/configure.sh $NEXUS_PASSWORD $HOSTNAME $JDK $TOMCAT $MAX_HEAP $MAX_PERM $QUIET"
+CONFIGURE="$SCRIPTS/configure.sh $NEXUS_PASSWORD $HOSTNAME $JDK $TOMCAT $MAX_HEAP $MAX_PERM $QUIET"
 
 # Enable root ssh
 echo "enable    -> root ssh"
