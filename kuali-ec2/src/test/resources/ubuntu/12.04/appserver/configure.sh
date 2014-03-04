@@ -153,7 +153,7 @@ URL=$NEXUS_URL/$NEXUS_JDK_LOCATION/$JDK_ZIP_FILE
 OUTPUT_FILE=$DOWNLOADS/$JDK_ZIP_FILE
 echo "download  -> $URL"
 wget $QUIET --user $NEXUS_USER --password $NEXUS_PASSWORD $URL --output-document $OUTPUT_FILE
-echo "created   -> $OUTPUT_FILE"
+echo "create    -> $OUTPUT_FILE"
 
 if [ ! -f $OUTPUT_FILE ]; then
   echo "$OUTPUT_FILE does not exist!"
@@ -169,8 +169,11 @@ rm -rf $JDK_BASEDIR/$JDK_ARTIFACT_ID $JDK_BASEDIR/$JDK_UNZIP_DIR
 # Unpack the JDK into /usr/java
 unzip $QUIET -o $DOWNLOADS/$JDK_ZIP_FILE -d $JDK_BASEDIR
 
-# Symbolic link for /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
-ln -s $JDK_BASEDIR/$JDK_UNZIP_DIR $JDK_BASEDIR/$JDK_ARTIFACT_ID
+# Create a symbolic link for /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
+JDK_TARGET=$JDK_BASEDIR/$JDK_UNZIP_DIR
+JDK_LINK=$JDK_BASEDIR/$JDK_ARTIFACT_ID
+ln -s $JDK_TARGET $JDK_LINK
+echo "installed -> $JDK_LINK ($JDK_TARGET)"
 }
 
 # Request hostname
