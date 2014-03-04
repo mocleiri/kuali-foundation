@@ -75,8 +75,8 @@ mkdir -p $DOWNLOADS
 
 #Update Ubuntu repos and packages
 function get_upgrades {
-apt-get -y update
-apt-get -y upgrade
+apt-get -qq -y update
+apt-get -qq -y upgrade
 }
 
 
@@ -109,7 +109,7 @@ function install_tomcat {
 echo
 echo "Installing $TOMCAT..."
 echo
-apt-get -y install $TOMCAT libtcnative-1
+apt-get -qq -y install $TOMCAT libtcnative-1
 echo "Stopping Tomcat..."
 service $TOMCAT stop
 
@@ -260,7 +260,7 @@ if [[ $RUN_UPGRADE == "y" ]]; then
   get_upgrades
 fi
 
-apt-get install unzip ntp expect -y
+apt-get install unzip ntp expect -y -qq 
 
 echo "If allow unattended upgrade, select \"Yes\" on the interactive screen that appears."
 read -p "Allow unattended ugrades? (y/n)  " ALLOW_UNATTENDED_UPGRADES
