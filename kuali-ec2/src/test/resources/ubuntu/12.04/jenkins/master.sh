@@ -23,6 +23,7 @@ JENKINS_HOME=$TOMCAT_HOME/.jenkins
 
 function install_jenkins {
   
+  echo "install  -> Jenkins $JENKINS_VERSION"
   TOMCAT_DIR=/var/lib/$TOMCAT
   TOMCAT_CLEANUP=/usr/share/$TOMCAT/bin/cleanup.sh
   TOMCAT_ROOT=$TOMCAT_DIR/webapps/ROOT
@@ -72,10 +73,7 @@ function install_plugins {
 
 echo "stop     -> $TOMCAT"
 service $TOMCAT stop > /dev/null 2>&1
-
-echo "install  -> Jenkins $JENKINS_VERSION"
 install_jenkins
 install_plugins
-
 echo "start    -> $TOMCAT"
 service $TOMCAT start > /dev/null 2>&1
