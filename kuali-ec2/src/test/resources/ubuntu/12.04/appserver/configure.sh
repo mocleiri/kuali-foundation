@@ -113,6 +113,7 @@ unset DEBIAN_FRONTEND
 function install_tomcat {
 echo "remove    -> $TOMCAT6 $TOMCAT7"
 apt-get $QUIET -y purge $TOMCAT6 $TOMCAT7
+apt-get $QUIET -y autoremove
 echo "install   -> $TOMCAT"
 apt-get $QUIET -y install $TOMCAT libtcnative-1
 service $TOMCAT stop
@@ -230,7 +231,7 @@ if [[ $RUN_UPGRADE == "y" ]]; then
   get_upgrades
 fi
 
-apt-get install unzip ntp expect -y $QUIET 
+apt-get install unzip ntp expect dialog -y $QUIET 
 
 read -p "Allow unattended ugrades? (y/n)  " ALLOW_UNATTENDED_UPGRADES
 if [[ $ALLOW_UNATTENDED_UPGRADES == "y" ]]; then
