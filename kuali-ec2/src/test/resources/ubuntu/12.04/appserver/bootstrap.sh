@@ -49,7 +49,7 @@ MAX_PERM=${6-512m}
 QUIET=${7-""}
 
 CONFIGURE=$SCRIPTS_DIR/configure.sh
-SVN1=apt-get install subversion -y $QUIET
+SVN1="apt-get install subversion -y $QUIET"
 
 # Enable root ssh
 echo "enable    -> root ssh"
