@@ -55,7 +55,6 @@ JDK_BASEDIR=/usr/java
 NEXUS_URL="http://nexus.kuali.org/content/groups/developer"
 NEXUS_JDK_LOCATION="/$JDK_GROUP_ID/$JDK_ARTIFACT_ID/$JDK_VERSION/"
 NEXUS_USER=developer
-NEXUS_AUTH_ERROR="This request requires HTTP authentication"
 NEXUS_JDK_DOWNLOAD_FILE=$DOWNLOADS/$JDK_ZIP_FILE
 
 #TOMCAT_VERSION=6
