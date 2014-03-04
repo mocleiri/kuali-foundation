@@ -207,8 +207,10 @@ get_hostname
 fi;
 
 ETC_HOSTS="$MYIP $HOSTNAME.$DOMAIN $HOSTNAME"
-echo "Adding to /etc/hosts: $ETC_HOSTS"
-echo "Adding to /etc/hostname: $HOSTNAME"
+echo
+echo "Adding to /etc/hosts    -> $ETC_HOSTS"
+echo "Adding to /etc/hostname -> $HOSTNAME"
+echo
 
 cp /etc/hostname /etc/hostname.$TIMESTAMP
 cp /etc/hosts /etc/hosts.$TIMESTAMP
