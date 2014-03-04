@@ -16,18 +16,21 @@
 #
 
 
+JENKINS_VERSION=1.532.2
 TOMCAT=tomcat7
 
-JENKINS_VERSION=1.532.2
+function install_jenkins () {
+  TOMCAT_DIR=/var/lib/$TOMCAT
+  TOMCAT_CLEANUP=cleanup.sh
+  TOMCAT_ROOT=$TOMCAT_DIR/webapps/ROOT
+  TOMCAT_ROOT_WAR=$TOMCAT_DIR/webapps/ROOT.war
 
-TOMCAT_DIR=/var/lib/$TOMCAT
-TOMCAT_CLEANUP=cleanup.sh
-TOMCAT_ROOT=$TOMCAT_DIR/webapps/ROOT
-TOMCAT_ROOT_WAR=$TOMCAT_DIR/webapps/ROOT.war
+  service $TOMCAT stop
+  rm -rf $TOMCAT_ROOT $TOMCAT_ROOT_WAR
+  wget http://maven.kuali.org/external/org/jenkins/jenkins/$JENKINS_VERSION/jenkins-$JENKINS_VERSION.war --output-document $TOMCAT_ROOT_WAR
+  chown $TOMCAT:$TOMCAT $TOMCAT_ROOT_WAR
+  $TOMCAT_CLEANUP
+  service $TOMCAT start
+}
 
-service $TOMCAT stop
-rm -rf $TOMCAT_ROOT $TOMCAT_ROOT_WAR
-wget http://maven.kuali.org/external/org/jenkins/jenkins/$JENKINS_VERSION/jenkins-$JENKINS_VERSION.war --output-document $TOMCAT_ROOT_WAR
-chown $TOMCAT:$TOMCAT $TOMCAT_ROOT_WAR
-$TOMCAT_CLEANUP
-service $TOMCAT start
+install_jenkins
