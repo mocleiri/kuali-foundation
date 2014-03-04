@@ -21,7 +21,7 @@
 #
 
 JDK_LEVEL=${3-6}
-TOMCAT_VERSION=${4-6}
+TOMCAT_VERSION=${4-7}
 
 DOMAIN=kuali.org
 BASEDIR=/mnt/kuali-ec2
