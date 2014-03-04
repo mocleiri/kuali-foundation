@@ -25,9 +25,10 @@ function install_jenkins () {
   TOMCAT_CLEANUP=/usr/share/$TOMCAT/bin/cleanup.sh
   TOMCAT_ROOT=$TOMCAT_DIR/webapps/ROOT
   TOMCAT_ROOT_WAR=$TOMCAT_DIR/webapps/ROOT.war
+  JENKINS_HOME=/home/$TOMCAT/.jenkins
 
   service $TOMCAT stop
-  rm -rf $TOMCAT_ROOT $TOMCAT_ROOT_WAR
+  rm -rf $TOMCAT_ROOT $TOMCAT_ROOT_WAR $JENKINS_HOME
   wget http://maven.kuali.org/external/org/jenkins/jenkins/$JENKINS_VERSION/jenkins-$JENKINS_VERSION.war --output-document $TOMCAT_ROOT_WAR
   chown $TOMCAT:$TOMCAT $TOMCAT_ROOT_WAR
   $TOMCAT_CLEANUP
