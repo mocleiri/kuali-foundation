@@ -17,8 +17,18 @@
 
 TOMCAT=tomcat7
 BASEDIR=/var/lib/$TOMCAT
+LOGS=$BASEDIR/logs
+CONF=$BASEDIR/conf
+WORK=$BASEDIR/work
 
-cp $BASEDIR/logs/*.jsp $BASEDIR/conf
-rm -rf $BASEDIR/logs/* $BASEDIR/work/* $BASEDIR/conf/Catalina/localhost/*
-cp $BASEDIR/conf/*.jsp $BASEDIR/logs
-chown $TOMCAT:TOMCAT $BASEDIR/logs/*.jsp
+# Copy custom jsp's into the conf directory
+cp $LOGS/*.jsp $CONF
+
+# Clean out logs, work, and conf/Catalina/localhost
+rm -rf $LOGS/* $WORK/* $CONF/Catalina/localhost/*
+
+# Copy custom jsp's back into the logs directory
+cp $CONF/*.jsp $LOGS
+
+# Make sure the jsp's are owned by tomcat
+chown $TOMCAT:TOMCAT $LOGS/*.jsp
