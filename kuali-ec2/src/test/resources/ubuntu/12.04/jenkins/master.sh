@@ -58,5 +58,6 @@ echo "install  -> Jenkins $JENKINS_VERSION"
 install_jenkins
 install_plugin node-iterator-api 1.2
 install_plugin ec2               1.21
+install_plugin cas-plugin        1.1.1
 echo "start    -> $TOMCAT"
 service $TOMCAT start > /dev/null 2>&1
