@@ -149,10 +149,10 @@ echo "download  -> $URL"
 wget $QUIET --user $NEXUS_USER --password $NEXUS_PASSWORD $URL --output-document $OUTPUT_FILE
 echo "created   -> $OUTPUT_FILE"
 
-if [ ! -f $DOWNLOADS/$JDK_ZIP_FILE ]; then
-  echo "$DOWNLOADS/$JDK_ZIP_FILE does not exist!"
+if [ ! -f $OUTPUT_FILE ]; then
+  echo "$OUTPUT_FILE does not exist!"
   echo "Check to see if location is correct for the JDK.  Attempting to get:"
-  echo "$NEXUS_URL$NEXUS_JDK_LOCATION$JDK_ZIP_FILE"
+  echo "$URL"
   echo "Quitting."
   exit 1
 fi
