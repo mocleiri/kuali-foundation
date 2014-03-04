@@ -148,6 +148,8 @@ ln -s $TOMCAT_CLEANUP $USR_BIN_CLEANUP
 cp $JSPS $TOMCAT_LOGS
 chown -R $TOMCAT_USER:$TOMCAT_GROUP $TOMCAT_LOGS/*.jsp
 
+echo "start     -> $TOMCAT"
+service $TOMCAT start > /dev/null 2>&1
 }
 
 # Install JDK
