@@ -149,7 +149,7 @@ fi
 rm -rf $JDK_BASEDIR/$JDK_ARTIFACT_ID $JDK_BASEDIR/$JDK_UNZIP_DIR
 
 # Unpack the JDK into /usr/java
-unzip $QUIET2 -o $DOWNLOADS/$JDK_ZIP_FILE -d $JDK_BASEDIR
+unzip $QUIET -o $DOWNLOADS/$JDK_ZIP_FILE -d $JDK_BASEDIR
 
 # Symbolic link for /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
 ln -s $JDK_BASEDIR/$JDK_UNZIP_DIR $JDK_BASEDIR/$JDK_ARTIFACT_ID
