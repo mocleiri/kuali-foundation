@@ -1,1 +1,1 @@
-Only used by the Tomcat 7 installs done by the Ubuntu package manager in the new environments
+Only used by the Tomcat 6 installs performed by the Ubuntu package manager in the new environments
