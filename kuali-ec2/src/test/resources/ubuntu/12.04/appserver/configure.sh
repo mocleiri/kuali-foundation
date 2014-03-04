@@ -191,25 +191,20 @@ echo $ETC_HOSTS >> /etc/hosts
 #eval "sed -i -e '/127.0.0.1/a$ETC_HOSTS' /etc/hosts"
 }
 
-# Request hostname
-function get_hostname {
-read -p "Enter the hostname of this server (eg: nexus): " HOSTNAME
-}
-
-# Request nexus password
-function get_nexus_password {
-read -p "Enter the password for the Nexus user 'developer': " NEXUS_PASSWORD
-}
-
 NEXUS_PASSWORD=${1-NOTDEFINED}
 HOSTNAME=${2-NOTDEFINED}
 
 if [ $NEXUS_PASSWORD == "NOTDEFINED" ]; then
-get_nexus_password
+  echo
+  echo usage: configure.sh [nexus password] [hostname]
+  echo 
+  exit 1
 fi;
 
 if [ $HOSTNAME == "NOTDEFINED" ]; then
-get_hostname
+  echo
+  echo usage: configure.sh [nexus password] [hostname]
+  echo 
 fi;
 
 get_upgrades
