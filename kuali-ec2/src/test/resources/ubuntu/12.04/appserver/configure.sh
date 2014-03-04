@@ -132,7 +132,10 @@ cp $SERVER_XML $TOMCAT_CONF_FILE_DIR/server.xml
 rm -rf /var/lib/$TOMCAT/webapps/*
 rm -rf /var/lib/$TOMCAT/logs/*
 
-cp $BASEDIR/src/main/resources/apache-tomcat/jsps/*.jsp /var/lib/$TOMCAT/logs
+JSP_DIR=/var/lib/$TOMCAT/logs
+cp $BASEDIR/src/main/resources/apache-tomcat/jsps/*.jsp $JSP_DIR
+chown $TOMCAT_GROUP:$TOMCAT_USER $JSP_DIR/*.jsp
+
 
 }
 
