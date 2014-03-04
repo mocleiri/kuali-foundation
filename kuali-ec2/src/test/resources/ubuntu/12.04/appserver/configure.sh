@@ -109,8 +109,9 @@ unset DEBIAN_FRONTEND
 
 # Install Tomcat
 function install_tomcat {
-echo "install   -> $TOMCAT"
+echo "remove    -> $TOMCAT6 $TOMCAT7"
 apt-get $QUIET -y --purge remove $TOMCAT6 $TOMCAT7
+echo "install   -> $TOMCAT"
 apt-get $QUIET -y install $TOMCAT libtcnative-1
 service $TOMCAT stop
 
