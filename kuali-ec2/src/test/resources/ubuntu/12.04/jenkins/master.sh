@@ -43,9 +43,9 @@ function install_plugin {
 	PLUGIN_NAME=$1
 	PLUGIN_VERSION=$2
 	PLUGIN_URL=$PLUGIN_DOWNLOADS/$PLUGIN_NAME/$PLUGIN_VERSION/$PLUGIN_NAME.hpi
-    echo "download -> $PLUGIN_URL"
 	PLUGIN_DIR=$JENKINS_HOME/plugins
 	PLUGIN_FILE=$PLUGIN_DIR/$PLUGIN_NAME.jpi
+    echo "install  -> $PLUGIN_URL"
 	curl $PLUGIN_URL --silent --location --create-dirs --output $PLUGIN_FILE
 	touch $PLUGIN_FILE.pinned 
 	chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME  
