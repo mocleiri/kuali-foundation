@@ -15,8 +15,10 @@
 # limitations under the License.
 #
 
-BASEDIR=/var/lib/tomcat7
+TOMCAT=tomcat7
+BASEDIR=/var/lib/$TOMCAT
 
 cp $BASEDIR/logs/*.jsp $BASEDIR/conf
 rm -rf $BASEDIR/logs/* $BASEDIR/work/* $BASEDIR/conf/Catalina/localhost/*
 cp $BASEDIR/conf/*.jsp $BASEDIR/logs
+chown $TOMCAT:TOMCAT $BASEDIR/logs/*.jsp
