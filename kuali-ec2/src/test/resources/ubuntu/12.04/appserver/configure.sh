@@ -112,6 +112,7 @@ TOMCAT_PURGE="libtcnative-1 tomcat6-common tomcat6 tomcat7"
 echo "purge     -> $TOMCAT_PURGE"
 apt-get $QUIET -y purge $TOMCAT_PURGE > /dev/null 2>&1
 apt-get $QUIET -y autoremove > /dev/null 2>&1
+rm -rf /var/lib/tomcat6 /var/lib/tomcat7
 if [ $TOMCAT_VERSION == "6" ]; then
   echo "install   -> $TOMCAT-common libtcnative-1 $TOMCAT"
   apt-get $QUIET -y install $TOMCAT-common libtcnative-1 $TOMCAT > /dev/null 2>&1
