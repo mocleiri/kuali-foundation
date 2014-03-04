@@ -49,7 +49,10 @@ MAX_PERM=${6-512m}
 QUIET=${7-""}
 
 CONFIGURE=$SCRIPTS_DIR/configure.sh
+
 SVN1="apt-get install subversion -y $QUIET"
+SVN2="rm -rf $SVN_DIR"
+SVN2="svn $QUIET checkout $SVN_URL $SVN_DIR"
 
 # Enable root ssh
 echo "enable    -> root ssh"
@@ -57,6 +60,6 @@ ssh ubuntu@$FQDN 'sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorize
 
 # Checkout kuali-ec2 on the remote server and run configure.sh
 echo "configure -> application server"
-ssh root@$FQDN "$SVN1; rm -rf $SVN_DIR; svn $QUIET checkout '$SVN_URL' '$SVN_DIR'; '$CONFIGURE' '$NEXUS_PASSWORD' '$HOSTNAME' '$JDK' '$TOMCAT' '$MAX_HEAP' '$MAX_PERM' '$QUIET'"
+ssh root@$FQDN "$SVN1; $SVN2; $SVN3; '$CONFIGURE' '$NEXUS_PASSWORD' '$HOSTNAME' '$JDK' '$TOMCAT' '$MAX_HEAP' '$MAX_PERM' '$QUIET'"
 
 echo $(date)
