@@ -17,8 +17,11 @@
 
 #
 # Usage:
-#   ./configure.sh [nexus password] [hostname]
+#   ./configure.sh password hostname [jdk] [tomcat]
 #
+
+JDK_LEVEL=${3-7}
+TOMCAT_VERSION=${4-7}
 
 DOMAIN=kuali.org
 BASEDIR=/mnt/kuali-ec2
@@ -32,8 +35,6 @@ JDK6_VERSION=1.6.0-u45
 JDK7=jdk7
 JDK7_VERSION=1.7.0-u51
 
-JDK_LEVEL=6
-JDK_LEVEL=7
 JDK=$(eval echo \${JDK${JDK_LEVEL}})
 JDK_VERSION=$(eval echo \${JDK${JDK_LEVEL}_VERSION})
 
@@ -50,8 +51,6 @@ NEXUS_JDK_LOCATION=$JDK_GROUP_ID/$JDK_ARTIFACT_ID/$JDK_VERSION
 NEXUS_USER=developer
 NEXUS_JDK_DOWNLOAD_FILE=$DOWNLOADS/$JDK_ZIP_FILE
 
-TOMCAT_VERSION=7
-TOMCAT_VERSION=6
 TOMCAT=tomcat$TOMCAT_VERSION
 TOMCAT_OPT_FILE=/etc/default/$TOMCAT
 TOMCAT_CONF_FILE_DIR=/etc/$TOMCAT
