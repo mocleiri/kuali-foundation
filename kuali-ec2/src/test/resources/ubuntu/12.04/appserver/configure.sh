@@ -114,7 +114,7 @@ function install_tomcat {
 echo "remove    -> $TOMCAT6 $TOMCAT7"
 apt-get $QUIET -y purge $TOMCAT6 $TOMCAT7 > /dev/null 2>&1
 echo "install   -> $TOMCAT"
-apt-get $QUIET -y install $TOMCAT libtcnative-1
+apt-get $QUIET -y install $TOMCAT libtcnative-1 > /dev/null 2>&1
 service $TOMCAT stop
 
 echo "configure -> $TOMCAT"
