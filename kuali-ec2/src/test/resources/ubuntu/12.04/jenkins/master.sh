@@ -20,6 +20,7 @@ JENKINS_VERSION=1.532.2
 TOMCAT=tomcat7
 
 function install_jenkins () {
+  
   TOMCAT_DIR=/var/lib/$TOMCAT
   TOMCAT_CLEANUP=cleanup.sh
   TOMCAT_ROOT=$TOMCAT_DIR/webapps/ROOT
@@ -31,6 +32,7 @@ function install_jenkins () {
   chown $TOMCAT:$TOMCAT $TOMCAT_ROOT_WAR
   $TOMCAT_CLEANUP
   service $TOMCAT start
+  
 }
 
 install_jenkins
