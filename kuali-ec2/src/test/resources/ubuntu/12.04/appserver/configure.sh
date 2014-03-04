@@ -137,6 +137,7 @@ JSPS=$BASEDIR/src/main/resources/apache-tomcat/jsps/*.jsp
 rm -rf $TOMCAT_WEBAPPS/* $TOMCAT_LOGS/*
 mkdir -p $TOMCAT_BIN
 cp $BASEDIR/src/main/resources/apache-tomcat/$TOMCAT_VERSION/bin/cleanup.sh $TOMCAT_BIN
+ln -s /usr/local/bin/cleanup.sh $TOMCAT_BIN/cleanup.sh
 
 cp $JSPS $TOMCAT_LOGS
 chown -R $TOMCAT_GROUP:$TOMCAT_USER $TOMCAT_LOGS/*.jsp $TOMCAT_BIN
