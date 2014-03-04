@@ -57,8 +57,6 @@ NEXUS_JDK_LOCATION=$JDK_GROUP_ID/$JDK_ARTIFACT_ID/$JDK_VERSION
 NEXUS_USER=developer
 NEXUS_JDK_DOWNLOAD_FILE=$DOWNLOADS/$JDK_ZIP_FILE
 
-TOMCAT6=tomcat6
-TOMCAT7=tomcat7
 #TOMCAT_VERSION=6
 TOMCAT_VERSION=7
 TOMCAT=tomcat$TOMCAT_VERSION
@@ -111,8 +109,8 @@ unset DEBIAN_FRONTEND
 
 # Install Tomcat
 function install_tomcat {
-echo "remove    -> $TOMCAT6 $TOMCAT7"
-apt-get $QUIET -y purge $TOMCAT6 $TOMCAT7 > /dev/null 2>&1
+echo "remove    -> tomcat6 tomcat7"
+apt-get $QUIET -y purge tomcat6 tomcat7 > /dev/null 2>&1
 echo "install   -> $TOMCAT"
 apt-get $QUIET -y install $TOMCAT libtcnative-1 > /dev/null 2>&1
 service $TOMCAT stop > /dev/null 2>&1
