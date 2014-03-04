@@ -115,7 +115,7 @@ echo "remove    -> $TOMCAT6 $TOMCAT7"
 apt-get $QUIET -y purge $TOMCAT6 $TOMCAT7 > /dev/null 2>&1
 echo "install   -> $TOMCAT"
 apt-get $QUIET -y install $TOMCAT libtcnative-1 > /dev/null 2>&1
-service $TOMCAT stop
+service $TOMCAT stop > /dev/null 2>&1
 
 echo "configure -> $TOMCAT"
 echo "TOMCAT_USER=$TOMCAT_USER" > $TOMCAT_OPT_FILE
