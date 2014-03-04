@@ -83,9 +83,9 @@ rm -rf $DOWNLOADS; mkdir -p $DOWNLOADS
 
 #Update Ubuntu repos and packages
 function get_upgrades {
-echo "update  -> package indexes"
+echo "update    -> package indexes"
 apt-get $QUIET -y update
-echo "upgrade -> packages"
+echo "upgrade   -> packages"
 apt-get $QUIET -y upgrade
 }
 
