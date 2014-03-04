@@ -37,8 +37,6 @@ function install_jenkins {
 
 function install_plugin {
 
-    https://updates.jenkins-ci.org/download/plugins/ec2/1.21/ec2.hpi
-    
 	PLUGIN_DOWNLOADS=https://updates.jenkins-ci.org/download/plugins/
 	PLUGIN_NAME=$1
 	PLUGIN_VERSION=$2
