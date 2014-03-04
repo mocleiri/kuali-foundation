@@ -69,7 +69,7 @@ TOMCAT_GROUP=$TOMCAT
 TOMCAT_DIR=/var/lib/$TOMCAT
 TOMCAT_LOGS=$TOMCAT_DIR/logs
 JAVA_OPTS="\"-Djava.awt.headless=true -Xms512m -Xmx2g -XX:MaxPermSize=256m -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC -XX:+PrintTenuringDistribution -Xloggc:$TOMCAT_LOGS/heap.log -XX:HeapDumpPath=$TOMCAT_LOGS -XX:+HeapDumpOnOutOfMemoryError"\"
-JAVA_HOME=/usr/java/jdk7
+JAVA_HOME=/usr/java/$JDK
 
 
 #####################################################################
