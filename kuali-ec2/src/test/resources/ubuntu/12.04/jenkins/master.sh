@@ -37,4 +37,11 @@ function install_jenkins {
   
 }
 
+function install_plugin {
+	
+	PLUGIN_URL=$1
+	PLUGIN_FILENAME=$2  
+  
+}
+
 install_jenkins
