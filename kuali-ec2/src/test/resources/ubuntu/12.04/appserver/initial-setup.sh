@@ -167,7 +167,7 @@ read -p "Enter the hostname of this server(ie: nexus): " HOSTNAME
 
 # Request nexus password
 function get_nexus_password {
-read -p "Enter the password for the Nexus user 'developer': " $NEXUS_PASSWORD
+read -p "Enter the password for the Nexus user 'developer': " NEXUS_PASSWORD
 }
 
 # Set hostname and FQDN
