@@ -110,7 +110,6 @@ echo
 echo "Installing $TOMCAT..."
 echo
 apt-get -qq -y install $TOMCAT libtcnative-1
-echo "Stopping Tomcat..."
 service $TOMCAT stop
 
 cp $TOMCAT_OPT_FILE $TOMCAT_OPT_FILE_BAK
