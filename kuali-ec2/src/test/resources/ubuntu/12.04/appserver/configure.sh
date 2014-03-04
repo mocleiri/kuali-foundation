@@ -97,6 +97,12 @@ echo "configure -> unattended upgrades"
 $SCRIPTS_DIR/unattended-upgrades.sh
 }
 
+# install custom packages
+function install_packages {
+echo "install   -> custom packages"
+apt-get install unzip ntp expect -y $QUIET 
+}
+
 # Setup port redirect rules
 function redirect_rules {
 echo "redirect  -> port 80 to 8080"
@@ -234,6 +240,7 @@ exit 1
 fi;
 
 get_upgrades
+unattended_upgrades
 redirect_rules
 get_jdk
 install_tomcat
@@ -248,7 +255,6 @@ if [[ $RUN_UPGRADE == "y" ]]; then
   get_upgrades
 fi
 
-apt-get install unzip ntp expect dialog -y $QUIET 
 
 read -p "Allow unattended ugrades? (y/n)  " ALLOW_UNATTENDED_UPGRADES
 if [[ $ALLOW_UNATTENDED_UPGRADES == "y" ]]; then
