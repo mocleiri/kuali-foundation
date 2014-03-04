@@ -5,6 +5,8 @@ http://updates.jenkins-ci.org/stable/update-center.json
 
 TODO
 
+slave automation
+
 gpg
 subversion credentials
 graphviz
