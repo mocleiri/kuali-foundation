@@ -48,7 +48,6 @@ MAX_HEAP=${5-4g}
 MAX_PERM=${6-512m}
 
 # Bash resources
-BOOTSTRAP=$SVN_DIR/bootstrap.sh
 CONFIGURE=$SCRIPTS_DIR/configure.sh
 
 # Enable root ssh
