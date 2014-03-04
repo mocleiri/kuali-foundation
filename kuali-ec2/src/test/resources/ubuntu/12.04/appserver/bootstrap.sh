@@ -42,10 +42,10 @@ fi
 
 FQDN=$HOSTNAME.$DOMAIN
 
-JDK=${2-7}
-TOMCAT=${3-7}
-MAX_HEAP=${4-4g}
-MAX_PERM=${5-512m}
+JDK=${3-7}
+TOMCAT=${4-7}
+MAX_HEAP=${5-4g}
+MAX_PERM=${6-512m}
 
 # Bash resources
 BOOTSTRAP=$SVN_DIR/bootstrap.sh
