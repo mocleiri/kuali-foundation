@@ -60,7 +60,7 @@ TOMCAT_USER=$TOMCAT
 TOMCAT_GROUP=$TOMCAT
 TOMCAT_DIR=/var/lib/$TOMCAT
 TOMCAT_LOGS=$TOMCAT_DIR/logs
-JAVA_OPTS="\"-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xms512m -Xmx$MAX_HEAP -XX:MaxPermSize=$MAX_PERM -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC -XX:+PrintTenuringDistribution -Xloggc:$TOMCAT_LOGS/heap.log -XX:HeapDumpPath=$TOMCAT_LOGS -XX:+HeapDumpOnOutOfMemoryError"\"
+JAVA_OPTS="\"-Duser.home=/home/$TOMCAT -Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xms512m -Xmx$MAX_HEAP -XX:MaxPermSize=$MAX_PERM -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC -XX:+PrintTenuringDistribution -Xloggc:$TOMCAT_LOGS/heap.log -XX:HeapDumpPath=$TOMCAT_LOGS -XX:+HeapDumpOnOutOfMemoryError"\"
 JAVA_HOME=/usr/java/$JDK
 
 
