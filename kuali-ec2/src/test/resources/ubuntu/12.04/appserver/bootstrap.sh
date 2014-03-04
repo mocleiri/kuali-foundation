@@ -26,7 +26,6 @@ SCRIPTS_DIR=$SVN_DIR/src/test/resources/ubuntu/12.04/appserver
 
 # DNS
 DOMAIN=kuali.org
-FQDN=$SUBDOMAIN.$DOMAIN
 
 # Nexus
 NEXUS_PASSWORD=${1-NOTDEFINED}
@@ -40,6 +39,8 @@ if [[ $HOSTNAME == "NOTDEFINED" ]]; then
 echo "hostname is required"
 exit 1
 fi
+
+FQDN=$HOSTNAME.$DOMAIN
 
 JDK=${2-7}
 TOMCAT=${3-7}
