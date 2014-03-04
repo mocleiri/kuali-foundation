@@ -123,8 +123,8 @@ echo "TOMCAT_GROUP=$TOMCAT_GROUP" >> $TOMCAT_OPT_FILE
 echo "JAVA_OPTS=$JAVA_OPTS" >> $TOMCAT_OPT_FILE
 echo "JAVA_HOME=$JAVA_HOME" >> $TOMCAT_OPT_FILE
 
-SERVER_XML=$BASEDIR/src/main/resources/apache-tomcat/$TOMCAT_VERSION/conf/server.xml
 WEB_XML=$BASEDIR/src/main/resources/apache-tomcat/$TOMCAT_VERSION/conf/web.xml
+SERVER_XML=$BASEDIR/src/main/resources/apache-tomcat/$TOMCAT_VERSION/conf/server.xml
 
 cp $WEB_XML $TOMCAT_CONF_FILE_DIR/web.xml
 cp $SERVER_XML $TOMCAT_CONF_FILE_DIR/server.xml
