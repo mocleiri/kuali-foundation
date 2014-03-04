@@ -25,7 +25,6 @@ SVN_DIR=/mnt/kuali-ec2
 SCRIPTS_DIR=$SVN_DIR/src/test/resources/ubuntu/12.04/appserver
 
 # DNS
-SUBDOMAIN=jeff.ci
 DOMAIN=kuali.org
 FQDN=$SUBDOMAIN.$DOMAIN
 
@@ -36,8 +35,16 @@ echo "Nexus password is required"
 exit 1
 fi
 
+HOSTNAME=${2-NOTDEFINED}
+if [[ $HOSTNAME == "NOTDEFINED" ]]; then
+echo "hostname is required"
+exit 1
+fi
+
 JDK=${2-7}
 TOMCAT=${3-7}
+MAX_HEAP=${4-4g}
+MAX_PERM=${5-512m}
 
 # Bash resources
 BOOTSTRAP=$SVN_DIR/bootstrap.sh
@@ -50,7 +57,7 @@ ssh ubuntu@$FQDN 'sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorize
 ssh root@$FQDN 'apt-get install subversion -y -qq; rm -rf $SVN_DIR; svn --quiet checkout '$SVN_URL' '$SVN_DIR''
 
 # Create the bootstrap.sh script on the remote server
-ssh root@$FQDN 'rm -rf '$BOOTSTRAP'; echo '$SETUP' '$NEXUS_PASSWORD' '$SUBDOMAIN' '$JDK' '$TOMCAT' > '$BOOTSTRAP'; chmod 755 '$BOOTSTRAP''
+ssh root@$FQDN 'rm -rf '$BOOTSTRAP'; echo '$SETUP' '$NEXUS_PASSWORD' '$HOSTNAME' '$JDK' '$TOMCAT' '$MAX_HEAP' '$MAX_PERM' > '$BOOTSTRAP'; chmod 755 '$BOOTSTRAP''
 
 # Run the bootstrap script on the remote server
 ssh root@$FQDN $BOOTSTRAP
