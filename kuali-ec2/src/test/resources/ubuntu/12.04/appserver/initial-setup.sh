@@ -146,10 +146,13 @@ if [ ! -f $DOWNLOADS/$JDK_ZIP_FILE ]; then
   exit 1
 fi
 
-rm -rf $JDK_BASEDIR
-mkdir -p $JDK_BASEDIR
+# Make sure the JDK and the symbolic link are both gone
+rm -rf $JDK_BASEDIR/$JDK_ARTIFACT_ID $JDK_BASEDIR/$JDK_UNZIP_DIR
 
+# Unpack the JDK into /usr/java
 unzip -q -o $DOWNLOADS/$JDK_ZIP_FILE -d $JDK_BASEDIR
+
+# Symbolic link for /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
 ln -s $JDK_BASEDIR/$JDK_UNZIP_DIR $JDK_BASEDIR/$JDK_ARTIFACT_ID
 }
 
