@@ -20,8 +20,13 @@
 #   ./configure.sh password hostname [jdk] [tomcat]
 #
 
+NEXUS_PASSWORD=${1-NOTDEFINED}
+HOSTNAME=${2-NOTDEFINED}
 JDK_LEVEL=${3-6}
 TOMCAT_VERSION=${4-7}
+
+JDK6_VERSION=1.6.0-u45
+JDK7_VERSION=1.7.0-u51
 
 DOMAIN=kuali.org
 BASEDIR=/mnt/kuali-ec2
@@ -30,10 +35,7 @@ SCRIPTS_DIR=$BASEDIR/src/test/resources/ubuntu/12.04/appserver
 QUIET=-qq
 
 JDK6=jdk6
-JDK6_VERSION=1.6.0-u45
-
 JDK7=jdk7
-JDK7_VERSION=1.7.0-u51
 
 JDK=$(eval echo \${JDK${JDK_LEVEL}})
 JDK_VERSION=$(eval echo \${JDK${JDK_LEVEL}_VERSION})
@@ -196,9 +198,6 @@ echo $ETC_HOSTS >> /etc/hosts
 # And also if for some reason we gave the machine a new DNS name I think we'd have issues 
 #eval "sed -i -e '/127.0.0.1/a$ETC_HOSTS' /etc/hosts"
 }
-
-NEXUS_PASSWORD=${1-NOTDEFINED}
-HOSTNAME=${2-NOTDEFINED}
 
 if [ $NEXUS_PASSWORD == "NOTDEFINED" ]; then
   echo
