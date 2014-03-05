@@ -48,6 +48,7 @@ JDK_LEVEL=${JDK:3:1}
 # Make sure we have what we need to continue
 check_args
 
+# Change this as new versions become available
 JDK6_VERSION=1.6.0-u45
 JDK7_VERSION=1.7.0-u51
 
