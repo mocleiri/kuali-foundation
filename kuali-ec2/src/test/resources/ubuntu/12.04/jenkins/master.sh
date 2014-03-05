@@ -27,7 +27,7 @@ function install_jenkins {
   TOMCAT_DIR=/var/lib/$TOMCAT
   TOMCAT_CLEANUP=/usr/share/$TOMCAT/bin/cleanup.sh
   TOMCAT_ROOT=$TOMCAT_DIR/webapps/ROOT
-  TOMCAT_ROOT_WAR=$TOMCAT_DIR/webapps/ROOT.war
+  TOMCAT_ROOT_WAR=$TOMCAT_ROOT.war
   JENKINS_URL=http://maven.kuali.org/external/org/jenkins/jenkins/$JENKINS_VERSION/jenkins-$JENKINS_VERSION.war
 
   echo "download -> $JENKINS_URL"
