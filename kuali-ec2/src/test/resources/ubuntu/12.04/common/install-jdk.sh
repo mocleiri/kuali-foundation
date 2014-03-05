@@ -53,15 +53,13 @@ function check_arg {
 
 function show_usage {
   echo
-  echo usage: install_jdk.sh jdk
+  echo usage: install_jdk.sh 6/7
   echo
 }
 
 JDK_LEVEL=${1-7}
 JDK6_VERSION=1.6.0-u45
 JDK7_VERSION=1.7.0-u51
-
-DOWNLOADS=$BASEDIR/target/downloads/jdk
 
 JDK6=jdk6
 JDK7=jdk7
@@ -82,9 +80,8 @@ NEXUS_JDK_LOCATION=$JDK_GROUP_ID/$JDK_ARTIFACT_ID/$JDK_VERSION
 NEXUS_USER=developer
 NEXUS_JDK_DOWNLOAD_FILE=$DOWNLOADS/$JDK_ZIP_FILE
 
-NEXUS_PASSWORD="NOTDEFINED"
-
 # Directory for the JDK download
+DOWNLOADS=$BASEDIR/target/downloads/jdk
 rm -rf $DOWNLOADS; mkdir -p $DOWNLOADS
 
 install_jdk
