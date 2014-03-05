@@ -89,10 +89,6 @@ function install_jdk {
   echo "create   -> $TOOLS_JAR -> $TOOLS_JAR_COPY"
   cp $TOOLS_JAR $TOOLS_JAR_COPY
   
-  tools.jar.jdk=lib/tools.jar
-tools.jar.jre=jre/lib/ext/tools.jar
-  
-  
 }
 
 # module specific variables
