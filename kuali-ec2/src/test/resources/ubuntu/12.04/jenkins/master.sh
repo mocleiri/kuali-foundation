@@ -19,6 +19,7 @@
 TOMCAT=tomcat7
 TOMCAT_HOME=/home/$TOMCAT
 JENKINS_HOME=$TOMCAT_HOME/.jenkins
+MAVEN_BASEDIR=/usr/share/maven
 
 function install_jenkins {
   
@@ -88,7 +89,6 @@ function install_maven {
   MAVEN_ARTIFACT_ID=apache-maven
   MAVEN_ZIP=$MAVEN_ARTIFACT_ID-$MAVEN_VERSION-bin.zip
   MAVEN_URL=http://search.maven.org/remotecontent?filepath=org/apache/maven/apache-maven/$MAVEN_VERSION/$MAVEN_ZIP
-  MAVEN_BASEDIR=/usr/share/maven
   MAVEN_DIR=$MAVEN_BASEDIR/$MAVEN_ARTIFACT_ID-$MAVEN_VERSION
   MAVEN_FILE=$MAVEN_BASEDIR/$MAVEN_ZIP
   curl $MAVEN_URL --silent --location --create-dirs --output $MAVEN_FILE
@@ -99,7 +99,7 @@ function install_maven {
   rm -rf $MAVEN_DIR $MAVEN_LINK $MAVEN_USR_BIN
   unzip -qq $MAVEN_FILE -d $MAVEN_BASEDIR
   ln -s $MAVEN_TARGET $MAVEN_LINK
-  ln -s /usr/share/maven/mvn$MAVEN_ABBR/bin/mvn $MAVEN_USR_BIN
+  ln -s $MAVEN_BASEDIR/mvn$MAVEN_ABBR/bin/mvn $MAVEN_USR_BIN
 }
 
 function install_default_maven {
@@ -107,7 +107,7 @@ function install_default_maven {
 
   echo "install   -> default maven mvn$MAVEN_ABBR"
 
-  MAVEN_TARGET=/usr/share/maven/mvn$MAVEN_ABBR/bin/mvn
+  MAVEN_TARGET=$MAVEN_BASEDIR/mvn$MAVEN_ABBR/bin/mvn
   MAVEN_USR_BIN=/usr/bin/mvn
 
   rm -rf $MAVEN_USR_BIN
