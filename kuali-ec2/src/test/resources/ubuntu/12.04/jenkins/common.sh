@@ -73,11 +73,12 @@ function configure_secrets {
 
   unzip -o /root/secrets.zip -qq
 
-  PRIVATE_KEY=/root/.ssh/private.key.gpg
+  GPG_KEY=/root/.ssh/private.key.gpg
   echo "configure -> gpg"
   rm -rf /root/.gnupg
-  gpg --quiet --allow-secret-key-import --import $PRIVATE_KEY > /dev/null 2>&1
-  rm $PRIVATE_KEY
+  gpg --quiet --allow-secret-key-import --import $GPG_KEY > /dev/null 2>&1
+  
+  rm -rf /root/secrets.zip
   
 }
 
