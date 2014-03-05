@@ -63,7 +63,8 @@ function configure_application_server {
   BASICS="$MODULES/common/install_basics.sh $BASEDIR $QUIET"
   JAVA="$MODULES/common/install_java.sh $BASEDIR $JDK $NEXUS_PASSWORD $QUIET"
   DNS="$MODULES/common/update_hostname.sh $SUBDOMAIN $DOMAIN"
-  SSH="$BASICS; $JAVA; $DNS"
+  TOMCAT="$MODULES/appserver/install_tomcat.sh $BASEDIR $TOMCAT $JDK $MAX_HEAP $MAX_PERM $QUIET
+  SSH="$BASICS; $JAVA; $DNS; $TOMCAT"
   ssh root@$FQDN "$SSH"
 }
 
