@@ -22,6 +22,7 @@ http://updates.jenkins-ci.org/stable/update-center.json
 TODO
 
 custom settings.xml
+custom ssh settings
 subversion credentials
 jdk6
 
