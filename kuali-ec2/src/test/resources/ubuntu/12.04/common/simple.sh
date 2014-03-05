@@ -38,6 +38,27 @@ function check_args {
   check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
 }
 
+function install_jdk {
+
+  URL=$NEXUS_URL/$NEXUS_JDK_LOCATION/$JDK_ZIP_FILE
+  OUTPUT_FILE=$DOWNLOADS/$JDK_ZIP_FILE
+  echo "download  -> $URL"
+  wget $QUIET --user $NEXUS_USER --password $NEXUS_PASSWORD $URL --output-document $OUTPUT_FILE
+  echo "to        -> $OUTPUT_FILE"
+
+  # Make sure the JDK and the symbolic link are both gone
+  JDK_TARGET=$JDK_BASEDIR/$JDK_UNZIP_DIR
+  JDK_LINK=$JDK_BASEDIR/$JDK_ARTIFACT_ID
+  echo "install   -> $JDK_LINK -> $JDK_TARGET"
+  rm -rf $JDK_LINK $JDK_TARGET
+
+  # Unpack the JDK into /usr/java
+  unzip $QUIET -o $DOWNLOADS/$JDK_ZIP_FILE -d $JDK_BASEDIR
+
+  # Create a symbolic link for /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
+  ln -s $JDK_TARGET $JDK_LINK
+}
+
 # module specific variables
 BASEDIR=${1-$BASEDIR}
 JDK=${2-$JDK}
