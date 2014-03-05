@@ -19,7 +19,6 @@
 TOMCAT=tomcat7
 TOMCAT_HOME=/home/$TOMCAT
 JENKINS_HOME=$TOMCAT_HOME/.jenkins
-MAVEN_BASEDIR=/usr/maven
 
 function install_jenkins {
   
@@ -74,62 +73,6 @@ function install_plugins {
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME  
   
 }
-
-function install_packages {
-  echo "install   -> custom packages"
-  apt-get install subversion git graphviz -y -qq > /dev/null 2>&1
-}
-
-function install_maven {
-  MAVEN_VERSION=$1
-  MAVEN_ABBR=$2
-
-  echo "install   -> maven $MAVEN_VERSION"
-
-  MAVEN_ARTIFACT_ID=apache-maven
-  MAVEN_ZIP=$MAVEN_ARTIFACT_ID-$MAVEN_VERSION-bin.zip
-  MAVEN_URL=http://search.maven.org/remotecontent?filepath=org/apache/maven/apache-maven/$MAVEN_VERSION/$MAVEN_ZIP
-  MAVEN_DIR=$MAVEN_BASEDIR/$MAVEN_ARTIFACT_ID-$MAVEN_VERSION
-  MAVEN_FILE=$MAVEN_BASEDIR/$MAVEN_ZIP
-  curl $MAVEN_URL --silent --location --create-dirs --output $MAVEN_FILE
-  MAVEN_TARGET=$MAVEN_DIR
-  MAVEN_LINK=$MAVEN_BASEDIR/mvn$MAVEN_ABBR
-  MAVEN_USR_BIN=/usr/bin/mvn$MAVEN_ABBR
-
-  rm -rf $MAVEN_DIR $MAVEN_LINK $MAVEN_USR_BIN
-  unzip -qq $MAVEN_FILE -d $MAVEN_BASEDIR
-  chmod -R 755 $MAVEN_DIR
-  ln -s $MAVEN_TARGET $MAVEN_LINK
-  ln -s $MAVEN_BASEDIR/mvn$MAVEN_ABBR/bin/mvn $MAVEN_USR_BIN
-}
-
-function install_default_maven {
-  MAVEN_ABBR=$1
-
-  echo "install   -> default maven mvn$MAVEN_ABBR"
-
-  MAVEN_TARGET=$MAVEN_BASEDIR/mvn$MAVEN_ABBR/bin/mvn
-  MAVEN_USR_BIN=/usr/bin/mvn
-
-  rm -rf $MAVEN_USR_BIN
-  ln -s $MAVEN_TARGET $MAVEN_USR_BIN
-}
-
-function configure_java {
-
-  echo "configure -> default java"
-  cp /mnt/kuali-ec2/src/test/resources/ubuntu/12.04/jenkins/root/.bashrc /root/.bashrc
-  rm -rf /usr/bin/java
-  ln -s /usr/java/jdk7/bin/java /usr/bin/java
-  
-}
-
-configure_java
-install_packages
-install_maven 3.2.1 32
-install_maven 3.1.0 31
-install_maven 3.0.5 30
-install_default_maven 30
 
 echo "stop      -> $TOMCAT"
 service $TOMCAT stop > /dev/null 2>&1
