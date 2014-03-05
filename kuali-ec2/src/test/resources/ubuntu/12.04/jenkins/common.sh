@@ -73,7 +73,7 @@ function configure_secrets {
 
   echo "configure -> secrets"
   unzip -o /root/secrets.zip
-  #rm /root/secrets.zip
+  rm /root/secrets.zip
 
   GPG_KEY=/root/.ssh/private.key.gpg
   rm -rf /root/.gnupg
@@ -82,8 +82,7 @@ function configure_secrets {
   # setup maven
   rm -rf /root/.m2; mkdir -p /root/.m2;
   chmod 644 /root/.ssh/settings.xml
-  cp /root/.ssh/settings.xml /root/.m2/settings.xml
-  sleep 1
+  mv /root/.ssh/settings.xml /root/.m2/settings.xml
   
 }
 
