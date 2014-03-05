@@ -15,11 +15,6 @@
 # limitations under the License.
 #
 
-#
-# Usage:
-#   ./install_java.sh jdk6/jdk7
-#
-
 # Install JDK
 function install_jdk {
 
@@ -60,7 +55,7 @@ function check_arg {
 function show_usage {
   echo
   echo requires JDK_LEVEL BASEDIR NEXUS_PASSWORD
-  echo usage: install_jdk.sh
+  echo usage: install_java.sh jdk6/jdk7
   echo
 }
 
