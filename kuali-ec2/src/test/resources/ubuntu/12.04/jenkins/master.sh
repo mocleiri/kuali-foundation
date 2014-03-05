@@ -20,4 +20,4 @@ export BASEDIR=/mnt/kuali-ec2
 export JENKINS_BASEDIR=$BASEDIR/src/test/resources/ubuntu/12.04/jenkins
 
 $JENKINS_BASEDIR/common.sh
-$JENKINS_BASEDIR/install-jenkins.sh
+#$JENKINS_BASEDIR/install-jenkins.sh
