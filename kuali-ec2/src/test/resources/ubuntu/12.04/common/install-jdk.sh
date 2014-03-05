@@ -42,6 +42,12 @@ function install_jdk {
   ln -s $JDK_TARGET $JDK_LINK
 }
 
+function check_args {
+  check_arg JDK_LEVEL      $JDK_LEVEL
+  check_arg BASEDIR        $BASEDIR
+  check_arg NEXUS_PASSWORD $NEXUS_PASSWORD
+}
+
 function check_arg {
   ARG=$1; ARG_NAME=$2
   if [ $ARG == "" ]; then
