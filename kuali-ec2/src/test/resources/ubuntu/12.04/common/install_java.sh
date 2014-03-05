@@ -45,7 +45,9 @@ function check_args {
 
 function check_arg {
   echo yo
-  ARG=$1; ARG_NAME=$2
+  echo $1 $2
+  ARG=$1; 
+  ARG_NAME=$2
   echo $ARG
   if [ $ARG == "" ]; then
     echo must provide $ARG_NAME
