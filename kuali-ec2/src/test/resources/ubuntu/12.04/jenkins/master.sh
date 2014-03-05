@@ -114,6 +114,14 @@ function install_default_maven {
   ln -s $MAVEN_TARGET $MAVEN_USR_BIN
 }
 
+function configure_java {
+
+  cp /mnt/kuali-ec2/src/test/resources/ubuntu/12.04/jenkins/root/.bashrc /root/.bashrc
+  rm -rf /usr/bin/java
+  source /root/.bashrc
+  
+}
+
 echo "stop     -> $TOMCAT"
 service $TOMCAT stop > /dev/null 2>&1
 install_jenkins
@@ -126,4 +134,4 @@ install_maven 3.2.1 32
 install_maven 3.1.0 31
 install_maven 3.0.5 30
 install_default_maven 30
-
+configure java
