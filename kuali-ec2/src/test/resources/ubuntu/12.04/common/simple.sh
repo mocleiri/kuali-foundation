@@ -17,7 +17,7 @@
 
 function check_args {
   # If this is true, JDK is not blank.  It is set and it is not the empty string
-  if [ -n "$JDK" ] == false; then 
+  if [ -n "$JDK" ]; == false then 
     show_usage
     exit 1
   fi
