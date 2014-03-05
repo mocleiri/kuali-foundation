@@ -60,8 +60,8 @@ function checkout_module {
 }
 
 function configure_application_server {
-  BASICS="$MODULES/common/install_basics.sh $BASEDIR"
-  JAVA="$MODULES/common/install_java.sh $BASEDIR $JDK $NEXUS_PASSWORD"
+  BASICS="$MODULES/common/install_basics.sh $BASEDIR $QUIET"
+  JAVA="$MODULES/common/install_java.sh $BASEDIR $JDK $NEXUS_PASSWORD $QUIET"
   DNS="$MODULES/common/update_hostname.sh $SUBDOMAIN $DOMAIN"
   SSH="$BASICS; $JAVA; $DNS"
   ssh root@$FQDN "$SSH"
@@ -76,7 +76,7 @@ JDK=${3-jdk7}
 TOMCAT=${4-tomcat7}
 MAX_HEAP=${5-5g}
 MAX_PERM=${6-512m}
-QUIET=$7
+QUIET=${7--qq}
 
 # Make sure we have what we need to continue
 check_args
