@@ -72,7 +72,7 @@ function configure_java {
 function configure_secrets {
 
   echo "configure -> secrets"
-  unzip -o /root/secrets.zip -d /root
+  unzip -qq -o /root/secrets.zip -d /root
   rm /root/secrets.zip
 
   GPG_KEY=/root/.ssh/private.key.gpg
