@@ -20,6 +20,7 @@ function show_usage {
   echo requires BASEDIR JDK NEXUS_PASSWORD
   echo usage: install_java.sh jdk6/jdk7
   echo
+  exit 1
 }
 
 
