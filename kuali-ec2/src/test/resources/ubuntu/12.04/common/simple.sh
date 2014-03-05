@@ -40,6 +40,32 @@ function check_args {
 
 function install_jdk {
 
+  # Extract the jdk level from the JDK variable
+  JDK_LEVEL=${JDK:3:1}
+  check_not_blank JDK_LEVEL $JDK_LEVEL
+
+  # Extract a specific jdk version based on the jdk level
+  JDK_VERSION=$(eval echo \${JDK${JDK_LEVEL}_VERSION})
+  check_not_blank JDK_VERSION $JDK_VERSION
+
+  JDK_GROUP_ID=com/oracle
+  JDK_ARTIFACT_ID=$JDK
+  JDK_CLASSIFIER=linux-x64
+
+  JDK_UNZIP_DIR=$JDK_ARTIFACT_ID-$JDK_VERSION
+  JDK_ZIP_FILE=$JDK_ARTIFACT_ID-$JDK_VERSION-$JDK_CLASSIFIER.zip
+  JDK_BASEDIR=/usr/java
+
+  NEXUS_URL=http://nexus.kuali.org/content/groups/developer
+  NEXUS_JDK_LOCATION=$JDK_GROUP_ID/$JDK_ARTIFACT_ID/$JDK_VERSION
+  NEXUS_USER=developer
+  NEXUS_JDK_DOWNLOAD_FILE=$DOWNLOADS/$JDK_ZIP_FILE
+  
+  # Directory for the JDK download
+  DOWNLOADS=$BASEDIR/target/downloads/jdk
+  echo "clean -> $DOWNLOADS"
+  rm -rf $DOWNLOADS; mkdir -p $DOWNLOADS
+
   URL=$NEXUS_URL/$NEXUS_JDK_LOCATION/$JDK_ZIP_FILE
   OUTPUT_FILE=$DOWNLOADS/$JDK_ZIP_FILE
   echo "download  -> $URL"
@@ -57,6 +83,7 @@ function install_jdk {
 
   # Create a symbolic link for /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
   ln -s $JDK_TARGET $JDK_LINK
+  
 }
 
 # module specific variables
@@ -67,35 +94,9 @@ NEXUS_PASSWORD=${3-$NEXUS_PASSWORD}
 # Make sure we have what we need to continue
 check_args
 
-# Extract the jdk level from the JDK variable
-JDK_LEVEL=${JDK:3:1}
-check_not_blank JDK_LEVEL $JDK_LEVEL
-
 # Change these as new versions become available
 JDK6_VERSION=1.6.0-u45
 JDK7_VERSION=1.7.0-u51
-
-# Extract a specific jdk version based on the jdk level
-JDK_VERSION=$(eval echo \${JDK${JDK_LEVEL}_VERSION})
-check_not_blank JDK_VERSION $JDK_VERSION
-
-JDK_GROUP_ID=com/oracle
-JDK_ARTIFACT_ID=$JDK
-JDK_CLASSIFIER=linux-x64
-
-JDK_UNZIP_DIR=$JDK_ARTIFACT_ID-$JDK_VERSION
-JDK_ZIP_FILE=$JDK_ARTIFACT_ID-$JDK_VERSION-$JDK_CLASSIFIER.zip
-JDK_BASEDIR=/usr/java
-
-NEXUS_URL=http://nexus.kuali.org/content/groups/developer
-NEXUS_JDK_LOCATION=$JDK_GROUP_ID/$JDK_ARTIFACT_ID/$JDK_VERSION
-NEXUS_USER=developer
-NEXUS_JDK_DOWNLOAD_FILE=$DOWNLOADS/$JDK_ZIP_FILE
-
-# Directory for the JDK download
-DOWNLOADS=$BASEDIR/target/downloads/jdk
-echo "clean -> $DOWNLOADS"
-rm -rf $DOWNLOADS; mkdir -p $DOWNLOADS
 
 echo $JDK
 echo $JDK_LEVEL
