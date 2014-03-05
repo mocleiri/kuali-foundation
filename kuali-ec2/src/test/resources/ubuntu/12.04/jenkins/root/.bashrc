@@ -99,6 +99,6 @@ fi
 #fi
 
 JAVA_HOME=/usr/java/jdk7
-PATH=$JAVA_HOME:$PATH
+PATH=$JAVA_HOME/bin:$PATH
 
 export JAVA_HOME PATH
