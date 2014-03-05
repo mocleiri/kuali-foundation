@@ -81,8 +81,17 @@ function install_jdk {
   # Unpack the JDK into /usr/java
   unzip $QUIET -o $DOWNLOADS/$JDK_ZIP_FILE -d $JDK_BASEDIR
 
-  # Create a symbolic link for /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
+  # Create the symbolic link /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
   ln -s $JDK_TARGET $JDK_LINK
+  
+  $TOOLS_JAR=$JDK_LINK/lib/tools.jar
+  $TOOLS_JAR_COPY=$JDK_LINK/jre/lib/ext/tools.jar
+  echo "create   -> $TOOLS_JAR_COPY"
+  cp $TOOLS_JAR $TOOLS_JAR_COPY
+  
+  tools.jar.jdk=lib/tools.jar
+tools.jar.jre=jre/lib/ext/tools.jar
+  
   
 }
 
