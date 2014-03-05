@@ -37,4 +37,4 @@ JDK=${1-$JDK}
 
 check_args
 
-echo JDK
+echo $JDK
