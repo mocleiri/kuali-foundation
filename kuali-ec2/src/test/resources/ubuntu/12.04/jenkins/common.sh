@@ -78,8 +78,6 @@ function configure_secrets {
   rm -rf /root/.gnupg
   gpg --quiet --allow-secret-key-import --import $GPG_KEY > /dev/null 2>&1
   
-  rm -rf /root/secrets.zip
-  
 }
 
 configure_java
