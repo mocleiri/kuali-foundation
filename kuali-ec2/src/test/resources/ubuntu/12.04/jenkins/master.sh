@@ -20,6 +20,7 @@ TOMCAT=tomcat7
 TOMCAT_HOME=/home/$TOMCAT
 JENKINS_HOME=$TOMCAT_HOME/.jenkins
 export BASEDIR=/mnt/kuali-ec2
+export JENKINS_BASEDIR=$BASEDIR/src/test/resources/ubuntu/12.04/jenkins
 
 function install_jenkins {
   
@@ -75,7 +76,7 @@ function install_plugins {
   
 }
 
-$BASEDIR/src/test/resources/ubuntu/12.04/jenkins/common.sh
+$JENKINS_BASEDIR/common.sh
 
 echo "stop      -> $TOMCAT"
 service $TOMCAT stop > /dev/null 2>&1
