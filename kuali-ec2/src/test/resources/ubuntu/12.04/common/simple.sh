@@ -16,14 +16,14 @@
 #
 
 function check_not_blank {
-  if ! [ -n "$1" ]; then 
-    echo $2 cannot be blank
+  if ! [ -n "$2" ]; then 
+    echo $1 cannot be blank
     show_usage
   fi
 }
 
 function check_args {
-  check_not_blank $JDK JDK
+  check_not_blank JDK $JDK
 }
 
 function show_usage {
