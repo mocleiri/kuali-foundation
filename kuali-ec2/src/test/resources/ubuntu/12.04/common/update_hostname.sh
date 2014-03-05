@@ -65,3 +65,5 @@ DOMAIN=${2-$DOMAIN}
 
 # Make sure we have what we need to continue
 check_args
+
+set_hostname
