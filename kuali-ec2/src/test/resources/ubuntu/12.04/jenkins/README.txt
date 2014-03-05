@@ -26,4 +26,7 @@ subversion credentials
 binary caching
 jdk6
 
-slave automation
+
+
+tomcat7 moduser
+ec2plugin stop vs terminate
