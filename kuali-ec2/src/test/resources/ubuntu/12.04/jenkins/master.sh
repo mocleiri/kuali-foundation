@@ -94,11 +94,12 @@ function install_maven {
   curl $MAVEN_URL --silent --location --create-dirs --output $MAVEN_FILE
   MAVEN_TARGET=$MAVEN_DIR
   MAVEN_LINK=$MAVEN_BASEDIR/mvn$MAVEN_ABBR
+  MAVEN_USR_BIN=/usr/bin/mvn$MAVEN_ABBR
 
-  rm -rf $MAVEN_DIR $MAVEN_LINK
+  rm -rf $MAVEN_DIR $MAVEN_LINK $MAVEN_USR_BIN
   unzip $MAVEN_FILE -d $MAVEN_BASEDIR -qq
   ln -s $MAVEN_TARGET $MAVEN_LINK
-  ln -s /usr/share/maven/mvn$MAVEN_ABBR/bin/mvn /usr/bin/mvn$MAVEN_ABBR
+  ln -s /usr/share/maven/mvn$MAVEN_ABBR/bin/mvn $MAVEN_USR_BIN
 }
 
 install_maven 3.2.1 32
