@@ -38,6 +38,7 @@ function install_jdk {
 }
 
 function check_args {
+  echo yo
   if [ -n "$1" ]; then
     echo yo 
   fi
