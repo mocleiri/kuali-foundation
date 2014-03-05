@@ -62,7 +62,7 @@ function install_jdk {
   NEXUS_JDK_DOWNLOAD_FILE=$DOWNLOADS/$JDK_ZIP_FILE
   
   # Directory for the JDK download
-  DOWNLOADS=$BASEDIR/target/downloads/jdk
+  DOWNLOADS=$BASEDIR/target/jdk
   echo "clean     -> $DOWNLOADS"
   rm -rf $DOWNLOADS; mkdir -p $DOWNLOADS
 
