@@ -81,14 +81,20 @@ function install_packages {
 
 function install_maven {
   MAVEN_VERSION=$1
+  MAVEN_ABBR=$2
+  MAVEN_ARTIFACT_ID=apache-maven
   echo "install  -> maven $MAVEN_VERSION"
-  MAVEN_FILENAME=apache-maven-$MAVEN_VERSION-bin.zip
-  MAVEN_URL=http://search.maven.org/remotecontent?filepath=org/apache/maven/apache-maven/$MAVEN_VERSION/$MAVEN_FILENAME
-  MAVEN_FILE=/usr/share/maven/$MAVEN_FILENAME
+  MAVEN_ZIP=$MAVEN_ARTIFACT_ID-$MAVEN_VERSION-bin.zip
+  MAVEN_URL=http://search.maven.org/remotecontent?filepath=org/apache/maven/apache-maven/$MAVEN_VERSION/$MAVEN_ZIP
+  MAVEN_BASEDIR=/usr/share/maven
+  MAVEN_DIR=$MAVEN_BASEDIR/$MAVEN_ARTIFACT_ID-$MAVEN_VERSION
+  MAVEN_FILE=$MAVEN_BASEDIR/$MAVEN_ZIP
   curl $MAVEN_URL --silent --location --create-dirs --output $MAVEN_FILE
+  rm -rf $MAVEN_DIR
+  unzip $MAVEN_FILE -d $MAVEN_BASEDIR
 }
 
-install_maven 3.2.1
+install_maven 3.2.1 32
 exit 0
 
 echo "stop     -> $TOMCAT"
