@@ -27,24 +27,44 @@ function check_not_blank {
 function show_usage {
   echo
   echo requires SUBDOMAIN NEXUS_PASSWORD
-  echo usage: bootstrap.sh subdomain password
+  echo usage: bootstrap.sh subdomain password [jdk6/jdk6] [tomcat6/tomcat7] [max_heap] [max_perm] [quiet]
   echo
   exit 1
 }
 
 function check_args {
+
   check_not_blank SUBDOMAIN $SUBDOMAIN
   check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
+  check_not_blank JDK $JDK
+  check_not_blank TOMCAT $TOMCAT
+  check_not_blank MAX_HEAP $MAX_HEAP
+  check_not_blank MAX_PERM $MAX_PERM
+  
 }
 
 echo $(date)
 
+# Module specific variables
 SUBDOMAIN=$1
 NEXUS_PASSWORD=$2
+JDK=${3-jdk7}
+TOMCAT=${4-tomcat7}
+MAX_HEAP=${5-5g}
+MAX_PERM=${6-512m}
+QUIET=$7
+
+# Make sure we have what we need to continue
+check_args
+
 DOMAIN=kuali.org
 BASEDIR=/mnt/kuali-ec2
+MODULES=$BASEDIR/src/test/resources/ubuntu/12.04
 
-check_args
+# Subversion
+SVN_REPO=https://svn.kuali.org/repos/foundation
+SVN_PATH=trunk/kuali-ec2
+SVN_URL=$SVN_REPO/$SVN_PATH
 
 echo $(date)
 
