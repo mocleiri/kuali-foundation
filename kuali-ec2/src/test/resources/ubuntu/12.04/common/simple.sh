@@ -32,10 +32,20 @@ function show_usage {
   exit 1
 }
 
+function check_args {
+  check_not_blank BASEDIR $BASEDIR
+  check_not_blank TOMCAT_VERSION $TOMCAT_VERSION
+  check_not_blank MAX_HEAP $MAX_HEAP
+  check_not_blank MAX_PERM $MAX_PERM
+}
 
+# Module specific variables
 BASEDIR=${1-$BASEDIR}
 TOMCAT_VERSION=${2-$TOMCAT_VERSION}
 MAX_HEAP=${3-$MAX_HEAP}
 MAX_PERM=${4-$MAX_PERM}
 QUIET=${5-$QUIET}
+
+# Makes sure we have what we need to continue
+check_args
 
