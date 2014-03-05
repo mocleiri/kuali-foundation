@@ -55,7 +55,7 @@ function set_hostname {
   # Mike's magic line here always appends to /etc/hosts
   # This breaks with the concept of idempotence
   # And also if for some reason we gave the machine a new DNS name I think we'd have issues 
-  #eval "sed -i -e '/127.0.0.1/a$ETC_HOSTS' /etc/hosts"
+  # eval "sed -i -e '/127.0.0.1/a$ETC_HOSTS' /etc/hosts"
   
 }
 
