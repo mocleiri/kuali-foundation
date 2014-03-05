@@ -77,7 +77,7 @@ JDK=${3-jdk7}
 TOMCAT=${4-tomcat7}
 MAX_HEAP=${5-5g}
 MAX_PERM=${6-512m}
-QUIET=${7--qq}
+QUIET=${7-""}
 
 # Make sure we have what we need to continue
 check_args
