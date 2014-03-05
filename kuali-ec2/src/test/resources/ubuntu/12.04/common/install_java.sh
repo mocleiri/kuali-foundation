@@ -67,8 +67,8 @@ JDK7_VERSION=1.7.0-u51
 JDK6=jdk6
 JDK7=jdk7
 
-JDK=$(eval echo \${JDK${JDK_LEVEL}})
-JDK_VERSION=$(eval echo \${JDK${JDK_LEVEL}_VERSION})
+#JDK=$(eval echo \${JDK${JDK_LEVEL}})
+#JDK_VERSION=$(eval echo \${JDK${JDK_LEVEL}_VERSION})
 
 JDK_GROUP_ID=com/oracle
 JDK_ARTIFACT_ID=$JDK
