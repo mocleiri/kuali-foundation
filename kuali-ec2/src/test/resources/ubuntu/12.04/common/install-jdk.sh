@@ -20,38 +20,6 @@
 #   ./install-jdk.sh jdk
 #
 
-JDK_LEVEL=${1-7}
-JDK6_VERSION=1.6.0-u45
-JDK7_VERSION=1.7.0-u51
-
-BASEDIR=/mnt/kuali-ec2
-DOWNLOADS=$BASEDIR/target/downloads
-SCRIPTS_DIR=$BASEDIR/src/test/resources/ubuntu/12.04/appserver
-
-JDK6=jdk6
-JDK7=jdk7
-
-JDK=$(eval echo \${JDK${JDK_LEVEL}})
-JDK_VERSION=$(eval echo \${JDK${JDK_LEVEL}_VERSION})
-
-JDK_GROUP_ID=com/oracle
-JDK_ARTIFACT_ID=$JDK
-JDK_CLASSIFIER=linux-x64
-
-JDK_UNZIP_DIR=$JDK_ARTIFACT_ID-$JDK_VERSION
-JDK_ZIP_FILE=$JDK_ARTIFACT_ID-$JDK_VERSION-$JDK_CLASSIFIER.zip
-JDK_BASEDIR=/usr/java
-
-NEXUS_URL=http://nexus.kuali.org/content/groups/developer
-NEXUS_JDK_LOCATION=$JDK_GROUP_ID/$JDK_ARTIFACT_ID/$JDK_VERSION
-NEXUS_USER=developer
-NEXUS_JDK_DOWNLOAD_FILE=$DOWNLOADS/$JDK_ZIP_FILE
-
-NEXUS_PASSWORD="NOTDEFINED"
-
-# Directory for the JDK download
-rm -rf $DOWNLOADS; mkdir -p $DOWNLOADS
-
 # Install JDK
 function install_jdk {
 
@@ -88,5 +56,37 @@ function show_usage {
   echo usage: install_jdk.sh jdk
   echo
 }
+
+JDK_LEVEL=${1-7}
+JDK6_VERSION=1.6.0-u45
+JDK7_VERSION=1.7.0-u51
+
+BASEDIR=/mnt/kuali-ec2
+DOWNLOADS=$BASEDIR/target/downloads
+SCRIPTS_DIR=$BASEDIR/src/test/resources/ubuntu/12.04/appserver
+
+JDK6=jdk6
+JDK7=jdk7
+
+JDK=$(eval echo \${JDK${JDK_LEVEL}})
+JDK_VERSION=$(eval echo \${JDK${JDK_LEVEL}_VERSION})
+
+JDK_GROUP_ID=com/oracle
+JDK_ARTIFACT_ID=$JDK
+JDK_CLASSIFIER=linux-x64
+
+JDK_UNZIP_DIR=$JDK_ARTIFACT_ID-$JDK_VERSION
+JDK_ZIP_FILE=$JDK_ARTIFACT_ID-$JDK_VERSION-$JDK_CLASSIFIER.zip
+JDK_BASEDIR=/usr/java
+
+NEXUS_URL=http://nexus.kuali.org/content/groups/developer
+NEXUS_JDK_LOCATION=$JDK_GROUP_ID/$JDK_ARTIFACT_ID/$JDK_VERSION
+NEXUS_USER=developer
+NEXUS_JDK_DOWNLOAD_FILE=$DOWNLOADS/$JDK_ZIP_FILE
+
+NEXUS_PASSWORD="NOTDEFINED"
+
+# Directory for the JDK download
+rm -rf $DOWNLOADS; mkdir -p $DOWNLOADS
 
 install_jdk
