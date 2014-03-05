@@ -42,7 +42,7 @@ echo $(date)
 SUBDOMAIN=$1
 NEXUS_PASSWORD=$2
 DOMAIN=kuali.org
-BASEDIR=/mn/kuali-ec2
+BASEDIR=/mnt/kuali-ec2
 
 check_args
 
