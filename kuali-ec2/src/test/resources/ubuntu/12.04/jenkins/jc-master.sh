@@ -16,8 +16,8 @@
 #
 
 FQDN=jeff.ci.kuali.org
-GPG=/Users/jcaddel/.ssh/private.key.gpg
+SSH=/Users/jcaddel/.ssh/ssh.zip
 MASTER=/mnt/kuali-ec2/src/test/resources/ubuntu/12.04/jenkins/master.sh
 
-scp $GPG root@$FQDN:/root/private.key.gpg
+scp $SSH root@$FQDN:/root/ssh.zip
 ssh root@$FQDN "cd /mnt/kuali-ec2; svn up; $MASTER"
