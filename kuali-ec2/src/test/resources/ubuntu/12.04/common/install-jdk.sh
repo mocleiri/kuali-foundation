@@ -75,8 +75,7 @@ function install_jdk {
 }
 
 function check_arg {
-  ARG=$1
-  ARG_NAME=$2
+  ARG=$1; ARG_NAME=$2
   if [ $ARG == "" ]; then
     echo must provide $ARG_NAME
     show_usage
