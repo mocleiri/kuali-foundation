@@ -52,6 +52,7 @@ function check_arg {
 }
 
 function show_usage {
+  echo
   echo requires JDK_LEVEL BASEDIR NEXUS_PASSWORD
   echo usage: install_jdk.sh
   echo
