@@ -38,7 +38,7 @@ function check_args {
 
 BASEDIR=${1-$BASEDIR}
 JDK=${2-$JDK}
-NEXUS_PASSWORD=${3-$JDK}
+NEXUS_PASSWORD=${3-$NEXUS_PASSWORD}
 
 check_args
 
