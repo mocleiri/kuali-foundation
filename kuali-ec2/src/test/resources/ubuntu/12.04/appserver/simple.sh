@@ -27,7 +27,7 @@ function check_not_blank {
 function show_usage {
   echo
   echo requires NEXUS_PASSWORD SUBDOMAIN 
-  echo usage: bootstrap.sh password subdomain [jdk6/jdk6] [tomcat6/tomcat7] [max_heap] [max_perm] [quiet]
+  echo usage: bootstrap.sh password subdomain [jdk7/jdk6] [tomcat7/tomcat6] [max_heap] [max_perm] [quiet]
   echo
   exit 1
 }
