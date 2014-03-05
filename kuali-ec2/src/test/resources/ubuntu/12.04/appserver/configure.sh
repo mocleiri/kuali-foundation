@@ -86,7 +86,8 @@ check_args
 
 DOMAIN=kuali.org
 BASEDIR=/mnt/kuali-ec2
-MODULES=$BASEDIR/src/test/resources/ubuntu/12.04
+DISTRO=ubuntu/12.04
+MODULES=$BASEDIR/src/test/resources/$DISTRO
 FQDN=$SUBDOMAIN.$DOMAIN
 
 echo "configure -> $FQDN"
