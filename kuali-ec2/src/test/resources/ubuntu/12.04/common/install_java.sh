@@ -38,6 +38,7 @@ function install_jdk {
 }
 
 function check_args {
+  echo yo
   check_arg JDK            $JDK
   check_arg BASEDIR        $BASEDIR
   check_arg NEXUS_PASSWORD $NEXUS_PASSWORD
@@ -85,6 +86,5 @@ NEXUS_JDK_DOWNLOAD_FILE=$DOWNLOADS/$JDK_ZIP_FILE
 DOWNLOADS=$BASEDIR/target/downloads/jdk
 # rm -rf $DOWNLOADS; mkdir -p $DOWNLOADS
 
-echo yo
 check_args
 #install_jdk
