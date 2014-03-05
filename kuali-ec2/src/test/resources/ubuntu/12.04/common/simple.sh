@@ -51,10 +51,12 @@ JDK6_VERSION=1.6.0-u45
 JDK7_VERSION=1.7.0-u51
 
 JDK_VERSION=$(eval echo \${JDK${JDK_LEVEL}_VERSION})
+check_not_blank JDK_VERSION $JDK_VERSION
 
 # Make sure we have what we need to continue
 check_args
 
 echo $JDK
 echo $JDK_LEVEL
+echo $JDK_VERSION
 
