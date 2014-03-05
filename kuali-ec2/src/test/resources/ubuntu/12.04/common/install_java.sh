@@ -86,7 +86,7 @@ function install_jdk {
   
   $TOOLS_JAR=$JDK_LINK/lib/tools.jar
   $TOOLS_JAR_COPY=$JDK_LINK/jre/lib/ext/tools.jar
-  echo "create   -> $TOOLS_JAR_COPY"
+  echo "create   -> $TOOLS_JAR -> $TOOLS_JAR_COPY"
   cp $TOOLS_JAR $TOOLS_JAR_COPY
   
   tools.jar.jdk=lib/tools.jar
