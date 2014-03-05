@@ -33,14 +33,12 @@ function show_usage {
 }
 
 function check_args {
-
   check_not_blank SUBDOMAIN $SUBDOMAIN
   check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
   check_not_blank JDK $JDK
   check_not_blank TOMCAT $TOMCAT
   check_not_blank MAX_HEAP $MAX_HEAP
   check_not_blank MAX_PERM $MAX_PERM
-  
 }
 
 echo $(date)
