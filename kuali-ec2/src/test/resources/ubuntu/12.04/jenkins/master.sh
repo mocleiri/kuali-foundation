@@ -82,8 +82,10 @@ function install_packages {
 function install_maven {
   MAVEN_VERSION=$1
   MAVEN_ABBR=$2
-  MAVEN_ARTIFACT_ID=apache-maven
+
   echo "install  -> maven $MAVEN_VERSION"
+
+  MAVEN_ARTIFACT_ID=apache-maven
   MAVEN_ZIP=$MAVEN_ARTIFACT_ID-$MAVEN_VERSION-bin.zip
   MAVEN_URL=http://search.maven.org/remotecontent?filepath=org/apache/maven/apache-maven/$MAVEN_VERSION/$MAVEN_ZIP
   MAVEN_BASEDIR=/usr/share/maven
