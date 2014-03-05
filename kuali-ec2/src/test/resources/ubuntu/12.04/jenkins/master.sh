@@ -75,6 +75,8 @@ function install_plugins {
   
 }
 
+BASEDIR/src/test/resources/ubuntu/12.04/jenkins/common.sh
+
 echo "stop      -> $TOMCAT"
 service $TOMCAT stop > /dev/null 2>&1
 install_jenkins
