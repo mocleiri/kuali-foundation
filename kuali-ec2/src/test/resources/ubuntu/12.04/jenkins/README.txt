@@ -25,6 +25,5 @@ slave automation
 
 gpg
 subversion credentials
-graphviz
 maven (3.0,3.1,3.2)
 jdk6
