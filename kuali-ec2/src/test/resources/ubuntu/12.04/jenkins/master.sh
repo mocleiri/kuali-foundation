@@ -103,6 +103,8 @@ function install_maven {
 }
 
 install_maven 3.2.1 32
+install_maven 3.1.0 31
+install_maven 3.0.5 30
 exit 0
 
 echo "stop     -> $TOMCAT"
