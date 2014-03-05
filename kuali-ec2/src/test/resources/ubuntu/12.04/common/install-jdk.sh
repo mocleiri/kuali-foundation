@@ -74,4 +74,20 @@ function install_jdk {
   ln -s $JDK_TARGET $JDK_LINK
 }
 
+function check_arg {
+  ARG=$1
+  ARG_NAME=$2
+  if [ $ARG == "" ]; then
+    echo must provide $ARG_NAME
+    show_usage
+  fi
+  exit 1
+}
+
+function show_usage {
+  echo
+  echo usage: install_jdk.sh jdk
+  echo
+}
+
 install_jdk
