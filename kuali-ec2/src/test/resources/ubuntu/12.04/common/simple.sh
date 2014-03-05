@@ -49,8 +49,8 @@ JDK_LEVEL=${JDK:3:1}
 check_args
 
 # Change these as new versions become available
-JDK6_VERSION=${4-1.6.0-u45}
-JDK7_VERSION=${5-1.7.0-u51}
+JDK6_VERSION=1.6.0-u45
+JDK7_VERSION=1.7.0-u51
 
 echo $JDK
 echo $JDK_LEVEL
