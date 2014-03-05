@@ -123,6 +123,7 @@ function configure_java {
   
 }
 
+configure_java
 echo "stop      -> $TOMCAT"
 service $TOMCAT stop > /dev/null 2>&1
 install_jenkins
@@ -135,4 +136,3 @@ install_maven 3.2.1 32
 install_maven 3.1.0 31
 install_maven 3.0.5 30
 install_default_maven 30
-configure_java
