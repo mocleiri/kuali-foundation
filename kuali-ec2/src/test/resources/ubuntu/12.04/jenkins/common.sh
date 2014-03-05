@@ -58,6 +58,8 @@ function install_default_maven {
   ln -s $MAVEN_TARGET $MAVEN_USR_BIN
 }
 
+# Override .bashrc to make sure JAVA_HOME gets set
+# Make sure /usr/bin/java points to JDK7  
 function configure_java {
 
   echo "configure -> default java"
