@@ -69,7 +69,14 @@ function configure_java {
   
 }
 
+function configure_gpg {
+
+  echo "configure -> gpg"
+  
+}
+
 configure_java
+configure_gpg
 install_packages
 install_maven 3.2.1 32
 install_maven 3.1.0 31
