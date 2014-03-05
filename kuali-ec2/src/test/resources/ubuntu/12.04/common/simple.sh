@@ -26,8 +26,8 @@ function check_not_blank {
 # module specific functions
 function show_usage {
   echo
-  echo requires BASEDIR TOMCAT_VERSION MAX_HEAP MAX_PERM QUIET
-  echo usage: install_tomcat.sh basedir 6/7 max_heap max_perm [quiet]
+  echo requires BASEDIR TOMCAT MAX_HEAP MAX_PERM QUIET
+  echo usage: install_tomcat.sh basedir tomcat6/tomcat7 max_heap max_perm [quiet]
   echo
   exit 1
 }
@@ -41,7 +41,7 @@ function check_args {
 
 # Module specific variables
 BASEDIR=${1-$BASEDIR}
-TOMCAT_VERSION=${2-$TOMCAT_VERSION}
+TOMCAT=${2-$TOMCAT}
 MAX_HEAP=${3-$MAX_HEAP}
 MAX_PERM=${4-$MAX_PERM}
 QUIET=${5-$QUIET}
