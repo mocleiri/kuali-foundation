@@ -70,6 +70,10 @@ SVN2="rm -rf $BASEDIR"
 SVN3="svn $QUIET checkout $SVN_URL $BASEDIR"
 SVN="$SVN1; $SVN2; $SVN3"
 
+# Enable root ssh
+echo "enable    -> root ssh"
+ssh ubuntu@$FQDN 'sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys'
+
 echo $(date)
 
 
