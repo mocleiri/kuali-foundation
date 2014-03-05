@@ -68,6 +68,7 @@ function install_plugins {
   install_plugin next-build-number     1.1
   install_plugin parameterized-trigger 2.22
   install_plugin email-ext             2.37.2
+  install_plugin token-macro           1.10
   
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME  
   
