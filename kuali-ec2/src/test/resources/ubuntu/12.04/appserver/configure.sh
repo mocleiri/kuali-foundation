@@ -74,7 +74,7 @@ HOSTNAME="NOTDEFINED"
 # Directory for the JDK download
 rm -rf $DOWNLOADS; mkdir -p $DOWNLOADS
 
-#Update Ubuntu repos and packages
+# Update Ubuntu repos and packages
 function get_upgrades {
 echo "update    -> package indexes"
 apt-get $QUIET -y update
