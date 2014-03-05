@@ -94,7 +94,7 @@ function install_maven {
   MAVEN_LINK=$MAVEN_BASEDIR/mvn$MAVEN_ABBR
 
   rm -rf $MAVEN_DIR $MAVEN_LINK
-  unzip $MAVEN_FILE -d $MAVEN_BASEDIR
+  unzip $MAVEN_FILE -d $MAVEN_BASEDIR -qq
   ln -s $MAVEN_TARGET $MAVEN_LINK
 }
 
