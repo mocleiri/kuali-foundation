@@ -22,7 +22,6 @@ http://updates.jenkins-ci.org/stable/update-center.json
 TODO
 
 binary caching
-custom settings.xml
 subversion credentials
 jdk6
 
