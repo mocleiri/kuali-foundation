@@ -15,6 +15,13 @@
 # limitations under the License.
 #
 
+function show_usage {
+  echo
+  echo usage: simple.sh jdk6/jdk7 
+  echo
+  exit 1
+}
+
 function check_not_blank {
   if ! [ -n "$2" ]; then 
     echo $1 cannot be blank
@@ -24,13 +31,6 @@ function check_not_blank {
 
 function check_args {
   check_not_blank JDK $JDK
-}
-
-function show_usage {
-  echo
-  echo usage: simple.sh jdk6/jdk7 
-  echo
-  exit 1
 }
 
 JDK=${1-$JDK}
