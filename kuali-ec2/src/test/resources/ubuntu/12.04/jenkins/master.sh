@@ -73,7 +73,7 @@ function install_plugins {
 
 function install_packages {
   echo "install  -> custom packages"
-  apt-get install subversion git -y -qq > /dev/null 2>&1
+  apt-get install subversion git graphviz -y -qq > /dev/null 2>&1
 }
 
 echo "stop     -> $TOMCAT"
