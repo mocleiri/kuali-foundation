@@ -74,7 +74,7 @@ function configure_gpg {
   PRIVATE_KEY=/root/private.key.gpg
   echo "configure -> gpg"
   rm -rf /root/.gnupg
-  gpg --allow-secret-key-import --import $PRIVATE_KEY
+  gpg --quiet --allow-secret-key-import --import $PRIVATE_KEY
   rm $PRIVATE_KEY
   
 }
