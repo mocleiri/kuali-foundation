@@ -62,3 +62,6 @@ BASEDIR=${1-$BASEDIR}
 # Make sure we have what we need to continue
 check_args
 
+get_upgrades
+unattended_upgrades
+install_packages
