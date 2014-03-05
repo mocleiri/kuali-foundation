@@ -77,6 +77,7 @@ function install_plugins {
 function install_gpg {
 
   echo "configure -> gpg $TOMCAT"
+  rm -rf /home/tomcat7/.gnupg
   cp -R /root/.gnupg /home/tomcat7
   chown -R tomcat7:tomcat7 /home/tomcat7
   
