@@ -40,6 +40,68 @@ function check_args {
   check_not_blank MAX_PERM $MAX_PERM
 }
 
+function tomcat_purge {
+
+  TOMCAT_PURGE="libtcnative-1 tomcat6-common tomcat6 tomcat7"
+  echo "purge     -> $TOMCAT_PURGE"
+  apt-get $QUIET -y purge $TOMCAT_PURGE > /dev/null 2>&1
+  apt-get $QUIET -y autoremove > /dev/null 2>&1
+  rm -rf /var/lib/tomcat6 /var/lib/tomcat7
+  
+}
+
+# Install Tomcat
+function install_tomcat {
+  
+  tomcat purge
+  
+  if [ $TOMCAT_VERSION == "6" ]; then
+    echo "install   -> $TOMCAT-common libtcnative-1 $TOMCAT"
+    apt-get $QUIET -y install $TOMCAT-common libtcnative-1 $TOMCAT > /dev/null 2>&1
+  else
+    echo "install   -> libtcnative-1 $TOMCAT"
+    apt-get $QUIET -y install libtcnative-1 $TOMCAT > /dev/null 2>&1
+  fi
+  
+  service $TOMCAT stop > /dev/null 2>&1
+  echo "configure -> $TOMCAT"
+  echo "TOMCAT_USER=$TOMCAT_USER" > $TOMCAT_OPT_FILE
+  echo "TOMCAT_GROUP=$TOMCAT_GROUP" >> $TOMCAT_OPT_FILE
+  echo "JAVA_OPTS=$JAVA_OPTS" >> $TOMCAT_OPT_FILE
+  echo "JAVA_HOME=$JAVA_HOME" >> $TOMCAT_OPT_FILE
+
+  WEBXML=$BASEDIR/src/main/resources/apache-tomcat/$TOMCAT_VERSION/conf/web.xml
+  SERVER=$BASEDIR/src/main/resources/apache-tomcat/$TOMCAT_VERSION/conf/server.xml
+
+  cp $WEBXML $TOMCAT_CONF_FILE_DIR/web.xml
+  cp $SERVER $TOMCAT_CONF_FILE_DIR/server.xml
+
+  TOMCAT_LOGS=/var/lib/$TOMCAT/logs
+  TOMCAT_WEBAPPS=/var/lib/$TOMCAT/webapps
+  TOMCAT_BIN=/usr/share/$TOMCAT/bin
+  TOMCAT_CLEANUP=$TOMCAT_BIN/cleanup.sh
+  USR_BIN_CLEANUP=/usr/bin/cleanup.sh
+  JSPS=$BASEDIR/src/main/resources/apache-tomcat/jsps/*.jsp
+
+  rm -rf $TOMCAT_WEBAPPS/* $TOMCAT_LOGS/* /var/lib/tomcat6/bin/cleanup.sh /var/lib/tomcat7/bin/cleanup.sh
+  cp $BASEDIR/src/main/resources/apache-tomcat/$TOMCAT_VERSION/bin/cleanup.sh $TOMCAT_CLEANUP
+  chmod 755 $TOMCAT_BIN/cleanup.sh
+  rm -f $USR_BIN_CLEANUP
+  ln -s $TOMCAT_CLEANUP $USR_BIN_CLEANUP
+
+  # Setup the tomcat6/7 user with a normal /home directory and enable su
+  rm -rf $TOMCAT_HOME; mkdir -p $TOMCAT_HOME; chown -R $TOMCAT_USER:$TOMCAT_GROUP $TOMCAT_HOME
+  usermod --home $TOMCAT_HOME $TOMCAT
+  usermod --shell /bin/bash $TOMCAT
+
+  # Copy custom jsps into the logs directory
+  cp $JSPS $TOMCAT_LOGS; chown -R $TOMCAT_USER:$TOMCAT_GROUP $TOMCAT_LOGS/*.jsp
+
+  echo "start     -> $TOMCAT"
+  $USR_BIN_CLEANUP
+  service $TOMCAT start > /dev/null 2>&1
+}
+
 # Module specific variables
 BASEDIR=${1-$BASEDIR}
 TOMCAT=${2-$TOMCAT}
@@ -50,4 +112,6 @@ QUIET=${6-$QUIET}
 
 # Makes sure we have what we need to continue
 check_args
+
+
 
