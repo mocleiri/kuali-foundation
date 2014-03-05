@@ -71,10 +71,12 @@ function configure_java {
 
 function configure_secrets {
 
+  # Extract the EC2 private keys and the GPG key into the .ssh directory
   echo "configure -> secrets"
   unzip -qq -o /root/secrets.zip -d /root
   rm /root/secrets.zip
 
+  # Setup GPG
   GPG_KEY=/root/.ssh/private.key.gpg
   rm -rf /root/.gnupg
   gpg --quiet --allow-secret-key-import --import $GPG_KEY > /dev/null 2>&1
