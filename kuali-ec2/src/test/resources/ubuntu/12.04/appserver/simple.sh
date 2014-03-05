@@ -66,6 +66,11 @@ SVN_REPO=https://svn.kuali.org/repos/foundation
 SVN_PATH=trunk/kuali-ec2
 SVN_URL=$SVN_REPO/$SVN_PATH
 
+SVN1="apt-get install subversion -y $QUIET"
+SVN2="rm -rf $BASEDIR"
+SVN3="svn $QUIET checkout $SVN_URL $BASEDIR"
+SVN="$SVN1; $SVN2; $SVN3"
+
 echo $(date)
 
 
