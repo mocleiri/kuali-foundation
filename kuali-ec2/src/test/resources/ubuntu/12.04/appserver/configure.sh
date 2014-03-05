@@ -170,11 +170,6 @@ echo "download  -> $URL"
 wget $QUIET --user $NEXUS_USER --password $NEXUS_PASSWORD $URL --output-document $OUTPUT_FILE
 echo "to        -> $OUTPUT_FILE"
 
-if [ ! -f $OUTPUT_FILE ]; then
-  echo "$OUTPUT_FILE does not exist!"
-  exit 1
-fi
-
 # Make sure the JDK and the symbolic link are both gone
 JDK_TARGET=$JDK_BASEDIR/$JDK_UNZIP_DIR
 JDK_LINK=$JDK_BASEDIR/$JDK_ARTIFACT_ID
