@@ -16,8 +16,8 @@
 #
 
 function check_args {
-  # If this is true, FOO is not blank.  It is set and it is not the empty string
-  if [ -n "$FOO" ]; then 
+  # If this is true, JDK is not blank.  It is set and it is not the empty string
+  if [ -n "$JDK" ]; then 
     echo "good juju" 
   else 
     echo "bad juju" 
@@ -29,5 +29,7 @@ function show_usage {
   echo simple.sh jdk6/jdk7 
   echo
 }
+
+JDK=${1-$JDK}
 
 check_args
