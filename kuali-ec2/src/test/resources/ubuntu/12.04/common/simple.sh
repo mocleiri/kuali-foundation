@@ -15,8 +15,10 @@
 # limitations under the License.
 #
 
+FOO=""
+
 function check_args {
-  if [ -n "$1" ]; then 
+  if [ -n "$FOO" ]; then 
     echo "good juju" 
   else 
     echo "bad juju" 
