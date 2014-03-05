@@ -23,4 +23,4 @@ function check_args {
   fi
 }
 
-check_args word
+check_args
