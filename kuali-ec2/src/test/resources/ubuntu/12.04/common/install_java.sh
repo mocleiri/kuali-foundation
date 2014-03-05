@@ -37,13 +37,6 @@ function install_jdk {
   ln -s $JDK_TARGET $JDK_LINK
 }
 
-function show_usage {
-  echo
-  echo requires JDK BASEDIR NEXUS_PASSWORD
-  echo usage: install_java.sh jdk6/jdk7
-  echo
-}
-
 JDK6_VERSION=1.6.0-u45
 JDK7_VERSION=1.7.0-u51
 
