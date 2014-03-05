@@ -108,7 +108,6 @@ function configure_tomcat {
 
   # Copy custom jsps into the logs directory
   cp $JSPS $TOMCAT_LOGS; chown -R $TOMCAT_USER:$TOMCAT_GROUP $TOMCAT_LOGS/*.jsp
-
   
 }
 
@@ -141,9 +140,8 @@ function install_tomcat {
   
   configure_tomcat
   redirect_ports
+  cleanup.sh
   
-  $USR_BIN_CLEANUP
-
   echo "start     -> $TOMCAT"
   service $TOMCAT start > /dev/null 2>&1
   
