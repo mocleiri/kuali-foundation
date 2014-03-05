@@ -76,6 +76,8 @@ function configure_gpg {
   rm -rf /root/.gnupg
   gpg --quiet --allow-secret-key-import --import $PRIVATE_KEY > /dev/null 2>&1
   rm $PRIVATE_KEY
+  cp -R /root/.gnupg /home/tomcat7
+  chown -R tomcat7:tomcat7 /home/tomcat7
   
 }
 
