@@ -30,7 +30,7 @@ function install_jenkins {
   TOMCAT_ROOT_WAR=$TOMCAT_ROOT.war
   JENKINS_URL=http://maven.kuali.org/external/org/jenkins/jenkins/$JENKINS_VERSION/jenkins-$JENKINS_VERSION.war
 
-  echo "download -> $JENKINS_URL"
+  echo "download  -> $JENKINS_URL"
   rm -rf $TOMCAT_ROOT $TOMCAT_ROOT_WAR $JENKINS_HOME
   curl $JENKINS_URL --silent --output $TOMCAT_ROOT_WAR
   chown $TOMCAT:$TOMCAT $TOMCAT_ROOT_WAR
@@ -43,7 +43,7 @@ function install_plugin {
   PLUGIN_DOWNLOADS=https://updates.jenkins-ci.org/download/plugins
   PLUGIN_NAME=$1
   PLUGIN_VERSION=$2
-  echo "install  -> $PLUGIN_NAME $PLUGIN_VERSION"
+  echo "install   -> $PLUGIN_NAME $PLUGIN_VERSION"
   PLUGIN_URL=$PLUGIN_DOWNLOADS/$PLUGIN_NAME/$PLUGIN_VERSION/$PLUGIN_NAME.hpi
   PLUGIN_DIR=$JENKINS_HOME/plugins
   PLUGIN_FILE=$PLUGIN_DIR/$PLUGIN_NAME.jpi
@@ -75,7 +75,7 @@ function install_plugins {
 }
 
 function install_packages {
-  echo "install  -> custom packages"
+  echo "install   -> custom packages"
   apt-get install subversion git graphviz -y -qq > /dev/null 2>&1
 }
 
@@ -83,7 +83,7 @@ function install_maven {
   MAVEN_VERSION=$1
   MAVEN_ABBR=$2
 
-  echo "install  -> maven $MAVEN_VERSION"
+  echo "install   -> maven $MAVEN_VERSION"
 
   MAVEN_ARTIFACT_ID=apache-maven
   MAVEN_ZIP=$MAVEN_ARTIFACT_ID-$MAVEN_VERSION-bin.zip
@@ -105,7 +105,7 @@ function install_maven {
 function install_default_maven {
   MAVEN_ABBR=$1
 
-  echo "install  -> default maven mvn$MAVEN_ABBR"
+  echo "install   -> default maven mvn$MAVEN_ABBR"
 
   MAVEN_TARGET=/usr/share/maven/mvn$MAVEN_ABBR/bin/mvn
   MAVEN_USR_BIN=/usr/bin/mvn
@@ -123,11 +123,11 @@ function configure_java {
   
 }
 
-echo "stop     -> $TOMCAT"
+echo "stop      -> $TOMCAT"
 service $TOMCAT stop > /dev/null 2>&1
 install_jenkins
 install_plugins
-echo "start    -> $TOMCAT"
+echo "start     -> $TOMCAT"
 service $TOMCAT start > /dev/null 2>&1
 
 install_packages
