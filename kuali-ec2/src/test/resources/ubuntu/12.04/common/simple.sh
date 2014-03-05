@@ -34,4 +34,4 @@ JDK=jdk8
 JDK=${1-$JDK}
 echo $JDK
 
-JDK=$(check_arg)
+JDK=$(check_arg $JDK)
