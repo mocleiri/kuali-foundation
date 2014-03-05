@@ -76,7 +76,7 @@ function install_plugins {
 
 function install_secrets {
 
-  echo "configure -> secrets $TOMCAT"
+  echo "configure -> $TOMCAT secrets"
   rm -rf $TOMCAT_HOME/.gnupg $TOMCAT_HOME/.ssh
   cp -R /root/.gnupg /home/tomcat7
   cp -R /root/.ssh /home/tomcat7
