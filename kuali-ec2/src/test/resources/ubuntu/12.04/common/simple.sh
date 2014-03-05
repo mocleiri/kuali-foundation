@@ -36,7 +36,9 @@ function check_args {
   check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
 }
 
-JDK=${1-$JDK}
+BASEDIR=${1-$BASEDIR}
+JDK=${2-$JDK}
+NEXUS_PASSWORD=${3-$JDK}
 
 check_args
 
