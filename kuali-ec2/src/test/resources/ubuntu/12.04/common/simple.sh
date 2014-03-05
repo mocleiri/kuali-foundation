@@ -20,7 +20,8 @@ function check_args {
   if [ -n "$JDK" ]; then 
     echo "good juju" 
   else 
-    echo "bad juju" 
+    show_usage
+    exit 1
   fi
 }
 
