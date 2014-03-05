@@ -23,7 +23,7 @@ JENKINS_HOME=$TOMCAT_HOME/.jenkins
 function install_jenkins {
   
   JENKINS_VERSION=1.532.2
-  echo "install  -> Jenkins $JENKINS_VERSION"
+  echo "install   -> Jenkins $JENKINS_VERSION"
   TOMCAT_DIR=/var/lib/$TOMCAT
   TOMCAT_CLEANUP=/usr/share/$TOMCAT/bin/cleanup.sh
   TOMCAT_ROOT=$TOMCAT_DIR/webapps/ROOT
