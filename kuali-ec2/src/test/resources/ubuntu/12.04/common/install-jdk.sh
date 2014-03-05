@@ -61,9 +61,7 @@ JDK_LEVEL=${1-7}
 JDK6_VERSION=1.6.0-u45
 JDK7_VERSION=1.7.0-u51
 
-BASEDIR=/mnt/kuali-ec2
-DOWNLOADS=$BASEDIR/target/downloads
-SCRIPTS_DIR=$BASEDIR/src/test/resources/ubuntu/12.04/appserver
+DOWNLOADS=$BASEDIR/target/downloads/jdk
 
 JDK6=jdk6
 JDK7=jdk7
