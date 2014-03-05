@@ -59,6 +59,12 @@ function checkout_module {
   ssh root@$FQDN "$SSH"
 }
 
+function configure_application_server {
+  BASICS="$MODULES/common/install_basics.sh $BASEDIR"
+  SSH="$BASICS"
+  ssh root@$FQDN "$SSH"
+}
+
 echo $(date)
 
 # Module specific variables
@@ -80,7 +86,6 @@ FQDN=$SUBDOMAIN.$DOMAIN
 
 enable_root_ssh
 checkout_module
+configure_application_server
 
 echo $(date)
-
-
