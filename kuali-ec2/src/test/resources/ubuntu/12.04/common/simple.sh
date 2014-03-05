@@ -36,18 +36,21 @@ function check_args {
   check_not_blank BASEDIR $BASEDIR
   check_not_blank JDK $JDK
   check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
-  check_not_blank JDK_LEVEL $JDK_LEVEL
 }
 
 # module specific variables
 BASEDIR=${1-$BASEDIR}
 JDK=${2-$JDK}
 NEXUS_PASSWORD=${3-$NEXUS_PASSWORD}
+
 JDK_LEVEL=${JDK:3:1}
+check_not_blank JDK_LEVEL $JDK_LEVEL
 
 # Change these as new versions become available
 JDK6_VERSION=1.6.0-u45
 JDK7_VERSION=1.7.0-u51
+
+JDK_VERSION=$(eval echo \${JDK${JDK_LEVEL}_VERSION})
 
 # Make sure we have what we need to continue
 check_args
