@@ -31,7 +31,9 @@ function check_not_blank {
 }
 
 function check_args {
+  check_not_blank BASEDIR $BASEDIR
   check_not_blank JDK $JDK
+  check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
 }
 
 JDK=${1-$JDK}
