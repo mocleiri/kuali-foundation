@@ -15,6 +15,14 @@
 # limitations under the License.
 #
 
+# generic functions
+function check_not_blank {
+  if ! [ -n "$2" ]; then 
+    echo $1 cannot be blank
+    show_usage
+  fi
+}
+
 # module specific functions
 function show_usage {
   echo
@@ -42,12 +50,4 @@ JDK6_VERSION=1.6.0-u45
 JDK7_VERSION=1.7.0-u51
 
 echo $JDK
-
-# generic functions
-function check_not_blank {
-  if ! [ -n "$2" ]; then 
-    echo $1 cannot be blank
-    show_usage
-  fi
-}
 
