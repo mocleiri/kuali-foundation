@@ -15,8 +15,6 @@
 # limitations under the License.
 #
 
-JDK=jdk8
-
 function check_args {
   # If this is true, JDK is not blank.  It is set and it is not the empty string
   if [ -n "$JDK" ]; then 
@@ -33,6 +31,7 @@ function show_usage {
   echo
 }
 
+JDK=jdk8
 JDK=${1-$JDK}
 
 check_args
