@@ -136,12 +136,14 @@ function install_tomcat {
   purge_tomcat
   install_tomcat_packages
   
+  echo "stop      -> $TOMCAT"
   service $TOMCAT stop > /dev/null 2>&1
   
   configure_tomcat
   redirect_ports
   
   $USR_BIN_CLEANUP
+
   echo "start     -> $TOMCAT"
   service $TOMCAT start > /dev/null 2>&1
   
