@@ -17,10 +17,10 @@
 
 #
 # Usage:
-#   ./configure.sh password hostname [jdk] [tomcat] [max_heap] [max_perm]
+#   ./install-jdk.sh jdk
 #
 
-JDK_LEVEL=${3-6}
+JDK_LEVEL=${1-7}
 JDK6_VERSION=1.6.0-u45
 JDK7_VERSION=1.7.0-u51
 
