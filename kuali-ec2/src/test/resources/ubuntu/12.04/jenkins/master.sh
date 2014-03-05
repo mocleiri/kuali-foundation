@@ -98,6 +98,7 @@ function install_maven {
   rm -rf $MAVEN_DIR $MAVEN_LINK
   unzip $MAVEN_FILE -d $MAVEN_BASEDIR -qq
   ln -s $MAVEN_TARGET $MAVEN_LINK
+  ln -s /usr/share/maven/mvn$MAVEN_ABBR/bin/mvn /usr/bin/mvn$MAVEN_ABBR
 }
 
 install_maven 3.2.1 32
