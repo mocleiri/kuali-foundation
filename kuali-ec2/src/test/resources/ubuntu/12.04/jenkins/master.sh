@@ -43,10 +43,10 @@ function install_plugin {
   PLUGIN_DOWNLOADS=https://updates.jenkins-ci.org/download/plugins
   PLUGIN_NAME=$1
   PLUGIN_VERSION=$2
+  echo "install  -> $PLUGIN_NAME $PLUGIN_VERSION"
   PLUGIN_URL=$PLUGIN_DOWNLOADS/$PLUGIN_NAME/$PLUGIN_VERSION/$PLUGIN_NAME.hpi
   PLUGIN_DIR=$JENKINS_HOME/plugins
   PLUGIN_FILE=$PLUGIN_DIR/$PLUGIN_NAME.jpi
-  echo "install  -> $PLUGIN_URL"
   curl $PLUGIN_URL --silent --location --create-dirs --output $PLUGIN_FILE
   touch $PLUGIN_FILE.pinned 
   
