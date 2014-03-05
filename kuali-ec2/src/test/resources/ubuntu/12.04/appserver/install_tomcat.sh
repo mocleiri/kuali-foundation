@@ -40,6 +40,17 @@ function check_args {
   check_not_blank MAX_PERM $MAX_PERM
 }
 
+function redirect_ports {
+  echo "redirect  -> port 80 to 8080"
+  iptables --table nat --append PREROUTING --protocol tcp --dport 80 --jump REDIRECT --to-port 8080
+  iptables -t nat -A OUTPUT -p tcp -o lo --dport 80 -j DNAT --to 127.0.0.1:8080
+  export DEBIAN_FRONTEND=noninteractive
+  apt-get $QUIET -y install iptables-persistent
+  iptables-save > /etc/iptables/rules.v4
+  ip6tables-save > /etc/iptables/rules.v6
+  unset DEBIAN_FRONTEND
+}
+
 function purge_tomcat {
 
   TOMCAT_PURGE="libtcnative-1 tomcat6-common tomcat6 tomcat7"
@@ -120,6 +131,7 @@ function install_tomcat {
   service $TOMCAT stop > /dev/null 2>&1
   
   configure_tomcat
+  redirect_ports
   
   $USR_BIN_CLEANUP
   echo "start     -> $TOMCAT"
