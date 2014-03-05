@@ -15,12 +15,14 @@
 # limitations under the License.
 #
 
-function check_arg {
-  if [ -n "$1" ]; then 
+function check_not_blank {
+  if ! [ -n "$1" ]; then 
     show_usage
-  else
-    echo $1
   fi
+}
+
+function check_args {
+  check_not_blank $JDK
 }
 
 function show_usage {
@@ -30,6 +32,8 @@ function show_usage {
   exit 1
 }
 
-JDK=jdk8
-JDK=$(check_arg ${1-$JDK})
+JDK=${1-$JDK}
+
+check_args
+
 echo JDK
