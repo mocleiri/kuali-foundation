@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-FOO=""
+FOO="bar"
 
 function check_args {
   if [ -n "$FOO" ]; then 
