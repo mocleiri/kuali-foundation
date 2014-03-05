@@ -61,7 +61,7 @@ function install_default_maven {
 function configure_java {
 
   echo "configure -> default java"
-  cp $BASEDIR/src/test/resources/ubuntu/12.04/jenkins/root/.bashrc /root/.bashrc
+  cp $JENKINS_BASEDIR/root/.bashrc /root/.bashrc
   rm -rf /usr/bin/java
   ln -s /usr/java/jdk7/bin/java /usr/bin/java
   
