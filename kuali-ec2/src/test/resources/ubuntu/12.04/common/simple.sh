@@ -40,7 +40,7 @@ function check_args {
   check_not_blank MAX_PERM $MAX_PERM
 }
 
-function tomcat_purge {
+function purge_tomcat {
 
   TOMCAT_PURGE="libtcnative-1 tomcat6-common tomcat6 tomcat7"
   echo "purge     -> $TOMCAT_PURGE"
@@ -50,26 +50,21 @@ function tomcat_purge {
   
 }
 
-# Install Tomcat
-function install_tomcat {
-  
+function configure_tomcat {
+
   TOMCAT_VERSION=${TOMCAT:6:1}
   check_not_blank TOMCAT_VERSION $TOMCAT_VERSION
-  
-  echo $TOMCAT_VERSION
-  exit 1
-  
-  tomcat purge
-  
-  if [ $TOMCAT_VERSION == "6" ]; then
-    echo "install   -> $TOMCAT-common libtcnative-1 $TOMCAT"
-    apt-get $QUIET -y install $TOMCAT-common libtcnative-1 $TOMCAT > /dev/null 2>&1
-  else
-    echo "install   -> libtcnative-1 $TOMCAT"
-    apt-get $QUIET -y install libtcnative-1 $TOMCAT > /dev/null 2>&1
-  fi
-  
-  service $TOMCAT stop > /dev/null 2>&1
+
+  TOMCAT_OPT_FILE=/etc/default/$TOMCAT
+  TOMCAT_CONF_FILE_DIR=/etc/$TOMCAT
+  TOMCAT_USER=$TOMCAT
+  TOMCAT_GROUP=$TOMCAT
+  TOMCAT_DIR=/var/lib/$TOMCAT
+  TOMCAT_LOGS=$TOMCAT_DIR/logs
+  TOMCAT_HOME=/home/$TOMCAT
+  JAVA_OPTS="\"-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xms512m -Xmx$MAX_HEAP -XX:MaxPermSize=$MAX_PERM -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC -XX:+PrintTenuringDistribution -Xloggc:$TOMCAT_LOGS/heap.log -XX:HeapDumpPath=$TOMCAT_LOGS -XX:+HeapDumpOnOutOfMemoryError"\"
+  JAVA_HOME=/usr/java/$JDK
+
   echo "configure -> $TOMCAT"
   echo "TOMCAT_USER=$TOMCAT_USER" > $TOMCAT_OPT_FILE
   echo "TOMCAT_GROUP=$TOMCAT_GROUP" >> $TOMCAT_OPT_FILE
@@ -95,7 +90,7 @@ function install_tomcat {
   rm -f $USR_BIN_CLEANUP
   ln -s $TOMCAT_CLEANUP $USR_BIN_CLEANUP
 
-  # Setup the tomcat6/7 user with a normal /home directory and enable su
+  # Setup the tomcat user with a normal /home directory and enable su
   rm -rf $TOMCAT_HOME; mkdir -p $TOMCAT_HOME; chown -R $TOMCAT_USER:$TOMCAT_GROUP $TOMCAT_HOME
   usermod --home $TOMCAT_HOME $TOMCAT
   usermod --shell /bin/bash $TOMCAT
@@ -103,8 +98,31 @@ function install_tomcat {
   # Copy custom jsps into the logs directory
   cp $JSPS $TOMCAT_LOGS; chown -R $TOMCAT_USER:$TOMCAT_GROUP $TOMCAT_LOGS/*.jsp
 
-  echo "start     -> $TOMCAT"
+  
+}
+
+# Install Tomcat
+function install_tomcat {
+  
+  TOMCAT_VERSION=${TOMCAT:6:1}
+  check_not_blank TOMCAT_VERSION $TOMCAT_VERSION
+  
+  purge_tomcat
+  
+  if [ $TOMCAT_VERSION == "6" ]; then
+    echo "install   -> $TOMCAT-common libtcnative-1 $TOMCAT"
+    apt-get $QUIET -y install $TOMCAT-common libtcnative-1 $TOMCAT > /dev/null 2>&1
+  else
+    echo "install   -> libtcnative-1 $TOMCAT"
+    apt-get $QUIET -y install libtcnative-1 $TOMCAT > /dev/null 2>&1
+  fi
+  
+  service $TOMCAT stop > /dev/null 2>&1
+  
+  configure_tomcat
+  
   $USR_BIN_CLEANUP
+  echo "start     -> $TOMCAT"
   service $TOMCAT start > /dev/null 2>&1
 }
 
