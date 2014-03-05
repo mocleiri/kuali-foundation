@@ -74,7 +74,7 @@ function install_plugins {
   
 }
 
-function install_secrets {
+function configure_secrets {
 
   echo "configure -> $TOMCAT secrets"
   rm -rf $TOMCAT_HOME/.gnupg $TOMCAT_HOME/.ssh
@@ -88,7 +88,7 @@ echo "stop      -> $TOMCAT"
 service $TOMCAT stop > /dev/null 2>&1
 install_jenkins
 install_plugins
-install_gpg
+configure_secrets
 echo "start     -> $TOMCAT"
 service $TOMCAT start > /dev/null 2>&1
 

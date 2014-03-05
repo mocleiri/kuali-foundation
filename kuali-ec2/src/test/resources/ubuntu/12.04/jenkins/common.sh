@@ -82,7 +82,7 @@ function configure_secrets {
 }
 
 configure_java
-configure_gpg
+configure_secrets
 install_packages
 install_maven 3.0.5 30
 install_maven 3.1.0 31
