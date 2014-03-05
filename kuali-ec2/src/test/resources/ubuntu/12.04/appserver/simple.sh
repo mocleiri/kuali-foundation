@@ -15,8 +15,6 @@
 # limitations under the License.
 #
 
-echo $(date)
-
 # generic functions
 function check_not_blank {
   if ! [ -n "$2" ]; then 
@@ -40,6 +38,9 @@ function check_args {
 }
 
 echo $(date)
+
+check_args
+
 echo $(date)
 
 
