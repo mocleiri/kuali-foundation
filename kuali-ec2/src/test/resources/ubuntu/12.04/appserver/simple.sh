@@ -58,6 +58,7 @@ check_args
 DOMAIN=kuali.org
 BASEDIR=/mnt/kuali-ec2
 MODULES=$BASEDIR/src/test/resources/ubuntu/12.04
+FQDN=$SUBDOMAIN.$DOMAIN
 
 # Subversion
 SVN_REPO=https://svn.kuali.org/repos/foundation
