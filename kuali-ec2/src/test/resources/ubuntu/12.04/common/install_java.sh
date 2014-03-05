@@ -85,4 +85,5 @@ NEXUS_JDK_DOWNLOAD_FILE=$DOWNLOADS/$JDK_ZIP_FILE
 DOWNLOADS=$BASEDIR/target/downloads/jdk
 rm -rf $DOWNLOADS; mkdir -p $DOWNLOADS
 
+check_args
 #install_jdk
