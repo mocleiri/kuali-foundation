@@ -26,8 +26,8 @@ function check_not_blank {
 # module specific functions
 function show_usage {
   echo
-  echo requires NEXUS_PASSWORD SUBDOMAIN 
-  echo usage: bootstrap.sh password subdomain [jdk7/jdk6] [tomcat7/tomcat6] [max_heap] [max_perm] [quiet]
+  echo requires NEXUS_PASSWORD SUBDOMAIN JDK TOMCAT MAX_HEAP MAX_PERM
+  echo usage: bootstrap.sh password subdomain jdk7/jdk6 tomcat7/tomcat6 max_heap max_perm quiet
   echo
   exit 1
 }
@@ -75,10 +75,10 @@ echo $(date)
 # Module specific variables
 NEXUS_PASSWORD=$1
 SUBDOMAIN=$2
-JDK=${3-jdk7}
-TOMCAT=${4-tomcat7}
-MAX_HEAP=${5-5g}
-MAX_PERM=${6-512m}
+JDK=$3
+TOMCAT=$4
+MAX_HEAP=$5
+MAX_PERM=$6
 QUIET=${7-""}
 
 # Make sure we have what we need to continue
