@@ -98,7 +98,5 @@ check_args
 JDK6_VERSION=1.6.0-u45
 JDK7_VERSION=1.7.0-u51
 
-echo $JDK
-echo $JDK_LEVEL
-echo $JDK_VERSION
+install_jdk
 
