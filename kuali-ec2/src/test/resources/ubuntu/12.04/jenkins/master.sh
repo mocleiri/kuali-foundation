@@ -102,9 +102,22 @@ function install_maven {
   ln -s /usr/share/maven/mvn$MAVEN_ABBR/bin/mvn $MAVEN_USR_BIN
 }
 
+function install_default_maven {
+  MAVEN_ABBR=$1
+
+  echo "install  -> maven default $MAVEN_ABBR"
+
+  MAVEN_TARGET=/usr/share/maven/mvn$MAVEN_ABBR/bin/mvn
+  MAVEN_USR_BIN=/usr/bin/mvn
+
+  rm -rf $MAVEN_USR_BIN
+  ln -s $MAVEN_TARGET $MAVEN_USR_BIN
+}
+
 install_maven 3.2.1 32
 install_maven 3.1.0 31
 install_maven 3.0.5 30
+install_default_maven 30
 exit 0
 
 echo "stop     -> $TOMCAT"
