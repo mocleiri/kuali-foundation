@@ -27,7 +27,7 @@ function check_not_blank {
 function show_usage {
   echo
   echo requires HOSTNAME DOMAIN
-  echo usage: update_hostmae.sh hostname domain
+  echo usage: update_hostname.sh hostname domain
   echo
   exit 1
 }
