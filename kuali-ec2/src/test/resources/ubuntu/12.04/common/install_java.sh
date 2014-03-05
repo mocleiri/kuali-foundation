@@ -84,8 +84,8 @@ function install_jdk {
   # Create the symbolic link /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
   ln -s $JDK_TARGET $JDK_LINK
   
-  $TOOLS_JAR=$JDK_LINK/lib/tools.jar
-  $TOOLS_JAR_COPY=$JDK_LINK/jre/lib/ext/tools.jar
+  TOOLS_JAR=$JDK_LINK/lib/tools.jar
+  TOOLS_JAR_COPY=$JDK_LINK/jre/lib/ext/tools.jar
   echo "create   -> $TOOLS_JAR -> $TOOLS_JAR_COPY"
   cp $TOOLS_JAR $TOOLS_JAR_COPY
   
