@@ -15,3 +15,50 @@
 # limitations under the License.
 #
 
+# generic functions
+function check_not_blank {
+  if ! [ -n "$2" ]; then 
+    echo $1 cannot be blank
+    show_usage
+  fi
+}
+
+# module specific functions
+function show_usage {
+  echo
+  echo requires BASEDIR
+  echo usage: install_basics.sh basedir [quiet]
+  echo
+  exit 1
+}
+
+function check_args {
+  check_not_blank BASEDIR $BASEDIR
+}
+
+# Update Ubuntu repos and packages
+function get_upgrades {
+  echo "update    -> package indexes"
+  apt-get $QUIET -y update
+  echo "upgrade   -> packages"
+  apt-get $QUIET -y upgrade > /dev/null 2>&1
+}
+
+# Enable unattended upgrades
+function unattended_upgrades {
+  echo "configure -> unattended upgrades"
+  $SCRIPTS/src/test/resources/ubuntu/12.04/common/unattended-upgrades.sh > /dev/null 2>&1
+}
+
+# install custom packages
+function install_packages {
+  echo "install   -> custom packages"
+  apt-get install unzip ntp expect -y $QUIET 
+}
+
+# module specific variables
+BASEDIR=${1-$BASEDIR}
+
+# Make sure we have what we need to continue
+check_args
+
