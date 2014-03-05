@@ -38,13 +38,13 @@ function install_jdk {
 }
 
 function check_args {
-  echo yo
   check_arg JDK            $JDK
   check_arg BASEDIR        $BASEDIR
   check_arg NEXUS_PASSWORD $NEXUS_PASSWORD
 }
 
 function check_arg {
+  echo yo
   ARG=$1; ARG_NAME=$2
   if [ $ARG == "" ]; then
     echo must provide $ARG_NAME
