@@ -87,11 +87,14 @@ function install_maven {
   curl $MAVEN_URL --silent --location --create-dirs --output $MAVEN_FILE
 }
 
+install_maven 3.2.1
+exit 0
+
 echo "stop     -> $TOMCAT"
 service $TOMCAT stop > /dev/null 2>&1
 install_jenkins
 install_plugins
 install_packages
-install_maven 3.2.1
 echo "start    -> $TOMCAT"
 service $TOMCAT start > /dev/null 2>&1
+
