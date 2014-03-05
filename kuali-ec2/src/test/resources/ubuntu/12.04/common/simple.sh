@@ -18,6 +18,7 @@
 FOO="bar"
 
 function check_args {
+  # If this is true, FOO is not blank.  It is set and it is not the empty string
   if [ -n "$FOO" ]; then 
     echo "good juju" 
   else 
