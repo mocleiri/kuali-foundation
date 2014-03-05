@@ -51,6 +51,7 @@ function checkout_module {
   SVN_REPO=https://svn.kuali.org/repos/foundation
   SVN_PATH=trunk/kuali-ec2
   SVN_URL=$SVN_REPO/$SVN_PATH
+  echo "checkout  -> $SVN_URL"
 
   SVN1="apt-get install subversion -y $QUIET"
   SVN2="rm -rf $BASEDIR"
@@ -60,6 +61,7 @@ function checkout_module {
 }
 
 function configure_application_server {
+  echo "configure -> app server"
   BASICS="$MODULES/common/install_basics.sh $BASEDIR $QUIET"
   JAVA="$MODULES/common/install_java.sh $BASEDIR $JDK $NEXUS_PASSWORD $QUIET"
   DNS="$MODULES/common/update_hostname.sh $SUBDOMAIN $DOMAIN"
