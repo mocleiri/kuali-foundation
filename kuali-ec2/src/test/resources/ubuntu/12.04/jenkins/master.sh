@@ -98,6 +98,7 @@ function install_maven {
 
   rm -rf $MAVEN_DIR $MAVEN_LINK $MAVEN_USR_BIN
   unzip -qq $MAVEN_FILE -d $MAVEN_BASEDIR
+  chmod -R 755 $MAVEN_DIR
   ln -s $MAVEN_TARGET $MAVEN_LINK
   ln -s $MAVEN_BASEDIR/mvn$MAVEN_ABBR/bin/mvn $MAVEN_USR_BIN
 }
