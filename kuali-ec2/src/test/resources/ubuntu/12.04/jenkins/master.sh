@@ -79,10 +79,19 @@ function install_packages {
   apt-get install subversion git graphviz -y -qq > /dev/null 2>&1
 }
 
+function install_maven {
+  MAVEN_VERSION=$1
+  MAVEN_FILENAME=apache-maven-$MAVEN_VERSION-bin.zip
+  MAVEN_URL=http://search.maven.org/remotecontent?filepath=org/apache/maven/apache-maven/$MAVEN_VERSION/$MAVEN_FILENAME
+  MAVEN_FILE=/usr/share/maven/$MAVEN_FILENAME
+  curl $MAVEN_URL --silent --location --create-dirs --output $MAVEN_FILE
+}
+
 echo "stop     -> $TOMCAT"
 service $TOMCAT stop > /dev/null 2>&1
 install_jenkins
 install_plugins
 install_packages
+install_maven 3.2.1
 echo "start    -> $TOMCAT"
 service $TOMCAT start > /dev/null 2>&1
