@@ -15,6 +15,9 @@
 # limitations under the License.
 #
 
+JDK6_VERSION=1.6.0-u45
+JDK7_VERSION=1.7.0-u51
+
 function show_usage {
   echo
   echo requires BASEDIR JDK NEXUS_PASSWORD
