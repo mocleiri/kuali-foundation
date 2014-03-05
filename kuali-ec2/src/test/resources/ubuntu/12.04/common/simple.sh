@@ -43,6 +43,7 @@ BASEDIR=${1-$BASEDIR}
 JDK=${2-$JDK}
 NEXUS_PASSWORD=${3-$NEXUS_PASSWORD}
 
+# Extract the jdk level from the JDK variable
 JDK_LEVEL=${JDK:3:1}
 check_not_blank JDK_LEVEL $JDK_LEVEL
 
@@ -50,6 +51,7 @@ check_not_blank JDK_LEVEL $JDK_LEVEL
 JDK6_VERSION=1.6.0-u45
 JDK7_VERSION=1.7.0-u51
 
+# Extract a specific jdk version based on the jdk level
 JDK_VERSION=$(eval echo \${JDK${JDK_LEVEL}_VERSION})
 check_not_blank JDK_VERSION $JDK_VERSION
 
