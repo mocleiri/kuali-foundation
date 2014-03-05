@@ -15,11 +15,6 @@
 # limitations under the License.
 #
 
-#
-# Usage:
-#   ./configure.sh password hostname [jdk] [tomcat] [max_heap] [max_perm]
-#
-
 JDK_LEVEL=${3-6}
 TOMCAT_VERSION=${4-7}
 MAX_HEAP=${5-5g}
