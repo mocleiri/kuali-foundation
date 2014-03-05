@@ -81,7 +81,7 @@ function configure_secrets {
   
   # setup maven
   rm -rf /root/.m2; mkdir -p /root/.m2;
-  mv /root/.ssh/settings.xml /root/.m2/settings.xml
+  mv /root/.ssh/settings.xml /root/.m2
   
 }
 
