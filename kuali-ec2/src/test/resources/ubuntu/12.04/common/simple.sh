@@ -15,10 +15,11 @@
 # limitations under the License.
 #
 
-function check_args {
-  # Make sure JDK is set and is not the empty string
-  if ! [ -n "$JDK" ]; then 
+function check_arg {
+  if [ -n "$1" ]; then 
     show_usage
+  else
+    echo $1
   fi
 }
 
@@ -33,4 +34,4 @@ JDK=jdk8
 JDK=${1-$JDK}
 echo $JDK
 
-check_args
+JDK=$(check_arg)
