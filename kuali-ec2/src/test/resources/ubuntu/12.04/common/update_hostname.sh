@@ -26,14 +26,14 @@ function check_not_blank {
 # module specific functions
 function show_usage {
   echo
-  echo requires HOSTNAME DOMAIN
-  echo usage: update_hostname.sh hostname domain
+  echo requires SUBDOMAIN DOMAIN
+  echo usage: update_hostname.sh subdomain domain
   echo
   exit 1
 }
 
 function check_args {
-  check_not_blank HOSTNAME $HOSTNAME
+  check_not_blank SUBDOMAIN $SUBDOMAIN
   check_not_blank DOMAIN $DOMAIN
 }
 
@@ -42,12 +42,12 @@ function set_hostname {
 
   MYIP=$(ifconfig eth0 |grep inet | awk '{ print $2 }' | awk 'BEGIN { FS=":" } { print $2 }')
 
-  ETC_HOSTS="$MYIP $HOSTNAME.$DOMAIN $HOSTNAME"
-  echo "hostname  -> $HOSTNAME"
+  ETC_HOSTS="$MYIP $SUBDOMAIN.$DOMAIN $SUBDOMAIN"
+  echo "subdomain -> $SUBDOMAIN"
   echo "hosts     -> $ETC_HOSTS"
 
-  echo "$HOSTNAME" > /etc/hostname
-  hostname $HOSTNAME
+  echo "$SUBDOMAIN" > /etc/hostname
+  hostname $SUBDOMAIN
 
   echo '127.0.0.1 localhost' > /etc/hosts
   echo $ETC_HOSTS >> /etc/hosts
@@ -60,7 +60,7 @@ function set_hostname {
 }
 
 # module specific variables
-HOSTNAME=${1-$HOSTNAME}
+SUBDOMAIN=${1-$SUBDOMAIN}
 DOMAIN=${2-$DOMAIN}
 
 # Make sure we have what we need to continue
