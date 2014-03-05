@@ -15,9 +15,6 @@
 # limitations under the License.
 #
 
-JDK6_VERSION=1.6.0-u45
-JDK7_VERSION=1.7.0-u51
-
 function show_usage {
   echo
   echo requires BASEDIR JDK NEXUS_PASSWORD
@@ -43,6 +40,10 @@ BASEDIR=${1-$BASEDIR}
 JDK=${2-$JDK}
 NEXUS_PASSWORD=${3-$NEXUS_PASSWORD}
 
+# Make sure we have what we need to continue
 check_args
+
+JDK6_VERSION=1.6.0-u45
+JDK7_VERSION=1.7.0-u51
 
 echo $JDK
