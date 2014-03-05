@@ -26,7 +26,7 @@ function check_not_blank {
 # module specific functions
 function show_usage {
   echo
-  echo requires BASEDIR TOMCAT MAX_HEAP MAX_PERM QUIET
+  echo requires BASEDIR TOMCAT JDK MAX_HEAP MAX_PERM QUIET
   echo usage: install_tomcat.sh basedir tomcat6/tomcat7 jdk6/jdk7 max_heap max_perm [quiet]
   echo
   exit 1
