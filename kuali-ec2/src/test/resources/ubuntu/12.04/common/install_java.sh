@@ -38,7 +38,7 @@ function install_jdk {
 }
 
 function check_args {
-  if [ -n "$FOO" ]; then show_usage; fi
+  if [ -n "$1" ]; then show_usage; fi
 }
 
 function check_arg {
