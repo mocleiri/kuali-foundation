@@ -26,14 +26,14 @@ function check_not_blank {
 # module specific functions
 function show_usage {
   echo
-  echo requires HOSTNAME NEXUS_PASSWORD
-  echo usage: bootstrap.sh hostname password
+  echo requires HOST NEXUS_PASSWORD
+  echo usage: bootstrap.sh host password
   echo
   exit 1
 }
 
 function check_args {
-  check_not_blank HOSTNAME $HOSTNAME
+  check_not_blank HOST $HOST
   check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
 }
 
