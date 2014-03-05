@@ -119,7 +119,6 @@ function configure_java {
   echo "configure -> default java"
   cp /mnt/kuali-ec2/src/test/resources/ubuntu/12.04/jenkins/root/.bashrc /root/.bashrc
   rm -rf /usr/bin/java
-  source /root/.bashrc
   
 }
 
