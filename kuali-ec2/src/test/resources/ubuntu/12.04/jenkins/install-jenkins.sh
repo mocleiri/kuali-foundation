@@ -74,11 +74,12 @@ function install_plugins {
   
 }
 
-function install_gpg {
+function install_secrets {
 
-  echo "configure -> gpg $TOMCAT"
-  rm -rf /home/tomcat7/.gnupg
+  echo "configure -> secrets $TOMCAT"
+  rm -rf $TOMCAT_HOME/.gnupg $TOMCAT_HOME/.ssh
   cp -R /root/.gnupg /home/tomcat7
+  cp -R /root/.ssh /home/tomcat7
   chown -R tomcat7:tomcat7 /home/tomcat7
   
 }
