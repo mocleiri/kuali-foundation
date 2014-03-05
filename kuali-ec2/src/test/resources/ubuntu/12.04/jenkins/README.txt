@@ -21,7 +21,6 @@ http://updates.jenkins-ci.org/stable/update-center.json
 
 TODO
 
-maven (3.0,3.1,3.2)
 gpg
 subversion credentials
 jdk6
