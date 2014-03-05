@@ -18,11 +18,11 @@
 function check_args {
   # If this is true, JDK is not blank.  It is set and it is not the empty string
   if ! [ -n "$JDK" ]; then 
-    show_usage
+    show_usage_and_exit
   fi
 }
 
-function show_usage {
+function show_usage_and_exit {
   echo
   echo usage: simple.sh jdk6/jdk7 
   echo
