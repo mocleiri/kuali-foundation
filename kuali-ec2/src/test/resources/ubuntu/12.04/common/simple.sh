@@ -27,7 +27,7 @@ function check_not_blank {
 function show_usage {
   echo
   echo requires BASEDIR JDK NEXUS_PASSWORD
-  echo usage: install_java.sh basedir jdk6/jdk7 nexus_password
+  echo usage: install_java.sh basedir jdk6/jdk7 nexus_password [quiet]
   echo
   exit 1
 }
@@ -90,6 +90,7 @@ function install_jdk {
 BASEDIR=${1-$BASEDIR}
 JDK=${2-$JDK}
 NEXUS_PASSWORD=${3-$NEXUS_PASSWORD}
+QUIET=${4-$QUIET}
 
 # Make sure we have what we need to continue
 check_args
