@@ -52,12 +52,11 @@ function check_arg {
 }
 
 function show_usage {
-  echo
-  echo usage: install_jdk.sh 6/7
+  echo requires JDK_LEVEL BASEDIR NEXUS_PASSWORD
+  echo usage: install_jdk.sh
   echo
 }
 
-JDK_LEVEL=${1-7}
 JDK6_VERSION=1.6.0-u45
 JDK7_VERSION=1.7.0-u51
 
