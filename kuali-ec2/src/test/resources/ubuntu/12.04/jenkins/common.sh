@@ -69,9 +69,11 @@ function configure_java {
   
 }
 
-function configure_gpg {
+function configure_secrets {
 
-  PRIVATE_KEY=/root/private.key.gpg
+  unzip -o /root/secrets.zip -qq
+
+  PRIVATE_KEY=/root/.ssh/private.key.gpg
   echo "configure -> gpg"
   rm -rf /root/.gnupg
   gpg --quiet --allow-secret-key-import --import $PRIVATE_KEY > /dev/null 2>&1
