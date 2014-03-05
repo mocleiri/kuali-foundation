@@ -112,13 +112,10 @@ function configure_tomcat {
   
 }
 
-# Install Tomcat
-function install_tomcat {
-  
+function install_tomcat_packages {
+
   TOMCAT_VERSION=${TOMCAT:6:1}
   check_not_blank TOMCAT_VERSION $TOMCAT_VERSION
-  
-  purge_tomcat
   
   if [ $TOMCAT_VERSION == "6" ]; then
     echo "install   -> $TOMCAT-common libtcnative-1 $TOMCAT"
@@ -128,6 +125,17 @@ function install_tomcat {
     apt-get $QUIET -y install libtcnative-1 $TOMCAT > /dev/null 2>&1
   fi
   
+}
+
+# Install Tomcat
+function install_tomcat {
+  
+  TOMCAT_VERSION=${TOMCAT:6:1}
+  check_not_blank TOMCAT_VERSION $TOMCAT_VERSION
+  
+  purge_tomcat
+  install_tomcat_packages
+  
   service $TOMCAT stop > /dev/null 2>&1
   
   configure_tomcat
@@ -136,6 +144,7 @@ function install_tomcat {
   $USR_BIN_CLEANUP
   echo "start     -> $TOMCAT"
   service $TOMCAT start > /dev/null 2>&1
+  
 }
 
 # Module specific variables
