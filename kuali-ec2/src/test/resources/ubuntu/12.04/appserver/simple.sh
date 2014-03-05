@@ -39,6 +39,9 @@ function check_args {
 
 echo $(date)
 
+SUBDOMAIN=$1
+NEXUS_PASSWORD=$2
+
 check_args
 
 echo $(date)
