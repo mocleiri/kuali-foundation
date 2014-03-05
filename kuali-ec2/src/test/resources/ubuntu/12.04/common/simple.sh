@@ -17,9 +17,9 @@
 
 function check_args {
   if [ -n "$1" ]; then
-    echo "bad  juju"
-  else
     echo "good juju"
+  else
+    echo "bad  juju"
   fi
 }
 
