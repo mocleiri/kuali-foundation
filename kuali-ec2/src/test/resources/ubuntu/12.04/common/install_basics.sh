@@ -47,7 +47,7 @@ function get_upgrades {
 # Enable unattended upgrades
 function unattended_upgrades {
   echo "configure -> unattended upgrades"
-  $SCRIPTS/src/test/resources/ubuntu/12.04/common/unattended-upgrades.sh > /dev/null 2>&1
+  $BASEDIR/src/test/resources/ubuntu/12.04/common/unattended-upgrades.sh > /dev/null 2>&1
 }
 
 # install custom packages
