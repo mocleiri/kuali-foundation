@@ -80,7 +80,7 @@ function configure_secrets {
   rm -rf $TOMCAT_HOME/.gnupg $TOMCAT_HOME/.ssh
   cp -R /root/.gnupg /home/tomcat7
   cp -R /root/.ssh /home/tomcat7
-  chown -R tomcat7:tomcat7 /home/tomcat7
+  chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
   
 }
 
