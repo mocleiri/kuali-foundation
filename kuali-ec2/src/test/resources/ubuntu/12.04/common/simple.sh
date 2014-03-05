@@ -119,5 +119,6 @@ QUIET=${6-$QUIET}
 # Makes sure we have what we need to continue
 check_args
 
+install_tomcat
 
 
