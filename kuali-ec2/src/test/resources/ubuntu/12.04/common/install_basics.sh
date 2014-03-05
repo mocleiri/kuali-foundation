@@ -58,6 +58,7 @@ function install_packages {
 
 # module specific variables
 BASEDIR=${1-$BASEDIR}
+QUIET=${1-$QUIET}
 
 # Make sure we have what we need to continue
 check_args
