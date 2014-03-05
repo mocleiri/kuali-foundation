@@ -15,8 +15,6 @@
 # limitations under the License.
 #
 
-FOO="bar"
-
 function check_args {
   # If this is true, FOO is not blank.  It is set and it is not the empty string
   if [ -n "$FOO" ]; then 
@@ -24,6 +22,12 @@ function check_args {
   else 
     echo "bad juju" 
   fi
+}
+
+function show_usage {
+  echo
+  echo simple.sh jdk6/jdk7 
+  echo
 }
 
 check_args
