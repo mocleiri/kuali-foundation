@@ -34,7 +34,7 @@ function show_usage {
 
 function check_args {
   check_not_blank BASEDIR $BASEDIR
-  check_not_blank TOMCAT_VERSION $TOMCAT_VERSION
+  check_not_blank TOMCAT $TOMCAT
   check_not_blank MAX_HEAP $MAX_HEAP
   check_not_blank MAX_PERM $MAX_PERM
 }
