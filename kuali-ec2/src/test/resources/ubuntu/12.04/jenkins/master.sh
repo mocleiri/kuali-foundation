@@ -97,7 +97,7 @@ function install_maven {
   MAVEN_USR_BIN=/usr/bin/mvn$MAVEN_ABBR
 
   rm -rf $MAVEN_DIR $MAVEN_LINK $MAVEN_USR_BIN
-  unzip $MAVEN_FILE -d $MAVEN_BASEDIR -qq
+  unzip -qq $MAVEN_FILE -d $MAVEN_BASEDIR
   ln -s $MAVEN_TARGET $MAVEN_LINK
   ln -s /usr/share/maven/mvn$MAVEN_ABBR/bin/mvn $MAVEN_USR_BIN
 }
