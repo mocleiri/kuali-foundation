@@ -38,9 +38,7 @@ function install_jdk {
 }
 
 function check_args {
-  if [ -n "$JDK" ];            then show_usage;
-  if [ -n "$BASEDIR" ];        then show_usage;
-  if [ -n "$NEXUS_PASSWORD" ]; then show_usage;
+  if [ -n "$JDK" ]; then show_usage; fi
 }
 
 function check_arg {
