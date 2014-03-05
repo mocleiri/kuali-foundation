@@ -114,17 +114,16 @@ function install_default_maven {
   ln -s $MAVEN_TARGET $MAVEN_USR_BIN
 }
 
-install_maven 3.2.1 32
-install_maven 3.1.0 31
-install_maven 3.0.5 30
-install_default_maven 30
-exit 0
-
 echo "stop     -> $TOMCAT"
 service $TOMCAT stop > /dev/null 2>&1
 install_jenkins
 install_plugins
-install_packages
 echo "start    -> $TOMCAT"
 service $TOMCAT start > /dev/null 2>&1
+
+install_packages
+install_maven 3.2.1 32
+install_maven 3.1.0 31
+install_maven 3.0.5 30
+install_default_maven 30
 
