@@ -75,7 +75,7 @@ function install_jdk {
   # Make sure the JDK and the symbolic link are both gone
   JDK_TARGET=$JDK_BASEDIR/$JDK_UNZIP_DIR
   JDK_LINK=$JDK_BASEDIR/$JDK_ARTIFACT_ID
-  echo "install   -> $JDK_LINK -> $JDK_TARGET"
+  echo "install   -> $JDK_LINK - [$JDK_TARGET]"
   rm -rf $JDK_LINK $JDK_TARGET
 
   # Unpack the JDK into /usr/java
