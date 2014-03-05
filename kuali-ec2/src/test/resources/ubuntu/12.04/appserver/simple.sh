@@ -26,26 +26,44 @@ function check_not_blank {
 # module specific functions
 function show_usage {
   echo
-  echo requires SUBDOMAIN NEXUS_PASSWORD
-  echo usage: bootstrap.sh subdomain password [jdk6/jdk6] [tomcat6/tomcat7] [max_heap] [max_perm] [quiet]
+  echo requires NEXUS_PASSWORD SUBDOMAIN 
+  echo usage: bootstrap.sh password subdomain [jdk6/jdk6] [tomcat6/tomcat7] [max_heap] [max_perm] [quiet]
   echo
   exit 1
 }
 
 function check_args {
-  check_not_blank SUBDOMAIN $SUBDOMAIN
   check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
+  check_not_blank SUBDOMAIN $SUBDOMAIN
   check_not_blank JDK $JDK
   check_not_blank TOMCAT $TOMCAT
   check_not_blank MAX_HEAP $MAX_HEAP
   check_not_blank MAX_PERM $MAX_PERM
 }
 
+function enable_root_ssh {
+  echo "enable    -> root ssh"
+  SSH="sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys"
+  ssh ubuntu@$FQDN "$SSH"
+}
+
+function checkout_module {
+  SVN_REPO=https://svn.kuali.org/repos/foundation
+  SVN_PATH=trunk/kuali-ec2
+  SVN_URL=$SVN_REPO/$SVN_PATH
+
+  SVN1="apt-get install subversion -y $QUIET"
+  SVN2="rm -rf $BASEDIR"
+  SVN3="svn $QUIET checkout $SVN_URL $BASEDIR"
+  SSH="$SVN1; $SVN2; $SVN3"
+  ssh root@$FQDN "$SSH"
+}
+
 echo $(date)
 
 # Module specific variables
-SUBDOMAIN=$1
-NEXUS_PASSWORD=$2
+NEXUS_PASSWORD=$1
+SUBDOMAIN=$2
 JDK=${3-jdk7}
 TOMCAT=${4-tomcat7}
 MAX_HEAP=${5-5g}
@@ -60,19 +78,8 @@ BASEDIR=/mnt/kuali-ec2
 MODULES=$BASEDIR/src/test/resources/ubuntu/12.04
 FQDN=$SUBDOMAIN.$DOMAIN
 
-# Subversion
-SVN_REPO=https://svn.kuali.org/repos/foundation
-SVN_PATH=trunk/kuali-ec2
-SVN_URL=$SVN_REPO/$SVN_PATH
-
-SVN1="apt-get install subversion -y $QUIET"
-SVN2="rm -rf $BASEDIR"
-SVN3="svn $QUIET checkout $SVN_URL $BASEDIR"
-SVN="$SVN1; $SVN2; $SVN3"
-
-# Enable root ssh
-echo "enable    -> root ssh"
-ssh ubuntu@$FQDN 'sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys'
+enable_root_ssh
+checkout_module
 
 echo $(date)
 
