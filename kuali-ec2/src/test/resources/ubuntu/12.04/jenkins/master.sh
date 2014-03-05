@@ -19,7 +19,7 @@
 TOMCAT=tomcat7
 TOMCAT_HOME=/home/$TOMCAT
 JENKINS_HOME=$TOMCAT_HOME/.jenkins
-BASEDIR=/mnt/kuali-ec2
+export BASEDIR=/mnt/kuali-ec2
 
 function install_jenkins {
   
