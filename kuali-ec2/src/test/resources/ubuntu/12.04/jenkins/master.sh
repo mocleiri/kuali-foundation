@@ -105,7 +105,7 @@ function install_maven {
 function install_default_maven {
   MAVEN_ABBR=$1
 
-  echo "install  -> maven default $MAVEN_ABBR"
+  echo "install  -> default maven mvn$MAVEN_ABBR"
 
   MAVEN_TARGET=/usr/share/maven/mvn$MAVEN_ABBR/bin/mvn
   MAVEN_USR_BIN=/usr/bin/mvn
