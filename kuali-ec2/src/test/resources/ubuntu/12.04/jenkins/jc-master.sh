@@ -17,7 +17,7 @@
 
 FQDN=jeff.ci.kuali.org
 GPG=/Users/jcaddel/.ssh/gpg-private.key
+MASTER=/mnt/kuali-ec2/src/test/resources/ubuntu/12.04/jenkins/master.sh
 
 scp $GPG root@$FQDN:/root/gpg-private.key
-
-./master.sh 
+ssh root@$FQDN $MASTER
