@@ -20,7 +20,7 @@ MAVEN_BASEDIR=/usr/maven
 
 function install_packages {
   echo "install   -> custom packages"
-  apt-get install subversion git graphviz firefox -y -qq > /dev/null 2>&1
+  apt-get install subversion git graphviz firefox -y -qq
 }
 
 function install_maven {
