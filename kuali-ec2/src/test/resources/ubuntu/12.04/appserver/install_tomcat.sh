@@ -155,7 +155,7 @@ MAX_HEAP=${4-$MAX_HEAP}
 MAX_PERM=${5-$MAX_PERM}
 QUIET=${6-$QUIET}
 
-# Makes sure we have what we need to continue
+# Make sure we have what we need to continue
 check_args
 
 install_tomcat
