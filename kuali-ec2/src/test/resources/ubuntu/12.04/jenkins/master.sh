@@ -19,7 +19,7 @@
 TOMCAT=tomcat7
 TOMCAT_HOME=/home/$TOMCAT
 JENKINS_HOME=$TOMCAT_HOME/.jenkins
-MAVEN_BASEDIR=/usr/share/maven
+MAVEN_BASEDIR=/usr/maven
 
 function install_jenkins {
   
