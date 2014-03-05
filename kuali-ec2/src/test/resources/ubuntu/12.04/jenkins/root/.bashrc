@@ -100,5 +100,6 @@ fi
 
 JAVA_HOME=/usr/java/jdk7
 PATH=$JAVA_HOME/bin:$PATH
-
-export JAVA_HOME PATH
+MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=256m"
+ 
+export JAVA_HOME PATH MAVEN_OPTS
