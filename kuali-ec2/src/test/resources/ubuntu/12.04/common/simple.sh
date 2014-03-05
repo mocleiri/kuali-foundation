@@ -53,6 +53,12 @@ function tomcat_purge {
 # Install Tomcat
 function install_tomcat {
   
+  TOMCAT_VERSION=${TOMCAT:6:1}
+  check_not_blank TOMCAT_VERSION $TOMCAT_VERSION
+  
+  echo $TOMCAT_VERSION
+  exit 1
+  
   tomcat purge
   
   if [ $TOMCAT_VERSION == "6" ]; then
