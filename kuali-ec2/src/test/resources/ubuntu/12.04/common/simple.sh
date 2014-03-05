@@ -16,11 +16,7 @@
 #
 
 function check_args {
-  if [ -n "$1" ]; then
-    echo "good juju"
-  else
-    echo "bad  juju"
-  fi
+  if [ -n "$1" ]; then echo "good juju"; else echo "bad juju" fi;
 }
 
 check_args word
