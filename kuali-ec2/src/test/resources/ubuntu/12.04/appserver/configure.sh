@@ -89,6 +89,7 @@ BASEDIR=/mnt/kuali-ec2
 MODULES=$BASEDIR/src/test/resources/ubuntu/12.04
 FQDN=$SUBDOMAIN.$DOMAIN
 
+echo "configure -> $FQDN"
 enable_root_ssh
 checkout_module
 configure_application_server
