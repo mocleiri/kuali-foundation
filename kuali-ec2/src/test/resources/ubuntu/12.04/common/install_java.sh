@@ -17,7 +17,7 @@
 
 #
 # Usage:
-#   ./install-jdk.sh 6/7
+#   ./install_java.sh jdk6/jdk7
 #
 
 # Install JDK
