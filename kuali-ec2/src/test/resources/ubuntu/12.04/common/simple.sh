@@ -73,7 +73,7 @@ NEXUS_JDK_DOWNLOAD_FILE=$DOWNLOADS/$JDK_ZIP_FILE
 
 # Directory for the JDK download
 DOWNLOADS=$BASEDIR/target/downloads/jdk
-echo "clean -> $DOWNLOADS
+echo "clean -> $DOWNLOADS"
 rm -rf $DOWNLOADS; mkdir -p $DOWNLOADS
 
 echo $JDK
