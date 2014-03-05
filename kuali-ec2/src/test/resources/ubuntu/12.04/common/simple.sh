@@ -31,7 +31,5 @@ function show_usage {
 }
 
 JDK=jdk8
-JDK=${1-$JDK}
-echo $JDK
-
-JDK=$(check_arg $JDK)
+JDK=$(check_arg ${1-$JDK})
+echo JDK
