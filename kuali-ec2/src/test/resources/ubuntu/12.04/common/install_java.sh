@@ -37,26 +37,6 @@ function install_jdk {
   ln -s $JDK_TARGET $JDK_LINK
 }
 
-function check_args {
-  echo yo1
-  if [ -n "$1" ]; then
-    echo yo2
-  fi
-}
-
-function check_arg {
-  echo yo
-  echo $1 $2
-  ARG=$1; 
-  ARG_NAME=$2
-  echo $ARG
-  if [ $ARG == "" ]; then
-    echo must provide $ARG_NAME
-    show_usage
-  fi
-  exit 1
-}
-
 function show_usage {
   echo
   echo requires JDK BASEDIR NEXUS_PASSWORD

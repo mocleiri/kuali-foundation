@@ -17,10 +17,11 @@
 
 function show_usage {
   echo
-  echo usage: simple.sh jdk6/jdk7 
+  echo requires BASEDIR JDK NEXUS_PASSWORD
+  echo usage: install_java.sh jdk6/jdk7
   echo
-  exit 1
 }
+
 
 function check_not_blank {
   if ! [ -n "$2" ]; then 
