@@ -21,8 +21,9 @@ http://updates.jenkins-ci.org/stable/update-center.json
 
 TODO
 
-binary caching
 subversion credentials
+
+binary caching
 jdk6
 
 slave automation
