@@ -20,4 +20,4 @@ GPG=/Users/jcaddel/.ssh/gpg-private.key
 MASTER=/mnt/kuali-ec2/src/test/resources/ubuntu/12.04/jenkins/master.sh
 
 scp $GPG root@$FQDN:/root/gpg-private.key
-ssh root@$FQDN $MASTER
+ssh root@$FQDN "cd /mnt/kuali-ec2; svn up; $MASTER"
