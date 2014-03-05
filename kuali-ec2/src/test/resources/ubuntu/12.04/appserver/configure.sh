@@ -151,6 +151,7 @@ ln -s $TOMCAT_CLEANUP $USR_BIN_CLEANUP
 
 # Setup /home/tomcat[6/7] as the home dir
 rm -rf $TOMCAT_HOME; mkdir -p $TOMCAT_HOME; chown -R $TOMCAT_USER:$TOMCAT_GROUP $TOMCAT_HOME
+usermod -d $TOMCAT_HOME $TOMCAT
 
 # Copy custom jsps into the logs directory
 cp $JSPS $TOMCAT_LOGS; chown -R $TOMCAT_USER:$TOMCAT_GROUP $TOMCAT_LOGS/*.jsp
