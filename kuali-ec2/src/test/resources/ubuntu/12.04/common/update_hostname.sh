@@ -15,6 +15,28 @@
 # limitations under the License.
 #
 
+# generic functions
+function check_not_blank {
+  if ! [ -n "$2" ]; then 
+    echo $1 cannot be blank
+    show_usage
+  fi
+}
+
+# module specific functions
+function show_usage {
+  echo
+  echo requires HOSTNAME DOMAIN
+  echo usage: update_hostmae.sh hostname domain
+  echo
+  exit 1
+}
+
+function check_args {
+  check_not_blank HOSTNAME $HOSTNAME
+  check_not_blank DOMAIN $DOMAIN
+}
+
 # Set hostname and FQDN
 function set_hostname {
 
@@ -36,3 +58,10 @@ function set_hostname {
   #eval "sed -i -e '/127.0.0.1/a$ETC_HOSTS' /etc/hosts"
   
 }
+
+# module specific variables
+HOSTNAME=${1-$HOSTNAME}
+DOMAIN=${2-$DOMAIN}
+
+# Make sure we have what we need to continue
+check_args
