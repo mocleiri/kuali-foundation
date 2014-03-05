@@ -81,6 +81,7 @@ function install_packages {
 
 function install_maven {
   MAVEN_VERSION=$1
+  echo "install  -> maven $MAVEN_VERSION"
   MAVEN_FILENAME=apache-maven-$MAVEN_VERSION-bin.zip
   MAVEN_URL=http://search.maven.org/remotecontent?filepath=org/apache/maven/apache-maven/$MAVEN_VERSION/$MAVEN_FILENAME
   MAVEN_FILE=/usr/share/maven/$MAVEN_FILENAME
