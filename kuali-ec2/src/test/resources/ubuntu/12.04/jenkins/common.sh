@@ -131,8 +131,12 @@ function configure_subversion {
   echo "[global]"                      >  $SVN_SERVERS
   echo "store-plaintext-passwords=yes" >> $SVN_SERVERS
   
+}
+
+function touch_subversion_repo {
+  SVN_REPO=$1
   SVN_MESSAGE="Automated auth check"
-  SVN_TOUCH_URL="https://svn.kuali.org/repos/foundation/sandbox/kuali-devops/temp/nightly/touch"
+  SVN_TOUCH_URL="https://svn.kuali.org/repos/$SVN_REPO/sandbox/kuali-devops/temp/nightly/touch"
   SVN_AUTH="--username=$SVN_USERNAME --password=$SVN_PASSWORD"
   SVN_CREATE="svn mkdir  $SVN_TOUCH_URL -m '$SVN_MESSAGE' --parents $SVN_AUTH"
   SVN_DELETE="svn delete $SVN_TOUCH_URL -m '$SVN_MESSAGE'"
@@ -143,7 +147,6 @@ function configure_subversion {
   cd /root
   $SVN_CREATE
   $SVN_DELETE
-  
 }
 
 MAVEN_BASEDIR=/usr/maven
@@ -162,3 +165,10 @@ install_maven 3.1.0 31
 install_maven 3.2.1 32
 install_default_maven 32
 configure_subversion
+touch_subversion_repo foundation
+#touch_subversion_repo rice
+#touch_subversion_repo student
+#touch_subversion_repo ole
+#touch_subversion_repo mobility
+#touch_subversion_repo kpme
+
