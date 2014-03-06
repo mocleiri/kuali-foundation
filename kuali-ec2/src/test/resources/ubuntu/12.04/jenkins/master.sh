@@ -94,7 +94,6 @@ JENKINS_HOME=$TOMCAT_HOME/.jenkins
 echo "stop      -> $TOMCAT"
 service $TOMCAT stop > /dev/null 2>&1
 configure_tomcat_user
-exit 1
 install_jenkins
 install_plugins
 echo "start     -> $TOMCAT"
