@@ -73,5 +73,6 @@ source bootstrap.sh $SUBDOMAIN
 checkout_module
 transfer_secrets
 configure_common
+configure_server
 
 echo $(date)
