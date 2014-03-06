@@ -73,6 +73,10 @@ source bootstrap.sh $SUBDOMAIN
 checkout_module
 transfer_secrets
 configure_common
-configure_master
+
+if [ "$TYPE" = "master" ]; then
+  configure_master
+fi
+
 
 echo $(date)
