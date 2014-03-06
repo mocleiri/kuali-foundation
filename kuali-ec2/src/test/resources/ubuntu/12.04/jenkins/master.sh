@@ -80,8 +80,12 @@ function configure_tomcat_user {
   cp -R /root/.ssh         $TOMCAT_HOME
   cp -R /root/.m2          $TOMCAT_HOME
   cp -R /root/.subversion  $TOMCAT_HOME
+  
+  # Sets up Java + Maven + Jenkins Master
   cp /root/.bashrc $TOMCAT_HOME/.bash_profile
   cp /root/.bash_aliases $TOMCAT_HOME/.bash_aliases
+  
+  #
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
   
 }
