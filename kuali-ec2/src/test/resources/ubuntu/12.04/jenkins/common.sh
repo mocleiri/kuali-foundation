@@ -21,9 +21,10 @@ function install_packages {
   PACKAGES="subversion git graphviz firefox"
   APT_GET="apt-get install $PACKAGES -y"
   if [ "$QUIET" = "-qq" ]; then
-    APT_GET="$APT_GET > /dev/null 2>&1"
+    $APT_GET > /dev/null 2>&1
+  else
+    $APT_GET
   fi
-  $APT_GET
 }
 
 function install_maven {
