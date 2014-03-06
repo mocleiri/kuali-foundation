@@ -104,7 +104,7 @@ function configure_tomcat {
   ln -s $TOMCAT_CLEANUP $USR_BIN_CLEANUP
 
   # Setup the tomcat user with a normal /home directory and enable su
-  rm -rf $TOMCAT_HOME; mkdir -p $TOMCAT_HOME; chown -R $TOMCAT_USER:$TOMCAT_GROUP $TOMCAT_HOME
+  rm -rf $TOMCAT_HOME; mkdir -p $TOMCAT_HOME
   usermod --home $TOMCAT_HOME $TOMCAT
   usermod --shell /bin/bash $TOMCAT
   
@@ -116,6 +116,8 @@ function configure_tomcat {
   echo "MAVEN_OPTS=\"-Xmx2g -XX:MaxPermSize=256m\"" >> $TOMCAT_BASHRC
   echo "export JAVA_HOME PATH MAVEN_OPTS" >> $TOMCAT_BASHRC
 
+  chown -R $TOMCAT_USER:$TOMCAT_GROUP $TOMCAT_HOME
+  
   # Copy custom jsps into the logs directory
   cp $JSPS $TOMCAT_LOGS; chown -R $TOMCAT_USER:$TOMCAT_GROUP $TOMCAT_LOGS/*.jsp
   
