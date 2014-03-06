@@ -18,12 +18,15 @@
 
 function install_mysql_server {
 
-   apt-get remove mysql-server -y $QUIET 
+   # MySQL only has a root password for a brief moment right after being installed
+   # The MySQL setup is then altered to make it so that root has no password
+   MYSQL_ROOT_PASSWORD=password
+   apt-get remove mysql-server -y $QUIET
    apt-get purge mysql-server -y $QUIET
-   debconf-set-selections <<< "mysql-server mysql-server/root_password password password"
-   debconf-set-selections <<< "mysql-server mysql-server/root_password_again password password"  
+   debconf-set-selections <<< "mysql-server mysql-server/root_password password $MYSQL_ROOT_PASSWORD"
+   debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $MYSQL_ROOT_PASSWORD"  
    apt-get install mysql-server -y $QUIET
-   mysqladmin -u root -ppassword password ''
+   mysqladmin -u root -p$MYSQL_ROOT_PASSWORD password ''
    
 }
 
