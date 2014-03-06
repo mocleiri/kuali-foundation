@@ -33,6 +33,19 @@ function enable_root_ssh {
   ssh ubuntu@$FQDN "$SSH"
 }
 
+function copy_jar { 
+  M2_REPO="$HOME/.m2/repository"
+  M2_PATH="${project.groupId.path}/${project.artifactId}/${project.version}/${project.artifactid}-${project.version}.jar"
+
+  LOCAL="$M2_REPO/$M2_PATH"
+  REMOTE=/mnt/${project-artifactid}.jar
+  
+  echo "copy      -> $LOCAL"
+
+  SCP="$LOCAL root@$FQDN:$REMOTE"
+  scp "$SCP"
+}
+
 function checkout_module { 
   SVN_REPO=https://svn.kuali.org/repos/foundation
   SVN_PATH=trunk/kuali-ec2
