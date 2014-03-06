@@ -18,17 +18,18 @@
 # Update Ubuntu repos and packages
 function get_upgrades {
   echo "update    -> package indexes"
-  # not even -qq will shut this up
+  # not even -qq shuts this up
   apt-get $QUIET -y update > /dev/null 2>&1
   echo "upgrade   -> packages"
-  # not even -qq will shut this up
+  # not even -qq shuts this up
   apt-get $QUIET -y upgrade > /dev/null 2>&1
 }
 
 # install custom packages
 function install_packages {
   echo "install   -> custom packages"
-  apt-get install unzip ntp expect -y $QUIET 
+  # not even -qq shuts this up
+  apt-get install unzip ntp expect -y $QUIET > /dev/null 2>&1
 }
 
 get_upgrades
