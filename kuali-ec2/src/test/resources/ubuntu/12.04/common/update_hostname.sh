@@ -43,7 +43,7 @@ function set_hostname {
   MYIP=$(ifconfig eth0 |grep inet | awk '{ print $2 }' | awk 'BEGIN { FS=":" } { print $2 }')
 
   ETC_HOSTS="$MYIP $SUBDOMAIN.$DOMAIN $SUBDOMAIN"
-  echo "subdomain -> $SUBDOMAIN"
+  echo "hostname  -> $SUBDOMAIN"
   echo "hosts     -> $ETC_HOSTS"
 
   echo "$SUBDOMAIN" > /etc/hostname
