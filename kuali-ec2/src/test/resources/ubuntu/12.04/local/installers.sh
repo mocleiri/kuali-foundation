@@ -17,6 +17,5 @@ function check_args {
 check_args
 
 BASICS="$MODULES/common/install_basics.sh $BASEDIR $QUIET"
-  
 JAVA="$MODULES/common/install_java.sh $BASEDIR $JDK $NEXUS_PASSWORD $QUIET"
 DNS="$MODULES/common/update_hostname.sh $SUBDOMAIN $DOMAIN"
