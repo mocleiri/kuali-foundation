@@ -21,7 +21,6 @@ http://updates.jenkins-ci.org/stable/update-center.json
 TODO
 binary caching
 configurable SVN_URL in bootstrap.sh
-MySQL on slaves
 encrypted secrets.zip
 user management
 
