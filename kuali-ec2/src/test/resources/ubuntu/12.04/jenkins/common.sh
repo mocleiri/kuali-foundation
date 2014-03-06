@@ -60,16 +60,18 @@ function install_default_maven {
   ln -s $MAVEN_TARGET $MAVEN_USR_BIN
 }
 
-# Override .bashrc to make sure JAVA_HOME gets set
 # Make sure /usr/bin/java points to JDK7  
 function configure_java {
 
   echo "configure -> default java"
+  
+  # the default .bashrc that ships with 12.04 automatically imports .bash_aliases
   ROOT_ALIASES=/root/.bash_aliases
   echo "JAVA_HOME=/usr/java/jdk7                    >  $ROOT_ALIASES"
   echo "PATH=\$JAVA_HOME/bin:$PATH:.                >> $ROOT_ALIASES"
   echo "MAVEN_OPTS=\"-Xmx2g -XX:MaxPermSize=256m\"" >> $ROOT_ALIASES"
 
+  # remove whatever's at /usr/bin/java and replace it with a symbolic link to jdk7
   rm -rf /usr/bin/java
   ln -s /usr/java/jdk7/bin/java /usr/bin/java
   
@@ -93,6 +95,7 @@ function configure_secrets {
 }
 
 MAVEN_BASEDIR=/usr/maven
+QUIET=${1-""}
 
 configure_java
 configure_secrets
