@@ -108,13 +108,13 @@ function configure_tomcat {
   usermod --home $TOMCAT_HOME $TOMCAT
   usermod --shell /bin/bash $TOMCAT
   
-  # Setup .bashrc with Java and Maven
-  TOMCAT_BASHRC=$TOMCAT_HOME/.bashrc
-  echo "create    -> $TOMCAT_BASHRC"
-  echo "JAVA_HOME=$JAVA_HOME" > $TOMCAT_BASHRC
-  echo "PATH=\$JAVA_HOME/bin:\$PATH:." >> $TOMCAT_BASHRC
-  echo "MAVEN_OPTS=\"-Xmx2g -XX:MaxPermSize=256m\"" >> $TOMCAT_BASHRC
-  echo "export JAVA_HOME PATH MAVEN_OPTS" >> $TOMCAT_BASHRC
+  # Setup .bash_profile with Java and Maven
+  TOMCAT_BASH_PROFILE=$TOMCAT_HOME/.bash_profile
+  echo "create    -> $TOMCAT_BASH_PROFILE"
+  echo "JAVA_HOME=$JAVA_HOME" > $TOMCAT_BASH_PROFILE
+  echo "PATH=\$JAVA_HOME/bin:\$PATH:." >> $TOMCAT_BASH_PROFILE
+  echo "MAVEN_OPTS=\"-Xmx2g -XX:MaxPermSize=256m\"" >> $TOMCAT_BASH_PROFILE
+  echo "export JAVA_HOME PATH MAVEN_OPTS" >> $TOMCAT_BASH_PROFILE
 
   chown -R $TOMCAT_USER:$TOMCAT_GROUP $TOMCAT_HOME
   
