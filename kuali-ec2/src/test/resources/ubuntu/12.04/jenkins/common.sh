@@ -19,12 +19,7 @@
 function install_packages {
   echo "install   -> custom packages"
   PACKAGES="subversion git graphviz firefox"
-  APT_GET="apt-get install $PACKAGES -y"
-  if [ "$QUIET" = "-qq" ]; then
-    $APT_GET > /dev/null 2>&1
-  else
-    $APT_GET
-  fi
+  apt-get install $PACKAGES -y > /dev/null 2>&1
 }
 
 function install_maven {
