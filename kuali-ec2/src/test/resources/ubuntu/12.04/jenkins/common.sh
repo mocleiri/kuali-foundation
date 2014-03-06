@@ -15,15 +15,20 @@
 # limitations under the License.
 #
 
+function execute_quietly {
+  COMMAND=$1
+  if [ "$QUIET" = "-qq" ]; then
+    $COMMAND > /dev/null 2>&1
+  else
+    $COMMAND
+  fi
+}
+
 function install_packages {
   echo "install   -> custom packages"
   PACKAGES="subversion git graphviz firefox"
   APT_GET="apt-get install $PACKAGES -y"
-  if [ "$QUIET" = "-qq" ]; then
-    $APT_GET > /dev/null 2>&1
-  else
-    $APT_GET
-  fi
+  execute_quietly "$APT_GET"
 }
 
 function install_maven {
