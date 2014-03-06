@@ -33,6 +33,8 @@ function install_packages {
   apt-get install $PACKAGES -y $QUIET > /dev/null 2>&1
 }
 
+# Functionally equivalent to running "dpkg-reconfigure unattended-upgrades" and answering "Yes" to the prompt
+# http://askubuntu.com/questions/203337/enabling-unattended-upgrades-from-a-shell-script
 function unattended_upgrades {
   UNATTENDED_FILE=/etc/apt/apt.conf.d/20auto-upgrades
   echo "APT::Periodic::Update-Package-Lists \"1\";" >  $UNATTENDED_FILE 
