@@ -48,7 +48,6 @@ echo $(date)
 
 # source generic functions
 source ../common/preconditions.sh
-source ../common/module.sh
 
 # Module specific variables
 NEXUS_PASSWORD=$1
