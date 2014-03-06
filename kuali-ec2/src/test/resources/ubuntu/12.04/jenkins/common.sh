@@ -140,6 +140,7 @@ function configure_subversion {
   echo $SVN_CREATE
   echo $SVN_DELETE
   
+  cd /root
   $SVN_CREATE
   $SVN_DELETE
   
