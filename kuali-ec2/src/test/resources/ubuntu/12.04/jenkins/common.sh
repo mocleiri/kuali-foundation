@@ -124,3 +124,4 @@ install_maven 3.0.5 30
 install_maven 3.1.0 31
 install_maven 3.2.1 32
 install_default_maven 32
+configure_subversion
