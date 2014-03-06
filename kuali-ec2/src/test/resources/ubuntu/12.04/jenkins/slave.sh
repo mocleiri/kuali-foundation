@@ -32,8 +32,7 @@ function install_mysql_server {
    MYSQL_ROOT_PASSWORD=password
    debconf-set-selections <<< "mysql-server mysql-server/root_password password $MYSQL_ROOT_PASSWORD"
    debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $MYSQL_ROOT_PASSWORD"  
-   APT_GET="apt-get install mysql-server -y"
-   execute_quietly $APT_GET
+   execute_quietly "apt-get install mysql-server -y"
    mysqladmin -u root -p$MYSQL_ROOT_PASSWORD password ''
    
 }
