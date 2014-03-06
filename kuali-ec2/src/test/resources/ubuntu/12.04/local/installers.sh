@@ -2,6 +2,7 @@ function show_usage {
   echo
   echo requires MODULE BASEDIR JDK NEXUS_PASSWORD SUBDOMAIN DOMAIN
   echo
+  exit 1
 }
 
 function check_args {
