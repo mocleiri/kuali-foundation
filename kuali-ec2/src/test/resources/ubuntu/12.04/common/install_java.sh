@@ -26,14 +26,13 @@ function check_not_blank {
 # module specific functions
 function show_usage {
   echo
-  echo requires BASEDIR JDK NEXUS_PASSWORD
-  echo usage: install_java.sh basedir jdk6/jdk7 nexus_password [quiet]
+  echo requires JDK NEXUS_PASSWORD
+  echo usage: install_java.sh jdk6/jdk7 nexus_password [quiet]
   echo
   exit 1
 }
 
 function check_args {
-  check_not_blank BASEDIR $BASEDIR
   check_not_blank JDK $JDK
   check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
 }
@@ -61,13 +60,8 @@ function install_jdk {
   NEXUS_USER=developer
   NEXUS_JDK_DOWNLOAD_FILE=$DOWNLOADS/$JDK_ZIP_FILE
   
-  # Directory for the JDK download
-  DOWNLOADS=$BASEDIR/target/jdk
-  echo "clean     -> $DOWNLOADS"
-  rm -rf $DOWNLOADS; mkdir -p $DOWNLOADS
-
   URL=$NEXUS_URL/$NEXUS_JDK_LOCATION/$JDK_ZIP_FILE
-  OUTPUT_FILE=$DOWNLOADS/$JDK_ZIP_FILE
+  OUTPUT_FILE=$JDK_BASEDIR/$JDK_ZIP_FILE
   echo "download  -> $URL"
   wget $QUIET --user $NEXUS_USER --password $NEXUS_PASSWORD $URL --output-document $OUTPUT_FILE
   echo "to        -> $OUTPUT_FILE"
@@ -92,10 +86,9 @@ function install_jdk {
 }
 
 # module specific variables
-BASEDIR=${1-$BASEDIR}
-JDK=${2-$JDK}
-NEXUS_PASSWORD=${3-$NEXUS_PASSWORD}
-QUIET=${4-$QUIET}
+JDK=${1-$JDK}
+NEXUS_PASSWORD=${2-$NEXUS_PASSWORD}
+QUIET=${3-$QUIET}
 
 # Make sure we have what we need to continue
 check_args
