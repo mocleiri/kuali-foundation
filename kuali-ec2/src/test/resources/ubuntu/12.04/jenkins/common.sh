@@ -114,9 +114,6 @@ function configure_subversion {
   
 }
 
-[global]
-store-plaintext-passwords=yes
-
 MAVEN_BASEDIR=/usr/maven
 QUIET=${1-""}
 
