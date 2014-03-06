@@ -28,7 +28,7 @@ function install_packages {
   echo "install   -> custom packages"
   PACKAGES="subversion git graphviz firefox"
   APT_GET="apt-get install $PACKAGES -y"
-  execute_quietly $APT_GET
+  execute_quietly "$APT_GET"
 }
 
 function install_maven {
