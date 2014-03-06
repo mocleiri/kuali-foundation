@@ -51,14 +51,14 @@ function configure_common {
 
 function configure_master {
   echo "configure -> jenkins:master"
-  SERVER="$MODULES/jenkins/master.sh"
-  SSH="$SERVER"
+  MASTER="$MODULES/jenkins/master.sh"
+  SSH="$MASTER"
   ssh root@$FQDN "$SSH"
 }
 
 function configure_slave {
   echo "configure -> jenkins:slave"
-  SERVER="$MODULES/jenkins/slave.sh $QUIET"
+  SLAVE="$MODULES/jenkins/slave.sh $QUIET"
   SSH="$SERVER"
   ssh root@$FQDN "$SSH"
 }
