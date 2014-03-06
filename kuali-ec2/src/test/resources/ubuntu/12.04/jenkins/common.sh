@@ -24,14 +24,15 @@ function check_not_blank {
 
 function show_usage {
   echo
-  echo requires SVN_PASSWORD  QUIET
-  echo usage: common.sh svn_password [quiet]
+  echo requires SVN_PASSWORD ZIP_PASSWORD QUIET
+  echo usage: common.sh svn_password zip_password [quiet]
   echo
   exit 1
 }
 
 function check_args {
   check_not_blank SVN_PASSWORD $SVN_PASSWORD
+  check_not_blank ZIP_PASSWORD $ZIP_PASSWORD
 }
 
 function execute_quietly {
@@ -45,9 +46,7 @@ function execute_quietly {
 
 function install_packages {
   echo "install   -> custom packages"
-  PACKAGES="subversion git graphviz firefox"
-  APT_GET="apt-get install $PACKAGES -y"
-  execute_quietly "$APT_GET"
+  execute_quietly "apt-get install subversion git graphviz firefox -y"
 }
 
 function install_maven {
@@ -114,8 +113,7 @@ function configure_secrets {
   # Setup GPG
   GPG_KEY=/root/.ssh/private.key.gpg
   rm -rf /root/.gnupg
-  GPG="gpg --allow-secret-key-import --import $GPG_KEY"
-  execute_quietly "$GPG"
+  execute_quietly "gpg --allow-secret-key-import --import $GPG_KEY"
   
   # setup maven
   rm -rf /root/.m2; mkdir -p /root/.m2;  mv /root/.ssh/settings.xml /root/.m2
@@ -166,7 +164,8 @@ function touch_subversion_repos {
 
 MAVEN_BASEDIR=/usr/maven
 SVN_PASSWORD=$1
-QUIET=${2-""}
+ZIP_PASSWORD=$2
+QUIET=${3-""}
 
 check_args
 
