@@ -15,6 +15,25 @@
 # limitations under the License.
 #
 
+function show_usage {
+  echo requires SUBDOMAIN
+  echo usage: master.sh subdomain
+  exit 1
+}
+
+function check_args {
+  check_not_blank SUBDOMAIN $SUBDOMAIN
+}
+
+echo $(date)
+
+# import generic functions
+source preconditions.sh
+
+# Module specific variables
+SUBDOMAIN=$1
+
+
 FQDN=jeff.ci.kuali.org
 SECRETS=$HOME/.ssh/secrets.zip
 MASTER=/mnt/kuali-ec2/src/test/resources/ubuntu/12.04/jenkins/master.sh

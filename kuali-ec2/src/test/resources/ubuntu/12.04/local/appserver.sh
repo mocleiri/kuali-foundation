@@ -15,7 +15,6 @@
 # limitations under the License.
 #
 
-# module specific functions
 function show_usage {
   echo requires NEXUS_PASSWORD SUBDOMAIN JDK TOMCAT MAX_HEAP MAX_PERM
   echo usage: bootstrap.sh password subdomain jdk7/jdk6 tomcat7/tomcat6 max_heap max_perm [quiet]
