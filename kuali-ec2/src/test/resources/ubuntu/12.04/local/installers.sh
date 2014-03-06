@@ -20,9 +20,7 @@ BASICS="$MODULES/common/install_basics.sh $BASEDIR $QUIET"
   
 UNATTENDED="$MODULES/common/unattended_upgrades.sh"
 if [ "$QUIET" = "-qq" ]; then
-  $UNATTENDED > /dev/null 2>&1
-else
-  $UNATTENDED
+  UNATTENDED="$UNATTENDED > /dev/null 2>&1"
 fi
   
 JAVA="$MODULES/common/install_java.sh $BASEDIR $JDK $NEXUS_PASSWORD $QUIET"
