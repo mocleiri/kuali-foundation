@@ -65,7 +65,7 @@ QUIET=${5-""}
 # Install both jdk6 and jdk7 on Jenkins 
 JDK=jdk6
 
-# Password to the encrypted zip file is the same
+# Same password for both
 ZIP_PASSWORD=$SVN_PASSWORD
 
 # Make sure we have what we need
