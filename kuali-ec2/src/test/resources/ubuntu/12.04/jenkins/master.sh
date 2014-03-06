@@ -72,7 +72,7 @@ function install_plugins {
   
 }
 
-function configure_secrets {
+function configure_tomcat_user {
 
   echo "configure -> $TOMCAT secrets"
   rm -rf $TOMCAT_HOME/.gnupg $TOMCAT_HOME/.ssh $TOMCAT_HOME/.m2 $TOMCAT_HOME/.subversion
@@ -80,6 +80,8 @@ function configure_secrets {
   cp -R /root/.ssh         $TOMCAT_HOME
   cp -R /root/.m2          $TOMCAT_HOME
   cp -R /root/.subversion  $TOMCAT_HOME
+  cp /root/.bashrc $TOMCAT_HOME/.bash_profile
+  cp /root/.bash_aliases $TOMCAT_HOME/.bash_aliases
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
   
 }
@@ -91,7 +93,7 @@ JENKINS_HOME=$TOMCAT_HOME/.jenkins
 
 echo "stop      -> $TOMCAT"
 service $TOMCAT stop > /dev/null 2>&1
-configure_secrets
+configure_tomcat_user
 install_jenkins
 install_plugins
 echo "start     -> $TOMCAT"
