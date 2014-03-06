@@ -104,6 +104,7 @@ function configure_tomcat {
   ln -s $TOMCAT_CLEANUP $USR_BIN_CLEANUP
 
   # Setup the tomcat user with a normal /home directory and enable su
+  echo "configure -> $TOMCAT:user"
   rm -rf $TOMCAT_HOME; mkdir -p $TOMCAT_HOME
   usermod --home $TOMCAT_HOME $TOMCAT
   usermod --shell /bin/bash $TOMCAT
@@ -111,7 +112,6 @@ function configure_tomcat {
   # copy root's .bashrc and setup .bash_aliases with Java and Maven
   cp /root/.bashrc $TOMCAT_HOME/.bash_profile
   TOMCAT_BASH_ALIASES=$TOMCAT_HOME/.bash_aliases
-  echo "configure -> $TOMCAT:user"
   echo "JAVA_HOME=$JAVA_HOME"                       >  $TOMCAT_BASH_ALIASES
   echo "PATH=\$JAVA_HOME/bin:\$PATH:."              >> $TOMCAT_BASH_ALIASES
   echo "MAVEN_OPTS=\"-Xmx2g -XX:MaxPermSize=256m\"" >> $TOMCAT_BASH_ALIASES
