@@ -50,22 +50,23 @@ function install_plugin {
 
 function install_plugins {
 
-  install_plugin node-iterator-api     1.2
-  install_plugin ec2                   1.21
+  # supported plugins (in alphabetical order)
   install_plugin cas-plugin            1.1.1
+  install_plugin credentials           1.10
+  install_plugin ec2                   1.21
+  install_plugin email-ext             2.37.2
   install_plugin git                   2.0.3
   install_plugin git-client            1.6.3
-  install_plugin credentials           1.10
+  install_plugin jobConfigHistory      2.5
+  install_plugin mailer                1.8
+  install_plugin mask-passwords        2.7.2
+  install_plugin maven-plugin          2.1
+  install_plugin next-build-number     1.1
+  install_plugin node-iterator-api     1.2
+  install_plugin parameterized-trigger 2.22
   install_plugin scm-api               0.2
   install_plugin ssh-credentials       1.6.1
-  install_plugin jobConfigHistory      2.5
-  install_plugin maven-plugin          2.1
-  install_plugin mailer                1.8
-  install_plugin next-build-number     1.1
-  install_plugin parameterized-trigger 2.22
-  install_plugin email-ext             2.37.2
   install_plugin token-macro           1.10
-  install_plugin mask-passwords        2.7.2
   
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME  
   
