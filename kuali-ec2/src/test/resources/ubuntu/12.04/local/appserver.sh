@@ -35,6 +35,7 @@ function check_args {
 
 function configure_application_server {
   echo "configure -> $FQDN as [application server]"
+  source installers.sh
   TOMCAT="$MODULE/appserver/install_tomcat.sh $BASEDIR $TOMCAT $JDK $MAX_HEAP $MAX_PERM $QUIET"
   SSH="$BASICS; $UNATTENDED; $JAVA; $DNS; $TOMCAT"
   ssh root@$FQDN "$SSH"
