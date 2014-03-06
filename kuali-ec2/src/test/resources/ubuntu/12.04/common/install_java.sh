@@ -58,7 +58,6 @@ function install_jdk {
   NEXUS_URL=http://nexus.kuali.org/content/groups/developer
   NEXUS_JDK_LOCATION=$JDK_GROUP_ID/$JDK_ARTIFACT_ID/$JDK_VERSION
   NEXUS_USER=developer
-  NEXUS_JDK_DOWNLOAD_FILE=$DOWNLOADS/$JDK_ZIP_FILE
   
   URL=$NEXUS_URL/$NEXUS_JDK_LOCATION/$JDK_ZIP_FILE
   OUTPUT_FILE=$JDK_BASEDIR/$JDK_ZIP_FILE
@@ -73,7 +72,7 @@ function install_jdk {
   rm -rf $JDK_LINK $JDK_TARGET
 
   # Unpack the JDK into /usr/java
-  unzip $QUIET -o $DOWNLOADS/$JDK_ZIP_FILE -d $JDK_BASEDIR
+  unzip $QUIET -o $OUTPUT_FILE -d $JDK_BASEDIR
 
   # Create the symbolic link /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
   ln -s $JDK_TARGET $JDK_LINK
