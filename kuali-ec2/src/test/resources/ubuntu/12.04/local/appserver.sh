@@ -60,14 +60,9 @@ QUIET=${7-""}
 # Make sure we have what we need to continue
 check_args
 
-DOMAIN=kuali.org
-BASEDIR=/mnt/kuali-ec2
-MODULES=$BASEDIR/src/test/resources/ubuntu/12.04
-FQDN=$SUBDOMAIN.$DOMAIN
-
 # bootstrap the server we are working on
 # enable root ssh, checkout this module to /mnt/kuali-ec2
-source bootstrap.sh
+source bootstrap.sh $SUBDOMAIN
 
 echo "configure -> $FQDN"
 #configure_application_server
