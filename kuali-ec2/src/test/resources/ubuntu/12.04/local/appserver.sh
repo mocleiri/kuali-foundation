@@ -52,7 +52,7 @@ function configure_application_server {
 echo $(date)
 
 # source generic functions
-source ../common/preconditions.sh
+source preconditions.sh
 
 # Module specific variables
 NEXUS_PASSWORD=$1
@@ -67,7 +67,7 @@ QUIET=${7-""}
 check_args
 
 # source bootstrap variables/functions
-source ../common/bootstrap.sh $SUBDOMAIN
+source bootstrap.sh $SUBDOMAIN
 
 echo "configure -> $FQDN"
 enable_root_ssh
