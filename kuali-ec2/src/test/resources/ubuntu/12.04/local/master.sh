@@ -49,4 +49,4 @@ source bootstrap.sh $SUBDOMAIN
 
 transfer_secrets
 
-ssh root@$FQDN "cd /mnt/kuali-ec2; svn up; $MASTER"
+echo $(date)
