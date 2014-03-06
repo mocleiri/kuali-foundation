@@ -16,14 +16,15 @@
 #
 
 function show_usage {
-  echo requires SUBDOMAIN SVN_PASSWORD TYPE
-  echo usage: jenkins.sh subdomain svn_password type [quiet]
+  echo requires NEXUS_PASSWORD SVN_PASSWORD SUBDOMAIN TYPE
+  echo usage: jenkins.sh nexus_password svn_password subdomain type [quiet]
   exit 1
 }
 
 function check_args {
-  check_not_blank SUBDOMAIN $SUBDOMAIN
+  check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
   check_not_blank SVN_PASSWORD $SVN_PASSWORD
+  check_not_blank SUBDOMAIN $SUBDOMAIN
   check_not_blank TYPE $TYPE
 }
 
@@ -42,8 +43,9 @@ function transfer_secrets {
 
 function configure_common {
   echo "configure -> jenkins:common"
+  source installers.sh
   COMMON="$MODULES/jenkins/common.sh $SVN_PASSWORD $QUIET"
-  SSH="$COMMON"
+  SSH="$COMMON $JAVA"
   ssh root@$FQDN "$SSH"
 }
 
@@ -60,11 +62,14 @@ echo $(date)
 source preconditions.sh
 
 # Module specific variables
-SUBDOMAIN=$1
+NEXUS_PASSWORD=$1
 SVN_PASSWORD=$2
-TYPE=$3
-QUIET=${4-""}
+SUBDOMAIN=$3
+TYPE=$4
+QUIET=${5-""}
 
+# Install both jdk6 and jdk7 on Jenkins 
+JDK=jdk6
 
 # Make sure we have what we need
 check_args
