@@ -110,6 +110,7 @@ function configure_tomcat {
   
   # Setup .bashrc with Java and Maven
   TOMCAT_BASHRC=$TOMCAT_HOME/.bashrc
+  echo "create    -> $TOMCAT_BASHRC"
   echo "JAVA_HOME=$JAVA_HOME" > $TOMCAT_BASHRC
   echo "PATH=\$JAVA_HOME/bin:\$PATH:." >> $TOMCAT_BASHRC
   echo "MAVEN_OPTS=\"-Xmx2g -XX:MaxPermSize=256m\"" >> $TOMCAT_BASHRC
