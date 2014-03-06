@@ -15,6 +15,13 @@
 # limitations under the License.
 #
 
+function transfer_secrets {
+  SECRETS=$HOME/.ssh/secrets.zip
+  check_exists $SECRETS
+  DEST=root@$FQDN:/root/.ssh/secrets.zip
+  scp $SECRETS $DEST
+}
+
 function show_usage {
   echo requires SUBDOMAIN
   echo usage: master.sh subdomain
