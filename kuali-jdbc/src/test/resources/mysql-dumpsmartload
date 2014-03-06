@@ -1,3 +1,0 @@
-echo $(date)
-mysqldump -u smartload -psmartload -h mysql.rice.kuali.org smartload > smartloaddump.sql
-echo $(date)
