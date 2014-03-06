@@ -104,6 +104,7 @@ function configure_secrets {
 
 function configure_subversion {
 
+  echo "configure -> subversion"
   SVN_BASEDIR=/root/.subversion
   SVN_SERVERS=$SVN_BASEDIR/servers
   
