@@ -45,7 +45,7 @@ function configure_common {
   echo "configure -> jenkins:common"
   source installers.sh
   COMMON="$MODULES/jenkins/common.sh $SVN_PASSWORD $QUIET"
-  SSH="JAVA; $COMMON"
+  SSH="$JAVA; $COMMON"
   ssh root@$FQDN "$SSH"
 }
 
