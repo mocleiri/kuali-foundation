@@ -20,3 +20,4 @@ http://updates.jenkins-ci.org/stable/update-center.json
 
 TODO
 binary caching
+SVN_URL in bootstrap.sh
