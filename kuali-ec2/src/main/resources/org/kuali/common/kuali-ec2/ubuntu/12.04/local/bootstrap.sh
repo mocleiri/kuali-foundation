@@ -66,5 +66,5 @@ check_args
 DOMAIN=kuali.org
 FQDN=$SUBDOMAIN.$DOMAIN
 
-BASEDIR=/mnt/kuali-ec2
+BASEDIR=/mnt/${project.artifactId}
 MODULES=$BASEDIR/src/main/resources/org/kuali/common/kuali-ec2/ubuntu/12.04
