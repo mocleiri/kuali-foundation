@@ -45,7 +45,7 @@ function configure_application_server {
 
 echo $(date)
 
-# source the check_not_blank function
+# source generic functions
 source preconditions.sh
 
 # Module specific variables
