@@ -25,6 +25,13 @@ function check_args {
   check_not_blank SUBDOMAIN $SUBDOMAIN
 }
 
+function transfer_secrets {
+  SECRETS=$HOME/.ssh/secrets.zip
+  check_exists $SECRETS
+  scp $SECRETS root@$FQDN:/root/.ssh/secrets.zip
+}
+
+
 echo $(date)
 
 # import generic functions
@@ -33,10 +40,12 @@ source preconditions.sh
 # Module specific variables
 SUBDOMAIN=$1
 
+# Make sure we have what we need
+check_args
 
-FQDN=jeff.ci.kuali.org
-SECRETS=$HOME/.ssh/secrets.zip
-MASTER=/mnt/kuali-ec2/src/test/resources/ubuntu/12.04/jenkins/master.sh
+# import bootstrap variables/functions
+source bootstrap.sh $SUBDOMAIN
 
-scp $SECRETS root@$FQDN:/root/secrets.zip
+transfer_secrets
+
 ssh root@$FQDN "cd /mnt/kuali-ec2; svn up; $MASTER"
