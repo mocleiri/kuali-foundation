@@ -131,6 +131,7 @@ function configure_subversion {
   echo "[global]"                      >  $SVN_SERVERS
   echo "store-plaintext-passwords=yes" >> $SVN_SERVERS
   
+  SVN_MESSAGE="Automated Jenkins auth check"
   SVN_TOUCH_URL="https://svn.kuali.org/repos/foundation/sandbox/kuali-devops/temp/nightly/touch"
   SVN_AUTH="--username=$SVN_USERNAME --password=$SVN_PASSWORD"
   SVN_CREATE="svn mkdir --parents $SVN_TOUCH_URL $SVN_AUTH"
