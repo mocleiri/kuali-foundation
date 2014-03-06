@@ -55,7 +55,7 @@ MAX_PERM=$6
 QUIET=${7-""}
 
 # Make sure we have what we need to continue
-source ./preconditions.sh
+source preconditions.sh
 check_args
 
 

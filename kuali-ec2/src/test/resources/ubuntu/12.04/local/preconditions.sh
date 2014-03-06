@@ -22,39 +22,3 @@ function check_not_blank {
     show_usage
   fi
 }
-
-function check_args {
-  check_not_blank SUBDOMAIN $SUBDOMAIN
-}
-
-function enable_root_ssh {
-  echo "enable    -> root ssh"
-  SSH="sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys"
-  ssh ubuntu@$FQDN "$SSH"
-}
-
-function checkout_module {
-  SVN_REPO=https://svn.kuali.org/repos/foundation
-  SVN_PATH=trunk/kuali-ec2
-  SVN_URL=$SVN_REPO/$SVN_PATH
-  echo "checkout  -> $SVN_URL"
-
-  SVN1="apt-get install subversion -y $QUIET"
-  SVN2="rm -rf $BASEDIR"
-  SVN3="svn $QUIET checkout $SVN_URL $BASEDIR"
-  SSH="$SVN1; $SVN2; $SVN3"
-  ssh root@$FQDN "$SSH"
-}
-
-# Make sure we have what we need to continue
-check_args
-
-LOCAL=/Users
-DOMAIN=kuali.org
-BASEDIR=/mnt/kuali-ec2
-MODULES=$BASEDIR/src/test/resources/ubuntu/12.04
-FQDN=$SUBDOMAIN.$DOMAIN
-
-echo "configure -> $FQDN"
-enable_root_ssh
-checkout_module
