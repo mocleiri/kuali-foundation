@@ -75,20 +75,6 @@ function configure_java {
 }
 
 function configure_secrets {
-
-  # Extract the EC2 private keys and the GPG key into the .ssh directory
-  echo "configure -> secrets"
-  ZIP=/root/.ssh/secrets.zip
-  unzip $QUIET -o $ZIP -d /root
-
-  # Setup GPG
-  GPG_KEY=/root/.ssh/private.key.gpg
-  rm -rf /root/.gnupg
-  gpg --allow-secret-key-import --import $GPG_KEY > /dev/null 2>&1
-  
-  # setup maven
-  rm -rf /root/.m2; mkdir -p /root/.m2;  mv /root/.ssh/settings.xml /root/.m2
-  
 }
 
 MAVEN_BASEDIR=/usr/maven
