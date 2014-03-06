@@ -51,4 +51,5 @@
         </excludes>
       </resource>
     </resources>
+  </build>
 </project>
