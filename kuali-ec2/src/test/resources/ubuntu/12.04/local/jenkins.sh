@@ -17,7 +17,7 @@
 
 function show_usage {
   echo requires SUBDOMAIN TYPE
-  echo usage: jenkins.sh subdomain type
+  echo usage: jenkins.sh subdomain type [quiet]
   exit 1
 }
 
