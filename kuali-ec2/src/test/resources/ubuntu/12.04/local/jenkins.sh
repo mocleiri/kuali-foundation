@@ -46,9 +46,9 @@ function configure_common {
   ssh root@$FQDN "$SSH"
 }
 
-function configure_server {
-  echo "configure -> jenkins:server"
-  SERVER="$MODULES/jenkins/server.sh"
+function configure_master {
+  echo "configure -> jenkins:master"
+  SERVER="$MODULES/jenkins/master.sh"
   SSH="$SERVER"
   ssh root@$FQDN "$SSH"
 }
@@ -73,6 +73,6 @@ source bootstrap.sh $SUBDOMAIN
 checkout_module
 transfer_secrets
 configure_common
-configure_server
+configure_master
 
 echo $(date)
