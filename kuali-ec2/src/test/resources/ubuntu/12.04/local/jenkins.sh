@@ -63,6 +63,7 @@ check_args
 # import bootstrap variables/functions
 source bootstrap.sh $SUBDOMAIN
 
+checkout_module
 transfer_secrets
 configure_common
 
