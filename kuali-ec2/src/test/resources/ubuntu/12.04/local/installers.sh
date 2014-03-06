@@ -8,7 +8,7 @@ function show_usage {
 function check_args {
   check_not_blank MODULE $MODULE
   check_not_blank BASEDIR $BASEDIR
-  check_not_blank JDKK $JDKK
+  check_not_blank JDK $JDK
   check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
   check_not_blank SUBDOMAIN $SUBDOMAIN
   check_not_blank DOMAIN $DOMAIN
