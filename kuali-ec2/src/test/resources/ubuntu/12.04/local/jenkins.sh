@@ -46,6 +46,13 @@ function configure_common {
   ssh root@$FQDN "$SSH"
 }
 
+function configure_server {
+  echo "configure -> jenkins:server"
+  SERVER="$MODULES/jenkins/server.sh"
+  SSH="$SERVER"
+  ssh root@$FQDN "$SSH"
+}
+
 echo $(date)
 
 # import generic functions
