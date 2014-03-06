@@ -18,7 +18,11 @@
 
 function install_packages {
   echo "install   -> custom packages"
-  apt-get install subversion git graphviz firefox -y -qq
+  APT_GET="apt-get install subversion git graphviz firefox -y"
+  if [ "$QUIET" = "-qq" ]; then
+    APT_GET="$APT_GET > /dev/null 2>&1"
+  fi
+  $APT_GET
 }
 
 function install_maven {
@@ -61,7 +65,11 @@ function install_default_maven {
 function configure_java {
 
   echo "configure -> default java"
-  cp $JENKINS_BASEDIR/root/.bashrc /root/.bashrc
+  ROOT_ALIASES=/root/.bash_aliases
+  echo "JAVA_HOME=/usr/java/jdk7                    >  $ROOT_ALIASES"
+  echo "PATH=\$JAVA_HOME/bin:$PATH:.                >> $ROOT_ALIASES"
+  echo "MAVEN_OPTS=\"-Xmx2g -XX:MaxPermSize=256m\"" >> $ROOT_ALIASES"
+
   rm -rf /usr/bin/java
   ln -s /usr/java/jdk7/bin/java /usr/bin/java
   
