@@ -35,15 +35,6 @@ function check_args {
 
 function configure_application_server {
   echo "configure -> $FQDN as [application server]"
-  BASICS="$MODULE/common/install_basics.sh $BASEDIR $QUIET"
-  
-  UNATTENDED="$MODULE/common/unattended_upgrades.sh"
-  if [ "$QUIET" = "-qq" ]; then
-    UNATTENDED="$MODULE/common/unattended_upgrades.sh > /dev/null 2>&1"
-  fi
-  
-  JAVA="$MODULE/common/install_java.sh $BASEDIR $JDK $NEXUS_PASSWORD $QUIET"
-  DNS="$MODULE/common/update_hostname.sh $SUBDOMAIN $DOMAIN"
   TOMCAT="$MODULE/appserver/install_tomcat.sh $BASEDIR $TOMCAT $JDK $MAX_HEAP $MAX_PERM $QUIET"
   SSH="$BASICS; $UNATTENDED; $JAVA; $DNS; $TOMCAT"
   ssh root@$FQDN "$SSH"
