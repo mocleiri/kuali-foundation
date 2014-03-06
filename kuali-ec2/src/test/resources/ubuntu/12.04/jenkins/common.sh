@@ -16,8 +16,6 @@
 #
 
 
-MAVEN_BASEDIR=/usr/maven
-
 function install_packages {
   echo "install   -> custom packages"
   apt-get install subversion git graphviz firefox -y -qq
@@ -85,6 +83,8 @@ function configure_secrets {
   rm -rf /root/.m2; mkdir -p /root/.m2;  mv /root/.ssh/settings.xml /root/.m2
   
 }
+
+MAVEN_BASEDIR=/usr/maven
 
 configure_java
 configure_secrets

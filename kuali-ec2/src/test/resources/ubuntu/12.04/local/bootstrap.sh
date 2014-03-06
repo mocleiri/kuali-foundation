@@ -52,4 +52,4 @@ DOMAIN=kuali.org
 FQDN=$SUBDOMAIN.$DOMAIN
 
 BASEDIR=/mnt/kuali-ec2
-MODULE=$BASEDIR/src/test/resources/ubuntu/12.04
+MODULES=$BASEDIR/src/test/resources/ubuntu/12.04

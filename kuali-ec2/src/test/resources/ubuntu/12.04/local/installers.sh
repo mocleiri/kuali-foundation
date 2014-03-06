@@ -1,12 +1,12 @@
 function show_usage {
   echo
-  echo requires MODULE BASEDIR JDK NEXUS_PASSWORD SUBDOMAIN DOMAIN
+  echo requires MODULES BASEDIR JDK NEXUS_PASSWORD SUBDOMAIN DOMAIN
   echo
   exit 1
 }
 
 function check_args {
-  check_not_blank MODULE $MODULE
+  check_not_blank MODULES $MODULES
   check_not_blank BASEDIR $BASEDIR
   check_not_blank JDK $JDK
   check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
@@ -16,12 +16,12 @@ function check_args {
 
 check_args
 
-BASICS="$MODULE/common/install_basics.sh $BASEDIR $QUIET"
+BASICS="$MODULES/common/install_basics.sh $BASEDIR $QUIET"
   
-UNATTENDED="$MODULE/common/unattended_upgrades.sh"
+UNATTENDED="$MODULES/common/unattended_upgrades.sh"
 if [ "$QUIET" = "-qq" ]; then
-  UNATTENDED="$MODULE/common/unattended_upgrades.sh > /dev/null 2>&1"
+  UNATTENDED="$UNATTENDED > /dev/null 2>&1"
 fi
   
-JAVA="$MODULE/common/install_java.sh $BASEDIR $JDK $NEXUS_PASSWORD $QUIET"
-DNS="$MODULE/common/update_hostname.sh $SUBDOMAIN $DOMAIN"
+JAVA="$MODULES/common/install_java.sh $BASEDIR $JDK $NEXUS_PASSWORD $QUIET"
+DNS="$MODULES/common/update_hostname.sh $SUBDOMAIN $DOMAIN"
