@@ -92,10 +92,11 @@ function configure_java {
   
   # the default /root/.bashrc that ships with 12.04 automatically imports /root/.bash_aliases
   ROOT_ALIASES=/root/.bash_aliases
-  echo "JAVA_HOME=/usr/java/jdk7"                   >  $ROOT_ALIASES
-  echo "PATH=\$JAVA_HOME/bin:$PATH:."               >> $ROOT_ALIASES
-  echo "MAVEN_OPTS=\"-Xmx2g -XX:MaxPermSize=256m\"" >> $ROOT_ALIASES
-  echo "export JAVA_HOME PATH MAVEN_OPTS"           >> $ROOT_ALIASES
+  echo "JAVA_HOME=/usr/java/jdk7"                        >  $ROOT_ALIASES
+  echo "PATH=\$JAVA_HOME/bin:$PATH:."                    >> $ROOT_ALIASES
+  echo "MAVEN_OPTS=\"-Xmx2g -XX:MaxPermSize=256m\""      >> $ROOT_ALIASES
+  echo "JENKINS_MASTER=$FQDN                             >> $ROOT_ALIASES
+  echo "export JAVA_HOME PATH MAVEN_OPTS JENKINS_MASTER" >> $ROOT_ALIASES
 
   # remove whatever's at /usr/bin/java and replace it with a symbolic link to jdk7
   rm -rf /usr/bin/java
