@@ -27,11 +27,13 @@ function execute_quietly {
 
 function install_mysql_server {
 
+   echo "remove    -> mysql-server"
    # Remove all traces of MySQL
    execute_quietly "apt-get remove mysql-server -y"
    execute_quietly "apt-get purge  mysql-server -y"
    execute_quietly "apt-get autoremove -y"
 
+   echo "install   -> mysql-server"
    # Setup the MySQL install so it won't prompt for a password
    MYSQL_ROOT_PASSWORD=password
    debconf-set-selections <<< "mysql-server mysql-server/root_password password $MYSQL_ROOT_PASSWORD"
