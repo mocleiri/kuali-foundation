@@ -40,7 +40,9 @@ function transfer_secrets {
 }
 
 function configure_common {
-  COMMON=$MODULES/jenkins/common.sh
+  COMMON="$MODULES/jenkins/common.sh $QUIET"
+  SSH="$COMMON"
+  ssh root@$FQDN "$SSH"
 }
 
 echo $(date)
@@ -61,5 +63,6 @@ check_args
 source bootstrap.sh $SUBDOMAIN
 
 transfer_secrets
+configure_common
 
 echo $(date)
