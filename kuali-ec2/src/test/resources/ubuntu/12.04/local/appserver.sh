@@ -61,7 +61,7 @@ QUIET=${7-""}
 check_args
 
 # source bootstrap variables/functions
-source bootstrap.sh $SUBDOMAIN
+source ../common/bootstrap.sh $SUBDOMAIN
 
 echo "configure -> $FQDN"
 enable_root_ssh
