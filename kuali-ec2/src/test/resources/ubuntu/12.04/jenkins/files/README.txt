@@ -18,13 +18,5 @@ Configure Jenkins -> Configure Plugins -> Advanced -> Update Site
 
 http://updates.jenkins-ci.org/stable/update-center.json
 
-
 TODO
 binary caching
-
-jdk6
-
-
-
-tomcat7 moduser
-ec2plugin stop vs terminate
