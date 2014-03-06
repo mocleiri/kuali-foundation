@@ -139,8 +139,8 @@ function touch_subversion_repo {
   SVN_MESSAGE="Automated auth check"
   SVN_TOUCH_URL="https://svn.kuali.org/repos/$SVN_REPO/automated-auth-check-touch"
   SVN_AUTH="--username=$SVN_USERNAME --password=$SVN_PASSWORD"
-  SVN_CREATE="svn mkdir  $SVN_TOUCH_URL -m \"$SVN_MESSAGE\" $SVN_AUTH"
-  SVN_DELETE="svn delete $SVN_TOUCH_URL -m \"$SVN_MESSAGE\""
+  SVN_CREATE="svn mkdir  $SVN_TOUCH_URL --message \"$SVN_MESSAGE\" $SVN_AUTH"
+  SVN_DELETE="svn delete $SVN_TOUCH_URL --message \"$SVN_MESSAGE\""
   
   echo $SVN_CREATE
   echo $SVN_DELETE
@@ -166,8 +166,8 @@ install_maven 3.1.0 31
 install_maven 3.2.1 32
 install_default_maven 32
 configure_subversion
-touch_subversion_repo foundation
-#touch_subversion_repo rice
+touch_subversion_repo rice
+#touch_subversion_repo foundation
 #touch_subversion_repo student
 #touch_subversion_repo ole
 #touch_subversion_repo mobility
