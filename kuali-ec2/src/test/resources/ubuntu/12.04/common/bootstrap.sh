@@ -34,9 +34,7 @@ function enable_root_ssh {
 }
 
 function checkout_module {
-  SVN_REPO=https://svn.kuali.org/repos/foundation
-  SVN_PATH=trunk/kuali-ec2
-  SVN_URL=$SVN_REPO/$SVN_PATH
+  SVN_URL=https://svn.kuali.org/repos/foundation/trunk/kuali-ec2
   echo "checkout  -> $SVN_URL"
 
   SVN1="apt-get install subversion -y $QUIET"
