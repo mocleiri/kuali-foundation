@@ -135,6 +135,7 @@ function configure_subversion {
   SVN_TOUCH_URL="https://svn.kuali.org/repos/foundation/sandbox/kuali-devops/temp/nightly/touch"
   SVN_AUTH="--username=$SVN_USERNAME --password=$SVN_PASSWORD"
   SVN_CREATE="svn mkdir --parents $SVN_TOUCH_URL $SVN_AUTH -m $SVN_MESSAGE"
+  echo $SVN_CREATE
   SVN_DELETE="svn rm $SVN_TOUCH_URL -m $SVN_MESSAGE"
   
   $SVN_CREATE
