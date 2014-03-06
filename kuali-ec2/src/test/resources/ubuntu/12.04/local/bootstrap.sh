@@ -15,6 +15,18 @@
 # limitations under the License.
 #
 
+function show_usage {
+  echo
+  echo requires SUBDOMAIN
+  echo usage: bootstrap.sh subdomain
+  echo
+  exit 1
+}
+
+function check_args {
+  check_not_blank SUBDOMAIN $SUBDOMAIN
+}
+
 function enable_root_ssh {
   echo "enable    -> root ssh"
   SSH="sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys"
@@ -33,6 +45,8 @@ function checkout_module {
   SSH="$SVN1; $SVN2; $SVN3"
   ssh root@$FQDN "$SSH"
 }
+
+check_args
 
 DOMAIN=kuali.org
 BASEDIR=/mnt/kuali-ec2
