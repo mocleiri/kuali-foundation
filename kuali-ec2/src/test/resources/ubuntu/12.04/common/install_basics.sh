@@ -34,6 +34,9 @@ function install_packages {
 }
 
 function unattended_upgrades {
+  UNATTENDED_FILE=/etc/apt/apt.conf.d/20auto-upgrades
+  echo "APT::Periodic::Update-Package-Lists \"1\";" >  $UNATTENDED_FILE 
+  echo "APT::Periodic::Unattended-Upgrade \"1\";"   >> $UNATTENDED_FILE 
 }
 
 get_upgrades
