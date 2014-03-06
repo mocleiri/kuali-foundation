@@ -153,6 +153,17 @@ function touch_subversion_repo {
   
 }
 
+function touch_subversion_repos {
+
+  touch_subversion_repo foundation
+  touch_subversion_repo rice
+  touch_subversion_repo student
+  touch_subversion_repo ole
+  touch_subversion_repo mobility
+  touch_subversion_repo kpme
+  
+}
+
 MAVEN_BASEDIR=/usr/maven
 SVN_PASSWORD=$1
 QUIET=${2-""}
@@ -169,10 +180,4 @@ install_maven 3.1.0 31
 install_maven 3.2.1 32
 install_default_maven 32
 configure_subversion
-touch_subversion_repo foundation
-touch_subversion_repo rice
-touch_subversion_repo student
-touch_subversion_repo ole
-touch_subversion_repo mobility
-touch_subversion_repo kpme
-
+#touch_subversion_repos
