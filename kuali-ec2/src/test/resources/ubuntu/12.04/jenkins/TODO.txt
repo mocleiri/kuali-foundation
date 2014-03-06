@@ -22,7 +22,6 @@ TODO
 binary caching
 configurable SVN_URL in bootstrap.sh
 MySQL on slaves
-root .bashrc stuff
 encrypted secrets.zip
 user management
 
