@@ -16,13 +16,14 @@
 #
 
 function show_usage {
-  echo requires SUBDOMAIN TYPE
-  echo usage: jenkins.sh subdomain type [quiet]
+  echo requires SUBDOMAIN SVN_PASSWORD TYPE
+  echo usage: jenkins.sh subdomain svn_password type [quiet]
   exit 1
 }
 
 function check_args {
   check_not_blank SUBDOMAIN $SUBDOMAIN
+  check_not_blank SVN_PASSWORD $SVN_PASSWORD
   check_not_blank TYPE $TYPE
 }
 
@@ -41,7 +42,7 @@ function transfer_secrets {
 
 function configure_common {
   echo "configure -> jenkins:common"
-  COMMON="$MODULES/jenkins/common.sh $QUIET"
+  COMMON="$MODULES/jenkins/common.sh $SVN_PASSWORD $QUIET"
   SSH="$COMMON"
   ssh root@$FQDN "$SSH"
 }
@@ -60,8 +61,9 @@ source preconditions.sh
 
 # Module specific variables
 SUBDOMAIN=$1
-TYPE=$2
-QUIET=${3-""}
+SVN_PASSWORD=$2
+TYPE=$3
+QUIET=${4-""}
 
 
 # Make sure we have what we need
