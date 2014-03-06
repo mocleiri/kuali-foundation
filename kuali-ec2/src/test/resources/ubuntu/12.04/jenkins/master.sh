@@ -85,7 +85,7 @@ function configure_tomcat_user {
   cp /root/.bashrc       $TOMCAT_HOME/.bash_profile
   cp /root/.bash_aliases $TOMCAT_HOME/.bash_aliases
   
-  #
+  # Make sure everything is owned by tomcat
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
   
 }
