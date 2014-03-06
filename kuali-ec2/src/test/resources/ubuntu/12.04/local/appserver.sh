@@ -57,7 +57,7 @@ QUIET=${7-""}
 # Make sure we have what we need to continue
 source preconditions.sh
 check_args
-
+source bootstrap.sh
 
 DOMAIN=kuali.org
 BASEDIR=/mnt/kuali-ec2
