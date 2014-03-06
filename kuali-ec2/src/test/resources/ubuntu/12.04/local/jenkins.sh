@@ -15,13 +15,6 @@
 # limitations under the License.
 #
 
-function transfer_secrets {
-  SECRETS=$HOME/.ssh/secrets.zip
-  check_exists $SECRETS
-  DEST=root@$FQDN:/root/.ssh/secrets.zip
-  scp $SECRETS $DEST
-}
-
 function show_usage {
   echo requires SUBDOMAIN TYPE
   echo usage: jenkins.sh subdomain type
@@ -31,6 +24,13 @@ function show_usage {
 function check_args {
   check_not_blank SUBDOMAIN $SUBDOMAIN
   check_not_blank TYPE $TYPE
+}
+
+function transfer_secrets {
+  SECRETS=$HOME/.ssh/secrets.zip
+  check_exists $SECRETS
+  DEST=root@$FQDN:/root/.ssh/secrets.zip
+  scp $SECRETS $DEST
 }
 
 echo $(date)
