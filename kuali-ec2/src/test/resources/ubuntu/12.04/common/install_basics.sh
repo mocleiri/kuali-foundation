@@ -15,14 +15,6 @@
 # limitations under the License.
 #
 
-# generic functions
-function check_not_blank {
-  if ! [ -n "$2" ]; then 
-    echo $1 cannot be blank
-    show_usage
-  fi
-}
-
 # module specific functions
 function show_usage {
   echo
