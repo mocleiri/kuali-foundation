@@ -111,7 +111,7 @@ function configure_tomcat {
   # copy root's .bashrc and setup .bash_aliases with Java and Maven
   cp /root/.bashrc $TOMCAT_HOME/.bash_profile
   TOMCAT_BASH_ALIASES=$TOMCAT_HOME/.bash_aliases
-  echo "create    -> $TOMCAT_BASH_PROFILE"
+  echo "create    -> $TOMCAT_BASH_ALIASES"
   echo "JAVA_HOME=$JAVA_HOME"                       >  $TOMCAT_BASH_ALIASES
   echo "PATH=\$JAVA_HOME/bin:\$PATH:."              >> $TOMCAT_BASH_ALIASES
   echo "MAVEN_OPTS=\"-Xmx2g -XX:MaxPermSize=256m\"" >> $TOMCAT_BASH_ALIASES
