@@ -28,7 +28,8 @@ function check_args {
 function transfer_secrets {
   SECRETS=$HOME/.ssh/secrets.zip
   check_exists $SECRETS
-  scp $SECRETS root@$FQDN:/root/.ssh/secrets.zip
+  DEST=root@$FQDN:/root/.ssh/secrets.zip
+  scp $SECRETS $DEST
 }
 
 
