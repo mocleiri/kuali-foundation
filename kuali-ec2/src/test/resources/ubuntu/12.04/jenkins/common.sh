@@ -67,6 +67,7 @@ function configure_java {
   echo "JAVA_HOME=/usr/java/jdk7"                   >  $ROOT_ALIASES
   echo "PATH=\$JAVA_HOME/bin:$PATH:."               >> $ROOT_ALIASES
   echo "MAVEN_OPTS=\"-Xmx2g -XX:MaxPermSize=256m\"" >> $ROOT_ALIASES
+  echo "export JAVA_HOME PATH MAVEN_OPTS"           >> $ROOT_ALIASES
 
   # remove whatever's at /usr/bin/java and replace it with a symbolic link to jdk7
   rm -rf /usr/bin/java

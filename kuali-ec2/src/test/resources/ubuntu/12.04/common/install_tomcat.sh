@@ -111,10 +111,10 @@ function configure_tomcat {
   # Setup .bash_profile with Java and Maven
   TOMCAT_BASH_PROFILE=$TOMCAT_HOME/.bash_profile
   echo "create    -> $TOMCAT_BASH_PROFILE"
-  echo "JAVA_HOME=$JAVA_HOME" > $TOMCAT_BASH_PROFILE
-  echo "PATH=\$JAVA_HOME/bin:\$PATH:." >> $TOMCAT_BASH_PROFILE
+  echo "JAVA_HOME=$JAVA_HOME"                       >  $TOMCAT_BASH_PROFILE
+  echo "PATH=\$JAVA_HOME/bin:\$PATH:."              >> $TOMCAT_BASH_PROFILE
   echo "MAVEN_OPTS=\"-Xmx2g -XX:MaxPermSize=256m\"" >> $TOMCAT_BASH_PROFILE
-  echo "export JAVA_HOME PATH MAVEN_OPTS" >> $TOMCAT_BASH_PROFILE
+  echo "export JAVA_HOME PATH MAVEN_OPTS"           >> $TOMCAT_BASH_PROFILE
 
   chown -R $TOMCAT_USER:$TOMCAT_GROUP $TOMCAT_HOME
   
