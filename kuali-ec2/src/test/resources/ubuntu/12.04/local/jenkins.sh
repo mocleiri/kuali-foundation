@@ -29,7 +29,7 @@ function check_args {
 }
 
 function transfer_secrets {
-  SECRETS=$HOME/.ssh/secrets.zip
+  SECRETS=$BASEDIR/src/main/ressources/jenkins/config.zip
   check_exists $SECRETS
   DEST=root@$FQDN:/root/.ssh/secrets.zip
   echo "create    -> $DEST"
