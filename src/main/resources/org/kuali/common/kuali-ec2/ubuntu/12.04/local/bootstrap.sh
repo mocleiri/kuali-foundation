@@ -38,7 +38,7 @@ function copy_jar {
   M2_PATH="${project.groupId.path}/${project.artifactId}/${project.version}/${project.artifactId}-${project.version}.jar"
 
   LOCAL="$M2_REPO/$M2_PATH"
-  REMOTE=/mnt/${project-artifactid}.jar
+  REMOTE=/mnt/${project-artifactId}.jar
   
   echo "copy      -> $LOCAL"
 
