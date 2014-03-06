@@ -31,7 +31,11 @@ function transfer_secrets {
   check_exists $SECRETS
   DEST=root@$FQDN:/root/.ssh/secrets.zip
   echo "copy   -> $DEST"
-  scp $SECRETS $DEST
+  SCP="scp $SECRETS $DEST"
+  if [ "$QUIET" = "-qq" ]; then
+    SCP="$SCP > /dev/null 2>&1"
+  fi
+  $SCP
 }
 
 echo $(date)
