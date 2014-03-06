@@ -43,7 +43,7 @@ function configure_application_server {
 
 echo $(date)
 
-# source generic functions
+# import generic functions
 source preconditions.sh
 
 # Module specific variables
@@ -58,7 +58,7 @@ QUIET=${7-""}
 # Make sure we have what we need to continue
 check_args
 
-# source bootstrap variables/functions
+# import bootstrap variables/functions
 source bootstrap.sh $SUBDOMAIN
 
 echo "configure -> $FQDN"
