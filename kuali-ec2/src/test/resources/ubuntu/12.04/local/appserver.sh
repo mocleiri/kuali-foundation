@@ -57,12 +57,13 @@ QUIET=${7-""}
 # Make sure we have what we need to continue
 source preconditions.sh
 check_args
-source bootstrap.sh
 
 DOMAIN=kuali.org
 BASEDIR=/mnt/kuali-ec2
 MODULES=$BASEDIR/src/test/resources/ubuntu/12.04
 FQDN=$SUBDOMAIN.$DOMAIN
+
+source bootstrap.sh
 
 echo "configure -> $FQDN"
 #configure_application_server
