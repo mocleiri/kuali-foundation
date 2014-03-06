@@ -23,13 +23,14 @@ function transfer_secrets {
 }
 
 function show_usage {
-  echo requires SUBDOMAIN
-  echo usage: master.sh subdomain
+  echo requires SUBDOMAIN TYPE
+  echo usage: master.sh subdomain type
   exit 1
 }
 
 function check_args {
   check_not_blank SUBDOMAIN $SUBDOMAIN
+  check_not_blank TYPE $TYPE
 }
 
 echo $(date)
@@ -39,6 +40,7 @@ source preconditions.sh
 
 # Module specific variables
 SUBDOMAIN=$1
+TYPE=$2
 
 # Make sure we have what we need
 check_args
