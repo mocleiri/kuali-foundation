@@ -62,7 +62,7 @@ function configure_java {
 
   echo "configure -> default java"
   
-  # the default .bashrc that ships with 12.04 automatically imports .bash_aliases
+  # the default /root/.bashrc that ships with 12.04 automatically imports /root/.bash_aliases
   ROOT_ALIASES=/root/.bash_aliases
   echo "JAVA_HOME=/usr/java/jdk7"                   >  $ROOT_ALIASES
   echo "PATH=\$JAVA_HOME/bin:$PATH:."               >> $ROOT_ALIASES
