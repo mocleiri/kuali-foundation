@@ -44,12 +44,6 @@ function get_upgrades {
   apt-get $QUIET -y upgrade
 }
 
-# Enable unattended upgrades
-function unattended_upgrades {
-  echo "configure -> unattended upgrades"
-  $BASEDIR/src/test/resources/ubuntu/12.04/common/unattended_upgrades.sh > /dev/null 2>&1
-}
-
 # install custom packages
 function install_packages {
   echo "install   -> custom packages"
