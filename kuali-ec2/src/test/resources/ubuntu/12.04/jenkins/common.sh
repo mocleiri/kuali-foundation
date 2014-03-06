@@ -134,17 +134,22 @@ function configure_subversion {
 }
 
 function touch_subversion_repo {
+
   SVN_REPO=$1
   check_not_blank SVN_REPO $SVN_REPO
-  SVN_MESSAGE="automated-auth-check"
+  
   SVN_TOUCH_URL="https://svn.kuali.org/repos/$SVN_REPO/sandbox/kuali-devops/temp/auth-check/touch"
   echo "touch     -> $SVN_REPO - [$SVN_TOUCH_URL]"
+
   SVN_AUTH="--username=$SVN_USERNAME --password=$SVN_PASSWORD"
+  # the message can't have spaces in it
+  SVN_MESSAGE="automated-auth-check"
   SVN_CREATE="svn $QUIET mkdir  $SVN_TOUCH_URL --message $SVN_MESSAGE --parents $SVN_AUTH"
   SVN_DELETE="svn $QUIET delete $SVN_TOUCH_URL --message $SVN_MESSAGE"
   
   $SVN_CREATE
   $SVN_DELETE
+  
 }
 
 MAVEN_BASEDIR=/usr/maven
