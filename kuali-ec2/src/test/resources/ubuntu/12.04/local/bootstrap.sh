@@ -46,6 +46,8 @@ function checkout_module {
   ssh root@$FQDN "$SSH"
 }
 
+SUBDOMAIN=${1-$SUBDOMAIN}
+
 check_args
 
 DOMAIN=kuali.org
