@@ -15,11 +15,20 @@
 # limitations under the License.
 #
 
+function execute_quietly {
+  COMMAND=$1
+  if [ "$QUIET" = "-qq" ]; then
+    $COMMAND > /dev/null 2>&1
+  else
+    $COMMAND
+  fi
+}
 
 function install_packages {
   echo "install   -> custom packages"
   PACKAGES="subversion git graphviz firefox"
-  apt-get install $PACKAGES -y > /dev/null 2>&1
+  APT_GET="apt-get install $PACKAGES -y"
+  execute_quietly $APT_GET
 }
 
 function install_maven {
@@ -85,7 +94,12 @@ function configure_secrets {
   # Setup GPG
   GPG_KEY=/root/.ssh/private.key.gpg
   rm -rf /root/.gnupg
-  gpg --allow-secret-key-import --import $GPG_KEY > /dev/null 2>&1
+  GPG="gpg --allow-secret-key-import --import $GPG_KEY"
+  if [ "$QUIET" = "-qq" ]; then
+    $GPG > /dev/null 2>&1
+  else
+    $GPG
+  fi
   
   # setup maven
   rm -rf /root/.m2; mkdir -p /root/.m2;  mv /root/.ssh/settings.xml /root/.m2
