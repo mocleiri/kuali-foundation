@@ -45,6 +45,9 @@ function configure_application_server {
 
 echo $(date)
 
+# source the check_not_blank function
+source preconditions.sh
+
 # Module specific variables
 NEXUS_PASSWORD=$1
 SUBDOMAIN=$2
@@ -55,7 +58,6 @@ MAX_PERM=$6
 QUIET=${7-""}
 
 # Make sure we have what we need to continue
-source preconditions.sh
 check_args
 
 DOMAIN=kuali.org
@@ -63,6 +65,8 @@ BASEDIR=/mnt/kuali-ec2
 MODULES=$BASEDIR/src/test/resources/ubuntu/12.04
 FQDN=$SUBDOMAIN.$DOMAIN
 
+# bootstrap the server we are working on
+# enable root ssh, checkout this module to /mnt/kuali-ec2
 source bootstrap.sh
 
 echo "configure -> $FQDN"
