@@ -18,7 +18,7 @@
 
 function install_jenkins {
   
-  echo "install   -> Jenkins $JENKINS_VERSION"
+  echo "install   -> jenkins:$JENKINS_VERSION"
   TOMCAT_DIR=/var/lib/$TOMCAT
   TOMCAT_CLEANUP=/usr/share/$TOMCAT/bin/cleanup.sh
   TOMCAT_WEBAPPS=$TOMCAT_DIR/webapps
