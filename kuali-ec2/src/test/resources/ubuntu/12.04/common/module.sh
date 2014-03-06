@@ -16,4 +16,4 @@
 #
 
 BASEDIR=/mnt/kuali-ec2
-MODULES=$BASEDIR/src/test/resources/ubuntu/12.04
+MODULE=$BASEDIR/src/test/resources/ubuntu/12.04
