@@ -39,6 +39,10 @@ function transfer_secrets {
   fi
 }
 
+function configure_common {
+  COMMON=$MODULES/jenkins/common.sh
+}
+
 echo $(date)
 
 # import generic functions

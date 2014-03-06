@@ -83,8 +83,8 @@ function configure_secrets {
 
   # Extract the EC2 private keys and the GPG key into the .ssh directory
   echo "configure -> secrets"
-  unzip -qq -o /root/secrets.zip -d /root
-  rm /root/secrets.zip
+  ZIP=/root/.ssh/secrets.zip
+  unzip -qq -o $ZIP -d /root
 
   # Setup GPG
   GPG_KEY=/root/.ssh/private.key.gpg
