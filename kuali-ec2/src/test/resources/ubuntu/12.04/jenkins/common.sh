@@ -103,6 +103,7 @@ function configure_secrets {
 }
 
 function configure_subversion {
+
   SVN_BASEDIR=/root/.subversion
   SVN_SERVERS=$SVN_BASEDIR/servers
   
