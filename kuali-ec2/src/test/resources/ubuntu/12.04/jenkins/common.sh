@@ -15,6 +15,25 @@
 # limitations under the License.
 #
 
+function check_not_blank {
+  if [ ! -n "$2" ]; then 
+    echo $1 cannot be blank
+    show_usage
+  fi
+}
+
+function show_usage {
+  echo
+  echo requires SVN_PASSWORD  QUIET
+  echo usage: common.sh svn_password [quiet]
+  echo
+  exit 1
+}
+
+function check_args {
+  check_not_blank SVN_PASSWORD $SVN_PASSWORD
+}
+
 function execute_quietly {
   COMMAND=$1
   if [ "$QUIET" = "-qq" ]; then
@@ -123,7 +142,12 @@ function configure_subversion {
 }
 
 MAVEN_BASEDIR=/usr/maven
-QUIET=${1-""}
+SVN_PASSWORD=$1
+QUIET=${2-""}
+
+check_args
+
+SVN_USERNAME=jcaddel
 
 configure_java
 configure_secrets
