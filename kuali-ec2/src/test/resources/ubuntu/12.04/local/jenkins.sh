@@ -41,6 +41,8 @@ source preconditions.sh
 # Module specific variables
 SUBDOMAIN=$1
 TYPE=$2
+QUIET=${3-""}
+
 
 # Make sure we have what we need
 check_args
