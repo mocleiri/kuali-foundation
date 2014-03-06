@@ -56,6 +56,13 @@ function configure_master {
   ssh root@$FQDN "$SSH"
 }
 
+function configure_slave {
+  echo "configure -> jenkins:slave"
+  SERVER="$MODULES/jenkins/slave.sh"
+  SSH="$SERVER"
+  ssh root@$FQDN "$SSH"
+}
+
 echo $(date)
 
 # import generic functions
