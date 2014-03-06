@@ -60,8 +60,7 @@ QUIET=${7-""}
 # Make sure we have what we need to continue
 check_args
 
-# bootstrap the server we are working on
-# enable root ssh, checkout this module to /mnt/kuali-ec2
+# bootstrap the server we are working on (enables root ssh, checkout kuali-ec2 to /mnt)
 source bootstrap.sh $SUBDOMAIN
 
 echo "configure -> $FQDN"
