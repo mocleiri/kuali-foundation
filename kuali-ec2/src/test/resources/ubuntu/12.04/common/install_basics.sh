@@ -58,5 +58,4 @@ QUIET=${2-$QUIET}
 check_args
 
 get_upgrades
-unattended_upgrades
 install_packages

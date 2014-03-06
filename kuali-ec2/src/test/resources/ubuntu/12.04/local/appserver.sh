@@ -40,7 +40,7 @@ function configure_application_server {
   JAVA="$MODULE/common/install_java.sh $BASEDIR $JDK $NEXUS_PASSWORD $QUIET"
   DNS="$MODULE/common/update_hostname.sh $SUBDOMAIN $DOMAIN"
   TOMCAT="$MODULE/appserver/install_tomcat.sh $BASEDIR $TOMCAT $JDK $MAX_HEAP $MAX_PERM $QUIET"
-  SSH="$BASICS; UNATTENDED; $JAVA; $DNS; $TOMCAT"
+  SSH="$BASICS; $UNATTENDED; $JAVA; $DNS; $TOMCAT"
   ssh root@$FQDN "$SSH"
 }
 
