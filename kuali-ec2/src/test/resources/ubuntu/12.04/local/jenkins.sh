@@ -33,9 +33,10 @@ function transfer_secrets {
   echo "copy   -> $DEST"
   SCP="scp $SECRETS $DEST"
   if [ "$QUIET" = "-qq" ]; then
-    SCP="$SCP > /dev/null 2>&1"
+    $SCP > /dev/null 2>&1
+  else
+    $SCP
   fi
-  $SCP
 }
 
 echo $(date)
