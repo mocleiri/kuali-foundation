@@ -24,7 +24,7 @@ function transfer_secrets {
 
 function show_usage {
   echo requires SUBDOMAIN TYPE
-  echo usage: master.sh subdomain type
+  echo usage: jenkins.sh subdomain type
   exit 1
 }
 
