@@ -64,9 +64,9 @@ function configure_java {
   
   # the default .bashrc that ships with 12.04 automatically imports .bash_aliases
   ROOT_ALIASES=/root/.bash_aliases
-  echo "JAVA_HOME=/usr/java/jdk7                    >  $ROOT_ALIASES"
-  echo "PATH=\$JAVA_HOME/bin:$PATH:.                >> $ROOT_ALIASES"
-  echo "MAVEN_OPTS=\"-Xmx2g -XX:MaxPermSize=256m\"" >> $ROOT_ALIASES"
+  echo "JAVA_HOME=/usr/java/jdk7                   >  $ROOT_ALIASES"
+  echo "PATH=\$JAVA_HOME/bin:$PATH:.               >> $ROOT_ALIASES"
+  echo "MAVEN_OPTS=\"-Xmx2g -XX:MaxPermSize=256m\" >> $ROOT_ALIASES"
 
   # remove whatever's at /usr/bin/java and replace it with a symbolic link to jdk7
   rm -rf /usr/bin/java
@@ -75,6 +75,20 @@ function configure_java {
 }
 
 function configure_secrets {
+
+  # Extract the EC2 private keys and the GPG key into the .ssh directory
+  echo "configure -> secrets"
+  ZIP=/root/.ssh/secrets.zip
+  unzip $QUIET -o $ZIP -d /root
+
+  # Setup GPG
+  GPG_KEY=/root/.ssh/private.key.gpg
+  rm -rf /root/.gnupg
+  gpg --allow-secret-key-import --import $GPG_KEY > /dev/null 2>&1
+  
+  # setup maven
+  rm -rf /root/.m2; mkdir -p /root/.m2;  mv /root/.ssh/settings.xml /root/.m2
+  
 }
 
 MAVEN_BASEDIR=/usr/maven
