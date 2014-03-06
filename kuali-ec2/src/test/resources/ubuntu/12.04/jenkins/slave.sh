@@ -31,7 +31,7 @@ function install_mysql_server {
    # The MySQL setup is then altered to make it so that root has no password
    MYSQL_ROOT_PASSWORD=password
    execute_quietly "apt-get remove mysql-server -y"
-   execute_quietly "apt-get purge mysql-server -y"
+   execute_quietly "apt-get purge  mysql-server -y"
    debconf-set-selections <<< "mysql-server mysql-server/root_password password $MYSQL_ROOT_PASSWORD"
    debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $MYSQL_ROOT_PASSWORD"  
    execute_quietly "apt-get install mysql-server -y"
