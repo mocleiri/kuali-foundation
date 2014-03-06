@@ -92,5 +92,9 @@ if [ "$TYPE" = "master" ]; then
   configure_master
 fi
 
+if [ "$TYPE" = "slave" ]; then
+  configure_slave
+fi
+
 
 echo $(date)
