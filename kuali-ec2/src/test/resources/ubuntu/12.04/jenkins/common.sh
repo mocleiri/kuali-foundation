@@ -18,7 +18,8 @@
 
 function install_packages {
   echo "install   -> custom packages"
-  APT_GET="apt-get install subversion git graphviz firefox -y"
+  PACKAGES="subversion git graphviz firefox"
+  APT_GET="apt-get install $PACKAGES -y"
   if [ "$QUIET" = "-qq" ]; then
     APT_GET="$APT_GET > /dev/null 2>&1"
   fi
