@@ -39,7 +39,7 @@ function configure_application_server {
   
   UNATTENDED="$MODULE/common/unattended_upgrades.sh"
   if [ "$QUIET" = "-qq" ]; then
-    UNATTENDED="$MODULE/common/unattended_upgrades.sh"
+    UNATTENDED="$MODULE/common/unattended_upgrades.sh > /dev/null 2>&1"
   fi
   
   JAVA="$MODULE/common/install_java.sh $BASEDIR $JDK $NEXUS_PASSWORD $QUIET"
