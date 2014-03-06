@@ -51,8 +51,6 @@ SUBDOMAIN=${1-$SUBDOMAIN}
 check_args
 
 DOMAIN=kuali.org
-BASEDIR=/mnt/kuali-ec2
-MODULES=$BASEDIR/src/test/resources/ubuntu/12.04
 FQDN=$SUBDOMAIN.$DOMAIN
 
 BASEDIR=/mnt/kuali-ec2
