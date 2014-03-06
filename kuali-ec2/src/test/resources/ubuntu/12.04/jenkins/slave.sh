@@ -32,6 +32,7 @@ function install_mysql_server {
    MYSQL_ROOT_PASSWORD=password
    execute_quietly "apt-get remove mysql-server -y"
    execute_quietly "apt-get purge  mysql-server -y"
+   execute_quietly "apt-get autoremove -y"
    debconf-set-selections <<< "mysql-server mysql-server/root_password password $MYSQL_ROOT_PASSWORD"
    debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $MYSQL_ROOT_PASSWORD"  
    execute_quietly "apt-get install mysql-server -y"
