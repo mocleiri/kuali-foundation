@@ -55,7 +55,7 @@ MAX_HEAP=$5
 MAX_PERM=$6
 QUIET=${7-""}
 
-# Make sure we have what we need to continue
+# Make sure we have what we need
 check_args
 
 # import bootstrap variables/functions
