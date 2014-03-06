@@ -25,14 +25,6 @@ function check_args {
   check_not_blank SUBDOMAIN $SUBDOMAIN
 }
 
-function transfer_secrets {
-  SECRETS=$HOME/.ssh/secrets.zip
-  check_exists $SECRETS
-  DEST=root@$FQDN:/root/.ssh/secrets.zip
-  scp $SECRETS $DEST
-}
-
-
 echo $(date)
 
 # import generic functions

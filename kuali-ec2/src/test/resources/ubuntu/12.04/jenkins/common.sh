@@ -16,6 +16,13 @@
 #
 
 
+function transfer_secrets {
+  SECRETS=$HOME/.ssh/secrets.zip
+  check_exists $SECRETS
+  DEST=root@$FQDN:/root/.ssh/secrets.zip
+  scp $SECRETS $DEST
+}
+
 function install_packages {
   echo "install   -> custom packages"
   PACKAGES="subversion git graphviz firefox"
