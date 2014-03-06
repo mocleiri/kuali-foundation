@@ -109,7 +109,7 @@ function configure_subversion {
   SVN_SERVERS=$SVN_BASEDIR/servers
   
   rm -rf $SVN_BASEDIR; mkdir -p $SVN_BASEDIR
-  echo "\[global\]"                    >  $SVN_SERVERS
+  echo "[global]"                      >  $SVN_SERVERS
   echo "store-plaintext-passwords=yes" >> $SVN_SERVERS
   
 }
