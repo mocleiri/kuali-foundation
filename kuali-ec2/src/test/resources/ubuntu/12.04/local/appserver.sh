@@ -35,10 +35,10 @@ function check_args {
 
 function configure_application_server {
   echo "configure -> $FQDN as [application server]"
-  BASICS="$MODULES/common/install_basics.sh $BASEDIR $QUIET"
-  JAVA="$MODULES/common/install_java.sh $BASEDIR $JDK $NEXUS_PASSWORD $QUIET"
-  DNS="$MODULES/common/update_hostname.sh $SUBDOMAIN $DOMAIN"
-  TOMCAT="$MODULES/appserver/install_tomcat.sh $BASEDIR $TOMCAT $JDK $MAX_HEAP $MAX_PERM $QUIET"
+  BASICS="$MODULE/common/install_basics.sh $BASEDIR $QUIET"
+  JAVA="$MODULE/common/install_java.sh $BASEDIR $JDK $NEXUS_PASSWORD $QUIET"
+  DNS="$MODULE/common/update_hostname.sh $SUBDOMAIN $DOMAIN"
+  TOMCAT="$MODULE/appserver/install_tomcat.sh $BASEDIR $TOMCAT $JDK $MAX_HEAP $MAX_PERM $QUIET"
   SSH="$BASICS; $JAVA; $DNS; $TOMCAT"
   ssh root@$FQDN "$SSH"
 }
