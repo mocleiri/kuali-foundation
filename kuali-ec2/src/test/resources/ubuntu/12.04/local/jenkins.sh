@@ -30,7 +30,7 @@ function transfer_secrets {
   SECRETS=$HOME/.ssh/secrets.zip
   check_exists $SECRETS
   DEST=root@$FQDN:/root/.ssh/secrets.zip
-  echo "copy   -> $DEST"
+  echo "create   -> $DEST"
   SCP="scp $SECRETS $DEST"
   if [ "$QUIET" = "-qq" ]; then
     $SCP > /dev/null 2>&1
