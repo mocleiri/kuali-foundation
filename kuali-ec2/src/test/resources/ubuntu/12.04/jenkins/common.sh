@@ -89,11 +89,7 @@ function configure_secrets {
   # Setup GPG
   GPG_KEY=/root/.ssh/private.key.gpg
   rm -rf /root/.gnupg
-  if [ "$QUIET" = "-qq" ]; then
-    gpg --allow-secret-key-import --import $GPG_KEY > /dev/null 2>&1
-  else
-    gpg --allow-secret-key-import --import $GPG_KEY
-  fi
+  gpg --allow-secret-key-import --import $GPG_KEY > /dev/null 2>&1
   
   # setup maven
   rm -rf /root/.m2; mkdir -p /root/.m2;  mv /root/.ssh/settings.xml /root/.m2
