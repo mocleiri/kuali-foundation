@@ -29,8 +29,13 @@ function get_upgrades {
 function install_packages {
   echo "install   -> custom packages"
   # not even -qq shuts this up
-  apt-get install zip unzip ntp expect -y $QUIET > /dev/null 2>&1
+  PACKAGES="zip unzip ntp expect"
+  apt-get install $PACKAGES -y $QUIET > /dev/null 2>&1
+}
+
+function unattended_upgrades {
 }
 
 get_upgrades
 install_packages
+unattended_upgrades
