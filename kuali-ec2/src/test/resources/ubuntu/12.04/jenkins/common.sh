@@ -137,7 +137,7 @@ function touch_subversion_repo {
   SVN_REPO=$1
   check_not_blank SVN_REPO $SVN_REPO
   SVN_MESSAGE="Automated auth check"
-  SVN_TOUCH_URL="https://svn.kuali.org/repos/$SVN_REPO/automated-auth-check"
+  SVN_TOUCH_URL="https://svn.kuali.org/repos/$SVN_REPO/automated-auth-check-touch"
   SVN_AUTH="--username=$SVN_USERNAME --password=$SVN_PASSWORD"
   SVN_CREATE="svn mkdir  $SVN_TOUCH_URL -m \"$SVN_MESSAGE\" $SVN_AUTH"
   SVN_DELETE="svn delete $SVN_TOUCH_URL -m \"$SVN_MESSAGE\""
