@@ -26,7 +26,7 @@ function install_jenkins {
   TOMCAT_ROOT_WAR=$TOMCAT_WEBAPPS/ROOT.war
   JENKINS_URL=http://maven.kuali.org/external/org/jenkins/jenkins/$JENKINS_VERSION/jenkins-$JENKINS_VERSION.war
 
-  echo "download  -> $JENKINS_URL"
+  echo "download  -> jenkins:war - [$JENKINS_URL]"
   rm -rf $TOMCAT_WEBAPPS/* $JENKINS_HOME
   curl $JENKINS_URL --silent --output $TOMCAT_ROOT_WAR
   chown $TOMCAT:$TOMCAT $TOMCAT_ROOT_WAR
@@ -95,10 +95,10 @@ TOMCAT=tomcat7
 TOMCAT_HOME=/home/$TOMCAT
 JENKINS_HOME=$TOMCAT_HOME/.jenkins
 
-echo "stop      -> $TOMCAT"
+echo "stop      -> $TOMCAT:service"
 service $TOMCAT stop > /dev/null 2>&1
 configure_tomcat_user
 install_jenkins
 install_plugins
-echo "start     -> $TOMCAT"
+echo "start     -> $TOMCAT:service"
 service $TOMCAT start > /dev/null 2>&1
