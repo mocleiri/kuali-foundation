@@ -61,7 +61,7 @@ function checkout_module {
 }
 
 function configure_application_server {
-  echo "configure -> app server"
+  echo "configure -> $FQDN as [application server]"
   BASICS="$MODULES/common/install_basics.sh $BASEDIR $QUIET"
   JAVA="$MODULES/common/install_java.sh $BASEDIR $JDK $NEXUS_PASSWORD $QUIET"
   DNS="$MODULES/common/update_hostname.sh $SUBDOMAIN $DOMAIN"
