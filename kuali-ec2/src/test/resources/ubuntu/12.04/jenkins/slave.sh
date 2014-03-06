@@ -16,16 +16,24 @@
 #
 
 
+function execute_quietly {
+  COMMAND=$1
+  if [ "$QUIET" = "-qq" ]; then
+    $COMMAND > /dev/null 2>&1
+  else
+    $COMMAND
+  fi
+}
+
 function install_mysql_server {
 
    # MySQL only has a root password for a brief moment right after being installed
    # The MySQL setup is then altered to make it so that root has no password
    MYSQL_ROOT_PASSWORD=password
-   apt-get remove mysql-server -y $QUIET
-   apt-get purge mysql-server -y $QUIET
    debconf-set-selections <<< "mysql-server mysql-server/root_password password $MYSQL_ROOT_PASSWORD"
    debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $MYSQL_ROOT_PASSWORD"  
-   apt-get install mysql-server -y $QUIET
+   APT_GET="apt-get install mysql-server -y $QUIET"
+   execute_quietly $APT_GET
    mysqladmin -u root -p$MYSQL_ROOT_PASSWORD password ''
    
 }
