@@ -182,3 +182,4 @@ install_maven 3.2.1 32
 install_default_maven 32
 configure_subversion
 #touch_subversion_repos
+touch_subversion_repo foundation
