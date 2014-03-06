@@ -89,13 +89,10 @@ TOMCAT=tomcat7
 TOMCAT_HOME=/home/$TOMCAT
 JENKINS_HOME=$TOMCAT_HOME/.jenkins
 
-configure_secrets
-exit 1
-
 echo "stop      -> $TOMCAT"
 service $TOMCAT stop > /dev/null 2>&1
+configure_secrets
 install_jenkins
 install_plugins
 echo "start     -> $TOMCAT"
 service $TOMCAT start > /dev/null 2>&1
-
