@@ -40,6 +40,7 @@ function check_args {
 # Set hostname and FQDN
 function set_hostname {
 
+  # Mike is insane
   MYIP=$(ifconfig eth0 |grep inet | awk '{ print $2 }' | awk 'BEGIN { FS=":" } { print $2 }')
 
   ETC_HOSTS="$MYIP $SUBDOMAIN.$DOMAIN $SUBDOMAIN"
