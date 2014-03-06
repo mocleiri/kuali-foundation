@@ -58,7 +58,7 @@ function configure_master {
 
 function configure_slave {
   echo "configure -> jenkins:slave"
-  SERVER="$MODULES/jenkins/slave.sh"
+  SERVER="$MODULES/jenkins/slave.sh $QUIET"
   SSH="$SERVER"
   ssh root@$FQDN "$SSH"
 }
