@@ -102,6 +102,19 @@ function configure_secrets {
   
 }
 
+function configure_subversion {
+  SVN_BASEDIR=/root/.subversion
+  SVN_SERVERS=$SVN_BASEDIR/servers
+  
+  mkdir -p $SVN_BASEDIR
+  echo "[global]"                      >  $SVN_SERVERS
+  echo "store-plaintext-passwords=yes" >> $SVN_SERVERS
+  
+}
+
+[global]
+store-plaintext-passwords=yes
+
 MAVEN_BASEDIR=/usr/maven
 QUIET=${1-""}
 
