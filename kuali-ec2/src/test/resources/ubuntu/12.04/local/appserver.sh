@@ -64,6 +64,6 @@ check_args
 source bootstrap.sh $SUBDOMAIN
 
 echo "configure -> $FQDN"
-#configure_application_server
+configure_application_server
 
 echo $(date)
