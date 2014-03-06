@@ -25,3 +25,6 @@ MySQL on slaves
 root .bashrc stuff
 encrypted secrets.zip
 user management
+
+automated slave spin up
+automated ami updating
