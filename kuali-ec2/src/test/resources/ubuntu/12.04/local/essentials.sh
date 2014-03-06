@@ -23,17 +23,8 @@ function check_not_blank {
   fi
 }
 
-# module specific functions
-function show_usage {
-  echo
-  echo requires NEXUS_PASSWORD SUBDOMAIN JDK TOMCAT MAX_HEAP MAX_PERM
-  echo usage: bootstrap.sh password subdomain jdk7/jdk6 tomcat7/tomcat6 max_heap max_perm quiet
-  echo
-  exit 1
-}
-
 function check_args {
-  check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
+  check_not_blank SUBDOMAIN $SUBDOMAIN
 }
 
 function enable_root_ssh {
