@@ -72,6 +72,10 @@ function configure_application_server {
 
 echo $(date)
 
+source ./simple.sh
+
+echo $FOO
+
 # Module specific variables
 NEXUS_PASSWORD=$1
 SUBDOMAIN=$2
