@@ -1,4 +1,10 @@
-function check_installer_args {
+function show_usage {
+  echo
+  echo requires MODULE BASEDIR JDK NEXUS_PASSWORD SUBDOMAIN DOMAIN
+  echo
+}
+
+function check_args {
   check_not_blank MODULE $MODULE
   check_not_blank BASEDIR $BASEDIR
   check_not_blank JDKK $JDKK
@@ -7,7 +13,7 @@ function check_installer_args {
   check_not_blank DOMAIN $DOMAIN
 }
 
-check_installer_args
+check_args
 
 BASICS="$MODULE/common/install_basics.sh $BASEDIR $QUIET"
   
