@@ -16,10 +16,6 @@
 #
 
 
-TOMCAT=tomcat7
-TOMCAT_HOME=/home/$TOMCAT
-JENKINS_HOME=$TOMCAT_HOME/.jenkins
-
 function install_jenkins {
   
   JENKINS_VERSION=1.532.2
@@ -86,6 +82,10 @@ function configure_secrets {
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
   
 }
+
+TOMCAT=tomcat7
+TOMCAT_HOME=/home/$TOMCAT
+JENKINS_HOME=$TOMCAT_HOME/.jenkins
 
 echo "stop      -> $TOMCAT"
 service $TOMCAT stop > /dev/null 2>&1
