@@ -17,7 +17,7 @@
 
 # generic functions
 function check_not_blank {
-  if ! [ -n "$2" ]; then 
+  if [ ! -n "$2" ]; then 
     echo $1 cannot be blank
     show_usage
   fi
@@ -64,7 +64,7 @@ function set_hostname {
 SUBDOMAIN=${1-$SUBDOMAIN}
 DOMAIN=${2-$DOMAIN}
 
-# Make sure we have what we need to continue
+# Make sure we have what we need
 check_args
 
 set_hostname
