@@ -24,13 +24,14 @@ function check_not_blank {
 
 function show_usage {
   echo
-  echo requires SVN_PASSWORD ZIP_PASSWORD QUIET
-  echo usage: common.sh svn_password zip_password [quiet]
+  echo requires BASEDIR SVN_PASSWORD ZIP_PASSWORD QUIET
+  echo usage: common.sh basedir svn_password zip_password [quiet]
   echo
   exit 1
 }
 
 function check_args {
+  check_not_blank BASEDIR $BASEDIR
   check_not_blank SVN_PASSWORD $SVN_PASSWORD
   check_not_blank ZIP_PASSWORD $ZIP_PASSWORD
 }
@@ -108,7 +109,7 @@ function configure_secrets {
   # Extract the EC2 private keys and the GPG key into the .ssh directory
   echo "configure -> secrets"
   ZIP=/root/.ssh/secrets.zip
-  unzip $QUIET -o $ZIP -d /root
+  unzip $QUIET -P $ZIP_PASSWORD -o $ZIP -d /root
 
   # Setup GPG
   GPG_KEY=/root/.ssh/private.key.gpg
@@ -163,9 +164,10 @@ function touch_subversion_repos {
 }
 
 MAVEN_BASEDIR=/usr/maven
-SVN_PASSWORD=$1
-ZIP_PASSWORD=$2
-QUIET=${3-""}
+BASEDIR=$1
+SVN_PASSWORD=$2
+ZIP_PASSWORD=$3
+QUIET=${4-""}
 
 check_args
 
