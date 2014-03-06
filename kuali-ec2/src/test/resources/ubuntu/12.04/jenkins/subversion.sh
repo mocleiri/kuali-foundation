@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-# Location of the "secreet" directory that contains the subversion directory
+# Location of the "secret" directory that contains the subversion directory
 # that has the common usernames, passwords and settings.
 SECRET_SVN_DIR=/root/secrets/.subversion
 
