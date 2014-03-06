@@ -28,7 +28,7 @@ function execute_quietly {
 function install_mysql_server {
 
    # MySQL only has a root password for a brief moment right after being installed
-   # The MySQL setup is then altered to make it so that root has no password
+   # The instant it is installed, it is altered so that root has no password
    MYSQL_ROOT_PASSWORD=password
    execute_quietly "apt-get remove mysql-server -y"
    execute_quietly "apt-get purge  mysql-server -y"
