@@ -135,6 +135,7 @@ function configure_subversion {
 
 function touch_subversion_repo {
   SVN_REPO=$1
+  check_not_blank SVN_REPO $SVN_REPO
   SVN_MESSAGE="Automated auth check"
   SVN_TOUCH_URL="https://svn.kuali.org/repos/$SVN_REPO/sandbox/kuali-devops/temp/nightly/touch"
   SVN_AUTH="--username=$SVN_USERNAME --password=$SVN_PASSWORD"
