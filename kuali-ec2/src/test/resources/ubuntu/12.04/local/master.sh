@@ -16,7 +16,7 @@
 #
 
 FQDN=jeff.ci.kuali.org
-SECRETS=/Users/jcaddel/.ssh/secrets.zip
+SECRETS=$HOME/.ssh/secrets.zip
 MASTER=/mnt/kuali-ec2/src/test/resources/ubuntu/12.04/jenkins/master.sh
 
 scp $SECRETS root@$FQDN:/root/secrets.zip
