@@ -46,7 +46,7 @@ function configure_application_server {
 echo $(date)
 
 # source generic functions
-source preconditions.sh
+source ../common/preconditions.sh
 
 # Module specific variables
 NEXUS_PASSWORD=$1
