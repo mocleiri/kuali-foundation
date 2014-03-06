@@ -28,19 +28,6 @@ function check_args {
   check_not_blank TYPE $TYPE
 }
 
-function transfer_secrets {
-  SECRETS=$BASEDIR/src/main/ressources/jenkins/config.zip
-  check_exists $SECRETS
-  DEST=root@$FQDN:/root/.ssh/secrets.zip
-  echo "create    -> $DEST"
-  SCP="scp $SECRETS $DEST"
-  if [ "$QUIET" = "-qq" ]; then
-    $SCP > /dev/null 2>&1
-  else
-    $SCP
-  fi
-}
-
 function configure_common {
   echo "configure -> jenkins:common"
   source installers.sh
@@ -88,7 +75,6 @@ check_args
 source bootstrap.sh $SUBDOMAIN
 
 checkout_module
-transfer_secrets
 configure_common
 
 if [ "$TYPE" = "master" ]; then
