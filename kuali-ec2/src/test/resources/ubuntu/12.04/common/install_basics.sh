@@ -29,7 +29,7 @@ function get_upgrades {
 function install_packages {
   echo "install   -> custom packages"
   # not even -qq shuts this up
-  apt-get install unzip ntp expect -y $QUIET > /dev/null 2>&1
+  apt-get install zip unzip ntp expect -y $QUIET > /dev/null 2>&1
 }
 
 get_upgrades
