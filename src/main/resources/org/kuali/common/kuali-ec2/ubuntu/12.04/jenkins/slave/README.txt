@@ -28,4 +28,4 @@ This creates symlinks as described here: http://www.debuntu.org/how-to-manage-se
 #
 # Configuration
 #
-shutdown-script is run on the slave before it shuts down
+copy_repo_to_master.sh is run on the slave before it shuts down
