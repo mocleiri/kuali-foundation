@@ -43,18 +43,20 @@
         <directory>src/main/resources</directory>
         <filtering>true</filtering>
         <includes>
-          <include>**/ubuntu/**/bootstrap.sh</include>
-          <include>**/ubuntu/**/install_tomcat.sh</include>
-          <include>**/ubuntu/**/jenkins/common.sh</include>
+          <include>**/*.sh</include>
         </includes>
+        <excludes>
+          <exclude>**/install_java.sh</exclude>
+        </excludes>
       </resource>
       <resource>
         <directory>src/main/resources</directory>
         <filtering>false</filtering>
+        <includes>
+          <include>**/install_java.sh</include>
+        </includes>
         <excludes>
-          <exclude>**/ubuntu/**/bootstrap.sh</exclude>
-          <exclude>**/ubuntu/**/install_tomcat.sh</exclude>
-          <exclude>**/ubuntu/**/jenkins/common.sh</exclude>
+          <exclude>**/*.sh</exclude>
         </excludes>
       </resource>
     </resources>
