@@ -74,7 +74,7 @@ check_args
 # import bootstrap variables/functions
 source bootstrap.sh $SUBDOMAIN
 
-checkout_module
+publish_module
 configure_common
 
 if [ "$TYPE" = "master" ]; then
