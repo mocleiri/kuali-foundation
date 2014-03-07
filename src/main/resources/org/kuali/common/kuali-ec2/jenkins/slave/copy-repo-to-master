@@ -10,7 +10,7 @@ function check_not_blank {
   fi
 }
 
-JENKINS_MASTER=${1-$JENKINS_MASTER}
+JENKINS_MASTER=$1
 check_not_blank JENKINS_MASTER $JENKINS_MASTER
 
 # The trailing slash is significant here
