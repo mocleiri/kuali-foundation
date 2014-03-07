@@ -16,8 +16,8 @@
 #
 
 function show_usage {
-  echo requires NEXUS_PASSWORD SVN_PASSWORD SUBDOMAIN JENKINS_MASTER TYPE
-  echo usage: jenkins.sh nexus_password svn_password subdomain jenkins_master type [quiet]
+  echo requires NEXUS_PASSWORD SVN_PASSWORD SUBDOMAIN TYPE
+  echo usage: jenkins.sh nexus_password svn_password subdomain type [quiet]
   exit 1
 }
 
@@ -70,9 +70,8 @@ source preconditions.sh
 NEXUS_PASSWORD=$1
 SVN_PASSWORD=$2
 SUBDOMAIN=$3
-JENKINS_MASTER=$4
-TYPE=$5
-QUIET=${6-""}
+TYPE=$4
+QUIET=${5-""}
 
 # Same password for both
 ZIP_PASSWORD=$SVN_PASSWORD

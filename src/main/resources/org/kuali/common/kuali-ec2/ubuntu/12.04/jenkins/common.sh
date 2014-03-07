@@ -169,8 +169,7 @@ MAVEN_BASEDIR=/usr/maven
 BASEDIR=$1
 SVN_PASSWORD=$2
 ZIP_PASSWORD=$3
-JENKINS_MASTER=$4
-QUIET=${5-""}
+QUIET=${4-""}
 
 check_args
 
