@@ -37,10 +37,9 @@ function copy_jar {
   LOCAL="$HOME/.m2/repository/${project.groupId.path}/${project.artifactId}/${project.version}/${project.artifactId}-${project.version}.jar"
   REMOTE="/mnt/${project.artifactId}.jar"
   
-  echo "copy      -> $LOCAL"
+  echo "copy      -> $REMOTE"
 
   SCP="$LOCAL root@$FQDN:$REMOTE"
-  echo $SCP
   scp $SCP
 }
 
