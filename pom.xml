@@ -44,6 +44,8 @@
         <filtering>true</filtering>
         <excludes>
           <exclude>**/install_java.sh</exclude>
+          <exclude>**/*.zip</exclude>
+          <exclude>**/rice.keystore</exclude>
         </excludes>
       </resource>
       <resource>
@@ -51,6 +53,8 @@
         <filtering>false</filtering>
         <includes>
           <include>**/install_java.sh</<include>>
+          <include>**/*.zip</include>
+          <include>**/rice.keystore</include>
         <includes>
       </resource>
     </resources>
