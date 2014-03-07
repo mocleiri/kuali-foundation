@@ -82,6 +82,10 @@ check_args
 # import bootstrap variables/functions
 source bootstrap.sh $SUBDOMAIN
 
+if [ "$TYPE" = "slave" ]; then
+  configure_slave_before
+fi
+
 publish_module
 configure_common
 
@@ -90,7 +94,7 @@ if [ "$TYPE" = "master" ]; then
 fi
 
 if [ "$TYPE" = "slave" ]; then
-  configure_slave
+  configure_slave_after
 fi
 
 
