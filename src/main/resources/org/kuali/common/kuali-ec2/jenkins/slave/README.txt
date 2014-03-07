@@ -28,9 +28,4 @@ This creates symlinks as described here: http://www.debuntu.org/how-to-manage-se
 #
 # Configuration
 #
-init-script is run on the slave at startup
 shutdown-script is run on the slave before it shuts down
-
-Before init-script and shutdown-script are run, svn update is called
-to ensure they will always be running the latest version of that script
-
