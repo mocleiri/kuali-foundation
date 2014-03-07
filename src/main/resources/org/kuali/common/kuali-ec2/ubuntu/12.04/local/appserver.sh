@@ -61,6 +61,6 @@ source bootstrap.sh $SUBDOMAIN
 echo "configure -> $FQDN"
 enable_root_ssh
 publish_module
-#configure_application_server
+configure_application_server
 
 echo $(date)
