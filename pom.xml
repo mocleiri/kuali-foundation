@@ -40,7 +40,7 @@
         <directory>src/main/resources</directory>
         <filtering>true</filtering>
         <includes>
-          <include>**/local/bootstrap.sh</include>
+          <include>**/ubuntu/**/*.sh</include>
         </includes>
       </resource>
       <resource>
