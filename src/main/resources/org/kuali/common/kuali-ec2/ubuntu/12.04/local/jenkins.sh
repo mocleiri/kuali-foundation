@@ -16,8 +16,8 @@
 #
 
 function show_usage {
-  echo requires NEXUS_PASSWORD SVN_PASSWORD SUBDOMAIN TYPE
-  echo usage: jenkins.sh nexus_password svn_password subdomain type [quiet]
+  echo requires NEXUS_PASSWORD SVN_PASSWORD SUBDOMAIN TYPE JENKINS_MASTER
+  echo usage: jenkins.sh nexus_password svn_password subdomain type jenkins_master [quiet]
   exit 1
 }
 
@@ -26,6 +26,7 @@ function check_args {
   check_not_blank SVN_PASSWORD $SVN_PASSWORD
   check_not_blank SUBDOMAIN $SUBDOMAIN
   check_not_blank TYPE $TYPE
+  check_not_blank JENKINS_MASTER $JENKINS_MASTER
 }
 
 function configure_common {
@@ -71,7 +72,7 @@ NEXUS_PASSWORD=$1
 SVN_PASSWORD=$2
 SUBDOMAIN=$3
 TYPE=$4
-MASTER=$5
+JENKINS_MASTER=$5
 QUIET=${6-""}
 
 # Same password for both
@@ -96,7 +97,6 @@ fi
 
 if [ "$TYPE" = "slave" ]; then
   configure_slave_after
-  check_not_blank MASTER $MASTER
 fi
 
 
