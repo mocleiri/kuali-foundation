@@ -119,7 +119,7 @@ function configure_tomcat_user {
 
 function configure_jenkins {
   
-  echo "configure -> jenkins:master"
+  echo "configure -> jenkins:other"
   
   MASTER_SRC_DIR=$BASEDIR/${project.groupId.path}/${project.artifactId}/jenkins/master
 
