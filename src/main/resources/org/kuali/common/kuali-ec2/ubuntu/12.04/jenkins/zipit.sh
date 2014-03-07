@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 function check_not_blank {
   if [ ! -n "$2" ]; then 
     echo $1 cannot be blank
