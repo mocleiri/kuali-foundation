@@ -54,6 +54,7 @@ function install_jdk {
   JDK_UNZIP_DIR=$JDK_ARTIFACT_ID-$JDK_VERSION
   JDK_ZIP_FILE=$JDK_ARTIFACT_ID-$JDK_VERSION-$JDK_CLASSIFIER.zip
   JDK_BASEDIR=/usr/java
+  mkdir -p $JDK_BASEDIR
 
   NEXUS_URL=http://nexus.kuali.org/content/groups/developer
   NEXUS_JDK_LOCATION=$JDK_GROUP_ID/$JDK_ARTIFACT_ID/$JDK_VERSION
