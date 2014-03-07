@@ -72,7 +72,6 @@ function install_maven {
   ln -s $MAVEN_TARGET $MAVEN_LINK
   ln -s $MAVEN_BASEDIR/mvn$MAVEN_ABBR/bin/mvn $MAVEN_USR_BIN
   
-  mkdir -p /root/.m2/repository
 }
 
 function install_default_maven {
@@ -121,7 +120,7 @@ function configure_secrets {
   execute_quietly "gpg --allow-secret-key-import --import $GPG_KEY"
   
   # setup maven
-  rm -rf /root/.m2; mkdir -p /root/.m2;  mv /root/.ssh/settings.xml /root/.m2
+  rm -rf /root/.m2; mkdir -p /root/.m2 /root/.m2/repository;  mv /root/.ssh/settings.xml /root/.m2
   
 }
 
