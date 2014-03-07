@@ -5,7 +5,7 @@
 echo $(date)
 set -xe
 
-/usr/share/ec2slave/copy-repo-to-master ci.rice.kuali.org
+/usr/share/ec2slave/copy-repo-to-master beta.ci.kuali.org
 
 set +x
 echo $(date)
