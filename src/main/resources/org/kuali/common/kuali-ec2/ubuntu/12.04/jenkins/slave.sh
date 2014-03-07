@@ -46,6 +46,7 @@ function check_args {
 
 function slave_shutdown_scripting {
   
+  echo "remove    -> mysql-server"
   EC2SLAVE_SRC=$BASEDIR/${project.groupId.path}/${project.artifactId}/jenkins/slave/ec2slave
   EC2SLAVE_DST=/etc/init.d/ec2slave
   cp $EC2SLAVE_SRC $EC2SLAVE_DST
@@ -58,23 +59,23 @@ function slave_shutdown_scripting {
 
 function install_mysql_server {
 
-   echo "remove    -> mysql-server"
-   # Remove all traces of MySQL
-   execute_quietly "apt-get remove mysql-server -y"
-   execute_quietly "apt-get purge  mysql-server -y"
-   execute_quietly "apt-get autoremove -y"
+  echo "remove    -> mysql-server"
+  # Remove all traces of MySQL
+  execute_quietly "apt-get remove mysql-server -y"
+  execute_quietly "apt-get purge  mysql-server -y"
+  execute_quietly "apt-get autoremove -y"
 
-   echo "install   -> mysql-server"
-   # Setup the MySQL install so it won't prompt for a password
-   MYSQL_ROOT_PASSWORD=password
-   debconf-set-selections <<< "mysql-server mysql-server/root_password password $MYSQL_ROOT_PASSWORD"
-   debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $MYSQL_ROOT_PASSWORD"
+  echo "install   -> mysql-server"
+  # Setup the MySQL install so it won't prompt for a password
+  MYSQL_ROOT_PASSWORD=password
+  debconf-set-selections <<< "mysql-server mysql-server/root_password password $MYSQL_ROOT_PASSWORD"
+  debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $MYSQL_ROOT_PASSWORD"
    
-   # Install MySQL with no prompts  
-   execute_quietly "apt-get install mysql-server -y"
-   
-   # Remove the password for the root user
-   mysqladmin -u root -p$MYSQL_ROOT_PASSWORD password ""
+  # Install MySQL with no prompts  
+  execute_quietly "apt-get install mysql-server -y"
+  
+  # Remove the password for the root user
+  mysqladmin -u root -p$MYSQL_ROOT_PASSWORD password ""
    
 }
 
