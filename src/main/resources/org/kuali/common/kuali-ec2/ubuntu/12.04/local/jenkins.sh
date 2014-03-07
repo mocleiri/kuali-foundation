@@ -39,7 +39,7 @@ function configure_master {
   echo "configure -> jenkins:master"
   JDK=jdk6
   source installers.sh
-  MASTER="$MODULES/jenkins/master.sh"
+  MASTER="$MODULES/jenkins/master.sh $BASEDIR $QUIET"
   SSH="$JAVA; $MASTER"
   ssh root@$FQDN "$SSH"
 }
