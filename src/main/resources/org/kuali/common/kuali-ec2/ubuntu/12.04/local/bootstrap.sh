@@ -64,4 +64,4 @@ DOMAIN=kuali.org
 FQDN=$SUBDOMAIN.$DOMAIN
 
 BASEDIR=/mnt/${project.artifactId}
-MODULES=$BASEDIR/src/main/resources/org/kuali/common/kuali-ec2/ubuntu/12.04
+MODULES=$BASEDIR/${project.groupId.path}/${project.artifactId}/ubuntu/12.04
