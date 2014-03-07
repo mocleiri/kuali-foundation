@@ -1,2 +1,0 @@
-#!/bin/sh
-/usr/share/ec2slave/copy-repo-to-master
