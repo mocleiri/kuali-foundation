@@ -51,6 +51,7 @@ function install_plugin {
 function install_plugins {
 
   # supported plugins (in alphabetical order)
+  install_plugin build-pipeline-plugin 1.4.2
   install_plugin cas-plugin            1.1.1
   install_plugin credentials           1.10
   install_plugin cucumber-reports      0.0.22 
