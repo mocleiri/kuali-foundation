@@ -1,8 +1,3 @@
-.:
-total 68
-drwxr-x--- 10 tomcat7 tomcat7 4096 Mar  7 19:59 .
-drwxr-xr-x  8 tomcat7 tomcat7 4096 Mar  7 19:55 ..
-drwxr-xr-x  4 tomcat7 tomcat7 4096 Mar  7 19:59 config-history
 
 -rw-r--r--  1 tomcat7 tomcat7    0 Mar  7 19:58 EC2 alive slaves monitor.log
 -rw-r--r--  1 tomcat7 tomcat7  166 Mar  7 19:58 hudson.model.UpdateCenter.xml
