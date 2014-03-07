@@ -91,6 +91,7 @@ function install_default_maven {
 function configure_java {
 
   echo "configure -> default java"
+  echo "jenkins   -> master :: $JENKINS_MASTER"
   
   # the default /root/.bashrc that ships with 12.04 automatically imports /root/.bash_aliases
   ROOT_ALIASES=/root/.bash_aliases
