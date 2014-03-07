@@ -43,7 +43,15 @@ function configure_master {
   ssh root@$FQDN "$SSH"
 }
 
-function configure_slave {
+function configure_slave_before {
+  enable_root_ssh
+  echo "configure -> $FQDN :: ec2slave"
+  source installers.sh
+  SSH="$BASICS; $JAVA; $DNS;"
+  ssh root@$FQDN "$SSH"
+}
+
+function configure_slave_after {
   echo "configure -> jenkins:slave"
   SLAVE="$MODULES/jenkins/slave.sh $QUIET"
   SSH="$SLAVE"
