@@ -71,6 +71,8 @@ function install_maven {
   chmod -R 755 $MAVEN_DIR
   ln -s $MAVEN_TARGET $MAVEN_LINK
   ln -s $MAVEN_BASEDIR/mvn$MAVEN_ABBR/bin/mvn $MAVEN_USR_BIN
+  
+  mkdir -p /root/.m2/repository
 }
 
 function install_default_maven {
