@@ -83,7 +83,7 @@ function install_default_maven {
 
   rm -rf $MAVEN_USR_BIN
   ln -s $MAVEN_TARGET $MAVEN_USR_BIN
-  chmod -R 755 $MAVEN_BASEDIR
+  chmod 755 $MAVEN_BASEDIR
 }
 
 # Make sure /usr/bin/java points to JDK7  
