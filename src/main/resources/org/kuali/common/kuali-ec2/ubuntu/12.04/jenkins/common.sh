@@ -24,8 +24,8 @@ function check_not_blank {
 
 function show_usage {
   echo
-  echo requires BASEDIR SVN_PASSWORD ZIP_PASSWORD JENKINS_MASTER QUIET
-  echo usage: common.sh basedir svn_password zip_password jenkins_master [quiet]
+  echo requires BASEDIR SVN_PASSWORD ZIP_PASSWORD QUIET
+  echo usage: common.sh basedir svn_password zip_password [quiet]
   echo
   exit 1
 }
@@ -34,7 +34,6 @@ function check_args {
   check_not_blank BASEDIR $BASEDIR
   check_not_blank SVN_PASSWORD $SVN_PASSWORD
   check_not_blank ZIP_PASSWORD $ZIP_PASSWORD
-  check_not_blank JENKINS_MASTER $JENKINS_MASTER
 }
 
 function execute_quietly {
@@ -91,14 +90,14 @@ function install_default_maven {
 function configure_java {
 
   echo "configure -> default java"
-  echo "jenkins   -> master :: $JENKINS_MASTER"
+  echo "jenkins   -> master :: ${jenkins.master}"
   
   # the default /root/.bashrc that ships with 12.04 automatically imports /root/.bash_aliases
   ROOT_ALIASES=/root/.bash_aliases
   echo "JAVA_HOME=/usr/java/jdk7"                        >  $ROOT_ALIASES
   echo "PATH=\$JAVA_HOME/bin:$PATH:."                    >> $ROOT_ALIASES
   echo "MAVEN_OPTS=\"-Xmx2g -XX:MaxPermSize=256m\""      >> $ROOT_ALIASES
-  echo "JENKINS_MASTER=$JENKINS_MASTER"                  >> $ROOT_ALIASES
+  echo "JENKINS_MASTER=${jenkins.master}"                >> $ROOT_ALIASES
   echo "export JAVA_HOME PATH MAVEN_OPTS JENKINS_MASTER" >> $ROOT_ALIASES
 
   # remove whatever's at /usr/bin/java and replace it with a symbolic link to jdk7

@@ -26,12 +26,11 @@ function check_args {
   check_not_blank SVN_PASSWORD $SVN_PASSWORD
   check_not_blank SUBDOMAIN $SUBDOMAIN
   check_not_blank TYPE $TYPE
-  check_not_blank JENKINS_MASTER $JENKINS_MASTER
 }
 
 function configure_common {
   echo "configure -> jenkins:common"
-  COMMON="$MODULES/jenkins/common.sh $BASEDIR $SVN_PASSWORD $ZIP_PASSWORD $JENKINS_MASTER $QUIET"
+  COMMON="$MODULES/jenkins/common.sh $BASEDIR $SVN_PASSWORD $ZIP_PASSWORD $QUIET"
   SSH="$COMMON"
   ssh root@$FQDN "$SSH"
 }
@@ -83,8 +82,6 @@ check_args
 
 # import bootstrap variables/functions
 source bootstrap.sh $SUBDOMAIN
-
-JENKINS_MASTER=$JENKINS_MASTER.$DOMAIN
 
 if [ "$TYPE" = "slave" ]; then
   configure_slave_before
