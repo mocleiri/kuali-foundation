@@ -40,7 +40,7 @@ function publish_module {
   FILE=/mnt/${project.artifactId}.jar
   REMOTE=root@$FQDN:$FILE
   CMD1="rm -rf $DIR"
-  CMD2="apt-get install unzip -y -qq"
+  CMD2="apt-get install unzip -y -qq > /dev/null 2>&1"
   CMD3="unzip -qq $FILE -d $DIR"
   CMD4="chmod -R 755 $DIR"
   CMDS="$CMD1; $CMD2; $CMD3; $CMD4"
