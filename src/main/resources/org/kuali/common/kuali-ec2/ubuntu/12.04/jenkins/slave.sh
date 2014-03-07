@@ -47,16 +47,20 @@ function check_args {
 function slave_shutdown_scripting {
   
   echo "configure -> ec2slave:shutdown"
+  
+  EC2SLAVE_BASEDIR=/usr/share/ec2slave
+  rm -rf $EC2SLAVE_BASEDIR; mkdir -p $EC2SLAVE_BASEDIR;
+  
   EC2SLAVE_SRC=$BASEDIR/${project.groupId.path}/${project.artifactId}/jenkins/slave/ec2slave
   EC2SLAVE_DST=/etc/init.d/ec2slave
   cp $EC2SLAVE_SRC $EC2SLAVE_DST
 
   EXCLUDES_SRC=$BASEDIR/${project.groupId.path}/${project.artifactId}/jenkins/slave/rsync-excludes
-  EXCLUDES_DST=/usr/share/ec2slave/rsync-excludes
+  EXCLUDES_DST=$EC2SLAVE_BASEDIR/rsync.excludes
   cp $EXCLUDES_SRC $EXCLUDES_DST
 
   COPY_REPO_SRC=$BASEDIR/${project.groupId.path}/${project.artifactId}/jenkins/slave/copy_repo_to_master.sh
-  COPY_REPO_DST=/usr/share/ec2slave/copy_repo_to_master.sh
+  COPY_REPO_DST=$EC2SLAVE_BASEDIR/copy_repo_to_master.sh
   cp $COPY_REPO_SRC $COPY_REPO_DST
   
   chmod 755 $COPY_REPO_DST
