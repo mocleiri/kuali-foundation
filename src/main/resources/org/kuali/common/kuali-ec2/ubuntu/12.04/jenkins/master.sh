@@ -121,6 +121,8 @@ function configure_jenkins {
   echo "configure -> jenkins:master"
   
   MASTER_SRC_DIR=$BASEDIR/${project.groupId.path}/${project.artifactId}/jenkins/master
+
+  # point jenkins at the update center for LTS
   UPDATE_CENTER_SRC=$MASTER_SRC_DIR/hudson.model.UpdateCenter.xml
   cp $UPDATE_CENTER_SRC $JENKINS_HOME
   
