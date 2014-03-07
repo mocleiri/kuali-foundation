@@ -41,11 +41,11 @@ function copy_jar {
   FILE=/mnt/${project.artifactId}.jar
   REMOTE=root@$FQDN:$FILE
   echo "copy      -> $REMOTE"
-  SCP="scp $LOCAL $REMOTE"
   CMD1="rm -rf $DIR"
   CMD2="apt-get install unzip -y -qq"
   CMD3="unzip -qq $FILE -d $DIR"
   CMDS="$CMD1; $CMD2; $CMD3"
+  scp $LOCAL $REMOTE
   ssh root@$FQDN "$CMDS"
 }
 
