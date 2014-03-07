@@ -168,6 +168,7 @@ wait_for_jenkins
 echo "stop      -> $TOMCAT:service"
 service $TOMCAT stop > /dev/null 2>&1
 
+/usr/bin/cleanup.sh
 configure_jenkins
 
 echo "start     -> $TOMCAT:service"
