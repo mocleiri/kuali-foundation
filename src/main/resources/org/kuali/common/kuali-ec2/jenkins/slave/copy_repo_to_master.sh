@@ -8,7 +8,7 @@ REPO=/root/.m2/repository
 SRC=$REPO/
 JENKINS_MASTER=${jenkins.master}
 DST=root@$JENKINS_MASTER:$REPO
-EXCLUDEFILE=/usr/share/ec2slave/rsync-excludes
+EXCLUDEFILE=/usr/share/ec2slave/rsync_excludes
 
 # Make the rsync call
 rsync --archive --stats -v $SRC $DST --exclude-from $EXCLUDEFILE
