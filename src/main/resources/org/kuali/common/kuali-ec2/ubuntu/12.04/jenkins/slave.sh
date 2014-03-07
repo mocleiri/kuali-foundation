@@ -46,7 +46,7 @@ function check_args {
 
 function slave_shutdown_scripting {
   
-  echo "remove    -> mysql-server"
+  echo "configure -> ec2slave:shutdown"
   EC2SLAVE_SRC=$BASEDIR/${project.groupId.path}/${project.artifactId}/jenkins/slave/ec2slave
   EC2SLAVE_DST=/etc/init.d/ec2slave
   cp $EC2SLAVE_SRC $EC2SLAVE_DST
