@@ -71,7 +71,8 @@ NEXUS_PASSWORD=$1
 SVN_PASSWORD=$2
 SUBDOMAIN=$3
 TYPE=$4
-QUIET=${5-""}
+MASTER=$5
+QUIET=${6-""}
 
 # Same password for both
 ZIP_PASSWORD=$SVN_PASSWORD
@@ -95,6 +96,7 @@ fi
 
 if [ "$TYPE" = "slave" ]; then
   configure_slave_after
+  check_not_blank MASTER $MASTER
 fi
 
 
