@@ -61,6 +61,8 @@ function slave_shutdown_scripting {
   
   chmod 755 $COPY_REPO_DST
 
+  update-rc.d ec2slave defaults
+
 }
 
 function install_mysql_server {
