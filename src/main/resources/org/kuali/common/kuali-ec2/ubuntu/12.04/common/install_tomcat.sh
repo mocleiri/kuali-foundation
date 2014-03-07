@@ -16,6 +16,15 @@
 #
 
 # generic functions
+function execute_quietly {
+  COMMAND=$1
+  if [ "$QUIET" = "-qq" ]; then
+    $COMMAND > /dev/null 2>&1
+  else
+    $COMMAND
+  fi
+}
+
 function check_not_blank {
   if [ ! -n "$2" ]; then 
     echo $1 cannot be blank
@@ -46,7 +55,7 @@ function redirect_ports {
   iptables --table nat --append PREROUTING --protocol tcp --dport 80 --jump REDIRECT --to-port 8080
   iptables -t nat -A OUTPUT -p tcp -o lo --dport 80 -j DNAT --to 127.0.0.1:8080
   export DEBIAN_FRONTEND=noninteractive
-  apt-get $QUIET -y install iptables-persistent
+  execute_quietly "apt-get $QUIET -y install iptables-persistent"
   iptables-save > /etc/iptables/rules.v4
   ip6tables-save > /etc/iptables/rules.v6
   unset DEBIAN_FRONTEND
@@ -57,8 +66,8 @@ function purge_tomcat {
 
   TOMCAT_PURGE="libtcnative-1 tomcat6-common tomcat6 tomcat7"
   echo "purge     -> $TOMCAT_PURGE"
-  apt-get $QUIET -y purge $TOMCAT_PURGE > /dev/null 2>&1
-  apt-get $QUIET -y autoremove > /dev/null 2>&1
+  execute_quietly "apt-get $QUIET -y purge $TOMCAT_PURGE"
+  execute_quietly "apt-get $QUIET -y autoremove"
   rm -rf /var/lib/tomcat6 /var/lib/tomcat7
   
 }
@@ -131,10 +140,10 @@ function install_tomcat_packages {
   
   if [ $TOMCAT_VERSION == "6" ]; then
     echo "install   -> $TOMCAT-common libtcnative-1 $TOMCAT"
-    apt-get $QUIET -y install $TOMCAT-common libtcnative-1 $TOMCAT > /dev/null 2>&1
+    execute_quietly "apt-get $QUIET -y install $TOMCAT-common libtcnative-1 $TOMCAT"
   else
     echo "install   -> libtcnative-1 $TOMCAT"
-    apt-get $QUIET -y install libtcnative-1 $TOMCAT > /dev/null 2>&1
+    execute_quietly "apt-get $QUIET -y install libtcnative-1 $TOMCAT"
   fi
   
 }
