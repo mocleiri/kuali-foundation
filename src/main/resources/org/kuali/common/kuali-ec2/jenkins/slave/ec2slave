@@ -19,8 +19,7 @@ case "$1" in
     ;;
   stop)
     echo "Stopping Elastic CI Slave - $(date)"
-    svn up /root/kuali-ec2
-    exec /root/kuali-ec2/src/main/resources/jenkins/slave/shutdown-script
+    exec /usr/share/ec2slave/shutdown-script
     ;;
   *)
     echo "Usage: $SCRIPTNAME {start|stop}" >&2
