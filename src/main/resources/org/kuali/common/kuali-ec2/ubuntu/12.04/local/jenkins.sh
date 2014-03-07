@@ -32,14 +32,16 @@ function configure_common {
   echo "configure -> jenkins:common"
   source installers.sh
   COMMON="$MODULES/jenkins/common.sh $BASEDIR $SVN_PASSWORD $ZIP_PASSWORD $QUIET"
-  SSH="$JAVA; $COMMON"
+  SSH="$COMMON"
   ssh root@$FQDN "$SSH"
 }
 
 function configure_master {
   echo "configure -> jenkins:master"
+  JDK=jdk6
+  source installers.sh
   MASTER="$MODULES/jenkins/master.sh"
-  SSH="$MASTER"
+  SSH="$JAVA; $MASTER"
   ssh root@$FQDN "$SSH"
 }
 
@@ -47,8 +49,9 @@ function configure_slave_before {
   enable_root_ssh
   publish_module
   echo "configure -> $FQDN :: ec2slave"
-  source installers.sh
-  SSH="$BASICS; $JAVA; $DNS;"
+  JDK=jdk6;  source installers.sh; JAVA6=$JAVA
+  JDK=jdk7;  source installers.sh; JAVA7=$JAVA
+  SSH="$BASICS; $JAVA6; $JAVA7 $DNS;"
   ssh root@$FQDN "$SSH"
   JDK=jdk7
   source installers.sh
@@ -86,9 +89,6 @@ source bootstrap.sh $SUBDOMAIN
 if [ "$TYPE" = "slave" ]; then
   configure_slave_before
 fi
-
-# Install both jdk6 and jdk7 on Jenkins 
-JDK=jdk6
 
 publish_module
 configure_common
