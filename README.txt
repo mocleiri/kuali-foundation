@@ -14,26 +14,7 @@
     limitations under the License.
 ====
 
----------------------------------
-Commands for EC2 medium instances
----------------------------------
+cd ~/ws/kuali-ec2; mci; chmod -R 755 ~/ws/kuali-ec2/target/classes; 
+cd ~/ws/kuali-ec2/target/classes/org/kuali/common/kuali-ec2/ubuntu/12.04/local;
 
-mcp -Ptomcat,6,medium -Djdk.version=jdk6/jdk7 -Dheap.max=2g -Dheap.min=512m -Dheap.maxPermSize=512m
-mcp -Ptomcat,7,medium -Djdk.version=jdk6/jdk7 -Dheap.max=2g -Dheap.min=512m -Dheap.maxPermSize=512m
-
-
---------------------------------
-Commands for EC2 large instances
---------------------------------
-
-Tomcat 6 Commands
-
-mvn clean install -Ptomcat,6
-mvn clean install -Presetall,6
-
-
-
-Tomcat 7 Commands
-
-mvn clean install -Ptomcat
-mvn clean install -Presetall
+./appserver.sh NEXUS_PASSWORD beta.ci jdk7 tomcat7 5g 512m
