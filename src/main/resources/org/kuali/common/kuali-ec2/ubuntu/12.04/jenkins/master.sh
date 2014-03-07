@@ -53,7 +53,7 @@ function install_plugins {
   # supported plugins (in alphabetical order)
   install_plugin cas-plugin            1.1.1
   install_plugin credentials           1.10
-  install_plugin cucumber-reports      0.22
+  install_plugin cucumber-reports      0.0.22 
   install_plugin dashboard-view        2.9.2
   install_plugin depgraph-view         0.11
   install_plugin disk-usage            0.23
