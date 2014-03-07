@@ -34,6 +34,9 @@
     <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/branches/kuali-ec2-2.x</developerConnection>
     <url>https://svn.kuali.org/repos/foundation/branches/kuali-ec2-2.x</url>
   </scm>
+  <properties>
+    <jenkins.master>beta.ci.kuali.org</jenkins.master>
+  </properties>
   <build>
     <resources>
       <resource>
