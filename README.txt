@@ -18,3 +18,4 @@ cd ~/ws/kuali-ec2; mci; chmod -R 755 ~/ws/kuali-ec2/target/classes;
 cd ~/ws/kuali-ec2/target/classes/org/kuali/common/kuali-ec2/ubuntu/12.04/local;
 
 ./appserver.sh NEXUS_PASSWORD beta.ci jdk7 tomcat7 5g 512m
+./jenkins.sh NEXUS_PASSWORD SVN_PASSWORD beta.ci slave
