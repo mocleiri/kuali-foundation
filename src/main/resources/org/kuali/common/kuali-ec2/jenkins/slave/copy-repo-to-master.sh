@@ -3,8 +3,8 @@
 echo $(date)
 set -xe
 
-# The trailing slash is significant here
 REPO=/root/.m2/repository
+# The trailing slash is significant here
 SRC=$REPO/
 DST=root@${jenkins.master}:$REPO
 EXCLUDEFILE=/usr/share/ec2slave/rsync-excludes
