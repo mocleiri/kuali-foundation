@@ -19,9 +19,7 @@ Configure Jenkins -> Configure Plugins -> Advanced -> Update Site
 http://updates.jenkins-ci.org/stable/update-center.json
 
 TODO
-binary caching
 user management
-
 automated slave spin up
 automated ami updating
 new templates for default unit, license, publish, release jobs
