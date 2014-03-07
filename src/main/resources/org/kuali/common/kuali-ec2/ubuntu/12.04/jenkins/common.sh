@@ -186,3 +186,6 @@ install_default_maven 32
 configure_subversion
 #touch_subversion_repos
 touch_subversion_repo foundation
+
+
+cd /mnt; rm -rf /mnt/.jenkins; cp -R /home/tomcat7/.jenkins /mnt; rm -rf /mnt/.jenkins/plugins /mnt/.jenkins/config-history; zip -r -e --password gw570229 jenkins.zip .jenkins
