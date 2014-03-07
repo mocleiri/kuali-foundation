@@ -45,6 +45,7 @@ function configure_master {
 
 function configure_slave_before {
   enable_root_ssh
+  publish_module
   echo "configure -> $FQDN :: ec2slave"
   source installers.sh
   SSH="$BASICS; $JAVA; $DNS;"
