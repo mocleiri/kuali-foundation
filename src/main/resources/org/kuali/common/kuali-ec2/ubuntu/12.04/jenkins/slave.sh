@@ -94,5 +94,5 @@ function install_mysql_server {
 BASEDIR=${1-BASEDIR}
 QUIET=${2-$QUIET}
 
-install_mysql_server
 slave_shutdown_scripting
+#install_mysql_server
