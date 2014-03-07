@@ -44,6 +44,9 @@ function check_args {
   check_not_blank BASEDIR $BASEDIR
 }
 
+function install slave_shutdown_scrip {
+}
+
 function install_mysql_server {
 
    echo "remove    -> mysql-server"
