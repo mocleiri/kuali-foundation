@@ -68,6 +68,8 @@ function install_plugin {
 
 function install_plugins {
 
+  echo "configure -> jenkins:plugins"
+
   # supported plugins (in alphabetical order)
   install_plugin build-pipeline-plugin 1.4.2
   install_plugin cas-plugin            1.1.1
