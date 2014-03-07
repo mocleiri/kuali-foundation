@@ -42,6 +42,7 @@
         <includes>
           <include>**/ubuntu/**/bootstrap.sh</include>
           <include>**/ubuntu/**/install_tomcat.sh</include>
+          <include>**/ubuntu/**/jenkins/common.sh</include>
         </includes>
       </resource>
       <resource>
@@ -50,6 +51,7 @@
         <excludes>
           <exclude>**/ubuntu/**/bootstrap.sh</exclude>
           <exclude>**/ubuntu/**/install_tomcat.sh</exclude>
+          <exclude>**/ubuntu/**/jenkins/common.sh</exclude>
         </excludes>
       </resource>
     </resources>
