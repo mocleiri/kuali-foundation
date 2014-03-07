@@ -60,7 +60,7 @@ source bootstrap.sh $SUBDOMAIN
 
 echo "configure -> $FQDN"
 enable_root_ssh
-copy_jar
+publish_module
 #configure_application_server
 
 echo $(date)

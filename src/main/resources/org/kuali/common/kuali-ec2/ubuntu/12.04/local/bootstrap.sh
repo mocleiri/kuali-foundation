@@ -34,7 +34,7 @@ function enable_root_ssh {
 }
 
 
-function copy_jar { 
+function publish_module { 
   LOCAL="$HOME/.m2/repository/${project.groupId.path}/${project.artifactId}/${project.version}/${project.artifactId}-${project.version}.jar"
   DIR=/mnt/${project.artifactId}
   FILE=/mnt/${project.artifactId}.jar
@@ -47,19 +47,6 @@ function copy_jar {
   CMDS="$CMD1; $CMD2; $CMD3; $CMD4"
   scp $LOCAL $REMOTE > /dev/null 2>&1
   ssh root@$FQDN "$CMDS"
-}
-
-function checkout_module { 
-  SVN_REPO=https://svn.kuali.org/repos/foundation
-  SVN_PATH=trunk/kuali-ec2
-  SVN_URL=$SVN_REPO/$SVN_PATH
-  echo "checkout  -> $SVN_URL"
-
-  SVN1="apt-get install subversion -y $QUIET"
-  SVN2="rm -rf $BASEDIR"
-  SVN3="svn $QUIET checkout $SVN_URL $BASEDIR"
-  SSH="$SVN1; $SVN2; $SVN3"
-  ssh root@$FQDN "$SSH"
 }
 
 SUBDOMAIN=${1-$SUBDOMAIN}
