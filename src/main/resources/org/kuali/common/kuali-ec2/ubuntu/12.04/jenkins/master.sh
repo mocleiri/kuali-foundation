@@ -58,16 +58,19 @@ function install_plugins {
   install_plugin git                   2.0.3
   install_plugin git-client            1.6.3
   install_plugin jobConfigHistory      2.5
+  install_plugin jquery                1.7.2-1 
+  install_plugin jquery-ui             1.0.2
   install_plugin mailer                1.8
   install_plugin mask-passwords        2.7.2
   install_plugin maven-plugin          2.1
+  install_plugin nested-view           1.14
   install_plugin next-build-number     1.1
   install_plugin node-iterator-api     1.2
   install_plugin parameterized-trigger 2.22
   install_plugin scm-api               0.2
   install_plugin ssh-credentials       1.6.1
   install_plugin token-macro           1.10
-  install_plugin nested-view           1.14
+  install_plugin depgraph-view         0.11
 
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME  
   
