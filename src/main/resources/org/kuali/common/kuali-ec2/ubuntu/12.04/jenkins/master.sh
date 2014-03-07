@@ -75,7 +75,6 @@ function install_plugins {
   install_plugin cucumber-reports      0.0.22 
   install_plugin dashboard-view        2.9.2
   install_plugin depgraph-view         0.11
-  install_plugin disk-usage            0.23
   install_plugin ec2                   1.21
   install_plugin email-ext             2.37.2
   install_plugin git                   2.0.3
