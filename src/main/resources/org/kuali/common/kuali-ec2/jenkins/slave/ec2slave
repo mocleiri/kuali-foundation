@@ -16,8 +16,6 @@
 case "$1" in
   start)
     echo "Starting Elastic CI Slave - $(date)"
-    svn up /root/kuali-ec2
-    exec /root/kuali-ec2/src/main/resources/jenkins/slave/init-script
     ;;
   stop)
     echo "Stopping Elastic CI Slave - $(date)"
