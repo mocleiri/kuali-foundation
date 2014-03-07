@@ -133,8 +133,6 @@ function configure_jenkins {
   CONFIG_SRC=$TOMCAT_HOME/.ssh/config.xml
   cp $CONFIG_SRC $JENKINS_HOME
   
-  chmod -R $TOMCAT:TOMCAT $JENKINS_HOME
-  
 }
 
 BASEDIR=${1-$BASEDIR}
