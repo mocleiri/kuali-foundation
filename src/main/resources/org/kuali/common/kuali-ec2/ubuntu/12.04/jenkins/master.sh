@@ -159,19 +159,7 @@ service $TOMCAT stop > /dev/null 2>&1
 configure_tomcat_user
 install_jenkins
 install_plugins
-
-echo "start     -> $TOMCAT:service"
-service $TOMCAT start > /dev/null 2>&1
-
-wait_for_jenkins
-
-echo "stop      -> $TOMCAT:service"
-service $TOMCAT stop > /dev/null 2>&1
-
-/usr/bin/cleanup.sh
 configure_jenkins
-
 echo "start     -> $TOMCAT:service"
 service $TOMCAT start > /dev/null 2>&1
-
 wait_for_jenkins
