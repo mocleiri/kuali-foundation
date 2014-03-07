@@ -1,11 +1,2 @@
 #!/bin/sh
-
-# shutdown script for slave instances
-
-echo $(date)
-set -xe
-
 /usr/share/ec2slave/copy-repo-to-master
-
-set +x
-echo $(date)
