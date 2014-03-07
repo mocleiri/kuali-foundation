@@ -84,8 +84,8 @@ function configure_tomcat {
   echo "JAVA_OPTS=$JAVA_OPTS" >> $TOMCAT_OPT_FILE
   echo "JAVA_HOME=$JAVA_HOME" >> $TOMCAT_OPT_FILE
 
-  WEBXML=$BASEDIR/src/main/resources/apache-tomcat/$TOMCAT_VERSION/conf/web.xml
-  SERVER=$BASEDIR/src/main/resources/apache-tomcat/$TOMCAT_VERSION/conf/server.xml
+  WEBXML=$BASEDIR/${project.groupId.path}/${project.artifactId}/tomcat/$TOMCAT_VERSION/conf/web.xml
+  SERVER=$BASEDIR/${project.groupId.path}/${project.artifactId}/tomcat/$TOMCAT_VERSION/conf/server.xml
 
   cp $WEBXML $TOMCAT_CONF_FILE_DIR/web.xml
   cp $SERVER $TOMCAT_CONF_FILE_DIR/server.xml
@@ -95,10 +95,10 @@ function configure_tomcat {
   TOMCAT_BIN=/usr/share/$TOMCAT/bin
   TOMCAT_CLEANUP=$TOMCAT_BIN/cleanup.sh
   USR_BIN_CLEANUP=/usr/bin/cleanup.sh
-  JSPS=$BASEDIR/src/main/resources/apache-tomcat/jsps/*.jsp
+  JSPS=$BASEDIR/${project.groupId.path}/${project.artifactId}/tomcat/jsps/*.jsp
 
   rm -rf $TOMCAT_WEBAPPS/* $TOMCAT_LOGS/* /var/lib/tomcat6/bin/cleanup.sh /var/lib/tomcat7/bin/cleanup.sh
-  cp $BASEDIR/src/main/resources/apache-tomcat/$TOMCAT_VERSION/bin/cleanup.sh $TOMCAT_CLEANUP
+  cp $BASEDIR/${project.groupId.path}/${project.artifactId}/tomcat/$TOMCAT_VERSION/bin/cleanup.sh $TOMCAT_CLEANUP
   chmod 755 $TOMCAT_BIN/cleanup.sh
   rm -f $USR_BIN_CLEANUP
   ln -s $TOMCAT_CLEANUP $USR_BIN_CLEANUP
