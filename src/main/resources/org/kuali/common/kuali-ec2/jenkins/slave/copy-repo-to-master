@@ -14,7 +14,7 @@ fi
 
 # The trailing slash is significant here
 SRC=/root/.m2/repository/
-DST=jenkins@${JENKINS_MASTER}:/var/lib/jenkins/m2/repository
+DST=jenkins@${JENKINS_MASTER}:/root/.m2/repository
 EXCLUDEFILE=/root/kuali-ec2/src/main/resources/jenkins/slave/rsync-excludes
 
 # Make the rsync call
