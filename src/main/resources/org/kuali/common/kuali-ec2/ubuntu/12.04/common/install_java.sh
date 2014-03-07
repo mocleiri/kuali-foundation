@@ -44,7 +44,7 @@ function install_jdk {
   check_not_blank JDK_LEVEL $JDK_LEVEL
 
   # Extract a specific jdk version based on the jdk level
-  JDK_VERSION=$(eval echo \\${JDK${JDK_LEVEL}_VERSION})
+  JDK_VERSION=$(eval echo \${JDK${JDK_LEVEL}_VERSION})
   check_not_blank JDK_VERSION $JDK_VERSION
 
   JDK_GROUP_ID=com/oracle
