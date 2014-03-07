@@ -20,7 +20,7 @@ http://updates.jenkins-ci.org/stable/update-center.json
 
 TODO
 config.xml template in secrets.zip
-user management
 automated slave spin up
+user management
 automated ami updating
 new templates for default unit, license, publish, release jobs
