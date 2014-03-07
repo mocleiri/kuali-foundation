@@ -67,7 +67,8 @@ function install_plugins {
   install_plugin scm-api               0.2
   install_plugin ssh-credentials       1.6.1
   install_plugin token-macro           1.10
-  
+  install_plugin nested-view           1.14
+
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME  
   
 }
