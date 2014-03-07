@@ -63,7 +63,6 @@ function install_jdk {
   OUTPUT_FILE=$JDK_BASEDIR/$JDK_ZIP_FILE
   echo "download  -> $URL"
   wget $QUIET --user $NEXUS_USER --password $NEXUS_PASSWORD $URL --output-document $OUTPUT_FILE
-  echo "to        -> $OUTPUT_FILE"
 
   # Make sure the JDK and the symbolic link are both gone
   JDK_TARGET=$JDK_BASEDIR/$JDK_UNZIP_DIR
