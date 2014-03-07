@@ -14,6 +14,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+function check_not_blank {
+  if [ ! -n "$2" ]; then 
+    echo $1 cannot be blank
+    exit 1
+  fi
+}
+
+ZIP_PASSWORD=${1-$ZIP_PASSWORD}
+check_not_blank ZIP_PASSWORD $ZIP_PASSWORD
+
 cd /mnt
 rm -rf /mnt/.jenkins
 cp -R /home/tomcat7/.jenkins /mnt
