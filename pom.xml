@@ -42,9 +42,6 @@
       <resource>
         <directory>src/main/resources</directory>
         <filtering>true</filtering>
-        <includes>
-          <include>**/*.sh</include>
-        </includes>
         <excludes>
           <exclude>**/install_java.sh</exclude>
         </excludes>
@@ -53,11 +50,8 @@
         <directory>src/main/resources</directory>
         <filtering>false</filtering>
         <includes>
-          <include>**/install_java.sh</include>
-        </includes>
-        <excludes>
-          <exclude>**/*.sh</exclude>
-        </excludes>
+          <include>**/install_java.sh</<include>>
+        <includes>
       </resource>
     </resources>
   </build>
