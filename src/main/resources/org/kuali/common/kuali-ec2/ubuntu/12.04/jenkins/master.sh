@@ -137,6 +137,14 @@ function configure_jenkins {
   
 }
 
+function wait_for_jenkins {
+  echo "wait      -> jenkins:startup"
+  tail -f /var/lib/$TOMCAT/logs/catalina.out | while read LOGLINE
+  do
+    [[ "${LOGLINE}" == *"Jenkins is fully up and running"* ]] && pkill -P $$ tail
+  done
+}
+
 BASEDIR=${1-$BASEDIR}
 QUIET=${2-$QUIET}
 
@@ -147,9 +155,22 @@ JENKINS_HOME=$TOMCAT_HOME/.jenkins
 
 echo "stop      -> $TOMCAT:service"
 service $TOMCAT stop > /dev/null 2>&1
+
 configure_tomcat_user
 install_jenkins
 install_plugins
-configure_jenkins
+
 echo "start     -> $TOMCAT:service"
 service $TOMCAT start > /dev/null 2>&1
+
+wait_for_jenkins
+
+echo "stop      -> $TOMCAT:service"
+service $TOMCAT stop > /dev/null 2>&1
+
+configure_jenkins
+
+echo "start     -> $TOMCAT:service"
+service $TOMCAT start > /dev/null 2>&1
+
+wait_for_jenkins
