@@ -84,7 +84,7 @@ check_args
 # import bootstrap variables/functions
 source bootstrap.sh $SUBDOMAIN
 
-JENKINS_MASTER=$JENKINS_MASTER.$DOMAINS
+JENKINS_MASTER=$JENKINS_MASTER.$DOMAIN
 
 if [ "$TYPE" = "slave" ]; then
   configure_slave_before
