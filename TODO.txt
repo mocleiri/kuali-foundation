@@ -24,3 +24,4 @@ user management
 
 automated slave spin up
 automated ami updating
+new templates for default unit, license, publish, release jobs
