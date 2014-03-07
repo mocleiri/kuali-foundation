@@ -141,5 +141,6 @@ service $TOMCAT stop > /dev/null 2>&1
 configure_tomcat_user
 install_jenkins
 install_plugins
+configure_jenkins
 echo "start     -> $TOMCAT:service"
 service $TOMCAT start > /dev/null 2>&1
