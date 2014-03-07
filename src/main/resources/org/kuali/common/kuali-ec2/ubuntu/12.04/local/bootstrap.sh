@@ -33,12 +33,20 @@ function enable_root_ssh {
   ssh ubuntu@$FQDN "$SSH"
 }
 
+ > /dev/null 2>&1
+
 function copy_jar { 
   LOCAL="$HOME/.m2/repository/${project.groupId.path}/${project.artifactId}/${project.version}/${project.artifactId}-${project.version}.jar"
-  MNT=/mnt/${project.artifactId}.jar
-  REMOTE=root@$FQDN:$MNT
+  DIR=/mnt/${project.artifactid}
+  FILE=/mnt/${project.artifactId}.jar
+  REMOTE=root@$FQDN:$FILE
   echo "copy      -> $REMOTE"
-  scp $LOCAL $REMOTE > /dev/null 2>&1
+  SCP="scp $LOCAL $REMOTE"
+  CMD1="rm -rf $DIR"
+  CMD2="apt-get install unzip -y -qq"
+  CMD3="unzip -qq $FILE -d $DIR"
+  CMDS="$CMD1; $CMD2; $CMD3"
+  ssh root@$FQDN "$CMDS"
 }
 
 function checkout_module { 
