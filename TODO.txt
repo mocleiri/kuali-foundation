@@ -19,6 +19,7 @@ Configure Jenkins -> Configure Plugins -> Advanced -> Update Site
 http://updates.jenkins-ci.org/stable/update-center.json
 
 TODO
+config.xml template in secrets.zip
 user management
 automated slave spin up
 automated ami updating
