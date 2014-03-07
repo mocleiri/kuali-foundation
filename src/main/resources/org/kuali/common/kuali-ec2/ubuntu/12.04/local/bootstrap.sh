@@ -43,7 +43,8 @@ function copy_jar {
   CMD1="rm -rf $DIR"
   CMD2="apt-get install unzip -y -qq"
   CMD3="unzip -qq $FILE -d $DIR"
-  CMDS="$CMD1; $CMD2; $CMD3"
+  CMD4="chmod -R 755 $DIR"
+  CMDS="$CMD1; $CMD2; $CMD3; $CMD4"
   scp $LOCAL $REMOTE > /dev/null 2>&1
   ssh root@$FQDN "$CMDS"
 }
