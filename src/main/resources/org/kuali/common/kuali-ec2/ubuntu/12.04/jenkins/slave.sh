@@ -55,7 +55,7 @@ function slave_shutdown_scripting {
   EC2SLAVE_DST=/etc/init.d/ec2slave
   cp $EC2SLAVE_SRC $EC2SLAVE_DST
 
-  EXCLUDES_SRC=$BASEDIR/${project.groupId.path}/${project.artifactId}/jenkins/slave/rsync-excludes
+  EXCLUDES_SRC=$BASEDIR/${project.groupId.path}/${project.artifactId}/jenkins/slave/rsync.excludes
   EXCLUDES_DST=$EC2SLAVE_BASEDIR/rsync.excludes
   cp $EXCLUDES_SRC $EXCLUDES_DST
 
