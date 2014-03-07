@@ -46,7 +46,7 @@ function check_args {
 
 function slave_shutdown_scripting {
   
-  echo "configure -> ec2slave:shutdown"
+  echo "configure -> jenkins:slave:shutdown"
   
   EC2SLAVE_BASEDIR=/usr/share/ec2slave
   rm -rf $EC2SLAVE_BASEDIR; mkdir -p $EC2SLAVE_BASEDIR;
