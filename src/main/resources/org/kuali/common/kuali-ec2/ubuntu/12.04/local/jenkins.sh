@@ -74,9 +74,6 @@ SUBDOMAIN=$3
 TYPE=$4
 QUIET=${5-""}
 
-# Install both jdk6 and jdk7 on Jenkins 
-JDK=jdk6
-
 # Same password for both
 ZIP_PASSWORD=$SVN_PASSWORD
 
@@ -89,6 +86,9 @@ source bootstrap.sh $SUBDOMAIN
 if [ "$TYPE" = "slave" ]; then
   configure_slave_before
 fi
+
+# Install both jdk6 and jdk7 on Jenkins 
+JDK=jdk6
 
 publish_module
 configure_common
