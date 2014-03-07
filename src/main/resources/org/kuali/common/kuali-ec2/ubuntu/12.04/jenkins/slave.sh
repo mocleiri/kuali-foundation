@@ -44,11 +44,15 @@ function check_args {
   check_not_blank BASEDIR $BASEDIR
 }
 
-function slave_shutdown_script {
+function slave_shutdown_scripting {
   
   EC2SLAVE_SRC=$BASEDIR/${project.groupId.path}/${project.artifactId}/jenkins/slave/ec2slave
   EC2SLAVE_DST=/etc/init.d/ec2slave
   cp $EC2SLAVE_SRC $EC2SLAVE_DST
+
+  EXCLUDES_SRC=$BASEDIR/${project.groupId.path}/${project.artifactId}/jenkins/slave/rsync-excludes
+  EXCLUDES_DST=/usr/share/ec2slave/rsync-excludes
+  cp $EXCLUDES_SRC $EXCLUDES_DST
 
 }
 
@@ -78,3 +82,4 @@ BASEDIR=${1-BASEDIR}
 QUIET=${2-$QUIET}
 
 install_mysql_server
+slave_shutdown_scripting
