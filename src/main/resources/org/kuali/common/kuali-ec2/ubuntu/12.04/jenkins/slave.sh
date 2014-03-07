@@ -48,19 +48,21 @@ function slave_shutdown_scripting {
   
   echo "configure -> jenkins:slave:shutdown:rsync"
   
-  EC2SLAVE_BASEDIR=/usr/share/ec2slave
-  rm -rf $EC2SLAVE_BASEDIR; mkdir -p $EC2SLAVE_BASEDIR;
+  EC2SLAVE_DST_DIR=/usr/share/ec2slave
+  rm -rf $EC2SLAVE_DST_DIR; mkdir -p $EC2SLAVE_DST_DIR;
   
-  EC2SLAVE_SRC=$BASEDIR/${project.groupId.path}/${project.artifactId}/jenkins/slave/ec2slave
+  EC2SLAVE_SRC_DIR=$BASEDIR/${project.groupId.path}/${project.artifactId}/ubuntu/12.04/jenkins/slave
+  
+  EC2SLAVE_SRC=$EC2SLAVE_SRC_DIR/ec2slave
   EC2SLAVE_DST=/etc/init.d/ec2slave
   cp $EC2SLAVE_SRC $EC2SLAVE_DST
 
-  EXCLUDES_SRC=$BASEDIR/${project.groupId.path}/${project.artifactId}/jenkins/slave/rsync.excludes
-  EXCLUDES_DST=$EC2SLAVE_BASEDIR/rsync.excludes
+  EXCLUDES_SRC=$EC2SLAVE_SRC_DIR/rsync.excludes
+  EXCLUDES_DST=$EC2SLAVE_DST_DIR/rsync.excludes
   cp $EXCLUDES_SRC $EXCLUDES_DST
 
-  COPY_REPO_SRC=$BASEDIR/${project.groupId.path}/${project.artifactId}/jenkins/slave/copy_repo_to_master.sh
-  COPY_REPO_DST=$EC2SLAVE_BASEDIR/copy_repo_to_master.sh
+  COPY_REPO_SRC=$EC2SLAVE_SRC_DIR/copy_repo_to_master.sh
+  COPY_REPO_DST=$EC2SLAVE_DST_DIR/copy_repo_to_master.sh
   cp $COPY_REPO_SRC $COPY_REPO_DST
   
   chmod 755 $COPY_REPO_DST
