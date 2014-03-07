@@ -53,6 +53,8 @@ function install_plugins {
   # supported plugins (in alphabetical order)
   install_plugin cas-plugin            1.1.1
   install_plugin credentials           1.10
+  install_plugin dashboard-view        2.9.2
+  install_plugin depgraph-view         0.11
   install_plugin ec2                   1.21
   install_plugin email-ext             2.37.2
   install_plugin git                   2.0.3
@@ -70,7 +72,6 @@ function install_plugins {
   install_plugin scm-api               0.2
   install_plugin ssh-credentials       1.6.1
   install_plugin token-macro           1.10
-  install_plugin depgraph-view         0.11
 
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME  
   
