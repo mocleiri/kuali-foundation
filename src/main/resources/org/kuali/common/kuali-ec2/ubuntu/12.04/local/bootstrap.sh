@@ -35,7 +35,8 @@ function enable_root_ssh {
 
 function copy_jar { 
   LOCAL="$HOME/.m2/repository/${project.groupId.path}/${project.artifactId}/${project.version}/${project.artifactId}-${project.version}.jar"
-  REMOTE="root@$FQDN:/mnt/${project.artifactId}.jar"
+  MNT=/mnt/${project.artifactId}.jar
+  REMOTE=root@$FQDN:$MNT
   echo "copy      -> $REMOTE"
   scp $LOCAL $REMOTE
 }
