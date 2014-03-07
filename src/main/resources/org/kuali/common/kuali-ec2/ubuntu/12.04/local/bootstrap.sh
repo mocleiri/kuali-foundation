@@ -38,7 +38,7 @@ function copy_jar {
   MNT=/mnt/${project.artifactId}.jar
   REMOTE=root@$FQDN:$MNT
   echo "copy      -> $REMOTE"
-  scp $LOCAL $REMOTE
+  scp $LOCAL $REMOTE > /dev/null 2>&1
 }
 
 function checkout_module { 
