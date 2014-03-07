@@ -40,14 +40,16 @@
         <directory>src/main/resources</directory>
         <filtering>true</filtering>
         <includes>
-          <include>**/ubuntu/**/*.sh</include>
+          <include>**/ubuntu/**/bootstrap.sh</include>
+          <include>**/ubuntu/**/install_tomcat.sh</include>
         </includes>
       </resource>
       <resource>
         <directory>src/main/resources</directory>
         <filtering>false</filtering>
         <excludes>
-          <exclude>**/local/bootstrap.sh</exclude>
+          <exclude>**/ubuntu/**/bootstrap.sh</exclude>
+          <exclude>**/ubuntu/**/install_tomcat.sh</exclude>
         </excludes>
       </resource>
     </resources>
