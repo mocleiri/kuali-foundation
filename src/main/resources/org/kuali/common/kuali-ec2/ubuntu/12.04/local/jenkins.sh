@@ -31,7 +31,7 @@ function check_args {
 
 function configure_common {
   echo "configure -> jenkins:common"
-  COMMON="$MODULES/jenkins/common.sh $BASEDIR $SVN_PASSWORD $ZIP_PASSWORD $QUIET"
+  COMMON="$MODULES/jenkins/common.sh $BASEDIR $SVN_PASSWORD $ZIP_PASSWORD $JENKINS_MASTER $QUIET"
   SSH="$COMMON"
   ssh root@$FQDN "$SSH"
 }

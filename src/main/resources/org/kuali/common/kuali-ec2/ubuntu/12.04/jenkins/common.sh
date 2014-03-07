@@ -24,8 +24,8 @@ function check_not_blank {
 
 function show_usage {
   echo
-  echo requires BASEDIR SVN_PASSWORD ZIP_PASSWORD QUIET
-  echo usage: common.sh basedir svn_password zip_password [quiet]
+  echo requires BASEDIR SVN_PASSWORD ZIP_PASSWORD JENKINS_MASTER QUIET
+  echo usage: common.sh basedir svn_password zip_password jenkins_master [quiet]
   echo
   exit 1
 }
@@ -34,6 +34,7 @@ function check_args {
   check_not_blank BASEDIR $BASEDIR
   check_not_blank SVN_PASSWORD $SVN_PASSWORD
   check_not_blank ZIP_PASSWORD $ZIP_PASSWORD
+  check_not_blank JENKINS_MASTER $JENKINS_MASTER
 }
 
 function execute_quietly {
