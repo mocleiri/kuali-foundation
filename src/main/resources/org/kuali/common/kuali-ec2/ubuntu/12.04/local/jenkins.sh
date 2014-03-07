@@ -57,7 +57,7 @@ function configure_slave_before {
 
 function configure_slave_after {
   echo "configure -> jenkins:slave"
-  SLAVE="$MODULES/jenkins/slave.sh $QUIET"
+  SLAVE="$MODULES/jenkins/slave.sh $BASEDIR $QUIET"
   SSH="$SLAVE"
   ssh root@$FQDN "$SSH"
 }

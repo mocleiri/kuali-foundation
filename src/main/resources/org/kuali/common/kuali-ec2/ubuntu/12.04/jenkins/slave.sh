@@ -25,6 +25,25 @@ function execute_quietly {
   fi
 }
 
+function check_not_blank {
+  if [ ! -n "$2" ]; then 
+    echo $1 cannot be blank
+    show_usage
+  fi
+}
+
+function show_usage {
+  echo
+  echo requires BASEDIR
+  echo usage: slave.sh basedir [quiet]
+  echo
+  exit 1
+}
+
+function check_args {
+  check_not_blank BASEDIR $BASEDIR
+}
+
 function install_mysql_server {
 
    echo "remove    -> mysql-server"
@@ -47,6 +66,7 @@ function install_mysql_server {
    
 }
 
-QUIET=${1-$QUIET}
+BASEDIR=${1-BASEDIR}
+QUIET=${2-$QUIET}
 
 install_mysql_server
