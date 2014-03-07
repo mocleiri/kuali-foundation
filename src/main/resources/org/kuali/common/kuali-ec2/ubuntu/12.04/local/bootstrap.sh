@@ -40,7 +40,8 @@ function copy_jar {
   echo "copy      -> $LOCAL"
 
   SCP="$LOCAL root@$FQDN:$REMOTE"
-  scp "$SCP"
+  echo $SCP
+  scp $SCP
 }
 
 function checkout_module { 
