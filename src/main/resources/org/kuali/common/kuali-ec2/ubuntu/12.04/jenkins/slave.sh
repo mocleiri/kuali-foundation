@@ -58,6 +58,8 @@ function slave_shutdown_scripting {
   COPY_REPO_SRC=$BASEDIR/${project.groupId.path}/${project.artifactId}/jenkins/slave/copy_repo_to_master.sh
   COPY_REPO_DST=/usr/share/ec2slave/copy_repo_to_master.sh
   cp $COPY_REPO_SRC $COPY_REPO_DST
+  
+  chmod 755 $COPY_REPO_DST
 
 }
 
