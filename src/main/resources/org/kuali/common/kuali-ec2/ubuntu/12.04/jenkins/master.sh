@@ -131,7 +131,9 @@ function configure_jenkins {
   
   # pull in the pre-baked config for Jenkins
   CONFIG_SRC=$TOMCAT_HOME/.ssh/config.xml
-  cp $CONFIG_SRC $JENKINS_HOME  
+  cp $CONFIG_SRC $JENKINS_HOME
+  
+  chmod -R $TOMCAT:TOMCAT $JENKINS_HOME
   
 }
 
