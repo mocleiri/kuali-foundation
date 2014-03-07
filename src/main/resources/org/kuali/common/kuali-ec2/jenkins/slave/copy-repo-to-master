@@ -14,8 +14,9 @@ JENKINS_MASTER=$1
 check_not_blank JENKINS_MASTER $JENKINS_MASTER
 
 # The trailing slash is significant here
-SRC=/root/.m2/repository/
-DST=root@$JENKINS_MASTER:/root/.m2/repository
+REPO=/root/.m2/repository
+SRC=$REPO/
+DST=root@$JENKINS_MASTER:$REPO
 EXCLUDEFILE=/usr/share/ec2slave/rsync-excludes
 
 # Make the rsync call
