@@ -15,6 +15,24 @@
 # limitations under the License.
 #
 
+function check_not_blank {
+  if [ ! -n "$2" ]; then 
+    echo $1 cannot be blank
+    show_usage
+  fi
+}
+
+function show_usage {
+  echo
+  echo requires BASEDIR
+  echo usage: master.sh basedir [quiet]
+  echo
+  exit 1
+}
+
+function check_args {
+  check_not_blank BASEDIR $BASEDIR
+}
 
 function install_jenkins {
   
@@ -97,6 +115,13 @@ function configure_tomcat_user {
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
   
 }
+
+function configure_jenkins {
+  
+}
+
+BASEDIR=${1-$BASEDIR}
+QUIET=${2-$QUIET}
 
 JENKINS_VERSION=1.532.2
 TOMCAT=tomcat7
