@@ -53,9 +53,6 @@ function configure_slave_before {
   JDK=jdk7;  source installers.sh; JAVA7=$JAVA
   SSH="$BASICS; $JAVA6; $JAVA7 $DNS;"
   ssh root@$FQDN "$SSH"
-  JDK=jdk7
-  source installers.sh
-  ssh root@$FQDN "$JAVA"
 }
 
 function configure_slave_after {
