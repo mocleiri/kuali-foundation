@@ -75,7 +75,9 @@ check_args
 source bootstrap.sh $SUBDOMAIN
 
 publish_module
-#configure_common
+exit 1
+
+configure_common
 
 if [ "$TYPE" = "master" ]; then
   configure_master
