@@ -21,7 +21,7 @@ public class VirtualRuntimeTest {
 		Memory mem = runtime.getMemory();
 		int percent = (int) ((mem.getUsed() / mem.getFree()) * 100);
 		Object[] args = { runtime.getProcessors(), percent, FormatUtils.getSize(runtime.getMemory().getFree()) };
-		logger.info(format("procs: %s  memory: %s%% of %s", args));
+		logger.info(format("processors: %s  memory: %s%% of %s", args));
 	}
 
 }
