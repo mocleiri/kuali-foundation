@@ -1,11 +1,15 @@
 package org.kuali.common.core.april.model;
 
+import static com.google.common.base.Objects.equal;
+
 import javax.validation.constraints.Min;
 
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
+import org.kuali.common.util.ObjectUtils;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.common.base.Objects;
 
 @IdiotProofImmutable
 @JsonDeserialize(builder = Sale.Builder.class)
@@ -119,6 +123,23 @@ public final class Sale {
 
 	public long getDate() {
 		return date;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(level, area, row, price, quantity, date);
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (ObjectUtils.notEqual(this, object)) {
+			return false;
+		} else {
+			Sale a = this;
+			Sale b = (Sale) object;
+			return equal(a.level, b.level) && equal(a.area, b.area) && equal(a.section, b.section) && equal(a.row, b.row) && equal(a.price, b.price)
+					&& equal(a.quantity, b.quantity) && equal(a.date, b.date);
+		}
 	}
 
 }
