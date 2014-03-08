@@ -40,7 +40,7 @@ public class AprilTest {
 			List<SaleLines> lines = getSaleLines(strings);
 			logger.info(format("sales: %s", lines.size()));
 			List<Sale> sales = getSales(lines);
-			JsonService service = new JacksonJsonService(JacksonContext.builder().withPrettyPrint(false).build());
+			JsonService service = new JacksonJsonService(JacksonContext.builder().noPrettyPrint().build());
 			StringBuilder sb = new StringBuilder();
 			for (Sale sale : sales) {
 				sb.append(service.writeString(sale));

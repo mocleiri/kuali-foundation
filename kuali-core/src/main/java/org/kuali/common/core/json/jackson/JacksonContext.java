@@ -73,6 +73,10 @@ public final class JacksonContext {
 			return this;
 		}
 
+		public Builder noPrettyPrint() {
+			return withPrettyPrint(false);
+		}
+
 		public Builder withMapper(ObjectMapper mapper) {
 			this.mapper = mapper;
 			return this;
