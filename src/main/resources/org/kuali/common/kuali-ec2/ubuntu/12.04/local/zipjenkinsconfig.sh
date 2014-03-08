@@ -58,4 +58,6 @@ check_args
 # import bootstrap variables/functions
 source bootstrap.sh $SUBDOMAIN
 
+scp_zip_file
+
 echo $(date)
