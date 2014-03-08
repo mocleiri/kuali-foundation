@@ -33,8 +33,7 @@ public class AprilTest {
 		checkState(strings.size() == 300, "expected exactly 100 sales (3 lines per sale)");
 		List<SaleLines> lines = newArrayList();
 		for (int i = 0; i < 300; i += 3) {
-			SaleLines saleLines = SaleLines.builder().withLine1(strings.get(i)).withLine2(strings.get(i + 1)).withLine3(strings.get(i + 2)).build();
-			lines.add(saleLines);
+			lines.add(SaleLines.create(strings, i));
 		}
 		return lines;
 	}
