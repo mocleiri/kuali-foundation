@@ -47,7 +47,7 @@ public class AprilTest {
 	@Test
 	public void test() {
 		try {
-			updateJson("april-01.txt");
+			updateJson("april-01.txt", "april-02.txt");
 			List<String> lines = LocationUtils.readLines(jsonPath);
 			logger.info(format("lines %s", lines.size()));
 			JsonService service = new JacksonJsonService();
