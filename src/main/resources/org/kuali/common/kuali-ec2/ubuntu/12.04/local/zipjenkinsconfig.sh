@@ -35,7 +35,7 @@ function scp_zip_file {
   
   SSH1="rm -f $SERVER_ZIP"
   SSH2="cd /home/tomcat7"
-  SSH3="zip -qq -e --password $ZIP_PASSWORD -r $SERVER_ZIP .jenkins -x '**/plugins/**' '**/config-history/**' **/workspace/**"
+  SSH3="zip -qq -e --password $ZIP_PASSWORD -r $SERVER_ZIP .jenkins -x '**/plugins/**' '**/config-history/**' '**/workspace/**' '**/jobs/**/builds/**'"
   SSH="$SSH1; $SSH2; $SSH3"
 
   echo "zip -> root@$FQDN:$SERVER_ZIP"
