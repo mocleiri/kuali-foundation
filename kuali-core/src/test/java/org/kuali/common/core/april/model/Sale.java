@@ -17,8 +17,8 @@ import com.google.common.base.Objects;
 @JsonPropertyOrder(value = { "level", "area", "section", "row", "price", "quantity", "date" }, alphabetic = true)
 public final class Sale {
 
-	private final String level;
-	private final String area;
+	private final Level level;
+	private final Area area;
 	// Usually a number, but the on field seats are a letter (H/S/R) etc
 	private final String section;
 
@@ -50,20 +50,20 @@ public final class Sale {
 
 	public static class Builder extends ValidatingBuilder<Sale> {
 
-		private String level;
-		private String area;
+		private Level level;
+		private Area area;
 		private String section;
 		private int row;
 		private double price;
 		private int quantity;
 		private long date;
 
-		public Builder withLevel(String level) {
+		public Builder withLevel(Level level) {
 			this.level = level;
 			return this;
 		}
 
-		public Builder withArea(String area) {
+		public Builder withArea(Area area) {
 			this.area = area;
 			return this;
 		}
@@ -99,11 +99,11 @@ public final class Sale {
 		}
 	}
 
-	public String getLevel() {
+	public Level getLevel() {
 		return level;
 	}
 
-	public String getArea() {
+	public Area getArea() {
 		return area;
 	}
 

@@ -19,7 +19,9 @@ import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
+import org.kuali.common.core.april.model.Area;
 import org.kuali.common.core.april.model.DefaultSaleComparator;
+import org.kuali.common.core.april.model.Level;
 import org.kuali.common.core.april.model.Sale;
 import org.kuali.common.core.april.model.SaleLines;
 import org.kuali.common.core.json.api.JsonService;
@@ -31,9 +33,7 @@ import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.file.CanonicalFile;
 import org.slf4j.Logger;
 
-import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
-import com.google.common.collect.ImmutableList;
 
 public class AprilTest {
 
@@ -95,7 +95,6 @@ public class AprilTest {
 	protected Sale getSale(SaleLines saleLines) {
 		char separator = ' ';
 		Splitter splitter = Splitter.on(separator).trimResults().omitEmptyStrings();
-		Joiner joiner = Joiner.on(separator);
 
 		List<String> tokens1 = splitter.splitToList(saleLines.getLine1());
 		checkState(tokens1.size() == 4, "expected 4 tokens");
@@ -104,8 +103,8 @@ public class AprilTest {
 		checkState(tokens3.size() == 3, "expected 3 tokens");
 
 		String section = tokens1.get(tokens1.size() - 1);
-		String area = tokens1.get(tokens1.size() - 2);
-		String level = joiner.join(ImmutableList.of(tokens1.get(0), tokens1.get(1)));
+		Area area = Area.valueOf(tokens1.get(tokens1.size() - 2).toUpperCase());
+		Level level = Level.valueOf(tokens1.get(0).toUpperCase());
 		double price = getPrice(saleLines.getLine2().trim());
 		int row = Integer.parseInt(tokens3.get(0));
 		int quantity = Integer.parseInt(tokens3.get(1));
