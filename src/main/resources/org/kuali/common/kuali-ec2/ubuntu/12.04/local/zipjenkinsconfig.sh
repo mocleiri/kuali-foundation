@@ -16,14 +16,14 @@
 #
 
 function show_usage {
-  echo requires SUBDOMAIN ZIP_PASSWORD
-  echo usage: zipjenkinsconfig.sh subdomain zip_password
+  echo requires ZIP_PASSWORD SUBDOMAIN
+  echo usage: zipjenkinsconfig.sh zip_password subdomain
   exit 1
 }
 
 function check_args {
-  check_not_blank SUBDOMAIN $SUBDOMAIN
   check_not_blank ZIP_PASSWORD $ZIP_PASSWORD
+  check_not_blank SUBDOMAIN $SUBDOMAIN
 }
 
 function create_zip_file {
@@ -47,10 +47,8 @@ echo $(date)
 source preconditions.sh
 
 # Module specific variables
-SUBDOMAIN=$1
-ZIP_PASSWORD=$2
-
-# Same password for both
+ZIP_PASSWORD=$1
+SUBDOMAIN=$2
 
 # Make sure we have what we need
 check_args
