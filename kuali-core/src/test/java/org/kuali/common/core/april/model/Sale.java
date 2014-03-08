@@ -8,12 +8,14 @@ import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import org.kuali.common.util.ObjectUtils;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.Objects;
 import com.google.common.collect.ComparisonChain;
 
 @IdiotProofImmutable
 @JsonDeserialize(builder = Sale.Builder.class)
+@JsonPropertyOrder(value = { "level", "area", "section", "price" }, alphabetic = true)
 public final class Sale implements Comparable<Sale> {
 
 	private final String level;
