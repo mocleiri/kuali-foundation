@@ -76,7 +76,7 @@ public class AprilTest {
 
 	protected Date getDate(String source) {
 		// 03/08/14
-		SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/YY");
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
 		try {
 			return sdf.parse(source);
 		} catch (ParseException e) {
