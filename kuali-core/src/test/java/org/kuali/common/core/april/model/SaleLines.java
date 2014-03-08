@@ -1,5 +1,7 @@
 package org.kuali.common.core.april.model;
 
+import java.util.List;
+
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
@@ -17,6 +19,14 @@ public final class SaleLines {
 		this.line1 = builder.line1;
 		this.line2 = builder.line2;
 		this.line3 = builder.line3;
+	}
+
+	public static final SaleLines create(List<String> lines, int startIndex) {
+		Builder builder = builder();
+		builder.withLine1(lines.get(startIndex));
+		builder.withLine2(lines.get(startIndex + 1));
+		builder.withLine3(lines.get(startIndex + 2));
+		return builder.build();
 	}
 
 	public static final Builder builder() {

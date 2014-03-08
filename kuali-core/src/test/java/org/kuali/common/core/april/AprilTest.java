@@ -22,18 +22,20 @@ public class AprilTest {
 			logger.info(format("hello world"));
 			List<String> lines = LocationUtils.readLines("classpath:json/april-01.txt");
 			logger.info(format("line count: %s", lines.size()));
-
+			List<SaleLines> sales = getSaleLines(lines);
+			logger.info(format("sales: %s", sales.size()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected List<SaleLines> getSaleLines(List<String> lines) {
-		checkState(lines.size() == 300, "expected exactly 100 sales (3 lines per sale)");
-		List<SaleLines> sales = newArrayList();
-		for (int i=0;i<100;i+=3) {
-			
+	protected List<SaleLines> getSaleLines(List<String> strings) {
+		checkState(strings.size() == 300, "expected exactly 100 sales (3 lines per sale)");
+		List<SaleLines> lines = newArrayList();
+		for (int i = 0; i < 300; i += 3) {
+			SaleLines saleLines = SaleLines.builder().withLine1(strings.get(i)).withLine2(strings.get(i + 1)).withLine3(strings.get(i + 2)).build();
+			lines.add(saleLines);
 		}
-		return null;
+		return lines;
 	}
 }
