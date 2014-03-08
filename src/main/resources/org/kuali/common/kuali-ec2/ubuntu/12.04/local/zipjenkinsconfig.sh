@@ -41,7 +41,7 @@ function scp_zip_file {
   echo "zip -> root@FQDN:$SERVER_ZIP"
   ssh root@$FQDN "$SSH"
   echo "scp -> $LOCAL_ZIP"
-  scp root@$FQDN:$SERVER_ZIP $LOCAL_ZIP 
+  scp root@$FQDN:$SERVER_ZIP $LOCAL_ZIP > /dev/null 2>&1
 
 }
 
