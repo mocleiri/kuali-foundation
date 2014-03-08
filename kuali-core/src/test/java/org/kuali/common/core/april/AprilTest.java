@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -59,6 +60,7 @@ public class AprilTest {
 			logger.info(format("sales: %s", lines.size()));
 			sales.addAll(getSales(lines));
 		}
+		Collections.sort(sales);
 		List<Sale> reversed = Lists.reverse(sales);
 		JsonService service = new JacksonJsonService(JacksonContext.builder().noPrettyPrint().build());
 		StringBuilder sb = new StringBuilder();
