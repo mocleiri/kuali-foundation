@@ -4,12 +4,15 @@ import static com.google.common.base.Objects.equal;
 
 import javax.validation.constraints.Min;
 
+import org.kuali.common.core.april.json.DayDeserializer;
+import org.kuali.common.core.april.json.DaySerializer;
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import org.kuali.common.util.ObjectUtils;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.base.Objects;
 
 @IdiotProofImmutable
@@ -32,6 +35,7 @@ public final class Sale {
 	private final int quantity;
 
 	@Min(0)
+	@JsonSerialize(using = DaySerializer.class)
 	private final long date;
 
 	private Sale(Builder builder) {
@@ -56,6 +60,7 @@ public final class Sale {
 		private int row;
 		private double price;
 		private int quantity;
+		@JsonDeserialize(using = DayDeserializer.class)
 		private long date;
 
 		public Builder withLevel(Level level) {
