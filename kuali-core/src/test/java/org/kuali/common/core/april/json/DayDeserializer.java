@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 
 public class DayDeserializer extends JsonDeserializer<Long> {
 
-	public static final String DAY_FORMAT = "yyyy-MM-dd";
 	private final String format = "yyyy-M-dd";
 	private final int year = 2014;
 	private final int month = 3;
