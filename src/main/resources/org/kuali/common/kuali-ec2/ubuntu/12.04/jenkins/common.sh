@@ -184,5 +184,16 @@ install_maven 3.1.0 31
 install_maven 3.2.1 32
 install_default_maven 32
 configure_subversion
-#touch_subversion_repos
+
+#
+# SVN caches and then looks up credentials based on the hostname + hostname hash
+#
+# eg for jcaddel/<password> @ https://svn.kuali.org
+#
+# The file -> /root/.subversion/auth/svn.simple/7bde6701d85dbc4080b5213025d59913
+# ...
+# <https://svn.kuali.org:443> SVN Login
+# ...
+#
 touch_subversion_repo foundation
+# touch_subversion_repos
