@@ -11,10 +11,11 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 public class DaySerializer extends JsonSerializer<Long> {
 
+	private final String format = "EEE MMM dd";
+
 	@Override
 	public void serialize(Long value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonGenerationException {
-		SimpleDateFormat formatter = new SimpleDateFormat(DayDeserializer.DAY_FORMAT);
-		Date date = new Date(value);
-		jgen.writeString(formatter.format(date));
+		SimpleDateFormat formatter = new SimpleDateFormat(format);
+		jgen.writeString(formatter.format(new Date(value)));
 	}
 }
