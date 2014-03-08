@@ -120,19 +120,8 @@ function configure_tomcat_user {
 function configure_jenkins {
   
   echo "configure -> jenkins:application"
-  
-  MASTER_SRC_DIR=$BASEDIR/${project.groupId.path}/${project.artifactId}/jenkins/master
-  
-  CONFIG_SRC=$TOMCAT_HOME/.ssh/config.xml
-
-  # point jenkins at the update center for LTS
-  UPDATE_CENTER_SRC=$MASTER_SRC_DIR/hudson.model.UpdateCenter.xml
-  cp $UPDATE_CENTER_SRC $JENKINS_HOME
-  
-  # pull in the pre-baked config for Jenkins
-  CONFIG_SRC=$TOMCAT_HOME/.ssh/config.xml
-  cp $CONFIG_SRC $JENKINS_HOME
-  
+  MASTER_CONFIG_ZIP=$BASEDIR/${project.groupId.path}/${project.artifactId}/jenkins/master_config.zip
+  unzip $QUIET -o -e -r --password $ZIP_PASSWORD $MASTER_CONFIG_ZIP -d $TOMCAT_HOME
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
   
 }
