@@ -21,11 +21,11 @@ public final class SaleLines {
 		this.line3 = builder.line3;
 	}
 
-	public static final SaleLines create(List<String> lines, int startIndex) {
+	public static final SaleLines create(List<String> lines, int index) {
 		Builder builder = builder();
-		builder.withLine1(lines.get(startIndex));
-		builder.withLine2(lines.get(startIndex + 1));
-		builder.withLine3(lines.get(startIndex + 2));
+		builder.withLine1(lines.get(index));
+		builder.withLine2(lines.get(index + 1));
+		builder.withLine3(lines.get(index + 2));
 		return builder.build();
 	}
 
