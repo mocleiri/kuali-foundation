@@ -26,7 +26,8 @@ function check_args {
   check_not_blank SUBDOMAIN $SUBDOMAIN
 }
 
-function scp_new_zip_file {
+# connect to a remove server, zip the jenkins config, and scp it to the local machine
+function scp_zip_file {
 
   ZIP_FILE="master_config.zip"
   SERVER_ZIP="/tmp/$ZIP_FILE"
