@@ -18,6 +18,8 @@ public class VirtualRuntimeTest {
 	@Test
 	public void test() {
 		NumberFormat nf = NumberFormat.getPercentInstance();
+		nf.setMaximumFractionDigits(1);
+		nf.setMinimumFractionDigits(1);
 		VirtualRuntime runtime = VirtualRuntime.create();
 		JsonService service = new JacksonJsonService();
 		logger.info(format("\n%s", service.writeString(runtime)));
