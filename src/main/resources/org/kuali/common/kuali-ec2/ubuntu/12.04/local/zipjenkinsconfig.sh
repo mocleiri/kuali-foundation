@@ -30,7 +30,7 @@ function check_args {
 function scp_zip_file {
 
   ZIP_FILE="master_config.zip"
-  SERVER_ZIP="/tmp/$ZIP_FILE"
+  SERVER_ZIP="/mnt/$ZIP_FILE"
   LOCAL_ZIP="${project.basedir}/src/main/resources/${project.groupId.path}/${project.artifactId}/jenkins/$ZIP_FILE"
   
   SSH1="rm -f $SERVER_ZIP"
