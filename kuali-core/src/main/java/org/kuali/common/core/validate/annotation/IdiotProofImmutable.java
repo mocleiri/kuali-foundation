@@ -10,14 +10,14 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-@Target({ TYPE })
-@Retention(RUNTIME)
-@Constraint(validatedBy = {})
 @StronglyImmutable
 @NoNullFields
 @NoBlanks
 @ImmutableGuavaMaps
 @ImmutableGuavaCollections
+@Target({ TYPE })
+@Retention(RUNTIME)
+@Constraint(validatedBy = {})
 @Documented
 public @interface IdiotProofImmutable {
 
