@@ -1,9 +1,5 @@
 package org.kuali.common.core.april.model;
 
-import static com.google.common.base.Objects.equal;
-
-import javax.validation.constraints.Min;
-
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import org.kuali.common.util.ObjectUtils;
@@ -22,17 +18,10 @@ public final class Sale implements Comparable<Sale> {
 	private final String area;
 	// Usually a number, but the on field seats are a letter (H/S/R) etc
 	private final String section;
-
 	private final String row;
-
-	@Min(0)
-	private final double price;
-
-	@Min(0)
-	private final int quantity;
-
-	@Min(0)
-	private final long date;
+	private final String price;
+	private final String quantity;
+	private final String date;
 
 	private Sale(Builder builder) {
 		this.level = builder.level;
@@ -54,9 +43,9 @@ public final class Sale implements Comparable<Sale> {
 		private String area;
 		private String section;
 		private String row;
-		private double price;
-		private int quantity;
-		private long date;
+		private String price;
+		private String quantity;
+		private String date;
 
 		public Builder withLevel(String level) {
 			this.level = level;
@@ -78,17 +67,17 @@ public final class Sale implements Comparable<Sale> {
 			return this;
 		}
 
-		public Builder withPrice(double price) {
+		public Builder withPrice(String price) {
 			this.price = price;
 			return this;
 		}
 
-		public Builder withQuantity(int quantity) {
+		public Builder withQuantity(String quantity) {
 			this.quantity = quantity;
 			return this;
 		}
 
-		public Builder withDate(long date) {
+		public Builder withDate(String date) {
 			this.date = date;
 			return this;
 		}
@@ -115,15 +104,15 @@ public final class Sale implements Comparable<Sale> {
 		return row;
 	}
 
-	public double getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	public int getQuantity() {
+	public String getQuantity() {
 		return quantity;
 	}
 
-	public long getDate() {
+	public String getDate() {
 		return date;
 	}
 
@@ -146,8 +135,8 @@ public final class Sale implements Comparable<Sale> {
 		} else {
 			Sale a = this;
 			Sale b = (Sale) object;
-			return equal(a.level, b.level) && equal(a.area, b.area) && equal(a.section, b.section) && equal(a.row, b.row) && equal(a.price, b.price)
-					&& equal(a.quantity, b.quantity) && equal(a.date, b.date);
+			return a.level.equals(b.level) && a.area.equals(b.area) && a.section.equals(b.section) && a.row.equals(b.row) && a.price.equals(b.price)
+					&& a.quantity.equals(b.quantity) && a.date.equals(b.date);
 		}
 	}
 
