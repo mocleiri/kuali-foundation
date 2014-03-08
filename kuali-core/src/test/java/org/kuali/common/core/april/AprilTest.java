@@ -28,6 +28,7 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.file.CanonicalFile;
 import org.slf4j.Logger;
+import org.springframework.util.ResourceUtils;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
@@ -36,26 +37,13 @@ import com.google.common.collect.ImmutableList;
 public class AprilTest {
 
 	private static final Logger logger = newLogger();
-	private final String jsonPath = "json/april.json";
+	private final String jsonDir = "json";
+	private final String jsonFile = "april.json";
 
 	@Test
 	public void test() {
 		try {
-			VirtualSystem vs = VirtualSystem.create();
-			List<String> strings = LocationUtils.readLines("classpath:json/april-01.txt");
-			logger.info(format("line count: %s", strings.size()));
-			List<SaleLines> lines = getSaleLines(strings);
-			logger.info(format("sales: %s", lines.size()));
-			List<Sale> sales = getSales(lines);
-			JsonService service = new JacksonJsonService(JacksonContext.builder().noPrettyPrint().build());
-			StringBuilder sb = new StringBuilder();
-			for (Sale sale : sales) {
-				sb.append(service.writeString(sale));
-				sb.append(vs.getLineSeparator());
-			}
-			File file = new CanonicalFile("./src/test/resources/json/april.json");
-			logger.info(format("creating -> %s", file));
-			FileUtils.write(file, sb.toString());
+			updateJson("april-01.txt");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -65,7 +53,8 @@ public class AprilTest {
 		VirtualSystem vs = VirtualSystem.create();
 		SortedSet<Sale> sales = newTreeSet();
 		for (String textFile : textFiles) {
-			List<String> strings = LocationUtils.readLines(textFile);
+			String location = ResourceUtils.CLASSPATH_URL_PREFIX + jsonDir + vs.getFileSeparator() + textFile;
+			List<String> strings = LocationUtils.readLines(location);
 			logger.info(format("line count: %s", strings.size()));
 			List<SaleLines> lines = getSaleLines(strings);
 			logger.info(format("sales: %s", lines.size()));
@@ -78,7 +67,7 @@ public class AprilTest {
 			sb.append(vs.getLineSeparator());
 		}
 		File basedir = new File("./src/test/resources");
-		File file = new CanonicalFile(basedir, jsonPath);
+		File file = new CanonicalFile(basedir, jsonDir + vs.getFileSeparator() + jsonFile);
 		logger.info(format("creating -> %s", file));
 		try {
 			FileUtils.write(file, sb.toString());

@@ -128,7 +128,7 @@ public final class Sale implements Comparable<Sale> {
 
 	@Override
 	public int compareTo(Sale other) {
-		return ComparisonChain.start().compare(this.price, other.price).result();
+		return ComparisonChain.start().compare(this.price, other.price).result() * -1;
 	}
 
 	@Override
