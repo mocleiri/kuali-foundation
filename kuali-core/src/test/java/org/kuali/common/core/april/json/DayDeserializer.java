@@ -14,14 +14,16 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 public class DayDeserializer extends JsonDeserializer<Long> {
 
 	public static final String DAY_FORMAT = "yyyy-MM-dd";
-	private final String format = "EEE MMM dd - yyyy";
+	private final String format = "yyyy-M-dd";
 	private final int year = 2014;
+	private final int month = 3;
 
 	@Override
 	public Long deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
 		try {
 			SimpleDateFormat parser = new SimpleDateFormat(format);
-			return parser.parse(jp.getText() + " - " + year).getTime();
+			String date = year + "-" + month + "-" + jp.getText();
+			return parser.parse(date).getTime();
 		} catch (ParseException e) {
 			throw illegalArgument(e);
 		}

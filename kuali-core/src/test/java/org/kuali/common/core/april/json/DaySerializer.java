@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 public class DaySerializer extends JsonSerializer<Long> {
 
-	private final String format = "EEE MMM dd";
+	private final String format = "dd";
 
 	@Override
 	public void serialize(Long value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonGenerationException {
