@@ -1,17 +1,31 @@
 package org.kuali.common.core.april.model;
 
+import javax.validation.constraints.Min;
+
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 @IdiotProofImmutable
+@JsonDeserialize(builder = Sale.Builder.class)
 public final class Sale {
 
 	private final String level;
 	private final String area;
+	// Usually a number, but the on field seats are a letter (H/S/R) etc
 	private final String section;
+
+	@Min(1)
 	private final int row;
+
+	@Min(0)
 	private final double price;
+
+	@Min(1)
 	private final int quantity;
+
+	@Min(0)
 	private final long date;
 
 	private Sale(Builder builder) {
