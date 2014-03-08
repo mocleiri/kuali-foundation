@@ -26,9 +26,5 @@ ZIP_PASSWORD=${1-$ZIP_PASSWORD}
 check_not_blank ZIP_PASSWORD $ZIP_PASSWORD
 
 ZIP=/mnt/jenkins.zip
-
-rm -f $ZIP
-
-cd /home/tomcat7
- 
+rm -f $ZIP; cd /home/tomcat7
 zip -e --password $ZIP_PASSWORD -r $ZIP .jenkins -x "**/plugins/*" "**/config-history/*"
