@@ -120,7 +120,7 @@ function configure_secrets {
   execute_quietly "gpg --allow-secret-key-import --import $GPG_KEY"
   
   # setup maven
-  rm -rf /root/.m2; mkdir -p /root/.m2 /root/.m2/repository;  mv /root/.ssh/settings.xml /root/.m2
+  rm -rf /root/.m2; mkdir -p /root/.m2/repository;  mv /root/.ssh/settings.xml /root/.m2
   
 }
 
