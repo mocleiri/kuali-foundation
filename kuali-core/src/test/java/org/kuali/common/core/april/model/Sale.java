@@ -17,7 +17,7 @@ import com.google.common.base.Objects;
 
 @IdiotProofImmutable
 @JsonDeserialize(builder = Sale.Builder.class)
-@JsonPropertyOrder(value = { "level", "area", "section", "row", "price", "quantity", "date" }, alphabetic = true)
+@JsonPropertyOrder(value = { "date", "level", "area", "section", "row", "price", "quantity" }, alphabetic = true)
 public final class Sale {
 
 	private final Level level;
