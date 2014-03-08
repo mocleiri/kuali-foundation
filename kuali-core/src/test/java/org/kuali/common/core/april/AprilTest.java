@@ -2,16 +2,19 @@ package org.kuali.common.core.april;
 
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.newTreeSet;
 import static java.lang.String.format;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.SortedSet;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
@@ -22,6 +25,7 @@ import org.kuali.common.core.json.jackson.JacksonContext;
 import org.kuali.common.core.json.jackson.JacksonJsonService;
 import org.kuali.common.core.system.VirtualSystem;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.file.CanonicalFile;
 import org.slf4j.Logger;
 
@@ -32,6 +36,7 @@ import com.google.common.collect.ImmutableList;
 public class AprilTest {
 
 	private static final Logger logger = newLogger();
+	private final String jsonPath = "json/april.json";
 
 	@Test
 	public void test() {
@@ -53,6 +58,32 @@ public class AprilTest {
 			FileUtils.write(file, sb.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	protected void updateJson(String... textFiles) {
+		VirtualSystem vs = VirtualSystem.create();
+		SortedSet<Sale> sales = newTreeSet();
+		for (String textFile : textFiles) {
+			List<String> strings = LocationUtils.readLines(textFile);
+			logger.info(format("line count: %s", strings.size()));
+			List<SaleLines> lines = getSaleLines(strings);
+			logger.info(format("sales: %s", lines.size()));
+			sales.addAll(getSales(lines));
+		}
+		JsonService service = new JacksonJsonService(JacksonContext.builder().noPrettyPrint().build());
+		StringBuilder sb = new StringBuilder();
+		for (Sale sale : sales) {
+			sb.append(service.writeString(sale));
+			sb.append(vs.getLineSeparator());
+		}
+		File basedir = new File("./src/test/resources");
+		File file = new CanonicalFile(basedir, jsonPath);
+		logger.info(format("creating -> %s", file));
+		try {
+			FileUtils.write(file, sb.toString());
+		} catch (IOException e) {
+			throw Exceptions.illegalState(e);
 		}
 	}
 
