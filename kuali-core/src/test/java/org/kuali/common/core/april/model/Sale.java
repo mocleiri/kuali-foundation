@@ -133,7 +133,7 @@ public final class Sale implements Comparable<Sale> {
 
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(level, area, row, price, quantity, date);
+		return Objects.hashCode(level, area, section, row, price, quantity, date);
 	}
 
 	@Override
