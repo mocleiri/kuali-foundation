@@ -4,6 +4,9 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
+/**
+ * Extension of {@code ValidatingBuilder} that provides information about constraint violations.
+ */
 public abstract class ViolationsBuilder<T> extends ValidatingBuilder<T> {
 
 	private static final Class<?>[] EMPTY_CLASS_ARRAY = {};

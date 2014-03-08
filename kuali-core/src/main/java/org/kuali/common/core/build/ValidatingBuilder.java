@@ -11,6 +11,9 @@ import org.kuali.common.core.validate.Validation;
 
 import com.google.common.collect.ImmutableList;
 
+/**
+ * Concrete builder that hooks into the {@code javax.validation.Validator} validation framework to enable validating objects before they are built
+ */
 public abstract class ValidatingBuilder<T> implements Builder<T> {
 
 	protected Validator validator = Validation.getDefaultValidator();
