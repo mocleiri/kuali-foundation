@@ -26,7 +26,7 @@ function check_args {
   check_not_blank SUBDOMAIN $SUBDOMAIN
 }
 
-function create_zip_file {
+function scp_new_zip_file {
 
   ZIP_FILE="master_config.zip"
   SERVER_ZIP="/tmp/$ZIP_FILE"
