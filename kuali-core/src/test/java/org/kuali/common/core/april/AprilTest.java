@@ -20,10 +20,10 @@ public class AprilTest {
 	public void test() {
 		try {
 			logger.info(format("hello world"));
-			List<String> lines = LocationUtils.readLines("classpath:json/april-01.txt");
-			logger.info(format("line count: %s", lines.size()));
-			List<SaleLines> sales = getSaleLines(lines);
-			logger.info(format("sales: %s", sales.size()));
+			List<String> strings = LocationUtils.readLines("classpath:json/april-01.txt");
+			logger.info(format("line count: %s", strings.size()));
+			List<SaleLines> lines = getSaleLines(strings);
+			logger.info(format("sales: %s", lines.size()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
