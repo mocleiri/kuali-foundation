@@ -3,6 +3,8 @@ package org.kuali.common.core.system;
 import static java.lang.String.format;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
+import java.text.NumberFormat;
+
 import org.junit.Test;
 import org.kuali.common.core.json.api.JsonService;
 import org.kuali.common.core.json.jackson.JacksonJsonService;
@@ -15,13 +17,14 @@ public class VirtualRuntimeTest {
 
 	@Test
 	public void test() {
+		NumberFormat nf = NumberFormat.getPercentInstance();
 		VirtualRuntime runtime = VirtualRuntime.create();
 		JsonService service = new JacksonJsonService();
 		logger.info(format("\n%s", service.writeString(runtime)));
 		Memory mem = runtime.getMemory();
-		int percent = (int) ((mem.getUsed() / mem.getFree()) * 100);
-		Object[] args = { runtime.getProcessors(), percent, FormatUtils.getSize(runtime.getMemory().getFree()) };
-		logger.info(format("processors: %s  memory: %s%% of %s", args));
+		double percent = (mem.getUsed() * 1d) / mem.getFree();
+		Object[] args = { runtime.getProcessors(), nf.format(percent), FormatUtils.getSize(runtime.getMemory().getFree()) };
+		logger.info(format("processors: %s  memory: %s of %s", args));
 	}
 
 }
