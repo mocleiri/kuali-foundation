@@ -111,7 +111,7 @@ function configure_secrets {
 
   # Extract ssh config, EC2 private keys, GPG private key, and ~/.m2/settings.xml into .ssh
   echo "configure -> secrets"
-  ZIP=$BASEDIR/${project.groupId.path}/${project.artifactId}/ubuntu/12.04/jenkins/secrets.zip
+  ZIP=$BASEDIR/${project.groupId.path}/${project.artifactId}/ubuntu/12.04/jenkins/config.zip
   unzip $QUIET -P $ZIP_PASSWORD -o $ZIP -d /root
 
   # Setup GPG
