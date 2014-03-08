@@ -2,6 +2,7 @@ package org.kuali.common.core.april;
 
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.reverse;
 import static com.google.common.collect.Sets.newHashSet;
 import static java.lang.String.format;
 import static org.kuali.common.util.base.Exceptions.illegalState;
@@ -49,6 +50,12 @@ public class AprilTest {
 			updateJson("april-01.txt");
 			List<String> lines = LocationUtils.readLines(jsonPath);
 			logger.info(format("lines %s", lines.size()));
+			JsonService service = new JacksonJsonService();
+			List<Sale> sales = newArrayList();
+			for (String line : lines) {
+				Sale sale = service.readString(line, Sale.class);
+				sales.add(sale);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -70,7 +77,7 @@ public class AprilTest {
 		logger.info(format("duplicates: %s", duplicates));
 		JsonService service = new JacksonJsonService(JacksonContext.builder().noPrettyPrint().build());
 		List<String> lines = newArrayList();
-		for (Sale sale : sales) {
+		for (Sale sale : reverse(sales)) {
 			lines.add(service.writeString(sale));
 		}
 		File basedir = new File("./src/test/resources");
