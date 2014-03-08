@@ -10,17 +10,6 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-/**
- * Aggregate of the annotations:
- * 
- * <pre>
- *  StronglyImmutable
- *  NoNullFields
- *  NoBlanks
- *  ImmutableGuavaMaps
- *  ImmutableGuavaCollections
- * </pre>
- */
 @Target({ TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = {})
