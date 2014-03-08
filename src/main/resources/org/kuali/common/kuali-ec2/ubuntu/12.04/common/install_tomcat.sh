@@ -72,6 +72,23 @@ function purge_tomcat {
   
 }
 
+function get_java_opts {
+  RETURN_VALUE="-Djava.security.egd=file:/dev/./urandom"
+  RETURN_VALUE="$RETURN_VALUE -Djava.awt.headless=true"
+  RETURN_VALUE="$RETURN_VALUE -Xms512m"
+  RETURN_VALUE="$RETURN_VALUE -Xmx$MAX_HEAP"
+  RETURN_VALUE="$RETURN_VALUE -XX:MaxPermSize=$MAX_PERM"
+  RETURN_VALUE="$RETURN_VALUE -verbose:gc"
+  RETURN_VALUE="$RETURN_VALUE -XX:+PrintGCDetails"
+  RETURN_VALUE="$RETURN_VALUE -XX:+PrintGCDateStamps"
+  RETURN_VALUE="$RETURN_VALUE -XX:+PrintHeapAtGC"
+  RETURN_VALUE="$RETURN_VALUE -XX:+PrintTenuringDistribution"
+  RETURN_VALUE="$RETURN_VALUE -Xloggc:$TOMCAT_LOGS/heap.log"
+  RETURN_VALUE="$RETURN_VALUE -XX:HeapDumpPath=$TOMCAT_LOGS"
+  RETURN_VALUE="$RETURN_VALUE -XX:+HeapDumpOnOutOfMemoryError"
+  echo "\"$RETURN_VALUE\""
+}
+
 function configure_tomcat {
 
   TOMCAT_VERSION=${TOMCAT:6:1}
@@ -84,14 +101,14 @@ function configure_tomcat {
   TOMCAT_DIR=/var/lib/$TOMCAT
   TOMCAT_LOGS=$TOMCAT_DIR/logs
   TOMCAT_HOME=/home/$TOMCAT
-  JAVA_OPTS="\"-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xms512m -Xmx$MAX_HEAP -XX:MaxPermSize=$MAX_PERM -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC -XX:+PrintTenuringDistribution -Xloggc:$TOMCAT_LOGS/heap.log -XX:HeapDumpPath=$TOMCAT_LOGS -XX:+HeapDumpOnOutOfMemoryError"\"
+  JAVA_OPTS="$(get_java_opts)"
   JAVA_HOME=/usr/java/$JDK
 
   echo "configure -> $TOMCAT"
-  echo "TOMCAT_USER=$TOMCAT_USER" > $TOMCAT_OPT_FILE
+  echo "TOMCAT_USER=$TOMCAT_USER"   >  $TOMCAT_OPT_FILE
   echo "TOMCAT_GROUP=$TOMCAT_GROUP" >> $TOMCAT_OPT_FILE
-  echo "JAVA_OPTS=$JAVA_OPTS" >> $TOMCAT_OPT_FILE
-  echo "JAVA_HOME=$JAVA_HOME" >> $TOMCAT_OPT_FILE
+  echo "JAVA_OPTS=$JAVA_OPTS"       >> $TOMCAT_OPT_FILE
+  echo "JAVA_HOME=$JAVA_HOME"       >> $TOMCAT_OPT_FILE
 
   WEBXML=$BASEDIR/${project.groupId.path}/${project.artifactId}/tomcat/$TOMCAT_VERSION/conf/web.xml
   SERVER=$BASEDIR/${project.groupId.path}/${project.artifactId}/tomcat/$TOMCAT_VERSION/conf/server.xml
