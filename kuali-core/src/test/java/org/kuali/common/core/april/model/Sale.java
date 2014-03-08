@@ -10,10 +10,11 @@ import org.kuali.common.util.ObjectUtils;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.Objects;
+import com.google.common.collect.ComparisonChain;
 
 @IdiotProofImmutable
 @JsonDeserialize(builder = Sale.Builder.class)
-public final class Sale {
+public final class Sale implements Comparable<Sale> {
 
 	private final String level;
 	private final String area;
@@ -123,6 +124,11 @@ public final class Sale {
 
 	public long getDate() {
 		return date;
+	}
+
+	@Override
+	public int compareTo(Sale other) {
+		return ComparisonChain.start().compare(this.price, other.price).result();
 	}
 
 	@Override
