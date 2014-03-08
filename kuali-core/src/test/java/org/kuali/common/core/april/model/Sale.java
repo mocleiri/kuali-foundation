@@ -15,7 +15,7 @@ import com.google.common.collect.ComparisonChain;
 
 @IdiotProofImmutable
 @JsonDeserialize(builder = Sale.Builder.class)
-@JsonPropertyOrder(value = { "level", "area", "section", "row", "price" }, alphabetic = true)
+@JsonPropertyOrder(value = { "level", "area", "section", "row", "price", "quantity", "date" }, alphabetic = true)
 public final class Sale implements Comparable<Sale> {
 
 	private final String level;
@@ -131,7 +131,8 @@ public final class Sale implements Comparable<Sale> {
 	@Override
 	public int compareTo(Sale b) {
 		Sale a = this;
-		return ComparisonChain.start().compare(a.level, b.level).compare(a.area, b.area).compare(a.section, b.section).compare(a.price, b.price).result();
+		// return ComparisonChain.start().compare(a.level, b.level).compare(a.area, b.area).compare(a.section, b.section).compare(a.price, b.price).result();
+		return ComparisonChain.start().compare(a.price, b.price).result();
 	}
 
 	@Override
