@@ -195,5 +195,8 @@ configure_subversion
 # <https://svn.kuali.org:443> SVN Login
 # ...
 #
+# This means we only need to cache one set of credentials for all repo's at kuali
+# That set of credentials will then work transparently for all repo's 
+#
 touch_subversion_repo foundation
 # touch_subversion_repos
