@@ -29,7 +29,7 @@ function check_args {
 function create_zip_file {
 
   ZIP_FILE="master_config.zip"
-  SERVER_ZIP="/mnt/$ZIP_FILE"
+  SERVER_ZIP="/tmp/$ZIP_FILE"
   LOCAL_ZIP="$BASEDIR/${project.groupId.path}/${project.artifactId}/jenkins/$ZIP_FILE"
   
   SSH1="rm -f $SERVER_ZIP"
