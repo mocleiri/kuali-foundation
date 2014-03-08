@@ -41,7 +41,6 @@ public final class JacksonContext {
 	 * <li>registered CanonicalFileModule</li>
 	 * <li>sorts properties alphabetically when serializing</li>
 	 * <li>sorts map entries based on their keys when serializing</li>
-	 * <li>turns on pretty printing when serializing</li>
 	 * </ul>
 	 */
 	public static ObjectMapper newDefaultObjectMapper() {
