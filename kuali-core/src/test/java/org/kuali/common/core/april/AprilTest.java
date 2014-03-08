@@ -6,12 +6,14 @@ import static java.lang.String.format;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
+import java.io.File;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.kuali.common.core.april.model.Sale;
 import org.kuali.common.core.april.model.SaleLines;
@@ -20,6 +22,7 @@ import org.kuali.common.core.json.jackson.JacksonContext;
 import org.kuali.common.core.json.jackson.JacksonJsonService;
 import org.kuali.common.core.system.VirtualSystem;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.file.CanonicalFile;
 import org.slf4j.Logger;
 
 import com.google.common.base.Joiner;
@@ -45,7 +48,9 @@ public class AprilTest {
 				sb.append(service.writeString(sale));
 				sb.append(vs.getLineSeparator());
 			}
-			System.out.println(sb);
+			File file = new CanonicalFile("./src/test/resources/json/april.json");
+			logger.info(format("creating -> %s", file));
+			FileUtils.write(file, sb.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
