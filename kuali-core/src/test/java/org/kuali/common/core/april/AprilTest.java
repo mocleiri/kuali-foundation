@@ -2,8 +2,8 @@ package org.kuali.common.core.april;
 
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.newHashSet;
 import static java.lang.String.format;
-import static org.apache.commons.lang3.StringUtils.leftPad;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.log.Loggers.newLogger;
 import static org.springframework.util.ResourceUtils.CLASSPATH_URL_PREFIX;
@@ -13,10 +13,8 @@ import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
@@ -34,8 +32,6 @@ import org.slf4j.Logger;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 public class AprilTest {
 
@@ -50,11 +46,7 @@ public class AprilTest {
 		try {
 			updateJson("april-01.txt");
 			List<String> lines = LocationUtils.readLines(jsonPath);
-			Map<String, String> map = Maps.newHashMap();
-			for (String line : lines) {
-				map.put(line, line);
-			}
-			System.out.println(lines.size() + " " + map.size());
+			logger.info(format("lines %s", lines.size()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -70,20 +62,19 @@ public class AprilTest {
 			logger.info(format("sales: %s", lines.size()));
 			sales.addAll(getSales(lines));
 		}
-		Collections.sort(sales);
-		// List<Sale> reversed = Lists.reverse(newArrayList(Sets.newTreeSet(sales)));
-		List<Sale> reversed = Lists.reverse(sales);
+		Set<Sale> set = newHashSet(sales);
+		int duplicates = sales.size() - set.size();
+		logger.info(format("duplicates: %s", duplicates));
 		JsonService service = new JacksonJsonService(JacksonContext.builder().noPrettyPrint().build());
-		StringBuilder sb = new StringBuilder();
-		for (Sale sale : reversed) {
-			sb.append(service.writeString(sale));
-			sb.append(vs.getLineSeparator());
+		List<String> lines = newArrayList();
+		for (Sale sale : sales) {
+			lines.add(service.writeString(sale));
 		}
 		File basedir = new File("./src/test/resources");
 		File file = new CanonicalFile(basedir, jsonDir + vs.getFileSeparator() + jsonFile);
 		logger.info(format("creating -> %s", file));
 		try {
-			FileUtils.write(file, sb.toString());
+			FileUtils.writeLines(file, lines);
 		} catch (IOException e) {
 			throw Exceptions.illegalState(e);
 		}
@@ -112,39 +103,32 @@ public class AprilTest {
 		String section = tokens1.get(tokens1.size() - 1);
 		String area = tokens1.get(tokens1.size() - 2);
 		String level = joiner.join(ImmutableList.of(tokens1.get(0), tokens1.get(1)));
-		String price = getPrice(saleLines.getLine2().trim());
-		String row = Integer.parseInt(tokens3.get(0)) + "";
-		String quantity = leftPad(Integer.parseInt(tokens3.get(1)) + "", 2, "0");
-		String date = getDate(tokens3.get(2));
+		double price = getPrice(saleLines.getLine2().trim());
+		int row = Integer.parseInt(tokens3.get(0));
+		int quantity = Integer.parseInt(tokens3.get(1));
+		long date = getDate(tokens3.get(2));
 
 		Sale.Builder builder = Sale.builder();
-		builder.withLevel(leftPad(level, "Terrace Level".length(), " ")).withArea(leftPad(area, "Sideline".length(), " ")).withSection(section);
+		builder.withLevel(level).withArea(area).withSection(section);
 		builder.withPrice(price);
-		builder.withRow(leftPad(row, 2, "0")).withQuantity(quantity).withDate(date);
+		builder.withRow(row).withQuantity(quantity).withDate(date);
 		return builder.build();
 	}
 
-	protected String getDate(String source) {
+	protected long getDate(String source) {
 		// 03/08/14
 		SimpleDateFormat parser = new SimpleDateFormat("MM/dd/yy");
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		try {
-			Date date = parser.parse(source);
-			return formatter.format(date);
+			return parser.parse(source).getTime();
 		} catch (ParseException e) {
 			throw illegalState("unexpected parse error", e);
 		}
 	}
 
-	protected String getPrice(String source) {
+	protected double getPrice(String source) {
 		NumberFormat parser = NumberFormat.getCurrencyInstance();
-		NumberFormat formatter = NumberFormat.getInstance();
-		formatter.setMaximumFractionDigits(0);
-		formatter.setMinimumFractionDigits(0);
 		try {
-			Number number = parser.parse(source);
-			double d = number.doubleValue();
-			return leftPad(formatter.format(d), 3, " ");
+			return parser.parse(source).doubleValue();
 		} catch (ParseException e) {
 			throw illegalState("unexpected parse error", e);
 		}
