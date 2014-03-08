@@ -63,7 +63,7 @@ public class AprilTest {
 	protected void updateJson(String... textFiles) {
 		List<Sale> sales = newArrayList();
 		for (String textFile : textFiles) {
-			String location = CLASSPATH_URL_PREFIX + jsonDir + vs.getFileSeparator() + textFile;
+			String location = CLASSPATH_URL_PREFIX + jsonDir + "/" + textFile;
 			List<String> strings = LocationUtils.readLines(location);
 			logger.info(format("line count: %s", strings.size()));
 			List<SaleLines> lines = getSaleLines(strings);
