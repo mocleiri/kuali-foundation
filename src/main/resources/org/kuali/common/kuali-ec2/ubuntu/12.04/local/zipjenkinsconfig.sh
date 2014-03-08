@@ -38,6 +38,7 @@ function scp_zip_file {
   SSH3="zip -e --password $ZIP_PASSWORD -r $SERVER_ZIP .jenkins -x '**/plugins/*' '**/config-history/*' '**/jobs/*' '**/users/*'"
   SSH="$SSH1; $SSH2; $SSH3"
 
+  echo "$SSH"
   ssh root@$FQDN "$SSH"
   scp root@$FQDN:$SERVER_ZIP $LOCAL_ZIP 
 
