@@ -122,9 +122,7 @@ function configure_jenkins {
   
   echo "configure -> jenkins:application"
   MASTER_CONFIG_ZIP=$BASEDIR/${project.groupId.path}/${project.artifactId}/jenkins/master_config.zip
-  UNZIP="unzip $QUIET -o -P $ZIP_PASSWORD $MASTER_CONFIG_ZIP -d $TOMCAT_HOME"
-  echo $UNZIP
-  $UNZIP
+  unzip $QUIET -o -P $ZIP_PASSWORD $MASTER_CONFIG_ZIP -d $TOMCAT_HOME
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
   
 }
