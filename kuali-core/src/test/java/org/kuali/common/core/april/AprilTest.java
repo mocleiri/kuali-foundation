@@ -18,7 +18,7 @@ public class AprilTest {
 		try {
 			logger.info(format("hello world"));
 			List<String> lines = LocationUtils.readLines("classpath:json/april-01.txt");
-			logger.info("line count: %s", lines.size());
+			logger.info(format("line count: %s", lines.size()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
