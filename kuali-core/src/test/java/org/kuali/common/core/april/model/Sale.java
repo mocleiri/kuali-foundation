@@ -21,13 +21,13 @@ public final class Sale implements Comparable<Sale> {
 	// Usually a number, but the on field seats are a letter (H/S/R) etc
 	private final String section;
 
-	@Min(1)
+	@Min(0)
 	private final int row;
 
 	@Min(0)
 	private final double price;
 
-	@Min(1)
+	@Min(0)
 	private final int quantity;
 
 	@Min(0)
