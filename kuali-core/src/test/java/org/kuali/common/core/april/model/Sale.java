@@ -127,8 +127,9 @@ public final class Sale implements Comparable<Sale> {
 	}
 
 	@Override
-	public int compareTo(Sale other) {
-		return ComparisonChain.start().compare(this.price, other.price).result();
+	public int compareTo(Sale b) {
+		Sale a = this;
+		return ComparisonChain.start().compare(a.level, b.level).compare(a.area, b.area).compare(a.section, b.section).compare(a.price, b.price).result();
 	}
 
 	@Override
