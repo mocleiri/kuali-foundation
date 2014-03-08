@@ -26,6 +26,21 @@ function check_args {
   check_not_blank ZIP_PASSWORD $ZIP_PASSWORD
 }
 
+function create_zip_file {
+
+  SERVER_ZIP="/mnt/jenkins.zip"
+  LOCAL_ZIP="$BASEDIR/${project.groupId.path}/${project.artifactId}/jenkins/master/config.zip"
+  
+  SSH1="rm -f $SERVER_ZIP"
+  SSH2="cd /home/tomcat7"
+  SSH3="zip -e --password $ZIP_PASSWORD -r $SERVER_ZIP .jenkins -x '**/plugins/*' '**/config-history/*' '**/jobs/*' '**/users/*'"
+  SSH="$SSH1; $SSH2; $SSH3"
+
+  ssh root@$FQDN "$SSH"
+  scp root@$FQDN:$SERVER_ZIP $LOCAL_ZIP 
+
+}
+
 echo $(date)
 
 # import generic functions
