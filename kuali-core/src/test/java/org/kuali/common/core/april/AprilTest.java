@@ -13,11 +13,13 @@ import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
+import org.kuali.common.core.april.model.DefaultSaleComparator;
 import org.kuali.common.core.april.model.Sale;
 import org.kuali.common.core.april.model.SaleLines;
 import org.kuali.common.core.json.api.JsonService;
@@ -62,6 +64,7 @@ public class AprilTest {
 			logger.info(format("sales: %s", lines.size()));
 			sales.addAll(getSales(lines));
 		}
+		Collections.sort(sales, DefaultSaleComparator.INSTANCE);
 		Set<Sale> set = newHashSet(sales);
 		int duplicates = sales.size() - set.size();
 		logger.info(format("duplicates: %s", duplicates));
