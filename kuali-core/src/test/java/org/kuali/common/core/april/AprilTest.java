@@ -16,7 +16,9 @@ import org.junit.Test;
 import org.kuali.common.core.april.model.Sale;
 import org.kuali.common.core.april.model.SaleLines;
 import org.kuali.common.core.json.api.JsonService;
+import org.kuali.common.core.json.jackson.JacksonContext;
 import org.kuali.common.core.json.jackson.JacksonJsonService;
+import org.kuali.common.core.system.VirtualSystem;
 import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 
@@ -31,15 +33,20 @@ public class AprilTest {
 	@Test
 	public void test() {
 		try {
+			VirtualSystem vs = VirtualSystem.create();
 			logger.info(format("hello world"));
 			List<String> strings = LocationUtils.readLines("classpath:json/april-01.txt");
 			logger.info(format("line count: %s", strings.size()));
 			List<SaleLines> lines = getSaleLines(strings);
 			logger.info(format("sales: %s", lines.size()));
 			List<Sale> sales = getSales(lines);
-			JsonService service = new JacksonJsonService();
-			String s = service.writeString(sales);
-			System.out.println(s);
+			JsonService service = new JacksonJsonService(JacksonContext.builder().withPrettyPrint(false).build());
+			StringBuilder sb = new StringBuilder();
+			for (Sale sale : sales) {
+				sb.append(service.writeString(sale));
+				sb.append(vs.getLineSeparator());
+			}
+			System.out.println(sb);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
