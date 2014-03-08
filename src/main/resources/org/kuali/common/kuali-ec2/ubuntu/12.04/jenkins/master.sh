@@ -24,13 +24,14 @@ function check_not_blank {
 
 function show_usage {
   echo
-  echo requires BASEDIR
-  echo usage: master.sh basedir [quiet]
+  echo requires ZIP_PASSWORD BASEDIR
+  echo usage: master.sh zip_password basedir [quiet]
   echo
   exit 1
 }
 
 function check_args {
+  check_not_blank ZIP_PASSWORD $ZIP_PASSWORD
   check_not_blank BASEDIR $BASEDIR
 }
 
@@ -136,8 +137,9 @@ function wait_for_jenkins {
   done
 }
 
-BASEDIR=${1-$BASEDIR}
-QUIET=${2-$QUIET}
+ZIP_PASSWORD=${1-ZIP_PASSWORD}
+BASEDIR=${2-$BASEDIR}
+QUIET=${3-$QUIET}
 
 JENKINS_VERSION=1.532.2
 TOMCAT=tomcat7
