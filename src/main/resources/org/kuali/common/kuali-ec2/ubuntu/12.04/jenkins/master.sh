@@ -128,7 +128,7 @@ function configure_jenkins {
 }
 
 function wait_for_jenkins {
-  echo "wait      -> jenkins:startup"
+  echo "wait      -> jenkins:ready"
   tail -f /var/lib/$TOMCAT/logs/catalina.out | while read LOGLINE
   do
     [[ "${LOGLINE}" == *"Jenkins is fully up and running"* ]] && pkill -P $$ tail
