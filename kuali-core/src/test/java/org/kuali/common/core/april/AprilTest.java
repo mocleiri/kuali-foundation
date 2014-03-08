@@ -15,6 +15,8 @@ import java.util.List;
 import org.junit.Test;
 import org.kuali.common.core.april.model.Sale;
 import org.kuali.common.core.april.model.SaleLines;
+import org.kuali.common.core.json.api.JsonService;
+import org.kuali.common.core.json.jackson.JacksonJsonService;
 import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 
@@ -34,6 +36,10 @@ public class AprilTest {
 			logger.info(format("line count: %s", strings.size()));
 			List<SaleLines> lines = getSaleLines(strings);
 			logger.info(format("sales: %s", lines.size()));
+			List<Sale> sales = getSales(lines);
+			JsonService service = new JacksonJsonService();
+			String s = service.writeString(sales);
+			System.out.println(s);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -56,7 +62,7 @@ public class AprilTest {
 		List<String> tokens1 = splitter.splitToList(saleLines.getLine1());
 		checkState(tokens1.size() == 4, "expected 4 tokens");
 
-		List<String> tokens3 = splitter.splitToList(saleLines.getLine3());
+		List<String> tokens3 = splitter.splitToList(saleLines.getLine3().replace('\t', separator));
 		checkState(tokens3.size() == 3, "expected 3 tokens");
 
 		String section = tokens1.get(tokens1.size() - 1);
