@@ -128,10 +128,20 @@ function configure_jenkins {
 }
 
 function wait_for_jenkins {
-  echo "wait      -> jenkins:ready"
   tail -f /var/lib/$TOMCAT/logs/catalina.out | while read LOGLINE
   do
     [[ "${LOGLINE}" == *"Jenkins is fully up and running"* ]] && pkill -P $$ tail
+  done
+}
+
+function wait_for_string {
+  FILENAME=$1
+  STRING=$2
+  check_not_blank FILENAME $FILENAME
+  check_not_blank STRING $STRING
+  tail -f "$FILENAME" | while read LOGLINE
+  do
+    [[ "${LOGLINE}" == *"$STRING"* ]] && pkill -P $$ tail
   done
 }
 
@@ -153,4 +163,5 @@ install_plugins
 configure_jenkins
 echo "start     -> $TOMCAT:service"
 service $TOMCAT start > /dev/null 2>&1
-wait_for_jenkins
+echo "wait      -> jenkins:ready"
+wait_for_string "/var/lib/$TOMCAT/logs/catalina.out" "Jenkins is fully up and running"
