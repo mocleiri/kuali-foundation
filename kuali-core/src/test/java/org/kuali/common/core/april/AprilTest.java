@@ -3,6 +3,7 @@ package org.kuali.common.core.april;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
+import static org.apache.commons.lang3.StringUtils.leftPad;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
@@ -61,6 +62,7 @@ public class AprilTest {
 			sales.addAll(getSales(lines));
 		}
 		Collections.sort(sales);
+		// List<Sale> reversed = Lists.reverse(newArrayList(newTreeSet(sales)));
 		List<Sale> reversed = Lists.reverse(sales);
 		JsonService service = new JacksonJsonService(JacksonContext.builder().noPrettyPrint().build());
 		StringBuilder sb = new StringBuilder();
@@ -102,14 +104,14 @@ public class AprilTest {
 		String area = tokens1.get(tokens1.size() - 2);
 		String level = joiner.join(ImmutableList.of(tokens1.get(0), tokens1.get(1)));
 		double price = getPrice(saleLines.getLine2().trim());
-		int row = Integer.parseInt(tokens3.get(0));
+		String row = tokens3.get(0);
 		int quantity = Integer.parseInt(tokens3.get(1));
 		Date date = getDate(tokens3.get(2));
 
 		Sale.Builder builder = Sale.builder();
-		builder.withLevel(level).withArea(area).withSection(section);
+		builder.withLevel(leftPad(level, "Terrace Level".length(), " ")).withArea(leftPad(area, "Sideline".length(), " ")).withSection(section);
 		builder.withPrice(price);
-		builder.withRow(row).withQuantity(quantity).withDate(date.getTime());
+		builder.withRow(leftPad(row, 2, "0")).withQuantity(quantity).withDate(date.getTime());
 		return builder.build();
 	}
 

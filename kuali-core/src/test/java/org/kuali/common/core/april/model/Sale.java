@@ -23,8 +23,7 @@ public final class Sale implements Comparable<Sale> {
 	// Usually a number, but the on field seats are a letter (H/S/R) etc
 	private final String section;
 
-	@Min(0)
-	private final int row;
+	private final String row;
 
 	@Min(0)
 	private final double price;
@@ -54,7 +53,7 @@ public final class Sale implements Comparable<Sale> {
 		private String level;
 		private String area;
 		private String section;
-		private int row;
+		private String row;
 		private double price;
 		private int quantity;
 		private long date;
@@ -74,7 +73,7 @@ public final class Sale implements Comparable<Sale> {
 			return this;
 		}
 
-		public Builder withRow(int row) {
+		public Builder withRow(String row) {
 			this.row = row;
 			return this;
 		}
@@ -112,7 +111,7 @@ public final class Sale implements Comparable<Sale> {
 		return section;
 	}
 
-	public int getRow() {
+	public String getRow() {
 		return row;
 	}
 
@@ -131,8 +130,8 @@ public final class Sale implements Comparable<Sale> {
 	@Override
 	public int compareTo(Sale b) {
 		Sale a = this;
-		// return ComparisonChain.start().compare(a.level, b.level).compare(a.area, b.area).compare(a.section, b.section).compare(a.price, b.price).result();
-		return ComparisonChain.start().compare(a.price, b.price).result();
+		return ComparisonChain.start().compare(a.level, b.level).compare(a.area, b.area).compare(a.section, b.section).compare(a.row, b.row).compare(a.price, b.price).result();
+		// return ComparisonChain.start().compare(a.price, b.price).result();
 	}
 
 	@Override
