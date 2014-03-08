@@ -15,14 +15,14 @@
 ====
 
 Configure Jenkins -> Configure Plugins -> Advanced -> Update Site
-
 http://updates.jenkins-ci.org/stable/update-center.json
 
 TODO
-config.xml template in secrets.zip
-
 automated slave ami creation
 automated updating of jenkins with new ami
+spring-maven-plugin - tone down logging for Maven 3.2
+Jenkins app, add java opt for timezone=US/Eastern
+better plan for JAVA_OPTS all together?
 
 new templates for default unit, license, publish, release jobs
 user management
