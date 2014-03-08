@@ -71,13 +71,14 @@ public class AprilTest {
 			logger.info(format("sales: %s", lines.size()));
 			sales.addAll(getSales(lines));
 		}
-		Collections.sort(sales, DefaultSaleComparator.INSTANCE);
 		Set<Sale> set = newHashSet(sales);
 		int duplicates = sales.size() - set.size();
 		logger.info(format("duplicates: %s", duplicates));
 		JsonService service = new JacksonJsonService(JacksonContext.builder().noPrettyPrint().build());
+		List<Sale> unique = newArrayList(set);
+		Collections.sort(unique, DefaultSaleComparator.INSTANCE);
 		List<String> lines = newArrayList();
-		for (Sale sale : reverse(sales)) {
+		for (Sale sale : reverse(unique)) {
 			lines.add(service.writeString(sale));
 		}
 		File basedir = new File("./src/test/resources");
