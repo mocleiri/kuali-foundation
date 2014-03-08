@@ -6,14 +6,14 @@ import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @IdiotProofImmutable
-@JsonDeserialize(builder = Sale.Builder.class)
-public final class Sale {
+@JsonDeserialize(builder = SaleLines.Builder.class)
+public final class SaleLines {
 
 	private final String line1;
 	private final String line2;
 	private final String line3;
 
-	private Sale(Builder builder) {
+	private SaleLines(Builder builder) {
 		this.line1 = builder.line1;
 		this.line2 = builder.line2;
 		this.line3 = builder.line3;
@@ -23,7 +23,7 @@ public final class Sale {
 		return new Builder();
 	}
 
-	public static class Builder extends ValidatingBuilder<Sale> {
+	public static class Builder extends ValidatingBuilder<SaleLines> {
 
 		private String line1;
 		private String line2;
@@ -45,8 +45,8 @@ public final class Sale {
 		}
 
 		@Override
-		public Sale build() {
-			return validate(new Sale(this));
+		public SaleLines build() {
+			return validate(new SaleLines(this));
 		}
 	}
 
