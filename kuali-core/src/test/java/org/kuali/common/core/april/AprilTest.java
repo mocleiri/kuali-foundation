@@ -2,7 +2,6 @@ package org.kuali.common.core.april;
 
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Sets.newTreeSet;
 import static java.lang.String.format;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.log.Loggers.newLogger;
@@ -14,7 +13,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.SortedSet;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
@@ -33,6 +31,7 @@ import org.springframework.util.ResourceUtils;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 public class AprilTest {
 
@@ -51,7 +50,7 @@ public class AprilTest {
 
 	protected void updateJson(String... textFiles) {
 		VirtualSystem vs = VirtualSystem.create();
-		SortedSet<Sale> sales = newTreeSet();
+		List<Sale> sales = newArrayList();
 		for (String textFile : textFiles) {
 			String location = ResourceUtils.CLASSPATH_URL_PREFIX + jsonDir + vs.getFileSeparator() + textFile;
 			List<String> strings = LocationUtils.readLines(location);
@@ -60,9 +59,10 @@ public class AprilTest {
 			logger.info(format("sales: %s", lines.size()));
 			sales.addAll(getSales(lines));
 		}
+		List<Sale> reversed = Lists.reverse(sales);
 		JsonService service = new JacksonJsonService(JacksonContext.builder().noPrettyPrint().build());
 		StringBuilder sb = new StringBuilder();
-		for (Sale sale : sales) {
+		for (Sale sale : reversed) {
 			sb.append(service.writeString(sale));
 			sb.append(vs.getLineSeparator());
 		}
