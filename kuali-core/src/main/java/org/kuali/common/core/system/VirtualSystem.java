@@ -24,7 +24,7 @@ public final class VirtualSystem {
 	private final ImmutableProperties environment;
 
 	/**
-	 * Produce an immutable VirtualSystem representing the current state of the system we are running on.
+	 * Create a new immutable VirtualSystem instance representing the current state of the system we are running on.
 	 */
 	public static VirtualSystem create() {
 		return VirtualSystemHelper.createVirtualSystem();
