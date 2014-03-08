@@ -31,14 +31,13 @@ function scp_zip_file {
 
   ZIP_FILE="master_config.zip"
   SERVER_ZIP="/tmp/$ZIP_FILE"
-  LOCAL_ZIP="$BASEDIR/${project.groupId.path}/${project.artifactId}/jenkins/$ZIP_FILE"
+  LOCAL_ZIP="$HOME/kuali-ec2/src/main/resources/${project.groupId.path}/${project.artifactId}/jenkins/$ZIP_FILE"
   
   SSH1="rm -f $SERVER_ZIP"
   SSH2="cd /home/tomcat7"
   SSH3="zip -qq -e --password $ZIP_PASSWORD -r $SERVER_ZIP .jenkins -x '**/plugins/*' '**/config-history/*' '**/jobs/*' '**/users/*'"
   SSH="$SSH1; $SSH2; $SSH3"
 
-  echo "$SSH"
   ssh root@$FQDN "$SSH"
   scp root@$FQDN:$SERVER_ZIP $LOCAL_ZIP 
 
