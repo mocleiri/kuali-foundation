@@ -25,6 +25,10 @@ function check_not_blank {
 ZIP_PASSWORD=${1-$ZIP_PASSWORD}
 check_not_blank ZIP_PASSWORD $ZIP_PASSWORD
 
-cd /home/tomcat7; rm -f jenkins.zip;
+ZIP=/mnt/jenkins.zip
+
+rm -f $ZIP
+
+cd /home/tomcat7
  
-zip -e --password $ZIP_PASSWORD -r /mnt/jenkins.zip .jenkins -x "**/plugins/*" "**/config-history/*"
+zip -e --password $ZIP_PASSWORD -r $ZIP .jenkins -x "**/plugins/*" "**/config-history/*"
