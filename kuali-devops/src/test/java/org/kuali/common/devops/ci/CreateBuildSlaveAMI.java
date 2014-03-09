@@ -2,6 +2,8 @@ package org.kuali.common.devops.ci;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
+import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
+import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.util.List;
@@ -15,7 +17,6 @@ import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.devops.aws.KeyPairBuilders;
-import org.kuali.common.devops.aws.NamedSecurityGroups;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.util.wait.DefaultWaitService;
@@ -34,7 +35,7 @@ public class CreateBuildSlaveAMI {
 	private final String ami = "ami-83dee0ea";
 	private final InstanceType type = InstanceType.C3Xlarge;
 	private final RootVolume rootVolume = RootVolume.builder().withDeleteOnTermination(true).withSizeInGigabytes(64).build();
-	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(NamedSecurityGroups.CI.getGroup(), NamedSecurityGroups.CI_BUILD_SLAVE.getGroup());
+	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_BUILD_SLAVE.getGroup());
 	private final List<Tag> tags = getTags();
 
 	@Test
