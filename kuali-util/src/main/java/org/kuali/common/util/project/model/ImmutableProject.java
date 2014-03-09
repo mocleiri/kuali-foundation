@@ -15,14 +15,15 @@
  */
 package org.kuali.common.util.project.model;
 
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
+
 import java.util.Properties;
 
-import org.kuali.common.util.Assert;
 import org.kuali.common.util.ObjectUtils;
-import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.identify.Identifiable;
+import org.kuali.common.util.property.ImmutableProperties;
 
-public final class ImmutableProject implements Project, Identifiable {
+public final class ImmutableProject implements Project {
 
 	private final ProjectIdentifier identifier;
 	private final String version;
@@ -40,14 +41,14 @@ public final class ImmutableProject implements Project, Identifiable {
 	}
 
 	public ImmutableProject(ProjectIdentifier identifier, String version, Properties properties) {
-		// Make sure we are being configured correctly
-		Assert.noNulls(identifier, properties);
-		Assert.noBlanks(version);
+		checkNotNull(identifier, "identifier");
+		checkNotNull(properties, "properties");
+		checkNotBlank(version, "version");
 
 		// Finish setting things up
 		this.identifier = identifier;
 		this.version = version;
-		this.properties = PropertyUtils.toImmutable(properties);
+		this.properties = ImmutableProperties.copyOf(properties);
 		this.id = identifier.getIdentifier() + ":" + version;
 		this.hashCode = identifier.hashCode();
 	}
@@ -76,7 +77,6 @@ public final class ImmutableProject implements Project, Identifiable {
 		return properties;
 	}
 
-	@Override
 	public String getIdentifier() {
 		return id;
 	}

@@ -15,9 +15,9 @@
  */
 package org.kuali.common.util.project.model;
 
-import org.kuali.common.util.Assert;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
+
 import org.kuali.common.util.ObjectUtils;
-import org.kuali.common.util.identify.Identifiable;
 
 /**
  * The project identifier concept is based on two facts:
@@ -46,7 +46,7 @@ import org.kuali.common.util.identify.Identifiable;
  * 
  * </p>
  */
-public final class ProjectIdentifier implements Identifiable {
+public final class ProjectIdentifier {
 
 	private final String groupId;
 	private final String artifactId;
@@ -55,8 +55,8 @@ public final class ProjectIdentifier implements Identifiable {
 	private final int hashCode;
 
 	public ProjectIdentifier(String groupId, String artifactId) {
-		// Make sure we are being configured correctly
-		Assert.noBlanks(groupId, artifactId);
+		checkNotBlank(groupId, "groupId");
+		checkNotBlank(artifactId, "artifactId");
 
 		// Finish setting things up
 		this.groupId = groupId;
@@ -73,7 +73,6 @@ public final class ProjectIdentifier implements Identifiable {
 		return this.artifactId;
 	}
 
-	@Override
 	public String getIdentifier() {
 		return identifier;
 	}
