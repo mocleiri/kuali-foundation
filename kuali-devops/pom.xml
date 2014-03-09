@@ -59,7 +59,6 @@
         <directory>src/main/resources</directory>
         <filtering>true</filtering>
         <excludes>
-          <exclude>**/install_java.sh</exclude>
           <exclude>**/*.zip</exclude>
           <exclude>**/rice.keystore</exclude>
         </excludes>
@@ -68,7 +67,6 @@
         <directory>src/main/resources</directory>
         <filtering>false</filtering>
         <includes>
-          <include>**/install_java.sh</include>
           <include>**/*.zip</include>
           <include>**/rice.keystore</include>
         </includes>
