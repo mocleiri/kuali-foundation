@@ -437,7 +437,7 @@ public final class DefaultEC2Service implements EC2Service {
 	protected WaitContext getWaitContext(int timeout) {
 		int sleep = context.getSleepIntervalMillis();
 		int pause = context.getInitialPauseMillis();
-		return new WaitContext.Builder(timeout).sleepMillis(sleep).initialPauseMillis(pause).build();
+		return WaitContext.builder(timeout).sleepMillis(sleep).initialPauseMillis(pause).build();
 	}
 
 	protected void waitForOnlineConfirmation(Instance instance, LaunchInstanceContext context) {
