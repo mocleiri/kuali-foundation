@@ -8,6 +8,7 @@ import java.util.List;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.ssh.KeyPair;
+import org.kuali.common.util.FormatUtils;
 
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
@@ -68,7 +69,7 @@ public final class LaunchInstanceContext {
 		private boolean overrideExistingSecurityGroupPermissions;
 		private List<Tag> tags = newArrayList();
 		private Optional<String> availabilityZone = absent();
-		private int timeoutMillis;
+		private int timeoutMillis = FormatUtils.getMillisAsInt("15m");
 		private boolean preventTermination = false;
 		private boolean ebsOptimized = false;
 		private boolean enableMonitoring = false;
