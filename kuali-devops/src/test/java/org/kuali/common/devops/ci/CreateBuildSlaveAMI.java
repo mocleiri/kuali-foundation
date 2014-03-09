@@ -17,19 +17,21 @@ import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
 
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.services.ec2.model.InstanceType;
 
 public class CreateBuildSlaveAMI {
 
 	private static final Logger logger = newLogger();
 	private final String ami = "ami-83dee0ea";
+	private final InstanceType type = InstanceType.C3Xlarge;
 
 	@Test
 	public void test() {
 		try {
 			WaitContext wc = WaitContext.create(getMillis("15m"));
 			EC2Service service = getEC2Service();
-			KeyPair keyPair = Auth.getKeyPair(KeyPairBuilders.FOUNDATION.getBuilder()); 
-			LaunchInstanceContext lic = new LaunchInstanceContext.Builder(ami, keyPair)
+			KeyPair keyPair = Auth.getKeyPair(KeyPairBuilders.FOUNDATION.getBuilder());
+			LaunchInstanceContext lic = LaunchInstanceContext.builder(ami, keyPair).withType(type).build();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
