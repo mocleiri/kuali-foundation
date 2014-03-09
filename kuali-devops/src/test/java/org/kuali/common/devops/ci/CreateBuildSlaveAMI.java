@@ -2,7 +2,7 @@ package org.kuali.common.devops.ci;
 
 import org.junit.Test;
 
-public class ProvisionCIMasterTest {
+public class CreateBuildSlaveAMI {
 
 	@Test
 	public void test() {
