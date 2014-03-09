@@ -1,10 +1,14 @@
-package org.kuali.common.core.ssh;
+package org.kuali.common.core.ssh.jcraft;
 
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 
+import org.kuali.common.core.ssh.Algorithm;
+import org.kuali.common.core.ssh.GenerateKeyPairContext;
+import org.kuali.common.core.ssh.KeyPair;
+import org.kuali.common.core.ssh.SshService;
 import org.kuali.common.util.Encodings;
 
 import com.jcraft.jsch.JSch;
