@@ -24,6 +24,8 @@ import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.devops.aws.KeyPairBuilders;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.logic.Auth;
+import org.kuali.common.dns.api.DnsService;
+import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
@@ -43,6 +45,8 @@ public class CreateBuildSlaveAMI {
 	private final RootVolume rootVolume = RootVolume.create(64, true);
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_BUILD_SLAVE.getGroup());
 	private final List<Tag> tags = getTags();
+	private final String subdomain = "slave.ci";
+	private final String domain = "kuali.org";
 
 	@Test
 	public void test() {
@@ -58,6 +62,12 @@ public class CreateBuildSlaveAMI {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected DnsService getDnsService() {
+		DNSMadeEasyCredentials credentials = Auth.getDnsmeCredentials();
+		DnsService service = null;// new DNSMadeEasyServiceContext(credentials, restApiUrl, domainName)
+		return null;
 	}
 
 	protected List<Tag> getTags() {
