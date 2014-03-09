@@ -1,5 +1,6 @@
 package org.kuali.common.devops.ci;
 
+import static java.lang.String.format;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.util.List;
@@ -43,7 +44,7 @@ public class CreateBuildSlaveAMI {
 			LaunchInstanceContext context = LaunchInstanceContext.builder(ami, keyPair).withType(type).withRootVolume(rootVolume).withSecurityGroups(securityGroups).withTags(tags)
 					.build();
 			Instance instance = service.launchInstance(context);
-			logger.info(String.format("public dns: %s", instance.getPublicDnsName()));
+			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
