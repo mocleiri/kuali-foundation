@@ -5,6 +5,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.reverse;
 import static com.google.common.collect.Sets.newHashSet;
 import static java.lang.String.format;
+import static org.kuali.common.util.LocationUtils.readLines;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.log.Loggers.newLogger;
 import static org.springframework.util.ResourceUtils.CLASSPATH_URL_PREFIX;
@@ -40,15 +41,16 @@ public class AprilTest {
 
 	private static final Logger logger = newLogger();
 	private final VirtualSystem vs = VirtualSystem.create();
+	private final File basedir = new File("./src/test/resources");
 	private final String jsonDir = "json";
-	private final String jsonFile = "april.json";
-	private final String jsonPath = CLASSPATH_URL_PREFIX + jsonDir + "/" + jsonFile;
+	private final String jsonFilename = "april.json";
+	private final File jsonFile = new File(basedir, jsonDir + vs.getFileSeparator() + jsonFilename);
 
 	@Test
 	public void test() {
 		try {
 			updateJson("01", "02", "03");
-			List<String> lines = LocationUtils.readLines(jsonPath);
+			List<String> lines = readLines(jsonFile);
 			logger.info(format("lines %s", lines.size()));
 			JsonService service = new JacksonJsonService();
 			List<Sale> sales = newArrayList();
@@ -81,7 +83,6 @@ public class AprilTest {
 		for (Sale sale : reverse(unique)) {
 			lines.add(service.writeString(sale));
 		}
-		File basedir = new File("./src/test/resources");
 		File file = new CanonicalFile(basedir, jsonDir + vs.getFileSeparator() + jsonFile);
 		logger.info(format("creating -> %s", file));
 		try {
