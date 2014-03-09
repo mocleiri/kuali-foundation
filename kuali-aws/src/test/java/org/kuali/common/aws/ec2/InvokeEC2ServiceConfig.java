@@ -17,7 +17,7 @@ package org.kuali.common.aws.ec2;
 
 import java.util.List;
 
-import org.kuali.common.aws.KeyPairs;
+import org.kuali.common.aws.KeyPairBuilders;
 import org.kuali.common.aws.SecurityGroups;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.AMI;
@@ -51,7 +51,7 @@ public class InvokeEC2ServiceConfig {
 
 	@Bean
 	public Object invokeEC2Service() {
-		String publicKey = KeyPairs.DEVOPS.getKeyPairBuilder().build().getPublicKey().get();
+		String publicKey = KeyPairBuilders.DEVOPS.getBuilder().build().getPublicKey().get();
 		KeyPair keyPair = new KeyPair.Builder("kuali-devops").withPublicKey(publicKey).build();
 		List<KualiSecurityGroup> groups = getSecurityGroups();
 		String ami = AMI.AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09.getId();
