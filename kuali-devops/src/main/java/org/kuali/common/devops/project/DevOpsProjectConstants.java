@@ -15,15 +15,18 @@
  */
 package org.kuali.common.devops.project;
 
-import org.kuali.common.util.project.KualiProjectConstants;
+import static org.kuali.common.util.project.KualiProjectConstants.COMMON_GROUP_ID;
+
 import org.kuali.common.util.project.model.ProjectIdentifier;
 
-public abstract class DevOpsProjectConstants {
+public final class DevOpsProjectConstants {
 
-	// These 2 must exactly match what is in the Maven pom
-	private static final String GROUP_ID = KualiProjectConstants.COMMON_GROUP_ID;
+	private DevOpsProjectConstants() {
+	}
+
 	private static final String ARTIFACT_ID = "kuali-devops";
 
-	public static final ProjectIdentifier PROJECT_ID = new ProjectIdentifier(GROUP_ID, ARTIFACT_ID);
+	// These 2 must exactly match what is in the Maven pom
+	public static final ProjectIdentifier PROJECT_ID = new ProjectIdentifier(COMMON_GROUP_ID, ARTIFACT_ID);
 
 }
