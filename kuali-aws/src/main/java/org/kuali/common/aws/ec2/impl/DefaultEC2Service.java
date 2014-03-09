@@ -1,8 +1,12 @@
 package org.kuali.common.aws.ec2.impl;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
+import static org.kuali.common.util.base.Threads.sleep;
+import static org.kuali.common.util.enc.EncUtils.isEncrypted;
+import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,14 +33,11 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.SetUtils;
-import org.kuali.common.util.base.Threads;
 import org.kuali.common.util.condition.Condition;
-import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.wait.WaitContext;
 import org.kuali.common.util.wait.WaitResult;
 import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.AuthorizeSecurityGroupIngressRequest;
@@ -80,7 +81,7 @@ import com.google.common.collect.Lists;
  */
 public final class DefaultEC2Service implements EC2Service {
 
-	private static final Logger logger = LoggerFactory.getLogger(DefaultEC2Service.class);
+	private static final Logger logger = newLogger();
 
 	// Don't expose the AmazonEC2Client object via a getter
 	// It is mutable and therefore not inherently thread safe
@@ -90,8 +91,9 @@ public final class DefaultEC2Service implements EC2Service {
 	private final WaitService service;
 
 	public DefaultEC2Service(EC2ServiceContext context, WaitService service) {
-		Assert.noNulls(context, service);
-		Assert.isFalse(EncUtils.isEncrypted(context.getCredentials().getAWSSecretKey()), "AWS secret key is encrypted");
+		checkNotNull(context, "context");
+		checkNotNull(service, "service");
+		checkArgument(!isEncrypted(context.getCredentials().getAWSSecretKey()), "AWS secret key is encrypted");
 		this.service = service;
 		this.context = context;
 		this.client = LaunchUtils.getClient(context);
@@ -243,7 +245,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 	@Override
 	public Instance getInstance(String instanceId) {
-		checkArgument(!StringUtils.isBlank(instanceId), "'instanceId' cannot be blank");
+		checkNotBlank(instanceId, "instanceId");
 		List<Instance> instances = getInstances(ImmutableList.of(instanceId));
 		checkState(instances.size() == 1, "Expected exactly 1 instance but there were %s instead", instances.size());
 		return instances.get(0);
@@ -272,16 +274,14 @@ public final class DefaultEC2Service implements EC2Service {
 
 	@Override
 	public Instance launchInstance(LaunchInstanceContext context) {
-
-		// Null is forbidden
-		Assert.noNulls(context);
+		checkNotNull(context, "context");
 
 		// Connect to AWS and ask them to create an instance
 		Instance instance = issueRunInstanceRequest(context);
 
 		// Was getting some flaky behavior from AWS without a small delay after issuing the RunInstancesRequest
 		// Since it generally takes a few minutes for the instance to spin up, pausing here for 1 second should be ok
-		Threads.sleep(this.context.getInitialPauseMillis());
+		sleep(this.context.getInitialPauseMillis());
 
 		// Tag the instance
 		tag(instance.getInstanceId(), context.getTags());
