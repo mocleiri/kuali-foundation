@@ -1,6 +1,5 @@
 package org.kuali.common.devops.ci;
 
-import static org.kuali.common.util.FormatUtils.getMillis;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.util.List;
@@ -18,7 +17,6 @@ import org.kuali.common.devops.aws.NamedSecurityGroup;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.util.wait.DefaultWaitService;
-import org.kuali.common.util.wait.WaitContext;
 import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
 
@@ -40,7 +38,6 @@ public class CreateBuildSlaveAMI {
 	@Test
 	public void test() {
 		try {
-			WaitContext wc = WaitContext.create(getMillis("15m"));
 			EC2Service service = getEC2Service();
 			KeyPair keyPair = Auth.getKeyPair(KeyPairBuilders.FOUNDATION.getBuilder());
 			LaunchInstanceContext context = LaunchInstanceContext.builder(ami, keyPair).withType(type).withRootVolume(rootVolume).withSecurityGroups(securityGroups).withTags(tags)
