@@ -5,7 +5,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 
 /**
- * Extension of {@code ValidatingBuilder} that provides information about constraint violations.
+ * Extension of {@code ValidatingBuilder} that provides information about constraint violations without throwing an exception
  */
 public abstract class ViolationsBuilder<T> extends ValidatingBuilder<T> {
 
