@@ -1,6 +1,7 @@
 package org.kuali.common.util.wait;
 
-import org.kuali.common.util.Assert;
+import static org.kuali.common.util.base.Precondition.checkMin;
+
 import org.kuali.common.util.FormatUtils;
 
 public final class WaitContext {
@@ -41,8 +42,15 @@ public final class WaitContext {
 		}
 
 		public WaitContext build() {
-			Assert.noNegatives(timeoutMillis, sleepMillis, initialPauseMillis);
-			return new WaitContext(this);
+			WaitContext instance = new WaitContext(this);
+			validate(instance);
+			return instance;
+		}
+
+		private static void validate(WaitContext instance) {
+			checkMin(instance.timeoutMillis, 0, "timeoutMillis");
+			checkMin(instance.sleepMillis, 0, "sleepMillis");
+			checkMin(instance.initialPauseMillis, 0, "initialPauseMillis");
 		}
 
 	}
