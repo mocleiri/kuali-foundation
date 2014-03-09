@@ -41,7 +41,9 @@ import org.kuali.common.dns.model.CNAMEContext;
 import org.kuali.common.dns.util.CreateOrReplaceCNAME;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.project.ProjectUtils;
+import org.kuali.common.util.service.DefaultExecContext;
 import org.kuali.common.util.service.DefaultExecService;
+import org.kuali.common.util.service.ExecContext;
 import org.kuali.common.util.service.ExecService;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitService;
@@ -82,9 +84,26 @@ public class CreateBuildSlaveAMI {
 			chmod(buildDir);
 			CanonicalFile bashDir = getLocalBashDir(buildDir);
 			logger.info(format("    bash dir %s", bashDir));
+			configureSlave(bashDir);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected void configureSlave(File bashDir) {
+		ExecContext context = getExecContext(bashDir);
+		ExecService service = new DefaultExecService();
+		service.execute(context);
+	}
+
+	protected ExecContext getExecContext(File bashDir) {
+		List<String> args = ImmutableList.of(Auth.decrypt(nexusPassword), Auth.decrypt(svnPassword), subdomain, "slave");
+		String executable = bashDir.getAbsolutePath() + vs.getFileSeparator() + bashScript;
+		DefaultExecContext context = new DefaultExecContext();
+		context.setWorkingDirectory(bashDir);
+		context.setExecutable(executable);
+		context.setArgs(args);
+		return context;
 	}
 
 	protected CanonicalFile getLocalBashDir(File buildDir) {
