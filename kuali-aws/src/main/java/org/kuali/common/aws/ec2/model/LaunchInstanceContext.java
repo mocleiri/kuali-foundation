@@ -58,17 +58,20 @@ public final class LaunchInstanceContext {
 
 	public static class Builder extends ValidatingBuilder<LaunchInstanceContext> {
 
+		// Required
 		private final String ami;
 		private final KeyPair keyPair;
+
+		// Optional
 		private InstanceType type = InstanceType.M3Medium;
 		private List<KualiSecurityGroup> securityGroups = newArrayList();
 		private boolean overrideExistingSecurityGroupPermissions;
 		private List<Tag> tags = newArrayList();
 		private Optional<String> availabilityZone = absent();
 		private int timeoutMillis;
-		private boolean preventTermination;
-		private boolean ebsOptimized;
-		private boolean enableMonitoring;
+		private boolean preventTermination = false;
+		private boolean ebsOptimized = false;
+		private boolean enableMonitoring = false;
 		private Optional<RootVolume> rootVolume = absent();
 
 		public Builder(String ami, KeyPair keyPair) {
