@@ -8,7 +8,7 @@ import org.kuali.common.aws.ec2.model.security.Permissions;
 
 import com.google.common.collect.ImmutableList;
 
-public enum SecurityGroups {
+public enum NamedSecurityGroup {
 
 	// TODO Remove the Permissions.WEB_SERVER from the CI security group here
 	// That is just a group with no perm's so that the slaves and master belong to the same group and thus
@@ -19,15 +19,15 @@ public enum SecurityGroups {
 
 	private final KualiSecurityGroup group;
 
-	private SecurityGroups(String name, String description) {
+	private NamedSecurityGroup(String name, String description) {
 		this(name, description, ImmutableList.<Permission> of());
 	}
 
-	private SecurityGroups(String name, String description, Permission permission) {
+	private NamedSecurityGroup(String name, String description, Permission permission) {
 		this(name, description, ImmutableList.of(permission));
 	}
 
-	private SecurityGroups(String name, String description, List<Permission> perms) {
+	private NamedSecurityGroup(String name, String description, List<Permission> perms) {
 		this.group = KualiSecurityGroup.builder(name).withDescription(description).withPermissions(perms).build();
 	}
 
