@@ -2,6 +2,7 @@ package org.kuali.common.aws.ec2.impl;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
+import static com.google.common.collect.Lists.newArrayList;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 import static org.kuali.common.util.base.Threads.sleep;
@@ -101,7 +102,8 @@ public final class DefaultEC2Service implements EC2Service {
 
 	@Override
 	public String importKey(String keyName, String publicKey) {
-		Assert.noBlanks(keyName, publicKey);
+		checkNotBlank(keyName, "keyName");
+		checkNotBlank(publicKey, "publicKey");
 		ImportKeyPairRequest request = new ImportKeyPairRequest(keyName, publicKey);
 		ImportKeyPairResult result = client.importKeyPair(request);
 		return result.getKeyFingerprint();
@@ -109,7 +111,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 	@Override
 	public boolean isExistingKey(String keyName) {
-		Assert.noBlanks(keyName);
+		checkNotBlank(keyName, "keyName");
 		DescribeKeyPairsResult result = client.describeKeyPairs();
 		List<KeyPairInfo> keys = result.getKeyPairs();
 		Optional<KeyPairInfo> optional = getKeyPairInfo(keyName, keys);
@@ -129,7 +131,7 @@ public final class DefaultEC2Service implements EC2Service {
 	@Override
 	public List<String> getSecurityGroupNames() {
 		DescribeSecurityGroupsResult result = client.describeSecurityGroups();
-		List<String> names = new ArrayList<String>();
+		List<String> names = newArrayList();
 		for (SecurityGroup group : result.getSecurityGroups()) {
 			names.add(group.getGroupName());
 		}
@@ -139,7 +141,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 	@Override
 	public void createSecurityGroup(KualiSecurityGroup group) {
-		Assert.noNulls(group);
+		checkNotNull(group, "group");
 		CreateSecurityGroupRequest request = new CreateSecurityGroupRequest();
 		request.setGroupName(group.getName());
 		if (group.getDescription().isPresent()) {
@@ -151,16 +153,16 @@ public final class DefaultEC2Service implements EC2Service {
 
 	@Override
 	public boolean isExistingSecurityGroup(String name) {
-		Assert.noBlanks(name);
+		checkNotBlank(name, "name");
 		return getSecurityGroup(name).isPresent();
 	}
 
 	@Override
 	public SetPermissionsResult setPermissions(String securityGroupName, List<Permission> permissions) {
-		Assert.noBlanks(securityGroupName);
-		Assert.noNulls(permissions);
+		checkNotBlank(securityGroupName, "securityGroupName");
+		checkNotNull(permissions, "permissions");
 		Optional<SecurityGroup> optional = getSecurityGroup(securityGroupName);
-		Assert.isTrue(optional.isPresent(), "Security group [" + securityGroupName + "] does not exist");
+		checkState(optional.isPresent(), "Security group [%s] does not exist", securityGroupName);
 		SecurityGroup group = optional.get();
 		List<IpPermission> oldPerms = group.getIpPermissions();
 		List<Permission> oldPermissions = getPermissions(oldPerms);
@@ -172,11 +174,13 @@ public final class DefaultEC2Service implements EC2Service {
 		Set<Permission> deletes = SetUtils.difference(oldSet, newSet);
 		Set<Permission> existing = SetUtils.intersection(newSet, oldSet);
 
+		// Delete any permissions that are not in the list, but exist in the security group
 		if (deletes.size() > 0) {
 			RevokeSecurityGroupIngressRequest revoker = new RevokeSecurityGroupIngressRequest(securityGroupName, getIpPermissions(deletes));
 			client.revokeSecurityGroupIngress(revoker);
 		}
 
+		// Add any permissions that are in the list but don't exist in the security group
 		if (adds.size() > 0) {
 			AuthorizeSecurityGroupIngressRequest authorizer = new AuthorizeSecurityGroupIngressRequest();
 			authorizer.withGroupName(securityGroupName).withIpPermissions(getIpPermissions(adds));
@@ -188,14 +192,14 @@ public final class DefaultEC2Service implements EC2Service {
 
 	@Override
 	public Optional<SecurityGroup> getSecurityGroup(String name) {
-		Assert.noBlanks(name);
+		checkNotBlank(name, "name");
 		List<String> names = getSecurityGroupNames();
 		if (names.contains(name)) {
 			DescribeSecurityGroupsRequest request = new DescribeSecurityGroupsRequest();
 			request.setGroupNames(Collections.singletonList(name));
 			DescribeSecurityGroupsResult result = client.describeSecurityGroups(request);
 			List<SecurityGroup> groups = result.getSecurityGroups();
-			Assert.isTrue(groups.size() == 1, "Expected exactly 1 security group but there were " + groups.size() + " instead");
+			checkState(groups.size() == 1, "Expected exactly 1 security group but there were %s instead", groups.size());
 			SecurityGroup group = groups.get(0);
 			return Optional.of(group);
 		} else {
@@ -222,7 +226,7 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	protected Permission getPermission(IpPermission perm) {
-		Assert.isTrue(CollectionUtils.isEmpty(perm.getUserIdGroupPairs()), "User id / group pairs are not supported");
+		checkArgument(CollectionUtils.isEmpty(perm.getUserIdGroupPairs()), "User id / group pairs are not supported");
 		String protocolName = perm.getIpProtocol();
 		Integer fromPort = perm.getFromPort();
 		Integer toPort = perm.getToPort();
