@@ -18,7 +18,6 @@ package org.kuali.common.aws.ec2;
 import java.util.List;
 
 import org.kuali.common.aws.KeyPairBuilders;
-import org.kuali.common.aws.SecurityGroups;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.AMI;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
@@ -62,7 +61,7 @@ public class InvokeEC2ServiceConfig {
 	}
 
 	protected List<KualiSecurityGroup> getSecurityGroups() {
-		KualiSecurityGroup ci = SecurityGroups.CI.getGroup();
+		KualiSecurityGroup ci = NamedSecurityGroup.CI.getGroup();
 		KualiSecurityGroup master = SecurityGroups.CI_MASTER.getGroup();
 		// KualiSecurityGroup slave = SecurityGroups.CI_BUILD_SLAVE.getGroup();
 		return ImmutableList.of(ci, master);

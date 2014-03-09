@@ -4,7 +4,7 @@ import org.kuali.common.util.Ports;
 
 import com.google.common.collect.ImmutableList;
 
-public enum NamedPermission {
+public enum AllowFromAnywherePermission {
 
 	SSH_PERMISSION(Ports.SSH), // Allow SSH (port 22) from anywhere
 	HTTP_PERMISSION(Ports.HTTP), // Allow HTTP (port 80) from anywhere
@@ -12,7 +12,7 @@ public enum NamedPermission {
 
 	private final Permission permission;
 
-	private NamedPermission(int port) {
+	private AllowFromAnywherePermission(int port) {
 		this.permission = Permission.create(port);
 	}
 
