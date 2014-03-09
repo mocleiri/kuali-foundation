@@ -25,7 +25,10 @@ import org.kuali.common.devops.aws.KeyPairBuilders;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.dns.api.DnsService;
+import org.kuali.common.dns.dnsme.DNSMadeEasyDnsService;
+import org.kuali.common.dns.dnsme.URLS;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
+import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
@@ -66,8 +69,8 @@ public class CreateBuildSlaveAMI {
 
 	protected DnsService getDnsService() {
 		DNSMadeEasyCredentials credentials = Auth.getDnsmeCredentials();
-		DnsService service = null;// new DNSMadeEasyServiceContext(credentials, restApiUrl, domainName)
-		return null;
+		DNSMadeEasyServiceContext context = new DNSMadeEasyServiceContext(credentials, URLS.PRODUCTION, domain);
+		return new DNSMadeEasyDnsService(context);
 	}
 
 	protected List<Tag> getTags() {
