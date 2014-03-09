@@ -7,11 +7,11 @@ import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
+import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
-import org.kuali.common.util.ssh.model.KeyPair;
 import org.springframework.util.Assert;
 
 import com.amazonaws.regions.Region;
@@ -51,7 +51,7 @@ public class LaunchUtils {
 		Optional<String> publicKey = SpringUtils.getString(env, PUBLIC_KEY_KEY, provided.getPublicKey());
 		Optional<String> privateKey = SpringUtils.getString(env, PRIVATE_KEY_KEY, provided.getPrivateKey());
 		Optional<String> fingerprint = SpringUtils.getString(env, KEY_FINGERPRINT_KEY, provided.getFingerprint());
-		return new KeyPair.Builder(name).publicKey(publicKey.orNull()).privateKey(privateKey.orNull()).fingerprint(fingerprint.orNull()).build();
+		return new KeyPair.Builder(name).withPublicKey(publicKey.orNull()).withPrivateKey(privateKey.orNull()).withFingerprint(fingerprint.orNull()).build();
 	}
 
 	public static AmazonEC2Client getClient(EC2ServiceContext context) {

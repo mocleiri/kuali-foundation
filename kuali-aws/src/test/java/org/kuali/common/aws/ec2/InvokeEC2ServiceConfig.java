@@ -25,9 +25,9 @@ import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.spring.AwsServiceConfig;
+import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
-import org.kuali.common.util.ssh.model.KeyPair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,7 +52,7 @@ public class InvokeEC2ServiceConfig {
 	@Bean
 	public Object invokeEC2Service() {
 		String publicKey = KeyPairs.DEVOPS.getKeyPair().getPublicKey().get();
-		KeyPair keyPair = new KeyPair.Builder("kuali-devops").publicKey(publicKey).build();
+		KeyPair keyPair = new KeyPair.Builder("kuali-devops").withPublicKey(publicKey).build();
 		List<KualiSecurityGroup> groups = getSecurityGroups();
 		String ami = AMI.AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09.getId();
 		List<Tag> tags = ImmutableList.of(new Tag("Name", "ci.testing"));

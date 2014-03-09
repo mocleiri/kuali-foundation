@@ -1,6 +1,6 @@
 package org.kuali.common.aws;
 
-import org.kuali.common.util.ssh.model.KeyPair;
+import org.kuali.common.core.ssh.KeyPair;
 
 public enum KeyPairs {
 
@@ -30,7 +30,7 @@ public enum KeyPairs {
 	private final KeyPair keyPair;
 
 	private KeyPairs(String name, String publicKey, String privateKey) {
-		this.keyPair = new KeyPair.Builder(name).publicKey(publicKey).privateKey(privateKey).build();
+		this.keyPair = new KeyPair.Builder(name).withPublicKey(publicKey).withPrivateKey(privateKey).build();
 	}
 
 	public KeyPair getKeyPair() {
