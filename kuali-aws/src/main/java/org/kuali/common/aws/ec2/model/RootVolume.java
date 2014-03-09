@@ -21,6 +21,10 @@ public final class RootVolume {
 		this.deleteOnTermination = builder.deleteOnTermination;
 	}
 
+	public static RootVolume create(int sizeInGigabytes, boolean deleteOnTermination) {
+		return builder().withSizeInGigabytes(sizeInGigabytes).withDeleteOnTermination(deleteOnTermination).build();
+	}
+
 	public static Builder builder() {
 		return new Builder();
 	}
