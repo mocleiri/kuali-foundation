@@ -7,6 +7,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
+import static org.kuali.common.dns.model.CNAMEContext.newCNAMEContext;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.net.URL;
@@ -24,11 +25,14 @@ import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.devops.aws.KeyPairBuilders;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.logic.Auth;
+import org.kuali.common.devops.project.KualiDevOpsProjectConstants;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.DNSMadeEasyDnsService;
 import org.kuali.common.dns.dnsme.URLS;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
+import org.kuali.common.dns.model.CNAMEContext;
+import org.kuali.common.dns.util.CreateOrReplaceCNAME;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
@@ -55,16 +59,30 @@ public class CreateBuildSlaveAMI {
 	public void test() {
 		try {
 			// Instance instance = getNewSlaveInstance();
-			// Instance instance = getRunningSlaveInstance("i-385fa21b");
-			// logger.info(format("public dns: %s", instance.getPublicDnsName()));
-			// Optional<CodeSource> src = fromNullable(KualiDevOpsProjectConstants.class.getProtectionDomain().getCodeSource());
-			Optional<CodeSource> src = fromNullable(Optional.class.getProtectionDomain().getCodeSource());
-			checkState(src.isPresent(), "could not get code source");
-			URL url = src.get().getLocation();
-			logger.info(format("url: [%s]", url));
+			Instance instance = getRunningSlaveInstance("i-385fa21b");
+			logger.info(format("public dns: %s", instance.getPublicDnsName()));
+			updateDns(instance);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected void doStuff() {
+		Optional<CodeSource> src = fromNullable(KualiDevOpsProjectConstants.class.getProtectionDomain().getCodeSource());
+		checkState(src.isPresent(), "could not get code source");
+		URL url = src.get().getLocation();
+		logger.info(format("url: [%s]", url));
+	}
+
+	protected void updateDns(Instance instance) {
+		DnsService service = getDnsService();
+		CNAMEContext context = getCNAMEContext(instance.getPublicDnsName());
+		new CreateOrReplaceCNAME(service, context).execute();
+	}
+
+	protected CNAMEContext getCNAMEContext(String canonicalFQDN) {
+		String aliasFQDN = subdomain + "." + domain;
+		return newCNAMEContext(aliasFQDN, canonicalFQDN);
 	}
 
 	protected DnsService getDnsService() {
