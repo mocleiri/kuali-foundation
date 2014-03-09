@@ -6,9 +6,11 @@ import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.Optional;
 
 @IdiotProofImmutable
+@JsonDeserialize(builder = RootVolume.Builder.class)
 public final class RootVolume {
 
 	private final Optional<Integer> sizeInGigabytes;
