@@ -81,6 +81,16 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson-databind.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-guava</artifactId>
+      <version>${jackson-datatype-guava.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-aws</artifactId>
       <version>${kuali-aws.version}</version>
