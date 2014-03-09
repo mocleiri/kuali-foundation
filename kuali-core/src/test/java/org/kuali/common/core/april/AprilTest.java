@@ -5,6 +5,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.reverse;
 import static com.google.common.collect.Sets.newHashSet;
 import static java.lang.String.format;
+import static org.apache.commons.io.FileUtils.writeLines;
 import static org.kuali.common.util.LocationUtils.readLines;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.log.Loggers.newLogger;
@@ -19,7 +20,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.kuali.common.core.april.model.Area;
 import org.kuali.common.core.april.model.DefaultSaleComparator;
@@ -41,10 +41,10 @@ public class AprilTest {
 
 	private static final Logger logger = newLogger();
 	private final VirtualSystem vs = VirtualSystem.create();
-	private final File basedir = new File("./src/test/resources");
+	private final File basedir = new CanonicalFile("./src/test/resources");
 	private final String jsonDir = "json";
 	private final String jsonFilename = "april.json";
-	private final File jsonFile = new File(basedir, jsonDir + vs.getFileSeparator() + jsonFilename);
+	private final File jsonFile = new CanonicalFile(basedir, jsonDir + vs.getFileSeparator() + jsonFilename);
 
 	@Test
 	public void test() {
@@ -83,10 +83,9 @@ public class AprilTest {
 		for (Sale sale : reverse(unique)) {
 			lines.add(service.writeString(sale));
 		}
-		File file = new CanonicalFile(basedir, jsonDir + vs.getFileSeparator() + jsonFile);
-		logger.info(format("creating -> %s", file));
+		logger.info(format("creating -> %s", jsonFile));
 		try {
-			FileUtils.writeLines(file, lines);
+			writeLines(jsonFile, lines);
 		} catch (IOException e) {
 			throw Exceptions.illegalState(e);
 		}
