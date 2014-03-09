@@ -80,10 +80,8 @@ public class CreateBuildSlaveAMI {
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			updateDns(instance);
 			CanonicalFile buildDir = getBuildDirectory();
-			logger.info(format("chmod -R 755 %s", buildDir));
 			chmod(buildDir);
 			CanonicalFile bashDir = getLocalBashDir(buildDir);
-			logger.info(format("    bash dir %s", bashDir));
 			configureSlave(bashDir);
 		} catch (Throwable e) {
 			e.printStackTrace();
