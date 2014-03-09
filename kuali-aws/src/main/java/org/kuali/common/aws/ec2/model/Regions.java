@@ -1,9 +1,9 @@
 package org.kuali.common.aws.ec2.model;
 
-import java.util.HashMap;
-import java.util.Map;
+import static com.google.common.collect.Maps.newHashMap;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
-import org.kuali.common.util.Assert;
+import java.util.Map;
 
 public enum Regions {
 
@@ -20,7 +20,8 @@ public enum Regions {
 	private final String location;
 
 	private Regions(String name, String location) {
-		Assert.noBlanks(name, location);
+		checkNotBlank(name, "name");
+		checkNotBlank(location, "location");
 		this.name = name;
 		this.location = location;
 	}
@@ -34,7 +35,7 @@ public enum Regions {
 	}
 
 	public static Map<String, Regions> asMap() {
-		Map<String, Regions> map = new HashMap<String, Regions>();
+		Map<String, Regions> map = newHashMap();
 		for (Regions region : values()) {
 			map.put(region.getName(), region);
 		}
