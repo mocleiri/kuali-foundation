@@ -6,6 +6,7 @@ import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
 import static org.kuali.common.util.log.Loggers.newLogger;
+import static org.kuali.common.util.metainf.service.MetaInfUtils.getClasspathResourcePrefix;
 
 import java.util.List;
 
@@ -21,7 +22,6 @@ import org.kuali.common.devops.aws.KeyPairBuilders;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.metainf.service.MetaInfUtils;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
@@ -47,7 +47,7 @@ public class CreateBuildSlaveAMI {
 			// Instance instance = getNewSlaveInstance();
 			// Instance instance = getRunningSlaveInstance("i-385fa21b");
 			// logger.info(format("public dns: %s", instance.getPublicDnsName()));
-			String path = MetaInfUtils.getClasspathResourcePrefix(KUALI_DEVOPS_PROJECT_IDENTIFIER) + "/project.properties";
+			String path = getClasspathResourcePrefix(KUALI_DEVOPS_PROJECT_IDENTIFIER) + "/project.properties";
 			logger.info(path);
 			PropertyUtils.load(path);
 		} catch (Throwable e) {
