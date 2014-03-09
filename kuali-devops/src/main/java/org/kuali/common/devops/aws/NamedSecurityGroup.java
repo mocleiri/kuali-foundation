@@ -1,12 +1,12 @@
 package org.kuali.common.devops.aws;
 
-import static org.kuali.common.aws.ec2.model.security.NamedPermission.APPLICATION_SERVER_PERMISSIONS;
+import static org.kuali.common.aws.ec2.model.security.AllowFromAnywhere.APPLICATION_SERVER_PERMISSIONS;
+import static org.kuali.common.aws.ec2.model.security.AllowFromAnywhere.SSH_PERMISSION;
 
 import java.util.List;
 
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.ec2.model.security.Permission;
-import org.kuali.common.aws.ec2.model.security.NamedPermission;
 
 import com.google.common.collect.ImmutableList;
 
@@ -17,13 +17,9 @@ public enum NamedSecurityGroup {
 	// have unrestricted network access to each other from Amazon's perspective
 	CI("ci", "Continuous Integration", APPLICATION_SERVER_PERMISSIONS), //
 	CI_MASTER("ci.master", "Jenkins CI Server - Master", APPLICATION_SERVER_PERMISSIONS), //
-	CI_BUILD_SLAVE("ci.slave", "Jenkins CI Server - Slave", NamedPermission.SSH_PERMISSION.getPermission());
+	CI_BUILD_SLAVE("ci.slave", "Jenkins CI Server - Slave", SSH_PERMISSION.getPermission());
 
 	private final KualiSecurityGroup group;
-
-	private NamedSecurityGroup(String name, String description) {
-		this(name, description, ImmutableList.<Permission> of());
-	}
 
 	private NamedSecurityGroup(String name, String description, Permission permission) {
 		this(name, description, ImmutableList.of(permission));
