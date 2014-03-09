@@ -3,14 +3,11 @@ package org.kuali.common.aws.ec2.model.security;
 import java.util.Collection;
 import java.util.List;
 
-import org.kuali.common.util.Assert;
-
 import com.google.common.collect.ImmutableList;
 
 public final class SetPermissionsResult {
 
 	public SetPermissionsResult(Collection<Permission> adds, Collection<Permission> deletes, Collection<Permission> existing) {
-		Assert.noNulls(adds, deletes, existing);
 		this.adds = ImmutableList.copyOf(adds);
 		this.deletes = ImmutableList.copyOf(deletes);
 		this.existing = ImmutableList.copyOf(existing);
