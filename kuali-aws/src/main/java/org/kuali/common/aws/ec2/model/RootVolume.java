@@ -1,6 +1,7 @@
 package org.kuali.common.aws.ec2.model;
 
 import static com.google.common.base.Optional.absent;
+import static org.kuali.common.util.base.Precondition.checkMin;
 
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
@@ -56,7 +57,13 @@ public final class RootVolume {
 
 		@Override
 		public RootVolume build() {
-			return validate(new RootVolume(this));
+			RootVolume instance = validate(new RootVolume(this));
+			validateInstance(instance);
+			return instance;
+		}
+
+		private static void validateInstance(RootVolume instance) {
+			checkMin(instance.getSizeInGigabytes(), 1, "sizeInGigabytes");
 		}
 	}
 
