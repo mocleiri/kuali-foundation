@@ -37,6 +37,10 @@ function check_args {
   check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
 }
 
+function get_jdk_version {
+  echo "$JDK${JDK_LEVEL}_VERSION"
+}
+
 function install_jdk {
 
   # Extract the jdk level from the JDK variable
@@ -44,7 +48,7 @@ function install_jdk {
   check_not_blank JDK_LEVEL $JDK_LEVEL
 
   # Extract a specific jdk version based on the jdk level
-  JDK_VERSION=$(eval echo \${JDK${JDK_LEVEL}_VERSION})
+  JDK_VERSION=$(eval getjdk_version)
   check_not_blank JDK_VERSION $JDK_VERSION
 
   JDK_GROUP_ID=com/oracle

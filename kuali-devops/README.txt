@@ -14,8 +14,8 @@
     limitations under the License.
 ====
 
-cd ~/ws/kuali-ec2; mci; chmod -R 755 ~/ws/kuali-ec2/target/classes; 
-cd ~/ws/kuali-ec2/target/classes/org/kuali/common/kuali-ec2/ubuntu/12.04/local;
+cd ~/ws/kuali-devops; mci; chmod -R 755 ~/ws/kuali-devops/target/classes; 
+cd ~/ws/kuali-devops/target/classes/org/kuali/common/kuali-devops/ubuntu/12.04/local;
 
 # To setup the Jenkins master
 ./appserver.sh NEXUS_PASSWORD              beta.ci jdk7 tomcat7 5g 512m
