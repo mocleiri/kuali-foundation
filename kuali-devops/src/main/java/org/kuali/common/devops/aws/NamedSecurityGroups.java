@@ -1,7 +1,7 @@
 package org.kuali.common.devops.aws;
 
-import static org.kuali.common.aws.ec2.model.security.AllowFromAnywhere.APPLICATION_SERVER_PERMISSIONS;
-import static org.kuali.common.aws.ec2.model.security.AllowFromAnywhere.SSH_PERMISSION;
+import static org.kuali.common.aws.ec2.model.security.NamedPermissions.APPLICATION_SERVER_PERMISSIONS;
+import static org.kuali.common.aws.ec2.model.security.NamedPermissions.ALLOW_SSH_FROM_ANYWHERE;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public enum NamedSecurityGroups {
 	// have unrestricted network access to each other from Amazon's perspective
 	CI("ci", "Continuous Integration", APPLICATION_SERVER_PERMISSIONS), //
 	CI_MASTER("ci.master", "Jenkins CI Server - Master", APPLICATION_SERVER_PERMISSIONS), //
-	CI_BUILD_SLAVE("ci.slave", "Jenkins CI Server - Slave", SSH_PERMISSION.getPermission());
+	CI_BUILD_SLAVE("ci.slave", "Jenkins CI Server - Slave", ALLOW_SSH_FROM_ANYWHERE.getPermission());
 
 	private final KualiSecurityGroup group;
 
