@@ -24,7 +24,6 @@ import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.devops.aws.KeyPairBuilders;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.logic.Auth;
-import org.kuali.common.devops.project.KualiDevOpsProjectConstants;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
@@ -51,7 +50,8 @@ public class CreateBuildSlaveAMI {
 			// Instance instance = getNewSlaveInstance();
 			// Instance instance = getRunningSlaveInstance("i-385fa21b");
 			// logger.info(format("public dns: %s", instance.getPublicDnsName()));
-			Optional<CodeSource> src = fromNullable(KualiDevOpsProjectConstants.class.getProtectionDomain().getCodeSource());
+			// Optional<CodeSource> src = fromNullable(KualiDevOpsProjectConstants.class.getProtectionDomain().getCodeSource());
+			Optional<CodeSource> src = fromNullable(Optional.class.getProtectionDomain().getCodeSource());
 			checkState(src.isPresent(), "could not get code source");
 			URL url = src.get().getLocation();
 			logger.info(format("url: [%s]", url));
