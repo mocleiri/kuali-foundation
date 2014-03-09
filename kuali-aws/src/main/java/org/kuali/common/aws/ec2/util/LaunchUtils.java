@@ -6,7 +6,6 @@ import java.util.List;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
-import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.nullify.NullUtils;
@@ -76,6 +75,8 @@ public class LaunchUtils {
 	 * Use the values from <code>provided</code> except where they are overidden by values from the environment.
 	 */
 	public static LaunchInstanceContext getContext(EnvironmentService env, LaunchInstanceContext provided) {
+		throw new UnsupportedOperationException("don't call this method");
+		/*
 		String ami = NullUtils.trimToNull(env.getString(AMI_KEY, provided.getAmi()));
 		KeyPair keyPair = getKeyPair(env, provided.getKeyPair());
 		InstanceType type = getType(env, provided.getType());
@@ -92,10 +93,11 @@ public class LaunchUtils {
 		// TODO OR possibly just parse a simple comma delimited string of security group names and then look up the actual security groups on Amazon?
 		// List<String> securityGroups = SpringUtils.getStrings(env, SECURITY_GROUPS_KEY, provided.getSecurityGroups());
 		List<KualiSecurityGroup> securityGroups = provided.getSecurityGroups();
+		*/
 
-		return new LaunchInstanceContext.Builder(ami, keyPair).copy(provided).type(type).availabilityZone(availabilityZone.orNull()).tags(tags).securityGroups(securityGroups)
-				.preventTermination(preventTermination).rootVolume(rootVolume.orNull()).timeoutMillis(timeoutMillis).ebsOptimized(ebsOptimized).enableMonitoring(enableMonitoring)
-				.build();
+		// return new LaunchInstanceContext.Builder(ami, keyPair).copy(provided).type(type).availabilityZone(availabilityZone.orNull()).tags(tags).securityGroups(securityGroups)
+		// .preventTermination(preventTermination).rootVolume(rootVolume.orNull()).timeoutMillis(timeoutMillis).ebsOptimized(ebsOptimized).enableMonitoring(enableMonitoring)
+		// .build();
 	}
 
 	protected static Optional<RootVolume> getRootVolume(EnvironmentService env, Optional<RootVolume> provided) {

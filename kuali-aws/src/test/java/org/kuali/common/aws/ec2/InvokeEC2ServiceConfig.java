@@ -56,7 +56,7 @@ public class InvokeEC2ServiceConfig {
 		List<KualiSecurityGroup> groups = getSecurityGroups();
 		String ami = AMI.AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09.getId();
 		List<Tag> tags = ImmutableList.of(new Tag("Name", "ci.testing"));
-		LaunchInstanceContext context = new LaunchInstanceContext.Builder(ami, keyPair).securityGroups(groups).tags(tags).build();
+		LaunchInstanceContext context = new LaunchInstanceContext.Builder(ami, keyPair).withSecurityGroups(groups).withTags(tags).build();
 		service.launchInstance(context);
 		return null;
 	}
