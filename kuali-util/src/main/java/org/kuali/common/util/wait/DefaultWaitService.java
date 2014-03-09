@@ -1,31 +1,33 @@
 package org.kuali.common.util.wait;
 
-import org.apache.commons.lang3.StringUtils;
+import static java.lang.System.currentTimeMillis;
+import static org.apache.commons.lang3.StringUtils.leftPad;
+import static org.kuali.common.util.base.Threads.sleep;
+import static org.kuali.common.util.log.Loggers.newLogger;
+
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.base.Threads;
 import org.kuali.common.util.condition.Condition;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DefaultWaitService implements WaitService {
 
-	private static final Logger logger = LoggerFactory.getLogger(DefaultWaitService.class);
+	private static final Logger logger = newLogger();
 
 	@Override
 	public WaitResult wait(WaitContext context, Condition condition) {
 		long start = System.currentTimeMillis();
 		long timeout = start + context.getTimeoutMillis();
-		Threads.sleep(context.getInitialPauseMillis());
+		sleep(context.getInitialPauseMillis());
 		while (!condition.isTrue()) {
-			long now = System.currentTimeMillis();
+			long now = currentTimeMillis();
 			Assert.isTrue(now <= timeout, "Timed out waiting");
-			String elapsed = StringUtils.leftPad(FormatUtils.getTime(now - start), 7, " ");
-			String timeoutString = StringUtils.leftPad(FormatUtils.getTime(timeout - now), 7, " ");
+			String elapsed = leftPad(FormatUtils.getTime(now - start), 7, " ");
+			String timeoutString = leftPad(FormatUtils.getTime(timeout - now), 7, " ");
 			logger.info("[elapsed: {}  timeout: {}]", elapsed, timeoutString);
-			Threads.sleep(context.getSleepMillis());
+			sleep(context.getSleepMillis());
 		}
-		return new WaitResult.Builder(start, System.currentTimeMillis()).build();
+		return new WaitResult.Builder(start, currentTimeMillis()).build();
 	}
 
 }
