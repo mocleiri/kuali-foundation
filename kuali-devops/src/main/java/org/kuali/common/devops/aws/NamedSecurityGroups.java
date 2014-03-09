@@ -1,7 +1,7 @@
 package org.kuali.common.devops.aws;
 
-import static org.kuali.common.aws.ec2.model.security.NamedPermissions.APPLICATION_SERVER_PERMISSIONS;
 import static org.kuali.common.aws.ec2.model.security.NamedPermissions.ALLOW_SSH_FROM_ANYWHERE;
+import static org.kuali.common.aws.ec2.model.security.NamedPermissions.APPLICATION_SERVER_PERMISSIONS;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import com.google.common.collect.ImmutableList;
 
 public enum NamedSecurityGroups {
 
-	// TODO Remove the Permissions.WEB_SERVER from the CI security group here
+	// TODO Remove APPLICATION_SERVER_PERMISSIONS from the CI security group here
 	// That is just a group with no perm's so that the slaves and master belong to the same group and thus
 	// have unrestricted network access to each other from Amazon's perspective
 	CI("ci", "Continuous Integration", APPLICATION_SERVER_PERMISSIONS), //
