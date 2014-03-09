@@ -23,3 +23,4 @@ cd ~/ws/kuali-ec2/target/classes/org/kuali/common/kuali-ec2/ubuntu/12.04/local;
 
 # To setup a Jenkins build slave
 ./jenkins.sh   NEXUS_PASSWORD SVN_PASSWORD beta.ci slave
+

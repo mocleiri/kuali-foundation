@@ -24,7 +24,11 @@ public class Auth {
 		return builder.withPrivateKey(decrypt(builder.getPrivateKey())).build();
 	}
 
-	protected static Optional<String> decrypt(Optional<String> string) {
+	public static String decrypt(String string) {
+		return decrypt(Optional.of(string)).get();
+	}
+
+	public static Optional<String> decrypt(Optional<String> string) {
 		String password = Passwords.getEncPassword();
 		TextEncryptor enc = EncUtils.getTextEncryptor(password);
 		return Optional.of(enc.decrypt(EncUtils.unwrap(string.get())));

@@ -11,7 +11,6 @@ import static org.kuali.common.dns.model.CNAMEContext.newCNAMEContext;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
-import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -38,6 +37,8 @@ import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
 import org.kuali.common.dns.model.CNAMEContext;
 import org.kuali.common.dns.util.CreateOrReplaceCNAME;
 import org.kuali.common.util.file.CanonicalFile;
+import org.kuali.common.util.service.DefaultExecService;
+import org.kuali.common.util.service.ExecService;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
@@ -67,20 +68,27 @@ public class CreateBuildSlaveAMI {
 			// Instance instance = getRunningSlaveInstance("i-385fa21b");
 			// logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			// updateDns(instance);
-			File buildDir = getBuildDirectory();
+			CanonicalFile buildDir = getBuildDirectory();
 			logger.info(format("build directory: [%s]", buildDir));
+			chmod(buildDir);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected File getBuildDirectory() {
+	protected void chmod(CanonicalFile dir) {
+		ExecService service = new DefaultExecService();
+		List<String> args = ImmutableList.of("-R", "755", dir.getPath());
+		service.execute("chmod", args);
+	}
+
+	protected CanonicalFile getBuildDirectory() {
 		Optional<CodeSource> src = fromNullable(KualiDevOpsProjectConstants.class.getProtectionDomain().getCodeSource());
 		checkState(src.isPresent(), "could not get code source");
 		URL url = src.get().getLocation();
 		try {
 			URI uri = url.toURI();
-			File file = new CanonicalFile(uri);
+			CanonicalFile file = new CanonicalFile(uri);
 			checkState(file.exists(), "[%s] does not exist");
 			checkState(file.isDirectory(), "[%s] is not a directory");
 			return file;
