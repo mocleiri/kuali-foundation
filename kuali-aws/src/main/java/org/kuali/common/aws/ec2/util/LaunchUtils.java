@@ -53,8 +53,16 @@ public class LaunchUtils {
 		return new KeyPair.Builder(name).withPublicKey(publicKey.orNull()).withPrivateKey(privateKey.orNull()).withFingerprint(fingerprint.orNull()).build();
 	}
 
+	protected static AmazonEC2Client newAmazonEC2Client(EC2ServiceContext context) {
+		if (context.getConfiguration().isPresent()) {
+			return new AmazonEC2Client(context.getCredentials(), context.getConfiguration().get());
+		} else {
+			return new AmazonEC2Client(context.getCredentials());
+		}
+	}
+
 	public static AmazonEC2Client getClient(EC2ServiceContext context) {
-		AmazonEC2Client client = new AmazonEC2Client(context.getCredentials());
+		AmazonEC2Client client = newAmazonEC2Client(context);
 		if (context.getTimeOffsetInSeconds().isPresent()) {
 			client.setTimeOffset(context.getTimeOffsetInSeconds().get());
 		}
@@ -65,9 +73,6 @@ public class LaunchUtils {
 		if (context.getEndpoint().isPresent()) {
 			client.setEndpoint(context.getEndpoint().get());
 		}
-		if (context.getConfiguration().isPresent()) {
-			client.setConfiguration(context.getConfiguration().get());
-		}
 		return client;
 	}
 
@@ -77,23 +82,18 @@ public class LaunchUtils {
 	public static LaunchInstanceContext getContext(EnvironmentService env, LaunchInstanceContext provided) {
 		throw new UnsupportedOperationException("don't call this method");
 		/*
-		String ami = NullUtils.trimToNull(env.getString(AMI_KEY, provided.getAmi()));
-		KeyPair keyPair = getKeyPair(env, provided.getKeyPair());
-		InstanceType type = getType(env, provided.getType());
-		int timeoutMillis = SpringUtils.getMillisAsInt(env, LAUNCH_TIMEOUT_KEY, provided.getTimeoutMillis());
-		boolean ebsOptimized = env.getBoolean(EBS_OPTIMIZED_KEY, provided.isEbsOptimized());
-		boolean enableMonitoring = env.getBoolean(ENABLE_MONITORING_KEY, provided.isEnableMonitoring());
-		boolean preventTermination = env.getBoolean(PREVENT_TERMINATION_KEY, provided.isPreventTermination());
-		Optional<RootVolume> rootVolume = getRootVolume(env, provided.getRootVolume());
-		List<Tag> tags = getTags(env, provided.getTags());
-		Optional<String> availabilityZone = SpringUtils.getString(env, AVAILABILITY_ZONE_KEY, provided.getAvailabilityZone());
-
-		// TODO Provide a way to parse security groups and permissions from a specially formatted string?
-		// ec2.securityGroups=ci:Continuous Integration:,ci.master:Jenkins CI Server - Master:[22|tcp|{0.0.0.0/0}{192.0.0.0/0}][80|tcp|{0.0.0.0/0}]
-		// TODO OR possibly just parse a simple comma delimited string of security group names and then look up the actual security groups on Amazon?
-		// List<String> securityGroups = SpringUtils.getStrings(env, SECURITY_GROUPS_KEY, provided.getSecurityGroups());
-		List<KualiSecurityGroup> securityGroups = provided.getSecurityGroups();
-		*/
+		 * String ami = NullUtils.trimToNull(env.getString(AMI_KEY, provided.getAmi())); KeyPair keyPair = getKeyPair(env, provided.getKeyPair()); InstanceType type = getType(env,
+		 * provided.getType()); int timeoutMillis = SpringUtils.getMillisAsInt(env, LAUNCH_TIMEOUT_KEY, provided.getTimeoutMillis()); boolean ebsOptimized =
+		 * env.getBoolean(EBS_OPTIMIZED_KEY, provided.isEbsOptimized()); boolean enableMonitoring = env.getBoolean(ENABLE_MONITORING_KEY, provided.isEnableMonitoring()); boolean
+		 * preventTermination = env.getBoolean(PREVENT_TERMINATION_KEY, provided.isPreventTermination()); Optional<RootVolume> rootVolume = getRootVolume(env,
+		 * provided.getRootVolume()); List<Tag> tags = getTags(env, provided.getTags()); Optional<String> availabilityZone = SpringUtils.getString(env, AVAILABILITY_ZONE_KEY,
+		 * provided.getAvailabilityZone());
+		 * 
+		 * // TODO Provide a way to parse security groups and permissions from a specially formatted string? // ec2.securityGroups=ci:Continuous Integration:,ci.master:Jenkins CI
+		 * Server - Master:[22|tcp|{0.0.0.0/0}{192.0.0.0/0}][80|tcp|{0.0.0.0/0}] // TODO OR possibly just parse a simple comma delimited string of security group names and then
+		 * look up the actual security groups on Amazon? // List<String> securityGroups = SpringUtils.getStrings(env, SECURITY_GROUPS_KEY, provided.getSecurityGroups());
+		 * List<KualiSecurityGroup> securityGroups = provided.getSecurityGroups();
+		 */
 
 		// return new LaunchInstanceContext.Builder(ami, keyPair).copy(provided).type(type).availabilityZone(availabilityZone.orNull()).tags(tags).securityGroups(securityGroups)
 		// .preventTermination(preventTermination).rootVolume(rootVolume.orNull()).timeoutMillis(timeoutMillis).ebsOptimized(ebsOptimized).enableMonitoring(enableMonitoring)
@@ -103,13 +103,10 @@ public class LaunchUtils {
 	protected static Optional<RootVolume> getRootVolume(EnvironmentService env, Optional<RootVolume> provided) {
 		throw new UnsupportedOperationException("don't call this method");
 		/*
-		Optional<Integer> sizeInGigabytes = getSizeInGigaBytes(env, provided);
-		Optional<Boolean> deleteOnTermination = getDeleteOnTermination(env, provided);
-		if (deleteOnTermination.isPresent() || sizeInGigabytes.isPresent()) {
-			return Optional.of(new RootVolume.Builder(sizeInGigabytes, deleteOnTermination).build());
-		} else {
-			return Optional.absent();
-		}*/
+		 * Optional<Integer> sizeInGigabytes = getSizeInGigaBytes(env, provided); Optional<Boolean> deleteOnTermination = getDeleteOnTermination(env, provided); if
+		 * (deleteOnTermination.isPresent() || sizeInGigabytes.isPresent()) { return Optional.of(new RootVolume.Builder(sizeInGigabytes, deleteOnTermination).build()); } else {
+		 * return Optional.absent(); }
+		 */
 	}
 
 	protected static Optional<Boolean> getDeleteOnTermination(EnvironmentService env, Optional<RootVolume> provided) {
