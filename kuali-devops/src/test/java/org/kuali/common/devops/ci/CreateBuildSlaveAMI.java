@@ -97,7 +97,7 @@ public class CreateBuildSlaveAMI {
 	}
 
 	protected ExecContext getExecContext(File bashDir) {
-		List<String> args = ImmutableList.of(Auth.decrypt(nexusPassword), Auth.decrypt(svnPassword), subdomain, "slave");
+		List<String> args = ImmutableList.of(Auth.decrypt(nexusPassword), Auth.decrypt(svnPassword), subdomain, "slave", "-qq");
 		String executable = bashDir.getAbsolutePath() + vs.getFileSeparator() + bashScript;
 		DefaultExecContext context = new DefaultExecContext();
 		context.setWorkingDirectory(bashDir);
