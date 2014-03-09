@@ -101,13 +101,15 @@ public class LaunchUtils {
 	}
 
 	protected static Optional<RootVolume> getRootVolume(EnvironmentService env, Optional<RootVolume> provided) {
+		throw new UnsupportedOperationException("don't call this method");
+		/*
 		Optional<Integer> sizeInGigabytes = getSizeInGigaBytes(env, provided);
 		Optional<Boolean> deleteOnTermination = getDeleteOnTermination(env, provided);
 		if (deleteOnTermination.isPresent() || sizeInGigabytes.isPresent()) {
 			return Optional.of(new RootVolume.Builder(sizeInGigabytes, deleteOnTermination).build());
 		} else {
 			return Optional.absent();
-		}
+		}*/
 	}
 
 	protected static Optional<Boolean> getDeleteOnTermination(EnvironmentService env, Optional<RootVolume> provided) {
