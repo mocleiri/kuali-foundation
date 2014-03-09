@@ -1,67 +1,73 @@
 package org.kuali.common.aws.ec2.model.security;
 
+import static com.google.common.base.Optional.absent;
+import static com.google.common.collect.Lists.newArrayList;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.kuali.common.util.Assert;
-import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.core.build.ValidatingBuilder;
+import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
+@IdiotProofImmutable
 public final class KualiSecurityGroup {
 
 	private final String name;
 	private final Optional<String> description;
-	private final List<Permission> permissions;
+	private final ImmutableList<Permission> permissions;
 
-	public static class Builder {
+	public static Builder builder(String name) {
+		return new Builder(name);
+	}
+
+	public static class Builder extends ValidatingBuilder<KualiSecurityGroup> {
 
 		// Required
 		private final String name;
 
 		// Optional
-		private Optional<String> description = Optional.absent();
-		private List<Permission> permissions = ImmutableList.of();
+		private Optional<String> description = absent();
+		private List<Permission> permissions = newArrayList();
 
 		public Builder(String name) {
 			this.name = name;
 		}
 
-		public Builder description(String description) {
-			this.description = Optional.fromNullable(NullUtils.trimToNull(description));
+		public Builder withDescription(Optional<String> description) {
+			this.description = description;
 			return this;
 		}
 
-		public Builder permissions(List<Permission> permissions) {
+		public Builder withDescription(String description) {
+			return withDescription(Optional.of(description));
+		}
+
+		public Builder withPermissions(List<Permission> permissions) {
 			this.permissions = permissions;
 			return this;
 		}
 
-		private void finish() {
-			this.permissions = new ArrayList<Permission>(permissions);
-			Collections.sort(permissions);
-			this.permissions = ImmutableList.copyOf(permissions);
+		public Builder addPermissions(Permission permission) {
+			this.permissions.add(permission);
+			return this;
 		}
 
-		private void validate(KualiSecurityGroup group) {
-			Assert.noBlanks(group.getName());
-			Assert.noNulls(group.getDescription(), group.getPermissions());
-		}
-
+		@Override
 		public KualiSecurityGroup build() {
-			finish();
-			KualiSecurityGroup ksg = new KualiSecurityGroup(this);
-			validate(ksg);
-			return ksg;
+			this.permissions = new ArrayList<Permission>(permissions);
+			Collections.sort(permissions, Permission.DefaultComparator.INSTANCE);
+			return validate(new KualiSecurityGroup(this));
 		}
 	}
 
 	private KualiSecurityGroup(Builder builder) {
 		this.name = builder.name;
 		this.description = builder.description;
-		this.permissions = builder.permissions;
+		this.permissions = ImmutableList.copyOf(builder.permissions);
 	}
 
 	public String getName() {

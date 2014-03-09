@@ -1,73 +1,82 @@
 package org.kuali.common.aws.ec2.model.security;
 
-import java.util.ArrayList;
+import static com.google.common.collect.Lists.newArrayList;
+import static org.kuali.common.util.ListUtils.equalElements;
+
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-import org.kuali.common.util.Assert;
-import org.kuali.common.util.ListUtils;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.kuali.common.core.build.ValidatingBuilder;
+import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
+import org.kuali.common.core.validate.annotation.ValidPort;
 import org.kuali.common.util.ObjectUtils;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.common.base.Objects;
+import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.ImmutableList;
 
 /**
  * This is an immutable, slimmed down, version of the comparable AWS permissions object. Only supports a single port (no port ranges) and CIDR notations.
  */
-public final class Permission implements Comparable<Permission> {
+@IdiotProofImmutable
+@JsonDeserialize(builder = Permission.Builder.class)
+public final class Permission {
 
+	@ValidPort
 	private final int port;
-	private final Protocol protocol;
-	private final List<String> cidrNotations;
 
-	public static class Builder {
+	private final Protocol protocol;
+
+	@NotEmpty
+	private final ImmutableList<String> cidrNotations;
+
+	public static Permission create(int port) {
+		return builder(port).build();
+	}
+
+	public static Builder builder(int port) {
+		return new Builder(port);
+	}
+
+	public static class Builder extends ValidatingBuilder<Permission> {
 
 		// Required
 		private final int port;
 
 		// Optional
-		private List<String> cidrNotations = ImmutableList.of(CIDR.ANY.getNotation());
+		private List<String> cidrNotations = newArrayList(CIDR.ANY.getNotation());
 		private Protocol protocol = Protocol.TCP;
 
 		public Builder(int port) {
 			this.port = port;
 		}
 
-		public Builder cidrNotations(List<String> cidrNotations) {
+		public Builder withCidrNotations(List<String> cidrNotations) {
 			this.cidrNotations = cidrNotations;
 			return this;
 		}
 
-		public Builder protocol(Protocol protocol) {
+		public Builder withProtocol(Protocol protocol) {
 			this.protocol = protocol;
 			return this;
 		}
 
-		private void finish() {
-			// Changing this has implications for equals(), be careful
-			this.cidrNotations = new ArrayList<String>(cidrNotations);
-			Collections.sort(cidrNotations);
-			this.cidrNotations = ImmutableList.copyOf(cidrNotations);
-		}
-
-		private void validate(Permission perm) {
-			Assert.noNulls(perm.cidrNotations, perm.protocol);
-			Assert.noBlanks(perm.cidrNotations);
-			Assert.isTrue(perm.cidrNotations.size() >= 1, "Must supply at least one CIDR notation");
-			Assert.isPort(perm.port);
-		}
-
+		@Override
 		public Permission build() {
-			finish();
-			Permission perm = new Permission(this);
-			validate(perm);
-			return perm;
+			// Changing this has implications for equals(), be careful
+			this.cidrNotations = newArrayList(cidrNotations);
+			Collections.sort(cidrNotations);
+			return validate(new Permission(this));
 		}
 	}
 
 	private Permission(Builder builder) {
 		this.protocol = builder.protocol;
 		this.port = builder.port;
-		this.cidrNotations = builder.cidrNotations;
+		this.cidrNotations = ImmutableList.copyOf(builder.cidrNotations);
 	}
 
 	public Protocol getProtocol() {
@@ -82,24 +91,10 @@ public final class Permission implements Comparable<Permission> {
 		return cidrNotations;
 	}
 
-	/**
-	 * Sorts by <code>port</code> then <code>protocol</code>
-	 */
-	@Override
-	public int compareTo(Permission other) {
-		if (port == other.getPort()) {
-			return protocol.name().compareTo(other.getProtocol().name());
-		} else {
-			return Double.compare(port, other.getPort());
-		}
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + port;
-		result = prime * result + protocol.hashCode();
+		int result = Objects.hashCode(port, protocol);
 		for (String notation : cidrNotations) {
 			result = result * prime + notation.hashCode();
 		}
@@ -120,21 +115,23 @@ public final class Permission implements Comparable<Permission> {
 		}
 
 		// Cast to a Permission object
-		Permission other = (Permission) object;
-
-		// If the ports are different they are not equal
-		if (port != other.getPort()) {
-			return false;
-		}
-
-		// If the protocols are different they are not equal
-		if (protocol != other.getProtocol()) {
-			return false;
-		}
+		Permission a = this;
+		Permission b = (Permission) object;
 
 		// If they both have the exact same list of CIDR notations, they are equal
 		// This only works because Builder.build() sorts the CIDR notation list
-		return ListUtils.equals(cidrNotations, other.getCidrNotations());
+		return Objects.equal(a.port, b.port) && Objects.equal(a.protocol, b.protocol) && equalElements(a.cidrNotations, b.cidrNotations);
+
+	}
+
+	// Singleton enum pattern
+	public enum DefaultComparator implements Comparator<Permission> {
+		INSTANCE;
+
+		@Override
+		public int compare(Permission one, Permission two) {
+			return ComparisonChain.start().compare(one.getPort(), two.getPort()).compare(one.getProtocol(), two.getProtocol()).result();
+		}
 	}
 
 }

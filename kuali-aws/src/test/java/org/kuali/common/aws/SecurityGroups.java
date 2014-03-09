@@ -11,8 +11,8 @@ import com.google.common.collect.ImmutableList;
 
 public enum SecurityGroups {
 
-	CI("ci", "Continuous Integration", Permissions.WEB_SERVER), //
-	CI_MASTER("ci.master", "Jenkins CI Server - Master", Permissions.WEB_SERVER), //
+	CI("ci", "Continuous Integration", Permissions.APPLICATION_SERVER_PERMISSIONS), //
+	CI_MASTER("ci.master", "Jenkins CI Server - Master", Permissions.APPLICATION_SERVER_PERMISSIONS), //
 	CI_BUILD_SLAVE("ci.slave", "Jenkins CI Server - Slave", Permissions.SSH.getPermission());
 
 	private final KualiSecurityGroup group;
@@ -28,7 +28,7 @@ public enum SecurityGroups {
 	private SecurityGroups(String name, String description, List<Permission> perms) {
 		Assert.noBlanks(name, description);
 		Assert.noNulls(perms);
-		this.group = new KualiSecurityGroup.Builder(name).description(description).permissions(perms).build();
+		this.group = KualiSecurityGroup.builder(name).withDescription(description).withPermissions(perms).build();
 	}
 
 	public KualiSecurityGroup getGroup() {

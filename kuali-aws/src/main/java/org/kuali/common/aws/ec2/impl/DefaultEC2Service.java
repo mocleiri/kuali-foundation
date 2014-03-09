@@ -29,7 +29,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.SetUtils;
-import org.kuali.common.util.ThreadUtils;
+import org.kuali.common.util.base.Threads;
 import org.kuali.common.util.condition.Condition;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.wait.WaitContext;
@@ -229,7 +229,7 @@ public final class DefaultEC2Service implements EC2Service {
 		Assert.noBlanks(protocolName);
 		Assert.isTrue(fromPort.equals(toPort), "port ranges are not supported");
 		Protocol protocol = Protocol.valueOf(protocolName.toUpperCase());
-		return new Permission.Builder(fromPort).cidrNotations(ipRanges).protocol(protocol).build();
+		return Permission.builder(fromPort).withCidrNotations(ipRanges).withProtocol(protocol).build();
 	}
 
 	protected IpPermission getIpPermission(Permission perm) {
@@ -281,7 +281,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 		// Was getting some flaky behavior from AWS without a small delay after issuing the RunInstancesRequest
 		// Since it generally takes a few minutes for the instance to spin up, pausing here for 1 second should be ok
-		ThreadUtils.sleep(this.context.getInitialPauseMillis());
+		Threads.sleep(this.context.getInitialPauseMillis());
 
 		// Tag the instance
 		tag(instance.getInstanceId(), context.getTags());
