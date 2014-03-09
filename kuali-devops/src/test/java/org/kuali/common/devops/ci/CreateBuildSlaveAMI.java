@@ -76,8 +76,8 @@ public class CreateBuildSlaveAMI {
 	public void test() {
 		try {
 			deleteSlaveCIDns();
-			Instance instance = getNewSlaveInstance();
-			// Instance instance = getRunningSlaveInstance("i-385fa21b");
+			// Instance instance = getNewSlaveInstance();
+			Instance instance = getRunningSlaveInstance("i-3d41bd1e");
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			updateDns(instance);
 			CanonicalFile buildDir = getBuildDirectory();
