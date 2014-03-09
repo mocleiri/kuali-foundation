@@ -3,7 +3,6 @@ package org.kuali.common.aws.ec2.model.security;
 import static com.google.common.base.Optional.absent;
 import static com.google.common.collect.Lists.newArrayList;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -58,7 +57,7 @@ public final class KualiSecurityGroup {
 
 		@Override
 		public KualiSecurityGroup build() {
-			this.permissions = new ArrayList<Permission>(permissions);
+			this.permissions = newArrayList(permissions);
 			Collections.sort(permissions, Permission.DefaultComparator.INSTANCE);
 			return validate(new KualiSecurityGroup(this));
 		}
