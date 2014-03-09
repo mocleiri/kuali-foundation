@@ -1,8 +1,6 @@
 package org.kuali.common.aws;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
-import org.apache.commons.lang3.StringUtils;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 import com.amazonaws.auth.AWSCredentials;
 
@@ -17,10 +15,8 @@ public enum Credentials implements AWSCredentials {
 	private final String secretKey;
 
 	private Credentials(String accessKey, String secretKey) {
-		checkArgument(!StringUtils.isBlank(accessKey), "'accessKey' cannot be blank");
-		checkArgument(!StringUtils.isBlank(secretKey), "'secretKey' cannot be blank");
-		this.accessKey = accessKey;
-		this.secretKey = secretKey;
+		this.accessKey = checkNotBlank(accessKey, "accessKey");
+		this.secretKey = checkNotBlank(accessKey, "secretKey");
 	}
 
 	@Override
