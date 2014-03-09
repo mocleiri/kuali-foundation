@@ -26,7 +26,7 @@ public final class DevOpsProjectConstants {
 
 	private static final String ARTIFACT_ID = "kuali-devops";
 
-	// These 2 must exactly match what is in the Maven pom
+	// This information must exactly match what is in the Maven pom
 	public static final ProjectIdentifier KUALI_DEVOPS_PROJECT_IDENTIFIER = new ProjectIdentifier(COMMON_GROUP_ID, ARTIFACT_ID);
 
 }
