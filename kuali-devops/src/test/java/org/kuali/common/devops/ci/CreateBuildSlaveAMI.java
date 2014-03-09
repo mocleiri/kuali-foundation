@@ -44,7 +44,7 @@ public class CreateBuildSlaveAMI {
 					.build();
 			Instance instance = service.launchInstance(context);
 			logger.info(String.format("public dns: %s", instance.getPublicDnsName()));
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
