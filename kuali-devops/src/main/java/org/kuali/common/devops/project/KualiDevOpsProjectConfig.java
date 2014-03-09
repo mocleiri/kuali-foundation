@@ -15,7 +15,7 @@
  */
 package org.kuali.common.devops.project;
 
-import static org.kuali.common.devops.project.DevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
+import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
 import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.kuali.common.util.project.spring.AutowiredProjectConfig;
@@ -26,7 +26,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ AutowiredProjectConfig.class })
-public class DevOpsProjectConfig implements ProjectIdentifierConfig {
+public class KualiDevOpsProjectConfig implements ProjectIdentifierConfig {
 
 	@Override
 	@Bean

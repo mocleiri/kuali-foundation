@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.devops.model.FileResource;
-import org.kuali.common.devops.project.DevOpsProjectConstants;
+import org.kuali.common.devops.project.KualiDevOpsProjectConstants;
 import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.project.ProjectUtils;
 
@@ -12,7 +12,7 @@ import com.google.common.collect.ImmutableList;
 
 public final class TomcatConfig {
 
-	private static final String CLASSPATH_PREFIX = ProjectUtils.getClasspathPrefix(DevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER) + "/tomcat";
+	private static final String CLASSPATH_PREFIX = ProjectUtils.getClasspathPrefix(KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER) + "/tomcat";
 
 	private static final List<String> CONF = ImmutableList.of("server.xml", "web.xml");
 	private static final List<String> BIN = ImmutableList.of("cleanup.sh");

@@ -6,7 +6,7 @@ import org.kuali.common.aws.ec2.model.Distro;
 import org.kuali.common.devops.model.Node;
 import org.kuali.common.devops.model.User;
 import org.kuali.common.devops.model.Users;
-import org.kuali.common.devops.project.DevOpsProjectConstants;
+import org.kuali.common.devops.project.KualiDevOpsProjectConstants;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.enc.EncUtils;
@@ -29,7 +29,7 @@ public final class BootstrapContext {
 
 	public static class Builder {
 
-		private static final String DISTROS = ProjectUtils.getClasspathPrefix(DevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER) + "/distros";
+		private static final String DISTROS = ProjectUtils.getClasspathPrefix(KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER) + "/distros";
 
 		// Required
 		private final ChannelService service;

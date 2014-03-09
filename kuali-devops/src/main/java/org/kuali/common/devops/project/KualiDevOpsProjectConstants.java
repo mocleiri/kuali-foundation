@@ -19,9 +19,9 @@ import static org.kuali.common.util.project.KualiProjectConstants.COMMON_GROUP_I
 
 import org.kuali.common.util.project.model.ProjectIdentifier;
 
-public final class DevOpsProjectConstants {
+public final class KualiDevOpsProjectConstants {
 
-	private DevOpsProjectConstants() {
+	private KualiDevOpsProjectConstants() {
 	}
 
 	private static final String ARTIFACT_ID = "kuali-devops";
