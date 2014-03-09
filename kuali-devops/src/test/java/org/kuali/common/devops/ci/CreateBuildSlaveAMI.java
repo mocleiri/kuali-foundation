@@ -3,6 +3,8 @@ package org.kuali.common.devops.ci;
 import static org.kuali.common.util.FormatUtils.getMillis;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.kuali.common.aws.KeyPairBuilders;
 import org.kuali.common.aws.ec2.api.EC2Service;
@@ -10,7 +12,10 @@ import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
+import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.core.ssh.KeyPair;
+import org.kuali.common.devops.aws.NamedSecurityGroup;
+import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitContext;
@@ -19,6 +24,8 @@ import org.slf4j.Logger;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.ec2.model.InstanceType;
+import com.amazonaws.services.ec2.model.Tag;
+import com.google.common.collect.ImmutableList;
 
 public class CreateBuildSlaveAMI {
 
@@ -26,6 +33,8 @@ public class CreateBuildSlaveAMI {
 	private final String ami = "ami-83dee0ea";
 	private final InstanceType type = InstanceType.C3Xlarge;
 	private final RootVolume rootVolume = RootVolume.builder().withDeleteOnTermination(true).withSizeInGigabytes(64).build();
+	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(NamedSecurityGroup.CI.getGroup(), NamedSecurityGroup.CI_BUILD_SLAVE.getGroup());
+	private final List<Tag> tags = ImmutableList.of(Tags.Name.SLAVE.getTag(), Tags.Team.DEVOPS.getTag(), Tags.Stack.TESTING.getTag());
 
 	@Test
 	public void test() {
