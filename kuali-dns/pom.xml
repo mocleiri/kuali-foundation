@@ -41,6 +41,7 @@
     <slf4j.version>1.7.5</slf4j.version>
     <plugin.dnsme.version>1.0.7</plugin.dnsme.version>
     <kuali-util.version>4.4.10-SNAPSHOT</kuali-util.version>
+    <kuali-core.version>1.0.0-SNAPSHOT</kuali-core.version>
   </properties>
   <dependencies>
     <dependency>
@@ -69,6 +70,11 @@
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-util</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.kuali.common</groupId>
+      <artifactId>kuali-core</artifactId>
+      <version>${kuali-core.version}</version>
     </dependency>
     <dependency>
       <groupId>com.google.code.gson</groupId>
