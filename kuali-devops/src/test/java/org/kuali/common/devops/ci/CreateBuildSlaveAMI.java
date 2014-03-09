@@ -1,13 +1,16 @@
 package org.kuali.common.devops.ci;
 
 import static com.amazonaws.services.ec2.model.InstanceType.C3Xlarge;
+import static com.google.common.base.Optional.fromNullable;
+import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
+import static java.lang.String.format;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
-import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
 import static org.kuali.common.util.log.Loggers.newLogger;
-import static org.kuali.common.util.metainf.service.MetaInfUtils.getClasspathResourcePrefix;
 
+import java.net.URL;
+import java.security.CodeSource;
 import java.util.List;
 
 import org.junit.Test;
@@ -21,7 +24,7 @@ import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.devops.aws.KeyPairBuilders;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.logic.Auth;
-import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.devops.project.KualiDevOpsProjectConstants;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
@@ -30,6 +33,7 @@ import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public class CreateBuildSlaveAMI {
@@ -47,9 +51,10 @@ public class CreateBuildSlaveAMI {
 			// Instance instance = getNewSlaveInstance();
 			// Instance instance = getRunningSlaveInstance("i-385fa21b");
 			// logger.info(format("public dns: %s", instance.getPublicDnsName()));
-			String path = getClasspathResourcePrefix(KUALI_DEVOPS_PROJECT_IDENTIFIER) + "/project.properties";
-			logger.info(path);
-			PropertyUtils.load(path);
+			Optional<CodeSource> src = fromNullable(KualiDevOpsProjectConstants.class.getProtectionDomain().getCodeSource());
+			checkState(src.isPresent(), "could not get code source");
+			URL url = src.get().getLocation();
+			logger.info(format("url: [%s]", url));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
