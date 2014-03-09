@@ -24,6 +24,12 @@ public class Auth {
 		return builder.withPrivateKey(decrypt(builder.getPrivateKey())).build();
 	}
 
+	public static String encrypt(String string) {
+		String password = Passwords.getEncPassword();
+		TextEncryptor enc = EncUtils.getTextEncryptor(password);
+		return enc.encrypt(string);
+	}
+
 	public static String decrypt(String string) {
 		return decrypt(Optional.of(string)).get();
 	}
