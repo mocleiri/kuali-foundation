@@ -47,7 +47,7 @@ public class AprilTest {
 	@Test
 	public void test() {
 		try {
-			updateJson("april-01.txt", "april-02.txt");
+			updateJson("01", "02", "03");
 			List<String> lines = LocationUtils.readLines(jsonPath);
 			logger.info(format("lines %s", lines.size()));
 			JsonService service = new JacksonJsonService();
@@ -61,10 +61,10 @@ public class AprilTest {
 		}
 	}
 
-	protected void updateJson(String... textFiles) {
+	protected void updateJson(String... numbers) {
 		List<Sale> sales = newArrayList();
-		for (String textFile : textFiles) {
-			String location = CLASSPATH_URL_PREFIX + jsonDir + "/" + textFile;
+		for (String number : numbers) {
+			String location = CLASSPATH_URL_PREFIX + jsonDir + "/april-" + number + ".txt";
 			List<String> strings = LocationUtils.readLines(location);
 			logger.info(format("line count: %s", strings.size()));
 			List<SaleLines> lines = getSaleLines(strings);
