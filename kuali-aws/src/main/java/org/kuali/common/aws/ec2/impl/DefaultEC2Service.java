@@ -106,6 +106,7 @@ public final class DefaultEC2Service implements EC2Service {
 		this.client = LaunchUtils.getClient(context);
 	}
 
+	@Override
 	public Snapshot createSnapshot(String volumeId, String description, int timeoutMillis) {
 		CreateSnapshotRequest request = new CreateSnapshotRequest(volumeId, description);
 		CreateSnapshotResult result = client.createSnapshot(request);
@@ -127,10 +128,10 @@ public final class DefaultEC2Service implements EC2Service {
 		Condition condition = new SnapshotStateCondition(this, snapshotId, state);
 		WaitContext waitContext = getWaitContext(timeoutMillis);
 		Object[] args = { FormatUtils.getTime(waitContext.getTimeoutMillis()), snapshotId, state };
-		logger.info("Waiting up to {} for snapshot [{}] to reach state {}", args);
+		logger.info("waiting up to {} for snapshot [{}] to reach state '{}'", args);
 		WaitResult result = service.wait(waitContext, condition);
-		Object[] resultArgs = { snapshotId, FormatUtils.getTime(result.getElapsed()) };
-		logger.info("snapshot [{}] is now '{}'", resultArgs);
+		Object[] resultArgs = { snapshotId,state, FormatUtils.getTime(result.getElapsed()) };
+		logger.info("snapshot [{}] is now '{}' - %s", resultArgs);
 	}
 
 	/**
