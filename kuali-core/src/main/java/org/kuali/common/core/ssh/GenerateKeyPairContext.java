@@ -1,0 +1,64 @@
+package org.kuali.common.core.ssh;
+
+import org.kuali.common.core.build.ValidatingBuilder;
+import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
+
+@IdiotProofImmutable
+public final class GenerateKeyPairContext {
+
+	private final String name;
+	private final Algorithm algorithm;
+	private final int size;
+
+	public static Builder builder(String name) {
+		return new Builder(name);
+	}
+
+	public static class Builder extends ValidatingBuilder<GenerateKeyPairContext> {
+
+		// Required
+		private final String name;
+
+		// Optional
+		private Algorithm algorithm = Algorithm.RSA;
+		private int size = 2048;
+
+		public Builder(String name) {
+			this.name = name;
+		}
+
+		public Builder withAlgorithm(Algorithm algorithm) {
+			this.algorithm = algorithm;
+			return this;
+		}
+
+		public Builder withSize(int size) {
+			this.size = size;
+			return this;
+		}
+
+		@Override
+		public GenerateKeyPairContext build() {
+			return validate(new GenerateKeyPairContext(this));
+		}
+	}
+
+	private GenerateKeyPairContext(Builder builder) {
+		this.algorithm = builder.algorithm;
+		this.name = builder.name;
+		this.size = builder.size;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Algorithm getAlgorithm() {
+		return algorithm;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+}
