@@ -126,6 +126,10 @@ public final class LaunchInstanceContext {
 			return this;
 		}
 
+		public Builder withRootVolume(RootVolume rootVolume) {
+			return withRootVolume(Optional.of(rootVolume));
+		}
+
 		@Override
 		public LaunchInstanceContext build() {
 			return validate(new LaunchInstanceContext(this));
