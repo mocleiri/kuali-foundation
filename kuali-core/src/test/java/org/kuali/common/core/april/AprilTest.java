@@ -35,6 +35,7 @@ import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.file.CanonicalFile;
 import org.slf4j.Logger;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 
 public class AprilTest {
@@ -44,7 +45,16 @@ public class AprilTest {
 	private final File basedir = new CanonicalFile("./src/test/resources");
 	private final String jsonDir = "json";
 	private final String jsonFilename = "april.json";
+	private final String csvFilename = "april.csv";
 	private final File jsonFile = new CanonicalFile(basedir, jsonDir + vs.getFileSeparator() + jsonFilename);
+	private final File csvFile = new CanonicalFile(basedir, jsonDir + vs.getFileSeparator() + csvFilename);
+	private final Joiner csvJoiner = Joiner.on(',');
+	private static final NumberFormat numberFormat = NumberFormat.getInstance();
+	static {
+		numberFormat.setMaximumFractionDigits(0);
+		numberFormat.setMinimumFractionDigits(0);
+		numberFormat.setGroupingUsed(false);
+	}
 
 	@Test
 	public void test() {
@@ -58,9 +68,32 @@ public class AprilTest {
 				Sale sale = service.readString(line, Sale.class);
 				sales.add(sale);
 			}
+			List<String> csv = toCSV(sales);
+			logger.info(format("creating -> %s", csvFile));
+			writeLines(csvFile, csv);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected List<String> toCSV(List<Sale> sales) {
+		List<String> lines = newArrayList();
+		lines.add(csvJoiner.join("level", "area", "section", "row", "price", "quantity"));
+		for (Sale sale : sales) {
+			lines.add(toCSV(sale));
+		}
+		return lines;
+	}
+
+	protected String toCSV(Sale sale) {
+		List<String> tokens = newArrayList();
+		tokens.add(sale.getLevel().toString());
+		tokens.add(sale.getArea().toString());
+		tokens.add(sale.getSection().toString());
+		tokens.add(sale.getRow() + "");
+		tokens.add(numberFormat.format(sale.getPrice()));
+		tokens.add(sale.getQuantity() + "");
+		return csvJoiner.join(tokens);
 	}
 
 	protected void updateJson(String... numbers) {
