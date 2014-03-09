@@ -1,5 +1,6 @@
 package org.kuali.common.devops.ci;
 
+import static com.amazonaws.services.ec2.model.InstanceType.C3Xlarge;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
@@ -33,7 +34,7 @@ public class CreateBuildSlaveAMI {
 
 	private static final Logger logger = newLogger();
 	private final String ami = "ami-83dee0ea";
-	private final InstanceType type = InstanceType.C3Xlarge;
+	private final InstanceType type = C3Xlarge;
 	private final RootVolume rootVolume = RootVolume.builder().withDeleteOnTermination(true).withSizeInGigabytes(64).build();
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_BUILD_SLAVE.getGroup());
 	private final List<Tag> tags = getTags();
