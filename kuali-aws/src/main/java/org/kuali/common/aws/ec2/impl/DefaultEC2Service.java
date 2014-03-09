@@ -399,7 +399,7 @@ public final class DefaultEC2Service implements EC2Service {
 		if (!isExistingKey(keyPair.getName())) {
 			Optional<String> publicKey = keyPair.getPublicKey();
 			String name = keyPair.getName();
-			Assert.isTrue(publicKey.isPresent(), "Unable to setup server authentication.  Key [" + name + "] does not exist and no public key was supplied.");
+			checkState(publicKey.isPresent(), "Unable to setup server authentication.  Key [%s] does not exist and no public key was supplied.", name);
 			logger.info("Importing key [{}]", keyPair.getName());
 			importKey(keyPair.getName(), keyPair.getPublicKey().get());
 		}
@@ -421,7 +421,7 @@ public final class DefaultEC2Service implements EC2Service {
 		RunInstancesResult result = client.runInstances(request);
 		Reservation r = result.getReservation();
 		List<Instance> instances = r.getInstances();
-		Assert.isTrue(instances.size() == 1, "Expected exactly 1 instance but there were " + instances.size() + " instead");
+		checkState(instances.size() == 1, "Expected exactly 1 instance but there were %s instead", instances.size());
 		return instances.get(0);
 	}
 
