@@ -61,10 +61,13 @@ public class InvokeEC2ServiceConfig {
 	}
 
 	protected List<KualiSecurityGroup> getSecurityGroups() {
+		throw new UnsupportedOperationException("fix me!");
+		/*
 		KualiSecurityGroup ci = NamedSecurityGroup.CI.getGroup();
 		KualiSecurityGroup master = SecurityGroups.CI_MASTER.getGroup();
 		// KualiSecurityGroup slave = SecurityGroups.CI_BUILD_SLAVE.getGroup();
 		return ImmutableList.of(ci, master);
+		*/
 	}
 
 }
