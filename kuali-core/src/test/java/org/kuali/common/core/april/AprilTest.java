@@ -17,6 +17,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -50,6 +51,7 @@ public class AprilTest {
 	private final File csvFile = new CanonicalFile(basedir, jsonDir + vs.getFileSeparator() + csvFilename);
 	private final Joiner csvJoiner = Joiner.on(',');
 	private static final NumberFormat numberFormat = NumberFormat.getInstance();
+	private final SimpleDateFormat sdf = new SimpleDateFormat("dd");
 	static {
 		numberFormat.setMaximumFractionDigits(0);
 		numberFormat.setMinimumFractionDigits(0);
@@ -78,7 +80,7 @@ public class AprilTest {
 
 	protected List<String> toCSV(List<Sale> sales) {
 		List<String> lines = newArrayList();
-		lines.add(csvJoiner.join("level", "area", "section", "row", "price", "quantity"));
+		lines.add(csvJoiner.join("date", "level", "area", "section", "row", "price", "quantity"));
 		for (Sale sale : sales) {
 			lines.add(toCSV(sale));
 		}
@@ -87,6 +89,7 @@ public class AprilTest {
 
 	protected String toCSV(Sale sale) {
 		List<String> tokens = newArrayList();
+		tokens.add(sdf.format(new Date(sale.getDate())));
 		tokens.add(sale.getLevel().toString());
 		tokens.add(sale.getArea().toString());
 		tokens.add(sale.getSection().toString());
