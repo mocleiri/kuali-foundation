@@ -135,8 +135,10 @@ public class CreateBuildSlaveAMI {
 	}
 
 	protected void deleteSlaveCIDns() {
+		String fqdn = "slave.ci.kuali.org";
+		logger.info(String.format("deleting dns cname record -> %s", fqdn));
 		DnsService service = getDnsService();
-		service.deleteCNAMERecord("slave.ci.kuali.org");
+		service.deleteCNAMERecord(fqdn);
 	}
 
 	protected void updateDns(Instance instance) {
