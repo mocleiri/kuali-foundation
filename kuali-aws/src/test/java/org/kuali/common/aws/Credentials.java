@@ -16,7 +16,7 @@ public enum Credentials implements AWSCredentials {
 
 	private Credentials(String accessKey, String secretKey) {
 		this.accessKey = checkNotBlank(accessKey, "accessKey");
-		this.secretKey = checkNotBlank(accessKey, "secretKey");
+		this.secretKey = checkNotBlank(secretKey, "secretKey");
 	}
 
 	@Override
