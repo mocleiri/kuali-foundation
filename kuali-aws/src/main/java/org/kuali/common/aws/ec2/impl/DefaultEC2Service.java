@@ -130,28 +130,8 @@ public final class DefaultEC2Service implements EC2Service {
 		Object[] args = { FormatUtils.getTime(waitContext.getTimeoutMillis()), snapshotId, state };
 		logger.info("waiting up to {} for snapshot [{}] to reach state '{}'", args);
 		WaitResult result = service.wait(waitContext, condition);
-		Object[] resultArgs = { snapshotId,state, FormatUtils.getTime(result.getElapsed()) };
+		Object[] resultArgs = { snapshotId, state, FormatUtils.getTime(result.getElapsed()) };
 		logger.info("snapshot [{}] is now '{}' - %s", resultArgs);
-	}
-
-	/**
-	 * <pre>
-	 *     <image.name>ci-slave-${kuali.build.day}-${env.BUILD_NUMBER}</image.name>
-	 *     <image.tag.name>CI Slave - ${kuali.build.day} - ${env.BUILD_NUMBER}</image.tag.name>
-	 *     <image.description>${image.tag.name}</image.description>
-	 *     <image.architecture>x86_64</image.architecture>
-	 *     <image.rootDeviceName>/dev/sda1</image.rootDeviceName>
-	 *     <image.kernelId>aki-825ea7eb</image.kernelId>
-	 *     <!-- The createsnapshot execution generates the new snapshot id and stores it in the property ec2.snapshot.id -->
-	 *     <image.ebs.snapshotId>${ec2.snapshot.id}</image.ebs.snapshotId>
-	 *     <!-- This needs to match the size of the root volume on the ws.rice server -->
-	 *     <image.ebs.volumeSize>256</image.ebs.volumeSize>
-	 *     <image.ebs.deleteOnTermination>true</image.ebs.deleteOnTermination>
-	 * </pre>
-	 */
-
-	public void registerImage() {
-
 	}
 
 	@Override
