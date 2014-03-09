@@ -40,7 +40,7 @@ public class CreateBuildSlaveAMI {
 	private static final Logger logger = newLogger();
 	private final String ami = "ami-83dee0ea";
 	private final InstanceType type = C3Xlarge;
-	private final RootVolume rootVolume = RootVolume.builder().withDeleteOnTermination(true).withSizeInGigabytes(64).build();
+	private final RootVolume rootVolume = RootVolume.create(64, true);
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_BUILD_SLAVE.getGroup());
 	private final List<Tag> tags = getTags();
 
