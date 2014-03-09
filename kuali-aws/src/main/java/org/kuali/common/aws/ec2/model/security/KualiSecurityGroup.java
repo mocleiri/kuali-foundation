@@ -51,7 +51,7 @@ public final class KualiSecurityGroup {
 			return this;
 		}
 
-		public Builder addPermissions(Permission permission) {
+		public Builder addPermission(Permission permission) {
 			this.permissions.add(permission);
 			return this;
 		}
