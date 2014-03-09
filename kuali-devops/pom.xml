@@ -49,35 +49,32 @@
     <jackson-databind.version>${jackson.version}</jackson-databind.version>
     <jackson-datatype-guava.version>${jackson.version}</jackson-datatype-guava.version>
 
-    <tomcat7.version>7.0.47</tomcat7.version>
-    <tomcat6.version>6.0.37</tomcat6.version>
-
-    <tomcat.groupId>org.apache.tomcat</tomcat.groupId>
-    <tomcat.artifactId>apache-tomcat</tomcat.artifactId>
-    <tomcat.version>${tomcat7.version}</tomcat.version>
-    <tomcat.type>zip</tomcat.type>
-
-    <jdk7.groupId>com.oracle</jdk7.groupId>
-    <jdk7.artifactId>jdk7</jdk7.artifactId>
-    <jdk7.version>1.7.0-u40</jdk7.version>
-    <jdk7.classifier>linux-x64</jdk7.classifier>
-    <jdk7.type>zip</jdk7.type>
-
-    <jdk6.groupId>com.oracle</jdk6.groupId>
-    <jdk6.artifactId>jdk6</jdk6.artifactId>
+    <jdk7.version>1.7.0-u51</jdk7.version>
     <jdk6.version>1.6.0-u45</jdk6.version>
-    <jdk6.classifier>linux-x64</jdk6.classifier>
-    <jdk6.type>zip</jdk6.type>
-
+    <jenkins.master>beta.ci.kuali.org</jenkins.master>
   </properties>
-  <profiles>
-    <profile>
-      <id>tomcat6</id>
-      <properties>
-        <tomcat.version>${tomcat6.version}</tomcat.version>
-      </properties>
-    </profile>
-  </profiles>
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <excludes>
+          <exclude>**/install_java.sh</exclude>
+          <exclude>**/*.zip</exclude>
+          <exclude>**/rice.keystore</exclude>
+        </excludes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+        <includes>
+          <include>**/install_java.sh</include>
+          <include>**/*.zip</include>
+          <include>**/rice.keystore</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -105,29 +102,6 @@
       <artifactId>kuali-util</artifactId>
     </dependency>
     <dependency>
-      <groupId>${jdk7.groupId}</groupId>
-      <artifactId>${jdk7.artifactId}</artifactId>
-      <version>${jdk7.version}</version>
-      <classifier>${jdk7.classifier}</classifier>
-      <type>${jdk7.type}</type>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>${jdk6.groupId}</groupId>
-      <artifactId>${jdk6.artifactId}</artifactId>
-      <version>${jdk6.version}</version>
-      <classifier>${jdk6.classifier}</classifier>
-      <type>${jdk6.type}</type>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>${tomcat.groupId}</groupId>
-      <artifactId>${tomcat.artifactId}</artifactId>
-      <version>${tomcat.version}</version>
-      <type>${tomcat.type}</type>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-httpclient</artifactId>
       <version>${kuali-httpclient.version}</version>
@@ -140,37 +114,10 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-validator</artifactId>
-      <version>${hibernate-validator.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.el</groupId>
-      <artifactId>javax.el-api</artifactId>
-      <version>${javax.el-api.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.web</groupId>
-      <artifactId>javax.el</artifactId>
-      <version>${javax.el.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>com.google.code.findbugs</groupId>
       <artifactId>jsr305</artifactId>
       <version>${jsr305.version}</version>
       <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>${jackson-databind.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.datatype</groupId>
-      <artifactId>jackson-datatype-guava</artifactId>
-      <version>${jackson-datatype-guava.version}</version>
     </dependency>
   </dependencies>
 </project>
