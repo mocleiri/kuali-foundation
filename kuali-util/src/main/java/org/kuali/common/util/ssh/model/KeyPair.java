@@ -10,6 +10,10 @@ import org.kuali.common.util.spring.env.EnvironmentService;
 
 import com.google.common.base.Optional;
 
+/**
+ * @deprecated use KeyPair from kuali-core
+ */
+@Deprecated
 public final class KeyPair {
 
 	public String getName() {

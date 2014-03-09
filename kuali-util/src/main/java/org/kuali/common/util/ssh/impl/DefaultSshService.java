@@ -13,6 +13,10 @@ import org.kuali.common.util.ssh.model.KeyPair;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 
+/**
+ * @deprecated use DefaultSshService from kuali-core
+ */
+@Deprecated
 public class DefaultSshService implements SshService {
 
 	private static final String UTF8 = Encodings.UTF8;

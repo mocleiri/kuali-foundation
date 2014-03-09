@@ -19,6 +19,10 @@ import org.kuali.common.util.main.MainUtils;
 import org.kuali.common.util.main.spring.AbstractMainRunner;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 @Configuration
 public class GenerateKeyPair extends AbstractMainRunner {
 

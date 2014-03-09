@@ -6,6 +6,10 @@ import org.kuali.common.util.spring.env.EnvironmentService;
 
 import com.google.common.base.Optional;
 
+/**
+ * @deprecated use GenerateKeyPairContext from kuali-core
+ */
+@Deprecated
 public final class GenerateKeyPairContext {
 
 	private final String name;

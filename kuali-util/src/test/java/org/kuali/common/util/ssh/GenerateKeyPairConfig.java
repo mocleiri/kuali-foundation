@@ -30,6 +30,10 @@ import org.springframework.context.annotation.Import;
 
 import com.jcraft.jsch.JSch;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 @Configuration
 @Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
 public class GenerateKeyPairConfig {
