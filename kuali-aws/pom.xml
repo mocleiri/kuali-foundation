@@ -30,8 +30,9 @@
   <description>Software for interacting with Amazon Web Services</description>
   <properties>
     <slf4j.version>1.7.5</slf4j.version>
-    <aws.version>1.6.4</aws.version>
+    <aws.version>1.7.3</aws.version>
     <junit.version>4.11</junit.version>
+    <kuali-util.version>4.4.10-SNAPSHOT</kuali-util.version>
   </properties>
   <developers>
     <developer>
