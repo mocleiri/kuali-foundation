@@ -9,6 +9,7 @@ import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
+import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.util.wait.DefaultWaitService;
@@ -24,6 +25,7 @@ public class CreateBuildSlaveAMI {
 	private static final Logger logger = newLogger();
 	private final String ami = "ami-83dee0ea";
 	private final InstanceType type = InstanceType.C3Xlarge;
+	private final RootVolume rootVolume = RootVolume.builder().withDeleteOnTermination(true).withSizeInGigabytes(64).build();
 
 	@Test
 	public void test() {
@@ -31,7 +33,7 @@ public class CreateBuildSlaveAMI {
 			WaitContext wc = WaitContext.create(getMillis("15m"));
 			EC2Service service = getEC2Service();
 			KeyPair keyPair = Auth.getKeyPair(KeyPairBuilders.FOUNDATION.getBuilder());
-			LaunchInstanceContext lic = LaunchInstanceContext.builder(ami, keyPair).withType(type).build();
+			LaunchInstanceContext lic = LaunchInstanceContext.builder(ami, keyPair).withType(type).withRootVolume(rootVolume).build();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
