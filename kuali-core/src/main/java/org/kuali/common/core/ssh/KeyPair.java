@@ -77,6 +77,34 @@ public final class KeyPair {
 		public KeyPair build() {
 			return validate(new KeyPair(this));
 		}
+
+		public Optional<String> getPublicKey() {
+			return publicKey;
+		}
+
+		public void setPublicKey(Optional<String> publicKey) {
+			this.publicKey = publicKey;
+		}
+
+		public Optional<String> getPrivateKey() {
+			return privateKey;
+		}
+
+		public void setPrivateKey(Optional<String> privateKey) {
+			this.privateKey = privateKey;
+		}
+
+		public Optional<String> getFingerprint() {
+			return fingerprint;
+		}
+
+		public void setFingerprint(Optional<String> fingerprint) {
+			this.fingerprint = fingerprint;
+		}
+
+		public String getName() {
+			return name;
+		}
 	}
 
 	public String getName() {
