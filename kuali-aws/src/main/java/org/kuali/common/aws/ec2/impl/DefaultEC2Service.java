@@ -368,14 +368,19 @@ public final class DefaultEC2Service implements EC2Service {
 
 	@Override
 	public void tag(String resourceId, List<Tag> tags) {
-		Assert.noBlanks(resourceId);
-		Assert.noNulls(tags);
+		checkNotBlank(resourceId,"resourceId");
+		checkNotNull(tags,"tags");
 		if (CollectionUtils.isEmpty(tags)) {
 			return;
 		}
 		List<String> resources = Collections.singletonList(resourceId);
 		CreateTagsRequest request = new CreateTagsRequest(resources, tags);
 		client.createTags(request);
+	}
+
+	@Override
+	public void tag(String resourceId, Tag tag) {
+		tag(resourceId, ImmutableList.of(tag));
 	}
 
 	@Override

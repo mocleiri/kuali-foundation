@@ -102,6 +102,11 @@ public interface EC2Service {
 	void tag(String resourceId, List<Tag> tags);
 
 	/**
+	 * Create tags on the indicated Amazon EC2 resource (instance, volume, snapshot, ami, etc).
+	 */
+	void tag(String resourceId, Tag tag);
+
+	/**
 	 * Return a list containing the names of all the security groups.
 	 */
 	List<String> getSecurityGroupNames();
