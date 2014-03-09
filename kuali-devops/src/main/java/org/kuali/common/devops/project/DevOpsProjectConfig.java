@@ -29,6 +29,6 @@ public class DevOpsProjectConfig implements ProjectIdentifierConfig {
 	@Override
 	@Bean
 	public ProjectIdentifier projectIdentifier() {
-		return DevOpsProjectConstants.PROJECT_ID;
+		return DevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
 	}
 }

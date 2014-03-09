@@ -29,7 +29,7 @@ public final class BootstrapContext {
 
 	public static class Builder {
 
-		private static final String DISTROS = ProjectUtils.getClasspathPrefix(DevOpsProjectConstants.PROJECT_ID) + "/distros";
+		private static final String DISTROS = ProjectUtils.getClasspathPrefix(DevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER) + "/distros";
 
 		// Required
 		private final ChannelService service;

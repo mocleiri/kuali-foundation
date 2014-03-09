@@ -12,7 +12,7 @@ import com.google.common.collect.ImmutableList;
 
 public final class TomcatConfig {
 
-	private static final String CLASSPATH_PREFIX = ProjectUtils.getClasspathPrefix(DevOpsProjectConstants.PROJECT_ID) + "/tomcat";
+	private static final String CLASSPATH_PREFIX = ProjectUtils.getClasspathPrefix(DevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER) + "/tomcat";
 
 	private static final List<String> CONF = ImmutableList.of("server.xml", "web.xml");
 	private static final List<String> BIN = ImmutableList.of("cleanup.sh");
