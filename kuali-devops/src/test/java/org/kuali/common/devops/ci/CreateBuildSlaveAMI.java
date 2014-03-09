@@ -22,6 +22,7 @@ import java.util.List;
 import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
+import org.kuali.common.aws.ec2.model.AMI;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
@@ -60,7 +61,7 @@ public class CreateBuildSlaveAMI {
 
 	private static final Logger logger = newLogger();
 	private final VirtualSystem vs = VirtualSystem.create();
-	private final String ami = "ami-83dee0ea";
+	private final String ami = AMI.UBUNTU_64_BIT_PRECISE_LTS.getId();
 	private final InstanceType type = C3Xlarge;
 	private final RootVolume rootVolume = RootVolume.create(64, true);
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_BUILD_SLAVE.getGroup());
