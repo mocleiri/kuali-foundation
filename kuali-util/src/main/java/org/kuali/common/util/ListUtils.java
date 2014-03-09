@@ -1,5 +1,7 @@
 package org.kuali.common.util;
 
+import static org.kuali.common.util.base.Precondition.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,6 +12,20 @@ import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public class ListUtils {
+
+	public static <T> boolean equalElements(List<T> list1, List<T> list2) {
+		checkNotNull(list1, "list1");
+		checkNotNull(list2, "list2");
+		if (list1.size() != list2.size()) {
+			return false;
+		}
+		for (int i = 0; i < list1.size(); i++) {
+			if (!list1.get(i).equals(list2.get(i))) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	public static List<String> prefix(String prefix, List<String> list) {
 		return prefix(prefix, Optional.<String> absent(), list);
