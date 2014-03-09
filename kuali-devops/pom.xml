@@ -105,13 +105,6 @@
       <version>${kuali-httpclient.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.kuali.common</groupId>
-      <artifactId>kuali-util</artifactId>
-      <version>${kuali-util.version}</version>
-      <type>test-jar</type>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>com.google.code.findbugs</groupId>
       <artifactId>jsr305</artifactId>
       <version>${jsr305.version}</version>
