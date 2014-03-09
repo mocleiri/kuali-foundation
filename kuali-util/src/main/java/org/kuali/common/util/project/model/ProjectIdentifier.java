@@ -15,9 +15,8 @@
  */
 package org.kuali.common.util.project.model;
 
+import static org.kuali.common.util.ObjectUtils.equalsByToString;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
-
-import org.kuali.common.util.ObjectUtils;
 
 /**
  * The project identifier concept is based on two facts:
@@ -89,7 +88,7 @@ public final class ProjectIdentifier {
 
 	@Override
 	public boolean equals(Object object) {
-		return ObjectUtils.equalsByToString(this, object);
+		return equalsByToString(this, object);
 	}
 
 }
