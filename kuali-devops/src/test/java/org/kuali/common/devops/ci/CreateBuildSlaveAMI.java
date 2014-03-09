@@ -23,6 +23,7 @@ import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
 
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.collect.ImmutableList;
@@ -42,7 +43,10 @@ public class CreateBuildSlaveAMI {
 			WaitContext wc = WaitContext.create(getMillis("15m"));
 			EC2Service service = getEC2Service();
 			KeyPair keyPair = Auth.getKeyPair(KeyPairBuilders.FOUNDATION.getBuilder());
-			LaunchInstanceContext lic = LaunchInstanceContext.builder(ami, keyPair).withType(type).withRootVolume(rootVolume).build();
+			LaunchInstanceContext context = LaunchInstanceContext.builder(ami, keyPair).withType(type).withRootVolume(rootVolume).withSecurityGroups(securityGroups).withTags(tags)
+					.build();
+			Instance instance = service.launchInstance(context);
+			logger.info(String.format("public dns: %s", instance.getPublicDnsName()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
