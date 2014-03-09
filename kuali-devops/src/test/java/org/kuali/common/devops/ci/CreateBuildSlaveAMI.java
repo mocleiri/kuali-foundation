@@ -4,6 +4,7 @@ import static com.amazonaws.services.ec2.model.InstanceType.C3Xlarge;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
+import static java.lang.String.format;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
@@ -78,7 +79,7 @@ public class CreateBuildSlaveAMI {
 	private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	private final String today = format.format(new Date());
 	private final String buildNumber = vs.getEnvironment().getProperty("BUILD_NUMBER", "unknown");
-	private final Tag tag = new Tag("Name", String.format("ec2slave.%s.%s", today, buildNumber));
+	private final Tag tag = new Tag("Name", format("ec2slave.%s.%s", today, buildNumber));
 
 	@Test
 	public void test() {
