@@ -1,5 +1,7 @@
 package org.kuali.common.core.ssh;
 
+import javax.validation.constraints.Min;
+
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
@@ -8,6 +10,8 @@ public final class GenerateKeyPairContext {
 
 	private final String name;
 	private final Algorithm algorithm;
+
+	@Min(0)
 	private final int size;
 
 	public static GenerateKeyPairContext create(String name) {
