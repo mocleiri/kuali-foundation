@@ -75,10 +75,10 @@ public class CreateBuildSlaveAMI {
 	@Test
 	public void test() {
 		try {
-			// Instance instance = getNewSlaveInstance();
+			Instance instance = getNewSlaveInstance();
 			// Instance instance = getRunningSlaveInstance("i-385fa21b");
-			// logger.info(format("public dns: %s", instance.getPublicDnsName()));
-			// updateDns(instance);
+			logger.info(format("public dns: %s", instance.getPublicDnsName()));
+			updateDns(instance);
 			CanonicalFile buildDir = getBuildDirectory();
 			logger.info(format("chmod -R 755 %s", buildDir));
 			chmod(buildDir);
