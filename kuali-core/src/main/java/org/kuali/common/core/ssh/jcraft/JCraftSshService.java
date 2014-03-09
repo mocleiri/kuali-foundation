@@ -14,7 +14,7 @@ import org.kuali.common.util.Encodings;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 
-public class DefaultSshService implements SshService {
+public class JCraftSshService implements SshService {
 
 	private static final String UTF8 = Encodings.UTF8;
 	private static final int DSA = com.jcraft.jsch.KeyPair.DSA;
