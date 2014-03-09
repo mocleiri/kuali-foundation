@@ -6,7 +6,11 @@ public class CreateBuildSlaveAMI {
 
 	@Test
 	public void test() {
-		ProvisionCIMaster.main(null);
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
