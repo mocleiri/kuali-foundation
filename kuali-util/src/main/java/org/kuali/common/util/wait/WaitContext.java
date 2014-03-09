@@ -18,7 +18,7 @@ public final class WaitContext {
 		return new Builder(timeoutMillis);
 	}
 
-	public static class Builder {
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<WaitContext> {
 
 		// Required
 		private final long timeoutMillis;
@@ -41,6 +41,7 @@ public final class WaitContext {
 			return this;
 		}
 
+		@Override
 		public WaitContext build() {
 			WaitContext instance = new WaitContext(this);
 			validate(instance);
