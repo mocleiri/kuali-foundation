@@ -9,11 +9,8 @@ import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
-import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
-import org.kuali.common.core.ssh.KeyPair;
-import org.kuali.common.devops.aws.KeyPairBuilders;
 import org.kuali.common.devops.aws.NamedSecurityGroup;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.logic.Auth;
@@ -39,15 +36,20 @@ public class CreateBuildSlaveAMI {
 	@Test
 	public void test() {
 		try {
-			EC2Service service = getEC2Service();
-			KeyPair keyPair = Auth.getKeyPair(KeyPairBuilders.FOUNDATION.getBuilder());
-			LaunchInstanceContext context = LaunchInstanceContext.builder(ami, keyPair).withType(type).withRootVolume(rootVolume).withSecurityGroups(securityGroups).withTags(tags)
-					.build();
-			Instance instance = service.launchInstance(context);
+			Instance instance = getNewSlaveInstance();
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected Instance getNewSlaveInstance() {
+		EC2Service service = getEC2Service();
+		return service.getInstance("i-385fa21b");
+		// KeyPair keyPair = Auth.getKeyPair(KeyPairBuilders.FOUNDATION.getBuilder());
+		// LaunchInstanceContext context = LaunchInstanceContext.builder(ami, keyPair).withType(type).withRootVolume(rootVolume).withSecurityGroups(securityGroups).withTags(tags)
+		// .build();
+		// return service.launchInstance(context);
 	}
 
 	protected EC2Service getEC2Service() {
