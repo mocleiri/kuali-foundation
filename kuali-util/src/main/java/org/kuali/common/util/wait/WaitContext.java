@@ -9,6 +9,14 @@ public final class WaitContext {
 	private final long sleepMillis;
 	private final long initialPauseMillis;
 
+	public static WaitContext create(long timeoutMillis) {
+		return builder(timeoutMillis).build();
+	}
+
+	public static Builder builder(long timeoutMillis) {
+		return new Builder(timeoutMillis);
+	}
+
 	public static class Builder {
 
 		// Required
