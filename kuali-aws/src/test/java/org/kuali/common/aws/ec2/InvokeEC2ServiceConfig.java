@@ -51,7 +51,7 @@ public class InvokeEC2ServiceConfig {
 
 	@Bean
 	public Object invokeEC2Service() {
-		String publicKey = KeyPairs.DEVOPS.getKeyPair().build().getPublicKey().get();
+		String publicKey = KeyPairs.DEVOPS.getKeyPairBuilder().build().getPublicKey().get();
 		KeyPair keyPair = new KeyPair.Builder("kuali-devops").withPublicKey(publicKey).build();
 		List<KualiSecurityGroup> groups = getSecurityGroups();
 		String ami = AMI.AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09.getId();
