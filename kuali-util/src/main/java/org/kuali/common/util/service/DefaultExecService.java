@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util.service;
 
+import static org.kuali.common.util.log.Loggers.newLogger;
+
 import java.util.List;
 
 import org.codehaus.plexus.util.cli.CommandLineException;
@@ -25,11 +27,10 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.log.LoggerLevel;
 import org.kuali.common.util.stream.LoggingStreamConsumer;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DefaultExecService implements ExecService {
 
-	private static final Logger logger = LoggerFactory.getLogger(DefaultExecService.class);
+	private static final Logger logger = newLogger();
 
 	@Override
 	public int execute(ExecContext context) {
