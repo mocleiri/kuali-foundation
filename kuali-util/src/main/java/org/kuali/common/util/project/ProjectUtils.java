@@ -168,6 +168,17 @@ public class ProjectUtils {
 	}
 
 	/**
+	 * Return a resource friendly prefix.
+	 * 
+	 * <pre>
+	 *   org.kuali.common:kuali-util  ->  org/kuali/common/kuali-util
+	 * </pre>
+	 */
+	public static String getResourcePath(ProjectIdentifier identifier) {
+		return getResourcePath(identifier.getGroupId(), identifier.getArtifactId());
+	}
+
+	/**
 	 * Use <code>getClasspathPrefix()</code> instead. (lowercase "p" in the word classpath)
 	 * 
 	 * @deprecated
