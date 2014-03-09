@@ -75,6 +75,7 @@ public class CreateBuildSlaveAMI {
 	@Test
 	public void test() {
 		try {
+			deleteSlaveCIDns();
 			Instance instance = getNewSlaveInstance();
 			// Instance instance = getRunningSlaveInstance("i-385fa21b");
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
@@ -131,6 +132,11 @@ public class CreateBuildSlaveAMI {
 		} catch (URISyntaxException e) {
 			throw illegalState(e);
 		}
+	}
+
+	protected void deleteSlaveCIDns() {
+		DnsService service = getDnsService();
+		service.deleteCNAMERecord("slave.ci.kuali.org");
 	}
 
 	protected void updateDns(Instance instance) {
