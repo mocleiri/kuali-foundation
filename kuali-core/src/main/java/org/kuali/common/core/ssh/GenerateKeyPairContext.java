@@ -49,6 +49,26 @@ public final class GenerateKeyPairContext {
 		public GenerateKeyPairContext build() {
 			return validate(new GenerateKeyPairContext(this));
 		}
+
+		public Algorithm getAlgorithm() {
+			return algorithm;
+		}
+
+		public void setAlgorithm(Algorithm algorithm) {
+			this.algorithm = algorithm;
+		}
+
+		public int getSize() {
+			return size;
+		}
+
+		public void setSize(int size) {
+			this.size = size;
+		}
+
+		public String getName() {
+			return name;
+		}
 	}
 
 	private GenerateKeyPairContext(Builder builder) {
