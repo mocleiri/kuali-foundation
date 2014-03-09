@@ -75,15 +75,15 @@ public class CreateBuildSlaveAMI {
 	@Test
 	public void test() {
 		try {
-			deleteSlaveCIDns();
+			// deleteSlaveCIDns();
 			// Instance instance = getNewSlaveInstance();
 			Instance instance = getRunningSlaveInstance("i-3d41bd1e");
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
-			updateDns(instance);
+			// updateDns(instance);
 			CanonicalFile buildDir = getBuildDirectory();
 			chmod(buildDir);
 			CanonicalFile bashDir = getLocalBashDir(buildDir);
-			configureSlave(bashDir);
+			// configureSlave(bashDir);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
