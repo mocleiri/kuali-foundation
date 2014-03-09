@@ -45,7 +45,7 @@ public class AprilTest {
 	private final File basedir = new CanonicalFile("./src/test/resources");
 	private final String jsonDir = "json";
 	private final String jsonFilename = "april.json";
-	private final String csvFilename = "april.csv";
+	private final String csvFilename = "april.txt";
 	private final File jsonFile = new CanonicalFile(basedir, jsonDir + vs.getFileSeparator() + jsonFilename);
 	private final File csvFile = new CanonicalFile(basedir, jsonDir + vs.getFileSeparator() + csvFilename);
 	private final Joiner csvJoiner = Joiner.on(',');
