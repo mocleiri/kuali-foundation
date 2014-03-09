@@ -6,7 +6,6 @@ import static org.kuali.common.util.log.Loggers.newLogger;
 import java.util.List;
 
 import org.junit.Test;
-import org.kuali.common.aws.KeyPairBuilders;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
@@ -14,6 +13,7 @@ import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.core.ssh.KeyPair;
+import org.kuali.common.devops.aws.KeyPairBuilders;
 import org.kuali.common.devops.aws.NamedSecurityGroup;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.logic.Auth;
