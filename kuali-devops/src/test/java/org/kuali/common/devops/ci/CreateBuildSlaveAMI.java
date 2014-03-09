@@ -4,12 +4,12 @@ import static com.amazonaws.services.ec2.model.InstanceType.C3Xlarge;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
-import static java.lang.String.format;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
 import static org.kuali.common.dns.model.CNAMEContext.newCNAMEContext;
 import static org.kuali.common.util.base.Exceptions.illegalState;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.io.File;
@@ -17,6 +17,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.CodeSource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -52,6 +54,7 @@ import org.slf4j.Logger;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.ec2.model.Instance;
+import com.amazonaws.services.ec2.model.InstanceBlockDeviceMapping;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Optional;
@@ -72,22 +75,44 @@ public class CreateBuildSlaveAMI {
 	private final String bashScript = "jenkins.sh";
 	private final String svnPassword = "enc--PAqzT//IpbTfzhsnLyumedsE7yon7yqi";
 	private final String nexusPassword = "enc--/ROzksAX9W5r3CrLMefr9d+C5cIqkDtw";
+	private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	private final String today = format.format(new Date());
+	private final String buildNumber = vs.getEnvironment().getProperty("BUILD_NUMBER", "unknown");
+	private final Tag tag = new Tag("Name", String.format("ec2slave.%s.%s", today, buildNumber));
 
 	@Test
 	public void test() {
 		try {
+			EC2Service service = getEC2Service();
 			// deleteSlaveCIDns();
 			// Instance instance = getNewSlaveInstance();
-			Instance instance = getRunningSlaveInstance("i-3d41bd1e");
-			logger.info(format("public dns: %s", instance.getPublicDnsName()));
+			// Instance instance = getRunningSlaveInstance(service, "i-3d41bd1e");
+			// logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			// updateDns(instance);
 			CanonicalFile buildDir = getBuildDirectory();
 			chmod(buildDir);
 			CanonicalFile bashDir = getLocalBashDir(buildDir);
 			// configureSlave(bashDir);
+			// String rootVolumeId = getRootVolumeId(instance);
+			// Snapshot snapshot = service.createSnapshot(rootVolumeId, "ec2 slave template", FormatUtils.getMillisAsInt("1h"));
+			// String snapshotId = snapshot.getSnapshotId();
+			String snapshotId = "snap-4901778f";
+			service.tag(snapshotId, tag);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected String getRootVolumeId(Instance instance) {
+		checkNotNull(instance, "instance");
+		String rootDeviceName = instance.getRootDeviceName();
+		List<InstanceBlockDeviceMapping> mappings = instance.getBlockDeviceMappings();
+		for (InstanceBlockDeviceMapping mapping : mappings) {
+			if (rootDeviceName.equals(mapping.getDeviceName())) {
+				return mapping.getEbs().getVolumeId();
+			}
+		}
+		throw illegalState("Unable to locate the root volume id for [%s]", instance.getInstanceId());
 	}
 
 	protected void configureSlave(File bashDir) {
@@ -170,13 +195,11 @@ public class CreateBuildSlaveAMI {
 		return ImmutableList.copyOf(tags);
 	}
 
-	protected Instance getRunningSlaveInstance(String instanceId) {
-		EC2Service service = getEC2Service();
+	protected Instance getRunningSlaveInstance(EC2Service service, String instanceId) {
 		return service.getInstance(instanceId);
 	}
 
-	protected Instance getNewSlaveInstance() {
-		EC2Service service = getEC2Service();
+	protected Instance getNewSlaveInstance(EC2Service service) {
 		KeyPair keyPair = Auth.getKeyPair(KeyPairBuilders.FOUNDATION.getBuilder());
 		LaunchInstanceContext context = LaunchInstanceContext.builder(ami, keyPair).withType(type).withRootVolume(rootVolume).withSecurityGroups(securityGroups).withTags(tags)
 				.build();
