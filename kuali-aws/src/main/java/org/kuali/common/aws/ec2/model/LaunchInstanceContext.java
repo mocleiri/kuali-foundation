@@ -52,6 +52,10 @@ public final class LaunchInstanceContext {
 		this.rootVolume = builder.rootVolume;
 	}
 
+	public static Builder builder(String ami, KeyPair keyPair) {
+		return new Builder(ami, keyPair);
+	}
+
 	public static class Builder extends ValidatingBuilder<LaunchInstanceContext> {
 
 		private final String ami;
