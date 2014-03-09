@@ -10,6 +10,10 @@ public final class GenerateKeyPairContext {
 	private final Algorithm algorithm;
 	private final int size;
 
+	public static GenerateKeyPairContext create(String name) {
+		return builder(name).build();
+	}
+
 	public static Builder builder(String name) {
 		return new Builder(name);
 	}
