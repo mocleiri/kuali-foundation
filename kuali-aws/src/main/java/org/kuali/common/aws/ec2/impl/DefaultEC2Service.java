@@ -3,6 +3,7 @@ package org.kuali.common.aws.ec2.impl;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
+import static java.util.Collections.singletonList;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 import static org.kuali.common.util.base.Threads.sleep;
@@ -44,6 +45,8 @@ import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.AuthorizeSecurityGroupIngressRequest;
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
 import com.amazonaws.services.ec2.model.CreateSecurityGroupRequest;
+import com.amazonaws.services.ec2.model.CreateSnapshotRequest;
+import com.amazonaws.services.ec2.model.CreateSnapshotResult;
 import com.amazonaws.services.ec2.model.CreateTagsRequest;
 import com.amazonaws.services.ec2.model.DescribeImagesRequest;
 import com.amazonaws.services.ec2.model.DescribeImagesResult;
@@ -54,6 +57,8 @@ import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.DescribeKeyPairsResult;
 import com.amazonaws.services.ec2.model.DescribeSecurityGroupsRequest;
 import com.amazonaws.services.ec2.model.DescribeSecurityGroupsResult;
+import com.amazonaws.services.ec2.model.DescribeSnapshotsRequest;
+import com.amazonaws.services.ec2.model.DescribeSnapshotsResult;
 import com.amazonaws.services.ec2.model.EbsBlockDevice;
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.ImportKeyPairRequest;
@@ -71,6 +76,7 @@ import com.amazonaws.services.ec2.model.RevokeSecurityGroupIngressRequest;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
 import com.amazonaws.services.ec2.model.RunInstancesResult;
 import com.amazonaws.services.ec2.model.SecurityGroup;
+import com.amazonaws.services.ec2.model.Snapshot;
 import com.amazonaws.services.ec2.model.Tag;
 import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
 import com.google.common.base.Optional;
@@ -98,6 +104,53 @@ public final class DefaultEC2Service implements EC2Service {
 		this.service = service;
 		this.context = context;
 		this.client = LaunchUtils.getClient(context);
+	}
+
+	public Snapshot createSnapshot(String volumeId, String description, int timeoutMillis) {
+		CreateSnapshotRequest request = new CreateSnapshotRequest(volumeId, description);
+		CreateSnapshotResult result = client.createSnapshot(request);
+		waitForSnapshotState(result.getSnapshot().getSnapshotId(), "completed", timeoutMillis);
+		return result.getSnapshot();
+	}
+
+	@Override
+	public Snapshot getSnapshot(String snapshotId) {
+		DescribeSnapshotsRequest request = new DescribeSnapshotsRequest();
+		request.setSnapshotIds(singletonList(snapshotId));
+		DescribeSnapshotsResult result = client.describeSnapshots(request);
+		List<Snapshot> snapshots = result.getSnapshots();
+		checkState(snapshots.size() == 1, "expected 1 snapshot, but there were %s instead", snapshots.size());
+		return snapshots.get(0);
+	}
+
+	protected void waitForSnapshotState(String snapshotId, String state, int timeoutMillis) {
+		Condition condition = new SnapshotStateCondition(this, snapshotId, state);
+		WaitContext waitContext = getWaitContext(timeoutMillis);
+		Object[] args = { FormatUtils.getTime(waitContext.getTimeoutMillis()), snapshotId, state };
+		logger.info("Waiting up to {} for snapshot [{}] to reach state {}", args);
+		WaitResult result = service.wait(waitContext, condition);
+		Object[] resultArgs = { snapshotId, FormatUtils.getTime(result.getElapsed()) };
+		logger.info("snapshot [{}] is now '{}'", resultArgs);
+	}
+
+	/**
+	 * <pre>
+	 *     <image.name>ci-slave-${kuali.build.day}-${env.BUILD_NUMBER}</image.name>
+	 *     <image.tag.name>CI Slave - ${kuali.build.day} - ${env.BUILD_NUMBER}</image.tag.name>
+	 *     <image.description>${image.tag.name}</image.description>
+	 *     <image.architecture>x86_64</image.architecture>
+	 *     <image.rootDeviceName>/dev/sda1</image.rootDeviceName>
+	 *     <image.kernelId>aki-825ea7eb</image.kernelId>
+	 *     <!-- The createsnapshot execution generates the new snapshot id and stores it in the property ec2.snapshot.id -->
+	 *     <image.ebs.snapshotId>${ec2.snapshot.id}</image.ebs.snapshotId>
+	 *     <!-- This needs to match the size of the root volume on the ws.rice server -->
+	 *     <image.ebs.volumeSize>256</image.ebs.volumeSize>
+	 *     <image.ebs.deleteOnTermination>true</image.ebs.deleteOnTermination>
+	 * </pre>
+	 */
+
+	public void registerImage() {
+
 	}
 
 	@Override

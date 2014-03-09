@@ -11,6 +11,7 @@ import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.SecurityGroup;
+import com.amazonaws.services.ec2.model.Snapshot;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Optional;
 
@@ -24,6 +25,16 @@ import com.google.common.base.Optional;
  * </p>
  */
 public interface EC2Service {
+
+	/**
+	 * Snapshot a volume. Blocks until the snapshot reaches the state "completed" or timeoutMillis has been exceeded
+	 */
+	Snapshot createSnapshot(String volumeId, String description, int timeoutMillis);
+
+	/**
+	 * Return a snapshot object, given a snapshot id
+	 */
+	Snapshot getSnapshot(String snapshotId);
 
 	/**
 	 * Return a list of all the AMI's you won.
