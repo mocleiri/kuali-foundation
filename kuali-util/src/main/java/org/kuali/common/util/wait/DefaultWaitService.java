@@ -16,7 +16,7 @@ public class DefaultWaitService implements WaitService {
 
 	@Override
 	public WaitResult wait(WaitContext context, Condition condition) {
-		long start = System.currentTimeMillis();
+		long start = currentTimeMillis();
 		long timeout = start + context.getTimeoutMillis();
 		sleep(context.getInitialPauseMillis());
 		while (!condition.isTrue()) {
