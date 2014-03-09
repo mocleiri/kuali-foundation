@@ -16,6 +16,7 @@
 package org.kuali.common.dns.dnsme;
 
 import static org.kuali.common.dns.model.DnsRecord.newDnsRecord;
+import static org.kuali.common.util.enc.EncUtils.isEncrypted;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -44,7 +45,6 @@ import org.kuali.common.dns.model.DnsRecordSearchCriteria;
 import org.kuali.common.dns.model.DnsRecordType;
 import org.kuali.common.dns.util.DnsUtils;
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.nullify.NullUtils;
 
 import com.google.common.base.Optional;
@@ -71,7 +71,7 @@ public final class DNSMadeEasyDnsService implements DnsService {
 
 	public DNSMadeEasyDnsService(DNSMadeEasyServiceContext context) {
 		Assert.noNulls(context);
-		Assert.isFalse(EncUtils.isEncrypted(context.getCredentials().getSecretKey()), "Secret key is encrypted");
+		Assert.isFalse(isEncrypted(context.getCredentials().getSecretKey()), "Secret key is encrypted");
 		this.context = context;
 		this.restApiUrl = context.getRestApiUrl();
 		this.credentials = context.getCredentials();
