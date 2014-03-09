@@ -8,6 +8,7 @@ import org.kuali.common.aws.ec2.model.security.Permission;
 import org.kuali.common.aws.ec2.model.security.SetPermissionsResult;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
 
+import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.SecurityGroup;
 import com.amazonaws.services.ec2.model.Tag;
@@ -23,6 +24,11 @@ import com.google.common.base.Optional;
  * </p>
  */
 public interface EC2Service {
+
+	/**
+	 * Return a list of all the AMI's you won.
+	 */
+	List<Image> getMyImages();
 
 	/**
 	 * Launch a single Amazon EC2 instance and wait until Amazon confirms that the instance is online and functioning.

@@ -12,6 +12,17 @@ import com.google.common.collect.Lists;
 
 public class Auth {
 
+	public static AWSCredentials getCredentials(Credentials credentials) {
+		String password = Passwords.getEncPassword();
+		TextEncryptor enc = EncUtils.getTextEncryptor(password);
+		String accessKey = credentials.getAWSAccessKeyId();
+		String secretKey = credentials.getAWSSecretKey();
+		if (EncUtils.isEncrypted(secretKey)) {
+			secretKey = enc.decrypt(EncUtils.unwrap(secretKey));
+		}
+		return new BasicAWSCredentials(accessKey, secretKey);
+	}
+
 	public static List<AWSCredentials> getCredentials() {
 		String password = Passwords.getEncPassword();
 		TextEncryptor enc = EncUtils.getTextEncryptor(password);

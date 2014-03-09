@@ -101,6 +101,14 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	@Override
+	public List<Image> getMyImages() {
+		DescribeImagesRequest request = new DescribeImagesRequest();
+		request.withOwners("self");
+		DescribeImagesResult result = client.describeImages(request);
+		return result.getImages();
+	}
+
+	@Override
 	public String importKey(String keyName, String publicKey) {
 		checkNotBlank(keyName, "keyName");
 		checkNotBlank(publicKey, "publicKey");
