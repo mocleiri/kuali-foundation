@@ -60,6 +60,8 @@ public class CreateBuildSlaveAMI {
 	private final List<Tag> tags = getTags();
 	private final String subdomain = "slave.ci";
 	private final String domain = "kuali.org";
+	private final String svnPassword = "enc--PAqzT//IpbTfzhsnLyumedsE7yon7yqi";
+	private final String nexusPassword = "enc--/ROzksAX9W5r3CrLMefr9d+C5cIqkDtw";
 
 	@Test
 	public void test() {
