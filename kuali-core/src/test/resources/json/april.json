@@ -77,8 +77,8 @@
 {"date":"06","level":"MAIN","area":"END","price":74.0,"section":"121","row":10,"quantity":1}
 {"date":"06","level":"MAIN","area":"END","price":70.0,"section":"121","row":39,"quantity":2}
 {"date":"06","level":"MAIN","area":"END","price":70.0,"section":"116","row":37,"quantity":6}
-{"date":"06","level":"TERRACE","area":"SIDELINE","price":79.0,"section":"438","row":4,"quantity":2}
 {"date":"06","level":"TERRACE","area":"SIDELINE","price":79.0,"section":"438","row":4,"quantity":3}
+{"date":"06","level":"TERRACE","area":"SIDELINE","price":79.0,"section":"438","row":4,"quantity":2}
 {"date":"05","level":"MAIN","area":"PREMIER","price":180.0,"section":"130","row":2,"quantity":2}
 {"date":"05","level":"MAIN","area":"PREMIER","price":155.0,"section":"129","row":5,"quantity":6}
 {"date":"05","level":"MAIN","area":"PREMIER","price":149.0,"section":"129","row":6,"quantity":2}
@@ -93,8 +93,8 @@
 {"date":"05","level":"MAIN","area":"SIDELINE","price":103.0,"section":"133","row":4,"quantity":2}
 {"date":"05","level":"MAIN","area":"SIDELINE","price":100.0,"section":"126","row":10,"quantity":3}
 {"date":"05","level":"MAIN","area":"SIDELINE","price":100.0,"section":"133","row":7,"quantity":4}
-{"date":"05","level":"MAIN","area":"SIDELINE","price":99.0,"section":"133","row":20,"quantity":2}
 {"date":"05","level":"MAIN","area":"SIDELINE","price":99.0,"section":"112","row":4,"quantity":4}
+{"date":"05","level":"MAIN","area":"SIDELINE","price":99.0,"section":"133","row":20,"quantity":2}
 {"date":"05","level":"MAIN","area":"SIDELINE","price":92.0,"section":"126","row":21,"quantity":10}
 {"date":"05","level":"MAIN","area":"SIDELINE","price":89.0,"section":"105","row":24,"quantity":8}
 {"date":"05","level":"MAIN","area":"SIDELINE","price":84.0,"section":"105","row":33,"quantity":3}
