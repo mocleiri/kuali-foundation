@@ -8,8 +8,12 @@ import static java.lang.String.format;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
 import static org.kuali.common.dns.model.CNAMEContext.newCNAMEContext;
+import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.CodeSource;
 import java.util.List;
@@ -33,6 +37,7 @@ import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
 import org.kuali.common.dns.model.CNAMEContext;
 import org.kuali.common.dns.util.CreateOrReplaceCNAME;
+import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
@@ -59,19 +64,29 @@ public class CreateBuildSlaveAMI {
 	public void test() {
 		try {
 			// Instance instance = getNewSlaveInstance();
-			Instance instance = getRunningSlaveInstance("i-385fa21b");
-			logger.info(format("public dns: %s", instance.getPublicDnsName()));
-			updateDns(instance);
+			// Instance instance = getRunningSlaveInstance("i-385fa21b");
+			// logger.info(format("public dns: %s", instance.getPublicDnsName()));
+			// updateDns(instance);
+			File buildDir = getBuildDirectory();
+			logger.info(format("build directory: [%s]", buildDir));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected void doStuff() {
+	protected File getBuildDirectory() {
 		Optional<CodeSource> src = fromNullable(KualiDevOpsProjectConstants.class.getProtectionDomain().getCodeSource());
 		checkState(src.isPresent(), "could not get code source");
 		URL url = src.get().getLocation();
-		logger.info(format("url: [%s]", url));
+		try {
+			URI uri = url.toURI();
+			File file = new CanonicalFile(uri);
+			checkState(file.exists(), "[%s] does not exist");
+			checkState(file.isDirectory(), "[%s] is not a directory");
+			return file;
+		} catch (URISyntaxException e) {
+			throw illegalState(e);
+		}
 	}
 
 	protected void updateDns(Instance instance) {
