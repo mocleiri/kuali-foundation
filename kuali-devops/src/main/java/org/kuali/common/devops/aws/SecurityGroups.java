@@ -13,8 +13,8 @@ public enum SecurityGroups {
 	// TODO Remove the Permissions.WEB_SERVER from the CI security group here
 	// That is just a group with no perm's so that the slaves and master belong to the same group and thus
 	// have unrestricted network access to each other from Amazon's perspective
-	CI("ci", "Continuous Integration", Permissions.WEB_SERVER), //
-	CI_MASTER("ci.master", "Jenkins CI Server - Master", Permissions.WEB_SERVER), //
+	CI("ci", "Continuous Integration", Permissions.APPLICATION_SERVER_PERMISSIONS), //
+	CI_MASTER("ci.master", "Jenkins CI Server - Master", Permissions.APPLICATION_SERVER_PERMISSIONS), //
 	CI_BUILD_SLAVE("ci.slave", "Jenkins CI Server - Slave", Permissions.SSH.getPermission());
 
 	private final KualiSecurityGroup group;
@@ -28,7 +28,7 @@ public enum SecurityGroups {
 	}
 
 	private SecurityGroups(String name, String description, List<Permission> perms) {
-		this.group = new KualiSecurityGroup.Builder(name).description(description).permissions(perms).build();
+		this.group = KualiSecurityGroup.builder(name).withDescription(description).withPermissions(perms).build();
 	}
 
 	public KualiSecurityGroup getGroup() {
