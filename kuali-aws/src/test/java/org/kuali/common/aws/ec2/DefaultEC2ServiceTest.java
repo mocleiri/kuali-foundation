@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.ec2.model.Image;
-import com.amazonaws.services.ec2.model.Tag;
 
 public class DefaultEC2ServiceTest {
 
@@ -22,18 +21,11 @@ public class DefaultEC2ServiceTest {
 
 	@Test
 	public void test() {
-		try {
-			AWSCredentials credentials = Auth.getCredentials(Credentials.FOUNDATION);
-			EC2ServiceContext context = EC2ServiceContext.create(credentials);
-			DefaultEC2Service service = new DefaultEC2Service(context, new DefaultWaitService());
-			List<Image> images = service.getMyImages();
-			logger.info(images.size() + "");
-			for (Image image : images) {
-				List<Tag> tags = image.getTags();
-			}
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
+		AWSCredentials credentials = Auth.getCredentials(Credentials.FOUNDATION);
+		EC2ServiceContext context = EC2ServiceContext.create(credentials);
+		DefaultEC2Service service = new DefaultEC2Service(context, new DefaultWaitService());
+		List<Image> images = service.getMyImages();
+		logger.info(images.size() + "");
 	}
 
 }
