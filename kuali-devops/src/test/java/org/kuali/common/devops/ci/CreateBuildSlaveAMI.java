@@ -126,6 +126,7 @@ public class CreateBuildSlaveAMI {
 		for (Image image : deletes) {
 			Tag tag = findRequiredTag(image.getTags(), name.getKey(), startsWithToken);
 			logger.info(format("slave ami   -> delete -> %s - [%s]", image.getImageId(), tag.getValue()));
+			service.purgeImage(image.getImageId());
 		}
 
 	}
