@@ -84,6 +84,7 @@ public class CreateBuildSlaveAMI {
 	private final String amazonAccount = "foundation";
 	private final String domainToken = ".amazonaws.com";
 	private final String sleep = "1s";
+	private final int amisToKeep = 7;
 
 	@Test
 	public void test() {
