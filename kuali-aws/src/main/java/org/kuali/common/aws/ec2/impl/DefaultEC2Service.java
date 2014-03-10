@@ -125,7 +125,6 @@ public final class DefaultEC2Service implements EC2Service {
 
 	@Override
 	public void deleteSnapshot(String snapshotId) {
-		logger.info(format("snapshot -> delete -> %s", snapshotId));
 		DeleteSnapshotRequest request = new DeleteSnapshotRequest();
 		request.setSnapshotId(snapshotId);
 		client.deleteSnapshot(request);
