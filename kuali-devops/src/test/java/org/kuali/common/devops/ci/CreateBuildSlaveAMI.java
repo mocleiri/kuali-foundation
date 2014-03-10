@@ -78,6 +78,7 @@ public class CreateBuildSlaveAMI {
 	private final String buildNumber = getBuildNumber();
 	private final Tag name = new Tag("Name", format("ec2slave.%s%s", today, buildNumber));
 	private final String amazonAccount = "foundation";
+	private final String domainToken = ".amazonaws.com";
 
 	@Test
 	public void test() {
@@ -110,7 +111,7 @@ public class CreateBuildSlaveAMI {
 
 	protected ExecContext getExecContext(Instance instance, File bashDir) {
 		String dns = instance.getPublicDnsName();
-		String subdomain = StringUtils.remove(dns, ".amazonaws.com");
+		String subdomain = StringUtils.remove(dns, domainToken);
 		List<String> args = ImmutableList.of(Auth.decrypt(nexusPassword), Auth.decrypt(svnPassword), subdomain, "slave", "-qq");
 		String executable = bashDir.getAbsolutePath() + vs.getFileSeparator() + bashScript;
 		DefaultExecContext context = new DefaultExecContext();
