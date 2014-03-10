@@ -107,6 +107,8 @@ BASEDIR=${1-BASEDIR}
 QUIET=${2-$QUIET}
 JENKINS_MASTER=${jenkins.master}
 
+check_args
+
 slave_shutdown_scripting
 install_mysql_server
 copy_repo_from_master
