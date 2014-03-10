@@ -9,7 +9,6 @@ import static java.lang.String.format;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
-import static org.kuali.common.util.FormatUtils.getMillis;
 import static org.kuali.common.util.FormatUtils.getTime;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Threads.sleep;
@@ -89,7 +88,7 @@ public class CreateBuildSlaveAMI {
 			Instance instance = getNewSlaveInstance(service);
 			// Instance instance = getRunningSlaveInstance(service, "i-3d41bd1e");
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
-			sleep(getMillis("15s"));
+			sleep("15s");
 			// updateDns(instance);
 			CanonicalFile buildDir = getBuildDirectory();
 			logger.info(format("build directory -> %s", buildDir));
