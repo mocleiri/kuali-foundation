@@ -79,18 +79,6 @@ public class CreateBuildSlaveAMI {
 	private final String buildNumber = getBuildNumber();
 	private final Tag name = new Tag("Name", format("ec2slave.%s%s", today, buildNumber));
 
-	/**
-	 * If BUILD_NUMBER is set, add a prefix and return, otherwise return the empty string
-	 */
-	protected String getBuildNumber() {
-		Optional<String> buildNumber = fromNullable(vs.getEnvironment().getProperty("BUILD_NUMBER"));
-		if (buildNumber.isPresent()) {
-			return "-build-" + buildNumber.get();
-		} else {
-			return "";
-		}
-	}
-
 	@Test
 	public void test() {
 		try {
@@ -214,6 +202,18 @@ public class CreateBuildSlaveAMI {
 		WaitService ws = new DefaultWaitService();
 		EC2ServiceContext ec = EC2ServiceContext.create(creds);
 		return new DefaultEC2Service(ec, ws);
+	}
+
+	/**
+	 * If BUILD_NUMBER is set, add a prefix and return, otherwise return the empty string
+	 */
+	protected String getBuildNumber() {
+		Optional<String> buildNumber = fromNullable(vs.getEnvironment().getProperty("BUILD_NUMBER"));
+		if (buildNumber.isPresent()) {
+			return "-build-" + buildNumber.get();
+		} else {
+			return "";
+		}
 	}
 
 }
