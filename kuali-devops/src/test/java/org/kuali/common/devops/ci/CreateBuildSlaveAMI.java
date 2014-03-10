@@ -84,7 +84,7 @@ public class CreateBuildSlaveAMI {
 	private final Tag name = new Tag("Name", format("%s.%s-build-%s", startsWithToken, today, buildNumber));
 	private final String amazonAccount = "foundation";
 	private final String domainToken = ".amazonaws.com";
-	private final String sleep = "1s";
+	private final String sleep = "5s";
 	private final int minimumAmisToKeep = 2;
 
 	@Test
