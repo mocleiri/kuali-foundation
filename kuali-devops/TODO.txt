@@ -16,6 +16,7 @@
 
 - delete old AMI's and snapshots, terminate the build slave
 - pre-cache binaries
+- cache GIT credentials somehow
 - automatically update jenkins with new AMI id
 - install and pin firefox to a specific version(?)
 - ruby package (what version, etc)
