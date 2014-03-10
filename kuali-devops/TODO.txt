@@ -14,7 +14,7 @@
     limitations under the License.
 ====
 
-- delete old AMI's and snapshots
+- delete old AMI's and snapshots, terminate the build slave
 - pre-cache binaries
 - automatically update jenkins with new AMI id
 - install and pin firefox to a specific version(?)
