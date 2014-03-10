@@ -78,6 +78,7 @@ public class CreateBuildSlaveAMI {
 	private final String today = format.format(new Date());
 	private final String buildNumber = getBuildNumber();
 	private final Tag name = new Tag("Name", format("ec2slave.%s%s", today, buildNumber));
+	private final String amazonAccount = "foundation";
 
 	@Test
 	public void test() {
@@ -198,7 +199,7 @@ public class CreateBuildSlaveAMI {
 	}
 
 	protected EC2Service getEC2Service() {
-		AWSCredentials creds = Auth.getAwsCredentials("foundation");
+		AWSCredentials creds = Auth.getAwsCredentials(amazonAccount);
 		WaitService ws = new DefaultWaitService();
 		EC2ServiceContext ec = EC2ServiceContext.create(creds);
 		return new DefaultEC2Service(ec, ws);
