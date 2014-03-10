@@ -184,7 +184,7 @@ public class CreateBuildSlaveAMI {
 	}
 
 	/**
-	 * If BUILD_NUMBER is set, add a prefix and return, otherwise return the empty string
+	 * If the environment variable BUILD_NUMBER is set, add a prefix and return, otherwise return the empty string
 	 */
 	protected String getBuildNumber() {
 		Optional<String> buildNumber = fromNullable(vs.getEnvironment().getProperty("BUILD_NUMBER"));
