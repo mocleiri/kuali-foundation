@@ -94,7 +94,7 @@ public class CreateBuildSlaveAMI {
 		int timeoutMillis = getMillisAsInt(System.getProperty("slave.size", "30m"));
 
 		EC2Service service = getEC2Service();
-		Instance instance = getNewSlaveInstance(service, ami, type, rootVolume);
+		Instance instance = getNewSlaveInstance(service, ami, type, rootVolume, timeoutMillis);
 		// Instance instance = getRunningSlaveInstance(service, "i-dde811fe");
 		logger.info(format("public dns: %s", instance.getPublicDnsName()));
 		logger.info(format("sleeping %s to let dns settle down", postInstanceCreationSleepPeriod));
@@ -231,11 +231,11 @@ public class CreateBuildSlaveAMI {
 		return service.getInstance(instanceId);
 	}
 
-	protected Instance getNewSlaveInstance(EC2Service service, String ami, InstanceType type, RootVolume rootVolume) {
+	protected Instance getNewSlaveInstance(EC2Service service, String ami, InstanceType type, RootVolume rootVolume, int timeoutMillis) {
 		logger.info(format("launch instance -> %s  type: %s  size: %sgb", ami, type.toString(), rootVolume.getSizeInGigabytes().get()));
 		KeyPair keyPair = Auth.getKeyPair(KeyPairBuilders.FOUNDATION.getBuilder());
-		LaunchInstanceContext context = LaunchInstanceContext.builder(ami, keyPair).withType(type).withRootVolume(rootVolume).withSecurityGroups(securityGroups).withTags(tags)
-				.build();
+		LaunchInstanceContext context = LaunchInstanceContext.builder(ami, keyPair).withTimeoutMillis(timeoutMillis).withType(type).withRootVolume(rootVolume)
+				.withSecurityGroups(securityGroups).withTags(tags).build();
 		return service.launchInstance(context);
 	}
 
