@@ -38,9 +38,6 @@ import org.kuali.common.devops.aws.KeyPairBuilders;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.devops.project.KualiDevOpsProjectConstants;
-import org.kuali.common.dns.api.DnsService;
-import org.kuali.common.dns.model.CNAMEContext;
-import org.kuali.common.dns.util.CreateOrReplaceCNAME;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.service.DefaultExecContext;
@@ -85,12 +82,10 @@ public class CreateBuildSlaveAMI {
 		try {
 			Stopwatch sw = createStarted();
 			EC2Service service = getEC2Service();
-			// deleteSlaveCIDns();
 			Instance instance = getNewSlaveInstance(service);
 			// Instance instance = getRunningSlaveInstance(service, "i-3d41bd1e");
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			sleep("15s");
-			// updateDns(instance);
 			CanonicalFile buildDir = getBuildDirectory();
 			logger.info(format("build directory -> %s", buildDir));
 			chmod(buildDir);
@@ -148,32 +143,6 @@ public class CreateBuildSlaveAMI {
 		} catch (URISyntaxException e) {
 			throw illegalState(e);
 		}
-	}
-
-	protected void deleteSlaveCIDns() {
-		String fqdn = "slave.ci.kuali.org";
-		logger.info(String.format("deleting dns cname record -> %s", fqdn));
-		DnsService service = getDnsService();
-		service.deleteCNAMERecord(fqdn);
-	}
-
-	protected void updateDns(Instance instance) {
-		DnsService service = getDnsService();
-		CNAMEContext context = getCNAMEContext(instance.getPublicDnsName());
-		new CreateOrReplaceCNAME(service, context).execute();
-	}
-
-	protected CNAMEContext getCNAMEContext(String canonicalFQDN) {
-		return null;
-		// String aliasFQDN = subdomain + "." + domain;
-		// return newCNAMEContext(aliasFQDN, canonicalFQDN);
-	}
-
-	protected DnsService getDnsService() {
-		return null;
-		// DNSMadeEasyCredentials credentials = Auth.getDnsmeCredentials();
-		// DNSMadeEasyServiceContext context = new DNSMadeEasyServiceContext(credentials, URLS.PRODUCTION, domain);
-		// return new DNSMadeEasyDnsService(context);
 	}
 
 	protected List<Tag> getTags() {
