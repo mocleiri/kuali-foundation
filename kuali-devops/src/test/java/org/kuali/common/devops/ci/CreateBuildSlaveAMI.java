@@ -66,6 +66,7 @@ import com.google.common.collect.ImmutableList;
 public class CreateBuildSlaveAMI {
 
 	private static final Logger logger = newLogger();
+
 	private final VirtualSystem vs = VirtualSystem.create();
 	private final String ami = System.getProperty("slave.ami", AMI.UBUNTU_64_BIT_PRECISE_LTS.getId());
 	private final InstanceType type = InstanceType.valueOf(System.getProperty("slave.type", InstanceType.C3Xlarge.toString()));
