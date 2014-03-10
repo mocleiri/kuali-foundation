@@ -215,7 +215,7 @@ public final class DefaultEC2Service implements EC2Service {
 		Condition condition = new SnapshotStateCondition(this, snapshotId, state);
 		WaitContext waitContext = getWaitContext(timeoutMillis);
 		Object[] args = { FormatUtils.getTime(waitContext.getTimeoutMillis()), snapshotId, state };
-		logger.info("waiting up to {} for snapshot [{}] to reach state '{}'", args);
+		logger.info(format("waiting up to %s for snapshot [%s] to reach state '%s'", args));
 		WaitResult result = service.wait(waitContext, condition);
 		Object[] resultArgs = { snapshotId, state, FormatUtils.getTime(result.getElapsed()) };
 		logger.info(format("snapshot [%s] is now '%s' - %s", resultArgs));
@@ -225,10 +225,10 @@ public final class DefaultEC2Service implements EC2Service {
 		Condition condition = new AmiStateCondition(this, imageId, state);
 		WaitContext waitContext = getWaitContext(timeoutMillis);
 		Object[] args = { FormatUtils.getTime(waitContext.getTimeoutMillis()), imageId, state };
-		logger.info("waiting up to {} for image [{}] to reach state '{}'", args);
+		logger.info(format("waiting up to %s for image [%s] to reach state '%s'", args));
 		WaitResult result = service.wait(waitContext, condition);
 		Object[] resultArgs = { imageId, state, FormatUtils.getTime(result.getElapsed()) };
-		logger.info("snapshot [{}] is now '{}' - %s", resultArgs);
+		logger.info(format("ami [%s] is now '%s' - %s", resultArgs));
 	}
 
 	@Override
