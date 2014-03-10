@@ -3,6 +3,7 @@ package org.kuali.common.aws.ec2.api;
 import java.util.List;
 
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
+import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.ec2.model.security.Permission;
 import org.kuali.common.aws.ec2.model.security.SetPermissionsResult;
@@ -26,6 +27,8 @@ import com.google.common.base.Optional;
  */
 public interface EC2Service {
 
+	Image createAmi(String instanceId, String name, String description, RootVolume rootVolume);
+
 	/**
 	 * Snapshot a volume. Blocks until the snapshot reaches the state "completed" or timeoutMillis has been exceeded
 	 */
@@ -37,9 +40,14 @@ public interface EC2Service {
 	Snapshot getSnapshot(String snapshotId);
 
 	/**
-	 * Return a list of all the AMI's you won.
+	 * Return a list of all the AMI's you own.
 	 */
 	List<Image> getMyImages();
+
+	/**
+	 * Return an Image object given an image id
+	 */
+	Image getImage(String imageId);
 
 	/**
 	 * Launch a single Amazon EC2 instance and wait until Amazon confirms that the instance is online and functioning.

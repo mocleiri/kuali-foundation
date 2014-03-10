@@ -1,9 +1,11 @@
 package org.kuali.common.aws.ec2.impl;
 
+import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Collections.singletonList;
+import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 import static org.kuali.common.util.base.Threads.sleep;
@@ -60,10 +62,12 @@ import com.amazonaws.services.ec2.model.DescribeSecurityGroupsResult;
 import com.amazonaws.services.ec2.model.DescribeSnapshotsRequest;
 import com.amazonaws.services.ec2.model.DescribeSnapshotsResult;
 import com.amazonaws.services.ec2.model.EbsBlockDevice;
+import com.amazonaws.services.ec2.model.EbsInstanceBlockDevice;
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.ImportKeyPairRequest;
 import com.amazonaws.services.ec2.model.ImportKeyPairResult;
 import com.amazonaws.services.ec2.model.Instance;
+import com.amazonaws.services.ec2.model.InstanceBlockDeviceMapping;
 import com.amazonaws.services.ec2.model.InstanceStatus;
 import com.amazonaws.services.ec2.model.InstanceStatusDetails;
 import com.amazonaws.services.ec2.model.InstanceStatusSummary;
@@ -71,6 +75,8 @@ import com.amazonaws.services.ec2.model.IpPermission;
 import com.amazonaws.services.ec2.model.KeyPairInfo;
 import com.amazonaws.services.ec2.model.ModifyInstanceAttributeRequest;
 import com.amazonaws.services.ec2.model.Placement;
+import com.amazonaws.services.ec2.model.RegisterImageRequest;
+import com.amazonaws.services.ec2.model.RegisterImageResult;
 import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.RevokeSecurityGroupIngressRequest;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
@@ -106,6 +112,84 @@ public final class DefaultEC2Service implements EC2Service {
 		this.client = LaunchUtils.getClient(context);
 	}
 
+	public Image createAmi(String instanceId, String name, String description, RootVolume rootVolume) {
+		Instance instance = getInstance(instanceId);
+		String rootVolumeId = getRootVolumeId(instance);
+		Snapshot snapshot = createSnapshot(rootVolumeId, description, FormatUtils.getMillisAsInt("1h"));
+		return createImage(instance, snapshot, name, description, rootVolume);
+	}
+
+	public Image createImage(Instance instance, Snapshot snapshot, String name, String description, RootVolume rootVolume) {
+		RegisterImageRequest request = new RegisterImageRequest();
+		request.setName(name);
+		request.setDescription(description);
+		request.setArchitecture(instance.getArchitecture());
+		request.setRootDeviceName(instance.getRootDeviceName());
+		request.setKernelId(instance.getKernelId());
+		request.setBlockDeviceMappings(singletonList(getRootVolumeMapping(instance, snapshot.getSnapshotId(), rootVolume)));
+		RegisterImageResult result = client.registerImage(request);
+		String imageId = result.getImageId();
+		waitForAmiState(imageId, "completed", FormatUtils.getMillisAsInt("1h"));
+		tag(imageId, new Tag("Name", name));
+		return getImage(imageId);
+	}
+
+	protected BlockDeviceMapping getRootVolumeMapping(Instance instance, String snapshotId, RootVolume rootVolume) {
+		InstanceBlockDeviceMapping ibdm = getRootVolumeMapping(instance);
+
+		EbsBlockDevice ebs = new EbsBlockDevice();
+		ebs.setDeleteOnTermination(rootVolume.getDeleteOnTermination().orNull());
+		ebs.setSnapshotId(snapshotId);
+		ebs.setVolumeSize(rootVolume.getSizeInGigabytes().orNull());
+
+		BlockDeviceMapping bdm = new BlockDeviceMapping();
+		bdm.setDeviceName(ibdm.getDeviceName());
+		bdm.setEbs(ebs);
+		return bdm;
+	}
+
+	protected BlockDeviceMapping convert(InstanceBlockDeviceMapping mapping, String snapshotId, int sizeInGigabytes) {
+		BlockDeviceMapping converted = new BlockDeviceMapping();
+		converted.setDeviceName(mapping.getDeviceName());
+		converted.setEbs(convert(mapping.getEbs(), snapshotId, sizeInGigabytes));
+		return converted;
+	}
+
+	protected EbsBlockDevice convert(EbsInstanceBlockDevice device, String snapshotId, int sizeInGigabytes) {
+		EbsBlockDevice converted = new EbsBlockDevice();
+		converted.setDeleteOnTermination(device.getDeleteOnTermination());
+		converted.setSnapshotId(snapshotId);
+		converted.setVolumeSize(sizeInGigabytes);
+		return converted;
+	}
+
+	protected Optional<Tag> getTag(List<Tag> tags, String key) {
+		for (Tag tag : tags) {
+			if (tag.getKey().equals(key)) {
+				return Optional.of(tag);
+			}
+		}
+		return absent();
+	}
+
+	protected String getRootVolumeId(Instance instance) {
+		checkNotNull(instance, "instance");
+		InstanceBlockDeviceMapping rootMapping = getRootVolumeMapping(instance);
+		return rootMapping.getEbs().getVolumeId();
+	}
+
+	protected InstanceBlockDeviceMapping getRootVolumeMapping(Instance instance) {
+		checkNotNull(instance, "instance");
+		String rootDeviceName = instance.getRootDeviceName();
+		List<InstanceBlockDeviceMapping> mappings = instance.getBlockDeviceMappings();
+		for (InstanceBlockDeviceMapping mapping : mappings) {
+			if (rootDeviceName.equals(mapping.getDeviceName())) {
+				return mapping;
+			}
+		}
+		throw illegalState("Unable to locate the root volume mapping for [%s]", instance.getInstanceId());
+	}
+
 	@Override
 	public Snapshot createSnapshot(String volumeId, String description, int timeoutMillis) {
 		CreateSnapshotRequest request = new CreateSnapshotRequest(volumeId, description);
@@ -134,12 +218,36 @@ public final class DefaultEC2Service implements EC2Service {
 		logger.info("snapshot [{}] is now '{}' - %s", resultArgs);
 	}
 
+	protected void waitForAmiState(String imageId, String state, int timeoutMillis) {
+		Condition condition = new AmiStateCondition(this, imageId, state);
+		WaitContext waitContext = getWaitContext(timeoutMillis);
+		Object[] args = { FormatUtils.getTime(waitContext.getTimeoutMillis()), imageId, state };
+		logger.info("waiting up to {} for image [{}] to reach state '{}'", args);
+		WaitResult result = service.wait(waitContext, condition);
+		Object[] resultArgs = { imageId, state, FormatUtils.getTime(result.getElapsed()) };
+		logger.info("snapshot [{}] is now '{}' - %s", resultArgs);
+	}
+
 	@Override
 	public List<Image> getMyImages() {
 		DescribeImagesRequest request = new DescribeImagesRequest();
 		request.withOwners("self");
 		DescribeImagesResult result = client.describeImages(request);
 		return result.getImages();
+	}
+
+	protected void checkSizeEquals(Collection<?> c, int size) {
+		checkState(c.size() == size, "expected size of %s, was %s instead", size, c.size());
+	}
+
+	@Override
+	public Image getImage(String imageId) {
+		DescribeImagesRequest request = new DescribeImagesRequest();
+		request.setImageIds(singletonList(imageId));
+		DescribeImagesResult result = client.describeImages(request);
+		List<Image> images = result.getImages();
+		checkSizeEquals(images, 1);
+		return images.get(0);
 	}
 
 	@Override
@@ -368,8 +476,8 @@ public final class DefaultEC2Service implements EC2Service {
 
 	@Override
 	public void tag(String resourceId, List<Tag> tags) {
-		checkNotBlank(resourceId,"resourceId");
-		checkNotNull(tags,"tags");
+		checkNotBlank(resourceId, "resourceId");
+		checkNotNull(tags, "tags");
 		if (CollectionUtils.isEmpty(tags)) {
 			return;
 		}
