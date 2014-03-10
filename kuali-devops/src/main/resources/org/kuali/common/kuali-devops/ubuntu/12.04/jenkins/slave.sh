@@ -98,4 +98,4 @@ BASEDIR=${1-BASEDIR}
 QUIET=${2-$QUIET}
 
 slave_shutdown_scripting
-#install_mysql_server
+install_mysql_server
