@@ -130,15 +130,15 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	@Override
-	public Image createAmi(String instanceId, Tag name, String description, RootVolume rootVolume) {
+	public Image createAmi(String instanceId, Tag name, String description, RootVolume rootVolume, int timeoutMillis) {
 		Instance instance = getInstance(instanceId);
 		String rootVolumeId = getRootVolumeId(instance);
-		Snapshot snapshot = createSnapshot(rootVolumeId, description, FormatUtils.getMillisAsInt("1h"));
+		Snapshot snapshot = createSnapshot(rootVolumeId, description, timeoutMillis);
 		tag(snapshot.getSnapshotId(), name);
-		return createAmi(instance, snapshot, name, description, rootVolume);
+		return createAmi(instance, snapshot, name, description, rootVolume, timeoutMillis);
 	}
 
-	public Image createAmi(Instance instance, Snapshot snapshot, Tag name, String description, RootVolume rootVolume) {
+	protected Image createAmi(Instance instance, Snapshot snapshot, Tag name, String description, RootVolume rootVolume, int timeoutMillis) {
 		RegisterImageRequest request = new RegisterImageRequest();
 		request.setName(name.getValue());
 		request.setDescription(description);
@@ -148,7 +148,7 @@ public final class DefaultEC2Service implements EC2Service {
 		request.setBlockDeviceMappings(singletonList(getRootVolumeMapping(instance, snapshot.getSnapshotId(), rootVolume)));
 		RegisterImageResult result = client.registerImage(request);
 		String imageId = result.getImageId();
-		waitForAmiState(imageId, "available", FormatUtils.getMillisAsInt("1h"));
+		waitForAmiState(imageId, "available", timeoutMillis);
 		tag(imageId, name);
 		return getImage(imageId);
 	}

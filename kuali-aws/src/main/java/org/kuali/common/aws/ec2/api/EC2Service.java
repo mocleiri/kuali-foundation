@@ -31,7 +31,7 @@ public interface EC2Service {
 
 	void deRegisterImage(String imageId);
 
-	Image createAmi(String instanceId, Tag name, String description, RootVolume rootVolume);
+	Image createAmi(String instanceId, Tag name, String description, RootVolume rootVolume, int timeoutMillis);
 
 	/**
 	 * Snapshot a volume. Blocks until the snapshot reaches the state "completed" or timeoutMillis has been exceeded
