@@ -29,7 +29,7 @@ function check_args {
 # connect to a remote server, zip jenkins config, and scp it to the local machine
 function scp_zip_file {
 
-  ZIP_FILE="master_config.zip"
+  ZIP_FILE="config.zip"
   SERVER_ZIP="/mnt/$ZIP_FILE"
   LOCAL_ZIP="${project.basedir}/src/main/resources/${project.groupId.path}/${project.artifactId}/jenkins/$ZIP_FILE"
   
