@@ -100,7 +100,6 @@ public final class DefaultEC2Service implements EC2Service {
 	private static final Logger logger = newLogger();
 	private static final String SNAPSHOT_COMPLETED_STATE = "completed";
 	private static final String AMI_AVAILABLE_STATE = "available";
-	private static final String AMI_OWNER_SELF = "self";
 
 	// Don't expose the AmazonEC2Client object via a getter
 	// It is mutable and therefore not inherently thread safe
@@ -268,7 +267,7 @@ public final class DefaultEC2Service implements EC2Service {
 	@Override
 	public List<Image> getMyImages() {
 		DescribeImagesRequest request = new DescribeImagesRequest();
-		request.withOwners(AMI_OWNER_SELF);
+		request.withOwners(AmiOwner.SELF.getValue());
 		DescribeImagesResult result = client.describeImages(request);
 		return result.getImages();
 	}
