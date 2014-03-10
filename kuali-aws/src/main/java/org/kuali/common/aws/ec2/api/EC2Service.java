@@ -27,6 +27,8 @@ import com.google.common.base.Optional;
  */
 public interface EC2Service {
 
+	List<Image> getImages();
+
 	void deleteSnapshot(String snapshotId);
 
 	void deRegisterImage(String imageId);

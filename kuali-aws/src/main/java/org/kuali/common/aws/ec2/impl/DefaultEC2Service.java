@@ -117,6 +117,11 @@ public final class DefaultEC2Service implements EC2Service {
 		this.client = LaunchUtils.getClient(context);
 	}
 
+	public List<Image> getImages() {
+		DescribeImagesResult result = client.describeImages();
+		return result.getImages();
+	}
+
 	@Override
 	public void deleteSnapshot(String snapshotId) {
 		DeleteSnapshotRequest request = new DeleteSnapshotRequest();
