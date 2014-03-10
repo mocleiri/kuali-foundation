@@ -82,8 +82,8 @@ public class CreateBuildSlaveAMI {
 		try {
 			Stopwatch sw = createStarted();
 			EC2Service service = getEC2Service();
-			Instance instance = getNewSlaveInstance(service);
-			// Instance instance = getRunningSlaveInstance(service, "i-3d41bd1e");
+			// Instance instance = getNewSlaveInstance(service);
+			Instance instance = getRunningSlaveInstance(service, "i-c71ae5e4");
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			sleep("15s");
 			CanonicalFile buildDir = getBuildDirectory();
