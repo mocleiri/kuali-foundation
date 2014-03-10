@@ -76,6 +76,11 @@ QUIET=${5-""}
 # Same password for both
 ZIP_PASSWORD=$SVN_PASSWORD
 
+if [ "$TYPE" = "slave" ]; then
+  # This isn't actually used for slave setup
+  SUBDOMAIN=slave.ci
+fi
+
 # Make sure we have what we need
 check_args
 
