@@ -31,7 +31,10 @@ public interface EC2Service {
 
 	void deleteSnapshot(String snapshotId);
 
-	void deRegisterImage(String imageId);
+	/**
+	 * Deregister the AMI AND delete any snapshots associated with it.
+	 */
+	void purgeImage(String imageId);
 
 	Image createAmi(String instanceId, Tag name, String description, RootVolume rootVolume, int timeoutMillis);
 

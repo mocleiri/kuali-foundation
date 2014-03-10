@@ -117,6 +117,7 @@ public final class DefaultEC2Service implements EC2Service {
 		this.client = LaunchUtils.getClient(context);
 	}
 
+	@Override
 	public List<Image> getImages() {
 		DescribeImagesResult result = client.describeImages();
 		return result.getImages();
@@ -130,10 +131,19 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	@Override
-	public void deRegisterImage(String imageId) {
+	public void purgeImage(String imageId) {
+		Image image = getImage(imageId);
+		List<String> snapshotIds = newArrayList();
+		List<BlockDeviceMapping> mappings = image.getBlockDeviceMappings();
+		for (BlockDeviceMapping mapping : mappings) {
+			snapshotIds.add(mapping.getEbs().getSnapshotId());
+		}
 		DeregisterImageRequest request = new DeregisterImageRequest();
 		request.setImageId(imageId);
 		client.deregisterImage(request);
+		for (String snapshotId : snapshotIds) {
+			deleteSnapshot(snapshotId);
+		}
 	}
 
 	@Override
