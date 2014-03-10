@@ -18,3 +18,4 @@
 - pre-cache binaries
 - automatically update jenkins with new AMI id
 - install and pin firefox to a specific version(?)
+- improve EC2Service so the amount of time createSnapshot/createAMI will wait is configurable instead of being hardcoded to 1 hour
