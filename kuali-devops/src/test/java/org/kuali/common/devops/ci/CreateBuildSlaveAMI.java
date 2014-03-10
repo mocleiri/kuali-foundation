@@ -84,7 +84,7 @@ public class CreateBuildSlaveAMI {
 	private final Tag name = new Tag("Name", format("%s.%s-build-%s", startsWithToken, today, buildNumber));
 	private final String amazonAccount = "foundation";
 	private final String domainToken = ".amazonaws.com";
-	private final String postInstanceCreationSleepPeriod = "15s";
+	private final String postInstanceCreationSleepPeriod = "1ms";
 	private final int minimumAmisToKeep = 7;
 
 	@Test
@@ -92,8 +92,8 @@ public class CreateBuildSlaveAMI {
 		try {
 			Stopwatch sw = createStarted();
 			EC2Service service = getEC2Service();
-			Instance instance = getNewSlaveInstance(service);
-			// Instance instance = getRunningSlaveInstance(service, "i-c71ae5e4");
+			// Instance instance = getNewSlaveInstance(service);
+			Instance instance = getRunningSlaveInstance(service, "i-dde811fe");
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			logger.info(format("sleeping %s to let dns settle down", postInstanceCreationSleepPeriod));
 			sleep(postInstanceCreationSleepPeriod);
@@ -101,7 +101,7 @@ public class CreateBuildSlaveAMI {
 			logger.info(format("build directory -> %s", buildDir));
 			chmod(buildDir);
 			CanonicalFile bashDir = getLocalBashDir(buildDir);
-			configureSlave(instance, bashDir);
+			// configureSlave(instance, bashDir);
 			String description = format("automated ec2 slave ami - %s", today);
 			int timeoutMillis = getMillisAsInt("1h");
 			Image image = service.createAmi(instance.getInstanceId(), name, description, rootVolume, timeoutMillis);
@@ -121,6 +121,7 @@ public class CreateBuildSlaveAMI {
 		for (int i = minimumAmisToKeep; i < filtered.size(); i++) {
 			deletes.add(filtered.get(i));
 		}
+		sort(deletes, new ImageTagsComparator());
 		logger.info(format("slave ami's ->  total -> %s", filtered.size()));
 		logger.info(format("slave ami's -> retain -> %s", minimumAmisToKeep));
 		logger.info(format("slave ami's -> delete -> %s", deletes.size()));
