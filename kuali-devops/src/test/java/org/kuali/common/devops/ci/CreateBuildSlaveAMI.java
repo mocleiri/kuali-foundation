@@ -233,7 +233,7 @@ public class CreateBuildSlaveAMI {
 	}
 
 	protected Instance getNewSlaveInstance(EC2Service service, String ami, InstanceType type, RootVolume rootVolume) {
-		logger.info("launch instance -> ami: %s type: %s size: %s", ami, type.toString(), rootVolume.getSizeInGigabytes().get());
+		logger.info("launch instance -> ami: %s  type: %s  size: %s", ami, type.toString(), rootVolume.getSizeInGigabytes().get());
 		KeyPair keyPair = Auth.getKeyPair(KeyPairBuilders.FOUNDATION.getBuilder());
 		LaunchInstanceContext context = LaunchInstanceContext.builder(ami, keyPair).withType(type).withRootVolume(rootVolume).withSecurityGroups(securityGroups).withTags(tags)
 				.build();
