@@ -84,7 +84,7 @@ public class CreateBuildSlaveAMI {
 	private final String amazonAccount = "foundation";
 	private final String domainToken = ".amazonaws.com";
 	private final String sleep = "1s";
-	private final int amisToKeep = 2;
+	private final int minimumAmisToKeep = 2;
 
 	@Test
 	public void test() {
@@ -114,10 +114,18 @@ public class CreateBuildSlaveAMI {
 	protected void cleanupAmis(EC2Service service) {
 		List<Image> images = service.getMyImages();
 		List<Image> filtered = getFilteredImages(images, name.getKey(), startsWithToken);
+		// Most recent images are at the top
 		sort(filtered, new ImageTagsComparator());
-		for (Image image : filtered) {
+		List<Image> deletes = newArrayList();
+		for (int i = minimumAmisToKeep; i < filtered.size(); i++) {
+			deletes.add(filtered.get(i));
+		}
+		logger.info(format("slave ami's ->  total -> %s", filtered.size()));
+		logger.info(format("slave ami's -> retain -> %s", minimumAmisToKeep));
+		logger.info(format("slave ami's -> delete -> %s", deletes.size()));
+		for (Image image : deletes) {
 			Tag tag = findRequiredTag(image.getTags(), name.getKey(), startsWithToken);
-			logger.info(format("%s", tag.getValue()));
+			logger.info(format("slave ami   -> delete -> %s - [%s]", image.getImageId(), tag.getValue()));
 		}
 
 	}
