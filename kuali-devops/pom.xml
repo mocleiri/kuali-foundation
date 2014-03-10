@@ -52,7 +52,7 @@
     <jdk7.version>1.7.0-u51</jdk7.version>
     <jdk6.version>1.6.0-u45</jdk6.version>
     <jenkins.master>beta.ci.kuali.org</jenkins.master>
-    <dns.domain>amazonaws.com</dns.domain>
+    <dns.domain>kuali.org</dns.domain>
   </properties>
   <build>
     <resources>
