@@ -65,6 +65,7 @@ import com.google.common.collect.ImmutableList;
 
 public class CreateBuildSlaveAMI {
 
+	private final Stopwatch sw = createStarted();
 	private static final Logger logger = newLogger();
 
 	private final VirtualSystem vs = VirtualSystem.create();
@@ -86,10 +87,11 @@ public class CreateBuildSlaveAMI {
 
 	@Test
 	public void test() {
+		// Configurable items
 		String ami = System.getProperty("slave.ami", AMI.UBUNTU_64_BIT_PRECISE_LTS.getId());
 		InstanceType type = InstanceType.fromValue(System.getProperty("slave.type", InstanceType.C3Xlarge.toString()));
 		RootVolume rootVolume = RootVolume.create(Integer.parseInt(System.getProperty("slave.size", "64")), true);
-		Stopwatch sw = createStarted();
+
 		EC2Service service = getEC2Service();
 		Instance instance = getNewSlaveInstance(service, ami, type, rootVolume);
 		// Instance instance = getRunningSlaveInstance(service, "i-dde811fe");
