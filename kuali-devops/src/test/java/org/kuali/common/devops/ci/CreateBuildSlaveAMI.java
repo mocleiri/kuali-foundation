@@ -10,7 +10,6 @@ import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
 import static org.kuali.common.dns.model.CNAMEContext.newCNAMEContext;
 import static org.kuali.common.util.base.Exceptions.illegalState;
-import static org.kuali.common.util.base.Precondition.checkNotNull;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.io.File;
@@ -54,8 +53,8 @@ import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
 
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Instance;
-import com.amazonaws.services.ec2.model.InstanceBlockDeviceMapping;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Optional;
@@ -76,10 +75,12 @@ public class CreateBuildSlaveAMI {
 	private final String bashScript = "jenkins.sh";
 	private final String svnPassword = "enc--PAqzT//IpbTfzhsnLyumedsE7yon7yqi";
 	private final String nexusPassword = "enc--/ROzksAX9W5r3CrLMefr9d+C5cIqkDtw";
-	private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	// TODO change back to the shortened version once testing is complete
+	// private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
+	private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HHmmss");
 	private final String today = format.format(new Date());
-	private final String buildNumber = vs.getEnvironment().getProperty("BUILD_NUMBER", "unknown");
-	private final Tag tag = new Tag("Name", format("ec2slave.%s.%s", today, buildNumber));
+	private final Optional<String> buildNumber = fromNullable(vs.getEnvironment().getProperty("BUILD_NUMBER"));
+	private final Tag name = new Tag("Name", format("ec2slave.%s%s", today, buildNumber.isPresent() ? "." + buildNumber.get() : ""));
 
 	@Test
 	public void test() {
@@ -87,7 +88,7 @@ public class CreateBuildSlaveAMI {
 			EC2Service service = getEC2Service();
 			// deleteSlaveCIDns();
 			// Instance instance = getNewSlaveInstance();
-			// Instance instance = getRunningSlaveInstance(service, "i-3d41bd1e");
+			Instance instance = getRunningSlaveInstance(service, "i-3d41bd1e");
 			// logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			// updateDns(instance);
 			CanonicalFile buildDir = getBuildDirectory();
@@ -97,23 +98,11 @@ public class CreateBuildSlaveAMI {
 			// String rootVolumeId = getRootVolumeId(instance);
 			// Snapshot snapshot = service.createSnapshot(rootVolumeId, "ec2 slave template", FormatUtils.getMillisAsInt("1h"));
 			// String snapshotId = snapshot.getSnapshotId();
-			String snapshotId = "snap-4901778f";
-			service.tag(snapshotId, tag);
+			Image image = service.createAmi(instance.getInstanceId(), name, format("automated ec2 slave ami - %s", today), rootVolume);
+			logger.info(format("created %s", image.getImageId()));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-	}
-
-	protected String getRootVolumeId(Instance instance) {
-		checkNotNull(instance, "instance");
-		String rootDeviceName = instance.getRootDeviceName();
-		List<InstanceBlockDeviceMapping> mappings = instance.getBlockDeviceMappings();
-		for (InstanceBlockDeviceMapping mapping : mappings) {
-			if (rootDeviceName.equals(mapping.getDeviceName())) {
-				return mapping.getEbs().getVolumeId();
-			}
-		}
-		throw illegalState("Unable to locate the root volume id for [%s]", instance.getInstanceId());
 	}
 
 	protected void configureSlave(File bashDir) {
