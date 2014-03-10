@@ -65,9 +65,9 @@ import com.google.common.collect.ImmutableList;
 
 public class CreateBuildSlaveAMI {
 
-	private final Stopwatch sw = createStarted();
 	private static final Logger logger = newLogger();
 
+	private final Stopwatch sw = createStarted();
 	private final VirtualSystem vs = VirtualSystem.create();
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_BUILD_SLAVE.getGroup());
 	private final List<Tag> tags = getTags();
