@@ -136,19 +136,6 @@ public class CreateBuildSlaveAMI {
 
 	}
 
-	private class ImageTagsComparator implements Comparator<Image> {
-
-		@Override
-		public int compare(Image one, Image two) {
-			checkNotNull(one.getTags(), "one.tags");
-			checkNotNull(two.getTags(), "two.tags");
-			String val1 = findRequiredTag(one.getTags(), name.getKey(), startsWithToken).getValue();
-			String val2 = findRequiredTag(one.getTags(), name.getKey(), startsWithToken).getValue();
-			return val1.compareTo(val2);
-		}
-
-	}
-
 	protected Tag findRequiredTag(List<Tag> tags, String tagKey, String prefix) {
 		for (Tag tag : tags) {
 			if (tagKey.equals(tag.getKey())) {
@@ -273,6 +260,19 @@ public class CreateBuildSlaveAMI {
 		} else {
 			return currentTimeMillis();
 		}
+	}
+
+	private class ImageTagsComparator implements Comparator<Image> {
+
+		@Override
+		public int compare(Image one, Image two) {
+			checkNotNull(one.getTags(), "one.tags");
+			checkNotNull(two.getTags(), "two.tags");
+			String val1 = findRequiredTag(one.getTags(), name.getKey(), startsWithToken).getValue();
+			String val2 = findRequiredTag(one.getTags(), name.getKey(), startsWithToken).getValue();
+			return val1.compareTo(val2);
+		}
+
 	}
 
 }
