@@ -69,6 +69,7 @@ source preconditions.sh
 # Module specific variables
 NEXUS_PASSWORD=$1
 SVN_PASSWORD=$2
+# TODO subdomain is not actually used when configuring a build slave (no DNS configuration takes place)
 SUBDOMAIN=$3
 TYPE=$4
 QUIET=${5-""}
