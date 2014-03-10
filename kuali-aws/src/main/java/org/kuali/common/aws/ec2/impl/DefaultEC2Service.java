@@ -98,6 +98,8 @@ import com.google.common.collect.Lists;
 public final class DefaultEC2Service implements EC2Service {
 
 	private static final Logger logger = newLogger();
+	private static final String SNAPSHOT_COMPLETED_STATE = "completed";
+	private static final String AMI_AVAILABLE_STATE = "available";
 
 	// Don't expose the AmazonEC2Client object via a getter
 	// It is mutable and therefore not inherently thread safe
@@ -148,7 +150,7 @@ public final class DefaultEC2Service implements EC2Service {
 		request.setBlockDeviceMappings(singletonList(getRootVolumeMapping(instance, snapshot.getSnapshotId(), rootVolume)));
 		RegisterImageResult result = client.registerImage(request);
 		String imageId = result.getImageId();
-		waitForAmiState(imageId, "available", timeoutMillis);
+		waitForAmiState(imageId, AMI_AVAILABLE_STATE, timeoutMillis);
 		tag(imageId, name);
 		return getImage(imageId);
 	}
@@ -213,7 +215,7 @@ public final class DefaultEC2Service implements EC2Service {
 	public Snapshot createSnapshot(String volumeId, String description, int timeoutMillis) {
 		CreateSnapshotRequest request = new CreateSnapshotRequest(volumeId, description);
 		CreateSnapshotResult result = client.createSnapshot(request);
-		waitForSnapshotState(result.getSnapshot().getSnapshotId(), "completed", timeoutMillis);
+		waitForSnapshotState(result.getSnapshot().getSnapshotId(), SNAPSHOT_COMPLETED_STATE, timeoutMillis);
 		return result.getSnapshot();
 	}
 
