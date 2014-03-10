@@ -101,7 +101,7 @@ public class CreateBuildSlaveAMI {
 			logger.info(format("build directory -> %s", buildDir));
 			chmod(buildDir);
 			CanonicalFile bashDir = getLocalBashDir(buildDir);
-			// configureSlave(instance, bashDir);
+			configureSlave(instance, bashDir);
 			String description = format("automated ec2 slave ami - %s", today);
 			int timeoutMillis = getMillisAsInt("1h");
 			Image image = service.createAmi(instance.getInstanceId(), name, description, rootVolume, timeoutMillis);
