@@ -69,7 +69,7 @@ public class CreateBuildSlaveAMI {
 
 	private final VirtualSystem vs = VirtualSystem.create();
 	private final String ami = System.getProperty("slave.ami", AMI.UBUNTU_64_BIT_PRECISE_LTS.getId());
-	private final InstanceType type = InstanceType.valueOf(System.getProperty("slave.type", InstanceType.C3Xlarge.toString()));
+	private final InstanceType type = InstanceType.fromValue(System.getProperty("slave.type", InstanceType.C3Xlarge.toString()));
 	private final RootVolume rootVolume = RootVolume.create(Integer.parseInt(System.getProperty("slave.size", "64")), true);
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_BUILD_SLAVE.getGroup());
 	private final List<Tag> tags = getTags();
