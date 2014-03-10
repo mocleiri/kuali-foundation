@@ -71,8 +71,8 @@ public class CreateBuildSlaveAMI {
 	private final List<Tag> tags = getTags();
 	private final String distro = "ubuntu" + vs.getFileSeparator() + "12.04";
 	private final String bashScript = "jenkins.sh";
-	private final String svnPassword = "enc--PAqzT//IpbTfzhsnLyumedsE7yon7yqi";
-	private final String nexusPassword = "enc--/ROzksAX9W5r3CrLMefr9d+C5cIqkDtw";
+	private final String svnPassword = "PAqzT//IpbTfzhsnLyumedsE7yon7yqi";
+	private final String nexusPassword = "/ROzksAX9W5r3CrLMefr9d+C5cIqkDtw";
 	private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HHmmss");
 	private final String today = format.format(new Date());
 	private final String buildNumber = getBuildNumber();
