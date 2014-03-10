@@ -4,6 +4,7 @@ import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
+import static java.lang.String.format;
 import static java.util.Collections.singletonList;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
@@ -112,6 +113,7 @@ public final class DefaultEC2Service implements EC2Service {
 		this.client = LaunchUtils.getClient(context);
 	}
 
+	@Override
 	public Image createAmi(String instanceId, String name, String description, RootVolume rootVolume) {
 		Instance instance = getInstance(instanceId);
 		String rootVolumeId = getRootVolumeId(instance);
@@ -129,7 +131,7 @@ public final class DefaultEC2Service implements EC2Service {
 		request.setBlockDeviceMappings(singletonList(getRootVolumeMapping(instance, snapshot.getSnapshotId(), rootVolume)));
 		RegisterImageResult result = client.registerImage(request);
 		String imageId = result.getImageId();
-		waitForAmiState(imageId, "completed", FormatUtils.getMillisAsInt("1h"));
+		waitForAmiState(imageId, "available", FormatUtils.getMillisAsInt("1h"));
 		tag(imageId, new Tag("Name", name));
 		return getImage(imageId);
 	}
@@ -215,7 +217,7 @@ public final class DefaultEC2Service implements EC2Service {
 		logger.info("waiting up to {} for snapshot [{}] to reach state '{}'", args);
 		WaitResult result = service.wait(waitContext, condition);
 		Object[] resultArgs = { snapshotId, state, FormatUtils.getTime(result.getElapsed()) };
-		logger.info("snapshot [{}] is now '{}' - %s", resultArgs);
+		logger.info(format("snapshot [%s] is now '%s' - %s", resultArgs));
 	}
 
 	protected void waitForAmiState(String imageId, String state, int timeoutMillis) {
