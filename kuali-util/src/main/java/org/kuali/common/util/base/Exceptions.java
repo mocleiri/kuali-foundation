@@ -1,5 +1,7 @@
 package org.kuali.common.util.base;
 
+import static java.lang.String.format;
+
 /**
  * <p>
  * Utility methods for creating {@code IllegalStateException's} and {@code IllegaArgumentException's} with richly formatted error messages.
@@ -49,7 +51,7 @@ public class Exceptions {
 		if (args == null || args.length == 0) {
 			return msg;
 		} else {
-			return String.format(msg, args);
+			return format(msg, args);
 		}
 	}
 
