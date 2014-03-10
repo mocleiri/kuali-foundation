@@ -82,7 +82,6 @@ public class CreateBuildSlaveAMI {
 	private final Tag name = new Tag("Name", format("%s.%s-build-%s", startsWithToken, today, buildNumber));
 	private final String amazonAccount = "foundation";
 	private final String domainToken = ".amazonaws.com";
-	private final String postInstanceCreationSleepPeriod = "15s";
 	private final int minimumAmisToKeep = 7;
 
 	@Test
@@ -91,14 +90,17 @@ public class CreateBuildSlaveAMI {
 		String ami = System.getProperty("slave.ami", AMI.UBUNTU_64_BIT_PRECISE_LTS.getId());
 		InstanceType type = InstanceType.fromValue(System.getProperty("slave.type", InstanceType.C3Xlarge.toString()));
 		RootVolume rootVolume = RootVolume.create(Integer.parseInt(System.getProperty("slave.size", "64")), true);
+		// The amount of time to wait before timing out on instance creation, snapshot creation, ami creation
 		int timeoutMillis = getMillisAsInt(System.getProperty("slave.timeout", "30m"));
+		// The amount of time to sleep after creating a brand new instance (gives DNS a few seconds to figure itself out)
+		String sleep = System.getProperty("slave.sleep", "15s");
 
 		EC2Service service = getEC2Service();
 		Instance instance = getNewSlaveInstance(service, ami, type, rootVolume, timeoutMillis);
 		// Instance instance = getRunningSlaveInstance(service, "i-dde811fe");
 		logger.info(format("public dns: %s", instance.getPublicDnsName()));
-		logger.info(format("sleeping %s to let dns settle down", postInstanceCreationSleepPeriod));
-		sleep(postInstanceCreationSleepPeriod);
+		logger.info(format("sleeping %s to let dns settle down", sleep));
+		sleep(sleep);
 		CanonicalFile buildDir = getBuildDirectory();
 		logger.info(format("build directory -> %s", buildDir));
 		chmod(buildDir);
