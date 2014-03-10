@@ -73,7 +73,8 @@ public class CreateBuildSlaveAMI {
 	private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HHmmss");
 	private final String today = format.format(new Date());
 	private final String buildNumber = getBuildNumber();
-	private final Tag name = new Tag("Name", format("ec2slave.%s%s", today, buildNumber));
+	private final String startsWithToken = "ec2slave";
+	private final Tag name = new Tag("Name", format("%s.%s%s", startsWithToken, today, buildNumber));
 	private final String amazonAccount = "foundation";
 	private final String domainToken = ".amazonaws.com";
 	private final String sleep = "1s";
