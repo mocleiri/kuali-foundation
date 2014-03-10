@@ -68,9 +68,6 @@ public class CreateBuildSlaveAMI {
 	private static final Logger logger = newLogger();
 
 	private final VirtualSystem vs = VirtualSystem.create();
-
-	// Configurable items
-
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_BUILD_SLAVE.getGroup());
 	private final List<Tag> tags = getTags();
 	private final String distro = "ubuntu" + vs.getFileSeparator() + "12.04";
