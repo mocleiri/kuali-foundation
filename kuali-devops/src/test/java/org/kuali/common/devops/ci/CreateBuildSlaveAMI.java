@@ -3,12 +3,16 @@ package org.kuali.common.devops.ci;
 import static com.amazonaws.services.ec2.model.InstanceType.C3Xlarge;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkState;
+import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
+import static org.kuali.common.util.FormatUtils.getMillis;
+import static org.kuali.common.util.FormatUtils.getTime;
 import static org.kuali.common.util.base.Exceptions.illegalState;
+import static org.kuali.common.util.base.Threads.sleep;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.io.File;
@@ -54,6 +58,7 @@ import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Optional;
+import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
 
 public class CreateBuildSlaveAMI {
@@ -89,11 +94,13 @@ public class CreateBuildSlaveAMI {
 	@Test
 	public void test() {
 		try {
+			Stopwatch sw = createStarted();
 			EC2Service service = getEC2Service();
 			// deleteSlaveCIDns();
 			Instance instance = getNewSlaveInstance(service);
 			// Instance instance = getRunningSlaveInstance(service, "i-3d41bd1e");
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
+			sleep(getMillis("15s"));
 			// updateDns(instance);
 			CanonicalFile buildDir = getBuildDirectory();
 			logger.info(format("build directory -> %s", buildDir));
@@ -101,7 +108,7 @@ public class CreateBuildSlaveAMI {
 			CanonicalFile bashDir = getLocalBashDir(buildDir);
 			configureSlave(instance, bashDir);
 			Image image = service.createAmi(instance.getInstanceId(), name, format("automated ec2 slave ami - %s", today), rootVolume);
-			logger.info(format("created %s", image.getImageId()));
+			logger.info(format("created %s - %s", image.getImageId(), getTime(sw)));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
