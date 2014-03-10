@@ -94,8 +94,16 @@ function install_mysql_server {
    
 }
 
+function copy_repo_from_master {
+  echo "copy    -> maven repo"
+  M2_REPO=/root/.m2/repository
+  mkdir -p $M2_REPO
+  execute_quietly "rsync -av --stats root@$JENKINS_MASTER:$M2_REPO/ $M2_REPO" 
+}
+
 BASEDIR=${1-BASEDIR}
 QUIET=${2-$QUIET}
+JENKINS_MASTER=${jenkins.master}
 
 slave_shutdown_scripting
 install_mysql_server
