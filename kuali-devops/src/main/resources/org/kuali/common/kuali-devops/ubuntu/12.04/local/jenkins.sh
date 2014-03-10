@@ -78,6 +78,7 @@ ZIP_PASSWORD=$SVN_PASSWORD
 
 if [ "$TYPE" = "slave" ]; then
   # This isn't actually used for slave setup
+  # Adding a value here so the validation checks don't have to be messed with
   SUBDOMAIN=slave.ci
 fi
 
