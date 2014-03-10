@@ -76,7 +76,7 @@ public class CreateBuildSlaveAMI {
 	private final Tag name = new Tag("Name", format("ec2slave.%s%s", today, buildNumber));
 	private final String amazonAccount = "foundation";
 	private final String domainToken = ".amazonaws.com";
-	private final String sleep = "15s";
+	private final String sleep = "1s";
 
 	@Test
 	public void test() {
