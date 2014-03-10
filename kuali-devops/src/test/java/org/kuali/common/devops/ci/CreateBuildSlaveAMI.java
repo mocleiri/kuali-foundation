@@ -70,9 +70,6 @@ public class CreateBuildSlaveAMI {
 	private final VirtualSystem vs = VirtualSystem.create();
 
 	// Configurable items
-	private final String ami = System.getProperty("slave.ami", AMI.UBUNTU_64_BIT_PRECISE_LTS.getId());
-	private final InstanceType type = InstanceType.fromValue(System.getProperty("slave.type", InstanceType.C3Xlarge.toString()));
-	private final RootVolume rootVolume = RootVolume.create(Integer.parseInt(System.getProperty("slave.size", "64")), true);
 
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_BUILD_SLAVE.getGroup());
 	private final List<Tag> tags = getTags();
@@ -93,10 +90,13 @@ public class CreateBuildSlaveAMI {
 	@Test
 	public void test() {
 		try {
+			String ami = System.getProperty("slave.ami", AMI.UBUNTU_64_BIT_PRECISE_LTS.getId());
+			InstanceType type = InstanceType.fromValue(System.getProperty("slave.type", InstanceType.C3Xlarge.toString()));
+			RootVolume rootVolume = RootVolume.create(Integer.parseInt(System.getProperty("slave.size", "64")), true);
 			Stopwatch sw = createStarted();
 			EC2Service service = getEC2Service();
-			// Instance instance = getNewSlaveInstance(service);
-			Instance instance = getRunningSlaveInstance(service, "i-dde811fe");
+			Instance instance = getNewSlaveInstance(service, ami, type, rootVolume);
+			// Instance instance = getRunningSlaveInstance(service, "i-dde811fe");
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			logger.info(format("sleeping %s to let dns settle down", postInstanceCreationSleepPeriod));
 			sleep(postInstanceCreationSleepPeriod);
@@ -236,7 +236,7 @@ public class CreateBuildSlaveAMI {
 		return service.getInstance(instanceId);
 	}
 
-	protected Instance getNewSlaveInstance(EC2Service service) {
+	protected Instance getNewSlaveInstance(EC2Service service, String ami, InstanceType type, RootVolume rootVolume) {
 		KeyPair keyPair = Auth.getKeyPair(KeyPairBuilders.FOUNDATION.getBuilder());
 		LaunchInstanceContext context = LaunchInstanceContext.builder(ami, keyPair).withType(type).withRootVolume(rootVolume).withSecurityGroups(securityGroups).withTags(tags)
 				.build();
