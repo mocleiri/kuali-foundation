@@ -9,6 +9,7 @@ import static java.lang.String.format;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
+import static org.kuali.common.util.FormatUtils.getMillisAsInt;
 import static org.kuali.common.util.FormatUtils.getTime;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Threads.sleep;
@@ -94,11 +95,16 @@ public class CreateBuildSlaveAMI {
 			chmod(buildDir);
 			CanonicalFile bashDir = getLocalBashDir(buildDir);
 			configureSlave(instance, bashDir);
-			Image image = service.createAmi(instance.getInstanceId(), name, format("automated ec2 slave ami - %s", today), rootVolume);
+			String description = format("automated ec2 slave ami - %s", today);
+			int timeoutMillis = getMillisAsInt("1h");
+			Image image = service.createAmi(instance.getInstanceId(), name, description, rootVolume, timeoutMillis);
 			logger.info(format("created %s - %s", image.getImageId(), getTime(sw)));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected void cleanupAmis(EC2Service service) {
 	}
 
 	protected void configureSlave(Instance instance, File bashDir) {
