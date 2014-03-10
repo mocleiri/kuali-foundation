@@ -91,7 +91,7 @@ public class CreateBuildSlaveAMI {
 		String ami = System.getProperty("slave.ami", AMI.UBUNTU_64_BIT_PRECISE_LTS.getId());
 		InstanceType type = InstanceType.fromValue(System.getProperty("slave.type", InstanceType.C3Xlarge.toString()));
 		RootVolume rootVolume = RootVolume.create(Integer.parseInt(System.getProperty("slave.size", "64")), true);
-		int timeoutMillis = getMillisAsInt(System.getProperty("slave.size", "30m"));
+		int timeoutMillis = getMillisAsInt(System.getProperty("slave.timeout", "30m"));
 
 		EC2Service service = getEC2Service();
 		Instance instance = getNewSlaveInstance(service, ami, type, rootVolume, timeoutMillis);
