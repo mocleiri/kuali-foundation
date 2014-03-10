@@ -58,7 +58,7 @@
             String pathSeparatorKey = "path.separator";
             String lineSeparatorKey = "line.separator";
             String pathSeparator = System.getProperty(pathSeparatorKey);
-            SortedSet<String> keys = new TreeSet<String,String>(System.getProperties().stringPropertyNames());
+            SortedSet<String> keys = new TreeSet<String>(System.getProperties().stringPropertyNames());
             sb.append("<table><tr valign=top><td>");
             sb.append("<table border=1>\n");
             sb.append("<th>System Property</th><th>Value</th>\n");
