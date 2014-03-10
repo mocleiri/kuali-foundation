@@ -27,6 +27,10 @@ import com.google.common.base.Optional;
  */
 public interface EC2Service {
 
+	void deleteSnapshot(String snapshotId);
+
+	void deRegisterImage(String imageId);
+
 	Image createAmi(String instanceId, Tag name, String description, RootVolume rootVolume);
 
 	/**

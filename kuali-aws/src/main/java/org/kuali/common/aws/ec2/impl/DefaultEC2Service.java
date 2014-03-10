@@ -51,6 +51,8 @@ import com.amazonaws.services.ec2.model.CreateSecurityGroupRequest;
 import com.amazonaws.services.ec2.model.CreateSnapshotRequest;
 import com.amazonaws.services.ec2.model.CreateSnapshotResult;
 import com.amazonaws.services.ec2.model.CreateTagsRequest;
+import com.amazonaws.services.ec2.model.DeleteSnapshotRequest;
+import com.amazonaws.services.ec2.model.DeregisterImageRequest;
 import com.amazonaws.services.ec2.model.DescribeImagesRequest;
 import com.amazonaws.services.ec2.model.DescribeImagesResult;
 import com.amazonaws.services.ec2.model.DescribeInstanceStatusRequest;
@@ -111,6 +113,20 @@ public final class DefaultEC2Service implements EC2Service {
 		this.service = service;
 		this.context = context;
 		this.client = LaunchUtils.getClient(context);
+	}
+
+	@Override
+	public void deleteSnapshot(String snapshotId) {
+		DeleteSnapshotRequest request = new DeleteSnapshotRequest();
+		request.setSnapshotId(snapshotId);
+		client.deleteSnapshot(request);
+	}
+
+	@Override
+	public void deRegisterImage(String imageId) {
+		DeregisterImageRequest request = new DeregisterImageRequest();
+		request.setImageId(imageId);
+		client.deregisterImage(request);
 	}
 
 	@Override
