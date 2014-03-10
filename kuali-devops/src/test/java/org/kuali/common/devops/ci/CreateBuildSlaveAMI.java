@@ -96,13 +96,13 @@ public class CreateBuildSlaveAMI {
 	public void test() {
 		try {
 			EC2Service service = getEC2Service();
-			deleteSlaveCIDns();
+			// deleteSlaveCIDns();
 			Instance instance = getNewSlaveInstance(service);
 			// Instance instance = getRunningSlaveInstance(service, "i-3d41bd1e");
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
-			updateDns(instance);
+			// updateDns(instance);
 			CanonicalFile buildDir = getBuildDirectory();
-			logger.info(format("build directory -> %s",buildDir));
+			logger.info(format("build directory -> %s", buildDir));
 			chmod(buildDir);
 			CanonicalFile bashDir = getLocalBashDir(buildDir);
 			configureSlave(bashDir);

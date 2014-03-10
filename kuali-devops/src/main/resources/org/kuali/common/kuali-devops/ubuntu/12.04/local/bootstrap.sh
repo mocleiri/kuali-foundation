@@ -53,7 +53,7 @@ SUBDOMAIN=${1-$SUBDOMAIN}
 
 check_args
 
-DOMAIN=kuali.org
+DOMAIN=${dns.domain}
 FQDN=$SUBDOMAIN.$DOMAIN
 
 BASEDIR=/mnt/${project.artifactId}
