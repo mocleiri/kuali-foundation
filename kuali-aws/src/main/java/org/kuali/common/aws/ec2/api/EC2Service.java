@@ -27,7 +27,7 @@ import com.google.common.base.Optional;
  */
 public interface EC2Service {
 
-	Image createAmi(String instanceId, String name, String description, RootVolume rootVolume);
+	Image createAmi(String instanceId, Tag name, String description, RootVolume rootVolume);
 
 	/**
 	 * Snapshot a volume. Blocks until the snapshot reaches the state "completed" or timeoutMillis has been exceeded
