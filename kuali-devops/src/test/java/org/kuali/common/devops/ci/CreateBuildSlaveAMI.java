@@ -8,6 +8,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Long.parseLong;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
+import static java.util.Collections.sort;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
@@ -24,7 +25,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.CodeSource;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -113,7 +113,7 @@ public class CreateBuildSlaveAMI {
 	protected void cleanupAmis(EC2Service service) {
 		List<Image> images = service.getMyImages();
 		List<Image> filtered = getFilteredImages(images, name.getKey(), startsWithToken);
-		Collections.sort(filtered, new ImageTagsComparator());
+		sort(filtered, new ImageTagsComparator());
 		for (Image image : filtered) {
 			Tag tag = findRequiredTag(image.getTags(), name.getKey(), startsWithToken);
 			logger.info(format("%s", tag.getValue()));
