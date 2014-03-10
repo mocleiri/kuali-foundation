@@ -86,18 +86,15 @@ public class CreateBuildSlaveAMI {
 	public void test() {
 		try {
 			EC2Service service = getEC2Service();
-			// deleteSlaveCIDns();
-			// Instance instance = getNewSlaveInstance();
-			Instance instance = getRunningSlaveInstance(service, "i-3d41bd1e");
-			// logger.info(format("public dns: %s", instance.getPublicDnsName()));
-			// updateDns(instance);
+			deleteSlaveCIDns();
+			Instance instance = getNewSlaveInstance(service);
+			// Instance instance = getRunningSlaveInstance(service, "i-3d41bd1e");
+			logger.info(format("public dns: %s", instance.getPublicDnsName()));
+			updateDns(instance);
 			CanonicalFile buildDir = getBuildDirectory();
 			chmod(buildDir);
 			CanonicalFile bashDir = getLocalBashDir(buildDir);
-			// configureSlave(bashDir);
-			// String rootVolumeId = getRootVolumeId(instance);
-			// Snapshot snapshot = service.createSnapshot(rootVolumeId, "ec2 slave template", FormatUtils.getMillisAsInt("1h"));
-			// String snapshotId = snapshot.getSnapshotId();
+			configureSlave(bashDir);
 			Image image = service.createAmi(instance.getInstanceId(), name, format("automated ec2 slave ami - %s", today), rootVolume);
 			logger.info(format("created %s", image.getImageId()));
 		} catch (Throwable e) {
