@@ -58,37 +58,30 @@
             String pathSeparatorKey = "path.separator";
             String lineSeparatorKey = "line.separator";
             String pathSeparator = System.getProperty(pathSeparatorKey);
-            Properties p = System.getProperties();
-            Map<String, String> m = new TreeMap<String, String>();
-
-            Set<String> names = p.stringPropertyNames();
-            for (String name : names) {
-                String value = p.getProperty(name);
-                m.put(name, value);
-            }
+            SortedSet<String> keys = new TreeSet<String,String>(System.getProperties().stringPropertyNames());
             sb.append("<table><tr valign=top><td>");
             sb.append("<table border=1>\n");
             sb.append("<th>System Property</th><th>Value</th>\n");
-            for (String name : m.keySet()) {
-                String value = m.get(name);
+            for (String key : keys) {
+                String value = System.getProperty(key);
                 if (value == null) {
                   value = "";
                 }
-                if (name.equals(lineSeparatorKey)) {
+                if (key.equals(lineSeparatorKey)) {
                     value = value.replace("\n", "LF");
                     value = value.replace("\r", "CR");
                 }
-                if (name.equals("common.loader") || name.contains("package.") || name.equalsIgnoreCase("tomcat.util.scan.DefaultJarScanner.jarsToSkip")) {
+                if (key.equals("common.loader") || key.contains("package.") || key.equalsIgnoreCase("tomcat.util.scan.DefaultJarScanner.jarsToSkip")) {
                     value = value.replace(",", "," + "<br>");
                 }
-                if (name.contains(".path") || name.contains(".dirs")) {
+                if (key.contains(".path") || key.contains(".dirs")) {
                     value = value.replace(pathSeparator, pathSeparator + "<br>");
                 }
                 if (value == null || value.trim().equals("")) {
                     value = "&nbsp;";
                 }
                 sb.append(" <tr>\n");
-                sb.append("  <td>" + name + "</td><td>" + value + "</td>\n");
+                sb.append("  <td>" + key + "</td><td>" + value + "</td>\n");
                 sb.append(" </tr>\n");
             }
             sb.append("</table>\n");
