@@ -91,6 +91,7 @@ public class CreateBuildSlaveAMI {
 		String ami = System.getProperty("slave.ami", AMI.UBUNTU_64_BIT_PRECISE_LTS.getId());
 		InstanceType type = InstanceType.fromValue(System.getProperty("slave.type", InstanceType.C3Xlarge.toString()));
 		RootVolume rootVolume = RootVolume.create(Integer.parseInt(System.getProperty("slave.size", "64")), true);
+		int timeoutMillis = getMillisAsInt(System.getProperty("slave.size", "30m"));
 
 		EC2Service service = getEC2Service();
 		Instance instance = getNewSlaveInstance(service, ami, type, rootVolume);
@@ -104,7 +105,6 @@ public class CreateBuildSlaveAMI {
 		CanonicalFile bashDir = getLocalBashDir(buildDir);
 		configureSlave(instance, bashDir);
 		String description = format("automated ec2 slave ami - %s", today);
-		int timeoutMillis = getMillisAsInt("30m");
 		Image image = service.createAmi(instance.getInstanceId(), name, description, rootVolume, timeoutMillis);
 		logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
 		cleanupAmis(service);
