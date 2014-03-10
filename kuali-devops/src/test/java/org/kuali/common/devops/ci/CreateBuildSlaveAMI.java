@@ -84,8 +84,8 @@ public class CreateBuildSlaveAMI {
 	private final Tag name = new Tag("Name", format("%s.%s-build-%s", startsWithToken, today, buildNumber));
 	private final String amazonAccount = "foundation";
 	private final String domainToken = ".amazonaws.com";
-	private final String sleep = "5s";
-	private final int minimumAmisToKeep = 2;
+	private final String postInstanceCreationSleepPeriod = "1m";
+	private final int minimumAmisToKeep = 7;
 
 	@Test
 	public void test() {
@@ -95,8 +95,8 @@ public class CreateBuildSlaveAMI {
 			Instance instance = getNewSlaveInstance(service);
 			// Instance instance = getRunningSlaveInstance(service, "i-c71ae5e4");
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
-			logger.info(format("sleeping %s to let things settle down", sleep));
-			sleep(sleep);
+			logger.info(format("sleeping %s to let things settle down", postInstanceCreationSleepPeriod));
+			sleep(postInstanceCreationSleepPeriod);
 			CanonicalFile buildDir = getBuildDirectory();
 			logger.info(format("build directory -> %s", buildDir));
 			chmod(buildDir);
