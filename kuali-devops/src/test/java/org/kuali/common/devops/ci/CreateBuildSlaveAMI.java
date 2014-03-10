@@ -79,8 +79,20 @@ public class CreateBuildSlaveAMI {
 	// private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
 	private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HHmmss");
 	private final String today = format.format(new Date());
-	private final Optional<String> buildNumber = fromNullable(vs.getEnvironment().getProperty("BUILD_NUMBER"));
-	private final Tag name = new Tag("Name", format("ec2slave.%s%s", today, buildNumber.isPresent() ? "." + buildNumber.get() : ""));
+	private final String buildNumber = getBuildNumber();
+	private final Tag name = new Tag("Name", format("ec2slave.%s%s", today, buildNumber));
+
+	/**
+	 * If BUILD_NUMBER is set, prepend it with a dot and return, otherwise return the empty string
+	 */
+	protected String getBuildNumber() {
+		Optional<String> buildNumber = fromNullable(vs.getEnvironment().getProperty("BUILD_NUMBER"));
+		if (buildNumber.isPresent()) {
+			return "." + buildNumber.get();
+		} else {
+			return "";
+		}
+	}
 
 	@Test
 	public void test() {
