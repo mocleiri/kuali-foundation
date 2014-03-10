@@ -14,7 +14,6 @@
     limitations under the License.
 ====
 
-- delete old AMI's and snapshots, terminate the build slave
 - pre-cache binaries
 - cache GIT credentials somehow
 - automatically update jenkins with new AMI id
