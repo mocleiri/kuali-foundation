@@ -17,7 +17,7 @@
 SLAVE:
 cd ~/ws/kuali-devops; mci -Pslave; chmod -R 755 ~/ws/kuali-devops/target/classes; 
 cd ~/ws/kuali-devops/target/classes/org/kuali/common/kuali-devops/ubuntu/12.04/local;
-./jenkins.sh   NEXUS_PASSWORD SVN_PASSWORD beta.ci slave
+./jenkins.sh   NEXUS_PASSWORD SVN_PASSWORD slave.ci slave
 
 MASTER:
 cd ~/ws/kuali-devops; mci; chmod -R 755 ~/ws/kuali-devops/target/classes; 
