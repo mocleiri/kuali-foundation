@@ -5,13 +5,16 @@ import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
+import static java.lang.Long.parseLong;
 import static java.lang.String.format;
+import static java.lang.System.currentTimeMillis;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
-import static org.kuali.common.util.FormatUtils.getTime;
 import static org.kuali.common.util.base.Exceptions.illegalState;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 import static org.kuali.common.util.base.Threads.sleep;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
@@ -21,6 +24,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.CodeSource;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -71,11 +76,11 @@ public class CreateBuildSlaveAMI {
 	private final String bashScript = "jenkins.sh";
 	private final String svnPassword = "PAqzT//IpbTfzhsnLyumedsE7yon7yqi";
 	private final String nexusPassword = "/ROzksAX9W5r3CrLMefr9d+C5cIqkDtw";
-	private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HHmmss");
+	private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	private final String today = format.format(new Date());
-	private final String buildNumber = getBuildNumber();
+	private final long buildNumber = getBuildNumber();
 	private final String startsWithToken = "ec2slave";
-	private final Tag name = new Tag("Name", format("%s.%s%s", startsWithToken, today, buildNumber));
+	private final Tag name = new Tag("Name", format("%s.%s-build-%s", startsWithToken, today, buildNumber));
 	private final String amazonAccount = "foundation";
 	private final String domainToken = ".amazonaws.com";
 	private final String sleep = "1s";
@@ -94,17 +99,77 @@ public class CreateBuildSlaveAMI {
 			logger.info(format("build directory -> %s", buildDir));
 			chmod(buildDir);
 			CanonicalFile bashDir = getLocalBashDir(buildDir);
-			configureSlave(instance, bashDir);
+			// configureSlave(instance, bashDir);
 			String description = format("automated ec2 slave ami - %s", today);
 			int timeoutMillis = getMillisAsInt("1h");
-			Image image = service.createAmi(instance.getInstanceId(), name, description, rootVolume, timeoutMillis);
-			logger.info(format("created %s - %s", image.getImageId(), getTime(sw)));
+			// Image image = service.createAmi(instance.getInstanceId(), name, description, rootVolume, timeoutMillis);
+			// logger.info(format("created %s - %s", image.getImageId(), getTime(sw)));
+			cleanupAmis(service);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
 
 	protected void cleanupAmis(EC2Service service) {
+		List<Image> images = service.getMyImages();
+		List<Image> filtered = getFilteredImages(images, name.getKey(), startsWithToken);
+		Collections.sort(filtered, new ImageTagsComparator());
+		for (Image image : filtered) {
+			Tag tag = findRequiredTag(image.getTags(), name.getKey(), startsWithToken);
+			logger.info(format("%s", tag.getValue()));
+		}
+
+	}
+
+	private class ImageTagsComparator implements Comparator<Image> {
+
+		@Override
+		public int compare(Image one, Image two) {
+			checkNotNull(one.getTags(), "one.tags");
+			checkNotNull(two.getTags(), "two.tags");
+			String val1 = findRequiredTag(one.getTags(), name.getKey(), startsWithToken).getValue();
+			String val2 = findRequiredTag(one.getTags(), name.getKey(), startsWithToken).getValue();
+			return val1.compareTo(val2);
+		}
+
+	}
+
+	protected Tag findRequiredTag(List<Tag> tags, String tagKey, String prefix) {
+		for (Tag tag : tags) {
+			if (tagKey.equals(tag.getKey())) {
+				String value = tag.getValue();
+				if (value != null && value.startsWith(prefix)) {
+					return tag;
+				}
+			}
+		}
+		throw illegalState("Unable to locate tag %s", tagKey);
+	}
+
+	protected List<Image> getFilteredImages(List<Image> images, String tagKey, String prefix) {
+		List<Image> filtered = newArrayList();
+		for (Image image : images) {
+			List<Tag> tags = image.getTags();
+			if (matches(tags, tagKey, prefix)) {
+				filtered.add(image);
+			}
+		}
+		return filtered;
+	}
+
+	protected boolean matches(List<Tag> tags, String key, String prefix) {
+		checkNotNull(tags, "tags");
+		checkNotBlank(key, "key");
+		checkNotBlank(prefix, "prefix");
+		for (Tag tag : tags) {
+			if (key.equals(tag.getKey())) {
+				String value = tag.getValue();
+				if (value != null && value.startsWith(prefix)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	protected void configureSlave(Instance instance, File bashDir) {
@@ -186,12 +251,12 @@ public class CreateBuildSlaveAMI {
 	/**
 	 * If the environment variable BUILD_NUMBER is set, add a prefix and return, otherwise return the empty string
 	 */
-	protected String getBuildNumber() {
+	protected long getBuildNumber() {
 		Optional<String> buildNumber = fromNullable(vs.getEnvironment().getProperty("BUILD_NUMBER"));
 		if (buildNumber.isPresent()) {
-			return "-build-" + buildNumber.get();
+			return parseLong(buildNumber.get());
 		} else {
-			return "";
+			return currentTimeMillis();
 		}
 	}
 
