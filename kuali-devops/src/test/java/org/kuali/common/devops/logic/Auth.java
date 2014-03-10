@@ -2,6 +2,7 @@ package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Preconditions.checkState;
 import static org.kuali.common.util.base.Exceptions.illegalState;
+import static org.kuali.common.util.enc.EncUtils.isEncrypted;
 import static org.kuali.common.util.enc.EncUtils.unwrap;
 
 import java.util.SortedSet;
@@ -37,7 +38,11 @@ public class Auth {
 	public static Optional<String> decrypt(Optional<String> string) {
 		String password = Passwords.getEncPassword();
 		TextEncryptor enc = EncUtils.getTextEncryptor(password);
-		return Optional.of(enc.decrypt(EncUtils.unwrap(string.get())));
+		String text = string.get();
+		if (isEncrypted(text)) {
+			text = EncUtils.unwrap(text);
+		}
+		return Optional.of(enc.decrypt(text));
 	}
 
 	public static DNSMadeEasyCredentials getDnsmeCredentials() {
