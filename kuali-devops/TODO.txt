@@ -20,5 +20,5 @@
 - automatically update jenkins with new AMI id
 - install and pin firefox to a specific version(?)
 - ruby package (what version, etc)
-- improve EC2Service so the amount of time createSnapshot/createAMI will wait is configurable instead of being hardcoded to 1 hour
 - release new version of spring-maven-plugin with logging toned down so Maven 3.2 builds don't clutter the console with a bunch of noise
+- improve createAmi method signature?  make it take an object instead
