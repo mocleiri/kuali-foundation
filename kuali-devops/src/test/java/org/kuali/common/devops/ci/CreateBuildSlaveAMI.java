@@ -76,6 +76,7 @@ public class CreateBuildSlaveAMI {
 	private final Tag name = new Tag("Name", format("ec2slave.%s%s", today, buildNumber));
 	private final String amazonAccount = "foundation";
 	private final String domainToken = ".amazonaws.com";
+	private final String sleep = "15s";
 
 	@Test
 	public void test() {
@@ -85,7 +86,8 @@ public class CreateBuildSlaveAMI {
 			// Instance instance = getNewSlaveInstance(service);
 			Instance instance = getRunningSlaveInstance(service, "i-c71ae5e4");
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
-			sleep("15s");
+			logger.info(format("sleeping %s to let things settle down", sleep));
+			sleep(sleep);
 			CanonicalFile buildDir = getBuildDirectory();
 			logger.info(format("build directory -> %s", buildDir));
 			chmod(buildDir);
