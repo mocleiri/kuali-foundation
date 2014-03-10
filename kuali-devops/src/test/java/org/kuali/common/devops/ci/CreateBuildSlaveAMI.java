@@ -44,6 +44,7 @@ import org.kuali.common.devops.aws.KeyPairBuilders;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.devops.project.KualiDevOpsProjectConstants;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.service.DefaultExecContext;
@@ -91,8 +92,8 @@ public class CreateBuildSlaveAMI {
 		try {
 			Stopwatch sw = createStarted();
 			EC2Service service = getEC2Service();
-			// Instance instance = getNewSlaveInstance(service);
-			Instance instance = getRunningSlaveInstance(service, "i-c71ae5e4");
+			Instance instance = getNewSlaveInstance(service);
+			// Instance instance = getRunningSlaveInstance(service, "i-c71ae5e4");
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			logger.info(format("sleeping %s to let things settle down", sleep));
 			sleep(sleep);
@@ -100,11 +101,11 @@ public class CreateBuildSlaveAMI {
 			logger.info(format("build directory -> %s", buildDir));
 			chmod(buildDir);
 			CanonicalFile bashDir = getLocalBashDir(buildDir);
-			// configureSlave(instance, bashDir);
+			configureSlave(instance, bashDir);
 			String description = format("automated ec2 slave ami - %s", today);
 			int timeoutMillis = getMillisAsInt("1h");
-			// Image image = service.createAmi(instance.getInstanceId(), name, description, rootVolume, timeoutMillis);
-			// logger.info(format("created %s - %s", image.getImageId(), getTime(sw)));
+			Image image = service.createAmi(instance.getInstanceId(), name, description, rootVolume, timeoutMillis);
+			logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
 			cleanupAmis(service);
 		} catch (Throwable e) {
 			e.printStackTrace();
