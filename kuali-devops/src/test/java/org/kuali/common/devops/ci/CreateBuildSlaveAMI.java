@@ -8,7 +8,6 @@ import static java.lang.String.format;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
-import static org.kuali.common.dns.model.CNAMEContext.newCNAMEContext;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
@@ -21,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
@@ -36,10 +36,6 @@ import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.devops.project.KualiDevOpsProjectConstants;
 import org.kuali.common.dns.api.DnsService;
-import org.kuali.common.dns.dnsme.DNSMadeEasyDnsService;
-import org.kuali.common.dns.dnsme.URLS;
-import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
-import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
 import org.kuali.common.dns.model.CNAMEContext;
 import org.kuali.common.dns.util.CreateOrReplaceCNAME;
 import org.kuali.common.util.file.CanonicalFile;
@@ -69,8 +65,6 @@ public class CreateBuildSlaveAMI {
 	private final RootVolume rootVolume = RootVolume.create(64, true);
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_BUILD_SLAVE.getGroup());
 	private final List<Tag> tags = getTags();
-	private final String subdomain = "slave.ci";
-	private final String domain = "kuali.org";
 	private final String distro = "ubuntu" + vs.getFileSeparator() + "12.04";
 	private final String bashScript = "jenkins.sh";
 	private final String svnPassword = "enc--PAqzT//IpbTfzhsnLyumedsE7yon7yqi";
@@ -105,7 +99,7 @@ public class CreateBuildSlaveAMI {
 			logger.info(format("build directory -> %s", buildDir));
 			chmod(buildDir);
 			CanonicalFile bashDir = getLocalBashDir(buildDir);
-			configureSlave(bashDir);
+			configureSlave(instance, bashDir);
 			Image image = service.createAmi(instance.getInstanceId(), name, format("automated ec2 slave ami - %s", today), rootVolume);
 			logger.info(format("created %s", image.getImageId()));
 		} catch (Throwable e) {
@@ -113,13 +107,15 @@ public class CreateBuildSlaveAMI {
 		}
 	}
 
-	protected void configureSlave(File bashDir) {
-		ExecContext context = getExecContext(bashDir);
+	protected void configureSlave(Instance instance, File bashDir) {
+		ExecContext context = getExecContext(instance, bashDir);
 		ExecService service = new DefaultExecService();
 		service.execute(context);
 	}
 
-	protected ExecContext getExecContext(File bashDir) {
+	protected ExecContext getExecContext(Instance instance, File bashDir) {
+		String dns = instance.getPublicDnsName();
+		String subdomain = StringUtils.remove(dns, ".amazonaws.com");
 		List<String> args = ImmutableList.of(Auth.decrypt(nexusPassword), Auth.decrypt(svnPassword), subdomain, "slave", "-qq");
 		String executable = bashDir.getAbsolutePath() + vs.getFileSeparator() + bashScript;
 		DefaultExecContext context = new DefaultExecContext();
@@ -172,14 +168,16 @@ public class CreateBuildSlaveAMI {
 	}
 
 	protected CNAMEContext getCNAMEContext(String canonicalFQDN) {
-		String aliasFQDN = subdomain + "." + domain;
-		return newCNAMEContext(aliasFQDN, canonicalFQDN);
+		return null;
+		// String aliasFQDN = subdomain + "." + domain;
+		// return newCNAMEContext(aliasFQDN, canonicalFQDN);
 	}
 
 	protected DnsService getDnsService() {
-		DNSMadeEasyCredentials credentials = Auth.getDnsmeCredentials();
-		DNSMadeEasyServiceContext context = new DNSMadeEasyServiceContext(credentials, URLS.PRODUCTION, domain);
-		return new DNSMadeEasyDnsService(context);
+		return null;
+		// DNSMadeEasyCredentials credentials = Auth.getDnsmeCredentials();
+		// DNSMadeEasyServiceContext context = new DNSMadeEasyServiceContext(credentials, URLS.PRODUCTION, domain);
+		// return new DNSMadeEasyDnsService(context);
 	}
 
 	protected List<Tag> getTags() {
