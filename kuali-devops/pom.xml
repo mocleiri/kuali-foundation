@@ -48,6 +48,7 @@
     <jackson.version>2.3.1</jackson.version>
     <jackson-databind.version>${jackson.version}</jackson-databind.version>
     <jackson-datatype-guava.version>${jackson.version}</jackson-datatype-guava.version>
+    <plugin.wagon.version>1.0.3</plugin.wagon.version>
 
     <jdk7.version>1.7.0-u51</jdk7.version>
     <jdk6.version>1.6.0-u45</jdk6.version>
@@ -60,6 +61,60 @@
       <properties>
         <dns.domain>amazonaws.com</dns.domain>
       </properties>
+    </profile>
+    <profile>
+      <id>update</id>
+      <properties>
+        <wagon.excludes>**/maven-metadata.xml,**/rice-dist*/**,**/*-javadoc.*,**/*.asc*,**/*.sha1*,**/*.md5*</wagon.excludes>
+        <wagon.toDir>/root/.m2/repository</wagon.toDir>
+      </properties>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.kuali.maven.plugins</groupId>
+              <artifactId>wagon-maven-plugin</artifactId>
+              <version>${plugin.wagon.version}</version>
+              <configuration>
+                <serverId>kuali.release</serverId>
+                <excludes>${wagon.excludes}</excludes>
+                <skipExisting>true</skipExisting>
+                <toDir>${wagon.toDir}</toDir>
+              </configuration>
+              <executions>
+                <execution>
+                  <id>release</id>
+                  <phase>validate</phase>
+                  <goals>
+                    <goal>download</goal>
+                  </goals>
+                  <configuration>
+                    <url>s3://maven.kuali.org/release</url>
+                    <includes>org/kuali/rice/**</includes>
+                  </configuration>
+                </execution>
+                <execution>
+                  <id>external</id>
+                  <phase>validate</phase>
+                  <goals>
+                    <goal>download</goal>
+                  </goals>
+                  <configuration>
+                    <url>s3://maven.kuali.org/external</url>
+                    <includes>org/kuali/**</includes>
+                  </configuration>
+                </execution>
+              </executions>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+        <plugins>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>wagon-maven-plugin</artifactId>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
   </profiles>
   <build>
