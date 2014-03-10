@@ -1,6 +1,5 @@
 package org.kuali.common.devops.ci;
 
-import static com.amazonaws.services.ec2.model.InstanceType.C3Xlarge;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.base.Stopwatch.createStarted;
@@ -68,9 +67,9 @@ public class CreateBuildSlaveAMI {
 
 	private static final Logger logger = newLogger();
 	private final VirtualSystem vs = VirtualSystem.create();
-	private final String ami = AMI.UBUNTU_64_BIT_PRECISE_LTS.getId();
-	private final InstanceType type = C3Xlarge;
-	private final RootVolume rootVolume = RootVolume.create(64, true);
+	private final String ami = System.getProperty("slave.ami", AMI.UBUNTU_64_BIT_PRECISE_LTS.getId());
+	private final InstanceType type = InstanceType.valueOf(System.getProperty("slave.type", InstanceType.C3Xlarge.toString()));
+	private final RootVolume rootVolume = RootVolume.create(Integer.parseInt(System.getProperty("slave.size", "64")), true);
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_BUILD_SLAVE.getGroup());
 	private final List<Tag> tags = getTags();
 	private final String distro = "ubuntu" + vs.getFileSeparator() + "12.04";
@@ -84,7 +83,7 @@ public class CreateBuildSlaveAMI {
 	private final Tag name = new Tag("Name", format("%s.%s-build-%s", startsWithToken, today, buildNumber));
 	private final String amazonAccount = "foundation";
 	private final String domainToken = ".amazonaws.com";
-	private final String postInstanceCreationSleepPeriod = "1ms";
+	private final String postInstanceCreationSleepPeriod = "15s";
 	private final int minimumAmisToKeep = 7;
 
 	@Test
