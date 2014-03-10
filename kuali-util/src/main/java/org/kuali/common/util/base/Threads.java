@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util.base;
 
+import static org.kuali.common.util.FormatUtils.getMillis;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 
 import java.util.List;
@@ -22,9 +23,18 @@ import java.util.List;
 public class Threads {
 
 	/**
+	 * Sleep for {@code time} where time is 15ms, 15s, 15m, 15h, 15d, 15y for 15 millis, seconds, minutes, hours, days, and years, respectively
+	 * 
+	 * @throws <code>IllegalStateException</code> if interrupted.
+	 */
+	public static void sleep(String time) {
+		sleep(getMillis(time));
+	}
+
+	/**
 	 * Sleep for <code>millis</code>
 	 * 
-	 * @throws <code>IllegalStateException</code> if we get interrupted.
+	 * @throws <code>IllegalStateException</code> if interrupted.
 	 */
 	public static void sleep(long millis) {
 		try {
