@@ -95,12 +95,12 @@ function install_mysql_server {
 }
 
 function copy_repo_from_master {
-  echo "copy      -> maven repo"
   M2_REPO=/root/.m2/repository
   mkdir -p $M2_REPO
-  echo "rsync     -> $(date)"
+  echo "copy      -> maven repo"
+  echo "rsync     -> start $(date)"
   execute_quietly "rsync -av --stats root@$JENKINS_MASTER:$M2_REPO/ $M2_REPO" 
-  echo "rsync     -> $(date)"
+  echo "rsync     -> stop  $(date)"
 }
 
 BASEDIR=${1-BASEDIR}
