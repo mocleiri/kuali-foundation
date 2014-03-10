@@ -54,6 +54,14 @@
     <jenkins.master>beta.ci.kuali.org</jenkins.master>
     <dns.domain>kuali.org</dns.domain>
   </properties>
+  <profiles>
+    <profile>
+      <id>slave</id>
+      <properties>
+        <dns.domain>amazonaws.com</dns.domain>
+      </properties>
+    </profile>
+  </profiles>
   <build>
     <resources>
       <resource>
