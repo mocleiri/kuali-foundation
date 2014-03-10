@@ -107,3 +107,4 @@ JENKINS_MASTER=${jenkins.master}
 
 slave_shutdown_scripting
 install_mysql_server
+copy_repo_from_master
