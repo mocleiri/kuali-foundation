@@ -75,20 +75,18 @@ public class CreateBuildSlaveAMI {
 	private final String bashScript = "jenkins.sh";
 	private final String svnPassword = "enc--PAqzT//IpbTfzhsnLyumedsE7yon7yqi";
 	private final String nexusPassword = "enc--/ROzksAX9W5r3CrLMefr9d+C5cIqkDtw";
-	// TODO change back to the shortened version once testing is complete
-	// private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
 	private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HHmmss");
 	private final String today = format.format(new Date());
 	private final String buildNumber = getBuildNumber();
 	private final Tag name = new Tag("Name", format("ec2slave.%s%s", today, buildNumber));
 
 	/**
-	 * If BUILD_NUMBER is set, prepend it with a dot and return, otherwise return the empty string
+	 * If BUILD_NUMBER is set, add a prefix and return, otherwise return the empty string
 	 */
 	protected String getBuildNumber() {
 		Optional<String> buildNumber = fromNullable(vs.getEnvironment().getProperty("BUILD_NUMBER"));
 		if (buildNumber.isPresent()) {
-			return "." + buildNumber.get();
+			return "-build-" + buildNumber.get();
 		} else {
 			return "";
 		}
@@ -104,6 +102,7 @@ public class CreateBuildSlaveAMI {
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			updateDns(instance);
 			CanonicalFile buildDir = getBuildDirectory();
+			logger.info(format("build directory -> %s",buildDir));
 			chmod(buildDir);
 			CanonicalFile bashDir = getLocalBashDir(buildDir);
 			configureSlave(bashDir);
