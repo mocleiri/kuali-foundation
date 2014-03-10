@@ -249,7 +249,7 @@ public class CreateBuildSlaveAMI {
 	}
 
 	/**
-	 * If the environment variable BUILD_NUMBER is set, add a prefix and return, otherwise return the empty string
+	 * If the environment variable BUILD_NUMBER is set, add a prefix and return, otherwise return System.currentTimeMillis()
 	 */
 	protected long getBuildNumber() {
 		Optional<String> buildNumber = fromNullable(vs.getEnvironment().getProperty("BUILD_NUMBER"));
