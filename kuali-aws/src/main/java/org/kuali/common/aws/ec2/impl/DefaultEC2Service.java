@@ -131,7 +131,7 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	@Override
-	public void purgeImage(String imageId) {
+	public void purgeAmi(String imageId) {
 		Image image = getImage(imageId);
 		List<String> snapshotIds = newArrayList();
 		List<BlockDeviceMapping> mappings = image.getBlockDeviceMappings();
