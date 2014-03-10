@@ -113,7 +113,7 @@ public class Precondition {
 	 */
 	public static int checkMin(int arg, int min, String argName) {
 		checkNotBlank(argName, ARG_NAME);
-		checkArgument(arg >= min, MIN_MSG, arg, min, argName);
+		checkArgument(arg >= min, MIN_MSG, arg, argName, min);
 		return arg;
 	}
 
@@ -122,7 +122,7 @@ public class Precondition {
 	 */
 	public static long checkMin(long arg, long min, String argName) {
 		checkNotBlank(argName, ARG_NAME);
-		checkArgument(arg >= min, MIN_MSG, arg, min, argName);
+		checkArgument(arg >= min, MIN_MSG, arg, argName, min);
 		return arg;
 	}
 
