@@ -60,8 +60,9 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	public boolean isDebugLoggingEnabled(AbstractSpringMojo mojo) {
 		boolean mojoDebug = mojo.getLog().isDebugEnabled();
 		boolean log4JDebug = PropertyUtils.getGlobalBoolean("log4j.debug", mojo.getProperties());
+		boolean slf4jDebug = PropertyUtils.getGlobalBoolean("slf4j.debug", mojo.getProperties());
 		boolean springDebug = PropertyUtils.getGlobalBoolean("spring.debug", mojo.getProperties());
-		return mojoDebug || log4JDebug || springDebug;
+		return mojoDebug || log4JDebug || springDebug || slf4jDebug;
 	}
 
 	@Override
