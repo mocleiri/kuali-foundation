@@ -32,6 +32,7 @@ package org.codehaus.mojo.wagon.shared;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newTreeMap;
+import static edu.emory.mathcs.backport.java.util.Collections.shuffle;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static org.apache.commons.io.FileUtils.touch;
@@ -118,6 +119,7 @@ public class DefaultWagonDownload implements WagonDownload {
 			WagonDownloadExecutable executable = WagonDownloadExecutable.builder().withDestination(destination).withRemoteFile(remoteFile).withWagon(wagon).build();
 			executables.add(executable);
 		}
+		shuffle(executables);
 		long start = currentTimeMillis();
 		ConcurrentExecutables.execute(executables, 5);
 		long elapsed = currentTimeMillis() - start;
