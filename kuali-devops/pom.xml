@@ -69,7 +69,8 @@
     <profile>
       <id>update</id>
       <properties>
-        <wagon.excludes>**/maven-metadata.xml,**/rice-dist*/**,**/*-javadoc.*,**/*.asc*,**/*.sha1*,**/*.md5*,**/*sources.jar,**/*.wsdl,**/0.*/**,**/1.*/**,**/2.0.*/**,**/2.1.*/**,**/*jneal*/**,**/*-tests.jar,**/rice-archetype*/**,**/rice-checkstyle*/**,**/rice-config/**</wagon.excludes>
+        <wagon.rice.excludes>**/maven-metadata.xml,**/rice-dist*/**,**/*-javadoc.*,**/*.asc*,**/*.sha1*,**/*.md5*,**/*sources.jar,**/*.wsdl,**/0.*/**,**/1.*/**,**/2.0.*/**,**/2.1.*/**,**/*jneal*/**,**/*-tests.jar,**/rice-archetype*/**,**/rice-checkstyle*/**,**/rice-config/**</wagon.rice.excludes>
+        <wagon.default.excludes>**/maven-metadata.xml,**/*-javadoc.*,**/*.asc*,**/*.sha1*,**/*.md5*</wagon.default.excludes>
         <wagon.toDir>/root/.m2/repository</wagon.toDir>
       </properties>
       <build>
@@ -81,7 +82,6 @@
               <version>${plugin.wagon.version}</version>
               <configuration>
                 <serverId>kuali.release</serverId>
-                <excludes>${wagon.excludes}</excludes>
                 <skipExisting>true</skipExisting>
                 <toDir>${wagon.toDir}</toDir>
               </configuration>
@@ -95,6 +95,7 @@
                   <configuration>
                     <url>s3://maven.kuali.org/release</url>
                     <includes>org/kuali/rice/**</includes>
+                    <excludes>${wagon.rice.excludes}</excludes>
                   </configuration>
                 </execution>
                 <execution>
@@ -106,6 +107,7 @@
                   <configuration>
                     <url>s3://maven.kuali.org/external</url>
                     <includes>org/kuali/**</includes>
+                    <excludes>${wagon.default.excludes}</excludes>
                   </configuration>
                 </execution>
               </executions>
