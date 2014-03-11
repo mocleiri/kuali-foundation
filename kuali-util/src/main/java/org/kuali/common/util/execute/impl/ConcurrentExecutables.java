@@ -139,6 +139,7 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 			return;
 		}
 		List<Thread> threads = getThreads(executables, maxThreads);
+		logger.info("threads=" + threads.size());
 		Stopwatch stopwatch = createStarted();
 		Threads.start(threads);
 		Threads.join(threads);
