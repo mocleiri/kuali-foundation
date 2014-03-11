@@ -1,9 +1,10 @@
 package org.kuali.maven.plugins.spring.config;
 
+import static org.kuali.maven.plugins.spring.MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME;
+
 import java.util.Properties;
 
 import org.kuali.common.util.spring.service.PropertySourceConfig;
-import org.kuali.maven.plugins.spring.MavenConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -15,13 +16,13 @@ import org.springframework.core.env.PropertySource;
 public class MavenPropertySourceConfig implements PropertySourceConfig {
 
 	@Autowired
-	@Qualifier(MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
+	@Qualifier(DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
 	Properties mavenProperties;
 
 	@Override
 	@Bean
 	public PropertySource<?> propertySource() {
-		String name = MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME;
+		String name = DEFAULT_MAVEN_PROPERTIES_BEAN_NAME;
 		Properties source = mavenProperties;
 		return new PropertiesPropertySource(name, source);
 	}
