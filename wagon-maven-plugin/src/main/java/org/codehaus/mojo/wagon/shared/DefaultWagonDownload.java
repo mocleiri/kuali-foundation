@@ -30,15 +30,16 @@ package org.codehaus.mojo.wagon.shared;
  * the License.
  */
 
+import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static org.apache.commons.io.FileUtils.touch;
 import static org.codehaus.plexus.util.StringUtils.isBlank;
 import static org.codehaus.plexus.util.StringUtils.leftPad;
+import static org.kuali.common.util.FormatUtils.getTime;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.maven.plugin.logging.Log;
@@ -90,7 +91,7 @@ public class DefaultWagonDownload implements WagonDownload {
 
 		int count = 0;
 		long start = currentTimeMillis();
-		List<String> skipped = new ArrayList<String>();
+		List<String> skipped = newArrayList();
 		for (String remoteFile : fileList) {
 			String index = leftPad((++count) + "", 5, " ");
 
@@ -116,11 +117,10 @@ public class DefaultWagonDownload implements WagonDownload {
 
 			wagon.get(remoteFile, destination);
 		}
-		long elapsed = currentTimeMillis() - start;
 		if (skipped.size() > 0) {
 			logger.info("Skipped " + skipped.size() + " resources that already exist on the local file system");
 		}
-		logger.info("Download time: " + (elapsed / 1000) + "s");
+		logger.info(String.format("Download time: %s", getTime(currentTimeMillis() - start)));
 	}
 
 	/**
