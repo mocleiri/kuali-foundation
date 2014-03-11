@@ -179,7 +179,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		// This would allow spring-maven-plugin to truly run in multi-threaded mode, instead of merely appearing to run correctly in multi-threaded mode by resorting back to single
 		// threaded mode.
 		synchronized (MUTEX) {
-			debugLogging();
+			debugSLF4J();
 			configureLogging();
 			// Delegate execution to Spring
 			executable.execute();
@@ -194,12 +194,12 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		System.setProperty(key, value);
 	}
 
-	protected void debugLogging() {
+	protected void debugSLF4J() {
 		if (Boolean.getBoolean("slf4j.debug") || Boolean.getBoolean("log4j.debug")) {
 			Logger logger = newLogger();
 			CodeSource src = logger.getClass().getProtectionDomain().getCodeSource();
-			System.out.println(format("logging implementation:%s", logger.getClass().getCanonicalName()));
-			System.out.println(format("logging code source:%s", src.getLocation()));
+			System.out.println(format("logging implementation: [%s]", logger.getClass().getCanonicalName()));
+			System.out.println(format("logging code source: [%s]", src.getLocation()));
 		}
 	}
 
