@@ -30,6 +30,8 @@ package org.codehaus.mojo.wagon.shared;
  * the License.
  */
 
+import static java.lang.System.currentTimeMillis;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,89 +50,88 @@ import org.codehaus.plexus.util.StringUtils;
 
 public class DefaultWagonDownload implements WagonDownload {
 
-    @Override
-    public List<String> getFileList(Wagon wagon, WagonFileSet fileSet, Log logger) throws WagonException {
-        logger.info("Scanning repository - " + wagon.getRepository().getUrl());
+	@Override
+	public List<String> getFileList(Wagon wagon, WagonFileSet fileSet, Log logger) throws WagonException {
+		logger.info("Scanning repository - " + wagon.getRepository().getUrl());
 
-        WagonDirectoryScanner dirScan = new WagonDirectoryScanner();
-        dirScan.setLogger(logger);
-        dirScan.setWagon(wagon);
-        dirScan.setExcludes(fileSet.getExcludes());
-        dirScan.setIncludes(fileSet.getIncludes());
-        dirScan.setCaseSensitive(fileSet.isCaseSensitive());
-        dirScan.setDirectory(fileSet.getDirectory());
-        if (fileSet.isUseDefaultExcludes()) {
-            dirScan.addDefaultExcludes();
-        }
+		WagonDirectoryScanner dirScan = new WagonDirectoryScanner();
+		dirScan.setLogger(logger);
+		dirScan.setWagon(wagon);
+		dirScan.setExcludes(fileSet.getExcludes());
+		dirScan.setIncludes(fileSet.getIncludes());
+		dirScan.setCaseSensitive(fileSet.isCaseSensitive());
+		dirScan.setDirectory(fileSet.getDirectory());
+		if (fileSet.isUseDefaultExcludes()) {
+			dirScan.addDefaultExcludes();
+		}
 
-        long start = System.currentTimeMillis();
-        dirScan.scan();
-        long elapsed = System.currentTimeMillis() - start;
-        logger.info("Scan time: " + (elapsed / 1000) + "s");
-        logger.info("Files located: " + dirScan.getFilesIncluded().size());
+		long start = currentTimeMillis();
+		dirScan.scan();
+		long elapsed = currentTimeMillis() - start;
+		logger.info("Scan time: " + (elapsed / 1000) + "s");
+		logger.info("Files located: " + dirScan.getFilesIncluded().size());
 
-        return dirScan.getFilesIncluded();
-    }
+		return dirScan.getFilesIncluded();
+	}
 
-    @Override
-    public void download(Wagon wagon, WagonFileSet remoteFileSet, Log logger, boolean skipExisting)
-            throws WagonException {
-        List<String> fileList = getFileList(wagon, remoteFileSet, logger);
+	@Override
+	public void download(Wagon wagon, WagonFileSet remoteFileSet, Log logger, boolean skipExisting) throws WagonException {
+		List<String> fileList = getFileList(wagon, remoteFileSet, logger);
 
-        String url = wagon.getRepository().getUrl();
-        url = url.endsWith("/") ? url : url + "/";
+		String url = wagon.getRepository().getUrl();
+		url = url.endsWith("/") ? url : url + "/";
 
-        if (fileList.size() == 0) {
-            logger.info("Nothing to download.");
-            return;
-        }
+		if (fileList.size() == 0) {
+			logger.info("Nothing to download.");
+			return;
+		}
 
-        int count = 0;
-        long start = System.currentTimeMillis();
-        List<String> skipped = new ArrayList<String>();
-        for (String remoteFile : fileList) {
-            String index = StringUtils.leftPad((++count) + "", 5, " ");
+		int count = 0;
+		long start = System.currentTimeMillis();
+		List<String> skipped = new ArrayList<String>();
+		for (String remoteFile : fileList) {
+			String index = StringUtils.leftPad((++count) + "", 5, " ");
 
-            File destination = new File(remoteFileSet.getDownloadDirectory() + "/" + remoteFile);
+			File destination = new File(remoteFileSet.getDownloadDirectory() + "/" + remoteFile);
 
-            if (skipExisting && destination.exists()) {
-                String msg = index + " Skipping " + url + remoteFile + " - " + destination + " already exists";
-                logger.debug(msg);
-                skipped.add(msg);
-                continue;
-            }
+			if (skipExisting && destination.exists()) {
+				String msg = index + " Skipping " + url + remoteFile + " - " + destination + " already exists";
+				logger.debug(msg);
+				skipped.add(msg);
+				continue;
+			}
 
-            if (!StringUtils.isBlank(remoteFileSet.getDirectory())) {
-                remoteFile = remoteFileSet.getDirectory() + "/" + remoteFile;
-            }
+			if (!StringUtils.isBlank(remoteFileSet.getDirectory())) {
+				remoteFile = remoteFileSet.getDirectory() + "/" + remoteFile;
+			}
 
-            logger.info(index + " Downloading " + url + remoteFile + " to " + destination);
-            try {
-                FileUtils.touch(destination);
-            } catch (IOException e) {
-                throw new TransferFailedException("Unexpected IO error", e);
-            }
+			logger.info(index + " Downloading " + url + remoteFile + " to " + destination);
+			try {
+				FileUtils.touch(destination);
+			} catch (IOException e) {
+				throw new TransferFailedException("Unexpected IO error", e);
+			}
 
-            wagon.get(remoteFile, destination);
-        }
-        long elapsed = System.currentTimeMillis() - start;
-        if (skipped.size() > 0) {
-            logger.info("Skipped " + skipped.size() + " resources that already exist on the local file system");
-        }
-        logger.info("Download time: " + (elapsed / 1000) + "s");
-    }
+			wagon.get(remoteFile, destination);
+		}
+		long elapsed = System.currentTimeMillis() - start;
+		if (skipped.size() > 0) {
+			logger.info("Skipped " + skipped.size() + " resources that already exist on the local file system");
+		}
+		logger.info("Download time: " + (elapsed / 1000) + "s");
+	}
 
-    /**
-     *
-     * @param wagon
-     *            - a Wagon instance
-     * @param resource
-     *            - Remote resource to check
-     * @throws WagonException
-     */
-    @Override
-    public boolean exists(Wagon wagon, String resource) throws WagonException {
-        return wagon.resourceExists(resource);
-    }
+	/**
+	 * 
+	 * @param wagon
+	 *            - a Wagon instance
+	 * @param resource
+	 *            - Remote resource to check
+	 * @throws WagonException
+	 */
+	@Override
+	public boolean exists(Wagon wagon, String resource) throws WagonException {
+		return wagon.resourceExists(resource);
+	}
 
 }
