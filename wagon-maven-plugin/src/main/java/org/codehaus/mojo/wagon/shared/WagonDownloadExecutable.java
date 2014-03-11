@@ -4,6 +4,8 @@ import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static org.apache.commons.io.FileUtils.touch;
 import static org.apache.commons.lang3.StringUtils.leftPad;
+import static org.kuali.common.util.FormatUtils.getRate;
+import static org.kuali.common.util.FormatUtils.getSize;
 import static org.kuali.common.util.FormatUtils.getTime;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.log.Loggers.newLogger;
@@ -16,6 +18,7 @@ import org.apache.maven.wagon.Wagon;
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import org.kuali.common.util.Counter;
+import org.kuali.common.util.LongCounter;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
 
@@ -28,6 +31,7 @@ public final class WagonDownloadExecutable implements Executable {
 	private final File destination;
 	private final Wagon wagon;
 	private final Counter counter;
+	private final LongCounter bytesCounter;
 	@Min(0)
 	private final int total;
 	private final long start;
@@ -37,17 +41,28 @@ public final class WagonDownloadExecutable implements Executable {
 		try {
 			touch(destination);
 			wagon.get(remoteFile, destination);
+			bytesCounter.increment(destination.length());
 			int count = counter.increment();
 			long elapsed = currentTimeMillis() - start;
+			String rate = getRate(elapsed, bytesCounter.getValue());
 			long millisPerFile = elapsed / count;
 			int filesRemaining = total - count;
 			long timeRemaining = millisPerFile * filesRemaining;
-			int percent = new Double((count / (total * 1D)) * 100).intValue();
-			Object[] args = { leftPad(count + "", 5, " "), total, leftPad(getTime(timeRemaining), 6, " "), leftPad(percent + "", 3, " ") };
-			logger.info(format("%s of %s [time remaining: %s  completed: %s%%]", args));
+			// int percent = new Double((count / (total * 1D)) * 100).intValue();
+			String amount = lpad(getSize(bytesCounter.getValue()), 6);
+			Object[] args = { lpad(count, 5), total, ltime(elapsed), ltime(timeRemaining), lpad(rate, 6), amount };
+			logger.info(format("%s of %s [elapsed: %s  remaining: %s rate: %s amount: %s]", args));
 		} catch (Exception e) {
 			throw illegalState(e);
 		}
+	}
+
+	private String ltime(long millis) {
+		return leftPad(getTime(millis), 6, " ");
+	}
+
+	private String lpad(Object object, int size) {
+		return leftPad(object.toString(), size, " ");
 	}
 
 	private WagonDownloadExecutable(Builder builder) {
@@ -57,6 +72,7 @@ public final class WagonDownloadExecutable implements Executable {
 		this.counter = builder.counter;
 		this.total = builder.total;
 		this.start = builder.start;
+		this.bytesCounter = builder.bytesCounter;
 	}
 
 	public static Builder builder() {
@@ -71,6 +87,12 @@ public final class WagonDownloadExecutable implements Executable {
 		private Counter counter;
 		private int total;
 		private long start;
+		private LongCounter bytesCounter;
+
+		public Builder withBytesCounter(LongCounter bytesCounter) {
+			this.bytesCounter = bytesCounter;
+			return this;
+		}
 
 		public Builder withStart(long start) {
 			this.start = start;
