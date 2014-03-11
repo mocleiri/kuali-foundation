@@ -108,7 +108,7 @@ public class DefaultWagonDownload implements WagonDownload {
 				remoteFile = remoteFileSet.getDirectory() + "/" + remoteFile;
 			}
 
-			logger.debug(format(index + "%s Downloading %s%s to %s", index, url, remoteFile, destination));
+			logger.debug(format(index + "%s downloading %s%s to %s", index, url, remoteFile, destination));
 			try {
 				touch(destination);
 			} catch (IOException e) {
