@@ -94,7 +94,7 @@
                   </goals>
                   <configuration>
                     <url>s3://maven.kuali.org/release</url>
-                    <includes>org/kuali/rice/**</includes>
+                    <includes>org/kuali/rice/rice-core-api/**</includes>
                   </configuration>
                 </execution>
                 <execution>
