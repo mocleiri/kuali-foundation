@@ -50,6 +50,8 @@ import java.util.SortedMap;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.wagon.Wagon;
 import org.apache.maven.wagon.WagonException;
+import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.execute.impl.ConcurrentExecutables;
 import org.kuali.common.util.file.CanonicalFile;
 
 import com.google.common.collect.Lists;
@@ -110,16 +112,14 @@ public class DefaultWagonDownload implements WagonDownload {
 			}
 		}
 
-		List<WagonDownloadExecutable> executables = newArrayList();
+		List<Executable> executables = newArrayList();
 		for (String remoteFile : downloads.keySet()) {
 			CanonicalFile destination = downloads.get(remoteFile);
 			WagonDownloadExecutable executable = WagonDownloadExecutable.builder().withDestination(destination).withRemoteFile(remoteFile).withWagon(wagon).build();
 			executables.add(executable);
 		}
 		long start = currentTimeMillis();
-		for (WagonDownloadExecutable executable : executables) {
-			executable.execute();
-		}
+		ConcurrentExecutables.execute(executables, 5);
 		long elapsed = currentTimeMillis() - start;
 		if (skipped.size() > 0) {
 			logger.info(format("Skipped %s resources that already exist on the local file system", skipped.size()));
