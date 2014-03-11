@@ -33,7 +33,6 @@ package org.codehaus.mojo.wagon.shared;
 import static com.google.common.collect.Maps.newTreeMap;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
-import static java.util.Collections.sort;
 import static org.apache.commons.io.FileUtils.touch;
 import static org.codehaus.plexus.util.StringUtils.isBlank;
 import static org.kuali.common.util.FormatUtils.getCount;
@@ -121,7 +120,6 @@ public class DefaultWagonDownload implements WagonDownload {
 			logger.info(format("Skipped %s resources that already exist on the local file system", skipped.size()));
 		}
 		List<File> files = Lists.<File> newArrayList(downloads.values());
-		sort(files);
 		long bytes = getBytes(files);
 		Object[] args = { getCount(files.size()), getSize(bytes), getRate(elapsed, bytes), getTime(elapsed) };
 		logger.info(format("count: %s  size: %s  rate: %s  elapsed: %s", args));
