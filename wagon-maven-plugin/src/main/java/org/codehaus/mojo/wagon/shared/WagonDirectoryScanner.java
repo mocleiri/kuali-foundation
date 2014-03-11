@@ -291,9 +291,9 @@ public class WagonDirectoryScanner {
 		}
 		// logger.info("dir: " + dir);
 		if (isBlank(dir)) {
-			logger.debug("Scanning '" + dir + "'");
+			logger.info("Scanning '" + dir + "'");
 		} else {
-			logger.debug("Scanning " + dir);
+			logger.info("Scanning " + dir);
 		}
 		List<?> files = wagon.getFileList(dir);
 		// logger.info("files.size=" + files.size());
