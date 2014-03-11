@@ -32,9 +32,9 @@ package org.codehaus.mojo.wagon.shared;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newTreeMap;
-import static edu.emory.mathcs.backport.java.util.Collections.shuffle;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
+import static java.util.Collections.shuffle;
 import static org.apache.commons.io.FileUtils.touch;
 import static org.codehaus.plexus.util.StringUtils.isBlank;
 import static org.kuali.common.util.FormatUtils.getCount;
