@@ -4,8 +4,8 @@ import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static org.apache.commons.io.FileUtils.touch;
 import static org.apache.commons.lang3.StringUtils.leftPad;
+import static org.kuali.common.util.FormatUtils.getIntegerSize;
 import static org.kuali.common.util.FormatUtils.getRate;
-import static org.kuali.common.util.FormatUtils.getSize;
 import static org.kuali.common.util.FormatUtils.getTime;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.log.Loggers.newLogger;
@@ -56,7 +56,7 @@ public final class WagonDownloadExecutable implements Executable {
 		int filesRemaining = total - count;
 		long timeRemaining = millisPerFile * filesRemaining;
 		// int percent = new Double((count / (total * 1D)) * 100).intValue();
-		String amount = lpad(getSize(bytesCounter.getValue()), 6);
+		String amount = lpad(getIntegerSize(bytesCounter.getValue()), 6);
 		Object[] args = { lpad(count, 5), total, ltime(elapsed), ltime(timeRemaining), lpad(rate, 11), amount };
 		logger.info(format("%s of %s [elapsed: %s  remaining: %s rate: %s amount: %s]", args));
 	}
