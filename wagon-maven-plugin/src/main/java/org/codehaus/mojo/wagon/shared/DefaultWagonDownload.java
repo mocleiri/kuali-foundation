@@ -98,7 +98,7 @@ public class DefaultWagonDownload implements WagonDownload {
 			File destination = new File(remoteFileSet.getDownloadDirectory() + "/" + remoteFile);
 
 			if (skipExisting && destination.exists()) {
-				String msg = index + " Skipping " + url + remoteFile + " - " + destination + " already exists";
+				String msg = format("%s Skipping %s%s - %s already exists", index, url, remoteFile, destination);
 				logger.debug(msg);
 				skipped.add(msg);
 				continue;
