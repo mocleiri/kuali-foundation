@@ -8,6 +8,7 @@ import java.io.File;
 import org.apache.maven.wagon.Wagon;
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
+import org.kuali.common.util.Counter;
 import org.kuali.common.util.execute.Executable;
 
 @IdiotProofImmutable
@@ -16,12 +17,14 @@ public final class WagonDownloadExecutable implements Executable {
 	private final String remoteFile;
 	private final File destination;
 	private final Wagon wagon;
+	private final Counter counter;
 
 	@Override
 	public void execute() {
 		try {
 			touch(destination);
 			wagon.get(remoteFile, destination);
+			counter.increment();
 		} catch (Exception e) {
 			throw illegalState(e);
 		}
@@ -31,6 +34,7 @@ public final class WagonDownloadExecutable implements Executable {
 		this.remoteFile = builder.remoteFile;
 		this.destination = builder.destination;
 		this.wagon = builder.wagon;
+		this.counter = builder.counter;
 	}
 
 	public static Builder builder() {
@@ -42,6 +46,12 @@ public final class WagonDownloadExecutable implements Executable {
 		private String remoteFile;
 		private File destination;
 		private Wagon wagon;
+		private Counter counter;
+
+		public Builder withCounter(Counter counter) {
+			this.counter = counter;
+			return this;
+		}
 
 		public Builder withRemoteFile(String remoteFile) {
 			this.remoteFile = remoteFile;
@@ -74,6 +84,10 @@ public final class WagonDownloadExecutable implements Executable {
 
 	public Wagon getWagon() {
 		return wagon;
+	}
+
+	public Counter getCounter() {
+		return counter;
 	}
 
 }
