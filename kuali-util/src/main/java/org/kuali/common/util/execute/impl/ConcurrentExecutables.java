@@ -18,6 +18,8 @@ package org.kuali.common.util.execute.impl;
 import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
+import static java.lang.Math.ceil;
+import static java.lang.Math.max;
 import static org.kuali.common.util.FormatUtils.getTime;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 import static org.kuali.common.util.log.Loggers.newLogger;
@@ -32,6 +34,7 @@ import org.slf4j.Logger;
 import com.google.common.base.Optional;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 /**
  * Create a new thread for each executable in the list and run them all concurrently.
@@ -146,9 +149,12 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 	}
 
 	protected List<Thread> getThreads(List<Executable> executables, Optional<Integer> maxThreads) {
+		int max = maxThreads.isPresent() ? maxThreads.get() : executables.size();
+		int size = (int) max(ceil(executables.size() / (max * 1D)), 1);
+		List<List<Executable>> partitions = Lists.partition(executables, size);
 		List<Thread> threads = newArrayList();
-		for (Executable executable : executables) {
-			Runnable runnable = new ExecutableRunner(executable);
+		for (List<Executable> partition : partitions) {
+			Runnable runnable = new ExecutablesRunner(partition);
 			Thread thread = new Thread(runnable, "Executable");
 			thread.setUncaughtExceptionHandler(this);
 			threads.add(thread);
