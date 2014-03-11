@@ -175,12 +175,18 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		// This would allow spring-maven-plugin to truly run in multi-threaded mode, instead of merely appearing to run correctly in multi-threaded mode by resorting back to single
 		// threaded mode.
 		synchronized (MUTEX) {
-			// Maven 3.2.1 includes the slf4-simple binding in /usr/share/maven/lib
-			// This takes away the ability to bind slf4 to any other framework 
-			System.setProperty("org.slf4j.simpleLogger.log.org.springframework", "warn");
+			configureLogging();
 			// Delegate execution to Spring
 			executable.execute();
 		}
+	}
+
+	// Maven 3.2.1 includes slf4j-simple-1.7.5.jar in /usr/share/maven/lib
+	// This means SLF4J is permanently bound to the simple logger implementation before this code even executes
+	protected void configureLogging() {
+		String key = "org.slf4j.simpleLogger.log.org.springframework";
+		String value = Boolean.getBoolean("spring.debug") ? "debug" : "warn";
+		System.setProperty(key, value);
 	}
 
 	public MavenProject getProject() {
