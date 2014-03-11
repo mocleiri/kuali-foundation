@@ -30,6 +30,7 @@ package org.codehaus.mojo.wagon.shared;
  * the License.
  */
 
+import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static org.apache.commons.io.FileUtils.touch;
 import static org.codehaus.plexus.util.StringUtils.isBlank;
@@ -69,7 +70,7 @@ public class DefaultWagonDownload implements WagonDownload {
 		long start = currentTimeMillis();
 		dirScan.scan();
 		long elapsed = currentTimeMillis() - start;
-		logger.info("Scan time: " + (elapsed / 1000) + "s");
+		logger.info(format("Scan time: %ss", elapsed / 1000));
 		logger.info("Files located: " + dirScan.getFilesIncluded().size());
 
 		return dirScan.getFilesIncluded();
