@@ -64,7 +64,7 @@ public final class WagonDownloadExecutable implements Executable {
 	}
 
 	private String ltime(long millis) {
-		return leftPad(getTime(millis, numberFormatter), 6, " ");
+		return leftPad(getTime(millis, numberFormatter), 3, " ");
 	}
 
 	private String lpad(Object object, int size) {
