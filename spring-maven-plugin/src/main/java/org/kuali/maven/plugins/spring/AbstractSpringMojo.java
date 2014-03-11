@@ -41,6 +41,8 @@ import org.kuali.common.util.spring.service.SpringService;
 import org.kuali.maven.plugins.spring.config.MojoExecutableConfig;
 import org.slf4j.Logger;
 
+import com.google.common.base.Joiner;
+
 public abstract class AbstractSpringMojo extends AbstractMojo {
 
 	// TODO See the comments in the execute() method and fix things so this locking object is no longer needed
@@ -186,10 +188,15 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		}
 	}
 
-	// Maven 3.2.1 includes slf4j-simple-1.7.5.jar in /usr/share/maven/lib
-	// This means SLF4J is permanently bound to the simple logger implementation before this code even executes
+	// Maven 3.1+ includes slf4j-simple.jar in /usr/share/maven/lib
+	// Thus SLF4J is permanently bound to the simple logger implementation before this code even executes
+	// Big picture is that it is *much* better for Maven to be using SLFJ as opposed to its own internal logging framework,
+	// but the custom log4j configuration we'd been using for 3.0.5 no longer works.
+	// Since SLF4J has already been bound to slf4j-simple, it ignores any slf4-log4j configuration
 	protected void configureLogging() {
-		String key = "org.slf4j.simpleLogger.log.org.springframework";
+		String groupId = "org.springframework";
+		String prefix = "org.slf4j.simpleLogger.log";
+		String key = Joiner.on('.').join(prefix, groupId);
 		String value = Boolean.getBoolean("spring.debug") ? "debug" : "warn";
 		System.setProperty(key, value);
 	}
