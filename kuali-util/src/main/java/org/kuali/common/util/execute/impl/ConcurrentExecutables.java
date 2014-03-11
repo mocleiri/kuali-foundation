@@ -15,7 +15,9 @@
  */
 package org.kuali.common.util.execute.impl;
 
+import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Stopwatch.createStarted;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.ArrayList;
@@ -43,7 +45,7 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 	private final boolean timed;
 
 	// If any thread throws an exception, this gets filled in
-	private Optional<IllegalStateException> uncaughtException = Optional.absent();
+	private Optional<IllegalStateException> uncaughtException = absent();
 
 	public static void execute(Executable... executables) {
 		create(executables).execute();
@@ -122,7 +124,7 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 			return;
 		}
 		List<Thread> threads = getThreads(executables);
-		Stopwatch stopwatch = Stopwatch.createStarted();
+		Stopwatch stopwatch = createStarted();
 		Threads.start(threads);
 		Threads.join(threads);
 		if (uncaughtException.isPresent()) {
