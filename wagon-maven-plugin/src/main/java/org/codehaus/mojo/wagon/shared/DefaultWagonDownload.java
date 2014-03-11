@@ -30,22 +30,23 @@ package org.codehaus.mojo.wagon.shared;
  * the License.
  */
 
-import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Maps.newTreeMap;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static org.apache.commons.io.FileUtils.touch;
 import static org.codehaus.plexus.util.StringUtils.isBlank;
-import static org.codehaus.plexus.util.StringUtils.leftPad;
 import static org.kuali.common.util.FormatUtils.getTime;
+import static org.kuali.common.util.base.Exceptions.illegalState;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.SortedMap;
 
 import org.apache.maven.plugin.logging.Log;
-import org.apache.maven.wagon.TransferFailedException;
 import org.apache.maven.wagon.Wagon;
 import org.apache.maven.wagon.WagonException;
+import org.kuali.common.util.file.CanonicalFile;
 
 /**
  * @plexus.component role="org.codehaus.mojo.wagon.shared.WagonDownload" role-hint="default"
@@ -89,38 +90,38 @@ public class DefaultWagonDownload implements WagonDownload {
 			return;
 		}
 
-		int count = 0;
 		long start = currentTimeMillis();
-		List<String> skipped = newArrayList();
+		SortedMap<String, CanonicalFile> skipped = newTreeMap();
+		SortedMap<String, CanonicalFile> downloads = newTreeMap();
 		for (String remoteFile : fileList) {
-			String index = leftPad((++count) + "", 5, " ");
-
-			File destination = new File(remoteFileSet.getDownloadDirectory() + "/" + remoteFile);
-
-			if (skipExisting && destination.exists()) {
-				String msg = format("%s skipping %s%s - %s already exists", index, url, remoteFile, destination);
-				logger.debug(msg);
-				skipped.add(msg);
-				continue;
-			}
-
+			CanonicalFile destination = new CanonicalFile(remoteFileSet.getDownloadDirectory() + "/" + remoteFile);
 			if (!isBlank(remoteFileSet.getDirectory())) {
 				remoteFile = remoteFileSet.getDirectory() + "/" + remoteFile;
 			}
-
-			logger.debug(format(index + "%s downloading %s%s to %s", index, url, remoteFile, destination));
-			try {
-				touch(destination);
-			} catch (IOException e) {
-				throw new TransferFailedException("Unexpected IO error", e);
+			if (skipExisting && destination.exists()) {
+				skipped.put(remoteFile, destination);
+			} else {
+				downloads.put(remoteFile, destination);
 			}
+		}
 
+		for (String remoteFile : downloads.keySet()) {
+			CanonicalFile destination = downloads.get(remoteFile);
+			touchQuietly(destination);
 			wagon.get(remoteFile, destination);
 		}
 		if (skipped.size() > 0) {
 			logger.info(format("Skipped %s resources that already exist on the local file system", skipped.size()));
 		}
-		logger.info(String.format("Download time: %s", getTime(currentTimeMillis() - start)));
+		logger.info(format("elapsed - %s", getTime(currentTimeMillis() - start)));
+	}
+
+	protected void touchQuietly(File file) {
+		try {
+			touch(file);
+		} catch (IOException e) {
+			throw illegalState(e);
+		}
 	}
 
 	/**
