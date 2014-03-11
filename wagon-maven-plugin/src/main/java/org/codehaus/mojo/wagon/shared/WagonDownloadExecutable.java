@@ -53,7 +53,7 @@ public final class WagonDownloadExecutable implements Executable {
 		bytesCounter.increment(destination.length());
 		int count = counter.increment();
 		long elapsed = currentTimeMillis() - start;
-		String rate = getRate(elapsed, bytesCounter.getValue());
+		String rate = getRate(elapsed, bytesCounter.getValue(), numberFormatter);
 		long millisPerFile = elapsed / count;
 		int filesRemaining = total - count;
 		long timeRemaining = millisPerFile * filesRemaining;
