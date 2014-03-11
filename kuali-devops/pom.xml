@@ -97,7 +97,7 @@
                     <!--
                       <includes>org/kuali/rice/**,org/kuali/common/**,org/kuali/pom/**,org/kuali/maven/**,org/kuali/db/**</includes>
                     -->
-                    <includes>org/kuali/common/**</includes>
+                    <includes>org/kuali/db/**</includes>
                     <excludes>${wagon.rice.excludes}</excludes>
                   </configuration>
                 </execution>
