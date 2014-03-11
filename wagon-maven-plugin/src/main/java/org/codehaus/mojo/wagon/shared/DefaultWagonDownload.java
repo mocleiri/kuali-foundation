@@ -119,7 +119,7 @@ public class DefaultWagonDownload implements WagonDownload {
 		for (String remoteFile : downloads.keySet()) {
 			CanonicalFile destination = downloads.get(remoteFile);
 			WagonDownloadExecutable executable = WagonDownloadExecutable.builder().withDestination(destination).withRemoteFile(remoteFile).withWagon(wagon).withCounter(counter)
-					.build();
+					.withTotal(downloads.size()).build();
 			executables.add(executable);
 		}
 		shuffle(executables);
