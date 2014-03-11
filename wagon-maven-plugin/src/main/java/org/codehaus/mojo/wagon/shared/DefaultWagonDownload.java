@@ -124,7 +124,7 @@ public class DefaultWagonDownload implements WagonDownload {
 		}
 		shuffle(executables);
 		long start = currentTimeMillis();
-		ConcurrentExecutables.execute(executables, 5);
+		ConcurrentExecutables.execute(executables, 10);
 		long elapsed = currentTimeMillis() - start;
 		if (skipped.size() > 0) {
 			logger.info(format("Skipped %s resources that already exist on the local file system", skipped.size()));
