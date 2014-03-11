@@ -15,6 +15,8 @@
  */
 package org.kuali.maven.plugins.spring;
 
+import static org.kuali.common.util.log.Loggers.newLogger;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,13 +42,12 @@ import org.kuali.common.util.spring.service.PropertySourceService;
 import org.kuali.common.util.spring.service.SpringContext;
 import org.kuali.common.util.spring.service.SpringService;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
 
 public class DefaultSpringMojoService implements SpringMojoService {
 
-	private static final Logger logger = LoggerFactory.getLogger(DefaultSpringMojoService.class);
+	private static final Logger logger = newLogger();
 	private static final LongCounter SEQUENCE = new LongCounter();
 
 	private final PropertySourceService propertySourceService;
