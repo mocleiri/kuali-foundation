@@ -97,6 +97,7 @@ public class DefaultWagonDownload implements WagonDownload {
 	@Override
 	public void download(Wagon wagon, WagonFileSet remoteFileSet, Log logger, boolean skipExisting) throws WagonException {
 		List<String> fileList = getFileList(wagon, remoteFileSet, logger);
+		logger.info(format("wagon class: %s", wagon.getClass().getCanonicalName()));
 
 		String url = wagon.getRepository().getUrl();
 		url = url.endsWith("/") ? url : url + "/";
