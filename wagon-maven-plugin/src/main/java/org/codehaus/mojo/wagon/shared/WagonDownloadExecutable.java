@@ -4,6 +4,7 @@ import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static org.apache.commons.io.FileUtils.touch;
 import static org.apache.commons.lang3.StringUtils.leftPad;
+import static org.kuali.common.util.FormatUtils.getCount;
 import static org.kuali.common.util.FormatUtils.getRate;
 import static org.kuali.common.util.FormatUtils.getSize;
 import static org.kuali.common.util.FormatUtils.getTime;
@@ -56,13 +57,13 @@ public final class WagonDownloadExecutable implements Executable {
 		int count = counter.increment();
 		long elapsed = currentTimeMillis() - start;
 		String rate = getRate(elapsed, bytesCounter.getValue(), rateFormatter);
-		long millisPerFile = elapsed / count;
+		// long millisPerFile = elapsed / count;
 		int filesRemaining = total - count;
-		long timeRemaining = millisPerFile * filesRemaining;
+		// long timeRemaining = millisPerFile * filesRemaining;
 		// int percent = new Double((count / (total * 1D)) * 100).intValue();
 		String amount = lpad(getSize(bytesCounter.getValue(), numberFormatter), 6);
-		Object[] args = { lpad(count, 5), total, ltime(elapsed), ltime(timeRemaining), lpad(rate, 8), amount };
-		logger.info(format("%s of %s [elapsed:%s  remaining:%s  rate:%s  amount: %s]", args));
+		Object[] args = { lpad(getCount(count), 6), total, lpad(getCount(filesRemaining), 6), ltime(elapsed), lpad(rate, 8), amount };
+		logger.info(format("%s of %s - remaining %s [elapsed:%s  rate:%s  amount: %s]", args));
 	}
 
 	private String ltime(long millis) {
