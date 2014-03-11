@@ -83,8 +83,8 @@ public class DefaultWagonDownload implements WagonDownload {
 		long start = currentTimeMillis();
 		dirScan.scan();
 		long elapsed = currentTimeMillis() - start;
-		logger.info(format("Scan time: %ss", elapsed / 1000));
-		logger.info("Files located: " + dirScan.getFilesIncluded().size());
+		logger.info(format("Scan time: %ss", getTime(elapsed)));
+		logger.info(format("Files located: %s" + dirScan.getFilesIncluded().size()));
 
 		return dirScan.getFilesIncluded();
 	}
