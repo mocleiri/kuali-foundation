@@ -1,7 +1,10 @@
 package org.codehaus.mojo.wagon.shared;
 
+import static java.lang.String.format;
 import static org.apache.commons.io.FileUtils.touch;
+import static org.apache.commons.lang3.StringUtils.leftPad;
 import static org.kuali.common.util.base.Exceptions.illegalState;
+import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.io.File;
 
@@ -10,9 +13,12 @@ import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import org.kuali.common.util.Counter;
 import org.kuali.common.util.execute.Executable;
+import org.slf4j.Logger;
 
 @IdiotProofImmutable
 public final class WagonDownloadExecutable implements Executable {
+
+	private static final Logger logger = newLogger();
 
 	private final String remoteFile;
 	private final File destination;
@@ -25,6 +31,7 @@ public final class WagonDownloadExecutable implements Executable {
 			touch(destination);
 			wagon.get(remoteFile, destination);
 			counter.increment();
+			logger.info(format("%s - %s", leftPad(counter.increment() + "", 5, " "), remoteFile));
 		} catch (Exception e) {
 			throw illegalState(e);
 		}
