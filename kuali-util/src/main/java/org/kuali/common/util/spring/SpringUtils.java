@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util.spring;
 
+import static org.codehaus.plexus.util.StringUtils.isBlank;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -884,10 +886,10 @@ public class SpringUtils {
 
 	public static AbstractApplicationContext getContextWithPreRegisteredBeans(String id, String displayName, Map<String, ?> beans) {
 		GenericXmlApplicationContext appContext = new GenericXmlApplicationContext();
-		if (!StringUtils.isBlank(id)) {
+		if (!isBlank(id)) {
 			appContext.setId(id);
 		}
-		if (!StringUtils.isBlank(displayName)) {
+		if (!isBlank(displayName)) {
 			appContext.setDisplayName(displayName);
 		}
 		appContext.refresh();
