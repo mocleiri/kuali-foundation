@@ -62,8 +62,8 @@ public final class WagonDownloadExecutable implements Executable {
 		// long timeRemaining = millisPerFile * filesRemaining;
 		// int percent = new Double((count / (total * 1D)) * 100).intValue();
 		String amount = lpad(getSize(bytesCounter.getValue(), numberFormatter), 6);
-		Object[] args = { lpad(getCount(count), 6), total, lpad(getCount(filesRemaining), 6), ltime(elapsed), lpad(rate, 8), amount };
-		logger.info(format("%s of %s - remaining %s [elapsed:%s  rate:%s  amount: %s]", args));
+		Object[] args = { lpad(getCount(count), 6), lpad(getCount(total), 6), lpad(getCount(filesRemaining), 6), ltime(elapsed), lpad(rate, 8), amount };
+		logger.info(format("%s of %s - remaining %s [elapsed:%s  rate:%s  transferred: %s]", args));
 	}
 
 	private String ltime(long millis) {
