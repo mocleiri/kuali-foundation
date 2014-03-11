@@ -18,9 +18,9 @@ package org.kuali.common.util.execute.impl;
 import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Stopwatch.createStarted;
+import static com.google.common.collect.Lists.newArrayList;
 
 import java.lang.Thread.UncaughtExceptionHandler;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.util.FormatUtils;
@@ -138,7 +138,7 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 	}
 
 	protected List<Thread> getThreads(List<Executable> executables) {
-		List<Thread> threads = new ArrayList<Thread>();
+		List<Thread> threads = newArrayList();
 		for (Executable executable : executables) {
 			Runnable runnable = new ExecutableRunner(executable);
 			Thread thread = new Thread(runnable, "Executable");
