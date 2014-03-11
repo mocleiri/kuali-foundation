@@ -85,12 +85,12 @@
         <groupId>org.kuali.common</groupId>
         <artifactId>kuali-util</artifactId>
         <version>${kuali-util.version}</version>
-        <excludes>
-          <exclude>
+        <exclusions>
+          <exclusion>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-          </exclude>
-        </excludes>
+          </exclusion>
+        </exclusions>
       </dependency>
     </dependencies>
   </dependencyManagement>
