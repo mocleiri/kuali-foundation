@@ -30,6 +30,7 @@ package org.codehaus.mojo.wagon.shared;
  * the License.
  */
 
+import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newTreeMap;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
@@ -109,11 +110,15 @@ public class DefaultWagonDownload implements WagonDownload {
 			}
 		}
 
-		long start = currentTimeMillis();
+		List<WagonDownloadExecutable> executables = newArrayList();
 		for (String remoteFile : downloads.keySet()) {
 			CanonicalFile destination = downloads.get(remoteFile);
-			touchQuietly(destination);
-			wagon.get(remoteFile, destination);
+			WagonDownloadExecutable executable = WagonDownloadExecutable.builder().withDestination(destination).withRemoteFile(remoteFile).build();
+			executables.add(executable);
+		}
+		long start = currentTimeMillis();
+		for (WagonDownloadExecutable executable : executables) {
+			executable.execute();
 		}
 		long elapsed = currentTimeMillis() - start;
 		if (skipped.size() > 0) {
