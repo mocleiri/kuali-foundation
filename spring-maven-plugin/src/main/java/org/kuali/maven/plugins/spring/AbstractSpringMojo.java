@@ -15,7 +15,8 @@
  */
 package org.kuali.maven.plugins.spring;
 
-import java.util.Collections;
+import static java.util.Collections.singletonMap;
+
 import java.util.Map;
 import java.util.Properties;
 
@@ -150,7 +151,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 		// Create a map containing a reference to the mojo
-		Map<String, Object> beans = Collections.singletonMap(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME, (Object) this);
+		Map<String, Object> beans = singletonMap(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME, (Object) this);
 
 		// Get a config class
 		Class<?> config = ReflectionUtils.getClass(mojoExecutableConfig);
