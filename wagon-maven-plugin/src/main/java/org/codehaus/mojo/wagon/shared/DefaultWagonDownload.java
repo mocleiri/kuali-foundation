@@ -30,6 +30,7 @@ package org.codehaus.mojo.wagon.shared;
  * the License.
  */
 
+import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newTreeMap;
 import static java.lang.String.format;
@@ -126,6 +127,7 @@ public class DefaultWagonDownload implements WagonDownload {
 		long start = currentTimeMillis();
 		ConcurrentExecutables.execute(executables, 10);
 		long elapsed = currentTimeMillis() - start;
+		checkState(counter.getValue() == downloads.size(), "download counter is %s but should be %s", counter.getValue(), downloads.size());
 		if (skipped.size() > 0) {
 			logger.info(format("Skipped %s resources that already exist on the local file system", skipped.size()));
 		}
