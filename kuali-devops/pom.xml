@@ -69,7 +69,7 @@
     <profile>
       <id>update</id>
       <properties>
-        <wagon.excludes>**/maven-metadata.xml,**/rice-dist*/**,**/*-javadoc.*,**/*.asc*,**/*.sha1*,**/*.md5*,**/*sources.jar,**/0.*/**,**/1.*/**,**/2.0.*/**,**/*.wsdl</wagon.excludes>
+        <wagon.excludes>**/maven-metadata.xml,**/rice-dist*/**,**/*-javadoc.*,**/*.asc*,**/*.sha1*,**/*.md5*,**/*sources.jar,**/*.wsdl,**/0.*/**,**/1.*/**,**/2.0.*/**,**/2.1.*/**</wagon.excludes>
         <wagon.toDir>/root/.m2/repository</wagon.toDir>
       </properties>
       <build>
