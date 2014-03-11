@@ -176,7 +176,9 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		// threaded mode.
 		synchronized (MUTEX) {
 			// Delegate execution to Spring
+			System.out.println("AbsractSpringMojo:execute:beg");
 			executable.execute();
+			System.out.println("AbsractSpringMojo:execute:end");
 		}
 	}
 
