@@ -116,14 +116,14 @@ public class DefaultWagonDownload implements WagonDownload {
 
 		List<Executable> executables = newArrayList();
 		Counter counter = new Counter();
+		long start = currentTimeMillis();
 		for (String remoteFile : downloads.keySet()) {
 			CanonicalFile destination = downloads.get(remoteFile);
 			WagonDownloadExecutable executable = WagonDownloadExecutable.builder().withDestination(destination).withRemoteFile(remoteFile).withWagon(wagon).withCounter(counter)
-					.withTotal(downloads.size()).build();
+					.withTotal(downloads.size()).withStart(start).build();
 			executables.add(executable);
 		}
 		shuffle(executables);
-		long start = currentTimeMillis();
 		ConcurrentExecutables.execute(executables, 10);
 		long elapsed = currentTimeMillis() - start;
 		checkState(counter.getValue() == downloads.size(), "download counter is %s but should be %s", counter.getValue(), downloads.size());

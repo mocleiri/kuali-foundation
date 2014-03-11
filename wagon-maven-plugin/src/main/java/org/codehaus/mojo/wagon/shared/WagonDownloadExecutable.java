@@ -70,9 +70,9 @@ public final class WagonDownloadExecutable implements Executable {
 		private Wagon wagon;
 		private Counter counter;
 		private int total;
-		private int start;
+		private long start;
 
-		public Builder withStart(int start) {
+		public Builder withStart(long start) {
 			this.start = start;
 			return this;
 		}
@@ -126,6 +126,10 @@ public final class WagonDownloadExecutable implements Executable {
 
 	public int getTotal() {
 		return total;
+	}
+
+	public long getStart() {
+		return start;
 	}
 
 }
