@@ -108,7 +108,7 @@ public class DefaultWagonDownload implements WagonDownload {
 				remoteFile = remoteFileSet.getDirectory() + "/" + remoteFile;
 			}
 
-			logger.info(index + " Downloading " + url + remoteFile + " to " + destination);
+			logger.info(format(index + "%s Downloading %s%s to %s", index, url, remoteFile, destination));
 			try {
 				touch(destination);
 			} catch (IOException e) {
@@ -118,7 +118,7 @@ public class DefaultWagonDownload implements WagonDownload {
 			wagon.get(remoteFile, destination);
 		}
 		if (skipped.size() > 0) {
-			logger.info(String.format("Skipped %s resources that already exist on the local file system", skipped.size()));
+			logger.info(format("Skipped %s resources that already exist on the local file system", skipped.size()));
 		}
 		logger.info(String.format("Download time: %s", getTime(currentTimeMillis() - start)));
 	}
