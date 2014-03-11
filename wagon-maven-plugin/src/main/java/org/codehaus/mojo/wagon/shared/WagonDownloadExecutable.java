@@ -41,20 +41,24 @@ public final class WagonDownloadExecutable implements Executable {
 		try {
 			touch(destination);
 			wagon.get(remoteFile, destination);
-			bytesCounter.increment(destination.length());
-			int count = counter.increment();
-			long elapsed = currentTimeMillis() - start;
-			String rate = getRate(elapsed, bytesCounter.getValue());
-			long millisPerFile = elapsed / count;
-			int filesRemaining = total - count;
-			long timeRemaining = millisPerFile * filesRemaining;
-			// int percent = new Double((count / (total * 1D)) * 100).intValue();
-			String amount = lpad(getSize(bytesCounter.getValue()), 6);
-			Object[] args = { lpad(count, 5), total, ltime(elapsed), ltime(timeRemaining), lpad(rate, 6), amount };
-			logger.info(format("%s of %s [elapsed: %s  remaining: %s rate: %s amount: %s]", args));
+			stats();
 		} catch (Exception e) {
 			throw illegalState(e);
 		}
+	}
+
+	private void stats() {
+		bytesCounter.increment(destination.length());
+		int count = counter.increment();
+		long elapsed = currentTimeMillis() - start;
+		String rate = getRate(elapsed, bytesCounter.getValue());
+		long millisPerFile = elapsed / count;
+		int filesRemaining = total - count;
+		long timeRemaining = millisPerFile * filesRemaining;
+		// int percent = new Double((count / (total * 1D)) * 100).intValue();
+		String amount = lpad(getSize(bytesCounter.getValue()), 6);
+		Object[] args = { lpad(count, 5), total, ltime(elapsed), ltime(timeRemaining), lpad(rate, 6), amount };
+		logger.info(format("%s of %s [elapsed: %s  remaining: %s rate: %s amount: %s]", args));
 	}
 
 	private String ltime(long millis) {
