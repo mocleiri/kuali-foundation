@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-maven</artifactId>
-    <version>3.3.46-SNAPSHOT</version>
+    <version>3.3.46</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-maven</artifactId>
