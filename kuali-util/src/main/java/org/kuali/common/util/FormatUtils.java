@@ -303,7 +303,7 @@ public class FormatUtils {
 	 * Given a number of bytes return bytes, kilobytes, megabytes, gigabytes, terabytes, petabytes, or exabytes as appropriate.
 	 */
 	public static String getSize(long bytes) {
-		return getSize(bytes, null);
+		return getSize(bytes, (Size) null);
 	}
 
 	/**
@@ -321,6 +321,26 @@ public class FormatUtils {
 		StringBuilder sb = new StringBuilder();
 		synchronized (integerFormatter) {
 			sb.append(integerFormatter.format(bytes / (double) uom.getValue()));
+		}
+		sb.append(uom.getSizeLabel());
+		return sb.toString();
+	}
+
+	/**
+	 * Given a number of bytes return a string formatted into the unit of measure indicated
+	 */
+	public static String getSize(long bytes, NumberFormat formatter) {
+		return getSize(bytes, null, formatter);
+	}
+
+	/**
+	 * Given a number of bytes return a string formatted into the unit of measure indicated
+	 */
+	public static String getSize(long bytes, final Size unitOfMeasure, NumberFormat formatter) {
+		Size uom = (unitOfMeasure == null) ? getSizeEnum(bytes) : unitOfMeasure;
+		StringBuilder sb = new StringBuilder();
+		synchronized (formatter) {
+			sb.append(formatter.format(bytes / (double) uom.getValue()));
 		}
 		sb.append(uom.getSizeLabel());
 		return sb.toString();
