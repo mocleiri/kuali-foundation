@@ -43,6 +43,7 @@ import static org.kuali.common.util.FormatUtils.getRate;
 import static org.kuali.common.util.FormatUtils.getSize;
 import static org.kuali.common.util.FormatUtils.getTime;
 import static org.kuali.common.util.base.Exceptions.illegalState;
+import static org.kuali.common.util.execute.impl.ConcurrentExecutables.executeConcurrently;
 
 import java.io.File;
 import java.io.IOException;
@@ -55,7 +56,6 @@ import org.apache.maven.wagon.WagonException;
 import org.kuali.common.util.Counter;
 import org.kuali.common.util.LongCounter;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.impl.ConcurrentExecutables;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.inform.PercentCompleteInformer;
 
@@ -132,7 +132,7 @@ public class DefaultWagonDownload implements WagonDownload {
 			executables.add(executable);
 		}
 		shuffle(executables);
-		ConcurrentExecutables.execute(executables, 10);
+		executeConcurrently(executables, 10);
 		long elapsed = currentTimeMillis() - start;
 		checkState(counter.getValue() == downloads.size(), "download counter is %s but should be %s", counter.getValue(), downloads.size());
 		if (skipped.size() > 0) {
