@@ -41,9 +41,12 @@ import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.wagon.Wagon;
 import org.apache.maven.wagon.WagonException;
 import org.codehaus.plexus.util.StringUtils;
+import org.kuali.common.util.inform.PercentCompleteInformer;
 
 public class WagonDirectoryScanner {
+
 	private final static String[] NOT_DIRECTORIES = new String[] { ".jar", ".zip", ".md5", ".sha1", ".pom", ".xml", ".war" };
+
 	/**
 	 * Patterns which should be excluded by default.
 	 * 
@@ -60,6 +63,8 @@ public class WagonDirectoryScanner {
 	 * Relative to wagon url
 	 */
 	private String directory;
+
+	private PercentCompleteInformer informer = new PercentCompleteInformer(100);
 
 	/** The patterns for the wagon files to be included. */
 	private String[] includes;
@@ -281,11 +286,14 @@ public class WagonDirectoryScanner {
 	 * @see #filesIncluded
 	 */
 	protected void scandir(String dir) throws WagonException {
+		if (this.informer != null) {
+			informer.incrementProgress();
+		}
 		// logger.info("dir: " + dir);
 		if (isBlank(dir)) {
-			logger.info("Scanning '" + dir + "'");
+			logger.debug("Scanning '" + dir + "'");
 		} else {
-			logger.info("Scanning " + dir);
+			logger.debug("Scanning " + dir);
 		}
 		List<?> files = wagon.getFileList(dir);
 		// logger.info("files.size=" + files.size());
@@ -347,6 +355,14 @@ public class WagonDirectoryScanner {
 
 	public void setLogger(Log logger) {
 		this.logger = logger;
+	}
+
+	public PercentCompleteInformer getInformer() {
+		return informer;
+	}
+
+	public void setInformer(PercentCompleteInformer informer) {
+		this.informer = informer;
 	}
 
 }
