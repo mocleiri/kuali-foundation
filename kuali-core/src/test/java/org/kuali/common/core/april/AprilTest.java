@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.reverse;
 import static com.google.common.collect.Sets.newHashSet;
+import static java.lang.Integer.parseInt;
 import static java.lang.String.format;
 import static org.apache.commons.io.FileUtils.writeLines;
 import static org.kuali.common.util.LocationUtils.readLines;
@@ -140,7 +141,8 @@ public class AprilTest {
 		char separator = ' ';
 		Splitter splitter = Splitter.on(separator).trimResults().omitEmptyStrings();
 
-		List<String> tokens1 = splitter.splitToList(saleLines.getLine1());
+		String line1 = saleLines.getLine1().replace("Ring Of Honor", "RingOfHonor Level");
+		List<String> tokens1 = splitter.splitToList(line1);
 		checkState(tokens1.size() == 4, "expected 4 tokens");
 
 		List<String> tokens3 = splitter.splitToList(saleLines.getLine3().replace('\t', separator));
@@ -150,8 +152,8 @@ public class AprilTest {
 		Area area = Area.valueOf(tokens1.get(tokens1.size() - 2).toUpperCase());
 		Level level = Level.valueOf(tokens1.get(0).toUpperCase());
 		double price = getPrice(saleLines.getLine2().trim());
-		int row = Integer.parseInt(tokens3.get(0));
-		int quantity = Integer.parseInt(tokens3.get(1));
+		String row = tokens3.get(0);
+		int quantity = parseInt(tokens3.get(1));
 		long date = getDate(tokens3.get(2));
 
 		Sale.Builder builder = Sale.builder();

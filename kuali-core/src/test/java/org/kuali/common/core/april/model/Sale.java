@@ -25,8 +25,7 @@ public final class Sale {
 	// Usually a number, but the on field seats are a letter (H/S/R) etc
 	private final String section;
 
-	@Min(0)
-	private final int row;
+	private final String row;
 
 	@Min(0)
 	private final double price;
@@ -57,7 +56,7 @@ public final class Sale {
 		private Level level;
 		private Area area;
 		private String section;
-		private int row;
+		private String row;
 		private double price;
 		private int quantity;
 		@JsonDeserialize(using = DayDeserializer.class)
@@ -78,7 +77,7 @@ public final class Sale {
 			return this;
 		}
 
-		public Builder withRow(int row) {
+		public Builder withRow(String row) {
 			this.row = row;
 			return this;
 		}
@@ -116,7 +115,7 @@ public final class Sale {
 		return section;
 	}
 
-	public int getRow() {
+	public String getRow() {
 		return row;
 	}
 
