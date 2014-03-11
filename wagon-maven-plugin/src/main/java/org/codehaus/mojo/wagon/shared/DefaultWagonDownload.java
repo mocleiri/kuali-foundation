@@ -31,18 +31,19 @@ package org.codehaus.mojo.wagon.shared;
  */
 
 import static java.lang.System.currentTimeMillis;
+import static org.apache.commons.io.FileUtils.touch;
+import static org.codehaus.plexus.util.StringUtils.isBlank;
+import static org.codehaus.plexus.util.StringUtils.leftPad;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.wagon.TransferFailedException;
 import org.apache.maven.wagon.Wagon;
 import org.apache.maven.wagon.WagonException;
-import org.codehaus.plexus.util.StringUtils;
 
 /**
  * @plexus.component role="org.codehaus.mojo.wagon.shared.WagonDownload" role-hint="default"
@@ -87,10 +88,10 @@ public class DefaultWagonDownload implements WagonDownload {
 		}
 
 		int count = 0;
-		long start = System.currentTimeMillis();
+		long start = currentTimeMillis();
 		List<String> skipped = new ArrayList<String>();
 		for (String remoteFile : fileList) {
-			String index = StringUtils.leftPad((++count) + "", 5, " ");
+			String index = leftPad((++count) + "", 5, " ");
 
 			File destination = new File(remoteFileSet.getDownloadDirectory() + "/" + remoteFile);
 
@@ -101,20 +102,20 @@ public class DefaultWagonDownload implements WagonDownload {
 				continue;
 			}
 
-			if (!StringUtils.isBlank(remoteFileSet.getDirectory())) {
+			if (!isBlank(remoteFileSet.getDirectory())) {
 				remoteFile = remoteFileSet.getDirectory() + "/" + remoteFile;
 			}
 
 			logger.info(index + " Downloading " + url + remoteFile + " to " + destination);
 			try {
-				FileUtils.touch(destination);
+				touch(destination);
 			} catch (IOException e) {
 				throw new TransferFailedException("Unexpected IO error", e);
 			}
 
 			wagon.get(remoteFile, destination);
 		}
-		long elapsed = System.currentTimeMillis() - start;
+		long elapsed = currentTimeMillis() - start;
 		if (skipped.size() > 0) {
 			logger.info("Skipped " + skipped.size() + " resources that already exist on the local file system");
 		}
