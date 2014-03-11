@@ -59,6 +59,10 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 		create(executables).execute();
 	}
 
+	public static void execute(List<Executable> executables, int maxThreads) {
+		builder(executables).withMaxThreads(maxThreads).build().execute();
+	}
+
 	public static ConcurrentExecutables create(Executable... executables) {
 		return builder(executables).build();
 	}
