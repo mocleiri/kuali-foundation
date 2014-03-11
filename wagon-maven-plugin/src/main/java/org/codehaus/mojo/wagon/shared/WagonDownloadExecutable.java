@@ -1,8 +1,10 @@
 package org.codehaus.mojo.wagon.shared;
 
 import static java.lang.String.format;
+import static java.lang.System.currentTimeMillis;
 import static org.apache.commons.io.FileUtils.touch;
 import static org.apache.commons.lang3.StringUtils.leftPad;
+import static org.kuali.common.util.FormatUtils.getTime;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
@@ -28,6 +30,7 @@ public final class WagonDownloadExecutable implements Executable {
 	private final Counter counter;
 	@Min(0)
 	private final int total;
+	private final long start;
 
 	@Override
 	public void execute() {
@@ -35,9 +38,13 @@ public final class WagonDownloadExecutable implements Executable {
 			touch(destination);
 			wagon.get(remoteFile, destination);
 			int count = counter.increment();
+			long elapsed = currentTimeMillis() - start;
+			long millisPerFile = elapsed / count;
+			int filesRemaining = total - count;
+			long timeRemaining = millisPerFile * filesRemaining;
 			int percent = new Double((count / (total * 1D)) * 100).intValue();
-			Object[] args = { leftPad(count + "", 5, " "), total, leftPad(percent + "", 3, " "), remoteFile };
-			logger.info(format("%s of %s %s%% - %s", args));
+			Object[] args = { leftPad(count + "", 5, " "), total, leftPad(getTime(timeRemaining), 6, " "), leftPad(percent + "", 3, " ") };
+			logger.info(format("%s of %s [time remaining: %s  completed: %s%%]", args));
 		} catch (Exception e) {
 			throw illegalState(e);
 		}
@@ -49,6 +56,7 @@ public final class WagonDownloadExecutable implements Executable {
 		this.wagon = builder.wagon;
 		this.counter = builder.counter;
 		this.total = builder.total;
+		this.start = builder.start;
 	}
 
 	public static Builder builder() {
@@ -62,6 +70,12 @@ public final class WagonDownloadExecutable implements Executable {
 		private Wagon wagon;
 		private Counter counter;
 		private int total;
+		private int start;
+
+		public Builder withStart(int start) {
+			this.start = start;
+			return this;
+		}
 
 		public Builder withTotal(int total) {
 			this.total = total;
