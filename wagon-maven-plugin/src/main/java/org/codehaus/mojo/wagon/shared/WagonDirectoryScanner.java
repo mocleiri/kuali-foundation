@@ -64,7 +64,7 @@ public class WagonDirectoryScanner {
 	 */
 	private String directory;
 
-	private PercentCompleteInformer informer = new PercentCompleteInformer(100);
+	private PercentCompleteInformer informer;
 
 	/** The patterns for the wagon files to be included. */
 	private String[] includes;
