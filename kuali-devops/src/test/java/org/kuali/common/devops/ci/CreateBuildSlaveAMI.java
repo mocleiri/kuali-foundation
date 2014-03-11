@@ -4,6 +4,7 @@ import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
+import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
@@ -89,7 +90,7 @@ public class CreateBuildSlaveAMI {
 		// Configurable items
 		String ami = System.getProperty("slave.ami", AMI.UBUNTU_64_BIT_PRECISE_LTS.getId());
 		InstanceType type = InstanceType.fromValue(System.getProperty("slave.type", InstanceType.C3Xlarge.toString()));
-		RootVolume rootVolume = RootVolume.create(Integer.parseInt(System.getProperty("slave.size", "128")), true);
+		RootVolume rootVolume = RootVolume.create(parseInt(System.getProperty("slave.size", "128")), true);
 		// The amount of time to wait before timing out on: instance creation, snapshot creation, ami creation
 		int timeoutMillis = getMillisAsInt(System.getProperty("slave.timeout", "30m"));
 		// The amount of time to sleep after creating a brand new instance (gives DNS a few seconds to figure itself out)
