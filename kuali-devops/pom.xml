@@ -54,6 +54,10 @@
     <jdk6.version>1.6.0-u45</jdk6.version>
     <jenkins.master>beta.ci.kuali.org</jenkins.master>
     <dns.domain>kuali.org</dns.domain>
+
+    <wagon.phase>validate</wagon.phase>
+    <wagon.internal.phase>${wagon.phase}</wagon.internal.phase>
+    <wagon.external.phase>${wagon.phase}</wagon.external.phase>
   </properties>
   <profiles>
     <profile>
@@ -84,18 +88,18 @@
               <executions>
                 <execution>
                   <id>release</id>
-                  <phase>validate</phase>
+                  <phase>${wagon.internal.phase}</phase>
                   <goals>
                     <goal>download</goal>
                   </goals>
                   <configuration>
                     <url>s3://maven.kuali.org/release</url>
-                    <includes>org/kuali/rice/rice-core-api/2.0.2/**</includes>
+                    <includes>org/kuali/rice/rice-core-api/2.*</includes>
                   </configuration>
                 </execution>
                 <execution>
                   <id>external</id>
-                  <phase>validate</phase>
+                  <phase>${wagon.external.phase}</phase>
                   <goals>
                     <goal>download</goal>
                   </goals>
