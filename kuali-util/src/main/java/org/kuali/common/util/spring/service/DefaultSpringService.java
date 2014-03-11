@@ -15,6 +15,9 @@
  */
 package org.kuali.common.util.spring.service;
 
+import static java.lang.Thread.currentThread;
+import static org.apache.commons.lang3.StringUtils.leftPad;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -143,8 +146,8 @@ public class DefaultSpringService implements SpringService {
 	public void load(SpringContext context) {
 		ConfigurableApplicationContext ctx = getApplicationContext(context);
 		try {
-			String id = StringUtils.leftPad(Thread.currentThread().getId() + "", 2);
-			String name = Thread.currentThread().getName();
+			String id = leftPad(Thread.currentThread().getId() + "", 2);
+			String name = currentThread().getName();
 			logger.debug("id: " + id + "  name: " + name + " ctx=" + ctx.getClass().getSimpleName() + "@" + Integer.toHexString(ctx.hashCode()));
 			ctx.refresh();
 			SpringUtils.debugQuietly(ctx);
