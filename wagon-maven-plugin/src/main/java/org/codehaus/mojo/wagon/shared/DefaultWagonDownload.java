@@ -113,7 +113,7 @@ public class DefaultWagonDownload implements WagonDownload {
 		List<WagonDownloadExecutable> executables = newArrayList();
 		for (String remoteFile : downloads.keySet()) {
 			CanonicalFile destination = downloads.get(remoteFile);
-			WagonDownloadExecutable executable = WagonDownloadExecutable.builder().withDestination(destination).withRemoteFile(remoteFile).build();
+			WagonDownloadExecutable executable = WagonDownloadExecutable.builder().withDestination(destination).withRemoteFile(remoteFile).withWagon(wagon).build();
 			executables.add(executable);
 		}
 		long start = currentTimeMillis();
