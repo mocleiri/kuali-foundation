@@ -67,14 +67,17 @@
         <artifactId>slf4j-api</artifactId>
         <version>${slf4j.version}</version>
       </dependency>
+      <!-- Always re-route JCL through slf4j -->
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>jcl-over-slf4j</artifactId>
         <version>${slf4j.version}</version>
       </dependency>
+      <!-- Maven 3.1+ ships with slf4j now -->
+      <!-- Leave this here for 3.0.5 compatibility -->
       <dependency>
         <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-log4j12</artifactId>
+        <artifactId>slf4j-simple</artifactId>
         <version>${slf4j.version}</version>
         <scope>runtime</scope>
       </dependency>
@@ -107,7 +110,7 @@
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
+      <artifactId>slf4j-simple</artifactId>
     </dependency>
   </dependencies>
 </project>
