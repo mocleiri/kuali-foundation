@@ -33,8 +33,12 @@ package org.codehaus.mojo.wagon.shared;
 import static com.google.common.collect.Maps.newTreeMap;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
+import static java.util.Collections.sort;
 import static org.apache.commons.io.FileUtils.touch;
 import static org.codehaus.plexus.util.StringUtils.isBlank;
+import static org.kuali.common.util.FormatUtils.getCount;
+import static org.kuali.common.util.FormatUtils.getRate;
+import static org.kuali.common.util.FormatUtils.getSize;
 import static org.kuali.common.util.FormatUtils.getTime;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 
@@ -47,6 +51,8 @@ import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.wagon.Wagon;
 import org.apache.maven.wagon.WagonException;
 import org.kuali.common.util.file.CanonicalFile;
+
+import com.google.common.collect.Lists;
 
 /**
  * @plexus.component role="org.codehaus.mojo.wagon.shared.WagonDownload" role-hint="default"
@@ -110,10 +116,24 @@ public class DefaultWagonDownload implements WagonDownload {
 			touchQuietly(destination);
 			wagon.get(remoteFile, destination);
 		}
+		long elapsed = currentTimeMillis() - start;
 		if (skipped.size() > 0) {
 			logger.info(format("Skipped %s resources that already exist on the local file system", skipped.size()));
 		}
-		logger.info(format("elapsed - %s", getTime(currentTimeMillis() - start)));
+		List<File> files = Lists.<File> newArrayList(downloads.values());
+		sort(files);
+
+		long bytes = getBytes(files);
+		Object[] args = { getCount(files.size()), getSize(bytes), getRate(elapsed, bytes), getTime(elapsed) };
+		logger.info(format("count: %s  size: %s  rate: %s  elapsed: %s", args));
+	}
+
+	protected long getBytes(List<File> files) {
+		long bytes = 0;
+		for (File file : files) {
+			bytes += file.length();
+		}
+		return bytes;
 	}
 
 	protected void touchQuietly(File file) {
