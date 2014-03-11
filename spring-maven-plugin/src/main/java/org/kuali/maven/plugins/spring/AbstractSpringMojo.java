@@ -16,6 +16,7 @@
 package org.kuali.maven.plugins.spring;
 
 import static java.util.Collections.singletonMap;
+import static org.kuali.common.util.ReflectionUtils.newInstance;
 import static org.kuali.maven.plugins.spring.MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME;
 
 import java.util.Map;
@@ -161,7 +162,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		SpringContext context = new SpringContext(beans, config);
 
 		// Get a reference to a SpringService instance (this is DefaultSpringService unless overridden)
-		SpringService service = ReflectionUtils.newInstance(springService);
+		SpringService service = newInstance(springService);
 
 		// Create an executable capable of correctly invoking Spring
 		Executable executable = new SpringExecutable(service, context);
