@@ -21,3 +21,4 @@
 - ruby package (what version, etc)
 - release new version of spring-maven-plugin with logging toned down so Maven 3.2 builds don't clutter the console with a bunch of noise
 - improve createAmi method signature?  make it take an object instead of 5 parameters
+- what's up with /var/lib/jenkins/m2/repository on ci.rice being 53g's???
