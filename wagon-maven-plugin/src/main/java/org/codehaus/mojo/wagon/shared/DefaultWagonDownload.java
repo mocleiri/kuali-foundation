@@ -96,7 +96,6 @@ public class DefaultWagonDownload implements WagonDownload {
 			return;
 		}
 
-		long start = currentTimeMillis();
 		SortedMap<String, CanonicalFile> skipped = newTreeMap();
 		SortedMap<String, CanonicalFile> downloads = newTreeMap();
 		for (String remoteFile : fileList) {
@@ -111,6 +110,7 @@ public class DefaultWagonDownload implements WagonDownload {
 			}
 		}
 
+		long start = currentTimeMillis();
 		for (String remoteFile : downloads.keySet()) {
 			CanonicalFile destination = downloads.get(remoteFile);
 			touchQuietly(destination);
