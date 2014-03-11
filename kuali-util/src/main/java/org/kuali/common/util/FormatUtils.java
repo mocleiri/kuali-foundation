@@ -235,6 +235,13 @@ public class FormatUtils {
 	 * Given a number of bytes and the number of milliseconds it took to transfer that number of bytes, return bytes/s, KB/s, MB/s, GB/s, TB/s, PB/s, or EB/s as appropriate
 	 */
 	public static String getRate(long millis, long bytes) {
+		return getRate(millis, bytes, rateFormatter);
+	}
+
+	/**
+	 * Given a number of bytes and the number of milliseconds it took to transfer that number of bytes, return bytes/s, KB/s, MB/s, GB/s, TB/s, PB/s, or EB/s as appropriate
+	 */
+	public static String getRate(long millis, long bytes, NumberFormat rateFormatter) {
 		double seconds = millis / SECOND;
 		double bytesPerSecond = bytes / seconds;
 		Size bandwidthLevel = getSizeEnum(bytesPerSecond);
