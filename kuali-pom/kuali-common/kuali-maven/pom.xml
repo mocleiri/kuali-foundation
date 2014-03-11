@@ -81,6 +81,17 @@
         <version>${slf4j.version}</version>
         <scope>runtime</scope>
       </dependency>
+      <dependency>
+        <groupId>org.kuali.common</groupId>
+        <artifactId>kuali-util</artifactId>
+        <version>${kuali-util.version}</version>
+        <excludes>
+          <exclude>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+          </exclude>
+        </excludes>
+      </dependency>
     </dependencies>
   </dependencyManagement>
   <dependencies>
