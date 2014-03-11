@@ -8,6 +8,8 @@ import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.io.File;
 
+import javax.validation.constraints.Min;
+
 import org.apache.maven.wagon.Wagon;
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
@@ -24,13 +26,15 @@ public final class WagonDownloadExecutable implements Executable {
 	private final File destination;
 	private final Wagon wagon;
 	private final Counter counter;
+	@Min(0)
+	private final int total;
 
 	@Override
 	public void execute() {
 		try {
 			touch(destination);
 			wagon.get(remoteFile, destination);
-			logger.info(format("%s - %s", leftPad(counter.increment() + "", 5, " "), remoteFile));
+			logger.info(format("%s of %s - %s", leftPad(counter.increment() + "", 5, " "), total, remoteFile));
 		} catch (Exception e) {
 			throw illegalState(e);
 		}
@@ -41,6 +45,7 @@ public final class WagonDownloadExecutable implements Executable {
 		this.destination = builder.destination;
 		this.wagon = builder.wagon;
 		this.counter = builder.counter;
+		this.total = builder.total;
 	}
 
 	public static Builder builder() {
@@ -53,6 +58,12 @@ public final class WagonDownloadExecutable implements Executable {
 		private File destination;
 		private Wagon wagon;
 		private Counter counter;
+		private int total;
+
+		public Builder withTotal(int total) {
+			this.total = total;
+			return this;
+		}
 
 		public Builder withCounter(Counter counter) {
 			this.counter = counter;
@@ -94,6 +105,10 @@ public final class WagonDownloadExecutable implements Executable {
 
 	public Counter getCounter() {
 		return counter;
+	}
+
+	public int getTotal() {
+		return total;
 	}
 
 }
