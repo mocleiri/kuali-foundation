@@ -43,6 +43,7 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 	private final ImmutableList<Executable> executables;
 	private final boolean skip;
 	private final boolean timed;
+	private final Optional<Integer> maxThreads;
 
 	// If any thread throws an exception, this gets filled in
 	private Optional<IllegalStateException> uncaughtException = absent();
@@ -79,6 +80,7 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 		// Optional
 		private boolean skip = false;
 		private boolean timed = false;
+		private Optional<Integer> maxThreads = absent();
 
 		public Builder(Executable... executables) {
 			this(ImmutableList.copyOf(executables));
@@ -95,6 +97,11 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 
 		public Builder skip(boolean skip) {
 			this.skip = skip;
+			return this;
+		}
+
+		public Builder withMaxThreads(int maxThreads) {
+			this.maxThreads = Optional.of(maxThreads);
 			return this;
 		}
 
@@ -115,6 +122,7 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 		this.executables = ImmutableList.copyOf(builder.executables);
 		this.skip = builder.skip;
 		this.timed = builder.timed;
+		this.maxThreads = builder.maxThreads;
 	}
 
 	@Override
@@ -123,7 +131,7 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 			logger.info("Skipping execution of {} executables", executables.size());
 			return;
 		}
-		List<Thread> threads = getThreads(executables);
+		List<Thread> threads = getThreads(executables, maxThreads);
 		Stopwatch stopwatch = createStarted();
 		Threads.start(threads);
 		Threads.join(threads);
@@ -137,7 +145,7 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 		}
 	}
 
-	protected List<Thread> getThreads(List<Executable> executables) {
+	protected List<Thread> getThreads(List<Executable> executables, Optional<Integer> maxThreads) {
 		List<Thread> threads = newArrayList();
 		for (Executable executable : executables) {
 			Runnable runnable = new ExecutableRunner(executable);
