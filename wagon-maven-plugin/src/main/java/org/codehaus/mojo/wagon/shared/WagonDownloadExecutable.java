@@ -11,6 +11,7 @@ import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.io.File;
+import java.text.NumberFormat;
 
 import javax.validation.constraints.Min;
 
@@ -35,6 +36,7 @@ public final class WagonDownloadExecutable implements Executable {
 	@Min(0)
 	private final int total;
 	private final long start;
+	private final NumberFormat numberFormatter;
 
 	@Override
 	public void execute() {
@@ -62,7 +64,7 @@ public final class WagonDownloadExecutable implements Executable {
 	}
 
 	private String ltime(long millis) {
-		return leftPad(getTime(millis), 6, " ");
+		return leftPad(getTime(millis, numberFormatter), 6, " ");
 	}
 
 	private String lpad(Object object, int size) {
@@ -77,6 +79,7 @@ public final class WagonDownloadExecutable implements Executable {
 		this.total = builder.total;
 		this.start = builder.start;
 		this.bytesCounter = builder.bytesCounter;
+		this.numberFormatter = builder.numberFormatter;
 	}
 
 	public static Builder builder() {
@@ -92,6 +95,18 @@ public final class WagonDownloadExecutable implements Executable {
 		private int total;
 		private long start;
 		private LongCounter bytesCounter;
+		private NumberFormat numberFormatter = getDefaultNumberFormatter();
+
+		private NumberFormat getDefaultNumberFormatter() {
+			NumberFormat nf = NumberFormat.getInstance();
+			nf.setMaximumFractionDigits(0);
+			return nf;
+		}
+
+		public Builder withNumberFormatter(NumberFormat numberFormatter) {
+			this.numberFormatter = numberFormatter;
+			return this;
+		}
 
 		public Builder withBytesCounter(LongCounter bytesCounter) {
 			this.bytesCounter = bytesCounter;
