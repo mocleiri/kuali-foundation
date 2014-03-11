@@ -16,17 +16,17 @@
 package org.kuali.common.util.execute.impl;
 
 import static com.google.common.base.Optional.absent;
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
+import static org.kuali.common.util.FormatUtils.getTime;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
+import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.List;
 
-import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.base.Threads;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 
 import com.google.common.base.Optional;
@@ -38,7 +38,7 @@ import com.google.common.collect.ImmutableList;
  */
 public final class ConcurrentExecutables implements Executable, UncaughtExceptionHandler {
 
-	private static final Logger logger = LoggerUtils.make();
+	private static final Logger logger = newLogger();
 
 	private final ImmutableList<Executable> executables;
 	private final boolean skip;
@@ -106,8 +106,8 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 		}
 
 		private static void validate(ConcurrentExecutables instance) {
-			checkNotNull(instance.executables, "executables cannot be null");
-			checkNotNull(instance.uncaughtException, "uncaughtException cannot be null");
+			checkNotNull(instance.executables, "executables");
+			checkNotNull(instance.uncaughtException, "uncaughtException");
 		}
 	}
 
@@ -132,7 +132,7 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 		}
 		if (timed) {
 			logger.info("------------------------------------------------------------------------");
-			logger.info("Total Time: {} (Wall Clock)", FormatUtils.getTime(stopwatch));
+			logger.info("Total Time: {} (Wall Clock)", getTime(stopwatch));
 			logger.info("------------------------------------------------------------------------");
 		}
 	}
