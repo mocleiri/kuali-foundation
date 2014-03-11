@@ -57,7 +57,6 @@ import org.kuali.common.util.Counter;
 import org.kuali.common.util.LongCounter;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.file.CanonicalFile;
-import org.kuali.common.util.inform.PercentCompleteInformer;
 
 import com.google.common.collect.Lists;
 
@@ -71,7 +70,6 @@ public class DefaultWagonDownload implements WagonDownload {
 	public List<String> getFileList(Wagon wagon, WagonFileSet fileSet, Log logger) throws WagonException {
 		logger.info("Scanning repository - " + wagon.getRepository().getUrl());
 
-		PercentCompleteInformer informer = new PercentCompleteInformer(250);
 		WagonDirectoryScanner dirScan = new WagonDirectoryScanner();
 		dirScan.setLogger(logger);
 		dirScan.setWagon(wagon);
@@ -82,12 +80,9 @@ public class DefaultWagonDownload implements WagonDownload {
 		if (fileSet.isUseDefaultExcludes()) {
 			dirScan.addDefaultExcludes();
 		}
-		dirScan.setInformer(informer);
 
 		long start = currentTimeMillis();
-		informer.start();
 		dirScan.scan();
-		informer.stop();
 		logger.info(format("scan time: %s", getTime(currentTimeMillis() - start)));
 		logger.info(format("files located: %s", dirScan.getFilesIncluded().size()));
 
