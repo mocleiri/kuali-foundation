@@ -36,7 +36,8 @@ public final class WagonDownloadExecutable implements Executable {
 			wagon.get(remoteFile, destination);
 			int count = counter.increment();
 			int percent = new Double((count / (total * 1D)) * 100).intValue();
-			logger.info(format("%s of %s %s%% - %s", leftPad(count + "", 5, " "), total, percent, remoteFile));
+			Object[] args = { leftPad(count + "", 5, " "), total, leftPad(percent + "", 3, " "), remoteFile };
+			logger.info(format("%s of %s %s%% - %s", args));
 		} catch (Exception e) {
 			throw illegalState(e);
 		}
