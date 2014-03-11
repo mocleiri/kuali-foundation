@@ -35,8 +35,10 @@ public final class WagonDownloadExecutable implements Executable {
 	private final LongCounter bytesCounter;
 	@Min(0)
 	private final int total;
+	@Min(0)
 	private final long start;
 	private final NumberFormat numberFormatter;
+	private final NumberFormat rateFormatter;
 
 	@Override
 	public void execute() {
@@ -53,7 +55,7 @@ public final class WagonDownloadExecutable implements Executable {
 		bytesCounter.increment(destination.length());
 		int count = counter.increment();
 		long elapsed = currentTimeMillis() - start;
-		String rate = getRate(elapsed, bytesCounter.getValue(), numberFormatter);
+		String rate = getRate(elapsed, bytesCounter.getValue(), rateFormatter);
 		long millisPerFile = elapsed / count;
 		int filesRemaining = total - count;
 		long timeRemaining = millisPerFile * filesRemaining;
@@ -80,6 +82,7 @@ public final class WagonDownloadExecutable implements Executable {
 		this.start = builder.start;
 		this.bytesCounter = builder.bytesCounter;
 		this.numberFormatter = builder.numberFormatter;
+		this.rateFormatter = builder.rateFormatter;
 	}
 
 	public static Builder builder() {
@@ -96,11 +99,11 @@ public final class WagonDownloadExecutable implements Executable {
 		private long start;
 		private LongCounter bytesCounter;
 		private NumberFormat numberFormatter = getDefaultNumberFormatter();
+		private NumberFormat rateFormatter = getDefaultRateFormatter();
 
-		private NumberFormat getDefaultNumberFormatter() {
-			NumberFormat nf = NumberFormat.getInstance();
-			nf.setMaximumFractionDigits(0);
-			return nf;
+		public Builder withRateFormatter(NumberFormat rateFormatter) {
+			this.rateFormatter = rateFormatter;
+			return this;
 		}
 
 		public Builder withNumberFormatter(NumberFormat numberFormatter) {
@@ -147,6 +150,20 @@ public final class WagonDownloadExecutable implements Executable {
 		public WagonDownloadExecutable build() {
 			return validate(new WagonDownloadExecutable(this));
 		}
+
+		private NumberFormat getDefaultNumberFormatter() {
+			NumberFormat nf = NumberFormat.getInstance();
+			nf.setMaximumFractionDigits(1);
+			nf.setMinimumFractionDigits(1);
+			return nf;
+		}
+
+		private NumberFormat getDefaultRateFormatter() {
+			NumberFormat nf = NumberFormat.getInstance();
+			nf.setMaximumFractionDigits(0);
+			return nf;
+		}
+
 	}
 
 	public String getRemoteFile() {
