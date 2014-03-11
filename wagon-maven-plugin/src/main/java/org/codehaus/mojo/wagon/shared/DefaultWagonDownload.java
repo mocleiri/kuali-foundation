@@ -130,7 +130,7 @@ public class DefaultWagonDownload implements WagonDownload {
 		long elapsed = currentTimeMillis() - start;
 		checkState(counter.getValue() == downloads.size(), "download counter is %s but should be %s", counter.getValue(), downloads.size());
 		if (skipped.size() > 0) {
-			logger.info(format("Skipped %s resources that already exist on the local file system", skipped.size()));
+			logger.info(format("skipped %s resources that already exist on the local file system", skipped.size()));
 		}
 		List<File> files = Lists.<File> newArrayList(downloads.values());
 		long bytes = getBytes(files);
