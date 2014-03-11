@@ -62,11 +62,11 @@ public final class WagonDownloadExecutable implements Executable {
 		// int percent = new Double((count / (total * 1D)) * 100).intValue();
 		String amount = lpad(getSize(bytesCounter.getValue(), numberFormatter), 4);
 		Object[] args = { lpad(count, 5), total, ltime(elapsed), ltime(timeRemaining), lpad(rate, 7), amount };
-		logger.info(format("%s of %s [elapsed: %s  remaining: %s rate: %s amount: %s]", args));
+		logger.info(format("%s of %s [elapsed:%s  remaining:%s  rate:%s  amount: %s]", args));
 	}
 
 	private String ltime(long millis) {
-		return leftPad(getTime(millis, numberFormatter), 3, " ");
+		return leftPad(getTime(millis, numberFormatter), 5, " ");
 	}
 
 	private String lpad(Object object, int size) {
