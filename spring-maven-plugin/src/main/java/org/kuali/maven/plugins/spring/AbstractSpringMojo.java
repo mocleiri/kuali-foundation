@@ -15,10 +15,13 @@
  */
 package org.kuali.maven.plugins.spring;
 
+import static java.lang.String.format;
 import static java.util.Collections.singletonMap;
 import static org.kuali.common.util.ReflectionUtils.newInstance;
+import static org.kuali.common.util.log.Loggers.newLogger;
 import static org.kuali.maven.plugins.spring.MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME;
 
+import java.security.CodeSource;
 import java.util.Map;
 import java.util.Properties;
 
@@ -36,6 +39,7 @@ import org.kuali.common.util.spring.SpringExecutable;
 import org.kuali.common.util.spring.service.SpringContext;
 import org.kuali.common.util.spring.service.SpringService;
 import org.kuali.maven.plugins.spring.config.MojoExecutableConfig;
+import org.slf4j.Logger;
 
 public abstract class AbstractSpringMojo extends AbstractMojo {
 
@@ -175,6 +179,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		// This would allow spring-maven-plugin to truly run in multi-threaded mode, instead of merely appearing to run correctly in multi-threaded mode by resorting back to single
 		// threaded mode.
 		synchronized (MUTEX) {
+			debugLogging();
 			configureLogging();
 			// Delegate execution to Spring
 			executable.execute();
@@ -187,6 +192,15 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		String key = "org.slf4j.simpleLogger.log.org.springframework";
 		String value = Boolean.getBoolean("spring.debug") ? "debug" : "warn";
 		System.setProperty(key, value);
+	}
+
+	protected void debugLogging() {
+		if (Boolean.getBoolean("slf4j.debug") || Boolean.getBoolean("log4j.debug")) {
+			Logger logger = newLogger();
+			CodeSource src = logger.getClass().getProtectionDomain().getCodeSource();
+			System.out.println(format("logging implementation:%s", logger.getClass().getCanonicalName()));
+			System.out.println(format("logging code source:%s", src.getLocation()));
+		}
 	}
 
 	public MavenProject getProject() {
