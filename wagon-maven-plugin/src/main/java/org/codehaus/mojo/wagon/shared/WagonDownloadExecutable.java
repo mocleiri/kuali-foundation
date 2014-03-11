@@ -30,7 +30,6 @@ public final class WagonDownloadExecutable implements Executable {
 		try {
 			touch(destination);
 			wagon.get(remoteFile, destination);
-			counter.increment();
 			logger.info(format("%s - %s", leftPad(counter.increment() + "", 5, " "), remoteFile));
 		} catch (Exception e) {
 			throw illegalState(e);
