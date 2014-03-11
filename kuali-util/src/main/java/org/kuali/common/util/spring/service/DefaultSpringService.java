@@ -144,9 +144,10 @@ public class DefaultSpringService implements SpringService {
 
 	@Override
 	public void load(SpringContext context) {
+		System.out.println("DefaultSpringService:load:beg");
 		ConfigurableApplicationContext ctx = getApplicationContext(context);
 		try {
-			String id = leftPad(Thread.currentThread().getId() + "", 2);
+			String id = leftPad(currentThread().getId() + "", 2);
 			String name = currentThread().getName();
 			logger.debug("id: " + id + "  name: " + name + " ctx=" + ctx.getClass().getSimpleName() + "@" + Integer.toHexString(ctx.hashCode()));
 			ctx.refresh();
@@ -154,6 +155,7 @@ public class DefaultSpringService implements SpringService {
 		} finally {
 			SpringUtils.closeQuietly(ctx);
 		}
+		System.out.println("DefaultSpringService:load:end");
 	}
 
 	@Override
