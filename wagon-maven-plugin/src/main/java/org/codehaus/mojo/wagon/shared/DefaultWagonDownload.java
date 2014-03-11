@@ -53,6 +53,7 @@ import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.wagon.Wagon;
 import org.apache.maven.wagon.WagonException;
 import org.kuali.common.util.Counter;
+import org.kuali.common.util.LongCounter;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.impl.ConcurrentExecutables;
 import org.kuali.common.util.file.CanonicalFile;
@@ -116,11 +117,12 @@ public class DefaultWagonDownload implements WagonDownload {
 
 		List<Executable> executables = newArrayList();
 		Counter counter = new Counter();
+		LongCounter bytesCounter = new LongCounter();
 		long start = currentTimeMillis();
 		for (String remoteFile : downloads.keySet()) {
 			CanonicalFile destination = downloads.get(remoteFile);
 			WagonDownloadExecutable executable = WagonDownloadExecutable.builder().withDestination(destination).withRemoteFile(remoteFile).withWagon(wagon).withCounter(counter)
-					.withTotal(downloads.size()).withStart(start).build();
+					.withTotal(downloads.size()).withStart(start).withBytesCounter(bytesCounter).build();
 			executables.add(executable);
 		}
 		shuffle(executables);
