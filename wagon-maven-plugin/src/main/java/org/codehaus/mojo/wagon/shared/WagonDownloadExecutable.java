@@ -64,4 +64,16 @@ public final class WagonDownloadExecutable implements Executable {
 		}
 	}
 
+	public String getRemoteFile() {
+		return remoteFile;
+	}
+
+	public File getDestination() {
+		return destination;
+	}
+
+	public Wagon getWagon() {
+		return wagon;
+	}
+
 }
