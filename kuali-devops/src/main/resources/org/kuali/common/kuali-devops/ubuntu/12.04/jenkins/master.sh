@@ -96,6 +96,7 @@ function install_plugins {
   install_plugin ssh-credentials       1.6.1
   install_plugin token-macro           1.10
   install_plugin disk-usage            0.23
+  install_plugin ldap                  1.8
 
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME  
   
