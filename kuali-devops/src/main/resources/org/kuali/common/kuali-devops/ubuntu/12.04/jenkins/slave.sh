@@ -125,14 +125,13 @@ function copy_repo_from_amazon {
 
   M2_REPO=/root/.m2/repository
   mkdir -p $M2_REPO
-  echo "copy      -> amazon repo"
+  echo "copy      -> s3://maven.kuali.org"
   echo "start     -> $(date)"
   MAVEN_POM="$BASEDIR/META-INF/maven/${project.groupId}/${project.artifactId}/pom.xml"
   MAVEN_ARGS="$MAVEN_ARGS -f $MAVEN_POM"
   MAVEN_ARGS="$MAVEN_ARGS initialize -Pupdate"
   MAVEN_ARGS="$MAVEN_ARGS -Dorg.slf4j.simpleLogger.log.org.kuali.maven.wagon=warn"
   MAVEN="mvn $MAVEN_ARGS"
-  echo $MAVEN
   execute_quietly "$MAVEN"
   echo "stop      -> $(date)"
   
