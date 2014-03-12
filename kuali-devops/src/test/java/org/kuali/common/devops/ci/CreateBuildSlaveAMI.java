@@ -94,11 +94,11 @@ public class CreateBuildSlaveAMI {
 		// The amount of time to wait before timing out on: instance creation, snapshot creation, ami creation
 		int timeoutMillis = getMillisAsInt(System.getProperty("slave.timeout", "30m"));
 		// The amount of time to sleep after creating a brand new instance (gives DNS a few seconds to figure itself out)
-		String sleep = System.getProperty("slave.sleep", "1s");
+		String sleep = System.getProperty("slave.sleep", "15s");
 
 		EC2Service service = getEC2Service();
-		// Instance instance = getNewSlaveInstance(service, ami, type, rootVolume, timeoutMillis);
-		Instance instance = getRunningSlaveInstance(service, "i-b436cf97");
+		Instance instance = getNewSlaveInstance(service, ami, type, rootVolume, timeoutMillis);
+		// Instance instance = getRunningSlaveInstance(service, "i-b436cf97");
 		logger.info(format("public dns: %s", instance.getPublicDnsName()));
 		logger.info(format("sleeping %s to let dns settle down", sleep));
 		sleep(sleep);
@@ -110,7 +110,7 @@ public class CreateBuildSlaveAMI {
 		String description = format("automated ec2 slave ami - %s", today);
 		Image image = service.createAmi(instance.getInstanceId(), name, description, rootVolume, timeoutMillis);
 		logger.info(format("created %s - %s", image.getImageId(), getTime(sw)));
-		cleanupAmis(service);
+		// cleanupAmis(service);
 	}
 
 	protected void cleanupAmis(EC2Service service) {

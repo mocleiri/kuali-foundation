@@ -143,7 +143,7 @@ JENKINS_MASTER=${jenkins.master}
 check_args
 
 slave_shutdown_scripting
-#install_mysql_server
+install_mysql_server
 copy_repo_from_master
 build_maven_projects
 copy_repo_from_amazon
