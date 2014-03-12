@@ -105,6 +105,18 @@ function copy_repo_from_master {
   
 }
 
+function copy_repo_from_amazon {
+
+  M2_REPO=/root/.m2/repository
+  mkdir -p $M2_REPO
+  echo "copy      -> amazon repo"
+  echo "start     -> $(date)"
+  MAVEN="mvn -f $BASEDIR/META-INF/maven/${project.groupId}/${project.artifactId} initialize -Pupdate"
+  execute_quietly "$MAVEN" 
+  echo "stop      -> $(date)"
+  
+}
+
 BASEDIR=${1-BASEDIR}
 QUIET=${2-$QUIET}
 JENKINS_MASTER=${jenkins.master}
