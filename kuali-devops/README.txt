@@ -23,5 +23,5 @@ cd ~/ws/kuali-devops; mci -Pslave; chmod -R 755 ~/ws/kuali-devops/target/classes
 MASTER:
 cd ~/ws/kuali-devops; mci; chmod -R 755 ~/ws/kuali-devops/target/classes; cd ~/ws/kuali-devops/target/classes/org/kuali/common/kuali-devops/ubuntu/12.04/local;
 ./appserver.sh NEXUS_PASSWORD ZIP_PASSWORD beta.ci jdk7 tomcat7 5g 256m -qq
-./jenkins.sh   NEXUS_PASSWORD ZIP_PASSWORD beta.ci master
+./jenkins.sh   NEXUS_PASSWORD ZIP_PASSWORD beta.ci master -qq
 
