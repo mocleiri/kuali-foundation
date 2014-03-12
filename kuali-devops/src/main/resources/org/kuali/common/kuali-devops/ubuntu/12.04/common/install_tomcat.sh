@@ -123,6 +123,8 @@ function configure_tomcat_ssl {
   openssl pkcs12 -in $SSL_KEYSTORE -out $TOMCAT_SSL_DIR/SSLCertificateChainFile.pem -clcerts -nokeys -passin file:"$SSL_PASSWORD"
   openssl pkcs12 -in $SSL_KEYSTORE -out $TOMCAT_SSL_DIR/SSLCertificateKeyFile.pem   -nocerts -nodes  -passin file:"$SSL_PASSWORD"
   
+  rm $SSL_KEYSTORE $SSL_PASSWORD
+  
 }
 
 function configure_tomcat {
