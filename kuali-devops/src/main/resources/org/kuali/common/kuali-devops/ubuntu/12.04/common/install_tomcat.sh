@@ -160,6 +160,9 @@ function configure_tomcat {
   echo "PATH=\$JAVA_HOME/bin:\$PATH:."              >> $TOMCAT_BASH_ALIASES
   echo "MAVEN_OPTS=\"-Xmx2g -XX:MaxPermSize=256m\"" >> $TOMCAT_BASH_ALIASES
   echo "export JAVA_HOME PATH MAVEN_OPTS"           >> $TOMCAT_BASH_ALIASES
+  
+  # setup ssl
+  configure_tomcat_ssl
 
   chown -R $TOMCAT_USER:$TOMCAT_GROUP $TOMCAT_HOME
   
