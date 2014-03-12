@@ -97,8 +97,8 @@ public class CreateBuildSlaveAMI {
 		String sleep = System.getProperty("slave.sleep", "15s");
 
 		EC2Service service = getEC2Service();
-		Instance instance = getNewSlaveInstance(service, ami, type, rootVolume, timeoutMillis);
-		// Instance instance = getRunningSlaveInstance(service, "i-b436cf97");
+		//Instance instance = getNewSlaveInstance(service, ami, type, rootVolume, timeoutMillis);
+		Instance instance = getRunningSlaveInstance(service, "i-b436cf97");
 		logger.info(format("public dns: %s", instance.getPublicDnsName()));
 		logger.info(format("sleeping %s to let dns settle down", sleep));
 		sleep(sleep);
