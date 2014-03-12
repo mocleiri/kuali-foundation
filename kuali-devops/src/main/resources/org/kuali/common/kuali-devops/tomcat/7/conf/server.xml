@@ -27,9 +27,9 @@
     <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true" connectionTimeout="20000"
       maxThreads="200" scheme="https" 
       URIEncoding="UTF-8"
-      SSLCertificateKeyFile="conf/ssl/SSLCertificateKeyFile.pem"
-      SSLCertificateFile="conf/ssl/SSLCertificateFile.pem"
-      SSLCertificateChainFile="conf/ssl/SSLCertificateChainFile.pem"
+      SSLCertificateKeyFile="${catalina.base}/conf/ssl/SSLCertificateKeyFile.pem"
+      SSLCertificateFile="${catalina.base}/conf/ssl/SSLCertificateFile.pem"
+      SSLCertificateChainFile="${catalina.base}/conf/ssl/SSLCertificateChainFile.pem"
       SSLProtocol="TLSv1"
     />
     <Engine name="Catalina" defaultHost="localhost">
