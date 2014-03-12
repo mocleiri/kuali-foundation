@@ -108,7 +108,7 @@ function get_java_opts {
 
 function configure_tomcat_ssl {
 
-  $TOMCAT_SSL_DIR=/var/lib/$TOMCAT/conf/ssl
+  TOMCAT_SSL_DIR=/var/lib/$TOMCAT/conf/ssl
   mkdir -p $TOMCAT_SSL_DIR
   
   ZIP=$BASEDIR/${project.groupId.path}/${project.artifactId}/tomcat/config.zip
