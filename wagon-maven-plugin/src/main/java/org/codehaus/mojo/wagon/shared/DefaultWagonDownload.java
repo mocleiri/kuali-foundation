@@ -147,7 +147,7 @@ public class DefaultWagonDownload implements WagonDownload {
 		List<File> files = Lists.<File> newArrayList(downloads.values());
 		long bytes = getBytes(files);
 		Object[] args = { getCount(files.size()), getSize(bytes), getRate(elapsed, bytes), getTime(elapsed) };
-		logger.info(format("count: %s  size: %s  rate: %s  elapsed: %s", args));
+		logger.info(format("files: %s  size: %s  rate: %s  elapsed: %s", args));
 	}
 
 	protected long getBytes(List<File> files) {
