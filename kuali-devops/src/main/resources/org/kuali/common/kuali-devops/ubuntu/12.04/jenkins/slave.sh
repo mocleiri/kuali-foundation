@@ -106,7 +106,8 @@ function copy_repo_from_master {
 }
 
 function build_maven_project {
-  mvn -f /mnt/$1/pom.xml clean install -DskipTests -T C1
+  echo "maven     -> build $1" 
+  execute_quietly "mvn -f /mnt/$1/pom.xml clean install -DskipTests -T C1"
 }
 
 function build_maven_projects {
