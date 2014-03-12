@@ -28,7 +28,7 @@
       maxThreads="200" scheme="https"
       URIEncoding="UTF-8"
       SSLCertificateKeyFile="${catalina.base}/conf/ssl/SSLCertificateKeyFile.pem"
-      SSLCertificateFile="${catalina.base}conf/ssl/SSLCertificateFile.pem"
+      SSLCertificateFile="${catalina.base}/conf/ssl/SSLCertificateFile.pem"
       SSLCertificateChainFile="${catalina.base}/conf/ssl/SSLCertificateChainFile.pem"
       SSLProtocol="TLSv1"
     />
