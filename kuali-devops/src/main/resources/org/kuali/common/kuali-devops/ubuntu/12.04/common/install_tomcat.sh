@@ -95,9 +95,12 @@ function get_java_opts {
 
 function configure_tomcat_ssl {
 
-  openssl pkcs12 -in $SSL_KEYSTORE -out SSLCertificateFile.pem      -clcerts -nokeys -passin pass:"$SSL_PASSPHRASE"
-  openssl pkcs12 -in $SSL_KEYSTORE -out SSLCertificateChainFile.pem -clcerts -nokeys -passin pass:"$SSL_PASSPHRASE"
-  openssl pkcs12 -in $SSL_KEYSTORE -out SSLCertificateKeyFile.pem   -nocerts -nodes  -passin pass:"$SSL_PASSPHRASE"
+  $TOMCAT_SSL_DIR=/var/lib/$TOMCAT/conf/ssl
+  mkdir -p $TOMCAT_SSL_DIR
+  
+  openssl pkcs12 -in $SSL_KEYSTORE -out $TOMCAT_SSL_DIR/SSLCertificateFile.pem      -clcerts -nokeys -passin pass:"$SSL_PASSPHRASE"
+  openssl pkcs12 -in $SSL_KEYSTORE -out $TOMCAT_SSL_DIR/SSLCertificateChainFile.pem -clcerts -nokeys -passin pass:"$SSL_PASSPHRASE"
+  openssl pkcs12 -in $SSL_KEYSTORE -out $TOMCAT_SSL_DIR/SSLCertificateKeyFile.pem   -nocerts -nodes  -passin pass:"$SSL_PASSPHRASE"
   
 }
 
