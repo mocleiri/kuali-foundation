@@ -15,7 +15,18 @@
 # limitations under the License.
 #
 
-# generic functions
+function check_exists {
+  FILENAME=$1
+  if [ ! -n "$FILENAME" ]; then 
+    echo FILENAME cannot be blank
+    exit 1
+  fi
+  if [ ! -f $FILENAME ]; then
+    echo "file [$FILENAME] does not exist"
+    exit 1
+  fi
+}
+
 function execute_quietly {
   COMMAND=$1
   if [ "$QUIET" = "-qq" ]; then
@@ -102,6 +113,7 @@ function configure_tomcat_ssl {
   unzip $QUIET -P $ZIP_PASSWORD -o $ZIP -d $TOMCAT_SSL_DIR
   
   SSL_KEYSTORE=$TOMCAT_SSL_DIR/wildcard.$DOMAIN.keystore.pksc12
+  check_exists SSL_KEYSTORE $SSL_KEYSTORE
 
   openssl pkcs12 -in $SSL_KEYSTORE -out $TOMCAT_SSL_DIR/SSLCertificateFile.pem      -clcerts -nokeys -passin pass:"$SSL_PASSWORD"
   openssl pkcs12 -in $SSL_KEYSTORE -out $TOMCAT_SSL_DIR/SSLCertificateChainFile.pem -clcerts -nokeys -passin pass:"$SSL_PASSWORD"
