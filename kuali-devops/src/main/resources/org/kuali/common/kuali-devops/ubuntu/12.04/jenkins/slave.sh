@@ -106,7 +106,7 @@ function copy_repo_from_master {
 }
 
 function build_maven_project {
-  svn up; mvn -f /mnt/$1/pom.xml clean install -DskipTests -T C1
+  cd /mnt/$1; svn up; mvn -f /mnt/$1/pom.xml clean install -DskipTests -T C1
 }
 
 function build_maven_projects {
