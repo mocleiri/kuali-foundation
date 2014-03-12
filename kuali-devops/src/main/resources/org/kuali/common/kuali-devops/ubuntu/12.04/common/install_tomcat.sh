@@ -116,16 +116,16 @@ function configure_tomcat_ssl {
   ZIP=$BASEDIR/${project.groupId.path}/${project.artifactId}/tomcat/config.zip
   unzip $QUIET -P $ZIP_PASSWORD -o $ZIP -d $TOMCAT_SSL_DIR
   
-  SSL_KEYSTORE=$TOMCAT_SSL_DIR/wildcard.$DOMAIN.keystore.pkcs12
-  SSL_PASSWORD=$TOMCAT_SSL_DIR/wildcard.$DOMAIN.keystore.password
-  check_exists $SSL_KEYSTORE
-  check_exists $SSL_PASSWORD
+  SSL_KEYSTORE_FILE=$TOMCAT_SSL_DIR/wildcard.$DOMAIN.keystore.pkcs12
+  SSL_PASSWORD_FILE=$TOMCAT_SSL_DIR/wildcard.$DOMAIN.keystore.password
+  check_exists $SSL_KEYSTORE_FILE
+  check_exists $SSL_PASSWORD_FILE
   
-  openssl pkcs12 -in $SSL_KEYSTORE -out $TOMCAT_SSL_DIR/SSLCertificateFile.pem      -clcerts -nokeys -passin file:"$SSL_PASSWORD"
-  openssl pkcs12 -in $SSL_KEYSTORE -out $TOMCAT_SSL_DIR/SSLCertificateChainFile.pem -clcerts -nokeys -passin file:"$SSL_PASSWORD"
-  openssl pkcs12 -in $SSL_KEYSTORE -out $TOMCAT_SSL_DIR/SSLCertificateKeyFile.pem   -nocerts -nodes  -passin file:"$SSL_PASSWORD"
+  openssl pkcs12 -in $SSL_KEYSTORE_FILE -out $TOMCAT_SSL_DIR/SSLCertificateFile.pem      -clcerts -nokeys -passin file:$SSL_PASSWORD_FILE
+  openssl pkcs12 -in $SSL_KEYSTORE_FILE -out $TOMCAT_SSL_DIR/SSLCertificateChainFile.pem -clcerts -nokeys -passin file:$SSL_PASSWORD_FILE
+  openssl pkcs12 -in $SSL_KEYSTORE_FILE -out $TOMCAT_SSL_DIR/SSLCertificateKeyFile.pem   -nocerts -nodes  -passin file:$SSL_PASSWORD_FILE
   
-  rm $SSL_KEYSTORE $SSL_PASSWORD
+  rm $SSL_KEYSTORE_FILE $SSL_PASSWORD_FILE
   
 }
 
