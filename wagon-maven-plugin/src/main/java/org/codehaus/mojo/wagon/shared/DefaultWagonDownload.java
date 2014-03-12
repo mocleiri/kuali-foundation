@@ -97,7 +97,6 @@ public class DefaultWagonDownload implements WagonDownload {
 
 	@Override
 	public void download(Wagon wagon, WagonFileSet remoteFileSet, Log logger, boolean skipExisting) throws WagonException {
-		System.setProperty("org.slf4j.simpleLogger.log.org.kuali.maven.wagon", "warn");
 
 		List<String> fileList = getFileList(wagon, remoteFileSet, logger);
 

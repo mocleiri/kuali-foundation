@@ -48,7 +48,9 @@ public final class WagonDownloadExecutable implements Executable {
 		try {
 			touch(destination);
 			wagon.get(remoteFile, destination);
-			informer.incrementProgress();
+			if ("warn".equalsIgnoreCase(System.getProperty("org.slf4j.simpleLogger.log.org.kuali.maven.wagon"))) {
+				informer.incrementProgress();
+			}
 			stats();
 		} catch (Exception e) {
 			throw illegalState(e);
@@ -66,7 +68,11 @@ public final class WagonDownloadExecutable implements Executable {
 		// int percent = new Double((count / (total * 1D)) * 100).intValue();
 		String amount = lpad(getSize(bytesCounter.getValue(), numberFormatter), 6);
 		Object[] args = { lpad(getCount(count), 6), lpad(getCount(total), 6), lpad(getCount(filesRemaining), 6), ltime(elapsed), lpad(rate, 8), amount };
-		logger.debug(format("%s of %s - remaining %s [elapsed:%s  rate:%s  downloaded:%s]", args));
+		if ("warn".equalsIgnoreCase(System.getProperty("org.slf4j.simpleLogger.log.org.kuali.maven.wagon"))) {
+			logger.debug(format("%s of %s - remaining %s [elapsed:%s  rate:%s  downloaded:%s]", args));
+		} else {
+			logger.info(format("%s of %s - remaining %s [elapsed:%s  rate:%s  downloaded:%s]", args));
+		}
 	}
 
 	private String ltime(long millis) {
