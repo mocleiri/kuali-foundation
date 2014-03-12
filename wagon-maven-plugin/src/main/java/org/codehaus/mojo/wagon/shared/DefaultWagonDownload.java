@@ -87,8 +87,9 @@ public class DefaultWagonDownload implements WagonDownload {
 		long start = currentTimeMillis();
 		informer.start();
 		dirScan.scan();
+		long directoriesScanned = informer.getProgress();
 		informer.stop();
-		logger.info(format("scan time: %s", getTime(currentTimeMillis() - start)));
+		logger.info(format("scanned %s directories - %s", directoriesScanned, getTime(currentTimeMillis() - start)));
 		logger.info(format("files located: %s", dirScan.getFilesIncluded().size()));
 
 		return dirScan.getFilesIncluded();
