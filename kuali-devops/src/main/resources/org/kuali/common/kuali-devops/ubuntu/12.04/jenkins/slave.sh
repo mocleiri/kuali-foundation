@@ -106,7 +106,17 @@ function copy_repo_from_master {
 }
 
 function build_maven_project {
-  mvn -f /mnt/$1/pom.xml clean install -DskipTests -T C1
+  svn up; mvn -f /mnt/$1/pom.xml clean install -DskipTests -T C1
+}
+
+function build_maven_projects {
+  build_maven_project kuali-util
+  build_maven_project kuali-core
+  build_maven_project kuali-httpclient
+  build_maven_project kuali-dns
+  build_maven_project kuali-aws
+  build_maven_project kuali-devops
+  build_maven_project wagon-maven-plugin
 }
 
 function copy_repo_from_amazon {
@@ -115,14 +125,6 @@ function copy_repo_from_amazon {
   mkdir -p $M2_REPO
   echo "copy      -> amazon repo"
   echo "start     -> $(date)"
-  build_maven_project kuali-util
-  build_maven_project kuali-core
-  build_maven_project kuali-httpclient
-  build_maven_project kuali-dns
-  build_maven_project kuali-aws
-  build_maven_project kuali-devops
-  build_maven_project wagon-maven-plugin
-
   MAVEN_POM="$BASEDIR/META-INF/maven/${project.groupId}/${project.artifactId}/pom.xml"
   MAVEN_ARGS="$MAVEN_ARGS -f $MAVEN_POM"
   MAVEN_ARGS="$MAVEN_ARGS initialize -Pupdate"
@@ -143,4 +145,5 @@ check_args
 slave_shutdown_scripting
 #install_mysql_server
 copy_repo_from_master
+build_maven_projects
 copy_repo_from_amazon
