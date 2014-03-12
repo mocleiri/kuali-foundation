@@ -90,14 +90,14 @@ public class CreateBuildSlaveAMI {
 		// Configurable items
 		String ami = System.getProperty("slave.ami", AMI.UBUNTU_64_BIT_PRECISE_LTS.getId());
 		InstanceType type = InstanceType.fromValue(System.getProperty("slave.type", InstanceType.C3Xlarge.toString()));
-		RootVolume rootVolume = RootVolume.create(parseInt(System.getProperty("slave.size", "64")), true);
+		RootVolume rootVolume = RootVolume.create(parseInt(System.getProperty("slave.size", "32")), true);
 		// The amount of time to wait before timing out on: instance creation, snapshot creation, ami creation
 		int timeoutMillis = getMillisAsInt(System.getProperty("slave.timeout", "1h"));
 		// The amount of time to sleep after creating a brand new instance (gives DNS a few seconds to figure itself out)
 		String sleep = System.getProperty("slave.sleep", "15s");
 
 		EC2Service service = getEC2Service();
-		//Instance instance = getNewSlaveInstance(service, ami, type, rootVolume, timeoutMillis);
+		// Instance instance = getNewSlaveInstance(service, ami, type, rootVolume, timeoutMillis);
 		Instance instance = getRunningSlaveInstance(service, "i-b436cf97");
 		logger.info(format("public dns: %s", instance.getPublicDnsName()));
 		logger.info(format("sleeping %s to let dns settle down", sleep));
