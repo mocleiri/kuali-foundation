@@ -46,13 +46,14 @@ function check_not_blank {
 # module specific functions
 function show_usage {
   echo
-  echo requires SSL_PASSWORD DOMAIN BASEDIR TOMCAT JDK MAX_HEAP MAX_PERM QUIET
-  echo usage: install_tomcat.sh ssl_password domain basedir tomcat6/tomcat7 jdk6/jdk7 max_heap max_perm [quiet]
+  echo requires ZIP_PASSWORD SSL_PASSWORD DOMAIN BASEDIR TOMCAT JDK MAX_HEAP MAX_PERM QUIET
+  echo usage: install_tomcat.sh zip_password ssl_password domain basedir tomcat6/tomcat7 jdk6/jdk7 max_heap max_perm [quiet]
   echo
   exit 1
 }
 
 function check_args {
+  check_not_blank ZIP_PASSWORD $ZIP_PASSWORD
   check_not_blank SSL_PASSWORD $SSL_PASSWORD
   check_not_blank DOMAIN $DOMAIN
   check_not_blank BASEDIR $BASEDIR
