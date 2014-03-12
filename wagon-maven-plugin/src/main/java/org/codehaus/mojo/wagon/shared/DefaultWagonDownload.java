@@ -127,7 +127,8 @@ public class DefaultWagonDownload implements WagonDownload {
 		}
 		logger.info(format("downloading %s files ", downloads.size()));
 		List<Executable> executables = newArrayList();
-		PercentCompleteInformer informer = new PercentCompleteInformer(downloads.size() / 5);
+		long total = Math.max(100, downloads.size() / 10);
+		PercentCompleteInformer informer = new PercentCompleteInformer(total);
 		Counter counter = new Counter();
 		LongCounter bytesCounter = new LongCounter();
 		long start = currentTimeMillis();
