@@ -16,6 +16,7 @@
 
 - Make Maven versions to install a CSV property
 - release util, core, httpclient, dns, aws
+- don't build util + core etc as part of the bash script
 - bump pom, pin devops to correct versions of those
 - release devops
 - CAS groups (talk to Farooq)
