@@ -14,8 +14,7 @@
     limitations under the License.
 ====
 
-mvn initialize -Pupdate -Dorg.slf4j.simpleLogger.log.org.kuali.maven.wagon=warn
-
+mci -Pslave; mvn test -Pslave -Dtest=CreateBuildSlaveAMI
 
 SLAVE:
 cd ~/ws/kuali-devops; mci -Pslave; chmod -R 755 ~/ws/kuali-devops/target/classes; cd ~/ws/kuali-devops/target/classes/org/kuali/common/kuali-devops/ubuntu/12.04/local;

@@ -14,6 +14,9 @@
     limitations under the License.
 ====
 
+- release util, core, httpclient, dns, aws
+- bump pom, pin devops to correct versions of those
+- release devops
 - CAS groups (talk to Farooq)
 - SSL
 - automatically update jenkins with new AMI id
