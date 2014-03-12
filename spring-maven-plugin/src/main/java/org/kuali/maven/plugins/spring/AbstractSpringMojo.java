@@ -42,8 +42,6 @@ import org.kuali.common.util.spring.service.SpringService;
 import org.kuali.maven.plugins.spring.config.MojoExecutableConfig;
 import org.slf4j.Logger;
 
-import com.google.common.base.Joiner;
-
 public abstract class AbstractSpringMojo extends AbstractMojo {
 
 	// TODO See the comments in the execute() method and fix things so this locking object is no longer needed
@@ -199,11 +197,9 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	// but the custom log4j configuration we'd been using for 3.0.5 no longer works.
 	// Since SLF4J has already been bound to slf4j-simple, it ignores any slf4-log4j configuration
 	protected void configureSpringLogging() {
-		String groupId = "org.springframework";
-		String prefix = "org.slf4j.simpleLogger.log";
-		String springLoggingDetailLevelKey = Joiner.on('.').join(prefix, groupId);
-		String springLoggingDetailLevelValue = getGlobalBoolean(SPRING_DEBUG_KEY, properties) ? "debug" : "warn";
-		System.setProperty(springLoggingDetailLevelKey, springLoggingDetailLevelValue);
+		String key = "org.slf4j.simpleLogger.log.org.springframework";
+		String val = getGlobalBoolean(SPRING_DEBUG_KEY, properties) ? "debug" : "warn";
+		System.setProperty(key, val);
 	}
 
 	/**
