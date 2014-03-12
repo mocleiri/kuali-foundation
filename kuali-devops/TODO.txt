@@ -14,7 +14,6 @@
     limitations under the License.
 ====
 
-- release new version of spring-maven-plugin with logging toned down so Maven 3.2 builds don't clutter the console with a bunch of noise
 - cache GIT credentials somehow
 - automatically update jenkins with new AMI id
 - install and pin firefox to a specific version(?)
