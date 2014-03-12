@@ -117,6 +117,8 @@ function configure_tomcat_ssl {
   
   SSL_KEYSTORE=$TOMCAT_SSL_DIR/wildcard.$DOMAIN.keystore.pksc12
   check_exists $SSL_KEYSTORE
+  
+  echo $SSL_PASSWORD
 
   openssl pkcs12 -in $SSL_KEYSTORE -out $SSL_KEYSTORE/SSLCertificateFile.pem      -clcerts -nokeys -passin pass:"$SSL_PASSWORD"
   openssl pkcs12 -in $SSL_KEYSTORE -out $SSL_KEYSTORE/SSLCertificateChainFile.pem -clcerts -nokeys -passin pass:"$SSL_PASSWORD"
