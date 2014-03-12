@@ -108,7 +108,7 @@ function copy_repo_from_master {
 function build_maven_project {
   echo "maven     -> build $1" 
   rm -rf /mnt/$1
-  execute_quietly "svn checkout https://svn.kuali.org/repos/foundation/trunk/$1"
+  execute_quietly "svn checkout https://svn.kuali.org/repos/foundation/trunk/$1 /mnt/$1"
   execute_quietly "mvn -f /mnt/$1/pom.xml clean install -DskipTests -T C1"
 }
 
