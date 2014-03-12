@@ -14,9 +14,11 @@
     limitations under the License.
 ====
 
-- cache GIT credentials somehow
+- CAS groups (talk to Farooq)
+- SSL
 - automatically update jenkins with new AMI id
 - install and pin firefox to a specific version(?)
+- cache GIT credentials somehow
 - ruby package (what version, etc)
 - improve createAmi method signature?  make it take an object instead of 5 parameters
 - what's up with /var/lib/jenkins/m2/repository on ci.rice being 53g's???
