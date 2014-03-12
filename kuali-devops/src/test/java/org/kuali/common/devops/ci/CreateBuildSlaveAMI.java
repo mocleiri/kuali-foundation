@@ -111,6 +111,8 @@ public class CreateBuildSlaveAMI {
 		Image image = service.createAmi(instance.getInstanceId(), name, description, rootVolume, timeoutMillis);
 		logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
 		cleanupAmis(service);
+		logger.info(format("terminating instance [%s]", instance.getInstanceId()));
+		service.terminateInstance(instance.getInstanceId());
 	}
 
 	protected void cleanupAmis(EC2Service service) {
