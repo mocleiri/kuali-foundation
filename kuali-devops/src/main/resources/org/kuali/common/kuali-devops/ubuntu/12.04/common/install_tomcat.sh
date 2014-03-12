@@ -64,7 +64,7 @@ function check_args {
 
 function redirect_ports {
 
-  echo "redirect  -> port 80 to 8080"
+  echo "redirect  -> port 80  to 8080"
   iptables --table nat --append PREROUTING --protocol tcp --dport 80 --jump REDIRECT --to-port 8080
   iptables -t nat -A OUTPUT -p tcp -o lo --dport 80 -j DNAT --to 127.0.0.1:8080
   echo "redirect  -> port 443 to 8443"
