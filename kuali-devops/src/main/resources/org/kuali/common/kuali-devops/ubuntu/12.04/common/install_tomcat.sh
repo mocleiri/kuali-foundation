@@ -54,6 +54,8 @@ function redirect_ports {
   echo "redirect  -> port 80 to 8080"
   iptables --table nat --append PREROUTING --protocol tcp --dport 80 --jump REDIRECT --to-port 8080
   iptables -t nat -A OUTPUT -p tcp -o lo --dport 80 -j DNAT --to 127.0.0.1:8080
+  iptables --table nat --append PREROUTING --protocol tcp --dport 443 --jump REDIRECT --to-port 8443
+  iptables -t nat -A OUTPUT -p tcp -o lo --dport 443 -j DNAT --to 127.0.0.1:8443
   export DEBIAN_FRONTEND=noninteractive
   execute_quietly "apt-get $QUIET -y install iptables-persistent"
   iptables-save > /etc/iptables/rules.v4
