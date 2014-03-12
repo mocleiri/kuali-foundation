@@ -100,6 +100,7 @@ function configure_tomcat_ssl {
   
   ZIP=$BASEDIR/${project.groupId.path}/${project.artifactId}/tomcat/config.zip
   unzip $QUIET -P $ZIP_PASSWORD -o $ZIP -d $TOMCAT_SSL_DIR
+  
   SSL_KEYSTORE=$TOMCAT_SSL_DIR/wildcard.$DOMAIN.keystore.pksc12
 
   openssl pkcs12 -in $SSL_KEYSTORE -out $TOMCAT_SSL_DIR/SSLCertificateFile.pem      -clcerts -nokeys -passin pass:"$SSL_PASSWORD"
