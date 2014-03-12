@@ -13,7 +13,6 @@ import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
-import static org.kuali.common.util.FormatUtils.getTime;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
@@ -107,10 +106,10 @@ public class CreateBuildSlaveAMI {
 		chmod(buildDir);
 		CanonicalFile bashDir = getLocalBashDir(buildDir);
 		configureSlave(instance, bashDir);
-		String description = format("automated ec2 slave ami - %s", today);
-		Image image = service.createAmi(instance.getInstanceId(), name, description, rootVolume, timeoutMillis);
-		logger.info(format("created %s - %s", image.getImageId(), getTime(sw)));
-		// cleanupAmis(service);
+		//String description = format("automated ec2 slave ami - %s", today);
+		//Image image = service.createAmi(instance.getInstanceId(), name, description, rootVolume, timeoutMillis);
+		//logger.info(format("created %s - %s", image.getImageId(), getTime(sw)));
+		//cleanupAmis(service);
 	}
 
 	protected void cleanupAmis(EC2Service service) {
