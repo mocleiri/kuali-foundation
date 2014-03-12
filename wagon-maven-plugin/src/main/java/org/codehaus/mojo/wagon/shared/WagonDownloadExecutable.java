@@ -22,6 +22,7 @@ import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import org.kuali.common.util.Counter;
 import org.kuali.common.util.LongCounter;
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.inform.Inform;
 import org.kuali.common.util.inform.PercentCompleteInformer;
 import org.slf4j.Logger;
 
@@ -49,8 +50,13 @@ public final class WagonDownloadExecutable implements Executable {
 			touch(destination);
 			wagon.get(remoteFile, destination);
 			if ("warn".equalsIgnoreCase(System.getProperty("org.slf4j.simpleLogger.log.org.kuali.maven.wagon"))) {
-				informer.incrementProgress();
-				
+				synchronized (informer) {
+					informer.incrementProgress();
+					if (informer.getProgress() % informer.getTotal() == 0) {
+						Inform inform = informer.getInform();
+						inform.getPrintStream().print(inform.getCompleteToken() + inform.getStartToken());
+					}
+				}
 			}
 			stats();
 		} catch (Exception e) {
