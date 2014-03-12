@@ -111,7 +111,11 @@ function copy_repo_from_amazon {
   mkdir -p $M2_REPO
   echo "copy      -> amazon repo"
   echo "start     -> $(date)"
-  mvn -f $BASEDIR/META-INF/maven/${project.groupId}/${project.artifactId} initialize -Pupdate
+  MAVEN_POM="$BASEDIR/META-INF/maven/${project.groupId}/${project.artifactId}/pom.xml"
+  MAVEN_ARGS="$MAVEN_ARGS -f $MAVEN_POM"
+  MAVEN_ARGS="$MAVEN_ARGS initialize -Pupdate"
+  MAVEN_ARGS="$MAVEN_ARGS -Dorg.slf4j.simpleLogger.log.org.kuali.maven.wagon=warn"
+  mvn $MAVEN_ARGS
   echo "stop      -> $(date)"
   
 }
