@@ -18,7 +18,7 @@ mci -Pslave; mvn test -Pslave -Dtest=CreateBuildSlaveAMI
 
 SLAVE:
 cd ~/ws/kuali-devops; mci -Pslave; chmod -R 755 ~/ws/kuali-devops/target/classes; cd ~/ws/kuali-devops/target/classes/org/kuali/common/kuali-devops/ubuntu/12.04/local;
-./jenkins.sh   NEXUS_PASSWORD SVN_PASSWORD ec2-54-81-87-75.compute-1 slave -qq
+./jenkins.sh   NEXUS_PASSWORD ZIP_PASSWORD ec2-54-81-87-75.compute-1 slave -qq
 
 MASTER:
 cd ~/ws/kuali-devops; mci; chmod -R 755 ~/ws/kuali-devops/target/classes; cd ~/ws/kuali-devops/target/classes/org/kuali/common/kuali-devops/ubuntu/12.04/local;
