@@ -17,8 +17,8 @@ package org.kuali.maven.plugins.spring;
 
 import static java.lang.String.format;
 import static java.util.Collections.singletonMap;
+import static org.kuali.common.util.PropertyUtils.getGlobalBoolean;
 import static org.kuali.common.util.ReflectionUtils.newInstance;
-import static org.kuali.common.util.log.Loggers.newLogger;
 import static org.kuali.maven.plugins.spring.MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME;
 
 import java.security.CodeSource;
@@ -33,6 +33,7 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.settings.Settings;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.log.Loggers;
 import org.kuali.common.util.maven.spring.MavenProfileConstants;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringExecutable;
@@ -47,6 +48,10 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 
 	// TODO See the comments in the execute() method and fix things so this locking object is no longer needed
 	private static final Object MUTEX = new Object();
+
+	//
+	private static final String SPRING_DEBUG_KEY = "spring.debug";
+	private static final String SLF4J_DEBUG_KEY = "slf4j.debug";
 
 	@Component
 	MavenProject project;
@@ -182,7 +187,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		// threaded mode.
 		synchronized (MUTEX) {
 			debugSLF4J();
-			configureLogging();
+			configureSpringLogging();
 			// Delegate execution to Spring
 			executable.execute();
 		}
@@ -193,20 +198,23 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	// Big picture is that it is *much* better for Maven to be using SLFJ as opposed to its own internal logging framework,
 	// but the custom log4j configuration we'd been using for 3.0.5 no longer works.
 	// Since SLF4J has already been bound to slf4j-simple, it ignores any slf4-log4j configuration
-	protected void configureLogging() {
+	protected void configureSpringLogging() {
 		String groupId = "org.springframework";
 		String prefix = "org.slf4j.simpleLogger.log";
-		String key = Joiner.on('.').join(prefix, groupId);
-		String value = Boolean.getBoolean("spring.debug") ? "debug" : "warn";
-		System.setProperty(key, value);
+		String springLoggingDetailLevelKey = Joiner.on('.').join(prefix, groupId);
+		String springLoggingDetailLevelValue = getGlobalBoolean(SPRING_DEBUG_KEY, properties) ? "debug" : "warn";
+		System.setProperty(springLoggingDetailLevelKey, springLoggingDetailLevelValue);
 	}
 
+	/**
+	 * Print the actual SLFJ implementation class and the the location of the jar file in which that class resides to System.out
+	 */
 	protected void debugSLF4J() {
-		if (Boolean.getBoolean("slf4j.debug") || Boolean.getBoolean("log4j.debug")) {
-			Logger logger = newLogger();
+		if (getGlobalBoolean(SLF4J_DEBUG_KEY, properties)) {
+			Logger logger = Loggers.make();
 			CodeSource src = logger.getClass().getProtectionDomain().getCodeSource();
-			System.out.println(format("logging implementation: [%s]", logger.getClass().getCanonicalName()));
-			System.out.println(format("logging code source: [%s]", src.getLocation()));
+			System.out.println(format("slf4j impl -> [%s]", logger.getClass().getCanonicalName()));
+			System.out.println(format("slf4j jar  -> [%s]", src.getLocation()));
 		}
 	}
 

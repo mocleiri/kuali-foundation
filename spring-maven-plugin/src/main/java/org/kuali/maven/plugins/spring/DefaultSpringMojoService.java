@@ -15,8 +15,6 @@
  */
 package org.kuali.maven.plugins.spring;
 
-import static org.kuali.common.util.log.Loggers.newLogger;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +32,7 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.filter.StringFilter;
+import org.kuali.common.util.log.Loggers;
 import org.kuali.common.util.maven.MavenUtils;
 import org.kuali.common.util.maven.spring.MavenProfileConstants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
@@ -47,7 +46,7 @@ import org.springframework.core.env.PropertySource;
 
 public class DefaultSpringMojoService implements SpringMojoService {
 
-	private static final Logger logger = newLogger();
+	private static final Logger logger = Loggers.make();
 	private static final LongCounter SEQUENCE = new LongCounter();
 
 	private final PropertySourceService propertySourceService;
@@ -55,15 +54,6 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	public DefaultSpringMojoService(PropertySourceService propertySourceService) {
 		Assert.noNulls(propertySourceService);
 		this.propertySourceService = propertySourceService;
-	}
-
-	@Override
-	public boolean isDebugLoggingEnabled(AbstractSpringMojo mojo) {
-		boolean mojoDebug = mojo.getLog().isDebugEnabled();
-		boolean log4JDebug = PropertyUtils.getGlobalBoolean("log4j.debug", mojo.getProperties());
-		boolean slf4jDebug = PropertyUtils.getGlobalBoolean("slf4j.debug", mojo.getProperties());
-		boolean springDebug = PropertyUtils.getGlobalBoolean("spring.debug", mojo.getProperties());
-		return mojoDebug || log4JDebug || springDebug || slf4jDebug;
 	}
 
 	@Override

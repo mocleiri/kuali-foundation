@@ -6,6 +6,4 @@ public interface SpringMojoService {
 
 	void callback(LoadXmlMojo mojo);
 
-	boolean isDebugLoggingEnabled(AbstractSpringMojo mojo);
-
 }
