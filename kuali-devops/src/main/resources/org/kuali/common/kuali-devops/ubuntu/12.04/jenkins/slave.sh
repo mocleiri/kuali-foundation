@@ -105,12 +105,24 @@ function copy_repo_from_master {
   
 }
 
+function build_maven_project {
+  mvn -f /mnt/$1/pom.xml clean install -DskipTests -T C1
+}
+
 function copy_repo_from_amazon {
 
   M2_REPO=/root/.m2/repository
   mkdir -p $M2_REPO
   echo "copy      -> amazon repo"
   echo "start     -> $(date)"
+  build_maven_project kuali-util
+  build_maven_project kuali-core
+  build_maven_project kuali-httpclient
+  build_maven_project kuali-dns
+  build_maven_project kuali-aws
+  build_maven_project kuali-devops
+  build_maven_project wagon-maven-plugin
+
   MAVEN_POM="$BASEDIR/META-INF/maven/${project.groupId}/${project.artifactId}/pom.xml"
   MAVEN_ARGS="$MAVEN_ARGS -f $MAVEN_POM"
   MAVEN_ARGS="$MAVEN_ARGS initialize -Pupdate"
