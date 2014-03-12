@@ -176,6 +176,12 @@ public class CreateBuildSlaveAMI {
 		ExecContext context = getExecContext(instance, bashDir);
 		ExecService service = new DefaultExecService();
 		service.execute(context);
+		// mvn -f /mnt/kuali-devops/META-INF/maven/org.kuali.common/kuali-devops initialize -Pupdate
+		String artifactId = KUALI_DEVOPS_PROJECT_IDENTIFIER.getArtifactId();
+		String groupId = KUALI_DEVOPS_PROJECT_IDENTIFIER.getGroupId();
+		String path = "/mnt/" + artifactId + "/META-INF/maven/" + groupId + "/" + artifactId;
+		List<String> args = ImmutableList.of("-f", path, "initialize", "-Pupdate");
+		service.execute("mvn", args);
 	}
 
 	protected ExecContext getExecContext(Instance instance, File bashDir) {
