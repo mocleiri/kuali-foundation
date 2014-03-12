@@ -78,6 +78,7 @@ function install_plugins {
   install_plugin cucumber-reports      0.0.22 
   install_plugin dashboard-view        2.9.2
   install_plugin depgraph-view         0.11
+  install_plugin disk-usage            0.23
   install_plugin ec2                   1.21
   install_plugin email-ext             2.37.2
   install_plugin git                   2.0.3
@@ -85,6 +86,7 @@ function install_plugins {
   install_plugin jobConfigHistory      2.5
   install_plugin jquery                1.7.2-1 
   install_plugin jquery-ui             1.0.2
+  install_plugin ldap                  1.8
   install_plugin mailer                1.8
   install_plugin mask-passwords        2.7.2
   install_plugin maven-plugin          2.1
@@ -95,8 +97,6 @@ function install_plugins {
   install_plugin scm-api               0.2
   install_plugin ssh-credentials       1.6.1
   install_plugin token-macro           1.10
-  install_plugin disk-usage            0.23
-  install_plugin ldap                  1.8
 
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME  
   
