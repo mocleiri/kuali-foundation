@@ -291,10 +291,12 @@ public class WagonDirectoryScanner {
 	 */
 	protected void scandir(String dir) throws WagonException {
 		if (this.informer != null) {
-			informer.incrementProgress();
-			if (informer.getProgress() % informer.getTotal() == 0) {
-				Inform inform = informer.getInform();
-				inform.getPrintStream().print(inform.getCompleteToken() + inform.getStartToken());
+			synchronized (informer) {
+				informer.incrementProgress();
+				if (informer.getProgress() % informer.getTotal() == 0) {
+					Inform inform = informer.getInform();
+					inform.getPrintStream().print(inform.getCompleteToken() + inform.getStartToken());
+				}
 			}
 		}
 		if (isBlank(dir)) {

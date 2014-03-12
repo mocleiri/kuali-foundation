@@ -50,6 +50,7 @@ public final class WagonDownloadExecutable implements Executable {
 			wagon.get(remoteFile, destination);
 			if ("warn".equalsIgnoreCase(System.getProperty("org.slf4j.simpleLogger.log.org.kuali.maven.wagon"))) {
 				informer.incrementProgress();
+				
 			}
 			stats();
 		} catch (Exception e) {

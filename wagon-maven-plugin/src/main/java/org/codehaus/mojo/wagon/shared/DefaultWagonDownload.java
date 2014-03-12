@@ -122,8 +122,12 @@ public class DefaultWagonDownload implements WagonDownload {
 			}
 		}
 
+		if (skipped.size() > 0) {
+			logger.info(format("skipping %s files that already exist on the local file system", skipped.size()));
+		}
+		logger.info(format("downloading %s resources ", downloads.size()));
 		List<Executable> executables = newArrayList();
-		PercentCompleteInformer informer = new PercentCompleteInformer(downloads.size());
+		PercentCompleteInformer informer = new PercentCompleteInformer(100);
 		Counter counter = new Counter();
 		LongCounter bytesCounter = new LongCounter();
 		long start = currentTimeMillis();
@@ -139,9 +143,6 @@ public class DefaultWagonDownload implements WagonDownload {
 		informer.stop();
 		long elapsed = currentTimeMillis() - start;
 		checkState(counter.getValue() == downloads.size(), "download counter is %s but should be %s", counter.getValue(), downloads.size());
-		if (skipped.size() > 0) {
-			logger.info(format("skipped %s resources that already exist on the local file system", skipped.size()));
-		}
 		List<File> files = Lists.<File> newArrayList(downloads.values());
 		long bytes = getBytes(files);
 		Object[] args = { getCount(files.size()), getSize(bytes), getRate(elapsed, bytes), getTime(elapsed) };
