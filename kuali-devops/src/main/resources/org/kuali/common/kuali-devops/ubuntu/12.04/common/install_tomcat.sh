@@ -46,15 +46,14 @@ function check_not_blank {
 # module specific functions
 function show_usage {
   echo
-  echo requires ZIP_PASSWORD SSL_PASSWORD DOMAIN BASEDIR TOMCAT JDK MAX_HEAP MAX_PERM QUIET
-  echo usage: install_tomcat.sh zip_password ssl_password domain basedir tomcat6/tomcat7 jdk6/jdk7 max_heap max_perm [quiet]
+  echo requires ZIP_PASSWORD DOMAIN BASEDIR TOMCAT JDK MAX_HEAP MAX_PERM QUIET
+  echo usage: install_tomcat.sh zip_password domain basedir tomcat6/tomcat7 jdk6/jdk7 max_heap max_perm [quiet]
   echo
   exit 1
 }
 
 function check_args {
   check_not_blank ZIP_PASSWORD $ZIP_PASSWORD
-  check_not_blank SSL_PASSWORD $SSL_PASSWORD
   check_not_blank DOMAIN $DOMAIN
   check_not_blank BASEDIR $BASEDIR
   check_not_blank TOMCAT $TOMCAT
@@ -116,11 +115,13 @@ function configure_tomcat_ssl {
   unzip $QUIET -P $ZIP_PASSWORD -o $ZIP -d $TOMCAT_SSL_DIR
   
   SSL_KEYSTORE=$TOMCAT_SSL_DIR/wildcard.$DOMAIN.keystore.pkcs12
+  SSL_PASSWORD=$TOMCAT_SSL_DIR/wildcard.$DOMAIN.keystore.password
   check_exists $SSL_KEYSTORE
+  check_exists $SSL_PASSWORD
   
-  openssl pkcs12 -in $SSL_KEYSTORE -out $SSL_KEYSTORE/SSLCertificateFile.pem      -clcerts -nokeys -passin pass:"$SSL_PASSWORD"
-  openssl pkcs12 -in $SSL_KEYSTORE -out $SSL_KEYSTORE/SSLCertificateChainFile.pem -clcerts -nokeys -passin pass:"$SSL_PASSWORD"
-  openssl pkcs12 -in $SSL_KEYSTORE -out $SSL_KEYSTORE/SSLCertificateKeyFile.pem   -nocerts -nodes  -passin pass:"$SSL_PASSWORD"
+  openssl pkcs12 -in $SSL_KEYSTORE -out $SSL_KEYSTORE/SSLCertificateFile.pem      -clcerts -nokeys -passin file:"$SSL_PASSWORD"
+  openssl pkcs12 -in $SSL_KEYSTORE -out $SSL_KEYSTORE/SSLCertificateChainFile.pem -clcerts -nokeys -passin file:"$SSL_PASSWORD"
+  openssl pkcs12 -in $SSL_KEYSTORE -out $SSL_KEYSTORE/SSLCertificateKeyFile.pem   -nocerts -nodes  -passin file:"$SSL_PASSWORD"
   
 }
 
@@ -225,15 +226,14 @@ function install_tomcat {
 }
 
 # Module specific variables
-SSL_PASSWORD=${1-$SSL_PASSWORD}
-ZIP_PASSWORD=${2-$ZIP_PASSWORD}
-DOMAIN=${3-$BASEDIR}
-BASEDIR=${4-$BASEDIR}
-TOMCAT=${5-$TOMCAT}
-JDK=${6-$JDK}
-MAX_HEAP=${7-$MAX_HEAP}
-MAX_PERM=${8-$MAX_PERM}
-QUIET=${9-$QUIET}
+ZIP_PASSWORD=${1-$ZIP_PASSWORD}
+DOMAIN=${2-$BASEDIR}
+BASEDIR=${3-$BASEDIR}
+TOMCAT=${4-$TOMCAT}
+JDK=${5-$JDK}
+MAX_HEAP=${6-$MAX_HEAP}
+MAX_PERM=${7-$MAX_PERM}
+QUIET=${8-$QUIET}
 
 # Make sure we have what we need to continue
 check_args
