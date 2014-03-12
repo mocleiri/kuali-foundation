@@ -46,13 +46,14 @@ function check_not_blank {
 # module specific functions
 function show_usage {
   echo
-  echo requires BASEDIR TOMCAT JDK MAX_HEAP MAX_PERM QUIET
-  echo usage: install_tomcat.sh basedir tomcat6/tomcat7 jdk6/jdk7 max_heap max_perm [quiet]
+  echo requires SSL_PASSWORD BASEDIR TOMCAT JDK MAX_HEAP MAX_PERM QUIET
+  echo usage: install_tomcat.sh ssl_password basedir tomcat6/tomcat7 jdk6/jdk7 max_heap max_perm [quiet]
   echo
   exit 1
 }
 
 function check_args {
+  check_not_blank SSL_PASSWORD $SSL_PASSWORD
   check_not_blank BASEDIR $BASEDIR
   check_not_blank TOMCAT $TOMCAT
   check_not_blank JDK $JDK
@@ -222,12 +223,13 @@ function install_tomcat {
 }
 
 # Module specific variables
-BASEDIR=${1-$BASEDIR}
-TOMCAT=${2-$TOMCAT}
-JDK=${3-$JDK}
-MAX_HEAP=${4-$MAX_HEAP}
-MAX_PERM=${5-$MAX_PERM}
-QUIET=${6-$QUIET}
+SSL_PASSWORD=${1-$SSL_PASSWORD}
+BASEDIR=${2-$BASEDIR}
+TOMCAT=${3-$TOMCAT}
+JDK=${4-$JDK}
+MAX_HEAP=${5-$MAX_HEAP}
+MAX_PERM=${6-$MAX_PERM}
+QUIET=${7-$QUIET}
 
 # Make sure we have what we need to continue
 check_args
