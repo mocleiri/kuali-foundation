@@ -44,6 +44,7 @@ import org.kuali.common.devops.aws.KeyPairBuilders;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.devops.project.KualiDevOpsProjectConstants;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.service.DefaultExecContext;
@@ -106,10 +107,10 @@ public class CreateBuildSlaveAMI {
 		chmod(buildDir);
 		CanonicalFile bashDir = getLocalBashDir(buildDir);
 		configureSlave(instance, bashDir);
-		//String description = format("automated ec2 slave ami - %s", today);
-		//Image image = service.createAmi(instance.getInstanceId(), name, description, rootVolume, timeoutMillis);
-		//logger.info(format("created %s - %s", image.getImageId(), getTime(sw)));
-		//cleanupAmis(service);
+		String description = format("automated ec2 slave ami - %s", today);
+		Image image = service.createAmi(instance.getInstanceId(), name, description, rootVolume, timeoutMillis);
+		logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
+		cleanupAmis(service);
 	}
 
 	protected void cleanupAmis(EC2Service service) {
