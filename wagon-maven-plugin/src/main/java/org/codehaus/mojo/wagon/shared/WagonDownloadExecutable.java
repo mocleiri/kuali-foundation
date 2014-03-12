@@ -50,17 +50,22 @@ public final class WagonDownloadExecutable implements Executable {
 			touch(destination);
 			wagon.get(remoteFile, destination);
 			if (useInformer()) {
-				synchronized (informer) {
-					informer.incrementProgress();
-					if (informer.getProgress() % informer.getTotal() == 0) {
-						Inform inform = informer.getInform();
-						inform.getPrintStream().print(inform.getCompleteToken() + inform.getStartToken());
-					}
-				}
+				inform();
+			} else {
+				stats();
 			}
-			stats();
 		} catch (Exception e) {
 			throw illegalState(e);
+		}
+	}
+
+	private void inform() {
+		synchronized (informer) {
+			informer.incrementProgress();
+			if (informer.getProgress() % informer.getTotal() == 0) {
+				Inform inform = informer.getInform();
+				inform.getPrintStream().print(inform.getCompleteToken() + inform.getStartToken());
+			}
 		}
 	}
 
@@ -79,11 +84,7 @@ public final class WagonDownloadExecutable implements Executable {
 		// int percent = new Double((count / (total * 1D)) * 100).intValue();
 		String amount = lpad(getSize(bytesCounter.getValue(), numberFormatter), 6);
 		Object[] args = { lpad(getCount(count), 6), lpad(getCount(total), 6), lpad(getCount(filesRemaining), 6), ltime(elapsed), lpad(rate, 8), amount };
-		if (useInformer()) {
-			logger.debug(format("%s of %s - remaining %s [elapsed:%s  rate:%s  downloaded:%s]", args));
-		} else {
-			logger.info(format("%s of %s - remaining %s [elapsed:%s  rate:%s  downloaded:%s]", args));
-		}
+		logger.info(format("%s of %s - remaining %s [elapsed:%s  rate:%s  downloaded:%s]", args));
 	}
 
 	private String ltime(long millis) {
