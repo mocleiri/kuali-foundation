@@ -32,7 +32,7 @@ public interface EC2Service {
 	void deleteSnapshot(String snapshotId);
 
 	/**
-	 * Deregister the AMI AND delete any snapshots associated with it.
+	 * Deregister the AMI and delete any snapshots associated with it.
 	 */
 	void purgeAmi(String imageId);
 
