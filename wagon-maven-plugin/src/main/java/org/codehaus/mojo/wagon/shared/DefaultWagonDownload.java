@@ -125,7 +125,7 @@ public class DefaultWagonDownload implements WagonDownload {
 		if (skipped.size() > 0) {
 			logger.info(format("skipping %s files that already exist on the local file system", skipped.size()));
 		}
-		logger.info(format("downloading %s resources ", downloads.size()));
+		logger.info(format("downloading %s files ", downloads.size()));
 		List<Executable> executables = newArrayList();
 		PercentCompleteInformer informer = new PercentCompleteInformer(downloads.size() / 5);
 		Counter counter = new Counter();
