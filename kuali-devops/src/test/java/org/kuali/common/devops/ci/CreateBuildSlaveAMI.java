@@ -164,11 +164,18 @@ public class CreateBuildSlaveAMI {
 		checkNotBlank(key, "key");
 		checkNotBlank(prefix, "prefix");
 		for (Tag tag : tags) {
-			if (key.equals(tag.getKey())) {
-				String value = tag.getValue();
-				if (value != null && value.startsWith(prefix)) {
-					return true;
-				}
+			if (matches(tag, key, prefix)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	protected boolean matches(Tag tag, String key, String prefix) {
+		if (key.equals(tag.getKey())) {
+			String value = tag.getValue();
+			if (value != null && value.startsWith(prefix)) {
+				return true;
 			}
 		}
 		return false;
