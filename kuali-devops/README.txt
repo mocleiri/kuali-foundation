@@ -15,13 +15,11 @@
 ====
 
 SLAVE:
-cd ~/ws/kuali-devops; mci -Pslave; chmod -R 755 ~/ws/kuali-devops/target/classes; 
-cd ~/ws/kuali-devops/target/classes/org/kuali/common/kuali-devops/ubuntu/12.04/local;
+cd ~/ws/kuali-devops; mci -Pslave; chmod -R 755 ~/ws/kuali-devops/target/classes; cd ~/ws/kuali-devops/target/classes/org/kuali/common/kuali-devops/ubuntu/12.04/local;
 ./jenkins.sh   NEXUS_PASSWORD SVN_PASSWORD ec2-54-81-87-75.compute-1 slave -qq
 
 MASTER:
-cd ~/ws/kuali-devops; mci; chmod -R 755 ~/ws/kuali-devops/target/classes; 
-cd ~/ws/kuali-devops/target/classes/org/kuali/common/kuali-devops/ubuntu/12.04/local;
+cd ~/ws/kuali-devops; mci; chmod -R 755 ~/ws/kuali-devops/target/classes; cd ~/ws/kuali-devops/target/classes/org/kuali/common/kuali-devops/ubuntu/12.04/local;
 ./appserver.sh NEXUS_PASSWORD              beta.ci jdk7 tomcat7 5g 512m
 ./jenkins.sh   NEXUS_PASSWORD SVN_PASSWORD beta.ci master
 
