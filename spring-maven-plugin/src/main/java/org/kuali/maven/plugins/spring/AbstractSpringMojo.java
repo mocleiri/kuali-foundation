@@ -184,7 +184,6 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		// This would allow spring-maven-plugin to truly run in multi-threaded mode, instead of merely appearing to run correctly in multi-threaded mode by resorting back to single
 		// threaded mode.
 		synchronized (MUTEX) {
-			debugSLF4J();
 			configureSpringLogging();
 			// Delegate execution to Spring
 			executable.execute();
@@ -197,6 +196,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	// but the custom log4j configuration we'd been using for 3.0.5 no longer works.
 	// Since SLF4J has already been bound to slf4j-simple, it ignores any slf4-log4j configuration
 	protected void configureSpringLogging() {
+		debugSLF4J();
 		String key = "org.slf4j.simpleLogger.log.org.springframework";
 		String val = getGlobalBoolean(SPRING_DEBUG_KEY, properties) ? "debug" : "warn";
 		System.setProperty(key, val);
