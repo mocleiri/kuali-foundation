@@ -64,7 +64,10 @@ public class WagonDirectoryScanner {
 	 */
 	private String directory;
 
-	private PercentCompleteInformer informer;
+	/**
+	 * Print a dot to the console each time we scan 10 directories
+	 */
+	private PercentCompleteInformer informer = new PercentCompleteInformer(100);
 
 	/** The patterns for the wagon files to be included. */
 	private String[] includes;
@@ -289,14 +292,12 @@ public class WagonDirectoryScanner {
 		if (this.informer != null) {
 			informer.incrementProgress();
 		}
-		// logger.info("dir: " + dir);
 		if (isBlank(dir)) {
-			logger.info("Scanning '" + dir + "'");
+			logger.debug("Scanning '" + dir + "'");
 		} else {
-			logger.info("Scanning " + dir);
+			logger.debug("Scanning " + dir);
 		}
 		List<?> files = wagon.getFileList(dir);
-		// logger.info("files.size=" + files.size());
 
 		for (Iterator<?> itr = files.iterator(); itr.hasNext();) {
 			String fileName = (String) itr.next();
