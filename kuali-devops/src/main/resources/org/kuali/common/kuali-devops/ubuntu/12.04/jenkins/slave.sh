@@ -117,6 +117,7 @@ function copy_repo_from_amazon {
   MAVEN_ARGS="$MAVEN_ARGS -Dorg.slf4j.simpleLogger.log.org.kuali.maven.wagon=warn"
   MAVEN="mvn $MAVEN_ARGS"
   echo $MAVEN
+  $MAVEN
   echo "stop      -> $(date)"
   
 }
