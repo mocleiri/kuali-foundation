@@ -2,7 +2,6 @@ package org.kuali.maven.plugins.spring.config;
 
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.impl.ExecutablesExecutable;
-import org.kuali.common.util.log.log4j.Log4JService;
 import org.kuali.maven.plugins.spring.AbstractSpringMojo;
 import org.kuali.maven.plugins.spring.MojoExecutable;
 import org.kuali.maven.plugins.spring.SpringMojoService;
@@ -22,9 +21,6 @@ public class MojoConfig {
 
 	@Autowired
 	SpringMojoService springMojoService;
-
-	@Autowired
-	Log4JService log4JService;
 
 	@Bean
 	public Executable mojoExecutable() {
