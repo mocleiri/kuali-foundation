@@ -98,9 +98,12 @@ function configure_tomcat_ssl {
   $TOMCAT_SSL_DIR=/var/lib/$TOMCAT/conf/ssl
   mkdir -p $TOMCAT_SSL_DIR
   
-  openssl pkcs12 -in $SSL_KEYSTORE -out $TOMCAT_SSL_DIR/SSLCertificateFile.pem      -clcerts -nokeys -passin pass:"$SSL_PASSPHRASE"
-  openssl pkcs12 -in $SSL_KEYSTORE -out $TOMCAT_SSL_DIR/SSLCertificateChainFile.pem -clcerts -nokeys -passin pass:"$SSL_PASSPHRASE"
-  openssl pkcs12 -in $SSL_KEYSTORE -out $TOMCAT_SSL_DIR/SSLCertificateKeyFile.pem   -nocerts -nodes  -passin pass:"$SSL_PASSPHRASE"
+  ZIP=$BASEDIR/${project.groupId.path}/${project.artifactId}/tomcat/config.zip
+  unzip $QUIET -P $ZIP_PASSWORD -o $ZIP -d $TOMCAT_SSL_DIR
+
+  openssl pkcs12 -in $SSL_KEYSTORE -out $TOMCAT_SSL_DIR/SSLCertificateFile.pem      -clcerts -nokeys -passin pass:"$SSL_PASSWORD"
+  openssl pkcs12 -in $SSL_KEYSTORE -out $TOMCAT_SSL_DIR/SSLCertificateChainFile.pem -clcerts -nokeys -passin pass:"$SSL_PASSWORD"
+  openssl pkcs12 -in $SSL_KEYSTORE -out $TOMCAT_SSL_DIR/SSLCertificateKeyFile.pem   -nocerts -nodes  -passin pass:"$SSL_PASSWORD"
   
 }
 
