@@ -121,9 +121,9 @@ function configure_tomcat_ssl {
   check_exists $SSL_KEYSTORE_FILE
   check_exists $SSL_PASSWORD_FILE
   
-  openssl pkcs12 -in $SSL_KEYSTORE_FILE -out $TOMCAT_SSL_DIR/SSLCertificateFile.pem      -clcerts -nokeys -passin file:$SSL_PASSWORD_FILE
-  openssl pkcs12 -in $SSL_KEYSTORE_FILE -out $TOMCAT_SSL_DIR/SSLCertificateChainFile.pem -clcerts -nokeys -passin file:$SSL_PASSWORD_FILE
-  openssl pkcs12 -in $SSL_KEYSTORE_FILE -out $TOMCAT_SSL_DIR/SSLCertificateKeyFile.pem   -nocerts -nodes  -passin file:$SSL_PASSWORD_FILE
+  execute_quietly "openssl pkcs12 -in $SSL_KEYSTORE_FILE -out $TOMCAT_SSL_DIR/SSLCertificateFile.pem      -clcerts -nokeys -passin file:$SSL_PASSWORD_FILE"
+  execute_quietly "openssl pkcs12 -in $SSL_KEYSTORE_FILE -out $TOMCAT_SSL_DIR/SSLCertificateChainFile.pem -clcerts -nokeys -passin file:$SSL_PASSWORD_FILE"
+  execute_quietly "openssl pkcs12 -in $SSL_KEYSTORE_FILE -out $TOMCAT_SSL_DIR/SSLCertificateKeyFile.pem   -nocerts -nodes  -passin file:$SSL_PASSWORD_FILE"
   
   rm $SSL_KEYSTORE_FILE $SSL_PASSWORD_FILE
   
