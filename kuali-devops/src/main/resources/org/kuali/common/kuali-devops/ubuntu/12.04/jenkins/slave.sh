@@ -115,8 +115,8 @@ function build_maven_projects {
   build_maven_project kuali-httpclient
   build_maven_project kuali-dns
   build_maven_project kuali-aws
-  build_maven_project kuali-devops
   build_maven_project wagon-maven-plugin
+  build_maven_project kuali-devops
 }
 
 function copy_repo_from_amazon {
