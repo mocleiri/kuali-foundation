@@ -148,4 +148,4 @@ install_mysql_server
 copy_repo_from_master
 # Comment this out once the projects have all been versioned
 build_maven_projects
-#copy_repo_from_amazon
+copy_repo_from_amazon
