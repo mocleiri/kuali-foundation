@@ -97,8 +97,8 @@ public class CreateBuildSlaveAMI {
 		String sleep = System.getProperty("slave.sleep", "15s");
 
 		EC2Service service = getEC2Service();
-		Instance instance = getNewSlaveInstance(service, ami, type, rootVolume, timeoutMillis);
-		// Instance instance = getRunningSlaveInstance(service, "i-dde811fe");
+		// Instance instance = getNewSlaveInstance(service, ami, type, rootVolume, timeoutMillis);
+		Instance instance = getRunningSlaveInstance(service, "i-b436cf97");
 		logger.info(format("public dns: %s", instance.getPublicDnsName()));
 		logger.info(format("sleeping %s to let dns settle down", sleep));
 		sleep(sleep);
@@ -176,12 +176,6 @@ public class CreateBuildSlaveAMI {
 		ExecContext context = getExecContext(instance, bashDir);
 		ExecService service = new DefaultExecService();
 		service.execute(context);
-		// mvn -f /mnt/kuali-devops/META-INF/maven/org.kuali.common/kuali-devops initialize -Pupdate
-		String artifactId = KUALI_DEVOPS_PROJECT_IDENTIFIER.getArtifactId();
-		String groupId = KUALI_DEVOPS_PROJECT_IDENTIFIER.getGroupId();
-		String path = "/mnt/" + artifactId + "/META-INF/maven/" + groupId + "/" + artifactId;
-		List<String> args = ImmutableList.of("-f", path, "initialize", "-Pupdate");
-		service.execute("mvn", args);
 	}
 
 	protected ExecContext getExecContext(Instance instance, File bashDir) {
