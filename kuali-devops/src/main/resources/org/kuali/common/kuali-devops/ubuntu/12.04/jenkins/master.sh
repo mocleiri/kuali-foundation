@@ -129,13 +129,6 @@ function configure_jenkins {
   
 }
 
-function wait_for_jenkins {
-  tail -f /var/lib/$TOMCAT/logs/catalina.out | while read LOGLINE
-  do
-    [[ "${LOGLINE}" == *"Jenkins is fully up and running"* ]] && pkill -P $$ tail
-  done
-}
-
 function wait_for_string {
   FILENAME=$1
   STRING=$2

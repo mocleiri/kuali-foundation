@@ -91,6 +91,12 @@ function get_java_opts {
   echo "\"$RETURN_VALUE\""
 }
 
+function configure_tomcat_ssl {
+  openssl pkcs12 -in $SSL_KEYSTORE -out SSLCertificateFile.pem      -clcerts -nokeys -passin pass:"$SSL_PASSPHRASE"
+  openssl pkcs12 -in $SSL_KEYSTORE -out SSLCertificateChainFile.pem -clcerts -nokeys -passin pass:"$SSL_PASSPHRASE"
+  openssl pkcs12 -in $SSL_KEYSTORE -out SSLCertificateKeyFile.pem   -nocerts -nodes  -passin pass:"$SSL_PASSPHRASE"
+}
+
 function configure_tomcat {
 
   TOMCAT_VERSION=${TOMCAT:6:1}
