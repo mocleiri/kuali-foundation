@@ -94,7 +94,7 @@ public class CreateBuildSlaveAMI {
 		// The amount of time to wait before timing out on: instance creation, snapshot creation, ami creation
 		int timeoutMillis = getMillisAsInt(System.getProperty("slave.timeout", "30m"));
 		// The amount of time to sleep after creating a brand new instance (gives DNS a few seconds to figure itself out)
-		String sleep = System.getProperty("slave.sleep", "15s");
+		String sleep = System.getProperty("slave.sleep", "1s");
 
 		EC2Service service = getEC2Service();
 		// Instance instance = getNewSlaveInstance(service, ami, type, rootVolume, timeoutMillis);
