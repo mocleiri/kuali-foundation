@@ -17,7 +17,7 @@
 
 function show_usage {
   echo requires NEXUS_PASSWORD ZIP_PASSWORD SUBDOMAIN TYPE
-  echo usage: jenkins.sh nexus_password svn_password subdomain type [quiet]
+  echo usage: jenkins.sh nexus_password zip_password subdomain type [quiet]
   exit 1
 }
 
