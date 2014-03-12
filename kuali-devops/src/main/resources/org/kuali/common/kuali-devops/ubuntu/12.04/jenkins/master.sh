@@ -130,6 +130,7 @@ function configure_jenkins {
 }
 
 function wait_for_string {
+
   FILENAME=$1
   STRING=$2
   check_not_blank FILENAME $FILENAME
@@ -138,6 +139,7 @@ function wait_for_string {
   do
     [[ "${LOGLINE}" == *"$STRING"* ]] && pkill -P $$ tail
   done
+  
 }
 
 ZIP_PASSWORD=${1-ZIP_PASSWORD}
