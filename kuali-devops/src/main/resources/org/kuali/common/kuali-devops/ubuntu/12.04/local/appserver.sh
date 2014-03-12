@@ -16,14 +16,14 @@
 #
 
 function show_usage {
-  echo requires ZIP_PASSWORD NEXUS_PASSWORD SUBDOMAIN JDK TOMCAT MAX_HEAP MAX_PERM
+  echo requires NEXUS_PASSWORD ZIP_PASSWORD SUBDOMAIN JDK TOMCAT MAX_HEAP MAX_PERM
   echo usage: appserver.sh ssl_password nexus_password subdomain jdk7/jdk6 tomcat7/tomcat6 max_heap max_perm [quiet]
   exit 1
 }
 
 function check_args {
-  check_not_blank ZIP_PASSWORD $ZIP_PASSWORD
   check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
+  check_not_blank ZIP_PASSWORD $ZIP_PASSWORD
   check_not_blank SUBDOMAIN $SUBDOMAIN
   check_not_blank JDK $JDK
   check_not_blank TOMCAT $TOMCAT
@@ -45,8 +45,8 @@ echo $(date)
 source preconditions.sh
 
 # Module specific variables
-ZIP_PASSWORD=$1
-NEXUS_PASSWORD=$2
+NEXUS_PASSWORD=$1
+ZIP_PASSWORD=$2
 SUBDOMAIN=$3
 JDK=$4
 TOMCAT=$5
