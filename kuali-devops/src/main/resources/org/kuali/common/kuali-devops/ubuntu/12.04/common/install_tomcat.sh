@@ -75,6 +75,7 @@ function purge_tomcat {
 }
 
 function get_java_opts {
+
   RETURN_VALUE="-Djava.security.egd=file:/dev/./urandom"
   RETURN_VALUE="$RETURN_VALUE -Djava.awt.headless=true"
   RETURN_VALUE="$RETURN_VALUE -Xms512m"
@@ -89,6 +90,7 @@ function get_java_opts {
   RETURN_VALUE="$RETURN_VALUE -XX:HeapDumpPath=$TOMCAT_LOGS"
   RETURN_VALUE="$RETURN_VALUE -XX:+HeapDumpOnOutOfMemoryError"
   echo "\"$RETURN_VALUE\""
+  
 }
 
 function configure_tomcat_ssl {
