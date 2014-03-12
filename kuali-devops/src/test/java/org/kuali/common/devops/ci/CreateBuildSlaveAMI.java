@@ -90,7 +90,7 @@ public class CreateBuildSlaveAMI {
 		// Configurable items
 		String ami = System.getProperty("slave.ami", AMI.UBUNTU_64_BIT_PRECISE_LTS.getId());
 		InstanceType type = InstanceType.fromValue(System.getProperty("slave.type", InstanceType.C3Xlarge.toString()));
-		RootVolume rootVolume = RootVolume.create(parseInt(System.getProperty("slave.size", "128")), true);
+		RootVolume rootVolume = RootVolume.create(parseInt(System.getProperty("slave.size", "64")), true);
 		// The amount of time to wait before timing out on: instance creation, snapshot creation, ami creation
 		int timeoutMillis = getMillisAsInt(System.getProperty("slave.timeout", "1h"));
 		// The amount of time to sleep after creating a brand new instance (gives DNS a few seconds to figure itself out)
