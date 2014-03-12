@@ -66,7 +66,7 @@ public class WagonDirectoryScanner {
 	private String directory;
 
 	/**
-	 * Print a dot to the console each time we scan 10 directories
+	 * Print a dot to the console each time we scan a directory
 	 */
 	private PercentCompleteInformer informer = new PercentCompleteInformer(100);
 
