@@ -108,6 +108,7 @@ function get_java_opts {
 
 function configure_tomcat_ssl {
 
+  echo "configure -> ssl"
   TOMCAT_SSL_DIR=/var/lib/$TOMCAT/conf/ssl
   rm -rf $TOMCAT_SSL_DIR; mkdir -p $TOMCAT_SSL_DIR
   
