@@ -71,7 +71,7 @@ public class DefaultWagonDownload implements WagonDownload {
 	public List<String> getFileList(Wagon wagon, WagonFileSet fileSet, Log logger) throws WagonException {
 		logger.info("Scanning repository - " + wagon.getRepository().getUrl());
 
-		PercentCompleteInformer informer = new PercentCompleteInformer(100);
+		PercentCompleteInformer informer = new PercentCompleteInformer(250);
 		WagonDirectoryScanner dirScan = new WagonDirectoryScanner();
 		dirScan.setLogger(logger);
 		dirScan.setWagon(wagon);
