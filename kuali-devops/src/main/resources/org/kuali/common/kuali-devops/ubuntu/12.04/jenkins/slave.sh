@@ -111,8 +111,7 @@ function copy_repo_from_amazon {
   mkdir -p $M2_REPO
   echo "copy      -> amazon repo"
   echo "start     -> $(date)"
-  MAVEN="mvn -f $BASEDIR/META-INF/maven/${project.groupId}/${project.artifactId} initialize -Pupdate"
-  execute_quietly "$MAVEN" 
+  mvn -f $BASEDIR/META-INF/maven/${project.groupId}/${project.artifactId} initialize -Pupdate
   echo "stop      -> $(date)"
   
 }
