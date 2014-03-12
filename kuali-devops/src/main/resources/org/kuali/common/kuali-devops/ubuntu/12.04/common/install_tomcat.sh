@@ -225,13 +225,14 @@ function install_tomcat {
 
 # Module specific variables
 SSL_PASSWORD=${1-$SSL_PASSWORD}
-DOMAIN=${2-$BASEDIR}
-BASEDIR=${3-$BASEDIR}
-TOMCAT=${4-$TOMCAT}
-JDK=${5-$JDK}
-MAX_HEAP=${6-$MAX_HEAP}
-MAX_PERM=${7-$MAX_PERM}
-QUIET=${8-$QUIET}
+ZIP_PASSWORD=${2-$ZIP_PASSWORD}
+DOMAIN=${3-$BASEDIR}
+BASEDIR=${4-$BASEDIR}
+TOMCAT=${5-$TOMCAT}
+JDK=${6-$JDK}
+MAX_HEAP=${7-$MAX_HEAP}
+MAX_PERM=${8-$MAX_PERM}
+QUIET=${9-$QUIET}
 
 # Make sure we have what we need to continue
 check_args
