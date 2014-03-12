@@ -49,7 +49,7 @@ public final class WagonDownloadExecutable implements Executable {
 		try {
 			touch(destination);
 			wagon.get(remoteFile, destination);
-			if ("warn".equalsIgnoreCase(System.getProperty("org.slf4j.simpleLogger.log.org.kuali.maven.wagon"))) {
+			if (useInformer()) {
 				synchronized (informer) {
 					informer.incrementProgress();
 					if (informer.getProgress() % informer.getTotal() == 0) {
@@ -64,6 +64,10 @@ public final class WagonDownloadExecutable implements Executable {
 		}
 	}
 
+	private boolean useInformer() {
+		return "warn".equalsIgnoreCase(System.getProperty("org.slf4j.simpleLogger.log.org.kuali.maven.wagon"));
+	}
+
 	private void stats() {
 		bytesCounter.increment(destination.length());
 		int count = counter.increment();
@@ -75,7 +79,7 @@ public final class WagonDownloadExecutable implements Executable {
 		// int percent = new Double((count / (total * 1D)) * 100).intValue();
 		String amount = lpad(getSize(bytesCounter.getValue(), numberFormatter), 6);
 		Object[] args = { lpad(getCount(count), 6), lpad(getCount(total), 6), lpad(getCount(filesRemaining), 6), ltime(elapsed), lpad(rate, 8), amount };
-		if ("warn".equalsIgnoreCase(System.getProperty("org.slf4j.simpleLogger.log.org.kuali.maven.wagon"))) {
+		if (useInformer()) {
 			logger.debug(format("%s of %s - remaining %s [elapsed:%s  rate:%s  downloaded:%s]", args));
 		} else {
 			logger.info(format("%s of %s - remaining %s [elapsed:%s  rate:%s  downloaded:%s]", args));
