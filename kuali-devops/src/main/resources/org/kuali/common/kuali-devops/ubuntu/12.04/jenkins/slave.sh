@@ -125,7 +125,7 @@ function copy_repo_from_amazon {
 
   M2_REPO=/root/.m2/repository
   mkdir -p $M2_REPO
-  echo "copy      -> s3://maven.kuali.org"
+  echo "copy      -> s3://maven.kuali.org/release"
   echo "start     -> $(date)"
   MAVEN_POM="$BASEDIR/META-INF/maven/${project.groupId}/${project.artifactId}/pom.xml"
   MAVEN_ARGS="$MAVEN_ARGS -f $MAVEN_POM"
