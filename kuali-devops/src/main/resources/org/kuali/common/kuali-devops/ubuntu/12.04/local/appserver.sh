@@ -16,12 +16,13 @@
 #
 
 function show_usage {
-  echo requires NEXUS_PASSWORD SUBDOMAIN JDK TOMCAT MAX_HEAP MAX_PERM
-  echo usage: appserver.sh password subdomain jdk7/jdk6 tomcat7/tomcat6 max_heap max_perm [quiet]
+  echo requires SSL_PASSWORD NEXUS_PASSWORD SUBDOMAIN JDK TOMCAT MAX_HEAP MAX_PERM
+  echo usage: appserver.sh ssl_password nexus_password subdomain jdk7/jdk6 tomcat7/tomcat6 max_heap max_perm [quiet]
   exit 1
 }
 
 function check_args {
+  check_not_blank SSL_PASSWORD $SSL_PASSWORD
   check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
   check_not_blank SUBDOMAIN $SUBDOMAIN
   check_not_blank JDK $JDK
@@ -44,13 +45,14 @@ echo $(date)
 source preconditions.sh
 
 # Module specific variables
-NEXUS_PASSWORD=$1
-SUBDOMAIN=$2
-JDK=$3
-TOMCAT=$4
-MAX_HEAP=$5
-MAX_PERM=$6
-QUIET=${7-""}
+SSL_PASSWORD=$1
+NEXUS_PASSWORD=$2
+SUBDOMAIN=$3
+JDK=$4
+TOMCAT=$5
+MAX_HEAP=$6
+MAX_PERM=$7
+QUIET=${8-""}
 
 # Make sure we have what we need
 check_args
