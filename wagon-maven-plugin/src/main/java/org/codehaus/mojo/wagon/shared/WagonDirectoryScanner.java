@@ -41,6 +41,7 @@ import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.wagon.Wagon;
 import org.apache.maven.wagon.WagonException;
 import org.codehaus.plexus.util.StringUtils;
+import org.kuali.common.util.inform.Inform;
 import org.kuali.common.util.inform.PercentCompleteInformer;
 
 public class WagonDirectoryScanner {
@@ -291,6 +292,10 @@ public class WagonDirectoryScanner {
 	protected void scandir(String dir) throws WagonException {
 		if (this.informer != null) {
 			informer.incrementProgress();
+			if (informer.getProgress() % informer.getTotal() == 0) {
+				Inform inform = informer.getInform();
+				inform.getPrintStream().print(inform.getCompleteToken() + inform.getStartToken());
+			}
 		}
 		if (isBlank(dir)) {
 			logger.debug("Scanning '" + dir + "'");
