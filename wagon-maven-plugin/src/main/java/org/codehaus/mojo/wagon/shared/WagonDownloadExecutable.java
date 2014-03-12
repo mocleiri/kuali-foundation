@@ -22,6 +22,7 @@ import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import org.kuali.common.util.Counter;
 import org.kuali.common.util.LongCounter;
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.inform.PercentCompleteInformer;
 import org.slf4j.Logger;
 
 @IdiotProofImmutable
@@ -40,12 +41,14 @@ public final class WagonDownloadExecutable implements Executable {
 	private final long start;
 	private final NumberFormat numberFormatter;
 	private final NumberFormat rateFormatter;
+	private final PercentCompleteInformer informer;
 
 	@Override
 	public void execute() {
 		try {
 			touch(destination);
 			wagon.get(remoteFile, destination);
+			informer.incrementProgress();
 			stats();
 		} catch (Exception e) {
 			throw illegalState(e);
@@ -63,7 +66,7 @@ public final class WagonDownloadExecutable implements Executable {
 		// int percent = new Double((count / (total * 1D)) * 100).intValue();
 		String amount = lpad(getSize(bytesCounter.getValue(), numberFormatter), 6);
 		Object[] args = { lpad(getCount(count), 6), lpad(getCount(total), 6), lpad(getCount(filesRemaining), 6), ltime(elapsed), lpad(rate, 8), amount };
-		logger.info(format("%s of %s - remaining %s [elapsed:%s  rate:%s  downloaded:%s]", args));
+		logger.debug(format("%s of %s - remaining %s [elapsed:%s  rate:%s  downloaded:%s]", args));
 	}
 
 	private String ltime(long millis) {
@@ -84,6 +87,7 @@ public final class WagonDownloadExecutable implements Executable {
 		this.bytesCounter = builder.bytesCounter;
 		this.numberFormatter = builder.numberFormatter;
 		this.rateFormatter = builder.rateFormatter;
+		this.informer = builder.informer;
 	}
 
 	public static Builder builder() {
@@ -101,6 +105,12 @@ public final class WagonDownloadExecutable implements Executable {
 		private LongCounter bytesCounter;
 		private NumberFormat numberFormatter = getDefaultNumberFormatter();
 		private NumberFormat rateFormatter = getDefaultRateFormatter();
+		private PercentCompleteInformer informer;
+
+		public Builder withInformer(PercentCompleteInformer informer) {
+			this.informer = informer;
+			return this;
+		}
 
 		public Builder withRateFormatter(NumberFormat rateFormatter) {
 			this.rateFormatter = rateFormatter;
@@ -189,6 +199,14 @@ public final class WagonDownloadExecutable implements Executable {
 
 	public long getStart() {
 		return start;
+	}
+
+	public PercentCompleteInformer getInformer() {
+		return informer;
+	}
+
+	public LongCounter getBytesCounter() {
+		return bytesCounter;
 	}
 
 }

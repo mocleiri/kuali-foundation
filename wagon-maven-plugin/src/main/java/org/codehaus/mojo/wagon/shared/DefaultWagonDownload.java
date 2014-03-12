@@ -97,10 +97,6 @@ public class DefaultWagonDownload implements WagonDownload {
 
 	@Override
 	public void download(Wagon wagon, WagonFileSet remoteFileSet, Log logger, boolean skipExisting) throws WagonException {
-		if (Boolean.getBoolean("wagon.quiet")) {
-			System.setProperty("org.slf4j.simpleLogger.log.org.kuali.maven.wagon", "warn");
-		}
-
 		List<String> fileList = getFileList(wagon, remoteFileSet, logger);
 
 		String url = wagon.getRepository().getUrl();
@@ -126,17 +122,20 @@ public class DefaultWagonDownload implements WagonDownload {
 		}
 
 		List<Executable> executables = newArrayList();
+		PercentCompleteInformer informer = new PercentCompleteInformer(downloads.size());
 		Counter counter = new Counter();
 		LongCounter bytesCounter = new LongCounter();
 		long start = currentTimeMillis();
 		for (String remoteFile : downloads.keySet()) {
 			CanonicalFile destination = downloads.get(remoteFile);
 			WagonDownloadExecutable executable = WagonDownloadExecutable.builder().withDestination(destination).withRemoteFile(remoteFile).withWagon(wagon).withCounter(counter)
-					.withTotal(downloads.size()).withStart(start).withBytesCounter(bytesCounter).build();
+					.withTotal(downloads.size()).withStart(start).withBytesCounter(bytesCounter).withInformer(informer).build();
 			executables.add(executable);
 		}
 		shuffle(executables);
+		informer.start();
 		executeConcurrently(executables, 10);
+		informer.stop();
 		long elapsed = currentTimeMillis() - start;
 		checkState(counter.getValue() == downloads.size(), "download counter is %s but should be %s", counter.getValue(), downloads.size());
 		if (skipped.size() > 0) {
