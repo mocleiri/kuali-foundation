@@ -79,7 +79,9 @@ function install_jdk {
   
 }
 
+
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+echo $MY_DIR
 source $MY_DIR/preconditions.sh
 
 # module specific variables
