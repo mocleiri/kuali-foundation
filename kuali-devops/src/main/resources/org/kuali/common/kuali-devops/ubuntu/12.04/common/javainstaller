@@ -36,8 +36,6 @@ function install_jdk {
   
   echo $JDK_VERSION
   
-  exit 1
-
   JDK_GROUP_ID=com/oracle
   JDK_ARTIFACT_ID=$JDK
   JDK_CLASSIFIER=linux-x64
