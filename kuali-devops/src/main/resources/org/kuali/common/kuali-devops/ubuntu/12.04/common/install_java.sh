@@ -94,8 +94,7 @@ echo "decrypt   -> nexus password"
 GPG_FILE=$MY_DIR/nexus.password.gpg
 NEXUS_PASSWORD=$(decrypt_password $GPG_FILE)
 
-#JDK6_VERSION=${jdk6.version}
-#JDK7_VERSION=${jdk7.version}
-JDK7_VERSION=1.7.0-u51
+JDK6_VERSION=${jdk6.version}
+JDK7_VERSION=${jdk7.version}
 
 install_jdk
