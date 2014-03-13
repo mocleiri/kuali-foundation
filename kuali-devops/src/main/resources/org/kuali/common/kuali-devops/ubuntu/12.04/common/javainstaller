@@ -105,7 +105,7 @@ while true; do
     --version)
       shift; NEXUS_PASSWORD=$1; shift;
       ;;
-    --quiet)
+    -q|--quiet)
       shift; QUIET="-qq"; shift;
       ;;
     --)
