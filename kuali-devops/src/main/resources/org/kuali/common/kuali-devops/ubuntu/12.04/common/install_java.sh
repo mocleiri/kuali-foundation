@@ -95,11 +95,12 @@ echo "decrypt   -> nexus password"
 GPG_FILE=$MY_DIR/nexus.password.gpg
 NEXUS_PASSWORD=$(decrypt_password $GPG_FILE)
 
-
-if [ $LOCAL == "false" ]; then 
+if [ $LOCAL == "true" ]; then 
+  # For local mode when running the script directly
   JDK6_VERSION=1.6.0-u45
   JDK7_VERSION=1.7.0-u51
 else
+  # For when the script is invoked via maven
   JDK6_VERSION=${jdk6.version}
   JDK7_VERSION=${jdk7.version}
 fi
