@@ -27,7 +27,7 @@ cd ~/ws/kuali-devops; mci; chmod -R 755 ~/ws/kuali-devops/target/classes; cd ~/w
 
 
 encrypt:
-gpg --cipher-algo AES256 --batch --yes --passphrase <password> --symmetric secrets.zip
+gpg --batch --yes --passphrase <password> --cipher-algo AES256 --symmetric secrets.zip
 
 decrypt:
 gpg --batch --yes --passphrase <password> --decrypt --output secrets.zip secrets.zip.gpg
