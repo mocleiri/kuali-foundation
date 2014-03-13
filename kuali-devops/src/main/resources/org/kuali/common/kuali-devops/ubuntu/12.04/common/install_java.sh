@@ -82,22 +82,24 @@ function install_jdk {
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 source $MY_DIR/functions.sh
 
-# module specific variables
-GPG_PASSPHRASE=${1-$GPG_PASSPHRASE}
-JDK=${2-$JDK}
-
-# Make sure we have what we need to continue
-check_args
+GPG_PASSPHRASE=""
+JDK="jdk7"
+RUNTYPE="maven"
 
 QUIET=""
-RUNTYPE="maven"
-while getopts q:r flag; do
+while getopts g:j:q:r flag; do
   case $flag in
+    g)
+      GPG_PASSPHRASE="$OPTARG"
+      ;;
+    j)
+      JDK="$OPTARG"
+      ;;
     q)
-      QUIET="-qq"
+      QUIET="$OPTARG"
       ;;
     r)
-      RUNTYPE="local"
+      RUNTYPE="$OPTARG"
       ;;
     ?)
       exit;
@@ -106,6 +108,9 @@ while getopts q:r flag; do
 done
 
 shift $(( OPTIND - 1 ));
+
+# Make sure we have what we need to continue
+check_args
 
 echo "decrypt   -> nexus password"
 GPG_FILE=$MY_DIR/nexus.password.gpg
