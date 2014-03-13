@@ -90,10 +90,9 @@ QUIET=${3-$QUIET}
 # Make sure we have what we need to continue
 check_args
 
+echo "decrypt   -> nexus password"
 GPG_FILE=$MY_DIR/nexus.password.gpg
-echo "decrypt   -> $GPG_FILE"
 NEXUS_PASSWORD=$(decrypt_password $GPG_FILE)
-echo "NEXUS_PASSWORD=\"$NEXUS_PASSWORD\""
 
 #JDK6_VERSION=${jdk6.version}
 #JDK7_VERSION=${jdk7.version}
