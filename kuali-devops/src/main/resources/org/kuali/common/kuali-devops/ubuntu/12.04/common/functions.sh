@@ -51,13 +51,16 @@ function execute_quietly {
   else
     $COMMAND
   fi
-  check_status
+  check_status $COMMAND
 }
 
 function check_status {
   STATUS="$?"
   if [ ! "$STATUS" == "0" ]; then
     echo "exiting: non-zero exit value -> $STATUS"
+    echo
+    echo "command: $COMMAND"
+    echo 
     exit 1
   fi
 }
