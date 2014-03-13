@@ -89,7 +89,7 @@ JDK=${2-$JDK}
 # Make sure we have what we need to continue
 check_args
 
-ARGS=$(getopt --optionas q:l --longoptions "quiet:local" -n "install_java.sh" -- "$@");
+ARGS=$(getopt --options q:l --longoptions "quiet:local" -n "install_java.sh" -- "$@");
 
 #Bad arguments
 if [ $? -ne 0 ];
