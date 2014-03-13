@@ -81,7 +81,7 @@ function install_jdk {
 
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
-source $MY_DIR/preconditions.sh
+source $MY_DIR/functions.sh
 
 # module specific variables
 GPG_PASSPHRASE=${1-$GPG_PASSPHRASE}
