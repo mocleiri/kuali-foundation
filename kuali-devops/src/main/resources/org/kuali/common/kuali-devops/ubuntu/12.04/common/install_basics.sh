@@ -15,22 +15,19 @@
 # limitations under the License.
 #
 
-# Update Ubuntu repos and packages
+# Update Ubuntu repos and default packages
 function get_upgrades {
   echo "update    -> package indexes"
-  # not even -qq shuts this up
-  apt-get $QUIET -y update > /dev/null 2>&1
+  execute_quietly "apt-get update -y"
   echo "upgrade   -> packages"
-  # not even -qq shuts this up
-  apt-get $QUIET -y upgrade > /dev/null 2>&1
+  execute_quietly "apt-get upgrade -y"
 }
 
-# install custom packages
+# Install general purpose packages applicable to all kuali nodes
 function install_packages {
   echo "install   -> custom packages"
-  # not even -qq shuts this up
   PACKAGES="zip unzip ntp"
-  apt-get install $PACKAGES -y $QUIET > /dev/null 2>&1
+  execute_quietly "apt-get install $PACKAGES -y"
 }
 
 # Functionally equivalent to running "dpkg-reconfigure unattended-upgrades" and answering "Yes" to the prompt
@@ -41,6 +38,9 @@ function unattended_upgrades {
   echo "APT::Periodic::Update-Package-Lists \"1\";" >  $UNATTENDED_FILE 
   echo "APT::Periodic::Unattended-Upgrade \"1\";"   >> $UNATTENDED_FILE 
 }
+
+MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+source $MY_DIR/functions.sh
 
 get_upgrades
 install_packages
