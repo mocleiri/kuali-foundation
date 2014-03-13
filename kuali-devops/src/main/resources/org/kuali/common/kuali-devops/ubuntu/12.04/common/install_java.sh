@@ -95,10 +95,11 @@ echo "decrypt   -> nexus password"
 GPG_FILE=$MY_DIR/nexus.password.gpg
 NEXUS_PASSWORD=$(decrypt_password $GPG_FILE)
 
-JDK6_VERSION=1.6.0-u45
-JDK7_VERSION=1.7.0-u51
 
 if [ $LOCAL == "false" ]; then 
+  JDK6_VERSION=1.6.0-u45
+  JDK7_VERSION=1.7.0-u51
+else
   JDK6_VERSION=${jdk6.version}
   JDK7_VERSION=${jdk7.version}
 fi
