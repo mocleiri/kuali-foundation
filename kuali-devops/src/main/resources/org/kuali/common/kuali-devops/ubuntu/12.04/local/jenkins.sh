@@ -48,8 +48,8 @@ function configure_slave_before {
   enable_root_ssh
   publish_module
   echo "configure -> $FQDN :: ec2slave"
-  JDK=jdk6; source installers.sh; JAVA6=$JAVA
-  JDK=jdk7; source installers.sh; JAVA7=$JAVA
+  JDK=jdk6; source $MY_DIR/installers.sh; JAVA6=$JAVA
+  JDK=jdk7; source $MY_DIR/installers.sh; JAVA7=$JAVA
   SSH="$BASICS; $JAVA6; $JAVA7"
   ssh root@$FQDN "$SSH"
 }
