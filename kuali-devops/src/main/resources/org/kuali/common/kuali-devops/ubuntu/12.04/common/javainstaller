@@ -100,8 +100,7 @@ while true; do
       shift; JDK_LEVEL=$1; shift;
       ;;
     --)
-      shift;
-      break;
+      shift; break;
       ;;
   esac
 done
