@@ -25,10 +25,8 @@ function check_not_blank {
 
 # module specific functions
 function show_usage {
-  echo
   echo requires JDK GPG_PASSPHRASE
   echo usage: install_java.sh jdk6/jdk7 gpg_passphrase [quiet]
-  echo
   exit 1
 }
 
