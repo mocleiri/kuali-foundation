@@ -85,9 +85,8 @@ source $MY_DIR/preconditions.sh
 
 # module specific variables
 GPG_PASSPHRASE=${1-$GPG_PASSPHRASE}
-BASEDIR=${2-$BASEDIR}
-JDK=${3-$JDK}
-QUIET=${4-$QUIET}
+JDK=${2-$JDK}
+QUIET=${3-$QUIET}
 
 # Make sure we have what we need to continue
 check_args
