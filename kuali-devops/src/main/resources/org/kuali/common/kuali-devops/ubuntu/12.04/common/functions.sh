@@ -41,10 +41,8 @@ function check_exists {
 function decrypt_password {
   check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
   check_exists $1
+  GPG_INPUT_FILE=$1
   GPG_OUTPUT_FILE=$(basename $1 .gpg)
-  gpg --batch --yes --passphrase $GPG_PASSPHRASE --quiet --decrypt --output $GPG_OUTPUT_FILE $1
-  PASSWORD=$(<$GPG_OUTPUT_FILE)
-  rm $GPG_OUTPUT_FILE
-  echo $PASSWORD 
+  echo "gpg --batch --yes --passphrase $GPG_PASSPHRASE --quiet --decrypt --output $GPG_OUTPUT_FILE $GPG_INPUT_FILE"
 }
 
