@@ -105,4 +105,7 @@ else
   JDK7_VERSION=${jdk7.version}
 fi
 
+check_not_blank JDK6_VERSION $JDK6_VERSION
+check_not_blank JDK7_VERSION $JDK7_VERSION
+
 install_jdk
