@@ -18,21 +18,15 @@
 # Make sure a variable is set and is not the empty string
 # usage: check_not_blank JDK $JDK
 function check_not_blank {
-  if [ ! -n "$2" ]; then echo $1 cannot be blank; usage; fi
+  if [ ! -n "$2" ]; then echo $1 cannot be blank; usage(); fi
 }
 
 # Make sure a file exists
 # usage: check_exists /root/.bashrc
 function check_exists {
   FILENAME=$1
-  if [ ! -n "$FILENAME" ]; then 
-    echo FILENAME cannot be blank
-    exit 1
-  fi
-  if [ ! -f $FILENAME ]; then
-    echo "file [$FILENAME] does not exist"
-    exit 1
-  fi
+  if [ ! -n "$FILENAME" ]; then echo FILENAME cannot be blank; exit 1; fi
+  if [ ! -f $FILENAME ];   then echo "file [$FILENAME] does not exist"; exit 1; fi
 }
 
 function decrypt_password {
