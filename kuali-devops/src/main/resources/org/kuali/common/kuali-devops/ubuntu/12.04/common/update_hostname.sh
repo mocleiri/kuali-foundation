@@ -15,14 +15,6 @@
 # limitations under the License.
 #
 
-# generic functions
-function check_not_blank {
-  if [ ! -n "$2" ]; then 
-    echo $1 cannot be blank
-    show_usage
-  fi
-}
-
 # module specific functions
 function show_usage {
   echo
@@ -59,6 +51,9 @@ function set_hostname {
   # eval "sed -i -e '/127.0.0.1/a$ETC_HOSTS' /etc/hosts"
   
 }
+
+MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+source $MY_DIR/functions.sh
 
 # module specific variables
 SUBDOMAIN=${1-$SUBDOMAIN}
