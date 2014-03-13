@@ -86,7 +86,7 @@ source $MY_DIR/functions.sh
 GPG_PASSPHRASE=${1-$GPG_PASSPHRASE}
 JDK=${2-$JDK}
 QUIET=${3-$QUIET}
-LOCAL=${$4-false}
+LOCAL=${4-false}
 
 # Make sure we have what we need to continue
 check_args
