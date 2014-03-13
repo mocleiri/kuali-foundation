@@ -89,35 +89,21 @@ JDK=${2-$JDK}
 # Make sure we have what we need to continue
 check_args
 
-ARGS=$(getopt --options q:l --longoptions "quiet:local" -n "install_java.sh" -- "$@");
-
-#Bad arguments
-if [ $? -ne 0 ];
-then
-  exit 1
-fi
-
-eval set -- "$ARGS";
-
-QUIET=""
-RUNTYPE="maven"
-
-while true; do
-  case "$1" in
-    -q|--quiet)
-      shift;
-      QUIET="-qq"
+while getopts q:r flag; do
+  case $flag in
+    q)
+      echo "-q used: $OPTARG";
       ;;
-    -l|--local)
-      shift;
-      RUNTYPE="local"
+    r)
+      echo "-r used: $OPTARG";
       ;;
-    --)
-      shift;
-      break;
+    ?)
+      exit;
       ;;
   esac
 done
+
+shift $(( OPTIND - 1 ));
 
 echo "decrypt   -> nexus password"
 GPG_FILE=$MY_DIR/nexus.password.gpg
