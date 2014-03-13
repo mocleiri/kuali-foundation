@@ -233,7 +233,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-usage() { echo "Usage: $ME [-q] tomcat6/tomcat7 jdk6/jdk7 max_heap max_perm domain ssl_password" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-q] tomcat6/tomcat7 jdk6/jdk7 max_heap max_perm domain gpg_password" 1>&2; exit 1; }
 
 # Module specific variables
 ZIP_PASSWORD=${1-$ZIP_PASSWORD}
