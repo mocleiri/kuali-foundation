@@ -44,7 +44,7 @@ function publish_module {
   CMD3="unzip -qq $FILE -d $DIR"
   CMD4="chmod -R 755 $DIR"
   CMDS="$CMD1; $CMD2; $CMD3; $CMD4"
-  echo "copy      -> $REMOTE"
+  echo "publish   -> $REMOTE"
   scp $LOCAL $REMOTE > /dev/null 2>&1
   ssh root@$FQDN "$CMDS"
 }
