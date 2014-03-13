@@ -90,6 +90,14 @@ QUIET=${3-$QUIET}
 # Make sure we have what we need to continue
 check_args
 
+ARGS=$(getopt -l "runtype" -n "install_java.sh" -- "$@");
+#Bad arguments
+if [ $? -ne 0 ];
+then
+  exit 1
+fi
+
+
 echo "decrypt   -> nexus password"
 GPG_FILE=$MY_DIR/nexus.password.gpg
 NEXUS_PASSWORD=$(decrypt_password $GPG_FILE)
