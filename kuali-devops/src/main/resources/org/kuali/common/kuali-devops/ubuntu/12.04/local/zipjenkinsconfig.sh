@@ -32,7 +32,7 @@ function scp_zip_file {
   ZIP_FILE="master.zip"
   SERVER_ZIP="/mnt/$ZIP_FILE"
   LOCAL_ZIP="/tmp/$ZIP_FILE"
-  GPG_FILE="${project.basedir}/src/main/resources/${project.groupId.path}/${project.artifactId}/jenkins/$ZIP_FILE"
+  GPG_FILE="${project.basedir}/src/main/resources/${project.groupId.path}/${project.artifactId}/jenkins/$ZIP_FILE.gpg"
   
   SSH1="rm -f $SERVER_ZIP"
   SSH2="cd /home/tomcat7"
@@ -44,6 +44,7 @@ function scp_zip_file {
   ssh root@$FQDN "$SSH"
   echo "scp -> $LOCAL_ZIP"
   scp root@$FQDN:$SERVER_ZIP $LOCAL_ZIP > /dev/null 2>&1
+  gpg --batch --yes --passphrase $GPG_PASSPHRASE --cipher-algo AES256 --symmetric --output $GPG_FILE $ZIP_FILE
 
 }
 
