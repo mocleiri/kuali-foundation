@@ -15,7 +15,8 @@
 # limitations under the License.
 #
 
-# generic functions
+# Make sure a variable is set and is not the empty string
+# usage: check_not_blank JDK $JDK
 function check_not_blank {
   if [ ! -n "$2" ]; then 
     echo $1 cannot be blank
@@ -23,6 +24,8 @@ function check_not_blank {
   fi
 }
 
+# Make sure a file exists
+# usage: check_exists /root/.bashrc
 function check_exists {
   FILENAME=$1
   if [ ! -n "$FILENAME" ]; then 
