@@ -111,4 +111,4 @@ NEXUS_PASSWORD=$3
 
 check_args
 
-#install_jdk
+install_jdk
