@@ -16,13 +16,13 @@
 #
 
 function show_usage {
-  echo requires ZIP_PASSWORD SUBDOMAIN
-  echo usage: zipjenkinsconfig.sh zip_password subdomain
+  echo requires GPG_PASSPHRASE SUBDOMAIN
+  echo usage: zipjenkinsconfig.sh gpg_passphrase subdomain
   exit 1
 }
 
 function check_args {
-  check_not_blank ZIP_PASSWORD $ZIP_PASSWORD
+  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
   check_not_blank SUBDOMAIN $SUBDOMAIN
 }
 
@@ -54,7 +54,7 @@ echo $(date)
 source preconditions.sh
 
 # Module specific variables
-GPG_PASSPHRASE=$1
+GPG_PASSPHRASE=${1-$GPG_PASSPHRASE}
 SUBDOMAIN=$2
 
 # Make sure we have what we need
