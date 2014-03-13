@@ -51,7 +51,7 @@ function install_jdk {
   OUTPUT_FILE=$JDK_BASEDIR/$JDK_ZIP_FILE
   GPG_ENCRYPTED=$MY_DIR/nexus.password.gpg
   GPG_DECRYPTED=$MY_DIR/nexus.password
-  echo "decrypt   -> $GPG_ENCRYPTED"
+  echo "decrypt   -> nexus password"
   decrypt_file $GPG_ENCRYPTED $GPG_DECRYPTED
   NEXUS_PASSWORD=$(<$GPG_DECRYPTED)
   rm $GPG_DECRYPTED
