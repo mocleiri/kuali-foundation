@@ -59,6 +59,10 @@ done
 
 shift $(( OPTIND - 1 ));
 
+if ls then; echo yo; fi
+
+exit 1
+
 get_upgrades
 install_packages
 unattended_upgrades
