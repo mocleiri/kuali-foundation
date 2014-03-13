@@ -94,6 +94,9 @@ JDK_LEVEL=""
 JDK_VERSION=""
 NEXUS_PASSWORD=""
 
+MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+source $MY_DIR/functions.bashrc
+
 while true; do
   case "$1" in
     --jdk)
