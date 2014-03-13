@@ -86,6 +86,7 @@ source $MY_DIR/functions.sh
 GPG_PASSPHRASE=${1-$GPG_PASSPHRASE}
 JDK=${2-$JDK}
 QUIET=${3-$QUIET}
+LOCAL=${$4-false}
 
 # Make sure we have what we need to continue
 check_args
@@ -94,7 +95,12 @@ echo "decrypt   -> nexus password"
 GPG_FILE=$MY_DIR/nexus.password.gpg
 NEXUS_PASSWORD=$(decrypt_password $GPG_FILE)
 
-JDK6_VERSION=${jdk6.version}
-JDK7_VERSION=${jdk7.version}
+JDK6_VERSION=1.6.0-u45
+JDK7_VERSION=1.7.0-u51
+
+if [ $LOCAL == "false" ]; then 
+  JDK6_VERSION=${jdk6.version}
+  JDK7_VERSION=${jdk7.version}
+fi
 
 install_jdk
