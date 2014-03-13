@@ -50,7 +50,7 @@ function install_jdk {
   URL=$NEXUS_URL/$NEXUS_JDK_LOCATION/$JDK_ZIP_FILE
   OUTPUT_FILE=$JDK_BASEDIR/$JDK_ZIP_FILE
   echo "download  -> $URL"
-  curl $QUIET --user $NEXUS_USER:$NEXUS_PASSWORD --output $OUTPUT_FILE $URL
+  execute_quietly "curl --user $NEXUS_USER:$NEXUS_PASSWORD --output $OUTPUT_FILE $URL"
 
   # Make sure the JDK and the symbolic link are both gone
   JDK_TARGET=$JDK_BASEDIR/$JDK_UNZIP_DIR
@@ -60,7 +60,7 @@ function install_jdk {
 
   # Unpack the JDK into /usr/java
   echo "install   -> $JDK_LINK - [$JDK_TARGET]"
-  unzip $QUIET -o $OUTPUT_FILE -d $JDK_BASEDIR
+  execute_quietly "unzip -o $OUTPUT_FILE -d $JDK_BASEDIR"
 
   # Create the symbolic link /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
   ln -s $JDK_TARGET $JDK_LINK
