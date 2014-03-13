@@ -42,7 +42,7 @@ function scp_zip_file {
 
   echo "zip     -> root@$FQDN:$SERVER_ZIP"
   ssh root@$FQDN "$SSH"
-  echo "scp     -> $LOCAL_ZIP"
+  echo "scp     -> root@$FQDN:$SERVER.ZIP to $LOCAL_ZIP"
   scp root@$FQDN:$SERVER_ZIP $LOCAL_ZIP > /dev/null 2>&1
   echo "encrypt -> $GPG_FILE"
   gpg --batch --yes --passphrase $GPG_PASSPHRASE --cipher-algo AES256 --symmetric --output $GPG_FILE $LOCAL_ZIP
