@@ -111,5 +111,5 @@ while true; do
   esac
 done
 
-echo $JDK
+#echo $JDK
 #install_jdk
