@@ -56,7 +56,7 @@ function execute_quietly {
 
 function check_status {
   if [ ! "$?" == "0" ]; then
-    echo "Non-zero exit value"
+    echo "exiting: non-zero exit value -> $?"
     exit 1
   fi
 }
