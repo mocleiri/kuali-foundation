@@ -38,3 +38,7 @@ function check_exists {
   fi
 }
 
+function decrypt_password {
+  check_exists $1
+}
+
