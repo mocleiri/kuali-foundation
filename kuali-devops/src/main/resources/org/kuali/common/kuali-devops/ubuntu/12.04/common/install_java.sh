@@ -25,14 +25,14 @@ function check_not_blank {
 
 # module specific functions
 function show_usage {
-  echo requires JDK GPG_PASSPHRASE
-  echo usage: install_java.sh jdk6/jdk7 gpg_passphrase [quiet]
+  echo requires GPG_PASSPHRASE JDK 
+  echo usage: install_java.sh gpg_passphrase jdk6/jdk7 [quiet]
   exit 1
 }
 
 function check_args {
-  check_not_blank JDK $JDK
   check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
+  check_not_blank JDK $JDK
 }
 
 function get_jdk_version {
@@ -89,8 +89,8 @@ function install_jdk {
 }
 
 # module specific variables
-JDK=${1-$JDK}
-GPG_PASSPHRASE=${2-$GPG_PASSPHRASE}
+GPG_PASSPHRASE=${1-$GPG_PASSPHRASE}
+JDK=${2-$JDK}
 QUIET=${3-$QUIET}
 
 # Make sure we have what we need to continue
