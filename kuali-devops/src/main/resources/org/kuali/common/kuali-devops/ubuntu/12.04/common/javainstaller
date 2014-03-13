@@ -78,6 +78,10 @@ function check_args {
   check_not_blank JDK $JDK
   check_not_blank JDK_UPDATE $JDK_UPDATE
   check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
+  
+  if [[ ( $JDK != "jdk6") && ( $JDK == "jdk7") ]] then
+    echo oops
+  fi
 }
 
 QUIET=""
