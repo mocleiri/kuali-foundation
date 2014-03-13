@@ -91,6 +91,7 @@ QUIET=${3-$QUIET}
 check_args
 
 GPG_FILE=$MY_DIR/nexus.password.gpg
+echo "decrypt   -> $GPG_FILE"
 NEXUS_PASSWORD=$(decrypt_password $GPG_FILE)
 echo "NEXUS_PASSWORD=$NEXUS_PASSWORD"
 
