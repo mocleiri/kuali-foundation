@@ -72,12 +72,6 @@ function install_jdk {
   
 }
 
-MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
-ME=$(basename $0)
-source $MY_DIR/functions.sh
-
-usage() { echo "Usage: $ME [-q] jdk6/jdk7 u45/u51 <password>" 1>&2; exit 1; }
-
 function check_args {
   check_not_blank JDK $JDK
   check_not_blank JDK_UPDATE $JDK_UPDATE
@@ -88,6 +82,12 @@ function check_args {
     exit 1
   fi
 }
+
+MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+ME=$(basename $0)
+source $MY_DIR/functions.sh
+
+usage() { echo "Usage: $ME [-q] jdk6/jdk7 u45/u51 <password>" 1>&2; exit 1; }
 
 QUIET=""
 while getopts q flag; do
