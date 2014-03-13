@@ -50,7 +50,7 @@ function install_jdk {
   URL=$NEXUS_URL/$NEXUS_JDK_LOCATION/$JDK_ZIP_FILE
   OUTPUT_FILE=$JDK_BASEDIR/$JDK_ZIP_FILE
   echo "download  -> $URL"
-  NEXUS_PASSWORD=$(decrypt_password $PASSWORD)
+  NEXUS_PASSWORD=$(decrypt_password $MY_DIR/nexus.password.gpg)
   echo $NEXUS_PASSWORD
   execute_quietly "curl --user $NEXUS_USER:$NEXUS_PASSWORD --output $OUTPUT_FILE $URL"
 
@@ -89,7 +89,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-usage() { echo "Usage: $ME [-q] jdk6/jdk7 u45/u51 password" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-q] jdk6/jdk7 u45/u51 gpg_passphrase" 1>&2; exit 1; }
 
 QUIET=""
 while getopts q flag; do
@@ -107,7 +107,7 @@ shift $(( OPTIND - 1 ));
 
 JDK=$1
 JDK_UPDATE=$2
-PASSWORD=$3
+GPG_PASSPHRASE=$3
 
 check_args
 
