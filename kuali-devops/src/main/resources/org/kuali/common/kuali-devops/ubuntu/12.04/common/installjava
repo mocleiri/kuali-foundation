@@ -51,6 +51,7 @@ function install_jdk {
   OUTPUT_FILE=$JDK_BASEDIR/$JDK_ZIP_FILE
   echo "download  -> $URL"
   NEXUS_PASSWORD=$(decrypt_password $PASSWORD)
+  echo $NEXUS_PASSWORD
   execute_quietly "curl --user $NEXUS_USER:$NEXUS_PASSWORD --output $OUTPUT_FILE $URL"
 
   # Make sure the JDK and the symbolic link are both gone
