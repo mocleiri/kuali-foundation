@@ -25,3 +25,9 @@ cd ~/ws/kuali-devops; mci; chmod -R 755 ~/ws/kuali-devops/target/classes; cd ~/w
 ./appserver.sh NEXUS_PASSWORD ZIP_PASSWORD beta.ci jdk7 tomcat7 5g 256m -qq
 ./jenkins.sh   NEXUS_PASSWORD ZIP_PASSWORD beta.ci master -qq
 
+
+encrypt:
+gpg --cipher-algo AES256 --batch --yes --passphrase <password> --symmetric secrets.zip
+
+decrypt:
+gpg --batch --yes --passphrase <password> --decrypt --output secrets.zip secrets.zip.gpg
