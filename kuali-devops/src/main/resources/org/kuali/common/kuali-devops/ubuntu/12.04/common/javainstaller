@@ -16,9 +16,9 @@
 #
 
 function check_args {
-  check_not_blank JDK $JDK
-  check_not_blank JDK_VERSION $JDK_VERSION
-  check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
+  check_not_blank jdk $JDK
+  check_not_blank version $JDK_VERSION
+  check_not_blank password $NEXUS_PASSWORD
 }
 
 function get_jdk_version {
