@@ -16,8 +16,9 @@
 #
 
 function check_args {
-  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
   check_not_blank JDK $JDK
+  check_not_blank JDK_VERSION $JDK_VERSION
+  check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
 }
 
 function get_jdk_version {
@@ -79,10 +80,11 @@ source $MY_DIR/functions.bashrc
 
 usage() { echo "Usage: $ME [-q] jdk6/jdk7 u45/u51 <password> " 1>&2; exit 1; }
 
+QUIET=""
 while getopts q flag; do
   case $flag in
     q)
-      echo "-q used: $OPTARG";
+      QUIET="-qq";
       ;;
     ?)
       exit;
@@ -92,10 +94,8 @@ done
 
 shift $(( OPTIND - 1 ));
 
-QUIET=""
-JDK_LEVEL=""
-JDK_VERSION=""
-NEXUS_PASSWORD=""
-
+JDK=$1
+JDK_VERSION=$2
+NEXUS_PASSWORD=$3
 
 #install_jdk
