@@ -61,10 +61,10 @@ function configure_slave_after {
   ssh root@$FQDN "$SSH"
 }
 
-echo $(date)
-
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 source $MY_DIR/../common/functions.sh
+
+echo $(date)
 
 # Module specific variables
 GPG_PASSPHRASE=$1
