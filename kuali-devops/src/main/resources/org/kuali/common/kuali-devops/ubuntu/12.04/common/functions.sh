@@ -38,8 +38,8 @@ function check_exists {
 
 function decrypt_password {
   check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
-  check_exists $1
   GPG_INPUT_FILE=$1
+  check_exists $GPG_INPUT_FILE
   GPG_OUTPUT_FILE=$MY_DIR/$(basename $GPG_INPUT_FILE .gpg)
   execute_quietly "gpg --batch --yes --passphrase $GPG_PASSPHRASE --decrypt --output $GPG_OUTPUT_FILE $GPG_INPUT_FILE"
   GPG_DECRYPTED=$(<$GPG_OUTPUT_FILE)
@@ -50,14 +50,8 @@ function decrypt_password {
 function execute_quietly {
   COMMAND=$1
   if [ "$QUIET" = "true" ]; then
-    if [[ "$($COMMAND > /dev/null 2>&1)" != "0" ]]; then
-      echo "Non-zero exit value: \"$COMMAND\""
-      exit 1
-    fi
+    $COMMAND > /dev/null 2>&1
   else
-    if [[ "$($COMMAND)" != "0" ]]; then
-      echo "Non-zero exit value: \"$COMMAND\""
-      exit 1
-    fi
+    $COMMAND
   fi
 }
