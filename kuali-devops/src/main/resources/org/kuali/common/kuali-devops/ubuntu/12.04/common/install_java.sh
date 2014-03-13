@@ -17,7 +17,7 @@
 
 function show_usage {
   echo requires GPG_PASSPHRASE JDK 
-  echo usage: install_java.sh gpg_passphrase jdk6/jdk7 [quiet] [local]
+  echo usage: install_java.sh gpg_passphrase jdk6/jdk7 [quiet] [runtype]
   exit 1
 }
 
