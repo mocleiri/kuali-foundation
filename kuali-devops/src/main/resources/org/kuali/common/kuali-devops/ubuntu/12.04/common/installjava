@@ -72,9 +72,9 @@ function install_jdk {
   
 }
 
-ME=$(basename $0)
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
-source $MY_DIR/functions.bashrc
+ME=$(basename $0)
+source $MY_DIR/functions.sh
 
 usage() { echo "Usage: $ME [-q] jdk6/jdk7 u45/u51 <password> " 1>&2; exit 1; }
 
