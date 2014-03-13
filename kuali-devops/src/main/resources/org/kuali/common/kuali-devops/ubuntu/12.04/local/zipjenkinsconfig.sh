@@ -29,14 +29,15 @@ function check_args {
 # connect to a remote server, zip jenkins config, and scp it to the local machine
 function scp_zip_file {
 
-  ZIP_FILE="config.zip"
+  ZIP_FILE="master.zip"
   SERVER_ZIP="/mnt/$ZIP_FILE"
-  LOCAL_ZIP="${project.basedir}/src/main/resources/${project.groupId.path}/${project.artifactId}/jenkins/$ZIP_FILE"
+  LOCAL_ZIP="/tmp/$ZIP_FILE"
+  GPG_FILE="${project.basedir}/src/main/resources/${project.groupId.path}/${project.artifactId}/jenkins/$ZIP_FILE"
   
   SSH1="rm -f $SERVER_ZIP"
   SSH2="cd /home/tomcat7"
-  #SSH3="zip -qq -e --password $ZIP_PASSWORD -r $SERVER_ZIP .jenkins -x '**/plugins/**' '**/workspace/**'"
-  SSH3="zip -qq -e --password $ZIP_PASSWORD -r $SERVER_ZIP .jenkins -x '**/plugins/**' '**/jobs/**' '**/config-history/**'"
+  #SSH3="zip -qq -r $SERVER_ZIP .jenkins -x '**/plugins/**' '**/workspace/**'"
+  SSH3="zip -qq -r $SERVER_ZIP .jenkins -x '**/plugins/**' '**/jobs/**' '**/config-history/**'"
   SSH="$SSH1; $SSH2; $SSH3"
 
   echo "zip -> root@$FQDN:$SERVER_ZIP"
