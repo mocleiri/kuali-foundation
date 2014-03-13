@@ -75,7 +75,7 @@ function install_jdk {
 function check_args {
   check_not_blank JDK $JDK
   check_not_blank JDK_UPDATE $JDK_UPDATE
-  check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
+  check_not_blank PASSWORD $PASSWORD
   
   if [[ ! ("$JDK" = "jdk6" || "$JDK" = "jdk7") ]]; then
     echo "\"$JDK\" is invalid.  Must be either jdk6 or jdk7"
@@ -105,7 +105,7 @@ shift $(( OPTIND - 1 ));
 
 JDK=$1
 JDK_UPDATE=$2
-NEXUS_PASSWORD=$3
+PASSWORD=$3
 
 check_args
 
