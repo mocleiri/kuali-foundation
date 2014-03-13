@@ -79,43 +79,15 @@ function install_jdk {
   
 }
 
-usage() { echo "Usage: $0 [-k <6|7>] [-u <number>] -p [password]" 1>&2; exit 1; }
-
-usage
-
-MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
-source $MY_DIR/functions.sh
+usage() { echo "Usage: $0 [-k <6|7>] [-u <number>] -p [password]" -q 1>&2; exit 1; }
 
 QUIET=""
-while getopts "q" OPTION do
-  case $OPTION in
-    q) $QUIET="-qq";;
-    \?) exit 1;;
-  esac
-done
+JDK="";
+JDK_UPDATE=""
+NEXUS_PASSWORD=""
 
-GPG_PASSPHRASE=$1
-JDK=$2
-UPDATE=$3
+ARGS=$(getopt --options j:u:p:q --longoptions jdk:,update:,password:,quiet --name "$0" -- "$@")
 
-# Make sure we have what we need to continue
-check_args
+if [ $? != 0 ] ; then ; exit 1 ; fi
 
-echo "decrypt   -> nexus password"
-GPG_FILE=$MY_DIR/nexus.password.gpg
-NEXUS_PASSWORD=$(decrypt_password $GPG_FILE)
-
-if [ $RUNTYPE == "local" ]; then 
-  # For local mode when running the script directly
-  JDK6_VERSION=1.6.0-u45
-  JDK7_VERSION=1.7.0-u51
-else
-  # For when the script is invoked via maven
-  JDK6_VERSION=${jdk6.version}
-  JDK7_VERSION=${jdk7.version}
-fi
-
-check_not_blank JDK6_VERSION $JDK6_VERSION
-check_not_blank JDK7_VERSION $JDK7_VERSION
-
-install_jdk
+#install_jdk
