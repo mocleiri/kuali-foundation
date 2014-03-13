@@ -55,3 +55,9 @@ function execute_quietly {
     $COMMAND
   fi
 }
+
+function check_status {
+  if [ ! "$?" == "0" ]; then
+    exit 1
+  fi
+}
