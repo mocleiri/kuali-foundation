@@ -47,11 +47,6 @@ function decrypt_password {
   echo $GPG_DECRYPTED
 }
 
-if [[ "$(ls -la)" != "0" ]]; then
-  echo oops
-  exit 1
-fi
-
 function execute_quietly {
   COMMAND=$1
   if [ "$QUIET" = "true" ]; then
