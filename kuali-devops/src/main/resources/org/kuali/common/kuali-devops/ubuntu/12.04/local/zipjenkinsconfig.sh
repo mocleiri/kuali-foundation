@@ -40,10 +40,11 @@ function scp_zip_file {
   SSH3="zip -qq -r $SERVER_ZIP .jenkins -x '**/plugins/**' '**/jobs/**' '**/config-history/**'"
   SSH="$SSH1; $SSH2; $SSH3"
 
-  echo "zip -> root@$FQDN:$SERVER_ZIP"
+  echo "zip     -> root@$FQDN:$SERVER_ZIP"
   ssh root@$FQDN "$SSH"
-  echo "scp -> $LOCAL_ZIP"
+  echo "scp     -> $LOCAL_ZIP"
   scp root@$FQDN:$SERVER_ZIP $LOCAL_ZIP > /dev/null 2>&1
+  echo "encrypt -> $GPG_FILE"
   gpg --batch --yes --passphrase $GPG_PASSPHRASE --cipher-algo AES256 --symmetric --output $GPG_FILE $LOCAL_ZIP
 
 }
