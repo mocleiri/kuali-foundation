@@ -59,9 +59,10 @@ done
 
 shift $(( OPTIND - 1 ));
 
-if ls then; echo yo; fi
-
-exit 1
+if [[ "$(ls -la)" != "0" ]] then
+  echo oops
+  exit 1
+fi
 
 get_upgrades
 install_packages
