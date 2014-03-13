@@ -97,6 +97,7 @@ then
   exit 1
 fi
 
+eval set -- "$ARGS";
 
 echo "decrypt   -> nexus password"
 GPG_FILE=$MY_DIR/nexus.password.gpg
