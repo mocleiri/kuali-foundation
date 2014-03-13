@@ -51,6 +51,7 @@ function execute_quietly {
   COMMAND=$1
   if [ "$QUIET" = "true" ]; then
     $COMMAND > /dev/null 2>&1
+    echo "$?"
   else
     $COMMAND
   fi
