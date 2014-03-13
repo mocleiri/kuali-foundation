@@ -38,10 +38,10 @@ function check_exists {
 
 function decrypt_file {
   check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
-  GPG_INPUT_FILE=$1
-  GPG_OUTPUT_FILE=$2
-  check_exists $GPG_INPUT_FILE
-  execute_quietly "gpg --batch --yes --passphrase $GPG_PASSPHRASE --decrypt --output $GPG_OUTPUT_FILE $GPG_INPUT_FILE"
+  GPG_ENCRYPTED=$1
+  GPG_DECRYPTED=$2
+  check_exists $GPG_ENCRYPTED
+  execute_quietly "gpg --batch --yes --passphrase $GPG_PASSPHRASE --decrypt --output $GPG_DECRYPTED $GPG_ENCRYPTED"
 }
 
 function execute_quietly {
