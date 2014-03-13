@@ -79,7 +79,7 @@ usage() { echo "Usage: $ME --jdk=<6|7> --version=u<number> --password=password [
 ARGS=$(getopt --options q --longoptions "jdk:,version:,password:,quiet" --name $ME -- "$@");
 if [ $? -ne 0 ];
 then
-  show_usage
+  usage
 fi
 eval set -- "$ARGS";
 
