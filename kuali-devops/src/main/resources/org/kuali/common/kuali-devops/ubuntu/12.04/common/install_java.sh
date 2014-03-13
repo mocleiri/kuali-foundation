@@ -94,4 +94,3 @@ JDK6_VERSION=${jdk6.version}
 JDK7_VERSION=${jdk7.version}
 
 install_jdk
-
