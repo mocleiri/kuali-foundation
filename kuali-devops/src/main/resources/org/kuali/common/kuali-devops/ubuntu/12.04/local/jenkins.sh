@@ -63,24 +63,20 @@ function configure_slave_after {
 
 echo $(date)
 
-# import generic functions
-source preconditions.sh
+MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+source $MY_DIR/../common/functions.sh
 
 # Module specific variables
-NEXUS_PASSWORD=$1
-ZIP_PASSWORD=$2
-SUBDOMAIN=$3
-TYPE=$4
-QUIET=${5-""}
-
-# Same password for both
-SVN_PASSWORD=$ZIP_PASSWORD
+GPG_PASSPHRASE=$1
+SUBDOMAIN=$2
+TYPE=$3
+QUIET=${4-""}
 
 # Make sure we have what we need
 check_args
 
 # import bootstrap variables/functions
-source bootstrap.sh $SUBDOMAIN
+source $MY_DIR/../common/bootstrap.sh $SUBDOMAIN
 
 if [ "$TYPE" = "slave" ]; then
   configure_slave_before
