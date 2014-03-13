@@ -30,4 +30,4 @@ encrypt:
 gpg --batch --yes --passphrase <password> --cipher-algo AES256 --symmetric secrets.zip
 
 decrypt:
-gpg --batch --yes --passphrase <password> --decrypt --output secrets.zip secrets.zip.gpg
+gpg --quiet --batch --yes --passphrase <password> --decrypt --output secrets.zip secrets.zip.gpg
