@@ -97,7 +97,7 @@ NEXUS_PASSWORD=""
 while true; do
   case "$1" in
     --jdk)
-      shift; JDK_LEVEL=$1; shift;
+      shift; JDK_LEVEL=$1; check_not_blank JDK_LEVEL $JDK_LEVEL; shift;
       ;;
     --version)
       shift; JDK_VERSION=$1; shift;

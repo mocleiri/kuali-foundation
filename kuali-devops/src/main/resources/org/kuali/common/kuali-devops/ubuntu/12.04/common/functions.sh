@@ -21,6 +21,8 @@ function check_not_blank {
   if [ ! -n "$2" ]; then 
     echo $1 cannot be blank
     show_usage
+  else 
+    echo $2
   fi
 }
 
