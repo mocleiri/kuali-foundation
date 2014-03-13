@@ -15,12 +15,6 @@
 # limitations under the License.
 #
 
-function show_usage {
-  echo requires GPG_PASSPHRASE JDK 
-  echo usage: install_java.sh gpg_passphrase jdk6/jdk7 [local/anything] [quiet]
-  exit 1
-}
-
 function check_args {
   check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
   check_not_blank JDK $JDK
@@ -100,7 +94,7 @@ source $MY_DIR/functions.bashrc
 while true; do
   case "$1" in
     --jdk)
-      shift; JDK_LEVEL="$(check_not_blank JDK_LEVEL $1)"; shift;
+      shift; JDK=jdk"$(check_not_blank jdk $1)"; shift;
       ;;
     --version)
       shift; JDK_VERSION=$1; shift;
@@ -117,5 +111,5 @@ while true; do
   esac
 done
 
-echo $JDK_LEVEL
+echo $JDK
 #install_jdk
