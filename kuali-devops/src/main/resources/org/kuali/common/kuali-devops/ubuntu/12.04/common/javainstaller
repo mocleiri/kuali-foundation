@@ -94,7 +94,7 @@ source $MY_DIR/functions.bashrc
 while true; do
   case "$1" in
     --jdk)
-      shift; JDK=jdk"$(check_not_blank jdk $1)"; shift;
+      shift; JDK=$(check_not_blank jdk $1); shift;
       ;;
     --version)
       shift; JDK_VERSION=$1; shift;
