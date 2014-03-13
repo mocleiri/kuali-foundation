@@ -15,12 +15,6 @@
 # limitations under the License.
 #
 
-function check_args {
-  check_not_blank jdk $JDK
-  check_not_blank version $JDK_VERSION
-  check_not_blank password $NEXUS_PASSWORD
-}
-
 function get_jdk_version {
   echo "JDK${JDK_LEVEL}_VERSION"
 }
@@ -80,6 +74,12 @@ source $MY_DIR/functions.bashrc
 
 usage() { echo "Usage: $ME [-q] jdk6/jdk7 u45/u51 <password> " 1>&2; exit 1; }
 
+function check_args {
+  check_not_blank JDK $JDK
+  check_not_blank JDK_UPDATE $JDK_UPDATE
+  check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
+}
+
 QUIET=""
 while getopts q flag; do
   case $flag in
@@ -95,7 +95,7 @@ done
 shift $(( OPTIND - 1 ));
 
 JDK=$1
-JDK_VERSION=$2
+JDK_UPDATE=$2
 NEXUS_PASSWORD=$3
 
 check_args
