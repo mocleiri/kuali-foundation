@@ -90,8 +90,9 @@ function install_jdk {
 
 # module specific variables
 GPG_PASSPHRASE=${1-$GPG_PASSPHRASE}
-JDK=${2-$JDK}
-QUIET=${3-$QUIET}
+BASEDIR=${2-$BASEDIR}
+JDK=${3-$JDK}
+QUIET=${4-$QUIET}
 
 # Make sure we have what we need to continue
 check_args
