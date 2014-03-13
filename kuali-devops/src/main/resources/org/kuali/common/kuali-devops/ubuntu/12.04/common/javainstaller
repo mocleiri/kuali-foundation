@@ -80,12 +80,12 @@ function install_jdk {
 }
 
 ME=$(basename $0)
-usage() { echo "Usage: $ME --jdk=<6|7> --version=u<number> --password=password [--quiet]" 1>&2; exit 1; }
+show_usage() { echo "Usage: $ME --jdk=<6|7> --version=u<number> --password=password [--quiet]" 1>&2; exit 1; }
 
 ARGS=$(getopt --options q --longoptions "jdk:,version:,password:,quiet" --name $ME -- "$@");
 if [ $? -ne 0 ];
 then
-  usage
+  show_usage
 fi
 eval set -- "$ARGS";
 
