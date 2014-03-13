@@ -82,7 +82,7 @@ function install_jdk {
 ME=$(basename $0)
 usage() { echo "Usage: $ME --jdk=<6|7> --version=u<number> --password=password [--quiet]" 1>&2; exit 1; }
 
-ARGS=$(getopt --longoptions "jdk:,version:,password:,quiet" --name $ME -- "$@");
+ARGS=$(getopt --options q --longoptions "jdk:,version:,password:,quiet" --name $ME -- "$@");
 if [ $? -ne 0 ];
 then
   usage
@@ -91,13 +91,22 @@ eval set -- "$ARGS";
 
 QUIET=""
 JDK_LEVEL=""
-JDK_UPDATE_VERSION=""
+JDK_VERSION=""
 NEXUS_PASSWORD=""
 
 while true; do
   case "$1" in
-    -j|--jdk)
+    --jdk)
       shift; JDK_LEVEL=$1; shift;
+      ;;
+    --version)
+      shift; JDK_VERSION=$1; shift;
+      ;;
+    --version)
+      shift; NEXUS_PASSWORD=$1; shift;
+      ;;
+    --quiet)
+      shift; QUIET="-qq"; shift;
       ;;
     --)
       shift; break;
