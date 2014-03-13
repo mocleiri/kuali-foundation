@@ -15,10 +15,6 @@
 # limitations under the License.
 #
 
-MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
-
-source $MY_DIR/preconditions.sh
-
 function show_usage {
   echo requires GPG_PASSPHRASE JDK 
   echo usage: install_java.sh gpg_passphrase jdk6/jdk7 [quiet]
@@ -82,6 +78,9 @@ function install_jdk {
   cp $TOOLS_JAR $TOOLS_JAR_COPY
   
 }
+
+MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+source $MY_DIR/preconditions.sh
 
 # module specific variables
 GPG_PASSPHRASE=${1-$GPG_PASSPHRASE}
