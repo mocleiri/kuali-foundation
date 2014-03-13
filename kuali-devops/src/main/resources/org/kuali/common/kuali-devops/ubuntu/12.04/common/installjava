@@ -86,7 +86,7 @@ function check_args {
   if [[ ("$JDK" = "jdk6" || "$JDK" = "jdk7") ]]; then
     # all is well
   else 
-    echo "$JDK is invalid.  Must be either jdk6 or jdk7
+    echo "$JDK is invalid.  Must be either jdk6 or jdk7"
   fi
 }
 
