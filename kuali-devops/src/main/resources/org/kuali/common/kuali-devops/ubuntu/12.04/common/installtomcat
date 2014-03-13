@@ -235,15 +235,26 @@ source $MY_DIR/functions.sh
 
 usage() { echo "Usage: $ME [-q] tomcat6/tomcat7 jdk6/jdk7 max_heap max_perm domain gpg_password" 1>&2; exit 1; }
 
-# Module specific variables
+QUIET=""
+while getopts q flag; do
+  case $flag in
+    q)
+      QUIET="true";
+      ;;
+    ?)
+      exit;
+      ;;
+  esac
+done
+
+shift $(( OPTIND - 1 ));
+
 TOMCAT=$1
 JDK=$2
 MAX_HEAP=$3
 MAX_PERM=$4
 DOMAIN=$5
 GPG_PASSWORD=$6
-
-QUIET=""
 
 # Make sure we have what we need to continue
 check_args
