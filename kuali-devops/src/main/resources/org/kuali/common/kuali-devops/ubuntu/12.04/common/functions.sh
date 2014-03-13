@@ -46,7 +46,7 @@ function decrypt_password {
   execute_quietly "gpg --batch --yes --passphrase $GPG_PASSPHRASE --decrypt --output $GPG_OUTPUT_FILE $GPG_INPUT_FILE"
   PASSWORD=$(<$GPG_OUTPUT_FILE)
   rm $GPG_OUTPUT_FILE
-  echo $($PASSWORD)
+  echo $PASSWORD
 }
 
 function execute_quietly {
