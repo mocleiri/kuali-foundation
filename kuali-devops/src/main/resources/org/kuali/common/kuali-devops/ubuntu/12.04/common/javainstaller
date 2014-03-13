@@ -112,5 +112,5 @@ while true; do
   esac
 done
 
-echo JDK_LEVEL
+echo $JDK_LEVEL
 #install_jdk
