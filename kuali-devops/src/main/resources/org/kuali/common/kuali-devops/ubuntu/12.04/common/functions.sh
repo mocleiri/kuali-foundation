@@ -28,7 +28,11 @@ function check_not_blank {
 # usage: check_exists /root/.bashrc
 function check_exists {
   FILENAME=$1
+
+  # They didn't give us a filename
   if [ ! -n "$FILENAME" ]; then echo "FILENAME cannot be blank";        exit 1; fi
+
+  # The filename they gave us doesn't exist
   if [ ! -f $FILENAME   ]; then echo "file [$FILENAME] does not exist"; exit 1; fi
 }
 
