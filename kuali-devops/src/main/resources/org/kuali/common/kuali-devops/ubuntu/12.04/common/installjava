@@ -60,7 +60,7 @@ function install_jdk {
 
   # Unpack the JDK into /usr/java
   echo "install   -> $JDK_LINK - [$JDK_TARGET]"
-  execute_quietly "unzip -o $OUTPUT_FILE -d $JDK_BASEDIR"
+  unzip $QUIET -o $OUTPUT_FILE -d $JDK_BASEDIR
 
   # Create the symbolic link /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
   ln -s $JDK_TARGET $JDK_LINK
