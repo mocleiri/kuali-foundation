@@ -15,21 +15,28 @@
 # limitations under the License.
 #
 
-function get_jdk_version {
-  echo "JDK${JDK_LEVEL}_VERSION"
+function get_jdk_fragment {
+  echo "JDK${JDK_LEVEL}_FRAGMENT"
 }
 
 function install_jdk {
+
+  JDK6_FRAGMENT=1.6.0
+  JDK7_FRAGMENT=1.7.0
 
   # Extract the jdk level from the JDK variable
   JDK_LEVEL=${JDK:3:1}
   check_not_blank JDK_LEVEL $JDK_LEVEL
   
-  JDK_VERSION_VAR=$(get_jdk_version)
+  JDK_FRAGMENT_VAR=$(get_jdk_fragment)
   
   # Extract a specific jdk version based on the jdk level
-  JDK_VERSION=${!JDK_VERSION_VAR}
+  JDK_VERSION=${!JDK_FRAGMENT_VAR}-$JDK_UPDATE
   check_not_blank JDK_VERSION $JDK_VERSION
+  
+  echo $JDK_VERSION
+  
+  exit 1
 
   JDK_GROUP_ID=com/oracle
   JDK_ARTIFACT_ID=$JDK
