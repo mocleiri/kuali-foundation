@@ -93,7 +93,7 @@ QUIET=""
 while getopts q flag; do
   case $flag in
     q)
-      QUIET="-qq";
+      QUIET="true";
       ;;
     ?)
       exit;

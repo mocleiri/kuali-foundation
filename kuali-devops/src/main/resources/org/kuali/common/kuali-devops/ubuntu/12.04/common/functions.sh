@@ -51,7 +51,7 @@ function decrypt_password {
 
 function execute_quietly {
   COMMAND=$1
-  if [ "$QUIET" = "-qq" ]; then
+  if [ "$QUIET" = "true" ]; then
     $COMMAND > /dev/null 2>&1
   else
     $COMMAND
