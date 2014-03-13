@@ -85,8 +85,7 @@ source $MY_DIR/functions.sh
 # module specific variables
 GPG_PASSPHRASE=${1-$GPG_PASSPHRASE}
 JDK=${2-$JDK}
-RUNTYPE=${3-local}
-QUIET=${4-$QUIET}
+QUIET=${3-$QUIET}
 
 # Make sure we have what we need to continue
 check_args
