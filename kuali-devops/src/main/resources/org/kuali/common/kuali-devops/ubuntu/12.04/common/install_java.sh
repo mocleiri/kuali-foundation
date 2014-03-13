@@ -79,37 +79,24 @@ function install_jdk {
   
 }
 
+usage() { echo "Usage: $0 [-k <6|7>] [-u <number>] -p [password]" 1>&2; exit 1; }
+
+usage
+
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 source $MY_DIR/functions.sh
 
-GPG_PASSPHRASE=""
-JDK="jdk7"
-RUNTYPE="maven"
-
 QUIET=""
-while getopts g:j:q:r flag; do
-  case $flag in
-    g)
-      GPG_PASSPHRASE="$OPTARG"
-      ;;
-    j)
-      JDK="$OPTARG"
-      ;;
-    q)
-      QUIET="$OPTARG"
-      ;;
-    r)
-      RUNTYPE="$OPTARG"
-      ;;
-    ?)
-      exit;
-      ;;
+while getopts "q" OPTION do
+  case $OPTION in
+    q) $QUIET="-qq";;
+    \?) exit 1;;
   esac
 done
 
-shift $(( OPTIND - 1 ));
-
-echo $RUNTYPE
+GPG_PASSPHRASE=$1
+JDK=$2
+UPDATE=$3
 
 # Make sure we have what we need to continue
 check_args
