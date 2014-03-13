@@ -15,53 +15,6 @@
 # limitations under the License.
 #
 
-function check_exists {
-  FILENAME=$1
-  if [ ! -n "$FILENAME" ]; then 
-    echo FILENAME cannot be blank
-    exit 1
-  fi
-  if [ ! -f $FILENAME ]; then
-    echo "file [$FILENAME] does not exist"
-    exit 1
-  fi
-}
-
-function execute_quietly {
-  COMMAND=$1
-  if [ "$QUIET" = "-qq" ]; then
-    $COMMAND > /dev/null 2>&1
-  else
-    $COMMAND
-  fi
-}
-
-function check_not_blank {
-  if [ ! -n "$2" ]; then 
-    echo $1 cannot be blank
-    show_usage
-  fi
-}
-
-# module specific functions
-function show_usage {
-  echo
-  echo requires ZIP_PASSWORD DOMAIN BASEDIR TOMCAT JDK MAX_HEAP MAX_PERM QUIET
-  echo usage: install_tomcat.sh zip_password domain basedir tomcat6/tomcat7 jdk6/jdk7 max_heap max_perm [quiet]
-  echo
-  exit 1
-}
-
-function check_args {
-  check_not_blank ZIP_PASSWORD $ZIP_PASSWORD
-  check_not_blank DOMAIN $DOMAIN
-  check_not_blank BASEDIR $BASEDIR
-  check_not_blank TOMCAT $TOMCAT
-  check_not_blank JDK $JDK
-  check_not_blank MAX_HEAP $MAX_HEAP
-  check_not_blank MAX_PERM $MAX_PERM
-}
-
 function redirect_ports {
 
   echo "redirect  -> port 80  to 8080"
@@ -227,6 +180,15 @@ function install_tomcat {
   echo "start     -> $TOMCAT"
   service $TOMCAT start > /dev/null 2>&1
   
+}
+
+function check_args {
+  check_not_blank TOMCAT $TOMCAT
+  check_not_blank JDK $JDK
+  check_not_blank MAX_HEAP $MAX_HEAP
+  check_not_blank MAX_PERM $MAX_PERM
+  check_not_blank DOMAIN $DOMAIN
+  check_not_blank GPG_PASSWORD $GPG_PASSWORD
 }
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
