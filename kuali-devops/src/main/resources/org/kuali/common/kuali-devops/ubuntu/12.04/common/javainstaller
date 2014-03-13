@@ -98,25 +98,4 @@ JDK_VERSION=""
 NEXUS_PASSWORD=""
 
 
-while true; do
-  case "$1" in
-    --jdk)
-      shift; JDK=$1; shift;
-      ;;
-    --version)
-      shift; JDK_VERSION=$1; shift;
-      ;;
-    --version)
-      shift; NEXUS_PASSWORD=$1; shift;
-      ;;
-    -q|--quiet)
-      shift; QUIET="-qq"; shift;
-      ;;
-    --)
-      shift; break;
-      ;;
-  esac
-done
-
-echo $JDK
 #install_jdk
