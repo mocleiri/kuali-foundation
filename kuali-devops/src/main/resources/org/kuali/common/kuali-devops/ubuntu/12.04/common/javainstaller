@@ -100,7 +100,7 @@ source $MY_DIR/functions.bashrc
 while true; do
   case "$1" in
     --jdk)
-      shift; JDK_LEVEL=$1; check_not_blank JDK_LEVEL $JDK_LEVEL; shift;
+      shift; JDK_LEVEL="$(check_not_blank JDK_LEVEL $1)"; shift;
       ;;
     --version)
       shift; JDK_VERSION=$1; shift;
