@@ -86,8 +86,11 @@ JDK="";
 JDK_UPDATE=""
 NEXUS_PASSWORD=""
 
-ARGS=$(getopt --options j:u:p:q --longoptions jdk:,update:,password:,quiet --name "$0" -- "$@")
-
-if [ $? != 0 ] ; then ; exit 1 ; fi
+ARGS=$(getopt --options a:b:c --longoptions "ay:,bee:,cee" --name "install_java.sh" -- "$@");
+if [ $? -ne 0 ];
+then
+  exit 1
+fi
+eval set -- "$ARGS";
 
 #install_jdk
