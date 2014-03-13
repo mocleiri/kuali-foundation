@@ -90,7 +90,7 @@ QUIET=${3-$QUIET}
 # Make sure we have what we need to continue
 check_args
 
-ARGS=$(getopt -l "runtype" -n "install_java.sh" -- "$@");
+ARGS=$(getopt -o q:r -l "quiet:runtype" -n "install_java.sh" -- "$@");
 #Bad arguments
 if [ $? -ne 0 ];
 then
