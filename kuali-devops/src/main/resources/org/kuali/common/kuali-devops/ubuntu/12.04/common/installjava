@@ -84,7 +84,6 @@ function check_args {
   check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
   
   if [[ ("$JDK" = "jdk6" || "$JDK" = "jdk7") ]]; then
-    # all is well
   else 
     echo "$JDK is invalid.  Must be either jdk6 or jdk7"
   fi
