@@ -58,9 +58,8 @@ function check_status {
   STATUS="$?"
   if [ ! "$STATUS" == "0" ]; then
     echo
-    echo "error: non-zero exit value -> $STATUS"
-    echo
-    echo "$COMMAND"
+    echo "error:   non-zero exit value -> $STATUS"
+    echo "command: \"$COMMAND\""
     echo 
     exit 1
   fi
