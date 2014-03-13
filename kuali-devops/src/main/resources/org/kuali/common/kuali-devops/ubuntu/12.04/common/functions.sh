@@ -47,3 +47,11 @@ function decrypt_password {
   echo $($GPG_COMMAND)
 }
 
+function execute_quietly {
+  COMMAND=$1
+  if [ "$QUIET" = "-qq" ]; then
+    $COMMAND > /dev/null 2>&1
+  else
+    $COMMAND
+  fi
+}
