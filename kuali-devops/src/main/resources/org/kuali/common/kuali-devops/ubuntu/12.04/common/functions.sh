@@ -41,5 +41,6 @@ function check_exists {
 function decrypt_password {
   check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
   check_exists $1
+  echo gpg --batch --yes --passphrase $GPG_PASSPHRASE --quiet --decrypt $1
 }
 
