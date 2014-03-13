@@ -26,15 +26,15 @@ function check_not_blank {
 # module specific functions
 function show_usage {
   echo
-  echo requires JDK NEXUS_PASSWORD
-  echo usage: install_java.sh jdk6/jdk7 nexus_password [quiet]
+  echo requires JDK GPG_PASSPHRASE
+  echo usage: install_java.sh jdk6/jdk7 gpg_passphrase [quiet]
   echo
   exit 1
 }
 
 function check_args {
   check_not_blank JDK $JDK
-  check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
+  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
 }
 
 function get_jdk_version {
@@ -92,7 +92,7 @@ function install_jdk {
 
 # module specific variables
 JDK=${1-$JDK}
-NEXUS_PASSWORD=${2-$NEXUS_PASSWORD}
+GPG_PASSPHRASE=${2-$GPG_PASSPHRASE}
 QUIET=${3-$QUIET}
 
 # Make sure we have what we need to continue
