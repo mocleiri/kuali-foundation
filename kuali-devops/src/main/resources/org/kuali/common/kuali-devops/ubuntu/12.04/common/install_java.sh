@@ -79,7 +79,6 @@ function install_jdk {
   
 }
 
-
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 source $MY_DIR/functions.sh
 
