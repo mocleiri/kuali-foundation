@@ -53,7 +53,6 @@ function install_jdk {
   NEXUS_PASSWORD_GPG=$MY_DIR/nexus.password.gpg
   NEXUS_PASSWORD=$(decrypt_password $NEXUS_PASSWORD_GPG)
   execute_quietly "curl --user $NEXUS_USER:$NEXUS_PASSWORD --output $OUTPUT_FILE $URL"
-  echo "$?"
 
   # Make sure the JDK and the symbolic link are both gone
   JDK_TARGET=$JDK_BASEDIR/$JDK_UNZIP_DIR
