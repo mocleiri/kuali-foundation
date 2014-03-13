@@ -92,9 +92,9 @@ check_args
 
 GPG_FILE=$MY_DIR/nexus.password.gpg
 NEXUS_PASSWORD=$(decrypt_password $GPG_FILE)
-echo "password -> $NEXUS_PASSWORD"
 
-JDK6_VERSION=${jdk6.version}
-JDK7_VERSION=${jdk7.version}
+#JDK6_VERSION=${jdk6.version}
+#JDK7_VERSION=${jdk7.version}
+JDK7_VERSION=1.7.0-u51
 
-#install_jdk
+install_jdk
