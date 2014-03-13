@@ -42,6 +42,7 @@ function decrypt_password {
   check_exists $GPG_INPUT_FILE
   GPG_OUTPUT_FILE=$MY_DIR/$(basename $GPG_INPUT_FILE .gpg)
   execute_quietly "gpg --batch --yes --passphrase $GPG_PASSPHRASE --decrypt --output $GPG_OUTPUT_FILE $GPG_INPUT_FILE"
+  echo "$?"
   GPG_DECRYPTED=$(<$GPG_OUTPUT_FILE)
   rm $GPG_OUTPUT_FILE
   echo $GPG_DECRYPTED
@@ -51,7 +52,6 @@ function execute_quietly {
   COMMAND=$1
   if [ "$QUIET" = "true" ]; then
     $COMMAND > /dev/null 2>&1
-    echo "$?"
   else
     $COMMAND
   fi
