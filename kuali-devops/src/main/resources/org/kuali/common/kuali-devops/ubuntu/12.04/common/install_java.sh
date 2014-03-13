@@ -89,13 +89,15 @@ JDK=${2-$JDK}
 # Make sure we have what we need to continue
 check_args
 
+QUIET=""
+RUNTYPE="maven"
 while getopts q:r flag; do
   case $flag in
     q)
-      echo "-q used: $OPTARG";
+      QUIET="-qq"
       ;;
     r)
-      echo "-r used: $OPTARG";
+      RUNTYPE="local"
       ;;
     ?)
       exit;
