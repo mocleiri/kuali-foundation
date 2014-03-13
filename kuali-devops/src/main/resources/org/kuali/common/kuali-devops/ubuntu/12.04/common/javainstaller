@@ -98,4 +98,6 @@ JDK=$1
 JDK_VERSION=$2
 NEXUS_PASSWORD=$3
 
+check_args
+
 #install_jdk
