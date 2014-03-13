@@ -15,15 +15,10 @@
 # limitations under the License.
 #
 
-# generic functions
-function check_not_blank {
-  if [ ! -n "$2" ]; then 
-    echo $1 cannot be blank
-    show_usage
-  fi
-}
+MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 
-# module specific functions
+source $MY_DIR/preconditions.sh
+
 function show_usage {
   echo requires GPG_PASSPHRASE JDK 
   echo usage: install_java.sh gpg_passphrase jdk6/jdk7 [quiet]
