@@ -17,7 +17,7 @@
 
 function show_usage {
   echo requires GPG_PASSPHRASE JDK 
-  echo usage: install_java.sh gpg_passphrase jdk6/jdk7 [quiet] [runtype]
+  echo usage: install_java.sh gpg_passphrase jdk6/jdk7 [runtype<local|anything>] [quiet]
   exit 1
 }
 
@@ -85,8 +85,8 @@ source $MY_DIR/functions.sh
 # module specific variables
 GPG_PASSPHRASE=${1-$GPG_PASSPHRASE}
 JDK=${2-$JDK}
-QUIET=${3-$QUIET}
-RUNTYPE=${4-local}
+RUNTYPE=${3-local}
+QUIET=${4-$QUIET}
 
 # Make sure we have what we need to continue
 check_args
