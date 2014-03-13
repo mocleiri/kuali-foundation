@@ -94,4 +94,23 @@ JDK_LEVEL=""
 JDK_UPDATE_VERSION=""
 NEXUS_PASSWORD=""
 
+while true; do
+  case "$1" in
+    -j|--jdk)
+      shift;
+      if [ -n "$1" ]; then
+        JDK_LEVEL=$1
+        shift;
+      else
+        usage
+      fi
+      ;;
+    --)
+      shift;
+      break;
+      ;;
+  esac
+done
+
+echo JDK_LEVEL
 #install_jdk
