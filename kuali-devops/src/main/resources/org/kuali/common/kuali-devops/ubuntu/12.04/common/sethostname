@@ -15,20 +15,6 @@
 # limitations under the License.
 #
 
-# module specific functions
-function show_usage {
-  echo
-  echo requires SUBDOMAIN DOMAIN
-  echo usage: update_hostname.sh subdomain domain
-  echo
-  exit 1
-}
-
-function check_args {
-  check_not_blank SUBDOMAIN $SUBDOMAIN
-  check_not_blank DOMAIN $DOMAIN
-}
-
 # Set hostname and FQDN
 function set_hostname {
 
@@ -52,12 +38,20 @@ function set_hostname {
   
 }
 
+function check_args {
+  check_not_blank SUBDOMAIN $SUBDOMAIN
+  check_not_blank DOMAIN $DOMAIN
+}
+
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+ME=$(basename $0)
 source $MY_DIR/functions.sh
 
+usage() { echo "Usage: $ME subdomain domain" 1>&2; exit 1; }
+
 # module specific variables
-SUBDOMAIN=${1-$SUBDOMAIN}
-DOMAIN=${2-$DOMAIN}
+SUBDOMAIN=$1
+DOMAIN=$2
 
 # Make sure we have what we need
 check_args
