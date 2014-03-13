@@ -53,7 +53,7 @@ function install_jdk {
   GPG_DECRYPTED=$MY_DIR/nexus.password
   echo "decrypt   -> $GPG_ENCRYPTED"
   decrypt_file $GPG_ENCRYPTED $GPG_DECRYPTED
-  NEXUS_PASSWORD=$(<$NEXUS_PASSWORD_DECRYPTED)
+  NEXUS_PASSWORD=$(<$GPG_DECRYPTED)
   rm $NEXUS_PASSWORD_DECRYPTED
   echo "download  -> $URL"
   execute_quietly "curl --user $NEXUS_USER:$NEXUS_PASSWORD --output $OUTPUT_FILE $URL"
