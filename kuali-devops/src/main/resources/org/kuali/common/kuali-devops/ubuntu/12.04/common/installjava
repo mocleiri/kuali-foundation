@@ -77,7 +77,7 @@ function install_jdk {
 function check_args {
   check_not_blank JDK $JDK
   check_not_blank JDK_UPDATE $JDK_UPDATE
-  check_not_blank PASSWORD $PASSWORD
+  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
   
   if [[ ! ("$JDK" = "jdk6" || "$JDK" = "jdk7") ]]; then
     echo "\"$JDK\" is invalid.  Must be either jdk6 or jdk7"
