@@ -79,7 +79,7 @@ function install_jdk {
   
 }
 
-usage() { echo "Usage: $0 [-k <6|7>] [-u <number>] -p [password]" -q 1>&2; exit 1; }
+usage() { echo "Usage: $0 [--jdk <6|7>] [--update <number>] --password [password]" --quiet 1>&2; exit 1; }
 
 QUIET=""
 JDK="";
@@ -90,7 +90,6 @@ ARGS=$(getopt --options j:u:p:q --longoptions "jdk:,update:,password:,quiet" --n
 if [ $? -ne 0 ];
 then
   usage
-  exit 1
 fi
 eval set -- "$ARGS";
 
