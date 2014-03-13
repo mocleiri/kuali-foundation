@@ -86,7 +86,7 @@ JDK="";
 JDK_UPDATE=""
 NEXUS_PASSWORD=""
 
-ARGS=$(getopt --options a:b:c --longoptions "ay:,bee:,cee" --name "$0" -- "$@");
+ARGS=$(getopt --options a:b:c --longoptions "ay:,bee:,cee" --name "install_java" -- "$@");
 if [ $? -ne 0 ];
 then
   exit 1
