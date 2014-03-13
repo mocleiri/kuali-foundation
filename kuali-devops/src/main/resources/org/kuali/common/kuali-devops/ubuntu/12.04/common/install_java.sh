@@ -109,6 +109,8 @@ done
 
 shift $(( OPTIND - 1 ));
 
+echo $RUNTYPE
+
 # Make sure we have what we need to continue
 check_args
 
