@@ -53,7 +53,7 @@ echo $(date)
 source preconditions.sh
 
 # Module specific variables
-ZIP_PASSWORD=$1
+GPG_PASSPHRASE=$1
 SUBDOMAIN=$2
 
 # Make sure we have what we need
