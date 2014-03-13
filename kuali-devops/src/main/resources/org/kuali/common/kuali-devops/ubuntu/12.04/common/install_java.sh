@@ -90,7 +90,10 @@ QUIET=${3-$QUIET}
 # Make sure we have what we need to continue
 check_args
 
+NEXUS_PASSWORD=$(decrypt_password $MY_DIR/nexus_password.gpg)
+echo $NEXUS_PASSWORD
+
 JDK6_VERSION=${jdk6.version}
 JDK7_VERSION=${jdk7.version}
 
-install_jdk
+#install_jdk
