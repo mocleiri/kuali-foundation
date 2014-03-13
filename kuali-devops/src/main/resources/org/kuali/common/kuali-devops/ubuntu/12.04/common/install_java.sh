@@ -112,6 +112,10 @@ while true; do
       shift;
       RUNTYPE="local"
       ;;
+    --)
+      shift;
+      break;
+      ;;
   esac
 done
 
