@@ -18,7 +18,10 @@
 # Make sure a variable is set and is not the empty string
 # usage: check_not_blank JDK $JDK
 function check_not_blank {
-  if [ ! -n "$2" ]; then echo $1 cannot be blank; usage; fi
+  if [ ! -n "$2" ]; then 
+    echo $1 cannot be blank; 
+    usage; 
+  fi
 }
 
 # Make sure a file exists
