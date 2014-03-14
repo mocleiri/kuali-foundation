@@ -15,30 +15,6 @@
 # limitations under the License.
 #
 
-function enable_root_ssh {
-  echo "enable    -> root ssh"
-  COMMAND="sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys"
-  SSH="ssh ubuntu@$FQDN "$COMMAND""
-  execute_quietly "$SSH"
-}
-
-function publish_module { 
-  LOCAL="$HOME/.m2/repository/${project.groupId.path}/${project.artifactId}/${project.version}/${project.artifactId}-${project.version}.jar"
-  DIR=/mnt/${project.artifactId}
-  FILE=/mnt/${project.artifactId}.jar
-  REMOTE=root@$FQDN:$FILE
-  CMD1="rm -rf $DIR"
-  CMD2="apt-get install unzip -y"
-  CMD3="unzip $FILE -d $DIR"
-  CMD4="chmod -R 755 $DIR"
-  CMDS="$CMD1; $CMD2; $CMD3; $CMD4"
-  echo "publish   -> $REMOTE"
-  SCP="scp $LOCAL $REMOTE"
-  SSH="ssh root@$FQDN "$CMDS""
-  execute_quietly "$SCP"
-  execute_quietly "$SSH"
-}
-
 function check_args {
   check_not_blank DOMAIN $DOMAIN
   check_not_blank SUBDOMAIN $SUBDOMAIN
@@ -78,7 +54,3 @@ SUBDOMAIN=$1
 check_args
 
 FQDN=$SUBDOMAIN.$DOMAIN
-
-# ec2-107-22-110-181.compute-1.amazonaws.com
-enable_root_ssh
-publish_module
