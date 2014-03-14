@@ -15,7 +15,7 @@ usage() { echo "Usage: $ME [-h] [-q] [--help] [--quiet] [--maxheap=5g] [--maxper
 
 QUIET=false
 MAX_HEAP=5g
-MAX_PERM=256m
+MAX_PERM=512m
 DOMAIN=kuali.org
 MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=256m"
 
