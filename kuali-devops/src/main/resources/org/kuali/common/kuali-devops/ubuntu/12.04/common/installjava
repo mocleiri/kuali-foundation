@@ -93,13 +93,24 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-usage() { echo "Usage: $ME [-q] jdk6/jdk7 u45/u51 gpg_passphrase" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-q] [-j 6/7] [-u 45/51] gpg_passphrase" 1>&2; exit 1; }
 
 QUIET=""
-while getopts q flag; do
+JDK=jdk7
+JDK_UPDATE=u51
+while getopts hqj:u: flag; do
   case $flag in
+    h)
+      usage;
+      ;;
     q)
       QUIET="true";
+      ;;
+    j)
+      JDK=jdk"$OPTARG"
+      ;;
+    u)
+      JDK_UPDATE=u"$OPTARG"
       ;;
     ?)
       exit;
@@ -109,9 +120,7 @@ done
 
 shift $(( OPTIND - 1 ));
 
-JDK=$1
-JDK_UPDATE=$2
-GPG_PASSPHRASE=$3
+GPG_PASSPHRASE=$1
 
 check_args
 
