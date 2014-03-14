@@ -26,7 +26,6 @@ function get_upgrades {
 # Install general purpose packages applicable to all kuali nodes
 function install_packages {
   echo "install   -> custom packages"
-  PACKAGES="zip unzip ntp"
   execute_quietly "apt-get install $PACKAGES -y"
 }
 
@@ -43,13 +42,17 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-usage() { echo "Usage: $ME [-q]" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-q] [-p \"package1 package2 package3\"]" 1>&2; exit 1; }
 
 QUIET=""
-while getopts q flag; do
+PACKAGES="zip unzip ntp"
+while getopts qp: flag; do
   case $flag in
     q)
       QUIET="true";
+      ;;
+    p)
+      PACKAGES="$OPTARG";
       ;;
     ?)
       exit;
