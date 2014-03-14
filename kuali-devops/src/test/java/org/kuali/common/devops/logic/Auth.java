@@ -9,9 +9,9 @@ import static org.kuali.common.util.enc.EncUtils.unwrap;
 import java.util.SortedSet;
 
 import org.jasypt.util.text.TextEncryptor;
-import org.kuali.common.aws.KeyPairBuilders;
 import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.devops.aws.Credentials;
+import org.kuali.common.devops.aws.KeyPairBuilders;
 import org.kuali.common.devops.dnsme.DNSMadeEasyCreds;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
 import org.kuali.common.util.enc.EncUtils;

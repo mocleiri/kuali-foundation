@@ -70,7 +70,7 @@ public class SpinUpJenkinsMaster {
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			updateDns(instance, aliasFQDN);
 			verifySSH("ubuntu", instance.getPublicDnsName(), keyPair.getPrivateKey().get());
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
