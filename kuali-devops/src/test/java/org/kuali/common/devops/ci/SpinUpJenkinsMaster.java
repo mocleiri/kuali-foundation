@@ -25,6 +25,7 @@ import org.kuali.common.dns.dnsme.URLS;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
 import org.kuali.common.dns.model.CNAMEContext;
 import org.kuali.common.dns.util.CreateOrReplaceCNAME;
+import org.kuali.common.util.channel.model.ChannelContext;
 import org.slf4j.Logger;
 
 import com.amazonaws.services.ec2.model.Instance;
@@ -58,6 +59,10 @@ public class SpinUpJenkinsMaster {
 		Instance instance = service.getInstance("i-d912d0fa");
 		logger.info(format("public dns: %s", instance.getPublicDnsName()));
 		updateDns(instance, aliasFQDN);
+	}
+	
+	protected void verifySSH(String hostname) {
+		ChannelContext context = new ChannelContext.Builder(hostname).username("root").connectTimeout(getMillisAsInt("5s")).build();
 	}
 
 	protected void updateDns(Instance instance, String alias) {
