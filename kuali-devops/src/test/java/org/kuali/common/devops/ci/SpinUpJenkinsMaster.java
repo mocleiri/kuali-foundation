@@ -7,6 +7,8 @@ import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_MASTER;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getBasicLaunchRequest;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getEC2Service;
+import static org.kuali.common.devops.logic.Auth.getDnsmeCredentials;
+import static org.kuali.common.dns.model.CNAMEContext.newCNAMEContext;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
@@ -17,6 +19,12 @@ import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.core.system.VirtualSystem;
 import org.kuali.common.devops.aws.Tags;
+import org.kuali.common.dns.api.DnsService;
+import org.kuali.common.dns.dnsme.DNSMadeEasyDnsService;
+import org.kuali.common.dns.dnsme.URLS;
+import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
+import org.kuali.common.dns.model.CNAMEContext;
+import org.kuali.common.dns.util.CreateOrReplaceCNAME;
 import org.slf4j.Logger;
 
 import com.amazonaws.services.ec2.model.Instance;
@@ -34,6 +42,7 @@ public class SpinUpJenkinsMaster {
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_MASTER.getGroup());
 	private final String gpgPassphrase = "coSLMPP2IsSAXYVp9NIsvxzqAkd7N+Yh";
 	private final String amazonAccount = "foundation";
+	private static final String DOMAIN = "kuali.org";
 
 	// TODO Change this to 256 when ready
 	private final int defaultRootVolumeSize = 32;
@@ -46,6 +55,20 @@ public class SpinUpJenkinsMaster {
 		// Instance instance = launchAndWait(service, request, securityGroups, tags);
 		Instance instance = service.getInstance("i-d912d0fa");
 		logger.info(format("public dns: %s", instance.getPublicDnsName()));
+		updateDns(instance);
+	}
+
+	protected void updateDns(Instance instance) {
+		String alias = "beta-ci.kuali.org";
+		String canonical = instance.getPublicDnsName();
+		CNAMEContext context = newCNAMEContext(alias, canonical);
+		DnsService service = getDnsService();
+		new CreateOrReplaceCNAME(service, context).execute();
+	}
+
+	protected DnsService getDnsService() {
+		DNSMadeEasyServiceContext context = new DNSMadeEasyServiceContext(getDnsmeCredentials(), URLS.PRODUCTION, DOMAIN);
+		return new DNSMadeEasyDnsService(context);
 	}
 
 	protected static BasicLaunchRequest getMasterLaunchRequest() {
