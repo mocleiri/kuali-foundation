@@ -15,20 +15,13 @@
 # limitations under the License.
 #
 
-function show_usage {
-  echo requires NEXUS_PASSWORD ZIP_PASSWORD SUBDOMAIN JDK TOMCAT MAX_HEAP MAX_PERM
-  echo usage: appserver.sh ssl_password nexus_password subdomain jdk7/jdk6 tomcat7/tomcat6 max_heap max_perm [quiet]
-  exit 1
-}
-
 function check_args {
-  check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
-  check_not_blank ZIP_PASSWORD $ZIP_PASSWORD
   check_not_blank SUBDOMAIN $SUBDOMAIN
-  check_not_blank JDK $JDK
   check_not_blank TOMCAT $TOMCAT
+  check_not_blank JDK $JDK
   check_not_blank MAX_HEAP $MAX_HEAP
   check_not_blank MAX_PERM $MAX_PERM
+  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
 }
 
 function configure_application_server {
@@ -42,7 +35,7 @@ function configure_application_server {
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] [--help] [--quiet] [--maxheap=5g] [--maxperm=256m] [--domain=kuali.org] [--mavenoopts=\"-Xmx2g -XX:MaxPermSize=256m\"] tomcat6/tomcat7 jdk6/jdk7 password" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] [--help] [--quiet] [--maxheap=5g] [--maxperm=256m] [--domain=kuali.org] [--mavenoopts=\"-Xmx2g -XX:MaxPermSize=256m\"] subdomain tomcat6/tomcat7 jdk6/jdk7 password" 1>&2; exit 1; }
 
 source $MY_DIR/../common/functions.sh
 
@@ -94,9 +87,10 @@ while true; do
   esac
 done
 
-TOMCAT=$1
-JDK=$2
-GPG_PASSPHRASE=$3
+SUBDOMAIN=$1
+TOMCAT=$2
+JDK=$3
+GPG_PASSPHRASE=$4
 
 # Make sure we have what we need
 check_args
