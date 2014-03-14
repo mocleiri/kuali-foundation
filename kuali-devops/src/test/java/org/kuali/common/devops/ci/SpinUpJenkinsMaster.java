@@ -1,6 +1,5 @@
 package org.kuali.common.devops.ci;
 
-import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
@@ -36,15 +35,17 @@ import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.impl.DefaultChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
-import org.kuali.common.util.channel.model.CommandResult;
+import org.kuali.common.util.channel.model.CommandContext;
 import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.condition.Condition;
+import org.kuali.common.util.log.LoggerLevel;
 import org.kuali.common.util.maven.RepositoryUtils;
 import org.kuali.common.util.maven.model.Artifact;
 import org.kuali.common.util.project.DefaultProjectService;
 import org.kuali.common.util.project.ProjectService;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.spring.env.BasicEnvironmentService;
+import org.kuali.common.util.stream.LoggingStreamConsumer;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitContext;
 import org.kuali.common.util.wait.WaitService;
@@ -108,16 +109,24 @@ public class SpinUpJenkinsMaster {
 		channel.exec("apt-get install unzip -y");
 		String directory = format("/mnt/%s", project.getArtifactId());
 		exec(channel, "rm -rf %s", directory);
-		exec(channel, "unzip -o %s -d %s", remote.getAbsolutePath(), directory);
+		exec(channel, "unzip -q -o %s -d %s", remote.getAbsolutePath(), directory);
 		exec(channel, "chmod -R 755 %s", directory);
 	}
 
-	protected void exec(SecureChannel channel, String command, Object... args) {
+	protected String formatString(String s, Object... args) {
 		if (args != null && args.length > 0) {
-			channel.exec(format(command, args));
+			return format(s, args);
 		} else {
-			channel.exec(command);
+			return s;
 		}
+	}
+
+	protected void exec(SecureChannel channel, String command, Object... args) {
+		LoggingStreamConsumer stdout = new LoggingStreamConsumer(logger, LoggerLevel.INFO);
+		LoggingStreamConsumer stderr = new LoggingStreamConsumer(logger, LoggerLevel.WARN);
+		String formatted = formatString(command, args);
+		CommandContext context = new CommandContext.Builder(formatted).stdout(stdout).stderr(stderr).build();
+		channel.exec(context);
 	}
 
 	protected SecureChannel openSecureChannel(String username, String hostname, String privateKey) throws IOException {
@@ -128,8 +137,7 @@ public class SpinUpJenkinsMaster {
 
 	protected void enableRootSSH(String username, String hostname, String privateKey) throws IOException {
 		SecureChannel channel = openSecureChannel(username, hostname, privateKey);
-		CommandResult result = channel.exec("sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys");
-		checkState(result.getExitValue() == 0, "non-zero exit value");
+		exec(channel, "sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys");
 	}
 
 	protected void verifySSH(String username, String hostname, String privateKey) {
@@ -173,11 +181,7 @@ public class SpinUpJenkinsMaster {
 	}
 
 	protected void info(String msg, Object... args) {
-		if (args != null && args.length > 0) {
-			logger.info(format(msg, args));
-		} else {
-			logger.info(msg);
-		}
+		logger.info(formatString(msg, args));
 	}
 
 }
