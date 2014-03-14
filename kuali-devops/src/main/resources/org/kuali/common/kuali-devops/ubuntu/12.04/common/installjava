@@ -95,7 +95,7 @@ source $MY_DIR/functions.sh
 
 usage() { echo "Usage: $ME [-h] [-q] [-j 6/7] [-u 45/51] gpg_passphrase" 1>&2; exit 1; }
 
-QUIET=""
+QUIET="false"
 JDK=jdk7
 JDK_UPDATE=u51
 while getopts hqj:u: flag; do
