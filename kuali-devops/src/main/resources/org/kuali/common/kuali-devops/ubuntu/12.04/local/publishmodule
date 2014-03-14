@@ -72,6 +72,13 @@ FQDN=$SUBDOMAIN.$DOMAIN
 # limitations under the License.
 #
 
+function enable_root_ssh {
+  echo "enable    -> root ssh"
+  COMMAND="sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys"
+  SSH="ssh ubuntu@$FQDN "$COMMAND""
+  execute_quietly "$SSH"
+}
+
 function publish_module { 
   LOCAL="$HOME/.m2/repository/${project.groupId.path}/${project.artifactId}/${project.version}/${project.artifactId}-${project.version}.jar"
   DIR=/mnt/${project.artifactId}
@@ -95,4 +102,5 @@ source $MY_DIR/../common/functions.sh
 source $MY_DIR/common.sh
 
 # ec2-107-22-110-181.compute-1.amazonaws.com
+enable_root_ssh
 publish_module
