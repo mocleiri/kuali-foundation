@@ -137,6 +137,12 @@ function copy_repo_from_amazon {
   
 }
 
+MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+ME=$(basename $0)
+source $MY_DIR/functions.sh
+
+usage() { echo "Usage: $ME [-q] [-p \"package1 package2 package3\"]" 1>&2; exit 1; }
+
 BASEDIR=${1-BASEDIR}
 QUIET=${2-$QUIET}
 JENKINS_MASTER=${jenkins.master}
