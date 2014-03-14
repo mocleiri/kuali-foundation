@@ -44,7 +44,7 @@ source $MY_DIR/functions.sh
 
 usage() { echo "Usage: $ME [-h] [-q] [-p \"package1 package2 package3\"]" 1>&2; exit 1; }
 
-QUIET=""
+QUIET=false
 PACKAGES="zip unzip ntp"
 while getopts hqp: flag; do
   case $flag in

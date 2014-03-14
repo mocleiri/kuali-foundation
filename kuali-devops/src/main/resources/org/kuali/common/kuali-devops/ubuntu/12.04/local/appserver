@@ -19,4 +19,22 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] [-p \"package1 package2 package3\"]" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] domain subdomain" 1>&2; exit 1; }
+
+QUIET=false
+while getopts hqp: flag; do
+  case $flag in
+    h)
+      usage;
+      ;;
+    q)
+      QUIET="true";
+      ;;
+    ?)
+      usage;
+      exit;
+      ;;
+  esac
+done
+
+shift $(( OPTIND - 1 ));
