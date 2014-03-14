@@ -15,10 +15,15 @@
 # limitations under the License.
 #
 
-function enable_root_ssh {
-  echo "enable    -> root ssh"
-  COMMAND="sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys"
-  SSH="ssh ubuntu@$FQDN "$COMMAND""
+function check_args {
+  check_not_blank DOMAIN $DOMAIN
+  check_not_blank SUBDOMAIN $SUBDOMAIN
+}
+
+function configure_basics {
+  echo "configure    -> basics"
+  COMMAND="/mnt/${project.artifactId}/${project.groupId.path}/${project.artifactId}/ubuntu/12.04/configurebasics"
+  SSH="ssh root@$FQDN "$COMMAND""
   execute_quietly "$SSH"
 }
 
@@ -26,7 +31,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] [-d kuali.org] subdomain" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] [-p packages] [-d kuali.org] subdomain" 1>&2; exit 1; }
 
 DOMAIN=kuali.org
 
@@ -53,4 +58,9 @@ shift $(( OPTIND - 1 ));
 
 SUBDOMAIN=$1
 
+check_args
+
+FQDN=$SUBDOMAIN.$DOMAIN
+
 # ec2-107-22-110-181.compute-1.amazonaws.com
+configure_basics
