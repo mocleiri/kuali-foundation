@@ -15,6 +15,32 @@
 # limitations under the License.
 #
 
+function check_local_args {
+  check_not_blank SUBDOMAIN $SUBDOMAIN
+}
+
+function configure_application_server {
+  echo "configure -> $FQDN :: appserver"
+  source installers.sh
+  TOMCAT="$MODULES/common/installtomcat $ZIP_PASSWORD $DOMAIN $BASEDIR $TOMCAT $JDK $MAX_HEAP $MAX_PERM $QUIET"
+  SSH="$BASICS; $JAVA; $DNS; $TOMCAT"
+  ssh root@$FQDN "$SSH"
+}
+
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
-ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
+source $MY_DIR/../common/tomcatargs.sh
+
+check_local_args
+
+exit 1
+
+# import bootstrap variables/functions
+source $MY_DIR/bootstrap.sh $SUBDOMAIN
+
+echo "configure -> $FQDN"
+enable_root_ssh
+publish_module
+configure_application_server
+
+echo $(date)
