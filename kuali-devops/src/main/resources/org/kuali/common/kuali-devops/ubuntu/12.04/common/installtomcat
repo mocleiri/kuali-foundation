@@ -195,7 +195,7 @@ function install_tomcat {
 function check_args {
   check_not_blank TOMCAT $TOMCAT
   check_not_blank JDK $JDK
-  check_not_blank GPG_PASSWORD $GPG_PASSWORD
+  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
   check_not_blank MAX_HEAP $MAX_HEAP
   check_not_blank MAX_PERM $MAX_PERM
   check_not_blank DOMAIN $DOMAIN
@@ -207,7 +207,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] [--help] [--quiet] [--maxheap=5g] [--maxperm=256m] [--domain=kuali.org] tomcat6/tomcat7 jdk6/jdk7 gpgpassword" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] [--help] [--quiet] [--maxheap=5g] [--maxperm=256m] [--domain=kuali.org] tomcat6/tomcat7 jdk6/jdk7 password" 1>&2; exit 1; }
 
 QUIET=false
 MAX_HEAP=5g
@@ -257,7 +257,7 @@ done
 
 TOMCAT=$1
 JDK=$2
-GPG_PASSWORD=$3
+GPG_PASSPHRASE=$3
 
 check_args
 
