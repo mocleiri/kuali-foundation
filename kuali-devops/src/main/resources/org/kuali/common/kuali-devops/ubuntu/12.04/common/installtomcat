@@ -108,8 +108,13 @@ function configure_tomcat {
   echo "JAVA_OPTS=$JAVA_OPTS"       >> $TOMCAT_OPT_FILE
   echo "JAVA_HOME=$JAVA_HOME"       >> $TOMCAT_OPT_FILE
 
-  WEBXML=$BASEDIR/${project.groupId.path}/${project.artifactId}/tomcat/$TOMCAT_VERSION/conf/web.xml
-  SERVER=$BASEDIR/${project.groupId.path}/${project.artifactId}/tomcat/$TOMCAT_VERSION/conf/server.xml
+  WEBXML=$MY_DIR/../../../tomcat/$TOMCAT_VERSION/conf/web.xml
+  SERVER=$MY_DIR/../../../tomcat/$TOMCAT_VERSION/conf/web.xml
+  
+  check_exists $WEBXML
+  check_exists $SERVER
+  
+  exit 1
 
   cp $WEBXML $TOMCAT_CONF_FILE_DIR/web.xml
   cp $SERVER $TOMCAT_CONF_FILE_DIR/server.xml
@@ -178,9 +183,8 @@ function install_tomcat {
   echo "stop      -> $TOMCAT"
   execute_quietly "service $TOMCAT stop"
   
-  exit 1
-  
   configure_tomcat
+  
   redirect_ports
   cleanup.sh
   
