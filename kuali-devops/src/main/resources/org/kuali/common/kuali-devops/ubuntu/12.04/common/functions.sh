@@ -68,13 +68,13 @@ function check_status {
 function check_jdk {
   if [[ ! ("$JDK" == "jdk6" || "$JDK" == "jdk7") ]]; then
     echo "\"$JDK\" is invalid.  Must be either jdk6 or jdk7"
-    exit 1
+    usage
   fi
 }
 
 function check_tomcat {
   if [[ ! ("$TOMCAT" == "tomcat6" || "$TOMCAT" == "tomcat7") ]]; then
     echo "\"$TOMCAT\" is invalid.  Must be either tomcat6 or tomcat7"
-    exit 1
+    usage
   fi
 }
