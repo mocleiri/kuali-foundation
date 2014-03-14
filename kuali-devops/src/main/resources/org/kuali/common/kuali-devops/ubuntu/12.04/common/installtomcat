@@ -133,7 +133,7 @@ function configure_tomcat {
   TOMCAT_BASH_ALIASES=$TOMCAT_HOME/.bash_aliases
   echo "JAVA_HOME=$JAVA_HOME"                       >  $TOMCAT_BASH_ALIASES
   echo "PATH=\$JAVA_HOME/bin:\$PATH:."              >> $TOMCAT_BASH_ALIASES
-  echo "MAVEN_OPTS=\"-Xmx2g -XX:MaxPermSize=256m\"" >> $TOMCAT_BASH_ALIASES
+  echo "MAVEN_OPTS=\"$MAVEN_OPTS\"" >> $TOMCAT_BASH_ALIASES
   echo "export JAVA_HOME PATH MAVEN_OPTS"           >> $TOMCAT_BASH_ALIASES
   
   # setup ssl
@@ -153,10 +153,10 @@ function install_tomcat_packages {
   
   if [ $TOMCAT_VERSION == "6" ]; then
     echo "install   -> $TOMCAT-common libtcnative-1 $TOMCAT"
-    execute_quietly "apt-get $QUIET -y install $TOMCAT-common libtcnative-1 $TOMCAT"
+    execute_quietly "apt-get install $TOMCAT-common libtcnative-1 $TOMCAT -y"
   else
     echo "install   -> libtcnative-1 $TOMCAT"
-    execute_quietly "apt-get $QUIET -y install libtcnative-1 $TOMCAT"
+    execute_quietly "apt-get install libtcnative-1 $TOMCAT -y"
   fi
   
 }
@@ -189,6 +189,7 @@ function check_args {
   check_not_blank MAX_HEAP $MAX_HEAP
   check_not_blank MAX_PERM $MAX_PERM
   check_not_blank DOMAIN $DOMAIN
+  check_not_blank MAVEN_OPTS $MAVEN_OPTS
   check_tomcat
 }
 
@@ -202,8 +203,9 @@ QUIET=false
 MAX_HEAP=5g
 MAX_PERM=256m
 DOMAIN=kuali.org
+MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=256m"
 
-ARGS=$(getopt --options hq --longoptions "help,quiet,maxheap:,maxperm:,domain:" --name "$ME" -- "$@");
+ARGS=$(getopt --options hq --longoptions "help,quiet,maxheap:,maxperm:,domain:,mavenopts:" --name "$ME" -- "$@");
 if [ $? -ne 0 ]; then usage; fi
 eval set -- "$ARGS";
 while true; do
@@ -229,6 +231,11 @@ while true; do
     --domain)
       shift;
       DOMAIN="$1";
+      shift;
+      ;;
+    --mavenopts)
+      shift;
+      MAVEN_OPTS="$1";
       shift;
       ;;
     --)
