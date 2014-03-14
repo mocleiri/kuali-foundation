@@ -52,3 +52,5 @@ shift $(( OPTIND - 1 ));
 SUBDOMAIN=$1
 
 check_args
+
+FQDN=$DOMAIN.$SUBDOMAIN
