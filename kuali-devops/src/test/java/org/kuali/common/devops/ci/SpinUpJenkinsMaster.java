@@ -4,8 +4,10 @@ import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
+import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_MASTER;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getBasicLaunchRequest;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getEC2Service;
+import static org.kuali.common.util.FormatUtils.getMillisAsInt;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.util.List;
@@ -14,9 +16,7 @@ import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.core.system.VirtualSystem;
-import org.kuali.common.devops.aws.NamedSecurityGroups;
 import org.kuali.common.devops.aws.Tags;
-import org.kuali.common.util.FormatUtils;
 import org.slf4j.Logger;
 
 import com.amazonaws.services.ec2.model.Instance;
@@ -31,7 +31,7 @@ public class SpinUpJenkinsMaster {
 	private final Stopwatch sw = createStarted();
 	private final VirtualSystem vs = VirtualSystem.create();
 	private final List<Tag> tags = getMasterTags();
-	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), NamedSecurityGroups.CI_MASTER.getGroup());
+	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_MASTER.getGroup());
 	private final String gpgPassphrase = "coSLMPP2IsSAXYVp9NIsvxzqAkd7N+Yh";
 	private final String amazonAccount = "foundation";
 
@@ -50,7 +50,7 @@ public class SpinUpJenkinsMaster {
 
 	protected static BasicLaunchRequest getMasterLaunchRequest() {
 		BasicLaunchRequest.Builder builder = BasicLaunchRequest.builder();
-		builder.setTimeoutMillis(FormatUtils.getMillisAsInt("15m"));
+		builder.setTimeoutMillis(getMillisAsInt("15m"));
 		return getBasicLaunchRequest(builder.build());
 	}
 
