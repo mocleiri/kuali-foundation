@@ -253,4 +253,4 @@ GPG_PASSWORD=$3
 
 check_args
 
-#install_tomcat
+install_tomcat
