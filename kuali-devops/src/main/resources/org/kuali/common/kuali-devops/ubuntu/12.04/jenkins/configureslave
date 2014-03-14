@@ -153,7 +153,7 @@ while getopts hqm: flag; do
     q)
       QUIET="true";
       ;;
-    q)
+    m)
       JENKINS_MASTER="$OPTARG";
       ;;
     ?)
