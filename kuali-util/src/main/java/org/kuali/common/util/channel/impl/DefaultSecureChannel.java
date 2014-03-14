@@ -15,6 +15,9 @@
  */
 package org.kuali.common.util.channel.impl;
 
+import static org.kuali.common.util.CollectionUtils.toCSV;
+import static org.kuali.common.util.base.Exceptions.illegalState;
+
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -22,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +35,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.Encodings;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
@@ -177,7 +182,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
-	protected void validate(CommandContext context, CommandResult result) {
+	protected void validate(CommandContext context, CommandResult result) throws UnsupportedEncodingException {
 		if (context.isIgnoreExitValue()) {
 			return;
 		}
@@ -191,7 +196,8 @@ public final class DefaultSecureChannel implements SecureChannel {
 				return;
 			}
 		}
-		throw new IllegalStateException("Command exited with [" + exitValue + "].  Valid values are [" + CollectionUtils.toCSV(codes) + "]");
+		String command = new String(context.getCommand(), Encodings.UTF8);
+		throw illegalState("\nerror: [%s]\ninvalid exit value [%s].  valid values are [%s]", command, result.getExitValue(), toCSV(context.getSuccessCodes()));
 	}
 
 	protected ChannelExec getChannelExec() throws JSchException {
