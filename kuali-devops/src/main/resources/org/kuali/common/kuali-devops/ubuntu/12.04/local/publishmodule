@@ -26,8 +26,10 @@ function publish_module {
   CMD4="chmod -R 755 $DIR"
   CMDS="$CMD1; $CMD2; $CMD3; $CMD4"
   echo "publish   -> $REMOTE"
-  scp $LOCAL $REMOTE
-  ssh root@$FQDN "$CMDS"
+  SCP="scp $LOCAL $REMOTE"
+  SSH="ssh root@$FQDN "$CMDS""
+  execute_quietly "$SCP"
+  execute_quietly "$SSH"
 }
 
 function check_args {
