@@ -17,8 +17,9 @@
 
 function enable_root_ssh {
   echo "enable    -> root ssh"
-  SSH="sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys"
-  ssh ubuntu@$FQDN "$SSH"
+  COMMAND="sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys"
+  SSH="ssh ubuntu@$FQDN "$COMMAND""
+  execute_quietly "$SSH"
 }
 
 function check_args {
@@ -61,4 +62,6 @@ check_args
 
 # ec2-107-22-110-181.compute-1.amazonaws.com
 
-FQDN=$DOMAIN.$SUBDOMAIN
+FQDN=$SUBDOMAIN.$DOMAIN
+
+enable_root_ssh
