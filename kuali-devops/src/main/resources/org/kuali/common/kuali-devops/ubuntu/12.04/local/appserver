@@ -24,34 +24,30 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] [--help] [--quiet] [--domain=kuali.org] subdomain" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] [-d kuali.org] subdomain" 1>&2; exit 1; }
 
 DOMAIN=kuali.org
 
-ARGS=$(getopt --options hq --longoptions "help,quiet,domain:" --name "$ME" -- "$@");
-if [ $? -ne 0 ]; then usage; fi
-eval set -- "$ARGS";
-while true; do
-  case "$1" in
-    -h|--help)
+QUIET=false
+while getopts hq flag; do
+  case $flag in
+    h)
       usage;
-      shift;
       ;;
-    -q|--quiet)
+    q)
       QUIET="true";
-      shift;
       ;;
-    --domain)
-      shift;
-      DOMAIN="$1";
-      shift;
+    d)
+      DOMAIN="$OPTARG"
       ;;
-    --)
-      shift;
-      break;
+    ?)
+      usage;
+      exit;
       ;;
   esac
 done
+
+shift $(( OPTIND - 1 ));
 
 SUBDOMAIN=$1
 
