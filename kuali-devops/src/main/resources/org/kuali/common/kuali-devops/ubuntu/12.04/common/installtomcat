@@ -108,8 +108,10 @@ function configure_tomcat {
   echo "JAVA_OPTS=$JAVA_OPTS"       >> $TOMCAT_OPT_FILE
   echo "JAVA_HOME=$JAVA_HOME"       >> $TOMCAT_OPT_FILE
 
-  WEBXML=$MY_DIR/../../../tomcat/$TOMCAT_VERSION/conf/web.xml
-  SERVER=$MY_DIR/../../../tomcat/$TOMCAT_VERSION/conf/web.xml
+  TOMCAT_CONFIG_GENERIC=$MY_DIR/../../../tomcat
+  TOMCAT_CONFIG_SPECIFIC=$TOMCAT_CONFIG_GENERIC/$TOMCAT_VERSION
+  WEBXML=$TOMCAT_CONFIG_SPECIFIC/conf/web.xml
+  SERVER=$TOMCAT_CONFIG_SPECIFIC/conf/server.xml
   
   check_exists $WEBXML
   check_exists $SERVER
