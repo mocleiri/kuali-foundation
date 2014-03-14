@@ -1,6 +1,7 @@
 package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Preconditions.checkState;
+import static org.kuali.common.util.base.Exceptions.illegalArgument;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.enc.EncUtils.isEncrypted;
 import static org.kuali.common.util.enc.EncUtils.unwrap;
@@ -8,6 +9,7 @@ import static org.kuali.common.util.enc.EncUtils.unwrap;
 import java.util.SortedSet;
 
 import org.jasypt.util.text.TextEncryptor;
+import org.kuali.common.aws.KeyPairBuilders;
 import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.devops.aws.Credentials;
 import org.kuali.common.devops.dnsme.DNSMadeEasyCreds;
@@ -20,6 +22,15 @@ import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
 public class Auth {
+
+	public static KeyPair getKeyPair(String account) {
+		for (KeyPairBuilders kpb : KeyPairBuilders.values()) {
+			if (kpb.name().equalsIgnoreCase(account)) {
+				return getKeyPair(kpb.getBuilder());
+			}
+		}
+		throw illegalArgument("unknown account -> %s", account);
+	}
 
 	public static KeyPair getKeyPair(KeyPair.Builder builder) {
 		return builder.withPrivateKey(decrypt(builder.getPrivateKey())).build();
