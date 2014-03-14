@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
@@ -88,7 +89,7 @@ public class SpinUpJenkinsMaster {
 			updateDns(instance, aliasFQDN);
 			verifySSH("ubuntu", instance.getPublicDnsName(), privateKey);
 			info("[%s] is online with ssh - %s", aliasFQDN, FormatUtils.getTime(sw));
-			bootstrap(aliasFQDN, privateKey);
+			bootstrap(instance.getPublicDnsName(), privateKey);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -127,8 +128,8 @@ public class SpinUpJenkinsMaster {
 	}
 
 	protected static void exec(SecureChannel channel, String command, Object... args) {
-		LoggingStreamConsumer stdout = new LoggingStreamConsumer(logger, LoggerLevel.INFO);
-		LoggingStreamConsumer stderr = new LoggingStreamConsumer(logger, LoggerLevel.WARN);
+		StreamConsumer stdout = new LoggingStreamConsumer(logger, LoggerLevel.INFO);
+		StreamConsumer stderr = new LoggingStreamConsumer(logger, LoggerLevel.WARN);
 		String formatted = formatString(command, args);
 		CommandContext context = new CommandContext.Builder(formatted).stdout(stdout).stderr(stderr).build();
 		channel.exec(context);
