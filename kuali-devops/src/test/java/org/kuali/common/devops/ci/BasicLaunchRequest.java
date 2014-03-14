@@ -32,7 +32,7 @@ public final class BasicLaunchRequest {
 		private String ami = UBUNTU_64_BIT_PRECISE_LTS.getId();
 		private InstanceType type = InstanceType.C3Xlarge;
 		private int sizeInGigabytes = 32;
-		private int timeoutMillis = getMillisAsInt("1h");
+		private int timeoutMillis = getMillisAsInt("15m");
 
 		public Builder withAmi(String ami) {
 			this.ami = ami;
