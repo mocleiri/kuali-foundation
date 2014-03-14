@@ -39,12 +39,15 @@ public class SpinUpJenkinsMaster {
 	private final String gpgPassphrase = "coSLMPP2IsSAXYVp9NIsvxzqAkd7N+Yh";
 	private final String amazonAccount = "foundation";
 
+	// TODO Change this to 256 when ready
+	private final int defaultRootVolumeSize = 32;
+
 	@Test
 	public void test() {
 		// Configurable items
 		String ami = System.getProperty("master.ami", AMI.UBUNTU_64_BIT_PRECISE_LTS.getId());
 		InstanceType type = InstanceType.fromValue(System.getProperty("master.type", InstanceType.C3Xlarge.toString()));
-		RootVolume rootVolume = RootVolume.create(parseInt(System.getProperty("master.size", "32")), true);
+		RootVolume rootVolume = RootVolume.create(parseInt(System.getProperty("master.size", defaultRootVolumeSize + "")), true);
 		// The amount of time to wait before timing out on instance creation
 		int timeoutMillis = getMillisAsInt(System.getProperty("master.timeout", "1h"));
 
@@ -58,7 +61,7 @@ public class SpinUpJenkinsMaster {
 		List<Tag> tags = newArrayList();
 		tags.addAll(CreateBuildSlaveAMI.getTags());
 		tags.add(Tags.Name.MASTER.getTag());
-		// TODO Remove this when it's ready
+		// TODO Remove this when things are ready
 		tags.add(new Tag("Name", "ci.master.jeff"));
 		return ImmutableList.copyOf(tags);
 	}
