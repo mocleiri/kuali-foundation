@@ -13,7 +13,9 @@ import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_
 import static org.kuali.common.dns.model.CNAMEContext.newCNAMEContext;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
 import static org.kuali.common.util.log.Loggers.newLogger;
+import static org.kuali.common.util.maven.RepositoryUtils.getDefaultLocalRepository;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -35,7 +37,10 @@ import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.impl.DefaultChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.CommandResult;
+import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.condition.Condition;
+import org.kuali.common.util.maven.RepositoryUtils;
+import org.kuali.common.util.maven.model.Artifact;
 import org.kuali.common.util.project.DefaultProjectService;
 import org.kuali.common.util.project.ProjectService;
 import org.kuali.common.util.project.model.Project;
@@ -94,6 +99,25 @@ public class SpinUpJenkinsMaster {
 		ProjectService service = new DefaultProjectService(new BasicEnvironmentService());
 		Project project = service.getProject(KUALI_DEVOPS_PROJECT_IDENTIFIER);
 		info(project.getArtifactId());
+		Artifact artifact = new Artifact.Builder(project.getGroupId(), project.getArtifactId(), project.getVersion()).build();
+		File repo = getDefaultLocalRepository();
+		File jar = RepositoryUtils.getFile(repo, artifact);
+		String filename = project.getArtifactId() + ".jar";
+		RemoteFile remote = new RemoteFile.Builder("/mnt/" + filename).build();
+		channel.scp(jar, remote);
+		channel.exec("apt-get install unzip -y");
+		String directory = format("/mnt/%s", project.getArtifactId());
+		exec(channel, "rm -rf %s", directory);
+		exec(channel, "unzip -o %s -d %s", remote.getAbsolutePath(), directory);
+		exec(channel, "chmod -R 755 %s", directory);
+	}
+
+	protected void exec(SecureChannel channel, String command, Object... args) {
+		if (args != null && args.length > 0) {
+			channel.exec(format(command, args));
+		} else {
+			channel.exec(command);
+		}
 	}
 
 	protected SecureChannel openSecureChannel(String username, String hostname, String privateKey) throws IOException {
