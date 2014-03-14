@@ -42,15 +42,12 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] [-p \"package1 package2 package3\"]" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-q] [-p \"package1 package2 package3\"]" 1>&2; exit 1; }
 
 QUIET=""
 PACKAGES="zip unzip ntp"
 while getopts hqp: flag; do
   case $flag in
-    h)
-      usage;
-      ;;
     q)
       QUIET="true";
       ;;
