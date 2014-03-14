@@ -1,3 +1,18 @@
+Main Level Sideline 111	
+$130.00
+	6	3	03/14/14
+Main Level Corner 104	
+$89.00
+	13	6	03/14/14
+Main Level Premier 108	
+$126.00
+	11	3	03/14/14
+Main Level Corner 114 - No Alcohol	
+$89.00
+	9	2	03/14/14
+Main Level Sideline 131	
+$109.00
+	10	2	03/14/14
 Main Level Corner 125	
 $108.00
 	6	1	03/13/14
@@ -28,6 +43,24 @@ $70.00
 Main Level Premier 130	
 $121.00
 	36	2	03/13/14
+Main Level Sideline 133	
+$103.00
+	10	6	03/13/14
+Main Level Premier 130	
+$121.00
+	36	2	03/13/14
+Main Level Corner 103	
+$71.00
+	26	2	03/13/14
+Main Level Corner 103	
+$71.00
+	26	2	03/13/14
+Main Level Corner 103	
+$71.00
+	26	4	03/13/14
+Main Level Sideline 131	
+$161.00
+	2	4	03/13/14
 Main Level Corner 101	
 $73.00
 	18	7	03/12/14
@@ -253,39 +286,6 @@ $89.00
 Main Level End 122	
 $74.00
 	7	2	03/09/14
-Main Level Corner 104	
-$85.00
-	15	3	03/08/14
-Main Level Corner 103	
-$78.00
-	17	8	03/08/14
-Main Level End 116	
-$72.00
-	29	5	03/08/14
-Main Level Corner 135	
-$74.00
-	28	2	03/08/14
-Main Level End 116	
-$83.00
-	6	2	03/08/14
-Main Level Corner 103	
-$79.00
-	13	5	03/08/14
-Main Level Corner 103	
-$98.00
-	4	2	03/08/14
-Main Level Corner 104	
-$88.00
-	9	5	03/08/14
-Main Level Sideline 105	
-$102.00
-	11	2	03/08/14
-Main Level Sideline 133	
-$107.00
-	5	5	03/08/14
-Main Level Sideline 105	
-$107.00
-	6	3	03/08/14
 Main Level Sideline 111	
 $105.00
 	10	2	03/08/14
