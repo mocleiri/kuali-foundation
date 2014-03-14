@@ -59,8 +59,6 @@ done
 
 shift $(( OPTIND - 1 ));
 
-execute_quietly "foobar"
-
 get_upgrades
 install_packages
 unattended_upgrades
