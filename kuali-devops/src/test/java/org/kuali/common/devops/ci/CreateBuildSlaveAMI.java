@@ -71,7 +71,7 @@ public class CreateBuildSlaveAMI {
 	private final Stopwatch sw = createStarted();
 	private final VirtualSystem vs = VirtualSystem.create();
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_BUILD_SLAVE.getGroup());
-	private final List<Tag> tags = getTags();
+	private final List<Tag> tags = getSlaveTags();
 	private final String distro = "ubuntu" + vs.getFileSeparator() + "12.04";
 	private final String bashScript = "jenkins.sh";
 	private final String svnPassword = "PAqzT//IpbTfzhsnLyumedsE7yon7yqi";
@@ -96,8 +96,8 @@ public class CreateBuildSlaveAMI {
 		// The amount of time to sleep after creating a brand new instance (gives DNS a few seconds to figure itself out)
 		String sleep = System.getProperty("slave.sleep", "15s");
 
-		EC2Service service = getEC2Service();
-		Instance instance = getNewSlaveInstance(service, ami, type, rootVolume, timeoutMillis);
+		EC2Service service = getEC2Service(amazonAccount);
+		Instance instance = launchAndWait(service, ami, type, rootVolume, timeoutMillis, securityGroups, tags);
 		// Instance instance = getRunningSlaveInstance(service, "i-1907c23a");
 		logger.info(format("public dns: %s", instance.getPublicDnsName()));
 		logger.info(format("sleeping %s to let dns settle down", sleep));
@@ -228,11 +228,17 @@ public class CreateBuildSlaveAMI {
 		}
 	}
 
-	protected List<Tag> getTags() {
+	protected static List<Tag> getSlaveTags() {
+		List<Tag> tags = newArrayList();
+		tags.addAll(getTags());
+		tags.add(Tags.Name.SLAVE.getTag());
+		return ImmutableList.copyOf(tags);
+	}
+
+	protected static List<Tag> getTags() {
 		List<Tag> tags = newArrayList();
 		// TODO Change this to PRODUCTION when ready
 		tags.add(Tags.Stack.TESTING.getTag());
-		tags.add(Tags.Name.SLAVE.getTag());
 		tags.add(Tags.Team.DEVOPS.getTag());
 		tags.add(Tags.Vendor.JENKINS.getTag());
 		tags.add(Tags.Project.SHARED.getTag());
@@ -243,7 +249,8 @@ public class CreateBuildSlaveAMI {
 		return service.getInstance(instanceId);
 	}
 
-	protected Instance getNewSlaveInstance(EC2Service service, String ami, InstanceType type, RootVolume rootVolume, int timeoutMillis) {
+	protected static Instance launchAndWait(EC2Service service, String ami, InstanceType type, RootVolume rootVolume, int timeoutMillis,
+			List<KualiSecurityGroup> securityGroups, List<Tag> tags) {
 		logger.info(format("launch instance -> %s  type: %s  size: %sgb", ami, type.toString(), rootVolume.getSizeInGigabytes().get()));
 		KeyPair keyPair = Auth.getKeyPair(KeyPairBuilders.FOUNDATION.getBuilder());
 		LaunchInstanceContext context = LaunchInstanceContext.builder(ami, keyPair).withTimeoutMillis(timeoutMillis).withType(type).withRootVolume(rootVolume)
@@ -251,8 +258,8 @@ public class CreateBuildSlaveAMI {
 		return service.launchInstance(context);
 	}
 
-	protected EC2Service getEC2Service() {
-		AWSCredentials creds = Auth.getAwsCredentials(amazonAccount);
+	protected static EC2Service getEC2Service(String account) {
+		AWSCredentials creds = Auth.getAwsCredentials(account);
 		WaitService ws = new DefaultWaitService();
 		EC2ServiceContext ec = EC2ServiceContext.create(creds);
 		return new DefaultEC2Service(ec, ws);
