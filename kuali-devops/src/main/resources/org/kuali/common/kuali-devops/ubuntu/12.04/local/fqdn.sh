@@ -15,8 +15,5 @@
 # limitations under the License.
 #
 
-MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
-ME=$(basename $0)
-source $MY_DIR/../common/functions.sh
-
-usage() { echo "Usage: $ME [-h] [-q] [-p \"package1 package2 package3\"]" 1>&2; exit 1; }
+DOMAIN=${dns.domain}
+FQDN=$SUBDOMAIN.$DOMAIN
