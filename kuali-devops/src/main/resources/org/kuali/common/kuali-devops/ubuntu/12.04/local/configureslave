@@ -83,8 +83,7 @@ GPG_PASSPHRASE=$1
 # Make sure we have what we need
 check_args
 
-# import bootstrap variables/functions
-source $MY_DIR/bootstrap.sh $SUBDOMAIN
+source $MY_DIR/../common/functions.sh
 
 publish_module
 configure_common
