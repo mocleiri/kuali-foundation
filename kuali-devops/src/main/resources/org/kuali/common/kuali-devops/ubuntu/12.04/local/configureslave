@@ -15,10 +15,8 @@
 # limitations under the License.
 #
 
-function show_usage {
-  echo requires NEXUS_PASSWORD ZIP_PASSWORD SUBDOMAIN TYPE
-  echo usage: jenkins.sh nexus_password zip_password subdomain type [quiet]
-  exit 1
+function check_args {
+  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
 }
 
 function configure_common {
@@ -57,25 +55,36 @@ function configure_slave_after {
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] " 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] password" 1>&2; exit 1; }
+
+QUIET=false
+while getopts hq flag; do
+  case $flag in
+    h)
+      usage;
+      ;;
+    q)
+      QUIET="true";
+      ;;
+    ?)
+      usage;
+      exit;
+      ;;
+  esac
+done
+
+shift $(( OPTIND - 1 ));
 
 echo $(date)
 
 # Module specific variables
 GPG_PASSPHRASE=$1
-SUBDOMAIN=$2
-TYPE=$3
-QUIET=${4-""}
 
 # Make sure we have what we need
 check_args
 
 # import bootstrap variables/functions
-source $MY_DIR/../common/bootstrap.sh $SUBDOMAIN
-
-if [ "$TYPE" = "slave" ]; then
-  configure_slave_before
-fi
+source $MY_DIR/bootstrap.sh $SUBDOMAIN
 
 publish_module
 configure_common
