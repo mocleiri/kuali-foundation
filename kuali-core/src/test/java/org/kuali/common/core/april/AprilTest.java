@@ -141,8 +141,9 @@ public class AprilTest {
 		char separator = ' ';
 		Splitter splitter = Splitter.on(separator).trimResults().omitEmptyStrings();
 
-		String line1 = saleLines.getLine1().replace("Ring Of Honor", "RingOfHonor Level");
+		String line1 = saleLines.getLine1().replace("Ring Of Honor", "RingOfHonor Level").replace("- No Alcohol", "");
 		List<String> tokens1 = splitter.splitToList(line1);
+		System.out.println(saleLines.getLine1());
 		checkState(tokens1.size() == 4, "expected 4 tokens");
 
 		List<String> tokens3 = splitter.splitToList(saleLines.getLine3().replace('\t', separator));
