@@ -15,13 +15,6 @@
 # limitations under the License.
 #
 
-function enable_root_ssh {
-  echo "enable    -> root ssh"
-  COMMAND="sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys"
-  SSH="ssh ubuntu@$FQDN "$COMMAND""
-  execute_quietly "$SSH"
-}
-
 function check_args {
   check_not_blank DOMAIN $DOMAIN
   check_not_blank SUBDOMAIN $SUBDOMAIN
