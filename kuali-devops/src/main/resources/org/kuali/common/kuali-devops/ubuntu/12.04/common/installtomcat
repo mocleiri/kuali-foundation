@@ -24,7 +24,7 @@ function redirect_ports {
   iptables --table nat --append PREROUTING --protocol tcp --dport 443 --jump REDIRECT --to-port 8443
   iptables -t nat -A OUTPUT -p tcp -o lo --dport 443 -j DNAT --to 127.0.0.1:8443
   export DEBIAN_FRONTEND=noninteractive
-  execute_quietly "apt-get $QUIET -y install iptables-persistent"
+  execute_quietly "apt-get install iptables-persistent -y"
   iptables-save > /etc/iptables/rules.v4
   ip6tables-save > /etc/iptables/rules.v6
   unset DEBIAN_FRONTEND
@@ -87,8 +87,6 @@ function configure_tomcat_ssl {
   
   rm $SSL_KEYSTORE_FILE $SSL_PASSWORD_FILE $GPG_DECRYPTED
   rm -f $TOMCAT_SSL_DIR/wildcard.*
-  
-  exit 1
   
 }
 
