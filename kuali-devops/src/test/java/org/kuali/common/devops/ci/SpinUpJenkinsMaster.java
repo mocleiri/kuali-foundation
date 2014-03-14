@@ -58,6 +58,8 @@ public class SpinUpJenkinsMaster {
 		List<Tag> tags = newArrayList();
 		tags.addAll(CreateBuildSlaveAMI.getTags());
 		tags.add(Tags.Name.MASTER.getTag());
+		// TODO Remove this when it's ready
+		tags.add(new Tag("Name", "ci.master.jeff"));
 		return ImmutableList.copyOf(tags);
 	}
 
