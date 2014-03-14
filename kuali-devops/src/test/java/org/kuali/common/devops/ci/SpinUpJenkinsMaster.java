@@ -44,6 +44,8 @@ public class SpinUpJenkinsMaster {
 	private final String amazonAccount = "foundation";
 	private static final String DOMAIN = "kuali.org";
 
+	// TODO Shorten this to ci.kuali.org when ready
+	private static final String aliasFQDN = "beta-ci.kuali.org";
 	// TODO Change this to 256 when ready
 	private final int defaultRootVolumeSize = 32;
 
@@ -55,11 +57,10 @@ public class SpinUpJenkinsMaster {
 		// Instance instance = launchAndWait(service, request, securityGroups, tags);
 		Instance instance = service.getInstance("i-d912d0fa");
 		logger.info(format("public dns: %s", instance.getPublicDnsName()));
-		updateDns(instance);
+		updateDns(instance, aliasFQDN);
 	}
 
-	protected void updateDns(Instance instance) {
-		String alias = "beta-ci.kuali.org";
+	protected void updateDns(Instance instance, String alias) {
 		String canonical = instance.getPublicDnsName();
 		CNAMEContext context = newCNAMEContext(alias, canonical);
 		DnsService service = getDnsService();
