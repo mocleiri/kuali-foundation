@@ -191,17 +191,6 @@ function install_tomcat {
   
 }
 
-function check_args {
-  check_not_blank TOMCAT $TOMCAT
-  check_not_blank JDK $JDK
-  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
-  check_not_blank MAX_HEAP $MAX_HEAP
-  check_not_blank MAX_PERM $MAX_PERM
-  check_not_blank DOMAIN $DOMAIN
-  check_not_blank MAVEN_OPTS $MAVEN_OPTS
-  check_tomcat
-}
-
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 
