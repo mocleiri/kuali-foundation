@@ -17,8 +17,10 @@ import java.util.List;
 import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
+import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.core.system.VirtualSystem;
 import org.kuali.common.devops.aws.Tags;
+import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.DNSMadeEasyDnsService;
 import org.kuali.common.dns.dnsme.URLS;
@@ -58,6 +60,7 @@ public class SpinUpJenkinsMaster {
 
 	@Test
 	public void test() {
+		KeyPair keyPair = Auth.getKeyPair(amazonAccount);
 		BasicLaunchRequest request = getMasterLaunchRequest();
 
 		EC2Service service = getEC2Service(amazonAccount);
@@ -65,17 +68,17 @@ public class SpinUpJenkinsMaster {
 		Instance instance = service.getInstance("i-d912d0fa");
 		logger.info(format("public dns: %s", instance.getPublicDnsName()));
 		updateDns(instance, aliasFQDN);
-		verifySSH("ubuntu", instance.getPublicDnsName());
+		verifySSH("ubuntu", instance.getPublicDnsName(), keyPair.getPrivateKey().get());
 	}
 
-	protected void verifySSH(String username, String hostname) {
+	protected void verifySSH(String username, String hostname, String privateKey) {
 		WaitContext context = WaitContext.builder(getMillisAsInt("10m")).sleepMillis(getMillisAsInt("5s")).build();
 		WaitService service = new DefaultWaitService();
-		Condition condition = getSshCondition(username, hostname);
+		Condition condition = getSshCondition(username, hostname, privateKey);
 		service.wait(context, condition);
 	}
 
-	protected Condition getSshCondition(String username, String hostname) {
+	protected Condition getSshCondition(String username, String hostname, String privateKey) {
 		ChannelContext context = new ChannelContext.Builder(hostname).username(username).connectTimeout(getMillisAsInt("5s")).build();
 		ChannelService service = new DefaultChannelService();
 		return new VerifiedSSHCondition(service, context);
