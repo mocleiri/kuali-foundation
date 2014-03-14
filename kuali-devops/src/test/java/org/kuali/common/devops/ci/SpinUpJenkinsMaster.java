@@ -53,7 +53,7 @@ public class SpinUpJenkinsMaster {
 
 		EC2Service service = getEC2Service(amazonAccount);
 		Instance instance = launchAndWait(service, ami, type, rootVolume, timeoutMillis, securityGroups, tags);
-		// Instance instance = getRunningSlaveInstance(service, "i-1907c23a");
+		// Instance instance = getRunningSlaveInstance(service, "i-d912d0fa");
 		logger.info(format("public dns: %s", instance.getPublicDnsName()));
 	}
 
