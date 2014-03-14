@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util.channel.model;
 
+import static com.google.common.base.Optional.absent;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,9 +64,9 @@ public final class ChannelContext {
 		private final String hostname;
 
 		// Optional
-		private Optional<String> username = Optional.absent();
+		private Optional<String> username = absent();
 		private int port = 22;
-		private Optional<Integer> connectTimeout = Optional.absent();
+		private Optional<Integer> connectTimeout = absent();
 		private String encoding = Charsets.UTF_8.name();
 		private Properties options = ImmutableProperties.of();
 		private boolean strictHostKeyChecking = false;
