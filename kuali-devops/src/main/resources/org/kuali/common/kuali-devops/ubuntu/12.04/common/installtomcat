@@ -216,10 +216,10 @@ while true; do
       QUIET="true";
       ;;
     --tomcat)
-      TOMCAT=$1;
+      TOMCAT=tomcat$1;
       ;;
     --jdk)
-      JDK=$1;
+      JDK=jdk$1;
       ;;
     --maxheap)
       MAX_HEAP=$1;
