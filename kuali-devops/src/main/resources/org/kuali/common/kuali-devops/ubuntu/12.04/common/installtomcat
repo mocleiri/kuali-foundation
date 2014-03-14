@@ -71,8 +71,8 @@ function configure_tomcat_ssl {
   TOMCAT_SSL_DIR=/var/lib/$TOMCAT/conf/ssl
   rm -rf $TOMCAT_SSL_DIR; mkdir -p $TOMCAT_SSL_DIR
   
-  GPG_ENCRYPTED=$TOMCAT_CONFIG_GENERIC/ssl.zip.gpg
-  GPG_DECRYPTED=$TOMCAT_CONFIG_GENERIC/ssl.zip
+  GPG_ENCRYPTED=$TOMCAT_GENERIC_CONFIG/ssl.zip.gpg
+  GPG_DECRYPTED=$TOMCAT_GENERIC_CONFIG/ssl.zip
   decrypt_file $GPG_ENCRYPTED $GPG_DECRYPTED
   execute_quietly "unzip -o $GPG_DECRYPTED -d $TOMCAT_SSL_DIR"
   
@@ -108,8 +108,8 @@ function configure_tomcat {
   echo "JAVA_OPTS=$JAVA_OPTS"       >> $TOMCAT_OPT_FILE
   echo "JAVA_HOME=$JAVA_HOME"       >> $TOMCAT_OPT_FILE
 
-  WEBXML=$TOMCAT_CONFIG_SPECIFIC/conf/web.xml
-  SERVER=$TOMCAT_CONFIG_SPECIFIC/conf/server.xml
+  WEBXML=$TOMCAT_VERSION_CONFIG/conf/web.xml
+  SERVER=$TOMCAT_VERSION_CONFIG/conf/server.xml
   
   check_exists $WEBXML
   check_exists $SERVER
@@ -122,10 +122,10 @@ function configure_tomcat {
   TOMCAT_BIN=/usr/share/$TOMCAT/bin
   TOMCAT_CLEANUP=$TOMCAT_BIN/cleanup.sh
   USR_BIN_CLEANUP=/usr/bin/cleanup.sh
-  JSPS=$TOMCAT_CONFIG_GENERIC/jsps/*.jsp
+  JSPS=$TOMCAT_GENERIC_CONFIG/jsps/*.jsp
 
   rm -rf $TOMCAT_WEBAPPS/* $TOMCAT_LOGS/* /var/lib/tomcat6/bin/cleanup.sh /var/lib/tomcat7/bin/cleanup.sh
-  cp $TOMCAT_CONFIG_SPECIFIC/bin/cleanup.sh $TOMCAT_CLEANUP
+  cp $TOMCAT_VERSION_CONFIG/bin/cleanup.sh $TOMCAT_CLEANUP
   chmod 755 $TOMCAT_BIN/cleanup.sh
   rm -f $USR_BIN_CLEANUP
   ln -s $TOMCAT_CLEANUP $USR_BIN_CLEANUP
@@ -197,8 +197,8 @@ ME=$(basename $0)
 source $MY_DIR/functions.sh
 source $MY_DIR/tomcatargs.sh
 
-TOMCAT_CONFIG_GENERIC=$MY_DIR/../../../tomcat
+TOMCAT_GENERIC_CONFIG=$MY_DIR/../../../tomcat
 TOMCAT_VERSION=${TOMCAT:6:1}
-TOMCAT_CONFIG_SPECIFIC=$TOMCAT_CONFIG_GENERIC/$TOMCAT_VERSION
+TOMCAT_VERSION_CONFIG=$TOMCAT_GENERIC_CONFIG/$TOMCAT_VERSION
 
 install_tomcat
