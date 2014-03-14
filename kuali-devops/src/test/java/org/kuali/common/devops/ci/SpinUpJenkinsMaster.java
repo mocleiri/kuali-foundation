@@ -9,6 +9,7 @@ import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_MASTER;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getBasicLaunchRequest;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getEC2Service;
 import static org.kuali.common.devops.logic.Auth.getDnsmeCredentials;
+import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
 import static org.kuali.common.dns.model.CNAMEContext.newCNAMEContext;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
 import static org.kuali.common.util.log.Loggers.newLogger;
@@ -35,6 +36,10 @@ import org.kuali.common.util.channel.impl.DefaultChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.CommandResult;
 import org.kuali.common.util.condition.Condition;
+import org.kuali.common.util.project.DefaultProjectService;
+import org.kuali.common.util.project.ProjectService;
+import org.kuali.common.util.project.model.Project;
+import org.kuali.common.util.spring.env.BasicEnvironmentService;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitContext;
 import org.kuali.common.util.wait.WaitService;
@@ -72,15 +77,23 @@ public class SpinUpJenkinsMaster {
 			EC2Service service = getEC2Service(amazonAccount);
 			// Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags);
 			Instance instance = service.getInstance("i-0261a321");
-			logger.info(format("public dns: %s", instance.getPublicDnsName()));
+			info("public dns: %s", instance.getPublicDnsName());
 			updateDns(instance, aliasFQDN);
 			verifySSH("ubuntu", instance.getPublicDnsName(), privateKey);
-			logger.info(format("[%s] is online with ssh - %s", aliasFQDN, FormatUtils.getTime(sw)));
-			logger.info(format("[%s] enabling root ssh", aliasFQDN));
+			info("[%s] is online with ssh - %s", aliasFQDN, FormatUtils.getTime(sw));
+			info("[%s] enabling root ssh", aliasFQDN);
 			enableRootSSH("ubuntu", instance.getPublicDnsName(), privateKey);
+			SecureChannel channel = openSecureChannel("root", aliasFQDN, privateKey);
+			publishMyself(channel);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected void publishMyself(SecureChannel channel) {
+		ProjectService service = new DefaultProjectService(new BasicEnvironmentService());
+		Project project = service.getProject(KUALI_DEVOPS_PROJECT_IDENTIFIER);
+		info(project.getArtifactId());
 	}
 
 	protected SecureChannel openSecureChannel(String username, String hostname, String privateKey) throws IOException {
@@ -133,6 +146,14 @@ public class SpinUpJenkinsMaster {
 		// TODO Remove this when things are ready
 		tags.add(new Tag("Name", "ci.master.jeff"));
 		return ImmutableList.copyOf(tags);
+	}
+
+	protected void info(String msg, Object... args) {
+		if (args != null && args.length > 0) {
+			logger.info(format(msg, args));
+		} else {
+			logger.info(msg);
+		}
 	}
 
 }
