@@ -74,7 +74,7 @@ function configure_tomcat_ssl {
   GPG_ENCRYPTED=$TOMCAT_CONFIG_GENERIC/ssl.zip.gpg
   GPG_DECRYPTED=$TOMCAT_CONFIG_GENERIC/ssl.zip
   decrypt_file $GPG_ENCRYPTED $GPG_DECRYPTED
-  execute_quietly "unzip -o $GPG_DECRYPTED -d $TOMCAT_SSL_DIR
+  execute_quietly "unzip -o $GPG_DECRYPTED -d $TOMCAT_SSL_DIR"
   
   SSL_KEYSTORE_FILE=$TOMCAT_SSL_DIR/wildcard.$DOMAIN.keystore.pkcs12
   SSL_PASSWORD_FILE=$TOMCAT_SSL_DIR/wildcard.$DOMAIN.keystore.password
@@ -134,8 +134,8 @@ function configure_tomcat {
   # Setup the tomcat user with a normal /home directory and enable su
   echo "configure -> $TOMCAT:user"
   rm -rf $TOMCAT_HOME; mkdir -p $TOMCAT_HOME
-  usermod --home $TOMCAT_HOME $TOMCAT
-  usermod --shell /bin/bash $TOMCAT
+  execute_quietly "usermod --home $TOMCAT_HOME $TOMCAT"
+  execute_quietly "usermod --shell /bin/bash $TOMCAT"
   
   # copy root's .bashrc and setup .bash_aliases with Java and Maven
   cp /root/.bashrc $TOMCAT_HOME/.bash_profile
