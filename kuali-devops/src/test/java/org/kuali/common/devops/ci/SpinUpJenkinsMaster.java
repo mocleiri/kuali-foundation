@@ -20,7 +20,6 @@ import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.core.system.VirtualSystem;
 import org.kuali.common.devops.aws.Tags;
-import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.DNSMadeEasyDnsService;
 import org.kuali.common.dns.dnsme.URLS;
@@ -61,7 +60,7 @@ public class SpinUpJenkinsMaster {
 	@Test
 	public void test() {
 		try {
-			KeyPair keyPair = Auth.getKeyPair(amazonAccount);
+			KeyPair keyPair = CreateBuildSlaveAMI.getKeyPair();
 			BasicLaunchRequest request = getMasterLaunchRequest();
 
 			EC2Service service = getEC2Service(amazonAccount);
@@ -83,7 +82,7 @@ public class SpinUpJenkinsMaster {
 	}
 
 	protected Condition getSshCondition(String username, String hostname, String privateKey) {
-		ChannelContext context = new ChannelContext.Builder(hostname).username(username).connectTimeout(getMillisAsInt("5s")).build();
+		ChannelContext context = new ChannelContext.Builder(hostname).username(username).privateKey(privateKey).connectTimeout(getMillisAsInt("5s")).build();
 		ChannelService service = new DefaultChannelService();
 		return new VerifiedSSHCondition(service, context);
 	}
