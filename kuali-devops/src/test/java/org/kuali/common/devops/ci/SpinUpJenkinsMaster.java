@@ -1,5 +1,6 @@
 package org.kuali.common.devops.ci;
 
+import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
@@ -41,7 +42,6 @@ import org.slf4j.Logger;
 
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Tag;
-import com.google.common.base.Preconditions;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
 
@@ -83,12 +83,16 @@ public class SpinUpJenkinsMaster {
 		}
 	}
 
-	protected void enableRootSSH(String username, String hostname, String privateKey) throws IOException {
+	protected SecureChannel openSecureChannel(String username, String hostname, String privateKey) throws IOException {
 		ChannelContext context = new ChannelContext.Builder(hostname).username(username).privateKey(privateKey).connectTimeout(getMillisAsInt("5s")).build();
 		ChannelService service = new DefaultChannelService();
-		SecureChannel channel = service.openChannel(context);
+		return service.openChannel(context);
+	}
+
+	protected void enableRootSSH(String username, String hostname, String privateKey) throws IOException {
+		SecureChannel channel = openSecureChannel(username, hostname, privateKey);
 		CommandResult result = channel.exec("sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys");
-		Preconditions.checkState(result.getExitValue() == 0, "non-zero exit value");
+		checkState(result.getExitValue() == 0, "non-zero exit value");
 	}
 
 	protected void verifySSH(String username, String hostname, String privateKey) {
