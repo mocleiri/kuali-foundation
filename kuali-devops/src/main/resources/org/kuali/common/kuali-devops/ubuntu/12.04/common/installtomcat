@@ -173,6 +173,8 @@ function install_tomcat {
   echo "stop      -> $TOMCAT"
   execute_quietly "service $TOMCAT stop"
   
+  exit 1
+  
   configure_tomcat
   redirect_ports
   cleanup.sh
