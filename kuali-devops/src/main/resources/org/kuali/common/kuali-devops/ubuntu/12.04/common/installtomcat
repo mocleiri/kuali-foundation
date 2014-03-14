@@ -217,18 +217,23 @@ while true; do
       ;;
     --tomcat)
       TOMCAT=tomcat$1;
+      shift;
       ;;
     --jdk)
       JDK="jdk$1";
+      shift;
       ;;
     --maxheap)
       MAX_HEAP="$1";
+      shift;
       ;;
     --maxperm)
       MAX_PERM="$1";
+      shift;
       ;;
     --domain)
       DOMAIN="$1";
+      shift;
       ;;
     --)
       shift;
