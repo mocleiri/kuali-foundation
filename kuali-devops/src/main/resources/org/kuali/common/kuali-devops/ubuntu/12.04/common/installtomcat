@@ -74,8 +74,7 @@ function configure_tomcat_ssl {
   GPG_ENCRYPTED=$TOMCAT_CONFIG_GENERIC/ssl.zip.gpg
   GPG_DECRYPTED=$TOMCAT_CONFIG_GENERIC/ssl.zip
   decrypt_file $GPG_ENCRYPTED $GPG_DECRYPTED
-  #execute_quietly "unzip -o $GPG_DECRYPTED -d $TOMCAT_SSL_DIR"
-  unzip -o $GPG_DECRYPTED -d $TOMCAT_SSL_DIR
+  execute_quietly "unzip -o $GPG_DECRYPTED -d $TOMCAT_SSL_DIR"
   
   SSL_KEYSTORE_FILE=$TOMCAT_SSL_DIR/wildcard.$DOMAIN.keystore.pkcs12
   SSL_PASSWORD_FILE=$TOMCAT_SSL_DIR/wildcard.$DOMAIN.keystore.password
