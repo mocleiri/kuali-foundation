@@ -195,21 +195,15 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-usage() { echo "Usage: $ME [-q] tomcat6/tomcat7 jdk6/jdk7 maxheap maxperm domain gpgpassword" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [--help] [--quiet] [--tomcat=6/7] [--jdk=6/7] [--maxheap=5g] [--maxperm=256m] [--domain=kuali.org] gpgpassword" 1>&2; exit 1; }
 
-QUIET=""
-while getopts q flag; do
-  case $flag in
-    q)
-      QUIET="true";
-      ;;
-    ?)
-      exit;
-      ;;
-  esac
-done
+QUIET=false
 
-shift $(( OPTIND - 1 ));
+ARGS=$(getopt --options hq --longoptions "help,quiet,tomcat:,jdk:,maxheap:,maxperm:,domain:" --name "$ME" -- "$@");
+if [ $? -ne 0 ]; then usage; fi
+eval set -- "$ARGS";
+
+exit 1
 
 TOMCAT=$1
 JDK=$2

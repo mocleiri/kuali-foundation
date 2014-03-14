@@ -95,7 +95,7 @@ source $MY_DIR/functions.sh
 
 usage() { echo "Usage: $ME [-h] [-q] jdk6/jdk7 u45/u51 gpg_passphrase" 1>&2; exit 1; }
 
-QUIET="false"
+QUIET=false
 while getopts hq flag; do
   case $flag in
     h)
