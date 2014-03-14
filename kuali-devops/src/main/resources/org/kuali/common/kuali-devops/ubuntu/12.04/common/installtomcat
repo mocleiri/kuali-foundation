@@ -202,7 +202,7 @@ QUIET=false
 ARGS=$(getopt --options hq --longoptions "help,quiet,tomcat:,jdk:,maxheap:,maxperm:,domain:" --name "$ME" -- "$@");
 if [ $? -ne 0 ]; then usage; fi
 eval set -- "$ARGS";
-
+usage
 exit 1
 
 TOMCAT=$1
