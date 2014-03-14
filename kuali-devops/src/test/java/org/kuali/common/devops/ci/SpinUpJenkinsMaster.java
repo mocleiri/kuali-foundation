@@ -26,6 +26,7 @@ import org.kuali.common.dns.dnsme.URLS;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
 import org.kuali.common.dns.model.CNAMEContext;
 import org.kuali.common.dns.util.CreateOrReplaceCNAME;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.channel.impl.DefaultChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
@@ -64,11 +65,12 @@ public class SpinUpJenkinsMaster {
 			BasicLaunchRequest request = getMasterLaunchRequest();
 
 			EC2Service service = getEC2Service(amazonAccount);
-			// Instance instance = launchAndWait(service, request, securityGroups, tags);
-			Instance instance = service.getInstance("i-d912d0fa");
+			Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags);
+			// Instance instance = service.getInstance("i-d912d0fa");
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			updateDns(instance, aliasFQDN);
 			verifySSH("ubuntu", instance.getPublicDnsName(), keyPair.getPrivateKey().get());
+			logger.info(format("[%s] is online with ssh - %s", aliasFQDN, FormatUtils.getTime(sw)));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
