@@ -64,3 +64,12 @@ function check_status {
     exit $STATUS
   fi
 }
+
+function check_jdk {
+
+  if [[ ! ("$JDK" == "jdk6" || "$JDK" == "jdk7") ]]; then
+    echo "\"$JDK\" is invalid.  Must be either jdk6 or jdk7"
+    exit 1
+  fi
+  
+}
