@@ -3,6 +3,7 @@ package org.kuali.common.devops.ci;
 import static org.kuali.common.aws.ec2.model.AMI.UBUNTU_64_BIT_PRECISE_LTS_1204;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
 
+import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
@@ -13,13 +14,13 @@ public final class BasicLaunchRequest {
 
 	private final String ami;
 	private final InstanceType type;
-	private final int rootVolumeSize;
+	private final RootVolume rootVolume;
 	private final int timeoutMillis;
 
 	private BasicLaunchRequest(Builder builder) {
 		this.ami = builder.ami;
 		this.type = builder.type;
-		this.rootVolumeSize = builder.rootVolumeSize;
+		this.rootVolume = builder.rootVolume;
 		this.timeoutMillis = builder.timeoutMillis;
 	}
 
@@ -31,7 +32,7 @@ public final class BasicLaunchRequest {
 
 		private String ami = UBUNTU_64_BIT_PRECISE_LTS_1204.getId();
 		private InstanceType type = InstanceType.C3Xlarge;
-		private int rootVolumeSize = 32;
+		private RootVolume rootVolume = RootVolume.create(32, true);
 		private int timeoutMillis = getMillisAsInt("15m");
 
 		public Builder withAmi(String ami) {
@@ -44,8 +45,8 @@ public final class BasicLaunchRequest {
 			return this;
 		}
 
-		public Builder withRootVolumeSize(int rootVolumeSize) {
-			this.rootVolumeSize = rootVolumeSize;
+		public Builder withRootVolume(RootVolume rootVolume) {
+			this.rootVolume = rootVolume;
 			return this;
 		}
 
@@ -83,13 +84,14 @@ public final class BasicLaunchRequest {
 			this.timeoutMillis = timeoutMillis;
 		}
 
-		public int getRootVolumeSize() {
-			return rootVolumeSize;
+		public RootVolume getRootVolume() {
+			return rootVolume;
 		}
 
-		public void setRootVolumeSize(int rootVolumeSize) {
-			this.rootVolumeSize = rootVolumeSize;
+		public void setRootVolume(RootVolume rootVolume) {
+			this.rootVolume = rootVolume;
 		}
+
 	}
 
 	public String getAmi() {
@@ -100,8 +102,8 @@ public final class BasicLaunchRequest {
 		return type;
 	}
 
-	public int getSizeInGigabytes() {
-		return rootVolumeSize;
+	public RootVolume getRootVolume() {
+		return rootVolume;
 	}
 
 	public int getTimeoutMillis() {

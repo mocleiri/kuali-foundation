@@ -33,7 +33,6 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
-import org.kuali.common.aws.ec2.model.AMI;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
@@ -88,16 +87,12 @@ public class CreateBuildSlaveAMI {
 	@Test
 	public void test() {
 		// Configurable items
-		String ami = System.getProperty("slave.ami", AMI.UBUNTU_64_BIT_PRECISE_LTS_1204.getId());
-		InstanceType type = InstanceType.fromValue(System.getProperty("slave.type", InstanceType.C3Xlarge.toString()));
-		RootVolume rootVolume = RootVolume.create(parseInt(System.getProperty("slave.size", "32")), true);
-		// The amount of time to wait before timing out on: instance creation, snapshot creation, ami creation
-		int timeoutMillis = getMillisAsInt(System.getProperty("slave.timeout", "1h"));
+		BasicLaunchRequest request = getSlaveLaunchRequest();
 		// The amount of time to sleep after creating a brand new instance (gives DNS a few seconds to figure itself out)
 		String sleep = System.getProperty("slave.sleep", "15s");
 
 		EC2Service service = getEC2Service(amazonAccount);
-		Instance instance = launchAndWait(service, ami, type, rootVolume, timeoutMillis, securityGroups, tags);
+		Instance instance = launchAndWait(service, request, securityGroups, tags);
 		// Instance instance = getRunningSlaveInstance(service, "i-1907c23a");
 		logger.info(format("public dns: %s", instance.getPublicDnsName()));
 		logger.info(format("sleeping %s to let dns settle down", sleep));
@@ -108,11 +103,26 @@ public class CreateBuildSlaveAMI {
 		CanonicalFile bashDir = getLocalBashDir(buildDir);
 		configureSlave(instance, bashDir);
 		String description = format("automated ec2 slave ami - %s", today);
-		Image image = service.createAmi(instance.getInstanceId(), name, description, rootVolume, timeoutMillis);
+		Image image = service.createAmi(instance.getInstanceId(), name, description, request.getRootVolume(), request.getTimeoutMillis());
 		logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
 		cleanupAmis(service);
 		logger.info(format("terminating instance [%s]", instance.getInstanceId()));
 		service.terminateInstance(instance.getInstanceId());
+	}
+
+	protected static BasicLaunchRequest getSlaveLaunchRequest() {
+		BasicLaunchRequest.Builder builder = BasicLaunchRequest.builder();
+		builder.setTimeoutMillis(FormatUtils.getMillisAsInt("1h"));
+		return getBasicLaunchRequest(builder.build());
+	}
+
+	protected static BasicLaunchRequest getBasicLaunchRequest(BasicLaunchRequest provided) {
+		String ami = System.getProperty("ec2.ami", provided.getAmi());
+		InstanceType type = InstanceType.fromValue(System.getProperty("ec2.type", provided.getType().toString()));
+		int size = parseInt(System.getProperty("ec2.size", provided.getRootVolume().getSizeInGigabytes().get() + ""));
+		RootVolume rootVolume = RootVolume.create(size, provided.getRootVolume().getDeleteOnTermination().get());
+		int timeoutMillis = getMillisAsInt(System.getProperty("ec2.timeout", provided.getTimeoutMillis() + ""));
+		return BasicLaunchRequest.builder().withAmi(ami).withRootVolume(rootVolume).withTimeoutMillis(timeoutMillis).withType(type).build();
 	}
 
 	protected void cleanupAmis(EC2Service service) {
@@ -249,12 +259,11 @@ public class CreateBuildSlaveAMI {
 		return service.getInstance(instanceId);
 	}
 
-	protected static Instance launchAndWait(EC2Service service, String ami, InstanceType type, RootVolume rootVolume, int timeoutMillis,
-			List<KualiSecurityGroup> securityGroups, List<Tag> tags) {
-		logger.info(format("launch instance -> %s  type: %s  size: %sgb", ami, type.toString(), rootVolume.getSizeInGigabytes().get()));
+	protected static Instance launchAndWait(EC2Service service, BasicLaunchRequest blr, List<KualiSecurityGroup> securityGroups, List<Tag> tags) {
+		logger.info(format("launch instance -> %s  type: %s  size: %sgb", blr.getAmi(), blr.getType().toString(), blr.getRootVolume().getSizeInGigabytes().get()));
 		KeyPair keyPair = Auth.getKeyPair(KeyPairBuilders.FOUNDATION.getBuilder());
-		LaunchInstanceContext context = LaunchInstanceContext.builder(ami, keyPair).withTimeoutMillis(timeoutMillis).withType(type).withRootVolume(rootVolume)
-				.withSecurityGroups(securityGroups).withTags(tags).build();
+		LaunchInstanceContext context = LaunchInstanceContext.builder(blr.getAmi(), keyPair).withTimeoutMillis(blr.getTimeoutMillis()).withType(blr.getType())
+				.withRootVolume(blr.getRootVolume()).withSecurityGroups(securityGroups).withTags(tags).build();
 		return service.launchInstance(context);
 	}
 
