@@ -3,6 +3,7 @@ package org.kuali.common.devops.ci;
 import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
+import static java.util.Collections.singletonList;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_MASTER;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getBasicLaunchRequest;
@@ -21,6 +22,7 @@ import java.util.List;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
+import org.kuali.common.aws.ec2.model.Distro;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.core.system.VirtualSystem;
@@ -55,8 +57,11 @@ import org.slf4j.Logger;
 
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Tag;
+import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 public class SpinUpJenkinsMaster {
 
@@ -69,6 +74,8 @@ public class SpinUpJenkinsMaster {
 	private final String gpgPassphrase = "coSLMPP2IsSAXYVp9NIsvxzqAkd7N+Yh";
 	private final String amazonAccount = "foundation";
 	private static final String DOMAIN = "kuali.org";
+	private final Distro distro = Distro.UBUNTU;
+	private final String distroVersion = "12.04";
 
 	// TODO Shorten this to ci.kuali.org when ready
 	private static final String aliasFQDN = "beta-ci.kuali.org";
@@ -81,6 +88,7 @@ public class SpinUpJenkinsMaster {
 			KeyPair keyPair = CreateBuildSlaveAMI.KUALI_KEY;
 			String privateKey = keyPair.getPrivateKey().get();
 			BasicLaunchRequest request = getMasterLaunchRequest();
+			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
 			EC2Service service = getEC2Service(amazonAccount);
 			// Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags);
@@ -90,6 +98,10 @@ public class SpinUpJenkinsMaster {
 			verifySSH("ubuntu", instance.getPublicDnsName(), privateKey);
 			info("[%s] is online with ssh - %s", aliasFQDN, FormatUtils.getTime(sw));
 			bootstrap(instance.getPublicDnsName(), privateKey);
+			SecureChannel channel = openSecureChannel("root", aliasFQDN, privateKey);
+			String basedir = publishProject(channel, pid);
+			String bash = getBashScript(basedir, pid, distro, distroVersion, "common/configurebasics");
+			exec(channel, bash, "-q");
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -98,11 +110,9 @@ public class SpinUpJenkinsMaster {
 	protected static void bootstrap(String hostname, String privateKey) throws IOException {
 		info("[%s] enabling root ssh", hostname);
 		enableRootSSH("ubuntu", hostname, privateKey);
-		SecureChannel channel = openSecureChannel("root", hostname, privateKey);
-		publishProject(channel, KUALI_DEVOPS_PROJECT_IDENTIFIER);
 	}
 
-	protected static void publishProject(SecureChannel channel, ProjectIdentifier pid) {
+	protected static String publishProject(SecureChannel channel, ProjectIdentifier pid) {
 		ProjectService service = new DefaultProjectService(new BasicEnvironmentService());
 		Project project = service.getProject(pid);
 		info(project.getArtifactId());
@@ -114,9 +124,21 @@ public class SpinUpJenkinsMaster {
 		channel.scp(jar, remote);
 		channel.exec("apt-get install unzip -y");
 		String directory = format("/mnt/%s", project.getArtifactId());
-		exec(channel, "rm -rf %s", directory);
-		exec(channel, "unzip -q -o %s -d %s", remote.getAbsolutePath(), directory);
-		exec(channel, "chmod -R 755 %s", directory);
+		execFormatted(channel, "rm -rf %s", directory);
+		execFormatted(channel, "unzip -q -o %s -d %s", remote.getAbsolutePath(), directory);
+		execFormatted(channel, "chmod -R 755 %s", directory);
+		return directory;
+	}
+
+	protected static String getBashScript(String basedir, ProjectIdentifier project, Distro distro, String version, String script) {
+		List<String> tokens = Lists.newArrayList();
+		tokens.add(basedir);
+		tokens.addAll(Splitter.on('.').splitToList(project.getGroupId()));
+		tokens.add(project.getArtifactId());
+		tokens.add(distro.getName());
+		tokens.add(version);
+		tokens.add(script);
+		return Joiner.on('/').join(tokens);
 	}
 
 	protected static String formatString(String s, Object... args) {
@@ -127,7 +149,19 @@ public class SpinUpJenkinsMaster {
 		}
 	}
 
-	protected static void exec(SecureChannel channel, String command, Object... args) {
+	protected static void exec(SecureChannel channel, String command, String arg) {
+		exec(channel, command, singletonList(arg));
+	}
+
+	protected static void exec(SecureChannel channel, String command, List<String> args) {
+		StreamConsumer stdout = new LoggingStreamConsumer(logger, LoggerLevel.INFO);
+		StreamConsumer stderr = new LoggingStreamConsumer(logger, LoggerLevel.WARN);
+		String cmd = command + " " + Joiner.on(' ').join(args);
+		CommandContext context = new CommandContext.Builder(cmd).stdout(stdout).stderr(stderr).build();
+		channel.exec(context);
+	}
+
+	protected static void execFormatted(SecureChannel channel, String command, Object... args) {
 		StreamConsumer stdout = new LoggingStreamConsumer(logger, LoggerLevel.INFO);
 		StreamConsumer stderr = new LoggingStreamConsumer(logger, LoggerLevel.WARN);
 		String formatted = formatString(command, args);
@@ -143,7 +177,7 @@ public class SpinUpJenkinsMaster {
 
 	protected static void enableRootSSH(String username, String hostname, String privateKey) throws IOException {
 		SecureChannel channel = openSecureChannel(username, hostname, privateKey);
-		exec(channel, "sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys");
+		execFormatted(channel, "sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys");
 	}
 
 	protected void verifySSH(String username, String hostname, String privateKey) {
