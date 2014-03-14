@@ -195,7 +195,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-usage() { echo "Usage: $ME [--help] [--quiet] [--tomcat=6/7] [--jdk=6/7] [--maxheap=5g] [--maxperm=256m] [--domain=kuali.org] gpgpassword" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] [--help] [--quiet] [--tomcat=6/7] [--jdk=6/7] [--maxheap=5g] [--maxperm=256m] [--domain=kuali.org] gpgpassword" 1>&2; exit 1; }
 
 QUIET=false
 
