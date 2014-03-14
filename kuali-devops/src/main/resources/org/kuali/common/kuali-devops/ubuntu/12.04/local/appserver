@@ -35,7 +35,7 @@ usage() { echo "Usage: $ME [-h] [-q] [-d kuali.org] subdomain" 1>&2; exit 1; }
 DOMAIN=kuali.org
 
 QUIET=false
-while getopts hq flag; do
+while getopts hqd: flag; do
   case $flag in
     h)
       usage;
