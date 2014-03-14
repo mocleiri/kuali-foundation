@@ -22,7 +22,7 @@ function check_args {
 
 function configure_basics {
   echo "configure    -> basics"
-  COMMAND="/mnt/${project.artifactId}/${project.groupId.path}/${project.artifactId}/ubuntu/12.04/configurebasics"
+  COMMAND="/mnt/${project.artifactId}/${project.groupId.path}/${project.artifactId}/ubuntu/12.04/common/configurebasics"
   SSH="ssh root@$FQDN "$COMMAND""
   execute_quietly "$SSH"
 }
