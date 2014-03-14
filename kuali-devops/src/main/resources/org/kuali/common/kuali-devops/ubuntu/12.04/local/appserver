@@ -34,66 +34,7 @@ function configure_application_server {
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 source $MY_DIR/../common/functions.sh
-
-usage() { echo "Usage: $ME [-h] [-q] [--help] [--quiet] [--maxheap=5g] [--maxperm=256m] [--mavenoopts=\"-Xmx2g -XX:MaxPermSize=256m\"] [--domain=kuali.org] subdomain tomcat6/tomcat7 jdk6/jdk7 password" 1>&2; exit 1; }
-
-source $MY_DIR/../common/functions.sh
-
-echo $(date)
-
-QUIET=false
-MAX_HEAP=5g
-MAX_PERM=256m
-DOMAIN=kuali.org
-MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=256m"
-
-ARGS=$(getopt --options hq --longoptions "help,quiet,maxheap:,maxperm:,domain:,mavenopts:" --name "$ME" -- "$@");
-if [ $? -ne 0 ]; then usage; fi
-eval set -- "$ARGS";
-while true; do
-  case "$1" in
-    -h|--help)
-      usage;
-      shift;
-      ;;
-    -q|--quiet)
-      QUIET="true";
-      shift;
-      ;;
-    --maxheap)
-      shift;
-      MAX_HEAP="$1";
-      shift;
-      ;;
-    --maxperm)
-      shift;
-      MAX_PERM="$1";
-      shift;
-      ;;
-    --domain)
-      shift;
-      DOMAIN="$1";
-      shift;
-      ;;
-    --mavenopts)
-      shift;
-      MAVEN_OPTS="$1";
-      shift;
-      ;;
-    --)
-      shift;
-      break;
-      ;;
-  esac
-done
-
-SUBDOMAIN=$1
-TOMCAT=$2
-JDK=$3
-GPG_PASSPHRASE=$4
-
-# Make sure we have what we need
-check_args
+source $MY_DIR/../common/tomcatargs.sh
 
 exit 1
 
