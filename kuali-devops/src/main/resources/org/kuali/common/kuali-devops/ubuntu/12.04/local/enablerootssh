@@ -46,3 +46,4 @@ source $MY_DIR/common.sh
 
 # ec2-107-22-110-181.compute-1.amazonaws.com
 enable_root_ssh
+publish_module
