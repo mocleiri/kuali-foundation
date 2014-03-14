@@ -37,8 +37,8 @@ function purge_tomcat {
   echo "purge     -> $TOMCAT_PURGE"
   execute_quietly "apt-get purge $TOMCAT_PURGE -y"
   execute_quietly "apt-get autoremove -y"
-  userdel --force --remove --quiet tomcat6
-  userdel --force --remove --quiet tomcat7
+  userdel --force --remove tomcat6
+  userdel --force --remove tomcat7
   rm -rf /var/lib/tomcat6 /var/lib/tomcat7
   
 }
