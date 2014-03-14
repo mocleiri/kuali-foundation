@@ -113,6 +113,7 @@ while getopts hqj:u: flag; do
       JDK_UPDATE=u"$OPTARG"
       ;;
     ?)
+      usage;
       exit;
       ;;
   esac
