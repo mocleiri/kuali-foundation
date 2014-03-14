@@ -54,6 +54,17 @@ function execute_quietly {
   check_status $COMMAND
 }
 
+function check_userdel_status {
+  STATUS="$?"
+  if [[ ! ("$STATUS" == "6" || "$STATUS" == "0") ]]; then
+    echo
+    echo "error executing: \"$COMMAND\""
+    echo "exit value: $STATUS"
+    echo 
+    exit $STATUS
+  fi
+}
+
 function check_status {
   STATUS="$?"
   if [ ! "$STATUS" == "0" ]; then
