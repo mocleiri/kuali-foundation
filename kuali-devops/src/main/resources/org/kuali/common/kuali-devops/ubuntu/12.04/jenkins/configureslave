@@ -146,7 +146,8 @@ check_args
 
 slave_shutdown_scripting
 install_mysql_server
-#copy_repo_from_master
+# can't make this rsync call until ssh is setup
+# copy_repo_from_master
 
 # Comment this out once the projects have all been versioned
 build_maven_projects
