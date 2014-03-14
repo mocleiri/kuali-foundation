@@ -42,7 +42,7 @@ function configure_application_server {
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] subdomain tomcat6/tomcat7 jdk6/jdk7 password" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] [--help] [--quiet] [--maxheap=5g] [--maxperm=256m] [--domain=kuali.org] [--mavenoopts=\"-Xmx2g -XX:MaxPermSize=256m\"] tomcat6/tomcat7 jdk6/jdk7 password" 1>&2; exit 1; }
 
 source $MY_DIR/../common/functions.sh
 
