@@ -16,32 +16,9 @@
 #
 
 
-function execute_quietly {
-  COMMAND=$1
-  if [ "$QUIET" = "-qq" ]; then
-    $COMMAND > /dev/null 2>&1
-  else
-    $COMMAND
-  fi
-}
-
-function check_not_blank {
-  if [ ! -n "$2" ]; then 
-    echo $1 cannot be blank
-    show_usage
-  fi
-}
-
-function show_usage {
-  echo
-  echo requires BASEDIR
-  echo usage: slave.sh basedir [quiet]
-  echo
-  exit 1
-}
 
 function check_args {
-  check_not_blank BASEDIR $BASEDIR
+  check_not_blank JENKINS_MASTER $JENKINS_MASTER
 }
 
 function slave_shutdown_scripting {
