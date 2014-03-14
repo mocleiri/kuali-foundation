@@ -60,15 +60,19 @@ public class SpinUpJenkinsMaster {
 
 	@Test
 	public void test() {
-		KeyPair keyPair = Auth.getKeyPair(amazonAccount);
-		BasicLaunchRequest request = getMasterLaunchRequest();
+		try {
+			KeyPair keyPair = Auth.getKeyPair(amazonAccount);
+			BasicLaunchRequest request = getMasterLaunchRequest();
 
-		EC2Service service = getEC2Service(amazonAccount);
-		// Instance instance = launchAndWait(service, request, securityGroups, tags);
-		Instance instance = service.getInstance("i-d912d0fa");
-		logger.info(format("public dns: %s", instance.getPublicDnsName()));
-		updateDns(instance, aliasFQDN);
-		verifySSH("ubuntu", instance.getPublicDnsName(), keyPair.getPrivateKey().get());
+			EC2Service service = getEC2Service(amazonAccount);
+			// Instance instance = launchAndWait(service, request, securityGroups, tags);
+			Instance instance = service.getInstance("i-d912d0fa");
+			logger.info(format("public dns: %s", instance.getPublicDnsName()));
+			updateDns(instance, aliasFQDN);
+			verifySSH("ubuntu", instance.getPublicDnsName(), keyPair.getPrivateKey().get());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	protected void verifySSH(String username, String hostname, String privateKey) {
