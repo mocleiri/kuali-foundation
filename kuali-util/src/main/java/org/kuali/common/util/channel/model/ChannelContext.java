@@ -57,6 +57,7 @@ public final class ChannelContext {
 	private final int waitForClosedSleepMillis;
 	private final List<File> privateKeyFiles;
 	private final boolean echo;
+	private final boolean debug;
 
 	public static class Builder {
 
@@ -80,6 +81,7 @@ public final class ChannelContext {
 		private List<File> privateKeyFiles = ImmutableList.of();
 		private List<String> privateKeys = ImmutableList.of();
 		private boolean echo = true;
+		private boolean debug = false;
 
 		// Used only by the builder
 		private final Optional<EnvironmentService> env;
@@ -129,6 +131,11 @@ public final class ChannelContext {
 
 		public Builder requestPseudoTerminal(boolean requestPseudoTerminal) {
 			this.requestPseudoTerminal = requestPseudoTerminal;
+			return this;
+		}
+
+		public Builder debug(boolean debug) {
+			this.debug = debug;
 			return this;
 		}
 
@@ -306,6 +313,7 @@ public final class ChannelContext {
 		this.privateKeys = builder.privateKeys;
 		this.useKnownHosts = builder.useKnownHosts;
 		this.echo = builder.echo;
+		this.debug = builder.debug;
 	}
 
 	public Optional<String> getUsername() {
@@ -374,6 +382,10 @@ public final class ChannelContext {
 
 	public boolean isEcho() {
 		return echo;
+	}
+
+	public boolean isDebug() {
+		return debug;
 	}
 
 }

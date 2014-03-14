@@ -15,8 +15,11 @@
  */
 package org.kuali.common.util.channel.impl;
 
+import static java.lang.String.format;
+import static java.lang.System.currentTimeMillis;
 import static org.kuali.common.util.CollectionUtils.toCSV;
 import static org.kuali.common.util.base.Exceptions.illegalState;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
@@ -35,7 +38,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.Encodings;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
@@ -80,7 +82,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 	private boolean closed = false;
 
 	public DefaultSecureChannel(ChannelContext context) throws IOException {
-		Assert.noNulls(context);
+		checkNotNull(context, "context");
 		this.context = context;
 		log();
 		try {
@@ -139,8 +141,12 @@ public final class DefaultSecureChannel implements SecureChannel {
 		StreamHandler handler = new StreamHandler(context);
 		ChannelExec exec = null;
 		try {
+			// Echo the command, if requested
+			if (this.context.isEcho()) {
+				logger.info(format("%s", new String(context.getCommand(), this.context.getEncoding())));
+			}
 			// Preserve start time
-			long start = System.currentTimeMillis();
+			long start = currentTimeMillis();
 			// Open an exec channel
 			exec = getChannelExec();
 			// Convert the command string to a byte array and store it on the exec channel
@@ -162,11 +168,11 @@ public final class DefaultSecureChannel implements SecureChannel {
 			// Construct a result object
 			CommandResult result = new CommandResult(context.getCommand(), exec.getExitStatus(), start);
 			// Validate that things turned out ok (or that we don't care)
-			validate(context, result);
+			validate(context, result, this.context.getEncoding());
 			// Echo the command, if requested
-			if (this.context.isEcho()) {
+			if (this.context.isDebug()) {
 				String elapsed = FormatUtils.getTime(result.getElapsed());
-				logger.info("{} - [{}]", new String(context.getCommand(), this.context.getEncoding()), elapsed);
+				logger.info(format("%s - [%s]", new String(context.getCommand(), this.context.getEncoding()), elapsed));
 			}
 			// Return the result
 			return result;
@@ -182,7 +188,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
-	protected void validate(CommandContext context, CommandResult result) throws UnsupportedEncodingException {
+	protected void validate(CommandContext context, CommandResult result, String encoding) throws UnsupportedEncodingException {
 		if (context.isIgnoreExitValue()) {
 			return;
 		}
@@ -196,7 +202,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 				return;
 			}
 		}
-		String command = new String(context.getCommand(), Encodings.UTF8);
+		String command = new String(context.getCommand(), encoding);
 		throw illegalState("\nerror: [%s]\ninvalid exit value [%s].  valid values are [%s]", command, result.getExitValue(), toCSV(context.getSuccessCodes()));
 	}
 
