@@ -189,6 +189,7 @@ function check_args {
   check_not_blank MAX_HEAP $MAX_HEAP
   check_not_blank MAX_PERM $MAX_PERM
   check_not_blank DOMAIN $DOMAIN
+  check_tomcat
 }
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
