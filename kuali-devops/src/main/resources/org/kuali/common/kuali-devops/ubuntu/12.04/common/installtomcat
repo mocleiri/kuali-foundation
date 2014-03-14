@@ -116,8 +116,6 @@ function configure_tomcat {
   check_exists $WEBXML
   check_exists $SERVER
   
-  exit 1
-
   cp $WEBXML $TOMCAT_CONF_FILE_DIR/web.xml
   cp $SERVER $TOMCAT_CONF_FILE_DIR/server.xml
 
@@ -126,10 +124,10 @@ function configure_tomcat {
   TOMCAT_BIN=/usr/share/$TOMCAT/bin
   TOMCAT_CLEANUP=$TOMCAT_BIN/cleanup.sh
   USR_BIN_CLEANUP=/usr/bin/cleanup.sh
-  JSPS=$BASEDIR/${project.groupId.path}/${project.artifactId}/tomcat/jsps/*.jsp
+  JSPS=$TOMCAT_CONFIG_GENERIC/jsps/*.jsp
 
   rm -rf $TOMCAT_WEBAPPS/* $TOMCAT_LOGS/* /var/lib/tomcat6/bin/cleanup.sh /var/lib/tomcat7/bin/cleanup.sh
-  cp $BASEDIR/${project.groupId.path}/${project.artifactId}/tomcat/$TOMCAT_VERSION/bin/cleanup.sh $TOMCAT_CLEANUP
+  cp $TOMCAT_CONFIG_SPECIFIC/bin/cleanup.sh $TOMCAT_CLEANUP
   chmod 755 $TOMCAT_BIN/cleanup.sh
   rm -f $USR_BIN_CLEANUP
   ln -s $TOMCAT_CLEANUP $USR_BIN_CLEANUP
@@ -147,6 +145,8 @@ function configure_tomcat {
   echo "PATH=\$JAVA_HOME/bin:\$PATH:."              >> $TOMCAT_BASH_ALIASES
   echo "MAVEN_OPTS=\"$MAVEN_OPTS\""                 >> $TOMCAT_BASH_ALIASES
   echo "export JAVA_HOME PATH MAVEN_OPTS"           >> $TOMCAT_BASH_ALIASES
+  
+  exit 1
   
   # setup ssl
   configure_tomcat_ssl
