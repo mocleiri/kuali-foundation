@@ -204,61 +204,9 @@ function check_args {
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
+
 source $MY_DIR/functions.sh
-
-usage() { echo "Usage: $ME [-h] [-q] [--help] [--quiet] [--maxheap=5g] [--maxperm=256m] [--domain=kuali.org] [--mavenoopts=\"-Xmx2g -XX:MaxPermSize=256m\"] tomcat6/tomcat7 jdk6/jdk7 password" 1>&2; exit 1; }
-
-QUIET=false
-MAX_HEAP=5g
-MAX_PERM=256m
-DOMAIN=kuali.org
-MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=256m"
-
-ARGS=$(getopt --options hq --longoptions "help,quiet,maxheap:,maxperm:,domain:,mavenopts:" --name "$ME" -- "$@");
-if [ $? -ne 0 ]; then usage; fi
-eval set -- "$ARGS";
-while true; do
-  case "$1" in
-    -h|--help)
-      usage;
-      shift;
-      ;;
-    -q|--quiet)
-      QUIET="true";
-      shift;
-      ;;
-    --maxheap)
-      shift;
-      MAX_HEAP="$1";
-      shift;
-      ;;
-    --maxperm)
-      shift;
-      MAX_PERM="$1";
-      shift;
-      ;;
-    --domain)
-      shift;
-      DOMAIN="$1";
-      shift;
-      ;;
-    --mavenopts)
-      shift;
-      MAVEN_OPTS="$1";
-      shift;
-      ;;
-    --)
-      shift;
-      break;
-      ;;
-  esac
-done
-
-TOMCAT=$1
-JDK=$2
-GPG_PASSPHRASE=$3
-
-check_args
+source $MY_DIR/tomcatargs.sh
 
 TOMCAT_CONFIG_GENERIC=$MY_DIR/../../../tomcat
 TOMCAT_VERSION=${TOMCAT:6:1}
