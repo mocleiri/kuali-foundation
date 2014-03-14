@@ -18,11 +18,12 @@
 function check_args {
   check_not_blank DOMAIN $DOMAIN
   check_not_blank SUBDOMAIN $SUBDOMAIN
+  check_not_blank PACKAGES $PACKAGES
 }
 
 function configure_basics {
   echo "configure    -> basics"
-  COMMAND="/mnt/${project.artifactId}/${project.groupId.path}/${project.artifactId}/ubuntu/12.04/common/configurebasics"
+  COMMAND="/mnt/${project.artifactId}/${project.groupId.path}/${project.artifactId}/ubuntu/12.04/common/configurebasics -p "$PACKAGES""
   SSH="ssh root@$FQDN "$COMMAND""
   execute_quietly "$SSH"
 }
@@ -34,9 +35,9 @@ source $MY_DIR/../common/functions.sh
 usage() { echo "Usage: $ME [-h] [-q] [-p packages] [-d kuali.org] subdomain" 1>&2; exit 1; }
 
 DOMAIN=kuali.org
-
+PACKAGES="zip unzip ntp"
 QUIET=false
-while getopts hqd: flag; do
+while getopts hqd:p: flag; do
   case $flag in
     h)
       usage;
@@ -46,6 +47,9 @@ while getopts hqd: flag; do
       ;;
     d)
       DOMAIN="$OPTARG"
+      ;;
+    p)
+      PACKAGES="$OPTARG"
       ;;
     ?)
       usage;
