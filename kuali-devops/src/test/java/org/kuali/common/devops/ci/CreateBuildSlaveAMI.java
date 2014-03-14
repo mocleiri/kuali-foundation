@@ -39,7 +39,6 @@ import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.core.system.VirtualSystem;
-import org.kuali.common.devops.aws.KeyPairBuilders;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.devops.project.KualiDevOpsProjectConstants;
@@ -80,7 +79,8 @@ public class CreateBuildSlaveAMI {
 	private final long buildNumber = getBuildNumber();
 	private final String startsWithToken = "ec2slave";
 	private final Tag name = new Tag("Name", format("%s.%s-build-%s", startsWithToken, today, buildNumber));
-	private final String amazonAccount = "foundation";
+	private static final String amazonAccount = "foundation";
+	public static final KeyPair KUALI_KEY = Auth.getKeyPair(amazonAccount);
 	private final String domainToken = ".amazonaws.com";
 	private final int minimumAmisToKeep = 7;
 
@@ -255,13 +255,9 @@ public class CreateBuildSlaveAMI {
 		return ImmutableList.copyOf(tags);
 	}
 
-	protected static KeyPair getKeyPair() {
-		return Auth.getKeyPair(KeyPairBuilders.FOUNDATION.getBuilder());
-	}
-
 	protected static Instance launchAndWait(EC2Service service, BasicLaunchRequest blr, List<KualiSecurityGroup> securityGroups, List<Tag> tags) {
 		logger.info(format("launch instance -> %s  type: %s  size: %sgb", blr.getAmi(), blr.getType().toString(), blr.getRootVolume().getSizeInGigabytes().get()));
-		LaunchInstanceContext context = LaunchInstanceContext.builder(blr.getAmi(), getKeyPair()).withTimeoutMillis(blr.getTimeoutMillis()).withType(blr.getType())
+		LaunchInstanceContext context = LaunchInstanceContext.builder(blr.getAmi(), KUALI_KEY).withTimeoutMillis(blr.getTimeoutMillis()).withType(blr.getType())
 				.withRootVolume(blr.getRootVolume()).withSecurityGroups(securityGroups).withTags(tags).build();
 		return service.launchInstance(context);
 	}

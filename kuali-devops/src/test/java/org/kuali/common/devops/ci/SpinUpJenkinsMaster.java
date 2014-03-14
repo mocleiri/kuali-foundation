@@ -12,6 +12,7 @@ import static org.kuali.common.dns.model.CNAMEContext.newCNAMEContext;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.junit.Test;
@@ -28,6 +29,7 @@ import org.kuali.common.dns.model.CNAMEContext;
 import org.kuali.common.dns.util.CreateOrReplaceCNAME;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.channel.api.ChannelService;
+import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.impl.DefaultChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.condition.Condition;
@@ -61,7 +63,8 @@ public class SpinUpJenkinsMaster {
 	@Test
 	public void test() {
 		try {
-			KeyPair keyPair = CreateBuildSlaveAMI.getKeyPair();
+			KeyPair keyPair = CreateBuildSlaveAMI.KUALI_KEY;
+			String privateKey = keyPair.getPrivateKey().get();
 			BasicLaunchRequest request = getMasterLaunchRequest();
 
 			EC2Service service = getEC2Service(amazonAccount);
@@ -69,11 +72,19 @@ public class SpinUpJenkinsMaster {
 			// Instance instance = service.getInstance("i-d912d0fa");
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			updateDns(instance, aliasFQDN);
-			verifySSH("ubuntu", instance.getPublicDnsName(), keyPair.getPrivateKey().get());
+			verifySSH("ubuntu", instance.getPublicDnsName(), privateKey);
 			logger.info(format("[%s] is online with ssh - %s", aliasFQDN, FormatUtils.getTime(sw)));
+			enableRootSSH("ubuntu", instance.getPublicDnsName(), privateKey);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected void enableRootSSH(String username, String hostname, String privateKey) throws IOException {
+		ChannelContext context = new ChannelContext.Builder(hostname).username(username).privateKey(privateKey).connectTimeout(getMillisAsInt("5s")).build();
+		ChannelService service = new DefaultChannelService();
+		SecureChannel channel = service.openChannel(context);
+		channel.exec("cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys");
 	}
 
 	protected void verifySSH(String username, String hostname, String privateKey) {
