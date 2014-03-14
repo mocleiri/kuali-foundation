@@ -23,7 +23,8 @@ function check_args {
 
 function configure_basics {
   echo "configure    -> basics"
-  COMMAND="/mnt/${project.artifactId}/${project.groupId.path}/${project.artifactId}/ubuntu/12.04/common/configurebasics -p "$PACKAGES""
+  COMMAND="/mnt/${project.artifactId}/${project.groupId.path}/${project.artifactId}/ubuntu/12.04/common/configurebasics -p \"$PACKAGES\""
+  echo "$COMMAND"
   SSH="ssh root@$FQDN "$COMMAND""
   execute_quietly "$SSH"
 }
@@ -35,7 +36,7 @@ source $MY_DIR/../common/functions.sh
 usage() { echo "Usage: $ME [-h] [-q] [-p packages] [-d kuali.org] subdomain" 1>&2; exit 1; }
 
 DOMAIN=kuali.org
-PACKAGES="zip unzip ntp"
+PACKAGES="zip unzip ntp git"
 QUIET=false
 while getopts hqd:p: flag; do
   case $flag in

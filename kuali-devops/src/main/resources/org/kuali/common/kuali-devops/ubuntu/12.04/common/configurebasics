@@ -26,6 +26,7 @@ function get_upgrades {
 # Install general purpose packages applicable to all kuali nodes
 function install_packages {
   echo "install   -> custom packages"
+  echo "---$PACKAGES---"
   execute_quietly "apt-get install $PACKAGES -y"
 }
 
