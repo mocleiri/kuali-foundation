@@ -87,6 +87,8 @@ function configure_tomcat_ssl {
   
   rm $SSL_KEYSTORE_FILE $SSL_PASSWORD_FILE $GPG_DECRYPTED $TOMCAT_SSL_DIR/wildcard.*
   
+  exit 1
+  
 }
 
 function configure_tomcat {
