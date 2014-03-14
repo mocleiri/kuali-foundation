@@ -39,20 +39,21 @@ function configure_application_server {
   ssh root@$FQDN "$SSH"
 }
 
+MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+source $MY_DIR/../common/functions.sh
+
+usage() { echo "Usage: $ME [-h] [-q] subdomain tomcat6/tomcat7 jdk6/jdk7 password" 1>&2; exit 1; }
+
+source $MY_DIR/../common/functions.sh
+
 echo $(date)
 
-# import generic functions
-source preconditions.sh
-
-# Module specific variables
-NEXUS_PASSWORD=$1
-ZIP_PASSWORD=$2
-SUBDOMAIN=$3
-JDK=$4
-TOMCAT=$5
-MAX_HEAP=$6
-MAX_PERM=$7
-QUIET=${8-""}
+SUBDOMAIN=$1
+TOMCAT=$2
+JDK=$3
+MAX_HEAP=$4
+MAX_PERM=$5
+GPG_PASSPHRASE=$6
 
 # Make sure we have what we need
 check_args
