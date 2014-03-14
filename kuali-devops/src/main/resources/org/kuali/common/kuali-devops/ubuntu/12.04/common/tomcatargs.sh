@@ -11,7 +11,7 @@ function check_args {
   check_tomcat
 }
 
-usage() { echo "Usage: $ME [-h] [-q] [--help] [--quiet] [--maxheap=5g] [--maxperm=256m] [--domain=kuali.org] [--mavenoopts=\"-Xmx2g -XX:MaxPermSize=256m\"] tomcat6/tomcat7 jdk6/jdk7 password" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] [--help] [--quiet] [--maxheap=5g] [--maxperm=512m] [--domain=kuali.org] [--mavenoopts=\"-Xmx2g -XX:MaxPermSize=256m\"] tomcat6/tomcat7 jdk6/jdk7 password" 1>&2; exit 1; }
 
 QUIET=false
 MAX_HEAP=5g
