@@ -150,6 +150,7 @@ install_mysql_server
 # copy_repo_from_master
 
 # Comment this out once the projects have all been versioned
-build_maven_projects
+# can't make this rsync call until ssh is setup
+# build_maven_projects
 exit 1
-copy_repo_from_amazon
+# copy_repo_from_amazon
