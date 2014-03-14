@@ -21,13 +21,6 @@ function show_usage {
   exit 1
 }
 
-function check_args {
-  check_not_blank NEXUS_PASSWORD $NEXUS_PASSWORD
-  check_not_blank ZIP_PASSWORD $ZIP_PASSWORD
-  check_not_blank SUBDOMAIN $SUBDOMAIN
-  check_not_blank TYPE $TYPE
-}
-
 function configure_common {
   echo "configure -> jenkins:common"
   COMMON="$MODULES/jenkins/common.sh $BASEDIR $SVN_PASSWORD $ZIP_PASSWORD $QUIET"
