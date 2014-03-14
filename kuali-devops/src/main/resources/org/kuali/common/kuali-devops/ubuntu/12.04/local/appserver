@@ -15,13 +15,8 @@
 # limitations under the License.
 #
 
-function check_args {
+function check_local_args {
   check_not_blank SUBDOMAIN $SUBDOMAIN
-  check_not_blank TOMCAT $TOMCAT
-  check_not_blank JDK $JDK
-  check_not_blank MAX_HEAP $MAX_HEAP
-  check_not_blank MAX_PERM $MAX_PERM
-  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
 }
 
 function configure_application_server {
@@ -35,6 +30,8 @@ function configure_application_server {
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 source $MY_DIR/../common/functions.sh
 source $MY_DIR/../common/tomcatargs.sh
+
+check_local_args
 
 exit 1
 
