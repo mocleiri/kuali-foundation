@@ -25,7 +25,7 @@ function enable_root_ssh {
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
-source $MY_DIR/../common/common.sh
+source $MY_DIR/common.sh
 
 # ec2-107-22-110-181.compute-1.amazonaws.com
 enable_root_ssh
