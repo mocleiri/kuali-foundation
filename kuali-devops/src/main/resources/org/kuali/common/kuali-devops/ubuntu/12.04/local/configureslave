@@ -57,6 +57,8 @@ function configure_slave_after {
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 source $MY_DIR/../common/functions.sh
 
+usage() { echo "Usage: $ME [-h] [-q] " 1>&2; exit 1; }
+
 echo $(date)
 
 # Module specific variables
