@@ -198,6 +198,11 @@ source $MY_DIR/functions.sh
 usage() { echo "Usage: $ME [-h] [-q] [--help] [--quiet] [--tomcat=6/7] [--jdk=6/7] [--maxheap=5g] [--maxperm=256m] [--domain=kuali.org] gpgpassword" 1>&2; exit 1; }
 
 QUIET=false
+TOMCAT=7
+JDK=jdk7
+MAX_HEAP=5g
+MAX_PERM=256m
+DOMAIN=kuali.org
 
 ARGS=$(getopt --options hq --longoptions "help,quiet,tomcat:,jdk:,maxheap:,maxperm:,domain:" --name "$ME" -- "$@");
 if [ $? -ne 0 ]; then usage; fi
@@ -213,16 +218,10 @@ while true; do
       ;;
   esac
 done
-exit 1
 
-TOMCAT=$1
-JDK=$2
-MAX_HEAP=$3
-MAX_PERM=$4
-DOMAIN=$5
-GPG_PASSWORD=$6
+GPG_PASSWORD=$1
 
 # Make sure we have what we need to continue
 check_args
 
-install_tomcat
+#install_tomcat
