@@ -103,8 +103,10 @@ public class SpinUpJenkinsMaster {
 			String basedir = publishProject(channel, pid);
 			String basics = getBashScript(basedir, pid, distro, distroVersion, "common/configurebasics");
 			String java = getBashScript(basedir, pid, distro, distroVersion, "common/installjava");
+			String tomcat = getBashScript(basedir, pid, distro, distroVersion, "common/installtomcat");
 			exec(channel, basics, "-q");
 			exec(channel, java, ImmutableList.of("-q", "jdk7", "u51", Auth.decrypt(gpgPassphrase)));
+			exec(channel, tomcat, ImmutableList.of("-q", "tomcat7", "jdk7", Auth.decrypt(gpgPassphrase)));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
