@@ -62,6 +62,8 @@ done
 
 shift $(( OPTIND - 1 ));
 
+echo $PACKAGES
+
 get_upgrades
 install_packages
 unattended_upgrades
