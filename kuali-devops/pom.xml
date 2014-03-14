@@ -130,6 +130,8 @@
         <filtering>true</filtering>
         <excludes>
           <exclude>**/*.zip</exclude>
+          <!-- server.xml has ${user.home} in it -->
+          <exclude>**/conf/server.xml</exclude>
           <exclude>**/rice.keystore</exclude>
         </excludes>
       </resource>
@@ -137,6 +139,8 @@
         <directory>src/main/resources</directory>
         <filtering>false</filtering>
         <includes>
+          <!-- server.xml has ${user.home} in it -->
+          <include>**/conf/server.xml</include>
           <include>**/*.zip</include>
           <include>**/rice.keystore</include>
         </includes>
