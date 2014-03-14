@@ -172,7 +172,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 			// Echo the command, if requested
 			if (this.context.isDebug()) {
 				String elapsed = FormatUtils.getTime(result.getElapsed());
-				logger.info(format("%s - [%s]", new String(context.getCommand(), this.context.getEncoding()), elapsed));
+				logger.info(format("command completed -> [%s] - [%s]", new String(context.getCommand(), this.context.getEncoding()), elapsed));
 			}
 			// Return the result
 			return result;
