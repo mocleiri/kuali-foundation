@@ -61,6 +61,6 @@ function check_status {
     echo "error executing: \"$COMMAND\""
     echo "exit value: $STATUS"
     echo 
-    exit 1
+    exit $STATUS
   fi
 }
