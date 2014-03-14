@@ -5,6 +5,8 @@ import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Integer.parseInt;
 import static java.lang.String.format;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
+import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getEC2Service;
+import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.launchAndWait;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
@@ -46,8 +48,8 @@ public class SpinUpJenkinsMaster {
 		// The amount of time to wait before timing out on: instance creation, snapshot creation, ami creation
 		int timeoutMillis = getMillisAsInt(System.getProperty("master.timeout", "1h"));
 
-		EC2Service service = CreateBuildSlaveAMI.getEC2Service(amazonAccount);
-		Instance instance = CreateBuildSlaveAMI.launchAndWait(service, ami, type, rootVolume, timeoutMillis, securityGroups, tags);
+		EC2Service service = getEC2Service(amazonAccount);
+		Instance instance = launchAndWait(service, ami, type, rootVolume, timeoutMillis, securityGroups, tags);
 		// Instance instance = getRunningSlaveInstance(service, "i-1907c23a");
 		logger.info(format("public dns: %s", instance.getPublicDnsName()));
 	}
