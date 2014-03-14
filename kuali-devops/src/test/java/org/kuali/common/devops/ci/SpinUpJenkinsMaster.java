@@ -44,6 +44,7 @@ import org.kuali.common.util.maven.model.Artifact;
 import org.kuali.common.util.project.DefaultProjectService;
 import org.kuali.common.util.project.ProjectService;
 import org.kuali.common.util.project.model.Project;
+import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.kuali.common.util.spring.env.BasicEnvironmentService;
 import org.kuali.common.util.stream.LoggingStreamConsumer;
 import org.kuali.common.util.wait.DefaultWaitService;
@@ -87,18 +88,21 @@ public class SpinUpJenkinsMaster {
 			updateDns(instance, aliasFQDN);
 			verifySSH("ubuntu", instance.getPublicDnsName(), privateKey);
 			info("[%s] is online with ssh - %s", aliasFQDN, FormatUtils.getTime(sw));
-			info("[%s] enabling root ssh", aliasFQDN);
-			enableRootSSH("ubuntu", instance.getPublicDnsName(), privateKey);
-			SecureChannel channel = openSecureChannel("root", aliasFQDN, privateKey);
-			publishMyself(channel);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected void publishMyself(SecureChannel channel) {
+	protected static void bootstrap(String hostname, String privateKey) throws IOException {
+		info("[%s] enabling root ssh", hostname);
+		enableRootSSH("ubuntu", hostname, privateKey);
+		SecureChannel channel = openSecureChannel("root", hostname, privateKey);
+		publishProject(channel, KUALI_DEVOPS_PROJECT_IDENTIFIER);
+	}
+
+	protected static void publishProject(SecureChannel channel, ProjectIdentifier pid) {
 		ProjectService service = new DefaultProjectService(new BasicEnvironmentService());
-		Project project = service.getProject(KUALI_DEVOPS_PROJECT_IDENTIFIER);
+		Project project = service.getProject(pid);
 		info(project.getArtifactId());
 		Artifact artifact = new Artifact.Builder(project.getGroupId(), project.getArtifactId(), project.getVersion()).build();
 		File repo = getDefaultLocalRepository();
@@ -113,7 +117,7 @@ public class SpinUpJenkinsMaster {
 		exec(channel, "chmod -R 755 %s", directory);
 	}
 
-	protected String formatString(String s, Object... args) {
+	protected static String formatString(String s, Object... args) {
 		if (args != null && args.length > 0) {
 			return format(s, args);
 		} else {
@@ -121,7 +125,7 @@ public class SpinUpJenkinsMaster {
 		}
 	}
 
-	protected void exec(SecureChannel channel, String command, Object... args) {
+	protected static void exec(SecureChannel channel, String command, Object... args) {
 		LoggingStreamConsumer stdout = new LoggingStreamConsumer(logger, LoggerLevel.INFO);
 		LoggingStreamConsumer stderr = new LoggingStreamConsumer(logger, LoggerLevel.WARN);
 		String formatted = formatString(command, args);
@@ -129,13 +133,13 @@ public class SpinUpJenkinsMaster {
 		channel.exec(context);
 	}
 
-	protected SecureChannel openSecureChannel(String username, String hostname, String privateKey) throws IOException {
+	protected static SecureChannel openSecureChannel(String username, String hostname, String privateKey) throws IOException {
 		ChannelContext context = new ChannelContext.Builder(hostname).username(username).privateKey(privateKey).connectTimeout(getMillisAsInt("5s")).build();
 		ChannelService service = new DefaultChannelService();
 		return service.openChannel(context);
 	}
 
-	protected void enableRootSSH(String username, String hostname, String privateKey) throws IOException {
+	protected static void enableRootSSH(String username, String hostname, String privateKey) throws IOException {
 		SecureChannel channel = openSecureChannel(username, hostname, privateKey);
 		exec(channel, "sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys");
 	}
@@ -180,7 +184,7 @@ public class SpinUpJenkinsMaster {
 		return ImmutableList.copyOf(tags);
 	}
 
-	protected void info(String msg, Object... args) {
+	protected static void info(String msg, Object... args) {
 		logger.info(formatString(msg, args));
 	}
 
