@@ -129,7 +129,7 @@
         <directory>src/main/resources</directory>
         <filtering>true</filtering>
         <excludes>
-          <exclude>**/*.zip</exclude>
+          <exclude>**/*.gpg</exclude>
           <!-- server.xml has ${user.home} in it -->
           <exclude>**/conf/server.xml</exclude>
           <exclude>**/rice.keystore</exclude>
@@ -141,7 +141,7 @@
         <includes>
           <!-- server.xml has ${user.home} in it -->
           <include>**/conf/server.xml</include>
-          <include>**/*.zip</include>
+          <include>**/*.gpg</include>
           <include>**/rice.keystore</include>
         </includes>
       </resource>

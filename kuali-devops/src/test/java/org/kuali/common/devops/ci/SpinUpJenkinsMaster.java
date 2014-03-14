@@ -27,6 +27,7 @@ import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.core.system.VirtualSystem;
 import org.kuali.common.devops.aws.Tags;
+import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.DNSMadeEasyDnsService;
 import org.kuali.common.dns.dnsme.URLS;
@@ -100,8 +101,10 @@ public class SpinUpJenkinsMaster {
 			bootstrap(instance.getPublicDnsName(), privateKey);
 			SecureChannel channel = openSecureChannel("root", aliasFQDN, privateKey);
 			String basedir = publishProject(channel, pid);
-			String bash = getBashScript(basedir, pid, distro, distroVersion, "common/configurebasics");
-			exec(channel, bash, "-q");
+			String basics = getBashScript(basedir, pid, distro, distroVersion, "common/configurebasics");
+			String java = getBashScript(basedir, pid, distro, distroVersion, "common/installjava");
+			exec(channel, basics, "-q");
+			exec(channel, java, ImmutableList.of("-q", "jdk7", "u51", Auth.decrypt(gpgPassphrase)));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
