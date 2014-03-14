@@ -219,16 +219,16 @@ while true; do
       TOMCAT=tomcat$1;
       ;;
     --jdk)
-      JDK=jdk$1;
+      JDK="jdk$1";
       ;;
     --maxheap)
-      MAX_HEAP=$1;
+      MAX_HEAP="$1";
       ;;
     --maxperm)
-      MAX_PERM=$1;
+      MAX_PERM="$1";
       ;;
     --domain)
-      DOMAIN=$1;
+      DOMAIN="$1";
       ;;
     --)
       shift;
