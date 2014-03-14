@@ -95,6 +95,8 @@ GPG_PASSPHRASE=$4
 # Make sure we have what we need
 check_args
 
+exit 1
+
 # import bootstrap variables/functions
 source $MY_DIR/bootstrap.sh $SUBDOMAIN
 
