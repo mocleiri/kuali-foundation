@@ -1,6 +1,6 @@
 package org.kuali.common.devops.ci;
 
-import static org.kuali.common.aws.ec2.model.AMI.UBUNTU_64_BIT_PRECISE_LTS;
+import static org.kuali.common.aws.ec2.model.AMI.UBUNTU_64_BIT_PRECISE_LTS_1204;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
 
 import org.kuali.common.core.build.ValidatingBuilder;
@@ -13,13 +13,13 @@ public final class BasicLaunchRequest {
 
 	private final String ami;
 	private final InstanceType type;
-	private final int sizeInGigabytes;
+	private final int rootVolumeSize;
 	private final int timeoutMillis;
 
 	private BasicLaunchRequest(Builder builder) {
 		this.ami = builder.ami;
 		this.type = builder.type;
-		this.sizeInGigabytes = builder.sizeInGigabytes;
+		this.rootVolumeSize = builder.rootVolumeSize;
 		this.timeoutMillis = builder.timeoutMillis;
 	}
 
@@ -29,9 +29,9 @@ public final class BasicLaunchRequest {
 
 	public static class Builder extends ValidatingBuilder<BasicLaunchRequest> {
 
-		private String ami = UBUNTU_64_BIT_PRECISE_LTS.getId();
+		private String ami = UBUNTU_64_BIT_PRECISE_LTS_1204.getId();
 		private InstanceType type = InstanceType.C3Xlarge;
-		private int sizeInGigabytes = 32;
+		private int rootVolumeSize = 32;
 		private int timeoutMillis = getMillisAsInt("15m");
 
 		public Builder withAmi(String ami) {
@@ -44,8 +44,8 @@ public final class BasicLaunchRequest {
 			return this;
 		}
 
-		public Builder withSizeInGigabytes(int sizeInGigabytes) {
-			this.sizeInGigabytes = sizeInGigabytes;
+		public Builder withRootVolumeSize(int rootVolumeSize) {
+			this.rootVolumeSize = rootVolumeSize;
 			return this;
 		}
 
@@ -75,20 +75,20 @@ public final class BasicLaunchRequest {
 			this.type = type;
 		}
 
-		public int getSizeInGigabytes() {
-			return sizeInGigabytes;
-		}
-
-		public void setSizeInGigabytes(int sizeInGigabytes) {
-			this.sizeInGigabytes = sizeInGigabytes;
-		}
-
 		public int getTimeoutMillis() {
 			return timeoutMillis;
 		}
 
 		public void setTimeoutMillis(int timeoutMillis) {
 			this.timeoutMillis = timeoutMillis;
+		}
+
+		public int getRootVolumeSize() {
+			return rootVolumeSize;
+		}
+
+		public void setRootVolumeSize(int rootVolumeSize) {
+			this.rootVolumeSize = rootVolumeSize;
 		}
 	}
 
@@ -101,7 +101,7 @@ public final class BasicLaunchRequest {
 	}
 
 	public int getSizeInGigabytes() {
-		return sizeInGigabytes;
+		return rootVolumeSize;
 	}
 
 	public int getTimeoutMillis() {

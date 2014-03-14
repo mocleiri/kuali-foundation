@@ -88,7 +88,7 @@ public class CreateBuildSlaveAMI {
 	@Test
 	public void test() {
 		// Configurable items
-		String ami = System.getProperty("slave.ami", AMI.UBUNTU_64_BIT_PRECISE_LTS.getId());
+		String ami = System.getProperty("slave.ami", AMI.UBUNTU_64_BIT_PRECISE_LTS_1204.getId());
 		InstanceType type = InstanceType.fromValue(System.getProperty("slave.type", InstanceType.C3Xlarge.toString()));
 		RootVolume rootVolume = RootVolume.create(parseInt(System.getProperty("slave.size", "32")), true);
 		// The amount of time to wait before timing out on: instance creation, snapshot creation, ami creation
