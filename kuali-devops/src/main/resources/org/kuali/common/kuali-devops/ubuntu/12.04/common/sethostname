@@ -43,8 +43,8 @@ function check_args {
   check_not_blank DOMAIN $DOMAIN
 }
 
-MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
+MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 source $MY_DIR/functions.sh
 usage() { echo "Usage: $ME subdomain domain" 1>&2; exit 1; }
 
