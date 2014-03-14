@@ -13,7 +13,7 @@
         <Context docBase="${catalina.base}" path="/tomcat" allowLinking="true" />
         <Context docBase="${user.home}" path="/tomcat/home" allowLinking="true" />
         <Context docBase="/" path="/tomcat/browse" allowLinking="true" />
-        <Context docBase="/home/upload" path="/upload" />
+        <Context docBase="/upload" path="/home/upload" />
       </Host>
     </Engine>
   </Service>
