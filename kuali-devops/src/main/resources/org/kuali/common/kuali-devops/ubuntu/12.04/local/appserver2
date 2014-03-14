@@ -15,32 +15,61 @@
 # limitations under the License.
 #
 
-function check_local_args {
-  check_not_blank SUBDOMAIN $SUBDOMAIN
+function enable_root_ssh {
+  echo "enable    -> root ssh"
+  COMMAND="sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys"
+  SSH="ssh ubuntu@$FQDN "$COMMAND""
+  execute_quietly "$SSH"
 }
 
-function configure_application_server {
-  echo "configure -> $FQDN :: appserver"
-  source installers.sh
-  TOMCAT="$MODULES/common/installtomcat $ZIP_PASSWORD $DOMAIN $BASEDIR $TOMCAT $JDK $MAX_HEAP $MAX_PERM $QUIET"
-  SSH="$BASICS; $JAVA; $DNS; $TOMCAT"
-  ssh root@$FQDN "$SSH"
+function publish_module { 
+  LOCAL="$HOME/.m2/repository/${project.groupId.path}/${project.artifactId}/${project.version}/${project.artifactId}-${project.version}.jar"
+  DIR=/mnt/${project.artifactId}
+  FILE=/mnt/${project.artifactId}.jar
+  REMOTE=root@$FQDN:$FILE
+  CMD1="rm -rf $DIR"
+  CMD2="apt-get install unzip -y"
+  CMD3="unzip $FILE -d $DIR"
+  CMD4="chmod -R 755 $DIR"
+  CMDS="$CMD1; $CMD2; $CMD3; $CMD4"
+  echo "publish   -> $REMOTE"
+  SCP="scp $LOCAL $REMOTE"
+  SSH="ssh root@$FQDN "$CMDS""
+  execute_quietly "$SCP"
+  execute_quietly "$SSH"
 }
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
-source $MY_DIR/../common/tomcatargs.sh
 
-check_local_args
+usage() { echo "Usage: $ME [-h] [-q] [-d kuali.org] subdomain" 1>&2; exit 1; }
 
-exit 1
+DOMAIN=kuali.org
 
-# import bootstrap variables/functions
-source $MY_DIR/bootstrap.sh $SUBDOMAIN
+QUIET=false
+while getopts hqd: flag; do
+  case $flag in
+    h)
+      usage;
+      ;;
+    q)
+      QUIET="true";
+      ;;
+    d)
+      DOMAIN="$OPTARG"
+      ;;
+    ?)
+      usage;
+      exit;
+      ;;
+  esac
+done
 
-echo "configure -> $FQDN"
+shift $(( OPTIND - 1 ));
+
+SUBDOMAIN=$1
+
+# ec2-107-22-110-181.compute-1.amazonaws.com
 enable_root_ssh
 publish_module
-configure_application_server
-
-echo $(date)

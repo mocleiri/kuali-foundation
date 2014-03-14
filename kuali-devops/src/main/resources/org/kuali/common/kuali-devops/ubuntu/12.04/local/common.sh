@@ -20,10 +20,6 @@ function check_args {
   check_not_blank SUBDOMAIN $SUBDOMAIN
 }
 
-MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
-ME=$(basename $0)
-source $MY_DIR/../common/functions.sh
-
 usage() { echo "Usage: $ME [-h] [-q] [-d kuali.org] subdomain" 1>&2; exit 1; }
 
 DOMAIN=kuali.org
