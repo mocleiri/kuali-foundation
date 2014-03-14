@@ -86,7 +86,8 @@ function configure_tomcat_ssl {
   execute_quietly "openssl pkcs12 -in $SSL_KEYSTORE_FILE -out $TOMCAT_SSL_DIR/SSLCertificateChainFile.pem -clcerts -nokeys -passin file:$SSL_PASSWORD_FILE"
   execute_quietly "openssl pkcs12 -in $SSL_KEYSTORE_FILE -out $TOMCAT_SSL_DIR/SSLCertificateKeyFile.pem   -nocerts -nodes  -passin file:$SSL_PASSWORD_FILE"
   
-  rm $SSL_KEYSTORE_FILE $SSL_PASSWORD_FILE $GPG_DECRYPTED $TOMCAT_SSL_DIR/wildcard.*
+  rm $SSL_KEYSTORE_FILE $SSL_PASSWORD_FILE $GPG_DECRYPTED
+  rm -f $TOMCAT_SSL_DIR/wildcard.*
   
   exit 1
   
