@@ -212,6 +212,24 @@ while true; do
     -h|--help)
       usage;
       ;;
+    -q|--quiet)
+      QUIET="true";
+      ;;
+    --tomcat)
+      TOMCAT=$1;
+      ;;
+    --jdk)
+      JDK=$1;
+      ;;
+    --maxheap)
+      MAX_HEAP=$1;
+      ;;
+    --maxperm)
+      MAX_PERM=$1;
+      ;;
+    --domain)
+      DOMAIN=$1;
+      ;;
     --)
       shift;
       break;
