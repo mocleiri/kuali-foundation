@@ -71,8 +71,10 @@ function configure_tomcat_ssl {
   TOMCAT_SSL_DIR=/var/lib/$TOMCAT/conf/ssl
   rm -rf $TOMCAT_SSL_DIR; mkdir -p $TOMCAT_SSL_DIR
   
-  ZIP=$BASEDIR/${project.groupId.path}/${project.artifactId}/tomcat/config.zip
-  unzip $QUIET -P $ZIP_PASSWORD -o $ZIP -d $TOMCAT_SSL_DIR
+  GPG_ENCRYPTED=$TOMCAT_CONFIG_GENERIC/ssl.zip.gpg
+  GPG_DECRYPTED=$TOMCAT_CONFIG_GENERIC/ssl.zip
+  decrypt_file $GPG_ENCRYPTED $GPG_DECRYPTED
+  execute_quietly "unzip -o $GPG_DECRYPTED -d $TOMCAT_SSL_DIR
   
   SSL_KEYSTORE_FILE=$TOMCAT_SSL_DIR/wildcard.$DOMAIN.keystore.pkcs12
   SSL_PASSWORD_FILE=$TOMCAT_SSL_DIR/wildcard.$DOMAIN.keystore.password
@@ -83,7 +85,7 @@ function configure_tomcat_ssl {
   execute_quietly "openssl pkcs12 -in $SSL_KEYSTORE_FILE -out $TOMCAT_SSL_DIR/SSLCertificateChainFile.pem -clcerts -nokeys -passin file:$SSL_PASSWORD_FILE"
   execute_quietly "openssl pkcs12 -in $SSL_KEYSTORE_FILE -out $TOMCAT_SSL_DIR/SSLCertificateKeyFile.pem   -nocerts -nodes  -passin file:$SSL_PASSWORD_FILE"
   
-  rm $SSL_KEYSTORE_FILE $SSL_PASSWORD_FILE
+  rm $SSL_KEYSTORE_FILE $SSL_PASSWORD_FILE $GPG_DECRYPTED $TOMCAT_SSL_DIR/wildcard.*
   
 }
 
