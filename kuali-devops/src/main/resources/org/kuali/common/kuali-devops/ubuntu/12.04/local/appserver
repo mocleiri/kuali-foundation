@@ -15,6 +15,11 @@
 # limitations under the License.
 #
 
+function check_args {
+  check_not_blank DOMAIN $DOMAIN
+  check_not_blank SUBDOMAIN $SUBDOMAIN
+}
+
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
@@ -49,3 +54,5 @@ while true; do
 done
 
 SUBDOMAIN=$1
+
+check_args
