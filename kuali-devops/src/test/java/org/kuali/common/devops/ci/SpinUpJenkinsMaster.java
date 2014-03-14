@@ -88,7 +88,7 @@ public class SpinUpJenkinsMaster {
 			updateDns(instance, aliasFQDN);
 			verifySSH("ubuntu", instance.getPublicDnsName(), privateKey);
 			info("[%s] is online with ssh - %s", aliasFQDN, FormatUtils.getTime(sw));
-			bootstrap(instance.getPublicDnsName(), privateKey);
+			bootstrap(aliasFQDN, privateKey);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
