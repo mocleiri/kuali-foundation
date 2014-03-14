@@ -133,7 +133,7 @@ function configure_tomcat {
   TOMCAT_BASH_ALIASES=$TOMCAT_HOME/.bash_aliases
   echo "JAVA_HOME=$JAVA_HOME"                       >  $TOMCAT_BASH_ALIASES
   echo "PATH=\$JAVA_HOME/bin:\$PATH:."              >> $TOMCAT_BASH_ALIASES
-  echo "MAVEN_OPTS=\"$MAVEN_OPTS\"" >> $TOMCAT_BASH_ALIASES
+  echo "MAVEN_OPTS=\"$MAVEN_OPTS\""                 >> $TOMCAT_BASH_ALIASES
   echo "export JAVA_HOME PATH MAVEN_OPTS"           >> $TOMCAT_BASH_ALIASES
   
   # setup ssl
