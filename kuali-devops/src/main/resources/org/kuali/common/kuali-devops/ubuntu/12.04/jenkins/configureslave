@@ -51,7 +51,7 @@ function slave_shutdown_scripting {
   EC2SLAVE_DST_DIR=/usr/share/ec2slave
   rm -rf $EC2SLAVE_DST_DIR; mkdir -p $EC2SLAVE_DST_DIR;
   
-  EC2SLAVE_SRC_DIR=$BASEDIR/${project.groupId.path}/${project.artifactId}/ubuntu/12.04/jenkins/slave
+  EC2SLAVE_SRC_DIR=$MY_DIR/slave
   
   EC2SLAVE_SRC=$EC2SLAVE_SRC_DIR/ec2slave
   EC2SLAVE_DST=/etc/init.d/ec2slave
@@ -68,7 +68,7 @@ function slave_shutdown_scripting {
   chmod 755 $COPY_REPO_DST
 
   execute_quietly "update-rc.d -f ec2slave remove"
-  execute_quietly "update-rc.d ec2slave defaults"
+  execute_quietly "update-rc.d    ec2slave defaults"
 
 }
 
@@ -141,16 +141,20 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-q] [-p \"package1 package2 package3\"]" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] [-m "ci.kuali.org"]" 1>&2; exit 1; }
 
 QUIET=false
-while getopts hq flag; do
+JENKINS_MASTER=ci.kuali.org
+while getopts hqm: flag; do
   case $flag in
     h)
       usage;
       ;;
     q)
       QUIET="true";
+      ;;
+    q)
+      JENKINS_MASTER="$OPTARG";
       ;;
     ?)
       usage;
@@ -160,11 +164,6 @@ while getopts hq flag; do
 done
 
 shift $(( OPTIND - 1 ));
-
-
-BASEDIR=${1-BASEDIR}
-QUIET=${2-$QUIET}
-JENKINS_MASTER=${jenkins.master}
 
 check_args
 
