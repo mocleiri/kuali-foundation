@@ -145,10 +145,10 @@ shift $(( OPTIND - 1 ));
 check_args
 
 slave_shutdown_scripting
+install_mysql_server
 
 exit 1
 
-install_mysql_server
 copy_repo_from_master
 # Comment this out once the projects have all been versioned
 build_maven_projects
