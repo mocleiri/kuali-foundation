@@ -93,7 +93,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-usage() { echo "Usage: $ME [-q] [-j 6/7] [-u 45/51] gpg_passphrase" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] [-j 6/7] [-u 45/51] gpg_passphrase" 1>&2; exit 1; }
 
 QUIET=""
 JDK=jdk7
