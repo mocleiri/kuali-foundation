@@ -59,4 +59,6 @@ SUBDOMAIN=$1
 
 check_args
 
+# ec2-107-22-110-181.compute-1.amazonaws.com
+
 FQDN=$DOMAIN.$SUBDOMAIN
