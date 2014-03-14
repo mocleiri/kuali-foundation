@@ -77,9 +77,8 @@ SUBDOMAIN=$1
 
 check_args
 
-# ec2-107-22-110-181.compute-1.amazonaws.com
-
 FQDN=$SUBDOMAIN.$DOMAIN
 
+# ec2-107-22-110-181.compute-1.amazonaws.com
 enable_root_ssh
 publish_module
