@@ -96,7 +96,7 @@ GPG_PASSPHRASE=$4
 check_args
 
 # import bootstrap variables/functions
-source bootstrap.sh $SUBDOMAIN
+source $MY_DIR/bootstrap.sh $SUBDOMAIN
 
 echo "configure -> $FQDN"
 enable_root_ssh
