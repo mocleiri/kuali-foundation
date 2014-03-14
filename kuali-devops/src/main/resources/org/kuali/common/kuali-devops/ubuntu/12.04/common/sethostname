@@ -46,7 +46,6 @@ function check_args {
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
-
 usage() { echo "Usage: $ME subdomain domain" 1>&2; exit 1; }
 
 # module specific variables
