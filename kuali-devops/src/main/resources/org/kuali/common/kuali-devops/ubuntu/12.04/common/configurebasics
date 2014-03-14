@@ -46,7 +46,7 @@ usage() { echo "Usage: $ME [-h] [-q] [-p \"package1 package2 package3\"]" 1>&2; 
 
 QUIET=""
 PACKAGES="zip unzip ntp"
-while getopts qp: flag; do
+while getopts hqp: flag; do
   case $flag in
     h)
       usage;
