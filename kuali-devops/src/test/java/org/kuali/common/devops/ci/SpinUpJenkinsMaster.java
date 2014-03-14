@@ -57,7 +57,7 @@ public class SpinUpJenkinsMaster {
 	protected static List<Tag> getMasterTags() {
 		List<Tag> tags = newArrayList();
 		tags.addAll(CreateBuildSlaveAMI.getTags());
-		tags.add(Tags.Name.SLAVE.getTag());
+		tags.add(Tags.Name.MASTER.getTag());
 		return ImmutableList.copyOf(tags);
 	}
 
