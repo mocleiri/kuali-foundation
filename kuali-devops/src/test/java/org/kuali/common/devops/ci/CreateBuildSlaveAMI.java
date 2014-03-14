@@ -255,10 +255,6 @@ public class CreateBuildSlaveAMI {
 		return ImmutableList.copyOf(tags);
 	}
 
-	protected Instance getRunningSlaveInstance(EC2Service service, String instanceId) {
-		return service.getInstance(instanceId);
-	}
-
 	protected static Instance launchAndWait(EC2Service service, BasicLaunchRequest blr, List<KualiSecurityGroup> securityGroups, List<Tag> tags) {
 		logger.info(format("launch instance -> %s  type: %s  size: %sgb", blr.getAmi(), blr.getType().toString(), blr.getRootVolume().getSizeInGigabytes().get()));
 		KeyPair keyPair = Auth.getKeyPair(KeyPairBuilders.FOUNDATION.getBuilder());
