@@ -89,9 +89,6 @@ function configure_tomcat_ssl {
 
 function configure_tomcat {
 
-  TOMCAT_VERSION=${TOMCAT:6:1}
-  check_not_blank TOMCAT_VERSION $TOMCAT_VERSION
-
   TOMCAT_OPT_FILE=/etc/default/$TOMCAT
   TOMCAT_CONF_FILE_DIR=/etc/$TOMCAT
   TOMCAT_USER=$TOMCAT
@@ -108,8 +105,6 @@ function configure_tomcat {
   echo "JAVA_OPTS=$JAVA_OPTS"       >> $TOMCAT_OPT_FILE
   echo "JAVA_HOME=$JAVA_HOME"       >> $TOMCAT_OPT_FILE
 
-  TOMCAT_CONFIG_GENERIC=$MY_DIR/../../../tomcat
-  TOMCAT_CONFIG_SPECIFIC=$TOMCAT_CONFIG_GENERIC/$TOMCAT_VERSION
   WEBXML=$TOMCAT_CONFIG_SPECIFIC/conf/web.xml
   SERVER=$TOMCAT_CONFIG_SPECIFIC/conf/server.xml
   
@@ -145,8 +140,6 @@ function configure_tomcat {
   echo "PATH=\$JAVA_HOME/bin:\$PATH:."              >> $TOMCAT_BASH_ALIASES
   echo "MAVEN_OPTS=\"$MAVEN_OPTS\""                 >> $TOMCAT_BASH_ALIASES
   echo "export JAVA_HOME PATH MAVEN_OPTS"           >> $TOMCAT_BASH_ALIASES
-  
-  exit 1
   
   # setup ssl
   configure_tomcat_ssl
@@ -263,5 +256,9 @@ JDK=$2
 GPG_PASSWORD=$3
 
 check_args
+
+TOMCAT_CONFIG_GENERIC=$MY_DIR/../../../tomcat
+TOMCAT_VERSION=${TOMCAT:6:1}
+TOMCAT_CONFIG_SPECIFIC=$TOMCAT_CONFIG_GENERIC/$TOMCAT_VERSION
 
 install_tomcat
