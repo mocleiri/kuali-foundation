@@ -45,7 +45,7 @@ public class SpinUpJenkinsMaster {
 		String ami = System.getProperty("master.ami", AMI.UBUNTU_64_BIT_PRECISE_LTS.getId());
 		InstanceType type = InstanceType.fromValue(System.getProperty("master.type", InstanceType.C3Xlarge.toString()));
 		RootVolume rootVolume = RootVolume.create(parseInt(System.getProperty("master.size", "32")), true);
-		// The amount of time to wait before timing out on: instance creation, snapshot creation, ami creation
+		// The amount of time to wait before timing out on instance creation
 		int timeoutMillis = getMillisAsInt(System.getProperty("master.timeout", "1h"));
 
 		EC2Service service = getEC2Service(amazonAccount);
