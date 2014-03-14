@@ -211,9 +211,11 @@ while true; do
   case "$1" in
     -h|--help)
       usage;
+      shift;
       ;;
     -q|--quiet)
       QUIET="true";
+      shift;
       ;;
     --tomcat)
       TOMCAT=tomcat$1;
