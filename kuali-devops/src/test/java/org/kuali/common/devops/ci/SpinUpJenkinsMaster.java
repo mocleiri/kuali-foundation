@@ -32,6 +32,7 @@ import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.impl.DefaultChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
+import org.kuali.common.util.channel.model.CommandResult;
 import org.kuali.common.util.condition.Condition;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitContext;
@@ -40,6 +41,7 @@ import org.slf4j.Logger;
 
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Tag;
+import com.google.common.base.Preconditions;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
 
@@ -68,12 +70,13 @@ public class SpinUpJenkinsMaster {
 			BasicLaunchRequest request = getMasterLaunchRequest();
 
 			EC2Service service = getEC2Service(amazonAccount);
-			Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags);
-			// Instance instance = service.getInstance("i-d912d0fa");
+			// Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags);
+			Instance instance = service.getInstance("i-0261a321");
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			updateDns(instance, aliasFQDN);
 			verifySSH("ubuntu", instance.getPublicDnsName(), privateKey);
 			logger.info(format("[%s] is online with ssh - %s", aliasFQDN, FormatUtils.getTime(sw)));
+			logger.info(format("[%s] enabling root ssh", aliasFQDN));
 			enableRootSSH("ubuntu", instance.getPublicDnsName(), privateKey);
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -84,7 +87,8 @@ public class SpinUpJenkinsMaster {
 		ChannelContext context = new ChannelContext.Builder(hostname).username(username).privateKey(privateKey).connectTimeout(getMillisAsInt("5s")).build();
 		ChannelService service = new DefaultChannelService();
 		SecureChannel channel = service.openChannel(context);
-		channel.exec("cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys");
+		CommandResult result = channel.exec("sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys");
+		Preconditions.checkState(result.getExitValue() == 0, "non-zero exit value");
 	}
 
 	protected void verifySSH(String username, String hostname, String privateKey) {
