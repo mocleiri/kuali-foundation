@@ -58,6 +58,38 @@ public final class BasicLaunchRequest {
 		public BasicLaunchRequest build() {
 			return validate(new BasicLaunchRequest(this));
 		}
+
+		public String getAmi() {
+			return ami;
+		}
+
+		public void setAmi(String ami) {
+			this.ami = ami;
+		}
+
+		public InstanceType getType() {
+			return type;
+		}
+
+		public void setType(InstanceType type) {
+			this.type = type;
+		}
+
+		public int getSizeInGigabytes() {
+			return sizeInGigabytes;
+		}
+
+		public void setSizeInGigabytes(int sizeInGigabytes) {
+			this.sizeInGigabytes = sizeInGigabytes;
+		}
+
+		public int getTimeoutMillis() {
+			return timeoutMillis;
+		}
+
+		public void setTimeoutMillis(int timeoutMillis) {
+			this.timeoutMillis = timeoutMillis;
+		}
 	}
 
 	public String getAmi() {
