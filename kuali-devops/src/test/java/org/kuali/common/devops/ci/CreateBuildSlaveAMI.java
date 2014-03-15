@@ -246,10 +246,8 @@ public class CreateBuildSlaveAMI {
 		return ImmutableList.copyOf(tags);
 	}
 
-	protected static List<Tag> getTags() {
+	protected static List<Tag> getCommonTags(Tag stack) {
 		List<Tag> tags = newArrayList();
-		// TODO Change this to PRODUCTION when ready
-		tags.add(Tags.Stack.TESTING.getTag());
 		tags.add(Tags.Team.DEVOPS.getTag());
 		tags.add(Tags.Vendor.JENKINS.getTag());
 		tags.add(Tags.Project.SHARED.getTag());

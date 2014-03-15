@@ -6,7 +6,7 @@ public class Tags {
 
 	public enum Name {
 
-		MASTER("ci.master"), SLAVE("ci.slave"), NEXUS("nexus");
+		MASTER("ci.master"), MASTER_BETA("ci.master.beta"), SLAVE("ci.slave"), NEXUS("nexus");
 
 		public static final String NAME = "Name";
 
@@ -57,7 +57,7 @@ public class Tags {
 
 	public enum Team {
 
-		DEVOPS("devops"), INFRASTRUCTURE("infrastructure");
+		DEVOPS("devops"), INFRASTRUCTURE("infra");
 
 		public static final String NAME = "Team";
 
@@ -74,7 +74,7 @@ public class Tags {
 
 	public enum Project {
 
-		SHARED("shared"), STUDENT("student"), OLE("ole"), RICE("rice"), MOBILITY("mobility"), KPME("kpme"), KFS("kfs"), READY("ready");
+		SHARED("shared"), COEUS("coeus"), STUDENT("student"), OLE("ole"), RICE("rice"), MOBILITY("mobility"), KPME("kpme"), KFS("kfs"), READY("ready");
 
 		public static final String NAME = "Project";
 

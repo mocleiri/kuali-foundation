@@ -24,11 +24,13 @@ import java.util.List;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
+import org.kuali.common.aws.ec2.model.AMI;
 import org.kuali.common.aws.ec2.model.Distro;
 import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.core.system.VirtualSystem;
+import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.DNSMadeEasyDnsService;
@@ -79,11 +81,13 @@ public class SpinUpJenkinsMaster {
 	private final String distroVersion = "12.04";
 
 	// TODO Change these when ready
-	// private static final Tag NAME = Tags.Name.MASTER.getTag();
-	private static final Tag NAME = new Tag("Name", "ci.master.jeff");
+	private static final Tag NAME = Tags.Name.MASTER_BETA.getTag();
+	private static final Tag STACK = Tags.Stack.TESTING.getTag();
 	private static final String SUBDOMAIN = "beta-ci";
-	private static final int defaultRootVolumeSize = 32;
+	private static final int DEFAULT_ROOT_VOLUME_SIZE = 32;
+	private static final AMI DEFAULT_AMI = AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_WEST;
 
+	// These should be fine assuming the lines above get changed
 	private static final String ALIASFQDN = Joiner.on('.').join(SUBDOMAIN, DOMAIN);
 	private final List<Tag> tags = getMasterTags(NAME);
 
@@ -140,13 +144,22 @@ public class SpinUpJenkinsMaster {
 		File jar = RepositoryUtils.getFile(repo, artifact);
 		String filename = project.getArtifactId() + ".jar";
 		RemoteFile remote = new RemoteFile.Builder("/mnt/" + filename).build();
+		info("create -> %s", remote.getAbsolutePath());
 		channel.scp(jar, remote);
+		info("unpack -> %s", remote.getAbsolutePath());
 		exec(channel, "apt-get", "install", "unzip", "-y");
 		String directory = format("/mnt/%s", project.getArtifactId());
 		execFormattedCommand(channel, "rm -rf %s", directory);
-		execFormattedCommand(channel, "unzip -q -o %s -d %s", remote.getAbsolutePath(), directory);
+		execFormattedCommand(channel, "unzip -o %s -d %s", remote.getAbsolutePath(), directory);
 		execFormattedCommand(channel, "chmod -R 755 %s", directory);
 		return directory;
+	}
+
+	protected static ChannelContext.Builder getSilentContextBuilder(String hostname) {
+		ChannelContext.Builder builder = new ChannelContext.Builder(hostname);
+		builder.echo(false);
+		builder.debug(false);
+		return builder;
 	}
 
 	protected static String getBashScript(String basedir, ProjectIdentifier project, Distro distro, String version, String script) {
@@ -185,7 +198,7 @@ public class SpinUpJenkinsMaster {
 	}
 
 	protected static SecureChannel openSecureChannel(String username, String hostname, String privateKey) throws IOException {
-		ChannelContext context = new ChannelContext.Builder(hostname).username(username).privateKey(privateKey).connectTimeout(getMillisAsInt("5s")).build();
+		ChannelContext context = getSilentContextBuilder(hostname).username(username).privateKey(privateKey).connectTimeout(getMillisAsInt("5s")).build();
 		ChannelService service = new DefaultChannelService();
 		return service.openChannel(context);
 	}
@@ -223,14 +236,14 @@ public class SpinUpJenkinsMaster {
 	protected static BasicLaunchRequest getMasterLaunchRequest() {
 		BasicLaunchRequest.Builder builder = BasicLaunchRequest.builder();
 		builder.setTimeoutMillis(getMillisAsInt("15m"));
-		builder.setAmi("ami-709ba735");
-		builder.setRootVolume(RootVolume.create(defaultRootVolumeSize, true));
+		builder.setAmi(DEFAULT_AMI.getId());
+		builder.setRootVolume(RootVolume.create(DEFAULT_ROOT_VOLUME_SIZE, true));
 		return getBasicLaunchRequest(builder.build());
 	}
 
 	protected static List<Tag> getMasterTags(Tag name) {
 		List<Tag> tags = newArrayList();
-		tags.addAll(CreateBuildSlaveAMI.getTags());
+		tags.addAll(CreateBuildSlaveAMI.getCommonTags(STACK));
 		tags.add(name);
 		return ImmutableList.copyOf(tags);
 	}
