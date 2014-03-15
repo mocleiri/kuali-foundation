@@ -27,7 +27,7 @@ function install_jenkins {
 
   echo "download  -> jenkins:war - [$JENKINS_URL]"
   rm -rf $TOMCAT_WEBAPPS/* $JENKINS_HOME
-  curl $JENKINS_URL --silent --output $TOMCAT_ROOT_WAR
+  execute_quietly "curl $JENKINS_URL --output $TOMCAT_ROOT_WAR"
   chown $TOMCAT:$TOMCAT $TOMCAT_ROOT_WAR
   $TOMCAT_CLEANUP
   
@@ -152,10 +152,10 @@ echo "stop      -> $TOMCAT:service"
 execute_quietly "service $TOMCAT stop"
 
 configure_tomcat_user
+install_jenkins
 
 exit 1
 
-install_jenkins
 install_plugins
 configure_jenkins
 echo "start     -> $TOMCAT:service"
