@@ -54,6 +54,7 @@ import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.kuali.common.util.spring.env.BasicEnvironmentService;
 import org.kuali.common.util.stream.LoggingStreamConsumer;
+import org.kuali.common.util.stream.NoOpStreamConsumer;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitContext;
 import org.kuali.common.util.wait.WaitService;
@@ -149,9 +150,9 @@ public class SpinUpJenkinsMaster {
 		info("unpack -> %s", remote.getAbsolutePath());
 		exec(channel, "apt-get", "install", "unzip", "-y");
 		String directory = format("/mnt/%s", project.getArtifactId());
-		execFormattedCommand(channel, "rm -rf %s", directory);
-		execFormattedCommand(channel, "unzip -o %s -d %s", remote.getAbsolutePath(), directory);
-		execFormattedCommand(channel, "chmod -R 755 %s", directory);
+		execFormattedCommand(channel, true, "rm -rf %s", directory);
+		execFormattedCommand(channel, true, "unzip -o %s -d %s", remote.getAbsolutePath(), directory);
+		execFormattedCommand(channel, true, "chmod -R 755 %s", directory);
 		return directory;
 	}
 
@@ -189,9 +190,9 @@ public class SpinUpJenkinsMaster {
 		channel.exec(context);
 	}
 
-	protected static void execFormattedCommand(SecureChannel channel, String command, Object... args) {
-		StreamConsumer stdout = new LoggingStreamConsumer(logger, INFO);
-		StreamConsumer stderr = new LoggingStreamConsumer(logger, WARN);
+	protected static void execFormattedCommand(SecureChannel channel, boolean quiet, String command, Object... args) {
+		StreamConsumer stdout = (quiet) ? NoOpStreamConsumer.INSTANCE : new LoggingStreamConsumer(logger, INFO);
+		StreamConsumer stderr = (quiet) ? NoOpStreamConsumer.INSTANCE : new LoggingStreamConsumer(logger, WARN);
 		String formatted = formatString(command, args);
 		CommandContext context = new CommandContext.Builder(formatted).stdout(stdout).stderr(stderr).build();
 		channel.exec(context);
@@ -205,7 +206,7 @@ public class SpinUpJenkinsMaster {
 
 	protected static void enableRootSSH(String username, String hostname, String privateKey) throws IOException {
 		SecureChannel channel = openSecureChannel(username, hostname, privateKey);
-		execFormattedCommand(channel, "sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys");
+		execFormattedCommand(channel, true, "sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys");
 	}
 
 	protected void verifySSH(String username, String hostname, String privateKey) {
