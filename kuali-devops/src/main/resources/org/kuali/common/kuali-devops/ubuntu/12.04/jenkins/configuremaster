@@ -125,7 +125,7 @@ source $MY_DIR/../common/functions.sh
 usage() { echo "Usage: $ME [-h] [-q] master version password" 1>&2; exit 1; }
 
 QUIET=false
-while getopts hqm: flag; do
+while getopts hq flag; do
   case $flag in
     h)
       usage;
