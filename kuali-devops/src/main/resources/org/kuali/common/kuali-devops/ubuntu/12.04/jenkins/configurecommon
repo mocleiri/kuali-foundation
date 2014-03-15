@@ -149,7 +149,7 @@ usage() { echo "Usage: $ME [-h] [-q] [-p "package1 package2 package3"] jenkinsma
 
 QUIET=false
 PACKAGES="subversion git graphviz firefox"
-while getopts hq flag; do
+while getopts hqp: flag; do
   case $flag in
     h)
       usage;
