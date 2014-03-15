@@ -108,9 +108,10 @@ function configure_tomcat_user {
 function configure_jenkins {
   
   echo "configure -> jenkins:application"
-  GPG_ENCRYPTED=$MY_DIR/../../../jenkins/master.zip.gpg
+  JENKINS_CONFIG_DIR=$MY_DIR/../../../jenkins
+  GPG_ENCRYPTED=$JENKINS_CONFIG_DIR/master.zip.gpg
   # zip of .jenkins config files from tomcat home directory
-  GPG_DECRYPTED=$MY_DIR/../../../jenkins/master.zip
+  GPG_DECRYPTED=$JENKINS_CONFIG_DIR/master.zip
   decrypt_file $GPG_ENCRYPTED $GPG_DECRYPTED
   execute_quietly "unzip -o $GPG_DECRYPTED -d $TOMCAT_HOME"
   execute_quietly "rm $GPG_DECRYPTED"
