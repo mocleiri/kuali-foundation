@@ -80,7 +80,7 @@ public class SpinUpJenkinsMaster {
 
 	// TODO Change all this stuff when ready
 	private static final String SUBDOMAIN = "beta-ci";
-	private static final String ALIASFQDN = Joiner.on('.').join(SUBDOMAIN,DOMAIN);
+	private static final String ALIASFQDN = Joiner.on('.').join(SUBDOMAIN, DOMAIN);
 	private final int defaultRootVolumeSize = 32;
 
 	@Test
@@ -102,12 +102,15 @@ public class SpinUpJenkinsMaster {
 			SecureChannel channel = openSecureChannel("root", ALIASFQDN, privateKey);
 			String basedir = publishProject(channel, pid);
 			String basics = getBashScript(basedir, pid, distro, distroVersion, "common/configurebasics");
-			String hostname = getBashScript(basedir, pid, distro, distroVersion, "common/sethostname");
+			String sethostname = getBashScript(basedir, pid, distro, distroVersion, "common/sethostname");
 			String java = getBashScript(basedir, pid, distro, distroVersion, "common/installjava");
 			String tomcat = getBashScript(basedir, pid, distro, distroVersion, "common/installtomcat");
 			exec(channel, basics, "-q");
-			exec(channel, java, ImmutableList.of("-q", "jdk7", "u51", Auth.decrypt(gpgPassphrase)));
-			exec(channel, tomcat, ImmutableList.of("-q", "tomcat7", "jdk7", Auth.decrypt(gpgPassphrase)));
+			exec(channel, sethostname, SUBDOMAIN, DOMAIN);
+			exec(channel, java, "-q", "jdk6", "u45", Auth.decrypt(gpgPassphrase));
+			exec(channel, java, "-q", "jdk7", "u51", Auth.decrypt(gpgPassphrase));
+			exec(channel, tomcat, "-q", "tomcat7", "jdk7", Auth.decrypt(gpgPassphrase));
+			info("[%s] tomcat is installed - %s", ALIASFQDN, FormatUtils.getTime(sw));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -130,9 +133,9 @@ public class SpinUpJenkinsMaster {
 		channel.scp(jar, remote);
 		channel.exec("apt-get install unzip -y");
 		String directory = format("/mnt/%s", project.getArtifactId());
-		execFormatted(channel, "rm -rf %s", directory);
-		execFormatted(channel, "unzip -q -o %s -d %s", remote.getAbsolutePath(), directory);
-		execFormatted(channel, "chmod -R 755 %s", directory);
+		execFormattedCommand(channel, "rm -rf %s", directory);
+		execFormattedCommand(channel, "unzip -q -o %s -d %s", remote.getAbsolutePath(), directory);
+		execFormattedCommand(channel, "chmod -R 755 %s", directory);
 		return directory;
 	}
 
@@ -147,16 +150,12 @@ public class SpinUpJenkinsMaster {
 		return Joiner.on('/').join(tokens);
 	}
 
-	protected static String formatString(String s, Object... args) {
-		if (args != null && args.length > 0) {
-			return format(s, args);
-		} else {
-			return s;
-		}
-	}
-
 	protected static void exec(SecureChannel channel, String command, String arg) {
 		exec(channel, command, singletonList(arg));
+	}
+
+	protected static void exec(SecureChannel channel, String command, String... args) {
+		exec(channel, command, ImmutableList.copyOf(args));
 	}
 
 	protected static void exec(SecureChannel channel, String command, List<String> args) {
@@ -167,7 +166,7 @@ public class SpinUpJenkinsMaster {
 		channel.exec(context);
 	}
 
-	protected static void execFormatted(SecureChannel channel, String command, Object... args) {
+	protected static void execFormattedCommand(SecureChannel channel, String command, Object... args) {
 		StreamConsumer stdout = new LoggingStreamConsumer(logger, LoggerLevel.INFO);
 		StreamConsumer stderr = new LoggingStreamConsumer(logger, LoggerLevel.WARN);
 		String formatted = formatString(command, args);
@@ -183,7 +182,7 @@ public class SpinUpJenkinsMaster {
 
 	protected static void enableRootSSH(String username, String hostname, String privateKey) throws IOException {
 		SecureChannel channel = openSecureChannel(username, hostname, privateKey);
-		execFormatted(channel, "sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys");
+		execFormattedCommand(channel, "sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys");
 	}
 
 	protected void verifySSH(String username, String hostname, String privateKey) {
@@ -228,6 +227,14 @@ public class SpinUpJenkinsMaster {
 
 	protected static void info(String msg, Object... args) {
 		logger.info(formatString(msg, args));
+	}
+
+	protected static String formatString(String s, Object... args) {
+		if (args != null && args.length > 0) {
+			return format(s, args);
+		} else {
+			return s;
+		}
 	}
 
 }
