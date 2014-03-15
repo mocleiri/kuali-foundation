@@ -16,7 +16,6 @@
 #
 
 function check_args {
-  check_not_blank JENKINS_MASTER $JENKINS_MASTER
   check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
 }
 
@@ -37,4 +36,25 @@ source $MY_DIR/../common/functions.sh
 
 usage() { echo "Usage: $ME [-h] [-q] password" 1>&2; exit 1; }
 
+QUIET=false
+while getopts hq flag; do
+  case $flag in
+    h)
+      usage;
+      ;;
+    q)
+      QUIET="true";
+      ;;
+    ?)
+      usage;
+      exit;
+      ;;
+  esac
+done
+
+shift $(( OPTIND - 1 ));
+
+GPG_PASSPHRASE=$1
+
+check_args
 encrypt_config
