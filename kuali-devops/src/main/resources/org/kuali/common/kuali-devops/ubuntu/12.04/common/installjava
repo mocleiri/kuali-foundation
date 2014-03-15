@@ -57,6 +57,7 @@ function install_jdk {
   NEXUS_PASSWORD=$(<$GPG_DECRYPTED)
   rm $GPG_DECRYPTED
   echo "download  -> $URL"
+  download_url
   execute_quietly "curl --user $NEXUS_USER:$NEXUS_PASSWORD --output $OUTPUT_FILE $URL"
 
   # Make sure the JDK and the symbolic link are both gone

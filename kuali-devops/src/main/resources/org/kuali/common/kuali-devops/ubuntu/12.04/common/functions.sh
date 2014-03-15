@@ -18,18 +18,45 @@
 function download_url {
   URL=$1
   FILENAME=$2
+  USERNAME=$3
+  PASSWORD=$4
   
   check_not_blank URL $URL
   check_not_blank FILENAME $FILENAME
   
-  check_url_exists $URL
-  execute_quietly "curl --output $FILENAME --location $URL"
+  check_url_exists $URL $USERNAME $PASSWORD
+  
+  CURL_COMMAND="curl --location --fail"
+  if [ -n "$USERNAME" ]; then 
+    CURL_COMMAND="$CURL_COMMAND --user $USERNAME" 
+  fi
+  
+  if [ -n "$PASSWORD" ]; then 
+    CURL_COMMAND="$CURL_COMMAND --password $PASSWORD" 
+  fi
+  
+  CURL_COMMAND="$CURL_COMMAND --output $FILENAME $URL"
+  
+  execute_quietly "$CURL_COMMAND"
 }
 
 function check_url_exists {
   URL=$1
+  USERNAME=$2
+  PASSWORD=$3
   check_not_blank URL $URL
-  CURL_COMMAND="curl --location --head --fail $URL"
+  CURL_COMMAND="curl --location --fail --head"
+  
+  if [ -n "$USERNAME" ]; then 
+    CURL_COMMAND="$CURL_COMMAND --user $USERNAME" 
+  fi
+  
+  if [ -n "$PASSWORD" ]; then 
+    CURL_COMMAND="$CURL_COMMAND --password $PASSWORD" 
+  fi
+  
+  CURL_COMMAND="$CURL_COMMAND $URL"
+  
   execute_quietly "$CURL_COMMAND"
 }
 
