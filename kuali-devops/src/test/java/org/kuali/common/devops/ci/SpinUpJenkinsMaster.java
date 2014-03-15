@@ -4,6 +4,7 @@ import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
 import static java.util.Collections.singletonList;
+import static org.apache.commons.lang3.StringUtils.equalsIgnoreCase;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_MASTER;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getBasicLaunchRequest;
@@ -99,7 +100,7 @@ public class SpinUpJenkinsMaster {
 	public void test() {
 		try {
 			// Default to quiet mode unless they've supplied -Dec2.quiet=false
-			boolean quiet = "false".equalsIgnoreCase(System.getProperty("ec2.quiet")) ? false : true;
+			boolean quiet = equalsIgnoreCase(System.getProperty("ec2.quiet"), "false") ? false : true;
 			logger.info(vs.getOs().getName());
 			KeyPair keyPair = CreateBuildSlaveAMI.KUALI_KEY;
 			String privateKey = keyPair.getPrivateKey().get();
