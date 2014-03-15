@@ -39,7 +39,7 @@ function scp_zip_file {
   execute_quietly "$SSH"
   echo "scp     -> root@$JENKINS_MASTER:$SERVER_ZIP"
   execute_quietly "scp root@$JENKINS_MASTER:$SERVER_ZIP $LOCAL_ZIP"
-  echo "encrypt -> $ZIP_FILE"
+  echo "create  -> $GPG_FILE"
   encrypt_file $LOCAL_ZIP $GPG_FILE
   execute_quietly "rm $LOCAL_ZIP"
 
