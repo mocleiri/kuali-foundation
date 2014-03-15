@@ -25,6 +25,7 @@ import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.Distro;
+import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.core.system.VirtualSystem;
@@ -82,7 +83,7 @@ public class SpinUpJenkinsMaster {
 	// TODO Change all this stuff when ready
 	private static final String SUBDOMAIN = "beta-ci";
 	private static final String ALIASFQDN = Joiner.on('.').join(SUBDOMAIN, DOMAIN);
-	private final int defaultRootVolumeSize = 32;
+	private static final int defaultRootVolumeSize = 32;
 
 	@Test
 	public void test() {
@@ -93,8 +94,8 @@ public class SpinUpJenkinsMaster {
 			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
 			EC2Service service = getEC2Service(amazonAccount);
-			// Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags);
-			Instance instance = service.getInstance("i-da8091f4");
+			Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags);
+			// Instance instance = service.getInstance("i-da8091f4");
 			info("public dns: %s", instance.getPublicDnsName());
 			updateDns(instance, ALIASFQDN);
 			verifySSH("ubuntu", instance.getPublicDnsName(), privateKey);
@@ -219,6 +220,7 @@ public class SpinUpJenkinsMaster {
 	protected static BasicLaunchRequest getMasterLaunchRequest() {
 		BasicLaunchRequest.Builder builder = BasicLaunchRequest.builder();
 		builder.setTimeoutMillis(getMillisAsInt("15m"));
+		builder.setRootVolume(RootVolume.create(defaultRootVolumeSize, true));
 		return getBasicLaunchRequest(builder.build());
 	}
 
