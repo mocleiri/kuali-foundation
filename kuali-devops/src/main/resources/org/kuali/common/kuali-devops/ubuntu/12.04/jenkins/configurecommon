@@ -169,6 +169,8 @@ GPG_PASSPHRASE=$1
 
 check_args
 
+exit 1
+
 MAVEN_BASEDIR=/usr/maven
 SVN_USERNAME=jcaddel
 
