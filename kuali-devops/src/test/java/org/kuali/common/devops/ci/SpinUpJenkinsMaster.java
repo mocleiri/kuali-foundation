@@ -98,7 +98,8 @@ public class SpinUpJenkinsMaster {
 	@Test
 	public void test() {
 		try {
-			boolean quiet = Boolean.getBoolean("ec2.quiet");
+			// Default to quiet mode unless they've used -Dec2.quiet=false
+			boolean quiet = System.getProperty("ec2.quiet") != null ? Boolean.parseBoolean("ec2.quiet") : true;
 			logger.info(vs.getOs().getName());
 			KeyPair keyPair = CreateBuildSlaveAMI.KUALI_KEY;
 			String privateKey = keyPair.getPrivateKey().get();
