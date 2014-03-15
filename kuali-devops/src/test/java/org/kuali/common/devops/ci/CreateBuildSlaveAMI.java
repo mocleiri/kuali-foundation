@@ -70,7 +70,6 @@ public class CreateBuildSlaveAMI {
 	private final Stopwatch sw = createStarted();
 	private final VirtualSystem vs = VirtualSystem.create();
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_BUILD_SLAVE.getGroup());
-	private final List<Tag> tags = getSlaveTags();
 	private final String distro = "ubuntu" + vs.getFileSeparator() + "12.04";
 	private final String bashScript = "jenkins.sh";
 	private final String svnPassword = "PAqzT//IpbTfzhsnLyumedsE7yon7yqi";
@@ -85,6 +84,12 @@ public class CreateBuildSlaveAMI {
 	private final String domainToken = ".amazonaws.com";
 	private final int minimumAmisToKeep = 7;
 
+	// TODO Change these when ready
+	private static final Tag NAME = Tags.Name.SLAVE_BETA.getTag();
+	private static final Tag STACK = Tags.Stack.TEST.getTag();
+
+	private static final List<Tag> TAGS = getSlaveTags(NAME, STACK);
+
 	@Test
 	public void test() {
 		// Configurable items
@@ -93,7 +98,7 @@ public class CreateBuildSlaveAMI {
 		String sleep = System.getProperty("slave.sleep", "15s");
 
 		EC2Service service = getEC2Service(amazonAccount);
-		Instance instance = launchAndWait(service, request, securityGroups, tags);
+		Instance instance = launchAndWait(service, request, securityGroups, TAGS);
 		// Instance instance = getRunningSlaveInstance(service, "i-1907c23a");
 		logger.info(format("public dns: %s", instance.getPublicDnsName()));
 		logger.info(format("sleeping %s to let dns settle down", sleep));
@@ -239,9 +244,10 @@ public class CreateBuildSlaveAMI {
 		}
 	}
 
-	protected static List<Tag> getSlaveTags() {
+	protected static List<Tag> getSlaveTags(Tag name, Tag stack) {
 		List<Tag> tags = newArrayList();
-		tags.addAll(getCommonTags(Tags.Name.SLAVE.getTag()));
+		tags.add(name);
+		tags.addAll(getCommonTags(stack));
 		return ImmutableList.copyOf(tags);
 	}
 

@@ -82,14 +82,14 @@ public class SpinUpJenkinsMaster {
 
 	// TODO Change these when ready
 	private static final Tag NAME = Tags.Name.MASTER_BETA.getTag();
-	private static final Tag STACK = Tags.Stack.TESTING.getTag();
+	private static final Tag STACK = Tags.Stack.TEST.getTag();
 	private static final String SUBDOMAIN = "beta-ci";
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 32;
 	private static final AMI DEFAULT_AMI = AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_WEST;
 
 	// These should be fine assuming the lines above get changed
 	private static final String ALIASFQDN = Joiner.on('.').join(SUBDOMAIN, DOMAIN);
-	private final List<Tag> tags = getMasterTags(NAME);
+	private final List<Tag> tags = getMasterTags(NAME, STACK);
 
 	@Test
 	public void test() {
@@ -241,9 +241,9 @@ public class SpinUpJenkinsMaster {
 		return getBasicLaunchRequest(builder.build());
 	}
 
-	protected static List<Tag> getMasterTags(Tag name) {
+	protected static List<Tag> getMasterTags(Tag name, Tag stack) {
 		List<Tag> tags = newArrayList();
-		tags.addAll(CreateBuildSlaveAMI.getCommonTags(STACK));
+		tags.addAll(CreateBuildSlaveAMI.getCommonTags(stack));
 		tags.add(name);
 		return ImmutableList.copyOf(tags);
 	}
