@@ -76,7 +76,7 @@ public class SpinUpJenkinsMaster {
 	private final Stopwatch sw = createStarted();
 	private final VirtualSystem vs = VirtualSystem.create();
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_MASTER.getGroup());
-	private final String gpgPassphrase = "coSLMPP2IsSAXYVp9NIsvxzqAkd7N+Yh";
+	private final String encryptedGPGpassphrase = "coSLMPP2IsSAXYVp9NIsvxzqAkd7N+Yh";
 	private final String amazonAccount = "foundation";
 	private static final String DOMAIN = "kuali.org";
 	private final Distro distro = Distro.UBUNTU;
@@ -118,7 +118,7 @@ public class SpinUpJenkinsMaster {
 			bootstrap(dns, privateKey);
 			SecureChannel channel = openSecureChannel(ROOT, dns, privateKey, quiet);
 			String basedir = publishProject(channel, pid, ROOT, dns, quiet);
-			String decrypted = Auth.decrypt(gpgPassphrase);
+			String decrypted = Auth.decrypt(encryptedGPGpassphrase);
 			String basics = getBashScript(basedir, pid, distro, distroVersion, "common/configurebasics");
 			String sethostname = getBashScript(basedir, pid, distro, distroVersion, "common/sethostname");
 			String java = getBashScript(basedir, pid, distro, distroVersion, "common/installjava");
