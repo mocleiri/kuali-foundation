@@ -46,6 +46,7 @@ import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.CommandContext;
 import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.condition.Condition;
+import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.maven.RepositoryUtils;
 import org.kuali.common.util.maven.model.Artifact;
 import org.kuali.common.util.project.DefaultProjectService;
@@ -91,6 +92,8 @@ public class SpinUpJenkinsMaster {
 	// These should be fine assuming the lines above get changed
 	private static final String ALIASFQDN = Joiner.on('.').join(SUBDOMAIN, DOMAIN);
 	private final List<Tag> tags = getMasterTags(NAME, STACK);
+	private static final String ROOT = "root";
+	private static final String UBUNTU = "ubuntu";
 
 	@Test
 	public void test() {
@@ -106,11 +109,11 @@ public class SpinUpJenkinsMaster {
 			// Instance instance = service.getInstance("i-da8091f4");
 			info("public dns: %s", instance.getPublicDnsName());
 			updateDns(instance, ALIASFQDN);
-			verifySSH("ubuntu", instance.getPublicDnsName(), privateKey);
+			verifySSH("ubuntu", ALIASFQDN, privateKey);
 			info("[%s] is online with ssh - %s", ALIASFQDN, FormatUtils.getTime(sw));
-			bootstrap(instance.getPublicDnsName(), privateKey);
-			SecureChannel channel = openSecureChannel("root", ALIASFQDN, privateKey);
-			String basedir = publishProject(channel, pid);
+			bootstrap(ALIASFQDN, privateKey);
+			SecureChannel channel = openSecureChannel(ROOT, ALIASFQDN, privateKey);
+			String basedir = publishProject(channel, pid, ROOT, ALIASFQDN);
 			String decrypted = Auth.decrypt(gpgPassphrase);
 			String basics = getBashScript(basedir, pid, distro, distroVersion, "common/configurebasics");
 			String sethostname = getBashScript(basedir, pid, distro, distroVersion, "common/sethostname");
@@ -133,23 +136,24 @@ public class SpinUpJenkinsMaster {
 
 	protected static void bootstrap(String hostname, String privateKey) throws IOException {
 		info("[%s] enabling root ssh", hostname);
-		enableRootSSH("ubuntu", hostname, privateKey);
+		enableRootSSH(UBUNTU, hostname, privateKey);
 	}
 
-	protected static String publishProject(SecureChannel channel, ProjectIdentifier pid) {
+	protected static String publishProject(SecureChannel channel, ProjectIdentifier pid, String username, String hostname) {
 		ProjectService service = new DefaultProjectService(new BasicEnvironmentService());
 		Project project = service.getProject(pid);
 		info(project.getArtifactId());
 		Artifact artifact = new Artifact.Builder(project.getGroupId(), project.getArtifactId(), project.getVersion()).build();
 		File repo = getDefaultLocalRepository();
-		File jar = RepositoryUtils.getFile(repo, artifact);
+		CanonicalFile jar = new CanonicalFile(RepositoryUtils.getFile(repo, artifact));
 		String filename = project.getArtifactId() + ".jar";
 		RemoteFile remote = new RemoteFile.Builder("/mnt/" + filename).build();
-		info("create -> %s", remote.getAbsolutePath());
+		String to = username + "@" + hostname + ":" + remote.getAbsolutePath();
+		info("scp    -> %s %s", jar, to);
 		channel.scp(jar, remote);
 		info("unpack -> %s", remote.getAbsolutePath());
-		exec(channel, "apt-get", "install", "unzip", "-y");
 		String directory = format("/mnt/%s", project.getArtifactId());
+		execFormattedCommand(channel, true, "apt-get install unzip -y");
 		execFormattedCommand(channel, true, "rm -rf %s", directory);
 		execFormattedCommand(channel, true, "unzip -o %s -d %s", remote.getAbsolutePath(), directory);
 		execFormattedCommand(channel, true, "chmod -R 755 %s", directory);
