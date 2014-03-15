@@ -46,4 +46,3 @@ GPG_PASSPHRASE=$1
 check_args
 
 encrypt_config
-svn commit -m "updated master config" $MY_DIR/../../../../..
