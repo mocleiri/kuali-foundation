@@ -85,7 +85,7 @@ function encrypt_file {
   GPG_DECRYPTED=$1
   GPG_ENCRYPTED=$2
   check_exists $GPG_DECRYPTED
-  execute_quietly "gpg --batch --yes --passphrase $GPG_PASSPHRASE --cipher-algo AES256 --symmetric --output $GPG_ENCRYPTED $GPG_DECRYPTED
+  execute_quietly "gpg --batch --yes --passphrase $GPG_PASSPHRASE --cipher-algo AES256 --symmetric --output $GPG_ENCRYPTED $GPG_DECRYPTED"
 }
 
 function decrypt_file {

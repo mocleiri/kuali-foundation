@@ -35,7 +35,7 @@ function scp_zip_file {
   SSH="root@$JENKINS_MASTER "$SSH""
 
   echo "zip     -> root@$JENKINS_MASTER:$SERVER_ZIP"
-  execute_quietly $SSH
+  execute_quietly "$SSH"
   echo "scp     -> root@$JENKINS_MASTER:$SERVER_ZIP to $LOCAL_ZIP"
   scp root@$JENKINS_MASTER:$SERVER_ZIP $LOCAL_ZIP > /dev/null 2>&1
   echo "encrypt -> $GPG_FILE"
