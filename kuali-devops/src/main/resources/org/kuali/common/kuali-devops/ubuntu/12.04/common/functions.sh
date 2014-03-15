@@ -145,7 +145,7 @@ function check_tomcat {
   fi
 }
 
-function read_lines {
+function echo_lines {
   FILENAME=$1
   check_exists $FILENAME
   while read LINE
