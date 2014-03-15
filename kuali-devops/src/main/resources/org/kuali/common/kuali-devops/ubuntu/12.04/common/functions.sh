@@ -15,6 +15,25 @@
 # limitations under the License.
 #
 
+function download_url {
+  URL=$1
+  FILENAME=$2
+  
+  check_not_blank URL $URL
+  check_not_blank FILENAME $FILENAME
+  
+  check_url_exists
+  
+}
+
+function check_url_exists {
+  URL=$1
+  check_not_blank URL $URL
+  CURL_COMMAND="curl --location --head --fail $URL"
+  execute_quietly "$CURL_COMMAND"
+}
+
+
 function install_packages {
   echo "packages  -> $PACKAGES"
   execute_quietly "apt-get install $PACKAGES -y"
