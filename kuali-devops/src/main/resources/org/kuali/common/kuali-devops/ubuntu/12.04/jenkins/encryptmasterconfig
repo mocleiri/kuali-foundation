@@ -27,6 +27,7 @@ function encrypt_config {
   cd /home/tomcat7
   zip -r $ZIP_FILE .jenkins -x '**/plugins/**' '**/workspace/**' '**/config-history/**'"
   encrypt_file $ZIP_FILE $GPG_FILE
+  execute_quietly "rm $ZIP_FILE"
   
 }
 
