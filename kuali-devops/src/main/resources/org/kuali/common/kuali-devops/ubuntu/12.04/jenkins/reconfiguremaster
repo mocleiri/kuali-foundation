@@ -1,0 +1,75 @@
+#!/bin/bash
+#
+# Copyright 2004-2014 The Kuali Foundation
+#
+# Licensed under the Educational Community License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.opensource.org/licenses/ecl2.php
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+function check_args {
+  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
+}
+
+function configure_jenkins {
+  
+  echo "configure -> jenkins:application"
+  JENKINS_CONFIG_DIR=$MY_DIR/../../../jenkins
+  GPG_ENCRYPTED=$JENKINS_CONFIG_DIR/master.zip.gpg
+  # zip of Jenkins config files from the .jenkins home dir
+  GPG_DECRYPTED=$JENKINS_CONFIG_DIR/master.zip
+  decrypt_file $GPG_ENCRYPTED $GPG_DECRYPTED
+  execute_quietly "unzip -o $GPG_DECRYPTED -d $TOMCAT_HOME"
+  execute_quietly "rm $GPG_DECRYPTED"
+  chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
+  
+}
+
+
+MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+ME=$(basename $0)
+source $MY_DIR/../common/functions.sh
+
+usage() { echo "Usage: $ME [-h] [-q] password" 1>&2; exit 1; }
+
+QUIET=false
+while getopts hq flag; do
+  case $flag in
+    h)
+      usage;
+      ;;
+    q)
+      QUIET="true";
+      ;;
+    ?)
+      usage;
+      exit;
+      ;;
+  esac
+done
+
+shift $(( OPTIND - 1 ));
+
+GPG_PASSPHRASE=$1
+
+check_args
+
+TOMCAT=tomcat7
+TOMCAT_HOME=/home/$TOMCAT
+JENKINS_HOME=$TOMCAT_HOME/.jenkins
+
+echo "stop      -> $TOMCAT:service"
+execute_quietly "service $TOMCAT stop"
+configure_jenkins
+echo "start     -> $TOMCAT:service"
+execute_quietly "service $TOMCAT start"
+echo "wait      -> jenkins:ready"
+wait_for_string "/var/lib/$TOMCAT/logs/catalina.out" "Jenkins is fully up and running"
