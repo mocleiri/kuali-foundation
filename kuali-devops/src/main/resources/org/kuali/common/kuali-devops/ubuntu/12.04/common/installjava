@@ -58,7 +58,6 @@ function install_jdk {
   rm $GPG_DECRYPTED
   echo "download  -> $URL"
   download_url $URL $OUTPUT_FILE $NEXUS_USER $NEXUS_PASSWORD
-  #execute_quietly "curl --user $NEXUS_USER:$NEXUS_PASSWORD --output $OUTPUT_FILE $URL"
 
   # Make sure the JDK and the symbolic link are both gone
   JDK_TARGET=$JDK_BASEDIR/$JDK_UNZIP_DIR
