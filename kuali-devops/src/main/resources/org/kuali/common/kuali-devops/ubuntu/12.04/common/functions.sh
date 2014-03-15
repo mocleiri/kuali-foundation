@@ -36,6 +36,21 @@ function check_exists {
   if [ ! -f $FILENAME   ]; then echo "file [$FILENAME] does not exist"; exit 1; fi
 }
 
+function wait_for_string {
+
+  FILENAME=$1
+  STRING=$2
+
+  check_not_blank STRING $STRING
+  check_exists $FILENAME
+
+  tail -f "$FILENAME" | while read LOGLINE
+  do
+    [[ "${LOGLINE}" == *"$STRING"* ]] && pkill -P $$ tail
+  done
+  
+}
+
 function decrypt_file {
   check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
   GPG_ENCRYPTED=$1

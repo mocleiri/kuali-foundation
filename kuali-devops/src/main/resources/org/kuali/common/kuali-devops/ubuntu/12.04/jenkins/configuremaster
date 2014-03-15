@@ -129,18 +129,31 @@ function configure_jenkins {
   
 }
 
-function wait_for_string {
 
-  FILENAME=$1
-  STRING=$2
-  check_not_blank FILENAME $FILENAME
-  check_not_blank STRING $STRING
-  tail -f "$FILENAME" | while read LOGLINE
-  do
-    [[ "${LOGLINE}" == *"$STRING"* ]] && pkill -P $$ tail
-  done
-  
-}
+MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+ME=$(basename $0)
+source $MY_DIR/functions.sh
+
+usage() { echo "Usage: $ME [-h] [-q] jdk6/jdk7 u45/u51 password" 1>&2; exit 1; }
+
+QUIET=false
+while getopts hq flag; do
+  case $flag in
+    h)
+      usage;
+      ;;
+    q)
+      QUIET="true";
+      ;;
+    ?)
+      usage;
+      exit;
+      ;;
+  esac
+done
+
+shift $(( OPTIND - 1 ));
+
 
 ZIP_PASSWORD=${1-ZIP_PASSWORD}
 BASEDIR=${2-$BASEDIR}
