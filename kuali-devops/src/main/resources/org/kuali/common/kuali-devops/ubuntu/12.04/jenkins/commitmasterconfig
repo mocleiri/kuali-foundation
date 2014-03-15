@@ -11,4 +11,6 @@ MESSAGE=$1
 
 check_not_blank MESSAGE $MESSAGE
 
-svn commit -m "$MESSAGE" $MY_DIR/../../../jenkins/master.zip.gpg
+FILE=$MY_DIR/../../../jenkins/master.zip.gpg
+
+svn commit -m "$MESSAGE" "$FILE"
