@@ -57,4 +57,5 @@ shift $(( OPTIND - 1 ));
 GPG_PASSPHRASE=$1
 
 check_args
+
 encrypt_config
