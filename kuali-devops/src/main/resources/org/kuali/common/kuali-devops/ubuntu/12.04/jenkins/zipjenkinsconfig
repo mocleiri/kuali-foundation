@@ -25,21 +25,22 @@ function scp_zip_file {
 
   ZIP_FILE="master.zip"
   SERVER_ZIP="/mnt/$ZIP_FILE"
-  GPG_FILE="$MY_DIR/../../../jenkins/$ZIP_FILE.gpg"
+  LOCAL_ZIP="$MY_DIR/../../../jenkins/$ZIP_FILE"
+  GPG_FILE="$LOCAL_ZIP.gpg"
   
   SSH1="rm -f $SERVER_ZIP"
   SSH2="cd /home/tomcat7"
   #SSH3="zip -qq -r $SERVER_ZIP .jenkins -x '**/plugins/**' '**/workspace/**'"
   SSH3="zip -qq -r $SERVER_ZIP .jenkins -x '**/plugins/**' '**/jobs/**' '**/config-history/**'"
   SSH="$SSH1; $SSH2; $SSH3"
-  SSH="root@$JENKINS_MASTER \"$SSH\""
+  SSH="ssh root@$JENKINS_MASTER $SSH"
 
   echo "zip     -> root@$JENKINS_MASTER:$SERVER_ZIP"
   execute_quietly "$SSH"
-  echo "scp     -> root@$JENKINS_MASTER:$SERVER_ZIP to $LOCAL_ZIP"
-  scp root@$JENKINS_MASTER:$SERVER_ZIP $LOCAL_ZIP > /dev/null 2>&1
-  echo "encrypt -> $GPG_FILE"
-  encrypt_file $ZIP_FILE $GPG_FILE
+  echo "scp     -> root@$JENKINS_MASTER:$SERVER_ZIP"
+  execute_quietly "scp root@$JENKINS_MASTER:$SERVER_ZIP $LOCAL_ZIP"
+  echo "encrypt -> $ZIP_FILE"
+  encrypt_file $LOCAL_ZIP $GPG_FILE
   execute_quietly "rm $LOCAL_ZIP"
 
 }
@@ -48,33 +49,12 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] master password" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] master password true/false" 1>&2; exit 1; }
 
-QUIET=false
-while getopts hqm: flag; do
-  case $flag in
-    h)
-      usage;
-      ;;
-    q)
-      QUIET="true";
-      ;;
-    ?)
-      usage;
-      exit;
-      ;;
-  esac
-done
-
-echo $(date)
-
-# Module specific variables
 JENKINS_MASTER=$1
 GPG_PASSPHRASE=$2
+QUIET=$3
 
-# Make sure we have what we need
 check_args
 
 scp_zip_file
-
-echo $(date)
