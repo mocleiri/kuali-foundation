@@ -80,7 +80,7 @@ function configure_secrets {
   GPG_DECRYPTED=$MY_DIR/secrets.zip
   decrypt_file $GPG_ENCRYPTED $GPG_DECRYPTED
   execute_quietly "unzip -o $GPG_DECRYPTED -d /root"
-  rm $GPG_DECRYPTED
+  execute_quietly "rm $GPG_DECRYPTED"
 
   # Setup GPG
   GPG_KEY=/root/.ssh/jcaddel.gpg.private
