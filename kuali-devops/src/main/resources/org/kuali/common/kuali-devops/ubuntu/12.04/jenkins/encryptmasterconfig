@@ -25,7 +25,7 @@ function encrypt_config {
   ZIP_FILE="$MY_DIR/../../../jenkins/master.zip
   GPG_FILE="$ZIP_FILE.gpg"
   cd /home/tomcat7
-  zip -r $ZIP_FILE .jenkins -x '**/plugins/**' '**/workspace/**' '**/config-history/**'"
+  execute_quietly "zip -r $ZIP_FILE .jenkins -x '**/plugins/**' '**/workspace/**' '**/config-history/**'"
   encrypt_file $ZIP_FILE $GPG_FILE
   execute_quietly "rm $ZIP_FILE"
   
