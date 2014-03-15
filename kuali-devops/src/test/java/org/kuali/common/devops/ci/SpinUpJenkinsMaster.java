@@ -109,12 +109,12 @@ public class SpinUpJenkinsMaster {
 			String tomcat = getBashScript(basedir, pid, distro, distroVersion, "common/installtomcat");
 			String common = getBashScript(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
 			String master = getBashScript(basedir, pid, distro, distroVersion, "jenkins/configuremaster");
-			exec(channel, basics, "-q");
-			exec(channel, sethostname, SUBDOMAIN, DOMAIN);
-			exec(channel, java, "-q", "jdk6", "u45", decrypted);
-			exec(channel, java, "-q", "jdk7", "u51", decrypted);
-			exec(channel, tomcat, "-q", "tomcat7", "jdk7", decrypted);
-			exec(channel, common, "-q", ALIASFQDN, decrypted);
+			// exec(channel, basics, "-q");
+			// exec(channel, sethostname, SUBDOMAIN, DOMAIN);
+			// exec(channel, java, "-q", "jdk6", "u45", decrypted);
+			// exec(channel, java, "-q", "jdk7", "u51", decrypted);
+			// exec(channel, tomcat, "-q", "tomcat7", "jdk7", decrypted);
+			// exec(channel, common, "-q", ALIASFQDN, decrypted);
 			exec(channel, master, "-q", "1.532.2", decrypted);
 			info("[%s] jenkins is ready - %s", ALIASFQDN, FormatUtils.getTime(sw));
 		} catch (Throwable e) {
