@@ -191,8 +191,6 @@ install_default_maven 32
 
 configure_subversion
 
-exit 1
-
 #
 # SVN caches and then looks up credentials based on the hostname + hostname hash
 #
