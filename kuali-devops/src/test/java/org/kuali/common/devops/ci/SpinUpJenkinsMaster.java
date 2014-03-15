@@ -131,6 +131,8 @@ public class SpinUpJenkinsMaster {
 			exec(channel, common, "-q", ALIASFQDN, decrypted);
 			exec(channel, master, "-q", "1.532.2", decrypted);
 			info("[%s] jenkins is ready - %s", dns, FormatUtils.getTime(sw));
+
+			// The spin up process should have given DNS enough time to settle down
 			info("Verifying SSH over friendly DNS name - [%s]", ALIASFQDN);
 			verifySSH(ROOT, ALIASFQDN, privateKey);
 		} catch (Throwable e) {
