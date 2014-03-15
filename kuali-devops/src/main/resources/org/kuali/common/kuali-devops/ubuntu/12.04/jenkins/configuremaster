@@ -15,24 +15,9 @@
 # limitations under the License.
 #
 
-function check_not_blank {
-  if [ ! -n "$2" ]; then 
-    echo $1 cannot be blank
-    show_usage
-  fi
-}
-
-function show_usage {
-  echo
-  echo requires ZIP_PASSWORD BASEDIR
-  echo usage: master.sh zip_password basedir [quiet]
-  echo
-  exit 1
-}
-
 function check_args {
-  check_not_blank ZIP_PASSWORD $ZIP_PASSWORD
-  check_not_blank BASEDIR $BASEDIR
+  check_not_blank JENKINS_VERSION $JENKINS_VERSION
+  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
 }
 
 function install_jenkins {
@@ -134,7 +119,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] jdk6/jdk7 u45/u51 password" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] version password" 1>&2; exit 1; }
 
 QUIET=false
 while getopts hq flag; do
@@ -154,24 +139,21 @@ done
 
 shift $(( OPTIND - 1 ));
 
+JENKINS_VERSION=$1
+GPG_PASSPHRASE=$2
 
-ZIP_PASSWORD=${1-ZIP_PASSWORD}
-BASEDIR=${2-$BASEDIR}
-QUIET=${3-$QUIET}
-
-JENKINS_VERSION=1.532.2
 TOMCAT=tomcat7
 TOMCAT_HOME=/home/$TOMCAT
 JENKINS_HOME=$TOMCAT_HOME/.jenkins
 
 echo "stop      -> $TOMCAT:service"
-service $TOMCAT stop > /dev/null 2>&1
+execute_quietly "service $TOMCAT stop"
 
 configure_tomcat_user
 install_jenkins
 install_plugins
 configure_jenkins
 echo "start     -> $TOMCAT:service"
-service $TOMCAT start > /dev/null 2>&1
+execute_quietly "service $TOMCAT start"
 echo "wait      -> jenkins:ready"
 wait_for_string "/var/lib/$TOMCAT/logs/catalina.out" "Jenkins is fully up and running"
