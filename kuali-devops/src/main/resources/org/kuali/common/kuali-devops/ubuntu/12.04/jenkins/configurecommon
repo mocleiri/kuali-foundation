@@ -62,7 +62,7 @@ function configure_java {
   ROOT_ALIASES=/root/.bash_aliases
   echo "JAVA_HOME=/usr/java/jdk7"                        >  $ROOT_ALIASES
   echo "PATH=\$JAVA_HOME/bin:$PATH:."                    >> $ROOT_ALIASES
-  echo "MAVEN_OPTS=\"-Xmx2g -XX:MaxPermSize=256m\""      >> $ROOT_ALIASES
+  echo "MAVEN_OPTS=\"$MAVEN_OPTS\""                      >> $ROOT_ALIASES
   echo "JENKINS_MASTER=\"$JENKINS_MASTER\""              >> $ROOT_ALIASES
   echo "export JAVA_HOME PATH MAVEN_OPTS JENKINS_MASTER" >> $ROOT_ALIASES
 
@@ -146,11 +146,12 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] [-p "package1 package2 package3"] jenkinsmaster password" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] [-m \"-Xmx2g -XX:MaxPermSize=256m\"] [-p "package1 package2 package3"] master password" 1>&2; exit 1; }
 
 QUIET=false
 PACKAGES="subversion git graphviz firefox"
-while getopts hqp: flag; do
+MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=256m"
+while getopts hqm:p: flag; do
   case $flag in
     h)
       usage;
@@ -160,6 +161,9 @@ while getopts hqp: flag; do
       ;;
     p)
       PACKAGES="$PACKAGES $OPTARG";
+      ;;
+    m)
+      MAVEN_OPTS="$OPTARG";
       ;;
     ?)
       usage;
