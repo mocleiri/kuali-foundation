@@ -81,8 +81,11 @@ function configure_secrets {
 
   # Extract ssh config, EC2 private keys, GPG private key, and ~/.m2/settings.xml into .ssh
   echo "configure -> secrets"
-  ZIP=$BASEDIR/${project.groupId.path}/${project.artifactId}/ubuntu/12.04/jenkins/config.zip
-  unzip $QUIET -P $ZIP_PASSWORD -o $ZIP -d /root
+  GPG_ENCRYPTED=$MY_DIR/secrets.zip.gpg
+  GPG_DECRYPTED=$MY_DIR/secrets.zip
+  decrypt_file $GPG_ENCRYPTED $GPG_DECRYPTED
+  execute_quietly "unzip -o $GPG_DECRYPTED -d /root
+  rm $GPG_DECRYPTED
 
   # Setup GPG
   GPG_KEY=/root/.ssh/private.key.gpg
@@ -175,10 +178,10 @@ MAVEN_BASEDIR=/usr/maven
 SVN_USERNAME=jcaddel
 
 configure_java
+configure_secrets
 
 exit 1
 
-configure_secrets
 install_packages
 install_maven 3.0.5 30
 install_maven 3.1.0 31
