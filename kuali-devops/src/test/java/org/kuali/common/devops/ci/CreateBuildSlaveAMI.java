@@ -54,6 +54,7 @@ import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
 
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceType;
@@ -265,7 +266,8 @@ public class CreateBuildSlaveAMI {
 	protected static EC2Service getEC2Service(String account) {
 		AWSCredentials creds = Auth.getAwsCredentials(account);
 		WaitService ws = new DefaultWaitService();
-		EC2ServiceContext ec = EC2ServiceContext.create(creds);
+		String region = Regions.US_WEST_1.getName();
+		EC2ServiceContext ec = new EC2ServiceContext.Builder(creds).withRegionName(Optional.of(region)).build();
 		return new DefaultEC2Service(ec, ws);
 	}
 
