@@ -163,7 +163,7 @@ while getopts hq flag; do
       QUIET="true";
       ;;
     p)
-      PACKAGES="$OPTARG";
+      PACKAGES="$PACKAGES $OPTARG";
       ;;
     ?)
       usage;
