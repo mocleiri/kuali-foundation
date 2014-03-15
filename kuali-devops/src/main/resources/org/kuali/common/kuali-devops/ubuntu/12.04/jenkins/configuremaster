@@ -97,6 +97,9 @@ function configure_tomcat_user {
   cp /root/.bashrc       $TOMCAT_HOME/.bash_profile
   cp /root/.bash_aliases $TOMCAT_HOME/.bash_aliases
   
+  echo "MAVEN_OPTS=\"$MAVEN_OPTS\"" >> $TOMCAT_HOME/.bash_aliases
+  echo "export MAVEN_OPTS"          >> $TOMCAT_HOME/.bash_aliases
+  
   # Make sure everything is owned by tomcat
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
   
@@ -125,9 +128,10 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] version password" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] [-m \"-Xmx2g -XX:MaxPermSize=256m\"] version password" 1>&2; exit 1; }
 
 QUIET=false
+MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=256m "
 while getopts hq flag; do
   case $flag in
     h)
@@ -135,6 +139,9 @@ while getopts hq flag; do
       ;;
     q)
       QUIET="true";
+      ;;
+    m)
+      MAVEN_OPTS="$OPTARG";
       ;;
     ?)
       usage;
