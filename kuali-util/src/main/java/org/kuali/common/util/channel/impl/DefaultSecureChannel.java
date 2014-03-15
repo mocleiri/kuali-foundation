@@ -143,7 +143,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 		try {
 			// Echo the command, if requested
 			if (this.context.isEcho()) {
-				logger.info(format("%s", new String(context.getCommand(), this.context.getEncoding())));
+				logger.info(format("[%s]", new String(context.getCommand(), this.context.getEncoding())));
 			}
 			// Preserve start time
 			long start = currentTimeMillis();
@@ -172,7 +172,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 			// Echo the command, if requested
 			if (this.context.isDebug()) {
 				String elapsed = FormatUtils.getTime(result.getElapsed());
-				logger.info(format("command completed -> [%s] - [%s]", new String(context.getCommand(), this.context.getEncoding()), elapsed));
+				logger.info(format("[%s] - [elapsed: %s]", new String(context.getCommand(), this.context.getEncoding()), elapsed));
 			}
 			// Return the result
 			return result;
