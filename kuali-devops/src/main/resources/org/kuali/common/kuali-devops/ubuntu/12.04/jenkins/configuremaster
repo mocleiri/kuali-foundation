@@ -142,6 +142,8 @@ shift $(( OPTIND - 1 ));
 JENKINS_VERSION=$1
 GPG_PASSPHRASE=$2
 
+check_args
+
 TOMCAT=tomcat7
 TOMCAT_HOME=/home/$TOMCAT
 JENKINS_HOME=$TOMCAT_HOME/.jenkins
