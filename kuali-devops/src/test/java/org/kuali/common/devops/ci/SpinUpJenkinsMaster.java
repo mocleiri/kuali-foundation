@@ -93,8 +93,8 @@ public class SpinUpJenkinsMaster {
 			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
 			EC2Service service = getEC2Service(amazonAccount);
-			Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags);
-			// Instance instance = service.getInstance("i-0261a321");
+			// Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags);
+			Instance instance = service.getInstance("i-da8091f4");
 			info("public dns: %s", instance.getPublicDnsName());
 			updateDns(instance, ALIASFQDN);
 			verifySSH("ubuntu", instance.getPublicDnsName(), privateKey);
