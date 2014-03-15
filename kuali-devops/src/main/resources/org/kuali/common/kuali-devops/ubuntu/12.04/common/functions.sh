@@ -20,11 +20,14 @@ function download_url {
   FILENAME=$2
   USERNAME=$3
   PASSWORD=$4
+  CHECKURL=$5
   
   check_not_blank URL $URL
   check_not_blank FILENAME $FILENAME
   
-  check_url_exists $URL $USERNAME $PASSWORD
+  if [ ! "$CHECKURL" == "false" ]; then
+    check_url_exists $URL $USERNAME $PASSWORD
+  fi
   
   CURL_COMMAND="curl --location --fail --create-dirs"
   if [ -n "$USERNAME" ]; then 
