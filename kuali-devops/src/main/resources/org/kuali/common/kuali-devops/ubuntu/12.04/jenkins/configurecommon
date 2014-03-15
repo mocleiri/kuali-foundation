@@ -15,10 +15,6 @@
 # limitations under the License.
 #
 
-function check_args {
-  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
-}
-
 function install_packages {
   echo "install   -> custom packages"
   execute_quietly "apt-get install subversion git graphviz firefox -y"
@@ -140,6 +136,10 @@ function touch_subversion_repos {
   
 }
 
+
+function check_args {
+  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
+}
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
