@@ -21,21 +21,8 @@ function check_args {
 
 # connect to a remote server, zip jenkins config, and scp it to the local machine
 function encrypt_config {
-
-  ZIP_FILE="$MY_DIR/../../../jenkins/master.zip"
-  GPG_FILE="$ZIP_FILE.gpg"
-  EXCLUDES="$EXCLUDES **/plugins/**"
-  EXCLUDES="$EXCLUDES **/workspace/**"
-  EXCLUDES="$EXCLUDES **/config-history/**"
   cd /home/tomcat7
-  ZIP="zip -r $ZIP_FILE .jenkins -x $EXCLUDES"
-  echo $ZIP
-  echo "zip     -> master config
-  execute_quietly "$ZIP"
-  echo "encrypt -> master config
-  encrypt_file $ZIP_FILE $GPG_FILE
-  execute_quietly "rm $ZIP_FILE"
-  
+  zip -r /mnt/foo.zip .jenkins
 }
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
