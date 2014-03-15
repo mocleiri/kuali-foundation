@@ -101,6 +101,7 @@ function execute_quietly {
   if [ "$QUIET" = "true" ]; then
     $COMMAND > /dev/null 2>&1
   else
+    echo "$COMMAND"
     $COMMAND
   fi
   check_status $COMMAND
