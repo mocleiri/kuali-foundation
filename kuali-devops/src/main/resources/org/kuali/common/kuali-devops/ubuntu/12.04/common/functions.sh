@@ -15,6 +15,11 @@
 # limitations under the License.
 #
 
+function install_packages {
+  echo "packages  -> $PACKAGES"
+  execute_quietly "apt-get install $PACKAGES -y"
+}
+
 # Make sure a variable is set and is not the empty string
 # usage: check_not_blank JDK $JDK
 function check_not_blank {

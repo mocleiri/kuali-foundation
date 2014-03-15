@@ -15,11 +15,6 @@
 # limitations under the License.
 #
 
-function install_packages {
-  echo "install   -> custom packages"
-  execute_quietly "apt-get install $PACKAGES -y"
-}
-
 function install_maven {
   MAVEN_VERSION=$1
   MAVEN_ABBR=$2
