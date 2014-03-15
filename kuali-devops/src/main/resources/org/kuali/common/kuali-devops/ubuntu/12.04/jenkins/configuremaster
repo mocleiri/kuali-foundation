@@ -98,6 +98,14 @@ function configure_tomcat_user {
   
 }
 
+function configure_jenkins_location {
+<?xml version='1.0' encoding='UTF-8'?>
+<jenkins.model.JenkinsLocationConfiguration>
+  <adminAddress>Kuali CI &lt;jcaddel@kuali.org&gt;</adminAddress>
+  <jenkinsUrl>https://ci.kuali.org/</jenkinsUrl>
+</jenkins.model.JenkinsLocationConfiguration>
+}
+
 function configure_jenkins {
   
   echo "configure -> jenkins:application"

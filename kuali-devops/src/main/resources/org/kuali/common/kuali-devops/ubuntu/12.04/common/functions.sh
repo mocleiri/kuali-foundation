@@ -144,3 +144,12 @@ function check_tomcat {
     usage
   fi
 }
+
+function read_lines {
+  FILENAME=$1
+  check_exists $FILENAME
+  while read LINE
+  do
+    echo "$LINE"
+  done < $FILENAME
+}
