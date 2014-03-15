@@ -1,6 +1,6 @@
 package org.kuali.common.aws.ec2.model;
 
-import org.kuali.common.util.Assert;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 public enum Distro {
 
@@ -13,7 +13,7 @@ public enum Distro {
 	private final String name;
 
 	private Distro(String name) {
-		Assert.noBlanks(name);
+		checkNotBlank(name, "name");
 		this.name = name;
 	}
 
