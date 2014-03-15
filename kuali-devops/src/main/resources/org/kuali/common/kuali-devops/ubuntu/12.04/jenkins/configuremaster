@@ -29,7 +29,7 @@ function install_jenkins {
 
   echo "download  -> jenkins:war - [$JENKINS_URL]"
   rm -rf $TOMCAT_WEBAPPS/* $JENKINS_HOME
-  download_url $JENKINS_URL $TOMCAT_ROOT_WAR"
+  download_url $JENKINS_URL $TOMCAT_ROOT_WAR
   chown $TOMCAT:$TOMCAT $TOMCAT_ROOT_WAR
   $TOMCAT_CLEANUP
   
