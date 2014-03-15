@@ -138,6 +138,7 @@ function touch_subversion_repos {
 
 
 function check_args {
+  check_not_blank JENKINS_MASTER $JENKINS_MASTER
   check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
 }
 
@@ -145,7 +146,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] password" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] jenkinsmaster password" 1>&2; exit 1; }
 
 QUIET=false
 while getopts hq flag; do
@@ -165,7 +166,8 @@ done
 
 shift $(( OPTIND - 1 ));
 
-GPG_PASSPHRASE=$1
+JENKINS_MASTER=$1
+GPG_PASSPHRASE=$2
 
 check_args
 
