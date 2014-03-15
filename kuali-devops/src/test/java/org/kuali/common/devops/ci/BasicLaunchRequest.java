@@ -1,8 +1,8 @@
 package org.kuali.common.devops.ci;
 
-import static org.kuali.common.aws.ec2.model.AMI.UBUNTU_64_BIT_PRECISE_LTS_1204;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
 
+import org.kuali.common.aws.ec2.model.AMI;
 import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
@@ -30,7 +30,7 @@ public final class BasicLaunchRequest {
 
 	public static class Builder extends ValidatingBuilder<BasicLaunchRequest> {
 
-		private String ami = UBUNTU_64_BIT_PRECISE_LTS_1204.getId();
+		private String ami = AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_EAST.getId();
 		private InstanceType type = InstanceType.C3Xlarge;
 		private RootVolume rootVolume = RootVolume.create(32, true);
 		private int timeoutMillis = getMillisAsInt("15m");

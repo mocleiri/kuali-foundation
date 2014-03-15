@@ -6,7 +6,7 @@ public class Tags {
 
 	public enum Name {
 
-		MASTER("ci.master"), MASTER_BETA("ci.master.beta"), SLAVE("ci.slave"), NEXUS("nexus");
+		MASTER("ci.master"), MASTER_BETA("ci.master.beta"), SLAVE("ci.slave"), SLAVE_BETA("ci.slave.beta"), NEXUS("nexus");
 
 		public static final String NAME = "Name";
 

@@ -241,8 +241,7 @@ public class CreateBuildSlaveAMI {
 
 	protected static List<Tag> getSlaveTags() {
 		List<Tag> tags = newArrayList();
-		tags.addAll(getTags());
-		tags.add(Tags.Name.SLAVE.getTag());
+		tags.addAll(getCommonTags(Tags.Name.SLAVE.getTag()));
 		return ImmutableList.copyOf(tags);
 	}
 
