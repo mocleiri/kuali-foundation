@@ -25,7 +25,7 @@ function scp_zip_file {
 
   ZIP_FILE="master.zip"
   SERVER_ZIP="/mnt/$ZIP_FILE"
-  GPG_FILE="${project.basedir}/src/main/resources/${project.groupId.path}/${project.artifactId}/jenkins/$ZIP_FILE.gpg"
+  GPG_FILE="$MY_DIR/../../../jenkins/$ZIP_FILE.gpg"
   
   SSH1="rm -f $SERVER_ZIP"
   SSH2="cd /home/tomcat7"
