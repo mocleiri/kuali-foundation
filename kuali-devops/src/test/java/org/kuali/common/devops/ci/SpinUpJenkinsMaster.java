@@ -112,7 +112,7 @@ public class SpinUpJenkinsMaster {
 			info("public dns: %s", instance.getPublicDnsName());
 			updateDns(instance, ALIASFQDN);
 			String dns = instance.getPublicDnsName();
-			// While spinning things up, use the Amazon DNS name as the DNSME alias can take a while (few minutes) to propagate
+			// While spinning things up, use the Amazon DNS name since the DNSME alias can take a while (few minutes) to propagate
 			verifySSH(UBUNTU, dns, privateKey);
 			info("[%s] is online with ssh - %s", dns, FormatUtils.getTime(sw));
 			bootstrap(dns, privateKey);
@@ -213,7 +213,8 @@ public class SpinUpJenkinsMaster {
 	}
 
 	protected static SecureChannel openSecureChannel(String username, String hostname, String privateKey, boolean quiet) throws IOException {
-		ChannelContext context = getSilentContextBuilder(hostname).echo(!quiet).debug(!quiet).username(username).privateKey(privateKey).connectTimeout(getMillisAsInt("5s")).build();
+		ChannelContext context = getSilentContextBuilder(hostname).echo(!quiet).debug(!quiet).username(username).privateKey(privateKey).connectTimeout(getMillisAsInt("5s"))
+				.build();
 		ChannelService service = new DefaultChannelService();
 		return service.openChannel(context);
 	}
