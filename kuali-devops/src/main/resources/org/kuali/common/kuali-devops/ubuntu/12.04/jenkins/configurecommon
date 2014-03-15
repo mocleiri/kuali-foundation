@@ -88,7 +88,7 @@ function configure_secrets {
   rm $GPG_DECRYPTED
 
   # Setup GPG
-  GPG_KEY=/root/.ssh/private.key.gpg
+  GPG_KEY=/root/.ssh/jcaddel.gpg.private
   rm -rf /root/.gnupg
   execute_quietly "gpg --allow-secret-key-import --import $GPG_KEY"
   
