@@ -31,13 +31,13 @@ function install_maven {
   MAVEN_URL=http://search.maven.org/remotecontent?filepath=org/apache/maven/apache-maven/$MAVEN_VERSION/$MAVEN_ZIP
   MAVEN_DIR=$MAVEN_BASEDIR/$MAVEN_ARTIFACT_ID-$MAVEN_VERSION
   MAVEN_FILE=$MAVEN_BASEDIR/$MAVEN_ZIP
-  curl $MAVEN_URL --silent --location --create-dirs --output $MAVEN_FILE
+  execute_quietly "curl $MAVEN_URL --location --create-dirs --output $MAVEN_FILE"
   MAVEN_TARGET=$MAVEN_DIR
   MAVEN_LINK=$MAVEN_BASEDIR/mvn$MAVEN_ABBR
   MAVEN_USR_BIN=/usr/bin/mvn$MAVEN_ABBR
 
   rm -rf $MAVEN_DIR $MAVEN_LINK $MAVEN_USR_BIN
-  unzip -qq $MAVEN_FILE -d $MAVEN_BASEDIR
+  execute_quietly "unzip $MAVEN_FILE -d $MAVEN_BASEDIR"
   chmod -R 755 $MAVEN_DIR
   ln -s $MAVEN_TARGET $MAVEN_LINK
   ln -s $MAVEN_BASEDIR/mvn$MAVEN_ABBR/bin/mvn $MAVEN_USR_BIN
