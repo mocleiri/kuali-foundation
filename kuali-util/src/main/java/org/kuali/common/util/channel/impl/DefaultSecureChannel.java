@@ -20,6 +20,7 @@ import static java.lang.System.currentTimeMillis;
 import static org.kuali.common.util.CollectionUtils.toCSV;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
+import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
@@ -54,7 +55,6 @@ import org.kuali.common.util.channel.model.Status;
 import org.kuali.common.util.channel.util.ChannelUtils;
 import org.kuali.common.util.channel.util.SSHUtils;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
@@ -69,7 +69,7 @@ import com.jcraft.jsch.SftpException;
 
 public final class DefaultSecureChannel implements SecureChannel {
 
-	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureChannel.class);
+	private static final Logger logger = newLogger();
 
 	private static final String SFTP = "sftp";
 	private static final String EXEC = "exec";
