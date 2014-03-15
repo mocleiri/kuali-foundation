@@ -40,7 +40,7 @@ public class Tags {
 
 	public enum Stack {
 
-		DEVELOPMENT("development"), TESTING("testing"), STAGING("staging"), PRODUCTION("production");
+		DEVELOPMENT("dev"), TESTING("test"), STAGING("stg"), PRODUCTION("prod");
 
 		public static final String NAME = "Stack";
 
