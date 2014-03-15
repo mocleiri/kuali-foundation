@@ -153,13 +153,13 @@ public class SpinUpJenkinsMaster {
 		File repo = getDefaultLocalRepository();
 		CanonicalFile jar = new CanonicalFile(RepositoryUtils.getFile(repo, artifact));
 		String filename = project.getArtifactId() + ".jar";
+		String directory = format("/mnt/%s", project.getArtifactId());
 		RemoteFile remote = new RemoteFile.Builder("/mnt/" + filename).build();
 		String to = username + "@" + hostname + ":" + remote.getAbsolutePath();
 		info("scp:from -> %s", jar);
 		info("scp:to   -> %s", to);
 		channel.scp(jar, remote);
-		info("unpack   -> %s", remote.getAbsolutePath());
-		String directory = format("/mnt/%s", project.getArtifactId());
+		info("unpack   -> %s to %s", remote.getAbsolutePath(), directory);
 		execFormattedCommand(channel, true, "apt-get install unzip -y");
 		execFormattedCommand(channel, true, "rm -rf %s", directory);
 		execFormattedCommand(channel, true, "unzip -o %s -d %s", remote.getAbsolutePath(), directory);
