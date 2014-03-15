@@ -25,6 +25,7 @@ function download_url {
   check_not_blank URL $URL
   check_not_blank FILENAME $FILENAME
   
+  echo "CHECKURL=$CHECKURL"
   if [ ! "$CHECKURL" == "false" ]; then
     check_url_exists $URL $USERNAME $PASSWORD
   fi
