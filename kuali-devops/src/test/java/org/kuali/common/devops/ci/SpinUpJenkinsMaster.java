@@ -109,11 +109,13 @@ public class SpinUpJenkinsMaster {
 			// Instance instance = service.getInstance("i-da8091f4");
 			info("public dns: %s", instance.getPublicDnsName());
 			updateDns(instance, ALIASFQDN);
-			verifySSH("ubuntu", ALIASFQDN, privateKey);
-			info("[%s] is online with ssh - %s", ALIASFQDN, FormatUtils.getTime(sw));
-			bootstrap(ALIASFQDN, privateKey);
-			SecureChannel channel = openSecureChannel(ROOT, ALIASFQDN, privateKey);
-			String basedir = publishProject(channel, pid, ROOT, ALIASFQDN);
+			String dns = instance.getPublicDnsName();
+			// While spinning things up, use the Amazon DNS name as the DNSME alias can take a while (few minutes) to propagate
+			verifySSH(UBUNTU, dns, privateKey);
+			info("[%s] is online with ssh - %s", dns, FormatUtils.getTime(sw));
+			bootstrap(dns, privateKey);
+			SecureChannel channel = openSecureChannel(ROOT, dns, privateKey);
+			String basedir = publishProject(channel, pid, ROOT, dns);
 			String decrypted = Auth.decrypt(gpgPassphrase);
 			String basics = getBashScript(basedir, pid, distro, distroVersion, "common/configurebasics");
 			String sethostname = getBashScript(basedir, pid, distro, distroVersion, "common/sethostname");
@@ -128,7 +130,9 @@ public class SpinUpJenkinsMaster {
 			exec(channel, tomcat, "-q", "tomcat7", "jdk7", decrypted);
 			exec(channel, common, "-q", ALIASFQDN, decrypted);
 			exec(channel, master, "-q", "1.532.2", decrypted);
-			info("[%s] jenkins is ready - %s", ALIASFQDN, FormatUtils.getTime(sw));
+			info("[%s] jenkins is ready - %s", dns, FormatUtils.getTime(sw));
+			info("Verifying SSH over friendly DNS name - [%s]", ALIASFQDN);
+			verifySSH(ROOT, ALIASFQDN, privateKey);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
