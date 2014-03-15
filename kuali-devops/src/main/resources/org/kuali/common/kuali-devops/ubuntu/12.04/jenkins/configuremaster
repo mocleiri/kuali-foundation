@@ -99,7 +99,9 @@ function configure_tomcat_user {
 
 function configure_jenkins_location {
 
+  # explain what we are up to
   echo "configure -> jenkins:location"
+  
   # Setup vars holding the XML config for the jenkins location
   source $MY_DIR/jenkinslocationconfig.sh
   
