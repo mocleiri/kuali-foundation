@@ -8,6 +8,9 @@ import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.condition.Condition;
 
+/**
+ * Returns true if the service can open a channel using the context, false otherwise.
+ */
 public final class VerifiedSSHCondition implements Condition {
 
 	public VerifiedSSHCondition(ChannelService service, ChannelContext context) {
