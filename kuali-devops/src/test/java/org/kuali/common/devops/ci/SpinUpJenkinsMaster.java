@@ -88,6 +88,7 @@ public class SpinUpJenkinsMaster {
 	@Test
 	public void test() {
 		try {
+			logger.info(vs.getOs().getName());
 			KeyPair keyPair = CreateBuildSlaveAMI.KUALI_KEY;
 			String privateKey = keyPair.getPrivateKey().get();
 			BasicLaunchRequest request = getMasterLaunchRequest();
