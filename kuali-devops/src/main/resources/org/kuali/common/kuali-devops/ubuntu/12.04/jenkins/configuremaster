@@ -99,6 +99,7 @@ function configure_tomcat_user {
 
 function configure_jenkins_location {
 
+  echo "configure -> jenkins:location"
   # Setup vars holding the XML config for the jenkins location
   source $MY_DIR/jenkinslocationconfig.sh
   
@@ -124,6 +125,7 @@ function configure_jenkins {
   decrypt_file $GPG_ENCRYPTED $GPG_DECRYPTED
   execute_quietly "unzip -o $GPG_DECRYPTED -d $TOMCAT_HOME"
   execute_quietly "rm $GPG_DECRYPTED"
+  configure_jenkins_location
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
 
 }
