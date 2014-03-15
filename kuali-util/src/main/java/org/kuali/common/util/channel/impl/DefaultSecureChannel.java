@@ -168,7 +168,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 			// Construct a result object
 			CommandResult result = new CommandResult(context.getCommand(), exec.getExitStatus(), start);
 			// Validate that things turned out ok (or that we don't care)
-			validate(context, result, this.context.getEncoding());
+			validate(context, result);
 			// Echo the command, if requested
 			if (this.context.isDebug()) {
 				String elapsed = FormatUtils.getTime(result.getElapsed());
@@ -188,7 +188,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
-	protected void validate(CommandContext context, CommandResult result, String encoding) throws UnsupportedEncodingException {
+	protected void validate(CommandContext context, CommandResult result) throws UnsupportedEncodingException {
 		if (context.isIgnoreExitValue()) {
 			return;
 		}
@@ -202,8 +202,13 @@ public final class DefaultSecureChannel implements SecureChannel {
 				return;
 			}
 		}
-		String command = new String(context.getCommand(), encoding);
-		throw illegalState("\nerror: [%s]\ninvalid exit value [%s].  valid values are [%s]", command, result.getExitValue(), toCSV(context.getSuccessCodes()));
+		String command = new String(context.getCommand(), this.context.getEncoding());
+		if (this.context.isEcho() || this.context.isDebug()) {
+			// Only add the command to the error message if they have enabled echo or debug
+			throw illegalState("\nerror: [%s]\ninvalid exit value [%s].  valid values are [%s]", command, result.getExitValue(), toCSV(context.getSuccessCodes()));
+		} else {
+			throw illegalState("\ninvalid exit value [%s].  valid values are [%s]", result.getExitValue(), toCSV(context.getSuccessCodes()));
+		}
 	}
 
 	protected ChannelExec getChannelExec() throws JSchException {
