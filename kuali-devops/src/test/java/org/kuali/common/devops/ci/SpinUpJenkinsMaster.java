@@ -135,7 +135,7 @@ public class SpinUpJenkinsMaster {
 			exec(channel, java, quietFlag, "jdk7", "u51", gpgPassphrase);
 			exec(channel, tomcat, quietFlag, "tomcat7", "jdk7", gpgPassphrase);
 			exec(channel, common, quietFlag, ALIASFQDN, gpgPassphrase);
-			exec(channel, master, quietFlag, "1.532.2", gpgPassphrase);
+			exec(channel, master, quietFlag, ALIASFQDN, "1.532.2", gpgPassphrase);
 
 			// The spin up process should have given DNS enough time to settle down
 			info("Verifying SSH to -> [%s]", ALIASFQDN);
