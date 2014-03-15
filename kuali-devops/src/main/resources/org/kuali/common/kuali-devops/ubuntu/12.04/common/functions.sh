@@ -15,20 +15,19 @@
 # limitations under the License.
 #
 
+# download a url to file
+# create any local directories as needed
+# follow redirects
+# return a non-zero error code if the download fails (ie 404 etc)
+# optionally use basic authentication
 function download_url {
   URL=$1
   FILENAME=$2
   USERNAME=$3
   PASSWORD=$4
-  CHECKURL=$5
   
   check_not_blank URL $URL
   check_not_blank FILENAME $FILENAME
-  
-  echo "CHECKURL=$CHECKURL"
-  if [ ! "$CHECKURL" == "false" ]; then
-    check_url_exists $URL $USERNAME $PASSWORD
-  fi
   
   CURL_COMMAND="curl --location --fail --create-dirs"
   if [ -n "$USERNAME" ]; then 
@@ -39,23 +38,6 @@ function download_url {
   
   execute_quietly "$CURL_COMMAND"
 }
-
-function check_url_exists {
-  URL=$1
-  USERNAME=$2
-  PASSWORD=$3
-  check_not_blank URL $URL
-  CURL_COMMAND="curl --location --fail --head"
-  
-  if [ -n "$USERNAME" ]; then 
-    CURL_COMMAND="$CURL_COMMAND --user $USERNAME:$PASSWORD" 
-  fi
-  
-  CURL_COMMAND="$CURL_COMMAND $URL"
-  
-  execute_quietly "$CURL_COMMAND"
-}
-
 
 function install_packages {
   echo "packages  -> $PACKAGES"
