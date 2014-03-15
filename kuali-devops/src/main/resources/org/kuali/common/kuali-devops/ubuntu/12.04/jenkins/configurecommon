@@ -146,7 +146,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] [-m \"-Xmx2g -XX:MaxPermSize=256m\"] [-p "package1 package2 package3"] master password" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] [-m \"-Xmx2g -XX:MaxPermSize=256m\"] [-p \"package1 package2 package3\"] master password" 1>&2; exit 1; }
 
 QUIET=false
 PACKAGES="subversion git graphviz firefox"
