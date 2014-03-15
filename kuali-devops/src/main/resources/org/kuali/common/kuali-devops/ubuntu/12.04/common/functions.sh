@@ -26,7 +26,7 @@ function download_url {
   
   check_url_exists $URL $USERNAME $PASSWORD
   
-  CURL_COMMAND="curl --location --fail"
+  CURL_COMMAND="curl --location --fail --create-dirs"
   if [ -n "$USERNAME" ]; then 
     CURL_COMMAND="$CURL_COMMAND --user $USERNAME:$PASSWORD" 
   fi
