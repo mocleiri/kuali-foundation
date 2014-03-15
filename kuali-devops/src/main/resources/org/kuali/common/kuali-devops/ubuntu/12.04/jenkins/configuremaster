@@ -42,7 +42,7 @@ function install_plugin {
   PLUGIN_URL=$PLUGIN_DOWNLOADS/$PLUGIN_NAME/$PLUGIN_VERSION/$PLUGIN_NAME.hpi
   PLUGIN_DIR=$JENKINS_HOME/plugins
   PLUGIN_FILE=$PLUGIN_DIR/$PLUGIN_NAME.jpi
-  curl $PLUGIN_URL --silent --location --create-dirs --output $PLUGIN_FILE
+  execute_quietly "curl $PLUGIN_URL --location --create-dirs --output $PLUGIN_FILE"
   touch $PLUGIN_FILE.pinned 
   
 }
