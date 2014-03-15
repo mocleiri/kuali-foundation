@@ -124,11 +124,8 @@ function touch_subversion_repo {
   SVN_AUTH="--username=$SVN_USERNAME --password=$SVN_PASSWORD"
   # the message can't have spaces in it
   SVN_MESSAGE="automated-auth-check"
-  SVN_CREATE="svn $QUIET mkdir  $SVN_TOUCH_URL --message $SVN_MESSAGE --parents $SVN_AUTH"
-  SVN_DELETE="svn $QUIET delete $SVN_TOUCH_URL --message $SVN_MESSAGE"
-  
-  $SVN_CREATE
-  $SVN_DELETE
+  execute_quietly "svn mkdir  $SVN_TOUCH_URL --message $SVN_MESSAGE --parents $SVN_AUTH"
+  execute_quietly "svn delete $SVN_TOUCH_URL --message $SVN_MESSAGE"
   
 }
 
