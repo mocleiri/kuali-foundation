@@ -105,6 +105,7 @@ function configure_jenkins {
   echo "configure -> jenkins:application"
   GPG_ENCRYPTED=$MY_DIR/../../../jenkins/master.zip.gpg
   GPG_DECRYPTED=$MY_DIR/../../../jenkins/master.zip
+  decrypt_file $GPG_ENCRYPTED $GPG_DECRYPTED
   unzip -o $GPG_DECRYPTED -d $TOMCAT_HOME
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
   
