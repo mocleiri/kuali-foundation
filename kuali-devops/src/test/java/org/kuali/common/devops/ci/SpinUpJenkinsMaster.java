@@ -78,9 +78,9 @@ public class SpinUpJenkinsMaster {
 	private final Distro distro = Distro.UBUNTU;
 	private final String distroVersion = "12.04";
 
-	// TODO Shorten this to ci.kuali.org when ready
-	private static final String aliasFQDN = "beta-ci.kuali.org";
-	// TODO Change this to 256 when ready
+	// TODO Change all this stuff when ready
+	private static final String SUBDOMAIN = "beta-ci";
+	private static final String ALIASFQDN = Joiner.on('.').join(SUBDOMAIN,DOMAIN);
 	private final int defaultRootVolumeSize = 32;
 
 	@Test
@@ -97,11 +97,12 @@ public class SpinUpJenkinsMaster {
 			info("public dns: %s", instance.getPublicDnsName());
 			// updateDns(instance, aliasFQDN);
 			verifySSH("ubuntu", instance.getPublicDnsName(), privateKey);
-			info("[%s] is online with ssh - %s", aliasFQDN, FormatUtils.getTime(sw));
+			info("[%s] is online with ssh - %s", ALIASFQDN, FormatUtils.getTime(sw));
 			bootstrap(instance.getPublicDnsName(), privateKey);
-			SecureChannel channel = openSecureChannel("root", aliasFQDN, privateKey);
+			SecureChannel channel = openSecureChannel("root", ALIASFQDN, privateKey);
 			String basedir = publishProject(channel, pid);
 			String basics = getBashScript(basedir, pid, distro, distroVersion, "common/configurebasics");
+			String hostname = getBashScript(basedir, pid, distro, distroVersion, "common/sethostname");
 			String java = getBashScript(basedir, pid, distro, distroVersion, "common/installjava");
 			String tomcat = getBashScript(basedir, pid, distro, distroVersion, "common/installtomcat");
 			exec(channel, basics, "-q");
