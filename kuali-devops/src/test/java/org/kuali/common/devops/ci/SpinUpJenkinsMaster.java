@@ -98,6 +98,7 @@ public class SpinUpJenkinsMaster {
 	@Test
 	public void test() {
 		try {
+			boolean quiet = Boolean.getBoolean("ec2.quiet");
 			logger.info(vs.getOs().getName());
 			KeyPair keyPair = CreateBuildSlaveAMI.KUALI_KEY;
 			String privateKey = keyPair.getPrivateKey().get();
@@ -114,8 +115,8 @@ public class SpinUpJenkinsMaster {
 			verifySSH(UBUNTU, dns, privateKey);
 			info("[%s] is online with ssh - %s", dns, FormatUtils.getTime(sw));
 			bootstrap(dns, privateKey);
-			SecureChannel channel = openSecureChannel(ROOT, dns, privateKey);
-			String basedir = publishProject(channel, pid, ROOT, dns);
+			SecureChannel channel = openSecureChannel(ROOT, dns, privateKey, quiet);
+			String basedir = publishProject(channel, pid, ROOT, dns, quiet);
 			String decrypted = Auth.decrypt(gpgPassphrase);
 			String basics = getBashScript(basedir, pid, distro, distroVersion, "common/configurebasics");
 			String sethostname = getBashScript(basedir, pid, distro, distroVersion, "common/sethostname");
@@ -123,13 +124,14 @@ public class SpinUpJenkinsMaster {
 			String tomcat = getBashScript(basedir, pid, distro, distroVersion, "common/installtomcat");
 			String common = getBashScript(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
 			String master = getBashScript(basedir, pid, distro, distroVersion, "jenkins/configuremaster");
-			exec(channel, basics, "-q");
+			String quietFlag = (quiet) ? "-q" : "";
+			exec(channel, basics, quietFlag);
 			exec(channel, sethostname, SUBDOMAIN, DOMAIN);
-			exec(channel, java, "-q", "jdk6", "u45", decrypted);
-			exec(channel, java, "-q", "jdk7", "u51", decrypted);
-			exec(channel, tomcat, "-q", "tomcat7", "jdk7", decrypted);
-			exec(channel, common, "-q", ALIASFQDN, decrypted);
-			exec(channel, master, "-q", "1.532.2", decrypted);
+			exec(channel, java, quietFlag, "jdk6", "u45", decrypted);
+			exec(channel, java, quietFlag, "jdk7", "u51", decrypted);
+			exec(channel, tomcat, quietFlag, "tomcat7", "jdk7", decrypted);
+			exec(channel, common, quietFlag, ALIASFQDN, decrypted);
+			exec(channel, master, quietFlag, "1.532.2", decrypted);
 			info("[%s] jenkins is ready - %s", dns, FormatUtils.getTime(sw));
 
 			// The spin up process should have given DNS enough time to settle down
@@ -145,7 +147,7 @@ public class SpinUpJenkinsMaster {
 		enableRootSSH(UBUNTU, hostname, privateKey);
 	}
 
-	protected static String publishProject(SecureChannel channel, ProjectIdentifier pid, String username, String hostname) {
+	protected static String publishProject(SecureChannel channel, ProjectIdentifier pid, String username, String hostname, boolean quiet) {
 		ProjectService service = new DefaultProjectService(new BasicEnvironmentService());
 		Project project = service.getProject(pid);
 		info(project.getArtifactId());
@@ -160,10 +162,10 @@ public class SpinUpJenkinsMaster {
 		info("scp:to   -> %s", to);
 		channel.scp(jar, remote);
 		info("unpack   -> %s to %s", remote.getAbsolutePath(), directory);
-		execFormattedCommand(channel, true, "apt-get install unzip -y");
-		execFormattedCommand(channel, true, "rm -rf %s", directory);
-		execFormattedCommand(channel, true, "unzip -o %s -d %s", remote.getAbsolutePath(), directory);
-		execFormattedCommand(channel, true, "chmod -R 755 %s", directory);
+		execFormattedCommand(channel, quiet, "apt-get install unzip -y");
+		execFormattedCommand(channel, quiet, "rm -rf %s", directory);
+		execFormattedCommand(channel, quiet, "unzip -o %s -d %s", remote.getAbsolutePath(), directory);
+		execFormattedCommand(channel, quiet, "chmod -R 755 %s", directory);
 		return directory;
 	}
 
@@ -209,14 +211,14 @@ public class SpinUpJenkinsMaster {
 		channel.exec(context);
 	}
 
-	protected static SecureChannel openSecureChannel(String username, String hostname, String privateKey) throws IOException {
-		ChannelContext context = getSilentContextBuilder(hostname).username(username).privateKey(privateKey).connectTimeout(getMillisAsInt("5s")).build();
+	protected static SecureChannel openSecureChannel(String username, String hostname, String privateKey, boolean quiet) throws IOException {
+		ChannelContext context = getSilentContextBuilder(hostname).echo(quiet).debug(quiet).username(username).privateKey(privateKey).connectTimeout(getMillisAsInt("5s")).build();
 		ChannelService service = new DefaultChannelService();
 		return service.openChannel(context);
 	}
 
 	protected static void enableRootSSH(String username, String hostname, String privateKey) throws IOException {
-		SecureChannel channel = openSecureChannel(username, hostname, privateKey);
+		SecureChannel channel = openSecureChannel(username, hostname, privateKey, true);
 		execFormattedCommand(channel, true, "sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys");
 	}
 
