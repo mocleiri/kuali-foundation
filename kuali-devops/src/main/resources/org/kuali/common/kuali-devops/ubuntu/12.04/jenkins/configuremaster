@@ -95,19 +95,27 @@ function configure_tomcat_user {
   
   # Make sure everything is owned by tomcat
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
-  
 }
 
 function configure_jenkins_location {
-<?xml version='1.0' encoding='UTF-8'?>
-<jenkins.model.JenkinsLocationConfiguration>
-  <adminAddress>Kuali CI &lt;jcaddel@kuali.org&gt;</adminAddress>
-  <jenkinsUrl>https://ci.kuali.org/</jenkinsUrl>
-</jenkins.model.JenkinsLocationConfiguration>
+
+  # Setup vars holding the XML config for the jenkins location
+  source $MY_DIR/jenkinslocationconfig.sh
+  
+  # This is the config file holding the jenkins location
+  JENKINS_LOCATION_CONFIG_FILE=$JENKINS_HOME/jenkins.model.JenkinsLocationConfiguration.xml
+  
+  # echo our lines into that file
+  echo "$JENKINS_LOCATION_XML_LINE1" >  $JENKINS_LOCATION_CONFIG_FILE
+  echo "$JENKINS_LOCATION_XML_LINE2" >> $JENKINS_LOCATION_CONFIG_FILE
+  echo "$JENKINS_LOCATION_XML_LINE3" >> $JENKINS_LOCATION_CONFIG_FILE
+  echo "$JENKINS_LOCATION_XML_LINE4" >> $JENKINS_LOCATION_CONFIG_FILE
+  echo "$JENKINS_LOCATION_XML_LINE5" >> $JENKINS_LOCATION_CONFIG_FILE
+
 }
 
 function configure_jenkins {
-  
+
   echo "configure -> jenkins:application"
   JENKINS_CONFIG_DIR=$MY_DIR/../../../jenkins
   GPG_ENCRYPTED=$JENKINS_CONFIG_DIR/master.zip.gpg
@@ -117,11 +125,12 @@ function configure_jenkins {
   execute_quietly "unzip -o $GPG_DECRYPTED -d $TOMCAT_HOME"
   execute_quietly "rm $GPG_DECRYPTED"
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
-  
+
 }
 
 
 function check_args {
+  check_not_blank JENKINS_MASTER $JENKINS_MASTER
   check_not_blank JENKINS_VERSION $JENKINS_VERSION
   check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
 }
@@ -159,6 +168,7 @@ check_args
 TOMCAT=tomcat7
 TOMCAT_HOME=/home/$TOMCAT
 JENKINS_HOME=$TOMCAT_HOME/.jenkins
+JENKINS_ADMIN_EMAIL_ADDRESS=jcaddel@kuali.org
 
 echo "stop      -> $TOMCAT:service"
 execute_quietly "service $TOMCAT stop"
