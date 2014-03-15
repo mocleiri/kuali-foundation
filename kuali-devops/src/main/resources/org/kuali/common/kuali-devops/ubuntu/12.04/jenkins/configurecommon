@@ -140,14 +140,36 @@ function touch_subversion_repos {
   
 }
 
-MAVEN_BASEDIR=/usr/maven
-BASEDIR=$1
-SVN_PASSWORD=$2
-ZIP_PASSWORD=$3
-QUIET=${4-""}
+
+MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+ME=$(basename $0)
+source $MY_DIR/functions.sh
+
+usage() { echo "Usage: $ME [-h] [-q] password" 1>&2; exit 1; }
+
+QUIET=false
+while getopts hq flag; do
+  case $flag in
+    h)
+      usage;
+      ;;
+    q)
+      QUIET="true";
+      ;;
+    ?)
+      usage;
+      exit;
+      ;;
+  esac
+done
+
+shift $(( OPTIND - 1 ));
+
+GPG_PASSPHRASE=$1
 
 check_args
 
+MAVEN_BASEDIR=/usr/maven
 SVN_USERNAME=jcaddel
 
 configure_java
