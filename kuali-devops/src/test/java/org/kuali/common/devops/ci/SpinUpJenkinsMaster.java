@@ -105,6 +105,7 @@ public class SpinUpJenkinsMaster {
 			String sethostname = getBashScript(basedir, pid, distro, distroVersion, "common/sethostname");
 			String java = getBashScript(basedir, pid, distro, distroVersion, "common/installjava");
 			String tomcat = getBashScript(basedir, pid, distro, distroVersion, "common/installtomcat");
+			String common = getBashScript(basedir, pid, distro, distroVersion, "jenkins/common");
 			exec(channel, basics, "-q");
 			exec(channel, sethostname, SUBDOMAIN, DOMAIN);
 			exec(channel, java, "-q", "jdk6", "u45", Auth.decrypt(gpgPassphrase));
