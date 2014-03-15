@@ -106,11 +106,12 @@ public class SpinUpJenkinsMaster {
 			String java = getBashScript(basedir, pid, distro, distroVersion, "common/installjava");
 			String tomcat = getBashScript(basedir, pid, distro, distroVersion, "common/installtomcat");
 			String common = getBashScript(basedir, pid, distro, distroVersion, "jenkins/common");
+			String decrypted = Auth.decrypt(gpgPassphrase);
 			exec(channel, basics, "-q");
 			exec(channel, sethostname, SUBDOMAIN, DOMAIN);
-			exec(channel, java, "-q", "jdk6", "u45", Auth.decrypt(gpgPassphrase));
-			exec(channel, java, "-q", "jdk7", "u51", Auth.decrypt(gpgPassphrase));
-			exec(channel, tomcat, "-q", "tomcat7", "jdk7", Auth.decrypt(gpgPassphrase));
+			exec(channel, java, "-q", "jdk6", "u45", decrypted);
+			exec(channel, java, "-q", "jdk7", "u51", decrypted);
+			exec(channel, tomcat, "-q", "tomcat7", "jdk7", decrypted);
 			info("[%s] tomcat is installed - %s", ALIASFQDN, FormatUtils.getTime(sw));
 		} catch (Throwable e) {
 			e.printStackTrace();
