@@ -29,7 +29,9 @@ function encrypt_config {
   EXCLUDES="$EXCLUDES **/workspace/**"
   EXCLUDES="$EXCLUDES **/config-history/**"
   ZIP="zip -r $ZIP_FILE .jenkins -x $EXCLUDES"
+  echo "zip     -> master config
   execute_quietly "$ZIP"
+  echo "encrypt -> master config
   encrypt_file $ZIP_FILE $GPG_FILE
   execute_quietly "rm $ZIP_FILE"
   
