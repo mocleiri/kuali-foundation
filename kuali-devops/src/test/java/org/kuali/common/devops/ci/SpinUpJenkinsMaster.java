@@ -88,7 +88,8 @@ public class SpinUpJenkinsMaster {
 	// TODO Change these when ready
 	private static final Tag NAME = Tags.Name.MASTER_BETA.getTag();
 	private static final Tag STACK = Tags.Stack.TEST.getTag();
-	private static final String SUBDOMAIN = "beta-ci";
+	// private static final String SUBDOMAIN = "beta-ci";
+	private static final String SUBDOMAIN = "ci";
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 32;
 	private static final AMI DEFAULT_AMI = AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_WEST;
 
