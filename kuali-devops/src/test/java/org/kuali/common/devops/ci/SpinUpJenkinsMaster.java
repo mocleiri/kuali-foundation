@@ -118,7 +118,7 @@ public class SpinUpJenkinsMaster {
 			bootstrap(dns, privateKey);
 			SecureChannel channel = openSecureChannel(ROOT, dns, privateKey, quiet);
 			String basedir = publishProject(channel, pid, ROOT, dns, quiet);
-			String decrypted = Auth.decrypt(encryptedGPGpassphrase);
+			String gpgPassphrase = Auth.decrypt(encryptedGPGpassphrase);
 			String basics = getBashScript(basedir, pid, distro, distroVersion, "common/configurebasics");
 			String sethostname = getBashScript(basedir, pid, distro, distroVersion, "common/sethostname");
 			String java = getBashScript(basedir, pid, distro, distroVersion, "common/installjava");
@@ -128,11 +128,11 @@ public class SpinUpJenkinsMaster {
 			String quietFlag = (quiet) ? "-q" : "";
 			exec(channel, basics, quietFlag);
 			exec(channel, sethostname, SUBDOMAIN, DOMAIN);
-			exec(channel, java, quietFlag, "jdk6", "u45", decrypted);
-			exec(channel, java, quietFlag, "jdk7", "u51", decrypted);
-			exec(channel, tomcat, quietFlag, "tomcat7", "jdk7", decrypted);
-			exec(channel, common, quietFlag, ALIASFQDN, decrypted);
-			exec(channel, master, quietFlag, "1.532.2", decrypted);
+			exec(channel, java, quietFlag, "jdk6", "u45", gpgPassphrase);
+			exec(channel, java, quietFlag, "jdk7", "u51", gpgPassphrase);
+			exec(channel, tomcat, quietFlag, "tomcat7", "jdk7", gpgPassphrase);
+			exec(channel, common, quietFlag, ALIASFQDN, gpgPassphrase);
+			exec(channel, master, quietFlag, "1.532.2", gpgPassphrase);
 			info("[%s] jenkins is ready - %s", dns, FormatUtils.getTime(sw));
 
 			// The spin up process should have given DNS enough time to settle down
