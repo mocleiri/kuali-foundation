@@ -118,6 +118,7 @@ function touch_subversion_repo {
   SVN_TOUCH_URL="https://svn.kuali.org/repos/$SVN_REPO/sandbox/kuali-devops/temp/auth-check/touch"
   echo "touch     -> svn:$SVN_REPO - [$SVN_TOUCH_URL]"
 
+  SVN_USERNAME=jcaddel
   SVN_AUTH="--username=$SVN_USERNAME --password=$SVN_PASSWORD"
   # the message can't have spaces in it
   SVN_MESSAGE="automated-auth-check"
@@ -180,7 +181,6 @@ GPG_PASSPHRASE=$2
 check_args
 
 MAVEN_BASEDIR=/usr/maven
-SVN_USERNAME=jcaddel
 
 configure_java
 configure_secrets
