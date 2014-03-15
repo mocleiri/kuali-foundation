@@ -116,7 +116,7 @@ public class SpinUpJenkinsMaster {
 			exec(channel, tomcat, "-q", "tomcat7", "jdk7", decrypted);
 			exec(channel, common, "-q", ALIASFQDN, decrypted);
 			exec(channel, master, "-q", "1.532.2", decrypted);
-			info("[%s] tomcat is installed - %s", ALIASFQDN, FormatUtils.getTime(sw));
+			info("[%s] jenkins is ready - %s", ALIASFQDN, FormatUtils.getTime(sw));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
