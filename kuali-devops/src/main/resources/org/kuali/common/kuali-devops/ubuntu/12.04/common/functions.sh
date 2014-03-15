@@ -28,11 +28,7 @@ function download_url {
   
   CURL_COMMAND="curl --location --fail"
   if [ -n "$USERNAME" ]; then 
-    CURL_COMMAND="$CURL_COMMAND --user $USERNAME" 
-  fi
-  
-  if [ -n "$PASSWORD" ]; then 
-    CURL_COMMAND="$CURL_COMMAND --password $PASSWORD" 
+    CURL_COMMAND="$CURL_COMMAND --user $USERNAME:$PASSWORD" 
   fi
   
   CURL_COMMAND="$CURL_COMMAND --output $FILENAME $URL"
@@ -48,11 +44,7 @@ function check_url_exists {
   CURL_COMMAND="curl --location --fail --head"
   
   if [ -n "$USERNAME" ]; then 
-    CURL_COMMAND="$CURL_COMMAND --user $USERNAME" 
-  fi
-  
-  if [ -n "$PASSWORD" ]; then 
-    CURL_COMMAND="$CURL_COMMAND --password $PASSWORD" 
+    CURL_COMMAND="$CURL_COMMAND --user $USERNAME:$PASSWORD" 
   fi
   
   CURL_COMMAND="$CURL_COMMAND $URL"
