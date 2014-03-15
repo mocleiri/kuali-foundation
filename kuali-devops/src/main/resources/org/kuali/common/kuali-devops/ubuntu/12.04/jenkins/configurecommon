@@ -171,12 +171,13 @@ GPG_PASSPHRASE=$2
 
 check_args
 
-exit 1
-
 MAVEN_BASEDIR=/usr/maven
 SVN_USERNAME=jcaddel
 
 configure_java
+
+exit 1
+
 configure_secrets
 install_packages
 install_maven 3.0.5 30
