@@ -110,8 +110,8 @@ public class SpinUpJenkinsMaster {
 			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
 			EC2Service service = getEC2Service(amazonAccount);
-			Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags);
-			// Instance instance = service.getInstance("i-da8091f4");
+			// Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags);
+			Instance instance = service.getInstance("i-b593c4ea");
 			info("public dns: %s", instance.getPublicDnsName());
 			updateDns(instance, ALIASFQDN);
 			String dns = instance.getPublicDnsName();
@@ -140,7 +140,7 @@ public class SpinUpJenkinsMaster {
 			// The spin up process should have given DNS enough time to settle down
 			info("Verifying SSH over friendly DNS name - [%s]", ALIASFQDN);
 			verifySSH(ROOT, ALIASFQDN, privateKey);
-			info("[%s] jenkins is ready - %s", dns, FormatUtils.getTime(sw));
+			info("[%s] jenkins is ready - %s", ALIASFQDN, FormatUtils.getTime(sw));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
