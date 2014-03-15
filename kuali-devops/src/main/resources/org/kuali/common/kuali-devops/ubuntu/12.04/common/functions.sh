@@ -23,7 +23,7 @@ function download_url {
   check_not_blank FILENAME $FILENAME
   
   check_url_exists
-  execute_quietly "curl --output $TOMCAT_ROOT_WAR --location $JENKINS_URL"
+  execute_quietly "curl --output $FILENAME --location $URL"
 }
 
 function check_url_exists {
