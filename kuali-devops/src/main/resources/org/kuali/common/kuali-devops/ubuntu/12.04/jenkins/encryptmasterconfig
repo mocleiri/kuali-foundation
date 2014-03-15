@@ -28,6 +28,7 @@ function encrypt_config {
   EXCLUDES="$EXCLUDES **/plugins/**"
   EXCLUDES="$EXCLUDES **/workspace/**"
   EXCLUDES="$EXCLUDES **/config-history/**"
+  cd /home/tomcat7
   ZIP="zip -r $ZIP_FILE .jenkins -x $EXCLUDES"
   echo "zip     -> master config
   execute_quietly "$ZIP"
