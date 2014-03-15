@@ -29,7 +29,6 @@ import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.core.system.VirtualSystem;
-import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.DNSMadeEasyDnsService;
@@ -72,7 +71,6 @@ public class SpinUpJenkinsMaster {
 
 	private final Stopwatch sw = createStarted();
 	private final VirtualSystem vs = VirtualSystem.create();
-	private final List<Tag> tags = getMasterTags();
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_MASTER.getGroup());
 	private final String gpgPassphrase = "coSLMPP2IsSAXYVp9NIsvxzqAkd7N+Yh";
 	private final String amazonAccount = "foundation";
@@ -80,10 +78,14 @@ public class SpinUpJenkinsMaster {
 	private final Distro distro = Distro.UBUNTU;
 	private final String distroVersion = "12.04";
 
-	// TODO Change all this stuff when ready
+	// TODO Change these when ready
+	// private static final Tag NAME = Tags.Name.MASTER.getTag();
+	private static final Tag NAME = new Tag("Name", "ci.master.jeff");
 	private static final String SUBDOMAIN = "beta-ci";
-	private static final String ALIASFQDN = Joiner.on('.').join(SUBDOMAIN, DOMAIN);
 	private static final int defaultRootVolumeSize = 32;
+
+	private static final String ALIASFQDN = Joiner.on('.').join(SUBDOMAIN, DOMAIN);
+	private final List<Tag> tags = getMasterTags(NAME);
 
 	@Test
 	public void test() {
@@ -226,12 +228,10 @@ public class SpinUpJenkinsMaster {
 		return getBasicLaunchRequest(builder.build());
 	}
 
-	protected static List<Tag> getMasterTags() {
+	protected static List<Tag> getMasterTags(Tag name) {
 		List<Tag> tags = newArrayList();
 		tags.addAll(CreateBuildSlaveAMI.getTags());
-		tags.add(Tags.Name.MASTER.getTag());
-		// TODO Remove this when things are ready
-		tags.add(new Tag("Name", "ci.master.jeff"));
+		tags.add(name);
 		return ImmutableList.copyOf(tags);
 	}
 
