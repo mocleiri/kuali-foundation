@@ -12,6 +12,8 @@ import static org.kuali.common.devops.logic.Auth.getDnsmeCredentials;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
 import static org.kuali.common.dns.model.CNAMEContext.newCNAMEContext;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
+import static org.kuali.common.util.log.LoggerLevel.INFO;
+import static org.kuali.common.util.log.LoggerLevel.WARN;
 import static org.kuali.common.util.log.Loggers.newLogger;
 import static org.kuali.common.util.maven.RepositoryUtils.getDefaultLocalRepository;
 
@@ -42,7 +44,6 @@ import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.CommandContext;
 import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.condition.Condition;
-import org.kuali.common.util.log.LoggerLevel;
 import org.kuali.common.util.maven.RepositoryUtils;
 import org.kuali.common.util.maven.model.Artifact;
 import org.kuali.common.util.project.DefaultProjectService;
@@ -162,16 +163,16 @@ public class SpinUpJenkinsMaster {
 	}
 
 	protected static void exec(SecureChannel channel, String command, List<String> args) {
-		StreamConsumer stdout = new LoggingStreamConsumer(logger, LoggerLevel.INFO);
-		StreamConsumer stderr = new LoggingStreamConsumer(logger, LoggerLevel.WARN);
+		StreamConsumer stdout = new LoggingStreamConsumer(logger, INFO);
+		StreamConsumer stderr = new LoggingStreamConsumer(logger, WARN);
 		String cmd = command + " " + Joiner.on(' ').join(args);
 		CommandContext context = new CommandContext.Builder(cmd).stdout(stdout).stderr(stderr).build();
 		channel.exec(context);
 	}
 
 	protected static void execFormattedCommand(SecureChannel channel, String command, Object... args) {
-		StreamConsumer stdout = new LoggingStreamConsumer(logger, LoggerLevel.INFO);
-		StreamConsumer stderr = new LoggingStreamConsumer(logger, LoggerLevel.WARN);
+		StreamConsumer stdout = new LoggingStreamConsumer(logger, INFO);
+		StreamConsumer stderr = new LoggingStreamConsumer(logger, WARN);
 		String formatted = formatString(command, args);
 		CommandContext context = new CommandContext.Builder(formatted).stdout(stdout).stderr(stderr).build();
 		channel.exec(context);
