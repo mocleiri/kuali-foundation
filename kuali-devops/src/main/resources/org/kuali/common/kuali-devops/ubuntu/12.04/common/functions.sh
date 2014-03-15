@@ -22,7 +22,7 @@ function download_url {
   check_not_blank URL $URL
   check_not_blank FILENAME $FILENAME
   
-  check_url_exists
+  check_url_exists $URL
   execute_quietly "curl --output $FILENAME --location $URL"
 }
 
