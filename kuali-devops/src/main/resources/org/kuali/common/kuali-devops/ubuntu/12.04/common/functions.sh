@@ -150,6 +150,6 @@ function read_lines {
   check_exists $FILENAME
   while read LINE
   do
-    echo "$(echo $LINE"
+    echo "$LINE"
   done < $FILENAME
 }
