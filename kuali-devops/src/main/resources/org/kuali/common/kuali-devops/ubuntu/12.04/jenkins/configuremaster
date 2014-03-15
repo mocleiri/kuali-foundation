@@ -132,7 +132,7 @@ usage() { echo "Usage: $ME [-h] [-q] [-m \"-Xmx2g -XX:MaxPermSize=256m\"] versio
 
 QUIET=false
 MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=256m "
-while getopts hq flag; do
+while getopts hqm: flag; do
   case $flag in
     h)
       usage;
