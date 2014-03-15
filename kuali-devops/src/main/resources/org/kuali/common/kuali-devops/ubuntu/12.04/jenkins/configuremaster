@@ -131,7 +131,7 @@ source $MY_DIR/../common/functions.sh
 usage() { echo "Usage: $ME [-h] [-q] [-m \"-Xmx2g -XX:MaxPermSize=256m\"] version password" 1>&2; exit 1; }
 
 QUIET=false
-MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=256m "
+MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=256m"
 while getopts hqm: flag; do
   case $flag in
     h)
