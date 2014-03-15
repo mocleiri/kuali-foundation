@@ -17,7 +17,7 @@
 
 function install_packages {
   echo "install   -> custom packages"
-  execute_quietly "apt-get install subversion git graphviz firefox -y"
+  execute_quietly "apt-get install $PACKAGES -y"
 }
 
 function install_maven {
@@ -150,9 +150,10 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] jenkinsmaster password" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] [-p "package1 package2 package3"] jenkinsmaster password" 1>&2; exit 1; }
 
 QUIET=false
+PACKAGES="subversion git graphviz firefox"
 while getopts hq flag; do
   case $flag in
     h)
@@ -160,6 +161,9 @@ while getopts hq flag; do
       ;;
     q)
       QUIET="true";
+      ;;
+    p)
+      PACKAGES="$OPTARG";
       ;;
     ?)
       usage;
