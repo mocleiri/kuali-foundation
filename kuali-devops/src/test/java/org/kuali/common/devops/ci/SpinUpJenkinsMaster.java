@@ -95,7 +95,7 @@ public class SpinUpJenkinsMaster {
 			// Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags);
 			Instance instance = service.getInstance("i-0261a321");
 			info("public dns: %s", instance.getPublicDnsName());
-			updateDns(instance, aliasFQDN);
+			// updateDns(instance, aliasFQDN);
 			verifySSH("ubuntu", instance.getPublicDnsName(), privateKey);
 			info("[%s] is online with ssh - %s", aliasFQDN, FormatUtils.getTime(sw));
 			bootstrap(instance.getPublicDnsName(), privateKey);
