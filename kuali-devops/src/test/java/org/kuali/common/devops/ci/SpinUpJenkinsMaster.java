@@ -82,6 +82,8 @@ public class SpinUpJenkinsMaster {
 	private static final String DOMAIN = "kuali.org";
 	private final Distro distro = Distro.UBUNTU;
 	private final String distroVersion = "12.04";
+	private static final String ROOT = "root";
+	private static final String UBUNTU = "ubuntu";
 
 	// TODO Change these when ready
 	private static final Tag NAME = Tags.Name.MASTER_BETA.getTag();
@@ -93,8 +95,6 @@ public class SpinUpJenkinsMaster {
 	// These should be fine assuming the lines above get changed
 	private static final String ALIASFQDN = Joiner.on('.').join(SUBDOMAIN, DOMAIN);
 	private final List<Tag> tags = getMasterTags(NAME, STACK);
-	private static final String ROOT = "root";
-	private static final String UBUNTU = "ubuntu";
 
 	@Test
 	public void test() {
