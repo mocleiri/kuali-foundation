@@ -106,7 +106,7 @@ function configure_jenkins_location {
   # This is the config file holding the jenkins location
   JENKINS_LOCATION_CONFIG_FILE=$JENKINS_HOME/jenkins.model.JenkinsLocationConfiguration.xml
   
-  # echo our lines into that file
+  # echo our lines into that file (overwrite whatever is there)
   echo "$JENKINS_LOCATION_XML_LINE1" >  $JENKINS_LOCATION_CONFIG_FILE
   echo "$JENKINS_LOCATION_XML_LINE2" >> $JENKINS_LOCATION_CONFIG_FILE
   echo "$JENKINS_LOCATION_XML_LINE3" >> $JENKINS_LOCATION_CONFIG_FILE
