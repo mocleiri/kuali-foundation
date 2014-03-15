@@ -26,7 +26,7 @@ function install_maven {
   MAVEN_URL=http://search.maven.org/remotecontent?filepath=org/apache/maven/apache-maven/$MAVEN_VERSION/$MAVEN_ZIP
   MAVEN_DIR=$MAVEN_BASEDIR/$MAVEN_ARTIFACT_ID-$MAVEN_VERSION
   MAVEN_FILE=$MAVEN_BASEDIR/$MAVEN_ZIP
-  download_url $MAVEN_URL $MAVEN_FILE"
+  download_url $MAVEN_URL $MAVEN_FILE
   MAVEN_TARGET=$MAVEN_DIR
   MAVEN_LINK=$MAVEN_BASEDIR/mvn$MAVEN_ABBR
   MAVEN_USR_BIN=/usr/bin/mvn$MAVEN_ABBR
@@ -62,6 +62,7 @@ function configure_java {
   ROOT_ALIASES=/root/.bash_aliases
   echo "JAVA_HOME=/usr/java/jdk7"                        >  $ROOT_ALIASES
   echo "PATH=\$JAVA_HOME/bin:$PATH:."                    >> $ROOT_ALIASES
+  echo "MAVEN_OPTS=\"$MAVEN_OPTS\""                      >> $ROOT_ALIASES
   echo "JENKINS_MASTER=\"$JENKINS_MASTER\""              >> $ROOT_ALIASES
   echo "export JAVA_HOME PATH MAVEN_OPTS JENKINS_MASTER" >> $ROOT_ALIASES
 
