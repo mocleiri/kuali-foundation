@@ -133,11 +133,11 @@ public class SpinUpJenkinsMaster {
 			exec(channel, tomcat, quietFlag, "tomcat7", "jdk7", gpgPassphrase);
 			exec(channel, common, quietFlag, ALIASFQDN, gpgPassphrase);
 			exec(channel, master, quietFlag, "1.532.2", gpgPassphrase);
-			info("[%s] jenkins is ready - %s", dns, FormatUtils.getTime(sw));
 
 			// The spin up process should have given DNS enough time to settle down
 			info("Verifying SSH over friendly DNS name - [%s]", ALIASFQDN);
 			verifySSH(ROOT, ALIASFQDN, privateKey);
+			info("[%s] jenkins is ready - %s", dns, FormatUtils.getTime(sw));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
