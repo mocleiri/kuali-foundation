@@ -221,6 +221,7 @@ public class SpinUpJenkinsMaster {
 	protected static BasicLaunchRequest getMasterLaunchRequest() {
 		BasicLaunchRequest.Builder builder = BasicLaunchRequest.builder();
 		builder.setTimeoutMillis(getMillisAsInt("15m"));
+		builder.setAmi("ami-709ba735");
 		builder.setRootVolume(RootVolume.create(defaultRootVolumeSize, true));
 		return getBasicLaunchRequest(builder.build());
 	}
