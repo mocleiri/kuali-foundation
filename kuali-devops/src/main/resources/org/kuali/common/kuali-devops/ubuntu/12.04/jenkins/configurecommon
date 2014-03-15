@@ -15,34 +15,8 @@
 # limitations under the License.
 #
 
-function check_not_blank {
-  if [ ! -n "$2" ]; then 
-    echo $1 cannot be blank
-    show_usage
-  fi
-}
-
-function show_usage {
-  echo
-  echo requires BASEDIR SVN_PASSWORD ZIP_PASSWORD QUIET
-  echo usage: common.sh basedir svn_password zip_password [quiet]
-  echo
-  exit 1
-}
-
 function check_args {
-  check_not_blank BASEDIR $BASEDIR
-  check_not_blank SVN_PASSWORD $SVN_PASSWORD
-  check_not_blank ZIP_PASSWORD $ZIP_PASSWORD
-}
-
-function execute_quietly {
-  COMMAND=$1
-  if [ "$QUIET" = "-qq" ]; then
-    $COMMAND > /dev/null 2>&1
-  else
-    $COMMAND
-  fi
+  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
 }
 
 function install_packages {

@@ -15,11 +15,6 @@
 # limitations under the License.
 #
 
-function check_args {
-  check_not_blank JENKINS_VERSION $JENKINS_VERSION
-  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
-}
-
 function install_jenkins {
   
   echo "install   -> jenkins:$JENKINS_VERSION"
@@ -114,6 +109,11 @@ function configure_jenkins {
   
 }
 
+
+function check_args {
+  check_not_blank JENKINS_VERSION $JENKINS_VERSION
+  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
+}
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
