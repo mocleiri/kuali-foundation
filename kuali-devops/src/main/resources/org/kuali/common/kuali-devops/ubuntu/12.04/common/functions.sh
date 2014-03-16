@@ -179,7 +179,7 @@ function get_m2_repo_filename {
 	if [ "$CLASSIFIER" == "none" ]; then
 	  FILENAME=$M2_REPO_BASE-$VERSION.$TYPE	  
 	else
-	  FILENAME=$M2_REPO_BASE-$CLASSIFIER-$VERSION.$TYPE	  
+	  FILENAME=$M2_REPO_BASE-$VERSION-$CLASSIFIER.$TYPE	  
 	fi
 	echo "$FILENAME"
 
