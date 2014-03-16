@@ -1,5 +1,16 @@
 #!/bin/bash
 
+function get_m2_repo_filename {
+
+	$BASE="$HOME/.m2/repository/$GROUP_ID/$ARTIFACT_ID/$VERSION/$ARTIFACT_ID"
+	if [ -z "$CLASSIFIER" ]; then
+	  M2_REPO_FILENAME=$BASE.$TYPE	  
+	else
+	  M2_REPO_FILENAME=$BASE-$CLASSIFIER.$TYPE	  
+	fi
+
+}
+
 function check_args {
   check_not_blank GROUP_ID $GROUP_ID
   check_not_blank ARTIFACT_ID $ARTIFACT_ID
@@ -66,3 +77,7 @@ VERSION=$3
 URL=$4
 
 check_args
+
+get_m2_repo_filename
+
+echo "$M2_REPO_FILENAME"
