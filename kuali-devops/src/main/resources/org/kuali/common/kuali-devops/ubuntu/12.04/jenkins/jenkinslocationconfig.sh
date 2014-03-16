@@ -1,5 +1,5 @@
 #
-# Used to overwrite the DNS name bundled into the master.zip.gpg file
+# Used to override the DNS name bundled into the master.zip.gpg file
 #
 
 JENKINS_LOCATION_XML_LINE1="<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
