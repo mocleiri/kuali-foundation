@@ -45,6 +45,11 @@ while true; do
       CLASSIFIER="$1";
       shift;
       ;;
+    -t|--type)
+      shift;
+      TYPE="$1";
+      shift;
+      ;;
     -p|--password)
       shift;
       PASSWORD="$1";
