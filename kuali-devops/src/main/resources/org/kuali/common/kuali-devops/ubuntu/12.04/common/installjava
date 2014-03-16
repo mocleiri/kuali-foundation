@@ -57,9 +57,8 @@ function install_jdk {
   decrypt_file $GPG_ENCRYPTED $GPG_DECRYPTED
   NEXUS_PASSWORD=$(<$GPG_DECRYPTED)
   execute_quietly "rm $GPG_DECRYPTED"
-  echo "download  -> $URL"
-  
-  
+
+  # Make the call to the smart downloader  
   $MY_DIR/downloaddependency $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $URL --username="$NEXUS_USER" --password="$NEXUS_PASSWORD" --classifier="$JDK_CLASSIFIER" --type="$JDK_TYPE"
   
   # Make sure the JDK and the symbolic link are both gone
