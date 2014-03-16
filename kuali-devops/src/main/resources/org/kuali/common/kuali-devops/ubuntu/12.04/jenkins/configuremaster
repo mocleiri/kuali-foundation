@@ -61,7 +61,7 @@ function install_plugin {
   $MY_DIR/../common/m2downloadurl $QUIET_FLAG $PLUGIN_URL $GROUP_ID $ARTIFACT_ID $VERSION --type=$TYPE
   M2_LOCAL_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --type="$TYPE")
   
-  PLUGIN_FILE=$JENKINS_HOME/plugins/$PLUGIN_NAME.jpi
+  PLUGIN_FILE=$JENKINS_HOME/plugins/$ARTIFACT_ID.jpi
   execute_silently "cp $M2_LOCAL_PATH $PLUGIN_FILE"
   touch $PLUGIN_FILE.pinned 
   
