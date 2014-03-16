@@ -69,7 +69,8 @@ function install_jdk {
 
   # Unpack the JDK into /usr/java
   echo "install   -> $JDK_LINK - [$JDK_TARGET]"
-  execute_quietly "unzip -o $LOCAL_M2_REPO_FILE -d $JDK_BASEDIR"
+  M2_LOCAL_PATH=$($MY_DIR/m2path $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION --classifier="$JDK_CLASSIFIER" --type="$JDK_TYPE")
+  execute_quietly "unzip -o $M2_LOCAL_PATH -d $JDK_BASEDIR"
 
   # Create the symbolic link  eg: /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
   execute_quietly "ln -s $JDK_TARGET $JDK_LINK"
