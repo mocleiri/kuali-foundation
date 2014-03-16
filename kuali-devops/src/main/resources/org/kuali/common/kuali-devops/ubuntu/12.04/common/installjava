@@ -67,8 +67,6 @@ function install_jdk {
   echo "purge     -> $JDK"
   rm -rf $JDK_LINK $JDK_TARGET
 
-  exit 1
-
   # Unpack the JDK into /usr/java
   echo "install   -> $JDK_LINK - [$JDK_TARGET]"
   execute_quietly "unzip -o $LOCAL_M2_REPO_FILE -d $JDK_BASEDIR"
