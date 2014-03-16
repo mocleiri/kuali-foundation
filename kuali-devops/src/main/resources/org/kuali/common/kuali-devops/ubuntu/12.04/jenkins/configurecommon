@@ -28,10 +28,9 @@ function install_maven {
   
   echo "install   -> maven $VERSION"
 
-  exit 1
-
   $MY_DIR/../common/m2download $REPO $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE
-  
+
+  exit 1
 
   MAVEN_LINK=$MAVEN_BASEDIR/mvn$MAVEN_ABBR
   MAVEN_USR_BIN=/usr/bin/mvn$MAVEN_ABBR
