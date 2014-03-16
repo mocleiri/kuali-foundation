@@ -106,7 +106,7 @@ public class SpinUpJenkinsMaster {
 	@Test
 	public void test() {
 		try {
-			String usage = String.format("\n\nusage: -Djenkins.context=%s\n\n", Joiner.on('/').join(contexts.keySet()));
+			String usage = format("\n\nusage: -Djenkins.context=%s\n\n", Joiner.on('/').join(contexts.keySet()));
 			VirtualSystem vs = VirtualSystem.create();
 			// Default to quiet mode unless they've supplied -Dec2.quiet=false
 			boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
