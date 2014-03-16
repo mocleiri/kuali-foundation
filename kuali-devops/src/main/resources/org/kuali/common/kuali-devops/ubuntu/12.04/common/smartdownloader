@@ -74,7 +74,6 @@ check_args
 
 M2_REPO_LOCAL=$HOME/.m2/repository
 DEPENDENCY_FILENAME=$(get_m2_repo_filename $M2_REPO_LOCAL $GROUP_ID $ARTIFACT_ID $VERSION $CLASSIFIER $TYPE)
-echo $DEPENDENCY_FILENAME
 if [ ! -f $DEPENDENCY_FILENAME ]; then
   echo "download -> $URL"
   echo "to       -> $DEPENDENCY_FILENAME"
