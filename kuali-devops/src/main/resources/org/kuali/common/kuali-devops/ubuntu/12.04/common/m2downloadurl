@@ -82,10 +82,5 @@ M2_LOCAL_PATH=$($MY_DIR/m2path  --repo="$LOCAL" $GROUP_ID $ARTIFACT_ID $VERSION 
 
 if [ ! -f $M2_LOCAL_PATH ]; then
   echo "download  -> $URL"
-  #echo "to        -> $M2_LOCAL_PATH"
   download_url $URL $M2_LOCAL_PATH $USERNAME $PASSWORD
 fi
-#else 
-  #echo "skip      -> $M2_REMOTE_PATH"
-  #echo "exists    -> $M2_LOCAL_PATH"
-#fi
