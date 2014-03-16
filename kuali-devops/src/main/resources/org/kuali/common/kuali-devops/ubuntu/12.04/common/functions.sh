@@ -167,6 +167,26 @@ function get_m2_repo_filename {
   if [ $? -ne 0 ]; then usage; fi
   eval set -- "$ARGS";
 
+  while true; do
+    case "$1" in
+      --classifier)
+        shift;
+        CLASSIFIER="$1";
+        shift;
+        ;;
+    case "$1" in
+      --type)
+        shift;
+        TYPE="$1";
+        shift;
+        ;;
+      --)
+        shift;
+        break;
+        ;;
+    esac
+  done
+
   check_not_blank GROUP_ID $GROUP_ID
   check_not_blank ARTIFACT_ID $ARTIFACT_ID
   check_not_blank VERSION $VERSION
