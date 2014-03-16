@@ -29,6 +29,8 @@ function install_maven {
 
   $MY_DIR/../common/m2download $REPO $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE
   
+  exit 1
+
   MAVEN_LINK=$MAVEN_BASEDIR/mvn$MAVEN_ABBR
   MAVEN_USR_BIN=/usr/bin/mvn$MAVEN_ABBR
 
@@ -38,7 +40,6 @@ function install_maven {
   execute_quietly "ln -s $MAVEN_TARGET $MAVEN_LINK"
   execute_quietly "ln -s $MAVEN_BASEDIR/mvn$MAVEN_ABBR/bin/mvn $MAVEN_USR_BIN"
   
-  exit 1
   
 }
 
