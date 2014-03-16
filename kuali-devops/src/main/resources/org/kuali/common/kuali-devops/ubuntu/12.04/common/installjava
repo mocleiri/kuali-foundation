@@ -40,10 +40,9 @@ function install_jdk {
   JDK_TYPE=zip
 
   M2_REPO_LOCAL="$HOME/.m2/repo"
-  LOCAL_M2_REPO_FILE=$(get_m2_repo_filename $M2_REPO_LOCAL $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $JDK_CLASSIFIER $JDK_TYPE)
-
-  NEXUS_M2_REPO=http://nexus.kuali.org/content/groups/developer
-  NEXUS_M2_REPO_URL=$(get_m2_repo_filename $NEXUS_M2_REPO $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $JDK_CLASSIFIER $JDK_TYPE)
+  M2_REPO_NEXUS="http://nexus.kuali.org/content/groups/developer"
+  LOCAL_M2_REPO_FILE="$(get_m2_repo_filename $M2_REPO_LOCAL $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $JDK_CLASSIFIER $JDK_TYPE)"
+  NEXUS_M2_REPO_FILE="$(get_m2_repo_filename $M2_REPO_NEXUS $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $JDK_CLASSIFIER $JDK_TYPE)"
 
   JDK_UNZIP_DIR=$JDK_ARTIFACT_ID-$JDK_VERSION
   JDK_ZIP_FILE=$JDK_ARTIFACT_ID-$JDK_VERSION-$JDK_CLASSIFIER.$JDK_TYPE
@@ -61,7 +60,7 @@ function install_jdk {
   execute_quietly "rm $GPG_DECRYPTED"
 
   # Make the call to the smart downloader  
-  $MY_DIR/smartdownloader $M2_REPO_LOCAL $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $NEXUS_M2_REPO_URL --username="$NEXUS_USER" --password="$NEXUS_PASSWORD" --classifier="$JDK_CLASSIFIER" --type="$JDK_TYPE"
+  $MY_DIR/smartdownloader $M2_REPO_NEXUS $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $NEXUS_M2_REPO_FILE --username="$NEXUS_USER" --password="$NEXUS_PASSWORD" --classifier="$JDK_CLASSIFIER" --type="$JDK_TYPE"
   
   exit 1
   
