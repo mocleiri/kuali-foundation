@@ -1,6 +1,7 @@
 #!/bin/bash
 
 function check_args {
+  check_not_blank REPO $REPO
   check_not_blank GROUP_ID $GROUP_ID
   check_not_blank ARTIFACT_ID $ARTIFACT_ID
   check_not_blank VERSION $VERSION
@@ -13,9 +14,10 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] [--help] [--quiet] [--classifier=linux-x64] [--type=zip] [--username=developer] [--password=password] group_id artifact_id version url" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h --help] [-q --quiet] [-c --classifier=linux-x64] [-t --type=zip] [-u --username=developer] [-p --password=password] [-r --repo=\$HOME/.m2/repository] group_id artifact_id version url" 1>&2; exit 1; }
 
 QUIET=false
+REPO=$HOME/.m2/repository
 CLASSIFIER=""
 TYPE=jar
 USERNAME=""
@@ -32,6 +34,11 @@ while true; do
       ;;
     -q|--quiet)
       QUIET=true;
+      shift;
+      ;;
+    -r|--repo)
+      shift;
+      REPO="$1";
       shift;
       ;;
     -c|--classifier)
@@ -65,10 +72,6 @@ GROUP_ID=$1
 ARTIFACT_ID=$2
 VERSION=$3
 URL=$4
-
-if [ "$CLASSIFIER" == "" ]; then
-  CLASSIFIER="none"
-fi
 
 check_args
 
