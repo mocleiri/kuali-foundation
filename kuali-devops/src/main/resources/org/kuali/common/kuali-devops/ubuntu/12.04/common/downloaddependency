@@ -75,5 +75,6 @@ check_args
 DEPENDENCY_FILENAME=$(get_m2_repo_filename $GROUP_ID $ARTIFACT_ID $VERSION $CLASSIFIER $TYPE)
 if [ ! -f $DEPENDENCY_FILENAME ]; then
   echo "username=$USERNAME password=$PASSWORD"
-  download_url $URL $DEPENDENCY_FILENAME $USERNAME $PASSWORD
+  #download_url $URL $DEPENDENCY_FILENAME $USERNAME $PASSWORD
+  download_url $URL
 fi
