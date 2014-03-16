@@ -81,5 +81,5 @@ if [ ! -f $DEPENDENCY_FILENAME ]; then
   download_url $URL $DEPENDENCY_FILENAME $USERNAME $PASSWORD
 else 
   echo "skip     -> $URL"
-  echo "because  -> exists [$DEPENDENCY_FILENAME]"
+  echo "because  -> $DEPENDENCY_FILENAME already exists"
 fi
