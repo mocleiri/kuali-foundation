@@ -28,23 +28,21 @@ function install_jdk {
   JDK_LEVEL=${JDK:3:1}
   check_not_blank JDK_LEVEL $JDK_LEVEL
   
+  # Extract a specific jdk version based on the jdk level
   JDK_FRAGMENT_VAR=$(get_jdk_fragment)
   
-  # Extract a specific jdk version based on the jdk level
-  JDK_VERSION=${!JDK_FRAGMENT_VAR}-$JDK_UPDATE
-  check_not_blank JDK_VERSION $JDK_VERSION
-  
-  echo "jdk version=[$JDK_VERSION]"
-  
-  exit 1
-  
-  JDK_GROUP_ID=com/oracle
+  JDK_GROUP_ID=com.oracle
   JDK_ARTIFACT_ID=$JDK
   JDK_CLASSIFIER=linux-x64
+  JDK_VERSION=${!JDK_FRAGMENT_VAR}-$JDK_UPDATE
   JDK_TYPE=zip
 
+  NEXUS_DEV_REPO="http://nexus.kuali.org/content/groups/developer"
+  $MY_DIR/m2download $NEXUS_DEV_REPO $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION --classifier=$JDK_CLASSIFIER --type=$JDK_TYPE
+  
+  exit 1
+
   M2_REPO_LOCAL="$HOME/.m2/repository"
-  M2_REPO_NEXUS="http://nexus.kuali.org/content/groups/developer"
   LOCAL_M2_REPO_FILE="$(get_m2_repo_filename $M2_REPO_LOCAL $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $JDK_CLASSIFIER $JDK_TYPE)"
   NEXUS_M2_REPO_FILE="$(get_m2_repo_filename $M2_REPO_NEXUS $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $JDK_CLASSIFIER $JDK_TYPE)"
 
