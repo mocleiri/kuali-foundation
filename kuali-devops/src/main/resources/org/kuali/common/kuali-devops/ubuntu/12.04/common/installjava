@@ -39,7 +39,7 @@ function install_jdk {
   JDK_CLASSIFIER=linux-x64
   JDK_TYPE=zip
 
-  M2_REPO_LOCAL="$HOME/.m2/repo"
+  M2_REPO_LOCAL="$HOME/.m2/repository"
   M2_REPO_NEXUS="http://nexus.kuali.org/content/groups/developer"
   LOCAL_M2_REPO_FILE="$(get_m2_repo_filename $M2_REPO_LOCAL $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $JDK_CLASSIFIER $JDK_TYPE)"
   NEXUS_M2_REPO_FILE="$(get_m2_repo_filename $M2_REPO_NEXUS $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $JDK_CLASSIFIER $JDK_TYPE)"
