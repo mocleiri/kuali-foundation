@@ -16,36 +16,27 @@
 #
 
 function install_maven {
-  MAVEN_ABBR=$2
+  VERSION=$1
+  ABBR=$2
   
   GROUP_ID=org.apache.maven
   ARTIFACT_ID=apache-maven
-  VERSION=$1
   CLASSIFIER=bin
   TYPE=zip
   REPO=http://search.maven.org/remotecontent?filepath=
   
+  echo "install   -> maven $VERSION"
+
   $MY_DIR/../common/m2download $REPO $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE
   
-  exit 1
-
-  echo "install   -> maven $MAVEN_VERSION"
-
-  MAVEN_ARTIFACT_ID=apache-maven
-  MAVEN_ZIP=$MAVEN_ARTIFACT_ID-$MAVEN_VERSION-bin.zip
-  MAVEN_URL=http://search.maven.org/remotecontent?filepath=org/apache/maven/apache-maven/$MAVEN_VERSION/$MAVEN_ZIP
-  MAVEN_DIR=$MAVEN_BASEDIR/$MAVEN_ARTIFACT_ID-$MAVEN_VERSION
-  MAVEN_FILE=$MAVEN_BASEDIR/$MAVEN_ZIP
-  download_url $MAVEN_URL $MAVEN_FILE
-  MAVEN_TARGET=$MAVEN_DIR
   MAVEN_LINK=$MAVEN_BASEDIR/mvn$MAVEN_ABBR
   MAVEN_USR_BIN=/usr/bin/mvn$MAVEN_ABBR
 
-  rm -rf $MAVEN_DIR $MAVEN_LINK $MAVEN_USR_BIN
+  execute_quietly "rm -rf $MAVEN_DIR $MAVEN_LINK $MAVEN_USR_BIN"
   execute_quietly "unzip $MAVEN_FILE -d $MAVEN_BASEDIR"
-  chmod -R 755 $MAVEN_DIR
-  ln -s $MAVEN_TARGET $MAVEN_LINK
-  ln -s $MAVEN_BASEDIR/mvn$MAVEN_ABBR/bin/mvn $MAVEN_USR_BIN
+  execute_quietly "chmod -R 755 $MAVEN_DIR"
+  execute_quietly "ln -s $MAVEN_TARGET $MAVEN_LINK"
+  execute_quietly "ln -s $MAVEN_BASEDIR/mvn$MAVEN_ABBR/bin/mvn $MAVEN_USR_BIN"
   
 }
 
