@@ -143,7 +143,7 @@ public class SpinUpJenkinsMaster {
 
 			// do jenkins specific configuration
 			String common = getBashScript(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
-			String master = getBashScript(basedir, pid, distro, distroVersion, "jenkins/configuremaster");
+			String master = getBashScript(basedir, pid, distro, distroVersion, "jenkins/installjenkins");
 			exec(channel, common, quietFlag, aliasFqdn, gpgPassphrase);
 			exec(channel, master, quietFlag, aliasFqdn, "1.532.2", gpgPassphrase);
 
