@@ -166,11 +166,8 @@ function show_args {
       c)
         $CLASSIFIER="$OPTARG"
         ;;
-      c)
+      t)
         $TYPE="$OPTARG"
-        ;;
-      q)
-        QUIET="true";
         ;;
       ?)
         usage;
