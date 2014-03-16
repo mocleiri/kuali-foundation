@@ -67,7 +67,12 @@ URL=$4
 
 check_args
 
-M2_REPO_FILENAME=$(get_m2_repo_filename)
+
+if [ "$CLASSIFIER" == "" ]; then
+  CLASSIFIER="none"
+fi
+
+M2_REPO_FILENAME=$(get_m2_repo_filename $GROUP_ID $ARTIFACT_ID $VERSION $CLASSIFIER $TYPE)
 if [ ! -f $M2_REPO_FILENAME ]; then 
   download_url $URL $M2_REPO_FILENAME $USERNAME $PASSWORD
 fi
