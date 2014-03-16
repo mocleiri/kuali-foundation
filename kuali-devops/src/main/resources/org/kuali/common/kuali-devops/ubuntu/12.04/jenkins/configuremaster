@@ -36,13 +36,13 @@ function install_jenkins {
 
   # Remove everything from Tomcat's webapps directory (but don't delete the directory itself)
   # Delete the /home/tomcat7/.jenkins directory
-  rm -rf $TOMCAT_WEBAPPS/* $JENKINS_HOME
+  execute_quietly "rm -rf $TOMCAT_WEBAPPS/* $JENKINS_HOME"
 
   # Copy the war file from .m2 to webapps
   execute_quietly "cp $M2_LOCAL_PATH $TOMCAT_ROOT_WAR"
   
   # Make sure the war file is owned by tomcat7
-  chown $TOMCAT:$TOMCAT $TOMCAT_ROOT_WAR
+  execute_quietly "chown $TOMCAT:$TOMCAT $TOMCAT_ROOT_WAR"
   
   # Run the cleanup script that removes old log files, sets up JSP's, etc
   $TOMCAT_CLEANUP
