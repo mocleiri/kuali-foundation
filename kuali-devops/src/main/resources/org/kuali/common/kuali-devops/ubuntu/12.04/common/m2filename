@@ -15,8 +15,6 @@ usage() { echo "Usage: $ME [-h] [--help] [--classifier=linux-x64] [--type=zip] a
 
 CLASSIFIER=""
 TYPE=jar
-USERNAME=""
-PASSWORD=""
 
 ARGS=$(getopt --options hc:t: --longoptions "help,classifier:,type:" --name "$ME" -- "$@");
 if [ $? -ne 0 ]; then usage; fi
