@@ -62,8 +62,8 @@ function install_plugin {
   M2_LOCAL_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --type="$TYPE")
   
   PLUGIN_FILE=$JENKINS_HOME/plugins/$ARTIFACT_ID.$TYPE
-  execute_silently "cp $M2_LOCAL_PATH $PLUGIN_FILE"
-  execute_silently "touch $PLUGIN_FILE.pinned" 
+  execute_quietly "cp $M2_LOCAL_PATH $PLUGIN_FILE"
+  execute_quietly "touch $PLUGIN_FILE.pinned" 
   
 }
 
@@ -71,8 +71,8 @@ function install_plugins {
 
   echo "configure -> jenkins:plugins"
 
-  execute_silently "rm   -rf $JENKINS_HOME/plugins"
-  execute_silently "mkdir -p $JENKINS_HOME/plugins"
+  execute_quietly "rm   -rf $JENKINS_HOME/plugins"
+  execute_quietly "mkdir -p $JENKINS_HOME/plugins"
 
   # supported plugins (in alphabetical order)
   install_plugin build-pipeline-plugin 1.4.2
