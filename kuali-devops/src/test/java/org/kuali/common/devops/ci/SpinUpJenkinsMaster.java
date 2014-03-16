@@ -107,14 +107,14 @@ public class SpinUpJenkinsMaster {
 	@Test
 	public void test() {
 		try {
+			// Default to quiet mode unless they've supplied -Dec2.quiet=false
+			boolean quiet = equalsIgnoreCase(getProperty("ec2.quiet"), "false") ? false : true;
 			String jenkinsContextKey = getProperty("jenkins.context");
 			checkState(jenkinsContextKey != null, "usage: -Djenkins.context=prod/beta");
 			JenkinsContext jenkinsContext = contexts.get(jenkinsContextKey);
 			List<Tag> tags = getMasterTags(jenkinsContext);
 			String dnsPrefix = jenkinsContext.getDnsPrefix();
 			String aliasFqdn = Joiner.on('.').join(dnsPrefix, DOMAIN);
-			// Default to quiet mode unless they've supplied -Dec2.quiet=false
-			boolean quiet = equalsIgnoreCase(getProperty("ec2.quiet"), "false") ? false : true;
 			logger.info(vs.getOs().getName());
 			KeyPair keyPair = CreateBuildSlaveAMI.KUALI_KEY;
 			String privateKey = keyPair.getPrivateKey().get();
