@@ -13,7 +13,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-usage() { echo "Usage: $ME [-h --help] [-q --quiet] [-c --classifier=linux-x64] [-t --type=zip] [-u --username=developer] [-p --password=password] [-l --local=\$HOME/.m2/repository] repo group_id artifact_id version" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h --help] [-q --quiet] [-c --classifier=linux-x64] [-t --type=zip] [-u --username=developer] [-p --password=password] [-l --local=\$HOME/.m2/repository] [-r --repo=http://search.maven.org/remotecontent?filepath=] group_id artifact_id version" 1>&2; exit 1; }
 
 QUIET=false
 LOCAL=$HOME/.m2/repository
@@ -21,8 +21,9 @@ CLASSIFIER=""
 TYPE=jar
 USERNAME=""
 PASSWORD=""
+REPO="http://search.maven.org/remotecontent?filepath="
 
-ARGS=$(getopt --options hqc:t:u:p:l: --longoptions "help,quiet,classifier:,type:,username:,password:,local:" --name "$ME" -- "$@");
+ARGS=$(getopt --options hqc:t:u:p:l:r: --longoptions "help,quiet,classifier:,type:,username:,password:,local:,repo:" --name "$ME" -- "$@");
 if [ $? -ne 0 ]; then usage; fi
 eval set -- "$ARGS";
 while true; do
@@ -38,6 +39,11 @@ while true; do
     -l|--local)
       shift;
       LOCAL="$1";
+      shift;
+      ;;
+    -r|--repo)
+      shift;
+      repo="$1";
       shift;
       ;;
     -c|--classifier)
@@ -72,7 +78,6 @@ while true; do
   esac
 done
 
-REPO=$1
 GROUP_ID=$2
 ARTIFACT_ID=$3
 VERSION=$4
