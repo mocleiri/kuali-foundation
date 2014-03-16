@@ -122,18 +122,10 @@ public class SpinUpJenkinsMaster {
 			SecureChannel channel = openSecureChannel(ROOT, dns, privateKey, quiet);
 			String basedir = publishProject(channel, pid, ROOT, dns, quiet);
 			String gpgPassphrase = Auth.decrypt(gpgPassphraseEncrypted);
-			String basics = getBashScript(basedir, pid, distro, distroVersion, "common/configurebasics");
-			String sethostname = getBashScript(basedir, pid, distro, distroVersion, "common/sethostname");
-			String java = getBashScript(basedir, pid, distro, distroVersion, "common/installjava");
-			String tomcat = getBashScript(basedir, pid, distro, distroVersion, "common/installtomcat");
 			String common = getBashScript(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
 			String master = getBashScript(basedir, pid, distro, distroVersion, "jenkins/configuremaster");
 			String quietFlag = (quiet) ? "-q" : "";
-			exec(channel, basics, quietFlag);
-			exec(channel, sethostname, SUBDOMAIN, DOMAIN);
-			exec(channel, java, quietFlag, "jdk6", "u45", gpgPassphrase);
-			exec(channel, java, quietFlag, "jdk7", "u51", gpgPassphrase);
-			exec(channel, tomcat, quietFlag, "tomcat7", "jdk7", gpgPassphrase);
+			//setupEssentials(channel, basedir, pid, distro, distroVersion, gpgPassphrase, quietFlag);
 			exec(channel, common, quietFlag, ALIASFQDN, gpgPassphrase);
 			exec(channel, master, quietFlag, ALIASFQDN, "1.532.2", gpgPassphrase);
 
@@ -144,6 +136,18 @@ public class SpinUpJenkinsMaster {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected static void setupEssentials(SecureChannel channel, String basedir, ProjectIdentifier pid, Distro distro, String distroVersion, String gpgPassphrase, String quietFlag) {
+		String basics = getBashScript(basedir, pid, distro, distroVersion, "common/configurebasics");
+		String sethostname = getBashScript(basedir, pid, distro, distroVersion, "common/sethostname");
+		String java = getBashScript(basedir, pid, distro, distroVersion, "common/installjava");
+		String tomcat = getBashScript(basedir, pid, distro, distroVersion, "common/installtomcat");
+		exec(channel, basics, quietFlag);
+		exec(channel, sethostname, SUBDOMAIN, DOMAIN);
+		exec(channel, java, quietFlag, "jdk6", "u45", gpgPassphrase);
+		exec(channel, java, quietFlag, "jdk7", "u51", gpgPassphrase);
+		exec(channel, tomcat, quietFlag, "tomcat7", "jdk7", gpgPassphrase);
 	}
 
 	protected static void bootstrap(String hostname, String privateKey) throws IOException {
