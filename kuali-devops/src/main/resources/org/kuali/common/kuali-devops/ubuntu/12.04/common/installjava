@@ -37,9 +37,10 @@ function install_jdk {
   JDK_GROUP_ID=com/oracle
   JDK_ARTIFACT_ID=$JDK
   JDK_CLASSIFIER=linux-x64
+  JDK_TYPE=zip
 
   JDK_UNZIP_DIR=$JDK_ARTIFACT_ID-$JDK_VERSION
-  JDK_ZIP_FILE=$JDK_ARTIFACT_ID-$JDK_VERSION-$JDK_CLASSIFIER.zip
+  JDK_ZIP_FILE=$JDK_ARTIFACT_ID-$JDK_VERSION-$JDK_CLASSIFIER.$JDK_TYPE
   JDK_BASEDIR=/usr/java
   mkdir -p $JDK_BASEDIR
 
@@ -58,7 +59,11 @@ function install_jdk {
   execute_quietly "rm $GPG_DECRYPTED"
   echo "download  -> $URL"
   
-  $MY_DIR/download_dependency $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $URL --username="$NEXUS_USER" --password="$NEXUS_PASSWORD" --classifer="$JDK_CLASSIFIER" --type="zip"
+  M2_REPO_FILENAME=$(get_m2_repo_filename $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $JDK_CLASSIFIER $JDK_TYPE)
+  
+  $MY_DIR/download_dependency $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $URL --username="$NEXUS_USER" --password="$NEXUS_PASSWORD" --classifer="$JDK_CLASSIFIER" --type="$JDK_TYPE"
+  
+  execute_quietly "cp $M2_REPO_FILENAME $OUTPUT_FILE"
 
   # Make sure the JDK and the symbolic link are both gone
   JDK_TARGET=$JDK_BASEDIR/$JDK_UNZIP_DIR
