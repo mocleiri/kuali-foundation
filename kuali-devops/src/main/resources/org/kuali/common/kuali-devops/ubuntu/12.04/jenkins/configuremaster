@@ -211,9 +211,6 @@ execute_quietly "service $TOMCAT stop"
 configure_tomcat_user
 install_jenkins
 install_plugins
-
-exit 1
-
 configure_jenkins
 echo "start     -> $TOMCAT:service"
 execute_quietly "service $TOMCAT start"
