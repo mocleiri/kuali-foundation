@@ -3,7 +3,6 @@
 function check_args {
   check_not_blank ARTIFACT_ID $ARTIFACT_ID
   check_not_blank VERSION $VERSION
-  check_not_blank CLASSIFIER $CLASSIFIER
   check_not_blank TYPE $TYPE
 }
 
@@ -45,13 +44,9 @@ done
 ARTIFACT_ID=$1
 VERSION=$2
 
-if [ "$CLASSIFIER" == "" ]; then
-  CLASSIFIER="none"
-fi
-
 check_args
 
-if [ "$CLASSIFIER" == "none" ]; then
+if [ "$CLASSIFIER" == "" ]; then
   echo "$ARTIFACT_ID-$VERSION.$TYPE"	  
 else
   echo "$ARTIFACT_ID-$VERSION-$CLASSIFIER.$TYPE"	  
