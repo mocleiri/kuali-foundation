@@ -112,6 +112,7 @@ function configure_tomcat_user {
   
   # Make sure everything is owned by tomcat
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
+  
 }
 
 function configure_jenkins_location {
