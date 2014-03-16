@@ -159,21 +159,23 @@ function echo_lines {
 
 function get_m2_repo_filename {
 	
-	GROUP_ID=$1
-	ARTIFACT_ID=$2
-	VERSION=$3
-	CLASSIFIER=$4
-	TYPE=$5
+	M2_REPO=$1
+	GROUP_ID=$2
+	ARTIFACT_ID=$3
+	VERSION=$4
+	CLASSIFIER=$5
+	TYPE=$6
 	
-    usage() { echo "Usage: get_m2_repo_filename group_id artifact_id classifier type [use \"none\" for artifacts with no classifier]" 1>&2; exit 1; }
+    usage() { echo "Usage: get_m2_repo_filename repo group_id artifact_id classifier type [use \"none\" for artifacts with no classifier]" 1>&2; exit 1; }
     
+	check_not_blank M2_REPO $M2_REPO
 	check_not_blank GROUP_ID $GROUP_ID
 	check_not_blank ARTIFACT_ID $ARTIFACT_ID
 	check_not_blank VERSION $VERSION
 	check_not_blank CLASSIFIER $CLASSIFIER
 	check_not_blank TYPE $TYPE
 
-	BASE="$HOME/.m2/repository/$GROUP_ID/$ARTIFACT_ID/$VERSION/$ARTIFACT_ID"
+	M2_BASE="$M2_REPO/$GROUP_ID/$ARTIFACT_ID/$VERSION/$ARTIFACT_ID"
 	if [ "$CLASSIFIER" == "none" ]; then
 	  FILENAME=$BASE.$TYPE	  
 	else

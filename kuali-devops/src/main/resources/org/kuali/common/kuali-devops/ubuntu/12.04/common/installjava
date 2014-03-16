@@ -39,27 +39,29 @@ function install_jdk {
   JDK_CLASSIFIER=linux-x64
   JDK_TYPE=zip
 
+  M2_REPO_LOCAL="$HOME/.m2/repo"
+  LOCAL_M2_REPO_FILE=$(get_m2_repo_filename $M2_REPO_LOCAL $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $JDK_CLASSIFIER $JDK_TYPE)
+
+  NEXUS_M2_REPO=http://nexus.kuali.org/content/groups/developer
+  NEXUS_M2_REPO_URL=$(get_m2_repo_filename $NEXUS_M2_REPO $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $JDK_CLASSIFIER $JDK_TYPE)
+
   JDK_UNZIP_DIR=$JDK_ARTIFACT_ID-$JDK_VERSION
   JDK_ZIP_FILE=$JDK_ARTIFACT_ID-$JDK_VERSION-$JDK_CLASSIFIER.$JDK_TYPE
   JDK_BASEDIR=/usr/java
   mkdir -p $JDK_BASEDIR
 
-  NEXUS_URL=http://nexus.kuali.org/content/groups/developer
-  NEXUS_JDK_LOCATION=$JDK_GROUP_ID/$JDK_ARTIFACT_ID/$JDK_VERSION
-  NEXUS_USER=developer
-  
-  URL=$NEXUS_URL/$NEXUS_JDK_LOCATION/$JDK_ZIP_FILE
-  M2_REPO_FILENAME=$(get_m2_repo_filename $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $JDK_CLASSIFIER $JDK_TYPE)
   NEXUS_CONFIG_DIR=$MY_DIR/../../../nexus
   GPG_ENCRYPTED=$NEXUS_CONFIG_DIR/nexus.password.gpg
   GPG_DECRYPTED=$NEXUS_CONFIG_DIR/nexus.password
   echo "decrypt   -> nexus password"
   decrypt_file $GPG_ENCRYPTED $GPG_DECRYPTED
+
+  NEXUS_USER=developer
   NEXUS_PASSWORD=$(<$GPG_DECRYPTED)
   execute_quietly "rm $GPG_DECRYPTED"
 
   # Make the call to the smart downloader  
-  $MY_DIR/downloaddependency $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $URL --username="$NEXUS_USER" --password="$NEXUS_PASSWORD" --classifier="$JDK_CLASSIFIER" --type="$JDK_TYPE"
+  $MY_DIR/downloaddependency $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $NEXUS_M2_REPO_URL --username="$NEXUS_USER" --password="$NEXUS_PASSWORD" --classifier="$JDK_CLASSIFIER" --type="$JDK_TYPE"
   
   # Make sure the JDK and the symbolic link are both gone
   JDK_TARGET=$JDK_BASEDIR/$JDK_UNZIP_DIR
@@ -69,7 +71,7 @@ function install_jdk {
 
   # Unpack the JDK into /usr/java
   echo "install   -> $JDK_LINK - [$JDK_TARGET]"
-  execute_quietly "unzip -o $M2_REPO_FILENAME -d $JDK_BASEDIR"
+  execute_quietly "unzip -o $LOCAL_M2_REPO_FILE -d $JDK_BASEDIR"
 
   # Create the symbolic link  eg: /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
   ln -s $JDK_TARGET $JDK_LINK
