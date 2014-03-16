@@ -1,10 +1,5 @@
 #!/bin/bash
 
-function get_m2_filename {
-	
-
-}
-
 function check_args {
   check_not_blank ARTIFACT_ID $ARTIFACT_ID
   check_not_blank VERSION $VERSION
