@@ -48,7 +48,13 @@ function install_jdk {
   execute_quietly "rm $GPG_DECRYPTED"
 
   NEXUS_DEV_REPO="http://nexus.kuali.org/content/groups/developer"
-  $MY_DIR/m2download $NEXUS_DEV_REPO $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION --classifier=$JDK_CLASSIFIER --type=$JDK_TYPE --username=$NEXUS_USER --password=$NEXUS_PASSWORD
+
+  # Make the call to the smart downloader
+  QUIET_FLAG=""
+  if [ "$QUIET" == "true" ]; then
+    QUIET_FLAG="-q"
+  fi
+  $MY_DIR/m2download $QUIET_FLAG $NEXUS_DEV_REPO $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION --classifier=$JDK_CLASSIFIER --type=$JDK_TYPE --username=$NEXUS_USER --password=$NEXUS_PASSWORD
   
   exit 1
 
@@ -62,11 +68,6 @@ function install_jdk {
   mkdir -p $JDK_BASEDIR
 
 
-  # Make the call to the smart downloader
-  QUIET_FLAG=""
-  if [ "$QUIET" == "true" ]; then
-    QUIET_FLAG="-q"
-  fi
   $MY_DIR/smartdownloader $QUIET_FLAG $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $NEXUS_M2_REPO_FILE --username="$NEXUS_USER" --password="$NEXUS_PASSWORD" --classifier="$JDK_CLASSIFIER" --type="$JDK_TYPE"
   
   # Make sure the JDK and the symbolic link are both gone
