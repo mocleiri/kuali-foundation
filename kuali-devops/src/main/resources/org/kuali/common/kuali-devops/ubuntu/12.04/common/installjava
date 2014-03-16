@@ -37,8 +37,18 @@ function install_jdk {
   JDK_VERSION=${!JDK_FRAGMENT_VAR}-$JDK_UPDATE
   JDK_TYPE=zip
 
+  NEXUS_CONFIG_DIR=$MY_DIR/../../../nexus
+  GPG_ENCRYPTED=$NEXUS_CONFIG_DIR/nexus.password.gpg
+  GPG_DECRYPTED=$NEXUS_CONFIG_DIR/nexus.password
+  echo "decrypt   -> nexus password"
+  decrypt_file $GPG_ENCRYPTED $GPG_DECRYPTED
+
+  NEXUS_USER=developer
+  NEXUS_PASSWORD=$(<$GPG_DECRYPTED)
+  execute_quietly "rm $GPG_DECRYPTED"
+
   NEXUS_DEV_REPO="http://nexus.kuali.org/content/groups/developer"
-  $MY_DIR/m2download $NEXUS_DEV_REPO $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION --classifier=$JDK_CLASSIFIER --type=$JDK_TYPE
+  $MY_DIR/m2download $NEXUS_DEV_REPO $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION --classifier=$JDK_CLASSIFIER --type=$JDK_TYPE --username=$NEXUS_USER --password=$NEXUS_PASSWORD
   
   exit 1
 
@@ -51,15 +61,6 @@ function install_jdk {
   JDK_BASEDIR=/usr/java
   mkdir -p $JDK_BASEDIR
 
-  NEXUS_CONFIG_DIR=$MY_DIR/../../../nexus
-  GPG_ENCRYPTED=$NEXUS_CONFIG_DIR/nexus.password.gpg
-  GPG_DECRYPTED=$NEXUS_CONFIG_DIR/nexus.password
-  echo "decrypt   -> nexus password"
-  decrypt_file $GPG_ENCRYPTED $GPG_DECRYPTED
-
-  NEXUS_USER=developer
-  NEXUS_PASSWORD=$(<$GPG_DECRYPTED)
-  execute_quietly "rm $GPG_DECRYPTED"
 
   # Make the call to the smart downloader
   QUIET_FLAG=""
