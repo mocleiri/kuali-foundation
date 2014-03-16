@@ -17,7 +17,7 @@ usage() { echo "Usage: $ME [-h --help] [-c --classifier=linux-x64] [-t --type=zi
 
 CLASSIFIER=""
 TYPE=jar
-REPO=$HOME/.m2/repository
+REPO="$HOME/.m2/repository"
 
 ARGS=$(getopt --options hc:t:r: --longoptions "help,classifier:,type:,repo:" --name "$ME" -- "$@");
 if [ $? -ne 0 ]; then usage; fi
