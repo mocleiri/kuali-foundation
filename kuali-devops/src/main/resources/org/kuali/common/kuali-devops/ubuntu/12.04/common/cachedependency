@@ -5,19 +5,22 @@ function check_args {
   check_not_blank ARTIFACT_ID $ARTIFACT_ID
   check_not_blank VERSION $VERSION
   check_not_blank TYPE $TYPE
+  check_not_blank URL $URL
 }
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] [--help] [--quiet] [--classifier=linux-x64] [--type=zip] group_id artifact_id version url" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] [--help] [--quiet] [--classifier=linux-x64] [--type=zip] [--username=developer] [--password=password] group_id artifact_id version url" 1>&2; exit 1; }
 
 QUIET=false
-MAVEN_CLASSIFIER=""
-MAVEN_TYPE=jar
+CLASSIFIER=""
+TYPE=jar
+USERNAME=""
+PASSWORD=""
 
-ARGS=$(getopt --options hqc:t: --longoptions "help,quiet,classifier:,type:," --name "$ME" -- "$@");
+ARGS=$(getopt --options hqc:t:u:p: --longoptions "help,quiet,classifier:,type:,username:,password:" --name "$ME" -- "$@");
 if [ $? -ne 0 ]; then usage; fi
 eval set -- "$ARGS";
 while true; do
@@ -35,6 +38,16 @@ while true; do
       CLASSIFIER="$1";
       shift;
       ;;
+    -p|--password)
+      shift;
+      PASSWORD="$1";
+      shift;
+      ;;
+    -u|--username)
+      shift;
+      USERNAME="$1";
+      shift;
+      ;;
     -t|--type)
       shift;
       TYPE="$1";
@@ -47,8 +60,8 @@ while true; do
   esac
 done
 
-MAVEN_GROUP_ID=$1
-MAVEN_ARTIFACT_ID=$2
-MAVEN_VERSION=$3
+GROUP_ID=$1
+ARTIFACT_ID=$2
+VERSION=$3
 
 check_args
