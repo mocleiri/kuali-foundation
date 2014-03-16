@@ -189,12 +189,13 @@ done
 
 shift $(( OPTIND - 1 ));
 
-JENKINS_MASTER=$1
+FQDN=$1
 JENKINS_VERSION=$2
 GPG_PASSPHRASE=$3
 
 check_args
 
+JENKINS_MASTER=$FQDN
 QUIET_FLAG=""
 if [ "$QUIET" == "true" ]; then
   QUIET_FLAG="-q"
