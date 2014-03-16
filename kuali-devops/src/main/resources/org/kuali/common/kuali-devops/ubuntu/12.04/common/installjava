@@ -32,7 +32,7 @@ function install_jdk {
   # Extract a specific jdk version based on the jdk level
   JDK_VERSION=${!JDK_FRAGMENT_VAR}-$JDK_UPDATE
   
-  echo "jdk version $JDK_VERSION"
+  echo "jdk version=[$JDK_VERSION]"
   
   exit 1
   
