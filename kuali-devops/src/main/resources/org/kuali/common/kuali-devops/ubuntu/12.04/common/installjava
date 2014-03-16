@@ -49,7 +49,7 @@ function install_jdk {
   NEXUS_USER=developer
   
   URL=$NEXUS_URL/$NEXUS_JDK_LOCATION/$JDK_ZIP_FILE
-  OUTPUT_FILE=$JDK_BASEDIR/$JDK_ZIP_FILE
+  M2_REPO_FILENAME=$(get_m2_repo_filename $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $JDK_CLASSIFIER $JDK_TYPE)
   NEXUS_CONFIG_DIR=$MY_DIR/../../../nexus
   GPG_ENCRYPTED=$NEXUS_CONFIG_DIR/nexus.password.gpg
   GPG_DECRYPTED=$NEXUS_CONFIG_DIR/nexus.password
@@ -59,12 +59,9 @@ function install_jdk {
   execute_quietly "rm $GPG_DECRYPTED"
   echo "download  -> $URL"
   
-  M2_REPO_FILENAME=$(get_m2_repo_filename $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $JDK_CLASSIFIER $JDK_TYPE)
   
   $MY_DIR/downloaddependency $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $URL --username="$NEXUS_USER" --password="$NEXUS_PASSWORD" --classifier="$JDK_CLASSIFIER" --type="$JDK_TYPE"
   
-  execute_quietly "cp $M2_REPO_FILENAME $OUTPUT_FILE"
-
   # Make sure the JDK and the symbolic link are both gone
   JDK_TARGET=$JDK_BASEDIR/$JDK_UNZIP_DIR
   JDK_LINK=$JDK_BASEDIR/$JDK_ARTIFACT_ID
@@ -73,7 +70,7 @@ function install_jdk {
 
   # Unpack the JDK into /usr/java
   echo "install   -> $JDK_LINK - [$JDK_TARGET]"
-  execute_quietly "unzip -o $OUTPUT_FILE -d $JDK_BASEDIR"
+  execute_quietly "unzip -o $M2_REPO_FILENAME -d $JDK_BASEDIR"
 
   # Create the symbolic link  eg: /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
   ln -s $JDK_TARGET $JDK_LINK
