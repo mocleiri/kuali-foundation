@@ -4,6 +4,7 @@ function check_args {
   check_not_blank GROUP_ID $GROUP_ID
   check_not_blank ARTIFACT_ID $ARTIFACT_ID
   check_not_blank VERSION $VERSION
+  check_not_blank CLASSIFIER $CLASSIFIER
   check_not_blank TYPE $TYPE
   check_not_blank URL $URL
 }
@@ -65,12 +66,11 @@ ARTIFACT_ID=$2
 VERSION=$3
 URL=$4
 
-check_args
-
-
 if [ "$CLASSIFIER" == "" ]; then
   CLASSIFIER="none"
 fi
+
+check_args
 
 MY_M2_REPO_FILENAME=$(get_m2_repo_filename $GROUP_ID $ARTIFACT_ID $VERSION $CLASSIFIER $TYPE)
 if [ ! -f $MY_M2_REPO_FILENAME ]; then 
