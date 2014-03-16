@@ -78,5 +78,6 @@ URL=$4
 check_args
 
 M2_REPO_FILENAME=$(get_m2_repo_filename)
-
-echo "$M2_REPO_FILENAME"
+if [ ! -f $M2_REPO_FILENAME ]; then 
+  download_url $URL $M2_REPO_FILENAME $USERNAME $PASSWORD
+fi
