@@ -43,7 +43,7 @@ while true; do
       ;;
     -r|--repo)
       shift;
-      repo="$1";
+      REPO="$1";
       shift;
       ;;
     -c|--classifier)
