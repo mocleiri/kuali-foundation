@@ -55,7 +55,7 @@ VERSION=$3
 
 check_args
 
-$MY_DIR/m2filename $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER"
+M2_FILENAME=$($MY_DIR/m2filename $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER")
 
 echo "$REPO/$GROUP_ID/$ARTIFACT_ID/$VERSION/$M2_FILENAME"
 
