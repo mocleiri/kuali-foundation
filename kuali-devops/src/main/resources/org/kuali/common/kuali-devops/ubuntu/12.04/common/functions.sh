@@ -155,37 +155,26 @@ function echo_lines {
 }
 
 
-function show_args {
+function download_file {
 
-  usage() { echo "Usage: show_args [-c classifier] [-t type] group_id artifact_id version" 1>&2; exit 1; }
-  
-  CLASSIFER=""
-  TYPE="jar"
-  while getopts c flag; do
-    case $flag in
-      c)
-        $CLASSIFIER="$OPTARG"
-        ;;
-      t)
-        $TYPE="$OPTARG"
-        ;;
-      ?)
-        usage;
-        exit;
-        ;;
-    esac
-  done
+  usage() { echo "Usage: show_args group_id artifact_id version classifier type" 1>&2; exit 1; }
   
   GROUP_ID=$1
   ARTIFACT_ID=$2
   VERSION=$3
+  CLASSIFIER=$4
+  TYPE=$5
   
-  shift $(( OPTIND - 1 ));
   check_not_blank GROUP_ID $GROUP_ID
   check_not_blank ARTIFACT_ID $ARTIFACT_ID
   check_not_blank VERSION $VERSION
   check_not_blank TYPE $TYPE
   
-  echo "$HOME/.m2/repository/$GROUP_ID/$ARTIFACT_ID/$VERSION/$ARTIFACT_ID-$VERSION.$TYPE"
+  BASE="$HOME/.m2/repository/$GROUP_ID/$ARTIFACT_ID/$VERSION/$ARTIFACT_ID"
+  if [ -z "$CLASSIFIER" ]; then 
+    echo "$BASE-$CLASSIFIER-$VERSION.$TYPE"
+  else
+    echo "$BASE-$VERSION.$TYPE"
+  fi
   
 }
