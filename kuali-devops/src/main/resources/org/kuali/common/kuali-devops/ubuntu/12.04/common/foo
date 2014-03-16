@@ -1,0 +1,8 @@
+#!/bin/bash
+
+MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+ME=$(basename $0)
+source $MY_DIR/functions.sh
+
+show_args -c linux-x64 org.jenkins jenkins 1.532.2
+

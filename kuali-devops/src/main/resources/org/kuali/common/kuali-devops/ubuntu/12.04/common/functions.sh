@@ -153,3 +153,42 @@ function echo_lines {
     echo "$LINE"
   done < $FILENAME
 }
+
+
+function show_args {
+
+  usage() { echo "Usage: show_args [-c classifier] [-t type] group_id artifact_id version" 1>&2; exit 1; }
+  
+  CLASSIFER=""
+  TYPE="jar"
+  while getopts c flag; do
+    case $flag in
+      c)
+        $CLASSIFIER="$OPTARG"
+        ;;
+      c)
+        $TYPE="$OPTARG"
+        ;;
+      q)
+        QUIET="true";
+        ;;
+      ?)
+        usage;
+        exit;
+        ;;
+    esac
+  done
+  
+  GROUP_ID=$1
+  ARTIFACT_ID=$2
+  VERSION=$3
+  
+  shift $(( OPTIND - 1 ));
+  check_not_blank GROUP_ID $GROUP_ID
+  check_not_blank ARTIFACT_ID $ARTIFACT_ID
+  check_not_blank VERSION $VERSION
+  check_not_blank TYPE $TYPE
+  
+  echo "$HOME/.m2/repository/$GROUP_ID/$ARTIFACT_ID/$VERSION/$ARTIFACT_ID-$VERSION.$TYPE"
+  
+}
