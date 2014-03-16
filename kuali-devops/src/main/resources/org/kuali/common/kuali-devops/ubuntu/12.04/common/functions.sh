@@ -21,20 +21,20 @@
 # return a non-zero error code if the download fails (ie 404 etc)
 # optionally use basic authentication
 function download_url {
-  URL=$1
-  FILENAME=$2
-  USERNAME=$3
-  PASSWORD=$4
+  CURL_URL=$1
+  CURL_FILENAME=$2
+  CURL_USERNAME=$3
+  CURL_PASSWORD=$4
   
-  check_not_blank URL $URL
-  check_not_blank FILENAME $FILENAME
+  check_not_blank CURL_URL $CURL_URL
+  check_not_blank CURL_FILENAME $CURL_FILENAME
   
   CURL_COMMAND="curl --location --fail --create-dirs"
   if [ -n "$CURL_USERNAME" ]; then 
-    CURL_COMMAND="$CURL_COMMAND --user $USERNAME:$PASSWORD" 
+    CURL_COMMAND="$CURL_COMMAND --user $CURL_USERNAME:$CURL_PASSWORD" 
   fi
   
-  CURL_COMMAND="$CURL_COMMAND --output $FILENAME $URL"
+  CURL_COMMAND="$CURL_COMMAND --output $CURL_FILENAME $CURL_URL"
   
   execute_quietly "$CURL_COMMAND"
 }
