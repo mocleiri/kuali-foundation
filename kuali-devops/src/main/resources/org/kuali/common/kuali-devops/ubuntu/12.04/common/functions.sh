@@ -157,7 +157,7 @@ function echo_lines {
 
 function get_m2_repo_filename {
 
-  $FUNCTION_NAME="get_m2_repo_filename"
+  FUNCTION_NAME="get_m2_repo_filename"
   usage() { echo "Usage: $FUNCTION_NAME [--classifier=linux-x64] [--type=zip] group_id artifact_id version" 1>&2; exit 1; }
   
   CLASSIFIER=""
