@@ -27,7 +27,7 @@ while true; do
       shift;
       ;;
     -q|--quiet)
-      QUIET="true";
+      QUIET=true;
       shift;
       ;;
     -c|--classifier)
