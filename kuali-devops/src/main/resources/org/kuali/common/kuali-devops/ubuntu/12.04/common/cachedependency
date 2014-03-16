@@ -15,16 +15,16 @@
 # limitations under the License.
 #
 
-MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
-ME=$(basename $0)
-
-source $MY_DIR/functions.sh
 function check_args {
   check_not_blank GROUP_ID $GROUP_ID
   check_not_blank ARTIFACT_ID $ARTIFACT_ID
   check_not_blank VERSION $VERSION
   check_not_blank TYPE $TYPE
 }
+
+MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+ME=$(basename $0)
+source $MY_DIR/functions.sh
 
 usage() { echo "Usage: $ME [-h] [-q] [--help] [--quiet] [--classifier=linux-x64] [--type=zip] group_id artifact_id version" 1>&2; exit 1; }
 
