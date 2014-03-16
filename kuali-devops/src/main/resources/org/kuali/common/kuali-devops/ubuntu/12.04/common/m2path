@@ -5,7 +5,6 @@ function check_args {
   check_not_blank GROUP_ID $GROUP_ID
   check_not_blank ARTIFACT_ID $ARTIFACT_ID
   check_not_blank VERSION $VERSION
-  check_not_blank CLASSIFIER $CLASSIFIER
   check_not_blank TYPE $TYPE
 }
 
