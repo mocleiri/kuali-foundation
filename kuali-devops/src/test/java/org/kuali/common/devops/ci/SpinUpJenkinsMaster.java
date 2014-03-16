@@ -110,7 +110,7 @@ public class SpinUpJenkinsMaster {
 			// Default to quiet mode unless they've supplied -Dec2.quiet=false
 			boolean quiet = equalsIgnoreCase(getProperty("ec2.quiet"), "false") ? false : true;
 			String jenkinsContextKey = getProperty("jenkins.context");
-			checkState(jenkinsContextKey != null, "usage: -Djenkins.context=prod/beta");
+			checkState(jenkinsContextKey != null, "\n\nusage: -Djenkins.context=prod/beta\n\n");
 			JenkinsContext jenkinsContext = contexts.get(jenkinsContextKey);
 			List<Tag> tags = getMasterTags(jenkinsContext);
 			String dnsPrefix = jenkinsContext.getDnsPrefix();
