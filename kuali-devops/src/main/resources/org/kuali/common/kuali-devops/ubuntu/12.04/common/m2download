@@ -81,7 +81,7 @@ M2_LOCAL_PATH=$($MY_DIR/m2path  --repo="$LOCAL" $GROUP_ID $ARTIFACT_ID $VERSION 
 M2_REMOTE_PATH=$($MY_DIR/m2path --repo="$REPO"  $GROUP_ID $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
 
 echo " local=$M2_LOCAL_PATH"
-echo "remote=$M2_LOCAL_PATH"
+echo "remote=$M2_REMOTE_PATH"
 
 exit 1
 
