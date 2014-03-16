@@ -77,6 +77,11 @@ check_args
 M2_LOCAL_PATH=$($MY_DIR/m2path $LOCAL $GROUP_ID $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
 M2_REMOTE_PATH=$($MY_DIR/m2path $REPO $GROUP_ID $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
 
+echo " local=$M2_LOCAL_PATH"
+echo "remote=$M2_LOCAL_PATH"
+
+exit 1
+
 if [ ! -f $M2_LOCAL_PATH ]; then
   echo "download  -> $M2_REMOTE_PATH"
   echo "to        -> $M2_LOCAL_PATH"
