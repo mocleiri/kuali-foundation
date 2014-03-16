@@ -87,10 +87,10 @@ public class SpinUpJenkinsMaster {
 	private final String distroVersion = "12.04";
 	private static final String ROOT = "root";
 	private static final String UBUNTU = "ubuntu";
-	private static final int DEFAULT_ROOT_VOLUME_SIZE = 256;
-	
-	// TODO east or west?
+
+	// TODO Update as needed (east or west) (default root volume size=256)
 	private static final AMI DEFAULT_AMI = AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_WEST;
+	private static final int DEFAULT_ROOT_VOLUME_SIZE = 32;
 
 	private Map<String, JenkinsContext> contexts = getJenkinsContexts();
 
