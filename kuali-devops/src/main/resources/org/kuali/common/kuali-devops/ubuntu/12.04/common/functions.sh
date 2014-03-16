@@ -155,16 +155,18 @@ function echo_lines {
 }
 
 
-function download_file {
+function get_m2_repo_filename {
 
-  usage() { echo "Usage: show_args group_id artifact_id version classifier type" 1>&2; exit 1; }
+  $FUNCTION_NAME="get_m2_repo_filename"
+  usage() { echo "Usage: $FUNCTION_NAME [--classifier=linux-x64] [--type=zip] group_id artifact_id version" 1>&2; exit 1; }
   
-  GROUP_ID=$1
-  ARTIFACT_ID=$2
-  VERSION=$3
-  CLASSIFIER=$4
-  TYPE=$5
+  CLASSIFIER=""
+  TYPE="jar"
   
+  ARGS=$(getopt --longoptions "classifier:,type" --name "$FUNCTION_NAME" -- "$@");
+  if [ $? -ne 0 ]; then usage; fi
+  eval set -- "$ARGS";
+
   check_not_blank GROUP_ID $GROUP_ID
   check_not_blank ARTIFACT_ID $ARTIFACT_ID
   check_not_blank VERSION $VERSION
