@@ -3,7 +3,7 @@ package org.kuali.common.devops.ci;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Maps.newHashMap;
+import static com.google.common.collect.Maps.newTreeMap;
 import static java.lang.String.format;
 import static java.util.Collections.singletonList;
 import static org.apache.commons.lang3.StringUtils.equalsIgnoreCase;
@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
 
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.junit.Test;
@@ -96,21 +97,23 @@ public class SpinUpJenkinsMaster {
 	private Map<String, JenkinsContext> getJenkinsContexts() {
 		JenkinsContext prod = JenkinsContext.builder().withDnsPrefix("ci").withStack(Tags.Stack.PRODUCTION).withName(Tags.Name.MASTER).build();
 		JenkinsContext beta = JenkinsContext.builder().withDnsPrefix("beta-ci").withStack(Tags.Stack.TEST).withName(Tags.Name.MASTER_BETA).build();
-		Map<String, JenkinsContext> contexts = newHashMap();
-		contexts.put("prod", prod);
+		SortedMap<String, JenkinsContext> contexts = newTreeMap();
 		contexts.put("beta", beta);
+		contexts.put("prod", prod);
 		return contexts;
 	}
 
 	@Test
 	public void test() {
 		try {
+			String usage = String.format("\n\nusage: -Djenkins.context=%s\n\n", Joiner.on('/').join(contexts.keySet()));
 			VirtualSystem vs = VirtualSystem.create();
 			// Default to quiet mode unless they've supplied -Dec2.quiet=false
 			boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
 			String jenkinsContextKey = vs.getProperties().getProperty("jenkins.context");
-			checkState(jenkinsContextKey != null, "\n\nusage: -Djenkins.context=prod/beta\n\n");
+			checkState(jenkinsContextKey != null, usage);
 			JenkinsContext jenkinsContext = contexts.get(jenkinsContextKey);
+			checkState(jenkinsContext != null, usage);
 			List<Tag> tags = getMasterTags(jenkinsContext);
 			String dnsPrefix = jenkinsContext.getDnsPrefix();
 			String aliasFqdn = Joiner.on('.').join(dnsPrefix, DOMAIN);
