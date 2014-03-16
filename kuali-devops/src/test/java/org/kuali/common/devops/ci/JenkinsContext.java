@@ -17,6 +17,10 @@ public final class JenkinsContext {
 		this.stack = builder.stack;
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder extends ValidatingBuilder<JenkinsContext> {
 
 		private String dnsPrefix;

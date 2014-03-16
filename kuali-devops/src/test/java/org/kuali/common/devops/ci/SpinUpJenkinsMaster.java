@@ -2,6 +2,7 @@ package org.kuali.common.devops.ci;
 
 import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Maps.newHashMap;
 import static java.lang.String.format;
 import static java.lang.System.getProperty;
 import static java.util.Collections.singletonList;
@@ -22,6 +23,7 @@ import static org.kuali.common.util.maven.RepositoryUtils.getDefaultLocalReposit
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.junit.Test;
@@ -66,6 +68,7 @@ import org.slf4j.Logger;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Joiner;
+import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
@@ -87,18 +90,28 @@ public class SpinUpJenkinsMaster {
 	private static final String UBUNTU = "ubuntu";
 
 	// TODO Change these when ready
-	private static final Tag NAME = Tags.Name.MASTER_BETA.getTag();
-	private static final Tag STACK = Tags.Stack.TEST.getTag();
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 32;
 	private static final AMI DEFAULT_AMI = AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_WEST;
 
-	// These should be fine assuming the lines above get changed
-	private final List<Tag> tags = getMasterTags(NAME, STACK);
+	private Map<String, JenkinsContext> contexts = getJenkinsContexts();
+
+	private Map<String, JenkinsContext> getJenkinsContexts() {
+		JenkinsContext prod = JenkinsContext.builder().withDnsPrefix("ci").withStack(Tags.Stack.PRODUCTION).withName(Tags.Name.MASTER).build();
+		JenkinsContext beta = JenkinsContext.builder().withDnsPrefix("beta-ci").withStack(Tags.Stack.TEST).withName(Tags.Name.MASTER_BETA).build();
+		Map<String, JenkinsContext> contexts = newHashMap();
+		contexts.put("prod", prod);
+		contexts.put("beta", beta);
+		return contexts;
+	}
 
 	@Test
 	public void test() {
 		try {
-			String dnsPrefix = getProperty("dns.prefix", "ci");
+			String jenkinsContextKey = getProperty("jenkins.context");
+			Preconditions.checkState(jenkinsContextKey != null, "usage: -Djenkins.context=prod/beta");
+			JenkinsContext jenkinsContext = contexts.get(jenkinsContextKey);
+			List<Tag> tags = getMasterTags(jenkinsContext);
+			String dnsPrefix = jenkinsContext.getDnsPrefix();
 			String aliasFqdn = Joiner.on('.').join(dnsPrefix, DOMAIN);
 			// Default to quiet mode unless they've supplied -Dec2.quiet=false
 			boolean quiet = equalsIgnoreCase(getProperty("ec2.quiet"), "false") ? false : true;
@@ -264,10 +277,10 @@ public class SpinUpJenkinsMaster {
 		return getBasicLaunchRequest(builder.build());
 	}
 
-	protected static List<Tag> getMasterTags(Tag name, Tag stack) {
+	protected static List<Tag> getMasterTags(JenkinsContext context) {
 		List<Tag> tags = newArrayList();
-		tags.addAll(CreateBuildSlaveAMI.getCommonTags(stack));
-		tags.add(name);
+		tags.addAll(CreateBuildSlaveAMI.getCommonTags(context.getStack().getTag()));
+		tags.add(context.getName().getTag());
 		return ImmutableList.copyOf(tags);
 	}
 
