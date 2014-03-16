@@ -1,8 +1,0 @@
-#!/bin/bash
-
-MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
-ME=$(basename $0)
-source $MY_DIR/functions.sh
-
-get_m2_repo_filename org.jenkins jenkins 1.532.2 --type=war
-
