@@ -15,8 +15,7 @@ usage() { echo "Usage: $ME [-h] [--help] [--classifier=linux-x64] [--type=zip] [
 
 CLASSIFIER=""
 TYPE=jar
-USERNAME=""
-PASSWORD=""
+REPO=$HOME/.m2/repository
 
 ARGS=$(getopt --options hc:t:r: --longoptions "help,classifier:,type:,repo:" --name "$ME" -- "$@");
 if [ $? -ne 0 ]; then usage; fi
@@ -49,17 +48,9 @@ while true; do
   esac
 done
 
-ARTIFACT_ID=$1
-VERSION=$2
-
-if [ "$CLASSIFIER" == "" ]; then
-  CLASSIFIER="none"
-fi
+GROUP_ID=$1
+ARTIFACT_ID=$2
+VERSION=$3
 
 check_args
 
-if [ "$CLASSIFIER" == "none" ]; then
-  echo "$ARTIFACT_ID-$VERSION.$TYPE"	  
-else
-  echo "$ARTIFACT_ID-$VERSION-$CLASSIFIER.$TYPE"	  
-fi
