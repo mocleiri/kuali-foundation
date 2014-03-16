@@ -16,6 +16,7 @@
 #
 
 function install_maven {
+
   VERSION=$1
   ABBR=$2
   
@@ -39,7 +40,6 @@ function install_maven {
   execute_quietly "chmod -R 755 $MAVEN_DIR"
   execute_quietly "ln -s $MAVEN_TARGET $MAVEN_LINK"
   execute_quietly "ln -s $MAVEN_BASEDIR/mvn$MAVEN_ABBR/bin/mvn $MAVEN_USR_BIN"
-  
   
 }
 
