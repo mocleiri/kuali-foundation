@@ -30,12 +30,12 @@ while true; do
       QUIET="true";
       shift;
       ;;
-    --classifier)
+    -c|--classifier)
       shift;
       CLASSIFIER="$1";
       shift;
       ;;
-    --type)
+    -t|--type)
       shift;
       TYPE="$1";
       shift;
