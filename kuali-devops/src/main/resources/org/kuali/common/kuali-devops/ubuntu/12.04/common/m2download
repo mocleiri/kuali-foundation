@@ -78,9 +78,9 @@ while true; do
   esac
 done
 
-GROUP_ID=$2
-ARTIFACT_ID=$3
-VERSION=$4
+GROUP_ID=$1
+ARTIFACT_ID=$2
+VERSION=$3
 
 check_args
 
