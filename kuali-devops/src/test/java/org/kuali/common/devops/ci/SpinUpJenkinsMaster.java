@@ -110,8 +110,8 @@ public class SpinUpJenkinsMaster {
 			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
 			EC2Service service = getEC2Service(amazonAccount);
-			// Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags);
-			Instance instance = service.getInstance("i-b593c4ea");
+			Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags);
+			// Instance instance = service.getInstance("i-b593c4ea");
 			info("public dns: %s", instance.getPublicDnsName());
 			updateDns(instance, ALIASFQDN);
 			String dns = instance.getPublicDnsName();
@@ -125,7 +125,7 @@ public class SpinUpJenkinsMaster {
 			String common = getBashScript(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
 			String master = getBashScript(basedir, pid, distro, distroVersion, "jenkins/configuremaster");
 			String quietFlag = (quiet) ? "-q" : "";
-			//setupEssentials(channel, basedir, pid, distro, distroVersion, gpgPassphrase, quietFlag);
+			setupEssentials(channel, basedir, pid, distro, distroVersion, gpgPassphrase, quietFlag);
 			exec(channel, common, quietFlag, ALIASFQDN, gpgPassphrase);
 			exec(channel, master, quietFlag, ALIASFQDN, "1.532.2", gpgPassphrase);
 
