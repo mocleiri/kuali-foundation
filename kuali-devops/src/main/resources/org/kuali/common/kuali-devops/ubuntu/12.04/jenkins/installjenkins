@@ -160,7 +160,7 @@ function configure_jenkins {
 
 
 function check_args {
-  check_not_blank JENKINS_MASTER $JENKINS_MASTER
+  check_not_blank FQDN $FQDN
   check_not_blank JENKINS_VERSION $JENKINS_VERSION
   check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
 }
