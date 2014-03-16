@@ -191,10 +191,6 @@ function install_tomcat {
   
 }
 
-MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
-ME=$(basename $0)
-
-source $MY_DIR/functions.sh
 function check_args {
   check_not_blank TOMCAT $TOMCAT
   check_not_blank JDK $JDK
@@ -204,6 +200,10 @@ function check_args {
   check_not_blank DOMAIN $DOMAIN
   check_tomcat
 }
+
+MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+ME=$(basename $0)
+source $MY_DIR/functions.sh
 
 usage() { echo "Usage: $ME [-h] [-q] [--help] [--quiet] [--maxheap=5g] [--maxperm=512m] [--domain=kuali.org] tomcat6/tomcat7 jdk6/jdk7 password" 1>&2; exit 1; }
 
