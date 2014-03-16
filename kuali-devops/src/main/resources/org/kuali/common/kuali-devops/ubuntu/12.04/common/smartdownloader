@@ -74,5 +74,8 @@ check_args
 
 DEPENDENCY_FILENAME=$(get_m2_repo_filename $GROUP_ID $ARTIFACT_ID $VERSION $CLASSIFIER $TYPE)
 if [ ! -f $DEPENDENCY_FILENAME ]; then
+  echo "download -> $URL"
   download_url $URL $DEPENDENCY_FILENAME $USERNAME $PASSWORD
+else 
+  echo "skipping -> $URL"
 fi
