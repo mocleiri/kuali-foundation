@@ -62,8 +62,6 @@ function install_jdk {
   # Make the call to the smart downloader  
   $MY_DIR/smartdownloader $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $NEXUS_M2_REPO_FILE --username="$NEXUS_USER" --password="$NEXUS_PASSWORD" --classifier="$JDK_CLASSIFIER" --type="$JDK_TYPE"
   
-  exit 1
-  
   # Make sure the JDK and the symbolic link are both gone
   JDK_TARGET=$JDK_BASEDIR/$JDK_UNZIP_DIR
   JDK_LINK=$JDK_BASEDIR/$JDK_ARTIFACT_ID
