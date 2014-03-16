@@ -4,5 +4,5 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-download_file linux-x64 org.jenkins jenkins 1.532.2 "" jar
+get_m2_repo_filename org.jenkins jenkins 1.532.2
 
