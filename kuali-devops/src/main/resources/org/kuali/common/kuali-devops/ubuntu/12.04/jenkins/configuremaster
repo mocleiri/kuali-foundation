@@ -51,14 +51,18 @@ function install_jenkins {
 
 function install_plugin {
 
-  PLUGIN_DOWNLOADS=https://updates.jenkins-ci.org/download/plugins
-  PLUGIN_NAME=$1
-  PLUGIN_VERSION=$2
-  echo "install   -> jenkins:plugin:$PLUGIN_NAME:$PLUGIN_VERSION"
-  PLUGIN_URL=$PLUGIN_DOWNLOADS/$PLUGIN_NAME/$PLUGIN_VERSION/$PLUGIN_NAME.hpi
-  PLUGIN_DIR=$JENKINS_HOME/plugins
-  PLUGIN_FILE=$PLUGIN_DIR/$PLUGIN_NAME.jpi
-  download_url $PLUGIN_URL $PLUGIN_FILE
+  REPO=https://updates.jenkins-ci.org/download/plugins
+  GROUP_ID=org.jenkins
+  ARTIFACT_ID=$1
+  VERSION=$2
+  TYPE=jpi
+  PLUGIN_URL=$REPO/$ARTIFACT_ID/$VERSION/$ARTIFACT_ID.hpi
+  
+  $MY_DIR/../common/m2downloadurl $PLUGIN_URL $GROUP_ID $ARTIFACT_ID $VERSION --type=$TYPE
+  M2_LOCAL_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --type="$TYPE")
+  
+  PLUGIN_FILE=$JENKINS_HOME/plugins/$PLUGIN_NAME.jpi
+  execute_silently "cp $M2_LOCAL_PATH $PLUGIN_FILE"
   touch $PLUGIN_FILE.pinned 
   
 }
@@ -197,10 +201,10 @@ execute_quietly "service $TOMCAT stop"
 
 configure_tomcat_user
 install_jenkins
+install_plugins
 
 exit 1
 
-install_plugins
 configure_jenkins
 echo "start     -> $TOMCAT:service"
 execute_quietly "service $TOMCAT start"
