@@ -114,9 +114,9 @@ public class SpinUpJenkinsMaster {
 			checkState(jenkinsContextKey != null, usage);
 			JenkinsContext jenkinsContext = contexts.get(jenkinsContextKey);
 			checkState(jenkinsContext != null, usage);
-			List<Tag> tags = getMasterTags(jenkinsContext);
 			String dnsPrefix = jenkinsContext.getDnsPrefix();
 			String aliasFqdn = Joiner.on('.').join(dnsPrefix, DOMAIN);
+			List<Tag> tags = getMasterTags(jenkinsContext, aliasFqdn);
 			info("jenkins -> [%s :: %s]", jenkinsContextKey, aliasFqdn);
 			KeyPair keyPair = CreateBuildSlaveAMI.KUALI_KEY;
 			String privateKey = keyPair.getPrivateKey().get();
@@ -279,8 +279,9 @@ public class SpinUpJenkinsMaster {
 		return getBasicLaunchRequest(builder.build());
 	}
 
-	protected static List<Tag> getMasterTags(JenkinsContext context) {
+	protected static List<Tag> getMasterTags(JenkinsContext context, String fqdn) {
 		List<Tag> tags = newArrayList();
+		tags.add(new Tag("fqdn", fqdn));
 		tags.addAll(CreateBuildSlaveAMI.getCommonTags(context.getStack().getTag()));
 		tags.add(context.getName().getTag());
 		return ImmutableList.copyOf(tags);
