@@ -90,17 +90,17 @@ public class SpinUpJenkinsMaster {
 	private static final Tag NAME = Tags.Name.MASTER_BETA.getTag();
 	private static final Tag STACK = Tags.Stack.TEST.getTag();
 	// private static final String SUBDOMAIN = "beta-ci";
-	private static final String SUBDOMAIN = "ci";
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 32;
 	private static final AMI DEFAULT_AMI = AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_WEST;
 
 	// These should be fine assuming the lines above get changed
-	private static final String ALIASFQDN = Joiner.on('.').join(SUBDOMAIN, DOMAIN);
 	private final List<Tag> tags = getMasterTags(NAME, STACK);
 
 	@Test
 	public void test() {
 		try {
+			String dnsPrefix = getProperty("dns.prefix", "ci");
+			String aliasFqdn = Joiner.on('.').join(dnsPrefix, DOMAIN);
 			// Default to quiet mode unless they've supplied -Dec2.quiet=false
 			boolean quiet = equalsIgnoreCase(getProperty("ec2.quiet"), "false") ? false : true;
 			logger.info(vs.getOs().getName());
@@ -113,7 +113,7 @@ public class SpinUpJenkinsMaster {
 			Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags);
 			// Instance instance = service.getInstance("i-b593c4ea");
 			info("public dns: %s", instance.getPublicDnsName());
-			updateDns(instance, ALIASFQDN);
+			updateDns(instance, aliasFqdn);
 			String dns = instance.getPublicDnsName();
 			// While spinning things up, use the Amazon DNS name since the DNSME alias can take a while (few minutes) to propagate
 			verifySSH(UBUNTU, dns, privateKey);
@@ -125,26 +125,27 @@ public class SpinUpJenkinsMaster {
 			String common = getBashScript(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
 			String master = getBashScript(basedir, pid, distro, distroVersion, "jenkins/configuremaster");
 			String quietFlag = (quiet) ? "-q" : "";
-			setupEssentials(channel, basedir, pid, distro, distroVersion, gpgPassphrase, quietFlag);
-			exec(channel, common, quietFlag, ALIASFQDN, gpgPassphrase);
-			exec(channel, master, quietFlag, ALIASFQDN, "1.532.2", gpgPassphrase);
+			setupEssentials(channel, basedir, pid, distro, distroVersion, gpgPassphrase, dnsPrefix, quietFlag);
+			exec(channel, common, quietFlag, aliasFqdn, gpgPassphrase);
+			exec(channel, master, quietFlag, aliasFqdn, "1.532.2", gpgPassphrase);
 
 			// The spin up process should have given DNS enough time to settle down
-			info("Verifying SSH to -> [%s]", ALIASFQDN);
-			verifySSH(ROOT, ALIASFQDN, privateKey);
-			info("[%s] jenkins is ready - %s", ALIASFQDN, FormatUtils.getTime(sw));
+			info("Verifying SSH to -> [%s]", aliasFqdn);
+			verifySSH(ROOT, aliasFqdn, privateKey);
+			info("[%s] jenkins is ready - %s", aliasFqdn, FormatUtils.getTime(sw));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected static void setupEssentials(SecureChannel channel, String basedir, ProjectIdentifier pid, Distro distro, String distroVersion, String gpgPassphrase, String quietFlag) {
+	protected static void setupEssentials(SecureChannel channel, String basedir, ProjectIdentifier pid, Distro distro, String distroVersion, String gpgPassphrase,
+			String dnsPrefix, String quietFlag) {
 		String basics = getBashScript(basedir, pid, distro, distroVersion, "common/configurebasics");
 		String sethostname = getBashScript(basedir, pid, distro, distroVersion, "common/sethostname");
 		String java = getBashScript(basedir, pid, distro, distroVersion, "common/installjava");
 		String tomcat = getBashScript(basedir, pid, distro, distroVersion, "common/installtomcat");
 		exec(channel, basics, quietFlag);
-		exec(channel, sethostname, SUBDOMAIN, DOMAIN);
+		exec(channel, sethostname, dnsPrefix, DOMAIN);
 		exec(channel, java, quietFlag, "jdk6", "u45", gpgPassphrase);
 		exec(channel, java, quietFlag, "jdk7", "u51", gpgPassphrase);
 		exec(channel, tomcat, quietFlag, "tomcat7", "jdk7", gpgPassphrase);
