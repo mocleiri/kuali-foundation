@@ -24,11 +24,10 @@ function install_maven {
   ARTIFACT_ID=apache-maven
   CLASSIFIER=bin
   TYPE=zip
-  REPO=http://search.maven.org/remotecontent?filepath=
   
   echo "install   -> maven $VERSION"
 
-  $MY_DIR/../common/m2download $QUIET_FLAG $REPO $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE
+  $MY_DIR/../common/m2download $QUIET_FLAG $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE
   LOCAL_MAVEN_ZIP_FILE=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE)
 
   MAVEN_DIR=$MAVEN_BASEDIR/$ARTIFACT_ID-$VERSION
