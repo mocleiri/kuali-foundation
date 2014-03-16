@@ -57,7 +57,8 @@ function install_jdk {
   NEXUS_PASSWORD=$(<$GPG_DECRYPTED)
   execute_quietly "rm $GPG_DECRYPTED"
   echo "download  -> $URL"
-  download_url $URL $OUTPUT_FILE $NEXUS_USER $NEXUS_PASSWORD
+  
+  $MY_DIR/download_dependency $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $URL --username="$NEXUS_USER" --password="$NEXUS_PASSWORD" --classifer="$JDK_CLASSIFIER" --type="zip"
 
   # Make sure the JDK and the symbolic link are both gone
   JDK_TARGET=$JDK_BASEDIR/$JDK_UNZIP_DIR
