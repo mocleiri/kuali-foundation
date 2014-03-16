@@ -82,18 +82,7 @@ check_args
 M2_LOCAL_PATH=$($MY_DIR/m2path  --repo="$LOCAL" $GROUP_ID $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
 M2_REMOTE_PATH=$($MY_DIR/m2path --repo="$REPO"  $GROUP_ID $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
 
-echo "local=$M2_LOCAL_PATH"
-
 if [ ! -f "$M2_LOCAL_PATH" ]; then
-  echo "wtf1???"
   echo "download  -> $M2_REMOTE_PATH"
-  #echo "to        -> $M2_LOCAL_PATH"
-  download_url $M2_REMOTE_PATH $M2_LOCAL_PATH $USERNAME $PASSWORD
-fi
-
-if [ ! -f "$M2_LOCAL_PATH" ]; then
-  echo "wtf2???"
-  echo "download  -> $M2_REMOTE_PATH"
-  #echo "to        -> $M2_LOCAL_PATH"
   download_url $M2_REMOTE_PATH $M2_LOCAL_PATH $USERNAME $PASSWORD
 fi
