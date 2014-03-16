@@ -60,7 +60,7 @@ function install_jdk {
   execute_quietly "rm $GPG_DECRYPTED"
 
   # Make the call to the smart downloader  
-  $MY_DIR/smartdownloader $M2_REPO_NEXUS $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $NEXUS_M2_REPO_FILE --username="$NEXUS_USER" --password="$NEXUS_PASSWORD" --classifier="$JDK_CLASSIFIER" --type="$JDK_TYPE"
+  $MY_DIR/smartdownloader $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $NEXUS_M2_REPO_FILE --username="$NEXUS_USER" --password="$NEXUS_PASSWORD" --classifier="$JDK_CLASSIFIER" --type="$JDK_TYPE"
   
   exit 1
   
