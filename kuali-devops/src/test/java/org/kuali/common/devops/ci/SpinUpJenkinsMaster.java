@@ -136,10 +136,14 @@ public class SpinUpJenkinsMaster {
 			SecureChannel channel = openSecureChannel(ROOT, dns, privateKey, quiet);
 			String basedir = publishProject(channel, pid, ROOT, dns, quiet);
 			String gpgPassphrase = Auth.decrypt(gpgPassphraseEncrypted);
+			String quietFlag = (quiet) ? "-q" : "";
+
+			// configure basics, java, and tomcat
+			setupEssentials(channel, basedir, pid, distro, distroVersion, gpgPassphrase, dnsPrefix, quietFlag);
+
+			// do jenkins specific configuration
 			String common = getBashScript(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
 			String master = getBashScript(basedir, pid, distro, distroVersion, "jenkins/configuremaster");
-			String quietFlag = (quiet) ? "-q" : "";
-			setupEssentials(channel, basedir, pid, distro, distroVersion, gpgPassphrase, dnsPrefix, quietFlag);
 			exec(channel, common, quietFlag, aliasFqdn, gpgPassphrase);
 			exec(channel, master, quietFlag, aliasFqdn, "1.532.2", gpgPassphrase);
 
