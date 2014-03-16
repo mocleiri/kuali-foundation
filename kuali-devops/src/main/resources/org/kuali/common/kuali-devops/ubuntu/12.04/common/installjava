@@ -61,13 +61,13 @@ function install_jdk {
   JDK_BASEDIR=/usr/java
   mkdir -p $JDK_BASEDIR
 
-  exit 1
-
   # Make sure the JDK and the symbolic link are both gone
   JDK_TARGET=$JDK_BASEDIR/$JDK_UNZIP_DIR
   JDK_LINK=$JDK_BASEDIR/$JDK_ARTIFACT_ID
   echo "purge     -> $JDK"
   rm -rf $JDK_LINK $JDK_TARGET
+
+  exit 1
 
   # Unpack the JDK into /usr/java
   echo "install   -> $JDK_LINK - [$JDK_TARGET]"
