@@ -21,6 +21,9 @@
 # return a non-zero error code if the download fails (ie 404 etc)
 # optionally use basic authentication
 function download_url {
+
+  usage() { echo "Usage: download_url url filename username password" 1>&2; exit 1; }
+
   CURL_URL=$1
   CURL_FILENAME=$2
   CURL_USERNAME=$3
