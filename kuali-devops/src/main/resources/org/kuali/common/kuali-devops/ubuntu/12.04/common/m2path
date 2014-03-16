@@ -11,14 +11,14 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-usage() { echo "Usage: $ME [-h] [--help] [--classifier=linux-x64] [--type=zip] artifact_id version" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [--help] [--classifier=linux-x64] [--type=zip] [--repo=\$HOME/.m2/repository] group_id artifact_id version" 1>&2; exit 1; }
 
 CLASSIFIER=""
 TYPE=jar
 USERNAME=""
 PASSWORD=""
 
-ARGS=$(getopt --options hc:t: --longoptions "help,classifier:,type:" --name "$ME" -- "$@");
+ARGS=$(getopt --options hc:t:r: --longoptions "help,classifier:,type:,repo:" --name "$ME" -- "$@");
 if [ $? -ne 0 ]; then usage; fi
 eval set -- "$ARGS";
 while true; do
