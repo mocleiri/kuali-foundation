@@ -115,7 +115,7 @@ public class SpinUpJenkinsMaster {
 			List<Tag> tags = getMasterTags(jenkinsContext);
 			String dnsPrefix = jenkinsContext.getDnsPrefix();
 			String aliasFqdn = Joiner.on('.').join(dnsPrefix, DOMAIN);
-			logger.info(vs.getOs().getName());
+			info("jenkins -> [%s :: %s]", jenkinsContextKey, aliasFqdn);
 			KeyPair keyPair = CreateBuildSlaveAMI.KUALI_KEY;
 			String privateKey = keyPair.getPrivateKey().get();
 			BasicLaunchRequest request = getMasterLaunchRequest();
