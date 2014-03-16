@@ -86,5 +86,5 @@ if [ ! -f $M2_LOCAL_PATH ]; then
   download_url $URL $M2_LOCAL_PATH $USERNAME $PASSWORD
 else 
   echo "skip      -> $URL"
-  echo "existing  -> $M2_LOCAL_PATH"
+  echo "exists  -> $M2_LOCAL_PATH"
 fi
