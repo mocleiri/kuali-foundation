@@ -23,15 +23,15 @@
 function download_url {
   URL=$1
   FILENAME=$2
-  CURL_USERNAME=$3
-  CURL_PASSWORD=$4
+  USERNAME=$3
+  PASSWORD=$4
   
   check_not_blank URL $URL
   check_not_blank FILENAME $FILENAME
   
   CURL_COMMAND="curl --location --fail --create-dirs"
   if [ -n "$CURL_USERNAME" ]; then 
-    CURL_COMMAND="$CURL_COMMAND --user $CURL_USERNAME:$CURL_PASSWORD" 
+    CURL_COMMAND="$CURL_COMMAND --user $USERNAME:$PASSWORD" 
   fi
   
   CURL_COMMAND="$CURL_COMMAND --output $FILENAME $URL"
