@@ -16,8 +16,18 @@
 #
 
 function install_maven {
-  MAVEN_VERSION=$1
   MAVEN_ABBR=$2
+  
+  GROUP_ID=org.apache.maven
+  ARTIFACT_ID=apache-maven
+  VERSION=$1
+  CLASSIFIER=bin
+  TYPE=zip
+  REPO=http://search.maven.org/remotecontent?filepath=
+  
+  $MY_DIR/../common/m2download $REPO $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE
+  
+  exit 1
 
   echo "install   -> maven $MAVEN_VERSION"
 
