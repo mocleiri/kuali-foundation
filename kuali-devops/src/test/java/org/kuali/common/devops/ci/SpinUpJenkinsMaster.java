@@ -5,7 +5,6 @@ import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 import static java.lang.String.format;
-import static java.lang.System.getProperty;
 import static java.util.Collections.singletonList;
 import static org.apache.commons.lang3.StringUtils.equalsIgnoreCase;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
@@ -79,7 +78,6 @@ public class SpinUpJenkinsMaster {
 	private static final Logger logger = newLogger();
 
 	private final Stopwatch sw = createStarted();
-	private final VirtualSystem vs = VirtualSystem.create();
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_MASTER.getGroup());
 	private final String gpgPassphraseEncrypted = "coSLMPP2IsSAXYVp9NIsvxzqAkd7N+Yh";
 	private final String amazonAccount = "foundation";
@@ -107,9 +105,10 @@ public class SpinUpJenkinsMaster {
 	@Test
 	public void test() {
 		try {
+			VirtualSystem vs = VirtualSystem.create();
 			// Default to quiet mode unless they've supplied -Dec2.quiet=false
-			boolean quiet = equalsIgnoreCase(getProperty("ec2.quiet"), "false") ? false : true;
-			String jenkinsContextKey = getProperty("jenkins.context");
+			boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
+			String jenkinsContextKey = vs.getProperties().getProperty("jenkins.context");
 			checkState(jenkinsContextKey != null, "\n\nusage: -Djenkins.context=prod/beta\n\n");
 			JenkinsContext jenkinsContext = contexts.get(jenkinsContextKey);
 			List<Tag> tags = getMasterTags(jenkinsContext);

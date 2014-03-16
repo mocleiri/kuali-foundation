@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -123,11 +124,13 @@ public class CreateBuildSlaveAMI {
 	}
 
 	protected static BasicLaunchRequest getBasicLaunchRequest(BasicLaunchRequest provided) {
-		String ami = System.getProperty("ec2.ami", provided.getAmi());
-		InstanceType type = InstanceType.fromValue(System.getProperty("ec2.type", provided.getType().toString()));
-		int size = parseInt(System.getProperty("ec2.size", provided.getRootVolume().getSizeInGigabytes().get() + ""));
+		VirtualSystem vs = VirtualSystem.create();
+		Properties system = vs.getProperties();
+		String ami = system.getProperty("ec2.ami", provided.getAmi());
+		InstanceType type = InstanceType.fromValue(system.getProperty("ec2.type", provided.getType().toString()));
+		int size = parseInt(system.getProperty("ec2.size", provided.getRootVolume().getSizeInGigabytes().get() + ""));
 		RootVolume rootVolume = RootVolume.create(size, provided.getRootVolume().getDeleteOnTermination().get());
-		int timeoutMillis = getMillisAsInt(System.getProperty("ec2.timeout", provided.getTimeoutMillis() + ""));
+		int timeoutMillis = getMillisAsInt(system.getProperty("ec2.timeout", provided.getTimeoutMillis() + ""));
 		return BasicLaunchRequest.builder().withAmi(ami).withRootVolume(rootVolume).withTimeoutMillis(timeoutMillis).withType(type).build();
 	}
 
