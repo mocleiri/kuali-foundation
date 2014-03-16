@@ -77,7 +77,9 @@ DEPENDENCY_FILENAME=$(get_m2_repo_filename $M2_REPO_LOCAL $GROUP_ID $ARTIFACT_ID
 echo $DEPENDENCY_FILENAME
 if [ ! -f $DEPENDENCY_FILENAME ]; then
   echo "download -> $URL"
+  echo "to       -> $DEPENDENCY_FILENAME"
   download_url $URL $DEPENDENCY_FILENAME $USERNAME $PASSWORD
 else 
-  echo "skipping -> $URL"
+  echo "skip     -> $URL"
+  echo "because  -> exists [$DEPENDENCY_FILENAME]"
 fi
