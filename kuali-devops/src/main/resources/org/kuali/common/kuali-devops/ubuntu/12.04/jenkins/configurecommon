@@ -28,7 +28,7 @@ function install_maven {
   
   echo "install   -> maven $VERSION"
 
-  $MY_DIR/../common/m2download $REPO $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE
+  $MY_DIR/../common/m2download $QUIET_FLAG $REPO $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE
   LOCAL_MAVEN_ZIP_FILE=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE)
 
   MAVEN_DIR=$MAVEN_BASEDIR/$ARTIFACT_ID-$VERSION
@@ -184,6 +184,10 @@ GPG_PASSPHRASE=$2
 
 check_args
 
+QUIET_FLAG=""
+if [ "$QUIET" == "true" ]; then
+  QUIET_FLAG="-q"
+fi
 MAVEN_BASEDIR=/usr/maven
 
 configure_java
