@@ -52,7 +52,7 @@ function install_jenkins {
 function install_plugin {
 
   REPO=https://updates.jenkins-ci.org/download/plugins
-  GROUP_ID=org.jenkins
+  GROUP_ID=org.jenkins.plugins
   ARTIFACT_ID=$1
   VERSION=$2
   TYPE=jpi
