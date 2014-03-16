@@ -8,7 +8,6 @@ function check_args {
   check_not_blank VERSION $VERSION
   check_not_blank CLASSIFIER $CLASSIFIER
   check_not_blank TYPE $TYPE
-  check_not_blank URL $URL
 }
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
@@ -35,11 +34,6 @@ while true; do
       ;;
     -q|--quiet)
       QUIET=true;
-      shift;
-      ;;
-    -r|--repo)
-      shift;
-      REPO="$1";
       shift;
       ;;
     -l|--local)
@@ -84,11 +78,11 @@ check_args
 M2_LOCAL_PATH=$($MY_DIR/m2path $LOCAL $GROUP_ID $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
 M2_REMOTE_PATH=$($MY_DIR/m2path $REPO $GROUP_ID $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
 
-if [ ! -f $DEPENDENCY_FILENAME ]; then
-  echo "download  -> $URL"
-  echo "to        -> $DEPENDENCY_FILENAME"
-  download_url $URL $DEPENDENCY_FILENAME $USERNAME $PASSWORD
+if [ ! -f $M2_LOCAL_PATH ]; then
+  echo "download  -> $M2_REMOTE_PATH"
+  echo "to        -> $M2_LOCAL_PATH"
+  download_url $M2_REMOTE_PATH $M2_LOCAL_PATH $USERNAME $PASSWORD
 else 
-  echo "skip      -> $URL"
-  echo "because   -> $DEPENDENCY_FILENAME already exists"
+  echo "skip      -> $M2_REMOTE_PATH"
+  echo "because   -> $M2_LOCAL_PATH already exists"
 fi
