@@ -81,6 +81,7 @@ check_args
 M2_LOCAL_PATH=$($MY_DIR/m2path  --repo="$LOCAL" $GROUP_ID $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
 
 if [ ! -f $M2_LOCAL_PATH ]; then
+  echo "wtf???"
   echo "download  -> $URL"
   #echo "to        -> $M2_LOCAL_PATH"
   download_url $URL $M2_LOCAL_PATH $USERNAME $PASSWORD
