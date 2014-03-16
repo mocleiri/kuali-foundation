@@ -18,12 +18,20 @@
 function install_jenkins {
   
   echo "install   -> jenkins:$JENKINS_VERSION"
+  
+  GROUP_ID=org.jenkins
+  ARTIFACT_ID=jenkins
+  VERSION=$JENKINS_VERSION
+  TYPE=war
+  
+  JENKINS_URL=http://mirrors.jenkins-ci.org/war-stable/$JENKINS_VERSION/jenkins.war
+  $MY_DIR/../common/smartdownloader $GROUP_ID $ARTIFACT_ID $VERSION $JENKINS_URL --type=$TYPE
+  
   TOMCAT_DIR=/var/lib/$TOMCAT
   TOMCAT_CLEANUP=/usr/share/$TOMCAT/bin/cleanup.sh
   TOMCAT_WEBAPPS=$TOMCAT_DIR/webapps
   TOMCAT_ROOT=$TOMCAT_WEBAPPS/ROOT
   TOMCAT_ROOT_WAR=$TOMCAT_WEBAPPS/ROOT.war
-  JENKINS_URL=http://mirrors.jenkins-ci.org/war-stable/$JENKINS_VERSION/jenkins.war
   echo "download  -> jenkins:war - [$JENKINS_URL]"
   rm -rf $TOMCAT_WEBAPPS/* $JENKINS_HOME
   download_url $JENKINS_URL $TOMCAT_ROOT_WAR
