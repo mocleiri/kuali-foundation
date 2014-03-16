@@ -1,5 +1,6 @@
 package org.kuali.common.devops.ci;
 
+import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
@@ -68,7 +69,6 @@ import org.slf4j.Logger;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Joiner;
-import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
@@ -108,7 +108,7 @@ public class SpinUpJenkinsMaster {
 	public void test() {
 		try {
 			String jenkinsContextKey = getProperty("jenkins.context");
-			Preconditions.checkState(jenkinsContextKey != null, "usage: -Djenkins.context=prod/beta");
+			checkState(jenkinsContextKey != null, "usage: -Djenkins.context=prod/beta");
 			JenkinsContext jenkinsContext = contexts.get(jenkinsContextKey);
 			List<Tag> tags = getMasterTags(jenkinsContext);
 			String dnsPrefix = jenkinsContext.getDnsPrefix();
