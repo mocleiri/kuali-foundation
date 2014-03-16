@@ -8,7 +8,7 @@ function get_m2_repo_filename {
 	else
 	  FILENAME=$BASE-$CLASSIFIER.$TYPE	  
 	fi
-	echo $($FILENAME)
+	echo "$FILENAME"
 }
 
 function check_args {
