@@ -61,7 +61,7 @@ function install_jdk {
   
   M2_REPO_FILENAME=$(get_m2_repo_filename $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $JDK_CLASSIFIER $JDK_TYPE)
   
-  $MY_DIR/downloaddependency $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $URL --username="$NEXUS_USER" --password="$NEXUS_PASSWORD" --classifer="$JDK_CLASSIFIER" --type="$JDK_TYPE"
+  $MY_DIR/downloaddependency $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION $URL --username="$NEXUS_USER" --password="$NEXUS_PASSWORD" --classifier="$JDK_CLASSIFIER" --type="$JDK_TYPE"
   
   execute_quietly "cp $M2_REPO_FILENAME $OUTPUT_FILE"
 
