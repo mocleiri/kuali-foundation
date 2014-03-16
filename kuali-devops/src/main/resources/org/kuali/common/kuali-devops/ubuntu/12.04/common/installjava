@@ -69,7 +69,7 @@ function install_jdk {
   echo "install   -> $JDK_LINK - [$JDK_TARGET]"
   execute_quietly "unzip -o $OUTPUT_FILE -d $JDK_BASEDIR"
 
-  # Create the symbolic link /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
+  # Create the symbolic link  eg: /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
   ln -s $JDK_TARGET $JDK_LINK
   
   TOOLS_JAR=$JDK_LINK/lib/tools.jar
