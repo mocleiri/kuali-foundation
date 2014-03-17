@@ -16,7 +16,6 @@ import static org.kuali.common.util.FormatUtils.getMillisAsInt;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
-import static org.kuali.common.util.base.Threads.sleep;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.io.File;
@@ -35,6 +34,7 @@ import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
+import org.kuali.common.aws.ec2.model.ImmutableTag;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
@@ -79,8 +79,8 @@ public class CreateBuildSlaveAMI {
 	private final String today = format.format(new Date());
 	private final long buildNumber = getBuildNumber();
 	private final String startsWithToken = "ec2slave";
-	private final Tag name = new Tag("Name", format("%s.%s-build-%s", startsWithToken, today, buildNumber));
-	private static final String amazonAccount = "foundation";
+	private final Tag name = new ImmutableTag("Name", format("%s.%s-build-%s", startsWithToken, today, buildNumber));
+	private static final String amazonAccount = Constants.AMAZON_ACCOUNT;
 	public static final KeyPair KUALI_KEY = Auth.getKeyPair(amazonAccount);
 	private final String domainToken = ".amazonaws.com";
 	private final int minimumAmisToKeep = 7;
@@ -95,15 +95,12 @@ public class CreateBuildSlaveAMI {
 	public void test() {
 		// Configurable items
 		BasicLaunchRequest request = getSlaveLaunchRequest();
-		// The amount of time to sleep after creating a brand new instance (gives DNS a few seconds to figure itself out)
-		String sleep = System.getProperty("slave.sleep", "15s");
 
 		EC2Service service = getEC2Service(amazonAccount);
 		Instance instance = launchAndWait(service, request, securityGroups, TAGS);
 		// Instance instance = getRunningSlaveInstance(service, "i-1907c23a");
 		logger.info(format("public dns: %s", instance.getPublicDnsName()));
-		logger.info(format("sleeping %s to let dns settle down", sleep));
-		sleep(sleep);
+		SpinUpJenkinsMaster.verifySSH(Constants.UBUNTU, instance.getPublicDnsName(), KUALI_KEY.getPrivateKey().get());
 		CanonicalFile buildDir = getBuildDirectory();
 		logger.info(format("build directory -> %s", buildDir));
 		chmod(buildDir);

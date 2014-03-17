@@ -80,13 +80,13 @@ public class SpinUpJenkinsMaster {
 
 	private final Stopwatch sw = createStarted();
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_MASTER.getGroup());
-	private final String gpgPassphraseEncrypted = "coSLMPP2IsSAXYVp9NIsvxzqAkd7N+Yh";
-	private final String amazonAccount = "foundation";
-	private static final String DOMAIN = "kuali.org";
+	private final String gpgPassphraseEncrypted = Constants.GPG_PASSPHRASE_ENCRYPTED;
+	private final String amazonAccount = Constants.AMAZON_ACCOUNT;
+	private static final String DOMAIN = Constants.DOMAIN;
 	private final Distro distro = Distro.UBUNTU;
-	private final String distroVersion = "12.04";
-	private static final String ROOT = "root";
-	private static final String UBUNTU = "ubuntu";
+	private final String distroVersion = Constants.DISTRO_VERSION;
+	private static final String ROOT = Constants.ROOT;
+	private static final String UBUNTU = Constants.UBUNTU;
 
 	// TODO Update as needed (east or west?) (what should we go with for default root volume size, 256?)
 	private static final AMI DEFAULT_AMI = AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_WEST;
@@ -250,14 +250,14 @@ public class SpinUpJenkinsMaster {
 		execFormattedCommand(channel, true, "sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys");
 	}
 
-	protected void verifySSH(String username, String hostname, String privateKey) {
+	protected static void verifySSH(String username, String hostname, String privateKey) {
 		WaitContext context = WaitContext.builder(getMillisAsInt("10m")).sleepMillis(getMillisAsInt("5s")).build();
 		WaitService service = new DefaultWaitService();
 		Condition condition = getSshCondition(username, hostname, privateKey);
 		service.wait(context, condition);
 	}
 
-	protected Condition getSshCondition(String username, String hostname, String privateKey) {
+	protected static Condition getSshCondition(String username, String hostname, String privateKey) {
 		ChannelContext context = new ChannelContext.Builder(hostname).username(username).privateKey(privateKey).connectTimeout(getMillisAsInt("5s")).build();
 		ChannelService service = new DefaultChannelService();
 		return new VerifiedSSHCondition(service, context);
