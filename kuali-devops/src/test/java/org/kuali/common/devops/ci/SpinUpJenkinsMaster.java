@@ -29,7 +29,6 @@ import java.util.SortedMap;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
-import org.kuali.common.aws.ec2.model.AMI;
 import org.kuali.common.aws.ec2.model.Distro;
 import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
@@ -90,7 +89,6 @@ public class SpinUpJenkinsMaster {
 	private static final String UBUNTU = Constants.UBUNTU;
 
 	// TODO Update as needed (east or west?) (what should we go with for default root volume size, 256?)
-	private static final AMI DEFAULT_AMI = AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_WEST;
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 32;
 
 	protected static final Map<String, JenkinsContext> CONTEXTS = getJenkinsContexts();
@@ -283,7 +281,7 @@ public class SpinUpJenkinsMaster {
 	protected static BasicLaunchRequest getMasterLaunchRequest() {
 		BasicLaunchRequest.Builder builder = BasicLaunchRequest.builder();
 		builder.setTimeoutMillis(getMillisAsInt("15m"));
-		builder.setAmi(DEFAULT_AMI.getId());
+		builder.setAmi(Constants.DEFAULT_AMI.getId());
 		builder.setRootVolume(RootVolume.create(DEFAULT_ROOT_VOLUME_SIZE, true));
 		return getBasicLaunchRequest(builder.build());
 	}

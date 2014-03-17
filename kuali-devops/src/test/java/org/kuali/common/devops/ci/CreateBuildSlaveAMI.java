@@ -80,6 +80,7 @@ public class CreateBuildSlaveAMI {
 	@Test
 	public void test() {
 		try {
+			System.setProperty("jenkins.context", "test");
 			VirtualSystem vs = VirtualSystem.create();
 			// Default to quiet mode unless they've supplied -Dec2.quiet=false
 			boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
@@ -120,6 +121,7 @@ public class CreateBuildSlaveAMI {
 
 	protected static BasicLaunchRequest getSlaveLaunchRequest() {
 		BasicLaunchRequest.Builder builder = BasicLaunchRequest.builder();
+		builder.setAmi(Constants.DEFAULT_AMI.getId());
 		builder.setTimeoutMillis(FormatUtils.getMillisAsInt("1h"));
 		return getBasicLaunchRequest(builder.build());
 	}
