@@ -1,5 +1,6 @@
 package org.kuali.common.aws.ec2.model;
 
+import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
 import static org.apache.commons.lang3.StringUtils.trimToNull;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
@@ -16,15 +17,18 @@ public final class ImmutableBlockDeviceMapping extends BlockDeviceMapping {
 
 	public static ImmutableBlockDeviceMapping copyOf(BlockDeviceMapping mapping) {
 		String deviceName = mapping.getDeviceName();
-		ImmutableEbsBlockDevice ebs = ImmutableEbsBlockDevice.copyOf(mapping.getEbs());
+		Optional<ImmutableEbsBlockDevice> ebs = absent();
+		if (mapping.getEbs() != null) {
+			ebs = Optional.of(ImmutableEbsBlockDevice.copyOf(mapping.getEbs()));
+		}
 		Optional<String> virtualName = fromNullable(trimToNull(mapping.getVirtualName()));
 		Optional<String> noDevice = fromNullable(trimToNull(mapping.getNoDevice()));
 		return new ImmutableBlockDeviceMapping(deviceName, ebs, virtualName, noDevice);
 	}
 
-	public ImmutableBlockDeviceMapping(String deviceName, ImmutableEbsBlockDevice ebs, Optional<String> virtualName, Optional<String> noDevice) {
+	public ImmutableBlockDeviceMapping(String deviceName, Optional<ImmutableEbsBlockDevice> ebs, Optional<String> virtualName, Optional<String> noDevice) {
 		super.setDeviceName(checkNotBlank(deviceName, "deviceName"));
-		super.setEbs(checkNotNull(ebs, "ebs"));
+		super.setEbs(checkNotNull(ebs, "ebs").orNull());
 		super.setVirtualName(checkNotBlank(virtualName, "virtualName").orNull());
 		super.setNoDevice(checkNotBlank(noDevice, "noDevice").orNull());
 	}
