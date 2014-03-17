@@ -129,10 +129,10 @@ public class CreateBuildSlaveAMI {
 			SpinUpJenkinsMaster.exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
 			SpinUpJenkinsMaster.exec(channel, slave, quietFlag, "-m", jenkinsMaster);
 
-			String description = format("automated ec2 slave ami - %s", today);
-			Image image = service.createAmi(instance.getInstanceId(), name, description, request.getRootVolume(), request.getTimeoutMillis());
-			logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
-			cleanupAmis(service);
+			// String description = format("automated ec2 slave ami - %s", today);
+			// Image image = service.createAmi(instance.getInstanceId(), name, description, request.getRootVolume(), request.getTimeoutMillis());
+			// logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
+			// cleanupAmis(service);
 			// logger.info(format("terminating instance [%s]", instance.getInstanceId()));
 			// service.terminateInstance(instance.getInstanceId());
 		} catch (Throwable e) {
