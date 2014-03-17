@@ -16,6 +16,8 @@ import static org.kuali.common.devops.ci.Constants.DOMAIN;
 import static org.kuali.common.devops.ci.Constants.GPG_PASSPHRASE_ENCRYPTED;
 import static org.kuali.common.devops.ci.Constants.ROOT;
 import static org.kuali.common.devops.ci.Constants.UBUNTU;
+import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.exec;
+import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.getBashScript;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
 import static org.kuali.common.util.base.Exceptions.illegalState;
@@ -96,6 +98,7 @@ public class CreateBuildSlaveAMI {
 	@Test
 	public void test() {
 		try {
+			System.setProperty("jenkins.context", "test");
 			VirtualSystem vs = VirtualSystem.create();
 			// Default to quiet mode unless they've supplied -Dec2.quiet=false
 			boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
@@ -137,6 +140,15 @@ public class CreateBuildSlaveAMI {
 		}
 	}
 
+	protected static void setupEssentials(SecureChannel channel, String basedir, ProjectIdentifier pid, Distro distro, String distroVersion, String gpgPassphrase,
+			String dnsPrefix, String quietFlag) {
+		String basics = getBashScript(basedir, pid, distro, distroVersion, "common/configurebasics");
+		String java = getBashScript(basedir, pid, distro, distroVersion, "common/installjava");
+		exec(channel, basics, quietFlag);
+		exec(channel, java, quietFlag, "jdk6", "u45", gpgPassphrase);
+		exec(channel, java, quietFlag, "jdk7", "u51", gpgPassphrase);
+	}
+	
 	protected static BasicLaunchRequest getSlaveLaunchRequest() {
 		BasicLaunchRequest.Builder builder = BasicLaunchRequest.builder();
 		builder.setAmi(Constants.DEFAULT_AMI.getId());
