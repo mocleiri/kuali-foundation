@@ -1,5 +1,7 @@
 package org.kuali.common.aws.ec2.model;
 
+import static com.google.common.collect.Lists.newArrayList;
+
 import java.util.List;
 
 import org.kuali.common.core.build.ValidatingBuilder;
@@ -7,7 +9,6 @@ import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 @IdiotProofImmutable
 public final class CreateAMIRequest {
@@ -25,7 +26,7 @@ public final class CreateAMIRequest {
 		this.description = builder.description;
 		this.rootVolume = builder.rootVolume;
 		this.timeoutMillis = builder.timeoutMillis;
-		List<BlockDeviceMapping> immutables = Lists.newArrayList();
+		List<BlockDeviceMapping> immutables = newArrayList();
 		for (BlockDeviceMapping mapping : builder.mappings) {
 			immutables.add(ImmutableBlockDeviceMapping.copyOf(mapping));
 		}

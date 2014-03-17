@@ -102,8 +102,8 @@ public final class ImmutableEbsBlockDevice extends EbsBlockDevice {
 			if (vt.equals(VolumeType.Io1)) {
 				Optional<Integer> iops = fromNullable(instance.getIops());
 				Optional<Integer> volumeSize = fromNullable(instance.getVolumeSize());
-				checkArgument(iops.isPresent(), "iops value is required for volume type %s", vt.toString());
-				checkArgument(volumeSize.isPresent(), "volumeSize value is required for volume type %s", vt.toString());
+				checkArgument(iops.isPresent(), "iops is required for volume type %s", vt.toString());
+				checkArgument(volumeSize.isPresent(), "volume size is required for volume type %s", vt.toString());
 				checkMin(iops, IOPS_MIN, "iops");
 				checkMax(iops.get(), IOPS_MAX, "iops");
 				checkMin(volumeSize, IOPS_MIN_VOLUME_SIZE, "volumeSize");
