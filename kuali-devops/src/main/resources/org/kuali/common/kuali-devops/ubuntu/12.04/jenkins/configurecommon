@@ -28,8 +28,9 @@ function install_maven {
   
   echo "install   -> maven $VERSION"
 
-  $MY_DIR/../common/m2download $QUIET_FLAG $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE
-  LOCAL_MAVEN_ZIP_FILE=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE)
+  ARGS="$GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE"
+  $MY_DIR/../common/m2download $QUIET_FLAG $ARGS
+  LOCAL_MAVEN_ZIP_FILE=$($MY_DIR/../common/m2path $ARGS)
 
   MAVEN_DIR=$MAVEN_BASEDIR/$ARTIFACT_ID-$VERSION
   MAVEN_TARGET=$MAVEN_BASEDIR/mvn$ABBR/bin/mvn
