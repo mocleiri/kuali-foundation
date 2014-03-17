@@ -35,6 +35,8 @@ function install_maven {
   # /usr/maven/apache-maven-3.0.5
   MAVEN_DIR=$MAVEN_BASEDIR/$ARTIFACT_ID-$VERSION
   
+  echo "MAVEN_DIR=$MAVEN_DIR"
+  
   # /usr/maven/mvn30
   MAVEN_LINK=$MAVEN_BASEDIR/mvn$ABBR
   execute_quietly "ln -s $MAVEN_DIR $MAVEN_LINK"
