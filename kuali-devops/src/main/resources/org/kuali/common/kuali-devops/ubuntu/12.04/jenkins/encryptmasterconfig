@@ -14,7 +14,7 @@ function encrypt_config {
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
-usage() { echo "Usage: $ME [-h] [-q] password" 1>&2; exit 1; }
+usage() { echo "Usage: $ME password" 1>&2; exit 1; }
 QUIET=true
 GPG_PASSPHRASE=$1
 check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
