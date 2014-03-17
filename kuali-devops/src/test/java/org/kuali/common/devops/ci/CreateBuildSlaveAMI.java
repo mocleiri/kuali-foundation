@@ -3,6 +3,7 @@ package org.kuali.common.devops.ci;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Maps.newTreeMap;
 import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
 import static java.lang.String.format;
@@ -26,7 +27,9 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.SortedMap;
 
 import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
@@ -58,6 +61,7 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 
 public class CreateBuildSlaveAMI {
 
@@ -77,6 +81,18 @@ public class CreateBuildSlaveAMI {
 	public static final KeyPair KUALI_KEY = Auth.getKeyPair(amazonAccount);
 	private final int minimumAmisToKeep = 7;
 
+	private static final Map<String, JenkinsContext> CONTEXTS = getJenkinsContexts();
+
+	private static Map<String, JenkinsContext> getJenkinsContexts() {
+		Tags.Name name = Tags.Name.SLAVE;
+		JenkinsContext prod = JenkinsContext.builder().withDnsPrefix("ci").withStack(Tags.Stack.PRODUCTION).withName(name).build();
+		JenkinsContext test = JenkinsContext.builder().withDnsPrefix("beta-ci").withStack(Tags.Stack.TEST).withName(name).build();
+		SortedMap<String, JenkinsContext> contexts = newTreeMap();
+		contexts.put("test", test);
+		contexts.put("prod", prod);
+		return ImmutableMap.copyOf(contexts);
+	}
+
 	@Test
 	public void test() {
 		try {
@@ -84,15 +100,16 @@ public class CreateBuildSlaveAMI {
 			VirtualSystem vs = VirtualSystem.create();
 			// Default to quiet mode unless they've supplied -Dec2.quiet=false
 			boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
-			JenkinsContext jenkinsContext = SpinUpJenkinsMaster.getJenkinsContext(vs);
+			JenkinsContext jenkinsContext = SpinUpJenkinsMaster.getJenkinsContext(vs, CONTEXTS);
 			// Configurable items
 			BasicLaunchRequest request = getSlaveLaunchRequest();
 			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
 			EC2Service service = getEC2Service(amazonAccount);
 			List<Tag> tags = getSlaveTags(jenkinsContext);
-			Instance instance = launchAndWait(service, request, securityGroups, tags);
-			// Instance instance = getRunningSlaveInstance(service, "i-1907c23a");
+			// Instance instance = launchAndWait(service, request, securityGroups, tags);
+			Instance instance = service.getInstance("i-8e93c5d1");
+			service.tag(instance.getInstanceId(), tags);
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			String dns = instance.getPublicDnsName();
 			String privateKey = KUALI_KEY.getPrivateKey().get();
@@ -112,8 +129,8 @@ public class CreateBuildSlaveAMI {
 			Image image = service.createAmi(instance.getInstanceId(), name, description, request.getRootVolume(), request.getTimeoutMillis());
 			logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
 			cleanupAmis(service);
-			logger.info(format("terminating instance [%s]", instance.getInstanceId()));
-			service.terminateInstance(instance.getInstanceId());
+			// logger.info(format("terminating instance [%s]", instance.getInstanceId()));
+			// service.terminateInstance(instance.getInstanceId());
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -215,6 +232,7 @@ public class CreateBuildSlaveAMI {
 		tags.add(Tags.Team.DEVOPS.getTag());
 		tags.add(Tags.Vendor.JENKINS.getTag());
 		tags.add(Tags.Project.SHARED.getTag());
+		tags.add(stack);
 		return ImmutableList.copyOf(tags);
 	}
 

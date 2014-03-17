@@ -91,9 +91,9 @@ public class SpinUpJenkinsMaster {
 	// TODO Update as needed (east or west?) (what should we go with for default root volume size, 256?)
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 32;
 
-	protected static final Map<String, JenkinsContext> CONTEXTS = getJenkinsContexts();
+	private static final Map<String, JenkinsContext> CONTEXTS = getJenkinsContexts();
 
-	protected static Map<String, JenkinsContext> getJenkinsContexts() {
+	private static Map<String, JenkinsContext> getJenkinsContexts() {
 		JenkinsContext prod = JenkinsContext.builder().withDnsPrefix("ci").withStack(Tags.Stack.PRODUCTION).withName(Tags.Name.MASTER).build();
 		JenkinsContext test = JenkinsContext.builder().withDnsPrefix("beta-ci").withStack(Tags.Stack.TEST).withName(Tags.Name.MASTER).build();
 		SortedMap<String, JenkinsContext> contexts = newTreeMap();
@@ -102,11 +102,11 @@ public class SpinUpJenkinsMaster {
 		return ImmutableMap.copyOf(contexts);
 	}
 
-	protected static JenkinsContext getJenkinsContext(VirtualSystem vs) {
+	protected static JenkinsContext getJenkinsContext(VirtualSystem vs, Map<String, JenkinsContext> contexts) {
 		String usage = format("\n\nusage: -Djenkins.context=%s\n\n", Joiner.on('/').join(CONTEXTS.keySet()));
 		String jenkinsContextKey = vs.getProperties().getProperty("jenkins.context");
 		checkState(jenkinsContextKey != null, usage);
-		JenkinsContext jenkinsContext = CONTEXTS.get(jenkinsContextKey);
+		JenkinsContext jenkinsContext = contexts.get(jenkinsContextKey);
 		checkState(jenkinsContext != null, usage);
 		return jenkinsContext;
 	}
@@ -117,7 +117,7 @@ public class SpinUpJenkinsMaster {
 			VirtualSystem vs = VirtualSystem.create();
 			// Default to quiet mode unless they've supplied -Dec2.quiet=false
 			boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
-			JenkinsContext jenkinsContext = getJenkinsContext(vs);
+			JenkinsContext jenkinsContext = getJenkinsContext(vs, CONTEXTS);
 			String dnsPrefix = jenkinsContext.getDnsPrefix();
 			String jenkinsMaster = Joiner.on('.').join(dnsPrefix, DOMAIN);
 			List<Tag> tags = getMasterTags(jenkinsContext, jenkinsMaster);
