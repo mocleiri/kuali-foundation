@@ -88,7 +88,7 @@ public class SpinUpJenkinsMaster {
 	private static final String ROOT = "root";
 	private static final String UBUNTU = "ubuntu";
 
-	// TODO Update as needed (east or west) (default root volume size=256)
+	// TODO Update as needed (east or west?) (what should we go with for default root volume size, 256?)
 	private static final AMI DEFAULT_AMI = AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_WEST;
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 32;
 
