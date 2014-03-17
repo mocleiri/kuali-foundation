@@ -182,7 +182,7 @@ source $MY_DIR/../common/functions.sh
 usage() { echo "Usage: $ME [-h] [-q] [-m \"-Xmx2g -XX:MaxPermSize=256m\"] [-p \"package1 package2 package3\"] master password" 1>&2; exit 1; }
 
 QUIET=false
-PACKAGES="subversion git graphviz firefox"
+PACKAGES="subversion git graphviz firefox ant"
 MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=256m"
 while getopts hqm:p: flag; do
   case $flag in
