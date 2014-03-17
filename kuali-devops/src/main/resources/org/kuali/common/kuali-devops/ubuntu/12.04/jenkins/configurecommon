@@ -61,7 +61,12 @@ function install_maven {
   # /usr/maven/mvn32/bin/mvn  
   MAVEN_TARGET=$MAVEN_BASEDIR/mvn$SHORT_VERSION/bin/mvn
 
+  # This is obviously overkill, but there was a screwy permissions issue of some kind for a file somewhere under the Maven install that was causing issues
+  # Should troubleshoot the issue and only 755 the files that really need to be executable
   execute_quietly "chmod -R 755 $MAVEN_DIR"
+  
+  # Create symbolic links that only change when Maven's minor version does ie 3.1 -> 3.2
+  # 3.2.2 replaces 3.2.1, and 3.1.1 replaces 3.1.0, etc
   execute_quietly "ln -s $MAVEN_TARGET $MAVEN_LINK"
   execute_quietly "ln -s $MAVEN_TARGET $MAVEN_USR_BIN"
   
