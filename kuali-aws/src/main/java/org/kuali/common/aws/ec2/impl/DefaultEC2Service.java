@@ -156,13 +156,21 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	protected Image createAmi(Instance instance, Snapshot snapshot, Tag name, String description, RootVolume rootVolume, int timeoutMillis) {
+		BlockDeviceMapping rootVolumeMapping = getRootVolumeMapping(instance, snapshot.getSnapshotId(), rootVolume);
+		BlockDeviceMapping ephemeral0 = new BlockDeviceMapping();
+		ephemeral0.setDeviceName("/dev/sdb");
+		ephemeral0.setVirtualName("ephemeral0");
+		List<BlockDeviceMapping> mappings = newArrayList();
+		mappings.add(rootVolumeMapping);
+		mappings.add(ephemeral0);
+
 		RegisterImageRequest request = new RegisterImageRequest();
 		request.setName(name.getValue());
 		request.setDescription(description);
 		request.setArchitecture(instance.getArchitecture());
 		request.setRootDeviceName(instance.getRootDeviceName());
 		request.setKernelId(instance.getKernelId());
-		request.setBlockDeviceMappings(singletonList(getRootVolumeMapping(instance, snapshot.getSnapshotId(), rootVolume)));
+		request.setBlockDeviceMappings(mappings);
 		RegisterImageResult result = client.registerImage(request);
 		String imageId = result.getImageId();
 		waitForAmiState(imageId, AMI_AVAILABLE_STATE, timeoutMillis);

@@ -28,7 +28,7 @@ public class DefaultEC2ServiceTest {
 	public void testCreateAmi() {
 		try {
 			DefaultEC2Service service = getUSWestService();
-			Instance instance = service.getInstance("i-ef0455b0");
+			Instance instance = service.getInstance("i-c6257499");
 			List<InstanceBlockDeviceMapping> mappings = instance.getBlockDeviceMappings();
 			info("ram disk id: %s", instance.getRamdiskId());
 			for (InstanceBlockDeviceMapping mapping : mappings) {
