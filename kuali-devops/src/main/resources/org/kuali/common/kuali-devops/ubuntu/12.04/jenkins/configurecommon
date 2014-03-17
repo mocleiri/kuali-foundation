@@ -195,7 +195,7 @@ while getopts hqm:p: flag; do
       usage;
       ;;
     q)
-      QUIET="true";
+      QUIET=true;
       ;;
     p)
       PACKAGES="$PACKAGES $OPTARG";
