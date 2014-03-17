@@ -107,8 +107,8 @@ public class CreateBuildSlaveAMI {
 
 			EC2Service service = getEC2Service(amazonAccount);
 			List<Tag> tags = getSlaveTags(jenkinsContext);
-			// Instance instance = launchAndWait(service, request, securityGroups, tags);
-			Instance instance = service.getInstance("i-8e93c5d1");
+			Instance instance = launchAndWait(service, request, securityGroups, tags);
+			// Instance instance = service.getInstance("i-8e93c5d1");
 			service.tag(instance.getInstanceId(), tags);
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			String dns = instance.getPublicDnsName();
@@ -123,7 +123,9 @@ public class CreateBuildSlaveAMI {
 			String jenkinsMaster = Joiner.on('.').join(dnsPrefix, DOMAIN);
 
 			String common = SpinUpJenkinsMaster.getBashScript(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
+			String slave = SpinUpJenkinsMaster.getBashScript(basedir, pid, distro, distroVersion, "jenkins/configureslave");
 			SpinUpJenkinsMaster.exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
+			SpinUpJenkinsMaster.exec(channel, slave, quietFlag, "-m", jenkinsMaster);
 
 			String description = format("automated ec2 slave ami - %s", today);
 			Image image = service.createAmi(instance.getInstanceId(), name, description, request.getRootVolume(), request.getTimeoutMillis());
