@@ -29,26 +29,37 @@ function install_maven {
   TYPE=zip
   
   echo "install   -> maven $VERSION"
-
+  
+  # Setup command line args
   MAVEN_ARGS="$GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE"
+  
+  # Cache apache-maven.zip from Maven Central
   $MY_DIR/../common/m2download $QUIET_FLAG $MAVEN_ARGS
+  
+  # Calculate the path to the locally cached copy of the zip
   LOCAL_MAVEN_ZIP_FILE=$($MY_DIR/../common/m2path $MAVEN_ARGS)
 
-  execute_quietly "rm -rf $MAVEN_DIR $MAVEN_LINK $MAVEN_USR_BIN"
-  execute_quietly "unzip $LOCAL_MAVEN_ZIP_FILE -d $MAVEN_BASEDIR"
-
-  # /usr/maven/apache-maven-3.0.5
+  # /usr/maven/apache-maven-3.2.1
   MAVEN_DIR=$MAVEN_BASEDIR/$ARTIFACT_ID-$VERSION
+
+  # /usr/maven/mvn32
+  MAVEN_LINK=$MAVEN_BASEDIR/mvn$SHORT_VERSION
+
+  # /usr/bin/mvn32
+  MAVEN_USR_BIN=/usr/bin/mvn$SHORT_VERSION
+
+  # Remove any previous traces of this version of Maven
+  execute_quietly "rm -rf $MAVEN_DIR $MAVEN_LINK $MAVEN_USR_BIN"
+
+  # Unpack the zip file into /usr/maven
+  execute_quietly "unzip $LOCAL_MAVEN_ZIP_FILE -d $MAVEN_BASEDIR"
   
-  echo "MAVEN_DIR=$MAVEN_DIR"
-  
-  # /usr/maven/mvn30
-  MAVEN_LINK=$MAVEN_BASEDIR/mvn$ABBR
+  # /usr/maven/mvn32
   execute_quietly "ln -s $MAVEN_DIR $MAVEN_LINK"
   
-  
-  MAVEN_TARGET=$MAVEN_BASEDIR/mvn$ABBR/bin/mvn
-  MAVEN_USR_BIN=/usr/bin/mvn$ABBR
+  # The actual Maven binary
+  # /usr/maven/mvn32/bin/mvn  
+  MAVEN_TARGET=$MAVEN_BASEDIR/mvn$SHORT_VERSION/bin/mvn
 
   execute_quietly "chmod -R 755 $MAVEN_DIR"
   execute_quietly "ln -s $MAVEN_TARGET $MAVEN_LINK"
