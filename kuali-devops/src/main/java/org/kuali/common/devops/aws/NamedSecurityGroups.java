@@ -12,8 +12,8 @@ import com.google.common.collect.ImmutableList;
 
 public enum NamedSecurityGroups {
 
-	// That is just a group with no perm's so that the slaves and master belong to the same group and thus
-	// have unrestricted network access to each other from Amazon's perspective
+	// That is just a group with no perm's so that the slaves and master belong to the same group
+	// Amazon gives servers belonging to a common group unrestricted network access to each other
 	CI("ci", "Continuous Integration", ImmutableList.<Permission> of()), //
 	CI_MASTER("ci.master", "Jenkins CI Server - Master", APPLICATION_SERVER_PERMISSIONS), //
 	CI_BUILD_SLAVE("ci.slave", "Jenkins CI Server - Slave", ALLOW_SSH_FROM_ANYWHERE.getPermission());
