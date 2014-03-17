@@ -13,7 +13,7 @@ public enum Regions {
 	EU_WEST_1("eu-west-1", "EU (Ireland)"), //
 	SA_EAST_1("sa-east-1", "South America (Sao Paulo)"), //
 	US_EAST_1("us-east-1", "US East (Northern Virginia)"), //
-	US_WEST_1("us-west-2", "US West (Northern California)"), //
+	US_WEST_1("us-west-1", "US West (Northern California)"), //
 	US_WEST_2("us-west-2", "US West (Oregon)"); //
 
 	private final String name;

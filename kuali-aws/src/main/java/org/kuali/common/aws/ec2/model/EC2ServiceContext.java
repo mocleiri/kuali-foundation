@@ -74,6 +74,14 @@ public final class EC2ServiceContext {
 			return this;
 		}
 
+		public Builder withRegionName(String regionName) {
+			return withRegionName(Optional.of(regionName));
+		}
+
+		public Builder withRegion(Regions region) {
+			return withRegionName(region.getName());
+		}
+
 		public Builder withEndpoint(Optional<String> endpoint) {
 			this.endpoint = endpoint;
 			return this;
