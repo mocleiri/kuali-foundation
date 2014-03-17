@@ -124,6 +124,7 @@ public class CreateBuildSlaveAMI {
 			String dnsPrefix = jenkinsContext.getDnsPrefix();
 			String jenkinsMaster = Joiner.on('.').join(dnsPrefix, DOMAIN);
 
+			setupEssentials(channel, basedir, pid, distro, distroVersion, gpgPassphrase, dnsPrefix, quietFlag);
 			String common = SpinUpJenkinsMaster.getBashScript(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
 			String slave = SpinUpJenkinsMaster.getBashScript(basedir, pid, distro, distroVersion, "jenkins/configureslave");
 			SpinUpJenkinsMaster.exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
@@ -148,7 +149,7 @@ public class CreateBuildSlaveAMI {
 		exec(channel, java, quietFlag, "jdk6", "u45", gpgPassphrase);
 		exec(channel, java, quietFlag, "jdk7", "u51", gpgPassphrase);
 	}
-	
+
 	protected static BasicLaunchRequest getSlaveLaunchRequest() {
 		BasicLaunchRequest.Builder builder = BasicLaunchRequest.builder();
 		builder.setAmi(Constants.DEFAULT_AMI.getId());
