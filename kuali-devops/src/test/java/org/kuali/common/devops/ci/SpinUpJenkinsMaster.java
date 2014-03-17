@@ -96,9 +96,9 @@ public class SpinUpJenkinsMaster {
 
 	private Map<String, JenkinsContext> getJenkinsContexts() {
 		JenkinsContext prod = JenkinsContext.builder().withDnsPrefix("ci").withStack(Tags.Stack.PRODUCTION).withName(Tags.Name.MASTER).build();
-		JenkinsContext beta = JenkinsContext.builder().withDnsPrefix("beta-ci").withStack(Tags.Stack.TEST).withName(Tags.Name.MASTER).build();
+		JenkinsContext beta = JenkinsContext.builder().withDnsPrefix("testci").withStack(Tags.Stack.TEST).withName(Tags.Name.MASTER).build();
 		SortedMap<String, JenkinsContext> contexts = newTreeMap();
-		contexts.put("beta", beta);
+		contexts.put("test", beta);
 		contexts.put("prod", prod);
 		return contexts;
 	}
