@@ -26,7 +26,6 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 import org.junit.Test;
@@ -69,9 +68,6 @@ public class CreateBuildSlaveAMI {
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_BUILD_SLAVE.getGroup());
 	private final Distro distro = Distro.UBUNTU;
 	private final String distroVersion = Constants.DISTRO_VERSION;
-	private final String bashScript = "jenkins.sh";
-	private final String svnPassword = "PAqzT//IpbTfzhsnLyumedsE7yon7yqi";
-	private final String nexusPassword = "/ROzksAX9W5r3CrLMefr9d+C5cIqkDtw";
 	private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	private final String today = format.format(new Date());
 	private final long buildNumber = getBuildNumber();
@@ -79,15 +75,7 @@ public class CreateBuildSlaveAMI {
 	private final Tag name = new ImmutableTag("Name", format("%s.%s-build-%s", startsWithToken, today, buildNumber));
 	private static final String amazonAccount = Constants.AMAZON_ACCOUNT;
 	public static final KeyPair KUALI_KEY = Auth.getKeyPair(amazonAccount);
-	private final String domainToken = ".amazonaws.com";
 	private final int minimumAmisToKeep = 7;
-
-	// TODO Change these when ready
-	private static final Tag NAME = Tags.Name.SLAVE.getTag();
-	private static final Tag STACK = Tags.Stack.TEST.getTag();
-
-	private static final List<Tag> TAGS = getSlaveTags(NAME, STACK);
-	private Map<String, JenkinsContext> contexts = SpinUpJenkinsMaster.getJenkinsContexts();
 
 	@Test
 	public void test() {
@@ -101,7 +89,8 @@ public class CreateBuildSlaveAMI {
 			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
 			EC2Service service = getEC2Service(amazonAccount);
-			Instance instance = launchAndWait(service, request, securityGroups, TAGS);
+			List<Tag> tags = getSlaveTags(jenkinsContext);
+			Instance instance = launchAndWait(service, request, securityGroups, tags);
 			// Instance instance = getRunningSlaveInstance(service, "i-1907c23a");
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			String dns = instance.getPublicDnsName();
@@ -212,10 +201,10 @@ public class CreateBuildSlaveAMI {
 		return false;
 	}
 
-	protected static List<Tag> getSlaveTags(Tag name, Tag stack) {
+	protected static List<Tag> getSlaveTags(JenkinsContext context) {
 		List<Tag> tags = newArrayList();
-		tags.add(name);
-		tags.addAll(getCommonTags(stack));
+		tags.add(context.getName().getTag());
+		tags.addAll(getCommonTags(context.getStack().getTag()));
 		return ImmutableList.copyOf(tags);
 	}
 
