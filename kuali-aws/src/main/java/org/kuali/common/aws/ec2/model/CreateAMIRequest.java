@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
+import org.kuali.common.util.FormatUtils;
 
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
 import com.google.common.collect.ImmutableList;
@@ -18,7 +19,7 @@ public final class CreateAMIRequest {
 	private final String description;
 	private final RootVolume rootVolume;
 	private final int timeoutMillis;
-	private final ImmutableList<BlockDeviceMapping> mappings;
+	private final ImmutableList<BlockDeviceMapping> additionalMappings;
 
 	private CreateAMIRequest(Builder builder) {
 		this.instanceId = builder.instanceId;
@@ -27,10 +28,10 @@ public final class CreateAMIRequest {
 		this.rootVolume = builder.rootVolume;
 		this.timeoutMillis = builder.timeoutMillis;
 		List<BlockDeviceMapping> immutables = newArrayList();
-		for (BlockDeviceMapping mapping : builder.mappings) {
+		for (BlockDeviceMapping mapping : builder.additionalMappings) {
 			immutables.add(ImmutableBlockDeviceMapping.copyOf(mapping));
 		}
-		this.mappings = ImmutableList.copyOf(immutables);
+		this.additionalMappings = ImmutableList.copyOf(immutables);
 	}
 
 	public static class Builder extends ValidatingBuilder<CreateAMIRequest> {
@@ -39,8 +40,8 @@ public final class CreateAMIRequest {
 		private ImmutableTag name;
 		private String description;
 		private RootVolume rootVolume;
-		private int timeoutMillis;
-		private List<BlockDeviceMapping> mappings;
+		private int timeoutMillis = FormatUtils.getMillisAsInt("1hr");
+		private List<BlockDeviceMapping> additionalMappings = newArrayList();
 
 		public Builder withInstanceId(String instanceId) {
 			this.instanceId = instanceId;
@@ -67,8 +68,8 @@ public final class CreateAMIRequest {
 			return this;
 		}
 
-		public Builder withMappings(List<BlockDeviceMapping> mappings) {
-			this.mappings = mappings;
+		public Builder withAdditionalMappings(List<BlockDeviceMapping> additionalMappings) {
+			this.additionalMappings = additionalMappings;
 			return this;
 		}
 
@@ -99,7 +100,7 @@ public final class CreateAMIRequest {
 	}
 
 	public List<BlockDeviceMapping> getMappings() {
-		return mappings;
+		return additionalMappings;
 	}
 
 }
