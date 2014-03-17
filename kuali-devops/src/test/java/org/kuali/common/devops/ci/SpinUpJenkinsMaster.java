@@ -72,6 +72,7 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 
 public class SpinUpJenkinsMaster {
@@ -92,32 +93,37 @@ public class SpinUpJenkinsMaster {
 	private static final AMI DEFAULT_AMI = AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_WEST;
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 32;
 
-	private Map<String, JenkinsContext> contexts = getJenkinsContexts();
+	protected static final Map<String, JenkinsContext> CONTEXTS = getJenkinsContexts();
 
-	private Map<String, JenkinsContext> getJenkinsContexts() {
+	protected static Map<String, JenkinsContext> getJenkinsContexts() {
 		JenkinsContext prod = JenkinsContext.builder().withDnsPrefix("ci").withStack(Tags.Stack.PRODUCTION).withName(Tags.Name.MASTER).build();
-		JenkinsContext beta = JenkinsContext.builder().withDnsPrefix("beta-ci").withStack(Tags.Stack.TEST).withName(Tags.Name.MASTER).build();
+		JenkinsContext test = JenkinsContext.builder().withDnsPrefix("beta-ci").withStack(Tags.Stack.TEST).withName(Tags.Name.MASTER).build();
 		SortedMap<String, JenkinsContext> contexts = newTreeMap();
-		contexts.put("test", beta);
+		contexts.put("test", test);
 		contexts.put("prod", prod);
-		return contexts;
+		return ImmutableMap.copyOf(contexts);
+	}
+
+	protected static JenkinsContext getJenkinsContext(VirtualSystem vs) {
+		String usage = format("\n\nusage: -Djenkins.context=%s\n\n", Joiner.on('/').join(CONTEXTS.keySet()));
+		String jenkinsContextKey = vs.getProperties().getProperty("jenkins.context");
+		checkState(jenkinsContextKey != null, usage);
+		JenkinsContext jenkinsContext = CONTEXTS.get(jenkinsContextKey);
+		checkState(jenkinsContext != null, usage);
+		return jenkinsContext;
 	}
 
 	@Test
 	public void test() {
 		try {
-			String usage = format("\n\nusage: -Djenkins.context=%s\n\n", Joiner.on('/').join(contexts.keySet()));
 			VirtualSystem vs = VirtualSystem.create();
 			// Default to quiet mode unless they've supplied -Dec2.quiet=false
 			boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
-			String jenkinsContextKey = vs.getProperties().getProperty("jenkins.context");
-			checkState(jenkinsContextKey != null, usage);
-			JenkinsContext jenkinsContext = contexts.get(jenkinsContextKey);
-			checkState(jenkinsContext != null, usage);
+			JenkinsContext jenkinsContext = getJenkinsContext(vs);
 			String dnsPrefix = jenkinsContext.getDnsPrefix();
-			String aliasFqdn = Joiner.on('.').join(dnsPrefix, DOMAIN);
-			List<Tag> tags = getMasterTags(jenkinsContext, aliasFqdn);
-			info("jenkins -> [%s :: %s]", jenkinsContextKey, aliasFqdn);
+			String jenkinsMaster = Joiner.on('.').join(dnsPrefix, DOMAIN);
+			List<Tag> tags = getMasterTags(jenkinsContext, jenkinsMaster);
+			info("jenkins -> [%s :: %s]", jenkinsContext.getStack().getTag().getValue(), jenkinsMaster);
 			KeyPair keyPair = CreateBuildSlaveAMI.KUALI_KEY;
 			String privateKey = keyPair.getPrivateKey().get();
 			BasicLaunchRequest request = getMasterLaunchRequest();
@@ -127,7 +133,7 @@ public class SpinUpJenkinsMaster {
 			Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags);
 			// Instance instance = service.getInstance("i-b593c4ea");
 			info("public dns: %s", instance.getPublicDnsName());
-			updateDns(instance, aliasFqdn);
+			updateDns(instance, jenkinsMaster);
 			String dns = instance.getPublicDnsName();
 			// While spinning things up, use the Amazon DNS name since the DNSME alias can take a while (few minutes) to propagate
 			verifySSH(UBUNTU, dns, privateKey);
@@ -143,13 +149,13 @@ public class SpinUpJenkinsMaster {
 			// do jenkins specific configuration
 			String common = getBashScript(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
 			String master = getBashScript(basedir, pid, distro, distroVersion, "jenkins/installjenkins");
-			exec(channel, common, quietFlag, aliasFqdn, gpgPassphrase);
-			exec(channel, master, quietFlag, aliasFqdn, "1.532.2", gpgPassphrase);
+			exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
+			exec(channel, master, quietFlag, jenkinsMaster, "1.532.2", gpgPassphrase);
 
 			// The spin up process should have given DNS enough time to settle down
-			info("Verifying SSH to -> [%s]", aliasFqdn);
-			verifySSH(ROOT, aliasFqdn, privateKey);
-			info("[%s] jenkins is ready - %s", aliasFqdn, FormatUtils.getTime(sw));
+			info("Verifying SSH to -> [%s]", jenkinsMaster);
+			verifySSH(ROOT, jenkinsMaster, privateKey);
+			info("[%s] jenkins is ready - %s", jenkinsMaster, FormatUtils.getTime(sw));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}

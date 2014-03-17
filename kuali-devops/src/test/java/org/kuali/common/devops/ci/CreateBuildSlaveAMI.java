@@ -1,7 +1,6 @@
 package org.kuali.common.devops.ci;
 
 import static com.google.common.base.Optional.fromNullable;
-import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Integer.parseInt;
@@ -9,8 +8,13 @@ import static java.lang.Long.parseLong;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static java.util.Collections.sort;
+import static org.apache.commons.lang3.StringUtils.equalsIgnoreCase;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
+import static org.kuali.common.devops.ci.Constants.DOMAIN;
+import static org.kuali.common.devops.ci.Constants.GPG_PASSPHRASE_ENCRYPTED;
+import static org.kuali.common.devops.ci.Constants.ROOT;
+import static org.kuali.common.devops.ci.Constants.UBUNTU;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
 import static org.kuali.common.util.base.Exceptions.illegalState;
@@ -18,21 +22,17 @@ import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
-import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.security.CodeSource;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
-import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
+import org.kuali.common.aws.ec2.model.Distro;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.ImmutableTag;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
@@ -42,14 +42,9 @@ import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.core.system.VirtualSystem;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.logic.Auth;
-import org.kuali.common.devops.project.KualiDevOpsProjectConstants;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.file.CanonicalFile;
-import org.kuali.common.util.project.ProjectUtils;
-import org.kuali.common.util.service.DefaultExecContext;
-import org.kuali.common.util.service.DefaultExecService;
-import org.kuali.common.util.service.ExecContext;
-import org.kuali.common.util.service.ExecService;
+import org.kuali.common.util.channel.api.SecureChannel;
+import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
@@ -60,6 +55,7 @@ import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
+import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
@@ -71,7 +67,8 @@ public class CreateBuildSlaveAMI {
 	private final Stopwatch sw = createStarted();
 	private final VirtualSystem vs = VirtualSystem.create();
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_BUILD_SLAVE.getGroup());
-	private final String distro = "ubuntu" + vs.getFileSeparator() + "12.04";
+	private final Distro distro = Distro.UBUNTU;
+	private final String distroVersion = Constants.DISTRO_VERSION;
 	private final String bashScript = "jenkins.sh";
 	private final String svnPassword = "PAqzT//IpbTfzhsnLyumedsE7yon7yqi";
 	private final String nexusPassword = "/ROzksAX9W5r3CrLMefr9d+C5cIqkDtw";
@@ -90,12 +87,18 @@ public class CreateBuildSlaveAMI {
 	private static final Tag STACK = Tags.Stack.TEST.getTag();
 
 	private static final List<Tag> TAGS = getSlaveTags(NAME, STACK);
+	private Map<String, JenkinsContext> contexts = SpinUpJenkinsMaster.getJenkinsContexts();
 
 	@Test
 	public void test() {
 		try {
+			VirtualSystem vs = VirtualSystem.create();
+			// Default to quiet mode unless they've supplied -Dec2.quiet=false
+			boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
+			JenkinsContext jenkinsContext = SpinUpJenkinsMaster.getJenkinsContext(vs);
 			// Configurable items
 			BasicLaunchRequest request = getSlaveLaunchRequest();
+			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
 			EC2Service service = getEC2Service(amazonAccount);
 			Instance instance = launchAndWait(service, request, securityGroups, TAGS);
@@ -103,14 +106,18 @@ public class CreateBuildSlaveAMI {
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			String dns = instance.getPublicDnsName();
 			String privateKey = KUALI_KEY.getPrivateKey().get();
-			SpinUpJenkinsMaster.verifySSH(Constants.UBUNTU, dns, privateKey);
+			SpinUpJenkinsMaster.verifySSH(UBUNTU, dns, privateKey);
 			SpinUpJenkinsMaster.bootstrap(dns, privateKey);
+			SecureChannel channel = SpinUpJenkinsMaster.openSecureChannel(ROOT, dns, privateKey, quiet);
+			String basedir = SpinUpJenkinsMaster.publishProject(channel, pid, ROOT, dns, quiet);
+			String gpgPassphrase = Auth.decrypt(GPG_PASSPHRASE_ENCRYPTED);
+			String quietFlag = (quiet) ? "-q" : "";
+			String dnsPrefix = jenkinsContext.getDnsPrefix();
+			String jenkinsMaster = Joiner.on('.').join(dnsPrefix, DOMAIN);
 
-			CanonicalFile buildDir = getBuildDirectory();
-			logger.info(format("build directory -> %s", buildDir));
-			chmod(buildDir);
-			CanonicalFile bashDir = getLocalBashDir(buildDir);
-			configureSlave(instance, bashDir);
+			String common = SpinUpJenkinsMaster.getBashScript(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
+			SpinUpJenkinsMaster.exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
+
 			String description = format("automated ec2 slave ami - %s", today);
 			Image image = service.createAmi(instance.getInstanceId(), name, description, request.getRootVolume(), request.getTimeoutMillis());
 			logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
@@ -203,53 +210,6 @@ public class CreateBuildSlaveAMI {
 			}
 		}
 		return false;
-	}
-
-	protected void configureSlave(Instance instance, File bashDir) {
-		ExecContext context = getExecContext(instance, bashDir);
-		ExecService service = new DefaultExecService();
-		service.execute(context);
-	}
-
-	protected ExecContext getExecContext(Instance instance, File bashDir) {
-		String dns = instance.getPublicDnsName();
-		String subdomain = StringUtils.remove(dns, domainToken);
-		List<String> args = ImmutableList.of(Auth.decrypt(nexusPassword), Auth.decrypt(svnPassword), subdomain, "slave", "-qq");
-		String executable = bashDir.getAbsolutePath() + vs.getFileSeparator() + bashScript;
-		DefaultExecContext context = new DefaultExecContext();
-		context.setWorkingDirectory(bashDir);
-		context.setExecutable(executable);
-		context.setArgs(args);
-		return context;
-	}
-
-	protected CanonicalFile getLocalBashDir(File buildDir) {
-		String path = ProjectUtils.getResourcePath(KUALI_DEVOPS_PROJECT_IDENTIFIER) + vs.getFileSeparator() + distro + vs.getFileSeparator() + "local";
-		CanonicalFile localBashDir = new CanonicalFile(buildDir, path);
-		checkState(localBashDir.exists(), "%s does not exist", localBashDir);
-		checkState(localBashDir.isDirectory(), "%s is not a directory", localBashDir);
-		return localBashDir;
-	}
-
-	protected void chmod(CanonicalFile dir) {
-		ExecService service = new DefaultExecService();
-		List<String> args = ImmutableList.of("-R", "755", dir.getPath());
-		service.execute("chmod", args);
-	}
-
-	protected CanonicalFile getBuildDirectory() {
-		Optional<CodeSource> src = fromNullable(KualiDevOpsProjectConstants.class.getProtectionDomain().getCodeSource());
-		checkState(src.isPresent(), "could not get code source");
-		URL url = src.get().getLocation();
-		try {
-			URI uri = url.toURI();
-			CanonicalFile file = new CanonicalFile(uri);
-			checkState(file.exists(), "[%s] does not exist");
-			checkState(file.isDirectory(), "[%s] is not a directory");
-			return file;
-		} catch (URISyntaxException e) {
-			throw illegalState(e);
-		}
 	}
 
 	protected static List<Tag> getSlaveTags(Tag name, Tag stack) {
