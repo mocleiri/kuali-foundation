@@ -32,9 +32,15 @@ function install_maven {
   $MY_DIR/../common/m2download $QUIET_FLAG $ARGS
   LOCAL_MAVEN_ZIP_FILE=$($MY_DIR/../common/m2path $ARGS)
 
+  # /usr/maven/apache-maven-3.0.5
   MAVEN_DIR=$MAVEN_BASEDIR/$ARTIFACT_ID-$VERSION
-  MAVEN_TARGET=$MAVEN_BASEDIR/mvn$ABBR/bin/mvn
+  
+  # /usr/maven/mvn30
   MAVEN_LINK=$MAVEN_BASEDIR/mvn$ABBR
+  execute_quietly "ln -s $MAVEN_DIR $MAVEN_LINK"
+  
+  
+  MAVEN_TARGET=$MAVEN_BASEDIR/mvn$ABBR/bin/mvn
   MAVEN_USR_BIN=/usr/bin/mvn$ABBR
 
   execute_quietly "rm -rf $MAVEN_DIR $MAVEN_LINK $MAVEN_USR_BIN"
