@@ -72,8 +72,8 @@ function install_plugins {
 
   echo "configure -> jenkins:plugins"
 
-  execute_quietly "rm   -rf $JENKINS_HOME/plugins"
-  execute_quietly "mkdir -p $JENKINS_HOME/plugins"
+  execute_quietly "rm    -rf $JENKINS_HOME/plugins"
+  execute_quietly "mkdir -p  $JENKINS_HOME/plugins"
 
   # supported plugins (in alphabetical order)
   install_plugin build-pipeline-plugin 1.4.2
