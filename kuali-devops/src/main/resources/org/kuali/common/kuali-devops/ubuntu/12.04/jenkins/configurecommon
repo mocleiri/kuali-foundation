@@ -100,14 +100,14 @@ function configure_java {
   echo "export JAVA_HOME PATH MAVEN_OPTS JENKINS_MASTER" >> $ROOT_ALIASES
 
   # remove java related links from /usr/bin/java and replace them with symbolic links to jdk7
-  rm -rf /usr/bin/java
-  ln -s /usr/java/jdk7/bin/java /usr/bin/java
+  execute_quietly "rm -rf /usr/bin/java"
+  execute_quietly "ln -s /usr/java/jdk7/bin/java /usr/bin/java"
   
-  rm -rf /usr/bin/javac
-  ln -s /usr/java/jdk7/bin/javac /usr/bin/javac
+  execute_quietly "rm -rf /usr/bin/javac"
+  execute_quietly "ln -s /usr/java/jdk7/bin/javac /usr/bin/javac"
 
-  rm -rf /usr/bin/javadoc
-  ln -s /usr/java/jdk7/bin/javadoc /usr/bin/javadoc
+  execute_quietly "rm -rf /usr/bin/javadoc"
+  execute_quietly "ln -s /usr/java/jdk7/bin/javadoc /usr/bin/javadoc"
 }
 
 function configure_secrets {
