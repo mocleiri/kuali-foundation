@@ -14,6 +14,9 @@
     limitations under the License.
 ====
 
+amzn-ami-minimal-pv-2013.09.2.x86_64-ebs - ami-863909c3
+latest amazon linux ami -> ami-863909c3
+
 mci -Pslave; mvn test -Pslave -Dtest=CreateBuildSlaveAMI
 
 SLAVE:
