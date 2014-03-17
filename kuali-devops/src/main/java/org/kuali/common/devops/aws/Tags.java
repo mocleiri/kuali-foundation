@@ -1,12 +1,12 @@
 package org.kuali.common.devops.aws;
 
-import com.amazonaws.services.ec2.model.Tag;
+import org.kuali.common.aws.ec2.model.ImmutableTag;
 
 public class Tags {
 
 	public enum Name {
 
-		MASTER("ci.master"), MASTER_BETA("ci.master.beta"), SLAVE("ci.slave"), SLAVE_BETA("ci.slave.beta"), NEXUS("nexus");
+		MASTER("ci.master"), SLAVE("ci.slave"), NEXUS("nexus");
 
 		public static final String NAME = "Name";
 
@@ -16,8 +16,8 @@ public class Tags {
 			this.value = value;
 		}
 
-		public Tag getTag() {
-			return new Tag(NAME, value);
+		public ImmutableTag getTag() {
+			return new ImmutableTag(NAME, value);
 		}
 	}
 
@@ -33,8 +33,8 @@ public class Tags {
 			this.value = value;
 		}
 
-		public Tag getTag() {
-			return new Tag(NAME, value);
+		public ImmutableTag getTag() {
+			return new ImmutableTag(NAME, value);
 		}
 	}
 
@@ -50,8 +50,8 @@ public class Tags {
 			this.value = value;
 		}
 
-		public Tag getTag() {
-			return new Tag(NAME, value);
+		public ImmutableTag getTag() {
+			return new ImmutableTag(NAME, value);
 		}
 	}
 
@@ -67,8 +67,8 @@ public class Tags {
 			this.value = value;
 		}
 
-		public Tag getTag() {
-			return new Tag(NAME, value);
+		public ImmutableTag getTag() {
+			return new ImmutableTag(NAME, value);
 		}
 	}
 
@@ -84,8 +84,8 @@ public class Tags {
 			this.value = value;
 		}
 
-		public Tag getTag() {
-			return new Tag(NAME, value);
+		public ImmutableTag getTag() {
+			return new ImmutableTag(NAME, value);
 		}
 
 	}
