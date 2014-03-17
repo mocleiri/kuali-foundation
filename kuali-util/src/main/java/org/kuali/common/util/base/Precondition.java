@@ -23,6 +23,7 @@ public class Precondition {
 	private static final String NOT_NULL_MSG = "'%s' cannot be null";
 	private static final String NOT_BLANK_MSG = "'%s' cannot be blank";
 	private static final String MIN_MSG = "%s not allowed. '%s' must be greater than or equal to %s";
+	private static final String MAX_MSG = "%s not allowed. '%s' must be less than or equal to %s";
 	private static final String ARG_NAME = "argName";
 
 	/**
@@ -105,6 +106,15 @@ public class Precondition {
 		if (arg.isPresent()) {
 			checkMin(arg.get(), min, argName);
 		}
+		return arg;
+	}
+
+	/**
+	 * Check that arg is less than or equal to max
+	 */
+	public static int checkMax(int arg, int max, String argName) {
+		checkNotBlank(argName, ARG_NAME);
+		checkArgument(arg <= max, MAX_MSG, arg, argName, max);
 		return arg;
 	}
 
