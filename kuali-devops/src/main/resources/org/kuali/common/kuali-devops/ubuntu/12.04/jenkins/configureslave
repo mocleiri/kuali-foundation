@@ -83,14 +83,6 @@ function copy_repo_from_master {
   
 }
 
-function create_jenkins_dir {
-  JENKINS_DIR="/mnt/jenkins"
-  echo "create    -> $JENKINS_DIR"
-  execute_quietly "rm -rf $JENKINS_DIR"
-  execute_quietly "mkdir -p $JENKINS_DIR"
-  execute_quietly "chown ubuntu:ubuntu $JENKINS_DIR"
-}
-
 function copy_repo_from_amazon {
 
   M2_REPO=/root/.m2/repository
@@ -140,4 +132,3 @@ check_args
 slave_shutdown_scripting
 install_mysql_server
 copy_repo_from_master
-create_jenkins_dir
