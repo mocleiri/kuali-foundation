@@ -30,9 +30,9 @@ function install_maven {
   
   echo "install   -> maven $VERSION"
 
-  ARGS="$GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE"
-  $MY_DIR/../common/m2download $QUIET_FLAG $ARGS
-  LOCAL_MAVEN_ZIP_FILE=$($MY_DIR/../common/m2path $ARGS)
+  MAVEN_ARGS="$GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE"
+  $MY_DIR/../common/m2download $QUIET_FLAG $MAVEN_ARGS
+  LOCAL_MAVEN_ZIP_FILE=$($MY_DIR/../common/m2path $MAVEN_ARGS)
 
   execute_quietly "rm -rf $MAVEN_DIR $MAVEN_LINK $MAVEN_USR_BIN"
   execute_quietly "unzip $LOCAL_MAVEN_ZIP_FILE -d $MAVEN_BASEDIR"
@@ -200,7 +200,9 @@ QUIET_FLAG=""
 if [ "$QUIET" == "true" ]; then
   QUIET_FLAG="-q"
 fi
+
 MAVEN_BASEDIR=/usr/maven
+execute_quietly "mkdir -p $MAVEN_BASEDIR"
 
 configure_java
 configure_secrets
