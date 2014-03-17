@@ -15,6 +15,7 @@ import org.kuali.common.util.wait.DefaultWaitService;
 import org.slf4j.Logger;
 
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.services.ec2.model.EbsInstanceBlockDevice;
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceBlockDeviceMapping;
@@ -27,13 +28,12 @@ public class DefaultEC2ServiceTest {
 	public void testCreateAmi() {
 		try {
 			DefaultEC2Service service = getUSWestService();
-			List<Instance> instances = service.getInstances();
-			for (Instance instance : instances) {
-				info("instance: %s", instance.getInstanceId());
-				List<InstanceBlockDeviceMapping> mappings = instance.getBlockDeviceMappings();
-				for (InstanceBlockDeviceMapping mapping : mappings) {
-					info("device: %s", mapping.getDeviceName());
-				}
+			Instance instance = service.getInstance("i-ef0455b0");
+			List<InstanceBlockDeviceMapping> mappings = instance.getBlockDeviceMappings();
+			info("ram disk id: %s", instance.getRamdiskId());
+			for (InstanceBlockDeviceMapping mapping : mappings) {
+				EbsInstanceBlockDevice eibd = mapping.getEbs();
+				info("device: %s  volume: %s", mapping.getDeviceName(), eibd.getVolumeId());
 			}
 		} catch (Throwable e) {
 			e.printStackTrace();
