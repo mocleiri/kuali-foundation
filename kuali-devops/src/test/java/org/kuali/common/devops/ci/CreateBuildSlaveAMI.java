@@ -86,7 +86,7 @@ public class CreateBuildSlaveAMI {
 	private final int minimumAmisToKeep = 7;
 
 	// TODO Change these when ready
-	private static final Tag NAME = Tags.Name.SLAVE_BETA.getTag();
+	private static final Tag NAME = Tags.Name.SLAVE.getTag();
 	private static final Tag STACK = Tags.Stack.TEST.getTag();
 
 	private static final List<Tag> TAGS = getSlaveTags(NAME, STACK);
