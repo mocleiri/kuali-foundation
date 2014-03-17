@@ -3,6 +3,7 @@ package org.kuali.common.aws.ec2.model;
 import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkArgument;
+import static org.apache.commons.lang3.StringUtils.trimToNull;
 import static org.kuali.common.util.base.Precondition.checkMax;
 import static org.kuali.common.util.base.Precondition.checkMin;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
@@ -26,7 +27,7 @@ public final class ImmutableEbsBlockDevice extends EbsBlockDevice {
 
 	public static ImmutableEbsBlockDevice copyOf(EbsBlockDevice ebs) {
 		Builder builder = builder(ebs.getSnapshotId());
-		if (ebs.getVolumeType() != null) {
+		if (trimToNull(ebs.getVolumeType()) != null) {
 			builder.withVolumeType(VolumeType.fromValue(ebs.getVolumeType()));
 		}
 		if (ebs.getDeleteOnTermination() != null) {
