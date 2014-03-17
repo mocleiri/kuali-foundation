@@ -103,6 +103,11 @@ function configure_java {
   rm -rf /usr/bin/java
   ln -s /usr/java/jdk7/bin/java /usr/bin/java
   
+  rm -rf /usr/bin/javac
+  ln -s /usr/java/jdk7/bin/javac /usr/bin/javac
+
+  rm -rf /usr/bin/javadoc
+  ln -s /usr/java/jdk7/bin/javadoc /usr/bin/javadoc
 }
 
 function configure_secrets {
@@ -220,14 +225,14 @@ fi
 MAVEN_BASEDIR=/usr/maven
 execute_quietly "mkdir -p $MAVEN_BASEDIR"
 
-configure_java
+
 configure_secrets
 install_packages
 install_maven 3.0.5 30
 install_maven 3.1.0 31
 install_maven 3.2.1 32
 install_default_maven 32
-
+configure_java
 configure_subversion
 
 #
