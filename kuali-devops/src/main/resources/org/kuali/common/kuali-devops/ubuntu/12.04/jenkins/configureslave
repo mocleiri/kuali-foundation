@@ -83,6 +83,12 @@ function copy_repo_from_master {
   
 }
 
+function create_jenkins_dir {
+  JENKINS_DIR="/mnt/jenkins"
+  execute_quietly "mkdir -p $JENKINS_DIR"
+  execute_quietly "chown ubuntu:ubuntu $JENKINS_DIR"
+}
+
 function copy_repo_from_amazon {
 
   M2_REPO=/root/.m2/repository
