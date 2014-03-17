@@ -137,11 +137,5 @@ check_args
 
 slave_shutdown_scripting
 install_mysql_server
-# can't make this rsync call until ssh is setup
 copy_repo_from_master
-
-# Comment this out once the projects have all been versioned
-# can't make this rsync call until ssh is setup
-# build_maven_projects
-# exit 1
-# copy_repo_from_amazon
+create_jenkins_dir
