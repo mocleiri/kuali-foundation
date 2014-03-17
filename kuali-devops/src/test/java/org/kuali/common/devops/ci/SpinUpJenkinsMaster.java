@@ -131,7 +131,6 @@ public class SpinUpJenkinsMaster {
 			String dns = instance.getPublicDnsName();
 			// While spinning things up, use the Amazon DNS name since the DNSME alias can take a while (few minutes) to propagate
 			verifySSH(UBUNTU, dns, privateKey);
-			info("[%s] is online with ssh - %s", dns, FormatUtils.getTime(sw));
 			bootstrap(dns, privateKey);
 			SecureChannel channel = openSecureChannel(ROOT, dns, privateKey, quiet);
 			String basedir = publishProject(channel, pid, ROOT, dns, quiet);

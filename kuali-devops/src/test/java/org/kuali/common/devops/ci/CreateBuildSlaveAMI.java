@@ -93,25 +93,33 @@ public class CreateBuildSlaveAMI {
 
 	@Test
 	public void test() {
-		// Configurable items
-		BasicLaunchRequest request = getSlaveLaunchRequest();
+		try {
+			// Configurable items
+			BasicLaunchRequest request = getSlaveLaunchRequest();
 
-		EC2Service service = getEC2Service(amazonAccount);
-		Instance instance = launchAndWait(service, request, securityGroups, TAGS);
-		// Instance instance = getRunningSlaveInstance(service, "i-1907c23a");
-		logger.info(format("public dns: %s", instance.getPublicDnsName()));
-		SpinUpJenkinsMaster.verifySSH(Constants.UBUNTU, instance.getPublicDnsName(), KUALI_KEY.getPrivateKey().get());
-		CanonicalFile buildDir = getBuildDirectory();
-		logger.info(format("build directory -> %s", buildDir));
-		chmod(buildDir);
-		CanonicalFile bashDir = getLocalBashDir(buildDir);
-		configureSlave(instance, bashDir);
-		String description = format("automated ec2 slave ami - %s", today);
-		Image image = service.createAmi(instance.getInstanceId(), name, description, request.getRootVolume(), request.getTimeoutMillis());
-		logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
-		cleanupAmis(service);
-		logger.info(format("terminating instance [%s]", instance.getInstanceId()));
-		service.terminateInstance(instance.getInstanceId());
+			EC2Service service = getEC2Service(amazonAccount);
+			Instance instance = launchAndWait(service, request, securityGroups, TAGS);
+			// Instance instance = getRunningSlaveInstance(service, "i-1907c23a");
+			logger.info(format("public dns: %s", instance.getPublicDnsName()));
+			String dns = instance.getPublicDnsName();
+			String privateKey = KUALI_KEY.getPrivateKey().get();
+			SpinUpJenkinsMaster.verifySSH(Constants.UBUNTU, dns, privateKey);
+			SpinUpJenkinsMaster.bootstrap(dns, privateKey);
+
+			CanonicalFile buildDir = getBuildDirectory();
+			logger.info(format("build directory -> %s", buildDir));
+			chmod(buildDir);
+			CanonicalFile bashDir = getLocalBashDir(buildDir);
+			configureSlave(instance, bashDir);
+			String description = format("automated ec2 slave ami - %s", today);
+			Image image = service.createAmi(instance.getInstanceId(), name, description, request.getRootVolume(), request.getTimeoutMillis());
+			logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
+			cleanupAmis(service);
+			logger.info(format("terminating instance [%s]", instance.getInstanceId()));
+			service.terminateInstance(instance.getInstanceId());
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 	}
 
 	protected static BasicLaunchRequest getSlaveLaunchRequest() {
