@@ -1,6 +1,7 @@
 package org.kuali.common.aws.ec2.model;
 
 import static com.google.common.base.Optional.fromNullable;
+import static org.apache.commons.lang3.StringUtils.trimToNull;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
@@ -16,8 +17,8 @@ public final class ImmutableBlockDeviceMapping extends BlockDeviceMapping {
 	public static ImmutableBlockDeviceMapping copyOf(BlockDeviceMapping mapping) {
 		String deviceName = mapping.getDeviceName();
 		ImmutableEbsBlockDevice ebs = ImmutableEbsBlockDevice.copyOf(mapping.getEbs());
-		Optional<String> virtualName = fromNullable(mapping.getVirtualName());
-		Optional<String> noDevice = fromNullable(mapping.getNoDevice());
+		Optional<String> virtualName = fromNullable(trimToNull(mapping.getVirtualName()));
+		Optional<String> noDevice = fromNullable(trimToNull(mapping.getNoDevice()));
 		return new ImmutableBlockDeviceMapping(deviceName, ebs, virtualName, noDevice);
 	}
 
