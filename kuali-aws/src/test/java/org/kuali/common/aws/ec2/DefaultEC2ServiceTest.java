@@ -10,15 +10,17 @@ import org.junit.Test;
 import org.kuali.common.aws.Credentials;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
+import org.kuali.common.aws.ec2.model.ImmutableTag;
+import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.status.Auth;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.slf4j.Logger;
 
 import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.services.ec2.model.EbsInstanceBlockDevice;
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Instance;
-import com.amazonaws.services.ec2.model.InstanceBlockDeviceMapping;
+import com.amazonaws.services.ec2.model.Tag;
 
 public class DefaultEC2ServiceTest {
 
@@ -28,13 +30,11 @@ public class DefaultEC2ServiceTest {
 	public void testCreateAmi() {
 		try {
 			DefaultEC2Service service = getUSWestService();
-			Instance instance = service.getInstance("i-c6257499");
-			List<InstanceBlockDeviceMapping> mappings = instance.getBlockDeviceMappings();
-			info("ram disk id: %s", instance.getRamdiskId());
-			for (InstanceBlockDeviceMapping mapping : mappings) {
-				EbsInstanceBlockDevice eibd = mapping.getEbs();
-				info("device: %s  volume: %s", mapping.getDeviceName(), eibd.getVolumeId());
-			}
+			Instance instance = service.getInstance("i-4423721b");
+			Tag tag = new ImmutableTag("Name", "test.slave.ssd");
+			RootVolume rootVolume = RootVolume.create(32, true);
+			int timeoutMillis = FormatUtils.getMillisAsInt("1h");
+			service.createAmi(instance.getInstanceId(), tag, "testing ssd", rootVolume, timeoutMillis);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
