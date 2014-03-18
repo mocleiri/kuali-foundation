@@ -18,4 +18,5 @@ usage() { echo "Usage: $ME password" 1>&2; exit 1; }
 QUIET=true
 GPG_PASSPHRASE=$1
 check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
+
 encrypt_config
