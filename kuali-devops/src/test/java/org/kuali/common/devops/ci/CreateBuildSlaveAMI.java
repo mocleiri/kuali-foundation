@@ -36,6 +36,7 @@ import java.util.SortedMap;
 import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
+import org.kuali.common.aws.ec2.model.CreateAMIRequest;
 import org.kuali.common.aws.ec2.model.Distro;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.ImmutableTag;
@@ -55,6 +56,7 @@ import org.slf4j.Logger;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.regions.Regions;
+import com.amazonaws.services.ec2.model.BlockDeviceMapping;
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceType;
@@ -64,6 +66,7 @@ import com.google.common.base.Optional;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 
 public class CreateBuildSlaveAMI {
 
@@ -108,8 +111,8 @@ public class CreateBuildSlaveAMI {
 
 			EC2Service service = getEC2Service(amazonAccount);
 			List<Tag> tags = getSlaveTags(jenkinsContext);
-			Instance instance = launchAndWait(service, request, securityGroups, tags);
-			// Instance instance = service.getInstance("i-8e93c5d1");
+			// Instance instance = launchAndWait(service, request, securityGroups, tags);
+			Instance instance = service.getInstance("i-4423721b");
 			service.tag(instance.getInstanceId(), tags);
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			String dns = instance.getPublicDnsName();
@@ -129,12 +132,16 @@ public class CreateBuildSlaveAMI {
 			SpinUpJenkinsMaster.exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
 			SpinUpJenkinsMaster.exec(channel, slave, quietFlag, "-m", jenkinsMaster);
 
-			// String description = format("automated ec2 slave ami - %s", today);
-			// Image image = service.createAmi(instance.getInstanceId(), name, description, request.getRootVolume(), request.getTimeoutMillis());
-			// logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
-			// cleanupAmis(service);
-			// logger.info(format("terminating instance [%s]", instance.getInstanceId()));
-			// service.terminateInstance(instance.getInstanceId());
+			String description = format("automated ec2 slave ami - %s", today);
+			List<BlockDeviceMapping> additionalMappings = Lists.<BlockDeviceMapping> newArrayList(Constants.SSD);
+			CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(jenkinsContext.getName().getTag())
+					.withRootVolume(request.getRootVolume()).withAdditionalMappings(additionalMappings).withTimeoutMillis(request.getTimeoutMillis()).withDescription(description)
+					.build();
+			Image image = service.createAmi(creator);
+			logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
+			cleanupAmis(service);
+			logger.info(format("terminating instance [%s]", instance.getInstanceId()));
+			service.terminateInstance(instance.getInstanceId());
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
