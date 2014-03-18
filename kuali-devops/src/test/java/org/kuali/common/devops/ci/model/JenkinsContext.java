@@ -1,4 +1,4 @@
-package org.kuali.common.devops.ci;
+package org.kuali.common.devops.ci.model;
 
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;

@@ -1,4 +1,4 @@
-package org.kuali.common.devops.ci;
+package org.kuali.common.devops.ci.model;
 
 import static com.google.common.base.Optional.absent;
 

@@ -1,4 +1,4 @@
-package org.kuali.common.devops.ci;
+package org.kuali.common.devops.ci.model;
 
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
 
