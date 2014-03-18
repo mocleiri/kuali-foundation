@@ -137,9 +137,8 @@ public class CreateBuildSlaveAMI {
 
 			String description = format("automated ec2 slave ami - %s", today);
 			List<BlockDeviceMapping> additionalMappings = Lists.<BlockDeviceMapping> newArrayList(Constants.SSD);
-			CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(jenkinsContext.getName().getTag())
-					.withRootVolume(request.getRootVolume()).withAdditionalMappings(additionalMappings).withTimeoutMillis(request.getTimeoutMillis()).withDescription(description)
-					.build();
+			CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(name).withRootVolume(request.getRootVolume())
+					.withAdditionalMappings(additionalMappings).withTimeoutMillis(request.getTimeoutMillis()).withDescription(description).build();
 			Image image = service.createAmi(creator);
 			logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
 			cleanupAmis(service);
