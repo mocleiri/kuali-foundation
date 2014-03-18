@@ -110,11 +110,9 @@ function execute_quietly {
   check_status $COMMAND
 }
 
-function check_userdel_status {
+function check_status {
   STATUS="$?"
-  # 6 == user does not exist
-  # 0 == user was successfully deleted
-  if [[ ! ("$STATUS" == "6" || "$STATUS" == "0") ]]; then
+  if [ ! "$STATUS" == "0" ]; then
     echo
     echo "error executing: \"$COMMAND\""
     echo "exit value: $STATUS"
@@ -123,9 +121,11 @@ function check_userdel_status {
   fi
 }
 
-function check_status {
+function check_userdel_status {
   STATUS="$?"
-  if [ ! "$STATUS" == "0" ]; then
+  # 6 == user does not exist
+  # 0 == user was successfully deleted
+  if [[ ! ("$STATUS" == "6" || "$STATUS" == "0") ]]; then
     echo
     echo "error executing: \"$COMMAND\""
     echo "exit value: $STATUS"
