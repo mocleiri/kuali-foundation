@@ -9,6 +9,14 @@ public final class ImmutableTag extends Tag {
 	private static final long serialVersionUID = 1L;
 	private static final String UOE_MSG = "Not supported for immutable tags";
 
+	public static ImmutableTag copyOf(Tag tag) {
+		if (tag instanceof ImmutableTag) {
+			return (ImmutableTag) tag;
+		} else {
+			return new ImmutableTag(tag.getKey(), tag.getValue());
+		}
+	}
+
 	public ImmutableTag(String key, String value) {
 		super.setKey(checkNotBlank(key, "key"));
 		super.setValue(checkNotBlank(value, "value"));

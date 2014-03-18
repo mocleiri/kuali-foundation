@@ -9,6 +9,7 @@ import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import org.kuali.common.util.FormatUtils;
 
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
+import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.collect.ImmutableList;
 
 @IdiotProofImmutable
@@ -23,7 +24,7 @@ public final class CreateAMIRequest {
 
 	private CreateAMIRequest(Builder builder) {
 		this.instanceId = builder.instanceId;
-		this.name = builder.name;
+		this.name = ImmutableTag.copyOf(builder.name);
 		this.description = builder.description;
 		this.rootVolume = builder.rootVolume;
 		this.timeoutMillis = builder.timeoutMillis;
@@ -41,7 +42,7 @@ public final class CreateAMIRequest {
 	public static class Builder extends ValidatingBuilder<CreateAMIRequest> {
 
 		private String instanceId;
-		private ImmutableTag name;
+		private Tag name;
 		private String description;
 		private RootVolume rootVolume;
 		private int timeoutMillis = FormatUtils.getMillisAsInt("1h");
@@ -52,7 +53,7 @@ public final class CreateAMIRequest {
 			return this;
 		}
 
-		public Builder withName(ImmutableTag name) {
+		public Builder withName(Tag name) {
 			this.name = name;
 			return this;
 		}
