@@ -111,8 +111,8 @@ public class CreateBuildSlaveAMI {
 
 			EC2Service service = getEC2Service(amazonAccount);
 			List<Tag> tags = getSlaveTags(jenkinsContext);
-			// Instance instance = launchAndWait(service, request, securityGroups, tags);
-			Instance instance = service.getInstance("i-4423721b");
+			Instance instance = launchAndWait(service, request, securityGroups, tags);
+			// Instance instance = service.getInstance("i-4423721b");
 			service.tag(instance.getInstanceId(), tags);
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			String dns = instance.getPublicDnsName();
