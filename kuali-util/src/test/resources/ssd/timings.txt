@@ -1,0 +1,4 @@
+c3.xlarge - 80 gb SSD RAID 0
+mvn clean > /dev/null 2>&1; date; mvn clean install -DskipTests -Dmaven.repo.local=/mnt/.m2/repository -T C1 > /dev/null 2>&1; date;
+Tue Mar 18 19:14:30 UTC 2014
+Tue Mar 18 19:18:57 UTC 2014  -  4:37
