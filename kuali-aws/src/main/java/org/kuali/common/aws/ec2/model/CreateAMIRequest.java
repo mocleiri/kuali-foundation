@@ -99,7 +99,7 @@ public final class CreateAMIRequest {
 		return timeoutMillis;
 	}
 
-	public List<BlockDeviceMapping> getMappings() {
+	public List<BlockDeviceMapping> getAdditionalMappings() {
 		return additionalMappings;
 	}
 

@@ -2,8 +2,8 @@ package org.kuali.common.aws.ec2.api;
 
 import java.util.List;
 
+import org.kuali.common.aws.ec2.model.CreateAMIRequest;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
-import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.ec2.model.security.Permission;
 import org.kuali.common.aws.ec2.model.security.SetPermissionsResult;
@@ -36,7 +36,7 @@ public interface EC2Service {
 	 */
 	void purgeAmi(String imageId);
 
-	Image createAmi(String instanceId, Tag name, String description, RootVolume rootVolume, int timeoutMillis);
+	Image createAmi(CreateAMIRequest request);
 
 	/**
 	 * Snapshot a volume. Blocks until the snapshot reaches the state "completed" or timeoutMillis has been exceeded

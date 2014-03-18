@@ -22,6 +22,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.aws.ec2.api.EC2Service;
+import org.kuali.common.aws.ec2.model.CreateAMIRequest;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.InstanceStateName;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
@@ -147,34 +148,33 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	@Override
-	public Image createAmi(String instanceId, Tag name, String description, RootVolume rootVolume, int timeoutMillis) {
-		Instance instance = getInstance(instanceId);
+	public Image createAmi(CreateAMIRequest request) {
+		Instance instance = getInstance(request.getInstanceId());
 		String rootVolumeId = getRootVolumeId(instance);
-		Snapshot snapshot = createSnapshot(rootVolumeId, description, timeoutMillis);
-		tag(snapshot.getSnapshotId(), name);
-		return createAmi(instance, snapshot, name, description, rootVolume, timeoutMillis);
+		Snapshot snapshot = createSnapshot(rootVolumeId, request.getDescription(), request.getTimeoutMillis());
+		tag(snapshot.getSnapshotId(), request.getName());
+		return createAmi(request, instance, snapshot);
 	}
 
-	protected Image createAmi(Instance instance, Snapshot snapshot, Tag name, String description, RootVolume rootVolume, int timeoutMillis) {
-		BlockDeviceMapping rootVolumeMapping = getRootVolumeMapping(instance, snapshot.getSnapshotId(), rootVolume);
-		BlockDeviceMapping ephemeral0 = new BlockDeviceMapping();
-		ephemeral0.setDeviceName("/dev/sdb");
-		ephemeral0.setVirtualName("ephemeral0");
+	protected Image createAmi(CreateAMIRequest create, Instance instance, Snapshot snapshot) {
+		BlockDeviceMapping rootVolumeMapping = getRootVolumeMapping(instance, snapshot.getSnapshotId(), create.getRootVolume());
 		List<BlockDeviceMapping> mappings = newArrayList();
 		mappings.add(rootVolumeMapping);
-		mappings.add(ephemeral0);
+		for (BlockDeviceMapping mapping : create.getAdditionalMappings()) {
+			mappings.add(mapping);
+		}
 
 		RegisterImageRequest request = new RegisterImageRequest();
-		request.setName(name.getValue());
-		request.setDescription(description);
+		request.setName(create.getName().getValue());
+		request.setDescription(create.getDescription());
 		request.setArchitecture(instance.getArchitecture());
 		request.setRootDeviceName(instance.getRootDeviceName());
 		request.setKernelId(instance.getKernelId());
 		request.setBlockDeviceMappings(mappings);
 		RegisterImageResult result = client.registerImage(request);
 		String imageId = result.getImageId();
-		waitForAmiState(imageId, AMI_AVAILABLE_STATE, timeoutMillis);
-		tag(imageId, name);
+		waitForAmiState(imageId, AMI_AVAILABLE_STATE, create.getTimeoutMillis());
+		tag(imageId, create.getName());
 		return getImage(imageId);
 	}
 
