@@ -8,3 +8,5 @@ root@ip-10-198-146-190:/mnt/rice-trunk# mvn clean > /dev/null 2>&1; date; mvn cl
 Tue Mar 18 19:23:00 UTC 2014
 Tue Mar 18 19:27:33 UTC 2014 - 4:33 - 273s
 
+root@ip-10-198-146-190:~/ws/rice-trunk# mvn clean > /dev/null 2>&1; date; mvn clean install -DskipTests -T C1 > /dev/null 2>&1; date;
+Tue Mar 18 19:34:07 UTC 2014
