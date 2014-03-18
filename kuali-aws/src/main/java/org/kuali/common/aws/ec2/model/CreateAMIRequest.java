@@ -40,7 +40,7 @@ public final class CreateAMIRequest {
 		private ImmutableTag name;
 		private String description;
 		private RootVolume rootVolume;
-		private int timeoutMillis = FormatUtils.getMillisAsInt("1hr");
+		private int timeoutMillis = FormatUtils.getMillisAsInt("1h");
 		private List<BlockDeviceMapping> additionalMappings = newArrayList();
 
 		public Builder withInstanceId(String instanceId) {
