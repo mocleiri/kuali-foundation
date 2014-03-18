@@ -62,7 +62,7 @@ public class AprilTest {
 	@Test
 	public void test() {
 		try {
-			updateJson("01", "02", "03", "04", "05");
+			updateJson("01", "02", "03", "04", "05", "06");
 			List<String> lines = readLines(jsonFile);
 			logger.info(format("lines %s", lines.size()));
 			JsonService service = new JacksonJsonService();
