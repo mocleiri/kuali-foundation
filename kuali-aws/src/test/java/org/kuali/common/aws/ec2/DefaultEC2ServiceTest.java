@@ -14,7 +14,6 @@ import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.CreateAMIRequest;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.ImmutableBlockDeviceMapping;
-import org.kuali.common.aws.ec2.model.ImmutableEbsBlockDevice;
 import org.kuali.common.aws.ec2.model.ImmutableTag;
 import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.status.Auth;
@@ -24,6 +23,7 @@ import org.slf4j.Logger;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
+import com.amazonaws.services.ec2.model.EbsBlockDevice;
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Instance;
 import com.google.common.base.Optional;
@@ -80,7 +80,7 @@ public class DefaultEC2ServiceTest {
 
 	private static final String SSD_DEVICE_NAME = "/dev/sdb";
 	private static final String SSD_VIRTUAL_NAME = "ephemeral0";
-	private static final Optional<ImmutableEbsBlockDevice> NO_EBS = absent();
+	private static final Optional<EbsBlockDevice> NO_EBS = absent();
 	private static final Optional<String> ABSENT = absent();
 
 	public static final ImmutableBlockDeviceMapping SSD = new ImmutableBlockDeviceMapping(SSD_DEVICE_NAME, NO_EBS, Optional.of(SSD_VIRTUAL_NAME), ABSENT);

@@ -17,18 +17,18 @@ public final class ImmutableBlockDeviceMapping extends BlockDeviceMapping {
 
 	public static ImmutableBlockDeviceMapping copyOf(BlockDeviceMapping mapping) {
 		String deviceName = mapping.getDeviceName();
-		Optional<ImmutableEbsBlockDevice> ebs = absent();
+		Optional<EbsBlockDevice> ebs = absent();
 		if (mapping.getEbs() != null) {
-			ebs = Optional.of(ImmutableEbsBlockDevice.copyOf(mapping.getEbs()));
+			ebs = Optional.<EbsBlockDevice> of(ImmutableEbsBlockDevice.copyOf(mapping.getEbs()));
 		}
 		Optional<String> virtualName = fromNullable(trimToNull(mapping.getVirtualName()));
 		Optional<String> noDevice = fromNullable(trimToNull(mapping.getNoDevice()));
 		return new ImmutableBlockDeviceMapping(deviceName, ebs, virtualName, noDevice);
 	}
 
-	public ImmutableBlockDeviceMapping(String deviceName, Optional<ImmutableEbsBlockDevice> ebs, Optional<String> virtualName, Optional<String> noDevice) {
+	public ImmutableBlockDeviceMapping(String deviceName, Optional<EbsBlockDevice> ebs, Optional<String> virtualName, Optional<String> noDevice) {
 		super.setDeviceName(checkNotBlank(deviceName, "deviceName"));
-		super.setEbs(checkNotNull(ebs, "ebs").orNull());
+		super.setEbs(checkNotNull(ebs, "ebs").isPresent() ? ImmutableEbsBlockDevice.copyOf(ebs.get()) : null);
 		super.setVirtualName(checkNotBlank(virtualName, "virtualName").orNull());
 		super.setNoDevice(checkNotBlank(noDevice, "noDevice").orNull());
 	}

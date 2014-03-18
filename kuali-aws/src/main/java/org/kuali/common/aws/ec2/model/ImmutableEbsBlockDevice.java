@@ -26,6 +26,9 @@ public final class ImmutableEbsBlockDevice extends EbsBlockDevice {
 	}
 
 	public static ImmutableEbsBlockDevice copyOf(EbsBlockDevice ebs) {
+		if (ebs instanceof ImmutableEbsBlockDevice) {
+			return (ImmutableEbsBlockDevice) ebs;
+		}
 		Builder builder = builder(ebs.getSnapshotId());
 		if (trimToNull(ebs.getVolumeType()) != null) {
 			builder.withVolumeType(VolumeType.fromValue(ebs.getVolumeType()));
