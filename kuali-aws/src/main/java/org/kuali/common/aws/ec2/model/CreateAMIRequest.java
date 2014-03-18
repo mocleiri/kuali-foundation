@@ -34,6 +34,10 @@ public final class CreateAMIRequest {
 		this.additionalMappings = ImmutableList.copyOf(immutables);
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder extends ValidatingBuilder<CreateAMIRequest> {
 
 		private String instanceId;
