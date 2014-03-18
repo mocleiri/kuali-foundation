@@ -16,6 +16,7 @@
 package org.kuali.common.util.channel.model;
 
 import static com.google.common.base.Optional.absent;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -244,8 +245,9 @@ public final class ChannelContext {
 			this.options = ImmutableProperties.copyOf(getSessionProperties(options, strictHostKeyChecking));
 		}
 
-		private void validate(ChannelContext ctx) {
-			Assert.noBlanks(ctx.getHostname(), ctx.getEncoding());
+		private static void validate(ChannelContext ctx) {
+			checkNotBlank(ctx.hostname, "hostname");
+			checkNotBlank(ctx.encoding, "encoding");
 			Assert.noNulls(ctx.getUsername(), ctx.getConnectTimeout(), ctx.getOptions(), ctx.getKnownHosts(), ctx.getConfig(), ctx.getPrivateKeyFiles(), ctx.getPrivateKeys());
 			Assert.isPort(ctx.getPort());
 			Assert.positive(ctx.getWaitForClosedSleepMillis());
