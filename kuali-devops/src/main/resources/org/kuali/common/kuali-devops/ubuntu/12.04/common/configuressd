@@ -1,5 +1,27 @@
 #!/bin/bash
 
+function execute_quietly {
+  COMMAND=$1
+  if [ "$QUIET" = "true" ]; then
+    $COMMAND > /dev/null 2>&1
+  else
+    echo "$COMMAND"
+    $COMMAND
+  fi
+  check_status $COMMAND
+}
+
+function check_status {
+  STATUS="$?"
+  if [ ! "$STATUS" == "0" ]; then
+    echo
+    echo "error executing: \"$COMMAND\""
+    echo "exit value: $STATUS"
+    echo 
+    exit $STATUS
+  fi
+}
+
 function dismount_existing {
   if mountpoint -q $OLD_SSD_MOUNT; then
     echo "unmount   -> $OLD_SSD_MOUNT"
