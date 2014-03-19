@@ -135,8 +135,8 @@ function check_userdel_status {
 }
 
 function check_jdk {
-  if [[ ! ("$JDK" == "jdk6" || "$JDK" == "jdk7") ]]; then
-    echo "\"$JDK\" is invalid.  Must be either jdk6 or jdk7"
+  if [[ ! ("$JDK" == "jdk6" || "$JDK" == "jdk7" || "$JDK" == "jdk8") ]]; then
+    echo "\"$JDK\" is invalid.  Must be jdk6, jdk7, or jdk8"
     usage
   fi
 }

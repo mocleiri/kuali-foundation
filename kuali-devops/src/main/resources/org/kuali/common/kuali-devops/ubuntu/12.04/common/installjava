@@ -89,7 +89,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] jdk6/jdk7 u45/u51 password" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] jdk6/jdk7/jdk8 u45/u51/u0 password" 1>&2; exit 1; }
 
 QUIET=false
 while getopts hq flag; do
