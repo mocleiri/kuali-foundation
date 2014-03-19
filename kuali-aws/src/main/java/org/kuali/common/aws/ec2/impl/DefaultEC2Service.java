@@ -6,6 +6,7 @@ import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
 import static java.util.Collections.singletonList;
+import static org.kuali.common.aws.ec2.model.InstanceStateName.STOPPED;
 import static org.kuali.common.aws.ec2.model.InstanceStateName.TERMINATED;
 import static org.kuali.common.util.FormatUtils.getTime;
 import static org.kuali.common.util.base.Exceptions.illegalState;
@@ -89,6 +90,7 @@ import com.amazonaws.services.ec2.model.RunInstancesRequest;
 import com.amazonaws.services.ec2.model.RunInstancesResult;
 import com.amazonaws.services.ec2.model.SecurityGroup;
 import com.amazonaws.services.ec2.model.Snapshot;
+import com.amazonaws.services.ec2.model.StopInstancesRequest;
 import com.amazonaws.services.ec2.model.Tag;
 import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
 import com.google.common.base.Optional;
@@ -118,10 +120,6 @@ public final class DefaultEC2Service implements EC2Service {
 		this.service = service;
 		this.context = context;
 		this.client = LaunchUtils.getClient(context);
-	}
-
-	public void stopInstance() {
-
 	}
 
 	@Override
@@ -506,6 +504,21 @@ public final class DefaultEC2Service implements EC2Service {
 	public void preventTermination(String instanceId) {
 		Assert.noBlanks(instanceId);
 		preventTermination(instanceId, true);
+	}
+
+	@Override
+	public void stopInstance(String instanceId) {
+		checkNotBlank(instanceId, "instanceId");
+		StopInstancesRequest request = new StopInstancesRequest();
+		request.setInstanceIds(singletonList(instanceId));
+		client.stopInstances(request);
+		WaitContext waitContext = getWaitContext(context.getTerminationTimeoutMillis());
+		Object[] args = { FormatUtils.getTime(waitContext.getTimeoutMillis()), instanceId, STOPPED.getValue() };
+		logger.info("Waiting up to {} for [{}] to stop", args);
+		Condition condition = new InstanceStateCondition(this, instanceId, STOPPED);
+		WaitResult result = service.wait(waitContext, condition);
+		Object[] resultArgs = { instanceId, getTime(result.getElapsed()) };
+		logger.info("[{}] has been stop - {}", resultArgs);
 	}
 
 	@Override
