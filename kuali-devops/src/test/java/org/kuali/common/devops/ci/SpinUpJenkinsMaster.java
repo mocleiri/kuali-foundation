@@ -117,6 +117,7 @@ public class SpinUpJenkinsMaster {
 	@Test
 	public void test() {
 		try {
+			System.setProperty("jenkins.context", "test");
 			VirtualSystem vs = VirtualSystem.create();
 			// Default to quiet mode unless they've supplied -Dec2.quiet=false
 			boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
