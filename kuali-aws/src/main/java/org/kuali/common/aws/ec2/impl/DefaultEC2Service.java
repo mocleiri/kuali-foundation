@@ -699,15 +699,23 @@ public final class DefaultEC2Service implements EC2Service {
 		// Get an Image object from Amazon for the AMI we are working with
 		Image ami = getAmi(context.getAmi());
 
+		// Update the root volume as needed
 		if (context.getRootVolume().isPresent()) {
 			updateRootBlockDeviceMapping(ami, context.getRootVolume().get());
 		}
 
-		List<BlockDeviceMapping> mappings = newArrayList();
+		// Store all of the existing block device mappings
+		List<BlockDeviceMapping> mappings = newArrayList(ami.getBlockDeviceMappings());
+
+		// Cycle through the additional mappings, updating existing mappings with new mappings as we go
 		for (BlockDeviceMapping additionalMapping : context.getAdditionalMappings()) {
-			Optional<BlockDeviceMapping> optional = findMatch(ami.getBlockDeviceMappings(), additionalMapping);
+
+			// Look for a match in the existing mappings
+			Optional<BlockDeviceMapping> optional = findMatch(mappings, additionalMapping);
+
+			// Check to see if we found a match
 			if (optional.isPresent()) {
-				// Override any existing block device settings with the settings supplied
+				// If so, override any existing block device settings with the new settings
 				BlockDeviceMapping existing = optional.get();
 				existing.setDeviceName(additionalMapping.getDeviceName());
 				existing.setEbs(additionalMapping.getEbs());
@@ -719,8 +727,8 @@ public final class DefaultEC2Service implements EC2Service {
 			}
 		}
 
-		// Return the list now that the root volume settings have been applied
-		return ami.getBlockDeviceMappings();
+		// Return the updated list
+		return mappings;
 	}
 
 	protected Optional<BlockDeviceMapping> findMatch(List<BlockDeviceMapping> mappings, BlockDeviceMapping mapping) {
