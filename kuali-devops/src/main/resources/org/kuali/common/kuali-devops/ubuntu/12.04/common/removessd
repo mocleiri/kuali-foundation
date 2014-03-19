@@ -4,8 +4,8 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-umount -l /dev/md127
-mdadm --stop /dev/md127
-mdadm --zero-superblock /dev/xvdb
-mdadm --zero-superblock /dev/xvdc
+execute_quietly "umount -l /dev/md127"
+execute_quietly "mdadm --stop /dev/md127"
+execute_quietly "mdadm --zero-superblock /dev/xvdb"
+execute_quietly "mdadm --zero-superblock /dev/xvdc"
 ##mdadm --remove /dev/md127
