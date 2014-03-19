@@ -292,7 +292,6 @@ FIREFOX_BASEDIR="/usr/local/firefox"
 execute_quietly "mkdir -p $MAVEN_BASEDIR"
 execute_quietly "mkdir -p $FIREFOX_BASEDIR"
 
-
 configure_secrets
 install_packages
 install_maven 3.0.5 30
