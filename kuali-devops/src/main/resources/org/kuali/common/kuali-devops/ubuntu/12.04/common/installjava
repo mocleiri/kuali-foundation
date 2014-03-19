@@ -23,6 +23,7 @@ function install_jdk {
 
   JDK6_FRAGMENT=1.6.0
   JDK7_FRAGMENT=1.7.0
+  JDK8_FRAGMENT=1.8.0
 
   # Extract the jdk level from the JDK variable
   JDK_LEVEL=${JDK:3:1}
