@@ -98,7 +98,7 @@ public class SpinUpJenkinsMaster {
 
 	private static Map<String, JenkinsContext> getJenkinsContexts() {
 		JenkinsContext prod = JenkinsContext.builder().withDnsPrefix("ci").withStack(Tags.Stack.PRODUCTION).withName(Tags.Name.MASTER).build();
-		JenkinsContext test = JenkinsContext.builder().withDnsPrefix("beta-ci").withStack(Tags.Stack.TEST).withName(Tags.Name.MASTER).build();
+		JenkinsContext test = JenkinsContext.builder().withDnsPrefix("testci").withStack(Tags.Stack.TEST).withName(Tags.Name.MASTER).build();
 		SortedMap<String, JenkinsContext> contexts = newTreeMap();
 		contexts.put("test", test);
 		contexts.put("prod", prod);
@@ -117,7 +117,7 @@ public class SpinUpJenkinsMaster {
 	@Test
 	public void test() {
 		try {
-			System.setProperty("jenkins.context", "test");
+			System.setProperty("ec2.stack", "test");
 			VirtualSystem vs = VirtualSystem.create();
 			// Default to quiet mode unless they've supplied -Dec2.quiet=false
 			boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
