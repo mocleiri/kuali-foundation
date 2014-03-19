@@ -30,7 +30,7 @@ public final class LaunchInstanceContext {
 	// If true, permissions on any existing security groups are overridden by the permissions from the security groups provided here.
 	// This happens prior to the instance being launched
 	private final boolean overrideExistingSecurityGroupPermissions;
-	private final List<Tag> tags;
+	private final ImmutableList<Tag> tags;
 	private final Optional<String> availabilityZone;
 	private final int timeoutMillis;
 	private final boolean preventTermination;
@@ -47,7 +47,7 @@ public final class LaunchInstanceContext {
 		this.type = builder.type;
 		this.securityGroups = ImmutableList.copyOf(builder.securityGroups);
 		this.overrideExistingSecurityGroupPermissions = builder.overrideExistingSecurityGroupPermissions;
-		this.tags = builder.tags;
+		this.tags = ImmutableTag.copyOf(builder.tags);
 		this.availabilityZone = builder.availabilityZone;
 		this.timeoutMillis = builder.timeoutMillis;
 		this.preventTermination = builder.preventTermination;

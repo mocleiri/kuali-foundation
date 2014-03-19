@@ -44,6 +44,7 @@ public class DefaultEC2ServiceTest {
 		try {
 			DefaultEC2Service service = getUSWestService();
 			KeyPair keyPair = Auth.getKeyPair(KeyPairBuilders.FOUNDATION);
+			List<Tag>
 			List<BlockDeviceMapping> additionalMappings = ImmutableList.<BlockDeviceMapping>of(INSTANCE_STORE_0, INSTANCE_STORE_1);
 			LaunchInstanceContext context = LaunchInstanceContext.builder("ami-709ba735", keyPair).withAdditionalMappings(additionalMappings).build();
 			service.launchInstance(context);
