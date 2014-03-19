@@ -5,6 +5,10 @@ ME=$(basename $0)
 source $MY_DIR/functions.sh
 
 QUIET=$1
+if [ "$QUIET" = "-q" ]; then
+  QUIET=true
+fi
+
 DEVICE="/dev/md127"
 
 execute_quietly "umount -l $DEVICE"
