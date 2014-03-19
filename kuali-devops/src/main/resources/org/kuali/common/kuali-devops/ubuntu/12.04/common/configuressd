@@ -12,6 +12,10 @@ if mountpoint -q $OLD_SSD_MOUNT; then
   execute_quietly "umount $OLD_SSD_MOUNT"
 fi
 
+if mountpoint -q $NEW_SSD_MOUNT; then
+  execute_quietly "umount $NEW_SSD_MOUNT"
+fi
+
 #execute_quietly "yes | mdadm --create --verbose /dev/md/ssd --level=stripe --raid-devices=2 /dev/xvdb /dev/xvdc" 
 #execute_quietly "mkfs.ext3 /dev/md/ssd" 
 #execute_quietly "mkdir -p $NEW_SSD_MOUNT"
