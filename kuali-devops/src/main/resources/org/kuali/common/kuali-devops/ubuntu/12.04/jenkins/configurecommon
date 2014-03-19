@@ -57,7 +57,6 @@ function install_firefox {
   execute_quietly "rm -rf $FIREFOX_BASEDIR/firefox $FIREFOX_DIR $FIREFOX_LINK"
   execute_quietly "tar -xjvf $LOCAL_MAVEN_REPO_FILE --directory $FIREFOX_BASEDIR"
   execute_quietly "mv $FIREFOX_BASEDIR/firefox $FIREFOX_DIR"
-  #execute_quietly "mv $FIREFOX_BASEDIR/firefox $FIREFOX_DIR"
   
   # create /usr/local/firefox/firefox14 -> /usr/local/firefox/firefox-14.0.1
   #execute_quietly "ln -s $FIREFOX_LINK $FIREFOX_DIR"
