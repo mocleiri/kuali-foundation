@@ -54,11 +54,16 @@ function install_firefox {
   FIREFOX_USR_BIN=/usr/bin/firefox$SHORT_VERSION
   
   # remove /usr/local/firefox/firefox and /usr/local/firefox/firefox-14.0.1
-  execute_quietly "rm -rf $FIREFOX_BASEDIR/firefox $FIREFOX_DIR"
+  execute_quietly "rm -rf $FIREFOX_BASEDIR/firefox $FIREFOX_DIR $FIREFOX_LINK"
   execute_quietly "tar -xjvf $LOCAL_MAVEN_REPO_FILE --directory $FIREFOX_BASEDIR"
   execute_quietly "mv $FIREFOX_BASEDIR/firefox $FIREFOX_DIR"
-  #mv firefox /usr/local/firefox-14.0.1
-  #ln -s /usr/local/firefox-14.0.1/firefox /usr/bin/firefox 
+  execute_quietly "mv $FIREFOX_BASEDIR/firefox $FIREFOX_DIR"
+  
+  # create /usr/local/firefox/firefox14 -> /usr/local/firefox/firefox-14.0.1
+  execute_quietly "ln -s $FIREFOX_LINK $FIREFOX_DIR"
+
+  # create /usr/bin/firefox14 -> /usr/local/firefox/firefox-14/firefox
+  execute_quietly "ln -s $FIREFOX_LINK/firefox $FIREFOX_USR_BIN"
 
 }
 
