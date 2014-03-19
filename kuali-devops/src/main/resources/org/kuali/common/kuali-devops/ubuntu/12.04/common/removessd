@@ -11,6 +11,7 @@ fi
 
 DEVICE="/dev/md127"
 
+echo "remove    -> ssd"
 execute_quietly "umount -l $DEVICE"
 execute_quietly "mdadm --stop $DEVICE"
 execute_quietly "mdadm --zero-superblock /dev/xvdb"
