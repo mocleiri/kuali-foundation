@@ -59,10 +59,10 @@ function install_firefox {
   execute_quietly "mv $FIREFOX_BASEDIR/firefox $FIREFOX_DIR"
   
   # create /usr/local/firefox/firefox14 -> /usr/local/firefox/firefox-14.0.1
-  #execute_quietly "ln -s $FIREFOX_LINK $FIREFOX_DIR"
+  execute_quietly "ln -s $FIREFOX_LINK $FIREFOX_DIR"
 
   # create /usr/bin/firefox14 -> /usr/local/firefox/firefox-14/firefox
-  #execute_quietly "ln -s $FIREFOX_LINK/firefox $FIREFOX_USR_BIN"
+  execute_quietly "ln -s $FIREFOX_LINK/firefox $FIREFOX_USR_BIN"
 
 }
 
