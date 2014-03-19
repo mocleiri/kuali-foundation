@@ -187,19 +187,20 @@ public class SpinUpJenkinsMaster {
 		Artifact artifact = new Artifact.Builder(project.getGroupId(), project.getArtifactId(), project.getVersion()).build();
 		File repo = getDefaultLocalRepository();
 		CanonicalFile jar = new CanonicalFile(RepositoryUtils.getFile(repo, artifact));
-		String filename = project.getArtifactId() + ".jar";
-		String directory = format("/tmp/%s", project.getArtifactId());
-		RemoteFile remote = new RemoteFile.Builder("/mnt/" + filename).build();
-		String to = username + "@" + hostname + ":" + remote.getAbsolutePath();
+		String remoteBasedir = "/tmp";
+		String jarFile = project.getArtifactId() + ".jar";
+		String remotePublishDir = format("/%s/%s", remoteBasedir, project.getArtifactId());
+		RemoteFile remoteJar = new RemoteFile.Builder(format("/%s/%s", remoteBasedir, jarFile)).build();
+		String to = username + "@" + hostname + ":" + remoteJar.getAbsolutePath();
 		info("scp:from -> %s", jar);
 		info("scp:to   -> %s", to);
-		channel.scp(jar, remote);
-		info("unpack   -> %s to %s", remote.getAbsolutePath(), directory);
+		channel.scp(jar, remoteJar);
+		info("unpack   -> %s to %s", remoteJar.getAbsolutePath(), remotePublishDir);
 		execFormattedCommand(channel, quiet, "apt-get install unzip -y");
-		execFormattedCommand(channel, quiet, "rm -rf %s", directory);
-		execFormattedCommand(channel, quiet, "unzip -o %s -d %s", remote.getAbsolutePath(), directory);
-		execFormattedCommand(channel, quiet, "chmod -R 755 %s", directory);
-		return directory;
+		execFormattedCommand(channel, quiet, "rm -rf %s", remotePublishDir);
+		execFormattedCommand(channel, quiet, "unzip -o %s -d %s", remoteJar.getAbsolutePath(), remotePublishDir);
+		execFormattedCommand(channel, quiet, "chmod -R 755 %s", remotePublishDir);
+		return remotePublishDir;
 	}
 
 	protected static ChannelContext.Builder getSilentContextBuilder(String hostname) {
