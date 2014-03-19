@@ -41,9 +41,6 @@ function install_firefox {
   # Calculate the path to the locally cached copy of the compressed file
   LOCAL_MAVEN_REPO_FILE=$($MY_DIR/../common/m2path $MAVEN_ARGS)
   
-  FIREFOX_BASEDIR="/usr/local/firefox"
-  mkdir -p $FIREFOX_BASEDIR
-  
   # /usr/local/firefox/firefox-27.0.1
   FIREFOX_DIR=$FIREFOX_BASEDIR/$ARTIFACT_ID-$VERSION
 
@@ -128,6 +125,19 @@ function install_maven {
 }
 
 function install_default_maven {
+  MAVEN_ABBR=$1
+
+  echo "install   -> default maven mvn$MAVEN_ABBR"
+
+  MAVEN_TARGET=$MAVEN_BASEDIR/mvn$MAVEN_ABBR/bin/mvn
+  MAVEN_USR_BIN=/usr/bin/mvn
+
+  rm -rf $MAVEN_USR_BIN
+  ln -s $MAVEN_TARGET $MAVEN_USR_BIN
+  chmod 755 $MAVEN_BASEDIR
+}
+
+function install_default_firefox {
   MAVEN_ABBR=$1
 
   echo "install   -> default maven mvn$MAVEN_ABBR"
@@ -278,7 +288,10 @@ if [ "$QUIET" == "true" ]; then
 fi
 
 MAVEN_BASEDIR=/usr/maven
+FIREFOX_BASEDIR="/usr/local/firefox"
+
 execute_quietly "mkdir -p $MAVEN_BASEDIR"
+execute_quietly "mkdir -p $FIREFOX_BASEDIR"
 
 
 configure_secrets
