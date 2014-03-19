@@ -192,8 +192,8 @@ public class SpinUpJenkinsMaster {
 		CanonicalFile jar = new CanonicalFile(RepositoryUtils.getFile(repo, artifact));
 		String remoteBasedir = "/tmp";
 		String jarFile = project.getArtifactId() + ".jar";
-		String remotePublishDir = format("/%s/%s", remoteBasedir, project.getArtifactId());
-		RemoteFile remoteJar = new RemoteFile.Builder(format("/%s/%s", remoteBasedir, jarFile)).build();
+		String remotePublishDir = format("%s/%s", remoteBasedir, project.getArtifactId());
+		RemoteFile remoteJar = new RemoteFile.Builder(format("%s/%s", remoteBasedir, jarFile)).build();
 		String to = username + "@" + hostname + ":" + remoteJar.getAbsolutePath();
 		info("scp:from -> %s", jar);
 		info("scp:to   -> %s", to);
