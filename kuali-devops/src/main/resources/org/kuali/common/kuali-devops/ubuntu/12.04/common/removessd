@@ -4,6 +4,8 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
+QUIET=$1
+
 execute_quietly "umount -l /dev/md127"
 execute_quietly "mdadm --stop /dev/md127"
 execute_quietly "mdadm --zero-superblock /dev/xvdb"
