@@ -512,7 +512,7 @@ public final class DefaultEC2Service implements EC2Service {
 	public void terminateInstance(String instanceId) {
 		checkNotBlank(instanceId, "instanceId");
 		TerminateInstancesRequest request = new TerminateInstancesRequest();
-		request.setInstanceIds(Collections.singletonList(instanceId));
+		request.setInstanceIds(singletonList(instanceId));
 		client.terminateInstances(request);
 		WaitContext waitContext = getWaitContext(context.getTerminationTimeoutMillis());
 		Object[] args = { FormatUtils.getTime(waitContext.getTimeoutMillis()), instanceId, TERMINATED.getValue() };
