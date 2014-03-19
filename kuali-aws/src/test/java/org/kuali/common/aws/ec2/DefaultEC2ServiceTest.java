@@ -10,13 +10,16 @@ import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.aws.Credentials;
+import org.kuali.common.aws.KeyPairBuilders;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.CreateAMIRequest;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.ImmutableBlockDeviceMapping;
 import org.kuali.common.aws.ec2.model.ImmutableTag;
+import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.status.Auth;
+import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.slf4j.Logger;
@@ -34,6 +37,19 @@ public class DefaultEC2ServiceTest {
 	private static final Logger logger = newLogger();
 
 	@Test
+	public void testLaunchWithSSD() {
+		try {
+			DefaultEC2Service service = getUSWestService();
+			KeyPair keyPair = Auth.getKeyPair(KeyPairBuilders.FOUNDATION);
+			LaunchInstanceContext context = LaunchInstanceContext.builder("ami-709ba735", keyPair).build();
+			service.launchInstance(context);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	@Ignore
 	public void testCreateAmi() {
 		try {
 			DefaultEC2Service service = getUSWestService();
