@@ -16,7 +16,7 @@ public final class ImmutableBlockDeviceMapping extends BlockDeviceMapping {
 	private static final String UOE_MSG = "Not supported for immutable block device mappings";
 
 	/**
-	 * These semi-magic device name values come from the AWS console when launching an Ubuntu 12.04 LTS image
+	 * The semi-magic device name values come from the AWS console when launching an Ubuntu 12.04 LTS image
 	 * 
 	 * The semi-magic virtual name values come from the blog Mike found:<br>
 	 * http://theagileadmin.com/2010/03/23/amazon-ec2-ebs-instances-and-ephemeral-storage/
