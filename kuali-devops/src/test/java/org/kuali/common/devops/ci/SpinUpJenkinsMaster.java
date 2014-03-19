@@ -175,6 +175,7 @@ public class SpinUpJenkinsMaster {
 		exec(channel, sethostname, dnsPrefix, DOMAIN);
 		exec(channel, java, quietFlag, "jdk6", "u45", gpgPassphrase);
 		exec(channel, java, quietFlag, "jdk7", "u51", gpgPassphrase);
+		exec(channel, java, quietFlag, "jdk8", "u0", gpgPassphrase);
 		exec(channel, tomcat, quietFlag, "tomcat7", "jdk7", gpgPassphrase);
 	}
 
