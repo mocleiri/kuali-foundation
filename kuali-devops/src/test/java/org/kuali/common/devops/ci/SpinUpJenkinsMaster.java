@@ -106,7 +106,7 @@ public class SpinUpJenkinsMaster {
 	}
 
 	protected static JenkinsContext getJenkinsContext(VirtualSystem vs, Map<String, JenkinsContext> contexts) {
-		String usage = format("\n\nusage: -Djenkins.context=%s\n\n", Joiner.on('/').join(CONTEXTS.keySet()));
+		String usage = format("\n\nusage: -ec2.stack=%s\n\n", Joiner.on('/').join(CONTEXTS.keySet()));
 		String jenkinsContextKey = vs.getProperties().getProperty("jenkins.context");
 		checkState(jenkinsContextKey != null, usage);
 		JenkinsContext jenkinsContext = contexts.get(jenkinsContextKey);
