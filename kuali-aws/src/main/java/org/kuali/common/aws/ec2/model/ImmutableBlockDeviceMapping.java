@@ -2,13 +2,17 @@ package org.kuali.common.aws.ec2.model;
 
 import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
+import static com.google.common.collect.Lists.newArrayList;
 import static org.apache.commons.lang3.StringUtils.trimToNull;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
+import java.util.List;
+
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
 import com.amazonaws.services.ec2.model.EbsBlockDevice;
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 
 public final class ImmutableBlockDeviceMapping extends BlockDeviceMapping {
 
@@ -23,6 +27,14 @@ public final class ImmutableBlockDeviceMapping extends BlockDeviceMapping {
 	 */
 	public static final ImmutableBlockDeviceMapping INSTANCE_STORE_0 = new ImmutableBlockDeviceMapping("/dev/sdb", "ephemeral0");
 	public static final ImmutableBlockDeviceMapping INSTANCE_STORE_1 = new ImmutableBlockDeviceMapping("/dev/sdc", "ephemeral1");
+
+	public static ImmutableList<BlockDeviceMapping> copyOf(List<BlockDeviceMapping> mappings) {
+		List<BlockDeviceMapping> list = newArrayList();
+		for (BlockDeviceMapping mapping : mappings) {
+			list.add(copyOf(mapping));
+		}
+		return ImmutableList.copyOf(list);
+	}
 
 	public static ImmutableBlockDeviceMapping copyOf(BlockDeviceMapping mapping) {
 		String deviceName = mapping.getDeviceName();

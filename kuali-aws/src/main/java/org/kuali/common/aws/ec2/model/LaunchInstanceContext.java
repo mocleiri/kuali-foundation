@@ -10,9 +10,11 @@ import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.util.FormatUtils;
 
+import com.amazonaws.services.ec2.model.BlockDeviceMapping;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 
 public final class LaunchInstanceContext {
 
@@ -23,7 +25,7 @@ public final class LaunchInstanceContext {
 	// If you supply both the name and the public key, the launch routine automatically registers a key pair with Amazon
 	private final KeyPair keyPair;
 	private final InstanceType type;
-	private final List<KualiSecurityGroup> securityGroups;
+	private final ImmutableList<KualiSecurityGroup> securityGroups;
 
 	// If true, permissions on any existing security groups are overridden by the permissions from the security groups provided here.
 	// This happens prior to the instance being launched
@@ -37,12 +39,13 @@ public final class LaunchInstanceContext {
 
 	// Default root volume size is provided by the AMI
 	private final Optional<RootVolume> rootVolume;
+	private final ImmutableList<BlockDeviceMapping> additionalMappings;
 
 	private LaunchInstanceContext(Builder builder) {
 		this.ami = builder.ami;
 		this.keyPair = builder.keyPair;
 		this.type = builder.type;
-		this.securityGroups = builder.securityGroups;
+		this.securityGroups = ImmutableList.copyOf(builder.securityGroups);
 		this.overrideExistingSecurityGroupPermissions = builder.overrideExistingSecurityGroupPermissions;
 		this.tags = builder.tags;
 		this.availabilityZone = builder.availabilityZone;
@@ -51,6 +54,7 @@ public final class LaunchInstanceContext {
 		this.ebsOptimized = builder.ebsOptimized;
 		this.enableMonitoring = builder.enableMonitoring;
 		this.rootVolume = builder.rootVolume;
+		this.additionalMappings = ImmutableBlockDeviceMapping.copyOf(builder.additionalMappings);
 	}
 
 	public static Builder builder(String ami, KeyPair keyPair) {
@@ -74,6 +78,7 @@ public final class LaunchInstanceContext {
 		private boolean ebsOptimized = false;
 		private boolean enableMonitoring = false;
 		private Optional<RootVolume> rootVolume = absent();
+		private List<BlockDeviceMapping> additionalMappings = newArrayList();
 
 		public Builder(String ami, KeyPair keyPair) {
 			this.ami = ami;
@@ -82,6 +87,11 @@ public final class LaunchInstanceContext {
 
 		public Builder withType(InstanceType type) {
 			this.type = type;
+			return this;
+		}
+
+		public Builder withAdditionalMappings(List<BlockDeviceMapping> additionalMappings) {
+			this.additionalMappings = additionalMappings;
 			return this;
 		}
 
@@ -274,6 +284,10 @@ public final class LaunchInstanceContext {
 
 	public Optional<RootVolume> getRootVolume() {
 		return rootVolume;
+	}
+
+	public List<BlockDeviceMapping> getAdditionalMappings() {
+		return additionalMappings;
 	}
 
 }
