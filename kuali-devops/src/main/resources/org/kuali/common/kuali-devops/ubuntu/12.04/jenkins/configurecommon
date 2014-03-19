@@ -240,7 +240,7 @@ configure_subversion
 #
 # eg for jcaddel/<password> @ https://svn.kuali.org
 #
-# The file -> /root/.subversion/auth/svn.simple/7bde6701d85dbc4080b5213025d59913
+# SVN creates the file -> /root/.subversion/auth/svn.simple/7bde6701d85dbc4080b5213025d59913
 # ...
 # <https://svn.kuali.org:443> SVN Login
 # ...
