@@ -29,8 +29,8 @@ fi
 #execute_quietly "mount /dev/md/ssd $NEW_SSD_MOUNT"
 #execute_quietly "rm $OLD_SSD_MOUNT"
 
-mdadm --stop /dev/md0
-mdadm --zero-superblock /dev/xvdb
-mdadm --zero-superblock /dev/xvdc
-umount -l /dev/md127
-mdadm --remove /dev/md0
+#mdadm --stop /dev/md0
+#mdadm --zero-superblock /dev/xvdb
+#mdadm --zero-superblock /dev/xvdc
+#umount -l /dev/md127
+#mdadm --remove /dev/md0
