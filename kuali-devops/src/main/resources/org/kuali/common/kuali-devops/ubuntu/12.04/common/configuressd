@@ -1,5 +1,29 @@
 #!/bin/bash
 
+function dismount_existing {
+  if mountpoint -q $OLD_SSD_MOUNT; then
+    echo "unmount   -> $OLD_SSD_MOUNT"
+    execute_quietly "umount $OLD_SSD_MOUNT"
+  fi
+
+  if mountpoint -q $NEW_SSD_MOUNT; then
+    echo "unmount   -> $NEW_SSD_MOUNT"
+    execute_quietly "umount $NEW_SSD_MOUNT"
+  fi
+}
+
+function create_ssd_mount {
+  if [ "$QUIET" == "true" ]; then
+    yes | mdadm --create --quiet   /dev/md/ssd --level=stripe --raid-devices=2 /dev/xvdb /dev/xvdc 
+  else
+    yes | mdadm --create --verbose /dev/md/ssd --level=stripe --raid-devices=2 /dev/xvdb /dev/xvdc 
+  fi
+  execute_quietly "mkfs.ext3 /dev/md/ssd" 
+  execute_quietly "mkdir -p $NEW_SSD_MOUNT"
+  execute_quietly "mount /dev/md/ssd $NEW_SSD_MOUNT"
+  execute_quietly "rm -rf $OLD_SSD_MOUNT"
+}
+
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
@@ -15,22 +39,5 @@ NEW_SSD_MOUNT="/ssd"
 echo "packages  -> mdadm"
 execute_quietly "apt-get install mdadm -y --no-install-recommends"
 
-if mountpoint -q $OLD_SSD_MOUNT; then
-  echo "unmount   -> $OLD_SSD_MOUNT"
-  execute_quietly "umount $OLD_SSD_MOUNT"
-fi
-
-if mountpoint -q $NEW_SSD_MOUNT; then
-  echo "unmount   -> $NEW_SSD_MOUNT"
-  execute_quietly "umount $NEW_SSD_MOUNT"
-fi
-
-if [ "$QUIET" == "true" ]; then
-  yes | mdadm --create --quiet   /dev/md/ssd --level=stripe --raid-devices=2 /dev/xvdb /dev/xvdc 
-else
-  yes | mdadm --create --verbose /dev/md/ssd --level=stripe --raid-devices=2 /dev/xvdb /dev/xvdc 
-fi
-execute_quietly "mkfs.ext3 /dev/md/ssd" 
-execute_quietly "mkdir -p $NEW_SSD_MOUNT"
-execute_quietly "mount /dev/md/ssd $NEW_SSD_MOUNT"
-execute_quietly "rm -rf $OLD_SSD_MOUNT"
+dismount_existing
+create_ssd_mount
