@@ -28,11 +28,10 @@ function install_firefox {
   CLASSIFIER=linux-x86_64_en-US
   TYPE=bz2
   
-  echo "install   -> maven $VERSION"
+  echo "install   -> firefox $VERSION"
   
   # Setup command line args
   MAVEN_ARGS="$GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE"
-  
   
   # Example URL:
   # http://maven.kuali.org/external/org/mozilla/firefox/27.0.1/firefox-27.0.1-linux-x86_64_en-US.bz2
@@ -276,6 +275,7 @@ install_maven 3.0.5 30
 install_maven 3.1.0 31
 install_maven 3.2.1 32
 install_default_maven 32
+install_firefox 14.0.1 14
 configure_java
 configure_subversion
 
