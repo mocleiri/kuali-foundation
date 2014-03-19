@@ -138,16 +138,15 @@ function install_default_maven {
 }
 
 function install_default_firefox {
-  MAVEN_ABBR=$1
+  FIREFOX_ABBR=$1
 
-  echo "install   -> default maven mvn$MAVEN_ABBR"
+  echo "install   -> default firefox firefox$FIREFOX_ABBR"
 
-  MAVEN_TARGET=$MAVEN_BASEDIR/mvn$MAVEN_ABBR/bin/mvn
-  MAVEN_USR_BIN=/usr/bin/mvn
+  FIREFOX_TARGET=$FIREFOX_BASEDIR/firefox$FIREFOX_ABBR/firefox
+  FIREFOX_USR_BIN=/usr/bin/firefox
 
-  rm -rf $MAVEN_USR_BIN
-  ln -s $MAVEN_TARGET $MAVEN_USR_BIN
-  chmod 755 $MAVEN_BASEDIR
+  rm -rf $FIREFOX_USR_BIN
+  ln -s $FIREFOX_TARGET $FIREFOX_USR_BIN
 }
 
 # Make sure /usr/bin/java points to JDK7  
