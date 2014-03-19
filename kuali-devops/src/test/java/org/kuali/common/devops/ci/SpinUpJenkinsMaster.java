@@ -149,9 +149,9 @@ public class SpinUpJenkinsMaster {
 
 			// do jenkins specific configuration
 			String common = getBashScript(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
-			String master = getBashScript(basedir, pid, distro, distroVersion, "jenkins/installjenkins");
+			String jenkins = getBashScript(basedir, pid, distro, distroVersion, "jenkins/installjenkins");
 			exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
-			exec(channel, master, quietFlag, jenkinsMaster, "1.532.2", gpgPassphrase);
+			exec(channel, jenkins, quietFlag, jenkinsMaster, "1.532.2", gpgPassphrase);
 
 			// The spin up process should have given DNS enough time to settle down
 			info("Verifying SSH to -> [%s]", jenkinsMaster);
