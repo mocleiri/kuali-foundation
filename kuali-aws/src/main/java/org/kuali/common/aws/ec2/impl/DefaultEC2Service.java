@@ -686,20 +686,28 @@ public final class DefaultEC2Service implements EC2Service {
 		}
 
 		// Update the request with custom root volume settings (if any have been supplied)
-		if (context.getRootVolume().isPresent()) {
 
-			// Get the list of block device mappings associated with this AMI after updating the BlockDeviceMapping for the root volume
-			List<BlockDeviceMapping> mappings = getUpdatedBlockDeviceMappings(context, context.getRootVolume().get());
+		// Get the list of block device mappings associated with this AMI after updating the BlockDeviceMapping for the root volume
+		List<BlockDeviceMapping> mappings = getUpdatedBlockDeviceMappings(context);
 
-			// Store the block device mappings on the request
-			rir.setBlockDeviceMappings(mappings);
-		}
+		// Store the block device mappings on the request
+		rir.setBlockDeviceMappings(mappings);
 		return rir;
 	}
 
-	protected List<BlockDeviceMapping> getUpdatedBlockDeviceMappings(LaunchInstanceContext context, RootVolume rootVolume) {
+	protected List<BlockDeviceMapping> getUpdatedBlockDeviceMappings(LaunchInstanceContext context) {
 		// Get an Image object from Amazon for the AMI we are working with
 		Image ami = getAmi(context.getAmi());
+
+		if (context.getRootVolume().isPresent()) {
+			updateRootBlockDeviceMapping(ami, context.getRootVolume().get());
+		}
+
+		// Return the list now that the root volume settings have been applied
+		return ami.getBlockDeviceMappings();
+	}
+
+	protected void updateRootBlockDeviceMapping(Image ami, RootVolume rootVolume) {
 
 		// Extract the default root block device mapping specific to this AMI
 		BlockDeviceMapping mapping = getRootBlockDeviceMapping(ami);
@@ -719,8 +727,6 @@ public final class DefaultEC2Service implements EC2Service {
 			device.setDeleteOnTermination(deleteOnTermination);
 		}
 
-		// Return the list now that the root volume settings have been applied
-		return ami.getBlockDeviceMappings();
 	}
 
 	protected BlockDeviceMapping getRootBlockDeviceMapping(Image image) {
