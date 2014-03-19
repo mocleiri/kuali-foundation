@@ -144,8 +144,8 @@ public class CreateBuildSlaveAMI {
 			Image image = service.createAmi(creator);
 			logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
 			cleanupAmis(service);
-			// logger.info(format("terminating instance [%s]", instance.getInstanceId()));
-			// service.terminateInstance(instance.getInstanceId());
+			logger.info(format("terminating instance [%s]", instance.getInstanceId()));
+			service.terminateInstance(instance.getInstanceId());
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
