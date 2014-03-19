@@ -23,7 +23,7 @@ else
   echo "not mounted -> $NEW_SSD_MOUNT"
 fi
 
-#yes | mdadm --create --verbose /dev/md/ssd --level=stripe --raid-devices=2 /dev/xvdb /dev/xvdc 
+yes | mdadm --create --verbose /dev/md/ssd --level=stripe --raid-devices=2 /dev/xvdb /dev/xvdc 
 execute_quietly "mkfs.ext3 /dev/md/ssd" 
 execute_quietly "mkdir -p $NEW_SSD_MOUNT"
 execute_quietly "mount /dev/md/ssd $NEW_SSD_MOUNT"
@@ -33,4 +33,4 @@ execute_quietly "rm -rf $OLD_SSD_MOUNT"
 #mdadm --stop /dev/md127
 #mdadm --zero-superblock /dev/xvdb
 #mdadm --zero-superblock /dev/xvdc
-#mdadm --remove /dev/md127
+##mdadm --remove /dev/md127
