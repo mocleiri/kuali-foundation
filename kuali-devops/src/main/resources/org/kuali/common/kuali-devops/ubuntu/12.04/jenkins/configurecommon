@@ -277,7 +277,7 @@ install_maven 3.2.1 32
 install_default_maven 32
 install_firefox 14.0.1 14
 configure_java
-#configure_subversion
+configure_subversion
 
 #
 # SVN caches and then looks up credentials based on the hostname + hostname hash
@@ -292,5 +292,5 @@ configure_java
 # This means we only need to cache one set of credentials for all repo's at kuali
 # That set of credentials will then work transparently for all repo's 
 #
-touch_subversion_repo foundation
+# touch_subversion_repo foundation
 # touch_subversion_repos
