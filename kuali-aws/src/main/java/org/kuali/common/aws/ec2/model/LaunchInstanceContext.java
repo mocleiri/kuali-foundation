@@ -100,6 +100,10 @@ public final class LaunchInstanceContext {
 			return this;
 		}
 
+		public Builder withSecurityGroup(KualiSecurityGroup securityGroup) {
+			return withSecurityGroups(ImmutableList.of(securityGroup));
+		}
+
 		public Builder withOverrideExistingSecurityGroupPermissions(boolean overrideExistingSecurityGroupPermissions) {
 			this.overrideExistingSecurityGroupPermissions = overrideExistingSecurityGroupPermissions;
 			return this;

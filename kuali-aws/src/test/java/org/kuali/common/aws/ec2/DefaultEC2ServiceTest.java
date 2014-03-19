@@ -5,6 +5,7 @@ import static java.lang.System.currentTimeMillis;
 import static org.kuali.common.aws.ec2.model.ImmutableBlockDeviceMapping.INSTANCE_STORE_0;
 import static org.kuali.common.aws.ec2.model.ImmutableBlockDeviceMapping.INSTANCE_STORE_1;
 import static org.kuali.common.aws.ec2.model.Regions.US_WEST_1;
+import static org.kuali.common.aws.ec2.model.security.NamedPermissions.ALLOW_SSH_FROM_ANYWHERE;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.util.List;
@@ -20,6 +21,7 @@ import org.kuali.common.aws.ec2.model.ImmutableBlockDeviceMapping;
 import org.kuali.common.aws.ec2.model.ImmutableTag;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
+import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.status.Auth;
 import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.util.FormatUtils;
@@ -49,7 +51,9 @@ public class DefaultEC2ServiceTest {
 			List<Tag> tags = ImmutableList.<Tag> of(new ImmutableTag("Name", String.format("ci.slave.ssd.%s", currentTimeMillis() / (1000 * 60))));
 			List<BlockDeviceMapping> additionalMappings = ImmutableList.<BlockDeviceMapping> of(INSTANCE_STORE_0, INSTANCE_STORE_1);
 			InstanceType type = InstanceType.C3Xlarge;
-			LaunchInstanceContext context = LaunchInstanceContext.builder("ami-709ba735", keyPair).withType(type).withAdditionalMappings(additionalMappings).withTags(tags).build();
+			KualiSecurityGroup ksg = KualiSecurityGroup.builder("ci").addPermission(ALLOW_SSH_FROM_ANYWHERE.getPermission()).build();
+			LaunchInstanceContext context = LaunchInstanceContext.builder("ami-709ba735", keyPair).withSecurityGroup(ksg).withType(type).withAdditionalMappings(additionalMappings)
+					.withTags(tags).build();
 			service.launchInstance(context);
 		} catch (Throwable e) {
 			e.printStackTrace();
