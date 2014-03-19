@@ -738,7 +738,7 @@ public final class DefaultEC2Service implements EC2Service {
 	public Image getAmi(String ami) {
 		Assert.noBlanks(ami);
 		DescribeImagesRequest request = new DescribeImagesRequest();
-		request.setImageIds(Collections.singletonList(ami));
+		request.setImageIds(singletonList(ami));
 		DescribeImagesResult result = client.describeImages(request);
 		List<Image> images = result.getImages();
 		Assert.isTrue(images.size() == 1, "Expected exactly 1 image but there were " + images.size() + " instead");
