@@ -732,7 +732,7 @@ public final class DefaultEC2Service implements EC2Service {
 				return mapping;
 			}
 		}
-		throw new IllegalStateException("Could not locate the root block device mapping for AMI [" + image.getImageId() + "]");
+		throw illegalState("Could not locate the root block device mapping for AMI [%s]", image.getImageId());
 	}
 
 	public Image getAmi(String ami) {
