@@ -8,6 +8,7 @@ OLD_SSD_MOUNT="/mnt"
 NEW_SSD_MOUNT="/ssd"
 
 execute_quietly "apt-get install mdadm -y --no-install-recommends"
+
 if mountpoint -q $OLD_SSD_MOUNT; then
   execute_quietly "umount $OLD_SSD_MOUNT"
 fi
