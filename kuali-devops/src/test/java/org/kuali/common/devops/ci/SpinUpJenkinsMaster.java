@@ -165,10 +165,12 @@ public class SpinUpJenkinsMaster {
 	protected static void setupEssentials(SecureChannel channel, String basedir, ProjectIdentifier pid, Distro distro, String distroVersion, String gpgPassphrase,
 			String dnsPrefix, String quietFlag) {
 		String basics = getBashScript(basedir, pid, distro, distroVersion, "common/configurebasics");
+		String ssd = getBashScript(basedir, pid, distro, distroVersion, "common/configuressd");
 		String sethostname = getBashScript(basedir, pid, distro, distroVersion, "common/sethostname");
 		String java = getBashScript(basedir, pid, distro, distroVersion, "common/installjava");
 		String tomcat = getBashScript(basedir, pid, distro, distroVersion, "common/installtomcat");
 		exec(channel, basics, quietFlag);
+		exec(channel, ssd, quietFlag);
 		exec(channel, sethostname, dnsPrefix, DOMAIN);
 		exec(channel, java, quietFlag, "jdk6", "u45", gpgPassphrase);
 		exec(channel, java, quietFlag, "jdk7", "u51", gpgPassphrase);
