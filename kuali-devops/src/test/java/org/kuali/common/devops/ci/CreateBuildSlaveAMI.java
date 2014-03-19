@@ -10,6 +10,8 @@ import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static java.util.Collections.sort;
 import static org.apache.commons.lang3.StringUtils.equalsIgnoreCase;
+import static org.kuali.common.aws.ec2.model.ImmutableBlockDeviceMapping.INSTANCE_STORE_0;
+import static org.kuali.common.aws.ec2.model.ImmutableBlockDeviceMapping.INSTANCE_STORE_1;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
 import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.exec;
@@ -69,7 +71,6 @@ import com.google.common.base.Optional;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
 
 public class CreateBuildSlaveAMI {
 
@@ -136,7 +137,7 @@ public class CreateBuildSlaveAMI {
 			SpinUpJenkinsMaster.exec(channel, slave, quietFlag, "-m", jenkinsMaster);
 
 			String description = format("automated ec2 slave ami - %s", today);
-			List<BlockDeviceMapping> additionalMappings = Lists.<BlockDeviceMapping> newArrayList(Constants.SSD);
+			List<BlockDeviceMapping> additionalMappings = ImmutableList.<BlockDeviceMapping> of(INSTANCE_STORE_0, INSTANCE_STORE_1);
 			CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(name).withRootVolume(request.getRootVolume())
 					.withAdditionalMappings(additionalMappings).withTimeoutMillis(request.getTimeoutMillis()).withDescription(description).build();
 			Image image = service.createAmi(creator);
@@ -262,8 +263,9 @@ public class CreateBuildSlaveAMI {
 
 	protected static Instance launchAndWait(EC2Service service, BasicLaunchRequest blr, List<KualiSecurityGroup> securityGroups, List<Tag> tags) {
 		logger.info(format("launch instance -> %s  type: %s  size: %sgb", blr.getAmi(), blr.getType().toString(), blr.getRootVolume().getSizeInGigabytes().get()));
+		List<BlockDeviceMapping> additionalMappings = ImmutableList.<BlockDeviceMapping> of(INSTANCE_STORE_0, INSTANCE_STORE_1);
 		LaunchInstanceContext context = LaunchInstanceContext.builder(blr.getAmi(), KUALI_KEY).withTimeoutMillis(blr.getTimeoutMillis()).withType(blr.getType())
-				.withRootVolume(blr.getRootVolume()).withSecurityGroups(securityGroups).withTags(tags).build();
+				.withRootVolume(blr.getRootVolume()).withSecurityGroups(securityGroups).withTags(tags).withAdditionalMappings(additionalMappings).build();
 		return service.launchInstance(context);
 	}
 
