@@ -12,4 +12,6 @@ if [ -f /mnt ]; then
   execute_quietly "mkdir -p /ssd"
   execute_quietly "mount /dev/md/ssd /ssd"
   execute_quietly "rm /mnt"
+else
+  echo "no /mnt"
 fi
