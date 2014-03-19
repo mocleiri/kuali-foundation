@@ -14,7 +14,7 @@ function dismount_existing {
 
 function create_ssd_mount {
   if [ "$QUIET" == "true" ]; then
-    yes | mdadm --create --quiet   /dev/md/ssd --level=stripe --raid-devices=2 /dev/xvdb /dev/xvdc 
+    yes | mdadm --create /dev/md/ssd --level=stripe --raid-devices=2 /dev/xvdb /dev/xvdc > /dev/null 2>&1 
   else
     yes | mdadm --create --verbose /dev/md/ssd --level=stripe --raid-devices=2 /dev/xvdb /dev/xvdc 
   fi
