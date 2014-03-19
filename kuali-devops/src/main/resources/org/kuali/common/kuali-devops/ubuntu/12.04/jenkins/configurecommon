@@ -53,15 +53,19 @@ function install_firefox {
   # /usr/bin/firefox27
   FIREFOX_USR_BIN=/usr/bin/firefox$SHORT_VERSION
   
-  # remove /usr/local/firefox/firefox and /usr/local/firefox/firefox-14.0.1
-  execute_quietly "rm -rf $FIREFOX_BASEDIR/firefox $FIREFOX_DIR $FIREFOX_LINK"
+  # Purge everything related to the currently installed version
+  execute_quietly "rm -rf $FIREFOX_BASEDIR/firefox $FIREFOX_DIR $FIREFOX_LINK $FIREFOX_USR_BIN"
+  
+  # Unpack the bz2 into /usr/local/firefox
   execute_quietly "tar -xjvf $LOCAL_MAVEN_REPO_FILE --directory $FIREFOX_BASEDIR"
+
+  # Move /usr/local/firefox/firefox -> /usr/local/firefox/firefox27.0.1
   execute_quietly "mv $FIREFOX_BASEDIR/firefox $FIREFOX_DIR"
   
-  # create /usr/local/firefox/firefox14 -> /usr/local/firefox/firefox-14.0.1
+  # create /usr/local/firefox/firefox27 -> /usr/local/firefox/firefox-27.0.1
   execute_quietly "ln -s $FIREFOX_DIR $FIREFOX_LINK"
 
-  # create /usr/bin/firefox14 -> /usr/local/firefox/firefox-14/firefox
+  # create /usr/bin/firefox27 -> /usr/local/firefox/firefox27/firefox
   execute_quietly "ln -s $FIREFOX_LINK/firefox $FIREFOX_USR_BIN"
 
 }
