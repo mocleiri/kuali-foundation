@@ -518,7 +518,7 @@ public final class DefaultEC2Service implements EC2Service {
 		Condition condition = new InstanceStateCondition(this, instanceId, STOPPED);
 		WaitResult result = service.wait(waitContext, condition);
 		Object[] resultArgs = { instanceId, getTime(result.getElapsed()) };
-		logger.info("[{}] has been stop - {}", resultArgs);
+		logger.info("[{}] has been stopped - {}", resultArgs);
 	}
 
 	@Override
