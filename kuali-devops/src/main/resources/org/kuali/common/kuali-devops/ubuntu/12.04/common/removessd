@@ -5,9 +5,9 @@ ME=$(basename $0)
 source $MY_DIR/functions.sh
 
 QUIET=$1
+DEVICE="/dev/md127"
 
-execute_quietly "umount -l /dev/md127"
-execute_quietly "mdadm --stop /dev/md127"
+execute_quietly "umount -l $DEVICE"
+execute_quietly "mdadm --stop $DEVICE"
 execute_quietly "mdadm --zero-superblock /dev/xvdb"
 execute_quietly "mdadm --zero-superblock /dev/xvdc"
-##mdadm --remove /dev/md127
