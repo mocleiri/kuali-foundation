@@ -15,12 +15,12 @@ public final class ImmutableBlockDeviceMapping extends BlockDeviceMapping {
 	private static final long serialVersionUID = 1L;
 	private static final String UOE_MSG = "Not supported for immutable block device mappings";
 
+	public static final ImmutableBlockDeviceMapping INSTANCE_STORE_0 = new ImmutableBlockDeviceMapping("/dev/sdb", "ephemeral0");
+	public static final ImmutableBlockDeviceMapping INSTANCE_STORE_1 = new ImmutableBlockDeviceMapping("/dev/sdc", "ephemeral1");
+
 	public static ImmutableBlockDeviceMapping copyOf(BlockDeviceMapping mapping) {
 		String deviceName = mapping.getDeviceName();
-		Optional<EbsBlockDevice> ebs = absent();
-		if (mapping.getEbs() != null) {
-			ebs = Optional.<EbsBlockDevice> of(ImmutableEbsBlockDevice.copyOf(mapping.getEbs()));
-		}
+		Optional<EbsBlockDevice> ebs = getEbs(mapping);
 		Optional<String> virtualName = fromNullable(trimToNull(mapping.getVirtualName()));
 		Optional<String> noDevice = fromNullable(trimToNull(mapping.getNoDevice()));
 		return new ImmutableBlockDeviceMapping(deviceName, ebs, virtualName, noDevice);
@@ -79,6 +79,14 @@ public final class ImmutableBlockDeviceMapping extends BlockDeviceMapping {
 	@Override
 	public BlockDeviceMapping withNoDevice(String noDevice) {
 		throw new UnsupportedOperationException(UOE_MSG);
+	}
+
+	public static Optional<EbsBlockDevice> getEbs(BlockDeviceMapping mapping) {
+		if (mapping.getEbs() == null) {
+			return absent();
+		} else {
+			return Optional.<EbsBlockDevice> of(ImmutableEbsBlockDevice.copyOf(mapping.getEbs()));
+		}
 	}
 
 }
