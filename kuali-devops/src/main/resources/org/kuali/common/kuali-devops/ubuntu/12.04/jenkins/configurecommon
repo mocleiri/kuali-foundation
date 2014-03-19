@@ -292,5 +292,6 @@ configure_subversion
 # This means we only need to cache one set of credentials for all repo's at kuali
 # That set of credentials will then work transparently for all repo's 
 #
+echo "UNCOMMENT THE NEXT LINE!!!"
 # touch_subversion_repo foundation
 # touch_subversion_repos
