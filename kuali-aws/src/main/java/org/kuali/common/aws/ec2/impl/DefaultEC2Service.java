@@ -120,8 +120,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 	@Override
 	public List<Image> getImages() {
-		DescribeImagesResult result = client.describeImages();
-		return result.getImages();
+		return client.describeImages().getImages();
 	}
 
 	@Override
