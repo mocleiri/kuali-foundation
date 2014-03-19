@@ -2,6 +2,8 @@ package org.kuali.common.aws.ec2;
 
 import static com.google.common.base.Optional.absent;
 import static java.lang.System.currentTimeMillis;
+import static org.kuali.common.aws.ec2.model.ImmutableBlockDeviceMapping.INSTANCE_STORE_0;
+import static org.kuali.common.aws.ec2.model.ImmutableBlockDeviceMapping.INSTANCE_STORE_1;
 import static org.kuali.common.aws.ec2.model.Regions.US_WEST_1;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
@@ -30,6 +32,7 @@ import com.amazonaws.services.ec2.model.EbsBlockDevice;
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Instance;
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 public class DefaultEC2ServiceTest {
@@ -41,7 +44,8 @@ public class DefaultEC2ServiceTest {
 		try {
 			DefaultEC2Service service = getUSWestService();
 			KeyPair keyPair = Auth.getKeyPair(KeyPairBuilders.FOUNDATION);
-			LaunchInstanceContext context = LaunchInstanceContext.builder("ami-709ba735", keyPair).build();
+			List<BlockDeviceMapping> additionalMappings = ImmutableList.<BlockDeviceMapping>of(INSTANCE_STORE_0, INSTANCE_STORE_1);
+			LaunchInstanceContext context = LaunchInstanceContext.builder("ami-709ba735", keyPair).withAdditionalMappings(additionalMappings).build();
 			service.launchInstance(context);
 		} catch (Throwable e) {
 			e.printStackTrace();
