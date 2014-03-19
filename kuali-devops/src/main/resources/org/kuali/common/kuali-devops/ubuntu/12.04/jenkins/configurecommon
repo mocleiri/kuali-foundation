@@ -42,6 +42,7 @@ function install_firefox {
   LOCAL_MAVEN_REPO_FILE=$($MY_DIR/../common/m2path $MAVEN_ARGS)
   
   FIREFOX_BASEDIR="/usr/local/firefox"
+  mkdir -p $FIREFOX_BASEDIR
   
   # /usr/local/firefox/firefox-27.0.1
   FIREFOX_DIR=$FIREFOX_BASEDIR/$ARTIFACT_ID-$VERSION
@@ -51,8 +52,11 @@ function install_firefox {
 
   # /usr/bin/firefox27
   FIREFOX_USR_BIN=/usr/bin/firefox$SHORT_VERSION
-
-  #tar -xjvf firefox-14.0.1.tar.bz2
+  
+  # remove /usr/local/firefox/firefox and /usr/local/firefox/firefox-14.0.1
+  execute_quietly "rm -rf $FIREFOX_BASEDIR/firefox $FIREFOX_DIR"
+  execute_quietly "tar -xjvf $LOCAL_MAVEN_REPO_FILE --directory $FIREFOX_BASEDIR"
+  execute_quietly "mv $FIREFOX_BASEDIR/firefox $FIREFOX_DIR
   #mv firefox /usr/local/firefox-14.0.1
   #ln -s /usr/local/firefox-14.0.1/firefox /usr/bin/firefox 
 
