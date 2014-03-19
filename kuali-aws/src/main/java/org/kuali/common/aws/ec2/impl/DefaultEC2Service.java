@@ -703,8 +703,33 @@ public final class DefaultEC2Service implements EC2Service {
 			updateRootBlockDeviceMapping(ami, context.getRootVolume().get());
 		}
 
+		List<BlockDeviceMapping> mappings = newArrayList();
+		for (BlockDeviceMapping additionalMapping : context.getAdditionalMappings()) {
+			Optional<BlockDeviceMapping> optional = findMatch(ami.getBlockDeviceMappings(), additionalMapping);
+			if (optional.isPresent()) {
+				// Override any existing block device settings with the settings supplied
+				BlockDeviceMapping existing = optional.get();
+				existing.setDeviceName(additionalMapping.getDeviceName());
+				existing.setEbs(additionalMapping.getEbs());
+				existing.setNoDevice(additionalMapping.getNoDevice());
+				existing.setVirtualName(additionalMapping.getVirtualName());
+			} else {
+				// Otherwise just add the new mapping
+				mappings.add(additionalMapping);
+			}
+		}
+
 		// Return the list now that the root volume settings have been applied
 		return ami.getBlockDeviceMappings();
+	}
+
+	protected Optional<BlockDeviceMapping> findMatch(List<BlockDeviceMapping> mappings, BlockDeviceMapping mapping) {
+		for (BlockDeviceMapping element : mappings) {
+			if (element.getDeviceName().equals(mapping.getDeviceName())) {
+				return Optional.of(element);
+			}
+		}
+		return absent();
 	}
 
 	protected void updateRootBlockDeviceMapping(Image ami, RootVolume rootVolume) {
