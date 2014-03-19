@@ -38,7 +38,6 @@ import java.util.SortedMap;
 import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
-import org.kuali.common.aws.ec2.model.CreateAMIRequest;
 import org.kuali.common.aws.ec2.model.Distro;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.ImmutableTag;
@@ -136,15 +135,15 @@ public class CreateBuildSlaveAMI {
 			SpinUpJenkinsMaster.exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
 			SpinUpJenkinsMaster.exec(channel, slave, quietFlag, "-m", jenkinsMaster);
 
-			String description = format("automated ec2 slave ami - %s", today);
-			List<BlockDeviceMapping> additionalMappings = ImmutableList.<BlockDeviceMapping> of(INSTANCE_STORE_0, INSTANCE_STORE_1);
-			CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(name).withRootVolume(request.getRootVolume())
-					.withAdditionalMappings(additionalMappings).withTimeoutMillis(request.getTimeoutMillis()).withDescription(description).build();
-			Image image = service.createAmi(creator);
-			logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
-			cleanupAmis(service);
-			logger.info(format("terminating instance [%s]", instance.getInstanceId()));
-			service.terminateInstance(instance.getInstanceId());
+			// String description = format("automated ec2 slave ami - %s", today);
+			// List<BlockDeviceMapping> additionalMappings = ImmutableList.<BlockDeviceMapping> of(INSTANCE_STORE_0, INSTANCE_STORE_1);
+			// CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(name).withRootVolume(request.getRootVolume())
+			// .withAdditionalMappings(additionalMappings).withTimeoutMillis(request.getTimeoutMillis()).withDescription(description).build();
+			// Image image = service.createAmi(creator);
+			// logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
+			// cleanupAmis(service);
+			// logger.info(format("terminating instance [%s]", instance.getInstanceId()));
+			// service.terminateInstance(instance.getInstanceId());
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}

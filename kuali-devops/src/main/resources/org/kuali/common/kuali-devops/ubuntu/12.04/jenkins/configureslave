@@ -101,11 +101,11 @@ function copy_repo_from_amazon {
 
 function update_authorized_keys {
   echo "update    -> authorized_keys"
-  execute_quietly "cat /root/.ssh/jcaddel.pub   >  /root/.ssh/authorized_keys"  
-  execute_quietly "cat /root/.ssh/kr-key.pub    >> /root/.ssh/authorized_keys"  
-  execute_quietly "cat /root/.ssh/ks-key.pub    >> /root/.ssh/authorized_keys"  
-  execute_quietly "cat /root/.ssh/kuali-key.pub >> /root/.ssh/authorized_keys"  
-  execute_quietly "cat /root/.ssh/ole-key.pub   >> /root/.ssh/authorized_keys"  
+  execute_quietly "cat /root/.ssh/jcaddel.pub"   >  /root/.ssh/authorized_keys  
+  execute_quietly "cat /root/.ssh/kr-key.pub"    >> /root/.ssh/authorized_keys  
+  execute_quietly "cat /root/.ssh/ks-key.pub"    >> /root/.ssh/authorized_keys  
+  execute_quietly "cat /root/.ssh/kuali-key.pub" >> /root/.ssh/authorized_keys  
+  execute_quietly "cat /root/.ssh/ole-key.pub"   >> /root/.ssh/authorized_keys  
 }
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
