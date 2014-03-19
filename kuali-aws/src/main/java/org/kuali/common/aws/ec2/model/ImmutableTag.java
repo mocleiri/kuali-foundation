@@ -13,10 +13,6 @@ public final class ImmutableTag extends Tag {
 	private static final long serialVersionUID = 1L;
 	private static final String UOE_MSG = "Not supported for immutable tags";
 
-	public static ImmutableList<Tag> copyOf(Tag... tags) {
-		return copyOf(ImmutableList.copyOf(tags));
-	}
-
 	public static ImmutableList<Tag> copyOf(List<Tag> tags) {
 		List<Tag> list = newArrayList();
 		for (Tag tag : tags) {

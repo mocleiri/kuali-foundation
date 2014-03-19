@@ -31,6 +31,7 @@ import com.amazonaws.services.ec2.model.BlockDeviceMapping;
 import com.amazonaws.services.ec2.model.EbsBlockDevice;
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Instance;
+import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -44,9 +45,9 @@ public class DefaultEC2ServiceTest {
 		try {
 			DefaultEC2Service service = getUSWestService();
 			KeyPair keyPair = Auth.getKeyPair(KeyPairBuilders.FOUNDATION);
-			List<Tag> tags = 
-			List<BlockDeviceMapping> additionalMappings = ImmutableList.<BlockDeviceMapping>of(INSTANCE_STORE_0, INSTANCE_STORE_1);
-			LaunchInstanceContext context = LaunchInstanceContext.builder("ami-709ba735", keyPair).withAdditionalMappings(additionalMappings).build();
+			List<Tag> tags = ImmutableList.<Tag> of(new ImmutableTag("Name", String.format("ci.slave.ssd.%s", currentTimeMillis())));
+			List<BlockDeviceMapping> additionalMappings = ImmutableList.<BlockDeviceMapping> of(INSTANCE_STORE_0, INSTANCE_STORE_1);
+			LaunchInstanceContext context = LaunchInstanceContext.builder("ami-709ba735", keyPair).withAdditionalMappings(additionalMappings).withTags(tags).build();
 			service.launchInstance(context);
 		} catch (Throwable e) {
 			e.printStackTrace();
