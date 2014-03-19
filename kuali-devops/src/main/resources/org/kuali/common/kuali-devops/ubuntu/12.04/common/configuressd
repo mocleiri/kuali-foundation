@@ -4,6 +4,11 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
+QUIET=$1
+if [ "$QUIET" = "-q" ]; then
+  QUIET=true
+fi
+
 OLD_SSD_MOUNT="/mnt"
 NEW_SSD_MOUNT="/ssd"
 
