@@ -13,11 +13,14 @@ function dismount_existing {
 }
 
 function create_ssd_mount {
+  echo "raid 0    -> create stripe"
+  MDADM_COMMAND="yes | mdadm --create --verbose /dev/md/ssd --level=stripe --raid-devices=2 /dev/xvdb /dev/xvdc"
   if [ "$QUIET" == "true" ]; then
-    yes | mdadm --create /dev/md/ssd --level=stripe --raid-devices=2 /dev/xvdb /dev/xvdc > /dev/null 2>&1 
+    $MDADM_COMMAND > /dev/null 2>&1 
   else
-    yes | mdadm --create --verbose /dev/md/ssd --level=stripe --raid-devices=2 /dev/xvdb /dev/xvdc 
+    $MDADM_COMMAND 
   fi
+  echo "create    -> filesystem"
   execute_quietly "mkfs.ext3 /dev/md/ssd" 
   execute_quietly "mkdir -p $NEW_SSD_MOUNT"
   execute_quietly "mount /dev/md/ssd $NEW_SSD_MOUNT"
