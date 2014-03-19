@@ -6,6 +6,7 @@ import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
 import static java.util.Collections.singletonList;
+import static org.kuali.common.aws.ec2.model.InstanceStateName.TERMINATED;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
@@ -116,6 +117,10 @@ public final class DefaultEC2Service implements EC2Service {
 		this.service = service;
 		this.context = context;
 		this.client = LaunchUtils.getClient(context);
+	}
+
+	public void stopInstance() {
+
 	}
 
 	@Override
@@ -504,14 +509,14 @@ public final class DefaultEC2Service implements EC2Service {
 
 	@Override
 	public void terminateInstance(String instanceId) {
-		Assert.noBlanks(instanceId);
+		checkNotBlank(instanceId, "instanceId");
 		TerminateInstancesRequest request = new TerminateInstancesRequest();
 		request.setInstanceIds(Collections.singletonList(instanceId));
 		client.terminateInstances(request);
 		WaitContext waitContext = getWaitContext(context.getTerminationTimeoutMillis());
-		Object[] args = { FormatUtils.getTime(waitContext.getTimeoutMillis()), instanceId, InstanceStateName.TERMINATED.getValue() };
+		Object[] args = { FormatUtils.getTime(waitContext.getTimeoutMillis()), instanceId, TERMINATED.getValue() };
 		logger.info("Waiting up to {} for [{}] to terminate", args);
-		Condition condition = new InstanceStateCondition(this, instanceId, InstanceStateName.TERMINATED);
+		Condition condition = new InstanceStateCondition(this, instanceId, TERMINATED);
 		WaitResult result = service.wait(waitContext, condition);
 		Object[] resultArgs = { instanceId, FormatUtils.getTime(result.getElapsed()) };
 		logger.info("[{}] has been terminated - {}", resultArgs);
