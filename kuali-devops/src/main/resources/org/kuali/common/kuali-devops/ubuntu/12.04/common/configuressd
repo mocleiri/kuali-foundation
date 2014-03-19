@@ -51,7 +51,6 @@ function create_ssd_mount {
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
-source $MY_DIR/functions.sh
 
 QUIET=$1
 if [ "$QUIET" == "-q" ]; then
