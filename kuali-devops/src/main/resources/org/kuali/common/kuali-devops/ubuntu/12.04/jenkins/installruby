@@ -7,9 +7,11 @@ if [ "$QUIET" == "-q" ]; then
   QUIET="true"
 fi
 
+echo "purge     -> ruby-rvm"
 execute_quietly "apt-get update -y"
 execute_quietly "apt-get --purge remove ruby-rvm -y"
 execute_quietly "rm -rf /usr/share/ruby-rvm /etc/rvmrc /etc/profile.d/rvm.sh"
 
+echo "install   -> ruby 1.9.3"
 execute_quietly "apt-get install ruby1.9.3 libxslt1-dev libxml2-dev libyaml-dev -y"
 

@@ -6,8 +6,10 @@ if [ "$QUIET" == "-q" ]; then
   QUIET="true"
 fi
 
+echo "purge     -> ruby gems"
 execute_quietly "rm -rf /var/lib/gems/1.9.1 /root/.gem"
 
+echo "install   -> ruby gems"
 execute_quietly "gem install --no-rdoc --no-ri selenium-webdriver -v 2.35.1"
 execute_quietly "gem install --no-rdoc --no-ri watir-webdriver -v 0.6.4"
 execute_quietly "gem install --no-rdoc --no-ri headless -v 1.0.1"
