@@ -27,6 +27,7 @@ public final class ImmutableBlockDeviceMapping extends BlockDeviceMapping {
 	 */
 	public static final ImmutableBlockDeviceMapping INSTANCE_STORE_0 = new ImmutableBlockDeviceMapping("/dev/sdb", "ephemeral0");
 	public static final ImmutableBlockDeviceMapping INSTANCE_STORE_1 = new ImmutableBlockDeviceMapping("/dev/sdc", "ephemeral1");
+	public static final ImmutableList<BlockDeviceMapping> DEFAULT_INSTANCE_STORES = ImmutableList.<BlockDeviceMapping> of(copyOf(INSTANCE_STORE_0), copyOf(INSTANCE_STORE_1));
 
 	public static ImmutableList<BlockDeviceMapping> copyOf(List<BlockDeviceMapping> mappings) {
 		List<BlockDeviceMapping> list = newArrayList();
@@ -37,6 +38,9 @@ public final class ImmutableBlockDeviceMapping extends BlockDeviceMapping {
 	}
 
 	public static ImmutableBlockDeviceMapping copyOf(BlockDeviceMapping mapping) {
+		if (mapping instanceof ImmutableBlockDeviceMapping) {
+			return (ImmutableBlockDeviceMapping) mapping;
+		}
 		String deviceName = mapping.getDeviceName();
 		Optional<EbsBlockDevice> ebs = getEbs(mapping);
 		Optional<String> virtualName = fromNullable(trimToNull(mapping.getVirtualName()));
