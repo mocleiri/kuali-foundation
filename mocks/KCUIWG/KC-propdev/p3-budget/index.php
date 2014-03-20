@@ -25,15 +25,15 @@
                 </div>
 
                 <div class="col-md-9">
-                    <main id="LabsProposal-Page" class="uif-page" data-server_messages="false" data-role="Page" data-parent="LabsProposal">
+                    <main id="LabsProposal-Page" class="uif-page">
                         <header class="clearfix uif-header-contentWrapper">
-                            <div class="uif-pageHeader clearfix" data-header_for="LabsProposal-Page">
+                            <div class="uif-pageHeader clearfix">
                                 <h2 class="uif-headerText">
                                     <span class="uif-headerText-span">Budget</span>
                                 </h2>
                             </div>
-                            <div class="uif-verticalBoxGroup uif-header-lowerGroup" data-parent="LabsProposal-Page">
-                                <div class="uif-boxLayoutVerticalItem clearfix" data-parent="uetqy9j">
+                            <div class="uif-verticalBoxGroup uif-header-lowerGroup">
+                                <div class="uif-boxLayoutVerticalItem clearfix">
                                     <p>You don't have any budget versions created yet. Please create one now to get started.</p>
                                 </div>
                             </div>
