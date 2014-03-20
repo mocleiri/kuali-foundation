@@ -248,8 +248,8 @@ public class SpinUpJenkinsMaster {
 	}
 
 	protected static SecureChannel openSecureChannel(String username, String hostname, String privateKey, boolean quiet) throws IOException {
-		ChannelContext context = getSilentContextBuilder(hostname).echo(!quiet).debug(!quiet).username(username).privateKey(privateKey).connectTimeout(getMillisAsInt("5s"))
-				.build();
+		ChannelContext context = getSilentContextBuilder(hostname).echo(!quiet).requestPseudoTerminal(true).debug(!quiet).username(username).privateKey(privateKey)
+				.connectTimeout(getMillisAsInt("5s")).build();
 		ChannelService service = new DefaultChannelService();
 		return service.openChannel(context);
 	}

@@ -22,6 +22,7 @@ import static org.kuali.common.devops.ci.model.Constants.ROOT;
 import static org.kuali.common.devops.ci.model.Constants.UBUNTU;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
+import static org.kuali.common.util.FormatUtils.getTime;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
@@ -107,6 +108,7 @@ public class CreateBuildSlaveAMI {
 	@Test
 	public void test() {
 		try {
+			logger.info(format("build slave ami process :: starting"));
 			System.setProperty("ec2.stack", "test");
 			VirtualSystem vs = VirtualSystem.create();
 			// Default to quiet mode unless they've supplied -Dec2.quiet=false
@@ -118,8 +120,8 @@ public class CreateBuildSlaveAMI {
 
 			EC2Service service = getEC2Service(amazonAccount);
 			List<Tag> tags = getSlaveTags(jenkinsContext);
-			// Instance instance = launchAndWait(service, request, securityGroups, tags);
-			Instance instance = service.getInstance("i-6bb3e034");
+			Instance instance = launchAndWait(service, request, securityGroups, tags);
+			// Instance instance = service.getInstance("i-6bb3e034");
 			service.tag(instance.getInstanceId(), tags);
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			String dns = instance.getPublicDnsName();
@@ -138,22 +140,23 @@ public class CreateBuildSlaveAMI {
 			String slave = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/configureslave");
 			SpinUpJenkinsMaster.exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
 			SpinUpJenkinsMaster.exec(channel, slave, quietFlag, jenkinsMaster);
-			// service.stopInstance(instance.getInstanceId());
+			service.stopInstance(instance.getInstanceId());
 
 			String description = format("automated ec2 slave ami - %s", today);
 			List<BlockDeviceMapping> additionalMappings = ImmutableList.<BlockDeviceMapping> of(INSTANCE_STORE_0, INSTANCE_STORE_1);
 			CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(name).withRootVolume(request.getRootVolume())
 					.withAdditionalMappings(additionalMappings).withTimeoutMillis(request.getTimeoutMillis()).withDescription(description).build();
-			// Image image = service.createAmi(creator);
-			Image image = service.getImage("ami-d8427c9d");
+			Image image = service.createAmi(creator);
+			// Image image = service.getImage("ami-d8427c9d");
 			logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
 			cleanupAmis(service);
 			logger.info(format("terminating instance [%s]", instance.getInstanceId()));
-			// service.terminateInstance(instance.getInstanceId());
+			service.terminateInstance(instance.getInstanceId());
 			logger.info(format("updating %s with new AMI", jenkinsMaster));
 			String kisPassword = Auth.decrypt(kisPasswordEncrypted);
-			String ruby = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/update_jenkins_1.532.2_ami_headless.rb");
-			SpinUpJenkinsMaster.exec(channel, ruby, "jcaddel", kisPassword, jenkinsMaster, image.getImageId());
+			String rubyScript = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/update_jenkins_1.532.2_ami_headless.rb");
+			SpinUpJenkinsMaster.exec(channel, "ruby", rubyScript, "jcaddel", kisPassword, image.getImageId(), jenkinsMaster);
+			logger.info(format("build slave ami process :: complete - [%s]", getTime(sw)));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
