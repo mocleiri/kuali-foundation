@@ -14,8 +14,8 @@ ami_value = ARGV[2]
 ci_url = ARGV[3]
 
 puts "username: #{username}"
-puts "ami: #{ami_value}"
-puts "url: #{ci_url}"
+puts "     ami: #{ami_value}"
+puts "     url: #{ci_url}"
 
 headless = Headless.new #:destroy_at_exit => false
 headless.start
