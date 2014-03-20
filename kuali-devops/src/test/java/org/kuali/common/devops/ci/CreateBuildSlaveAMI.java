@@ -119,7 +119,7 @@ public class CreateBuildSlaveAMI {
 			EC2Service service = getEC2Service(amazonAccount);
 			List<Tag> tags = getSlaveTags(jenkinsContext);
 			// Instance instance = launchAndWait(service, request, securityGroups, tags);
-			Instance instance = service.getInstance("i-7cf19420");
+			Instance instance = service.getInstance("i-6bb3e034");
 			service.tag(instance.getInstanceId(), tags);
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			String dns = instance.getPublicDnsName();
@@ -138,7 +138,7 @@ public class CreateBuildSlaveAMI {
 			String slave = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/configureslave");
 			SpinUpJenkinsMaster.exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
 			SpinUpJenkinsMaster.exec(channel, slave, quietFlag, jenkinsMaster);
-			service.stopInstance(instance.getInstanceId());
+			// service.stopInstance(instance.getInstanceId());
 
 			String description = format("automated ec2 slave ami - %s", today);
 			List<BlockDeviceMapping> additionalMappings = ImmutableList.<BlockDeviceMapping> of(INSTANCE_STORE_0, INSTANCE_STORE_1);
@@ -149,7 +149,7 @@ public class CreateBuildSlaveAMI {
 			logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
 			cleanupAmis(service);
 			logger.info(format("terminating instance [%s]", instance.getInstanceId()));
-			service.terminateInstance(instance.getInstanceId());
+			// service.terminateInstance(instance.getInstanceId());
 			logger.info(format("updating %s with new AMI", jenkinsMaster));
 			String kisPassword = Auth.decrypt(kisPasswordEncrypted);
 			String ruby = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/update_jenkins_1.532.2_ami_headless.rb");
