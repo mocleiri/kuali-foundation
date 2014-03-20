@@ -101,8 +101,8 @@ function copy_repo_from_amazon {
 
 function enable_root_ssh {
   echo "enable    -> root ssh"
-  # replace the one with a zero in the line of 
-  # the cloud config that controls root access
+  # set disable_root to 0 in the cloud config 
+  # this allows direct root ssh access at startup without having to go through any shenanigans
   sed -i -e "s/disable_root: 1/disable_root: 0/g" /etc/cloud/cloud.cfg
 }
 
