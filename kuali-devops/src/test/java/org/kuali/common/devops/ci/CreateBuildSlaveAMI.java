@@ -107,6 +107,7 @@ public class CreateBuildSlaveAMI {
 	@Test
 	public void test() {
 		try {
+			System.setProperty("ec2.stack", "test");
 			VirtualSystem vs = VirtualSystem.create();
 			// Default to quiet mode unless they've supplied -Dec2.quiet=false
 			boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
@@ -117,8 +118,8 @@ public class CreateBuildSlaveAMI {
 
 			EC2Service service = getEC2Service(amazonAccount);
 			List<Tag> tags = getSlaveTags(jenkinsContext);
-			Instance instance = launchAndWait(service, request, securityGroups, tags);
-			// Instance instance = service.getInstance("i-4423721b");
+			// Instance instance = launchAndWait(service, request, securityGroups, tags);
+			Instance instance = service.getInstance("i-7cf19420");
 			service.tag(instance.getInstanceId(), tags);
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			String dns = instance.getPublicDnsName();
@@ -143,12 +144,13 @@ public class CreateBuildSlaveAMI {
 			List<BlockDeviceMapping> additionalMappings = ImmutableList.<BlockDeviceMapping> of(INSTANCE_STORE_0, INSTANCE_STORE_1);
 			CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(name).withRootVolume(request.getRootVolume())
 					.withAdditionalMappings(additionalMappings).withTimeoutMillis(request.getTimeoutMillis()).withDescription(description).build();
-			Image image = service.createAmi(creator);
+			// Image image = service.createAmi(creator);
+			Image image = service.getImage("ami-d8427c9d");
 			logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
 			cleanupAmis(service);
 			logger.info(format("terminating instance [%s]", instance.getInstanceId()));
 			service.terminateInstance(instance.getInstanceId());
-			logger.info(format("updating % with new AMI", jenkinsMaster));
+			logger.info(format("updating %s with new AMI", jenkinsMaster));
 			String kisPassword = Auth.decrypt(kisPasswordEncrypted);
 			String ruby = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/update_jenkins_1.532.2_ami_headless.rb");
 			SpinUpJenkinsMaster.exec(channel, ruby, "jcaddel", kisPassword, jenkinsMaster, image.getImageId());
