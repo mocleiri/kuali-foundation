@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 function install_gem {
   GEM_ARTIFACT_ID=$1
   GEM_VERSION=$2
