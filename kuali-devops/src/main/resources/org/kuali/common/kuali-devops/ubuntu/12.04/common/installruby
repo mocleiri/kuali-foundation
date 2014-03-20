@@ -1,10 +1,260 @@
 #!/bin/bash
+#
+# Copyright 2004-2014 The Kuali Foundation
+#
+# Licensed under the Educational Community License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.opensource.org/licenses/ecl2.php
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
-set -e
+function redirect_ports {
 
-apt-get update -y
-apt-get --purge remove ruby-rvm -y
-rm -rf /usr/share/ruby-rvm /etc/rvmrc /etc/profile.d/rvm.sh -y
+  echo "redirect  -> port 80  to 8080"
+  iptables --table nat --append PREROUTING --protocol tcp --dport 80 --jump REDIRECT --to-port 8080
+  iptables -t nat -A OUTPUT -p tcp -o lo --dport 80 -j DNAT --to 127.0.0.1:8080
+  echo "redirect  -> port 443 to 8443"
+  iptables --table nat --append PREROUTING --protocol tcp --dport 443 --jump REDIRECT --to-port 8443
+  iptables -t nat -A OUTPUT -p tcp -o lo --dport 443 -j DNAT --to 127.0.0.1:8443
+  export DEBIAN_FRONTEND=noninteractive
+  execute_quietly "apt-get install iptables-persistent -y"
+  iptables-save  > /etc/iptables/rules.v4
+  ip6tables-save > /etc/iptables/rules.v6
+  unset DEBIAN_FRONTEND
+  
+}
 
-apt-get install ruby1.9.3 libxslt1-dev libxml2-dev libyaml-dev -y
+function purge_tomcat {
 
+  TOMCAT_PURGE="libtcnative-1 tomcat6-common tomcat6 tomcat7"
+  echo "purge     -> $TOMCAT_PURGE"
+  execute_quietly "apt-get purge $TOMCAT_PURGE -y"
+  execute_quietly "apt-get autoremove -y"
+  echo "userdel   -> tomcat6 tomcat7"
+  userdel --force --remove tomcat6 > /dev/null 2>&1
+  check_userdel_status
+  userdel --force --remove tomcat7 > /dev/null 2>&1
+  check_userdel_status
+  rm -rf /var/lib/tomcat6 /var/lib/tomcat7
+  
+}
+
+function get_java_opts {
+
+  RETURN_VALUE="-Djava.security.egd=file:/dev/./urandom"
+  RETURN_VALUE="$RETURN_VALUE -Djava.awt.headless=true"
+  RETURN_VALUE="$RETURN_VALUE -Xms512m"
+  RETURN_VALUE="$RETURN_VALUE -Xmx$MAX_HEAP"
+  RETURN_VALUE="$RETURN_VALUE -XX:MaxPermSize=$MAX_PERM"
+  RETURN_VALUE="$RETURN_VALUE -verbose:gc"
+  RETURN_VALUE="$RETURN_VALUE -XX:+PrintGCDetails"
+  RETURN_VALUE="$RETURN_VALUE -XX:+PrintGCDateStamps"
+  RETURN_VALUE="$RETURN_VALUE -XX:+PrintHeapAtGC"
+  RETURN_VALUE="$RETURN_VALUE -XX:+PrintTenuringDistribution"
+  RETURN_VALUE="$RETURN_VALUE -Xloggc:$TOMCAT_LOGS/heap.log"
+  RETURN_VALUE="$RETURN_VALUE -XX:HeapDumpPath=$TOMCAT_LOGS"
+  RETURN_VALUE="$RETURN_VALUE -XX:+HeapDumpOnOutOfMemoryError"
+  echo "\"$RETURN_VALUE\""
+  
+}
+
+function configure_tomcat_ssl {
+
+  echo "configure -> ssl"
+  TOMCAT_SSL_DIR=/var/lib/$TOMCAT/conf/ssl
+  rm -rf $TOMCAT_SSL_DIR; mkdir -p $TOMCAT_SSL_DIR
+  
+  GPG_ENCRYPTED=$TOMCAT_GENERIC_CONFIG/ssl.zip.gpg
+  GPG_DECRYPTED=$TOMCAT_GENERIC_CONFIG/ssl.zip
+  decrypt_file $GPG_ENCRYPTED $GPG_DECRYPTED
+  execute_quietly "unzip -o $GPG_DECRYPTED -d $TOMCAT_SSL_DIR"
+  
+  SSL_KEYSTORE_FILE=$TOMCAT_SSL_DIR/wildcard.$DOMAIN.keystore.pkcs12
+  SSL_PASSWORD_FILE=$TOMCAT_SSL_DIR/wildcard.$DOMAIN.keystore.password
+  check_exists $SSL_KEYSTORE_FILE
+  check_exists $SSL_PASSWORD_FILE
+  
+  execute_quietly "openssl pkcs12 -in $SSL_KEYSTORE_FILE -out $TOMCAT_SSL_DIR/SSLCertificateFile.pem      -clcerts -nokeys -passin file:$SSL_PASSWORD_FILE"
+  execute_quietly "openssl pkcs12 -in $SSL_KEYSTORE_FILE -out $TOMCAT_SSL_DIR/SSLCertificateChainFile.pem -clcerts -nokeys -passin file:$SSL_PASSWORD_FILE"
+  execute_quietly "openssl pkcs12 -in $SSL_KEYSTORE_FILE -out $TOMCAT_SSL_DIR/SSLCertificateKeyFile.pem   -nocerts -nodes  -passin file:$SSL_PASSWORD_FILE"
+  
+  # this errors out if there is an issue deleting the files
+  execute_quietly "rm $SSL_KEYSTORE_FILE $SSL_PASSWORD_FILE $GPG_DECRYPTED"
+  rm -f $TOMCAT_SSL_DIR/wildcard.*
+  
+}
+
+function configure_tomcat {
+
+  TOMCAT_OPT_FILE=/etc/default/$TOMCAT
+  TOMCAT_CONF_FILE_DIR=/etc/$TOMCAT
+  TOMCAT_USER=$TOMCAT
+  TOMCAT_GROUP=$TOMCAT
+  TOMCAT_DIR=/var/lib/$TOMCAT
+  TOMCAT_LOGS=$TOMCAT_DIR/logs
+  TOMCAT_HOME=/home/$TOMCAT
+  JAVA_OPTS="$(get_java_opts)"
+  JAVA_HOME=/usr/java/$JDK
+
+  echo "configure -> $TOMCAT"
+  echo "TOMCAT_USER=$TOMCAT_USER"   >  $TOMCAT_OPT_FILE
+  echo "TOMCAT_GROUP=$TOMCAT_GROUP" >> $TOMCAT_OPT_FILE
+  echo "JAVA_OPTS=$JAVA_OPTS"       >> $TOMCAT_OPT_FILE
+  echo "JAVA_HOME=$JAVA_HOME"       >> $TOMCAT_OPT_FILE
+
+  WEBXML=$TOMCAT_VERSION_CONFIG/conf/web.xml
+  SERVER=$TOMCAT_VERSION_CONFIG/conf/server.xml
+  
+  check_exists $WEBXML
+  check_exists $SERVER
+  
+  cp $WEBXML $TOMCAT_CONF_FILE_DIR/web.xml
+  cp $SERVER $TOMCAT_CONF_FILE_DIR/server.xml
+
+  TOMCAT_LOGS=/var/lib/$TOMCAT/logs
+  TOMCAT_WEBAPPS=/var/lib/$TOMCAT/webapps
+  TOMCAT_BIN=/usr/share/$TOMCAT/bin
+  TOMCAT_CLEANUP=$TOMCAT_BIN/cleanup.sh
+  USR_BIN_CLEANUP=/usr/bin/cleanup.sh
+  JSPS=$TOMCAT_GENERIC_CONFIG/jsps/*.jsp
+
+  rm -rf $TOMCAT_WEBAPPS/* $TOMCAT_LOGS/* /var/lib/tomcat6/bin/cleanup.sh /var/lib/tomcat7/bin/cleanup.sh
+  cp $TOMCAT_VERSION_CONFIG/bin/cleanup.sh $TOMCAT_CLEANUP
+  chmod 755 $TOMCAT_BIN/cleanup.sh
+  rm -f $USR_BIN_CLEANUP
+  ln -s $TOMCAT_CLEANUP $USR_BIN_CLEANUP
+
+  # Setup the tomcat user with a normal /home directory and enable su
+  echo "configure -> $TOMCAT:user"
+  rm -rf $TOMCAT_HOME; mkdir -p $TOMCAT_HOME
+  execute_quietly "usermod --home $TOMCAT_HOME $TOMCAT"
+  execute_quietly "usermod --shell /bin/bash $TOMCAT"
+  
+  # copy root's .bashrc and setup .bash_aliases with Java
+  cp /root/.bashrc $TOMCAT_HOME/.bash_profile
+  TOMCAT_BASH_ALIASES=$TOMCAT_HOME/.bash_aliases
+  echo "JAVA_HOME=$JAVA_HOME"          >  $TOMCAT_BASH_ALIASES
+  echo "PATH=\$JAVA_HOME/bin:\$PATH:." >> $TOMCAT_BASH_ALIASES
+  echo "export JAVA_HOME PATH"         >> $TOMCAT_BASH_ALIASES
+  
+  # setup ssl
+  configure_tomcat_ssl
+
+  chown -R $TOMCAT_USER:$TOMCAT_GROUP $TOMCAT_HOME
+  
+  # Copy custom jsps into the logs directory
+  cp $JSPS $TOMCAT_LOGS; chown -R $TOMCAT_USER:$TOMCAT_GROUP $TOMCAT_LOGS/*.jsp
+  
+}
+
+function install_tomcat_packages {
+
+  TOMCAT_VERSION=${TOMCAT:6:1}
+  check_not_blank TOMCAT_VERSION $TOMCAT_VERSION
+  
+  if [ $TOMCAT_VERSION == "6" ]; then
+    echo "install   -> $TOMCAT-common libtcnative-1 $TOMCAT"
+    execute_quietly "apt-get install $TOMCAT-common libtcnative-1 $TOMCAT -y"
+  else
+    echo "install   -> libtcnative-1 $TOMCAT"
+    execute_quietly "apt-get install libtcnative-1 $TOMCAT -y"
+  fi
+  
+}
+
+# Install Tomcat
+function install_tomcat {
+  
+  TOMCAT_VERSION=${TOMCAT:6:1}
+  check_not_blank TOMCAT_VERSION $TOMCAT_VERSION
+  
+  purge_tomcat
+  install_tomcat_packages
+  
+  echo "stop      -> $TOMCAT"
+  execute_quietly "service $TOMCAT stop"
+  
+  configure_tomcat
+  
+  redirect_ports
+  cleanup.sh
+  
+  echo "start     -> $TOMCAT"
+  execute_quietly "service $TOMCAT start"
+  
+}
+
+function check_args {
+  check_not_blank TOMCAT $TOMCAT
+  check_not_blank JDK $JDK
+  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
+  check_not_blank MAX_HEAP $MAX_HEAP
+  check_not_blank MAX_PERM $MAX_PERM
+  check_not_blank DOMAIN $DOMAIN
+  check_tomcat
+}
+
+MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+ME=$(basename $0)
+source $MY_DIR/functions.sh
+
+usage() { echo "Usage: $ME [-h] [-q] [--help] [--quiet] [--maxheap=4g] [--maxperm=512m] [--domain=kuali.org] tomcat6/tomcat7 jdk6/jdk7 password" 1>&2; exit 1; }
+
+QUIET=false
+MAX_HEAP=4g
+MAX_PERM=512m
+DOMAIN=kuali.org
+
+ARGS=$(getopt --options hq --longoptions "help,quiet,maxheap:,maxperm:,domain:" --name "$ME" -- "$@");
+if [ $? -ne 0 ]; then usage; fi
+eval set -- "$ARGS";
+while true; do
+  case "$1" in
+    -h|--help)
+      usage;
+      shift;
+      ;;
+    -q|--quiet)
+      QUIET="true";
+      shift;
+      ;;
+    --maxheap)
+      shift;
+      MAX_HEAP="$1";
+      shift;
+      ;;
+    --maxperm)
+      shift;
+      MAX_PERM="$1";
+      shift;
+      ;;
+    --domain)
+      shift;
+      DOMAIN="$1";
+      shift;
+      ;;
+    --)
+      shift;
+      break;
+      ;;
+  esac
+done
+
+TOMCAT=$1
+JDK=$2
+GPG_PASSPHRASE=$3
+
+check_args
+
+TOMCAT_GENERIC_CONFIG=$MY_DIR/../../../tomcat
+TOMCAT_VERSION=${TOMCAT:6:1}
+TOMCAT_VERSION_CONFIG=$TOMCAT_GENERIC_CONFIG/$TOMCAT_VERSION
+
+install_tomcat
