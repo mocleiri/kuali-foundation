@@ -17,7 +17,6 @@ import static org.kuali.common.dns.model.CNAMEContext.newCNAMEContext;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
 import static org.kuali.common.util.log.LoggerLevel.INFO;
 import static org.kuali.common.util.log.LoggerLevel.WARN;
-import static org.kuali.common.util.log.Loggers.newLogger;
 import static org.kuali.common.util.maven.RepositoryUtils.getDefaultLocalRepository;
 
 import java.io.File;
@@ -54,6 +53,7 @@ import org.kuali.common.util.channel.model.CommandContext;
 import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.condition.Condition;
 import org.kuali.common.util.file.CanonicalFile;
+import org.kuali.common.util.log.Loggers;
 import org.kuali.common.util.maven.RepositoryUtils;
 import org.kuali.common.util.maven.model.Artifact;
 import org.kuali.common.util.project.DefaultProjectService;
@@ -78,7 +78,7 @@ import com.google.common.collect.ImmutableMap;
 
 public class SpinUpJenkinsMaster {
 
-	private static final Logger logger = newLogger();
+	private static final Logger logger = Loggers.newLogger();
 
 	private final Stopwatch sw = createStarted();
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_MASTER.getGroup());
