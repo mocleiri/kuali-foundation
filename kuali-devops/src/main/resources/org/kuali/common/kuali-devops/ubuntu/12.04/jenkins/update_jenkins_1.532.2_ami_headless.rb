@@ -22,7 +22,7 @@ headless = Headless.new #:destroy_at_exit => false
 headless.start
 
 
-puts "starting web browser"
+puts "launching web browser"
 @browser = Watir::Browser.new
 
 #@browser.goto("http://beta.ci.kuali.org")
