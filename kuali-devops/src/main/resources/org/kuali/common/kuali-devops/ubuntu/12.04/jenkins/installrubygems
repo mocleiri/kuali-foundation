@@ -23,5 +23,5 @@ HEADLESS_VERSION=1.0.1
 #WATIR_WEBDRIVER_VERSION=0.6.8
 
 execute_quietly "gem install --no-rdoc --no-ri selenium-webdriver -v $SELENIUM_WEBDRIVER_VERSION"
-execute_quietly "gem install --no-rdoc --no-ri watir-webdriver -v $WATIR_WEBDRIVER_VERSION"
-execute_quietly "gem install --no-rdoc --no-ri headless -v $HEADLESS_VERSION"
+execute_quietly "gem install --no-rdoc --no-ri watir-webdriver    -v $WATIR_WEBDRIVER_VERSION"
+execute_quietly "gem install --no-rdoc --no-ri headless           -v $HEADLESS_VERSION"
