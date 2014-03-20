@@ -17,10 +17,12 @@ puts "\n"
 puts "[username: #{username}  ami: #{ami_value}  url: #{ci_url}]"
 puts "\n"
 
+puts "starting headless"
 headless = Headless.new #:destroy_at_exit => false
 headless.start
 
 
+puts "starting web browser"
 @browser = Watir::Browser.new
 
 #@browser.goto("http://beta.ci.kuali.org")
