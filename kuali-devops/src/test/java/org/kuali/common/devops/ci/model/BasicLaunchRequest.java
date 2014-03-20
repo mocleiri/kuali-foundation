@@ -32,7 +32,7 @@ public final class BasicLaunchRequest {
 
 		private String ami = AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_EAST.getId();
 		private InstanceType type = InstanceType.C3Xlarge;
-		private RootVolume rootVolume = RootVolume.create(32, true);
+		private RootVolume rootVolume = RootVolume.create(80, true);
 		private int timeoutMillis = getMillisAsInt("15m");
 
 		public Builder withAmi(String ami) {

@@ -148,12 +148,12 @@ public class CreateBuildSlaveAMI {
 			// Image image = service.getImage("ami-d8427c9d");
 			logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
 			cleanupAmis(service);
-			logger.info(format("terminating instance [%s]", instance.getInstanceId()));
-			service.terminateInstance(instance.getInstanceId());
 			logger.info(format("updating %s with new AMI", jenkinsMaster));
 			String kisPassword = Auth.decrypt(kisPasswordEncrypted);
 			String rubyScript = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/update_jenkins_1.532.2_ami_headless.rb");
 			SpinUpJenkinsMaster.exec(channel, "ruby", rubyScript, "jcaddel", kisPassword, image.getImageId(), jenkinsMaster);
+			logger.info(format("terminating instance [%s]", instance.getInstanceId()));
+			service.terminateInstance(instance.getInstanceId());
 			logger.info(format("build slave ami process :: complete - [%s]", getTime(sw)));
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -176,6 +176,7 @@ public class CreateBuildSlaveAMI {
 		BasicLaunchRequest.Builder builder = BasicLaunchRequest.builder();
 		builder.setAmi(Constants.DEFAULT_AMI.getId());
 		builder.setTimeoutMillis(FormatUtils.getMillisAsInt("1h"));
+		builder.setRootVolume(RootVolume.create(80, true));
 		return getBasicLaunchRequest(builder.build());
 	}
 
