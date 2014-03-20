@@ -14,7 +14,7 @@
 
     <form id="kualiForm" action="#" method="post" accept-charset="UTF-8">
         <div id="LabsProposal" class="clearfix uif-formView" data-role="View">
-            <?php include ('kboot/includes/header-start.php') ?>
+            <?php include ('kboot/includes/header-docinfo.php') ?>
     
             <!-- VIEW CONTENT -->
             <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper container">
@@ -25,23 +25,23 @@
                 </div>
 
                 <div class="col-md-9">
-                    <main id="LabsProposal-Page" class="uif-page" data-server_messages="false" data-role="Page" data-parent="LabsProposal">
+                    <main id="LabsProposal-Page" class="uif-page">
                         <header class="clearfix uif-header-contentWrapper">
                             <div class="uif-pageHeader clearfix" data-header_for="LabsProposal-Page">
                                 <h2 class="uif-headerText">
-                                    <span class="uif-headerText-span">Budget</span>
+                                    <span class="uif-headerText-span">Periods and Totals</span>
                                 </h2>
                             </div>
-                            <div class="uif-verticalBoxGroup uif-header-lowerGroup" data-parent="LabsProposal-Page">
-                                <div class="uif-boxLayoutVerticalItem clearfix" data-parent="uetqy9j">
-                                    <p>You don't have any budget versions created yet. Please create one now to get started.</p>
+                            <div class="uif-verticalBoxGroup uif-header-lowerGroup">
+                                <div class="uif-boxLayoutVerticalItem clearfix">
+                                    <p>Budget periods have automatically been generated based on your proposal project dates. You can enter totals here, or enter budget details on the Personnel and Non-Personnel screens and allow the system to calculate the values.</p>
                                 </div>
                             </div>
                         </header>
                         <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a class="btn btn-default btn-large uif-modal" data-modal="/kboot/modals/create-version.php" href="#" data-toggle="modal" data-target=".bs-example-modal-lg">Create a new budget version</a>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -50,15 +50,15 @@
             </div>
             
             <!-- VIEW FOOTER -->
-            <!-- <div class="uif-footer clearfix" data-sticky_footer="true" data-parent="LabsProposal">
-                <button class="btn btn-default btn btn-default uif-boxLayoutHorizontalItem" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;save&quot;}">Save</button>
-                <button class="btn btn-primary btn btn-primary uif-boxLayoutHorizontalItem" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;saveContinue&quot;}">Save and Continue</button>
-            </div> -->
+            <div class="uif-footer clearfix" data-sticky_footer="true" data-parent="LabsProposal">
+                <a class="btn btn-default btn btn-default uif-boxLayoutHorizontalItem" href="#">Save</a>
+                <a class="btn btn-primary btn btn-primary uif-boxLayoutHorizontalItem" href="rates.php">Save and continue...</a>
+            </div>
         </div>
     </form>
 
     <!-- MODALS -->
-    <div id="modal-create-version" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" aria-labbeledby="create-new-title">
+    <!-- <div id="modal-create-version" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" aria-labbeledby="create-new-title">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -109,7 +109,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <?php include ('kboot/includes/footer-scripts.php') ?>
 </body>

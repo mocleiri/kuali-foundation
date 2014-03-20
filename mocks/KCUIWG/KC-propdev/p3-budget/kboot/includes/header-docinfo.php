@@ -2,7 +2,7 @@
     <div class="uif-viewHeader" data-header_for="LabsProposal">
         <h1 class="uif-headerText">
             <p class="uif-viewHeader-areaTitle" >Proposal Development</p>
-            <span class="uif-headerText-span">Budget</span>
+            <span class="uif-headerText-span">My budget test version</span>
             <span class="uif-supportTitle-wrapper">
                 <div class="uif-viewHeader-supportTitle">
                     
