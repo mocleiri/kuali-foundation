@@ -1,0 +1,7 @@
+#!/bin/bash
+
+apt-get update
+apt-get --purge remove ruby-rvm
+rm -rf /usr/share/ruby-rvm /etc/rvmrc /etc/profile.d/rvm.sh
+apt-get install ruby1.9.3
+apt-get install libxslt1-dev libxml2-dev libyaml-dev
