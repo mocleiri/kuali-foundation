@@ -1,8 +1,0 @@
-#!/bin/bash
-
-set -e
-
-gem install --no-rdoc --no-ri selenium-webdriver -v 2.35.1
-gem install --no-rdoc --no-ri watir-webdriver -v 0.6.4
-gem install --no-rdoc --no-ri headless -v 1.0.1
-
