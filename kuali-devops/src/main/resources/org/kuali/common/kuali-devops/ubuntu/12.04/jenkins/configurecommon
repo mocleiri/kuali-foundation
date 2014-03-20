@@ -321,3 +321,6 @@ configure_subversion
 #
 touch_subversion_repo foundation
 # touch_subversion_repos
+
+$MY_DIR/installruby     $QUIET_FLAG
+$MY_DIR/installrubygems $QUIET_FLAG
