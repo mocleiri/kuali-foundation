@@ -15,7 +15,7 @@ import static org.kuali.common.aws.ec2.model.ImmutableBlockDeviceMapping.INSTANC
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
 import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.exec;
-import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.getBashScript;
+import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.getResource;
 import static org.kuali.common.devops.ci.model.Constants.DOMAIN;
 import static org.kuali.common.devops.ci.model.Constants.GPG_PASSPHRASE_ENCRYPTED;
 import static org.kuali.common.devops.ci.model.Constants.ROOT;
@@ -131,8 +131,8 @@ public class CreateBuildSlaveAMI {
 			String jenkinsMaster = Joiner.on('.').join(dnsPrefix, DOMAIN);
 
 			setupEssentials(channel, basedir, pid, distro, distroVersion, gpgPassphrase, dnsPrefix, quietFlag);
-			String common = SpinUpJenkinsMaster.getBashScript(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
-			String slave = SpinUpJenkinsMaster.getBashScript(basedir, pid, distro, distroVersion, "jenkins/configureslave");
+			String common = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
+			String slave = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/configureslave");
 			SpinUpJenkinsMaster.exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
 			SpinUpJenkinsMaster.exec(channel, slave, quietFlag, jenkinsMaster);
 			service.stopInstance(instance.getInstanceId());
@@ -146,6 +146,7 @@ public class CreateBuildSlaveAMI {
 			cleanupAmis(service);
 			logger.info(format("terminating instance [%s]", instance.getInstanceId()));
 			service.terminateInstance(instance.getInstanceId());
+			String ruby = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/update_jenkins_1.532.2_ami_headless.rb");
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -153,9 +154,9 @@ public class CreateBuildSlaveAMI {
 
 	protected static void setupEssentials(SecureChannel channel, String basedir, ProjectIdentifier pid, Distro distro, String distroVersion, String gpgPassphrase,
 			String dnsPrefix, String quietFlag) {
-		String basics = getBashScript(basedir, pid, distro, distroVersion, "common/configurebasics");
-		String ssd = getBashScript(basedir, pid, distro, distroVersion, "common/configuressd");
-		String java = getBashScript(basedir, pid, distro, distroVersion, "common/installjava");
+		String basics = getResource(basedir, pid, distro, distroVersion, "common/configurebasics");
+		String ssd = getResource(basedir, pid, distro, distroVersion, "common/configuressd");
+		String java = getResource(basedir, pid, distro, distroVersion, "common/installjava");
 		exec(channel, basics, quietFlag);
 		exec(channel, ssd, quietFlag);
 		exec(channel, java, quietFlag, "jdk6", "u45", gpgPassphrase);

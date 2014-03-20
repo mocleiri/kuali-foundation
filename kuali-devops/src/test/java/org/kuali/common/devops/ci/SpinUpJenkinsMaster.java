@@ -147,8 +147,8 @@ public class SpinUpJenkinsMaster {
 			setupEssentials(channel, basedir, pid, distro, distroVersion, gpgPassphrase, dnsPrefix, quietFlag);
 
 			// do jenkins specific configuration
-			String common = getBashScript(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
-			String jenkins = getBashScript(basedir, pid, distro, distroVersion, "jenkins/installjenkins");
+			String common = getResource(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
+			String jenkins = getResource(basedir, pid, distro, distroVersion, "jenkins/installjenkins");
 			exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
 			exec(channel, jenkins, quietFlag, jenkinsMaster, "1.532.2", gpgPassphrase);
 
@@ -163,11 +163,11 @@ public class SpinUpJenkinsMaster {
 
 	protected static void setupEssentials(SecureChannel channel, String basedir, ProjectIdentifier pid, Distro distro, String distroVersion, String gpgPassphrase,
 			String dnsPrefix, String quietFlag) {
-		String basics = getBashScript(basedir, pid, distro, distroVersion, "common/configurebasics");
-		String ssd = getBashScript(basedir, pid, distro, distroVersion, "common/configuressd");
-		String sethostname = getBashScript(basedir, pid, distro, distroVersion, "common/sethostname");
-		String java = getBashScript(basedir, pid, distro, distroVersion, "common/installjava");
-		String tomcat = getBashScript(basedir, pid, distro, distroVersion, "common/installtomcat");
+		String basics = getResource(basedir, pid, distro, distroVersion, "common/configurebasics");
+		String ssd = getResource(basedir, pid, distro, distroVersion, "common/configuressd");
+		String sethostname = getResource(basedir, pid, distro, distroVersion, "common/sethostname");
+		String java = getResource(basedir, pid, distro, distroVersion, "common/installjava");
+		String tomcat = getResource(basedir, pid, distro, distroVersion, "common/installtomcat");
 		exec(channel, basics, quietFlag);
 		exec(channel, ssd, quietFlag);
 		exec(channel, sethostname, dnsPrefix, DOMAIN);
@@ -212,7 +212,7 @@ public class SpinUpJenkinsMaster {
 		return builder;
 	}
 
-	protected static String getBashScript(String basedir, ProjectIdentifier project, Distro distro, String version, String script) {
+	protected static String getResource(String basedir, ProjectIdentifier project, Distro distro, String version, String script) {
 		List<String> tokens = newArrayList();
 		tokens.add(basedir);
 		tokens.addAll(Splitter.on('.').splitToList(project.getGroupId()));
