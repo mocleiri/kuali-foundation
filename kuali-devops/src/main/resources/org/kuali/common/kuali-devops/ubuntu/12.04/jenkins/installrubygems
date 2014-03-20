@@ -1,7 +1,12 @@
 #!/bin/bash
 
-QUIET=$1
+set -e
 
+MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+ME=$(basename $0)
+source $MY_DIR/../common/functions.sh
+
+QUIET=$1
 if [ "$QUIET" == "-q" ]; then
   QUIET="true"
 fi
