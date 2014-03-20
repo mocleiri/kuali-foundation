@@ -14,7 +14,7 @@ ami_value = ARGV[2]
 ci_url = ARGV[3]
 
 puts "\n"
-puts "#{username}  #{ami_value}  #{ci_url}"
+puts "#{ci_url}  #{username}  #{ami_value}"
 puts "\n"
 
 puts "starting headless"
