@@ -114,7 +114,7 @@ function check_status {
   STATUS="$?"
   if [ ! "$STATUS" == "0" ]; then
     echo
-    echo "error executing: \"$COMMAND\""
+    echo "error executing: $COMMAND"
     echo "exit value: $STATUS"
     echo 
     exit $STATUS
