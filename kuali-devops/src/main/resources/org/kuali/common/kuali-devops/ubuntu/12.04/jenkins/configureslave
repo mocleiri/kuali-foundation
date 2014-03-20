@@ -135,6 +135,6 @@ JENKINS_MASTER=$1
 check_args
 
 slave_shutdown_scripting
-#install_mysql_server
+install_mysql_server
 copy_repo_from_master
 enable_root_ssh
