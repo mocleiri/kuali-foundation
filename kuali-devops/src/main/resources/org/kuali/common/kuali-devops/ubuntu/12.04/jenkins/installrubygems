@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 function install_gem {
   GEM_ARTIFACT_ID=$1
   GEM_VERSION=$2
@@ -7,7 +9,6 @@ function install_gem {
   execute_quietly "gem install --no-rdoc --no-ri $GEM_ARTIFACT_ID -v $GEM_VERSION"
 }
 
-set -e
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
