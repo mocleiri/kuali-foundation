@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+rm -rf /var/lib/gems/1.9.1 /root/.gem
+
+gem install --no-rdoc --no-ri selenium-webdriver -v 2.35.1
+gem install --no-rdoc --no-ri watir-webdriver -v 0.6.4
+gem install --no-rdoc --no-ri headless -v 1.0.1
+
+#gem install --no-rdoc --no-ri watir-webdriver -v 0.6.8
+#gem install --no-rdoc --no-ri selenium-webdriver -v 2.40.0
