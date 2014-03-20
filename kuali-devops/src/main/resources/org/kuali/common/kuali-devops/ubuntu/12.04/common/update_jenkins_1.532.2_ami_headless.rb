@@ -17,10 +17,13 @@ puts "username: #{username}"
 puts "     ami: #{ami_value}"
 puts "     url: #{ci_url}"
 
+puts "1"
 headless = Headless.new #:destroy_at_exit => false
+puts "2"
 headless.start
 
 
+puts "3"
 @browser = Watir::Browser.new
 
 #@browser.goto("http://beta.ci.kuali.org")
