@@ -7,10 +7,4 @@ apt-get --purge remove ruby-rvm -y
 rm -rf /usr/share/ruby-rvm /etc/rvmrc /etc/profile.d/rvm.sh -y
 
 apt-get install ruby1.9.3 libxslt1-dev libxml2-dev libyaml-dev -y
-#apt-get remove ruby1.9.3 libxslt1-dev libxml2-dev libyaml-dev -y
-#apt-get autoremove
-
-gem install --no-rdoc --no-ri selenium-webdriver -v 2.35.1
-gem install --no-rdoc --no-ri watir-webdriver -v 0.6.4
-gem install --no-rdoc --no-ri headless -v 1.0.1
 
