@@ -90,7 +90,7 @@ public class CreateBuildSlaveAMI {
 	private static final String amazonAccount = Constants.AMAZON_ACCOUNT;
 	public static final KeyPair KUALI_KEY = Auth.getKeyPair(amazonAccount);
 	private final int minimumAmisToKeep = 7;
-	private final String kisPassword = "lZ7Yxs1+9a9a5di5q1JuiVNnZiNjZN0F";
+	private final String kisPasswordEncrypted = "lZ7Yxs1+9a9a5di5q1JuiVNnZiNjZN0F";
 
 	private static final Map<String, JenkinsContext> CONTEXTS = getJenkinsContexts();
 
@@ -148,7 +148,10 @@ public class CreateBuildSlaveAMI {
 			cleanupAmis(service);
 			logger.info(format("terminating instance [%s]", instance.getInstanceId()));
 			service.terminateInstance(instance.getInstanceId());
+			logger.info(format("updating % with new AMI", jenkinsMaster));
+			String kisPassword = Auth.decrypt(kisPasswordEncrypted);
 			String ruby = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/update_jenkins_1.532.2_ami_headless.rb");
+			SpinUpJenkinsMaster.exec(channel, ruby, "jcaddel", kisPassword, jenkinsMaster, image.getImageId());
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
