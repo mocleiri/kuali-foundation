@@ -107,10 +107,9 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] [-m "ci.kuali.org"]" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] master" 1>&2; exit 1; }
 
 QUIET=false
-JENKINS_MASTER=ci.kuali.org
 while getopts hqm: flag; do
   case $flag in
     h)
@@ -118,9 +117,6 @@ while getopts hqm: flag; do
       ;;
     q)
       QUIET="true";
-      ;;
-    m)
-      JENKINS_MASTER="$OPTARG";
       ;;
     ?)
       usage;
@@ -130,6 +126,8 @@ while getopts hqm: flag; do
 done
 
 shift $(( OPTIND - 1 ));
+
+JENKINS_MASTER=$1
 
 check_args
 
