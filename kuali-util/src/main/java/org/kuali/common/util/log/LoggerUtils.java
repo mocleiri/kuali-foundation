@@ -15,8 +15,6 @@
  */
 package org.kuali.common.util.log;
 
-import static org.kuali.common.util.log.Loggers.newLogger;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -35,7 +33,7 @@ import org.springframework.util.PropertyPlaceholderHelper;
 
 public class LoggerUtils {
 
-	public static final Logger LOGGER_UTILS_LOGGER = newLogger();
+	public static final Logger LOGGER_UTILS_LOGGER = Loggers.newLogger();
 	private static final Obscurer DEFAULT_OBSCURER = new DefaultObscurer();
 	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
