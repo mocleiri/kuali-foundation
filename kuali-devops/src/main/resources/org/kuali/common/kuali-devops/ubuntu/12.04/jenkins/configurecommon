@@ -17,10 +17,10 @@
 
 function install_firefox {
 
-  # 14.0.1, 27.0.1
+  # 14.0.1, 27.0.1, 22.0
   VERSION=$1
   
-  # 14, 27
+  # 14, 27, 22
   SHORT_VERSION=$2
 
   GROUP_ID=org.mozilla
@@ -302,6 +302,7 @@ install_maven 3.2.1 32
 install_default_maven 32
 install_firefox 14.0.1 14
 install_firefox 27.0.1 27
+install_firefox 22.0 22
 install_default_firefox 27
 configure_java
 configure_subversion
