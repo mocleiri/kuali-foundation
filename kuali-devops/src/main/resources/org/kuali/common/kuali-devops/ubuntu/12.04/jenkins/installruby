@@ -2,9 +2,14 @@
 
 set -e
 
-apt-get update -y
-apt-get --purge remove ruby-rvm -y
-rm -rf /usr/share/ruby-rvm /etc/rvmrc /etc/profile.d/rvm.sh
+QUIET=$1
+if [ "$QUIET" == "-q" ]; then
+  QUIET="true"
+fi
 
-apt-get install ruby1.9.3 libxslt1-dev libxml2-dev libyaml-dev -y
+execute_quietly "apt-get update -y"
+execute_quietly "apt-get --purge remove ruby-rvm -y"
+execute_quietly "rm -rf /usr/share/ruby-rvm /etc/rvmrc /etc/profile.d/rvm.sh"
+
+execute_quietly "apt-get install ruby1.9.3 libxslt1-dev libxml2-dev libyaml-dev -y"
 
