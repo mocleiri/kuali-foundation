@@ -140,7 +140,10 @@ public final class DefaultEC2Service implements EC2Service {
 		List<String> snapshotIds = newArrayList();
 		List<BlockDeviceMapping> mappings = image.getBlockDeviceMappings();
 		for (BlockDeviceMapping mapping : mappings) {
-			snapshotIds.add(mapping.getEbs().getSnapshotId());
+			Optional<EbsBlockDevice> ebsBlockDevice = Optional.fromNullable(mapping.getEbs());
+			if (ebsBlockDevice.isPresent()) {
+				snapshotIds.add(mapping.getEbs().getSnapshotId());
+			}
 		}
 		DeregisterImageRequest request = new DeregisterImageRequest();
 		request.setImageId(imageId);
