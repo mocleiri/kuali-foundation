@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -108,8 +108,8 @@
                                 <div class="well">
                                     <fieldset>
                                         <legend>Does this NIH proposal allow modular budgets?</legend>
-                                        <label for="create-with-modular-true"><input type="radio" name="create-with-modular" id="create-with-modular-true">Yes, allow for modular budgets</label>
-                                        <label for="create-with-modular-false"><input type="radio" name="create-with-modular" id="create-with-modular-false">No, there will be no modular budget</label>
+                                        <label for="create-with-modular-true" class="clearfix"><input type="radio" name="create-with-modular" id="create-with-modular-true">Yes, allow for modular budgets</label>
+                                        <label for="create-with-modular-false" class="clearfix"><input type="radio" name="create-with-modular" id="create-with-modular-false">No, there will be no modular budget</label>
                                     </fieldset>
                                 </div>
                             </div>
@@ -120,8 +120,8 @@
                                 <div class="well">
                                     <fieldset>
                                         <legend>Would you like guided assistance to complete this budget?</legend>
-                                        <label for="create-with-guided-asst-true"><input type="radio" name="create-with-guided-asst" id="create-with-guided-asst-true">No, show me everything</label>
-                                        <label for="create-with-guided-asst-false"><input type="radio" name="create-with-guided-asst" id="create-with-guided-asst-false">Yes, please use guided assistance</label>
+                                        <label for="create-with-guided-asst-true" class="clearfix"><input type="radio" name="create-with-guided-asst" id="create-with-guided-asst-true">No, show me everything</label>
+                                        <label for="create-with-guided-asst-false" class="clearfix"><input type="radio" name="create-with-guided-asst" id="create-with-guided-asst-false">Yes, please use guided assistance</label>
                                     </fieldset>
                                 </div>
                             </div>
