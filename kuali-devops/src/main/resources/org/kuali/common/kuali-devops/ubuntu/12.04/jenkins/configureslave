@@ -101,9 +101,9 @@ function copy_repo_from_amazon {
 
 function enable_root_ssh {
   echo "enable    -> root ssh"
-  COMMAND="sed -i -e \"s/disable_root: 0/disable_root: 1/g\" /etc/cloud/cloud.cfg"
-  sed -w -x -z -e "s/disable_root: 0/disable_root: 1/g" /etc/cloud/cloud.cfg
-  check_status
+  # replace the one with a zero in the line of 
+  # the cloud config that controls root access
+  sed -i -e "s/disable_root: 0/disable_root: 1/g" /etc/cloud/cloud.cfg
 }
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
