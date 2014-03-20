@@ -25,6 +25,7 @@ headless.start
 
 puts "3"
 @browser = Watir::Browser.new
+puts "4"
 
 #@browser.goto("http://beta.ci.kuali.org")
 puts "Attempting to go to #{ci_url}"
