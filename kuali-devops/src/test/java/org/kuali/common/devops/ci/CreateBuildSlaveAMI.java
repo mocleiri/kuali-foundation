@@ -151,6 +151,9 @@ public class CreateBuildSlaveAMI {
 			logger.info(format("updating %s with new AMI", jenkinsMaster));
 			String kisPassword = Auth.decrypt(kisPasswordEncrypted);
 			String rubyScript = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/update_jenkins_1.532.2_ami_headless.rb");
+			instance = service.startInstance(instance.getInstanceId());
+			SpinUpJenkinsMaster.verifySSH(ROOT, instance.getPublicDnsName(), privateKey);
+			channel = SpinUpJenkinsMaster.openSecureChannel(ROOT, instance.getPublicDnsName(), privateKey, quiet);
 			SpinUpJenkinsMaster.exec(channel, "ruby", rubyScript, "jcaddel", kisPassword, image.getImageId(), jenkinsMaster);
 			channel.close();
 			logger.info(format("terminating instance [%s]", instance.getInstanceId()));
