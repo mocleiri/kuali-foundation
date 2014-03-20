@@ -152,6 +152,7 @@ public class CreateBuildSlaveAMI {
 			String kisPassword = Auth.decrypt(kisPasswordEncrypted);
 			String rubyScript = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/update_jenkins_1.532.2_ami_headless.rb");
 			SpinUpJenkinsMaster.exec(channel, "ruby", rubyScript, "jcaddel", kisPassword, image.getImageId(), jenkinsMaster);
+			channel.close();
 			logger.info(format("terminating instance [%s]", instance.getInstanceId()));
 			service.terminateInstance(instance.getInstanceId());
 			logger.info(format("build slave ami process :: complete - [%s]", getTime(sw)));
