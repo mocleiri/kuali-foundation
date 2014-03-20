@@ -89,6 +89,7 @@ public class CreateBuildSlaveAMI {
 	private static final String amazonAccount = Constants.AMAZON_ACCOUNT;
 	public static final KeyPair KUALI_KEY = Auth.getKeyPair(amazonAccount);
 	private final int minimumAmisToKeep = 7;
+	private final String kisPassword = "lZ7Yxs1+9a9a5di5q1JuiVNnZiNjZN0F";
 
 	private static final Map<String, JenkinsContext> CONTEXTS = getJenkinsContexts();
 
