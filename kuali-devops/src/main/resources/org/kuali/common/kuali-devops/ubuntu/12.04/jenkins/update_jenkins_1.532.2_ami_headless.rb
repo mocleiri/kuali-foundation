@@ -13,9 +13,9 @@ password = ARGV[1]
 ami_value = ARGV[2]
 ci_url = ARGV[3]
 
-puts "username: #{username}"
-puts "     ami: #{ami_value}"
-puts "     url: #{ci_url}"
+puts "\n"
+puts "[username: #{username}  ami: #{ami_value}  url: #{ci_url}]"
+puts "\n"
 
 headless = Headless.new #:destroy_at_exit => false
 headless.start
