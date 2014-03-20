@@ -16,10 +16,11 @@ rm -rf /var/lib/gems/1.9.1 /root/.gem
 
 echo "install   -> ruby gems"
 
-SELENIUM_WEBDRIVER_VERSION=2.35.1
-WATIR_WEBDRIVER_VERSION=0.6.4
+# Previous versions from ci.rice
+#SELENIUM_WEBDRIVER_VERSION=2.35.1
+#WATIR_WEBDRIVER_VERSION=0.6.4
 
-# Newer versions exist for these 2
+# Latest versions
 SELENIUM_WEBDRIVER_VERSION=2.40.0
 WATIR_WEBDRIVER_VERSION=0.6.8
 
