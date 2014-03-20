@@ -21,8 +21,8 @@ echo "purge     -> ruby gems"
 rm -rf /var/lib/gems/1.9.1 /root/.gem
 
 # Previous versions from ci.rice
-#SELENIUM_WEBDRIVER_VERSION=2.35.1
-#WATIR_WEBDRIVER_VERSION=0.6.4
+# SELENIUM_WEBDRIVER_VERSION=2.35.1
+# WATIR_WEBDRIVER_VERSION=0.6.4
 
 # Latest versions
 SELENIUM_WEBDRIVER_VERSION=2.40.0
