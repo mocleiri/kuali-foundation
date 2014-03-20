@@ -27,6 +27,8 @@ import com.google.common.base.Optional;
  */
 public interface EC2Service {
 
+	Instance startInstance(String instanceId);
+
 	void stopInstance(String instanceId);
 
 	List<Image> getImages();

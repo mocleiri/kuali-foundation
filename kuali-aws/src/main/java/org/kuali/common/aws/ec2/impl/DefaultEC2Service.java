@@ -7,6 +7,7 @@ import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
 import static java.util.Collections.singletonList;
+import static org.kuali.common.aws.ec2.model.InstanceStateName.RUNNING;
 import static org.kuali.common.aws.ec2.model.InstanceStateName.STOPPED;
 import static org.kuali.common.aws.ec2.model.InstanceStateName.TERMINATED;
 import static org.kuali.common.util.FormatUtils.getTime;
@@ -91,6 +92,7 @@ import com.amazonaws.services.ec2.model.RunInstancesRequest;
 import com.amazonaws.services.ec2.model.RunInstancesResult;
 import com.amazonaws.services.ec2.model.SecurityGroup;
 import com.amazonaws.services.ec2.model.Snapshot;
+import com.amazonaws.services.ec2.model.StartInstancesRequest;
 import com.amazonaws.services.ec2.model.StopInstancesRequest;
 import com.amazonaws.services.ec2.model.Tag;
 import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
@@ -508,6 +510,22 @@ public final class DefaultEC2Service implements EC2Service {
 	public void preventTermination(String instanceId) {
 		Assert.noBlanks(instanceId);
 		preventTermination(instanceId, true);
+	}
+
+	@Override
+	public Instance startInstance(String instanceId) {
+		checkNotBlank(instanceId, "instanceId");
+		StartInstancesRequest request = new StartInstancesRequest();
+		request.setInstanceIds(singletonList(instanceId));
+		client.startInstances(request);
+		WaitContext waitContext = getWaitContext(context.getTerminationTimeoutMillis());
+		Object[] args = { FormatUtils.getTime(waitContext.getTimeoutMillis()), instanceId, RUNNING.getValue() };
+		logger.info("Waiting up to {} for [{}] to start", args);
+		Condition online = new IsOnlineCondition(this, instanceId);
+		WaitResult result = service.wait(waitContext, online);
+		Object[] resultArgs = { instanceId, getTime(result.getElapsed()) };
+		logger.info("[{}] has been started - {}", resultArgs);
+		return getInstance(instanceId);
 	}
 
 	@Override
