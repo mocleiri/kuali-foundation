@@ -99,13 +99,8 @@ function copy_repo_from_amazon {
   
 }
 
-function update_authorized_keys {
-  echo "update    -> authorized_keys"
-  cat /home/ubuntu/.ssh/authorized_keys >> /root/.ssh/authorized_keys  
-  cat /home/ubuntu/.ssh/authorized_keys >> /root/.ssh/authorized_keys  
-  cat /home/ubuntu/.ssh/authorized_keys >> /root/.ssh/authorized_keys  
-  cat /home/ubuntu/.ssh/authorized_keys >> /root/.ssh/authorized_keys  
-  cat /home/ubuntu/.ssh/authorized_keys >> /root/.ssh/authorized_keys  
+function enable_root_ssh {
+  echo "enable    -> root ssh"
 }
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
@@ -141,4 +136,4 @@ check_args
 slave_shutdown_scripting
 install_mysql_server
 copy_repo_from_master
-update_authorized_keys
+enable_root_ssh
