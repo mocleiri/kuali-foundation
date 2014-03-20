@@ -1,6 +1,7 @@
 package org.kuali.common.aws.ec2.impl;
 
 import static com.google.common.base.Optional.absent;
+import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
@@ -140,9 +141,9 @@ public final class DefaultEC2Service implements EC2Service {
 		List<String> snapshotIds = newArrayList();
 		List<BlockDeviceMapping> mappings = image.getBlockDeviceMappings();
 		for (BlockDeviceMapping mapping : mappings) {
-			Optional<EbsBlockDevice> ebsBlockDevice = Optional.fromNullable(mapping.getEbs());
+			Optional<EbsBlockDevice> ebsBlockDevice = fromNullable(mapping.getEbs());
 			if (ebsBlockDevice.isPresent()) {
-				snapshotIds.add(mapping.getEbs().getSnapshotId());
+				snapshotIds.add(ebsBlockDevice.get().getSnapshotId());
 			}
 		}
 		DeregisterImageRequest request = new DeregisterImageRequest();
