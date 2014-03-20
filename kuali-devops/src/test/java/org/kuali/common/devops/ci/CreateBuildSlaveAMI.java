@@ -134,7 +134,7 @@ public class CreateBuildSlaveAMI {
 			String common = SpinUpJenkinsMaster.getBashScript(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
 			String slave = SpinUpJenkinsMaster.getBashScript(basedir, pid, distro, distroVersion, "jenkins/configureslave");
 			SpinUpJenkinsMaster.exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
-			SpinUpJenkinsMaster.exec(channel, slave, quietFlag, "-m", jenkinsMaster);
+			SpinUpJenkinsMaster.exec(channel, slave, quietFlag, jenkinsMaster);
 			service.stopInstance(instance.getInstanceId());
 
 			String description = format("automated ec2 slave ami - %s", today);
