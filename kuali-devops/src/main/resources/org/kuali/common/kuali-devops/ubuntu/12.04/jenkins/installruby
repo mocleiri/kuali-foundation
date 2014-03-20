@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
