@@ -75,7 +75,6 @@ import com.google.common.base.Splitter;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
 
 public class SpinUpJenkinsMaster {
 
@@ -214,7 +213,7 @@ public class SpinUpJenkinsMaster {
 	}
 
 	protected static String getBashScript(String basedir, ProjectIdentifier project, Distro distro, String version, String script) {
-		List<String> tokens = Lists.newArrayList();
+		List<String> tokens = newArrayList();
 		tokens.add(basedir);
 		tokens.addAll(Splitter.on('.').splitToList(project.getGroupId()));
 		tokens.add(project.getArtifactId());
