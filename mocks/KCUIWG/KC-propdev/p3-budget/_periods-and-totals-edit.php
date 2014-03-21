@@ -109,18 +109,25 @@ $page = 'periods-and-totals';
                                                             <td>$0</td>
                                                             <td><a class="icon icon-pencil btn-edit"><span class="sr-only">Edit</span></a></td>
                                                         </tr>
-                                                        <tr>
-                                                            <td>02/01/2017</td>
-                                                            <td>01/31/2018</td>
-                                                            <td>12.0</td>
-                                                            <td>$148,000</td>
-                                                            <td>$100,000</td>
-                                                            <td>$48,000</td>
-                                                            <td>$0</td>
-                                                            <td>$0</td>
-                                                            <td>$0</td>
-                                                            <td>$0</td>
-                                                            <td><a class="icon icon-pencil btn-edit" href="_periods-and-totals-edit.php"><span class="sr-only">Edit</span></a></td>
+                                                        <tr class="uif-new-row">
+                                                            <td><label for="line_4_start"><span class="sr-only">Period start</span><input type="text" size="5" name="line_4_start" id="line_4_start" value="02/01/2017"></label></td>
+                                                            <td><label for="line_4_end"><span class="sr-only">Period end</span><input type="text" size="5" name="line_4_end" id="line_4_end" value="01/31/2019=8"></label></td>
+                                                            <td></td>
+                                                            <td><label for="line_4_total"><span class="sr-only">Period total</span><input type="text" size="5" name="line_4_total" id="line_4_total" value="148000"></label></td>
+                                                            <td><label for="line_4_direct"><span class="sr-only">Period direct</span><input type="text" size="5" name="line_4_direct" id="line_4_direct" value="100000"></label></td>
+                                                            <td><label for="line_4_fa"><span class="sr-only">Period F&amp;A</span><input type="text" size="5" name="line_4_fa" id="line_4_fa" value="48000"></label></td>
+                                                            <td><label for="line_4_unrecovered"><span class="sr-only">Period unrecovered F&amp;A</span><input type="text" size="5" name="line_4_unrecovered" id="line_4_unrecovered" value="0"></label></td>
+                                                            <td><label for="line_4_cost-sharing"><span class="sr-only">Period Cost sharing</span><input type="text" size="5" name="line_4_cost-sharing" id="line_4_cost-sharing" value="0"></label></td>
+                                                            <td><label for="line_4_cost-limit"><span class="sr-only">Period Cost limit</span><input type="text" size="5" name="line_4_cost-limit" id="line_4_cost-limit" value="0"></label></td>
+                                                            <td><label for="line_4_direct-limit"><span class="sr-only">Period Direct limit</span><input type="text" size="5" name="line_4_direct-limit" id="line_4_direct-limit" value="0"></label></td>
+                                                            <td><a class="icon icon-save" href="_periods-and-totals.php"><span class="sr-only">Save</span></a></td>
+                                                        </tr>
+                                                        <tr class="uif-new-row uif-edit-row-addl">
+                                                            <td colspan="3"><a class="delete icon icon-trash" href="#">Delete period</a></td>
+                                                            <td colspan="8">
+                                                                <a class="pull-right" href="_periods-and-totals.php">Cancel edit</a>
+                                                                <a class="btn btn-default btn-sm pull-right" href="#">Copy from previous row</a>
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td>02/01/2018</td>
