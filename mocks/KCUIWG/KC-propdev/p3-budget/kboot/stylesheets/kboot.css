@@ -11771,3 +11771,28 @@ span.ui-spinner input {
   margin-left: 8px;
   font-size: 16px;
 }
+.modal-body fieldset legend {
+  font-size: 110%;
+  font-weight: 700;
+  border-bottom: none;
+}
+.modal-body fieldset label {
+  margin: 4px 0 4px 0;
+  font-weight: normal;
+}
+/*
+ Intended to be cleaned up. Stored here during development.
+ Chris Rodriguez
+ */
+.final-version {
+  background: #d9edf7;
+}
+.final-version-selected {
+  color: #b06d0f;
+}
+dl dt {
+  display: inline;
+}
+dl dd {
+  display: inline;
+}
