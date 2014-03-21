@@ -50,10 +50,11 @@ $page = 'periods-and-totals';
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
                                                     <a data-toggle="collapse" data-parent="#accordion-periods-totals" href="#collapse-one">Budget Periods &amp; Totals</a>
+                                                    <a class="guide-me pull-right icon-leaf" href="#">Guide me</a>
                                                 </h4>
                                             </div>
                                             <div class="panel-collapse collapse in" id="collapse-one">
-                                                <table class="table table-condensed">
+                                                <table class="table">
                                                     <thead>
                                                         <tr>
                                                             <th>Start</th>
@@ -66,7 +67,7 @@ $page = 'periods-and-totals';
                                                             <th>Cost sharing</th>
                                                             <th>Cost limits</th>
                                                             <th>Direct limits</th>
-                                                            <th>Actions</th>
+                                                            <th><span class="sr-only">Actions</span></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -110,16 +111,16 @@ $page = 'periods-and-totals';
                                                             <td><a class="icon icon-pencil btn-edit"><span class="sr-only">Edit</span></a></td>
                                                         </tr>
                                                         <tr class="uif-new-row">
-                                                            <td><label for="line_4_start"><span class="sr-only">Period start</span><input type="text" size="5" name="line_4_start" id="line_4_start" value="02/01/2017"></label></td>
-                                                            <td><label for="line_4_end"><span class="sr-only">Period end</span><input type="text" size="5" name="line_4_end" id="line_4_end" value="01/31/2019=8"></label></td>
+                                                            <td><label for="line_4_start"><span class="sr-only">Period start</span><input type="text" size="3" name="line_4_start" id="line_4_start" value="02/01/2017"></label></td>
+                                                            <td><label for="line_4_end"><span class="sr-only">Period end</span><input type="text" size="3" name="line_4_end" id="line_4_end" value="01/31/2019=8"></label></td>
                                                             <td></td>
-                                                            <td><label for="line_4_total"><span class="sr-only">Period total</span><input type="text" size="5" name="line_4_total" id="line_4_total" value="148000"></label></td>
-                                                            <td><label for="line_4_direct"><span class="sr-only">Period direct</span><input type="text" size="5" name="line_4_direct" id="line_4_direct" value="100000"></label></td>
-                                                            <td><label for="line_4_fa"><span class="sr-only">Period F&amp;A</span><input type="text" size="5" name="line_4_fa" id="line_4_fa" value="48000"></label></td>
-                                                            <td><label for="line_4_unrecovered"><span class="sr-only">Period unrecovered F&amp;A</span><input type="text" size="5" name="line_4_unrecovered" id="line_4_unrecovered" value="0"></label></td>
-                                                            <td><label for="line_4_cost-sharing"><span class="sr-only">Period Cost sharing</span><input type="text" size="5" name="line_4_cost-sharing" id="line_4_cost-sharing" value="0"></label></td>
-                                                            <td><label for="line_4_cost-limit"><span class="sr-only">Period Cost limit</span><input type="text" size="5" name="line_4_cost-limit" id="line_4_cost-limit" value="0"></label></td>
-                                                            <td><label for="line_4_direct-limit"><span class="sr-only">Period Direct limit</span><input type="text" size="5" name="line_4_direct-limit" id="line_4_direct-limit" value="0"></label></td>
+                                                            <td><label for="line_4_total"><span class="sr-only">Period total</span><input type="text" size="3" name="line_4_total" id="line_4_total" value="148000"></label></td>
+                                                            <td><label for="line_4_direct"><span class="sr-only">Period direct</span><input type="text" size="3" name="line_4_direct" id="line_4_direct" value="100000"></label></td>
+                                                            <td><label for="line_4_fa"><span class="sr-only">Period F&amp;A</span><input type="text" size="3" name="line_4_fa" id="line_4_fa" value="48000"></label></td>
+                                                            <td><label for="line_4_unrecovered"><span class="sr-only">Period unrecovered F&amp;A</span><input type="text" size="3" name="line_4_unrecovered" id="line_4_unrecovered" value="0"></label></td>
+                                                            <td><label for="line_4_cost-sharing"><span class="sr-only">Period Cost sharing</span><input type="text" size="3" name="line_4_cost-sharing" id="line_4_cost-sharing" value="0"></label></td>
+                                                            <td><label for="line_4_cost-limit"><span class="sr-only">Period Cost limit</span><input type="text" size="3" name="line_4_cost-limit" id="line_4_cost-limit" value="0"></label></td>
+                                                            <td><label for="line_4_direct-limit"><span class="sr-only">Period Direct limit</span><input type="text" size="3" name="line_4_direct-limit" id="line_4_direct-limit" value="0"></label></td>
                                                             <td><a class="icon icon-save" href="_periods-and-totals.php"><span class="sr-only">Save</span></a></td>
                                                         </tr>
                                                         <tr class="uif-new-row uif-edit-row-addl">
@@ -143,17 +144,17 @@ $page = 'periods-and-totals';
                                                             <td><a class="icon icon-pencil btn-edit"><span class="sr-only">Edit</span></a></td>
                                                         </tr>
                                                         <tr>
-                                                            <td><label for="line_5_start"><span class="sr-only">Period start</span><input type="text" size="5" name="line_5_start" id="line_5_start"></label></td>
-                                                            <td><label for="line_5_end"><span class="sr-only">Period end</span><input type="text" size="5" name="line_5_end" id="line_5_end"></label></td>
+                                                            <td><label for="line_5_start"><span class="sr-only">Period start</span><input type="text" size="3" name="line_5_start" id="line_5_start"></label></td>
+                                                            <td><label for="line_5_end"><span class="sr-only">Period end</span><input type="text" size="3" name="line_5_end" id="line_5_end"></label></td>
                                                             <td></td>
-                                                            <td><label for="line_5_total"><span class="sr-only">Period total</span><input type="text" size="5" name="line_5_total" id="line_5_total"></label></td>
-                                                            <td><label for="line_5_direct"><span class="sr-only">Period direct</span><input type="text" size="5" name="line_5_direct" id="line_5_direct"></label></td>
-                                                            <td><label for="line_5_fa"><span class="sr-only">Period F&amp;A</span><input type="text" size="5" name="line_5_fa" id="line_5_fa"></label></td>
-                                                            <td><label for="line_5_unrecovered"><span class="sr-only">Period unrecovered F&amp;A</span><input type="text" size="5" name="line_5_unrecovered" id="line_5_unrecovered"></label></td>
-                                                            <td><label for="line_5_cost-sharing"><span class="sr-only">Period Cost sharing</span><input type="text" size="5" name="line_5_cost-sharing" id="line_5_cost-sharing"></label></td>
-                                                            <td><label for="line_5_cost-limit"><span class="sr-only">Period Cost limit</span><input type="text" size="5" name="line_5_cost-limit" id="line_5_cost-limit"></label></td>
-                                                            <td><label for="line_5_direct-limit"><span class="sr-only">Period Direct limit</span><input type="text" size="5" name="line_5_direct-limit" id="line_5_direct-limit"></label></td>
-                                                            <td><a class="icon icon-pencil btn-edit"><span class="sr-only">Edit</span></a></td>
+                                                            <td><label for="line_5_total"><span class="sr-only">Period total</span><input type="text" size="3" name="line_5_total" id="line_5_total"></label></td>
+                                                            <td><label for="line_5_direct"><span class="sr-only">Period direct</span><input type="text" size="3" name="line_5_direct" id="line_5_direct"></label></td>
+                                                            <td><label for="line_5_fa"><span class="sr-only">Period F&amp;A</span><input type="text" size="3" name="line_5_fa" id="line_5_fa"></label></td>
+                                                            <td><label for="line_5_unrecovered"><span class="sr-only">Period unrecovered F&amp;A</span><input type="text" size="3" name="line_5_unrecovered" id="line_5_unrecovered"></label></td>
+                                                            <td><label for="line_5_cost-sharing"><span class="sr-only">Period Cost sharing</span><input type="text" size="3" name="line_5_cost-sharing" id="line_5_cost-sharing"></label></td>
+                                                            <td><label for="line_5_cost-limit"><span class="sr-only">Period Cost limit</span><input type="text" size="3" name="line_5_cost-limit" id="line_5_cost-limit"></label></td>
+                                                            <td><label for="line_5_direct-limit"><span class="sr-only">Period Direct limit</span><input type="text" size="3" name="line_5_direct-limit" id="line_5_direct-limit"></label></td>
+                                                            <td><a class="icon icon-save"><span class="sr-only">Save</span></a></td>
                                                         </tr>
                                                     </tbody>
                                                     <tfoot>

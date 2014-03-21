@@ -11,7 +11,13 @@
     color: darken(@brand-warning, 25%);
 }
 
+label {
+    cursor: pointer;
+}
+
 dl {
+    margin: 0;
+
     dt {
         display: inline;
     }
@@ -19,4 +25,16 @@ dl {
     dd {
         display: inline;
     }
+}
+
+.btn-edit {
+    color: @brand-warning;
+}
+
+table tfoot {
+    background: @gray-lighter;
+}
+
+.collapse.in {
+    margin-bottom: -20px;
 }

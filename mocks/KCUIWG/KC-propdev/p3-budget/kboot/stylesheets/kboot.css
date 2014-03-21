@@ -11791,9 +11791,24 @@ span.ui-spinner input {
 .final-version-selected {
   color: #b06d0f;
 }
+label {
+  cursor: pointer;
+}
+dl {
+  margin: 0;
+}
 dl dt {
   display: inline;
 }
 dl dd {
   display: inline;
+}
+.btn-edit {
+  color: #f0ad4e;
+}
+table tfoot {
+  background: #eeeeee;
+}
+.collapse.in {
+  margin-bottom: -20px;
 }
