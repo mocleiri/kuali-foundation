@@ -10,14 +10,11 @@
             </span>
         </h1>
         <div id="LabsProposal-DocInfo" class="uif-verticalBoxGroup uif-header-rightGroup uif-documentInfo" data-parent="LabsProposal">
-            <dl>
-                <dt class="uif-label uif-labelBlock">Doc #:</dt>
-                <dd class="uif-message">2743</dd>
-                <dt class="uif-label uif-labelBlock">Initiator:</dt>
-                <dd class="uif-message">thrclark</dd>
-                <dt class="uif-label uif-labelBlock">Status:</dt>
-                <dd class="uif-message">In progress</dd>
-            </dl>
+            <ul>
+                <li><strong>Doc #:</strong> 2743</li>
+                <li><strong>Initiator:</strong> thrclark</li>
+                <li><strong>Status:</strong> In progress</li>
+            </ul>
             <div id="LabsProposal-MoreDocInfo" class="dropdown uif-boxLayoutVerticalItem clearfix" >
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">More details</a>
                 <section class="dropdown-menu uif-gridGroup" >

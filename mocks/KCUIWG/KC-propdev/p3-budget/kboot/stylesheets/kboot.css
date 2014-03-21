@@ -11784,7 +11784,8 @@ span.ui-spinner input {
  Intended to be cleaned up. Stored here during development.
  Chris Rodriguez
  */
-.final-version {
+.final-version,
+.uif-new-row {
   background: #d9edf7;
 }
 .final-version-selected {
