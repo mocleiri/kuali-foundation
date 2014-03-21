@@ -63,7 +63,7 @@ $page = 'budget-versions';
                                                 <td><label for="make_final_1"><input type="radio" name="name_final" id="make_final_1" value="version_1" checked="checked"></label></td>
                                                 <td>
                                                     <span class="icon icon-lock"><span class="sr-only">Version locked</span></span> 
-                                                    <a href="#">Test budget version</a><br />
+                                                    <a href="_periods-and-totals.php">Test budget version</a><br />
                                                     <span class="final-version-selected">Will be submitted with proposal</span><br />
                                                     <dl>
                                                         <dt>From:</dt>
