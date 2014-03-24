@@ -1,0 +1,117 @@
+.portal-header {
+    width: 100%;
+    background-color: @header_background;
+    z-index: 9999;
+
+    .navbar {
+        background-color: @header_background;
+        margin-bottom: 0px;
+        border: none;
+
+        div.logoBrand {
+            width: 200px;
+            height: 69px;
+            background-image: url(../img/logo.png);
+            position: absolute;
+            top: 0px;
+            margin-left: -16px;
+        }
+
+        .navbar-toggle {
+        	color: white;
+        	font-size: 120%;
+        }
+
+        .nav {
+
+          li.active {
+
+              a {
+                  background: darken(@header_background,3%);
+              }
+          }
+
+          .dropdown-menu {
+
+              li {
+
+                  ul {
+                      list-style: none;
+                      margin: 0px;
+                      padding: 0px;
+
+                      li {
+
+                          a {
+                              display: block;
+                              padding: 3px 20px;
+                              clear: both;
+                              font-weight: normal;
+                              color: @link_blue;
+                              white-space: nowrap;
+                          }
+                      }
+                  }
+              }
+          }
+
+          .dropdown-toggle {
+              //text-transform: uppercase;
+          }
+
+          li {
+            position: relative;
+            z-index: 10;
+
+                a {
+                    text-transform:;
+                }
+            }
+        }
+
+        a {
+            color:#fff;
+        }
+
+        a:hover, a:focus; {
+            color:#fff;
+            background: darken(@header_background,3%);
+        }
+    }
+}
+
+.portal-header {
+
+    .navbar {
+
+        .nav {
+
+            .dropdown-menu {
+
+                li {
+
+                    ul {
+
+                        li {
+
+                            a:hover, a:focus, a:active {
+                                text-decoration: none;
+                                color: #fff;
+                                background-color: @header_background;
+                            }
+                        }
+                    }
+                }
+            }            
+        }
+    }
+}
+
+.nav {
+
+    .open > a:hover, .open > a:focus, .open > a:active, .open > a {
+		text-decoration: none !important;
+		color: #fff !important;
+		background-color: darken(@header_background,3%) !important;
+	}
+}

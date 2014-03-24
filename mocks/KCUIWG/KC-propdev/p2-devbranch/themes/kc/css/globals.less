@@ -1,0 +1,111 @@
+a, a:link {
+	color: @link_blue;
+}
+
+a:hover, a:focus {
+	color: @link_blue_hover;
+	text-decoration: underline;
+}
+
+body {
+	background-color: @body_background;
+	font-size: 13px;
+}
+
+input, select, textarea, button {
+	//font-size: 13px;
+}
+
+.off-screen {
+	position: absolute;
+	left: -9999em;
+}
+
+.skip-links {
+
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+
+		li {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+
+			a {
+				position: absolute;
+				display: block;
+				width: 100%;
+				text-align: center;
+				padding-top: 1em;
+				padding-bottom: 1em;
+				left: 0;
+				top: -9999px;
+				background: black !important;
+				color: white !important;
+				-moz-transition: all 200ms ease-out;
+				-webkit-transition: all 200ms ease-out;
+				-o-transition: all 200ms ease-out;
+				transition: all 200ms ease-out;
+			}
+
+			a:focus {
+				position: relative;
+				left: 0;
+				top: 0;
+				z-index: 101;
+			}
+		}
+	}
+}
+
+
+.container-fluid {
+  padding-left: @grid-gutter-width;
+  padding-right: @grid-gutter-width;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+.modal-body, .uif-pageContentWrapper {
+   
+    animation: fadein 1s;
+    -moz-animation: fadein 1s; /* Firefox */
+    -webkit-animation: fadein 1s; /* Safari and Chrome */
+    -o-animation: fadein 1s; /* Opera */
+}
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity: 1;
+    }
+}

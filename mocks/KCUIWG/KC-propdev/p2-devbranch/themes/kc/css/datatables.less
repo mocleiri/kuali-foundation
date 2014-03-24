@@ -1,0 +1,37 @@
+th.sorting, th.sorting_asc, th.sorting_desc {
+  position: relative;
+  vertical-align: top !important;
+}
+th.sorting_asc, th.sorting_desc {
+  background: #EDEDED !important
+}
+th.sorting {
+  background: #ddd !important;
+}
+th:before {
+  position: absolute;
+  font-family: 'fontawsome';
+  top: 6px;
+  right: 10px;
+  color: #999;
+}
+th.sorting:before {
+  content: "";
+}
+th.sorting_asc:before {
+  content: "\f106";
+}
+th.sorting_desc:before {
+  content: "\f107";
+}
+th a {
+  padding-right: 16px;
+  color: #333 !important;
+  text-decoration: none !important;
+  font-weight: normal !important
+}
+th a:hover {
+  padding-right: 16px;
+  color: #333;
+  text-decoration: none
+}

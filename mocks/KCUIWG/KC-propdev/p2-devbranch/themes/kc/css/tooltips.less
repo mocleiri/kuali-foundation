@@ -1,0 +1,37 @@
+.ui-tooltip, .arrow:after {
+	background: #222;
+	border: 0;
+}
+
+.ui-tooltip {
+	padding: 10px;
+	color: white;
+	border-radius: 2px;
+	font-family: inherit;
+	font-size: 13px;
+	box-shadow: 0;
+
+	.arrow {
+		width: 12px;
+		height: 12px;
+		overflow: hidden;
+		left: 50%;
+		margin-left: -6px;
+		bottom: -12px;
+	}
+
+	.arrow:after {
+		content: "";
+		position: absolute;
+		left: 50%;
+		margin-left: -8px;
+		bottom: -4px;
+		width: 16px;
+		height: 16px;
+		-webkit-transform: rotate(45deg);
+		-moz-transform: rotate(45deg);
+		-ms-transform: rotate(45deg);
+		-o-transform: rotate(45deg);
+		tranform: rotate(45deg);
+	}
+}

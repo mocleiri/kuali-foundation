@@ -1,0 +1,150 @@
+/*
+ * Stylesheets for credit allocation page and the data tables therein.
+ * Chris Rodriguez, clrux
+*/
+
+.credit-allocation {
+    clear: both;
+    float: none;
+    position: relative;
+    //min-height: 640px;
+
+    .ca-error {
+        color: red;
+    }
+
+    .credit-allocation-wrapper {
+
+        .credit-allocation-data-table {
+            // width: 65%;
+            width: 100%;
+            // float: left;
+            padding: 20px;
+            // border-right`: 1px solid #ccc;
+
+            .credit-allocation-footer-row {
+                border-top: 1px dotted #ccc;
+            }
+
+            .credit-allocation-header-row, .credit-allocation-data-row, .credit-allocation-footer-row {
+
+                .credit-person {
+                    width: 30%;
+                    padding: 0 2%;
+                    float: left;
+
+                    h3 {
+                        font-size: 13px;
+                    }
+                }
+
+                .credit-recognition, .credit-responsibility, .credit-space, .credit-financial {
+                    width: 17.5%;
+                    padding: 1%;
+                    float: left;
+                    text-align: center;
+
+                    .credit-allocation-cell {
+
+                        .credit-allocation-text {
+                            width: 38px;
+                            text-align: center;
+                        }
+
+                        .credit-allocation-text.ca-trans {
+                            background: transparent !important;
+                            border: 1px solid transparent !important;
+                            box-shadow: none !important;
+                        }
+
+                        .credit-allocation-slider-control {
+
+                        }
+
+                        span {
+                            display: block;
+                            margin-top: 13px;
+                            padding-left: 7px;
+                        }
+                    }
+                }
+            }
+
+            .credit-allocation-data-row {
+                height: 60px;
+                clear: both;
+                border-top: 1px dotted #ccc;
+            }
+
+            .credit-allocation-header-row, .credit-allocation-footer-row {
+                font-weight: 700;
+                text-transform: uppercase;
+                font-size: 11px;
+                color: #666;
+            }
+
+            .credit-allocation-footer-row {
+
+                .credit-person, .credit-recognition, .credit-responsibility, .credit-space, .credit-financial {
+                    padding: 16px 2%;
+                }
+            }
+
+            .credit-allocation-collapsible-row, .credit-allocation-collapsible-row.closed {
+                background: #f6f6f6;
+
+                .credit-subcat {
+                    width: 30%;
+                    padding: 16px 2%;
+                    float: left;
+                    font-size: 11px;
+                    color: #666;
+                }
+            }
+
+            .credit-allocation-collapsible-row.closed {
+                height: 60px;
+                overflow: hidden;
+            }
+
+            .credit-allocation-collapsible-row.opened {
+                background: white;
+                position: relative;
+            }
+
+            // .credit-allocation-collapsible-row.opened:after {
+            //     position: absolute;
+            //     width: 24px;
+            //     height: 24px;
+            //     top: 50%;
+            //     margin-top: -12px;
+            //     right: -33px;
+            //     background: white;
+            //     border-top: 1px solid #ccc;
+            //     border-right: 1px solid #ccc;
+            //     -webkit-transform: rotate(45deg);
+            //     -moz-transform: rotate(45deg);
+            //     -ms-transform: rotate(45deg);
+            //     -o-transform: rotate(45deg);
+            //     transform: rotate(45deg);
+            //     z-index: 10;
+            // }
+        }
+
+        .credit-allocation-pie-charts {
+            // width: 35%;
+            // float: left;
+            width: 100%;
+            min-height: 190px;
+
+            .credit-allocation-pie-chart-wrapper {
+                // border-left: 1px solid #ccc;
+
+                .ca-chart-large {
+                    float: left;
+                    width: 22.5%;
+                }
+            }
+        }
+    }
+}

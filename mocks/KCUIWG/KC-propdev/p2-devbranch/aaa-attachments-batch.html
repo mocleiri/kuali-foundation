@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="ie9 ie8 ie7" lang="en"><![endif]-->
+<!--[if IE 8]><html class="ie9 ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en-us">
+<!--<![endif]-->
+<head>
+<title>Kuali Coeus Prototype 2b</title>
+
+<!-- Meta cluster -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<!--  Styles -->
+<link href="themes/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<link href="themes/kc/js/fancybox/jquery.fancybox.css" rel="stylesheet" media="screen" />
+<link href="themes/kc/css/smoothness/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" media="screen" />
+<link href="themes/kc/css/jquery.multiselect.css" rel="stylesheet" media="screen" />
+<link href="themes/kc/css/jquery.multiselect.filter.css" rel="stylesheet" media="screen" />
+<link href="themes/kc/css/custom.css" rel="stylesheet" />
+<link href="themes/kc/icons/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="themes/kc/js/datatables/DT_bootstrap.css">
+<link href="themes/kc/js/hopscotch/css/hopscotch-0.1.1.css" rel="stylesheet" type="text/css" media="screen" />
+
+<!-- Scripts, ideally we'd load these in the footer and not use in-line scripting -->
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<!--[if lt IE 9]><script src="bootstrap/js/html5shiv.js"></script><![endif]-->
+
+<script type="text/javascript" charset="utf-8" language="javascript" src="themes/kc/js/datatables/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf-8" language="javascript" src="themes/kc/js/datatables/DT_bootstrap.js"></script>
+
+<!-- Google Charts -->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+
+
+
+<link href="themes/kc/js/batch-file-uploader/css/style.css" rel="stylesheet" type="text/css">
+<!-- blueimp Gallery styles -->
+<link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+<!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+<link rel="stylesheet" href="themes/kc/js/batch-file-uploader/css/jquery.fileupload.css">
+<link rel="stylesheet" href="themes/kc/js/batch-file-uploader/css/jquery.fileupload-ui.css">
+<!-- CSS adjustments for browsers with JavaScript disabled -->
+<noscript><link rel="stylesheet" href="themes/kc/js/batch-file-uploader/css/jquery.fileupload-noscript.css"></noscript>
+<noscript><link rel="stylesheet" href="themes/kc/js/batch-file-uploader/css/jquery.fileupload-ui-noscript.css"></noscript>
+
+
+
+
+</head>
+
+<body style="padding-top:0px">
+<div class="skip-links">
+  <ul>
+    <li><a href="#Uif-PageContentWrapper">Skip to main content</a></li>
+  </ul>
+</div>
+
+<!-- Continues with nav.php -->
+<header id="Uif-ApplicationHeader-Wrapper" class="portal-header" data-spy="affix" data-offset-top="0" role="banner" >
+  <div class="container">
+    <nav class="navbar" role="navigation">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-reorder"></span> </button>
+        <a class="navbar-brand" href="index.php">
+        <div class="logoBrand">
+          <h1><span class="sr-only">Kuali Rice - KRAD</span></h1>
+        </div>
+        </a> </div>
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Researcher</a>
+            <div class="dropdown-menu" style="margin-right: -200px">
+              <div class="container uif-appMenu">
+                <div class="row">
+                  <div class="col-md-3 col-sm-12">
+                    <h3>Proposals</h3>
+                    <ul>
+                      <li> <a href="prop.start.php" title="Create Proposal">Create Proposal</a> </li>
+                      <li> <a href="#" title="Proposals Enroute">Proposals Enroute</a> </li>
+                      <li> <a href="#" title="All My Proposals">All My Proposals</a> </li>
+                      <li> <a href="#" title="Create Proposal For Grants.gov Opportunity">Create Proposal For Grants.gov Opportunity</a> </li>
+                    </ul>
+                    <h4>Lists</h4>
+                    <ul>
+                      <li> <a href="#" title="Search Proposals">Search Proposals</a> </li>
+                      <li> <a href="#" title="Search Proposal Log">Search Proposal Log</a> </li>
+                      <li> <a href="#" title="Search Institutional Proposals">Search Institutional Proposals</a> </li>
+                    </ul>
+                    <h3>Awards</h3>
+                    <ul>
+                      <li>Awards in Progress</li>
+                      <li> <a href="#" title="All my Awards">All my Awards</a> </li>
+                    </ul>
+                    <h3>Negotiations</h3>
+                    <ul>
+                      <li> <a href="#" title="All My Negotiations">All My Negotiations</a> </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-3 col-sm-12">
+                    <h3>IRB Protocols</h3>
+                    <h4>Actions </h4>
+                    <ul>
+                      <li> <a href="#" title="Create IRB Protocol">Create IRB Protocol</a> </li>
+                      <li> <a href="#" title="Amend or Renew IRB Protocol">Amend or Renew IRB Protocol</a> </li>
+                      <li> <a href="#" title="Notify IRB on a Protocol">Notify IRB on a Protocol</a> </li>
+                      <li> <a href="#" title="Request a Status Change on a IRB Protocol">Request a Status Change on a IRB Protocol</a> </li>
+                    </ul>
+                    <h4>Lists</h4>
+                    <ul>
+                      <li> <a href="#" title="Pending Protocols">Pending Protocols</a> </li>
+                      <li> <a href="#" title="Protocols Pending PI Action">Protocols Pending PI Action</a> </li>
+                      <li> <a href="#" title="Protocols Pending Committee Action">Protocols Pending Committee Action</a> </li>
+                      <li> <a href="#" title="Protocols Under Development">Protocols Under Development</a> </li>
+                      <li> <a href="#" title="All My Protocols">All My Protocols</a> </li>
+                      <li> <a href="#" title="Search Protocols">Search Protocols</a> </li>
+                      <li> <a href="#" title="All My Reviews">All My Reviews</a> </li>
+                      <li> <a href="#" title="All My Schedules">All My Schedules</a> </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-3 col-sm-12">
+                    <h3>Conflict of Interest </h3>
+                    <h4>My Financial Entities </h4>
+                    <ul>
+                      <li> <a href="#" title="Create New Financial Entity">Financial Entity</a> </li>
+                      <li> <a href="#" title="View/Edit Financial Entities">View/Edit Financial Entities</a> </li>
+                      <li> <a href="#" title="All My Financial Entities">All My Financial Entities</a> </li>
+                    </ul>
+                    <h4>My Disclosures </h4>
+                    <ul>
+                      <li> <a href="#" title="Master Disclosure">Master Disclosure</a> </li>
+                      <li> <a href="#" title="Create Annual Disclosure">Create Annual Disclosure</a> </li>
+                      <li> <a href="#" title="Create Manual Disclosure">Create Manual Disclosure</a> </li>
+                      <li> <a href="#" title="New Project Disclosures">New Project Disclosures To Complete</a> </li>
+                      <li> <a href="#" title="Update Master Disclosure">Update Master Disclosure</a> </li>
+                      <li> <a href="#" title="All My Disclosures">All My Disclosures</a> </li>
+                      <li> <a href="#" title="Search Disclosures">Search Disclosures</a> </li>
+                    </ul>
+                    <h3>IACUC Protocols</h3>
+                    <h4>Actions </h4>
+                    <ul>
+                      <li> <a href="#" title="Create IACUC Protocol">Create IACUC Protocol</a> </li>
+                    </ul>
+                    <h4>Lists</h4>
+                    <ul>
+                      <li> <a href="#" title="All My Protocols">All My Protocols</a> </li>
+                      <li> <a href="#" title="Search Protocols">Search Protocols</a> </li>
+                      <li> <a href="#" title="All My Reviews">All My Reviews</a> </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-3 col-sm-12">
+                    <h3>Quicklinks</h3>
+                    <ul>
+                      <li> <a href="#" title="Pessimistic Lock">Pessimistic Lock</a> </li>
+                      <li> <a href="#" title="Grants.gov Opportunity Lookup">Grants.gov Opportunity Lookup</a> </li>
+                      <li>Change Password</li>
+                    </ul>
+                    <h3>Personnel</h3>
+                    <ul>
+                      <li>Degree Information</li>
+                      <li> <a href="#" title="Current &amp; Pending Support">Current &amp; Pending Support</a> </li>
+                      <li>Bio-sketches</li>
+                      <li>All my Training</li>
+                    </ul>
+                    <h3>Workflow</h3>
+                    <ul>
+                      <li> <a href="#" title="Workflow Services">Preferences</a> </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Unit</a>
+            <div class="dropdown-menu">
+              <div class="container uif-appMenu">
+                <div class="row">
+                  <div class="col-md-3 col-sm-12">
+                    <h3>Pre-Award</h3>
+                    <ul>
+                      <li> <a href="#">Proposal Development</a> </li>
+                      <li> <a href="#">Proposal Log</a> </li>
+                      <li> <a href="#">Institutional Proposal</a> </li>
+                      <li> <a href="#">Negotiations</a> </li>
+                      <li> <a href="#">All My Negotiations </a> </li>
+                    </ul>
+                    <h3>Post-Award</h3>
+                    <ul>
+                      <li> <a href="#"> Awards </a> </li>
+                      <li> <a href="#">Award Report Tracking</a> </li>
+                      <li> <a href="#">Subawards </a> </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-3 col-sm-12">
+                    <h3>Pre-Submission Compliance</h3>
+                    <ul>
+                      <li> <a href="#"> Conflict of Interest</a> </li>
+                      <li> <a href="#">Disclosure</a> </li>
+                      <li> <a href="#">Event Disclosures</a> </li>
+                      <li> <a href="#">Non Project Event Disclosures</a> </li>
+                      <li> <a href="#">Submitted Disclosures</a> </li>
+                      <li> <a href="#">Annual Event Disclosures</a> </li>
+                      <li> <a href="#">Undisclosed Events</a> </li>
+                      <li> <a href="#">Protocol</a> </li>
+                      <li> <a href="#">Animals</a> </li>
+                      <li> <a href="#">Human Participants</a> </li>
+                    </ul>
+                    <h3>Post-Submission Compliance</h3>
+                    <ul>
+                      <li> <a href="#"> IRB Committee</a> </li>
+                      <li> <a href="#">IACUC Committee</a> </li>
+                      <li> <a href="#">Protocol Submissions</a> </li>
+                      <li> <a href="#">IACUC Submissions</a> </li>
+                      <li> <a href="#">IRB Schedules</a> </li>
+                      <li> <a href="#">IACUC Schedules </a> </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-3 col-sm-12">
+                    <h3>Quicklinks</h3>
+                    <ul>
+                      <li> <a href="#"> Kc Pessimistic Lock</a> </li>
+                      <li> <a href="#">Current &amp; Pending Support</a> </li>
+                      <li> <a href="#">Grants.gov Opportunity Lookup</a> </li>
+                      <li> <a href="#">Address Book</a> </li>
+                      <li> <a href="#">Sponsor Lookup</a> </li>
+                      <li> <a href="#">Change Password</a> </li>
+                      <li> <a href="#">Keyword Lookup</a> </li>
+                      <li> <a href="#">Perform Person Mass Change</a> </li>
+                      <li> <a href="#">ISR/SSR Reporting</a> </li>
+                      <li> <a href="#">Award subcontracting goals and expenditures</a> </li>
+                      <li> <a href="#">Subcontracting expenditures data generator admin </a> </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-3 col-sm-12">
+                    <h3>Workflow</h3>
+                    <ul>
+                      <li> <a href="#">People Flow</a> </li>
+                      <li> <a href="#">Preferences</a> </li>
+                      <li> <a href="#">Routing Report</a> </li>
+                      <li> <a href="#">Rules</a> </li>
+                      <li> <a href="#">Rule QuickLinks</a> </li>
+                    </ul>
+                    <h3>Business Rules</h3>
+                    <ul>
+                      <li> <a href="#"> Agenda</a> </li>
+                      <li> <a href="#">Context</a> </li>
+                      <li> <a href="#">Attribute Definition</a> </li>
+                      <li> <a href="#">Term</a> </li>
+                      <li> <a href="#">Term Specification</a> </li>
+                      <li> <a href="#">Category </a> </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Central Admin</a>
+            <div class="dropdown-menu">
+              <div class="container uif-appMenu">
+                <div class="row">
+                  <div class="col-md-4 col-sm-12">
+                    <h3>Pre-Award</h3>
+                    <ul>
+                      <li> <a href="#">Proposal Development</a> </li>
+                      <li> <a href="#">Proposal Log</a> </li>
+                      <li> <a href="#">Institutional Proposal</a> </li>
+                      <li> <a href="#">Negotiations</a> </li>
+                      <li> <a href="#">All My Negotiations</a> </li>
+                    </ul>
+                    <h3> Post-Award</h3>
+                    <ul>
+                      <li> <a href="#">Awards</a> </li>
+                      <li> <a href="#">Award Report Tracking</a> </li>
+                      <li> <a href="#">Subawards </a> </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-4 col-sm-12">
+                    <h3> Pre-Submission Compliance</h3>
+                    <ul>
+                      <li> <a href="#">Conflict of Interest</a> </li>
+                      <li> <a href="#">Disclosure</a> </li>
+                      <li> <a href="#">Event Disclosures</a> </li>
+                      <li> <a href="#">Non Project Event Disclosures</a> </li>
+                      <li> <a href="#">All My Disclosure Reviews</a> </li>
+                      <li> <a href="#">Submitted Disclosures</a> </li>
+                      <li> <a href="#">Annual Event Disclosures</a> </li>
+                      <li> <a href="#">Undisclosed Events</a> </li>
+                      <li> <a href="#">Protocols</a> </li>
+                      <li> <a href="#">Animals</a> </li>
+                      <li> <a href="#">Biosafety</a> </li>
+                      <li> <a href="#">Chemical Safety</a> </li>
+                      <li> <a href="#">Human Participants</a> </li>
+                      <li> <a href="#">Radiation Safety </a> </li>
+                    </ul>
+                    <h3> Post-Submission Compliance</h3>
+                    <ul>
+                      <li> <a href="#">IRB Committee</a> </li>
+                      <li> <a href="#">IACUC Committee</a> </li>
+                      <li> <a href="#">Protocol Submissions</a> </li>
+                      <li> <a href="#">IACUC Submissions</a> </li>
+                      <li> <a href="#">IRB Schedules</a> </li>
+                      <li> <a href="#">IACUC Schedules </a> </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-4 col-sm-12">
+                    <h3> Quicklinks</h3>
+                    <ul>
+                      <li> <a href="#">Pessimistic Lock</a> </li>
+                      <li> <a href="#">Current &amp; Pending Support</a> </li>
+                      <li> <a href="#">Grants.gov Opportunity Lookup</a> </li>
+                      <li> <a href="#">Non-Employee Lookup</a> </li>
+                      <li> <a href="#">Sponsor Lookup</a> </li>
+                      <li> <a href="#">Change Password</a> </li>
+                      <li> <a href="#">Keyword Lookup</a> </li>
+                      <li> <a href="#">Perform Person Mass Change</a> </li>
+                    </ul>
+                    <h3> Workflow</h3>
+                    <ul>
+                      <li> <a href="#">People Flow</a> </li>
+                      <li> <a href="#">Preferences</a> </li>
+                      <li> <a href="#">Routing Report</a> </li>
+                      <li> <a href="#">Rules</a> </li>
+                      <li> <a href="#">Rule QuickLinks</a> </li>
+                    </ul>
+                    <h3> Business Rules</h3>
+                    <ul>
+                      <li> <a href="#">Agenda</a> </li>
+                      <li> <a href="#">Context</a> </li>
+                      <li> <a href="#">Attribute Definition</a> </li>
+                      <li> <a href="#">Term</a> </li>
+                      <li> <a href="#">Term Specification</a> </li>
+                      <li> <a href="#">Category </a> </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Maintenance</a>
+            <div class="dropdown-menu">
+              <div class="container uif-appMenu">
+                <div class="row">
+                  <div class="col-md-4 col-sm-12">
+                    <h3>Heading</h3>
+                    <ul>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-4 col-sm-12">
+                    <h3>Heading</h3>
+                    <ul>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-4 col-sm-12">
+                    <h3>Heading</h3>
+                    <ul>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">System Admin</a>
+            <div class="dropdown-menu">
+              <div class="container uif-appMenu">
+                <div class="row">
+                  <div class="col-md-4 col-sm-12">
+                    <h3>Heading</h3>
+                    <ul>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-4 col-sm-12">
+                    <h3>Heading</h3>
+                    <ul>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-4 col-sm-12">
+                    <h3>Heading</h3>
+                    <ul>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                      <li> <a href="#">Link</a> </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  
+  <!-- Continues with toolbar.php -->
+  <section class="toolbar">
+
+		<div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="nav pull-right">
+            <li class="dropdown pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown">User: thrclark <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#"><i class="icon icon-cog"></i><span>Preferences</span></a></li>
+                <li class="divider"></li>
+                <li><a href="#"><i class="icon icon-lock"></i><span>Logout</span></a></li>
+              </ul>
+            </li>
+            <li class="dropdown pull-right"><a href="#" class="">Doc Search</a></li>
+            <li class="dropdown pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Action list <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                <li class="divider"></li>
+                <li><a href="#"><i class="icon icon-inbox"></i><span>Full Action List</span></a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</header>
+<section id="main">
+  <div id="navbar" class="navbar" style="background:white">
+    <div class="container">
+      <button type="button" class="navbar-toggle navbar-btn collapsed" data-toggle="collapse" data-target="#sidebar"> <span class="icon-reorder"></span> </button>
+      <header class="viewHeader">
+        <div class="row">
+          <div class="col-md-6"> 
+            <!-- <h1> <span class="areaTitle">Proposal Development</span> <span class="headerText"> Proposal: #23533 </span> <a href="#"><span aria-hidden="false" class="icon-question-sign"> <span class="icon-text">help</span></span></a> <span class="supportTitle">PI: Ken Graves</span> </h1> -->
+            <h1> <span class="areaTitle">Proposal Development</span> <span class="headerText"> Proposal: #23533 </span> <span class="supportTitle">PI: <em>Not yet assigned</em></span> </h1>
+          </div>
+          <div class="col-md-6 visible-lg visible-md">
+            <div class="metadata"> Doc Nbr: 2743<br>
+              Initiator: thrclark<br>
+              Status: In Progress<br>
+              S2S: grants.gov<br>
+              <div class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">more info...</a>
+                <div class="dropdown-menu" >
+                  <h4> Document Info</h4>
+                  <table class="table table-condensed">
+                    <tbody>
+                      <tr>
+                        <th scope="row">Doc Nbr</th>
+                        <td>2743</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Initiator</th>
+                        <td><a href="#">thrclark</a></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Status</th>
+                        <td>In Progress</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">S2S</th>
+                        <td>grants.gov</td>
+                      </tr>
+                      <tr>
+                      <tr>
+                        <th scope="row">PI</th>
+                        <td>Ken Graves</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Created</th>
+                        <td>04:27pm 07/09/2013</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Updated</th>
+                        <td>12:22pm 07/12/2013</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Proposal Nbr</th>
+                        <td>#23533</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Sponsor Name</th>
+                        <td>NIH</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="doc-functions">
+          <ul>
+            <li><i class="icon icon-ok"></i> <a href="#" class="launch-modal" data-modal-page="modal/audtimode-on.php" data-modal-height="500">Data Validation <span style="color:#090">(on)</span></a></li>
+            <li><i class="icon icon-print"></i> <a class="launch-modal" data-modal-page="modal/print.php" href="#">Print</a></li>
+            <li><i class="icon icon-copy"></i> <a class="launch-modal" data-modal-page="modal/copy.php" href="#">Copy</a></li>
+            <li><i class="icon icon-tasks"></i> <a href="#">Medusa</a></li>
+            <li><i class="icon icon-list-ol"></i> <a href="#">Hierarchy</a></li>
+            <li><i class="icon icon-lock"></i> <a class="launch-modal" data-modal-page="modal/access.php" href="#">Access</a></li>
+            <!--<li><i class="icon icon-question-sign"></i> <a href="#">Help</a></li>-->
+          </ul>
+        </div>
+      </header>
+    </div>
+  </div>
+  <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
+    <div class="container" style="">
+      <div id="sidebar" class="uif-navigation" style="margin-left:-15px; ">
+        <div id="sidebar-collapse"> <i class="icon-angle-left"></i> </div>
+        <ul class="nav nav-list">
+          <li id="menu-basics" aria-owns="submenu-basics" aria-controls="submenu-basics" class="" aria-expanded="false"> <a href="prop.basics.details.php" class="dropdown-toggle"> <i class="icon-file-alt"></i><span>Basics</span><b class="arrow icon-angle-right"></b> </a>
+            <ul id="submenu-basics" role="group" aria-labeledby="menu-basics" class="submenu">
+              <li ><a href="prop.basics.details.php">Proposal Details</a></li>
+              <li ><a href="prop.basics.oppsearch-search.php">S2S Opportunity Search</a></li>
+              <li ><a href="prop.basics.deliveryinfo-alt.php">Delivery Info</a></li>
+              <li ><a href="prop.basics.sponsor.php">Sponsor &amp; Program Information</a></li>
+              <li ><a href="prop.basics.orgloc.php">Organization &amp; Location</a></li>
+            </ul>
+          </li>
+          <li id="menu-personnel" aria-owns="submenu-personnel" aria-controls="submenu-personnel" class="" aria-expanded="false"> <a href="prop.keypersonnel.start.php" class="dropdown-toggle"><i class="icon-user"></i> <span>Key Personnel</span><b class="arrow icon-angle-right"></b> </a>
+            <ul id="submenu-personnel" role="group" aria-labeledby="menu-personnel" class="submenu">
+              <li ><a href="prop.keypersonnel.start.php">Personnel</a></li>
+              <li ><a href="prop.keypersonnel.credit.original.php">Credit Allocation</a></li>
+            </ul>
+          </li>
+          <li ><a href="prop.compliance.php"><i class="icon-ok"></i> <span>Compliance</span> </a></li>
+          <li class="active"><a href="prop.attachments.php"><i class="icon-paper-clip"></i> <span>Attachments</span> </a></li>
+          <li ><a href="prop.questionnaire.php"><i class="icon-question"></i><span> Questionnaire</span></a></li>
+          <li id="menu-budget" aria-owns="submenu-budget" aria-controls="submenu-budget" class="" aria-expanded="false"> <a href="#" class="dropdown-toggle"><i class="icon-money"></i> <span>Budget</span> <b class="arrow icon-angle-right"></b></a>
+            <ul id="submenu-budget" role="group" aria-labeledby="menu-budget" class="submenu">
+              <li ><a href="prop.budget.summary.php">Summary</a></li>
+              <li ><a href="prop.budget.params.php">Parameters</a></li>
+              <li ><a href="prop.budget.rates.php">Rates</a></li>
+              <li ><a href="prop.budget.personnel.php">Personnel</a></li>
+              <li ><a href="prop.budget.nonpersonnel.php">Non-Personnel</a></li>
+              <li ><a href="prop.budget.distincome.php">Distribution &amp; Income</a></li>
+              <li ><a href="prop.budget.modular.php">Modular</a></li>
+              <li ><a href="prop.budget.actions.php">Actions</a></li>
+            </ul>
+          </li>
+          <li id="menu-institution" aria-owns="submenu-institution" aria-controls="submenu-institution" class="" aria-expanded="false"> <a href="#" class="dropdown-toggle"><i class="icon-bell"></i><span>Supplemental Information</span> <b class="arrow icon-angle-right"></b></a>
+            <ul id="submenu-institution" role="group" aria-labeledby="menu-institution" class="submenu">
+              <li ><a href="prop.inst.1.php">Page 1</a></li>
+              <li ><a href="prop.inst.2.php">Page 2</a></li>
+              <li ><a href="prop.inst.3.php">Page 3</a></li>
+            </ul>
+          </li>
+          <li ><a href="prop.summary.php"><i class="icon-signout"></i><span>Submit</span></a></li>
+        </ul>
+      </div>
+      <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper">
+        <h3>Attachments</h3>
+        <ul class="nav nav-tabs" id="myTab">
+          <li class="active"><a href="#proposal">Proposal</a></li>
+          <li><a href="#personnel">Personnel</a></li>
+          <li><a href="#internal">Internal</a></li>
+          <li><a href="#abstracts">Abstracts</a></li>
+          <li><a href="#notes">Notes</a></li>
+        </ul>
+        <div class="tab-content">
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <div class="tab-pane active" id="proposal">
+          
+          <h4>Proposal</h4>
+          
+          
+          
+  <!-- The file upload form used as target for the file upload widget -->
+    <form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">
+        <!-- Redirect browsers with JavaScript disabled to the origin page -->
+        <noscript><input type="hidden" name="redirect" value="http://blueimp.github.io/jQuery-File-Upload/"></noscript>
+        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+        <div class="row fileupload-buttonbar">
+            <div class="col-lg-7">
+                <!-- The fileinput-button span is used to style the file input field as button -->
+                <span class="btn btn-success fileinput-button">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    <span>Add files...</span>
+                    <input type="file" name="files[]" multiple>
+                </span>
+                <button type="submit" class="btn btn-primary start">
+                    <i class="glyphicon glyphicon-upload"></i>
+                    <span>Start upload</span>
+                </button>
+                <button type="reset" class="btn btn-warning cancel">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span>Cancel upload</span>
+                </button>
+                <button type="button" class="btn btn-danger delete">
+                    <i class="glyphicon glyphicon-trash"></i>
+                    <span>Delete</span>
+                </button>
+                <input type="checkbox" class="toggle">
+                <!-- The global file processing state -->
+                <span class="fileupload-process"></span>
+            </div>
+            <!-- The global progress state -->
+            <div class="col-lg-5 fileupload-progress fade">
+                <!-- The global progress bar -->
+                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                </div>
+                <!-- The extended global progress state -->
+                <div class="progress-extended">&nbsp;</div>
+            </div>
+        </div>
+        <!-- The table listing the files available for upload/download -->
+        <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
+    </form>
+            <div class="panel-group attachments-proposal-entries" id="accordion"> </div>
+          </div>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+
+        </div>
+        <div class="uif-stickyFooter uif-stickyButtonFooter">
+          <div class="container btn-row-page-action">
+            <button href="prop.compliance.php" class="btn btn-default">Back</button>
+            <button class="btn btn-default">Save</button>
+            <button href="prop.questionnaire.php" class="btn btn-primary">Save and Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+$(document).ready(function(){
+
+
+    $(".remove-attachments-proposal-entry").live("click", function(){
+            var container = $(this).parents('div').eq(3);
+            var id = $(this).attr('entryId');
+            if(confirm("Are you sure you want to remove this entry")) $("#attachmentsProposalEntry" + id).remove();
+             //console.log($(this).attr('entryId'));
+             $.post('process.php', {'id': id, 'action' : 'removeAttachmentsEntry', "section": "proposal"}, function(){
+
+             });
+             return false;
+    });
+
+     $('.update-attachments-proposal-entry').live('click' , function(e){
+
+        var data = $(this).closest('form').serialize();
+        var entryId= $(this).attr("entryId");
+        console.log(data);
+        console.log(entryId);
+
+       // $.post('save-session.php', data, function(){
+         $.post('process.php', data, function(t){
+              $('#attachmentsProposalEntry' + entryId).replaceWith(t);
+
+          });
+       //  });
+
+        return false;
+     });
+
+     $('.cancel-update-attachments-proposal-entry').live('click', function(e){
+         var id = $(this).attr('entryId');
+         $.post('process.php', {"section": "proposal", "action": "previewAttachmentEntry", "id" : id }, function(t){
+              $("#attachmentsProposalInfo" + id).html(t);
+
+         });
+         return false;
+     });
+
+});
+</script> 
+<script>
+$(document).ready(function(){
+
+    $(".remove-attachments-personnel-entry").live("click", function(){
+
+            var id = $(this).attr('entryId');
+            if(confirm("Are you sure you want to remove this entry")) $("#attachmentsPersonnelEntry"+ id).remove();
+
+             $.post('process.php', {'id': id, 'action' : 'removeAttachmentsEntry', "section": "personnel"}, function(){
+
+             });
+             return false;
+    });
+
+     $('.update-attachments-personnel-entry').live('click' , function(e){
+        var id= $(this).attr("entryId");
+        var form = $(this).closest('form');
+        var data = $(form).serialize();
+        // console.log(id);
+             $.post('process.php', data, function(t){
+                  $('#attachmentsPersonnelEntry' + id).replaceWith(t);
+
+              });
+
+
+        return false;
+     });
+
+     $('.cancel-update-attachments-personnel-entry').live('click', function(e){
+        var id= $(this).attr("entryId");
+         $.post('process.php', {"action": "previewAttachmentsEntry", "id" : id, "section": "personnel" }, function(t){
+            $("#attachmentsPersonnelInfo" + id).html(t);
+       });
+         return false;
+     });
+
+
+});
+</script> 
+<script>
+$(document).ready(function(){
+
+    $(".remove-attachments-internal-entry").live("click", function(){
+
+            var id = $(this).attr('entryId');
+            if(confirm("Are you sure you want to remove this entry")) $("#attachmentsInternalEntry"+ id).remove();
+
+             $.post('process.php', {"section": "personnel", 'id': id, 'action' : 'removeAttachmentsEntry'}, function(){
+
+             });
+             return false;
+    });
+
+     $('.update-attachments-internal-entry').live('click' , function(e){
+        var id= $(this).attr("entryId");
+        var form = $(this).closest('form');
+        var data = $(form).serialize();
+        // console.log(id);
+             $.post('process.php', data, function(t){
+                  $('#attachmentsInternalEntry' + id).replaceWith(t);
+
+              });
+
+
+        return false;
+     });
+
+     $('.cancel-update-attachments-internal-entry').live('click', function(e){
+         var id = $(this).attr('entryId');
+         $.post('process.php', {"section": "personnel", "action": "previewAttachmentsEntry", "id" : id }, function(t){
+
+            $("#attachmentsInternalInfo" + id).html(t);
+       });
+         return false;
+     });
+
+
+});
+</script> 
+<script>
+$(document).ready(function(){
+
+    $(".remove-attachments-abstracts-entry").live("click", function(){
+
+                var id = $(this).attr('entryId');
+                if(confirm("Are you sure you want to remove this entry")) $("#attachmentsAbstractsEntry"+ id).remove();
+
+                 $.post('process.php', {"section": "personnel", 'id': id, 'action' : 'removeAttachmentsEntry'}, function(){
+
+                 });
+                 return false;
+        });
+
+     $('.update-attachments-abstracts-entry').live('click' , function(e){
+        var id= $(this).attr("entryId");
+        var form = $(this).closest('form');
+        var data = $(form).serialize();
+        // console.log(id);
+             $.post('process.php', data, function(t){
+                  $('#attachmentsAbstractsEntry' + id).replaceWith(t);
+
+              });
+
+
+        return false;
+     });
+
+     $('.cancel-update-attachments-abstracts-entry').live('click', function(e){
+         var id = $(this).attr('entryId');
+         $.post('process.php', {"section": "abstracts", "action": "previewAttachmentsEntry", "id" : id }, function(t){
+
+            $("#attachmentAbstractsInfo" + id).html(t);
+       });
+         return false;
+     });
+
+
+});
+</script>
+<footer> 
+  
+  <!--<div class="container">
+
+		<div class="footer">
+			<div class="foundation col_md_6">
+				&copy; 2013
+				<a href="#" target="_blank">Kuali Foundation</a>
+			</div>
+			<div class="credit col_md_6">
+				<span>site built with KRAD</span>
+			</div>
+		</div>
+
+	</div>--> 
+  
+</footer>
+
+<!-- Scripts --> 
+<script>window.jQuery || document.write('<script src="assets/jquery/jquery-2.0.3.min.js"><\/script>')</script> 
+
+<!-- Bootstrap --> 
+<script src="themes/bootstrap/js/bootstrap.min.js"></script> 
+<script src="themes/bootstrap/js/modal.js"></script> 
+<script src="themes/kc/js/fancybox/jquery.fancybox.js"></script> 
+<script src="themes/kc/js/jquery.nicescroll.js"></script> 
+<script src="themes/kc/js/jquery.cookie.js"></script> 
+<script src="themes/kc/js/leftnav.js"></script> 
+
+<!-- jQuery UI 1.9.2 --> 
+<script src="themes/kc/js/jquery-ui-1.9.2.custom.min.js"></script> 
+<script src="themes/kc/js/jquery.multiselect.min.js"></script> 
+<script src="themes/kc/js/jquery.multiselect.filter.min.js"></script> 
+<script src="themes/kc/js/jquery.maskedinput.min.js"></script> 
+<script src="themes/kc/js/hopscotch/js/hopscotch-0.1.2.js"></script> 
+<script src="themes/kc/js/hopscotch/js/prop.basics.details.js"></script> 
+
+<!-- Our custom functions, goes at the end --> 
+<script src="themes/kc/js/functions.js"></script>
+
+
+
+<!-- The template to display files available for upload -->
+<script id="template-upload" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade">
+        <td>
+            <span class="preview"></span>
+        </td>
+        <td>
+            <p class="name">{%=file.name%}</p>
+            <strong class="error text-danger"></strong>
+        </td>
+        <td>
+            <p class="size">Processing...</p>
+            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
+        </td>
+        <td>
+            {% if (!i && !o.options.autoUpload) { %}
+                <button class="btn btn-primary start" disabled>
+                    <i class="glyphicon glyphicon-upload"></i>
+                    <span>Start</span>
+                </button>
+            {% } %}
+            {% if (!i) { %}
+                <button class="btn btn-warning cancel">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span>Cancel</span>
+                </button>
+            {% } %}
+        </td>
+    </tr>
+{% } %}
+</script>
+<!-- The template to display files available for download -->
+<script id="template-download" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-download fade">
+        <td>
+            <span class="preview">
+                {% if (file.thumbnailUrl) { %}
+                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+                {% } %}
+            </span>
+        </td>
+        <td>
+            <p class="name">
+                {% if (file.url) { %}
+                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
+                {% } else { %}
+                    <span>{%=file.name%}</span>
+                {% } %}
+            </p>
+            {% if (file.error) { %}
+                <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+            {% } %}
+        </td>
+        <td>
+            <span class="size">{%=o.formatFileSize(file.size)%}</span>
+        </td>
+        <td>
+            {% if (file.deleteUrl) { %}
+                <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+                    <i class="glyphicon glyphicon-trash"></i>
+                    <span>Delete</span>
+                </button>
+                <input type="checkbox" name="delete" value="1" class="toggle">
+            {% } else { %}
+                <button class="btn btn-warning cancel">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span>Cancel</span>
+                </button>
+            {% } %}
+        </td>
+    </tr>
+{% } %}
+</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+<script src="themes/kc/js/batch-file-uploader/js/vendor/jquery.ui.widget.js"></script>
+<!-- The Templates plugin is included to render the upload/download listings -->
+<script src="http://blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
+<!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+<script src="http://blueimp.github.io/JavaScript-Load-Image/js/load-image.min.js"></script>
+<!-- The Canvas to Blob plugin is included for image resizing functionality -->
+<script src="http://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+<!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<!-- blueimp Gallery script -->
+<script src="http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+<script src="themes/kc/js/batch-file-uploader/js/jquery.iframe-transport.js"></script>
+<!-- The basic File Upload plugin -->
+<script src="themes/kc/js/batch-file-uploader/js/jquery.fileupload.js"></script>
+<!-- The File Upload processing plugin -->
+<script src="themes/kc/js/batch-file-uploader/js/jquery.fileupload-process.js"></script>
+<!-- The File Upload image preview & resize plugin -->
+<script src="themes/kc/js/batch-file-uploader/js/jquery.fileupload-image.js"></script>
+<!-- The File Upload audio preview plugin -->
+<script src="themes/kc/js/batch-file-uploader/js/jquery.fileupload-audio.js"></script>
+<!-- The File Upload video preview plugin -->
+<script src="themes/kc/js/batch-file-uploader/js/jquery.fileupload-video.js"></script>
+<!-- The File Upload validation plugin -->
+<script src="themes/kc/js/batch-file-uploader/js/jquery.fileupload-validate.js"></script>
+<!-- The File Upload user interface plugin -->
+<script src="themes/kc/js/batch-file-uploader/js/jquery.fileupload-ui.js"></script>
+<!-- The main application script -->
+<script src="themes/kc/js/batch-file-uploader/js/main.js"></script>
+<!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
+<!--[if (gte IE 8)&(lt IE 10)]>
+<script src="js/cors/jquery.xdr-transport.js"></script>
+<![endif]-->
+
+
+
+</body>
+</html>
