@@ -90,6 +90,7 @@ public class CreateBuildSlaveAMI {
 	public static final KeyPair KUALI_KEY = Auth.getKeyPair(amazonAccount);
 	private final int minimumAmisToKeep = 7;
 	private final String kisPasswordEncrypted = "lZ7Yxs1+9a9a5di5q1JuiVNnZiNjZN0F";
+	private static final int DEFAULT_ROOT_VOLUME_SIZE = 80;
 
 	private static final Map<String, JenkinsContext> CONTEXTS = getJenkinsContexts();
 
@@ -180,7 +181,7 @@ public class CreateBuildSlaveAMI {
 		BasicLaunchRequest.Builder builder = BasicLaunchRequest.builder();
 		builder.setAmi(Constants.DEFAULT_AMI.getId());
 		builder.setTimeoutMillis(FormatUtils.getMillisAsInt("1h"));
-		builder.setRootVolume(RootVolume.create(80, true));
+		builder.setRootVolume(RootVolume.create(DEFAULT_ROOT_VOLUME_SIZE, true));
 		return getBasicLaunchRequest(builder.build());
 	}
 
