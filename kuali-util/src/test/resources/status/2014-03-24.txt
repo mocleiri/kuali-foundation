@@ -1,0 +1,19 @@
+Monday
+-----
+-- consulting with Travis on KC project structure for s2s
+-- s2s is a "bridge" between KC proper and grants.gov + research.gov
+--- they release "forms" with updated data structures that KC needs to then support
+--- the release schedule for the "forms" is not connected to the release schedule for KC in any way
+--- Small amount of code that bridges the "forms" data structures into something KC can understand
+--- discussion centered around an S2S api + impl module vs just one module with everything
+-- Multi-module builds are directly supported (and encouraged) by DevOps
+-- Top level aggregator pom that inherits from the Kuali pom, is the usual way of managing complex project structures
+
+-- Mobility 
+-- conducted release RC2 from the 3.0.0 branch
+-- tweaked the Mobility pom to prevent the release plugin from getting confused (removed the project.scm.url property)
+
+-- Replied in Rice chat correcting a mis-perception about env12 (Dan S. thought it had a 1gb heap, but it's had a 2gb heap for almost a year)
+
+-- Met with infrastructure on getting CI + CAS communicating more effectively
+--- Share email + group membership from KIS -> CAS -> CI
