@@ -11819,3 +11819,59 @@ table tfoot {
 .uif-text-faded {
   opacity: .50;
 }
+.uif-personnel-search-for fieldset label {
+  display: block;
+}
+.uif-bg-shaded {
+  background: #f4f4f4;
+}
+.uif-padding-top,
+.uif-padding-right,
+.uif-padding-bottom,
+.uif-padding-left {
+  padding: 1em;
+}
+.uif-padding-top-2x {
+  padding-top: 2em;
+}
+.uif-padding-right-2x {
+  padding-right: 2em;
+}
+.uif-padding-bottom-2x {
+  padding-bottom: 2em;
+}
+.uif-padding-left-2x {
+  padding-left: 2em;
+}
+.uif-collection-box {
+  height: 400px;
+  overflow-y: auto;
+}
+.uif-collection-box ul li label {
+  display: block;
+  padding: .75em .5em;
+  border-bottom: 1px dotted #ccc;
+}
+.uif-indicator-arrow-bottom-center {
+  position: relative;
+}
+.uif-indicator-arrow-bottom-center:after {
+  position: absolute;
+  content: " ";
+  display: block;
+  height: 1.5em;
+  width: 1.5em;
+  background: inherit;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  transform: rotate(45deg);
+  bottom: -0.75em;
+  left: 50%;
+  margin-left: -0.75em;
+  border-bottom: 2px solid #ccc;
+  border-right: 2px solid #ccc;
+  z-index: 5;
+}
+.uif-bottom-shadow {
+  border-bottom: 2px solid #ccc;
+}

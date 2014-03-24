@@ -73,24 +73,60 @@ $page = 'personnel-costs';
                                                                 Proposal personnel (automatically included in budget)
                                                             </td>
                                                         </tr>
-                                                        <tr class="uif-new-row">
+                                                        <tr>
                                                             <td>
                                                                 <span class="uif-text-medium">Ramen Noodle</span><br />
                                                                 <span class="uif-text-text-faded">Principal Investigator</span>
                                                             </td>
-                                                            <td><label for="line_1_job_code"><span class="sr-only">Job code</span><input type="input" size="3" name="line_1_job_code" id="line_1_job_code"></label></td>
+                                                            <td><label for="line_1_job_code"><span class="sr-only">Job code</span>AA0000</td>
                                                             <td>
                                                                 <label for="line_1_appt_type"><span class="sr-only">Appointment type</span>
-                                                                    <select name="line_1_appt_type" id="line_1_appt_type">
+                                                                    12-months
+                                                                </label>
+                                                            </td>
+                                                            <td><label for="line_1_base_salary"><span class="sr-only">Base salary</span>$10,000</label></td>
+                                                            <td><label for="line_1_salary_eff"><span class="sr-only">Salary effective date</span>01/01/2014</label></td>
+                                                            <td><label for="line_1_salary_anniv"><span class="sr-only">Salary anniversary date</span>07/01/2014</label></td>
+                                                            <td><a class="icon icon-pencil btn-edit"><span class="sr-only">Edit</span></a></td>
+                                                        </tr>
+                                                            <td>
+                                                                <span class="uif-text-medium">Marie Calendar</span><br />
+                                                                <span class="uif-text-text-faded">Key Person<br />Research Assistant</span>
+                                                            </td>
+                                                            <td><label for="line_2_job_code"><span class="sr-only">Job code</span>AA0001</label></td>
+                                                            <td>
+                                                                <label for="line_2_appt_type"><span class="sr-only">Appointment type</span>
+                                                                    12-months
+                                                                </label>
+                                                            </td>
+                                                            <td><label for="line_2_base_salary"><span class="sr-only">Base salary</span>$10,000</label></td>
+                                                            <td><label for="line_2_salary_eff"><span class="sr-only">Salary effective date</span>01/01/2014</label></td>
+                                                            <td><label for="line_2_salary_anniv"><span class="sr-only">Salary anniversary date</span>12/31/2014</label></td>
+                                                            <td><a class="icon icon-pencil btn-edit"><span class="sr-only">Edit</span></a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="7">
+                                                                Additional personnel (budget only)
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="uif-new-row">
+                                                            <td>
+                                                                <span class="uif-text-medium">Marie Calendar</span><br />
+                                                                <span class="uif-text-text-faded">Key Person<br />Research Assistant</span>
+                                                            </td>
+                                                            <td><label for="line_3_job_code"><span class="sr-only">Job code</span><input type="input" size="3" name="line_3_job_code" id="line_3_job_code"></label></td>
+                                                            <td>
+                                                                <label for="line_3_appt_type"><span class="sr-only">Appointment type</span>
+                                                                    <select name="line_3_appt_type" id="line_3_appt_type">
                                                                         <option value="12M">12 months</option>
                                                                         <option value="9M">9 months</option>
                                                                         <option vlaue="S">Summer</option>
                                                                     </select>
                                                                 </label>
                                                             </td>
-                                                            <td><label for="line_1_base_salary"><span class="sr-only">Base salary</span><input type="input" size="3" name="line_1_base_salary" id="line_1_base_salary"></label></td>
-                                                            <td><label for="line_1_salary_eff"><span class="sr-only">Salary effective date</span><input type="input" size="5" name="line_1_salary_eff" id="line_1_salary_eff" placeholder="mm/dd/yyyy"></label></td>
-                                                            <td><label for="line_1_salary_anniv"><span class="sr-only">Salary anniversary date</span><input type="input" size="5" name="line_1_salary_anniv" id="line_1_salary_anniv" placeholder="mm/dd/yyyy"></label></td>
+                                                            <td><label for="line_3_base_salary"><span class="sr-only">Base salary</span><input type="input" size="3" name="line_3_base_salary" id="line_3_base_salary"></label></td>
+                                                            <td><label for="line_3_salary_eff"><span class="sr-only">Salary effective date</span><input type="input" size="5" name="line_3_salary_eff" id="line_3_salary_eff" placeholder="mm/dd/yyyy"></label></td>
+                                                            <td><label for="line_3_salary_anniv"><span class="sr-only">Salary anniversary date</span><input type="input" size="5" name="line_3_salary_anniv" id="line_3_salary_anniv" placeholder="mm/dd/yyyy"></label></td>
                                                             <td><a class="icon icon-save"><span class="sr-only">Save</span></a></td>
                                                         </tr>
                                                         <tr class="uif-new-row">
@@ -98,19 +134,39 @@ $page = 'personnel-costs';
                                                                 <span class="uif-text-medium">Marie Calendar</span><br />
                                                                 <span class="uif-text-text-faded">Key Person<br />Research Assistant</span>
                                                             </td>
-                                                            <td><label for="line_2_job_code"><span class="sr-only">Job code</span><input type="input" size="3" name="line_2_job_code" id="line_2_job_code"></label></td>
+                                                            <td><label for="line_4_job_code"><span class="sr-only">Job code</span><input type="input" size="3" name="line_4_job_code" id="line_4_job_code"></label></td>
                                                             <td>
-                                                                <label for="line_2_appt_type"><span class="sr-only">Appointment type</span>
-                                                                    <select name="line_2_appt_type" id="line_2_appt_type">
+                                                                <label for="line_4_appt_type"><span class="sr-only">Appointment type</span>
+                                                                    <select name="line_4_appt_type" id="line_4_appt_type">
                                                                         <option value="12M">12 months</option>
                                                                         <option value="9M">9 months</option>
                                                                         <option vlaue="S">Summer</option>
                                                                     </select>
                                                                 </label>
                                                             </td>
-                                                            <td><label for="line_2_base_salary"><span class="sr-only">Base salary</span><input type="input" size="3" name="line_2_base_salary" id="line_2_base_salary"></label></td>
-                                                            <td><label for="line_2_salary_eff"><span class="sr-only">Salary effective date</span><input type="input" size="5" name="line_2_salary_eff" id="line_2_salary_eff" placeholder="mm/dd/yyyy"></label></td>
-                                                            <td><label for="line_2_salary_anniv"><span class="sr-only">Salary anniversary date</span><input type="input" size="5" name="line_2_salary_anniv" id="line_2_salary_anniv" placeholder="mm/dd/yyyy"></label></td>
+                                                            <td><label for="line_4_base_salary"><span class="sr-only">Base salary</span><input type="input" size="3" name="line_4_base_salary" id="line_4_base_salary"></label></td>
+                                                            <td><label for="line_4_salary_eff"><span class="sr-only">Salary effective date</span><input type="input" size="5" name="line_4_salary_eff" id="line_4_salary_eff" placeholder="mm/dd/yyyy"></label></td>
+                                                            <td><label for="line_4_salary_anniv"><span class="sr-only">Salary anniversary date</span><input type="input" size="5" name="line_4_salary_anniv" id="line_4_salary_anniv" placeholder="mm/dd/yyyy"></label></td>
+                                                            <td><a class="icon icon-save"><span class="sr-only">Save</span></a></td>
+                                                        </tr>
+                                                        <tr class="uif-new-row">
+                                                            <td>
+                                                                <span class="uif-text-medium">Marie Calendar</span><br />
+                                                                <span class="uif-text-text-faded">Key Person<br />Research Assistant</span>
+                                                            </td>
+                                                            <td><label for="line_5_job_code"><span class="sr-only">Job code</span><input type="input" size="3" name="line_5_job_code" id="line_5_job_code"></label></td>
+                                                            <td>
+                                                                <label for="line_5_appt_type"><span class="sr-only">Appointment type</span>
+                                                                    <select name="line_5_appt_type" id="line_5_appt_type">
+                                                                        <option value="12M">12 months</option>
+                                                                        <option value="9M">9 months</option>
+                                                                        <option vlaue="S">Summer</option>
+                                                                    </select>
+                                                                </label>
+                                                            </td>
+                                                            <td><label for="line_5_base_salary"><span class="sr-only">Base salary</span><input type="input" size="3" name="line_5_base_salary" id="line_5_base_salary"></label></td>
+                                                            <td><label for="line_5_salary_eff"><span class="sr-only">Salary effective date</span><input type="input" size="5" name="line_5_salary_eff" id="line_5_salary_eff" placeholder="mm/dd/yyyy"></label></td>
+                                                            <td><label for="line_5_salary_anniv"><span class="sr-only">Salary anniversary date</span><input type="input" size="5" name="line_5_salary_anniv" id="line_5_salary_anniv" placeholder="mm/dd/yyyy"></label></td>
                                                             <td><a class="icon icon-save"><span class="sr-only">Save</span></a></td>
                                                         </tr>
                                                     </tbody>
