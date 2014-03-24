@@ -97,7 +97,7 @@ public class CreateBuildSlaveAMI {
 	private static Map<String, JenkinsContext> getJenkinsContexts() {
 		Tags.Name name = Tags.Name.SLAVE;
 		JenkinsContext prod = JenkinsContext.builder().withDnsPrefix("ci").withStack(Tags.Stack.PRODUCTION).withName(name).build();
-		JenkinsContext test = JenkinsContext.builder().withDnsPrefix("testci").withStack(Tags.Stack.TEST).withName(name).build();
+		JenkinsContext test = JenkinsContext.builder().withDnsPrefix("jeffci").withStack(Tags.Stack.TEST).withName(name).build();
 		SortedMap<String, JenkinsContext> contexts = newTreeMap();
 		contexts.put("test", test);
 		contexts.put("prod", prod);
