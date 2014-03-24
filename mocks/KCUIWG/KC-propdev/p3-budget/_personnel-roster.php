@@ -69,7 +69,7 @@ $page = 'personnel-costs';
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td colspan="7">
+                                                            <td colspan="7" class="uif-separator-row">
                                                                 Proposal personnel (automatically included in budget)
                                                             </td>
                                                         </tr>
@@ -105,7 +105,7 @@ $page = 'personnel-costs';
                                                             <td><a class="icon icon-pencil btn-edit"><span class="sr-only">Edit</span></a></td>
                                                         </tr>
                                                         <tr>
-                                                            <td colspan="7">
+                                                            <td colspan="7" class="uif-separator-row">
                                                                 Additional personnel (budget only)
                                                             </td>
                                                         </tr>

@@ -11822,8 +11822,12 @@ table tfoot {
 .uif-personnel-search-for fieldset label {
   display: block;
 }
-.uif-bg-shaded {
+.uif-bg-shaded,
+.uif-separator-row {
   background: #f4f4f4;
+}
+.uif-separator-row {
+  font-weight: 700;
 }
 .uif-padding-top,
 .uif-padding-right,
