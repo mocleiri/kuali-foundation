@@ -1,5 +1,6 @@
 <?php
 $page = 'rates';
+$section = '';
 ?>
 
 <!DOCTYPE html>
