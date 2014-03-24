@@ -62,7 +62,7 @@ public class AprilTest {
 	@Test
 	public void test() {
 		try {
-			updateJson("01", "02", "03", "04", "05", "06");
+			updateJson("01", "02", "03", "04", "05", "06", "07");
 			List<String> lines = readLines(jsonFile);
 			logger.info(format("lines %s", lines.size()));
 			JsonService service = new JacksonJsonService();
@@ -141,7 +141,7 @@ public class AprilTest {
 		char separator = ' ';
 		Splitter splitter = Splitter.on(separator).trimResults().omitEmptyStrings();
 
-		String line1 = saleLines.getLine1().replace("Ring Of Honor", "RingOfHonor Level").replace("- No Alcohol", "");
+		String line1 = saleLines.getLine1().replace("Ring Of Honor", "RingOfHonor Level").replace("- No Alcohol", "").replace("Goal Line", "GoalLine");
 		List<String> tokens1 = splitter.splitToList(line1);
 		checkState(tokens1.size() == 4, "expected 4 tokens");
 
