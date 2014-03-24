@@ -102,7 +102,6 @@ $page = 'rates';
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
                                                     <a data-toggle="collapse" data-parent="#accordion-fa" href="#collapse-two">Fringe Benefits</a>
-                                                    <a class="guide-me pull-right icon-leaf" href="#">Guide me</a>
                                                 </h4>
                                             </div>
                                             <div class="panel-collapse collapse" id="collapse-two">
@@ -154,7 +153,6 @@ $page = 'rates';
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
                                                     <a data-toggle="collapse" data-parent="#accordion-fa" href="#collapse-three">Inflation</a>
-                                                    <a class="guide-me pull-right icon-leaf" href="#">Guide me</a>
                                                 </h4>
                                             </div>
                                             <div class="panel-collapse collapse" id="collapse-three">
@@ -206,7 +204,6 @@ $page = 'rates';
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
                                                     <a data-toggle="collapse" data-parent="#accordion-fa" href="#collapse-four">Vacation</a>
-                                                    <a class="guide-me pull-right icon-leaf" href="#">Guide me</a>
                                                 </h4>
                                             </div>
                                             <div class="panel-collapse collapse" id="collapse-four">
@@ -258,7 +255,6 @@ $page = 'rates';
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
                                                     <a data-toggle="collapse" data-parent="#accordion-fa" href="#collapse-five">Lab Allocation - Salaries</a>
-                                                    <a class="guide-me pull-right icon-leaf" href="#">Guide me</a>
                                                 </h4>
                                             </div>
                                             <div class="panel-collapse collapse" id="collapse-five">
@@ -310,7 +306,6 @@ $page = 'rates';
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
                                                     <a data-toggle="collapse" data-parent="#accordion-fa" href="#collapse-six">Lab Allocation - Other</a>
-                                                    <a class="guide-me pull-right icon-leaf" href="#">Guide me</a>
                                                 </h4>
                                             </div>
                                             <div class="panel-collapse collapse" id="collapse-six">
@@ -362,7 +357,6 @@ $page = 'rates';
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
                                                     <a data-toggle="collapse" data-parent="#accordion-fa" href="#collapse-seven">Other</a>
-                                                    <a class="guide-me pull-right icon-leaf" href="#">Guide me</a>
                                                 </h4>
                                             </div>
                                             <div class="panel-collapse collapse" id="collapse-seven">

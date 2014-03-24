@@ -31,10 +31,18 @@ dl {
     color: @brand-warning;
 }
 
-table tfoot {
-    background: @gray-lighter;
+table thead, table tfoot {
+    background: lighten(@gray-lighter, 2%);
 }
 
 .collapse.in {
     margin-bottom: -20px;
+}
+
+.uif-text-medium {
+    font-size: 130%;
+}
+
+.uif-text-faded {
+    opacity: .50;
 }

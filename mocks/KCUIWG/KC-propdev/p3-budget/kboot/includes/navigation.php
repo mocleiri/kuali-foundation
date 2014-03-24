@@ -9,7 +9,7 @@
             <li <?php if ($page == 'budget-versions') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="versions.php"><span class="icon-file-alt"></span><span class="uif-innerText">Budget Versions</span></a></li>
             <li <?php if ($page == 'periods-and-totals') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="periods-and-totals.php"><span class="icon-sort-by-attributes-alt"></span><span class="uif-innerText">Budget Periods &amp; Totals</span></a></li>
             <li <?php if ($page == 'rates') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="rates.php"><span class="icon-tasks"></span><span class="uif-innerText">Rates</span></a></li>
-            <li <?php if ($section == 'personnel') { echo 'class="active"'; } ?>>
+            <li <?php if ($section == 'personnel') { echo 'class="active in"'; } ?>>
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <span class="icon-user3"></span>
                     <span class="uif-innerText" >Personnel Costs</span>

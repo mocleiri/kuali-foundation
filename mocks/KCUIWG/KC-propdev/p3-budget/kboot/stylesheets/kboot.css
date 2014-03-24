@@ -11806,9 +11806,16 @@ dl dd {
 .btn-edit {
   color: #f0ad4e;
 }
+table thead,
 table tfoot {
-  background: #eeeeee;
+  background: #f4f4f4;
 }
 .collapse.in {
   margin-bottom: -20px;
+}
+.uif-text-medium {
+  font-size: 130%;
+}
+.uif-text-faded {
+  opacity: .50;
 }

@@ -144,8 +144,8 @@ $page = 'periods-and-totals';
                                                             <td><a class="icon icon-pencil btn-edit"><span class="sr-only">Edit</span></a></td>
                                                         </tr>
                                                         <tr>
-                                                            <td><label for="line_5_start"><span class="sr-only">Period start</span><input type="text" size="3" name="line_5_start" id="line_5_start"></label></td>
-                                                            <td><label for="line_5_end"><span class="sr-only">Period end</span><input type="text" size="3" name="line_5_end" id="line_5_end"></label></td>
+                                                            <td><label for="line_5_start"><span class="sr-only">Period start</span><input type="text" size="3" name="line_5_start" id="line_5_start" placeholder="mm/dd/yyyy"></label></td>
+                                                            <td><label for="line_5_end"><span class="sr-only">Period end</span><input type="text" size="3" name="line_5_end" id="line_5_end" placeholder="mm/dd/yyyy"></label></td>
                                                             <td></td>
                                                             <td><label for="line_5_total"><span class="sr-only">Period total</span><input type="text" size="3" name="line_5_total" id="line_5_total"></label></td>
                                                             <td><label for="line_5_direct"><span class="sr-only">Period direct</span><input type="text" size="3" name="line_5_direct" id="line_5_direct"></label></td>
