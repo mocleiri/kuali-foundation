@@ -189,7 +189,7 @@ public class SpinUpJenkinsMaster {
 		Artifact artifact = new Artifact.Builder(project.getGroupId(), project.getArtifactId(), project.getVersion()).build();
 		File repo = getDefaultLocalRepository();
 		CanonicalFile jar = new CanonicalFile(RepositoryUtils.getFile(repo, artifact));
-		String remoteBasedir = "/root/.kuali/publish";
+		String remoteBasedir = "/root/.bootstrap";
 		String jarFile = project.getArtifactId() + ".jar";
 		String remotePublishDir = format("%s/%s", remoteBasedir, project.getArtifactId());
 		RemoteFile remoteJar = new RemoteFile.Builder(format("%s/%s", remoteBasedir, jarFile)).build();
