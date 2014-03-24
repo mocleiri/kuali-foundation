@@ -13,7 +13,7 @@
     <?php include ('kboot/includes/header-sticky.php') ?>
 
     <form id="kualiForm" action="#" method="post" accept-charset="UTF-8">
-        <div id="LabsProposal" class="clearfix uif-formView" data-role="View">
+        <div id="LabsProposal" class="clearfix uif-formView">
             <?php include ('kboot/includes/header-start.php') ?>
     
             <!-- VIEW CONTENT -->
@@ -72,7 +72,7 @@
                                 <label for="new-version-name" class="uif-label displayWith-uk9itqu uif-labelBlock uif-required">Name: *</label>
                             </div>
                             <div class="col-md-9">
-                                <div class="uif-inputField" data-role="InputField" data-label="Name">
+                                <div class="uif-inputField">
                                     <input id="new-version-name" type="text" name="new-version-name" value="" size="30" class="form-control input-sm uif-textControl required" data-role="Control">
                                 </div>
                             </div>

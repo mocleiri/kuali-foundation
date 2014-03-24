@@ -18,7 +18,7 @@ $page = 'budget-versions';
     <?php include ('kboot/includes/header-sticky.php') ?>
 
     <form id="kualiForm" action="#" method="post" accept-charset="UTF-8">
-        <div id="LabsProposal" class="clearfix uif-formView" data-role="View">
+        <div id="LabsProposal" class="clearfix uif-formView">
             <?php include ('kboot/includes/header-docinfo.php') ?>
     
             <!-- VIEW CONTENT -->
@@ -32,7 +32,7 @@ $page = 'budget-versions';
                 <div class="col-md-9">
                     <main id="LabsProposal-Page" class="uif-page">
                         <header class="clearfix uif-header-contentWrapper">
-                            <div class="uif-pageHeader clearfix" data-header_for="LabsProposal-Page">
+                            <div class="uif-pageHeader clearfix">
                                 <h2 class="uif-headerText">
                                     <span class="uif-headerText-span">Budget Versions</span>
                                 </h2>

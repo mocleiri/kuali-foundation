@@ -13,7 +13,7 @@
     <?php include ('kboot/includes/header-sticky.php') ?>
 
     <form id="kualiForm" action="#" method="post" accept-charset="UTF-8">
-        <div id="LabsProposal" class="clearfix uif-formView" data-role="View">
+        <div id="LabsProposal" class="clearfix uif-formView">
             <?php include ('kboot/includes/header-docinfo.php') ?>
     
             <!-- VIEW CONTENT -->
@@ -25,15 +25,15 @@
                 </div>
 
                 <div class="col-md-9">
-                    <main id="LabsProposal-Page" class="uif-page" data-server_messages="false" data-role="Page" data-parent="LabsProposal">
+                    <main id="LabsProposal-Page" class="uif-page">
                         <header class="clearfix uif-header-contentWrapper">
-                            <div class="uif-pageHeader clearfix" data-header_for="LabsProposal-Page">
+                            <div class="uif-pageHeader clearfix">
                                 <h2 class="uif-headerText">
                                     <span class="uif-headerText-span">Budget</span>
                                 </h2>
                             </div>
-                            <div class="uif-verticalBoxGroup uif-header-lowerGroup" data-parent="LabsProposal-Page">
-                                <div class="uif-boxLayoutVerticalItem clearfix" data-parent="uetqy9j">
+                            <div class="uif-verticalBoxGroup uif-header-lowerGroup">
+                                <div class="uif-boxLayoutVerticalItem clearfix">
                                     <p>You don't have any budget versions created yet. Please create one now to get started.</p>
                                 </div>
                             </div>
@@ -82,8 +82,8 @@
             
             <!-- VIEW FOOTER -->
             <div class="uif-footer clearfix" data-sticky_footer="true" data-parent="LabsProposal">
-                <button class="btn btn-default btn btn-default uif-boxLayoutHorizontalItem" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;save&quot;}">Save</button>
-                <button class="btn btn-primary btn btn-primary uif-boxLayoutHorizontalItem" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;saveContinue&quot;}">Save and Continue</button>
+                <button class="btn btn-default btn btn-default uif-boxLayoutHorizontalItem">Save</button>
+                <button class="btn btn-primary btn btn-primary uif-boxLayoutHorizontalItem">Save and Continue</button>
             </div>
         </div>
     </form>

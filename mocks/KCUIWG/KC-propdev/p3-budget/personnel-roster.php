@@ -118,7 +118,7 @@ $page = 'personnel-costs';
                                                         <tr>
                                                             <td colspan="7">
                                                                 <a href="#" class="btn btn-default btn-sm">Sync all personnel effective dates</a> 
-                                                                <a href="#" class="btn btn-default btn-sm">Add more people to this budget</a>
+                                                                <a href="#" class="btn btn-default btn-sm pull-right uif-modal" data-modal="/kboot/modals/add-personnel-step-1.php" data-toggle="modal" data-target=".bs-example-modal-lg" href="#">Add more people to this budget</a>
                                                             </td>
                                                         </tr>
                                                     </tfoot>
@@ -189,15 +189,15 @@ $page = 'personnel-costs';
             </div>
             
             <!-- VIEW FOOTER -->
-            <div class="uif-footer clearfix" data-sticky_footer="true" data-parent="LabsProposal">
-                <button class="btn btn-default btn btn-default uif-boxLayoutHorizontalItem" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;save&quot;}">Save</button>
-                <button class="btn btn-primary btn btn-primary uif-boxLayoutHorizontalItem" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;saveContinue&quot;}">Save and Continue</button>
+            <div class="uif-footer clearfix">
+                <button class="btn btn-default btn btn-default uif-boxLayoutHorizontalItem">Save</button>
+                <button class="btn btn-primary btn btn-primary uif-boxLayoutHorizontalItem">Save and Continue</button>
             </div>
         </div>
     </form>
 
     <!-- MODALS -->
-    <!-- <div id="modal-create-version" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" aria-labbeledby="create-new-title">
+    <div id="modal-add-personnel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" aria-labbeledby="create-new-title">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -205,6 +205,42 @@ $page = 'personnel-costs';
                     <h4 class="modal-title" id="create-new-label">Create a budget version</h4>
                 </div>
                 <div class="modal-body">
+                    <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
+                        <div class="row">
+                            <div class="col-md-3 uif-cssGridLabelCol">
+                                <label for="new-version-name" class="uif-label displayWith-uk9itqu uif-labelBlock uif-required">Name: *</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="uif-inputField" data-role="InputField" data-label="Name">
+                                    <input id="new-version-name" type="text" name="new-version-name" value="" size="30" class="form-control input-sm uif-textControl required" data-role="Control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-9">
+                                <div class="well">
+                                    <fieldset>
+                                        <legend>Does this NIH proposal allow modular budgets?</legend>
+                                        <label for="create-with-modular-true" class="clearfix"><input type="radio" name="create-with-modular" id="create-with-modular-true"> Yes, allow for modular budgets</label>
+                                        <label for="create-with-modular-false" class="clearfix"><input type="radio" name="create-with-modular" id="create-with-modular-false"> No, there will be no modular budget</label>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-9">
+                                <div class="well">
+                                    <fieldset>
+                                        <legend>Would you like guided assistance to complete this budget?</legend>
+                                        <label for="create-with-guided-asst-true" class="clearfix"><input type="radio" name="create-with-guided-asst" id="create-with-guided-asst-true"> No, show me everything</label>
+                                        <label for="create-with-guided-asst-false" class="clearfix"><input type="radio" name="create-with-guided-asst" id="create-with-guided-asst-false"> Yes, please use guided assistance</label>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <a role="button" class="btn btn-link" data-dismiss="modal" href="#">Cancel</a>
@@ -212,6 +248,7 @@ $page = 'personnel-costs';
                 </div>
             </div>
         </div>
+    </div>
     </div> -->
 
     <?php include ('kboot/includes/footer-scripts.php') ?>
