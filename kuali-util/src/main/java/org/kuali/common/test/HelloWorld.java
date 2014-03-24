@@ -17,6 +17,6 @@ package org.kuali.common.test;
 
 public final class HelloWorld {
 
-	private final String message = "hello world";
+	private final String message = "hello world"";
 
 }
