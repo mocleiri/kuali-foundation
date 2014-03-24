@@ -91,7 +91,7 @@ public class SpinUpJenkinsMaster {
 	private static final String UBUNTU = Constants.UBUNTU;
 
 	// TODO Update as needed (east or west?) (what should we go with for default root volume size, 256?)
-	private static final int DEFAULT_ROOT_VOLUME_SIZE = 32;
+	private static final int DEFAULT_ROOT_VOLUME_SIZE = 256;
 
 	private static final Map<String, JenkinsContext> CONTEXTS = getJenkinsContexts();
 
