@@ -41,7 +41,7 @@
                         <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a class="btn btn-default btn-large uif-modal" data-modal="/kboot/modals/create-version.php" href="#" data-toggle="modal" data-target=".bs-example-modal-lg">Create a new budget version</a>
+                                    <a class="btn btn-default btn-large uif-modal" data-modal="/modals/create-version.php" href="#" data-toggle="modal" data-target=".bs-example-modal-lg">Create a new budget version</a>
                                 </div>
                             </div>
                         </div>

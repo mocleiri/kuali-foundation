@@ -118,7 +118,7 @@ $page = 'personnel-costs';
                                                         <tr>
                                                             <td colspan="7">
                                                                 <a href="#" class="btn btn-default btn-sm">Sync all personnel effective dates</a> 
-                                                                <a href="#" class="btn btn-default btn-sm pull-right uif-modal" data-modal="/kboot/modals/add-personnel-step-1.php" data-toggle="modal" data-target=".bs-example-modal-lg" href="#">Add more people to this budget</a>
+                                                                <a href="#" class="btn btn-default btn-sm pull-right uif-modal" data-modal="/modals/add-personnel-step-1.php" data-toggle="modal" data-target=".bs-example-modal-lg" href="#">Add more people to this budget</a>
                                                             </td>
                                                         </tr>
                                                     </tfoot>
@@ -353,7 +353,7 @@ $page = 'personnel-costs';
             </div>
         </div>
     </div>
-    </div> -->
+    </div>
 
     <?php include ('includes/footer-scripts.php') ?>
 </body>
