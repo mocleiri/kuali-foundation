@@ -200,52 +200,156 @@ $page = 'personnel-costs';
     <div id="modal-add-personnel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" aria-labbeledby="create-new-title">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="create-new-label">Create a budget version</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
-                        <div class="row">
-                            <div class="col-md-3 uif-cssGridLabelCol">
-                                <label for="new-version-name" class="uif-label displayWith-uk9itqu uif-labelBlock uif-required">Name: *</label>
-                            </div>
-                            <div class="col-md-9">
-                                <div class="uif-inputField" data-role="InputField" data-label="Name">
-                                    <input id="new-version-name" type="text" name="new-version-name" value="" size="30" class="form-control input-sm uif-textControl required" data-role="Control">
+                <form action="#" method="#">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="create-new-label">Add budget personnel</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
+                            <div class="row uif-bottom-shadow uif-indicator-arrow uif-indicator-arrow-center">
+                                <div class="col-md-3">
+                                    <div class="uif-personnel-search-for">
+                                        <fieldset>
+                                            <legend>Search for:</legend>
+                                            <label for="employee"><input type="radio" name="personnel-search-for" id="personnel-search-for-employee"> Employee</label>
+                                            <label for="nonemployee"><input type="radio" name="personnel-search-for" id="personnel-search-for-nonemployee"> Non-Employee</label>
+                                            <label for="tbn"><input type="radio" name="personnel-search-for" id="personnel-search-for-tbn"> TBN</label>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="uif-personnel-search-form active" id="personnel-search-form-employee">
+                                        <fieldset>
+                                            <legend>Search by:</legend>
+                                            <div class="col-md-3">
+                                                <label for="personnel-search-by-type">
+                                                    <select name="personnel-search-by-type" id="personnel-search-by-type">
+                                                        <option value="first">First name</option>
+                                                        <option value="last">Last name</option>
+                                                        <option value="email">Email address</option>
+                                                    </select>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <label for="personnel-search-by-text">
+                                                    <span class="sr-only">Search text</span>
+                                                    <input type="text" name="personnel-search-by-text" id="personnel-search-by-text">
+                                                    <button class="btn btn-default">Search</button>
+                                                </label>
+                                                <p class="clearfix helper">Results from your search will appear in the box below.</p>
+                                            </div>
+                                        </fieldset>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3"></div>
-                            <div class="col-md-9">
-                                <div class="well">
-                                    <fieldset>
-                                        <legend>Does this NIH proposal allow modular budgets?</legend>
-                                        <label for="create-with-modular-true" class="clearfix"><input type="radio" name="create-with-modular" id="create-with-modular-true"> Yes, allow for modular budgets</label>
-                                        <label for="create-with-modular-false" class="clearfix"><input type="radio" name="create-with-modular" id="create-with-modular-false"> No, there will be no modular budget</label>
-                                    </fieldset>
+                            <div class="row uif-bg-shaded">
+                                <div class="col-md-5">
+                                    <div class="uif-padding-top uif-padding-top-2x uif-padding-left uif-padding-right uif-padding-bottom">
+                                        <h5>We found <span id="found-total">13 <span id="search-type">Employee</span>'s' with the first name "<span id="search-text">john</span>":</h5>
+                                        <p class="helper">Select personnel to add to the budget.</p>
+                                        <textarea class="sr-only" id="personnel-add-box-1"></textarea>
+                                        <div class="uif-collection-box" id="personnel-add-box-1-visible" data-dom-update="personnel-add-box-1">
+                                            <ul>
+                                                <li>
+                                                    <label for="personnel-result-1">
+                                                        <input type="checkbox" name="personnel-result" id="personnel-result-1"> 
+                                                        <span class="result-name">John Smith</span>
+                                                        <span class="result-title faded">Research Scientist</span>
+                                                        <span class="pull-right personnel-type">Employee</span>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label for="personnel-result-2">
+                                                        <input type="checkbox" name="personnel-result" id="personnel-result-2"> 
+                                                        <span class="result-name">John Smith</span>
+                                                        <span class="result-title faded">Research Scientist</span>
+                                                        <span class="pull-right personnel-type">Employee</span>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label for="personnel-result-3">
+                                                        <input type="checkbox" name="personnel-result" id="personnel-result-3"> 
+                                                        <span class="result-name">John Smith</span>
+                                                        <span class="result-title faded">Research Scientist</span>
+                                                        <span class="pull-right personnel-type">Employee</span>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label for="personnel-result-4">
+                                                        <input type="checkbox" name="personnel-result" id="personnel-result-4"> 
+                                                        <span class="result-name">John Smith</span>
+                                                        <span class="result-title faded">Research Scientist</span>
+                                                        <span class="pull-right personnel-type">Employee</span>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label for="personnel-result-5">
+                                                        <input type="checkbox" name="personnel-result" id="personnel-result-5"> 
+                                                        <span class="result-name">John Smith</span>
+                                                        <span class="result-title faded">Research Scientist</span>
+                                                        <span class="pull-right personnel-type">Employee</span>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label for="personnel-result-6">
+                                                        <input type="checkbox" name="personnel-result" id="personnel-result-6"> 
+                                                        <span class="result-name">John Smith</span>
+                                                        <span class="result-title faded">Research Scientist</span>
+                                                        <span class="pull-right personnel-type">Employee</span>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label for="personnel-result-7">
+                                                        <input type="checkbox" name="personnel-result" id="personnel-result-7"> 
+                                                        <span class="result-name">John Smith</span>
+                                                        <span class="result-title faded">Research Scientist</span>
+                                                        <span class="pull-right personnel-type">Employee</span>
+                                                    </label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3"></div>
-                            <div class="col-md-9">
-                                <div class="well">
-                                    <fieldset>
-                                        <legend>Would you like guided assistance to complete this budget?</legend>
-                                        <label for="create-with-guided-asst-true" class="clearfix"><input type="radio" name="create-with-guided-asst" id="create-with-guided-asst-true"> No, show me everything</label>
-                                        <label for="create-with-guided-asst-false" class="clearfix"><input type="radio" name="create-with-guided-asst" id="create-with-guided-asst-false"> Yes, please use guided assistance</label>
-                                    </fieldset>
+                                <div class="col-md-2">
+                                    <button class="btn btn-default"><span class="icon icon-plus"></span><span class="sr-only">Add to list</span></button>
+                                    <button class="btn btn-default"><span class="icon icon-minus"></span><span class="sr-only">Remove from list</span></button>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="uif-padding-top uif-padding-top-2x uif-padding-left uif-padding-right uif-padding-bottom">
+                                        <h5>We found <span id="found-total">13 <span id="search-type">Employee</span>'s' with the first name "<span id="search-text">john</span>":</h5>
+                                        <p class="helper">Select personnel to add to the budget.</p>
+                                        <textarea class="sr-only" id="personnel-add-box-1"></textarea>
+                                        <div class="uif-collection-box" id="personnel-add-box-1-visible" data-dom-update="personnel-add-box-1">
+                                            <ul>
+                                                <li>
+                                                    <label for="personnel-result-1">
+                                                        <input type="checkbox" name="personnel-result" id="personnel-result-1"> 
+                                                        <span class="result-name">John Smith</span>
+                                                        <span class="result-title faded">Research Scientist</span>
+                                                        <span class="pull-right personnel-type">Employee</span>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label for="personnel-result-2">
+                                                        <input type="checkbox" name="personnel-result" id="personnel-result-2"> 
+                                                        <span class="result-name">John Smith</span>
+                                                        <span class="result-title faded">Research Scientist</span>
+                                                        <span class="pull-right personnel-type">Employee</span>
+                                                    </label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <a role="button" class="btn btn-link" data-dismiss="modal" href="#">Cancel</a>
-                    <a role="button" class="btn btn-primary" href="periods-and-totals.php">Create and open</a>
-                </div>
+                    <div class="modal-footer">
+                        <a role="button" class="btn btn-link" data-dismiss="modal" href="#">Cancel</a>
+                        <a role="button" class="btn btn-primary" href="_personnel-roster.php">Add selected</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
