@@ -5,23 +5,23 @@
     <title>Kuali Coeus Budget POC</title>
 
     <!-- GLOBAL STYLES -->
-    <?php include ('kboot/includes/global-styles.php') ?>
+    <?php include ('includes/global-styles.php') ?>
 </head>
 <body id="Uif-Application">
 
     <!-- STICKY HEADER AND NAV -->
-    <?php include ('kboot/includes/header-sticky.php') ?>
+    <?php include ('includes/header-sticky.php') ?>
 
     <form id="kualiForm" action="#" method="post" accept-charset="UTF-8">
         <div id="LabsProposal" class="clearfix uif-formView">
-            <?php include ('kboot/includes/header-docinfo.php') ?>
+            <?php include ('includes/header-docinfo.php') ?>
     
             <!-- VIEW CONTENT -->
             <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper container">
     
                 <!-- VIEW NAVIGATION -->
                 <div class="col-md-3">
-                    <?php include ('kboot/includes/navigation.php') ?>
+                    <?php include ('includes/navigation.php') ?>
                 </div>
 
                 <div class="col-md-9">
@@ -107,6 +107,6 @@
         </div>
     </div>
 
-    <?php include ('kboot/includes/footer-scripts.php') ?>
+    <?php include ('includes/footer-scripts.php') ?>
 </body>
 </html>
