@@ -15,56 +15,8 @@
  */
 package org.kuali.common.test;
 
-import static org.kuali.common.test.Exceptions.illegalState;
-import static org.kuali.common.util.FormatUtils.getMillis;
+public final class HelloWorld {
 
-import java.util.List;
+	private final String message = "hello world";
 
-public class HelloWorld {
-
-	/**
-	 * Sleep for {@code time} where time is 15ms, 15s, 15m, 15h, 15d, 15y for 15 millis, seconds, minutes, hours, days, and years, respectively
-	 * 
-	 * @throws <code>IllegalStateException</code> if interrupted.
-	 */
-	public static void sleep(String time) {
-		sleep(getMillis(time));
-	}
-
-	/**
-	 * Sleep for <code>millis</code>
-	 * 
-	 * @throws <code>IllegalStateException</code> if interrupted.
-	 */
-	public static void sleep(long millis) {
-		try {
-			Thread.sleep(millis);
-		} catch (InterruptedException e) {
-			throw illegalState(e);
-		}
-	}
-
-	/**
-	 * Start each thread
-	 */
-	public static void start(List<Thread> threads) {
-		for (Thread thread : threads) {
-			thread.start();
-		}
-	}
-
-	/**
-	 * Invoke join() on each thread
-	 * 
-	 * @throws <code>IllegalStateException</code> if any thread gets interrupted.
-	 */
-	public static void join(List<Thread> threads) {
-		for (Thread thread : threads) {
-			try {
-				thread.join();
-			} catch (InterruptedException e) {
-				throw illegalState(e, "unexpected interruption [thread id:%s] [thread name:%s]", thread.getId(), thread.getName());
-			}
-		}
-	}
 }
