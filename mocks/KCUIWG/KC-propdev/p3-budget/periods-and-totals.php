@@ -1,5 +1,6 @@
 <?php
 $page = 'periods-and-totals';
+$section = '';
 ?>
 
 <!DOCTYPE html>
