@@ -14,6 +14,7 @@
     limitations under the License.
 ====
 
+- pre-cache Kuali artifacts during AMI creation
 - CAS groups (talk to Farooq)
 - release util, core, httpclient, dns, aws, devops
 - dial in nightly AMI job
