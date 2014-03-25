@@ -64,7 +64,8 @@ public final class WagonDownloadExecutable implements Executable {
 			informer.incrementProgress();
 			if (informer.getProgress() % informer.getTotal() == 0) {
 				Inform inform = informer.getInform();
-				inform.getPrintStream().print(inform.getCompleteToken() + inform.getStartToken());
+				String msg = String.format("%s%s - [%s of %s]", inform.getCompleteToken(), inform.getStartToken(), informer.getProgress(), total);
+				inform.getPrintStream().print(msg);
 			}
 		}
 	}
