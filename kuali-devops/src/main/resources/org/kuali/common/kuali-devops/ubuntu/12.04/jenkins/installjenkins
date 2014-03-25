@@ -152,6 +152,18 @@ function configure_jenkins_location {
 
 }
 
+function configure_jenkins_region {
+
+  # explain what we are up to
+  echo "configure -> jenkins:region"
+  
+  # This is the config file holding the jenkins location
+  JENKINS_CONFIG_FILE=$JENKINS_HOME/config.xml
+
+  execute_quietly "sed -i -e 's:<name>ec2-.*</name>:<name>ec2-$REGION</name>:g'" $JENKINS_CONFIG_FILE
+  
+}
+
 function configure_jenkins {
 
   echo "configure -> jenkins:application"
@@ -162,7 +174,13 @@ function configure_jenkins {
   decrypt_file $GPG_ENCRYPTED $GPG_DECRYPTED
   execute_quietly "unzip -o $GPG_DECRYPTED -d $TOMCAT_HOME"
   execute_quietly "rm $GPG_DECRYPTED"
+  
+  # Modify jenkins.model.JenkinsLocationConfiguration.xml with the proper dns value and admin email address
   configure_jenkins_location
+  
+  # Modify ~/.jenkins/config.xml with the correct region value
+  configure_jenkins_region
+  
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
 
 }
@@ -170,6 +188,7 @@ function configure_jenkins {
 
 function check_args {
   check_not_blank FQDN $FQDN
+  check_not_blank REGION $REGION
   check_not_blank JENKINS_VERSION $JENKINS_VERSION
   check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
 }
@@ -178,7 +197,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] fqdn version password" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] fqdn region version password" 1>&2; exit 1; }
 
 QUIET=false
 while getopts hq flag; do
@@ -199,8 +218,9 @@ done
 shift $(( OPTIND - 1 ));
 
 FQDN=$1
-JENKINS_VERSION=$2
-GPG_PASSPHRASE=$3
+REGION=$2
+JENKINS_VERSION=$3
+GPG_PASSPHRASE=$4
 
 check_args
 
