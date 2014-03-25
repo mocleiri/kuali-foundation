@@ -12,13 +12,14 @@ public enum AMI {
 	// Ubuntu creates AMI's specific to a region
 
 	// This one is for US East 1
-	UBUNTU_64_BIT_PRECISE_LTS_1204_US_EAST(Distro.UBUNTU, "12.04", "ami-0b9c9f62", "ubuntu-precise-12.04-amd64-server-20140227-ebs (us-east-1)"), //
+	UBUNTU_64_BIT_PRECISE_LTS_1204_US_EAST_1(Distro.UBUNTU, "12.04", "ami-0b9c9f62", "ubuntu-precise-12.04-amd64-server-20140227-ebs (us-east-1)"), //
 
 	// Started using this one in US West 1 when the Ubuntu bucket in US East 1 started having lame a** issues.
 	// apt-get install tomcat7 resulted in a failure with the message "HTTP 403 Forbidden" using the US East 1 bucket from which Ubuntu's package manager downloads binaries
 	// apt-get install tomcat7 using the US West 1 bucket worked like a champ
 	// This occurred randomly late on a Friday afternoon (March 14, 2014)
-	UBUNTU_64_BIT_PRECISE_LTS_1204_US_WEST(Distro.UBUNTU, "12.04", "ami-709ba735", "ubuntu-precise-12.04-amd64-server-20140227-ebs (us-west-1)");
+	UBUNTU_64_BIT_PRECISE_LTS_1204_US_WEST_1(Distro.UBUNTU, "12.04", "ami-709ba735", "ubuntu-precise-12.04-amd64-server-20140227-ebs (us-west-1)"), //
+	UBUNTU_64_BIT_PRECISE_LTS_1204_US_WEST_2(Distro.UBUNTU, "12.04", "ami-c8bed2f8", "ubuntu-precise-12.04-amd64-server-20140227-ebs (us-west-2)");
 
 	private final Distro distro;
 	private final String version;
