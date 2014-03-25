@@ -14,5 +14,7 @@
     limitations under the License.
 ====
 
+svn up; mci; mvn test -Dtest=CreateBuildSlaveAMI -Dec2.stack=test/prod -Dec2.region=us-east-1/us-west-1/us-west-2
+svn up; mci; mvn test -Dtest=SpinUpJenkinsMaster -Dec2.stack=test/prod -Dec2.region=us-east-1/us-west-1/us-west-2
 
 mvn initialize -Pupdate -Dorg.slf4j.simpleLogger.log.org.kuali.maven.wagon=warn -T C1
