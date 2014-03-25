@@ -15,6 +15,6 @@ public final class Constants {
 	public static final String DISTRO_VERSION = "12.04";
 	public static final String ROOT = "root";
 	public static final String UBUNTU = "ubuntu";
-	public static final AMI DEFAULT_AMI = AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_WEST;
+	public static final AMI DEFAULT_AMI = AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_WEST_2;
 
 }

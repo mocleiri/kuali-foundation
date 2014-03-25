@@ -30,7 +30,7 @@ public final class BasicLaunchRequest {
 
 	public static class Builder extends ValidatingBuilder<BasicLaunchRequest> {
 
-		private String ami = AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_EAST.getId();
+		private String ami = AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_EAST_1.getId();
 		private InstanceType type = InstanceType.C3Xlarge;
 		private RootVolume rootVolume = RootVolume.create(80, true);
 		private int timeoutMillis = getMillisAsInt("15m");
