@@ -158,9 +158,9 @@ public class CreateBuildSlaveAMI {
 		String java = getResource(basedir, pid, distro, distroVersion, "common/installjava");
 		exec(channel, basics, quietFlag);
 		exec(channel, ssd, quietFlag);
-		exec(channel, java, quietFlag, "jdk6", "u45", gpgPassphrase);
-		exec(channel, java, quietFlag, "jdk7", "u51", gpgPassphrase);
-		exec(channel, java, quietFlag, "jdk8", "u0", gpgPassphrase);
+		exec(channel, java, quietFlag, "jdk6", System.getProperty("jdk6.version", "u45"), gpgPassphrase);
+		exec(channel, java, quietFlag, "jdk7", System.getProperty("jdk7.version", "u51"), gpgPassphrase);
+		exec(channel, java, quietFlag, "jdk8", System.getProperty("jdk8.version", "u0"), gpgPassphrase);
 	}
 
 	protected static BasicLaunchRequest getSlaveLaunchRequest(JenkinsContext context) {
