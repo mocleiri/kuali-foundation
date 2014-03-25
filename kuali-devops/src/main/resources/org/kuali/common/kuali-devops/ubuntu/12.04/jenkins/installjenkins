@@ -160,7 +160,7 @@ function configure_jenkins_region {
   # This is the config file holding the jenkins location
   JENKINS_CONFIG_FILE=$JENKINS_HOME/config.xml
 
-  SED="sed -i -e "s:<name>ec2-.*</name>:<name>ec2-$REGION</name>:g" $JENKINS_CONFIG_FILE"
+  SED='sed -i -e "s:<name>ec2-.*</name>:<name>ec2-$REGION</name>:g" $JENKINS_CONFIG_FILE'
   $SED
   check_status $SED
   sed -i -e "s:<region>.*</region>:<region>$REGION</region>:g" $JENKINS_CONFIG_FILE
