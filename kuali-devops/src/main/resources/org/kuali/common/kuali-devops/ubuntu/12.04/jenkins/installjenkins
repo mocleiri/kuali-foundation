@@ -139,10 +139,12 @@ function configure_jenkins_location {
 
   JENKINS_LOCATION_CONFIG_FILE=$JENKINS_HOME/jenkins.model.JenkinsLocationConfiguration.xml
 
+  # Update the admin email address
   FIND="<adminAddress>.*</adminAddress>"
   REPLACE="<adminAddress>$JENKINS_ADMIN_EMAIL_ADDRESS</adminAddress>"
   execute_quietly "sed -i -e s:$FIND:$REPLACE:g $JENKINS_LOCATION_CONFIG_FILE"
 
+  # Update the jenkins url
   FIND="<jenkinsUrl>.*</jenkinsUrl>"
   REPLACE="<jenkinsUrl>https\://$JENKINS_MASTER</jenkinsUrl>"
   execute_quietly "sed -i -e s:$FIND:$REPLACE:g $JENKINS_LOCATION_CONFIG_FILE"
