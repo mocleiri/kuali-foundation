@@ -417,7 +417,7 @@ $section = '';
             <div class="uif-footer clearfix" data-sticky_footer="true" data-parent="LabsProposal">
                 <a class="btn btn-default" href="_periods-and-totals.php">Back</a>
                 <a class="btn btn-default" href="#">Save</a>
-                <a class="btn btn-primary" href="rates.php">Save and continue...</a>
+                <a class="btn btn-primary" href="personnel-roster.php">Save and continue...</a>
             </div>
         </div>
     </form>

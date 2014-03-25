@@ -114,19 +114,48 @@ $page = 'personnel-costs';
                                                                 <span class="uif-text-medium">Marie Calendar</span><br />
                                                                 <span class="uif-text-text-faded">Key Person<br />Research Assistant</span>
                                                             </td>
-                                                            <td><label for="line_3_job_code"><span class="sr-only">Job code</span><input type="input" size="3" name="line_3_job_code" id="line_3_job_code"></label></td>
-                                                            <td>
-                                                                <label for="line_3_appt_type"><span class="sr-only">Appointment type</span>
-                                                                    <select name="line_3_appt_type" id="line_3_appt_type">
-                                                                        <option value="12M">12 months</option>
-                                                                        <option value="9M">9 months</option>
-                                                                        <option vlaue="S">Summer</option>
-                                                                    </select>
-                                                                </label>
-                                                            </td>
-                                                            <td><label for="line_3_base_salary"><span class="sr-only">Base salary</span><input type="input" size="3" name="line_3_base_salary" id="line_3_base_salary"></label></td>
-                                                            <td><label for="line_3_salary_eff"><span class="sr-only">Salary effective date</span><input type="input" size="5" name="line_3_salary_eff" id="line_3_salary_eff" placeholder="mm/dd/yyyy"></label></td>
-                                                            <td><label for="line_3_salary_anniv"><span class="sr-only">Salary anniversary date</span><input type="input" size="5" name="line_3_salary_anniv" id="line_3_salary_anniv" placeholder="mm/dd/yyyy"></label></td>
+                                                                <td>
+                                                                    <div class="form-group-sm">
+                                                                        <label for="line_3_job_code" class="control-label">
+                                                                            <span class="sr-only">Job code</span>
+                                                                            <input type="input" size="3" name="line_3_job_code" id="line_3_job_code" class="form-control">
+                                                                        </label>
+                                                                    </td>
+                                                                <td>
+                                                                    <div class="form-group-sm">
+                                                                        <label for="line_3_appt_type" class="control-label"><span class="sr-only">Appointment type</span>
+                                                                            <select name="line_3_appt_type" id="line_3_appt_type" class="form-control">
+                                                                                <option value="12M">12 months</option>
+                                                                                <option value="9M">9 months</option>
+                                                                                <option vlaue="S">Summer</option>
+                                                                            </select>
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="from-group-sm">
+                                                                        <label for="line_3_base_salary" class="control-label">
+                                                                            <span class="sr-only">Base salary</span>
+                                                                            <input type="input" size="3" name="line_3_base_salary" id="line_3_base_salary" class="form-control">
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group-sm">
+                                                                        <label for="line_3_salary_eff" class="control-label">
+                                                                            <span class="sr-only">Salary effective date</span>
+                                                                            <input type="input" size="5" name="line_3_salary_eff" id="line_3_salary_eff" placeholder="mm/dd/yyyy" class="form-control">
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group-sm">
+                                                                        <label for="line_3_salary_anniv" class="control-label">
+                                                                            <span class="sr-only">Salary anniversary date</span>
+                                                                            <input type="input" size="5" name="line_3_salary_anniv" id="line_3_salary_anniv" placeholder="mm/dd/yyyy" class="form-control">
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
                                                             <td><a class="icon icon-save"><span class="sr-only">Save</span></a></td>
                                                         </tr>
                                                         <tr class="uif-new-row">
@@ -134,19 +163,48 @@ $page = 'personnel-costs';
                                                                 <span class="uif-text-medium">Marie Calendar</span><br />
                                                                 <span class="uif-text-text-faded">Key Person<br />Research Assistant</span>
                                                             </td>
-                                                            <td><label for="line_4_job_code"><span class="sr-only">Job code</span><input type="input" size="3" name="line_4_job_code" id="line_4_job_code"></label></td>
-                                                            <td>
-                                                                <label for="line_4_appt_type"><span class="sr-only">Appointment type</span>
-                                                                    <select name="line_4_appt_type" id="line_4_appt_type">
-                                                                        <option value="12M">12 months</option>
-                                                                        <option value="9M">9 months</option>
-                                                                        <option vlaue="S">Summer</option>
-                                                                    </select>
-                                                                </label>
-                                                            </td>
-                                                            <td><label for="line_4_base_salary"><span class="sr-only">Base salary</span><input type="input" size="3" name="line_4_base_salary" id="line_4_base_salary"></label></td>
-                                                            <td><label for="line_4_salary_eff"><span class="sr-only">Salary effective date</span><input type="input" size="5" name="line_4_salary_eff" id="line_4_salary_eff" placeholder="mm/dd/yyyy"></label></td>
-                                                            <td><label for="line_4_salary_anniv"><span class="sr-only">Salary anniversary date</span><input type="input" size="5" name="line_4_salary_anniv" id="line_4_salary_anniv" placeholder="mm/dd/yyyy"></label></td>
+                                                                <td>
+                                                                    <div class="form-group-sm">
+                                                                        <label for="line_4_job_code" class="control-label">
+                                                                            <span class="sr-only">Job code</span>
+                                                                            <input type="input" size="3" name="line_4_job_code" id="line_4_job_code" class="form-control">
+                                                                        </label>
+                                                                    </td>
+                                                                <td>
+                                                                    <div class="form-group-sm">
+                                                                        <label for="line_4_appt_type" class="control-label"><span class="sr-only">Appointment type</span>
+                                                                            <select name="line_4_appt_type" id="line_4_appt_type" class="form-control">
+                                                                                <option value="12M">12 months</option>
+                                                                                <option value="9M">9 months</option>
+                                                                                <option vlaue="S">Summer</option>
+                                                                            </select>
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="from-group-sm">
+                                                                        <label for="line_4_base_salary" class="control-label">
+                                                                            <span class="sr-only">Base salary</span>
+                                                                            <input type="input" size="3" name="line_4_base_salary" id="line_4_base_salary" class="form-control">
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group-sm">
+                                                                        <label for="line_4_salary_eff" class="control-label">
+                                                                            <span class="sr-only">Salary effective date</span>
+                                                                            <input type="input" size="5" name="line_4_salary_eff" id="line_4_salary_eff" placeholder="mm/dd/yyyy" class="form-control">
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group-sm">
+                                                                        <label for="line_4_salary_anniv" class="control-label">
+                                                                            <span class="sr-only">Salary anniversary date</span>
+                                                                            <input type="input" size="5" name="line_4_salary_anniv" id="line_4_salary_anniv" placeholder="mm/dd/yyyy" class="form-control">
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
                                                             <td><a class="icon icon-save"><span class="sr-only">Save</span></a></td>
                                                         </tr>
                                                         <tr class="uif-new-row">
@@ -154,19 +212,48 @@ $page = 'personnel-costs';
                                                                 <span class="uif-text-medium">Marie Calendar</span><br />
                                                                 <span class="uif-text-text-faded">Key Person<br />Research Assistant</span>
                                                             </td>
-                                                            <td><label for="line_5_job_code"><span class="sr-only">Job code</span><input type="input" size="3" name="line_5_job_code" id="line_5_job_code"></label></td>
-                                                            <td>
-                                                                <label for="line_5_appt_type"><span class="sr-only">Appointment type</span>
-                                                                    <select name="line_5_appt_type" id="line_5_appt_type">
-                                                                        <option value="12M">12 months</option>
-                                                                        <option value="9M">9 months</option>
-                                                                        <option vlaue="S">Summer</option>
-                                                                    </select>
-                                                                </label>
-                                                            </td>
-                                                            <td><label for="line_5_base_salary"><span class="sr-only">Base salary</span><input type="input" size="3" name="line_5_base_salary" id="line_5_base_salary"></label></td>
-                                                            <td><label for="line_5_salary_eff"><span class="sr-only">Salary effective date</span><input type="input" size="5" name="line_5_salary_eff" id="line_5_salary_eff" placeholder="mm/dd/yyyy"></label></td>
-                                                            <td><label for="line_5_salary_anniv"><span class="sr-only">Salary anniversary date</span><input type="input" size="5" name="line_5_salary_anniv" id="line_5_salary_anniv" placeholder="mm/dd/yyyy"></label></td>
+                                                                <td>
+                                                                    <div class="form-group-sm">
+                                                                        <label for="line_5_job_code" class="control-label">
+                                                                            <span class="sr-only">Job code</span>
+                                                                            <input type="input" size="3" name="line_5_job_code" id="line_5_job_code" class="form-control">
+                                                                        </label>
+                                                                    </td>
+                                                                <td>
+                                                                    <div class="form-group-sm">
+                                                                        <label for="line_5_appt_type" class="control-label"><span class="sr-only">Appointment type</span>
+                                                                            <select name="line_5_appt_type" id="line_5_appt_type" class="form-control">
+                                                                                <option value="12M">12 months</option>
+                                                                                <option value="9M">9 months</option>
+                                                                                <option vlaue="S">Summer</option>
+                                                                            </select>
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="from-group-sm">
+                                                                        <label for="line_5_base_salary" class="control-label">
+                                                                            <span class="sr-only">Base salary</span>
+                                                                            <input type="input" size="3" name="line_5_base_salary" id="line_5_base_salary" class="form-control">
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group-sm">
+                                                                        <label for="line_5_salary_eff" class="control-label">
+                                                                            <span class="sr-only">Salary effective date</span>
+                                                                            <input type="input" size="5" name="line_5_salary_eff" id="line_5_salary_eff" placeholder="mm/dd/yyyy" class="form-control">
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group-sm">
+                                                                        <label for="line_5_salary_anniv" class="control-label">
+                                                                            <span class="sr-only">Salary anniversary date</span>
+                                                                            <input type="input" size="5" name="line_5_salary_anniv" id="line_5_salary_anniv" placeholder="mm/dd/yyyy" class="form-control">
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
                                                             <td><a class="icon icon-save"><span class="sr-only">Save</span></a></td>
                                                         </tr>
                                                     </tbody>
@@ -210,30 +297,42 @@ $page = 'personnel-costs';
                                                 </h4>
                                             </div>
                                             <div class="panel-collapse collapse in" id="collapse-two">
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <td></td>
-                                                            <th>Object code</th>
-                                                            <th>Group</th>
-                                                            <th><span class="sr-only">Actions</span></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td><a class="icon icon-angle-right"><span class="sr-only">Show/Hide details</span></td>
-                                                            <td><label for="line_1_object_code"><span class="sr-only">Object code</span><input type="input" size="3" name="line_1_object_code" id="line_1_object_code"></label></td>
-                                                            <td>
-                                                                <label for="line_1_group_name"><span class="sr-only">Group name</span>
-                                                                    <select name="line_1_group_name" id="line_1_group_name">
-                                                                        <option value="Other">Some group that I've created</option>
-                                                                    </select>
-                                                                </label>
-                                                            </td>
-                                                            <td><a class="icon icon-save"><span class="sr-only">Save</span></a></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                                <form action="#" method="#" class="form-inline">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <td></td>
+                                                                <th>Object code</th>
+                                                                <th>Group</th>
+                                                                <th><span class="sr-only">Actions</span></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><a class="icon icon-angle-right"><span class="sr-only">Show/Hide details</span></td>
+                                                                <td>
+                                                                    <div class="form-group-sm">
+                                                                        <label for="line_1_object_code" class="control-label">
+                                                                            <span class="sr-only">Object code</span>
+                                                                            <input type="input" size="3" name="line_1_object_code" id="line_1_object_code" class="form-control">
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group-sm">
+                                                                        <label for="line_1_group_name" class="control-label">
+                                                                            <span class="sr-only">Group name</span>
+                                                                            <select name="line_1_group_name" id="line_1_group_name" class="form-control">
+                                                                                <option value="Other">Some group that I've created</option>
+                                                                            </select>
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td><a class="icon icon-save"><span class="sr-only">Save</span></a></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

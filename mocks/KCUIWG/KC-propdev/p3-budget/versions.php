@@ -46,101 +46,115 @@ $page = 'budget-versions';
                         <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <table class="table table-condensed">
-                                        <thead>
-                                            <tr>
-                                                <th>Final</th>
-                                                <th>Name</th>
-                                                <th>Direct cost</th>
-                                                <th>F&amp;A</th>
-                                                <th>Total</th>
-                                                <th>Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="final-version">
-                                                <td><label for="make_final_1"><input type="radio" name="name_final" id="make_final_1" value="version_1" checked="checked"></label></td>
-                                                <td>
-                                                    <span class="icon icon-lock"><span class="sr-only">Version locked</span></span> 
-                                                    <a href="_periods-and-totals.php">Test budget version</a><br />
-                                                    <span class="final-version-selected">Will be submitted with proposal</span><br />
-                                                    <dl>
-                                                        <dt>From:</dt>
-                                                        <dd>1/1/2014</dd>
-                                                        <dt>To:</dt>
-                                                        <dd>12/31/2019</dd>
-                                                    </dl>
-                                                </td>
-                                                <td>$6,000</td>
-                                                <td>$1,050</td>
-                                                <td>$7,050</td>
-                                                <td>Complete</td>
-                                                <td>
-                                                    <label for="version_1_actions"><span class="sr-only">Available actions</span></label>
-                                                    <select id="version_1_actions" name="version_1_actions">
-                                                        <option>- Actions -</option>
-                                                        <option>View summary</option>
-                                                        <option>Copy</option>
-                                                        <option>Validate data</option>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><label for="make_final_2"><input type="radio" name="name_final" id="make_final_2" value="version_2"></label></td>
-                                                <td>
-                                                    <a href="#">Some other test budget</a><br />
-                                                    <dl>
-                                                        <dt>From:</dt>
-                                                        <dd>1/1/2014</dd>
-                                                        <dt>To:</dt>
-                                                        <dd>12/31/2019</dd>
-                                                    </dl>
-                                                </td>
-                                                <td>$6,000</td>
-                                                <td>$1,050</td>
-                                                <td>$7,050</td>
-                                                <td>Complete</td>
-                                                <td>
-                                                    <label for="version_1_actions"><span class="sr-only">Available actions</span></label>
-                                                    <select id="version_1_actions" name="version_1_actions">
-                                                        <option>- Actions -</option>
-                                                        <option>View summary</option>
-                                                        <option>Copy</option>
-                                                        <option>Validate data</option>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><label for="make_final_3"><input type="radio" name="name_final" id="make_final_3" value="version_1"></label></td>
-                                                <td>
-                                                    <a href="#">Another test budget version</a><br />
-                                                    <dl>
-                                                        <dt>From:</dt>
-                                                        <dd>1/1/2014</dd>
-                                                        <dt>To:</dt>
-                                                        <dd>12/31/2019</dd>
-                                                    </dl>
-                                                </td>
-                                                <td>$6,000</td>
-                                                <td>$1,050</td>
-                                                <td>$7,050</td>
-                                                <td>Complete</td>
-                                                <td>
-                                                    <label for="version_1_actions"><span class="sr-only">Available actions</span></label>
-                                                    <select id="version_1_actions" name="version_1_actions">
-                                                        <option>- Actions -</option>
-                                                        <option>View summary</option>
-                                                        <option>Copy</option>
-                                                        <option>Validate data</option>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                        <tfoot>
-                                            <a class="btn btn-default btn-sm pull-right uif-modal" data-modal="/kboot/modals/create-version.php" href="#" data-toggle="modal" data-target=".bs-example-modal-lg" href="#">Create a new budget version</a>
-                                        </tfoot>
-                                    </table>
+                                    <form action="#" method="#" class="form-inline">
+                                        <table class="table table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <th>Final</th>
+                                                    <th>Name</th>
+                                                    <th>Direct cost</th>
+                                                    <th>F&amp;A</th>
+                                                    <th>Total</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="final-version">
+                                                    <td><label for="make_final_1"><input type="radio" name="name_final" id="make_final_1" value="version_1" checked="checked"></label></td>
+                                                    <td>
+                                                        <span class="icon icon-lock"><span class="sr-only">Version locked</span></span> 
+                                                        <a href="_periods-and-totals.php">Test budget version</a><br />
+                                                        <span class="final-version-selected">Will be submitted with proposal</span><br />
+                                                        <dl>
+                                                            <dt>From:</dt>
+                                                            <dd>1/1/2014</dd>
+                                                            <dt>To:</dt>
+                                                            <dd>12/31/2019</dd>
+                                                        </dl>
+                                                    </td>
+                                                    <td>$6,000</td>
+                                                    <td>$1,050</td>
+                                                    <td>$7,050</td>
+                                                    <td>Complete</td>
+                                                    <td>
+                                                        <div class="form-group-sm">
+                                                            <label for="version_1_actions" class="control-label">
+                                                                <span class="sr-only">Available actions</span>
+                                                            </label>
+                                                            <select id="version_1_actions" name="version_1_actions" class="form-control">
+                                                                <option>- Actions -</option>
+                                                                <option>View summary</option>
+                                                                <option>Copy</option>
+                                                                <option>Validate data</option>
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="make_final_2"><input type="radio" name="name_final" id="make_final_2" value="version_2"></label></td>
+                                                    <td>
+                                                        <a href="#">Some other test budget</a><br />
+                                                        <dl>
+                                                            <dt>From:</dt>
+                                                            <dd>1/1/2014</dd>
+                                                            <dt>To:</dt>
+                                                            <dd>12/31/2019</dd>
+                                                        </dl>
+                                                    </td>
+                                                    <td>$6,000</td>
+                                                    <td>$1,050</td>
+                                                    <td>$7,050</td>
+                                                    <td>Complete</td>
+                                                    <td>
+                                                        <div class="form-group-sm">
+                                                            <label for="version_1_actions" class="control-label">
+                                                                <span class="sr-only">Available actions</span>
+                                                            </label>
+                                                            <select id="version_1_actions" name="version_1_actions" class="form-control">
+                                                                <option>- Actions -</option>
+                                                                <option>View summary</option>
+                                                                <option>Copy</option>
+                                                                <option>Validate data</option>
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label for="make_final_3"><input type="radio" name="name_final" id="make_final_3" value="version_1"></label></td>
+                                                    <td>
+                                                        <a href="#">Another test budget version</a><br />
+                                                        <dl>
+                                                            <dt>From:</dt>
+                                                            <dd>1/1/2014</dd>
+                                                            <dt>To:</dt>
+                                                            <dd>12/31/2019</dd>
+                                                        </dl>
+                                                    </td>
+                                                    <td>$6,000</td>
+                                                    <td>$1,050</td>
+                                                    <td>$7,050</td>
+                                                    <td>Complete</td>
+                                                    <td>
+                                                        <div class="form-group-sm">
+                                                            <label for="version_1_actions" class="control-label">
+                                                                <span class="sr-only">Available actions</span>
+                                                            </label>
+                                                            <select id="version_1_actions" name="version_1_actions" class="form-control">
+                                                                <option>- Actions -</option>
+                                                                <option>View summary</option>
+                                                                <option>Copy</option>
+                                                                <option>Validate data</option>
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <a class="btn btn-default btn-sm pull-right uif-modal" data-modal="/kboot/modals/create-version.php" href="#" data-toggle="modal" data-target=".bs-example-modal-lg" href="#">Create a new budget version</a>
+                                            </tfoot>
+                                        </table>
+                                    </form>
 
                                     <div class="well">
                                         <div class="version-complete-container">

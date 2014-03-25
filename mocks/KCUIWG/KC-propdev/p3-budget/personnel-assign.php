@@ -45,21 +45,23 @@ $page = 'personnel-assign';
                         </header>
                         <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
                             <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
-                                <form action="#" method="#">
+                                <form action="#" method="#" class="form-horizontal">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="well clearfix">
                                                 <section>
                                                     <div class="col-md-3">
-                                                        <h3>Select working period</h3>
+                                                        <h4>Select working period</h4>
                                                     </div>
                                                     <div class="col-md-9">
-                                                        <label for="assign-working-period">Budget period:</label>
-                                                        <select name="assign-working-period" id="assign-working-period">
-                                                            <option value="p1">1: 01/01/2014 - 12/31/2014</option>
-                                                            <option value="p1">2: 01/01/2015 - 12/31/2015</option>
-                                                            <option value="p1">3: 01/01/2016 - 12/31/2016</option>
-                                                        </select>
+                                                        <div class="form-group">
+                                                            <label for="assign-working-period">Budget period:</label>
+                                                            <select name="assign-working-period" id="assign-working-period" class="form-control">
+                                                                <option value="p1">1: 01/01/2014 - 12/31/2014</option>
+                                                                <option value="p1">2: 01/01/2015 - 12/31/2015</option>
+                                                                <option value="p1">3: 01/01/2016 - 12/31/2016</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </section>
                                             </div>
@@ -70,29 +72,33 @@ $page = 'personnel-assign';
                                             <div class="well clearfix">
                                                 <section>
                                                     <div class="col-md-3">
-                                                        <h3>Assign Personnel</h3>
+                                                        <h4>Assign Personnel</h4>
                                                         <span class="uif-current-period" id="current-period">Period 1</span><br />
                                                         <span class="uif-current-period-details" id="current-period-details">01/01/2014 - 12/31/2014</span>
                                                     </div>
                                                     <div class="col-md-9">
-                                                        <label for="assign-personnel">Personnel:</label>
-                                                        <select name="assign-personnel" id="assign-personnel">
-                                                            <option>- Select-</option>
-                                                        </select>
-
-                                                        <label for="assign-object-code-group">Object code name:</label>
-                                                        <select name="assign-object-code-group" id="assign-object-code-group">
-                                                            <option>Administrative Staff - Off</option>
-                                                        </select>
-                                                        <button class="btn btn-default icon icon-searcj"><span class="sr-only">Search</span></button>
-
-                                                        <label for="assign-group">Group:</label>
-                                                        <select name="assign-group" id="assign-group">
-                                                            <option>Group that I've configured</option>
-                                                        </select>
-                                                        <a href="#">Create new group</a>
-
-                                                        <button class="btn btn-primary">Assign to this period</button>
+                                                        <div class="form-group">
+                                                            <label for="assign-personnel" class="control-label">Personnel:</label>
+                                                            <select name="assign-personnel" id="assign-personnel" class="form-control">
+                                                                <option>- Select-</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="input-group">
+                                                            <label for="assign-object-code-group" class="control-label">Object code name:</label>
+                                                            <select name="assign-object-code-group" id="assign-object-code-group" class="form-control col-md-11">
+                                                                <option>Administrative Staff - Off</option>
+                                                            </select>
+                                                            <button class="btn btn-default icon icon-search input-group-addon"><span class="sr-only">Search</span></button>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="assign-group" class="control-label">Group:</label>
+                                                            <select name="assign-group" id="assign-group" class="form-control col-md-10">
+                                                                <option>Group that I've configured</option>
+                                                            </select>
+                                                            <a href="#" class="col-md-2">Create new group</a>
+                                                        </div>
+                                                            <!-- <button class="btn btn-primary">Assign to this period</button> -->
+                                                        </div>
                                                     </div>
                                                 </section>
                                             </div>
