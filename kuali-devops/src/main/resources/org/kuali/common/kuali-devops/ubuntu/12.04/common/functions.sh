@@ -112,6 +112,7 @@ function execute_quietly {
 
 function check_status {
   STATUS="$?"
+  COMMAND=$1
   if [ ! "$STATUS" == "0" ]; then
     echo
     echo "error executing: $COMMAND"
