@@ -7,6 +7,7 @@ import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import org.kuali.common.devops.aws.Tags;
 
 import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
 
 @IdiotProofImmutable
 public final class JenkinsContext {
@@ -33,6 +34,19 @@ public final class JenkinsContext {
 		private Tags.Name name;
 		private Tags.Stack stack;
 		private Region region = Region.getRegion(DEFAULT_REGION);
+
+		public Builder withRegion(String region) {
+			return withRegion(Regions.fromName(region));
+		}
+
+		public Builder withRegion(Region region) {
+			this.region = region;
+			return this;
+		}
+
+		public Builder withRegion(Regions region) {
+			return withRegion(Region.getRegion(region));
+		}
 
 		public Builder withDnsPrefix(String dnsPrefix) {
 			this.dnsPrefix = dnsPrefix;
@@ -77,6 +91,14 @@ public final class JenkinsContext {
 		public void setStack(Tags.Stack stack) {
 			this.stack = stack;
 		}
+
+		public Region getRegion() {
+			return region;
+		}
+
+		public void setRegion(Region region) {
+			this.region = region;
+		}
 	}
 
 	public String getDnsPrefix() {
@@ -89,6 +111,10 @@ public final class JenkinsContext {
 
 	public Tags.Stack getStack() {
 		return stack;
+	}
+
+	public Region getRegion() {
+		return region;
 	}
 
 }
