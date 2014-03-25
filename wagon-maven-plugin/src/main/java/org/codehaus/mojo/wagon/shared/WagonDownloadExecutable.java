@@ -49,6 +49,7 @@ public final class WagonDownloadExecutable implements Executable {
 		try {
 			touch(destination);
 			wagon.get(remoteFile, destination);
+			counter.increment();
 			if (useInformer()) {
 				inform();
 			} else {
@@ -76,7 +77,7 @@ public final class WagonDownloadExecutable implements Executable {
 
 	private void stats() {
 		bytesCounter.increment(destination.length());
-		int count = counter.increment();
+		int count = counter.getValue();
 		long elapsed = currentTimeMillis() - start;
 		String rate = getRate(elapsed, bytesCounter.getValue(), rateFormatter);
 		// long millisPerFile = elapsed / count;
