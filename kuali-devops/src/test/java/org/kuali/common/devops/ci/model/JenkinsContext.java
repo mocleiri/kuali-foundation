@@ -1,8 +1,12 @@
 package org.kuali.common.devops.ci.model;
 
+import static com.amazonaws.regions.Regions.DEFAULT_REGION;
+
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import org.kuali.common.devops.aws.Tags;
+
+import com.amazonaws.regions.Region;
 
 @IdiotProofImmutable
 public final class JenkinsContext {
@@ -10,11 +14,13 @@ public final class JenkinsContext {
 	private final String dnsPrefix;
 	private final Tags.Name name;
 	private final Tags.Stack stack;
+	private final Region region;
 
 	private JenkinsContext(Builder builder) {
 		this.dnsPrefix = builder.dnsPrefix;
 		this.name = builder.name;
 		this.stack = builder.stack;
+		this.region = builder.region;
 	}
 
 	public static Builder builder() {
@@ -26,6 +32,7 @@ public final class JenkinsContext {
 		private String dnsPrefix;
 		private Tags.Name name;
 		private Tags.Stack stack;
+		private Region region = Region.getRegion(DEFAULT_REGION);
 
 		public Builder withDnsPrefix(String dnsPrefix) {
 			this.dnsPrefix = dnsPrefix;
