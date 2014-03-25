@@ -49,8 +49,8 @@ puts "configure system"
 @browser.table(:id => "management-links").link(:text => "Configure System").click
 @browser.text_field(:name => "_.ami").wait_until_present
 
-puts @browser.text_field(:name => "_.ami").value
-puts "update ami -> #{ami_value}"
+puts "old ami ->" + @browser.text_field(:name => "_.ami").value
+puts "new ami -> #{ami_value}"
 
 @browser.text_field(:name => "_.ami").set ami_value
 
