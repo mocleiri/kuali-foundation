@@ -289,7 +289,8 @@ public class CreateBuildSlaveAMI {
 		if (buildNumber.isPresent()) {
 			return parseLong(buildNumber.get());
 		} else {
-			return currentTimeMillis();
+			// The number of minutes since midnight on January 1st, 1970 UTC
+			return (currentTimeMillis() / (1000 * 60));
 		}
 	}
 
