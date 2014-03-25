@@ -93,6 +93,7 @@ public class SpinUpJenkinsMaster {
 	private final String distroVersion = Constants.DISTRO_VERSION;
 	private static final String ROOT = Constants.ROOT;
 	private static final String UBUNTU = Constants.UBUNTU;
+	private static final String JENKINS_VERSION = "1.532.2";
 
 	// What should we go with for default root volume size, 256?)
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 256;
@@ -155,7 +156,7 @@ public class SpinUpJenkinsMaster {
 			String common = getResource(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
 			String jenkins = getResource(basedir, pid, distro, distroVersion, "jenkins/installjenkins");
 			exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
-			exec(channel, jenkins, quietFlag, jenkinsMaster, "1.532.2", gpgPassphrase);
+			exec(channel, jenkins, quietFlag, jenkinsMaster, jenkinsContext.getRegion().getName(), JENKINS_VERSION, gpgPassphrase);
 
 			// The spin up process should have given DNS enough time to settle down
 			info("Verifying SSH to -> [%s]", jenkinsMaster);
