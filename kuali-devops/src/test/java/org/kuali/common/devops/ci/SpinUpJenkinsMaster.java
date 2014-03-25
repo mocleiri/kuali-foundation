@@ -15,6 +15,7 @@ import static org.kuali.common.devops.logic.Auth.getDnsmeCredentials;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
 import static org.kuali.common.dns.model.CNAMEContext.newCNAMEContext;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
+import static org.kuali.common.util.base.Exceptions.illegalArgument;
 import static org.kuali.common.util.log.LoggerLevel.INFO;
 import static org.kuali.common.util.log.LoggerLevel.WARN;
 import static org.kuali.common.util.maven.RepositoryUtils.getDefaultLocalRepository;
@@ -28,6 +29,7 @@ import java.util.SortedMap;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
+import org.kuali.common.aws.ec2.model.AMI;
 import org.kuali.common.aws.ec2.model.Distro;
 import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
@@ -68,6 +70,8 @@ import org.kuali.common.util.wait.WaitContext;
 import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
 
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Joiner;
@@ -102,6 +106,20 @@ public class SpinUpJenkinsMaster {
 		contexts.put("test", test);
 		contexts.put("prod", prod);
 		return ImmutableMap.copyOf(contexts);
+	}
+
+	protected static String getDefaultAMI(Region provided) {
+		Regions derived = Regions.fromName(provided.getName());
+		switch (derived) {
+		case US_EAST_1:
+			return AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_EAST_1.getId();
+		case US_WEST_1:
+			return AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_WEST_1.getId();
+		case US_WEST_2:
+			return AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_WEST_2.getId();
+		default:
+			throw illegalArgument("Region [%s] is not supported", provided.getName());
+		}
 	}
 
 	protected static JenkinsContext getJenkinsContext(VirtualSystem vs, Map<String, JenkinsContext> contexts) {
