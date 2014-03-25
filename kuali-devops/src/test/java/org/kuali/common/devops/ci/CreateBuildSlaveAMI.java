@@ -3,7 +3,6 @@ package org.kuali.common.devops.ci;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Maps.newTreeMap;
 import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
 import static java.lang.String.format;
@@ -31,7 +30,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.SortedMap;
 
 import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
@@ -70,7 +68,6 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 
 public class CreateBuildSlaveAMI {
 
@@ -92,17 +89,7 @@ public class CreateBuildSlaveAMI {
 	private final String kisPasswordEncrypted = "lZ7Yxs1+9a9a5di5q1JuiVNnZiNjZN0F";
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 80;
 
-	private static final Map<String, JenkinsContext> CONTEXTS = getJenkinsContexts();
-
-	private static Map<String, JenkinsContext> getJenkinsContexts() {
-		Tags.Name name = Tags.Name.SLAVE;
-		JenkinsContext prod = JenkinsContext.builder().withDnsPrefix("ci").withStack(Tags.Stack.PRODUCTION).withName(name).build();
-		JenkinsContext test = JenkinsContext.builder().withDnsPrefix("testci").withStack(Tags.Stack.TEST).withName(name).build();
-		SortedMap<String, JenkinsContext> contexts = newTreeMap();
-		contexts.put("test", test);
-		contexts.put("prod", prod);
-		return ImmutableMap.copyOf(contexts);
-	}
+	private static final Map<String, JenkinsContext> CONTEXTS = SpinUpJenkinsMaster.getJenkinsContexts(Tags.Name.SLAVE);
 
 	@Test
 	public void test() {
