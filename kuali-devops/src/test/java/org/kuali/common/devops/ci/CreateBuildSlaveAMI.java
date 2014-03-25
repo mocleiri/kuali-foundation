@@ -94,7 +94,6 @@ public class CreateBuildSlaveAMI {
 	@Test
 	public void test() {
 		try {
-			System.setProperty("ec2.stack", "test");
 			logger.info(format("build slave ami process :: starting"));
 			VirtualSystem vs = VirtualSystem.create();
 			// Default to quiet mode unless they've supplied -Dec2.quiet=false
