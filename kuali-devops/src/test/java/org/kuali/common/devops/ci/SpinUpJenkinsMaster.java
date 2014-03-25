@@ -135,7 +135,7 @@ public class SpinUpJenkinsMaster {
 			BasicLaunchRequest request = getMasterLaunchRequest(jenkinsContext);
 			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
-			EC2Service service = getEC2Service(amazonAccount);
+			EC2Service service = getEC2Service(amazonAccount, jenkinsContext.getRegion());
 			Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags);
 			// Instance instance = service.getInstance("i-b593c4ea");
 			info("public dns: %s", instance.getPublicDnsName());

@@ -58,7 +58,7 @@ import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
 
 import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.regions.Regions;
+import com.amazonaws.regions.Region;
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Instance;
@@ -103,7 +103,7 @@ public class CreateBuildSlaveAMI {
 			BasicLaunchRequest request = getSlaveLaunchRequest(jenkinsContext);
 			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
-			EC2Service service = getEC2Service(amazonAccount);
+			EC2Service service = getEC2Service(amazonAccount, jenkinsContext.getRegion());
 			List<Tag> tags = getSlaveTags(jenkinsContext);
 			Instance instance = launchAndWait(service, request, securityGroups, tags);
 			// Instance instance = service.getInstance("i-6bb3e034");
@@ -272,11 +272,11 @@ public class CreateBuildSlaveAMI {
 		return service.launchInstance(context);
 	}
 
-	protected static EC2Service getEC2Service(String account) {
+	protected static EC2Service getEC2Service(String account, Region region) {
 		AWSCredentials creds = Auth.getAwsCredentials(account);
 		WaitService ws = new DefaultWaitService();
-		String region = Regions.US_WEST_1.getName();
-		EC2ServiceContext ec = new EC2ServiceContext.Builder(creds).withRegionName(Optional.of(region)).build();
+		String regionName = region.getName();
+		EC2ServiceContext ec = new EC2ServiceContext.Builder(creds).withRegionName(Optional.of(regionName)).build();
 		return new DefaultEC2Service(ec, ws);
 	}
 
