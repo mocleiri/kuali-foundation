@@ -1,6 +1,0 @@
-classpath:org/kuali/ole/sql/mysql/01-bootstrap-krns.sql
-classpath:org/kuali/ole/sql/mysql/02-bootstrap-krim-entity.sql
-classpath:org/kuali/ole/sql/mysql/03-bootstrap-krim-role-perm.sql
-classpath:org/kuali/ole/sql/mysql/04-demo-krns.sql
-classpath:org/kuali/ole/sql/mysql/05-demo-krim-entity.sql
-classpath:org/kuali/ole/sql/mysql/06-demo-krim-role-perm.sql
