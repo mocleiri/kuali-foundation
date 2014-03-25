@@ -83,22 +83,21 @@ $page = 'personnel-assign';
                                                                 <option>- Select-</option>
                                                             </select>
                                                         </div>
-                                                        <div class="input-group">
+                                                        <div class="form-group">
                                                             <label for="assign-object-code-group" class="control-label">Object code name:</label>
-                                                            <select name="assign-object-code-group" id="assign-object-code-group" class="form-control col-md-11">
+                                                            <select name="assign-object-code-group" id="assign-object-code-group" class="form-control">
                                                                 <option>Administrative Staff - Off</option>
                                                             </select>
-                                                            <button class="btn btn-default icon icon-search input-group-addon"><span class="sr-only">Search</span></button>
+                                                            <!-- <button class="btn btn-default icon icon-search pull-right"><span class="sr-only">Search</span></button> -->
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="assign-group" class="control-label">Group:</label>
-                                                            <select name="assign-group" id="assign-group" class="form-control col-md-10">
+                                                            <select name="assign-group" id="assign-group" class="form-control">
                                                                 <option>Group that I've configured</option>
                                                             </select>
-                                                            <a href="#" class="col-md-2">Create new group</a>
+                                                            <a href="#">Create new group</a>
                                                         </div>
-                                                            <!-- <button class="btn btn-primary">Assign to this period</button> -->
-                                                        </div>
+                                                        <button class="btn btn-primary">Assign to this period</button>
                                                     </div>
                                                 </section>
                                             </div>
@@ -131,21 +130,51 @@ $page = 'personnel-assign';
                                                                 <tr>
                                                                     <td>
                                                                         <span class="uif-text-medium">Ramen Noodle</span><br />
-                                                                        <span class="uif-text-text-faded">Principal Investigator</span>
-                                                                        <span class="uif-text-job-code">AA0000</span>
+                                                                        <span class="uif-text-text-faded">Principal Investigator</span><br />
+                                                                        <span class="uif-text-job-code">AA0000</span><br />
                                                                         <a href="#">Additional details</a>
                                                                     </td>
-                                                                    <td><label for="line_1_start"><span class="sr-only">Start date</span><input type="text" size="5" name="line_1_start" id="line_1_start" placeholder="mm/dd/yyyy"></label></td>
-                                                                    <td><label for="line_1_end"><span class="sr-only">End date</span><input type="text" size="5" name="line_1_end" id="line_1_end" placeholder="mm/dd/yyyy"></label></td>
-                                                                    <td><label for="line_1_effort"><span class="sr-only">Percent effort</span><input type="text" size="3" name="line_1_effort" id="line_1_effort"></label></td>
-                                                                    <td><label for="line_1_charged"><span class="sr-only">Percent charged</span><input type="text" size="3" name="line_1_charged" id="line_1_charged"></label></td>
                                                                     <td>
-                                                                        <label for="line_1_period_type">
-                                                                            <span class="sr-only">Percent effort</span>
-                                                                            <select name="line_1_period_type" id="line_1_period_type">
+                                                                        <div class="form-group-sm">
+                                                                            <label for="line_1_start" class="control-label">
+                                                                                <span class="sr-only">Start date</span>
+                                                                            </label>
+                                                                            <input type="text" size="5" name="line_1_start" id="line_1_start" placeholder="mm/dd/yyyy" class="form-control">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group-sm">
+                                                                            <label for="line_1_end" class="control-label">
+                                                                                <span class="sr-only">End date</span>
+                                                                            </label>
+                                                                            <input type="text" size="5" name="line_1_end" id="line_1_end" placeholder="mm/dd/yyyy" class="form-control">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group-sm">
+                                                                            <label for="line_1_effort" class="control-label">
+                                                                                <span class="sr-only">Percent effort</span>
+                                                                            </label>
+                                                                            <input type="text" size="3" name="line_1_effort" id="line_1_effort" class="form-control">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group-sm">
+                                                                            <label for="line_1_charged" class="control-label">
+                                                                                <span class="sr-only">Percent charged</span>
+                                                                            </label>
+                                                                            <input type="text" size="3" name="line_1_charged" id="line_1_charged" class="form-control">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group-sm">
+                                                                            <label for="line_1_period_type" class="control-label">
+                                                                                <span class="sr-only">Percent effort</span>
+                                                                            </label>
+                                                                            <select name="line_1_period_type" id="line_1_period_type" class="form-control">
                                                                                 <option>Calendar</option>
                                                                             </select>
-                                                                        </label>
+                                                                        </div>
                                                                     </td>
                                                                     <td><label for="line_1_req_salary"><span class="sr-only">Requested salary</span><span id="line_1_req_salary">$0</span></label></td>
                                                                     <td><label for="line_1_calc_fringe"><span class="sr-only">Calculated fringe</span><span id="line_1_calc_fringe">$0</span></label></td>
