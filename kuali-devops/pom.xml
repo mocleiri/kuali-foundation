@@ -35,11 +35,13 @@
     <url>https://svn.kuali.org/repos/foundation/trunk/kuali-devops</url>
   </scm>
   <properties>
-    <kuali-aws.version>1.0.0-SNAPSHOT</kuali-aws.version>
-    <kuali-dns.version>1.0.0-SNAPSHOT</kuali-dns.version>
     <kuali-util.version>4.4.10-SNAPSHOT</kuali-util.version>
     <kuali-core.version>1.0.0-SNAPSHOT</kuali-core.version>
     <kuali-httpclient.version>1.0.0-SNAPSHOT</kuali-httpclient.version>
+    <kuali-dns.version>1.0.0-SNAPSHOT</kuali-dns.version>
+    <kuali-aws.version>1.0.0-SNAPSHOT</kuali-aws.version>
+    <plugin.wagon.version>1.0.5-SNAPSHOT</plugin.wagon.version>
+
     <junit.version>4.11</junit.version>
     <hibernate-validator.version>5.0.1.Final</hibernate-validator.version>
     <javax.el.version>2.2.4</javax.el.version>
@@ -48,24 +50,12 @@
     <jackson.version>2.3.1</jackson.version>
     <jackson-databind.version>${jackson.version}</jackson-databind.version>
     <jackson-datatype-guava.version>${jackson.version}</jackson-datatype-guava.version>
-    <plugin.wagon.version>1.0.5-SNAPSHOT</plugin.wagon.version>
-
-    <jdk7.version>1.7.0-u51</jdk7.version>
-    <jdk6.version>1.6.0-u45</jdk6.version>
-    <jenkins.master>beta-ci.kuali.org</jenkins.master>
-    <dns.domain>kuali.org</dns.domain>
 
     <wagon.phase>validate</wagon.phase>
     <wagon.internal.phase>${wagon.phase}</wagon.internal.phase>
     <wagon.external.phase>${wagon.phase}</wagon.external.phase>
   </properties>
   <profiles>
-    <profile>
-      <id>slave</id>
-      <properties>
-        <dns.domain>amazonaws.com</dns.domain>
-      </properties>
-    </profile>
     <profile>
       <id>update</id>
       <properties>
