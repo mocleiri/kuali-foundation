@@ -123,6 +123,15 @@ function configure_tomcat_user {
   
 }
 
+function configure_tomcat {
+
+  echo "configure -> $TOMCAT"
+  ECHO="JAVA_OPTS=\$JAVA_OPTS -Duser.timezone=US/Eastern"
+  TOMCAT_OPT_FILE=/etc/default/$TOMCAT
+  echo "$ECHO" >> $TOMCAT_OPT_FILE
+  
+}
+
 function configure_jenkins_location {
 
   # explain what we are up to
@@ -205,10 +214,12 @@ TOMCAT=tomcat7
 TOMCAT_HOME=/home/$TOMCAT
 JENKINS_HOME=$TOMCAT_HOME/.jenkins
 JENKINS_ADMIN_EMAIL_ADDRESS=jcaddel@kuali.org
+TOMCAT_OPT_FILE=/etc/default/$TOMCAT
 
 echo "stop      -> $TOMCAT:service"
 execute_quietly "service $TOMCAT stop"
 
+configure_tomcat
 configure_tomcat_user
 install_jenkins
 install_plugins
