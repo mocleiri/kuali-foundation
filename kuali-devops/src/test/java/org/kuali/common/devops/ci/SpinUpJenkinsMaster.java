@@ -108,20 +108,6 @@ public class SpinUpJenkinsMaster {
 		return ImmutableMap.copyOf(contexts);
 	}
 
-	protected static String getDefaultAMI(Region provided) {
-		Regions derived = Regions.fromName(provided.getName());
-		switch (derived) {
-		case US_EAST_1:
-			return AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_EAST_1.getId();
-		case US_WEST_1:
-			return AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_WEST_1.getId();
-		case US_WEST_2:
-			return AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_WEST_2.getId();
-		default:
-			throw illegalArgument("Region [%s] is not supported", provided.getName());
-		}
-	}
-
 	protected static JenkinsContext getJenkinsContext(VirtualSystem vs, Map<String, JenkinsContext> contexts) {
 		String usage = format("\n\nusage: -Dec2.stack=%s\n\n", Joiner.on('/').join(CONTEXTS.keySet()));
 		String jenkinsContextKey = vs.getProperties().getProperty("ec2.stack");
@@ -327,6 +313,20 @@ public class SpinUpJenkinsMaster {
 			return format(s, args);
 		} else {
 			return s;
+		}
+	}
+
+	protected static String getDefaultAMI(Region provided) {
+		Regions derived = Regions.fromName(provided.getName());
+		switch (derived) {
+		case US_EAST_1:
+			return AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_EAST_1.getId();
+		case US_WEST_1:
+			return AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_WEST_1.getId();
+		case US_WEST_2:
+			return AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_WEST_2.getId();
+		default:
+			throw illegalArgument("Region [%s] is not supported", provided.getName());
 		}
 	}
 
