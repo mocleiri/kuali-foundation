@@ -17,6 +17,7 @@
 - make region dynamic (coordinate between java flag and ec2-plugin cloud config file)
 - CAS groups (talk to Farooq)
 - release util, core, httpclient, dns, aws, devops
+- dial in nightly AMI job
 - Make maven/firefox versions a CSV property
 - cache GIT credentials somehow
 
