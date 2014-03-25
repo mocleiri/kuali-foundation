@@ -24,6 +24,7 @@ import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
@@ -132,16 +133,9 @@ public class CreateBuildSlaveAMI {
 			CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(name).withRootVolume(request.getRootVolume())
 					.withAdditionalMappings(additionalMappings).withTimeoutMillis(request.getTimeoutMillis()).withDescription(description).build();
 			Image image = service.createAmi(creator);
-			// Image image = service.getImage("ami-d8427c9d");
 			logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
 			cleanupAmis(service);
-			logger.info(format("updating %s with new AMI", jenkinsMaster));
-			String kisPassword = Auth.decrypt(kisPasswordEncrypted);
-			String rubyScript = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/update_jenkins_1.532.2_ami_headless.rb");
-			instance = service.startInstance(instance.getInstanceId());
-			SpinUpJenkinsMaster.verifySSH(ROOT, instance.getPublicDnsName(), privateKey);
-			channel = SpinUpJenkinsMaster.openSecureChannel(ROOT, instance.getPublicDnsName(), privateKey, quiet);
-			SpinUpJenkinsMaster.exec(channel, "ruby", rubyScript, "jcaddel", kisPassword, image.getImageId(), jenkinsMaster);
+			updateMasterAMI(jenkinsMaster, pid, privateKey, quiet, image.getImageId());
 			channel.close();
 			logger.info(format("terminating instance [%s]", instance.getInstanceId()));
 			service.terminateInstance(instance.getInstanceId());
@@ -149,6 +143,17 @@ public class CreateBuildSlaveAMI {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected void updateMasterAMI(String jenkinsMaster, ProjectIdentifier pid, String privateKey, boolean quiet, String ami) throws IOException {
+		logger.info(format("updating %s with new AMI", jenkinsMaster));
+		String kisPassword = Auth.decrypt(kisPasswordEncrypted);
+		SecureChannel masterChannel = SpinUpJenkinsMaster.openSecureChannel(ROOT, jenkinsMaster, privateKey, quiet);
+		String basedir = SpinUpJenkinsMaster.publishProject(masterChannel, pid, ROOT, jenkinsMaster, quiet);
+		String rubyScript = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/update_jenkins_" + Constants.JENKINS_VERSION + "_ami_headless.rb");
+		SpinUpJenkinsMaster.verifySSH(ROOT, jenkinsMaster, privateKey);
+		SecureChannel channel = SpinUpJenkinsMaster.openSecureChannel(ROOT, jenkinsMaster, privateKey, quiet);
+		SpinUpJenkinsMaster.exec(channel, "ruby", rubyScript, "jcaddel", kisPassword, ami, jenkinsMaster);
 	}
 
 	protected static void setupEssentials(SecureChannel channel, String basedir, ProjectIdentifier pid, Distro distro, String distroVersion, String gpgPassphrase,

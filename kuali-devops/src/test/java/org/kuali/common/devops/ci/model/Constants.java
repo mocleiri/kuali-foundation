@@ -1,6 +1,5 @@
 package org.kuali.common.devops.ci.model;
 
-import org.kuali.common.aws.ec2.model.AMI;
 import org.kuali.common.aws.ec2.model.Distro;
 
 public final class Constants {
@@ -15,6 +14,6 @@ public final class Constants {
 	public static final String DISTRO_VERSION = "12.04";
 	public static final String ROOT = "root";
 	public static final String UBUNTU = "ubuntu";
-	public static final AMI DEFAULT_AMI = AMI.UBUNTU_64_BIT_PRECISE_LTS_1204_US_WEST_2;
+	public static final String JENKINS_VERSION = "1.532.2";
 
 }
