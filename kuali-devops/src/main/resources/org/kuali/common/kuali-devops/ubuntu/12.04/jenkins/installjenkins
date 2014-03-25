@@ -126,9 +126,9 @@ function configure_tomcat_user {
 function configure_tomcat {
 
   echo "configure -> $TOMCAT"
-  ECHO="JAVA_OPTS=\$JAVA_OPTS -Duser.timezone=US/Eastern"
+  ECHO="JAVA_OPTS=\"\$JAVA_OPTS -Duser.timezone=US/Eastern\""
   TOMCAT_OPT_FILE=/etc/default/$TOMCAT
-  echo "\"$ECHO\"" >> $TOMCAT_OPT_FILE
+  echo "$ECHO" >> $TOMCAT_OPT_FILE
   
 }
 
