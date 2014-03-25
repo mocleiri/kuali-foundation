@@ -140,7 +140,7 @@ function configure_jenkins_location {
   JENKINS_LOCATION_CONFIG_FILE=$JENKINS_HOME/jenkins.model.JenkinsLocationConfiguration.xml
 
   SEARCH_TOKEN="<adminAddress>.*</adminAddress>"
-  REPLACE_TOKEN="<adminAddress>$JENKINS_ADMIN_EMAIL_ADDRESS</adminAddress>"
+  REPLACE_TOKEN="<adminAddress>Kuali CI \&lt\;$JENKINS_ADMIN_EMAIL_ADDRESS\&gt\;</adminAddress>"
   execute_quietly "sed -i -e s:$SEARCH_TOKEN:$REPLACE_TOKEN:g $JENKINS_LOCATION_CONFIG_FILE"
 
 }
