@@ -249,7 +249,7 @@ public class SpinUpJenkinsMaster {
 
 	protected static SecureChannel openSecureChannel(String username, String hostname, String privateKey, boolean quiet) throws IOException {
 		ChannelContext context = getSilentContextBuilder(hostname).echo(!quiet).requestPseudoTerminal(true).debug(!quiet).username(username).privateKey(privateKey)
-				.connectTimeout(getMillisAsInt("15s")).build();
+				.connectTimeout(getMillisAsInt("30s")).build();
 		ChannelService service = new DefaultChannelService();
 		return service.openChannel(context);
 	}
