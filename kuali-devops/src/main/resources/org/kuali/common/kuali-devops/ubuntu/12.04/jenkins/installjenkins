@@ -137,6 +137,7 @@ function configure_jenkins_location {
   # explain what we are up to
   echo "configure -> jenkins:location"
 
+  # This is the config file holding the jenkins location and admin email address
   JENKINS_LOCATION_CONFIG_FILE=$JENKINS_HOME/jenkins.model.JenkinsLocationConfiguration.xml
 
   # Update the admin email address
@@ -156,7 +157,7 @@ function configure_jenkins_region {
   # explain what we are up to
   echo "configure -> jenkins:region"
   
-  # This is the config file holding the jenkins location
+  # This is the main jenkins config file
   JENKINS_CONFIG_FILE=$JENKINS_HOME/config.xml
 
   execute_quietly "sed -i -e s:<name>ec2-.*</name>:<name>ec2-$REGION</name>:g $JENKINS_CONFIG_FILE"
