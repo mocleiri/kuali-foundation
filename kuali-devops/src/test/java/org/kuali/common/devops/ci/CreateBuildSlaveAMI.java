@@ -101,7 +101,7 @@ public class CreateBuildSlaveAMI {
 			boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
 			JenkinsContext jenkinsContext = SpinUpJenkinsMaster.getJenkinsContext(vs, CONTEXTS);
 			// Configurable items
-			BasicLaunchRequest request = getSlaveLaunchRequest();
+			BasicLaunchRequest request = getSlaveLaunchRequest(jenkinsContext);
 			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
 			EC2Service service = getEC2Service(amazonAccount);
@@ -164,9 +164,9 @@ public class CreateBuildSlaveAMI {
 		exec(channel, java, quietFlag, "jdk8", "u0", gpgPassphrase);
 	}
 
-	protected static BasicLaunchRequest getSlaveLaunchRequest() {
+	protected static BasicLaunchRequest getSlaveLaunchRequest(JenkinsContext context) {
 		BasicLaunchRequest.Builder builder = BasicLaunchRequest.builder();
-		builder.setAmi(Constants.DEFAULT_AMI.getId());
+		builder.setAmi(SpinUpJenkinsMaster.getDefaultAMI(context.getRegion()));
 		builder.setTimeoutMillis(FormatUtils.getMillisAsInt("1h"));
 		builder.setRootVolume(RootVolume.create(DEFAULT_ROOT_VOLUME_SIZE, true));
 		return getBasicLaunchRequest(builder.build());

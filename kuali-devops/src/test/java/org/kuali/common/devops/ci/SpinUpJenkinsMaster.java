@@ -131,7 +131,7 @@ public class SpinUpJenkinsMaster {
 			info("jenkins -> [%s :: %s]", jenkinsContext.getStack().getTag().getValue(), jenkinsMaster);
 			KeyPair keyPair = CreateBuildSlaveAMI.KUALI_KEY;
 			String privateKey = keyPair.getPrivateKey().get();
-			BasicLaunchRequest request = getMasterLaunchRequest();
+			BasicLaunchRequest request = getMasterLaunchRequest(jenkinsContext);
 			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
 			EC2Service service = getEC2Service(amazonAccount);
@@ -289,10 +289,10 @@ public class SpinUpJenkinsMaster {
 		return new DNSMadeEasyDnsService(context);
 	}
 
-	protected static BasicLaunchRequest getMasterLaunchRequest() {
+	protected static BasicLaunchRequest getMasterLaunchRequest(JenkinsContext context) {
 		BasicLaunchRequest.Builder builder = BasicLaunchRequest.builder();
 		builder.setTimeoutMillis(getMillisAsInt("15m"));
-		builder.setAmi(Constants.DEFAULT_AMI.getId());
+		builder.setAmi(getDefaultAMI(context.getRegion()));
 		builder.setRootVolume(RootVolume.create(DEFAULT_ROOT_VOLUME_SIZE, true));
 		return getBasicLaunchRequest(builder.build());
 	}
