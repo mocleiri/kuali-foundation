@@ -1,7 +1,5 @@
 package org.kuali.common.devops.ci.model;
 
-import static com.amazonaws.regions.Regions.DEFAULT_REGION;
-
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import org.kuali.common.devops.aws.Tags;
@@ -33,7 +31,7 @@ public final class JenkinsContext {
 		private String dnsPrefix;
 		private Tags.Name name;
 		private Tags.Stack stack;
-		private Region region = Region.getRegion(DEFAULT_REGION);
+		private Region region = Region.getRegion(Regions.DEFAULT_REGION);
 
 		public Builder withRegion(String region) {
 			return withRegion(Regions.fromName(region));
