@@ -14,16 +14,12 @@
     limitations under the License.
 ====
 
-- Make Maven versions to install a CSV property
-- release util, core, httpclient, dns, aws
-- don't build util + core etc as part of the bash script
-- bump pom, pin devops to correct versions of those
-- release devops
+- Jenkins master on Eastern timezone
+- make region dynamic (coordinate between java flag and ec2-plugin cloud config file)
 - CAS groups (talk to Farooq)
-- SSL
-- automatically update jenkins with new AMI id
-- install and pin firefox to a specific version(?)
+- release util, core, httpclient, dns, aws, devops
+- Make maven/firefox versions a CSV property
 - cache GIT credentials somehow
-- ruby package (what version, etc)
+
 - improve createAmi method signature?  make it take an object instead of 5 parameters
 - what's up with /var/lib/jenkins/m2/repository on ci.rice being 53g's???
