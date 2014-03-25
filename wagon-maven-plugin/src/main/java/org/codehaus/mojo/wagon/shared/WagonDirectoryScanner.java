@@ -295,7 +295,7 @@ public class WagonDirectoryScanner {
 				informer.incrementProgress();
 				if (informer.getProgress() % informer.getTotal() == 0) {
 					Inform inform = informer.getInform();
-					String msg = String.format(" - [%s]%s%s", informer.getProgress(), inform.getCompleteToken(), inform.getStartToken());
+					String msg = String.format(" - scanned %s directories%s%s", informer.getProgress(), inform.getCompleteToken(), inform.getStartToken());
 					inform.getPrintStream().print(msg);
 				}
 			}
