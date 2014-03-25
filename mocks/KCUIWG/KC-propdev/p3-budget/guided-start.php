@@ -34,7 +34,7 @@ $section = '';
                         <header class="clearfix uif-header-contentWrapper">
                             <div class="uif-pageHeader clearfix">
                                 <h2 class="uif-headerText">
-                                    <span class="uif-headerText-span">Guided Mode</span>
+                                    <span class="uif-headerText-span">Guided Mode</span> <span style="font-size:small">(<a href="#">Exit guided mode</a>)</span>
                                 </h2>
                             </div>
                             <div class="uif-verticalBoxGroup uif-header-lowerGroup">
@@ -45,8 +45,8 @@ $section = '';
                             <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a class="btn btn-default btn-large" href="#">Start a detailed budget</a>
-                                    <a class="btn btn-default btn-large" href="#">Start a summary-only budget</a>
+                                    <a class="btn btn-default" href="#">Start a detailed budget</a>
+                                    <a class="btn btn-default" href="#">Start a summary-only budget</a>
                                 </div>
                             </div>
                         </div>
