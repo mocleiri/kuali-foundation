@@ -109,7 +109,7 @@ $page = 'personnel-assign';
                                                 <div class="panel panel-default">
                                                     <div class="panel-heading">
                                                         <h4 class="panel-title">
-                                                            <a data-toggle="collapse" data-parent="#accordion-grouped-faculty-salaries-tenured" href="#collapse-one">Personnel available for budgeting</a>
+                                                            <a data-toggle="collapse" data-parent="#accordion-grouped-faculty-salaries-tenured" href="#collapse-one"><span class="icon icon-chevron-down"></span> Personnel available for budgeting</a>
                                                         </h4>
                                                     </div>
                                                     <div class="panel-collapse collapse in" id="collapse-one">

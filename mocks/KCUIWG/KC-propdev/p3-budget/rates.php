@@ -50,7 +50,7 @@ $section = '';
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion-fa" href="#collapse-one">Research F&amp;A</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion-fa" href="#collapse-one"><span class="icon icon-chevron-down"></span> Research F&amp;A</a>
                                                     <a class="guide-me pull-right icon-leaf" href="#">Guide me</a>
                                                 </h4>
                                             </div>
@@ -102,7 +102,7 @@ $section = '';
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion-fa" href="#collapse-two">Fringe Benefits</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion-fa" href="#collapse-two"><span class="icon icon-chevron-right"></span> Fringe Benefits</a>
                                                 </h4>
                                             </div>
                                             <div class="panel-collapse collapse" id="collapse-two">
@@ -153,7 +153,7 @@ $section = '';
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion-fa" href="#collapse-three">Inflation</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion-fa" href="#collapse-three"><span class="icon icon-chevron-right"></span> Inflation</a>
                                                 </h4>
                                             </div>
                                             <div class="panel-collapse collapse" id="collapse-three">
@@ -204,7 +204,7 @@ $section = '';
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion-fa" href="#collapse-four">Vacation</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion-fa" href="#collapse-four"><span class="icon icon-chevron-right"></span> Vacation</a>
                                                 </h4>
                                             </div>
                                             <div class="panel-collapse collapse" id="collapse-four">
@@ -255,7 +255,7 @@ $section = '';
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion-fa" href="#collapse-five">Lab Allocation - Salaries</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion-fa" href="#collapse-five"><span class="icon icon-chevron-right"></span> Lab Allocation - Salaries</a>
                                                 </h4>
                                             </div>
                                             <div class="panel-collapse collapse" id="collapse-five">
@@ -306,7 +306,7 @@ $section = '';
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion-fa" href="#collapse-six">Lab Allocation - Other</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion-fa" href="#collapse-six"><span class="icon icon-chevron-right"></span> Lab Allocation - Other</a>
                                                 </h4>
                                             </div>
                                             <div class="panel-collapse collapse" id="collapse-six">
@@ -357,7 +357,7 @@ $section = '';
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion-fa" href="#collapse-seven">Other</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion-fa" href="#collapse-seven"><span class="icon icon-chevron-right"></span> Other</a>
                                                 </h4>
                                             </div>
                                             <div class="panel-collapse collapse" id="collapse-seven">

@@ -49,7 +49,7 @@ $page = 'periods-and-totals';
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion-periods-totals" href="#collapse-one">Budget Periods &amp; Totals</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion-periods-totals" href="#collapse-one"><span class="icon icon-chevron-down"></span> Budget Periods &amp; Totals</a>
                                                     <a class="guide-me pull-right icon-leaf" href="#">Guide me</a>
                                                 </h4>
                                             </div>

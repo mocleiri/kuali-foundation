@@ -151,7 +151,7 @@ $page = 'non-personnel';
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion-non-personnel" href="#collapse-one">Equipment</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion-non-personnel" href="#collapse-one"><span class="icon icon-chevron-down"></span> Equipment</a>
                                                 </h4>
                                             </div>
                                             <div class="panel-collapse collapse in" id="collapse-one">
@@ -339,7 +339,7 @@ $page = 'non-personnel';
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion-non-personnel" href="#collapse-two">Travel</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion-non-personnel" href="#collapse-two"><span class="icon icon-chevron-right"></span> Travel</a>
                                                 </h4>
                                             </div>
                                             <div class="panel-collapse collapse" id="collapse-two">
@@ -350,7 +350,7 @@ $page = 'non-personnel';
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion-non-personnel" href="#collapse-three">Participant Support</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion-non-personnel" href="#collapse-three"><span class="icon icon-chevron-right"></span> Participant Support</a>
                                                 </h4>
                                             </div>
                                             <div class="panel-collapse collapse" id="collapse-three">
@@ -361,7 +361,7 @@ $page = 'non-personnel';
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion-non-personnel" href="#collapse-four">Other</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion-non-personnel" href="#collapse-four"><span class="icon icon-chevron-right"></span> Other</a>
                                                 </h4>
                                             </div>
                                             <div class="panel-collapse collapse" id="collapse-four">

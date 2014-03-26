@@ -50,7 +50,7 @@ $page = 'personnel-costs';
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion-group-rates" href="#collapse-one">Personnel available for budgeting</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion-group-rates" href="#collapse-one"><span class="icon icon-chevron-down"></span> Personnel available for budgeting</a>
                                                     <a class="guide-me pull-right icon-leaf" href="#">Guide me</a>
                                                 </h4>
                                             </div>
@@ -210,7 +210,7 @@ $page = 'personnel-costs';
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion-group-rates" href="#collapse-two">Object code and group rate combinations</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion-group-rates" href="#collapse-two"><span class="icon icon-chevron-down"></span> Object code and group rate combinations</a>
                                                     <a class="guide-me pull-right icon-leaf" href="#">Guide me</a>
                                                 </h4>
                                             </div>
