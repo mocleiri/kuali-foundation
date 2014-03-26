@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>3.4.2</version>
+    <version>3.4.4</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-httpclient</artifactId>
@@ -40,7 +40,6 @@
     <slf4j.version>1.7.5</slf4j.version>
     <spring.version>3.2.7.RELEASE</spring.version>
     <httpclient.version>4.3.2</httpclient.version>
-    <kuali-util.version>4.4.10-SNAPSHOT</kuali-util.version>
     <jackson.version>2.3.1</jackson.version>
     <jackson-databind.version>${jackson.version}</jackson-databind.version>
     <jackson-datatype-guava.version>${jackson.version}</jackson-datatype-guava.version>
