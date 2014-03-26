@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>3.4.2</version>
+    <version>3.4.4</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-devops</artifactId>
@@ -35,11 +35,9 @@
     <url>https://svn.kuali.org/repos/foundation/trunk/kuali-devops</url>
   </scm>
   <properties>
-    <kuali-util.version>4.4.10-SNAPSHOT</kuali-util.version>
-    <kuali-core.version>1.0.0-SNAPSHOT</kuali-core.version>
-    <kuali-httpclient.version>1.0.0-SNAPSHOT</kuali-httpclient.version>
-    <kuali-dns.version>1.0.0-SNAPSHOT</kuali-dns.version>
-    <kuali-aws.version>1.0.0-SNAPSHOT</kuali-aws.version>
+    <kuali-httpclient.version>1.0.0</kuali-httpclient.version>
+    <kuali-dns.version>1.0.0</kuali-dns.version>
+    <kuali-aws.version>1.0.0</kuali-aws.version>
     <plugin.wagon.version>1.0.5-SNAPSHOT</plugin.wagon.version>
 
     <junit.version>4.11</junit.version>
@@ -167,7 +165,6 @@
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-core</artifactId>
-      <version>${kuali-core.version}</version>
     </dependency>
     <dependency>
       <groupId>org.kuali.common</groupId>
