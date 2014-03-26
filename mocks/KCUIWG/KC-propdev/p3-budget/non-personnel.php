@@ -65,6 +65,7 @@ $page = 'non-personnel';
                                         <div class="form-group">
                                             <label class="control-label" for="line_2_category">Budget category</label><br />
                                             <select name="line_2_category" id="line_2_category" class="form-control">
+                                                <option>- Select -</option>
                                                 <option value="equipment">Equipment</option>
                                             </select>
                                         </div>
@@ -157,6 +158,92 @@ $page = 'non-personnel';
                                                 <form action="#" method="#" class="form-inline">
                                                     <table class="table">
                                                         <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="row">
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <span class="uif-text-larger">Equipment - Not MTDC<br />
+                                                                                <span class="text-muted">421818</span></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Budget category</label><br />
+                                                                                Equipment
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Base cost</label><br />
+                                                                                $2,000.00
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Quantity</label><br />
+                                                                                10
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Unrecovered F&amp;A</label><br />
+                                                                                $0
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Cost sharing</label><br />
+                                                                                $1,000.00
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Start date</label><br />
+                                                                                10/01/2014
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">End date</label><br />
+                                                                                09/30/2015
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Description</label><br />
+                                                                                A description would go here.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Notes</label><br />
+                                                                                Some notes would go here.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2"></div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Apply inflation?</label><br />
+                                                                                No
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Send cost shared?</label><br />
+                                                                                Yes
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">On campus?</label><br />
+                                                                                Yes
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td><a class="icon icon-edit btn-edit"><span class="sr-only">Edit</span></a></td>                                                                
+                                                            </tr>
                                                             <tr>
                                                                 <td>
                                                                     <div class="row">
