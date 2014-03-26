@@ -121,6 +121,7 @@
     <kuali-maven.version>1.1.4</kuali-maven.version>
     <kuali-sql.version>2.1.2</kuali-sql.version>
     <kuali-util.version>4.4.10</kuali-util.version>
+    <kuali-core.version>1.0.0</kuali-core.version>
     <impex.version>3.0.8</impex.version>
   </properties>
   <profiles>
@@ -918,6 +919,11 @@
         <groupId>org.kuali.common</groupId>
         <artifactId>kuali-sql</artifactId>
         <version>${kuali-sql.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.kuali.common</groupId>
+        <artifactId>kuali-core</artifactId>
+        <version>${kuali-core.version}</version>
       </dependency>
       <dependency>
         <groupId>org.kuali.common</groupId>
