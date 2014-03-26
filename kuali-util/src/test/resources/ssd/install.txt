@@ -1,7 +1,0 @@
-
-apt-get install mdadm -y --no-install-recommends
-umount /mnt
-yes | mdadm --create --verbose /dev/md/ssd --level=stripe --raid-devices=2 /dev/xvdb /dev/xvdc 
-mkfs.ext3 /dev/md/ssd 
-mkdir -p /ssd
-mount /dev/md/ssd /ssd
