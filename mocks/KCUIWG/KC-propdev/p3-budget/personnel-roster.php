@@ -81,45 +81,36 @@ $page = 'personnel-costs';
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-group-sm">
-                                                                        <label for="line_1_job_code" class="control-label">
-                                                                            <span class="sr-only">Job code</span>
-                                                                            <input type="input" size="3" name="line_1_job_code" id="line_1_job_code" class="form-control">
-                                                                        </label>
+                                                                        <label for="line_1_job_code" class="control-label"><span class="sr-only">Job code</span></label>
+                                                                        <input type="input" size="3" name="line_1_job_code" id="line_1_job_code" class="form-control">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-group-sm">
-                                                                        <label for="line_1_appt_type" class="control-label"><span class="sr-only">Appointment type</span>
-                                                                            <select name="line_1_appt_type" id="line_1_appt_type" class="form-control">
-                                                                                <option value="12M">12 months</option>
-                                                                                <option value="9M">9 months</option>
-                                                                                <option vlaue="S">Summer</option>
-                                                                            </select>
-                                                                        </label>
+                                                                        <label for="line_1_appt_type" class="control-label"><span class="sr-only">Appointment type</span></label>
+                                                                        <select name="line_1_appt_type" id="line_1_appt_type" class="form-control">
+                                                                            <option value="12M">12 months</option>
+                                                                            <option value="9M">9 months</option>
+                                                                            <option vlaue="S">Summer</option>
+                                                                        </select>
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="from-group-sm">
-                                                                        <label for="line_1_base_salary" class="control-label">
-                                                                            <span class="sr-only">Base salary</span>
-                                                                            <input type="input" size="3" name="line_1_base_salary" id="line_1_base_salary" class="form-control">
-                                                                        </label>
+                                                                        <label for="line_1_base_salary" class="control-label"><span class="sr-only">Base salary</span></label>
+                                                                        <input type="input" size="3" name="line_1_base_salary" id="line_1_base_salary" class="form-control">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-group-sm">
-                                                                        <label for="line_1_salary_eff" class="control-label">
-                                                                            <span class="sr-only">Salary effective date</span>
-                                                                            <input type="input" size="5" name="line_1_salary_eff" id="line_1_salary_eff" placeholder="mm/dd/yyyy" class="form-control">
-                                                                        </label>
+                                                                        <label for="line_1_salary_eff" class="control-label"><span class="sr-only">Salary effective date</span></label>
+                                                                        <input type="input" size="5" name="line_1_salary_eff" id="line_1_salary_eff" placeholder="mm/dd/yyyy" class="form-control">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-group-sm">
-                                                                        <label for="line_1_salary_anniv" class="control-label">
-                                                                            <span class="sr-only">Salary anniversary date</span>
-                                                                            <input type="input" size="5" name="line_1_salary_anniv" id="line_1_salary_anniv" placeholder="mm/dd/yyyy" class="form-control">
-                                                                        </label>
+                                                                        <label for="line_1_salary_anniv" class="control-label"><span class="sr-only">Salary anniversary date</span></label>
+                                                                        <input type="input" size="5" name="line_1_salary_anniv" id="line_1_salary_anniv" placeholder="mm/dd/yyyy" class="form-control">
                                                                     </div>
                                                                 </td>
                                                                 <td><a class="icon icon-save"><span class="sr-only">Save</span></a></td>
@@ -131,44 +122,35 @@ $page = 'personnel-costs';
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-group-sm">
-                                                                        <label for="line_2_job_code" class="control-label">
-                                                                            <span class="sr-only">Job code</span>
-                                                                            <input type="input" size="3" name="line_2_job_code" id="line_2_job_code" class="form-control">
-                                                                        </label>
+                                                                        <label for="line_2_job_code" class="control-label"><span class="sr-only">Job code</span></label>
+                                                                        <input type="input" size="3" name="line_2_job_code" id="line_2_job_code" class="form-control">
                                                                     </td>
                                                                 <td>
                                                                     <div class="form-group-sm">
-                                                                        <label for="line_2_appt_type" class="control-label"><span class="sr-only">Appointment type</span>
-                                                                            <select name="line_2_appt_type" id="line_2_appt_type" class="form-control">
-                                                                                <option value="12M">12 months</option>
-                                                                                <option value="9M">9 months</option>
-                                                                                <option vlaue="S">Summer</option>
-                                                                            </select>
-                                                                        </label>
+                                                                        <label for="line_2_appt_type" class="control-label"><span class="sr-only">Appointment type</span></label>
+                                                                        <select name="line_2_appt_type" id="line_2_appt_type" class="form-control">
+                                                                            <option value="12M">12 months</option>
+                                                                            <option value="9M">9 months</option>
+                                                                            <option vlaue="S">Summer</option>
+                                                                        </select>
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="from-group-sm">
-                                                                        <label for="line_2_base_salary" class="control-label">
-                                                                            <span class="sr-only">Base salary</span>
-                                                                            <input type="input" size="3" name="line_2_base_salary" id="line_2_base_salary" class="form-control">
-                                                                        </label>
+                                                                        <label for="line_2_base_salary" class="control-label"><span class="sr-only">Base salary</span></label>
+                                                                        <input type="input" size="3" name="line_2_base_salary" id="line_2_base_salary" class="form-control">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-group-sm">
-                                                                        <label for="line_2_salary_eff" class="control-label">
-                                                                            <span class="sr-only">Salary effective date</span>
-                                                                            <input type="input" size="5" name="line_2_salary_eff" id="line_2_salary_eff" placeholder="mm/dd/yyyy" class="form-control">
-                                                                        </label>
+                                                                        <label for="line_2_salary_eff" class="control-label"><span class="sr-only">Salary effective date</span></label>
+                                                                        <input type="input" size="5" name="line_2_salary_eff" id="line_2_salary_eff" placeholder="mm/dd/yyyy" class="form-control">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-group-sm">
-                                                                        <label for="line_2_salary_anniv" class="control-label">
-                                                                            <span class="sr-only">Salary anniversary date</span>
-                                                                            <input type="input" size="5" name="line_2_salary_anniv" id="line_2_salary_anniv" placeholder="mm/dd/yyyy" class="form-control">
-                                                                        </label>
+                                                                        <label for="line_2_salary_anniv" class="control-label"><span class="sr-only">Salary anniversary date</span></label>
+                                                                        <input type="input" size="5" name="line_2_salary_anniv" id="line_2_salary_anniv" placeholder="mm/dd/yyyy" class="form-control">
                                                                     </div>
                                                                 </td>
                                                                 <td><a class="icon icon-save"><span class="sr-only">Save</span></a></td>
@@ -230,20 +212,16 @@ $page = 'personnel-costs';
                                                                 <td><a class="icon icon-angle-right"><span class="sr-only">Show/Hide details</span></td>
                                                                 <td>
                                                                     <div class="form-group-sm">
-                                                                        <label for="line_1_object_code" class="control-label">
-                                                                            <span class="sr-only">Object code</span>
-                                                                            <input type="input" size="3" name="line_1_object_code" id="line_1_object_code" class="form-control">
-                                                                        </label>
+                                                                        <label for="line_1_object_code" class="control-label"><span class="sr-only">Object code</span></label>
+                                                                        <input type="input" size="3" name="line_1_object_code" id="line_1_object_code" class="form-control">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-group-sm">
-                                                                        <label for="line_1_group_name" class="control-label">
-                                                                            <span class="sr-only">Group name</span>
-                                                                            <select name="line_1_group_name" id="line_1_group_name" class="form-control">
-                                                                                <option value="Other">Some group that I've created</option>
-                                                                            </select>
-                                                                        </label>
+                                                                        <label for="line_1_group_name" class="control-label"><span class="sr-only">Group name</span></label>
+                                                                        <select name="line_1_group_name" id="line_1_group_name" class="form-control">
+                                                                            <option value="Other">Some group that I've created</option>
+                                                                        </select>
                                                                     </div>
                                                                 </td>
                                                                 <td><a class="icon icon-save"><span class="sr-only">Save</span></a></td>
@@ -299,22 +277,19 @@ $page = 'personnel-costs';
                                                 <legend>Search by:</legend>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label for="personnel-search-by-type" class="control-label">
-                                                            <select name="personnel-search-by-type" id="personnel-search-by-type" class="form-control">
-                                                                <option value="first">First name</option>
-                                                                <option value="last">Last name</option>
-                                                                <option value="email">Email address</option>
-                                                            </select>
-                                                        </label>
+                                                        <label for="personnel-search-by-type" class="control-label"><span class="sr-only">Search by:</span></label>
+                                                        <select name="personnel-search-by-type" id="personnel-search-by-type" class="form-control">
+                                                            <option value="first">First name</option>
+                                                            <option value="last">Last name</option>
+                                                            <option value="email">Email address</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-9">
                                                     <div class="form-group">
-                                                        <label for="personnel-search-by-text" class="control-label">
-                                                            <span class="sr-only">Search text</span>
-                                                            <input type="text" name="personnel-search-by-text" id="personnel-search-by-text" class="form-control">
-                                                            <button class="btn btn-default">Search</button>
-                                                        </label>
+                                                        <label for="personnel-search-by-text" class="control-label"><span class="sr-only">Search for</span></label>
+                                                        <input type="text" name="personnel-search-by-text" id="personnel-search-by-text" class="form-control">
+                                                        <button class="btn btn-default">Search</button>
                                                         <p class="clearfix text-faded">Results from your search will appear in the box below.</p>
                                                     </div>
                                                 </div>
