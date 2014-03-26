@@ -47,7 +47,8 @@ $page = 'non-personnel';
                             <div class="well">
                                 <div class="row">
                                     <h4>Add a new non-personnel item</h4>
-
+                                </div>
+                                <div class="row">
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label class="control-label" for="line_2_object_code">Object code name</label><br />
@@ -60,7 +61,15 @@ $page = 'non-personnel';
                                             </select>
                                         </div>
                                     </div>
-                                        <div class="col-md-2">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label" for="line_2_category">Budget category</label><br />
+                                            <select name="line_2_category" id="line_2_category" class="form-control">
+                                                <option value="equipment">Equipment</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
                                         <div class="form-group">
                                             <label class="control-label" for="line_2_base_cost">Base cost</label><br />
                                             <input type="text" name="line_2_base_cost" id="line_2_base_cost" class="form-control">
@@ -70,6 +79,42 @@ $page = 'non-personnel';
                                         <div class="form-group">
                                             <label class="control-label" for="line_2_quantity">Quantity</label><br />
                                             <input type="text" name="line_2_quantity" id="line_2_quantity" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label" for="line_2_unrecovered_fa">Unrecoverd F&amp;A</label><br />
+                                            <input type="text" name="line_2_unrecovered_fa" id="line_2_unrecovered_fa" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label" for="line_2_cost_sharing">Cost sharing</label><br />
+                                            <input type="text" name="line_2_cost_sharing" id="line_2_cost_sharing" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label" for="line_2_start">Start date</label><br />
+                                            <input type="text" name="line_2_start" id="line_2_start" class="form-control" placeholder="mm/dd/yyyy">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label" for="line_2_end">End date</label><br />
+                                            <input type="text" name="line_2_end" id="line_2_end" class="form-control" placeholder="mm/dd/yyyy">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label" for="line_2_description">Description</label><br />
+                                            <textarea name="line_2_description" id="line_2_description" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label" for="line_2_notes">Notes</label><br />
+                                            <textarea name="line_2_notes" id="line_2_notes" class="form-control"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -93,42 +138,8 @@ $page = 'non-personnel';
                                             </label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label class="control-label" for="line_2_start">Start date</label><br />
-                                            <input type="text" name="line_2_start" id="line_2_start" class="form-control" placeholder="mm/dd/yyyy">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label class="control-label" for="line_2_end">End date</label><br />
-                                            <input type="text" name="line_2_end" id="line_2_end" class="form-control" placeholder="mm/dd/yyyy">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label class="control-label" for="line_2_unrecovered_fa">Unrecoverd F&amp;A</label><br />
-                                            <input type="text" name="line_2_unrecovered_fa" id="line_2_unrecovered_fa" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label class="control-label" for="line_2_cost_sharing">Cost sharing</label><br />
-                                            <input type="text" name="line_2_cost_sharing" id="line_2_cost_sharing" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="control-label" for="line_2_description">Description</label><br />
-                                            <textarea name="line_2_description" id="line_2_description" class="form-control"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <a class="btn btn-primary pull-right" href="#">Add non-personnel item</a>
+                                    <div class="col-md-6">
+                                        <a class="btn btn-primary pull-right" href="#">Add this-personnel item</a>
                                     </div>
                                 </div>
                             </div>
@@ -151,12 +162,17 @@ $page = 'non-personnel';
                                                                     <div class="row">
                                                                         <div class="col-md-2">
                                                                             <div class="form-group">
-                                                                                <label class="control-label">Object code name</label><br />
-                                                                                Not MTDC<br />
-                                                                                <span class="text-muted">421818</span>
+                                                                                <span class="uif-text-larger">Equipment - Not MTDC<br />
+                                                                                <span class="text-muted">421818</span></span>
                                                                             </div>
                                                                         </div>
-                                                                            <div class="col-md-2">
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Budget category</label><br />
+                                                                                Equipment
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Base cost</label><br />
                                                                                 $2,000.00
@@ -165,29 +181,21 @@ $page = 'non-personnel';
                                                                         <div class="col-md-2">
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Quantity</label><br />
-                                                                                1.0
+                                                                                10
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-2">
-                                                                            <div class="form-group uif-align-center">
-                                                                                <label class="control-label">Apply inflation?</label><br />
-                                                                                No
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Unrecovered F&amp;A</label><br />
+                                                                                $0
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-2">
-                                                                            <div class="form-group uif-align-center">
-                                                                                <label class="control-label">Send cost shared?</label><br />
-                                                                                Yes
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Cost sharing</label><br />
+                                                                                $1,000.00
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group uif-align-center">
-                                                                                <label class="control-label">On campus?</label><br />
-                                                                                Yes
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
                                                                         <div class="col-md-2">
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Start date</label><br />
@@ -200,22 +208,35 @@ $page = 'non-personnel';
                                                                                 09/30/2015
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Unrecoverd F&amp;A</label><br />
-                                                                                $0
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Cost sharing</label><br />
-                                                                                $1,000.00
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
+                                                                        <div class="col-md-3">
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Description</label><br />
                                                                                 A description would go here.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Notes</label><br />
+                                                                                Some notes would go here.
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2"></div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Apply inflation?</label><br />
+                                                                                No
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Send cost shared?</label><br />
+                                                                                Yes
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">On campus?</label><br />
+                                                                                Yes
                                                                             </div>
                                                                         </div>
                                                                     </div>
