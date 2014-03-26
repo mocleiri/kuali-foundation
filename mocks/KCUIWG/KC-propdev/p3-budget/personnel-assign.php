@@ -200,31 +200,15 @@ $page = 'personnel-assign';
             </div>
             
             <!-- VIEW FOOTER -->
-            <div class="uif-footer clearfix" data-sticky_footer="true" data-parent="LabsProposal">
-                <button class="btn btn-default btn btn-default uif-boxLayoutHorizontalItem">Save</button>
-                <button class="btn btn-primary btn btn-primary uif-boxLayoutHorizontalItem">Save and Continue</button>
+            <div class="uif-footer clearfix">
+                <a class="btn btn-default" href="personnel-roster.php">Back</a>
+                <a class="btn btn-default" href="#">Save</a>
+                <a class="btn btn-primary" href="non-personnel.php">Save and continue...</a>
             </div>
         </div>
     </form>
 
     <!-- MODALS -->
-    <div id="modal-create-version" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" aria-labbeledby="create-new-title">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="create-new-label">Create a budget version</h4>
-                </div>
-                <div class="modal-body">
-                    <!-- Stuff here for modal -->
-                </div>
-                <div class="modal-footer">
-                    <a role="button" class="btn btn-link" data-dismiss="modal" href="#">Cancel</a>
-                    <a role="button" class="btn btn-primary" href="periods-and-totals.php">Create and open</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <?php include ('includes/footer-scripts.php') ?>
 </body>

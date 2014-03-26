@@ -85,7 +85,8 @@ $page = 'personnel-costs';
                                                                             <span class="sr-only">Job code</span>
                                                                             <input type="input" size="3" name="line_1_job_code" id="line_1_job_code" class="form-control">
                                                                         </label>
-                                                                    </td>
+                                                                    </div>
+                                                                </td>
                                                                 <td>
                                                                     <div class="form-group-sm">
                                                                         <label for="line_1_appt_type" class="control-label"><span class="sr-only">Appointment type</span>
@@ -262,8 +263,9 @@ $page = 'personnel-costs';
             
             <!-- VIEW FOOTER -->
             <div class="uif-footer clearfix">
-                <button class="btn btn-default btn btn-default uif-boxLayoutHorizontalItem">Save</button>
-                <button class="btn btn-primary btn btn-primary uif-boxLayoutHorizontalItem">Save and Continue</button>
+                <a class="btn btn-default" href="rates.php">Back</a>
+                <a class="btn btn-default" href="#">Save</a>
+                <a class="btn btn-primary" href="personnel-assign.php">Save and continue...</a>
             </div>
         </div>
     </form>
@@ -430,7 +432,6 @@ $page = 'personnel-costs';
                 </form>
             </div>
         </div>
-    </div>
     </div>
 
     <?php include ('includes/footer-scripts.php') ?>

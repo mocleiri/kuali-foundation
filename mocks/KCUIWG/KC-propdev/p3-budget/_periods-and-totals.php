@@ -82,7 +82,7 @@ $page = 'periods-and-totals';
                                                             <td>$0</td>
                                                             <td>$0</td>
                                                             <td>$0</td>
-                                                            <td><a class="icon icon-pencil btn-edit"><span class="sr-only">Edit</span></a></td>
+                                                            <td><a class="icon icon-edit btn-edit"><span class="sr-only">Edit</span></a></td>
                                                         </tr>
                                                         <tr>
                                                             <td>02/01/2015</td>
@@ -95,7 +95,7 @@ $page = 'periods-and-totals';
                                                             <td>$0</td>
                                                             <td>$0</td>
                                                             <td>$0</td>
-                                                            <td><a class="icon icon-pencil btn-edit"><span class="sr-only">Edit</span></a></td>
+                                                            <td><a class="icon icon-edit btn-edit"><span class="sr-only">Edit</span></a></td>
                                                         </tr>
                                                         <tr>
                                                             <td>02/01/2016</td>
@@ -108,7 +108,7 @@ $page = 'periods-and-totals';
                                                             <td>$0</td>
                                                             <td>$0</td>
                                                             <td>$0</td>
-                                                            <td><a class="icon icon-pencil btn-edit"><span class="sr-only">Edit</span></a></td>
+                                                            <td><a class="icon icon-edit btn-edit"><span class="sr-only">Edit</span></a></td>
                                                         </tr>
                                                         <tr>
                                                             <td>02/01/2017</td>
@@ -121,7 +121,7 @@ $page = 'periods-and-totals';
                                                             <td>$0</td>
                                                             <td>$0</td>
                                                             <td>$0</td>
-                                                            <td><a class="icon icon-pencil btn-edit" href="_periods-and-totals-edit.php"><span class="sr-only">Edit</span></a></td>
+                                                            <td><a class="icon icon-edit btn-edit" href="_periods-and-totals-edit.php"><span class="sr-only">Edit</span></a></td>
                                                         </tr>
                                                         <tr>
                                                             <td>02/01/2018</td>
@@ -134,7 +134,7 @@ $page = 'periods-and-totals';
                                                             <td>$0</td>
                                                             <td>$0</td>
                                                             <td>$0</td>
-                                                            <td><a class="icon icon-pencil btn-edit"><span class="sr-only">Edit</span></a></td>
+                                                            <td><a class="icon icon-edit btn-edit"><span class="sr-only">Edit</span></a></td>
                                                         </tr>
                                                         <tr>
                                                             <td><label for="line_5_start"><span class="sr-only">Period start</span><input type="text" size="3" name="line_5_start" id="line_5_start" placeholder="mm/dd/yyyy"></label></td>
@@ -192,58 +192,6 @@ $page = 'periods-and-totals';
     </form>
 
     <!-- MODALS -->
-    <!-- <div id="modal-create-version" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" aria-labbeledby="create-new-title">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="create-new-label">Create a budget version</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
-                        <div class="row">
-                            <div class="col-md-3 uif-cssGridLabelCol">
-                                <label for="new-version-name" class="uif-label displayWith-uk9itqu uif-labelBlock uif-required">Name: *</label>
-                            </div>
-                            <div class="col-md-9">
-                                <div class="uif-inputField" data-role="InputField" data-label="Name">
-                                    <input id="new-version-name" type="text" name="new-version-name" value="" size="30" class="form-control input-sm uif-textControl required" data-role="Control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3"></div>
-                            <div class="col-md-9">
-                                <div class="well">
-                                    <fieldset>
-                                        <legend>Does this NIH proposal allow modular budgets?</legend>
-                                        <label for="create-with-modular-true" class="clearfix"><input type="radio" name="create-with-modular" id="create-with-modular-true"> Yes, allow for modular budgets</label>
-                                        <label for="create-with-modular-false" class="clearfix"><input type="radio" name="create-with-modular" id="create-with-modular-false"> No, there will be no modular budget</label>
-                                    </fieldset>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3"></div>
-                            <div class="col-md-9">
-                                <div class="well">
-                                    <fieldset>
-                                        <legend>Would you like guided assistance to complete this budget?</legend>
-                                        <label for="create-with-guided-asst-true" class="clearfix"><input type="radio" name="create-with-guided-asst" id="create-with-guided-asst-true"> No, show me everything</label>
-                                        <label for="create-with-guided-asst-false" class="clearfix"><input type="radio" name="create-with-guided-asst" id="create-with-guided-asst-false"> Yes, please use guided assistance</label>
-                                    </fieldset>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <a role="button" class="btn btn-link" data-dismiss="modal" href="#">Cancel</a>
-                    <a role="button" class="btn btn-primary" href="periods-and-totals.php">Create and open</a>
-                </div>
-            </div>
-        </div>
-    </div> -->
 
     <?php include ('includes/footer-scripts.php') ?>
 </body>

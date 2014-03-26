@@ -11879,3 +11879,7 @@ table tfoot {
 .uif-bottom-shadow {
   border-bottom: 2px solid #ccc;
 }
+.uif-current-period {
+  font-size: 150%;
+  font-weight: 700;
+}

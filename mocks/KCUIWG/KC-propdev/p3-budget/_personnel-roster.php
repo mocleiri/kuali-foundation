@@ -87,7 +87,7 @@ $page = 'personnel-costs';
                                                             <td><label for="line_1_base_salary"><span class="sr-only">Base salary</span>$10,000</label></td>
                                                             <td><label for="line_1_salary_eff"><span class="sr-only">Salary effective date</span>01/01/2014</label></td>
                                                             <td><label for="line_1_salary_anniv"><span class="sr-only">Salary anniversary date</span>07/01/2014</label></td>
-                                                            <td><a class="icon icon-pencil btn-edit"><span class="sr-only">Edit</span></a></td>
+                                                            <td><a class="icon icon-edit btn-edit"><span class="sr-only">Edit</span></a></td>
                                                         </tr>
                                                             <td>
                                                                 <span class="uif-text-medium">Marie Calendar</span><br />
@@ -102,7 +102,7 @@ $page = 'personnel-costs';
                                                             <td><label for="line_2_base_salary"><span class="sr-only">Base salary</span>$10,000</label></td>
                                                             <td><label for="line_2_salary_eff"><span class="sr-only">Salary effective date</span>01/01/2014</label></td>
                                                             <td><label for="line_2_salary_anniv"><span class="sr-only">Salary anniversary date</span>12/31/2014</label></td>
-                                                            <td><a class="icon icon-pencil btn-edit"><span class="sr-only">Edit</span></a></td>
+                                                            <td><a class="icon icon-edit btn-edit"><span class="sr-only">Edit</span></a></td>
                                                         </tr>
                                                         <tr>
                                                             <td colspan="7" class="uif-separator-row">
@@ -345,8 +345,9 @@ $page = 'personnel-costs';
             
             <!-- VIEW FOOTER -->
             <div class="uif-footer clearfix">
-                <button class="btn btn-default btn btn-default uif-boxLayoutHorizontalItem">Save</button>
-                <button class="btn btn-primary btn btn-primary uif-boxLayoutHorizontalItem">Save and Continue</button>
+                <a class="btn btn-default" href="personnel-roster.php">Back</a>
+                <a class="btn btn-default" href="#">Save</a>
+                <a class="btn btn-primary" href="personnel-assign.php">Save and continue...</a>
             </div>
         </div>
     </form>
