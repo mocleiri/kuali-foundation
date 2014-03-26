@@ -76,8 +76,6 @@ function install_cas_plugin {
   VERSION=1.1.2-kuali-patch1
   TYPE=jpi
   
-  #http://maven.kuali.org/external/org/jenkins/plugins/cas-plugin/1.1.2-kuali-patch1/cas-plugin-1.1.2-kuali-patch1.jpi
-  
   PLUGIN_URL=$REPO/$GROUP_ID/$ARTIFACT_ID/$VERSION/$ARTIFACT_ID-$VERSION.$TYPE
   
   $MY_DIR/../common/m2downloadurl $QUIET_FLAG $PLUGIN_URL $GROUP_ID $ARTIFACT_ID $VERSION --type=$TYPE
