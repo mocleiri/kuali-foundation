@@ -264,6 +264,7 @@ configure_tomcat
 configure_tomcat_user
 install_jenkins
 install_plugins
+install_cas_plugin
 configure_jenkins
 echo "start     -> $TOMCAT:service"
 execute_quietly "service $TOMCAT start"
