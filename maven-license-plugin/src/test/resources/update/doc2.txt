@@ -1,5 +1,0 @@
-====
-    Copyright license
-====
-
-some data
