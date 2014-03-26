@@ -47,7 +47,7 @@ $section = '';
                             <div class="row">
                                 <div class="col-md-12">
                                     <a class="btn btn-default" href="#">Start a detailed budget</a>
-                                    <a class="btn btn-default btn-margin-left" href="#">Start a summary-only budget</a>
+                                    <a class="btn btn-default" href="#">Start a summary-only budget</a>
                                 </div>
                             </div>
                         </div>
