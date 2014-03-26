@@ -71,11 +71,11 @@ function install_plugin {
 function install_cas_plugin {
 
   REPO=http://maven.kuali.org/external
-  GROUP_ID=org.jenkins.plugins
+  GROUP_ID=org/jenkins/plugins
   ARTIFACT_ID=cas_plugin
   VERSION=1.1.2-kuali-patch1
   TYPE=jpi
-  PLUGIN_URL=$REPO/$ARTIFACT_ID/$VERSION/$ARTIFACT_ID.jpi
+  PLUGIN_URL=$REPO/$GROUP_ID/$ARTIFACT_ID/$VERSION/$ARTIFACT_ID-$VERSION.$TYPE
   
   $MY_DIR/../common/m2downloadurl $QUIET_FLAG $PLUGIN_URL $GROUP_ID $ARTIFACT_ID $VERSION --type=$TYPE
   M2_LOCAL_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --type="$TYPE")
