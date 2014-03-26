@@ -8,7 +8,7 @@
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-dns</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <name>DNS Tooling</name>
   <description>DNS Tooling</description>
   <developers>
@@ -23,9 +23,9 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/tags/kuali-dns-1.0.0</connection>
-    <developerConnection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/tags/kuali-dns-1.0.0</developerConnection>
-    <url>https://svn.kuali.org/repos/foundation/tags/kuali-dns-1.0.0</url>
+    <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/kuali-dns</connection>
+    <developerConnection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/kuali-dns</developerConnection>
+    <url>https://svn.kuali.org/repos/foundation/trunk/kuali-dns</url>
   </scm>
   <properties>
     <dnsme.recordType>CNAME</dnsme.recordType>
