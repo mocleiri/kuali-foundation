@@ -68,6 +68,9 @@ $section = '';
                                         <div class="col-md-2">                                 
                                             <input type="text" class="form-control" placeholder="mm/dd/yyyy">
                                         </div>
+                                        <div class="col-md-2">                                 
+                                            <a class="btn btn-default btn-sm" href="#">Delete period</a>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-2">                                               
@@ -78,6 +81,9 @@ $section = '';
                                         </div>
                                         <div class="col-md-2">                                 
                                             <input type="text" class="form-control" placeholder="mm/dd/yyyy">
+                                        </div>
+                                        <div class="col-md-2">                                 
+                                            <a class="btn btn-default btn-sm" href="#">Delete period</a>
                                         </div>
                                     </div>
                                     <div class="row">
