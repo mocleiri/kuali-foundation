@@ -83,9 +83,9 @@ $page = 'personnel-costs';
                                                                 <label for="line_1_appt_type"><span class="sr-only">Appointment type</span></label>
                                                                 12-months
                                                             </td>
-                                                            <td><label for="line_1_base_salary"><span class="sr-only">Base salary</span></label>$10,000</td>
-                                                            <td><label for="line_1_salary_eff"><span class="sr-only">Salary effective date</span></label>01/01/2014</td>
-                                                            <td><label for="line_1_salary_anniv"><span class="sr-only">Salary anniversary date</span></label>07/01/2014</td>
+                                                            <td><label for="line_1_base_salary"><span class="sr-only">Base salary</span>$10,000</label></td>
+                                                            <td><label for="line_1_salary_eff"><span class="sr-only">Salary effective date</span>01/01/2014</label></td>
+                                                            <td><label for="line_1_salary_anniv"><span class="sr-only">Salary anniversary date</span>07/01/2014</label></td>
                                                             <td><a class="icon icon-edit btn-edit"><span class="sr-only">Edit</span></a></td>
                                                         </tr>
                                                             <td>
@@ -97,9 +97,9 @@ $page = 'personnel-costs';
                                                                 <label for="line_2_appt_type"><span class="sr-only">Appointment type</span></label>
                                                                 12-months
                                                             </td>
-                                                            <td><label for="line_2_base_salary"><span class="sr-only">Base salary</span></label>$10,000</td>
-                                                            <td><label for="line_2_salary_eff"><span class="sr-only">Salary effective date</span></label>01/01/2014</td>
-                                                            <td><label for="line_2_salary_anniv"><span class="sr-only">Salary anniversary date</span></label>12/31/2014</td>
+                                                            <td><label for="line_2_base_salary"><span class="sr-only">Base salary</span>$10,000</label></td>
+                                                            <td><label for="line_2_salary_eff"><span class="sr-only">Salary effective date</span>01/01/2014</label></td>
+                                                            <td><label for="line_2_salary_anniv"><span class="sr-only">Salary anniversary date</span>12/31/2014</label></td>
                                                             <td><a class="icon icon-edit btn-edit"><span class="sr-only">Edit</span></a></td>
                                                         </tr>
                                                         <tr>

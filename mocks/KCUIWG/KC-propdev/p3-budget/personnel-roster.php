@@ -81,8 +81,10 @@ $page = 'personnel-costs';
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-group-sm">
-                                                                        <label for="line_1_job_code" class="control-label"><span class="sr-only">Job code</span></label>
-                                                                        <input type="input" size="3" name="line_1_job_code" id="line_1_job_code" class="form-control">
+                                                                        <label for="line_1_job_code" class="control-label">
+                                                                            <span class="sr-only">Job code</span>
+                                                                            <input type="input" size="3" name="line_1_job_code" id="line_1_job_code" class="form-control">
+                                                                        </label>
                                                                     </div>
                                                                 </td>
                                                                 <td>

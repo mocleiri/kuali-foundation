@@ -44,135 +44,13 @@ $page = 'non-personnel';
                             </div>
                         </header>
                         <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
-                            <div class="well clearfix">
-                                <form action="#" method="get" class="form-inline">
-                                    <div class="col-md-5">
-                                        <label for="budget_period" class="control-label">Budget period:</label>
-                                        <select name="budget_period" id="budget_period" class="form-control">
-                                            <option value="period_001">1: 1/01/2014 - 12/31/2014</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <label for="budget_view" class="control-label">View:</label>
-                                        <select name="budget_view" id="budget_view" class="form-control">
-                                            <option value="simple">Simple</option>
-                                            <option value="full">Full details</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <br /><button class="btn btn-default pull-right">Reload view</button>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <div class="well">
-                                <div class="row">
-                                    <h4>Add a new non-personnel item</h4>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label class="control-label" for="line_2_object_code">Object code name</label><br />
-                                            <select name="line_2_object_code" id="line_2_object_code" class="form-control">
-                                                <option>- Select -</option>
-                                                <option value="equip-no-mtdc">Equipment - Not MTDC</option>
-                                                <option value="equip-rent-no-mtdc">Equipment Rental - Not MTDC</option>
-                                                <option value="equip-fabricated-no-mtdc">Fabricated Equipment - Not MTDC</option>
-                                                <option value="reactor-use">Reactor use</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label class="control-label" for="line_2_category">Budget category</label><br />
-                                            <select name="line_2_category" id="line_2_category" class="form-control">
-                                                <option>- Select -</option>
-                                                <option value="equipment">Equipment</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label class="control-label" for="line_2_base_cost">Base cost</label><br />
-                                            <input type="text" name="line_2_base_cost" id="line_2_base_cost" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label class="control-label" for="line_2_quantity">Quantity</label><br />
-                                            <input type="text" name="line_2_quantity" id="line_2_quantity" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label class="control-label" for="line_2_unrecovered_fa">Unrecoverd F&amp;A</label><br />
-                                            <input type="text" name="line_2_unrecovered_fa" id="line_2_unrecovered_fa" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label class="control-label" for="line_2_cost_sharing">Cost sharing</label><br />
-                                            <input type="text" name="line_2_cost_sharing" id="line_2_cost_sharing" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label class="control-label" for="line_2_start">Start date</label><br />
-                                            <input type="text" name="line_2_start" id="line_2_start" class="form-control" placeholder="mm/dd/yyyy">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label class="control-label" for="line_2_end">End date</label><br />
-                                            <input type="text" name="line_2_end" id="line_2_end" class="form-control" placeholder="mm/dd/yyyy">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="control-label" for="line_2_description">Description</label><br />
-                                            <textarea name="line_2_description" id="line_2_description" class="form-control"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="control-label" for="line_2_notes">Notes</label><br />
-                                            <textarea name="line_2_notes" id="line_2_notes" class="form-control"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group uif-align-center">
-                                            <label class="control-label" for="line_2_app_inf">Apply inflation?<br />
-                                                <input type="checkbox" name="line_2_app_inf" id="line_2_app_inf" class="form-control" value="1">
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group uif-align-center">
-                                            <label class="control-label" for="line_2_send_cost_sharing">Send cost shared?<br />
-                                                <input type="checkbox" name="line_2_send_cost_sharing" id="line_2_send_cost_sharing" class="form-control" value="1">
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group uif-align-center">
-                                            <label class="control-label" for="line_2_on_campus">On campus?<br />
-                                                <input type="checkbox" name="line_2_on_campus" id="line_2_on_campus" class="form-control" value="1">
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <a class="btn btn-primary pull-right" href="#">Add this-personnel item</a>
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="panel-group" id="accordion-non-personnel">
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion-non-personnel" href="#collapse-one"><span class="icon icon-chevron-down"></span> Equipment</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion-non-personnel" href="#collapse-one">Equipment</a>
                                                 </h4>
                                             </div>
                                             <div class="panel-collapse collapse in" id="collapse-one">
@@ -181,215 +59,187 @@ $page = 'non-personnel';
                                                         <tbody>
                                                             <tr>
                                                                 <td>
-                                                                    <div class="row">
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <span class="uif-text-larger">Equipment - Not MTDC<br />
-                                                                                <span class="text-muted">421818</span></span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Budget category</label><br />
-                                                                                Equipment
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Base cost</label><br />
-                                                                                $2,000.00
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Quantity</label><br />
-                                                                                10
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Unrecovered F&amp;A</label><br />
-                                                                                $0
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Cost sharing</label><br />
-                                                                                $1,000.00
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Start date</label><br />
-                                                                                10/01/2014
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">End date</label><br />
-                                                                                09/30/2015
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-3">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Description</label><br />
-                                                                                A description would go here.
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-3">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Notes</label><br />
-                                                                                Some notes would go here.
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2"></div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Apply inflation?</label><br />
-                                                                                No
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Send cost shared?</label><br />
-                                                                                Yes
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">On campus?</label><br />
-                                                                                Yes
-                                                                            </div>
-                                                                        </div>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Object code name</label><br />
+                                                                        Not MTDC<br />
+                                                                        <span class="text-muted">421818</span>
                                                                     </div>
                                                                 </td>
-                                                                <td><a class="icon icon-edit btn-edit"><span class="sr-only">Edit</span></a></td>                                                                
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Base cost</label><br />
+                                                                        $2,000.00
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Quantity</label><br />
+                                                                        1.0
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Cost sharing</label><br />
+                                                                        $1,000.00
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Description</label><br />
+                                                                        A description would go here.
+                                                                    </div>
+                                                                </td>
+                                                                <td rowspan="2"><a class="icon icon-edit btn-edit"><span class="sr-only">Edit</span></a></td>                                                                
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    <div class="row">
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <span class="uif-text-larger">Equipment - Not MTDC<br />
-                                                                                <span class="text-muted">421818</span></span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Budget category</label><br />
-                                                                                Equipment
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Base cost</label><br />
-                                                                                $2,000.00
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Quantity</label><br />
-                                                                                10
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Unrecovered F&amp;A</label><br />
-                                                                                $0
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Cost sharing</label><br />
-                                                                                $1,000.00
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Start date</label><br />
-                                                                                10/01/2014
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">End date</label><br />
-                                                                                09/30/2015
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-3">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Description</label><br />
-                                                                                A description would go here.
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-3">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Notes</label><br />
-                                                                                Some notes would go here.
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2"></div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Apply inflation?</label><br />
-                                                                                No
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Send cost shared?</label><br />
-                                                                                Yes
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">On campus?</label><br />
-                                                                                Yes
-                                                                            </div>
-                                                                        </div>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Object code name</label><br />
+                                                                        Not MTDC<br />
+                                                                        <span class="text-muted">421818</span>
                                                                     </div>
                                                                 </td>
-                                                                <td><a class="icon icon-edit btn-edit"><span class="sr-only">Edit</span></a></td>                                                                
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Base cost</label><br />
+                                                                        $2,000.00
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Quantity</label><br />
+                                                                        1.0
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Cost sharing</label><br />
+                                                                        $1,000.00
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Description</label><br />
+                                                                        A description would go here.
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="uif-new-row">
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <label for="line_3_object_code" class="control-label">
+                                                                            <span class="sr-only">Object code</span>
+                                                                        </label>
+                                                                        <input type="text" name="line_3_object_code" id="line_3_object_code" class="form-control">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <label for="line_3_cost" class="control-label">
+                                                                            <span class="sr-only">Base cost</span>
+                                                                        </label>
+                                                                        <input type="text" name="line_3_cost" id="line_3_cost" class="form-control">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <label for="line_3_quantity" class="control-label">
+                                                                            <span class="sr-only">Quantity</span>
+                                                                        </label>
+                                                                        <input type="text" name="line_3_quantity" id="line_3_quantity" class="form-control">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <label for="line_3_costsharing" class="control-label">
+                                                                            <span class="sr-only">Cost sharing</span>
+                                                                        </label>
+                                                                        <input type="text" name="line_3_costsharing" id="line_3_costsharing" class="form-control">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <label for="line_3_description" class="control-label">
+                                                                            <span class="sr-only">Description</span>
+                                                                        </label>
+                                                                        <textarea name="line_3_description" id="line_3_description" class="form-control"></textarea>
+                                                                    </div>
+                                                                </td>
+                                                                <td><a class="icon icon-save"><span class="sr-only">Save</span></a></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
                                                 </form>
                                             </div>
                                         </div>
-
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion-non-personnel" href="#collapse-two"><span class="icon icon-chevron-right"></span> Travel</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion-non-personnel" href="#collapse-two">Travel</a>
                                                 </h4>
                                             </div>
                                             <div class="panel-collapse collapse" id="collapse-two">
-                                                
+                                                <form action="#" method="#" class="form-inline">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Object code</th>
+                                                                <th>Base cost</th>
+                                                                <th>Quantity</th>
+                                                                <th>Cost sharing</th>
+                                                                <th>Description</th>
+                                                                <th><span class="sr-only">Actions</span></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="uif-new-row">
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <label for="line_3_object_code" class="control-label">
+                                                                            <span class="sr-only">Object code</span>
+                                                                        </label>
+                                                                        <input type="text" name="line_3_object_code" id="line_3_object_code" class="form-control">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <label for="line_3_cost" class="control-label">
+                                                                            <span class="sr-only">Base cost</span>
+                                                                        </label>
+                                                                        <input type="text" name="line_3_cost" id="line_3_cost" class="form-control">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <label for="line_3_quantity" class="control-label">
+                                                                            <span class="sr-only">Quantity</span>
+                                                                        </label>
+                                                                        <input type="text" name="line_3_quantity" id="line_3_quantity" class="form-control">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <label for="line_3_costsharing" class="control-label">
+                                                                            <span class="sr-only">Cost sharing</span>
+                                                                        </label>
+                                                                        <input type="text" name="line_3_costsharing" id="line_3_costsharing" class="form-control">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <label for="line_3_description" class="control-label">
+                                                                            <span class="sr-only">Description</span>
+                                                                        </label>
+                                                                        <textarea name="line_3_description" id="line_3_description" class="form-control"></textarea>
+                                                                    </div>
+                                                                </td>
+                                                                <td><a class="icon icon-save"><span class="sr-only">Save</span></a></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </form>
                                             </div>
                                         </div>
-
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion-non-personnel" href="#collapse-three"><span class="icon icon-chevron-right"></span> Participant Support</a>
-                                                </h4>
-                                            </div>
-                                            <div class="panel-collapse collapse" id="collapse-three">
-                                                
-                                            </div>
-                                        </div>
-
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion-non-personnel" href="#collapse-four"><span class="icon icon-chevron-right"></span> Other</a>
-                                                </h4>
-                                            </div>
-                                            <div class="panel-collapse collapse" id="collapse-four">
-                                                
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </div>
                             </div>
