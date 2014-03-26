@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>3.4.2</version>
+    <version>3.4.4</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-dns</artifactId>
@@ -40,8 +40,6 @@
     <junit.version>4.11</junit.version>
     <slf4j.version>1.7.5</slf4j.version>
     <plugin.dnsme.version>1.0.7</plugin.dnsme.version>
-    <kuali-util.version>4.4.10-SNAPSHOT</kuali-util.version>
-    <kuali-core.version>1.0.0-SNAPSHOT</kuali-core.version>
   </properties>
   <dependencies>
     <dependency>
