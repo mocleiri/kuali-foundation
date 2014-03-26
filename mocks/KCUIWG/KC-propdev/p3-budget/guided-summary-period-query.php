@@ -39,11 +39,54 @@ $section = '';
                             </div>
                             <div class="uif-verticalBoxGroup uif-header-lowerGroup">
                                 <div class="uif-boxLayoutVerticalItem clearfix">
-                                    <p>Based on the project dates you entered, your budget has 2 periods.</p>
-                                    <p>Verify the following period information and edit as necessary:</p>
+                                    <p><b>Based on the project dates you entered, your budget has 2 periods.</b></p>
+                                    <p><b>Verify the following period information and edit as necessary:</b></p>
                                 </div>
                             </div>
                         </header>
+                        <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
+                            <div class="row">
+                                <div class="well">
+                                    <div class="row">
+                                        <div class="col-md-2">                                           
+                                            <p><b>Period</b></p>                                    
+                                        </div>
+                                        <div class="col-md-2">
+                                            <p><b>Start date</b></p>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <p><b>End date</b></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">                                               
+                                            <input type="text" class="form-control" placeholder="1">
+                                        </div>
+                                        <div class="col-md-2">                                          
+                                            <input type="text" class="form-control" placeholder="mm/dd/yyyy">
+                                        </div>
+                                        <div class="col-md-2">                                 
+                                            <input type="text" class="form-control" placeholder="mm/dd/yyyy">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">                                               
+                                            <input type="text" class="form-control" placeholder="2">
+                                        </div>
+                                        <div class="col-md-2">                                          
+                                            <input type="text" class="form-control" placeholder="mm/dd/yyyy">
+                                        </div>
+                                        <div class="col-md-2">                                 
+                                            <input type="text" class="form-control" placeholder="mm/dd/yyyy">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <a class="btn btn-default" href="#">Add period</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                     </main>
                 </div>
             </div>

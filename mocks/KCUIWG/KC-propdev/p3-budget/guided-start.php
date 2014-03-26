@@ -39,7 +39,7 @@ $section = '';
                             </div>
                             <div class="uif-verticalBoxGroup uif-header-lowerGroup">
                                 <div class="uif-boxLayoutVerticalItem clearfix">
-                                    <p>Would you like to create a detailed budget or enter a summary only?</p>
+                                    <p><b>Would you like to create a detailed budget or enter a summary only?</b></p>
                                 </div>
                             </div>
                         </header>
@@ -47,7 +47,7 @@ $section = '';
                             <div class="row">
                                 <div class="col-md-12">
                                     <a class="btn btn-default" href="#">Start a detailed budget</a>
-                                    <a class="btn btn-default" href="#">Start a summary-only budget</a>
+                                    <a class="btn btn-default btn-margin-left" href="#">Start a summary-only budget</a>
                                 </div>
                             </div>
                         </div>
