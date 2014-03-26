@@ -53,7 +53,6 @@ import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.log.Loggers;
-import org.kuali.common.util.metainf.service.MetaInfUtils;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitService;
@@ -108,7 +107,7 @@ public class CreateBuildSlaveAMI {
 			EC2Service service = getEC2Service(amazonAccount, jenkinsContext.getRegion());
 			List<Tag> tags = getSlaveTags(jenkinsContext);
 			Instance instance = launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
-			// Instance instance = service.getInstance("i-6bb3e034");
+			// Instance instance = service.getInstance("i-d20676da");
 			service.tag(instance.getInstanceId(), tags);
 			logger.info(format("public dns: %s", instance.getPublicDnsName()));
 			String dns = instance.getPublicDnsName();
@@ -117,6 +116,7 @@ public class CreateBuildSlaveAMI {
 			SpinUpJenkinsMaster.bootstrap(dns, privateKey);
 			SecureChannel channel = SpinUpJenkinsMaster.openSecureChannel(ROOT, dns, privateKey, quiet);
 			String basedir = SpinUpJenkinsMaster.publishProject(channel, pid, ROOT, dns, quiet);
+
 			String gpgPassphrase = Auth.decrypt(GPG_PASSPHRASE_ENCRYPTED);
 			String quietFlag = (quiet) ? "-q" : "";
 			String dnsPrefix = jenkinsContext.getDnsPrefix();
@@ -148,13 +148,14 @@ public class CreateBuildSlaveAMI {
 	}
 
 	protected void cacheBinaries(SecureChannel channel, String basedir, ProjectIdentifier pid) {
-		String prefix = MetaInfUtils.getResourcePrefix(pid);
+		String prefix = "META-INF/maven/" + pid.getGroupId() + "/" + pid.getArtifactId();
+		String pom = basedir + "/" + prefix + "/pom.xml";
 		List<String> args = newArrayList();
 		args.add("initialize");
 		args.add("-Pupdate");
 		args.add("-Dorg.slf4j.simpleLogger.log.org.kuali.maven.wagon=warn");
 		args.add("-f");
-		args.add(basedir + "/" + prefix + "/pom.xml");
+		args.add(pom);
 		SpinUpJenkinsMaster.exec(channel, "mvn", args);
 	}
 
