@@ -53,6 +53,7 @@ import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.log.Loggers;
+import org.kuali.common.util.metainf.service.MetaInfUtils;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitService;
@@ -126,6 +127,7 @@ public class CreateBuildSlaveAMI {
 			String slave = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/configureslave");
 			SpinUpJenkinsMaster.exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
 			SpinUpJenkinsMaster.exec(channel, slave, quietFlag, jenkinsMaster);
+			cacheBinaries(channel, basedir, pid);
 			service.stopInstance(instance.getInstanceId());
 
 			String description = format("automated ec2 slave ami - %s", today);
@@ -143,6 +145,17 @@ public class CreateBuildSlaveAMI {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected void cacheBinaries(SecureChannel channel, String basedir, ProjectIdentifier pid) {
+		String prefix = MetaInfUtils.getResourcePrefix(pid);
+		List<String> args = newArrayList();
+		args.add("initialize");
+		args.add("-Pupdate");
+		args.add("-Dorg.slf4j.simpleLogger.log.org.kuali.maven.wagon=warn");
+		args.add("-f");
+		args.add(basedir + "/" + prefix + "/pom.xml");
+		SpinUpJenkinsMaster.exec(channel, "mvn", args);
 	}
 
 	protected void updateMasterAMI(String jenkinsMaster, ProjectIdentifier pid, String privateKey, boolean quiet, String ami) throws IOException {
