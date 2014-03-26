@@ -36,5 +36,8 @@ Tuesday
 -- not going to pursue email synchronization between CAS and CI for now, in deference to getting KS core tech team up and running on the new CI
 
 -- continued work on caching maven.kuali.org/external and maven.kuali.org/release onto the nightly build slave AMI
+
+-- Weekly meeting with Jessica
+
 -- 
 
