@@ -23,7 +23,7 @@ import com.google.common.collect.ImmutableList;
 
 public class LaunchUtils {
 
-	private static final String AMI_KEY = "ec2.ami";
+	// private static final String AMI_KEY = "ec2.ami";
 	private static final String KEY_NAME_KEY = "ec2.keyName";
 	private static final String KEY_FINGERPRINT_KEY = "ec2.keyFingerprint";
 	private static final String PUBLIC_KEY_KEY = "ec2.publicKey";
@@ -32,15 +32,17 @@ public class LaunchUtils {
 	// TODO Be smarter about allowing overrides for security groups / permissions
 	// private static final String SECURITY_GROUPS_KEY = "ec2.securityGroups";
 	private static final String TAGS_KEY = "ec2.tags";
-	private static final String AVAILABILITY_ZONE_KEY = "ec2.availabilityZone";
-	private static final String LAUNCH_TIMEOUT_KEY = "ec2.launchTimeout";
-	private static final String PREVENT_TERMINATION_KEY = "ec2.preventTermination";
-	private static final String EBS_OPTIMIZED_KEY = "ec2.ebsOptimized";
-	private static final String ENABLE_MONITORING_KEY = "ec2.enableMonitoring";
+	// private static final String AVAILABILITY_ZONE_KEY = "ec2.availabilityZone";
+	// private static final String LAUNCH_TIMEOUT_KEY = "ec2.launchTimeout";
+	// private static final String PREVENT_TERMINATION_KEY = "ec2.preventTermination";
+	// private static final String EBS_OPTIMIZED_KEY = "ec2.ebsOptimized";
+	// private static final String ENABLE_MONITORING_KEY = "ec2.enableMonitoring";
 	private static final String ROOT_VOLUME_SIZE_KEY = "ec2.rootVolume.sizeInGigabytes";
 	private static final String ROOT_VOLUME_DELETE_KEY = "ec2.rootVolume.deleteOnTermination";
-	private static final KeyPair NOKEYPAIR = new KeyPair.Builder(NullUtils.NONE).build();
-	private static final LaunchInstanceContext NOCONTEXT = new LaunchInstanceContext.Builder(NullUtils.NONE, NOKEYPAIR).build();
+
+	// private static final KeyPair NOKEYPAIR = new KeyPair.Builder(NullUtils.NONE).build();
+
+	// private static final LaunchInstanceContext NOCONTEXT = new LaunchInstanceContext.Builder(NullUtils.NONE, NOKEYPAIR).build();
 
 	/**
 	 * Get a key pair based on the values from <code>provided</code> unless overridden by values from the environment.
