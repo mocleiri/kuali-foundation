@@ -13,7 +13,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-usage() { echo "Usage: $ME [-h --help] [-q --quiet] [-c --classifier=linux-x64] [-t --type=zip] [-u --username=developer] [-p --password=password] [-l --local=\$HOME/.m2/repository] [-r --repo=http://search.maven.org/remotecontent?filepath=] group_id artifact_id version" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h --help] [-q --quiet] [-c --classifier=linux-x64] [-t --type=zip] [-u --username=developer] [-p --password=password] [-l --local=HOME/.m2/repository] [-r --repo=http://search.maven.org/remotecontent?filepath=] group_id artifact_id version" 1>&2; exit 1; }
 
 QUIET=false
 LOCAL=$HOME/.m2/repository

@@ -68,6 +68,24 @@ function install_plugin {
   
 }
 
+function install_cas_plugin {
+
+  REPO=http://maven.kuali.org/external
+  GROUP_ID=org.jenkins.plugins
+  ARTIFACT_ID=cas-plugin
+  VERSION=1.1.2-kuali-patch1
+  TYPE=jpi
+  
+  $MY_DIR/../common/m2download $QUIET_FLAG $PLUGIN_URL $GROUP_ID $ARTIFACT_ID $VERSION --type=$TYPE
+  M2_LOCAL_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --type="$TYPE")
+  
+  echo "install   -> plugin :: $ARTIFACT_ID :: $VERSION"
+  PLUGIN_FILE=$JENKINS_HOME/plugins/$ARTIFACT_ID.$TYPE
+  execute_quietly "cp $M2_LOCAL_PATH $PLUGIN_FILE"
+  execute_quietly "touch $PLUGIN_FILE.pinned"
+   
+}
+
 function install_plugins {
 
   echo "configure -> jenkins:plugins"
@@ -77,7 +95,8 @@ function install_plugins {
 
   # supported plugins (in alphabetical order)
   install_plugin build-pipeline-plugin 1.4.2
-  install_plugin cas-plugin            1.1.1
+  # We are using a fork of the cas-plugin to work around issues with supplying group/role information correctly from KIS and CAS
+  #install_plugin cas-plugin            1.1.1
   install_plugin credentials           1.10
   install_plugin cucumber-reports      0.0.22 
   install_plugin dashboard-view        2.9.2
