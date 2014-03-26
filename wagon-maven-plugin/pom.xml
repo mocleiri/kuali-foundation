@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-maven</artifactId>
-    <version>3.4.2</version>
+    <version>3.4.4</version>
   </parent>
 
   <groupId>org.kuali.maven.plugins</groupId>
@@ -49,11 +49,6 @@
     <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/wagon-maven-plugin</developerConnection>
     <url>http://svn.kuali.org/repos/foundation/trunk/wagon-maven-plugin</url>
   </scm>
-
-  <properties>
-    <kuali-core.version>1.0.0-SNAPSHOT</kuali-core.version>
-    <kuali-util.version>4.4.10-SNAPSHOT</kuali-util.version>
-  </properties>
 
   <developers>
     <developer>
@@ -102,12 +97,10 @@
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-core</artifactId>
-      <version>${kuali-core.version}</version>
     </dependency>
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-util</artifactId>
-      <version>${kuali-util.version}</version>
     </dependency>
   </dependencies>
   <build>
