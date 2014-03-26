@@ -72,18 +72,19 @@ function install_cas_plugin {
 
   REPO=http://maven.kuali.org/external
   GROUP_ID=org.jenkins.plugins
-  ARTIFACT_ID=cas-plugin
+  ARTIFACT_ID=cas_plugin
   VERSION=1.1.2-kuali-patch1
   TYPE=jpi
+  PLUGIN_URL=$REPO/$ARTIFACT_ID/$VERSION/$ARTIFACT_ID.jpi
   
-  $MY_DIR/../common/m2download $QUIET_FLAG --type=$TYPE --repo="$REPO" $PLUGIN_URL $GROUP_ID $ARTIFACT_ID $VERSION
+  $MY_DIR/../common/m2downloadurl $QUIET_FLAG $PLUGIN_URL $GROUP_ID $ARTIFACT_ID $VERSION --type=$TYPE
   M2_LOCAL_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --type="$TYPE")
   
   echo "install   -> plugin :: $ARTIFACT_ID :: $VERSION"
   PLUGIN_FILE=$JENKINS_HOME/plugins/$ARTIFACT_ID.$TYPE
   execute_quietly "cp $M2_LOCAL_PATH $PLUGIN_FILE"
-  execute_quietly "touch $PLUGIN_FILE.pinned"
-   
+  execute_quietly "touch $PLUGIN_FILE.pinned" 
+  
 }
 
 function install_plugins {
@@ -97,7 +98,6 @@ function install_plugins {
   install_plugin build-pipeline-plugin 1.4.2
 
   # We are using a fork of the cas-plugin to work around issues with supplying group/role information correctly from KIS and CAS
-  #install_plugin cas-plugin            1.1.1
   install_cas_plugin
 
   install_plugin credentials           1.10
