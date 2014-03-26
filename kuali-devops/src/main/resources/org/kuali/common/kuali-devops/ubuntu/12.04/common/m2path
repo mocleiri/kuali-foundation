@@ -12,7 +12,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-usage() { echo "Usage: $ME [-h --help] [-c --classifier=linux-x64] [-t --type=zip] [-r --repo=\$HOME/.m2/repository] group_id artifact_id version" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h --help] [-c --classifier=linux-x64] [-t --type=zip] [-r --repo=HOME/.m2/repository] group_id artifact_id version" 1>&2; exit 1; }
 
 CLASSIFIER=""
 TYPE=jar
