@@ -31,6 +31,11 @@
   <properties>
     <slf4j.version>1.7.5</slf4j.version>
     <aws.version>1.7.3</aws.version>
+    <!-- 
+    explicitly redeclare a dependency on an explicit version of joda-time so Maven doesn't
+    use the AWS dependency which declares a range and thus prompts Maven to download joda-time/maven-metadata.xml all the time
+     -->
+    <joda-time.version>2.3</joda-time.version>
     <junit.version>4.11</junit.version>
   </properties>
   <developers>
@@ -58,7 +63,16 @@
           <groupId>commons-logging</groupId>
           <artifactId>commons-logging</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>joda-time</groupId>
+          <artifactId>joda-time</artifactId>
+        </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+      <version>${joda-time.version}</version>
     </dependency>
     <dependency>
       <groupId>org.kuali.common</groupId>
