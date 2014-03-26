@@ -44,6 +44,27 @@ $page = 'non-personnel';
                             </div>
                         </header>
                         <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
+                            <div class="well clearfix">
+                                <form action="#" method="get" class="form-inline">
+                                    <div class="col-md-5">
+                                        <label for="budget_period" class="control-label">Budget period:</label>
+                                        <select name="budget_period" id="budget_period" class="form-control">
+                                            <option value="period_001">1: 1/01/2014 - 12/31/2014</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label for="budget_view" class="control-label">View:</label>
+                                        <select name="budget_view" id="budget_view" class="form-control">
+                                            <option value="simple">Simple</option>
+                                            <option value="full">Full details</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <br /><button class="btn btn-default pull-right">Reload view</button>
+                                    </div>
+                                </form>
+                            </div>
+
                             <div class="well">
                                 <div class="row">
                                     <h4>Add a new non-personnel item</h4>
