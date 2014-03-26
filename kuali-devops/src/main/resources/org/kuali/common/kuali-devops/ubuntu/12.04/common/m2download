@@ -78,8 +78,6 @@ while true; do
   esac
 done
 
-echo "repo=$REPO"
-
 GROUP_ID=$1
 ARTIFACT_ID=$2
 VERSION=$3
@@ -88,8 +86,6 @@ check_args
 
 M2_LOCAL_PATH=$($MY_DIR/m2path  --repo="$LOCAL" $GROUP_ID $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
 M2_REMOTE_PATH=$($MY_DIR/m2path --repo="$REPO"  $GROUP_ID $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
-
-echo "M2_REMOTE_PATH=$M2_REMOTE_PATH"
 
 if [ ! -f "$M2_LOCAL_PATH" ]; then
   echo "download  -> $M2_REMOTE_PATH"
