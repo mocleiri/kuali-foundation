@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>3.4.2</version>
+    <version>3.4.4</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-aws</artifactId>
@@ -32,8 +32,6 @@
     <slf4j.version>1.7.5</slf4j.version>
     <aws.version>1.7.3</aws.version>
     <junit.version>4.11</junit.version>
-    <kuali-util.version>4.4.10-SNAPSHOT</kuali-util.version>
-    <kuali-core.version>1.0.0-SNAPSHOT</kuali-core.version>
   </properties>
   <developers>
     <developer>
@@ -69,7 +67,6 @@
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-core</artifactId>
-      <version>${kuali-core.version}</version>
     </dependency>
     <dependency>
       <groupId>org.kuali.common</groupId>
