@@ -76,7 +76,7 @@ function install_cas_plugin {
   VERSION=1.1.2-kuali-patch1
   TYPE=jpi
   
-  $MY_DIR/../common/m2download $QUIET_FLAG $PLUGIN_URL $GROUP_ID $ARTIFACT_ID $VERSION --type=$TYPE --repo=$REPO
+  $MY_DIR/../common/m2download $QUIET_FLAG --type=$TYPE --repo=$REPO $PLUGIN_URL $GROUP_ID $ARTIFACT_ID $VERSION
   M2_LOCAL_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --type="$TYPE")
   
   echo "install   -> plugin :: $ARTIFACT_ID :: $VERSION"
