@@ -39,5 +39,28 @@ Tuesday
 
 -- Weekly meeting with Jessica
 
--- 
+-- Continued working on testci.kuali.org
 
+Wednesday
+---------
+-- Analyzed repeat issue with KS nightly build, re open db connections causing a failure
+-- Proposed copying logs off after a shutdown, to see if there are exceptions in the log output somewhere during shutdown
+-- suspicion is that an unclean shutdown will end up with the tomcat process being killed after a set period of time
+---- this would prevent the connection pooling software from closing it's connections to the Oracle DB
+---- this is likely to be the cause of the open db connections remaining around for a while and causing the build to fail
+
+-- OLE trouble shoot licensing issue
+-- they were examining some old, unsupported wiki page for licensing info
+-- deleted the page, and deleted the server behind "report.kuali.org", saving Rice some $$$ in the process
+-- created a new job that refreshes license information daily
+
+Infra
+-----
+-- strongly suspect "groupMembership" information is not being supplied correctly to CI from KIS + CAS
+-- the CAS "authority" token is one big long CSV string, should be individual tokens, one per authority
+-- the other authorities that CAS supplies directly show up this way, eg "authenticated" and "Jeff Caddel"
+-- the custom groupMembership authorities do not appear to be showing up correctly
+
+-- Forked and patched the cas-plugin to overcome issue with CAS being unable to correctly supply multi-value attributes
+-- Updated Jenkins configuration to accomodate the custom plugin
+ 
