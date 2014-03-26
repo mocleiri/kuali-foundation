@@ -78,6 +78,8 @@ while true; do
   esac
 done
 
+echo "repo=$REPO"
+
 GROUP_ID=$1
 ARTIFACT_ID=$2
 VERSION=$3
