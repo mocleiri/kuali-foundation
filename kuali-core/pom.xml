@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>3.4.2</version>
+    <version>3.4.3</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-core</artifactId>
@@ -55,7 +55,6 @@
     <jackson.version>2.3.1</jackson.version>
     <jackson-databind.version>${jackson.version}</jackson-databind.version>
     <jackson-datatype-guava.version>${jackson.version}</jackson-datatype-guava.version>
-    <kuali-util.version>4.4.10-SNAPSHOT</kuali-util.version>
   </properties>
   <build>
     <pluginManagement>
@@ -81,7 +80,6 @@
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-util</artifactId>
-      <version>${kuali-util.version}</version>
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
