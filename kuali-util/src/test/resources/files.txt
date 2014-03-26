@@ -1,9 +1,0 @@
-Spain              - 1    Chile              - 15  USA                - 14   Portugal           - 5       
-Germany            - 2    Côte d'Ivoire      - 17  Mexico             - 20   Italy              - 7
-Argentina          - 3    Ecuador            - 23  Costa Rica         - 31   Netherlands        - 9
-Colombia           - 4    Ghana              - 24  Honduras           - 41   Greece             - 12
-Uruguay            - 6    Algeria            - 26  Iran               - 45   England            - 13
-Switzerland        - 8    Nigeria            - 36  Japan              - 48   Croatia            - 16
-Brazil             - 10   Cameroon           - 51  Korea Republic     - 54   France             - 19
-Belgium            - 11                            Australia          - 59   Bosnia-Herzegovina - 21
-                                                                             Russia             - 22
