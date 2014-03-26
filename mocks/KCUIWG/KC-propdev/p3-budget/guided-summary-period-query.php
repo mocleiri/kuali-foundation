@@ -36,12 +36,11 @@ $section = '';
                                 <h2 class="uif-headerText">
                                     <span class="uif-headerText-span">Guided Mode</span> <span style="font-size:small">(<a href="#">Exit guided mode</a>)</span>
                                 </h2>
-                            </div>
-                            <div class="uif-verticalBoxGroup uif-header-lowerGroup">
-                                <div class="uif-boxLayoutVerticalItem clearfix">
-                                    <p><b>Based on the project dates you entered, your budget has 2 periods.</b></p>
-                                    <p><b>Verify the following period information and edit as necessary:</b></p>
-                                </div>
+                                <h4 class="uif-headerText">
+                                    <div class="col-md-4">1. Budget Periods &amp; Totals</div>
+                                    <div class="col-md-2">2. Modular</div>
+                                    <div class="col-md-3">3. Summary &amp; Review</div>
+                                </h4>
                             </div>
                         </header>
                         <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
