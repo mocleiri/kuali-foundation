@@ -95,8 +95,11 @@ function install_plugins {
 
   # supported plugins (in alphabetical order)
   install_plugin build-pipeline-plugin 1.4.2
+
   # We are using a fork of the cas-plugin to work around issues with supplying group/role information correctly from KIS and CAS
   #install_plugin cas-plugin            1.1.1
+  install_cas_plugin
+
   install_plugin credentials           1.10
   install_plugin cucumber-reports      0.0.22 
   install_plugin dashboard-view        2.9.2
@@ -119,6 +122,7 @@ function install_plugins {
   install_plugin scm-api               0.2
   install_plugin ssh-credentials       1.6.1
   install_plugin token-macro           1.10
+
 
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME  
   
@@ -264,7 +268,6 @@ configure_tomcat
 configure_tomcat_user
 install_jenkins
 install_plugins
-install_cas_plugin
 configure_jenkins
 echo "start     -> $TOMCAT:service"
 execute_quietly "service $TOMCAT start"
