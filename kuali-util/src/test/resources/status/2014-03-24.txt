@@ -31,7 +31,8 @@ Tuesday
 -- No resolution, but KS techs suspect an unclean tomcat shutdown might be resulting in connections being held open even after tomcat shuts down
 
 -- coordinated with Mike on finishing up group based user management for CAS + Jenkins
--- group membership attribute is being passed, but there is a CSV issue, ie ks.dev,rice.dev gets interpreted as "ks.dev,rice.dev" instead of 2 separate groups
+-- group membership attribute is being passed, but there is a CSV issue, ie the text "ks.dev,rice.dev" gets interpreted as "ks.dev,rice.dev" instead 
+   of 2 separate groups
 -- not going to pursue email synchronization between CAS and CI for now, in deference to getting KS core tech team up and running on the new CI
 
 -- continued work on caching maven.kuali.org/external and maven.kuali.org/release onto the nightly build slave AMI
