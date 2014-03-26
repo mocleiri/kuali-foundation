@@ -15,8 +15,8 @@
 ====
 
 # spin up a master/slave combo
-svn up; mci; clear; mvn test -Dtest=CreateBuildSlaveAMI -Dec2.stack=test -Dec2.region=us-west-2
 svn up; mci; clear; mvn test -Dtest=SpinUpJenkinsMaster -Dec2.stack=test -Dec2.region=us-west-2
+svn up; mci; clear; mvn test -Dtest=CreateBuildSlaveAMI -Dec2.stack=test -Dec2.region=us-west-2
 
 # Sync maven.kuali.org/release and maven.kuali.org/external to the local m2 repo
 mvn initialize -Pupdate -Dorg.slf4j.simpleLogger.log.org.kuali.maven.wagon=warn -f /root/.bootstrap/kuali-devops/META-INF/maven/org.kuali.common/kuali-devops/pom.xml
