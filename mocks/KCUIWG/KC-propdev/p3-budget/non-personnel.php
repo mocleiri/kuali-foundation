@@ -44,93 +44,91 @@ $page = 'non-personnel';
                             </div>
                         </header>
                         <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
-                            <div class="row">
-                                <div class="well">
-                                    <div class="row">
-                                        <h4>Add a new non-personnel item</h4>
+                            <div class="well">
+                                <div class="row">
+                                    <h4>Add a new non-personnel item</h4>
 
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label class="control-label" for="line_2_object_code">Object code name</label><br />
-                                                <select name="line_2_object_code" id="line_2_object_code" class="form-control">
-                                                    <option>- Select -</option>
-                                                    <option value="equip-no-mtdc">Equipment - Not MTDC</option>
-                                                    <option value="equip-rent-no-mtdc">Equipment Rental - Not MTDC</option>
-                                                    <option value="equip-fabricated-no-mtdc">Fabricated Equipment - Not MTDC</option>
-                                                    <option value="reactor-use">Reactor use</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                            <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label class="control-label" for="line_2_base_cost">Base cost</label><br />
-                                                <input type="text" name="line_2_base_cost" id="line_2_base_cost" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label class="control-label" for="line_2_quantity">Quantity</label><br />
-                                                <input type="text" name="line_2_quantity" id="line_2_quantity" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group uif-align-center">
-                                                <label class="control-label" for="line_2_app_inf">Apply inflation?<br />
-                                                    <input type="checkbox" name="line_2_app_inf" id="line_2_app_inf" class="form-control" value="1">
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group uif-align-center">
-                                                <label class="control-label" for="line_2_send_cost_sharing">Send cost shared?<br />
-                                                    <input type="checkbox" name="line_2_send_cost_sharing" id="line_2_send_cost_sharing" class="form-control" value="1">
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group uif-align-center">
-                                                <label class="control-label" for="line_2_on_campus">On campus?<br />
-                                                    <input type="checkbox" name="line_2_on_campus" id="line_2_on_campus" class="form-control" value="1">
-                                                </label>
-                                            </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label" for="line_2_object_code">Object code name</label><br />
+                                            <select name="line_2_object_code" id="line_2_object_code" class="form-control">
+                                                <option>- Select -</option>
+                                                <option value="equip-no-mtdc">Equipment - Not MTDC</option>
+                                                <option value="equip-rent-no-mtdc">Equipment Rental - Not MTDC</option>
+                                                <option value="equip-fabricated-no-mtdc">Fabricated Equipment - Not MTDC</option>
+                                                <option value="reactor-use">Reactor use</option>
+                                            </select>
                                         </div>
                                     </div>
-                                    <div class="row">
                                         <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label class="control-label" for="line_2_start">Start date</label><br />
-                                                <input type="text" name="line_2_start" id="line_2_start" class="form-control" placeholder="mm/dd/yyyy">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label class="control-label" for="line_2_end">End date</label><br />
-                                                <input type="text" name="line_2_end" id="line_2_end" class="form-control" placeholder="mm/dd/yyyy">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label class="control-label" for="line_2_unrecovered_fa">Unrecoverd F&amp;A</label><br />
-                                                <input type="text" name="line_2_unrecovered_fa" id="line_2_unrecovered_fa" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label class="control-label" for="line_2_cost_sharing">Cost sharing</label><br />
-                                                <input type="text" name="line_2_cost_sharing" id="line_2_cost_sharing" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="control-label" for="line_2_description">Description</label><br />
-                                                <textarea name="line_2_description" id="line_2_description" class="form-control"></textarea>
-                                            </div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="line_2_base_cost">Base cost</label><br />
+                                            <input type="text" name="line_2_base_cost" id="line_2_base_cost" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <a class="btn btn-primary pull-right" href="#">Add object</a>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label" for="line_2_quantity">Quantity</label><br />
+                                            <input type="text" name="line_2_quantity" id="line_2_quantity" class="form-control">
                                         </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group uif-align-center">
+                                            <label class="control-label" for="line_2_app_inf">Apply inflation?<br />
+                                                <input type="checkbox" name="line_2_app_inf" id="line_2_app_inf" class="form-control" value="1">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group uif-align-center">
+                                            <label class="control-label" for="line_2_send_cost_sharing">Send cost shared?<br />
+                                                <input type="checkbox" name="line_2_send_cost_sharing" id="line_2_send_cost_sharing" class="form-control" value="1">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group uif-align-center">
+                                            <label class="control-label" for="line_2_on_campus">On campus?<br />
+                                                <input type="checkbox" name="line_2_on_campus" id="line_2_on_campus" class="form-control" value="1">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label" for="line_2_start">Start date</label><br />
+                                            <input type="text" name="line_2_start" id="line_2_start" class="form-control" placeholder="mm/dd/yyyy">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label" for="line_2_end">End date</label><br />
+                                            <input type="text" name="line_2_end" id="line_2_end" class="form-control" placeholder="mm/dd/yyyy">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label" for="line_2_unrecovered_fa">Unrecoverd F&amp;A</label><br />
+                                            <input type="text" name="line_2_unrecovered_fa" id="line_2_unrecovered_fa" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label" for="line_2_cost_sharing">Cost sharing</label><br />
+                                            <input type="text" name="line_2_cost_sharing" id="line_2_cost_sharing" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label" for="line_2_description">Description</label><br />
+                                            <textarea name="line_2_description" id="line_2_description" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <a class="btn btn-primary pull-right" href="#">Add non-personnel item</a>
                                     </div>
                                 </div>
                             </div>
