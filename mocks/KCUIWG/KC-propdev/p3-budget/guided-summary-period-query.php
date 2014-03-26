@@ -48,7 +48,7 @@ $section = '';
                             <div class="row">
                                 <div class="well">
                                     <div class="row">
-                                        <div class="col-md-2">                                           
+                                        <div class="col-md-1">                                           
                                             <p><b>Period</b></p>                                    
                                         </div>
                                         <div class="col-md-2">
@@ -59,7 +59,7 @@ $section = '';
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-2">                                               
+                                        <div class="col-md-1">                                               
                                             <input type="text" class="form-control" placeholder="1">
                                         </div>
                                         <div class="col-md-2">                                          
@@ -73,7 +73,7 @@ $section = '';
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-2">                                               
+                                        <div class="col-md-1">                                               
                                             <input type="text" class="form-control" placeholder="2">
                                         </div>
                                         <div class="col-md-2">                                          
