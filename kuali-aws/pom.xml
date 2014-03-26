@@ -24,7 +24,7 @@
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-aws</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <name>Kuali AWS</name>
   <url>http://${kuali.site.hostname}/common/${project.artifactId}/${project.version}</url>
   <description>Software for interacting with Amazon Web Services</description>
@@ -115,8 +115,8 @@
     </dependency>
   </dependencies>
   <scm>
-    <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/tags/kuali-aws-1.0.0</connection>
-    <developerConnection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/tags/kuali-aws-1.0.0</developerConnection>
-    <url>https://svn.kuali.org/repos/foundation/tags/kuali-aws-1.0.0</url>
+    <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/kuali-aws</connection>
+    <developerConnection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/kuali-aws</developerConnection>
+    <url>https://svn.kuali.org/repos/foundation/trunk/kuali-aws</url>
   </scm>
 </project>
