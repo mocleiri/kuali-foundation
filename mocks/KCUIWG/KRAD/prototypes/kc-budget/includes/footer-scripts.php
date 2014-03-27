@@ -8,7 +8,7 @@
 <script type="text/javascript" src="../../plugins/globalize/globalize.js"></script> 
 <script type="text/javascript" src="../../plugins/menu/krad.navigationMenu.js"></script> 
 <script type="text/javascript" src="../../plugins/menu/krad.tabMenu.js"></script> 
-<script type="text/javascript" src="../../plugins/jgrowl/jquery.jgrowlllllllllll.js"></script> <script type="text/javascript" src="../../plugins/textpopout/krad.textareaPopout.js"></script> 
+<script type="text/javascript" src="../../plugins/jgrowl/jquery.jgrowl.js"></script> <script type="text/javascript" src="../../plugins/textpopout/krad.textareaPopout.js"></script> 
 <script type="text/javascript" src="../../plugins/validate/additional_validations.js"></script> 
 <script type="text/javascript" src="../../plugins/cookie/jquery.cookie.js"></script> 
 <script type="text/javascript" src="../../plugins/watermark/jquery.watermark.js"></script> 
