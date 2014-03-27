@@ -219,7 +219,7 @@ function configure_jenkins {
   configure_jenkins_region
 
   # Modify ~/.jenkins/jobs/kdo-create-build-slave-ami/config.xml with the correct stack and region values
-  #configure_build_slave_ami_job
+  configure_build_slave_ami_job
   
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
 
