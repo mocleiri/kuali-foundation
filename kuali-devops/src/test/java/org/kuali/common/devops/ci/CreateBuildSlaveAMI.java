@@ -148,7 +148,7 @@ public class CreateBuildSlaveAMI {
 	}
 
 	protected void cacheBinaries(SecureChannel channel, String basedir, ProjectIdentifier pid) {
-		logger.info(format("caching kuali release binaries"));
+		logger.info(format("invoking maven to cache released kuali binaries"));
 		String prefix = "META-INF/maven/" + pid.getGroupId() + "/" + pid.getArtifactId();
 		String pom = basedir + "/" + prefix + "/pom.xml";
 		List<String> args = newArrayList();
