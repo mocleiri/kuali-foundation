@@ -6,7 +6,7 @@ set -xe
 REPO=/root/.m2/repository
 # The trailing slash is significant here
 SRC=$REPO/
-JENKINS_MASTER=JENKINS_MASTER
+JENKINS_MASTER=FILL_ME_IN_PLEASE
 DST=root@$JENKINS_MASTER:$REPO
 EXCLUDEFILE=/usr/share/ec2slave/rsync.excludes
 
