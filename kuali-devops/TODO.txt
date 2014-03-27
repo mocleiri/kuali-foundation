@@ -14,10 +14,9 @@
     limitations under the License.
 ====
 
-- pre-cache Kuali artifacts during AMI creation
+- fix rsync to master on shutdown
+- fix -Dec2.stack=xyz -Dec2.region=xyz in ~/.jenkins/jobs/kdo-create-build-slave-ami/config.xml
 - CAS groups (talk to Farooq)
-- release util, core, httpclient, dns, aws, devops
-- dial in nightly AMI job
 - Make maven/firefox versions a CSV property
 - cache GIT credentials somehow
 

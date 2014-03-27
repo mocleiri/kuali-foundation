@@ -189,6 +189,16 @@ function configure_jenkins_region {
   
 }
 
+function configure_build_slave_ami_job {
+  # explain what we are up to
+  echo "configure -> jenkins build slave ami job"
+  
+  # This is the main jenkins config file
+  JENKINS_CONFIG_FILE=$JENKINS_HOME/jobs/kdo-create-build-slave-ami/config.xml
+
+  execute_quietly "sed -i -e s:-Dec2.stack=* -Dec2.region=:-Dec2.stack=$STACK -Dec2.region=:g $JENKINS_CONFIG_FILE"
+}
+
 function configure_jenkins {
 
   echo "configure -> jenkins:application"
@@ -205,15 +215,18 @@ function configure_jenkins {
   
   # Modify ~/.jenkins/config.xml with the correct region value
   configure_jenkins_region
+
+  # Modify ~/.jenkins/jobs/kdo-create-build-slave-ami/config.xml with the correct stack and region values
+  configure_build_slave_ami_job
   
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
 
 }
 
-
 function check_args {
   check_not_blank FQDN $FQDN
   check_not_blank REGION $REGION
+  check_not_blank STACK $STACK
   check_not_blank JENKINS_VERSION $JENKINS_VERSION
   check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
 }
@@ -222,7 +235,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] fqdn region version password" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] fqdn region stack version password" 1>&2; exit 1; }
 
 QUIET=false
 while getopts hq flag; do
@@ -244,8 +257,9 @@ shift $(( OPTIND - 1 ));
 
 FQDN=$1
 REGION=$2
-JENKINS_VERSION=$3
-GPG_PASSPHRASE=$4
+STACK=$3
+JENKINS_VERSION=$4
+GPG_PASSPHRASE=$5
 
 check_args
 
