@@ -42,6 +42,8 @@ function slave_shutdown_scripting {
   COPY_REPO_DST=$EC2SLAVE_DST_DIR/copy_repo_to_master.sh
   cp $COPY_REPO_SRC $COPY_REPO_DST
   
+  execute_quietly "sed -i -e s:JENKINS_MASTER=JENKINS_MASTER:JENKINS_MASTER=$JENKINS_MASTER:g $COPY_REPO_DST"
+  
   chmod 755 $COPY_REPO_DST
 
   execute_quietly "update-rc.d -f ec2slave remove"
