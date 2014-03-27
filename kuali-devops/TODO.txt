@@ -14,7 +14,6 @@
     limitations under the License.
 ====
 
-- fix rsync to master on shutdown
 - fix -Dec2.stack=xyz -Dec2.region=xyz in ~/.jenkins/jobs/kdo-create-build-slave-ami/config.xml
 - CAS groups (talk to Farooq)
 - Make maven/firefox versions a CSV property
