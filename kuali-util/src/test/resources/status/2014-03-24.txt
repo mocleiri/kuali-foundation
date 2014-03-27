@@ -62,5 +62,26 @@ Infra
 -- the custom groupMembership authorities do not appear to be showing up correctly
 
 -- Forked and patched the cas-plugin to overcome issue with CAS being unable to correctly supply multi-value attributes
--- Updated Jenkins configuration to accomodate the custom plugin
+-- Updated Jenkins configuration to accommodate the custom plugin
+
+-- Tied up roughly a dozen loose ends prepping testci for KS tomorrow
+-- BuildSlaveAMICreation now caches ~10gb's of artifacts as part of the AMI creation
+-- Speeds things up immensely as those no longer have to be downloaded @ build time
+-- They are downloaded once per night and cached on the machine image
+
+
+Thursday
+--------
+
+- Informed KS Core tech that testci.kuali.org is up and available
+- Minor tweaking on the artifact caching process where it was incorrectly excluding a few kuali artifacts
+- Trained Mike on how to bring over the KS licensing job from ci.rice
+- Walked through the license update process
+-- Identify the binary missing a license
+-- Search the internet for what the proper license should be
+-- Add the groupId + license to THIRD-PARTY.properties in kuali-cm
+-- Release kuali-cm
+-- Update the top level pom with the new version of kuali-cm
+-- Release the pom
+
  
