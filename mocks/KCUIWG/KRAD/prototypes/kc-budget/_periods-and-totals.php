@@ -1,8 +1,7 @@
 <?php
 $section = '';
-$page = '';
+$page = 'periods-and-totals';
 ?>
-
 <!DOCTYPE HTML>
 
 <html lang="en">
@@ -39,22 +38,170 @@ $page = '';
                         <header class="clearfix uif-header-contentWrapper">
                             <div class="uif-pageHeader clearfix">
                                 <h2 class="uif-headerText">
-                                    <span class="uif-headerText-span">Budget</span>
+                                    <span class="uif-headerText-span">Budget Periods &amp; Totals</span>
                                 </h2>
                             </div>
                             <div class="uif-verticalBoxGroup uif-header-lowerGroup">
                                 <div class="uif-boxLayoutVerticalItem clearfix">
-                                    <p>You don't have any budget versions created yet. Please create one now to get started.</p>
+                                    <p>Budget periods have automatically been generated based on your proposal project dates. You can enter totals here, or enter budget details on the Personnel and Non-Personnel screens and allow the system to calculate the values.</p>
                                 </div>
                             </div>
                         </header>
                         <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a class="btn btn-default btn-large uif-modal" data-modal="/modals/create-version.php" href="#" data-toggle="modal" data-target=".bs-example-modal-lg">Create a new budget version</a>
+                                    <div class="uif-stackedCollectionSection uif-boxLayoutVerticalItem clearfix" id="accordion-periods-totals">
+                                        <section id="u128z5dt_line0" class="uif-collectionItem uif-boxCollectionItem" data-parent="LabsProposal-StackedSection">
+                                            <header id="u1n4uf6a_line0" class="uif-header" data-header_for="u128z5dt_line0">
+                                                <h4 class="uif-headerText">
+                                                    <a data-role="disclosureLink" data-linkfor="u128z5dt_line0_disclosureContent" href="#" id="u128z5dt_line0_toggle" data-open="true" data-widgetid="uu9jpcc_line0" data-speed="500" data-ajax="false">
+                                                        <span class="uif-headerText-span">
+                                                            <span id="u128z5dt_line0_toggle_exp" class="icon-caret-down" style="display: inline;"></span>
+                                                            <span style="display: none;" id="u128z5dt_line0_toggle_col" class="icon-caret-right"></span>
+                                                            Budget Periods &amp; Totals
+                                                        </span>
+                                                    </a>
+                                                </h4>
+                                                <div id="u199yk0n_line0" class="uif-verticalBoxGroup uif-header-rightGroup" data-parent="u128z5dt_line0">
+                                                    <!-- <button id="LabsProposal-StackedSection_del_line0" class="btn btn-default btn-sm uif-action uif-boxLayoutVerticalItem clearfix icon-close" data-onclick="writeCurrentPageToSession(this);actionInvokeHandler(this);" data-dirtyonaction="true" data-ajaxreturntype="update-component" data-refreshid="LabsProposal-StackedSection" data-role="Action" data-loadingmessage="Deleting Line..." data-submit_data="{&quot;methodToCall&quot;:&quot;deleteLine&quot;,&quot;actionParameters[selectedCollectionPath]&quot;:&quot;list4&quot;,&quot;actionParameters[selectedCollectionId]&quot;:&quot;LabsProposal-StackedSection&quot;,&quot;actionParameters[selectedLineIndex]&quot;:&quot;0&quot;}" data-jumptoid="LabsProposal-StackedSection"></button> -->
+                                                    <a class="guide-me pull-right icon-leaf" href="#">Guide me</a>
+                                                </div>
+                                            </header>
+                                            <div id="u128z5dt_line0_disclosureContent" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style="overflow: hidden; display: block;">
+                                                <div id="u8abdmj_line0" class="uif-fieldGroup" data-parent="u128z5dt_line0" data-group="u1fjua60_line0">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Start</th>
+                                                                <th>End</th>
+                                                                <th>Months</th>
+                                                                <th>Total</th>
+                                                                <th>Direct</th>
+                                                                <th>F&amp;A</th>
+                                                                <th>Unrecovered F&amp;A</th>
+                                                                <th>Cost sharing</th>
+                                                                <th>Cost limits</th>
+                                                                <th>Direct limits</th>
+                                                                <th><span class="sr-only">Actions</span></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>02/01/2014</td>
+                                                                <td>01/31/2015</td>
+                                                                <td>12.0</td>
+                                                                <td>$148,000</td>
+                                                                <td>$100,000</td>
+                                                                <td>$48,000</td>
+                                                                <td>$0</td>
+                                                                <td>$0</td>
+                                                                <td>$0</td>
+                                                                <td>$0</td>
+                                                                <td><a class="icon icon-edit btn-edit"><span class="sr-only">Edit</span></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>02/01/2015</td>
+                                                                <td>01/31/2016</td>
+                                                                <td>12.0</td>
+                                                                <td>$148,000</td>
+                                                                <td>$100,000</td>
+                                                                <td>$48,000</td>
+                                                                <td>$0</td>
+                                                                <td>$0</td>
+                                                                <td>$0</td>
+                                                                <td>$0</td>
+                                                                <td><a class="icon icon-edit btn-edit"><span class="sr-only">Edit</span></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>02/01/2016</td>
+                                                                <td>01/31/2017</td>
+                                                                <td>12.0</td>
+                                                                <td>$148,000</td>
+                                                                <td>$100,000</td>
+                                                                <td>$48,000</td>
+                                                                <td>$0</td>
+                                                                <td>$0</td>
+                                                                <td>$0</td>
+                                                                <td>$0</td>
+                                                                <td><a class="icon icon-edit btn-edit"><span class="sr-only">Edit</span></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>02/01/2017</td>
+                                                                <td>01/31/2018</td>
+                                                                <td>12.0</td>
+                                                                <td>$148,000</td>
+                                                                <td>$100,000</td>
+                                                                <td>$48,000</td>
+                                                                <td>$0</td>
+                                                                <td>$0</td>
+                                                                <td>$0</td>
+                                                                <td>$0</td>
+                                                                <td><a class="icon icon-edit btn-edit" href="_periods-and-totals-edit.php"><span class="sr-only">Edit</span></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>02/01/2018</td>
+                                                                <td>01/31/2019</td>
+                                                                <td>12.0</td>
+                                                                <td>$148,000</td>
+                                                                <td>$100,000</td>
+                                                                <td>$48,000</td>
+                                                                <td>$0</td>
+                                                                <td>$0</td>
+                                                                <td>$0</td>
+                                                                <td>$0</td>
+                                                                <td><a class="icon icon-edit btn-edit"><span class="sr-only">Edit</span></a></td>
+                                                            </tr>
+                                                            <tr class="uif-new-row">
+                                                                <td><label for="line_5_start"><span class="sr-only">Period start</span><input type="text" size="5" name="line_5_start" id="line_5_start" placeholder="mm/dd/yyyy"></label></td>
+                                                                <td><label for="line_5_end"><span class="sr-only">Period end</span><input type="text" size="5" name="line_5_end" id="line_5_end" placeholder="mm/dd/yyyy"></label></td>
+                                                                <td></td>
+                                                                <td><label for="line_5_total"><span class="sr-only">Period total</span><input type="text" size="3" name="line_5_total" id="line_5_total"></label></td>
+                                                                <td><label for="line_5_direct"><span class="sr-only">Period direct</span><input type="text" size="3" name="line_5_direct" id="line_5_direct"></label></td>
+                                                                <td><label for="line_5_fa"><span class="sr-only">Period F&amp;A</span><input type="text" size="3" name="line_5_fa" id="line_5_fa"></label></td>
+                                                                <td><label for="line_5_unrecovered"><span class="sr-only">Period unrecovered F&amp;A</span><input type="text" size="3" name="line_5_unrecovered" id="line_5_unrecovered"></label></td>
+                                                                <td><label for="line_5_cost-sharing"><span class="sr-only">Period Cost sharing</span><input type="text" size="3" name="line_5_cost-sharing" id="line_5_cost-sharing"></label></td>
+                                                                <td><label for="line_5_cost-limit"><span class="sr-only">Period Cost limit</span><input type="text" size="3" name="line_5_cost-limit" id="line_5_cost-limit"></label></td>
+                                                                <td><label for="line_5_direct-limit"><span class="sr-only">Period Direct limit</span><input type="text" size="3" name="line_5_direct-limit" id="line_5_direct-limit"></label></td>
+                                                                <td><a class="icon icon-save"><span class="sr-only">Save</span></a></td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td>60.0</td>
+                                                                <td>$0</td>
+                                                                <td>$0</td>
+                                                                <td>$0</td>
+                                                                <td>$0</td>
+                                                                <td>$0</td>
+                                                                <td>$0</td>
+                                                                <td>$0</td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="11">
+                                                                    <a href="#" class="btn btn-default btn-sm">Recalculate</a> 
+                                                                    <a href="#" class="btn btn-default btn-sm">Reset to period defaults</a> 
+                                                                    <a href="#" class="btn btn-default btn-sm">Generate all periods based on the first period</a> 
+                                                                </td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- VIEW FOOTER -->
+                        <div class="uif-footer clearfix" data-sticky_footer="true" data-parent="LabsProposal">
+                            <a class="btn btn-default btn btn-default uif-boxLayoutHorizontalItem" href="#">Save</a>
+                            <a class="btn btn-primary btn btn-primary uif-boxLayoutHorizontalItem" href="rates.php">Save and continue...</a>
+                        </div>
+                        
                     </main>
                 </div>
             </div>
@@ -269,7 +416,7 @@ $page = '';
                 </tr>
             </tbody>
         </table>
-        
+
         <div class="ui-datepicker-buttonpane ui-widget-content">
             <button type="button" class="ui-datepicker-current ui-state-default ui-priority-secondary ui-corner-all" data-handler="today" data-event="click">Today</button>
             <button type="button" class="ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all" data-handler="hide" data-event="click">Done</button>

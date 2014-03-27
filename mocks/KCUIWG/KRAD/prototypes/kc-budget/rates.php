@@ -1,8 +1,7 @@
 <?php
 $section = '';
-$page = '';
+$page = 'rates';
 ?>
-
 <!DOCTYPE HTML>
 
 <html lang="en">
@@ -39,70 +38,194 @@ $page = '';
                         <header class="clearfix uif-header-contentWrapper">
                             <div class="uif-pageHeader clearfix">
                                 <h2 class="uif-headerText">
-                                    <span class="uif-headerText-span">Budget</span>
+                                    <span class="uif-headerText-span">Rates</span>
                                 </h2>
                             </div>
                             <div class="uif-verticalBoxGroup uif-header-lowerGroup">
                                 <div class="uif-boxLayoutVerticalItem clearfix">
-                                    <p>You don't have any budget versions created yet. Please create one now to get started.</p>
+                                    <p>Verify the default rates set by your institution. You can override them if necessary by clicking the "edit" icon to the right of each row.</p>
                                 </div>
                             </div>
                         </header>
                         <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a class="btn btn-default btn-large uif-modal" data-modal="/modals/create-version.php" href="#" data-toggle="modal" data-target=".bs-example-modal-lg">Create a new budget version</a>
+                                    <div class="uif-stackedCollectionSection uif-boxLayoutVerticalItem clearfix">
+                                        <section id="u128z5dt_line0" class="uif-collectionItem uif-boxCollectionItem" data-parent="LabsProposal-StackedSection">
+                                            <header id="u1n4uf6a_line0" class="uif-header" data-header_for="u128z5dt_line0">
+                                                <h4 class="uif-headerText">
+                                                    <a data-role="disclosureLink" data-linkfor="u128z5dt_line0_disclosureContent" href="#" id="u128z5dt_line0_toggle" data-open="true" data-widgetid="uu9jpcc_line0" data-speed="500" data-ajax="false">
+                                                        <span class="uif-headerText-span">
+                                                            <span id="u128z5dt_line0_toggle_exp" class="icon-caret-down" style="display: inline;"></span>
+                                                            <span style="display: none;" id="u128z5dt_line0_toggle_col" class="icon-caret-right"></span>
+                                                            Research F&amp;A
+                                                        </span>
+                                                    </a>
+                                                </h4>
+                                                <div id="u199yk0n_line0" class="uif-verticalBoxGroup uif-header-rightGroup" data-parent="u128z5dt_line0">
+                                                    <!-- <button id="LabsProposal-StackedSection_del_line0" class="btn btn-default btn-sm uif-action uif-boxLayoutVerticalItem clearfix icon-close" data-onclick="writeCurrentPageToSession(this);actionInvokeHandler(this);" data-dirtyonaction="true" data-ajaxreturntype="update-component" data-refreshid="LabsProposal-StackedSection" data-role="Action" data-loadingmessage="Deleting Line..." data-submit_data="{&quot;methodToCall&quot;:&quot;deleteLine&quot;,&quot;actionParameters[selectedCollectionPath]&quot;:&quot;list4&quot;,&quot;actionParameters[selectedCollectionId]&quot;:&quot;LabsProposal-StackedSection&quot;,&quot;actionParameters[selectedLineIndex]&quot;:&quot;0&quot;}" data-jumptoid="LabsProposal-StackedSection"></button> -->
+                                                    <a class="guide-me pull-right icon-leaf" href="#">Guide me</a>
+                                                </div>
+                                            </header>
+                                            <div id="u128z5dt_line0_disclosureContent" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style="overflow: hidden; display: block;">
+                                                <div id="u8abdmj_line0" class="uif-fieldGroup" data-parent="u128z5dt_line0" data-group="u1fjua60_line0">
+                                                    <table class="table table-condensed">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Description</th>
+                                                                <th>Campus Contact</th>
+                                                                <th>Fiscal Year</th>
+                                                                <th>Start Date</th>
+                                                                <th>Institution Rate</th>
+                                                                <th>Application Rate</th>
+                                                                <th><span class="sr-only">Actions</span></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>MTDC</td>
+                                                                <td>Yes</td>
+                                                                <td>2014</td>
+                                                                <td>07/02/2014</td>
+                                                                <td>48.00</td>
+                                                                <td>48.00</td>
+                                                                <td><a class="icon icon-edit btn-edit"><span class="sr-only">Edit</span></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Faculty Salaries</td>
+                                                                <td>Yes</td>
+                                                                <td>2014</td>
+                                                                <td>07/02/2014</td>
+                                                                <td>65.00</td>
+                                                                <td>65.00</td>
+                                                                <td><a class="icon icon-edit btn-edit"><span class="sr-only">Edit</span></a></td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <td colspan="7">
+                                                                    <a href="#" class="btn btn-default btn-sm">Reset to Institution defaults</a> 
+                                                                    <a href="#" class="btn btn-default btn-sm">Sync rates</a> 
+                                                                </td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+
+                                    <div class="uif-stackedCollectionSection uif-boxLayoutVerticalItem clearfix">
+                                        <section id="u128z5dt_line0" class="uif-collectionItem uif-boxCollectionItem" data-parent="LabsProposal-StackedSection">
+                                            <header id="u1n4uf6a_line0" class="uif-header" data-header_for="u128z5dt_line0">
+                                                <h4 class="uif-headerText">
+                                                    <a data-role="disclosureLink" data-linkfor="u128z5dt_line0_disclosureContent" href="#" id="u128z5dt_line0_toggle" data-open="false" data-widgetid="uu9jpcc_line0" data-speed="500" data-ajax="false">
+                                                        <span class="uif-headerText-span">
+                                                            <span id="u128z5dt_line0_toggle_exp" class="icon-caret-down" style="display: none;"></span>
+                                                            <span style="display: inline;" id="u128z5dt_line0_toggle_col" class="icon-caret-right"></span>
+                                                            Fringe Benefits
+                                                        </span>
+                                                    </a>
+                                                </h4>
+                                            </header>
+                                        </section>
+                                    </div>
+
+                                    <div class="uif-stackedCollectionSection uif-boxLayoutVerticalItem clearfix">
+                                        <section id="u128z5dt_line0" class="uif-collectionItem uif-boxCollectionItem" data-parent="LabsProposal-StackedSection">
+                                            <header id="u1n4uf6a_line0" class="uif-header" data-header_for="u128z5dt_line0">
+                                                <h4 class="uif-headerText">
+                                                    <a data-role="disclosureLink" data-linkfor="u128z5dt_line0_disclosureContent" href="#" id="u128z5dt_line0_toggle" data-open="false" data-widgetid="uu9jpcc_line0" data-speed="500" data-ajax="false">
+                                                        <span class="uif-headerText-span">
+                                                            <span id="u128z5dt_line0_toggle_exp" class="icon-caret-down" style="display: none;"></span>
+                                                            <span style="display: inline;" id="u128z5dt_line0_toggle_col" class="icon-caret-right"></span>
+                                                            Inflation
+                                                        </span>
+                                                    </a>
+                                                </h4>
+                                            </header>
+                                        </section>
+                                    </div>
+
+                                    <div class="uif-stackedCollectionSection uif-boxLayoutVerticalItem clearfix">
+                                        <section id="u128z5dt_line0" class="uif-collectionItem uif-boxCollectionItem" data-parent="LabsProposal-StackedSection">
+                                            <header id="u1n4uf6a_line0" class="uif-header" data-header_for="u128z5dt_line0">
+                                                <h4 class="uif-headerText">
+                                                    <a data-role="disclosureLink" data-linkfor="u128z5dt_line0_disclosureContent" href="#" id="u128z5dt_line0_toggle" data-open="false" data-widgetid="uu9jpcc_line0" data-speed="500" data-ajax="false">
+                                                        <span class="uif-headerText-span">
+                                                            <span id="u128z5dt_line0_toggle_exp" class="icon-caret-down" style="display: none;"></span>
+                                                            <span style="display: inline;" id="u128z5dt_line0_toggle_col" class="icon-caret-right"></span>
+                                                            Vacation
+                                                        </span>
+                                                    </a>
+                                                </h4>
+                                            </header>
+                                        </section>
+                                    </div>
+
+                                    <div class="uif-stackedCollectionSection uif-boxLayoutVerticalItem clearfix">
+                                        <section id="u128z5dt_line0" class="uif-collectionItem uif-boxCollectionItem" data-parent="LabsProposal-StackedSection">
+                                            <header id="u1n4uf6a_line0" class="uif-header" data-header_for="u128z5dt_line0">
+                                                <h4 class="uif-headerText">
+                                                    <a data-role="disclosureLink" data-linkfor="u128z5dt_line0_disclosureContent" href="#" id="u128z5dt_line0_toggle" data-open="false" data-widgetid="uu9jpcc_line0" data-speed="500" data-ajax="false">
+                                                        <span class="uif-headerText-span">
+                                                            <span id="u128z5dt_line0_toggle_exp" class="icon-caret-down" style="display: none;"></span>
+                                                            <span style="display: inline;" id="u128z5dt_line0_toggle_col" class="icon-caret-right"></span>
+                                                            Lab Allocation - Salaries
+                                                        </span>
+                                                    </a>
+                                                </h4>
+                                            </header>
+                                        </section>
+                                    </div>
+
+                                    <div class="uif-stackedCollectionSection uif-boxLayoutVerticalItem clearfix">
+                                        <section id="u128z5dt_line0" class="uif-collectionItem uif-boxCollectionItem" data-parent="LabsProposal-StackedSection">
+                                            <header id="u1n4uf6a_line0" class="uif-header" data-header_for="u128z5dt_line0">
+                                                <h4 class="uif-headerText">
+                                                    <a data-role="disclosureLink" data-linkfor="u128z5dt_line0_disclosureContent" href="#" id="u128z5dt_line0_toggle" data-open="false" data-widgetid="uu9jpcc_line0" data-speed="500" data-ajax="false">
+                                                        <span class="uif-headerText-span">
+                                                            <span id="u128z5dt_line0_toggle_exp" class="icon-caret-down" style="display: none;"></span>
+                                                            <span style="display: inline;" id="u128z5dt_line0_toggle_col" class="icon-caret-right"></span>
+                                                            Lab Allocation - Other
+                                                        </span>
+                                                    </a>
+                                                </h4>
+                                            </header>
+                                        </section>
+                                    </div>
+
+                                    <div class="uif-stackedCollectionSection uif-boxLayoutVerticalItem clearfix">
+                                        <section id="u128z5dt_line0" class="uif-collectionItem uif-boxCollectionItem" data-parent="LabsProposal-StackedSection">
+                                            <header id="u1n4uf6a_line0" class="uif-header" data-header_for="u128z5dt_line0">
+                                                <h4 class="uif-headerText">
+                                                    <a data-role="disclosureLink" data-linkfor="u128z5dt_line0_disclosureContent" href="#" id="u128z5dt_line0_toggle" data-open="false" data-widgetid="uu9jpcc_line0" data-speed="500" data-ajax="false">
+                                                        <span class="uif-headerText-span">
+                                                            <span id="u128z5dt_line0_toggle_exp" class="icon-caret-down" style="display: none;"></span>
+                                                            <span style="display: inline;" id="u128z5dt_line0_toggle_col" class="icon-caret-right"></span>
+                                                            Other
+                                                        </span>
+                                                    </a>
+                                                </h4>
+                                            </header>
+                                        </section>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- VIEW FOOTER -->
+                        <div class="uif-footer clearfix" data-sticky_footer="true" data-parent="LabsProposal">
+                            <a class="btn btn-default btn btn-default uif-boxLayoutHorizontalItem" href="_periods-and-totals.php">Go back</a>
+                            <a class="btn btn-default btn btn-default uif-boxLayoutHorizontalItem" href="#">Save</a>
+                            <a class="btn btn-primary btn btn-primary uif-boxLayoutHorizontalItem" href="personnel-roster.php">Save and continue...</a>
+                        </div>
+
                     </main>
                 </div>
             </div>
 
             <div id="Uif-Dialogs"></div>
-        
-            <div id="modal-create-version" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" aria-labbeledby="create-new-title">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form action="#" method="#" class="form-horizontal">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="create-new-label">Create a budget version</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
-                                    <div class="form-group">
-                                        <label for="new-version-name" class="uif-label uif-required">Name: *</label>
-                                        <input id="new-version-name" type="text" name="new-version-name" value="" size="30" class="form-control input-sm uif-textControl required" data-role="Control">
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="well">
-                                            <fieldset>
-                                                <legend>Does this NIH proposal allow modular budgets?</legend>
-                                                <label for="create-with-modular-true" class="control-label clearfix"><input type="radio" name="create-with-modular" id="create-with-modular-true"> Yes, allow for modular budgets</label>
-                                                <label for="create-with-modular-false" class="control-label clearfix"><input type="radio" name="create-with-modular" id="create-with-modular-false"> No, there will be no modular budget</label>
-                                            </fieldset>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="well">
-                                            <fieldset>
-                                                <legend>Would you like guided assistance to complete this budget?</legend>
-                                                <label for="create-with-guided-asst-true" class="control-label clearfix"><input type="radio" name="create-with-guided-asst" id="create-with-guided-asst-true"> No, show me everything</label>
-                                                <label for="create-with-guided-asst-false" class="control-label clearfix"><input type="radio" name="create-with-guided-asst" id="create-with-guided-asst-false"> Yes, please use guided assistance</label>
-                                            </fieldset>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <a role="button" class="btn btn-link" data-dismiss="modal" href="#">Cancel</a>
-                                <a role="button" class="btn btn-primary" href="periods-and-totals.php">Create and open</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
 
         </div>
 
@@ -269,7 +392,7 @@ $page = '';
                 </tr>
             </tbody>
         </table>
-        
+
         <div class="ui-datepicker-buttonpane ui-widget-content">
             <button type="button" class="ui-datepicker-current ui-state-default ui-priority-secondary ui-corner-all" data-handler="today" data-event="click">Today</button>
             <button type="button" class="ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all" data-handler="hide" data-event="click">Done</button>
