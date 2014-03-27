@@ -845,12 +845,24 @@ function calculateMessageTotals(id, data) {
     var warningTotal = 0;
     var infoTotal = 0;
     var messageMap = data.messageMap;
-    //Add totals for messages of fields in group
-    for (var fId in messageMap) {
-        var currentData = messageMap[fId];
-        errorTotal = errorTotal + currentData.serverErrors.length + currentData.errors.length;
-        warningTotal = warningTotal + currentData.serverWarnings.length + currentData.warnings.length;
-        infoTotal = infoTotal + currentData.serverInfo.length + currentData.info.length;
+
+    // Temp fix to check for 'undefined' - clrux
+    if (currentData === 'undefined' || currentData.length < 1 || currentData.lenth == '') {
+
+        var currentData.serverErrors = 1;
+        var currentData.serverWarnings = 1;
+        var currentData.serverInfo = 1;
+
+    } else {
+
+        //Add totals for messages of fields in group
+        for (var fId in messageMap) {
+            var currentData = messageMap[fId];
+            errorTotal = errorTotal + currentData.serverErrors.length + currentData.errors.length;
+            warningTotal = warningTotal + currentData.serverWarnings.length + currentData.warnings.length;
+            infoTotal = infoTotal + currentData.serverInfo.length + currentData.info.length;
+        }
+
     }
 
     var childGroupCount = recursiveGroupMessageCount(id);

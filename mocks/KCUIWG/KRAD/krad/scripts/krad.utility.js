@@ -375,7 +375,7 @@ function runHiddenScripts(id, isSelector, skipValidationBubbling) {
                 handleMessagesAtGroup(parent, id, data, true);
             });
 
-            writeMessagesForPage();
+            // writeMessagesForPage(); - clrux
             pageValidationPhase = false;
         }
     }

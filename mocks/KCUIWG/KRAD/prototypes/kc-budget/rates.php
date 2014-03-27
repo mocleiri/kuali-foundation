@@ -116,13 +116,13 @@ $page = 'rates';
                                     </div>
 
                                     <div class="uif-stackedCollectionSection uif-boxLayoutVerticalItem clearfix">
-                                        <section id="u128z5dt_line0" class="uif-collectionItem uif-boxCollectionItem" data-parent="LabsProposal-StackedSection">
-                                            <header id="u1n4uf6a_line0" class="uif-header" data-header_for="u128z5dt_line0">
+                                        <section id="u128z5dt_line1" class="uif-collectionItem uif-boxCollectionItem" data-parent="LabsProposal-StackedSection">
+                                            <header id="u1n4uf6a_line0" class="uif-header" data-header_for="u128z5dt_line1">
                                                 <h4 class="uif-headerText">
-                                                    <a data-role="disclosureLink" data-linkfor="u128z5dt_line0_disclosureContent" href="#" id="u128z5dt_line0_toggle" data-open="false" data-widgetid="uu9jpcc_line0" data-speed="500" data-ajax="false">
+                                                    <a data-role="disclosureLink" data-linkfor="u128z5dt_line1_disclosureContent" href="#" id="u128z5dt_line1_toggle" data-open="false" data-widgetid="uu9jpcc_line0" data-speed="500" data-ajax="false">
                                                         <span class="uif-headerText-span">
-                                                            <span id="u128z5dt_line0_toggle_exp" class="icon-caret-down" style="display: none;"></span>
-                                                            <span style="display: inline;" id="u128z5dt_line0_toggle_col" class="icon-caret-right"></span>
+                                                            <span id="u128z5dt_line1_toggle_exp" class="icon-caret-down" style="display: none;"></span>
+                                                            <span style="display: inline;" id="u128z5dt_line1_toggle_col" class="icon-caret-right"></span>
                                                             Fringe Benefits
                                                         </span>
                                                     </a>
@@ -132,13 +132,13 @@ $page = 'rates';
                                     </div>
 
                                     <div class="uif-stackedCollectionSection uif-boxLayoutVerticalItem clearfix">
-                                        <section id="u128z5dt_line0" class="uif-collectionItem uif-boxCollectionItem" data-parent="LabsProposal-StackedSection">
-                                            <header id="u1n4uf6a_line0" class="uif-header" data-header_for="u128z5dt_line0">
+                                        <section id="u128z5dt_line2" class="uif-collectionItem uif-boxCollectionItem" data-parent="LabsProposal-StackedSection">
+                                            <header id="u1n4uf6a_line0" class="uif-header" data-header_for="u128z5dt_line2">
                                                 <h4 class="uif-headerText">
-                                                    <a data-role="disclosureLink" data-linkfor="u128z5dt_line0_disclosureContent" href="#" id="u128z5dt_line0_toggle" data-open="false" data-widgetid="uu9jpcc_line0" data-speed="500" data-ajax="false">
+                                                    <a data-role="disclosureLink" data-linkfor="u128z5dt_line2_disclosureContent" href="#" id="u128z5dt_line2_toggle" data-open="false" data-widgetid="uu9jpcc_line0" data-speed="500" data-ajax="false">
                                                         <span class="uif-headerText-span">
-                                                            <span id="u128z5dt_line0_toggle_exp" class="icon-caret-down" style="display: none;"></span>
-                                                            <span style="display: inline;" id="u128z5dt_line0_toggle_col" class="icon-caret-right"></span>
+                                                            <span id="u128z5dt_line2_toggle_exp" class="icon-caret-down" style="display: none;"></span>
+                                                            <span style="display: inline;" id="u128z5dt_line2_toggle_col" class="icon-caret-right"></span>
                                                             Inflation
                                                         </span>
                                                     </a>
@@ -148,13 +148,13 @@ $page = 'rates';
                                     </div>
 
                                     <div class="uif-stackedCollectionSection uif-boxLayoutVerticalItem clearfix">
-                                        <section id="u128z5dt_line0" class="uif-collectionItem uif-boxCollectionItem" data-parent="LabsProposal-StackedSection">
-                                            <header id="u1n4uf6a_line0" class="uif-header" data-header_for="u128z5dt_line0">
+                                        <section id="u128z5dt_line3" class="uif-collectionItem uif-boxCollectionItem" data-parent="LabsProposal-StackedSection">
+                                            <header id="u1n4uf6a_line0" class="uif-header" data-header_for="u128z5dt_line3">
                                                 <h4 class="uif-headerText">
-                                                    <a data-role="disclosureLink" data-linkfor="u128z5dt_line0_disclosureContent" href="#" id="u128z5dt_line0_toggle" data-open="false" data-widgetid="uu9jpcc_line0" data-speed="500" data-ajax="false">
+                                                    <a data-role="disclosureLink" data-linkfor="u128z5dt_line3_disclosureContent" href="#" id="u128z5dt_line3_toggle" data-open="false" data-widgetid="uu9jpcc_line0" data-speed="500" data-ajax="false">
                                                         <span class="uif-headerText-span">
-                                                            <span id="u128z5dt_line0_toggle_exp" class="icon-caret-down" style="display: none;"></span>
-                                                            <span style="display: inline;" id="u128z5dt_line0_toggle_col" class="icon-caret-right"></span>
+                                                            <span id="u128z5dt_line3_toggle_exp" class="icon-caret-down" style="display: none;"></span>
+                                                            <span style="display: inline;" id="u128z5dt_line3_toggle_col" class="icon-caret-right"></span>
                                                             Vacation
                                                         </span>
                                                     </a>
@@ -164,13 +164,13 @@ $page = 'rates';
                                     </div>
 
                                     <div class="uif-stackedCollectionSection uif-boxLayoutVerticalItem clearfix">
-                                        <section id="u128z5dt_line0" class="uif-collectionItem uif-boxCollectionItem" data-parent="LabsProposal-StackedSection">
-                                            <header id="u1n4uf6a_line0" class="uif-header" data-header_for="u128z5dt_line0">
+                                        <section id="u128z5dt_line4" class="uif-collectionItem uif-boxCollectionItem" data-parent="LabsProposal-StackedSection">
+                                            <header id="u1n4uf6a_line0" class="uif-header" data-header_for="u128z5dt_line4">
                                                 <h4 class="uif-headerText">
-                                                    <a data-role="disclosureLink" data-linkfor="u128z5dt_line0_disclosureContent" href="#" id="u128z5dt_line0_toggle" data-open="false" data-widgetid="uu9jpcc_line0" data-speed="500" data-ajax="false">
+                                                    <a data-role="disclosureLink" data-linkfor="u128z5dt_line4_disclosureContent" href="#" id="u128z5dt_line4_toggle" data-open="false" data-widgetid="uu9jpcc_line0" data-speed="500" data-ajax="false">
                                                         <span class="uif-headerText-span">
-                                                            <span id="u128z5dt_line0_toggle_exp" class="icon-caret-down" style="display: none;"></span>
-                                                            <span style="display: inline;" id="u128z5dt_line0_toggle_col" class="icon-caret-right"></span>
+                                                            <span id="u128z5dt_line4_toggle_exp" class="icon-caret-down" style="display: none;"></span>
+                                                            <span style="display: inline;" id="u128z5dt_line4_toggle_col" class="icon-caret-right"></span>
                                                             Lab Allocation - Salaries
                                                         </span>
                                                     </a>
@@ -180,13 +180,13 @@ $page = 'rates';
                                     </div>
 
                                     <div class="uif-stackedCollectionSection uif-boxLayoutVerticalItem clearfix">
-                                        <section id="u128z5dt_line0" class="uif-collectionItem uif-boxCollectionItem" data-parent="LabsProposal-StackedSection">
-                                            <header id="u1n4uf6a_line0" class="uif-header" data-header_for="u128z5dt_line0">
+                                        <section id="u128z5dt_line5" class="uif-collectionItem uif-boxCollectionItem" data-parent="LabsProposal-StackedSection">
+                                            <header id="u1n4uf6a_line0" class="uif-header" data-header_for="u128z5dt_line5">
                                                 <h4 class="uif-headerText">
-                                                    <a data-role="disclosureLink" data-linkfor="u128z5dt_line0_disclosureContent" href="#" id="u128z5dt_line0_toggle" data-open="false" data-widgetid="uu9jpcc_line0" data-speed="500" data-ajax="false">
+                                                    <a data-role="disclosureLink" data-linkfor="u128z5dt_line5_disclosureContent" href="#" id="u128z5dt_line5_toggle" data-open="false" data-widgetid="uu9jpcc_line0" data-speed="500" data-ajax="false">
                                                         <span class="uif-headerText-span">
-                                                            <span id="u128z5dt_line0_toggle_exp" class="icon-caret-down" style="display: none;"></span>
-                                                            <span style="display: inline;" id="u128z5dt_line0_toggle_col" class="icon-caret-right"></span>
+                                                            <span id="u128z5dt_line5_toggle_exp" class="icon-caret-down" style="display: none;"></span>
+                                                            <span style="display: inline;" id="u128z5dt_line5_toggle_col" class="icon-caret-right"></span>
                                                             Lab Allocation - Other
                                                         </span>
                                                     </a>
@@ -196,13 +196,13 @@ $page = 'rates';
                                     </div>
 
                                     <div class="uif-stackedCollectionSection uif-boxLayoutVerticalItem clearfix">
-                                        <section id="u128z5dt_line0" class="uif-collectionItem uif-boxCollectionItem" data-parent="LabsProposal-StackedSection">
-                                            <header id="u1n4uf6a_line0" class="uif-header" data-header_for="u128z5dt_line0">
+                                        <section id="u128z5dt_line6" class="uif-collectionItem uif-boxCollectionItem" data-parent="LabsProposal-StackedSection">
+                                            <header id="u1n4uf6a_line0" class="uif-header" data-header_for="u128z5dt_line6">
                                                 <h4 class="uif-headerText">
-                                                    <a data-role="disclosureLink" data-linkfor="u128z5dt_line0_disclosureContent" href="#" id="u128z5dt_line0_toggle" data-open="false" data-widgetid="uu9jpcc_line0" data-speed="500" data-ajax="false">
+                                                    <a data-role="disclosureLink" data-linkfor="u128z5dt_line6_disclosureContent" href="#" id="u128z5dt_line6_toggle" data-open="false" data-widgetid="uu9jpcc_line0" data-speed="500" data-ajax="false">
                                                         <span class="uif-headerText-span">
-                                                            <span id="u128z5dt_line0_toggle_exp" class="icon-caret-down" style="display: none;"></span>
-                                                            <span style="display: inline;" id="u128z5dt_line0_toggle_col" class="icon-caret-right"></span>
+                                                            <span id="u128z5dt_line6_toggle_exp" class="icon-caret-down" style="display: none;"></span>
+                                                            <span style="display: inline;" id="u128z5dt_line6_toggle_col" class="icon-caret-right"></span>
                                                             Other
                                                         </span>
                                                     </a>
