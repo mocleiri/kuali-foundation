@@ -57,7 +57,7 @@
     <profile>
       <id>update</id>
       <properties>
-        <wagon.rice.excludes>**/maven-metadata.xml,**/rice-dist*/**,**/*-javadoc.*,**/*.asc*,**/*.sha1*,**/*.md5*,**/*sources.jar,**/*.wsdl,**/0.*/**,**/1.*/**,**/2.0.*/**,**/2.1.*/**,**/*jneal*/**,**/*-tests.jar,**/rice-archetype*/**,**/rice-checkstyle*/**,**/rice-config/**</wagon.rice.excludes>
+        <wagon.rice.excludes>**/maven-metadata.xml,**/rice-dist*/**,**/*-javadoc.*,**/*.asc*,**/*.sha1*,**/*.md5*,**/*sources.jar,**/*.wsdl,org/kuali/rice/**/0.*/**,org/kuali/rice/**/1.*/**,org/kuali/rice/**/2.0.*/**,org/kuali/rice/**/2.1.*/**,org/kuali/rice/**/*jneal*/**,**/*-tests.jar,**/rice-archetype*/**,**/rice-checkstyle*/**,**/rice-config/**</wagon.rice.excludes>
         <wagon.default.excludes>**/maven-metadata.xml,**/*-javadoc.*,**/*.asc*,**/*.sha1*,**/*.md5*</wagon.default.excludes>
         <wagon.toDir>/root/.m2/repository</wagon.toDir>
       </properties>
