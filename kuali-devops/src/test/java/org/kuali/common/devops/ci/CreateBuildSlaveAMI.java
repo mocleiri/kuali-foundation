@@ -148,6 +148,7 @@ public class CreateBuildSlaveAMI {
 	}
 
 	protected void cacheBinaries(SecureChannel channel, String basedir, ProjectIdentifier pid) {
+		logger.info(format("caching kuali release binaries"));
 		String prefix = "META-INF/maven/" + pid.getGroupId() + "/" + pid.getArtifactId();
 		String pom = basedir + "/" + prefix + "/pom.xml";
 		List<String> args = newArrayList();
@@ -284,8 +285,7 @@ public class CreateBuildSlaveAMI {
 	}
 
 	protected static Instance launchAndWait(EC2Service service, BasicLaunchRequest blr, List<KualiSecurityGroup> securityGroups, List<Tag> tags, String regionName) {
-		logger.info(format("launch instance -> %s %s %s %sgb", regionName, blr.getAmi(), blr.getType().toString(), blr.getRootVolume().getSizeInGigabytes()
-				.get()));
+		logger.info(format("launch instance -> %s %s %s %sgb", regionName, blr.getAmi(), blr.getType().toString(), blr.getRootVolume().getSizeInGigabytes().get()));
 		List<BlockDeviceMapping> additionalMappings = ImmutableBlockDeviceMapping.DEFAULT_INSTANCE_STORES;
 		LaunchInstanceContext context = LaunchInstanceContext.builder(blr.getAmi(), KUALI_KEY).withTimeoutMillis(blr.getTimeoutMillis()).withType(blr.getType())
 				.withRootVolume(blr.getRootVolume()).withSecurityGroups(securityGroups).withTags(tags).withAdditionalMappings(additionalMappings).build();
