@@ -197,7 +197,7 @@ function configure_build_slave_ami_job {
   # This is the main jenkins config file
   JENKINS_CONFIG_FILE=$JENKINS_HOME/jobs/kdo-create-build-slave-ami/config.xml
 
-  execute_quietly "sed "s/EC2_STACK*/EC2_STACK=$STACK/g" $JENKINS_CONFIG_FILE"
+  execute_quietly "sed "s:EC2_STACK*:EC2_STACK=$STACK:g" $JENKINS_CONFIG_FILE"
   
 }
 
