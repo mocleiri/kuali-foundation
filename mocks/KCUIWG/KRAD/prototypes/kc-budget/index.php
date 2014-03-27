@@ -14,14 +14,14 @@ $page = '';
 
 <body id="Uif-Application" style="padding-bottom: 48px;">
     
-    <?php include ('includes/header-sticky.php') ?>
+    <?php include ('includes/uif-applicationHeader.php') ?>
 
-    <form id="kualiForm" action="../kr-krad/uicomponents" method="post" accept-charset="UTF-8">
+    <form id="kualiForm" action="#" method="post" accept-charset="UTF-8">
         <div id="LabsProposal" class="clearfix uif-formView" data-role="View" style="margin-top: 75px;">
             <header class="container-fluid uif-viewHeader-contentWrapper">
                 <div id="ueqbqhn" class="uif-viewHeader" data-header_for="LabsProposal" style="padding-top: 30px">
                     
-                    <?php include ('includes/header-docinfo.php') ?>
+                    <?php include ('includes/uif-viewHeader.php') ?>
 
                 </div>
             </header>
@@ -30,7 +30,7 @@ $page = '';
                 <div id="Uif-BreadcrumbUpdate" style="display:none;"></div>
                 <div class="col-md-3">
 
-                    <?php include ('includes/navigation.php') ?>
+                    <?php include ('includes/uif-navigation-budget.php') ?>
 
                 </div>
 

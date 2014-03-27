@@ -1,7 +1,7 @@
 <!-- APPLICATION HEADER -->
 <header id="Uif-ApplicationHeader-Wrapper" data-sticky="true" class="uif-sticky" style="position:fixed; left: 0; top: 0px;">
 	<header id="u1xj79g4" class="uif-applicationHeader">
-		<div class="container">
+		<div class="container-fluid">
 			<nav id="u1osy4lo" class="navbar" role="navigation">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-reorder"></span> </button>
@@ -36,7 +36,7 @@
 			</nav>
 		</div>
 		<div id="upils8b" class="uif-cssGridGroup toolbar">
-			<div class="container">
+			<div class="container-fluid">
 				<div class="row ">
 					<div class="col-md-12">
 						<div id="u1i3m5yh" class="uif-listGroup" data-parent="upils8b">
