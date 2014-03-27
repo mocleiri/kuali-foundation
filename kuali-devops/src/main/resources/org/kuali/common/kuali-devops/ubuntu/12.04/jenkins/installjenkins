@@ -190,13 +190,15 @@ function configure_jenkins_region {
 }
 
 function configure_build_slave_ami_job {
+
   # explain what we are up to
   echo "configure -> jenkins build slave ami job"
   
   # This is the main jenkins config file
   JENKINS_CONFIG_FILE=$JENKINS_HOME/jobs/kdo-create-build-slave-ami/config.xml
 
-  execute_quietly "sed -i -e s:-Dec2.stack=* -Dec2.region=:-Dec2.stack=$STACK -Dec2.region=:g $JENKINS_CONFIG_FILE"
+  execute_quietly "sed -i -e s:\-Dec2.stack=* \-Dec2.region=:\-Dec2.stack=$STACK \-Dec2.region=:g $JENKINS_CONFIG_FILE"
+  
 }
 
 function configure_jenkins {
