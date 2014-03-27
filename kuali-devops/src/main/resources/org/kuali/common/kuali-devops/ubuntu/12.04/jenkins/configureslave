@@ -85,22 +85,6 @@ function copy_repo_from_master {
   
 }
 
-function copy_repo_from_amazon {
-
-  M2_REPO=/root/.m2/repository
-  mkdir -p $M2_REPO
-  echo "copy      -> s3://maven.kuali.org/release"
-  echo "start     -> $(date)"
-  MAVEN_POM="$BASEDIR/META-INF/maven/${project.groupId}/${project.artifactId}/pom.xml"
-  MAVEN_ARGS="$MAVEN_ARGS -f $MAVEN_POM"
-  MAVEN_ARGS="$MAVEN_ARGS initialize -Pupdate"
-  MAVEN_ARGS="$MAVEN_ARGS -Dorg.slf4j.simpleLogger.log.org.kuali.maven.wagon=warn"
-  MAVEN="mvn $MAVEN_ARGS"
-  execute_quietly "$MAVEN"
-  echo "stop      -> $(date)"
-  
-}
-
 function enable_root_ssh {
   echo "enable    -> root ssh"
   # set disable_root to 0 in the cloud config 
