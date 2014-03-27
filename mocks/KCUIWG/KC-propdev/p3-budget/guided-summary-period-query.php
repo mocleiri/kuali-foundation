@@ -36,7 +36,7 @@ $section = '';
                                 <h2 class="uif-headerText">
                                     <span class="uif-headerText-span">Guided Mode</span> <span style="font-size:small">(<a href="#">Exit guided mode</a>)</span>
                                 </h2>
-                                <h4 class="uif-headerText">
+                                <h4>
                                     <div class="col-md-4">1. Budget Periods &amp; Totals</div>
                                     <div class="col-md-2">2. Modular</div>
                                     <div class="col-md-3">3. Summary &amp; Review</div>
