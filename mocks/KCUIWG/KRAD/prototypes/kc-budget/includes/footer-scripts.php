@@ -8,7 +8,8 @@
 <script type="text/javascript" src="../../plugins/globalize/globalize.js"></script> 
 <script type="text/javascript" src="../../plugins/menu/krad.navigationMenu.js"></script> 
 <script type="text/javascript" src="../../plugins/menu/krad.tabMenu.js"></script> 
-<script type="text/javascript" src="../../plugins/jgrowl/jquery.jgrowl.js"></script> <script type="text/javascript" src="../../plugins/textpopout/krad.textareaPopout.js"></script> 
+<script type="text/javascript" src="../../plugins/jgrowl/jquery.jgrowl.js"></script> 
+<script type="text/javascript" src="../../plugins/textpopout/krad.textareaPopout.js"></script> 
 <script type="text/javascript" src="../../plugins/validate/additional_validations.js"></script> 
 <script type="text/javascript" src="../../plugins/cookie/jquery.cookie.js"></script> 
 <script type="text/javascript" src="../../plugins/watermark/jquery.watermark.js"></script> 
@@ -40,7 +41,7 @@
 <script type="text/javascript" src="../../krad/scripts/krad.validate.js"></script> 
 <script type="text/javascript" src="../../krad/scripts/krad.widget.js"></script> 
 <script type="text/javascript" src="../../plugins/easing/jquery.easing-1.3.pack.js"></script> 
-<!-- <script type="text/javascript" src="../../themes/kboot/scripts/less-1.5.0.min.js"></script>  -->
+<script type="text/javascript" src="../../themes/kboot/scripts/less-1.5.0.min.js"></script>
 <script type="text/javascript" src="../scripts/kradSampleApp.js"></script> 
 <script type="text/javascript">
     setGrowlDefaults({position:"top-right",sticky:false,life:7000});setBlockUIDefaults({fadeIn:400,fadeOut:800,centerX:true,centerY:true,blockingImage:"../krad/images/loading.gif"}, 'navigation');setBlockUIDefaults({fadeIn:400,fadeOut:800,centerX:true,centerY:true,blockingImage:"../krad/images/loader.gif"}, 'refresh');setConfigParam("kradImageLocation","../krad/images/");setConfigParam("kradUrl","../kr-krad");setConfigParam("applicationUrl","http://localhost:8080/krad-dev");setConfigParam("scriptCleanup","true");
