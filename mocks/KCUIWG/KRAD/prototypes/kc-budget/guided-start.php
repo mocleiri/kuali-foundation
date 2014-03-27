@@ -163,10 +163,12 @@ $section = '';
                 </header>
                 <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-3">
                             <a class="btn btn-default" href="#">Start a detailed budget</a>
+                        </div>
+                        <div class="col-md-3">
                             <a class="btn btn-default" href="#">Start a summary-only budget</a>
-                            </div>
+                        </div>
                     </div>
                 </div>
             </main>
