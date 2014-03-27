@@ -1,12 +1,12 @@
 #!/bin/sh
 
-echo $(date)
+date
 set -xe
 
 REPO=/root/.m2/repository
 # The trailing slash is significant here
 SRC=$REPO/
-JENKINS_MASTER=${jenkins.master}
+JENKINS_MASTER=JENKINS_MASTER
 DST=root@$JENKINS_MASTER:$REPO
 EXCLUDEFILE=/usr/share/ec2slave/rsync.excludes
 
@@ -14,4 +14,4 @@ EXCLUDEFILE=/usr/share/ec2slave/rsync.excludes
 rsync --archive --stats -v $SRC $DST --exclude-from $EXCLUDEFILE
 
 set +x
-echo $(date)
+date
