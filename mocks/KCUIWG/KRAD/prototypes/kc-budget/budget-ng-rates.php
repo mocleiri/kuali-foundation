@@ -150,9 +150,9 @@ $section = '';
                 <br>
                 <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent=Demo-Disclosure-Example1>
                     <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for=u1qq592w>
-                        <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=u1qq592w_disclosureContent href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Research F&amp;A</span></a></h3>
+                        <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=reserachFA href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Research F&amp;A</span></a></h3>
                     </header>
-                    <div id="u1qq592w_disclosureContent" data-role=disclosureContent data-open=true class="uif-disclosureContent">
+                    <div id="reserachFA" data-role=disclosureContent data-open=true class="uif-disclosureContent">
                         <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Reset to Institutional Defaults</a> <a href="#" class="btn btn-xs btn-default">Refresh Rates</a></div>
                         <br>
                         <br>
@@ -289,9 +289,9 @@ $section = '';
                 </section>
                 <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent=Demo-Disclosure-Example1>
                     <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for=u1qq592w>
-                        <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=u1qq592w_disclosureContent href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> FringeBenefits</span></a></h3>
+                        <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=fringebenefits href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Fringe Benefits</span></a></h3>
                     </header>
-                    <div id="u1qq592w_disclosureContent" data-role=disclosureContent data-open=true class="uif-disclosureContent">
+                    <div id="fringebenefits" data-role=disclosureContent data-open=true class="uif-disclosureContent">
                         <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Reset to Institutional Defaults</a> <a href="#" class="btn btn-xs btn-default">Refresh Rates</a></div>
                         <br>
                         <br>
@@ -374,9 +374,9 @@ $section = '';
                 </section>
                 <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent=Demo-Disclosure-Example1>
                     <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for=u1qq592w>
-                        <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=u1qq592w_disclosureContent href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Inflation</span></a></h3>
+                        <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=inflation href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Inflation</span></a></h3>
                     </header>
-                    <div id="u1qq592w_disclosureContent" data-role=disclosureContent data-open=true class="uif-disclosureContent">
+                    <div id="inflation" data-role=disclosureContent data-open=true class="uif-disclosureContent">
                         <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Reset to Institutional Defaults</a> <a href="#" class="btn btn-xs btn-default">Refresh Rates</a></div>
                         <br>
                         <br>
@@ -621,9 +621,9 @@ $section = '';
                 </section>
                 <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent=Demo-Disclosure-Example1>
                     <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for=u1qq592w>
-                        <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=u1qq592w_disclosureContent href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Vacation</span></a></h3>
+                        <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=vacation href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Vacation</span></a></h3>
                     </header>
-                    <div id="u1qq592w_disclosureContent" data-role=disclosureContent data-open=true class="uif-disclosureContent">
+                    <div id="vacation" data-role=disclosureContent data-open=true class="uif-disclosureContent">
                         <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Reset to Institutional Defaults</a> <a href="#" class="btn btn-xs btn-default">Refresh Rates</a></div>
                         <br>
                         <br>
@@ -697,9 +697,9 @@ $section = '';
                 </section>
                 <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent=Demo-Disclosure-Example1>
                     <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for=u1qq592w>
-                        <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=u1qq592w_disclosureContent href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Lab Allocation - Salaries</span></a></h3>
+                        <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=laballocationSalaries href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Lab Allocation - Salaries</span></a></h3>
                     </header>
-                    <div id="u1qq592w_disclosureContent" data-role=disclosureContent data-open=true class="uif-disclosureContent">
+                    <div id="laballocationSalaries" data-role=disclosureContent data-open=true class="uif-disclosureContent">
                         <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Reset to Institutional Defaults</a> <a href="#" class="btn btn-xs btn-default">Refresh Rates</a></div>
                         <br>
                         <br>
@@ -746,9 +746,9 @@ $section = '';
                 </section>
                 <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent=Demo-Disclosure-Example1>
                     <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for=u1qq592w>
-                        <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=u1qq592w_disclosureContent href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Lab Allocation - Other</span></a></h3>
+                        <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=laballocationOther href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Lab Allocation - Other</span></a></h3>
                     </header>
-                    <div id="u1qq592w_disclosureContent" data-role=disclosureContent data-open=true class="uif-disclosureContent">
+                    <div id="laballocationOther" data-role=disclosureContent data-open=true class="uif-disclosureContent">
                         <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Reset to Institutional Defaults</a> <a href="#" class="btn btn-xs btn-default">Refresh Rates</a></div>
                         <br>
                         <br>
@@ -822,9 +822,9 @@ $section = '';
                 </section>
                 <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent=Demo-Disclosure-Example1>
                     <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for=u1qq592w>
-                        <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=u1qq592w_disclosureContent href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Other</span></a></h3>
+                        <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=other href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Other</span></a></h3>
                     </header>
-                    <div id="u1qq592w_disclosureContent" data-role=disclosureContent data-open=true class="uif-disclosureContent">
+                    <div id="other" data-role=disclosureContent data-open=true class="uif-disclosureContent">
                         <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Reset to Institutional Defaults</a> <a href="#" class="btn btn-xs btn-default">Refresh Rates</a></div>
                         <br>
                         <br>
@@ -1176,7 +1176,7 @@ $section = '';
                 <small>
                 <label style=font-weight:normal>
                     <input type=checkbox>
-                    Don't ask me this again </label>
+                    Dont ask me this again </label>
                 </small></div>
             <div class="modal-footer"><a href="" class="btn btn-default" data-dismiss=modal>Cancel</a> <a href="prop-basics-details.php" class="btn btn-primary">Open Proposal Development Document</a></div>
         </div>
