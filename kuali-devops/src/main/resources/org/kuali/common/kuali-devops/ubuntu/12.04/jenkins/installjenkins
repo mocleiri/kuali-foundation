@@ -205,6 +205,7 @@ function update_jenkins_config_xml {
   execute_quietly "sed -i /<slaves>/,/<\/slaves>/d $JENKINS_CONFIG_FILE"
   
   STACK_TAG_LINE_NUMBER=$(cat -n $JENKINS_CONFIG_FILE | grep "<name>Stack</name>" | cut -f 1 | xargs)
+  STACK_TAG_LINE_NUMBER=$(($STACK_TAG_LINE_NUMBER + 1))
   echo "line=$STACK_TAG_LINE_NUMBER"
   
 }
