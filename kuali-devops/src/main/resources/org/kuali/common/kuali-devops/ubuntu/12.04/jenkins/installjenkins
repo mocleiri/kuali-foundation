@@ -203,6 +203,10 @@ function update_jenkins_config_xml {
   echo "configure -> jenkins:slaves (remove)"
   # delete everything between <slaves> and </slaves> (including the tags themselves)
   execute_quietly "sed -i /<slaves>/,/<\/slaves>/d $JENKINS_CONFIG_FILE"
+  
+  STACK_TAG_LINE_NUMBER=$(cat -n /home/tomcat7/.jenkins/config.xml | grep "<name>Stack</name>" | cut -f 1)
+  echo "line=$STACK_TAG_LINE_NUMBER"
+  
 }
 
 function configure_build_slave_ami_job {
