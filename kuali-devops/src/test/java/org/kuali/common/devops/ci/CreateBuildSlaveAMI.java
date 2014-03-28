@@ -108,7 +108,6 @@ public class CreateBuildSlaveAMI {
 			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
 			EC2Service service = getEC2Service(amazonAccount, jenkinsContext.getRegion());
-			cleanupAmis(service);
 			List<Tag> tags = getSlaveTags(jenkinsContext);
 			Instance instance = launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
 			// Instance instance = service.getInstance("i-d20676da");
