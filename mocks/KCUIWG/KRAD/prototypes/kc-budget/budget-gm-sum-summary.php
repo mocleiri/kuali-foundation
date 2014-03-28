@@ -230,7 +230,98 @@ line-height:0  padding: 0 .25em 0;
                 <div class="uif-boxLayoutVerticalItem clearfix">
                     <p><b>The following is a summary of your budget version. Review and edit as needed.</b></p>
                 </div>
-                
+                <table class="table table-condensed credit-allocation">
+                    <tbody>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>P1</th>
+                            <th>P2</th>
+                            <th>Totals</th>
+                        </tr>
+                        <tr class="active">
+                            <td><strong> Personnel</strong></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr class="">
+                            <td><a href="#"> <span aria-hidden="true" class="icon-chevron-right"></span> Salary</a></td>
+                            <td>156934</td>
+                            <td>156934</td>
+                            <td>156934</td>                         
+                        </tr>
+                        <tr class="">
+                            <td><a href="#"> <span aria-hidden="true" class="icon-chevron-right"></span> Fringe</a></td>
+                            <td>37345</td>
+                            <td>37345</td>
+                            <td>37345</td>
+                        </tr>
+                        <tr class="">
+                            <td><a href="#"> <span aria-hidden="true" class="icon-chevron-right"></span> Calculated Direct Costs</a></td>
+                            <td>28284</td>
+                            <td>28284</td>
+                            <td>28284</td>
+                        </tr>
+                        <tr class="">
+                            <td>Personnel Subtotal </td>
+                            <td><strong>222563</strong></td>
+                            <td><strong>222563</strong></td>
+                            <td><strong>222563</strong></td>
+                        </tr>
+                        <tr class="active">
+                            <td><strong> Non-personnel</strong></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+ 
+                        </tr>
+                        <tr class="">
+                            <td><a href="#"> <span aria-hidden="true" class="icon-chevron-right"></span> Calculated Direct Costs</a></td>
+                            <td>38546</td>
+                            <td>38546</td>
+                            <td>38546</td>
+                            
+                        </tr>
+                        <tr class="">
+                            <td>Nonpersonnel Subtotal </td>
+                            <td><strong>38546</strong></td>
+                            <td><strong>38546</strong></td>
+                            <td><strong>38546</strong></td>
+                            
+                        </tr>
+                        <tr class="active">
+                            <td><strong> Totals</strong></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Total Direct Cost</td>
+                            <td>723454</td>
+                            <td>723454</td>
+                            <td>723454</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Total F&amp;A Costs</td>
+                            <td>34537</td>
+                            <td>34537</td>
+                            <td>34537</td>
+                            
+                        </tr>
+                        <!-- tr>
+            <td colspan="5" >Totals</td>
+          </tr> -->
+                        <tr class="active">
+                            <td>Total Costs</td>
+                            <td class=""><strong>238546</strong></td>
+                            <td class=""><strong>238546</strong></td>
+                            <td class=""><strong>238546</strong></td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
             </main>
         </div>
         <div class="uif-footer clearfix">
