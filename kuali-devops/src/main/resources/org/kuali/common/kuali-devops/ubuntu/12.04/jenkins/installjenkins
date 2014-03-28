@@ -204,7 +204,7 @@ function update_jenkins_config_xml {
   # delete everything between <slaves> and </slaves> (including the tags themselves)
   execute_quietly "sed -i /<slaves>/,/<\/slaves>/d $JENKINS_CONFIG_FILE"
   
-  STACK_TAG_LINE_NUMBER=$(cat -n /home/tomcat7/.jenkins/config.xml | grep "<name>Stack</name>" | cut -f 1)
+  STACK_TAG_LINE_NUMBER=$(cat -n $JENKINS_CONFIG_FILE | grep "<name>Stack</name>" | cut -f 1 | xargs)
   echo "line=$STACK_TAG_LINE_NUMBER"
   
 }
