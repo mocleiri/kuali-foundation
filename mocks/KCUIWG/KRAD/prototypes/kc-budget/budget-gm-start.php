@@ -168,7 +168,7 @@ $section = '';
                             <a class="btn btn-default" href="#">Start a detailed budget</a>
                         </div>
                         <div class="col-md-3">
-                            <a class="btn btn-default" href="#">Start a summary-only budget</a>
+                            <a class="btn btn-default" href="budget-gm-sum-period-query.php">Start a summary-only budget</a>
                         </div>
                     </div>
                 </div>
