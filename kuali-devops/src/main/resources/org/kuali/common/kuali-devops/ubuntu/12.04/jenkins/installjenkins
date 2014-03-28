@@ -202,7 +202,7 @@ function update_jenkins_config_xml {
   
   # Erase any slaves that were present in config.xml
   echo "configure -> jenkins:slaves (remove)"
-  execute_quietly "sed -i /<slaves>/,/<\/slaves>/d $JENKINS_CONFIG_FILE"
+  execute_quietly "sed -i @<slaves>@,@</slaves>@d $JENKINS_CONFIG_FILE"
 }
 
 function configure_build_slave_ami_job {
