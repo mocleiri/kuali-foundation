@@ -109,6 +109,7 @@ function install_plugins {
   install_plugin email-ext             2.37.2
   install_plugin git                   2.0.3
   install_plugin git-client            1.6.3
+  install_plugin greenballs            1.14
   install_plugin jobConfigHistory      2.5
   install_plugin jquery                1.7.2-1 
   install_plugin jquery-ui             1.0.2
@@ -123,7 +124,6 @@ function install_plugins {
   install_plugin scm-api               0.2
   install_plugin ssh-credentials       1.6.1
   install_plugin token-macro           1.10
-
 
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME  
   
