@@ -251,7 +251,7 @@ source $MY_DIR/../common/functions.sh
 usage() { echo "Usage: $ME [-h] [-q] [-m \"-Xmx2g -XX:MaxPermSize=256m\"] [-p \"package1 package2 package3\"] master password" 1>&2; exit 1; }
 
 QUIET=false
-PACKAGES="subversion git graphviz ant xvfb libasound2 libgtk2.0-0"
+PACKAGES="subversion git graphviz ant xvfb libasound2 libgtk2.0-0 cucumber"
 MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=256m"
 while getopts hqm:p: flag; do
   case $flag in
