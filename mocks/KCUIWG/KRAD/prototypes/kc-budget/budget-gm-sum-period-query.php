@@ -12,6 +12,65 @@ $section = '';
 <title>Kuali :: Fluid Application Header</title>
 <!-- GLOBAL STYLES -->
 <?php include ('includes/styles.php') ?>
+
+<!-- carousel css -->
+<style type="text/css">
+.infiniteCarousel {
+    max-width: 900px;
+    position: relative;
+    height: 45px;
+}
+.infiniteCarousel .carouselContainer {
+    min-width: 315px;
+    max-width: 850px; /* .infiniteCarousel width - (.carouselContainer margin-left + .carouselContainer margin-right) */
+    overflow: hidden;
+    height: 40px;
+    position: relative;
+    padding: 10px 5px 0;
+    top: 0;
+    left: 24px;
+}
+.infiniteCarousel .carouselContainer ul {
+    width: 9999px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+}
+.infiniteCarousel ul li {
+    min-width: 50px;
+    float: left;
+    padding: .5em;
+    ;
+    margin: 0 .45em 0 .45em;
+    list-style: none;
+}
+.infiniteCarousel .arrowCarousel {
+    position: absolute;
+    top: -5px;
+    font-size: 2em;
+line-height:0  padding: 0 .25em 0;
+    cursor: pointer;
+    z-index: 10000;
+}
+.infiniteCarousel .forwardCarousel {
+    right: 0;
+}
+.infiniteCarousel .backCarousel {
+    left: 0;
+}
+.infiniteCarousel .forwardCarousel:hover {
+}
+.infiniteCarousel .backCarousel:hover {
+}
+
+/* is there a generic class in bootstrap to add padding to an element? */
+.pad1em{padding:1em;}
+/*whitesmoke looks to be a class in the less.js file */
+.whitesmoke{background:#f5f5f5;}
+</style>
+<!-- // end carousel css -->
+
 </head>
 
 <body id="Uif-Application" style="padding-bottom: 570px;">
@@ -155,18 +214,23 @@ $section = '';
                         <h2 class="uif-headerText">
                             <span class="uif-headerText-span">Guided Mode</span> <span style="font-size:small">(<a href="#">Exit guided mode</a>)</span>
                         </h2>
-                        <h4>
-                            <div class="col-md-4"><a href="budget-gm-sum-period-query.php">1. Budget Periods &amp; Totals</a></div>
-                            <div class="col-md-2"><a href="budget-gm-sum-modular.php">2. Modular</a></div>
-                            <div class="col-md-3"><a href="budget-gm-sum-summary.php">3. Summary &amp; Review</a></div>
-                        </h4>
+                        <!-- carousel -->
+                        <div id="divCarousel" class="infiniteCarousel">
+                            <div class="carouselContainer">
+                                <ul>
+                                    <li>1. <a href="budget-gm-sum-period-query.php">Budget Periods &amp; Totals</a></li>
+                                    <li>2. <a href="budget-gm-sum-modular.php">Modular</a></li>
+                                    <li>3. <a href="budget-gm-sum-summary.php">Summary &amp; Review</a></li>
+                                </ul>
+                            </div>
+                        </div>                    
+                        <!-- // carousel -->
                     </div>
                 </header>
                 <div class="uif-boxLayoutVerticalItem clearfix">
                     <p><b>Based on the project dates you entered, your budget has 2 periods.</b></p>
                     <p><b>Verify the following period information and edit as necessary:</b></p>
                 </div>
-                    
                 <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
                     <div class="row">
                         <div class="well">
@@ -541,6 +605,119 @@ $section = '';
 </div>
 
 <!-- end Modal -->
+
+<!-- Carousel Script -->
+<script type="text/javascript">
+
+(function($){
+    $.fn.infiniteCarousel = function () {
+        function repeat(str, num) {
+            return new Array( num + 1 ).join( str );
+        }
+        
+        return this.each(function () {
+            var $wrapper = $('> div', this).css('overflow', 'hidden'),
+                $slider = $wrapper.find('> ul'),
+                $items = $slider.find('> li'),
+                $single = $items.filter(':first'),
+                singleWidth = $single.outerWidth(), 
+                currentPage = 1;
+
+            function recalculateAfterResize(){
+                
+                // Reset to the original carousel condition
+                $('.empty', $wrapper).remove();
+                $('.cloned', $wrapper).remove();
+                $items = $slider.find('> li');
+                $wrapper.visible = Math.floor($wrapper.innerWidth() / singleWidth),
+                $wrapper.pages = Math.ceil($items.length / $wrapper.visible);
+                // 1. Pad so that 'visible' number will always be seen, otherwise create empty items
+                if (($items.length % $wrapper.visible) != 0) {
+                    $slider.append(repeat('<li class="empty" />', $wrapper.visible - ($items.length % $wrapper.visible)));
+                    $items = $slider.find('> li');
+                }
+                // 2. Top and tail the list with 'visible' number of items, top has the last section, and tail has the first
+                $items.filter(':first').before($items.slice(- $wrapper.visible).clone().addClass('cloned'));
+                $items.filter(':last').after($items.slice(0, $wrapper.visible).clone().addClass('cloned'));
+                $items = $slider.find('> li'); // reselect
+                $wrapper.scrollLeft(singleWidth * $wrapper.visible);
+                $($slider).css('width', ($items.length+1) * singleWidth);
+                page = 1;
+            } 
+    
+            
+            $(window).resize(recalculateAfterResize);
+            if($(this).is(':visible')) recalculateAfterResize();
+            
+            // 4. paging function
+            function gotoPage(page) {
+                
+                var dir = page < currentPage ? -1 : 1,
+                n = Math.abs(currentPage - page),
+                left = singleWidth * dir * $wrapper.visible * n;
+                $wrapper.filter(':not(:animated)').animate({
+                    scrollLeft : '+=' + left
+                }, 500, function () {
+                    if (page == 0) {
+                        $wrapper.scrollLeft(singleWidth * $wrapper.visible * $wrapper.pages);
+                        page = $wrapper.pages;
+                    } else if (page > $wrapper.pages) {
+                        $wrapper.scrollLeft(singleWidth * $wrapper.visible);
+                        // reset back to start position
+                        page = 1;
+                    } 
+                    
+                    currentPage = page;
+                });                
+    
+                return false;
+            }
+
+            function gotoNext(){
+                return gotoPage(currentPage+1);
+            };
+            
+            function gotoPrev(){
+                return gotoPage(currentPage-1);
+            };
+            
+            $wrapper.before('<a class="arrowCarousel backCarousel ">&lsaquo;</a><a class="arrowCarousel forwardCarousel ">&rsaquo;</a>');
+    
+
+            $('a.backCarousel', this).click(function () {
+                return gotoPrev();                
+            });
+    
+            $('a.forwardCarousel', this).click(function () {
+                return gotoNext();
+            });
+    
+            // create a public interface to move to a specific page
+            $(this).bind('goto', function (event, page) {
+                gotoPage(page);
+            });
+        });  
+    };
+
+
+
+
+
+    $('#divCarousel').infiniteCarousel();
+    
+    //set the carousel the last links...
+                //$(".forwardCarousel").trigger('click'); 
+
+
+})(jQuery);
+
+            
+                
+            
+        
+</script>
+        
+<!-- // Carousel Script -->
 
 </body>
 </html>
