@@ -326,7 +326,7 @@ line-height:0  padding: 0 .25em 0;
         </div>
         <div class="uif-footer clearfix">
             <a class="btn btn-default" href="budget-gm-sum-modular.php">Go back</a>
-            <a class="btn btn-primary" href="budget-gm-actions.php">Continue</a>
+            <a class="btn btn-primary" href="budget-gm-sum-actions.php">Continue</a>
         </div>
         <!-- VIEW FOOTER -->
         <div id="u19v7dpm" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;">

@@ -235,12 +235,12 @@ line-height:0  padding: 0 .25em 0;
                 </header>
                 <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
                     <div class="row">
-                 <!-- <div class="pad1em whitesmoke">-->
+                    <!-- <div class="pad1em whitesmoke">-->
                   
-                  
-                  <div class="well well-sm">
-<a class="btn btn-default" href="#"><span class="icon-ok"/><!--  carousel --></span>Run budget validation  </a>
-                    </div> </div>
+                        <div class="well well-sm">
+                            <a class="btn btn-default" href="#"><span class="icon-ok"/><!--  carousel --></span>Run budget validation  </a>
+                        </div> 
+                    </div>
                     <div class="row">
                         <div class="col-md-3"> <a class="btn btn-default" href="#">Mark Complete</a> </div>
                         <div class="col-md-3"> <a class="btn btn-default" href="#">Save and exit budget version</a> </div>
