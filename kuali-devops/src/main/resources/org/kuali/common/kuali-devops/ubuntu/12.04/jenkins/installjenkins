@@ -132,6 +132,7 @@ function install_plugins {
 function configure_tomcat_user {
 
   echo "configure -> $TOMCAT:user"
+  echo "purge     -> gpg ssh m2 svn"
   rm -rf $TOMCAT_HOME/.gnupg $TOMCAT_HOME/.ssh $TOMCAT_HOME/.m2 $TOMCAT_HOME/.subversion
   cp -R /root/.gnupg       $TOMCAT_HOME
   cp -R /root/.ssh         $TOMCAT_HOME
