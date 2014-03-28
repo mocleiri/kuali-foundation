@@ -161,13 +161,12 @@ $section = '';
                             <div class="col-md-3"><a href="budget-gm-sum-summary.php">3. Summary &amp; Review</a></div>
                         </h4>
                     </div>
-                    <div class="uif-verticalBoxGroup uif-header-lowerGroup">
-                        <div class="uif-boxLayoutVerticalItem clearfix">
-                            <p><b>Based on the project dates you entered, your budget has 2 periods.</b></p>
-                            <p><b>Verify the following period information and edit as necessary:</b></p>
-                        </div>
-                    </div>
                 </header>
+                <div class="uif-boxLayoutVerticalItem clearfix">
+                    <p><b>Based on the project dates you entered, your budget has 2 periods.</b></p>
+                    <p><b>Verify the following period information and edit as necessary:</b></p>
+                </div>
+                    
                 <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
                     <div class="row">
                         <div class="well">
