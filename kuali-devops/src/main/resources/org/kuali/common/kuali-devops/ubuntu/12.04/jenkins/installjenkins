@@ -176,6 +176,15 @@ function configure_jenkins_location {
   REPLACE="<jenkinsUrl>https\://$JENKINS_MASTER</jenkinsUrl>"
   execute_quietly "sed -i -e s:$FIND:$REPLACE:g $JENKINS_LOCATION_CONFIG_FILE"
 
+  # Update the CAS url according to the stack we are configuring test/prod
+  CAS=test-cas.kuali.org
+  if [ "$STACK" == "prod" ]; then
+    CAS=cas.kuali.org
+  fi
+  FIND="<casServerUrl>.*</casServerUrl>"
+  REPLACE="<casServerUrl>https://$CAS</casServerUrl>"
+  execute_quietly "sed -i -e s:$FIND:$REPLACE:g $JENKINS_LOCATION_CONFIG_FILE"
+
 }
 
 function configure_jenkins_region {
