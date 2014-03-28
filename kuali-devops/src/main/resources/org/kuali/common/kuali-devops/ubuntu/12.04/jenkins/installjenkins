@@ -216,7 +216,7 @@ function configure_build_slave_ami_job {
 
 function configure_jenkins {
 
-  echo "configure -> jenkins:application"
+  echo "configure -> jenkins"
   JENKINS_CONFIG_DIR=$MY_DIR/../../../jenkins
   GPG_ENCRYPTED=$JENKINS_CONFIG_DIR/master.zip.gpg
   # zip of Jenkins config files from the .jenkins home dir
