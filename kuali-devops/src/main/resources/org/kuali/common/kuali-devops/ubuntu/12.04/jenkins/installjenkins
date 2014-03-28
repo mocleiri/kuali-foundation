@@ -195,11 +195,14 @@ function update_jenkins_config_xml {
   REPLACE="<casServerUrl>https://$CAS</casServerUrl>"
   execute_quietly "sed -i -e s@$FIND@$REPLACE@g $JENKINS_LOCATION_CONFIG_FILE"
 
-  # explain what we are up to
+  # Update the EC2 Region
   echo "configure -> jenkins:region"
   execute_quietly "sed -i -e s@<name>ec2-.*</name>@<name>ec2-$REGION</name>@g $JENKINS_CONFIG_FILE"
   execute_quietly "sed -i -e s@<region>.*</region>@<region>$REGION</region>@g $JENKINS_CONFIG_FILE"
   
+  # Erase any slaves that were present in config.xml
+  echo "configure -> jenkins:slaves (remove)"
+  execute_quietly "sed -i -e s@<slaves>.*</slaves>@<slaves></slaves>@g $JENKINS_CONFIG_FILE"
 }
 
 function configure_build_slave_ami_job {
