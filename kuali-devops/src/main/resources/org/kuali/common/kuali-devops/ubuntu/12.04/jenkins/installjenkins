@@ -208,7 +208,7 @@ function update_jenkins_config_xml {
   STACK_TAG_LINE_NUMBER=$(cat -n $JENKINS_CONFIG_FILE | grep "<name>Stack</name>" | cut -f 1 | xargs)
   STACK_TAG_LINE_NUMBER=$(($STACK_TAG_LINE_NUMBER + 1))
   
-  sed -i -e '214s/<value>.*<\/value>/<value>test<\/value>/' $JENKINS_CONFIG_FILE
+  sed -i -e "214s/<value>.*<\/value>/<value>test<\/value>/" $JENKINS_CONFIG_FILE
   
 }
 
