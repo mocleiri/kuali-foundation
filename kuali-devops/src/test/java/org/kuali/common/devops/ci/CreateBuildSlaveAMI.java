@@ -7,7 +7,9 @@ import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
+import static java.util.Collections.reverse;
 import static java.util.Collections.sort;
+import static org.apache.commons.lang.StringUtils.leftPad;
 import static org.apache.commons.lang3.StringUtils.equalsIgnoreCase;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
@@ -81,7 +83,7 @@ public class CreateBuildSlaveAMI {
 	private final String distroVersion = Constants.DISTRO_VERSION;
 	private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	private final String today = format.format(new Date());
-	private final long buildNumber = getBuildNumber();
+	private final String buildNumber = getBuildNumber();
 	private final String startsWithToken = "ec2slave";
 	private final Tag name = new ImmutableTag("Name", format("%s.%s-build-%s", startsWithToken, today, buildNumber));
 	private static final String amazonAccount = Constants.AMAZON_ACCOUNT;
@@ -95,6 +97,7 @@ public class CreateBuildSlaveAMI {
 	@Test
 	public void test() {
 		try {
+			System.setProperty("ec2.stack", "test");
 			logger.info(format("build slave ami process :: starting"));
 			VirtualSystem vs = VirtualSystem.create();
 			// Default to quiet mode unless they've supplied -Dec2.quiet=false
@@ -105,6 +108,7 @@ public class CreateBuildSlaveAMI {
 			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
 			EC2Service service = getEC2Service(amazonAccount, jenkinsContext.getRegion());
+			cleanupAmis(service);
 			List<Tag> tags = getSlaveTags(jenkinsContext);
 			Instance instance = launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
 			// Instance instance = service.getInstance("i-d20676da");
@@ -205,8 +209,17 @@ public class CreateBuildSlaveAMI {
 	protected void cleanupAmis(EC2Service service) {
 		List<Image> images = service.getMyImages();
 		List<Image> filtered = getFilteredImages(images, name.getKey(), startsWithToken);
-		// Most recent images are at the top
+		// Sort by Name tag
 		sort(filtered, new ImageTagsComparator());
+
+		// Most recent images are at the bottom (we need them at the top)
+		reverse(filtered);
+
+		// Show AMI's
+		for (Image image : filtered) {
+			Tag tag = findRequiredTag(image.getTags(), name.getKey(), startsWithToken);
+			logger.info(format("slave ami   -> %s = [%s]", tag.getValue(), image.getImageId()));
+		}
 		List<Image> deletes = newArrayList();
 		for (int i = minimumAmisToKeep; i < filtered.size(); i++) {
 			deletes.add(filtered.get(i));
@@ -303,13 +316,14 @@ public class CreateBuildSlaveAMI {
 	/**
 	 * If the environment variable BUILD_NUMBER is set, add a prefix and return, otherwise return System.currentTimeMillis()
 	 */
-	protected long getBuildNumber() {
+	protected String getBuildNumber() {
 		Optional<String> buildNumber = fromNullable(vs.getEnvironment().getProperty("BUILD_NUMBER"));
 		if (buildNumber.isPresent()) {
-			return parseLong(buildNumber.get());
+			// Jenkins always sets an environment variable called BUILD_NUMBER
+			return leftPad(parseLong(buildNumber.get()) + "", 4, "0");
 		} else {
 			// The number of minutes since midnight on January 1st, 1970 UTC
-			return (currentTimeMillis() / (1000 * 60));
+			return (currentTimeMillis() / (1000 * 60)) + "";
 		}
 	}
 
@@ -320,7 +334,7 @@ public class CreateBuildSlaveAMI {
 			checkNotNull(one.getTags(), "one.tags");
 			checkNotNull(two.getTags(), "two.tags");
 			String val1 = findRequiredTag(one.getTags(), name.getKey(), startsWithToken).getValue();
-			String val2 = findRequiredTag(one.getTags(), name.getKey(), startsWithToken).getValue();
+			String val2 = findRequiredTag(two.getTags(), name.getKey(), startsWithToken).getValue();
 			return val1.compareTo(val2);
 		}
 
