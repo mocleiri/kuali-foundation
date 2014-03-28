@@ -80,10 +80,12 @@ function install_jdk {
 }
 
 function check_args {
+
   check_not_blank JDK $JDK
   check_not_blank JDK_UPDATE $JDK_UPDATE
   check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
-  check_jdk  
+  check_jdk
+    
 }
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
