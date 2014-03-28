@@ -1,5 +1,5 @@
 <?php
-$page = 'actions';
+$page = 'summary';
 $section = '';
 ?>
 
@@ -62,10 +62,7 @@ line-height:0  padding: 0 .25em 0;
 .infiniteCarousel .backCarousel:hover {
 }
 
-/* is there a generic class in bootstrap to add padding to an element? */
-.pad1em{padding:1em;}
-/*whitesmoke looks to be a class in the less.js file */
-.whitesmoke{background:#f5f5f5;}
+
 </style>
 
 <!-- // end carousel css -->
@@ -238,7 +235,10 @@ line-height:0  padding: 0 .25em 0;
                 </header>
                 <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
                     <div class="row">
-                  <div class="pad1em whitesmoke">
+                 <!-- <div class="pad1em whitesmoke">-->
+                  
+                  
+                  <div class="well well-sm">
 <a class="btn btn-default" href="#"><span class="icon-ok"/><!--  carousel --></span>Run budget validation  </a>
                     </div> </div>
                     <div class="row">
