@@ -200,10 +200,9 @@ function update_jenkins_config_xml {
   execute_quietly "sed -i -e s@<name>ec2-.*</name>@<name>ec2-$REGION</name>@g $JENKINS_CONFIG_FILE"
   execute_quietly "sed -i -e s@<region>.*</region>@<region>$REGION</region>@g $JENKINS_CONFIG_FILE"
   
-  # This caused issues at startup
-  # echo "configure -> jenkins:slaves (remove)"
-  # delete all of the lines between and including the line with <slaves> and the line with </slaves>
-  # execute_quietly "sed -i /<slaves>/,/<\/slaves>/d $JENKINS_CONFIG_FILE"
+  echo "configure -> jenkins:slaves (remove)"
+  # delete everything between <slaves> and </slaves> (including the tags themselves)
+  execute_quietly "sed -i /<slaves>/,/<\/slaves>/d $JENKINS_CONFIG_FILE"
 }
 
 function configure_build_slave_ami_job {
