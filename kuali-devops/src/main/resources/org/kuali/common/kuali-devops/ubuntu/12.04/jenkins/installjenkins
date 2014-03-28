@@ -205,10 +205,20 @@ function update_jenkins_config_xml {
   execute_quietly "sed -i /<slaves>/,/<\/slaves>/d $JENKINS_CONFIG_FILE"
   
   echo "configure -> jenkins:slave:stack:tag"
+  # This is the line number containing the name for the tag "Stack"
   STACK_TAG_NAME_LINE_NUMBER=$(cat -n $JENKINS_CONFIG_FILE | grep "<name>Stack</name>" | cut -f 1 | xargs)
+  # The next line contains the value for "Stack" eg test/prod
   STACK_TAG_VALUE_LINE_NUMBER=$(($STACK_TAG_NAME_LINE_NUMBER + 1))
-  
+  # Replace the Stack value with what needs to be there
   execute_quietly "sed -i -e ${STACK_TAG_VALUE_LINE_NUMBER}s/<value>.*<\/value>/<value>$STACK<\/value>/ $JENKINS_CONFIG_FILE"
+  
+  echo "configure -> jenkins:master:env:tag"
+  # This is the line number containing the name of the environment variable "JENKINS_MASTER"
+  JENKINS_MASTER_ENV_LINE_NUMBER=$(cat -n $JENKINS_CONFIG_FILE | grep "<string>JENKINS_MASTER</string>" | cut -f 1 | xargs)
+  # The next line contains the value
+  JENKINS_MASTER_ENV_LINE_NUMBER=$(($JENKINS_MASTER_ENV_LINE_NUMBER + 1))
+  # Update the value
+  execute_quietly "sed -i -e ${JENKINS_MASTER_ENV_LINE_NUMBER}s/<string>.*<\/string>/<string>$FQDN<\/string>/ $JENKINS_CONFIG_FILE"
   
 }
 
