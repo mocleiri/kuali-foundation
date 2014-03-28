@@ -156,10 +156,16 @@ $section = '';
                             <span class="uif-headerText-span">Guided Mode</span> <span style="font-size:small">(<a href="#">Exit guided mode</a>)</span>
                         </h2>
                         <h4>
-                            <div class="col-md-4">1. Budget Periods &amp; Totals</div>
-                            <div class="col-md-2">2. Modular</div>
-                            <div class="col-md-3">3. Summary &amp; Review</div>
+                            <div class="col-md-4"><a href="budget-gm-sum-period-query.php">1. Budget Periods &amp; Totals</a></div>
+                            <div class="col-md-2"><a href="budget-gm-sum-modular.php">2. Modular</a></div>
+                            <div class="col-md-3"><a href="budget-gm-sum-summary.php">3. Summary &amp; Review</a></div>
                         </h4>
+                    </div>
+                    <div class="uif-verticalBoxGroup uif-header-lowerGroup">
+                        <div class="uif-boxLayoutVerticalItem clearfix">
+                            <p><b>Based on the project dates you entered, your budget has 2 periods.</b></p>
+                            <p><b>Verify the following period information and edit as necessary:</b></p>
+                        </div>
                     </div>
                 </header>
                 <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
@@ -211,7 +217,12 @@ $section = '';
                             </div>
                         </div>
                     </div>
+                </div>
             </main>
+        </div>
+        <div class="uif-footer clearfix">
+            <a class="btn btn-default" href="budget-gm-start.php">Go back</a>
+            <a class="btn btn-primary" href="budget-gm-sum-period-1.php">Continue</a>
         </div>
         <!-- VIEW FOOTER -->
         <div id="u19v7dpm" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;">
