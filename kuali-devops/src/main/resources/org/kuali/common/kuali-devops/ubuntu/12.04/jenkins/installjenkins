@@ -303,8 +303,8 @@ configure_tomcat_user
 install_jenkins
 install_plugins
 configure_jenkins
-#echo "start     -> $TOMCAT:service"
-# execute_quietly "service $TOMCAT start"
-#echo "wait      -> jenkins:ready"
-#wait_for_string "/var/lib/$TOMCAT/logs/catalina.out" "Jenkins is fully up and running"
+echo "start     -> $TOMCAT:service"
+execute_quietly "service $TOMCAT start"
+echo "wait      -> jenkins:ready"
+wait_for_string "/var/lib/$TOMCAT/logs/catalina.out" "Jenkins is fully up and running"
 
