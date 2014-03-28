@@ -189,7 +189,7 @@ function update_jenkins_config_xml {
   if [ "$STACK" == "prod" ]; then
     CAS=cas.kuali.org
   fi
-  echo "cas       -> $CAS"
+  echo "configure -> jenkins:cas $CAS"
   FIND="<casServerUrl>.*</casServerUrl>"
   REPLACE="<casServerUrl>https://$CAS</casServerUrl>"
   execute_quietly "sed -i -e s@$FIND@$REPLACE@g $JENKINS_LOCATION_CONFIG_FILE"
