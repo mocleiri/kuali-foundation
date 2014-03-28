@@ -11,7 +11,7 @@
             <li <?php if ($section == 'personnel') { echo 'class="active in"'; } ?>> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span class="icon-user3"></span> <span class="uif-innerText" >Personnel Costs</span> <span class="arrow icon-angle-right"></span> </a>
                 <ul class="submenu uif-listLayout">
                     <li <?php if ($page == 'personnel-costs') { echo 'class="active"'; } ?>><a class="uif-actionLink" tabindex="0" href="budget-ng-personnelCosts-projPersonnel.php">Project Personnel</a></li>
-                    <li <?php if ($page == 'personnel-assign') { echo 'class="active"'; } ?>><a class="uif-actionLink" tabindex="0" href="personnel-assign.php">Assign Personnel to Periods</a></li>
+                    <li <?php if ($page == 'personnel-assign') { echo 'class="active"'; } ?>><a class="uif-actionLink" tabindex="0" href="budget-ng-personnelCosts-persPeriod.php">Assign Personnel to Periods</a></li>
                 </ul>
             </li>
             <li <?php if ($page == 'non-personnel') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="non-personnel.php"><span class="icon-beaker"></span><span class="uif-innerText">Non-Personnel Costs</span></a></li>
