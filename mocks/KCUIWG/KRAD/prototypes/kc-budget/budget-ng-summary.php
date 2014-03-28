@@ -7,6 +7,7 @@ $page = '';
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+<meta name="robots" content="noindex,nofollow" />
     <title>Kuali Coeus - Concept</title>
     <?php include ('includes/styles.php') ?>
 </head>
