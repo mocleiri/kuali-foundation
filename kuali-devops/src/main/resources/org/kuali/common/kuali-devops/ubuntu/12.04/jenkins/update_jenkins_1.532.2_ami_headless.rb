@@ -4,8 +4,8 @@ require 'headless'
 usage_msg = "Usage: update_jenkins_ami_headless.rb username password ami_value ci_url"
 
 if ARGV.length != 4 then
-	puts "failed - #{usage_msg}"
-	exit -1
+  puts "failed - #{usage_msg}"
+  exit -1
 end
 
 username = ARGV[0]
