@@ -176,7 +176,7 @@ $section = '';
     <tr>
         <td>02/01/2014</td>
         <td>01/31/2015</td>
-        <td><div class="pull-right">12.0</div></td>
+        <td class="not-editable"><div class="pull-right">12.0</div></td>
         <td>$148,000</td>
         <td>$100,000</td>
         <td>$48,000</td>
@@ -189,7 +189,7 @@ $section = '';
     <tr>
         <td>02/01/2015</td>
         <td>01/31/2016</td>
-        <td><div class="pull-right">12.0</div></td>
+        <td class="not-editable"><div class="pull-right">12.0</div></td>
         <td>$148,000</td>
         <td>$100,000</td>
         <td>$48,000</td>
@@ -202,7 +202,7 @@ $section = '';
     <tr>
         <td>02/01/2016</td>
         <td>01/31/2017</td>
-        <td><div class="pull-right">12.0</div></td>
+        <td class="not-editable"><div class="pull-right">12.0</div></td>
         <td>$148,000</td>
         <td>$100,000</td>
         <td>$48,000</td>
@@ -215,7 +215,7 @@ $section = '';
     <tr>
         <td>02/01/2017</td>
         <td>01/31/2018</td>
-        <td><div class="pull-right">12.0</div></td>
+        <td class="not-editable"><div class="pull-right">12.0</div></td>
         <td>$148,000</td>
         <td>$100,000</td>
         <td>$48,000</td>
@@ -228,7 +228,7 @@ $section = '';
     <tr>
         <td>02/01/2018</td>
         <td>01/31/2019</td>
-        <td><div class="pull-right">12.0</div></td>
+        <td class="not-editable"><div class="pull-right">12.0</div></td>
         <td>$148,000</td>
         <td>$100,000</td>
         <td>$48,000</td>

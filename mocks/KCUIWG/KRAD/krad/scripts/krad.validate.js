@@ -849,9 +849,9 @@ function calculateMessageTotals(id, data) {
     // Temp fix to check for 'undefined' - clrux
     if (currentData === 'undefined' || currentData.length < 1 || currentData.lenth == '') {
 
-        var currentData.serverErrors = 1;
-        var currentData.serverWarnings = 1;
-        var currentData.serverInfo = 1;
+//        var currentData.serverErrors = 1;
+//        var currentData.serverWarnings = 1;
+//        var currentData.serverInfo = 1;
 
     } else {
 
