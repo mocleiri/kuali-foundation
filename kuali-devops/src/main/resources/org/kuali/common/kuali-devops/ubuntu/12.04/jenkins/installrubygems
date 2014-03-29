@@ -2,7 +2,8 @@
 
 function install_ks_sambal_gems {
   
-  execute_quietly "svn co https://svn.kuali.org/repos/student/test/functional-automation/sambal/trunk /ssd/sambal-trunk"
+  SAMBAL_DIR=/ss/sambal-trunk
+  execute_quietly "svn co https://svn.kuali.org/repos/student/test/functional-automation/sambal/trunk $SAMBAL_DIR"
   
 }
 
