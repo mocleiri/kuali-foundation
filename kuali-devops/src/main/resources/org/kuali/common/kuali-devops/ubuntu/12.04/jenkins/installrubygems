@@ -8,6 +8,7 @@ function install_ks_sambal_gems {
   execute_quietly "gem install --no-rdoc --no-ri bundler"
   execute_quietly "bundle install"
   execute_quietly "cucumber -r features -t @should_not_match_anything ."
+  
 }
 
 function install_gem {
