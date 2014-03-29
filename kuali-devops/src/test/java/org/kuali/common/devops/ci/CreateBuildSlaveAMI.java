@@ -84,7 +84,7 @@ public class CreateBuildSlaveAMI {
 	private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	private final String today = format.format(new Date());
 	private final String buildNumber = getBuildNumber();
-	private final String startsWithToken = "ec2slave";
+	private final String startsWithToken = "ci.slave";
 	private final Tag name = new ImmutableTag("Name", format("%s.%s-build-%s", startsWithToken, today, buildNumber));
 	private static final String amazonAccount = Constants.AMAZON_ACCOUNT;
 	public static final KeyPair KUALI_KEY = Auth.getKeyPair(amazonAccount);
