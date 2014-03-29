@@ -23,7 +23,7 @@ source $MY_DIR/../common/functions.sh
 
 QUIET=$1
 if [ "$QUIET" == "-q" ]; then
-  QUIET="true"
+  QUIET=true
 fi
 
 echo "purge     -> ruby gems"
