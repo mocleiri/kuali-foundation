@@ -224,20 +224,20 @@ $page = 'personnel-assign';
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="uif-stackedCollectionSection uif-boxLayoutVerticalItem clearfix">
-                                        <section id="u128z5dt_line0" class="uif-collectionItem uif-boxCollectionItem" data-parent="LabsProposal-StackedSection">
-                                            <header id="u1n4uf6a_line0" class="uif-header" data-header_for="u128z5dt_line0">
+                                        <section id="u128z5dt_line1" class="uif-collectionItem uif-boxCollectionItem" data-parent="LabsProposal-StackedSection">
+                                            <header id="u1n4uf6a_line0" class="uif-header" data-header_for="u128z5dt_line1">
                                                 <h4 class="uif-headerText">
-                                                    <a data-role="disclosureLink" data-linkfor="u128z5dt_line0_disclosureContent" href="#" id="u128z5dt_line0_toggle" data-open="true" data-widgetid="uu9jpcc_line0" data-speed="500" data-ajax="false">
+                                                    <a data-role="disclosureLink" data-linkfor="u128z5dt_line1_disclosureContent" href="#" id="u128z5dt_line1_toggle" data-open="true" data-widgetid="uu9jpcc_line1" data-speed="500" data-ajax="false">
                                                         <span class="uif-headerText-span">
-                                                            <span id="u128z5dt_line0_toggle_exp" class="icon-caret-down" style="display: inline;"></span>
-                                                            <span style="display: none;" id="u128z5dt_line0_toggle_col" class="icon-caret-right"></span>
+                                                            <span id="u128z5dt_line1_toggle_exp" class="icon-caret-down" style="display: inline;"></span>
+                                                            <span style="display: none;" id="u128z5dt_line1_toggle_col" class="icon-caret-right"></span>
                                                             Object code and group rate configurations
                                                         </span>
                                                     </a>
                                                 </h4>
                                             </header>
-                                            <div id="u128z5dt_line0_disclosureContent" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style="overflow: hidden; display: block;">
-                                                <div id="u8abdmj_line0" class="uif-fieldGroup" data-parent="u128z5dt_line0" data-group="u1fjua60_line0">
+                                            <div id="u128z5dt_line1_disclosureContent" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style="overflow: hidden; display: block;">
+                                                <div id="u8abdmj_line1" class="uif-fieldGroup" data-parent="u128z5dt_line1" data-group="u1fjua60_line1">
                                                     <form action="#" method="#" class="form-inline">
                                                         <table class="table table-condensed">
                                                             <thead>

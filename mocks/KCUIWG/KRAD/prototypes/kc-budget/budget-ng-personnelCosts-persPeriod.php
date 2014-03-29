@@ -1,7 +1,8 @@
 <?php
-$page = 'personnel';
-$section = 'personnel-assign';
+$section = 'personnel';
+$page = 'personnel-assign';
 ?>
+
 <!DOCTYPE HTML>
 <html lang=en>
 <head>

@@ -1,7 +1,8 @@
 <?php
-$page = 'personnel';
-$section = 'personnel-costs';
+$section = 'personnel';
+$page = 'personnel-costs';
 ?>
+
 <!DOCTYPE HTML>
 <html lang=en>
 <head>
@@ -245,6 +246,13 @@ $section = 'personnel-costs';
                                     <td><a href="#" class="btn btn-xs btn-default">edit</a></td>
                                 </tr>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="7">
+                                        <a class="btn btn-default pull-right" href="#">Add more people to this budget</a>
+                                    </td>
+                                </tr>
+                            </tfoot>
                 </table>
                         
                         

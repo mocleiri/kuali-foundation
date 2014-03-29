@@ -308,7 +308,7 @@ $section = '';
                                 </label></td>
                             <td><a class="icon icon-save"><span class="sr-only">Save</span></a></td>
                         </tr>
-                        <tr>
+                        <tr class="uif-new-row">
                             <td><label for="line_5_start"><span class="sr-only">Period start</span>
                                     <input type="text" size="5" name="line_5_start" id="line_5_start" placeholder="mm/dd/yyyy">
                                 </label></td>
