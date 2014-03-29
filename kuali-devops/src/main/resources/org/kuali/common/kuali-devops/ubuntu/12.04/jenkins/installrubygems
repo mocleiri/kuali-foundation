@@ -4,11 +4,10 @@ function install_ks_sambal_gems {
   
   SAMBAL_DIR=/ssd/sambal-trunk
   execute_quietly "svn co https://svn.kuali.org/repos/student/test/functional-automation/sambal/trunk $SAMBAL_DIR"
-  cd $SAMBAL_DIR
-  gem install --no-rdoc --no-ri bundler
-  bundle install
-  cucumber -r features -t @should_not_match_anything .
-  
+  execute_quietly "cd $SAMBAL_DIR"
+  execute_quietly "gem install --no-rdoc --no-ri bundler"
+  execute_quietly "bundle install"
+  execute_quietly "cucumber -r features -t @should_not_match_anything ."
 }
 
 function install_gem {
@@ -47,3 +46,4 @@ HEADLESS_VERSION=1.0.1
 #install_gem watir-webdriver    $WATIR_WEBDRIVER_VERSION
 install_ks_sambal_gems
 
+  
