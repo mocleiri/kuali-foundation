@@ -1,7 +1,9 @@
 #!/bin/bash
 
 function install_ks_sambal_gems {
-  svn co https://svn.kuali.org/repos/student/test/functional-automation/sambal/trunk sambal-trunk
+  
+  execute_quietly "svn co https://svn.kuali.org/repos/student/test/functional-automation/sambal/trunk /ssd/sambal-trunk"
+  
 }
 
 function install_gem {
