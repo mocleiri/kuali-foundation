@@ -1,11 +1,13 @@
 #!/bin/bash
 
 function install_ks_sambal_gems {
+
+  GEM_BUNDLER_VERSION=1.6.0
   
   SAMBAL_DIR=/ssd/sambal-trunk
   execute_quietly "svn co https://svn.kuali.org/repos/student/test/functional-automation/sambal/trunk $SAMBAL_DIR"
   execute_quietly "cd $SAMBAL_DIR"
-  execute_quietly "gem install --no-rdoc --no-ri bundler"
+  execute_quietly "gem install --no-rdoc --no-ri --version $GEM_BUNDLER_VERSION bundler"
   execute_quietly "bundle install"
   execute_quietly "cucumber -r features -t @should_not_match_anything ."
   
