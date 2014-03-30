@@ -4,12 +4,12 @@ function install_ks_sambal_gems {
 
   BUNDLER_VERSION=1.6.0
   
+  echo "install   -> gem :: bundler :: $BUNDLER_VERSION"
+  execute_quietly "gem install --no-rdoc --no-ri --version $BUNDLER_VERSION bundler"
   echo "checkout  -> sambal trunk"
   execute_quietly "svn co https://svn.kuali.org/repos/student/test/functional-automation/sambal/trunk $KS_SAMBAL_DIR"
   execute_quietly "cd $KS_SAMBAL_DIR"
-  echo "install   -> gem :: bundler :: $BUNDLER_VERSION"
-  execute_quietly "gem install --no-rdoc --no-ri --version $BUNDLER_VERSION bundler"
-  echo "install   -> gems"
+  echo "install   -> sambal gems"
   execute_quietly "bundle install"
   
 }
