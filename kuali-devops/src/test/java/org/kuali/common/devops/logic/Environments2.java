@@ -8,13 +8,13 @@ import static com.google.common.collect.Maps.newTreeMap;
 import static java.lang.Math.ceil;
 import static java.lang.Math.max;
 import static java.lang.String.format;
+import static java.util.Collections.sort;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.kuali.common.util.base.Callables.submitCallables;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.io.File;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -233,7 +233,7 @@ public class Environments2 {
 			Environment.Builder builder = getBuilder(group, server, cnames);
 			builders.add(builder);
 		}
-		Collections.sort(builders);
+		sort(builders);
 		return builders;
 	}
 
