@@ -101,10 +101,12 @@ public class DefaultEnvironmentMetadataService implements EnvironmentMetadataSer
 		}
 		Optional<RemoteEnvironment> env = builder.getRemoteEnvironment().getMetadata();
 		if (optionalProject.isPresent()) {
-			Function<Project, Optional<String>> function = new ProjectConfigUrlFragmentFunction(env);
-			Optional<String> suffix = function.apply(optionalProject.get());
-			if (suffix.isPresent()) {
-				builder.config(build(helper, suffix.get(), new RicePropertiesFunction()));
+			Function<Project, Optional<String>> function1 = new ProjectConfigUrlFragmentFunction(env);
+			Function<Project, Optional<String>> function2 = new ProjectConfigUrlFragmentFunction(env, Optional.of("tomcat"));
+			Optional<String> suffix1 = function1.apply(optionalProject.get());
+			Optional<String> suffix2 = function2.apply(optionalProject.get());
+			if (suffix1.isPresent() || suffix2.isPresent()) {
+				builder.config(build(helper, suffix1, suffix2, new RicePropertiesFunction()));
 			} else {
 				builder.configIsAbsent();
 			}
@@ -112,20 +114,26 @@ public class DefaultEnvironmentMetadataService implements EnvironmentMetadataSer
 	}
 
 	public static <T> MetadataUrl<T> build(MetadataUrlHelper helper, Function<String, T> converter) {
-		return build(helper, Optional.<String> absent(), converter);
+		return build(helper, Optional.<String> absent(), Optional.<String> absent(), converter);
 	}
 
-	public static <T> MetadataUrl<T> build(MetadataUrlHelper helper, String suffix, Function<String, T> converter) {
-		return build(helper, Optional.of(suffix), converter);
+	public static <T> MetadataUrl<T> build(MetadataUrlHelper helper, String suffix1, Function<String, T> converter) {
+		return build(helper, Optional.of(suffix1), Optional.<String> absent(), converter);
 	}
 
-	private static <T> MetadataUrl<T> build(MetadataUrlHelper helper, Optional<String> suffix, Function<String, T> converter) {
+	private static <T> MetadataUrl<T> build(MetadataUrlHelper helper, Optional<String> suffix1, Optional<String> suffix2, Function<String, T> converter) {
 		checkNotNull(helper, "helper");
-		checkNotBlank(suffix, "suffix");
+		checkNotBlank(suffix1, "suffix1");
+		checkNotBlank(suffix2, "suffix2");
 		checkNotNull(converter, "converter");
-		String url = helper.prefix + helper.fqdn + (suffix.isPresent() ? suffix.get() : "");
+		String url = helper.prefix + helper.fqdn + (suffix1.isPresent() ? suffix1.get() : "");
 		HttpWaitResult result = helper.urlCache.getUnchecked(url);
 		Optional<String> content = getContent(result);
+		if (!content.isPresent()) {
+			url = helper.prefix + helper.fqdn + (suffix2.isPresent() ? suffix2.get() : "");
+			result = helper.urlCache.getUnchecked(url);
+			content = getContent(result);
+		}
 		Optional<T> metadata = content.isPresent() ? Optional.of(converter.apply(content.get())) : Optional.<T> absent();
 		MetadataUrl.Builder<T> builder = MetadataUrl.builder();
 		return builder.url(url).content(content).converter(converter).metadata(metadata).build();
