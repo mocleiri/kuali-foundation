@@ -10,7 +10,7 @@ jQuery(document).ready(function($) {
      * Requires: table tr td
      */
 
-    $('table tr td .icon-edit').on('click', function() {
+    $('table tr td').on('click', '.icon-edit', function() {
 
         var that = $(this);
         var editable_inputs = that.parent().parent().find('td');
@@ -26,12 +26,12 @@ jQuery(document).ready(function($) {
             }
         });
 
-        that.parent().parent().find('td:last').html('<a href="#" class="icon-save"><span class="sr-only">Save</span></a>');
+        that.parent().parent().find('td:last').html('<a class="icon-save" href="#"><span class="sr-only">Save</span></a>');
         that.parent().parent().addClass('uif-new-row'); // Not working for some reason
 
     });
 
-    $('table tr td .icon-save').on('click', function() {
+    $('table tr td').on('click', '.icon-save', function() {
 
         var that = $(this);
         var editable_inputs = that.parent().parent().find('td');
@@ -49,6 +49,12 @@ jQuery(document).ready(function($) {
 
         that.parent().parent().find('td:last').html('<a href="#" class="icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a>');
         that.parent().parent().removeClass('uif-new-row'); // Not working for some reason
+
+        /*
+         * We also want to total the column, so we'll do that here.
+         */
+
+
 
     });
 
