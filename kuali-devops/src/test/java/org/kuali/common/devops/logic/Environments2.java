@@ -136,7 +136,7 @@ public class Environments2 {
 		informer.start();
 		List<Long> times = submitCallables(callables);
 		informer.stop();
-		long aggregate = newSumListFunction().apply(times);
+		long aggregate = SumListFunction.INSTANCE.apply(times);
 		long elapsed = sw.elapsed(MILLISECONDS);
 		long diff = aggregate - elapsed;
 		Object[] args = { builders.size(), FormatUtils.getTime(elapsed), FormatUtils.getTime(aggregate), FormatUtils.getTime(diff) };
@@ -144,11 +144,9 @@ public class Environments2 {
 		return map;
 	}
 
-	private static SumListFunction newSumListFunction() {
-		return new SumListFunction();
-	}
-
-	private static class SumListFunction implements Function<List<Long>, Long> {
+	// singleton enum pattern
+	private enum SumListFunction implements Function<List<Long>, Long> {
+		INSTANCE;
 
 		@Override
 		public Long apply(List<Long> input) {
