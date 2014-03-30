@@ -3,6 +3,7 @@ package org.kuali.common.devops.logic;
 import static com.google.common.base.Preconditions.checkArgument;
 import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.startsWith;
+import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
@@ -18,7 +19,6 @@ import org.kuali.common.http.service.DefaultHttpService;
 import org.kuali.common.http.service.HttpService;
 import org.kuali.common.util.Encodings;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.base.Exceptions;
 import org.kuali.common.util.file.CanonicalFile;
 import org.slf4j.Logger;
 
@@ -83,7 +83,7 @@ public class HttpCacher {
 				FileUtils.write(file, data.get(), Encodings.UTF8);
 			}
 		} catch (IOException e) {
-			throw Exceptions.illegalState(e, "unexpected io error -> %s", file);
+			throw illegalState(e, "unexpected io error -> %s", file);
 		}
 	}
 
