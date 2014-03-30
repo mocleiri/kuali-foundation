@@ -1,7 +1,10 @@
 package org.kuali.common.devops.logic;
 
+import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Preconditions.checkArgument;
 import static java.lang.String.format;
+import static org.apache.commons.io.FileUtils.forceDelete;
+import static org.apache.commons.io.FileUtils.write;
 import static org.apache.commons.lang3.StringUtils.startsWith;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
@@ -10,7 +13,6 @@ import static org.kuali.common.util.log.Loggers.newLogger;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.commons.io.FileUtils;
 import org.kuali.common.devops.model.FileCache;
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.http.model.HttpStatus;
@@ -50,7 +52,7 @@ public class HttpCacher {
 			String content = LocationUtils.toString(file);
 			return Optional.of(content);
 		} else {
-			return Optional.absent();
+			return absent();
 		}
 	}
 
@@ -67,7 +69,7 @@ public class HttpCacher {
 		if (result.getStatus().equals(HttpStatus.SUCCESS)) {
 			return result.getFinalRequestResult().getResponseBody();
 		} else {
-			return Optional.absent();
+			return absent();
 		}
 	}
 
@@ -76,11 +78,11 @@ public class HttpCacher {
 			if (!data.isPresent()) {
 				logger.debug(format("deleting -> [%s]", file));
 				if (file.exists()) {
-					FileUtils.forceDelete(file);
+					forceDelete(file);
 				}
 			} else {
 				logger.debug(format("creating -> [%s]", file));
-				FileUtils.write(file, data.get(), Encodings.UTF8);
+				write(file, data.get(), Encodings.UTF8);
 			}
 		} catch (IOException e) {
 			throw illegalState(e, "unexpected io error -> %s", file);
