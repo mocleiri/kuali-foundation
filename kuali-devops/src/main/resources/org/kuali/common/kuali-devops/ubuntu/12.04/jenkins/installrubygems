@@ -8,7 +8,7 @@ function install_ks_sambal_gems {
   execute_quietly "svn co https://svn.kuali.org/repos/student/test/functional-automation/sambal/trunk $KS_SAMBAL_DIR"
   execute_quietly "cd $KS_SAMBAL_DIR"
   echo "install   -> gem :: bundler :: $BUNDLER_VERSION"
-  execute_quietly "gem install --include-dependencies --no-rdoc --no-ri --version $BUNDLER_VERSION bundler"
+  execute_quietly "gem install --no-rdoc --no-ri --version $BUNDLER_VERSION bundler"
   echo "install   -> gems"
   execute_quietly "bundle install"
   
