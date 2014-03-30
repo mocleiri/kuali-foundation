@@ -1,6 +1,7 @@
 package org.kuali.common.devops.status;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newHashSet;
 import static com.google.common.collect.Sets.newTreeSet;
 import static java.lang.String.format;
@@ -32,7 +33,6 @@ import org.slf4j.Logger;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Table;
 
 public class EnvironmentsTest {
@@ -106,7 +106,7 @@ public class EnvironmentsTest {
 	}
 
 	protected Map<String, String> getDisplayNames() {
-		Map<String, String> map = Maps.newHashMap();
+		Map<String, String> map = newHashMap();
 		map.put("ole", "OLE");
 		map.put("rice", "Rice");
 		map.put("student", "Student");
