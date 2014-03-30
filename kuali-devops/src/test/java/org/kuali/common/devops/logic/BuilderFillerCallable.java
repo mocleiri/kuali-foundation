@@ -33,7 +33,7 @@ public final class BuilderFillerCallable implements Callable<Long> {
 	public Long call() {
 		Stopwatch sw = createStarted();
 		for (Environment.Builder builder : builders) {
-			logger.info(builder.getFqdn());
+			logger.debug(builder.getFqdn());
 			Environments2.fillIn(builder, service);
 			informer.incrementProgress();
 		}

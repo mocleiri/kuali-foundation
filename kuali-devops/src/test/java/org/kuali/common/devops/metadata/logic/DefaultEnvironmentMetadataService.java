@@ -129,17 +129,14 @@ public class DefaultEnvironmentMetadataService implements EnvironmentMetadataSer
 		checkNotBlank(suffix2, "suffix2");
 		checkNotNull(converter, "converter");
 		String url = helper.prefix + helper.fqdn + (suffix1.isPresent() ? suffix1.get() : "");
-		if (url.equals("http://dev.docstore.ole.kuali.org/home/kuali/main/dev/common-config.xml")) {
-			System.out.println("yo");
-		}
 		Stopwatch sw = Stopwatch.createStarted();
 		HttpWaitResult result = helper.urlCache.getUnchecked(url);
-		logger.info(String.format("[%s] - %s", url, FormatUtils.getTime(sw)));
+		logger.debug(String.format("[%s] - %s", url, FormatUtils.getTime(sw)));
 		Optional<String> content = getContent(result);
-		if (!content.isPresent()) {
+		if (!content.isPresent() && suffix2.isPresent()) {
 			sw = Stopwatch.createStarted();
 			url = helper.prefix + helper.fqdn + (suffix2.isPresent() ? suffix2.get() : "");
-			logger.info(String.format("[%s] - %s", url, FormatUtils.getTime(sw)));
+			logger.debug(String.format("[%s] - %s", url, FormatUtils.getTime(sw)));
 			result = helper.urlCache.getUnchecked(url);
 			content = getContent(result);
 		}
