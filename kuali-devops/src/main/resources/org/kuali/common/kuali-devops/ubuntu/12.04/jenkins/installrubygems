@@ -18,7 +18,7 @@ function install_gem {
   GEM_ARTIFACT_ID=$1
   GEM_VERSION=$2
   echo "install   -> gem $GEM_ARTIFACT_ID :: $GEM_VERSION"    
-  execute_quietly "gem install --no-rdoc --no-ri $GEM_ARTIFACT_ID -v $GEM_VERSION"
+  execute_quietly "gem install --no-rdoc --no-ri $GEM_ARTIFACT_ID --version $GEM_VERSION"
   
 }
 
