@@ -125,7 +125,7 @@ public class Environments2 {
 			map.put(group, elements);
 		}
 		EnvironmentMetadataService service = new DefaultEnvironmentMetadataService();
-		int maxThreads = 8;
+		int maxThreads = 1;
 		int size = (int) max(ceil(builders.size() / (maxThreads * 1D)), 1);
 		List<List<Environment.Builder>> partitions = Lists.partition(builders, size);
 		PercentCompleteInformer informer = new PercentCompleteInformer(builders.size());

@@ -26,12 +26,14 @@ import org.kuali.common.devops.metadata.model.RemoteEnvironment;
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.http.model.HttpRequestResult;
 import org.kuali.common.http.model.HttpWaitResult;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.project.model.Project;
 import org.slf4j.Logger;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
+import com.google.common.base.Stopwatch;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -127,10 +129,17 @@ public class DefaultEnvironmentMetadataService implements EnvironmentMetadataSer
 		checkNotBlank(suffix2, "suffix2");
 		checkNotNull(converter, "converter");
 		String url = helper.prefix + helper.fqdn + (suffix1.isPresent() ? suffix1.get() : "");
+		if (url.equals("http://dev.docstore.ole.kuali.org/home/kuali/main/dev/common-config.xml")) {
+			System.out.println("yo");
+		}
+		Stopwatch sw = Stopwatch.createStarted();
 		HttpWaitResult result = helper.urlCache.getUnchecked(url);
+		logger.info(String.format("[%s] - %s", url, FormatUtils.getTime(sw)));
 		Optional<String> content = getContent(result);
 		if (!content.isPresent()) {
+			sw = Stopwatch.createStarted();
 			url = helper.prefix + helper.fqdn + (suffix2.isPresent() ? suffix2.get() : "");
+			logger.info(String.format("[%s] - %s", url, FormatUtils.getTime(sw)));
 			result = helper.urlCache.getUnchecked(url);
 			content = getContent(result);
 		}
@@ -156,7 +165,7 @@ public class DefaultEnvironmentMetadataService implements EnvironmentMetadataSer
 	 * Grabs the first 25k in content from a URL and stashes it onto the local file system. Times out after 5 seconds, no re-tries.
 	 */
 	protected LoadingCache<String, HttpWaitResult> getFastFileSystemCacher() {
-		HttpContext context = HttpContext.builder().quiet(true).maxBytes("25k").maxRetries(0).overallTimeout("5s").build();
+		HttpContext context = HttpContext.builder().quiet(true).maxBytes("25k").maxRetries(0).requestTimeout("5s").overallTimeout("5s").build();
 		CacheLoader<String, HttpWaitResult> loader = Caches.buildUrlCache(context);
 		return CacheBuilder.newBuilder().build(loader);
 	}

@@ -2,6 +2,7 @@ package org.kuali.common.devops.logic;
 
 import static com.google.common.base.Stopwatch.createStarted;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.util.List;
 import java.util.Set;
@@ -14,6 +15,7 @@ import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import org.kuali.common.devops.metadata.logic.EnvironmentMetadataService;
 import org.kuali.common.devops.model.Environment;
 import org.kuali.common.util.inform.PercentCompleteInformer;
+import org.slf4j.Logger;
 
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
@@ -25,10 +27,13 @@ public final class BuilderFillerCallable implements Callable<Long> {
 	private final EnvironmentMetadataService service;
 	private final PercentCompleteInformer informer;
 
+	private static final Logger logger = newLogger();
+
 	@Override
 	public Long call() {
 		Stopwatch sw = createStarted();
 		for (Environment.Builder builder : builders) {
+			logger.info(builder.getFqdn());
 			Environments2.fillIn(builder, service);
 			informer.incrementProgress();
 		}
