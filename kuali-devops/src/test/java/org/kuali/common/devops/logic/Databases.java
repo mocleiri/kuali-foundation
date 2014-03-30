@@ -1,12 +1,12 @@
 package org.kuali.common.devops.logic;
 
 import static org.kuali.common.util.base.Exceptions.illegalState;
+import static org.kuali.common.util.project.KualiProjectConstants.OLE_GROUP_ID;
 
 import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.devops.model.Database;
-import org.kuali.common.util.project.KualiProjectConstants;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
@@ -19,7 +19,7 @@ public class Databases {
 		if (config.isEmpty()) {
 			return Optional.absent();
 		}
-		if (groupId.equals(KualiProjectConstants.OLE_GROUP_ID)) {
+		if (groupId.equals(OLE_GROUP_ID)) {
 			return Optional.of(getOleDatabase(config));
 		}
 		String username = config.getProperty("datasource.username");
