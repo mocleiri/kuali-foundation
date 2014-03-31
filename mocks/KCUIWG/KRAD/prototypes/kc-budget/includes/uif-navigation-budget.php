@@ -1,10 +1,9 @@
 <nav id="Uif-Navigation">
-    <div id="" class="uif-menuNavigationGroup" >
+    <div id="uif_budget_navigation_menu" class="uif-menuNavigationGroup" >
         <div class="sidebar-collapse"> <span class="icon-angle-left"></span> </div>
         
         <!-- NAVIGATION -->
         <ul class="nav nav-list">
-         
             <li <?php if ($page == 'summary') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="budget-ng-summary.php"><span class="icon-file"></span><span class="uif-innerText">Budget Summary</span></a></li>
             <li <?php if ($page == 'periods-and-totals') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="budget-ng-periods.php"><span class="icon-sort-by-attributes-alt"></span><span class="uif-innerText">Periods &amp; Totals</span></a></li>
             <li <?php if ($page == 'rates') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="budget-ng-rates.php"><span class="icon-tasks"></span><span class="uif-innerText">Rates</span></a></li>

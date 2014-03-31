@@ -139,4 +139,14 @@ jQuery(document).ready(function($) {
 
     });
 
+
+    /*
+     * Sidebar collapse and expand
+     * Requires: krad.variables.js
+     *           krad.widgets.js
+     *           (and jQuery, of course)
+     */
+
+    setupSidebarNavMenu('uif_budget_navigation_menu', 'icon-angle-down', 'icon-angle-right');
+
 });
