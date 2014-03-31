@@ -10,7 +10,11 @@ jQuery(document).ready(function($) {
      * Requires: table tr td
      */
 
-    $('table tr td').on('click', '.icon-edit', function() {
+    $('table tr td').on('click keydown', '.icon-edit', function(e) {
+
+        if(e.keyCode == 13) {
+            $(this).trigger('click');
+        }
 
         var that = $(this);
         var editable_inputs = that.parent().parent().find('td');
@@ -26,12 +30,16 @@ jQuery(document).ready(function($) {
             }
         });
 
-        that.parent().parent().find('td:last').html('<a class="icon-save" href="#"><span class="sr-only">Save</span></a>');
+        that.parent().parent().find('td:last').html('<a tabindex="0" class="icon-save" href="#"><span class="sr-only">Save</span></a>');
         that.parent().parent().addClass('uif-new-row'); // Not working for some reason
 
     });
 
-    $('table tr td').on('click', '.icon-save', function() {
+    $('table tr td').on('click keydown', '.icon-save', function(e) {
+
+        if(e.keyCode == 13) {
+            $(this).trigger('click');
+        }
 
         var that = $(this);
         var editable_inputs = that.parent().parent().find('td');
@@ -47,7 +55,7 @@ jQuery(document).ready(function($) {
             }
         });
 
-        that.parent().parent().find('td:last').html('<a href="#" class="icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a>');
+        that.parent().parent().find('td:last').html('<a tabindex="0" href="#" class="icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a>');
         that.parent().parent().removeClass('uif-new-row'); // Not working for some reason
 
         /*

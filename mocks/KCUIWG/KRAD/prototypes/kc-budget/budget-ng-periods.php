@@ -176,7 +176,7 @@ $section = '';
                         <tr class="uif-new-row">
                             <td>02/01/2014</td>
                             <td>01/31/2015</td>
-                            <td><div class="pull-right">12.0</div></td>
+                            <td class="not-editable"><div class="pull-right">12.0</div></td>
                             <td><label for="line_1_total"><span class="sr-only">Period total</span>
                                     <input type="text" size="3" class="pull-right" name="line_1_total" id="line_1_total">
                                 </label></td>
@@ -198,12 +198,12 @@ $section = '';
                             <td><label for="line_1_direct-limit"><span class="sr-only">Period Direct limit</span>
                                     <input type="text" size="3" class="pull-right" name="line_1_direct-limit" id="line_1_direct-limit">
                                 </label></td>
-                            <td><a class="icon icon-save"><span class="sr-only">Save</span></a></td>
+                            <td><a tabindex="0" class="icon icon-save"><span class="sr-only">Save</span></a></td>
                         </tr>
                         <tr class="uif-new-row">
                             <td>02/01/2015</td>
                             <td>01/31/2016</td>
-                            <td><div class="pull-right">12.0</div></td>
+                            <td class="not-editable"><div class="pull-right">12.0</div></td>
                             <td><label for="line_2_total"><span class="sr-only">Period total</span>
                                     <input type="text" size="3" class="pull-right" name="line_2_total" id="line_2_total">
                                 </label></td>
@@ -225,12 +225,12 @@ $section = '';
                             <td><label for="line_2_direct-limit"><span class="sr-only">Period Direct limit</span>
                                     <input type="text" size="3" class="pull-right" name="line_2_direct-limit" id="line_2_direct-limit">
                                 </label></td>
-                            <td><a class="icon icon-save"><span class="sr-only">Save</span></a></td>
+                            <td><a tabindex="0" class="icon icon-save"><span class="sr-only">Save</span></a></td>
                         </tr>
                         <tr class="uif-new-row">
                             <td>02/01/2016</td>
                             <td>01/31/2017</td>
-                            <td><div class="pull-right">12.0</div></td>
+                            <td class="not-editable"><div class="pull-right">12.0</div></td>
                             <td><label for="line_3_total"><span class="sr-only">Period total</span>
                                     <input type="text" size="3" class="pull-right" name="line_3_total" id="line_3_total">
                                 </label></td>
@@ -252,12 +252,12 @@ $section = '';
                             <td><label for="line_3_direct-limit"><span class="sr-only">Period Direct limit</span>
                                     <input type="text" size="3" class="pull-right" name="line_3_direct-limit" id="line_3_direct-limit">
                                 </label></td>
-                            <td><a class="icon icon-save"><span class="sr-only">Save</span></a></td>
+                            <td><a tabindex="0" class="icon icon-save"><span class="sr-only">Save</span></a></td>
                         </tr>
                         <tr class="uif-new-row">
                             <td>02/01/2017</td>
                             <td>01/31/2018</td>
-                            <td><div class="pull-right">12.0</div></td>
+                            <td class="not-editable"><div class="pull-right">12.0</div></td>
                             <td><label for="line_4_total"><span class="sr-only">Period total</span>
                                     <input type="text" size="3" class="pull-right" name="line_4_total" id="line_4_total">
                                 </label></td>
@@ -279,12 +279,12 @@ $section = '';
                             <td><label for="line_4_direct-limit"><span class="sr-only">Period Direct limit</span>
                                     <input type="text" size="3" class="pull-right" name="line_4_direct-limit" id="line_4_direct-limit">
                                 </label></td>
-                            <td><a class="icon icon-save"><span class="sr-only">Save</span></a></td>
+                            <td><a tabindex="0" class="icon icon-save"><span class="sr-only">Save</span></a></td>
                         </tr>
                         <tr class="uif-new-row">
                             <td>02/01/2018</td>
                             <td>01/31/2019</td>
-                            <td><div class="pull-right">12.0</div></td>
+                            <td class="not-editable"><div class="pull-right">12.0</div></td>
                             <td><label for="line_5_total"><span class="sr-only">Period total</span>
                                     <input type="text" size="3" class="pull-right" name="line_5_total" id="line_5_total">
                                 </label></td>
@@ -306,7 +306,7 @@ $section = '';
                             <td><label for="line_5_direct-limit"><span class="sr-only">Period Direct limit</span>
                                     <input type="text" size="3" class="pull-right" name="line_5_direct-limit" id="line_5_direct-limit">
                                 </label></td>
-                            <td><a class="icon icon-save"><span class="sr-only">Save</span></a></td>
+                            <td><a tabindex="0" class="icon icon-save"><span class="sr-only">Save</span></a></td>
                         </tr>
                         <tr class="uif-new-row">
                             <td><label for="line_5_start"><span class="sr-only">Period start</span>
@@ -337,7 +337,7 @@ $section = '';
                             <td><label for="line_5_direct-limit"><span class="sr-only">Period Direct limit</span>
                                     <input type="text" size="3" class="pull-right" name="line_5_direct-limit" id="line_5_direct-limit">
                                 </label></td>
-                            <td><a class="icon icon-save"><span class="sr-only">Save</span></a></td>
+                            <td><a tabindex="0" class="icon icon-save"><span class="sr-only">Save</span></a></td>
                         </tr>
                     </tbody>
                     <tfoot>
