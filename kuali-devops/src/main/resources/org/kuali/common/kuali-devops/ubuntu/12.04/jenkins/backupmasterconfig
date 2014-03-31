@@ -3,6 +3,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-OUTPUT=$(hmacsha1 "secretkey", "value")
+BASE64=$(base64_encode "value")
+OUTPUT=$(hmacsha1 "secretkey", "$BASE64")
 
 echo "output=[$OUTPUT]"
