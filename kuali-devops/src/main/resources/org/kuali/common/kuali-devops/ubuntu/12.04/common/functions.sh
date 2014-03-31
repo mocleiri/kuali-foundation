@@ -168,5 +168,3 @@ function hmacsha1 {
   echo -n "$VAL" | openssl sha1 -hmac "$KEY" -binary | xxd -p
 }
 
-function base64_encode {
-}
