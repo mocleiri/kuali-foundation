@@ -5,4 +5,4 @@ source $MY_DIR/../common/functions.sh
 
 OUTPUT=$(hash_hmac "sha1" "value" "key")
 
-echo $OUTPUT
+echo "output=[$OUTPUT]"
