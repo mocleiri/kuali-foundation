@@ -165,7 +165,7 @@ function hmacsha1 {
   check_not_blank KEY $KEY
   check_not_blank VAL $VAL
   
-  echo -n "$VAL" | openssl sha1 -hmac "$KEY" -binary | xxd -r -p
+  echo -n "$VAL" | openssl sha1 -hmac "$KEY" -binary | xxd -p
 }
 
 function base64_encode {
