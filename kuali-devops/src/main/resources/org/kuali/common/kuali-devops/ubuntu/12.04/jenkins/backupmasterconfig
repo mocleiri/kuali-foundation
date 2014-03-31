@@ -9,11 +9,11 @@ BASE64_POLICY=$(base64_encode "$POLICY")
 HMACSHA1=$(hmacsha1 "$AWS_SECRET_KEY", "$BASE64_POLICY")
 SIGNATURE=$(hex_to_base64 "$HMACSHA1")
 
-echo "aws_secret_key=$AWS_SECRET_KEY"
+echo "aws_secret_key=[$AWS_SECRET_KEY]"
 echo "policy=$POLICY"
-echo "base64_policy=$BASE64_POLICY"
-echo "hmacsha1=$HMACSHA1"
-echo "signature=$SIGNATURE"
+echo "base64_policy=[$BASE64_POLICY]"
+echo "hmacsha1=[$HMACSHA1]"
+echo "signature=[$SIGNATURE]"
 
 echo $(base64_encode "Man")
 
