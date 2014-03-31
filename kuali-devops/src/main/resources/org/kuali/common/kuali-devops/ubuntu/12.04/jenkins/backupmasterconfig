@@ -17,11 +17,11 @@ echo "signature=$SIGNATURE"
 
 
 curl \
--F "key=external/org/jenkins/master.zip.gpg" \
+-F "key=external/org/jenkins/master.zip" \
 -F "acl=public-read" \
 -F "AWSAccessKeyId=AKIAJFD5IM7IPVVUEBNA" \
 -F "Policy=$BASE64_POLICY" \
 -F "Signature=$SIGNATURE" \
 -F "Content-Type=image/jpeg" \
--F "file=@master.zip.gpg" \
+-F "file=@master.zip" \
 http://maven.kuali.org
