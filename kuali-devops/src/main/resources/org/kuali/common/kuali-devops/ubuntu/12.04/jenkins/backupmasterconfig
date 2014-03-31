@@ -4,7 +4,7 @@ ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
 
-POLICY='{"expiration":"2007-12-01T12:00:00.000Z","conditions":[{"acl":"public-read" },{"bucket": "johnsmith" },["starts-with", "$key", "user/eric/"],["content-length-range", 2048, 20971520]]';
+POLICY='{"expiration":"2021-01-01T12:00:00.000Z","conditions":[{"acl":"public-read" },{"bucket": "maven.kuali.org" },["starts-with", "$key", "external/org/jenkins/master"],["content-length-range", 2048, 2147483648]]';
 BASE64=$(base64_encode "$POLICY")
 OUTPUT=$(hmacsha1 "secretkey", "$BASE64")
 
