@@ -22,10 +22,8 @@ jQuery(document).ready(function($) {
         }
 
         var that = $(this);
-        var row_before_edit = that.parent().parent().clone();
+        var row_before_edit = encodeURI('<tr>' + that.parent().parent().html() + '</tr>');
         var editable_inputs = that.parent().parent().find('td');
-
-        alert(row_before_edit);
 
         editable_inputs.each(function() {
             if ($(this).is(':last-child') || ($(this).hasClass('not-editable'))) {
@@ -60,7 +58,7 @@ jQuery(document).ready(function($) {
         if (that.parent().parent().next().hasClass('uif-edit-append-row')) {
 
         } else {
-            that.parent().parent().after('<tr class="uif-new-row uif-edit-append-row"><td colspan="' + editable_inputs.length + '"><a href="#" class="uif-cancel" data-cancel-object="' + row_before_edit + '">Cancel edit</a></td></tr>');
+            that.parent().parent().after('<tr class="uif-new-row uif-edit-append-row"><td colspan="' + editable_inputs.length + '"><a href="#" class="uif-delete pull-left danger"><span class="icon icon-trash"></span> Delete entry</a><a href="#" class="uif-cancel pull-right" data-cancel-object="' + row_before_edit + '">Cancel edit</a></td></tr>');
         }
 
         that.parent().parent().find('td:last').html('<a tabindex="0" class="icon-save" href="#" data-cancel-object="' + row_before_edit +'"><span class="sr-only">Save</span></a>');
@@ -72,13 +70,18 @@ jQuery(document).ready(function($) {
             $(this).trigger('click');
         }
 
-        $(this).parent().parent().before($(this).data('cancel-object'));
-//        $(this).parent().parent().prev().remove();
+        $(this).parent().parent().after(decodeURI($(this).data('cancel-object')));
+        $(this).parent().parent().prev().remove();
 
         // Removes $this row
         $(this).parent().parent().remove();
 
         return false;
+
+    }).on('click keydown', '.uif-delete', function(e) {
+
+        $(this).parent().parent().prev().fadeOut();
+        $(this).parent().parent().fadeOut();
 
     }).on('click keydown', '.icon-save', function(e) {
 
