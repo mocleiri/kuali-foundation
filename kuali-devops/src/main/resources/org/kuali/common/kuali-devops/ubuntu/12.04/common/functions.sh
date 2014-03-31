@@ -168,3 +168,10 @@ function hmacsha1 {
   echo -n "$VAL" | openssl sha1 -hmac "$KEY" -binary | xxd -p
 }
 
+function base64_encode {
+  VALUE=$1
+
+  check_not_blank VALUE $VALUE
+
+  echo -n "$VALUE" | base64
+}
