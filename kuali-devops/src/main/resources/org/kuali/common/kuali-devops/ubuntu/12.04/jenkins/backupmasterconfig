@@ -22,6 +22,6 @@ curl \
 -F "AWSAccessKeyId=AKIAJFD5IM7IPVVUEBNA" \
 -F "Policy=$BASE64_POLICY" \
 -F "Signature=$SIGNATURE" \
--F "Content-Type=image/jpeg" \
+-F "Content-Type=application/zip" \
 -F "file=@master.zip" \
 http://maven.kuali.org
