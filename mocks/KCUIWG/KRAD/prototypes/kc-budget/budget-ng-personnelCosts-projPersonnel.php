@@ -172,7 +172,7 @@ $page = 'personnel-costs';
                             </thead>
                             <tbody role=alert aria-live=polite aria-relevant=all>
                                 <tr class="uif-new-row">
-                                    <td><span class="uif-text-medium">Ramen Noodle</span> <small class="text-muted">(PI)</small></td>
+                                    <td class="not-editable"><span class="uif-text-medium">Ramen Noodle</span> <small class="text-muted">(PI)</small></td>
                                     <td><div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
                                             <div class="input-group">
                                                 <input id="u11k8c4j_control" type="text" name="field3" value="" size="" class="form-control input-sm uif-textControl has-helper" data-role="Control" data-control_for="u11k8c4j" style="
@@ -206,10 +206,10 @@ $page = 'personnel-costs';
 ">
                                                 <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a> </span> </div>
                                         </div></td>
-                                    <td><a href="#" class="btn btn-xs btn-default">edit</a></td>
+                                    <td><a href="#" class="icon icon-save"><span class="sr-only">Save</span></a></td>
                                 </tr>
                                 <tr class="uif-new-row">
-                                    <td><span class="uif-text-medium">Marie Calendar Noodle</span> <small class="text-muted">(Key Person Research Assistant)</small></td>
+                                    <td class="not-editable"><span class="uif-text-medium">Marie Calendar Noodle</span> <small class="text-muted">(Key Person Research Assistant)</small></td>
                                     <td><div id="u11k8c4j2" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
                                             <div class="input-group">
                                                 <input id="u11k8c4j_control2" type="text" name="u11k8c4j_control" value="" size="" class="form-control input-sm uif-textControl has-helper" data-role="Control" data-control_for="u11k8c4j" style="
@@ -243,7 +243,7 @@ $page = 'personnel-costs';
 ">
                                                 <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act2" class="uif-actionLink icon-calendar" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
                                         </div></td>
-                                    <td><a href="#" class="btn btn-xs btn-default">edit</a></td>
+                                    <td><a href="#" class="icon icon-save"><span class="sr-only">Save</span></a></td>
                                 </tr>
                             </tbody>
                             <tfoot>
