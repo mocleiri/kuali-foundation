@@ -916,7 +916,27 @@ $section = '';
     </div>
 </form>
 <?php include ('includes/footer-scripts.php') ?>
-<!-- Modal -->
+
+
+
+
+
+<!-- MODAL -- budget summary -->
+<?php include ('includes/modal-budget-summary.php') ?>
+<!-- MODAL -- budget settings  -->
+<?php include ('includes/modal-budget-settings.php') ?>
+
+<!-- MODAL -- budget open propsal -->
+<?php include ('includes/modal-budget-open-prop.php') ?>
+
+
+
+
+
+
+
+
+<!-- NO QUOTES
 <div class="modal fade" id="summary" tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true>
     <div class="modal-dialog">
         <div class="modal-content">
@@ -1038,7 +1058,7 @@ $section = '';
                         </tr>
                         <!-- tr>
             <td colspan="5" >Totals</td>
-          </tr> -->
+          </tr> --><!--
                         <tr class="active">
                             <td>Total Costs</td>
                             <td class=""><strong>238546</strong></td>
@@ -1057,7 +1077,11 @@ $section = '';
         </div>
     </div>
 </div>
-<!-- end Modal --><!-- Modal -->
+ -->
+
+<!--NO QUOTES --
+
+
 <div class="modal fade" id="budgetSettings" tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true>
     <div class="modal-dialog">
         <div class="modal-content">
@@ -1163,7 +1187,11 @@ $section = '';
         </div>
     </div>
 </div>
-<!-- end Modal --><!-- Modal -->
+
+Modal -->
+
+
+<!-- NO QUOTES ?
 <div class="modal fade" id="switchdoc" tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true>
     <div class="modal-dialog">
         <div class="modal-content">
@@ -1182,6 +1210,6 @@ $section = '';
         </div>
     </div>
 </div>
-<!-- end Modal -->
+ end Modal -->
 </body>
 </html>
