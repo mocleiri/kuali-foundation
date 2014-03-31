@@ -175,7 +175,7 @@ $section = '';
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> </label></th>
                             </thead>
                             <tbody role=alert aria-live=polite aria-relevant=all>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td>MTDC</td>
                                     <td>No</td>
                                     <td>2008</td>
@@ -184,7 +184,7 @@ $section = '';
                                     <td>0.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td>MTDC</td>
                                     <td>Yes</td>
                                     <td>2008</td>
@@ -193,7 +193,7 @@ $section = '';
                                     <td>48.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td>Materials and Services</td>
                                     <td>No</td>
                                     <td>2002</td>
@@ -202,7 +202,7 @@ $section = '';
                                     <td>10.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td>Materials and Services</td>
                                     <td>Yes</td>
                                     <td>2002</td>
@@ -211,7 +211,7 @@ $section = '';
                                     <td>10.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td>S&amp;W</td>
                                     <td>No</td>
                                     <td>1980</td>
@@ -220,7 +220,7 @@ $section = '';
                                     <td>62.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td>S&amp;W</td>
                                     <td>Yes</td>
                                     <td>1980</td>
@@ -229,7 +229,7 @@ $section = '';
                                     <td>63.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td>Salaries</td>
                                     <td>No</td>
                                     <td>2006</td>
@@ -238,7 +238,7 @@ $section = '';
                                     <td>9.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td>Salaries</td>
                                     <td>Yes</td>
                                     <td>2006</td>
@@ -247,7 +247,7 @@ $section = '';
                                     <td>62.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td>TDC</td>
                                     <td>No</td>
                                     <td>2004</td>
@@ -256,7 +256,7 @@ $section = '';
                                     <td>0.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td>TDC</td>
                                     <td>Yes</td>
                                     <td>2004</td>
@@ -265,7 +265,7 @@ $section = '';
                                     <td>0.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td>MTDC</td>
                                     <td>No</td>
                                     <td>2007</td>
@@ -274,7 +274,7 @@ $section = '';
                                     <td>0.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td>MTDC</td>
                                     <td>Yes</td>
                                     <td>2007</td>
@@ -312,7 +312,7 @@ $section = '';
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Application Rate </label></th>
                                     <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> </label></th>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td>EB on LA</td>
                                     <td>No</td>
                                     <td>2006</td>
@@ -321,7 +321,7 @@ $section = '';
                                     <td>25.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td>EB on LA</td>
                                     <td>Yes</td>
                                     <td>2006</td>
@@ -330,7 +330,7 @@ $section = '';
                                     <td>27.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td>Research Rate</td>
                                     <td>No</td>
                                     <td>2006</td>
@@ -339,7 +339,7 @@ $section = '';
                                     <td>25.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td>Research Rate</td>
                                     <td>Yes</td>
                                     <td>2006</td>
@@ -348,7 +348,7 @@ $section = '';
                                     <td>27.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td>UROP Rate</td>
                                     <td>No</td>
                                     <td>2004</td>
@@ -357,7 +357,7 @@ $section = '';
                                     <td>0.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td>UROP Rate</td>
                                     <td>Yes</td>
                                     <td>2004</td>
@@ -397,7 +397,7 @@ $section = '';
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Application Rate </label></th>
                                     <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> </label></th>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Administrative Salaries (7/1)</td>
                                     <td class="result-table">No</td>
                                     <td class="result-table">2014</td>
@@ -406,7 +406,7 @@ $section = '';
                                     <td class="result-table">3.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Administrative Salaries (7/1)</td>
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2014</td>
@@ -415,7 +415,7 @@ $section = '';
                                     <td class="result-table">3.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Administrative Salaries (7/1)</td>
                                     <td class="result-table">No</td>
                                     <td class="result-table">2015</td>
@@ -424,7 +424,7 @@ $section = '';
                                     <td class="result-table">3.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Administrative Salaries (7/1)</td>
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2015</td>
@@ -433,7 +433,7 @@ $section = '';
                                     <td class="result-table">3.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Faculty Salaries (6/1)</td>
                                     <td class="result-table">No</td>
                                     <td class="result-table">2014</td>
@@ -442,7 +442,7 @@ $section = '';
                                     <td class="result-table">3.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Faculty Salaries (6/1)</td>
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2014</td>
@@ -451,7 +451,7 @@ $section = '';
                                     <td class="result-table">3.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Faculty Salaries (6/1)</td>
                                     <td class="result-table">No</td>
                                     <td class="result-table">2015</td>
@@ -460,7 +460,7 @@ $section = '';
                                     <td class="result-table">3.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Faculty Salaries (6/1)</td>
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2015</td>
@@ -469,7 +469,7 @@ $section = '';
                                     <td class="result-table">3.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Materials and Services</td>
                                     <td class="result-table">No</td>
                                     <td class="result-table">2014</td>
@@ -478,7 +478,7 @@ $section = '';
                                     <td class="result-table">3.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Materials and Services</td>
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2014</td>
@@ -487,7 +487,7 @@ $section = '';
                                     <td class="result-table">3.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Materials and Services</td>
                                     <td class="result-table">No</td>
                                     <td class="result-table">2015</td>
@@ -496,7 +496,7 @@ $section = '';
                                     <td class="result-table">3.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Materials and Services</td>
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2015</td>
@@ -505,7 +505,7 @@ $section = '';
                                     <td class="result-table">3.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Research Staff (1/1)</td>
                                     <td class="result-table">No</td>
                                     <td class="result-table">2014</td>
@@ -514,7 +514,7 @@ $section = '';
                                     <td class="result-table">3.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Research Staff (1/1)</td>
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2014</td>
@@ -523,7 +523,7 @@ $section = '';
                                     <td class="result-table">3.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Research Staff (1/1)</td>
                                     <td class="result-table">No</td>
                                     <td class="result-table">2015</td>
@@ -532,7 +532,7 @@ $section = '';
                                     <td class="result-table">3.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Research Staff (1/1)</td>
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2015</td>
@@ -541,7 +541,7 @@ $section = '';
                                     <td class="result-table">3.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Students (6/1)</td>
                                     <td class="result-table">No</td>
                                     <td class="result-table">2011</td>
@@ -550,7 +550,7 @@ $section = '';
                                     <td class="result-table">3.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Students (6/1)</td>
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2011</td>
@@ -559,7 +559,7 @@ $section = '';
                                     <td class="result-table">3.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Support Staff Salaries (4/1)</td>
                                     <td class="result-table">No</td>
                                     <td class="result-table">2014</td>
@@ -568,7 +568,7 @@ $section = '';
                                     <td class="result-table">3.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Support Staff Salaries (4/1)</td>
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2014</td>
@@ -577,7 +577,7 @@ $section = '';
                                     <td class="result-table">3.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td>MTDC</td>
                                     <td>No</td>
                                     <td>2008</td>
@@ -586,7 +586,7 @@ $section = '';
                                     <td>0.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td>MTDC</td>
                                     <td>Yes</td>
                                     <td>2008</td>
@@ -595,7 +595,7 @@ $section = '';
                                     <td>48.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td>Materials and Services</td>
                                     <td>No</td>
                                     <td>2002</td>
@@ -604,7 +604,7 @@ $section = '';
                                     <td>10.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td>Materials and Services</td>
                                     <td>Yes</td>
                                     <td>2002</td>
@@ -644,7 +644,7 @@ $section = '';
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Application Rate </label></th>
                                     <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> </label></th>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Vacation</td>
                                     <td class="result-table">No</td>
                                     <td class="result-table">2006</td>
@@ -653,7 +653,7 @@ $section = '';
                                     <td class="result-table">10.50</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Vacation</td>
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2006</td>
@@ -662,7 +662,7 @@ $section = '';
                                     <td class="result-table">9.50</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Vacation on LA</td>
                                     <td class="result-table">No</td>
                                     <td class="result-table">2006</td>
@@ -671,7 +671,7 @@ $section = '';
                                     <td class="result-table">8.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Vacation on LA</td>
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2006</td>
@@ -680,7 +680,7 @@ $section = '';
                                     <td class="result-table">8.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Administrative Salaries (7/1)</td>
                                     <td class="result-table">No</td>
                                     <td class="result-table">2014</td>
@@ -720,7 +720,7 @@ $section = '';
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Application Rate </label></th>
                                     <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> </label></th>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Lab Allocation - Salaries</td>
                                     <td class="result-table">No</td>
                                     <td class="result-table">2012</td>
@@ -729,7 +729,7 @@ $section = '';
                                     <td class="result-table">8.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Lab Allocation - Salaries</td>
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2012</td>
@@ -769,7 +769,7 @@ $section = '';
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Application Rate </label></th>
                                     <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> </label></th>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Lab Allocation - Utilities</td>
                                     <td class="result-table">No</td>
                                     <td class="result-table">2005</td>
@@ -778,7 +778,7 @@ $section = '';
                                     <td class="result-table">8.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Lab Allocation - Utilities</td>
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2005</td>
@@ -787,7 +787,7 @@ $section = '';
                                     <td class="result-table">8.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Lab Allocation - M&amp;S</td>
                                     <td class="result-table">No</td>
                                     <td class="result-table">2011</td>
@@ -796,7 +796,7 @@ $section = '';
                                     <td class="result-table">1.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Lab Allocation - M&amp;S</td>
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2011</td>
@@ -805,7 +805,7 @@ $section = '';
                                     <td class="result-table">1.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Lab Allocation - Salaries</td>
                                     <td class="result-table">No</td>
                                     <td class="result-table">2012</td>
@@ -845,7 +845,7 @@ $section = '';
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Application Rate </label></th>
                                     <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> </label></th>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Other</td>
                                     <td class="result-table">No</td>
                                     <td class="result-table">2000</td>
@@ -854,7 +854,7 @@ $section = '';
                                     <td class="result-table">0.00</td>
                                     <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
                                 </tr>
-                                <tr class="">
+                                <tr class="not-deletable">
                                     <td class="result-table">Other</td>
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2000</td>
@@ -966,7 +966,7 @@ $section = '';
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                         </tr>
-                        <tr class="">
+                        <tr class="not-deletable">
                             <td><a href="#"> <span aria-hidden=true class="icon-chevron-right"></span> Salary</a></td>
                             <td>156934</td>
                             <td>156934</td>
@@ -975,7 +975,7 @@ $section = '';
                             <td>156934</td>
                             <td>784670</td>
                         </tr>
-                        <tr class="">
+                        <tr class="not-deletable">
                             <td><a href="#"> <span aria-hidden=true class="icon-chevron-right"></span> Fringe</a></td>
                             <td>37345</td>
                             <td>37345</td>
@@ -984,7 +984,7 @@ $section = '';
                             <td>37345</td>
                             <td>186725</td>
                         </tr>
-                        <tr class="">
+                        <tr class="not-deletable">
                             <td><a href="#"> <span aria-hidden=true class="icon-chevron-right"></span> Calculated Direct Costs</a></td>
                             <td>28284</td>
                             <td>28284</td>
@@ -993,7 +993,7 @@ $section = '';
                             <td>28284</td>
                             <td>141420</td>
                         </tr>
-                        <tr class="">
+                        <tr class="not-deletable">
                             <td>Personnel Subtotal</td>
                             <td><strong>222563</strong></td>
                             <td><strong>222563</strong></td>
@@ -1011,7 +1011,7 @@ $section = '';
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                         </tr>
-                        <tr class="">
+                        <tr class="not-deletable">
                             <td><a href="#"> <span aria-hidden=true class="icon-chevron-right"></span> Calculated Direct Costs</a></td>
                             <td>38546</td>
                             <td>38546</td>
@@ -1020,7 +1020,7 @@ $section = '';
                             <td>38546</td>
                             <td>219348</td>
                         </tr>
-                        <tr class="">
+                        <tr class="not-deletable">
                             <td>Nonpersonnel Subtotal</td>
                             <td><strong>38546</strong></td>
                             <td><strong>38546</strong></td>

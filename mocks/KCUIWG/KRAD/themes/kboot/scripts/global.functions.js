@@ -58,7 +58,22 @@ jQuery(document).ready(function($) {
         if (that.parent().parent().next().hasClass('uif-edit-append-row')) {
 
         } else {
-            that.parent().parent().after('<tr class="uif-new-row uif-edit-append-row"><td colspan="' + editable_inputs.length + '"><a href="#" class="uif-delete pull-left danger"><span class="icon icon-trash"></span> Delete entry</a><a href="#" class="uif-cancel pull-right" data-cancel-object="' + row_before_edit + '">Cancel edit</a></td></tr>');
+
+            var uif_action_row = '<tr class="uif-new-row uif-edit-append-row"><td colspan="' + editable_inputs.length + '">';
+
+            if (that.parent().parent().hasClass('not-deletable')) {
+
+                uif_action_row += '<a href="#" class="uif-cancel pull-right" data-cancel-object="' + row_before_edit + '">Cancel edit</a>';
+
+            } else {
+
+                uif_action_row += '<a href="#" class="uif-delete pull-left danger"><span class="icon icon-trash"></span> Delete entry</a><a href="#" class="uif-cancel pull-right" data-cancel-object="' + row_before_edit + '">Cancel edit</a>';
+
+            }
+
+            uif_action_row +=  '</td></tr>';
+
+            that.parent().parent().after(uif_action_row);
         }
 
         that.parent().parent().find('td:last').html('<a tabindex="0" class="icon-save" href="#" data-cancel-object="' + row_before_edit +'"><span class="sr-only">Save</span></a>');
