@@ -177,5 +177,5 @@ function base64_encode {
 function hex_to_base64 {
   VALUE=$1
   check_not_blank VALUE $VALUE
-  echo -n "$VALUE" | openssl enc -base64
+  echo -n "$VALUE" | xxd -r -p | openssl enc -base64
 }
