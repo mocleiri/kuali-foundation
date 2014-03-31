@@ -14,63 +14,18 @@ jQuery(document).ready(function($) {
      *        2) Get row highlighting for editing
      */
 
-    $('table tr td').on('click keydown', '.icon-save', function(e) {
 
-        if(e.keyCode == 13) {
+    $('table').on('click keydown', '.icon-edit', function(e) {
+
+        if (e.keyCode == 13) {
             $(this).trigger('click');
         }
 
         var that = $(this);
+        var row_before_edit = that.parent().parent().clone();
         var editable_inputs = that.parent().parent().find('td');
 
-        editable_inputs.each(function() {
-            if ($(this).is(':last-child') || ($(this).hasClass('not-editable'))) {
-
-            } else {
-
-                // If it's an input...
-                if ($(this).find('input').length > 0) {
-                    var new_value = '<span data-edit-type="input" data-edit-name="" data-edit-id="">' + $(this).find('input').val() + '</span>';
-                    $(this).html(new_value);
-
-                // If it's a select menu...
-                } else if ($(this).find('select').length > 0) {
-                    var new_value = '<span data-edit-type="select" data-edit-name="" data-edit-id="">' + $(this).find('select option:selected').text() + '</span>';
-                    $(this).html(new_value);
-
-                // If it's a textarea...
-                } else if ($(this).find('textarea').length > 0) {
-                    var new_value = '<span data-edit-type="textarea" data-edit-name="" data-edit-id="">' + $(this).find('textarea').val() + '</span>';
-                    $(this).html(new_value);
-
-                // If it's something else...
-                // Just skip it at this time
-                } else {
-
-                }
-
-            }
-        });
-
-        that.parent().parent().find('td:last').html('<a tabindex="0" href="#" class="icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a>');
-        that.parent().parent().removeClass('uif-new-row'); // Not working for some reason
-
-        /*
-         * We also want to total the column, so we'll do that here.
-         */
-
-        // TODO: Total columns upon clicking 'save' icon
-
-    });
-
-    $('table tr td').on('click keydown', '.icon-edit', function(e) {
-
-        if(e.keyCode == 13) {
-            $(this).trigger('click');
-        }
-
-        var that = $(this);
-        var editable_inputs = that.parent().parent().find('td');
+        alert(row_before_edit);
 
         editable_inputs.each(function() {
             if ($(this).is(':last-child') || ($(this).hasClass('not-editable'))) {
@@ -102,8 +57,82 @@ jQuery(document).ready(function($) {
             }
         });
 
-        that.parent().parent().find('td:last').html('<a tabindex="0" class="icon-save" href="#"><span class="sr-only">Save</span></a>');
+        if (that.parent().parent().next().hasClass('uif-edit-append-row')) {
+
+        } else {
+            that.parent().parent().after('<tr class="uif-new-row uif-edit-append-row"><td colspan="' + editable_inputs.length + '"><a href="#" class="uif-cancel" data-cancel-object="' + row_before_edit + '">Cancel edit</a></td></tr>');
+        }
+
+        that.parent().parent().find('td:last').html('<a tabindex="0" class="icon-save" href="#" data-cancel-object="' + row_before_edit +'"><span class="sr-only">Save</span></a>');
         that.parent().parent().addClass('uif-new-row'); // Not working for some reason
+
+    }).on('click keydown', '.uif-cancel', function(e) {
+
+        if (e.keyCode == 13) {
+            $(this).trigger('click');
+        }
+
+        $(this).parent().parent().before($(this).data('cancel-object'));
+//        $(this).parent().parent().prev().remove();
+
+        // Removes $this row
+        $(this).parent().parent().remove();
+
+        return false;
+
+    }).on('click keydown', '.icon-save', function(e) {
+
+        if (e.keyCode == 13) {
+            $(this).trigger('click');
+        }
+
+        var that = $(this);
+        var editable_inputs = that.parent().parent().find('td');
+
+        editable_inputs.each(function() {
+            if ($(this).is(':last-child') || ($(this).hasClass('not-editable'))) {
+
+            } else {
+
+                // If it's an input...
+                if ($(this).find('input').length > 0) {
+                    var new_value = '<span data-edit-type="input" data-edit-name="" data-edit-id="">' + $(this).find('input').val() + '</span>';
+                    $(this).html(new_value);
+
+                    // If it's a select menu...
+                } else if ($(this).find('select').length > 0) {
+                    var new_value = '<span data-edit-type="select" data-edit-name="" data-edit-id="">' + $(this).find('select option:selected').text() + '</span>';
+                    $(this).html(new_value);
+
+                    // If it's a textarea...
+                } else if ($(this).find('textarea').length > 0) {
+                    var new_value = '<span data-edit-type="textarea" data-edit-name="" data-edit-id="">' + $(this).find('textarea').val() + '</span>';
+                    $(this).html(new_value);
+
+                    // If it's something else...
+                    // Just skip it at this time
+                } else {
+
+                }
+
+            }
+        });
+
+        // Remove cancel row beneath
+        if (that.parent().parent().next().hasClass('uif-edit-append-row')) {
+            that.parent().parent().next().remove();
+        } else {
+
+        }
+
+        that.parent().parent().find('td:last').html('<a tabindex="0" href="#" class="icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a>');
+        that.parent().parent().removeClass('uif-new-row'); // Not working for some reason
+
+        /*
+         * We also want to total the column, so we'll do that here.
+         */
+
+        // TODO: Total columns upon clicking 'save' icon
 
     });
 
