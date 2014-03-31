@@ -3,7 +3,9 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-BASE64=$(base64_encode "value")
+
+POLICY='{"expiration":"2007-12-01T12:00:00.000Z","conditions":[{"acl":"public-read" },{"bucket": "johnsmith" },["starts-with", "$key", "user/eric/"],["content-length-range", 2048, 20971520]]';
+BASE64=$(base64_encode "$POLICY")
 OUTPUT=$(hmacsha1 "secretkey", "$BASE64")
 
 echo "output=[$OUTPUT]"
