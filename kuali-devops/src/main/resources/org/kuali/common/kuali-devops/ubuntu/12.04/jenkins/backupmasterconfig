@@ -16,8 +16,6 @@ echo "base64_policy=[$BASE64_POLICY]"
 echo "hmacsha1=[$HMACSHA1]"
 echo "signature=[$SIGNATURE]"
 
-echo "base64_encode(Man)=$(base64_encode "Man")"
-
 exit 1
 
 curl \
