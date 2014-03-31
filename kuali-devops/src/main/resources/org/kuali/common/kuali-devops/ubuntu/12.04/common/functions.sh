@@ -170,8 +170,12 @@ function hmacsha1 {
 
 function base64_encode {
   VALUE=$1
-
   check_not_blank VALUE $VALUE
-
   echo -n "$VALUE" | base64
+}
+
+function hex_to_base64 {
+  VALUE=$1
+  check_not_blank VALUE $VALUE
+  echo -n "$VALUE" | openssl enc -base64
 }
