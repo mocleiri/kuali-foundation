@@ -95,7 +95,8 @@ jQuery(document).ready(function($) {
                 // If it's something else
                 // Skip it for now
                 } else {
-
+                    var current_value = $(this).text();
+                    $(this).html('<input type="text" class="form-control input-sm" name="' + $(this).find('span').data('edit-name') + '" id="' + $(this).find('span').data('edit-id') + '" value="' + current_value + '" size="3" />');
                 }
 
             }
