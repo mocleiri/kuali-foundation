@@ -15,6 +15,9 @@ echo "base64_policy=$BASE64_POLICY"
 echo "hmacsha1=$HMACSHA1"
 echo "signature=$SIGNATURE"
 
+echo $(base64_encode "Man")
+
+exit 1
 
 curl \
 -F "key=external/org/jenkins/master.zip" \
@@ -25,3 +28,4 @@ curl \
 -F "Content-Type=application/zip" \
 -F "file=@master.zip" \
 http://maven.kuali.org
+
