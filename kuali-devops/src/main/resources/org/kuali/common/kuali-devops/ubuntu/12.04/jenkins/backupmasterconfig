@@ -3,6 +3,6 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-OUTPUT=$(hash_hmac "sha1" "value" "key")
+OUTPUT=$(hmacsha1 "secretkey", "value")
 
 echo "output=[$OUTPUT]"
