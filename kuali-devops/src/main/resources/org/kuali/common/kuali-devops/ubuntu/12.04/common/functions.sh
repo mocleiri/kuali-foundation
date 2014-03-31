@@ -157,3 +157,12 @@ function echo_lines {
     echo "$LINE"
   done < $FILENAME
 }
+
+function hash_hmac {
+  DIGEST="$1"
+  DATA="$2"
+  KEY="$3"
+  shift 3
+  echo -n "$DATA" | openssl dgst "-$DIGEST" -hmac "$KEY" "$@"
+}
+
