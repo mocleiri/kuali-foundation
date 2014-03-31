@@ -5,12 +5,23 @@ source $MY_DIR/../common/functions.sh
 
 
 POLICY='{"expiration":"2021-01-01T12:00:00.000Z","conditions":[{"acl":"public-read" },{"bucket": "maven.kuali.org" },["starts-with", "$key", "external/org/jenkins"],["content-length-range", 2048, 2147483648]]';
-BASE64=$(base64_encode "$POLICY")
-HMACSHA1=$(hmacsha1 "$AWS_SECRET_KEY", "$BASE64")
+BASE64_POLICY=$(base64_encode "$POLICY")
+HMACSHA1=$(hmacsha1 "$AWS_SECRET_KEY", "$BASE64_POLICY")
 SIGNATURE=$(hex_to_base64 "$HMACSHA1")
 
 echo "aws_secret_key=$AWS_SECRET_KEY"
 echo "policy=$POLICY"
-echo "base64=$BASE64"
+echo "base64_policy=$BASE64_POLICY"
 echo "hmacsha1=$HMACSHA1"
 echo "signature=$SIGNATURE"
+
+
+curl \
+-F "key=external/org/jenkins/master.zip.gpg" \
+-F "acl=public-read" \
+-F "AWSAccessKeyId=AKIAJFD5IM7IPVVUEBNA" \
+-F "Policy=$BASE64_POLICY" \
+-F "Signature=$SIGNATURE" \
+-F "Content-Type=image/jpeg" \
+-F "file=@master.zip.gpg" \
+http://maven.kuali.org
