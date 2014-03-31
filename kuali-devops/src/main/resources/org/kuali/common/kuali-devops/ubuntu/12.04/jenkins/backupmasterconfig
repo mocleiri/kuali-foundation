@@ -18,6 +18,8 @@ echo "signature=[$SIGNATURE]"
 
 echo "base64_encode(Man)=$(base64_encode "Man")"
 
+exit 1
+
 curl \
 -F "key=external/org/jenkins/master.zip" \
 -F "acl=public-read" \
