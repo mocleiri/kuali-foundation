@@ -1,19 +1,84 @@
 <?php
-$section = 'asdf';
-$page = 'asdf';
+$page = '';
+$section = 'personnel';
 ?>
+
 <!DOCTYPE HTML>
 
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="robots" content="noindex,nofollow" />
 <title>Kuali :: Fluid Application Header</title>
 <!-- GLOBAL STYLES -->
 <?php include ('includes/styles.php') ?>
+<!-- carousel css -->
+<style type="text/css">
+.infiniteCarousel {
+	max-width: 900px;
+	position: relative;
+	height: 45px;
+}
+.infiniteCarousel .carouselContainer {
+	min-width: 315px;
+	max-width: 850px; /* .infiniteCarousel width - (.carouselContainer margin-left + .carouselContainer margin-right) */
+	overflow: hidden;
+	height: 40px;
+	position: relative;
+	padding: 10px 5px 0;
+	top: 0;
+	left: 24px;
+}
+.infiniteCarousel .carouselContainer ul {
+	width: 9999px;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	top: 0;
+}
+.infiniteCarousel ul li {
+	min-width: 50px;
+	float: left;
+	padding: .5em;
+	;
+	margin: 0 .45em 0 .45em;
+	list-style: none;
+}
+.infiniteCarousel .arrowCarousel {
+	position: absolute;
+	top: -5px;
+	font-size: 2em;
+line-height:0 padding: 0 .25em 0;
+	cursor: pointer;
+	z-index: 10000;
+}
+.infiniteCarousel .forwardCarousel {
+	right: 0;
+}
+.infiniteCarousel .backCarousel {
+	left: 0;
+}
+.infiniteCarousel .forwardCarousel:hover {
+}
+.infiniteCarousel .backCarousel:hover {
+}
+/* is there a generic class in bootstrap to add padding to an element? */
+.pad1em {
+	padding: 1em;
+}
+.margin1em {
+	margin: 1em;
+	border: 3px dotted red;
+}
+/*whitesmoke looks to be a class in the less.js file */
+.whitesmoke {
+	background: #f5f5f5;
+}
+</style>
+
+<!-- // end carousel css -->
 </head>
 
-<body id="Uif-Application" style="padding-bottom: 176px;">
+<body id="Uif-Application" style="padding-bottom: 570px;">
 <!-- APPLICATION HEADER -->
 <header id="Uif-ApplicationHeader-Wrapper" data-sticky="true" class="uif-sticky" style="position:fixed; left: 0; top: 0px;">
     <header id="u1xj79g4" class="uif-applicationHeader">
@@ -79,14 +144,11 @@ $page = 'asdf';
     <div id="LabsProposal" class="clearfix uif-formView" data-role="View" style="margin-top: 75px;"> 
         <!-- BREADCRUMBS --> 
         <!-- VIEW HEADER -->
-        
         <header class="container uif-viewHeader-contentWrapper">
             <div id="ueqbqhn" class="uif-viewHeader" data-header_for="LabsProposal">
                 <h1 class="uif-headerText">
                     <p id="u1p8pc9q" class="uif-viewHeader-areaTitle"> Proposal Budget Development </p>
-                    <span class="uif-headerText-span"> Budget: Version 2</span> <span class="uif-supportTitle-wrapper">
-                    <div id="u1hgnm9q" class="uif-viewHeader-supportTitle" data-parent="ueqbqhn">&lt;something here&gt;</div>
-                    </span> </h1>
+                    <span class="uif-headerText-span"> Budget: Version 2</span> </h1>
                 <div id="LabsProposal-DocInfo" class="uif-verticalBoxGroup uif-header-rightGroup uif-documentInfo" data-parent="LabsProposal">
                     <div id="u1f206ki" class="uif-messageField uif-boxLayoutVerticalItem clearfix" data-label="Initiator">
                         <label id="ujre4xu" for="u7lh763_span" class="uif-label" data-label_for="u1f206ki"> Final Version: </label>
@@ -98,7 +160,7 @@ $page = 'asdf';
                     </div>
                     <div id="u1f206jn" class="uif-messageField uif-boxLayoutVerticalItem clearfix" data-label="Doc Nbr">
                         <label id="uj8x9wj" for="uauh5yk_span" class="uif-label" data-label_for="u1f206jn"> Parent Proposal: </label>
-                        <p id="uauh5yk" class="uif-message"> <a href="prop-basics-details.php">#23533</a></p>
+                        <p id="uauh5yk" class="uif-message"> <a id="uotglr8" class="uif-actionLink"  data-toggle="modal" data-target="#switchdoc">#23533</a></p>
                     </div>
                     <div id="LabsProposal-MoreDocInfo" class="dropdown uif-boxLayoutVerticalItem clearfix"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> more info... </a>
                         <section id="uhlixhs" class="dropdown-menu uif-gridGroup">
@@ -140,36 +202,57 @@ $page = 'asdf';
                     <li> <a id="uotglns" class="uif-actionLink" tabindex="0" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;print&quot;}"><span class="icon-print"></span>Print</a> </li>
                     <li> <a id="uotglon" class="uif-actionLink" tabindex="0" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;copy&quot;}"><span class="icon-copy"></span>Copy</a> </li>
                     <li> <a id="uotglr8" class="uif-actionLink" tabindex="0" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;access&quot;}"><span class="icon-lock"></span>Access</a> </li>
-                    <li> <a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="#budgetSettings"><span class="icon-cog"></span>Budget Settings</a> </li>
+                    <li> <a id="uotglr8" class="uif-actionLink"  data-toggle="modal" data-target="#budgetSettings"><span class="icon-cog"></span>Budget Settings</a> </li>
                     <li> <a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="#summary"><span class="icon-eye"></span>Summary</a> </li>
                 </ul>
             </div>
         </header>
-        
         <!-- VIEW CONTENT -->
         <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper container"> 
             <!-- VIEW NAVIGATION -->
             
-            <div id="Uif-BreadcrumbUpdate" style="display:none;"> </div>
-            <main id="LabsProposal-Page" class="uif-page" data-server_messages="false" data-role="Page" data-parent="LabsProposal" style="">
-                <div class="row">
-                    <div class="col-md-12 text-center" ><br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <p>You have created a new budget version for Proposal #25233. How would you like to proceeed?</p>
+            <?php include ('includes/uif-navigation-budget.php') ?>
+            <div id="Uif-BreadcrumbUpdate" style="display:;"> </div>
+            <main id="LabsProposal-Page" class="uif-page uif-hasLeftNav" data-server_messages="false" data-role="Page" data-parent="LabsProposal" style="margin-left: 235px;">
+                <header class="clearfix uif-header-contentWrapper">
+                    <div class="uif-pageHeader clearfix">
+                        <h2 class="uif-headerText">Budget Actions <span class="uif-headerText-span">Guided Mode</span> <span style="font-size:small">(<a href="#">Exit guided mode</a>)</span> </h2>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 text-right" ><a href="#" class="btn btn-primary btn-lg">Guide me through the steps.</a></div>
-                    <div class="col-md-6 text-left"> <a href="budget-summary.php" class="btn btn-primary btn-lg">I'll go through on my own.</a></div>
+                    <div class="uif-verticalBoxGroup uif-header-lowerGroup"> 
+                        
+                        <!-- carousel -->
+                        <div id="divCarousel" class="infiniteCarousel">
+                            <div class="carouselContainer">
+                                <ul>
+                                    <li>1. <a href="budget-ng-summary.php">Budget Summary</a></li>
+                                    <li>2. <a href="#" >Periods &amp; Totals</a></li>
+                                    <li>3. <a href="#" >Rates </a></li>
+                                    <li>4. Personnel Costs</li>
+                                    <li>5. <a href="#" >Assign Personnel to Periods</a></li>
+                                    <li>6. <a href="#" >Non-Personnel Costs</a></li>
+                                    <li>7. <a href="#" >Subawards</a></li>
+                                    <li>8. <a href="#" >Cost Sharing &amp; Unrecovered F&amp;A</a></li>
+                                    <li>9. <a href="#" >Project Income</a></li>
+                                    <li>10. <a href="#" >Modular</a></li>
+                                    <li>11. <a href="budget-gm-notes.php">Budget Notes</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- // carousel --> 
+                        
+                    </div>
+                </header>
+                <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
+                    <p><strong>Do you need to add addtional personell?</strong></p>
+
+                    <div class="col-md-3"> <a class="btn btn-default" href="#">No</a> </div>
+                    <div class="col-md-3"> <a class="btn btn-default" href="#">Yes</a> </div>
                 </div>
             </main>
         </div>
-        <!-- VIEW FOOTER --> 
-        
+        <!-- VIEW FOOTER -->
+        <div id="u19v7dpm" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;"> </div>
         <!-- DIALOGS/Placeholders --> </div>
     <span id="formInfo">
     <input type="hidden" name="viewId" value="LabsProposal">
@@ -211,122 +294,125 @@ $page = 'asdf';
 </form>
 <?php include ('includes/footer-scripts.php') ?>
 
-<!-- Modal -->
 <!-- MODAL -- budget summary -->
 <?php include ('includes/modal-budget-summary.php') ?>
-<!-- end Modal --> 
+<!-- MODAL -- budget settings  -->
+<?php include ('includes/modal-budget-settings.php') ?>
 
-<!-- Modal -->
-<div class="modal fade" id="budgetSettings" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="myModalLabel">Budget Settings</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Project Start</label>
-                        <div class="col-sm-9">
-                            <p class="form-control-static">10/21/2014</p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Project End</label>
-                        <div class="col-sm-9">
-                            <p class="form-control-static">10/20/2019</p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Total Direct Cost Limit</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Budget Status</label>
-                        <div class="col-sm-9">
-                            <select class="form-control">
-                                <option>Complete</option>
-                                <option>Incomplete</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">On/Off Campus</label>
-                        <div class="col-sm-9">
-                            <select class="form-control">
-                                <option>All On</option>
-                                <option>All Off</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Residual Funds</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Total Cost Limit</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Unrecovered F&amp;A Rate Type</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">F&amp;A Rate Type:</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-9">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox">
-                                    Modular Budget </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-9">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox">
-                                    Submit Cost Sharing </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-9">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox">
-                                    Use for Proposal Submission </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Apply Changes</button>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- MODAL -- budget open propsal -->
+<?php include ('includes/modal-budget-open-prop.php') ?>
 
-<!-- end Modal -->
+<!-- Carousel Script --> 
+<script type="text/javascript">
 
-<div id="jstree-marker" style="display: none;">»</div>
-<div id="jstree-marker-line" style="display: none;"></div>
-<div id="vakata-contextmenu"></div>
+(function($){
+	$.fn.infiniteCarousel = function () {
+		function repeat(str, num) {
+			return new Array( num + 1 ).join( str );
+		}
+		
+		return this.each(function () {
+			var $wrapper = $('> div', this).css('overflow', 'hidden'),
+				$slider = $wrapper.find('> ul'),
+				$items = $slider.find('> li'),
+				$single = $items.filter(':first'),
+				singleWidth = $single.outerWidth(), 
+				currentPage = 1;
+
+			function recalculateAfterResize(){
+				
+				// Reset to the original carousel condition
+				$('.empty', $wrapper).remove();
+				$('.cloned', $wrapper).remove();
+				$items = $slider.find('> li');
+				$wrapper.visible = Math.floor($wrapper.innerWidth() / singleWidth),
+				$wrapper.pages = Math.ceil($items.length / $wrapper.visible);
+				// 1. Pad so that 'visible' number will always be seen, otherwise create empty items
+				if (($items.length % $wrapper.visible) != 0) {
+					$slider.append(repeat('<li class="empty" />', $wrapper.visible - ($items.length % $wrapper.visible)));
+					$items = $slider.find('> li');
+				}
+				// 2. Top and tail the list with 'visible' number of items, top has the last section, and tail has the first
+				$items.filter(':first').before($items.slice(- $wrapper.visible).clone().addClass('cloned'));
+				$items.filter(':last').after($items.slice(0, $wrapper.visible).clone().addClass('cloned'));
+				$items = $slider.find('> li'); // reselect
+				$wrapper.scrollLeft(singleWidth * $wrapper.visible);
+				$($slider).css('width', ($items.length+1) * singleWidth);
+				page = 1;
+			} 
+	
+			
+			$(window).resize(recalculateAfterResize);
+			if($(this).is(':visible')) recalculateAfterResize();
+			
+			// 4. paging function
+			function gotoPage(page) {
+				
+				var dir = page < currentPage ? -1 : 1,
+				n = Math.abs(currentPage - page),
+				left = singleWidth * dir * $wrapper.visible * n;
+				$wrapper.filter(':not(:animated)').animate({
+					scrollLeft : '+=' + left
+				}, 500, function () {
+					if (page == 0) {
+						$wrapper.scrollLeft(singleWidth * $wrapper.visible * $wrapper.pages);
+						page = $wrapper.pages;
+					} else if (page > $wrapper.pages) {
+						$wrapper.scrollLeft(singleWidth * $wrapper.visible);
+						// reset back to start position
+						page = 1;
+					} 
+					
+					currentPage = page;
+				});                
+	
+				return false;
+			}
+
+			function gotoNext(){
+				return gotoPage(currentPage+1);
+			};
+			
+			function gotoPrev(){
+				return gotoPage(currentPage-1);
+			};
+			
+			$wrapper.before('<a class="arrowCarousel backCarousel ">&lsaquo;</a><a class="arrowCarousel forwardCarousel ">&rsaquo;</a>');
+	
+
+			$('a.backCarousel', this).click(function () {
+				return gotoPrev();                
+			});
+	
+			$('a.forwardCarousel', this).click(function () {
+				return gotoNext();
+			});
+	
+			// create a public interface to move to a specific page
+			$(this).bind('goto', function (event, page) {
+				gotoPage(page);
+			});
+		});  
+	};
+
+
+
+
+
+	$('#divCarousel').infiniteCarousel();
+	
+	//set the carousel the last links...
+				//$(".forwardCarousel").trigger('click'); 
+
+
+})(jQuery);
+
+			
+				
+			
+		
+		</script> 
+
+<!-- // Carousel Script -->
 </body>
 </html>

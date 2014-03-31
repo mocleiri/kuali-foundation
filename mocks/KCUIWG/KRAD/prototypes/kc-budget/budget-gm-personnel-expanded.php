@@ -1,6 +1,6 @@
 <?php
-$page = 'actions';
-$section = '';
+$page = '';
+$section = 'personnel';
 ?>
 
 <!DOCTYPE HTML>
