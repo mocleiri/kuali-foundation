@@ -158,10 +158,15 @@ function echo_lines {
   done < $FILENAME
 }
 
-function hash_hmac {
-  DIGEST="$1"
-  DATA="$2"
-  KEY="$3"
-  echo -n "$DATA" | openssl dgst "-$DIGEST" -hmac "$KEY"
+function hmacsha1 {
+  KEY=$1
+  VAL=$2
+  
+  check_not_blank KEY $KEY
+  check_not_blank VAL $VAL
+  
+  echo -n "$VAL" | openssl sha1 -hmac "$KEY" -binary | xxd -p
 }
 
+function base64_encode {
+}
