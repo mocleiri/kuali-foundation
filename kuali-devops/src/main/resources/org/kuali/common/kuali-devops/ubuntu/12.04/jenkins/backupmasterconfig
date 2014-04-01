@@ -9,6 +9,7 @@ function tar_config {
    execute_quietly "rm -rf /ssd/master.*"
    execute_quietly "cd /home/tomcat7"
    execute_quietly "tar -zvcf $TAR_FILE .jenkins --exclude=**/plugins/** --exclude=**/workspace/** --exclude=**/logs/slaves/**"
+   execute_quietly "cd $MY_DIR"
 }
 
 
