@@ -6,9 +6,9 @@ function check_args {
 
 function tar_config {
    echo "tar.gz    -> /home/tomcat7/.jenkins"
-   rm -rf /ssd/master.* /ssd/.jenkins
-   cd /home/tomcat7
-   tar -zcf $TAR_FILE .jenkins --exclude=**/plugins/** --exclude=**/workspace/** --exclude=**/logs/slaves/**
+   execute_quietly "rm -rf /ssd/master.*"
+   execute_quietly "cd /home/tomcat7"
+   execute_quietly "tar -zcf $TAR_FILE .jenkins --exclude=**/plugins/** --exclude=**/workspace/** --exclude=**/logs/slaves/**"
 }
 
 
