@@ -50,6 +50,7 @@ while true; do
     -p|--prefix)
       shift;
       PREFIX="$1";
+      shift;
       ;;
     -t|--type)
       shift;
