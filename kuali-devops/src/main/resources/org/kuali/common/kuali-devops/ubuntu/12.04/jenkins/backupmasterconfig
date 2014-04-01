@@ -25,4 +25,5 @@ TYPE="application/zip"
 FILE=master.zip
 URL=http://maven.kuali.org
 
-curl -F "key=$KEY" -F "acl=$ACL" -F "AWSAccessKeyId=$ACCESS_KEY" -F "Policy=$POLICY" -F "Signature=$SIGNATURE" -F "Content-Type=$TYPE" -F "file=@$FILE" $URL
+#curl -F "key=$KEY" -F "acl=$ACL" -F "AWSAccessKeyId=$ACCESS_KEY" -F "Policy=$POLICY" -F "Signature=$SIGNATURE" -F "Content-Type=$TYPE" -F "file=@$FILE" $URL
+curl -F "key=$KEY" -F "acl=$ACL" -F "AWSAccessKeyId=$ACCESS_KEY" -F "Policy=$POLICY" -F "Signature=$SIGNATURE" -F "file=@$FILE" $URL
