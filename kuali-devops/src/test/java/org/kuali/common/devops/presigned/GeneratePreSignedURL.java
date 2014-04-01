@@ -15,7 +15,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 
-public class CreateBuildSlaveAMI {
+public class GeneratePreSignedURL {
 
 	private static final Logger logger = newLogger();
 
