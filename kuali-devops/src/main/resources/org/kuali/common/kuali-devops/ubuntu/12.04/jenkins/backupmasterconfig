@@ -9,6 +9,8 @@ JSON_POLICY='{"expiration":"2021-01-01T00:00:00.000Z","conditions":[{"acl":"publ
 
 POLICY=$(base64_encode "$JSON_POLICY")
 
+echo $POLICY
+
 exit 1
 
 POLICY=eyJleHBpcmF0aW9uIjoiMjAyMS0wMS0wMVQwMDowMDowMC4wMDBaIiwiY29uZGl0aW9ucyI6W3siYWNsIjoicHVibGljLXJlYWQiIH0seyJidWNrZXQiOiAibWF2ZW4ua3VhbGkub3JnIiB9LFsic3RhcnRzLXdpdGgiLCAiJGtleSIsICJleHRlcm5hbC9vcmcvamVua2lucyJdLFsiY29udGVudC1sZW5ndGgtcmFuZ2UiLCAwLCAyMTQ3NDgzNjQ4XV19
