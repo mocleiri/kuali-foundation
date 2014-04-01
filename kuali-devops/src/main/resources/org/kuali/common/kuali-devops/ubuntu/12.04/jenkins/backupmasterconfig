@@ -20,7 +20,7 @@ SECRET_KEY=$4
 GROUP_ID=org.jenkins
 ARTIFACT_ID=jenkins-master-backup
 CLASSIFIER=$STACK-$TIMESTAMP
-TYPE=zip.gpg
+TYPE=tar.gz.gpg
 
 PREFIX=external
 ACCESS_KEY=AKIAJFD5IM7IPVVUEBNA
