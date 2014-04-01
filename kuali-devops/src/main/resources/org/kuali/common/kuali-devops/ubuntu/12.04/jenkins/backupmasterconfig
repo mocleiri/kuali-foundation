@@ -24,6 +24,12 @@ GPG_PASSPHRASE=$3
 
 check_args
 
+ENCRYPTED=$(encrypt $STACK $GPG_PASSPHRASE)
+
+echo "enc=$ENCRYPTED"
+
+exit 1
+
 GROUP_ID=org.jenkins
 ARTIFACT_ID=jenkins-master-backup
 CLASSIFIER=$STACK-$TIMESTAMP
