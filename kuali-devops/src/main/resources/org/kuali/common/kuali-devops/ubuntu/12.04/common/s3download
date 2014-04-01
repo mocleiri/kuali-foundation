@@ -19,8 +19,7 @@ function string_to_sign {
    local BUCKET=$1
    local KEY=$2
    local EXPIRES=$3
-   local TOKEN=/$BUCKET/$KEY
-   echo -e -n "GET\n\n\n$EXPIRES\n$TOKEN"
+   echo -e -n "GET\n\n\n$EXPIRES\n/$BUCKET/$KEY"
 }
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
