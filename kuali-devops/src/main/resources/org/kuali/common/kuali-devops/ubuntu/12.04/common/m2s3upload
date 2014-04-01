@@ -19,9 +19,7 @@ QUIET=false
 # default is public read
 ACL=public-read
 PREFIX=""
-FILE=$(basename "$FILENAME")
-EXTENSION="${FILE##*.}"
-TYPE=$EXTENSION
+TYPE=""
 CLASSIFIER=""
 
 # anything up to a terabyte is ok
@@ -82,6 +80,12 @@ check_args
 
 # Replace any dots with a forward slash
 GROUP_ID=$(get_path $GROUP_ID)
+
+if [ "$TYPE" == "" ]; then
+  FILE=$(basename "$FILENAME")
+  EXTENSION="${FILE##*.}"
+  TYPE=$EXTENSION
+fi
 
 M2_FILENAME=$($MY_DIR/m2filename $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
 
