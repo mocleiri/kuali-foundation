@@ -13,21 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.plugins.externals;
+package org.kuali.maven.plugins.fusion;
 
 import java.io.File;
 import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.Execute;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
 /**
  * Display svn:externals definitions
  * 
- * @goal show
- * @aggregator
  */
+@Mojo(aggregator=true, name = FusionMavenPluginConstants.SHOW_MOJO)
+@Execute(goal=FusionMavenPluginConstants.SHOW_MOJO)
 public class ShowMojo extends AbstractMojo {
 
 	SVNUtils svnUtils = SVNUtils.getInstance();
@@ -35,9 +39,8 @@ public class ShowMojo extends AbstractMojo {
 	/**
 	 * The Maven project object
 	 * 
-	 * @parameter expression="${project}"
-	 * @readonly
 	 */
+	@Component
 	private MavenProject project;
 
 	/**
@@ -45,18 +48,19 @@ public class ShowMojo extends AbstractMojo {
 	 * 
 	 * @parameter expression="${externals.directory}" default-value="${project.basedir}"
 	 */
+	@Parameter(property="fusion.directory", defaultValue="project.basedir")
 	private File directory;
 
 	@Override
 	public void execute() throws MojoExecutionException {
 		getLog().info("Examining " + directory.getAbsolutePath());
 		// Extract svn:externals info from the root of the checkout
-		List<SVNExternal> externals = svnUtils.getExternals(directory);
-		getLog().info("Located " + externals.size() + " svn:externals");
-		int count = 1;
-		for (SVNExternal external : externals) {
-			getLog().info(" " + (count++) + "   " + external.getPath() + " " + external.getUrl());
-		}
+//		List<SVNExternal> externals = svnUtils.getExternals(directory);
+//		getLog().info("Located " + externals.size() + " svn:externals");
+//		int count = 1;
+//		for (SVNExternal external : externals) {
+//			getLog().info(" " + (count++) + "   " + external.getPath() + " " + external.getUrl());
+//		}
 	}
 
 	public MavenProject getProject() {

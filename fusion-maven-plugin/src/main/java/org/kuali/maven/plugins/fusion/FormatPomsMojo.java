@@ -13,21 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.plugins.externals;
+package org.kuali.maven.plugins.fusion;
 
 import java.io.File;
 import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.Execute;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
 /**
  * Recursively examine the file system for Maven poms starting at <code>basedir</code>. Any pom.xml files located have formatting applied to them.
  * 
- * @goal formatpoms
- * @aggregator
  */
+@Mojo(name="formatpoms", aggregator=true)
+@Execute(goal="formatpoms")
 public class FormatPomsMojo extends AbstractMojo {
 
 	MojoHelper helper = MojoHelper.getInstance(this);
@@ -36,30 +40,29 @@ public class FormatPomsMojo extends AbstractMojo {
 	/**
 	 * The filename to include when examining the file system for Maven pom's
 	 * 
-	 * @parameter expression="${externals.pom}" default-value="pom.xml"
 	 */
+	@Parameter(property=FusionMavenPluginConstants.FUSION_POM, defaultValue=FusionMavenPluginConstants.FUSION_POM_DEFAULT)
 	private String pom;
 
 	/**
 	 * Directories to ignore when examining the file system
 	 * 
-	 * @parameter expression="${externals.ignoreDirectories}" default-value="src,target,overlays,.svn,.git"
 	 */
+	@Parameter(property=FusionMavenPluginConstants.FUSION_IGNORE_DIRS, defaultValue=FusionMavenPluginConstants.FUSION_IGNORE_DIRS_DEFAULT)
 	private String ignoreDirectories;
 
 	/**
 	 * The base directory that is recursively scanned for Maven pom's
 	 * 
-	 * @parameter expression="${externals.basedir}" default-value="${project.basedir}"
 	 */
+	@Parameter(property="fusion.basedir", defaultValue="project.basedir")
 	private File basedir;
 
 	/**
 	 * The Maven project object
 	 * 
-	 * @parameter expression="${project}"
-	 * @readonly
 	 */
+	@Component
 	private MavenProject project;
 
 	@Override

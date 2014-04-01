@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.plugins.externals;
+package org.kuali.maven.plugins.fusion;
 
 import java.io.File;
 import java.util.List;
@@ -23,14 +23,19 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.Execute;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
 /**
  * Make sure the aggregate checkout is "self-contained". Make sure the parent versions of the svn:externals modules point back to the correct root pom. Make sure the properties
  * used to figure out which version of the child modules to use, actually match up with the versions declared in the child modules.
  * 
- * @goal validatepoms
  */
+@Mojo(name="validatepoms")
+@Execute(goal="validatepoms")
 public class ValidatePomsMojo extends AbstractMojo {
 
 	SVNUtils svnUtils = SVNUtils.getInstance();
@@ -39,30 +44,29 @@ public class ValidatePomsMojo extends AbstractMojo {
 	/**
 	 * Filename pattern used to discover Maven pom's
 	 * 
-	 * @parameter expression="${externals.pom}" default-value="pom.xml"
 	 */
+	@Parameter(property=FusionMavenPluginConstants.FUSION_POM, defaultValue=FusionMavenPluginConstants.FUSION_POM_DEFAULT)
 	private String pom;
 
 	/**
 	 * Directories to ignore when examining the file system for Maven pom's
 	 * 
-	 * @parameter expression="${externals.ignoreDirectories}" default-value="src,target,overlays,.svn,.git"
 	 */
+	@Parameter(property=FusionMavenPluginConstants.FUSION_IGNORE_DIRS, defaultValue=FusionMavenPluginConstants.FUSION_IGNORE_DIRS_DEFAULT)
 	private String ignoreDirectories;
 
 	/**
 	 * The Maven project object
 	 * 
-	 * @parameter expression="${project}"
-	 * @readonly
 	 */
+	@Component
 	private MavenProject project;
 
 	/**
 	 * These mappings connect the svn:externals definitions with a property inside the root pom that controls what version each external is set to
 	 * 
-	 * @parameter
 	 */
+	@Parameter
 	private List<Mapping> mappings;
 
 	@Override

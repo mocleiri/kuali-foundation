@@ -13,17 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.plugins.externals;
+package org.kuali.maven.plugins.fusion;
 
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Execute;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.kuali.common.util.maven.MavenConstants;
 
 /**
  * Perform a release of a multi-module Maven project that contains svn:externals. The release process creates a separate tag for each module
  * defined as an svn:external after trimming SNAPSHOT off the version number. It then increments the version number in the root poms and
  * re-appends the SNAPSHOT qualifier before committing the altered poms.
  *
- * @goal release
  */
+@Mojo (name=FusionMavenPluginConstants.RELEASE_MOJO, threadSafe=true)
+@Execute (goal=FusionMavenPluginConstants.RELEASE_MOJO)
 public class ReleaseMojo extends AbstractTagMojo {
 
 	@Override

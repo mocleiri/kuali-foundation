@@ -13,9 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.plugins.externals;
+package org.kuali.maven.plugins.fusion;
 
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Execute;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 
 /**
  * Connect svn:externals definitions with a multi-module Maven build in an intelligent manner. This mojo creates a tag from a Subversion
@@ -23,15 +26,16 @@ import org.apache.maven.plugin.MojoExecutionException;
  * to reflect the current build. This allows the tag to be used to create reproducible builds. The binaries Maven produces off the tag,
  * correspond exactly to the version numbers in the Maven pom's.
  * 
- * @goal tag
  */
+@Mojo(name=FusionMavenPluginConstants.TAG_MOJO)
+@Execute(goal=FusionMavenPluginConstants.TAG_MOJO)
 public class TagMojo extends AbstractTagMojo {
 
 	/**
 	 * Either <code>BUILDNUMBER</code>, <code>REVISION</code>, or <code>RELEASE</code>
 	 * 
-	 * @parameter expression="${externals.tagStyle}" default-value="BUILDNUMBER"
 	 */
+	@Parameter (property="fusion.tagStyle", defaultValue="BUILDNUMBER")
 	private TagStyle tagStyle;
 
 	@Override

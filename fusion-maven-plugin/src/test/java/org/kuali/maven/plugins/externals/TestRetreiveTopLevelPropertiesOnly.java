@@ -21,6 +21,8 @@ import java.net.URL;
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Test;
+import org.kuali.maven.plugins.fusion.MojoHelper;
+import org.kuali.maven.plugins.fusion.POMUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;

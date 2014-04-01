@@ -26,11 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.tmatesoft.svn.core.SVNCommitInfo;
-import org.tmatesoft.svn.core.SVNException;
-import org.tmatesoft.svn.core.SVNURL;
-import org.tmatesoft.svn.core.internal.io.svn.SVNRepositoryFactoryImpl;
-import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
+import org.eclipse.jgit.lib.Repository;
+import org.kuali.maven.plugins.fusion.MojoHelper;
+import org.kuali.maven.plugins.fusion.SVNExternal;
+import org.kuali.student.git.model.GitRepositoryUtils;
 
 /**
  * 
@@ -40,7 +39,7 @@ import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
  * @author ocleirig
  *
  */
-public class SubversionTestRepositoryUtils {
+public class GitTestRepositoryUtils {
 
 	private static final String MAIN_WC = "main-wc";
 
@@ -52,7 +51,7 @@ public class SubversionTestRepositoryUtils {
 	/**
 	 * 
 	 */
-	private SubversionTestRepositoryUtils() {
+	private GitTestRepositoryUtils() {
 		
 	}
 	private static File getRepositoryFile (String repositoryName) {
@@ -69,9 +68,9 @@ public class SubversionTestRepositoryUtils {
 	 * @return
 	 * @throws SVNException
 	 */
-	public static SVNURL createRepository (String repositoryName) throws SVNException {
+	public static Repository createRepository (String repositoryName) throws IOException {
 
-	      return SVNRepositoryFactory.createLocalRepository(getRepositoryFile(repositoryName), true , true );
+	      return GitRepositoryUtils.buildFileRepository(getRepositoryFile(repositoryName), true , false);
 	}
 	
 	/**
@@ -142,9 +141,9 @@ public class SubversionTestRepositoryUtils {
 		// create the module 2 pom
 		createModulePomFile (new File (new File (workingCopy, "module2"), "trunk"), "module2", "2.0.0-FR1-SNAPSHOT", "1.0.0-FR1-SNAPSHOT");
 		
-		SVNUtils.getInstance().addFiles(new File (workingCopy, "aggregate"), null, null);
-		SVNUtils.getInstance().addFiles(new File (workingCopy, "module1"), null, null);
-		SVNUtils.getInstance().addFiles(new File (workingCopy, "module2"), null, null);
+//		SVNUtils.getInstance().addFiles(new File (workingCopy, "aggregate"), null, null);
+//		SVNUtils.getInstance().addFiles(new File (workingCopy, "module1"), null, null);
+//		SVNUtils.getInstance().addFiles(new File (workingCopy, "module2"), null, null);
 		
 		
 		List<SVNExternal> externals = new ArrayList<SVNExternal>();
@@ -152,9 +151,9 @@ public class SubversionTestRepositoryUtils {
 		externals.add(new SVNExternal("file://" + getRepositoryPath(repositoryName, "/module1/trunk"), "module1", null));
 		externals.add(new SVNExternal("file://" + getRepositoryPath(repositoryName, "/module2/trunk"), "module2", null));
 		
-		SVNCommitInfo commitInfo = SVNUtils.getInstance().commit(workingCopy, "initial commit", null, null);
-		
-		commitInfo = SVNUtils.getInstance().setExternals(getRepositoryPath(repositoryName, "/aggregate/trunk"), externals);
+//		SVNCommitInfo commitInfo = SVNUtils.getInstance().commit(workingCopy, "initial commit", null, null);
+//		
+//		commitInfo = SVNUtils.getInstance().setExternals(getRepositoryPath(repositoryName, "/aggregate/trunk"), externals);
 		
 		// clean up the working copy
 		deleteRepositoryWorkingCopy(repositoryName, MAIN_WC);
@@ -314,7 +313,7 @@ public class SubversionTestRepositoryUtils {
 		
 		String repoPath = getRepositoryPath(repositoryName, repositorySubPath);
 		
-		long rev = SVNUtils.getInstance().checkout(repoPath, workingCopy, null, null);
+//		long rev = SVNUtils.getInstance().checkout(repoPath, workingCopy, null, null);
 		
 		return workingCopy;
 	}

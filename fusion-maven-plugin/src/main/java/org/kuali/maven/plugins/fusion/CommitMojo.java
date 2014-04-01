@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.plugins.externals;
+package org.kuali.maven.plugins.fusion;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -21,15 +21,18 @@ import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.Execute;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-import org.tmatesoft.svn.core.SVNCommitInfo;
 
 /**
  * Examine the local working copy of a project for any svn:externals definitions. Commit any local changes including any changes under the svn:externals directories.
  * 
- * @goal commit
- * @aggregator
  */
+@Mojo(aggregator=true, name=FusionMavenPluginConstants.COMMIT_MOJO)
+@Execute(goal=FusionMavenPluginConstants.COMMIT_MOJO)
 public class CommitMojo extends AbstractMojo {
 
 	SVNUtils svnUtils = SVNUtils.getInstance();
@@ -37,16 +40,15 @@ public class CommitMojo extends AbstractMojo {
 	/**
 	 * The message to associate with the commit
 	 * 
-	 * @parameter expression="${externals.commitMessage}" default-value="[externals-maven-plugin] Commit changes"
 	 */
+	@Parameter(property="fusion.commitMessage", defaultValue="[externals-maven-plugin] Commit changes")
 	private String commitMessage;
 
 	/**
 	 * The Maven project object
 	 * 
-	 * @parameter expression="${project}"
-	 * @readonly
 	 */
+	@Component
 	private MavenProject project;
 
 	/**
@@ -54,32 +56,35 @@ public class CommitMojo extends AbstractMojo {
 	 * 
 	 * @parameter expression="${externals.workingCopy}" default-value="${project.basedir}"
 	 */
+	@Parameter(property="fusion.workingCopy", defaultValue="project.basedir")
 	private File workingCopy;
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		List<File> dirs = new ArrayList<File>();
-		dirs.add(workingCopy);
-		List<SVNExternal> externals = svnUtils.getExternals(workingCopy);
-		for (SVNExternal external : externals) {
-			File dir = new File(workingCopy.getAbsolutePath() + File.separator + external.getPath());
-			if (!dir.exists()) {
-				getLog().warn(dir.getAbsolutePath() + " does not exist");
-			} else {
-				dirs.add(dir);
-			}
-		}
-		getLog().info("Committing changes in:");
-		for (File dir : dirs) {
-			getLog().info(dir.getAbsolutePath());
-		}
-		SVNCommitInfo info = svnUtils.commit(dirs, commitMessage, null, null);
-		long newRevision = info.getNewRevision();
-		if (newRevision == -1) {
-			getLog().info("No changes detected.");
-		} else {
-			getLog().info("Committed revision " + info.getNewRevision() + ".");
-		}
+		
+		getLog().info("test");
+//		List<File> dirs = new ArrayList<File>();
+//		dirs.add(workingCopy);
+//		List<SVNExternal> externals = svnUtils.getExternals(workingCopy);
+//		for (SVNExternal external : externals) {
+//			File dir = new File(workingCopy.getAbsolutePath() + File.separator + external.getPath());
+//			if (!dir.exists()) {
+//				getLog().warn(dir.getAbsolutePath() + " does not exist");
+//			} else {
+//				dirs.add(dir);
+//			}
+//		}
+//		getLog().info("Committing changes in:");
+//		for (File dir : dirs) {
+//			getLog().info(dir.getAbsolutePath());
+//		}
+//		SVNCommitInfo info = svnUtils.commit(dirs, commitMessage, null, null);
+//		long newRevision = info.getNewRevision();
+//		if (newRevision == -1) {
+//			getLog().info("No changes detected.");
+//		} else {
+//			getLog().info("Committed revision " + info.getNewRevision() + ".");
+//		}
 	}
 
 	public String getCommitMessage() {

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.plugins.externals;
+package org.kuali.maven.plugins.fusion;
 
 import static org.apache.commons.io.filefilter.FileFilterUtils.and;
 import static org.apache.commons.io.filefilter.FileFilterUtils.directoryFileFilter;
@@ -37,19 +37,15 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
-import org.apache.commons.lang.StringUtils;
-import org.apache.maven.plugin.AbstractMojo;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.Mojo;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.Version;
 import org.kuali.common.util.VersionUtils;
-import org.kuali.maven.common.Extractor;
-import org.kuali.maven.common.PropertiesUtils;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.tmatesoft.svn.core.SVNCommitInfo;
 
 public class MojoHelper {
 	
@@ -64,8 +60,8 @@ public class MojoHelper {
 	
 	SVNUtils svnUtils = SVNUtils.getInstance();
 	POMUtils pomUtils = new POMUtils();
-	Extractor extractor = new Extractor();
-	PropertiesUtils propertiesUtils = new PropertiesUtils();
+//	Extractor extractor = new Extractor();
+//	PropertiesUtils propertiesUtils = new PropertiesUtils();
 	NumberFormat nf = NumberFormat.getInstance();
 	private final Log logger;
 
@@ -96,9 +92,9 @@ public class MojoHelper {
 		updateProperties(node, mojo.getProject().getProperties(), mojo.getMappings());
 		updateXml(node);
 		writePoms(node, mojo.getProject().getBasedir());
-		List<SVNExternal> externals = svnUtils.getExternals(mojo.getProject().getBasedir());
+//		List<SVNExternal> externals = svnUtils.getExternals(mojo.getProject().getBasedir());
 		logger.info("Committing pom changes");
-		commitChanges(mojo.getProject().getBasedir(), externals, "[externals-maven-plugin] prepare for next development iteration");
+		commitChanges(mojo.getProject().getBasedir(), null, "[externals-maven-plugin] prepare for next development iteration");
 	}
 
 	protected List<DefaultMutableTreeNode> getChildren(DefaultMutableTreeNode node) {
@@ -148,10 +144,10 @@ public class MojoHelper {
 		DefaultMutableTreeNode node = getTree(mojo.getProject().getBasedir(), nodes, mojo.getPom());
 
 		// Extract svn:externals info from the root of the checkout
-		List<SVNExternal> externals = svnUtils.getExternals(mojo.getProject().getBasedir());
+//		List<SVNExternal> externals = svnUtils.getExternals(mojo.getProject().getBasedir());
 
 		// Make sure the modules listed in the pom match the svn:externals definitions and the mappings provided in the plugin config
-		validate(mojo.getProject(), externals, mojo.getMappings());
+		validate(mojo.getProject(), null, mojo.getMappings());
 
 		// Calculate the build tag for the root
 		BuildTag rootTag = getBuildTag(mojo.getProject().getBasedir(), gav, mojo.getTagStyle(), buildNumber);
@@ -160,7 +156,7 @@ public class MojoHelper {
 		updateBuildInfo(node, rootTag, mojo.getTagStyle(), buildNumber);
 
 		// Calculate build tags for each module
-		List<BuildTag> moduleTags = getBuildTags(mojo.getProject().getProperties(), externals, mojo.getMappings(), mojo.getTagStyle(), buildNumber);
+		List<BuildTag> moduleTags = getBuildTags(mojo.getProject().getProperties(), null, mojo.getMappings(), mojo.getTagStyle(), buildNumber);
 
 		// Update build information for nodes that represent an svn:external
 		updateBuildInfo(nodes, moduleTags, mojo.getMappings(), mojo.getTagStyle(), buildNumber);
@@ -181,37 +177,37 @@ public class MojoHelper {
 		List<SVNExternal> newExternals = getExternals(moduleTags, mojo.getMappings());
 
 		// Create the module tags
-		createTags(moduleTags, mojo.getCreateTagMessage());
-
-		// Create the root tag
-		createTag(rootTag, mojo.getCreateTagMessage());
-
-		// The directory the tag was checked out to
-		File checkoutDir = mojo.getCheckoutDir();
+//		createTags(moduleTags, mojo.getCreateTagMessage());
+//
+//		// Create the root tag
+//		createTag(rootTag, mojo.getCreateTagMessage());
+//
+//		// The directory the tag was checked out to
+//		File checkoutDir = mojo.getCheckoutDir();
 
 		// Update svn:externals definitions on the root tag so they point to the new module tags
-		SVNCommitInfo info = svnUtils.setExternals(rootTag.getTagUrl(), newExternals, mojo.getExternalsMessage());
-		logger.info("Set " + newExternals.size() + " externals @ " + rootTag.getTagUrl());
-		logger.info("Committed revision " + info.getNewRevision() + ".");
-		logger.info("Checking out - " + rootTag.getTagUrl());
-		logger.info("Checkout dir - " + checkoutDir.getAbsolutePath());
-		if (checkoutDir.exists()) {
-			logger.info("Deleting " + checkoutDir.getAbsolutePath());
-			deleteDirectory(checkoutDir);
-		}
-		long start = System.currentTimeMillis();
-		long revision = svnUtils.checkout(rootTag.getTagUrl(), checkoutDir, null, null);
-		logTime("Total checkout time: ", System.currentTimeMillis() - start);
-		logger.info("Checked out revision " + revision + ".");
+//		SVNCommitInfo info = svnUtils.setExternals(rootTag.getTagUrl(), newExternals, mojo.getExternalsMessage());
+//		logger.info("Set " + newExternals.size() + " externals @ " + rootTag.getTagUrl());
+//		logger.info("Committed revision " + info.getNewRevision() + ".");
+//		logger.info("Checking out - " + rootTag.getTagUrl());
+//		logger.info("Checkout dir - " + checkoutDir.getAbsolutePath());
+//		if (checkoutDir.exists()) {
+//			logger.info("Deleting " + checkoutDir.getAbsolutePath());
+//			deleteDirectory(checkoutDir);
+//		}
+//		long start = System.currentTimeMillis();
+//		long revision = svnUtils.checkout(rootTag.getTagUrl(), checkoutDir, null, null);
+//		logTime("Total checkout time: ", System.currentTimeMillis() - start);
+//		logger.info("Checked out revision " + revision + ".");
 
 		// Update the poms in the directory where the tag has been checked out
-		writePoms(node, mojo.getProject().getBasedir(), checkoutDir);
-
-		// Update the svn.externals file in the tag
-		updateExternalsFile(newExternals, mojo.getFile());
-
-		// Commit the changes to the tag
-		commitChanges(checkoutDir, newExternals, mojo.getUpdateTagMessage());
+//		writePoms(node, mojo.getProject().getBasedir(), checkoutDir);
+//
+//		// Update the svn.externals file in the tag
+//		updateExternalsFile(newExternals, mojo.getFile());
+//
+//		// Commit the changes to the tag
+//		commitChanges(checkoutDir, newExternals, mojo.getUpdateTagMessage());
 	}
 
 	public GAV getGav(MavenProject project) {
@@ -419,9 +415,9 @@ public class MojoHelper {
 				logger.info("Skip existing tag [" + dst + "]");
 				buildTag.setSkipped(true);
 			} else {
-				SVNCommitInfo info = svnUtils.copy(src, revision, dst, message);
+//				SVNCommitInfo info = svnUtils.copy(src, revision, dst, message);
 				logger.info("Created [" + dst + "]");
-				logger.debug("Comitted revision " + info.getNewRevision());
+//				logger.debug("Comitted revision " + info.getNewRevision());
 			}
 		}
 	}
@@ -446,8 +442,8 @@ public class MojoHelper {
 			workingCopyPaths.add(new File(path));
 		}
 		File[] commitDirs = workingCopyPaths.toArray(new File[workingCopyPaths.size()]);
-		SVNCommitInfo info = svnUtils.commit(commitDirs, msg, null, null);
-		logger.info("Committed revision " + info.getNewRevision() + ".");
+//		SVNCommitInfo info = svnUtils.commit(commitDirs, msg, null, null);
+//		logger.info("Committed revision " + info.getNewRevision() + ".");
 	}
 
 	public void logTime(String msg, long elapsed) {
@@ -741,31 +737,33 @@ public class MojoHelper {
 	}
 
 	public BuildTag getBuildTag(File workingCopy, GAV gav, TagStyle tagStyle, int buildNumber) {
-		String sourceUrl = svnUtils.getUrl(workingCopy);
-		long sourceRevision = svnUtils.getLastRevision(workingCopy);
-		String version = gav.getVersion();
-
-		String tag = getTag(sourceUrl, version, gav.getArtifactId(), buildNumber, sourceRevision, tagStyle);
-
-		BuildTag buildTag = new BuildTag();
-		buildTag.setSourceUrl(sourceUrl);
-		buildTag.setSourceRevision(sourceRevision);
-		buildTag.setTagUrl(tag);
-		return buildTag;
+//		String sourceUrl = svnUtils.getUrl(workingCopy);
+//		long sourceRevision = svnUtils.getLastRevision(workingCopy);
+//		String version = gav.getVersion();
+//
+//		String tag = getTag(sourceUrl, version, gav.getArtifactId(), buildNumber, sourceRevision, tagStyle);
+//
+//		BuildTag buildTag = new BuildTag();
+//		buildTag.setSourceUrl(sourceUrl);
+//		buildTag.setSourceRevision(sourceRevision);
+//		buildTag.setTagUrl(tag);
+//		return buildTag;
+		return null;
 	}
 
 	public BuildTag getBuildTag(Properties properties, SVNExternal external, Mapping mapping, TagStyle tagStyle, int buildNumber) {
-		File workingCopy = external.getWorkingCopyPath();
-		String sourceUrl = svnUtils.getUrl(workingCopy);
-		long sourceRevision = svnUtils.getLastRevision(workingCopy);
-		String version = properties.getProperty(mapping.getVersionProperty());
-		String tag = getTag(sourceUrl, version, mapping.getModule(), buildNumber, sourceRevision, tagStyle);
-
-		BuildTag buildTag = new BuildTag();
-		buildTag.setSourceUrl(sourceUrl);
-		buildTag.setSourceRevision(sourceRevision);
-		buildTag.setTagUrl(tag);
-		return buildTag;
+//		File workingCopy = external.getWorkingCopyPath();
+//		String sourceUrl = svnUtils.getUrl(workingCopy);
+//		long sourceRevision = svnUtils.getLastRevision(workingCopy);
+//		String version = properties.getProperty(mapping.getVersionProperty());
+//		String tag = getTag(sourceUrl, version, mapping.getModule(), buildNumber, sourceRevision, tagStyle);
+//
+//		BuildTag buildTag = new BuildTag();
+//		buildTag.setSourceUrl(sourceUrl);
+//		buildTag.setSourceRevision(sourceRevision);
+//		buildTag.setTagUrl(tag);
+//		return buildTag;
+		return null;
 	}
 
 	/**
@@ -981,31 +979,33 @@ public class MojoHelper {
 	}
 
 	public int getBuildNumber(MavenProject project, String buildNumberProperty) {
-		Properties properties = propertiesUtils.getMavenProperties(project);
-		String buildNumber = properties.getProperty(buildNumberProperty);
-		if (StringUtils.isBlank(buildNumber)) {
-			logger.warn(buildNumberProperty + " is blank");
-			return 0;
-		} else {
-			return new Integer(buildNumber);
-		}
+//		Properties properties = propertiesUtils.getMavenProperties(project);
+//		String buildNumber = properties.getProperty(buildNumberProperty);
+//		if (StringUtils.isBlank(buildNumber)) {
+//			logger.warn(buildNumberProperty + " is blank");
+//			return 0;
+//		} else {
+//			return new Integer(buildNumber);
+//		}
+		return -1;
 	}
 
 	public String getReleaseTag(String url, String version, String artifactId) {
-		String tagBase = extractor.getTagBase(url);
-		if (StringUtils.isBlank(tagBase)) {
-			throw new IllegalArgumentException("Unable to calculate tag base from [" + url + "]");
-		}
-
-		String trimmed = trimSnapshot(version);
-
-		StringBuilder sb = new StringBuilder();
-		sb.append(tagBase);
-		sb.append("/");
-		sb.append(artifactId);
-		sb.append(QUALIFIER_DELIMETER);
-		sb.append(trimmed);
-		return sb.toString();
+//		String tagBase = extractor.getTagBase(url);
+//		if (StringUtils.isBlank(tagBase)) {
+//			throw new IllegalArgumentException("Unable to calculate tag base from [" + url + "]");
+//		}
+//
+//		String trimmed = trimSnapshot(version);
+//
+//		StringBuilder sb = new StringBuilder();
+//		sb.append(tagBase);
+//		sb.append("/");
+//		sb.append(artifactId);
+//		sb.append(QUALIFIER_DELIMETER);
+//		sb.append(trimmed);
+//		return sb.toString();
+		return null;
 	}
 
 	public String getBuildNumberTag(String url, String version, String artifactId, int buildNumber) {
@@ -1025,27 +1025,28 @@ public class MojoHelper {
 	}
 
 	protected String getBaseTag(String url, String version, String artifactId) {
-		String tagBase = extractor.getTagBase(url);
-		if (StringUtils.isBlank(tagBase)) {
-			throw new IllegalArgumentException("Unable to calculate tag base from [" + url + "]");
-		}
-
-		Version v = parseVersion(version);
-		String trimmed = trimSnapshot(version);
-
-		StringBuilder sb = new StringBuilder();
-		sb.append(tagBase);
-		sb.append("/");
-		sb.append("builds");
-		sb.append("/");
-		sb.append(artifactId);
-		sb.append(QUALIFIER_DELIMETER);
-		sb.append(v.getMajor());
-		sb.append(".");
-		sb.append(v.getMinor());
-		sb.append("/");
-		sb.append(trimmed);
-		return sb.toString();
+//		String tagBase = extractor.getTagBase(url);
+//		if (StringUtils.isBlank(tagBase)) {
+//			throw new IllegalArgumentException("Unable to calculate tag base from [" + url + "]");
+//		}
+//
+//		Version v = parseVersion(version);
+//		String trimmed = trimSnapshot(version);
+//
+//		StringBuilder sb = new StringBuilder();
+//		sb.append(tagBase);
+//		sb.append("/");
+//		sb.append("builds");
+//		sb.append("/");
+//		sb.append(artifactId);
+//		sb.append(QUALIFIER_DELIMETER);
+//		sb.append(v.getMajor());
+//		sb.append(".");
+//		sb.append(v.getMinor());
+//		sb.append("/");
+//		sb.append(trimmed);
+//		return sb.toString();
+		return null;
 	}
 
 	public void validate(MavenProject project, List<SVNExternal> externals, List<Mapping> mappings) {
