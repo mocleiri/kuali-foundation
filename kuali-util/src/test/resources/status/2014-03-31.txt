@@ -1,0 +1,21 @@
+Monday
+------
+
+- Continued work on bringing up testci
+- Quite a bit of back and forth with Mike Wyers related to KS AFT's
+- Confirmed Ruby setup was going to work ok
+- Got consensus on adding a command line switch to the Ruby code that controls which version of Firefox gets used
+- 3 different versions of firefox installed now, only thing that works is 2 threads hitting firefox14 (just like ci.rice)
+- 4 threads and/or a different version of firefox, kinda/sorta works, but produces different results than ci.rice
+- modified some code posted to stackoverflow related to using curl for interacting with S3
+- now have an exceedingly simple, high speed, method for uploading files from an EC2 instance to S3 
+- (only had non-authenticated download before this)
+
+Tuesday
+-------
+- continued work on improving testci setup/configuration/flexibility
+- added logic to extract and automatically sync a backup of all configuration (including config-history and build history) to S3 each night
+- the size of that backup is too large to continue checking into Subversion like what is being done for the seed configuration
+- enhanced scripting to allow authenticated download of resources from S3 so large files no longer have to be encrypted with GPG when being uploaded in order to protect them
+- saves time both ways (upload and download)
+- meeting with Jessica
