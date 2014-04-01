@@ -79,3 +79,4 @@ ARTIFACT_ID=$6
 VERSION=$7
 
 check_args
+
