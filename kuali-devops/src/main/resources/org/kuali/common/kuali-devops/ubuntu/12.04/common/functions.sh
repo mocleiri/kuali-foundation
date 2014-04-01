@@ -189,6 +189,5 @@ function decrypt {
 }
 
 function rfc2616date {
-  echo -n "Tue, 27 Mar 2007 19:36:42 +0000"
-  #echo -n "$(TZ=UTC date '+%a, %e %b %Y %H:%M:%S %z')"
+  echo -n "$(TZ=UTC date '+%a, %e %b %Y %H:%M:%S %z')"
 }  
