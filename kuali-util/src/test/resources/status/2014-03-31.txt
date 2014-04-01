@@ -1,6 +1,5 @@
 Monday
 ------
-
 - Continued work on bringing up testci
 - Quite a bit of back and forth with Mike Wyers related to KS AFT's
 - Confirmed Ruby setup was going to work ok
