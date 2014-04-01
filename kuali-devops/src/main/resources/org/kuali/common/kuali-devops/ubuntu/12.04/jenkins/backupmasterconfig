@@ -28,5 +28,8 @@ BUCKET=maven.kuali.org
 
 TAR_FILE=/ssd/master.tar.gz
 tar_config
+GPG_DECRYPTED=$TAR_FILE
+GPG_ENCRYPTED=$TAR_FILE.gpg
+encrypt_file $GPG_DECRYPTED $GPG_ENCRYPTED
 
 #source $MY_DIR/../common/m2s3upload $ZIP $ACCESS_KEY $ACCESS_KEY $SECRET_KEY $GROUP_ID $ARTIFACT_ID $VERSION --type=$TYPE  
