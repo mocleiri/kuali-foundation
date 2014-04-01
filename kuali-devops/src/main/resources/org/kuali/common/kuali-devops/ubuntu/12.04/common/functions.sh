@@ -164,12 +164,12 @@ function hmacsha1 {
 }
 
 # base64encode value
-function base64_encode {
+function base64encode {
   echo -n "$1" | base64 --wrap=0
 }
 
 # hex2base64 value
-function hex_to_base64 {
+function hex2base64 {
   echo -n "$1" | xxd -r -p | base64 --wrap=0
 }
 
