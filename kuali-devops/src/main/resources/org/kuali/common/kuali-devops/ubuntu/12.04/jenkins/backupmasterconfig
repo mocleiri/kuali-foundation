@@ -22,6 +22,8 @@ STACK=$1
 VERSION=$2
 GPG_PASSPHRASE=$3
 
+check_args
+
 GROUP_ID=org.jenkins
 ARTIFACT_ID=jenkins-master-backup
 CLASSIFIER=$STACK-$TIMESTAMP
