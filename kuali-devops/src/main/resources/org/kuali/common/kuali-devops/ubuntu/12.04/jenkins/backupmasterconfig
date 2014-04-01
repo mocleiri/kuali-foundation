@@ -3,7 +3,6 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-
 ACCESS_KEY=AKIAJFD5IM7IPVVUEBNA
 ACL=public-read
 BUCKET=maven.kuali.org
