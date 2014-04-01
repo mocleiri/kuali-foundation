@@ -78,3 +78,5 @@ BUCKET=$4
 GROUP_ID=$5
 ARTIFACT_ID=$6
 VERSION=$7
+
+check_args
