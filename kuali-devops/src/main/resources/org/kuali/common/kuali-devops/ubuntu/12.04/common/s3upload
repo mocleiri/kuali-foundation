@@ -5,9 +5,14 @@ source $MY_DIR/../common/functions.sh
 
 usage() { echo "Usage: $ME [-q --quiet] [-h --help] [-a --acl=public-read] access_key secret_key filename bucket key " 1>&2; exit 1; }
 
+# default is public read
 ACL=public-read
+
+# allow uploads from zero to one terabyte
 MIN_SIZE=0
 MAX_SIZE=1099511627776
+
+# This is not the expiration date on the uploaded file, it's the expiration date on the policy that controls the file upload
 EXPIRATION=2999-01-01T00:00:00.000Z
 
 ACCESS_KEY=$1
@@ -16,7 +21,7 @@ FILENAME=$3
 BUCKET=$4
 KEY=$5
 
-URL=https://$BUCKET
+URL=https://$BUCKET.s3.amazonaws.com
 KEY_PREFIX=$KEY
 
 POLICY="{\"expiration\":\"$EXPIRATION\",\"conditions\":[{\"acl\":\"$ACL\" },{\"bucket\": \"$BUCKET\" },[\"starts-with\", \"\$key\", \"$KEY_PREFIX\"],[\"content-length-range\", $MIN_SIZE, $MAX_SIZE]]}";
