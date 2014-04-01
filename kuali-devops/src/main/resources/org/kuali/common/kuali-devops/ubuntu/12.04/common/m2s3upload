@@ -13,7 +13,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-q --quiet] [-h --help] [-a --acl=public-read] [-p --prefix=release] [-t --type=zip] [-c --classifier=linux-x64] access_key secret_key bucket group_id artifact_id version filename" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-q --quiet] [-h --help] [-a --acl=public-read] [-p --prefix=release] [-t --type=zip] [-c --classifier=linux-x64] filename access_key secret_key bucket group_id artifact_id version" 1>&2; exit 1; }
 
 QUIET=false
 
@@ -71,19 +71,10 @@ while true; do
   esac
 done
 
-
-ACCESS_KEY=$1
-SECRET_KEY=$2
-FILENAME=$3
+FILENAME=$1
+ACCESS_KEY=$2
+SECRET_KEY=$3
 BUCKET=$4
-KEY=$5
-
-URL=https://$BUCKET.s3.amazonaws.com
-KEY_PREFIX=$KEY
-
-POLICY="{\"expiration\":\"$EXPIRATION\",\"conditions\":[{\"acl\":\"$ACL\" },{\"bucket\": \"$BUCKET\" },[\"starts-with\", \"\$key\", \"$KEY_PREFIX\"],[\"content-length-range\", $MIN_SIZE, $MAX_SIZE]]}";
-POLICY=$(base64encode "$POLICY")
-HMACSHA1=$(hmacsha1 $POLICY $SECRET_KEY)
-SIGNATURE=$(hex2base64 $HMACSHA1)
-
-execute_quietly "curl --fail -F key=$KEY -F acl=$ACL -F AWSAccessKeyId=$ACCESS_KEY -F Policy=$POLICY -F Signature=$SIGNATURE -F file=@$FILENAME $URL"
+GROUP_ID=$5
+ARTIFACT_ID=$6
+VERSION=$7
