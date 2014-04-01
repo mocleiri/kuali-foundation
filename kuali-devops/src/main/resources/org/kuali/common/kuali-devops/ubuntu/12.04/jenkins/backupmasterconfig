@@ -55,6 +55,7 @@ fi
 GROUP_ID=org.jenkins
 ARTIFACT_ID=jenkins-master-backup
 CLASSIFIER=$STACK-$TIMESTAMP
+CLASSIFIER=$STACK
 TYPE=tar.gz.gpg
 
 PREFIX=external
@@ -70,7 +71,7 @@ GPG_ENCRYPTED=$TAR_FILE.gpg
 echo "encrypt   -> $GPG_DECRYPTED"
 encrypt_file $GPG_DECRYPTED $GPG_ENCRYPTED
 
-M2_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --repo=$BUCKET/$PREFIX --type=$TYPE)
+M2_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --repo=$BUCKET/$PREFIX --type=$TYPE --classifier=$CLASSIFIER)
 
 echo "upload    -> https://$M2_PATH"
-$MY_DIR/../common/m2s3upload $QUIET_FLAG $GPG_ENCRYPTED $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --type=$TYPE --prefix=$PREFIX
+$MY_DIR/../common/m2s3upload $QUIET_FLAG $GPG_ENCRYPTED $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --type=$TYPE --prefix=$PREFIX --classifier=$CLASSIFIER
