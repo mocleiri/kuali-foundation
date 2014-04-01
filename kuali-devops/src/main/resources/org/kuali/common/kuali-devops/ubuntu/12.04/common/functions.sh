@@ -158,7 +158,7 @@ function echo_lines {
   done < $FILENAME
 }
 
-# hmacsha1 key value
+# hmacsha1 value key
 function hmacsha1 {
   echo -n "$1" | openssl sha1 -hmac "$2" -binary | xxd -p
 }
@@ -176,4 +176,12 @@ function hex2base64 {
 # convert any dots into forward slashes
 function get_path {
   echo -n "$1" | tr "." "/"
+}
+
+function encrypt {
+}
+
+# decrypt value password
+function decrypt {
+  echo -n "$1" | base64 --decode | gpg --batch --yes --passphrase "$2" --quiet --decrypt
 }
