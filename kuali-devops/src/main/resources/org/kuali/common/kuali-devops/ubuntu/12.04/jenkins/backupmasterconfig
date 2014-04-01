@@ -22,6 +22,7 @@ KEY="external/org/jenkins/master.zip"
 ACCESS_KEY=AKIAJFD5IM7IPVVUEBNA
 TYPE="application/zip"
 FILE=master.zip
-URL=http://maven.kuali.org
+BUCKET=maven.kuali.org
+URL=http://$BUCKET
 
 curl -F "key=$KEY" -F "acl=$ACL" -F "AWSAccessKeyId=$ACCESS_KEY" -F "Policy=$POLICY" -F "Signature=$SIGNATURE" -F "file=@$FILE" $URL
