@@ -48,7 +48,7 @@ while true; do
   esac
 done
 
-curl --get --data-urlencode "AWSAccessKeyId=xyz" --data-urlencode "Expires=xyz" --date-urlencode "Signature=xyz" https://whatever.com/whatever
+curl --get --data-urlencode "AWSAccessKeyId=xyz" --data-urlencode "Expires=xyz" --data-urlencode "Signature=xyz" https://whatever.com/whatever
 
 FILENAME=$1
 ACCESS_KEY=$2
