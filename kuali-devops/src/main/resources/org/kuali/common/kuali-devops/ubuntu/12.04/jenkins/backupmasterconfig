@@ -70,7 +70,7 @@ GPG_ENCRYPTED=$TAR_FILE.gpg
 echo "encrypt   -> $GPG_DECRYPTED"
 encrypt_file $GPG_DECRYPTED $GPG_ENCRYPTED
 
-M2_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --repo=$BUCKET/$PREFIX)
+M2_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --repo=$BUCKET/$PREFIX --type=$TYPE)
 
-echo "upload    -> $M2_PATH"
+echo "upload    -> https://$M2_PATH"
 $MY_DIR/../common/m2s3upload $QUIET_FLAG $GPG_ENCRYPTED $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --type=$TYPE --prefix=$PREFIX
