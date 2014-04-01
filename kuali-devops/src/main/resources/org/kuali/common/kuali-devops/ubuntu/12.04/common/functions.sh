@@ -165,10 +165,10 @@ function hmacsha1 {
 
 # base64_encode value
 function base64_encode {
-  echo -n "$1" | openssl enc -base64
+  echo -n "$1" | base64 --wrap=0
 }
 
 # hex_to_base64 value
 function hex_to_base64 {
-  echo -n "$1" | xxd -r -p | openssl enc -base64
+  echo -n "$1" | xxd -r -p | base64 --wrap=0
 }
