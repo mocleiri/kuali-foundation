@@ -51,7 +51,8 @@ KEY=$5
 URL=https://$BUCKET.s3.amazonaws.com
 KEY_PREFIX=$KEY
 
-POLICY="{\"expiration\":\"$EXPIRATION\",\"conditions\":[{\"acl\":\"$ACL\" },{\"bucket\": \"$BUCKET\" },[\"starts-with\", \"\$key\", \"$KEY_PREFIX\"],[\"content-length-range\", $MIN_SIZE, $MAX_SIZE]]}";
+#POLICY="{\"expiration\":\"$EXPIRATION\",\"conditions\":[{\"acl\":\"$ACL\" },{\"bucket\": \"$BUCKET\" },[\"starts-with\", \"\$key\", \"$KEY_PREFIX\"],[\"content-length-range\", $MIN_SIZE, $MAX_SIZE]]}";
+POLICY="{\"expiration\":\"$EXPIRATION\",\"conditions\":[{\"acl\":\"$ACL\" },{\"bucket\": \"$BUCKET\" },[\"content-length-range\", $MIN_SIZE, $MAX_SIZE]]}";
 POLICY=$(base64encode "$POLICY")
 HMACSHA1=$(hmacsha1 $POLICY $SECRET_KEY)
 SIGNATURE=$(hex2base64 $HMACSHA1)
