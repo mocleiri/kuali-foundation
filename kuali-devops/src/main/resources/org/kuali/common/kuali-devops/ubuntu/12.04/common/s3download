@@ -62,18 +62,10 @@ HMACSHA1=$(hmacsha1 $RAWSTRING $SECRET_KEY)
 BASE64=$(hex2base64 $HMACSHA1)
 SIGNATURE=$(urlencode $BASE64)
 
-echo " --- "
-echo "filename=$FILENAME"
-echo "access_key=$ACCESS_KEY"
-echo "secret_key=$SECRET_KEY"
-echo "bucket=$BUCKET"
-echo "key=$KEY"
-echo "expires=$EXPIRES"
 echo "rawstring=$RAWSTRING"
 echo "hmacsha1=$HMACSHA1"
 echo "base64=$BASE64"
 echo "signature=$SIGNATURE"
-echo " --- "
 
 URL="https://$BUCKET.s3.amazonaws.com/$KEY?AWSAccessKeyId=$ACCESS_KEY&Expires=$EXPIRES&Signature=$SIGNATURE"
 echo $URL

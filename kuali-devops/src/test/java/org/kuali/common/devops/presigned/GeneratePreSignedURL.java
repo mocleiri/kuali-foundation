@@ -12,6 +12,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.jasypt.util.text.TextEncryptor;
 import org.junit.Test;
 import org.kuali.common.devops.logic.Passwords;
+import org.kuali.common.util.HexUtils;
 import org.kuali.common.util.enc.EncUtils;
 import org.slf4j.Logger;
 
@@ -59,7 +60,7 @@ public class GeneratePreSignedURL {
 	}
 
 	protected String hmacsha1hex(String data, String key) throws Exception {
-		return hex(hmacsha1bytes(data, key));
+		return HexUtils.toHexString(hmacsha1bytes(data, key));
 	}
 
 	protected byte[] hmacsha1bytes(String data, String key) throws Exception {
