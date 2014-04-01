@@ -9,17 +9,6 @@ $section = '';
 <title>Kuali :: Fluid Application Header</title>
 <!-- GLOBAL STYLES -->
 <?php include ('includes/styles.php') ?>
-
-<style type="text/css">
-.icon, .icon-edit,.icon-save{ font-size:140%;}
-.icon-edit:hover,.icon-save:hover{text-decoration:none;}
-tr:hover{background:#EEF7FB;; color:#000;}
-.icon-edit{padding:0; padding-top:5px;vertical-align:bottom; text-decoration:none; }
-.sr-only{display:none;}
-.table-condensed   tr  td:last-of-type{  text-align:center; }
-</style>
-
-
 </head>
 <body id="Uif-Application" style="padding-bottom: 570px;">
 <!-- APPLICATION HEADER -->

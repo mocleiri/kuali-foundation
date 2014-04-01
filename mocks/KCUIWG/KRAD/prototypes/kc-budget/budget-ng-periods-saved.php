@@ -100,7 +100,7 @@ $section = '';
             <div id="LabsProposal-MoreDocInfo" class="dropdown uif-boxLayoutVerticalItem clearfix"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> more info... </a>
                 <section id="uhlixhs" class="dropdown-menu uif-gridGroup">
                     <h4 class="uif-headerText"> Document Info </h4>
-                    <table id="u98wduy" class="table table-condensed uif-table-fixed" role="presentation">
+                    <table id="u98wduy" class="edit-table table table-condensed uif-table-fixed" role="presentation">
                         <tbody>
                         <tr>
                             <th scope="row">Label</th>
@@ -155,7 +155,7 @@ $section = '';
     </div>
 </header>
 <div class="pull-right"> <a href="#"> <span class="icon-compass"></span> Guide Me</a></div>
-<table id="u569ish_line0" class="table table-condensed table-bordered" role="presentation">
+<table id="u569ish_line0" class="edit-table table table-condensed table-bordered" role="presentation">
     <thead>
     <tr class="active">
         <th>Start</th>
