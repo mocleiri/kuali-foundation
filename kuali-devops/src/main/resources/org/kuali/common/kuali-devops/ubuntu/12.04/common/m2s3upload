@@ -89,4 +89,10 @@ fi
 
 M2_FILENAME=$($MY_DIR/m2filename $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
 
-echo $M2_FILENAME
+if [ "$PREFIX" == "" ]; then
+  KEY=$GROUP_ID/$ARTIFACT_ID/$VERSION/$M2_FILENAME
+else
+  KEY=$PREFIX/$GROUP_ID/$ARTIFACT_ID/$VERSION/$M2_FILENAME
+fi
+
+echo $KEY
