@@ -7,8 +7,8 @@ GROUP_ID=org.jenkins
 GROUP_ID_PATH=$(get_path $GROUP_ID)
 ARTIFACT_ID=jenkins-master-backup
 VERSION=2014-03-31-181500
-CLASSIFIER=testci.zip
-TYPE=gpg
+CLASSIFIER=test
+TYPE=zip.gpg
 REPO=external
 
 ACCESS_KEY=AKIAJFD5IM7IPVVUEBNA
