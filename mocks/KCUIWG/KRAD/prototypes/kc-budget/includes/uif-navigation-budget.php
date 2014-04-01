@@ -16,9 +16,9 @@
             <li <?php if ($page == 'non-personnel') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="non-personnel.php"><span class="icon-beaker"></span><span class="uif-innerText">Non-Personnel Costs</span></a></li>
             <li <?php if ($page == 'subawards') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="budget-ng-subawards.php"><span class="icon-file"></span><span class="uif-innerText">Subawards</span></a></li>
             <li <?php if ($page == 'cost-sharing') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="budget-ng-cost-sharing.php"><span class="icon-random"></span><span class="uif-innerText" style="word-spacing:-.05em;letter-spacing:-.01em;">Cost Sharing &amp; Unrecovered F&amp;A</span></a></li>
-            <li <?php if ($page == 'project-income') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="project-income.php"><span class="icon-money"></span><span class="uif-innerText">Project Income</span></a></li>
-            <li <?php if ($page == 'modular') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="modular.php"><span class="icon-ok"></span><span class="uif-innerText">Modular</span></a></li>
-            <li <?php if ($page == 'notes') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="notes.php"><span class="icon-th-list"></span><span class="uif-innerText">Budget Notes</span></a></li>
+            <li <?php if ($page == 'project-income') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="budget-ng-income.php"><span class="icon-money"></span><span class="uif-innerText">Project Income</span></a></li>
+            <li <?php if ($page == 'modular') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="budget-ng-modular.php"><span class="icon-ok"></span><span class="uif-innerText">Modular</span></a></li>
+            <li <?php if ($page == 'notes') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="budget-ng-notes.php"><span class="icon-th-list"></span><span class="uif-innerText">Budget Notes</span></a></li>
         </ul>
     </div>
 </nav>
