@@ -159,23 +159,13 @@ function echo_lines {
 }
 
 function hmacsha1 {
-  KEY=$1
-  VAL=$2
-  
-  check_not_blank KEY $KEY
-  check_not_blank VAL $VAL
-  
-  echo -n "$VAL" | openssl sha1 -hmac "$KEY"
+  echo -n $1 | openssl sha1 -hmac $2
 }
 
 function base64_encode {
-  VALUE=$1
-  check_not_blank VALUE $VALUE
-  echo -n "$VALUE" | openssl enc -base64
+  echo -n $1 | openssl enc -base64
 }
 
 function hex_to_base64 {
-  VALUE=$1
-  check_not_blank VALUE $VALUE
-  echo -n "$VALUE" | xxd -r -p | openssl enc -base64
+  echo -n $1 | xxd -r -p | openssl enc -base64
 }
