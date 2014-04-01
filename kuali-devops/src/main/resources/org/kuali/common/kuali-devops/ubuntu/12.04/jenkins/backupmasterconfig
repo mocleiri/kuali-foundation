@@ -6,7 +6,7 @@ source $MY_DIR/../common/functions.sh
 GROUP_ID=$(get_path org.jenkins)
 ARTIFACT_ID=jenkins-master-backup
 VERSION=2014-03-31-181500
-CLASSIFIER=testci
+CLASSIFIER=testci.zip
 TYPE=gpg
 REPO=external
 
