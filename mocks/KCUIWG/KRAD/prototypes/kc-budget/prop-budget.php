@@ -282,8 +282,8 @@ $section = '';
                                             <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="#summary"><span aria-hidden="true" class="icon-eye-open"></span> View Summary</a> </li>
                                             <li><a href=""  data-toggle="modal" data-target="#copyNew" class=""><span aria-hidden="true" class="icon-copy"></span> Copy</a></li>
                                             <li><a href="#"><span aria-hidden="true" class="icon-print"></span> Print</a></li>
-                                            <li class="divider"></li>
-                                            <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>
+                                            <!--<li class="divider"></li>
+                                            <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>-->
                                         </ul>
                                     </div>
                                     
@@ -339,8 +339,8 @@ $section = '';
                                             <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="#summary"><span aria-hidden="true" class="icon-eye-open"></span> View Summary</a> </li>
                                             <li><a href=""  data-toggle="modal" data-target="#copyNew" class=""><span aria-hidden="true" class="icon-copy"></span> Copy</a></li>
                                             <li><a href="#"><span aria-hidden="true" class="icon-print"></span> Print</a></li>
-                                            <li class="divider"></li>
-                                            <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>
+                                            <!--<li class="divider"></li>
+                                            <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>-->
                                         </ul>
                                     </div>
                                     
@@ -396,8 +396,8 @@ $section = '';
                                             <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="#summary"><span aria-hidden="true" class="icon-eye-open"></span> View Summary</a> </li>
                                             <li><a href=""  data-toggle="modal" data-target="#copyNew" class=""><span aria-hidden="true" class="icon-copy"></span> Copy</a></li>
                                             <li><a href="#"><span aria-hidden="true" class="icon-print"></span> Print</a></li>
-                                            <li class="divider"></li>
-                                            <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>
+                                            <!--<li class="divider"></li>
+                                            <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>-->
                                         </ul>
                                     </div>
                                     
@@ -453,8 +453,8 @@ $section = '';
                                             <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="#summary"><span aria-hidden="true" class="icon-eye-open"></span> View Summary</a> </li>
                                             <li><a href=""  data-toggle="modal" data-target="#copyNew" class=""><span aria-hidden="true" class="icon-copy"></span> Copy</a></li>
                                             <li><a href="#"><span aria-hidden="true" class="icon-print"></span> Print</a></li>
-                                            <li class="divider"></li>
-                                            <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>
+                                            <!--<li class="divider"></li>
+                                            <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>-->
                                         </ul>
                                     </div>
                                     
