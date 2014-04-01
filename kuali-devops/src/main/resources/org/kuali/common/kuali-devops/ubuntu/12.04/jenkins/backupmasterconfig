@@ -1,8 +1,8 @@
-function zip_config {
-   echo "zip     -> master config"
+function tar_config {
+   echo "tar.gz    -> master config"
+   rm -rf /ssd/master.* /ssd/.jenkins
    cd /home/tomcat7
-   rm -f $ZIP
-   zip -q -r $ZIP .jenkins -x **/plugins/** **/workspace/** **/logs/slaves/**
+   tar -zcf $TAR_FILE .jenkins --exclude=**/plugins/** --exclude=**/workspace/** --exclude=**/logs/slaves/**
 }
 
 
@@ -26,7 +26,7 @@ PREFIX=external
 ACCESS_KEY=AKIAJFD5IM7IPVVUEBNA
 BUCKET=maven.kuali.org
 
-ZIP=/tmp/master.zip
-zip_config
+TAR_FILE=/ssd/master.tar.gz
+tar_config
 
 #source $MY_DIR/../common/m2s3upload $ZIP $ACCESS_KEY $ACCESS_KEY $SECRET_KEY $GROUP_ID $ARTIFACT_ID $VERSION --type=$TYPE  
