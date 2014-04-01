@@ -172,3 +172,7 @@ function base64_encode {
 function hex_to_base64 {
   echo -n "$1" | xxd -r -p | base64 --wrap=0
 }
+
+function get_path {
+  echo -n "${1//[.]/\/}"
+}
