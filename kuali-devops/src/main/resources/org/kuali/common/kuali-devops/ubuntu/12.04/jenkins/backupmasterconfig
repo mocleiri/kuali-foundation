@@ -35,9 +35,6 @@ SECRET_KEY=jA0ECQMCH+1hmsTpTJBg0l0Bm4TN02PIJ4thS5r2Vil00WzxLK3zzx1Ex1VPwCm9piYBT
 SECRET_KEY=$(decrypt $SECRET_KEY "$GPG_PASSPHRASE")
 BUCKET=maven.kuali.org
 
-echo $ACCESS_KEY
-echo $SECRET_KEY
-
 TAR_FILE=/ssd/master.tar.gz
 tar_config
 GPG_DECRYPTED=$TAR_FILE
