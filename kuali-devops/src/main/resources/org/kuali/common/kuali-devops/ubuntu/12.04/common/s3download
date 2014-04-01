@@ -65,6 +65,11 @@ HMACSHA1=$(hmacsha1 $RAWSTRING $SECRET_KEY)
 SIGNATURE=$(base64encode $HMACSHA1)
 SIGNATURE=$(urlencode $SIGNATURE)
 
+echo "expires=$EXPIRES"
+echo "rawstring=$RAWSTRING"
+echo "hmacsha1=$HMACSHA1"
+echo "signature=$SIGNATURE"
+
 URL="https://s3.amazonaws.com/$BUCKET/$KEY?AWSAccessKeyId=$ACCESS_KEY&Expires=$EXPIRES&Signature=$SIGNATURE"
 execute_quietly "curl --output $FILENAME $URL"
 #execute_quietly "curl --show-error --fail --output $FILENAME $URL"
