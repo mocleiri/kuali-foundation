@@ -22,10 +22,4 @@ POLICY=$(base64_encode "$JSON_POLICY")
 HMACSHA1=$(hmacsha1 $POLICY $AWS_SECRET_KEY)
 SIGNATURE=$(hex_to_base64 $HMACSHA1)
 
-echo "aws_secret_key=[$AWS_SECRET_KEY]"
-echo "json_policy=$JSON_POLICY"
-echo "policy=[$POLICY]"
-echo "hmacsha1=[$HMACSHA1]"
-echo "signature=[$SIGNATURE]"
-
 curl -F "key=$KEY" -F "acl=$ACL" -F "AWSAccessKeyId=$ACCESS_KEY" -F "Policy=$POLICY" -F "Signature=$SIGNATURE" -F "file=@$FILE" $URL
