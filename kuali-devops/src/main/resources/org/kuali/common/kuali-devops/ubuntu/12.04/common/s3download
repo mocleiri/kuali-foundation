@@ -60,7 +60,7 @@ RAWSTRING=$(string_to_sign $BUCKET $KEY)
 HMACSHA1=$(hmacsha1 $RAWSTRING $SECRET_KEY)
 SIGNATURE=$(base64encode $HMACSHA1)
 EXPIRES=$(date +%s)
-EXPIRES=$(($EXPIRES - 15))
+EXPIRES=$(($EXPIRES + 15))
 EXPIRES=2396373702
 
 URL=https://s3.amazonaws.com/$BUCKET/$KEY
