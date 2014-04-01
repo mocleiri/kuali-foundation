@@ -22,9 +22,13 @@ public class GeneratePreSignedURL {
 	@Test
 	public void test() {
 		try {
+			// long expiration = System.currentTimeMillis() + 1000 * 60 * 120;
+			long expiration = 1396391061646L;
+			System.out.println("expiration=" + expiration);
 			String bucket = "maven.kuali.org";
 			String key = "private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom";
 			GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(bucket, key);
+			request.setExpiration(new java.util.Date(expiration));
 			AWSCredentials foundation = getFoundationCreds();
 			AmazonS3Client client = new AmazonS3Client(foundation);
 			URL url = client.generatePresignedUrl(request);

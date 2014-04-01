@@ -16,6 +16,10 @@ function check_args {
 # GET\n\n\n1396383222\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom
 # GET\n\n\n1396383935\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom
 
+
+# GET\n\n\n1396391061\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom
+# GJ5nEni6gYq75POPCaOWEYRHHds=
+
 function string_to_sign {
    local BUCKET=$1
    local KEY=$2
