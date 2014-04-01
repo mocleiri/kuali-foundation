@@ -58,4 +58,6 @@ check_args
 
 URL=https://$BUCKET.s3.amazonaws.com
 
+string_to_sign $BUCKET $KEY
+
 #curl --get --data-urlencode "AWSAccessKeyId=xyz" --data-urlencode "Expires=xyz" --data-urlencode "Signature=xyz" https://whatever.com/whatever
