@@ -178,7 +178,9 @@ function get_path {
   echo -n "$1" | tr "." "/"
 }
 
+# decrypt value password
 function encrypt {
+  echo -n "$1" | gpg --no-use-agent --batch --yes --passphrase "$2" --cipher-algo AES256 --symmetric | base64 --wrap=0
 }
 
 # decrypt value password
