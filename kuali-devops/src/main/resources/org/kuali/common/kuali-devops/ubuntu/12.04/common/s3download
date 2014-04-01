@@ -14,6 +14,7 @@ function check_args {
 # /johnsmith/photos/puppy.jpg
 
 # GET\n\n\n1396383222\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom
+# GET\n\n\n1396383935\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom
 
 function string_to_sign {
    local BUCKET=$1
