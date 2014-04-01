@@ -50,6 +50,20 @@ while true; do
       ACL="$1";
       shift;
       ;;
+    -p|--prefix)
+      shift;
+      PREFIX="$1";
+      ;;
+    -t|--type)
+      shift;
+      TYPE="$1";
+      shift;
+      ;;
+    -c|--classifier)
+      shift;
+      CLASSIFIER="$1";
+      shift;
+      ;;
     --)
       shift;
       break;
