@@ -617,7 +617,7 @@ $section = '';
                     <input type="checkbox">
                     Don't ask me this again </label>
                 </small> </div>
-            <div class="modal-footer"> <a href="" class="btn btn-default" data-dismiss="modal">Cancel</a> <a href="budget-periods.php" class="btn btn-primary">Open Budget Document</a> </div>
+            <div class="modal-footer"> <a href="" class="btn btn-default" data-dismiss="modal">Cancel</a> <a href="budget-ng-summary.php" class="btn btn-primary">Open Budget Document</a> </div>
         </div>
     </div>
 </div>
