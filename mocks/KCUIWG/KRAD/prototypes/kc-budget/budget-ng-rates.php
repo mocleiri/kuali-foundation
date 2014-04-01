@@ -9,6 +9,17 @@ $section = '';
 <title>Kuali :: Fluid Application Header</title>
 <!-- GLOBAL STYLES -->
 <?php include ('includes/styles.php') ?>
+
+<style type="text/css">
+.icon, .icon-edit,.icon-save{ font-size:140%;}
+.icon-edit:hover,.icon-save:hover{text-decoration:none;}
+tr:hover{background:#EEF7FB;; color:#000;}
+.icon-edit{padding:0; padding-top:5px;vertical-align:bottom; text-decoration:none; }
+.sr-only{display:none;}
+.table-condensed   tr  td:last-of-type{  text-align:center; }
+</style>
+
+
 </head>
 <body id="Uif-Application" style="padding-bottom: 570px;">
 <!-- APPLICATION HEADER -->
@@ -20,7 +31,7 @@ $section = '';
                     <button type=button class="navbar-toggle" data-toggle=collapse data-target=.navbar-ex1-collapse><span class="sr-only">Toggle navigation</span> <span class="icon-reorder"></span></button>
                     <a class="navbar-brand" href="index.php">
                     <div class="logoBrand">
-                        <h1><img id="u2elq10" src="http://ux.kuali.org/prototypes/kc/p2-devbranch/themes/kc/img/logo.png" alt="" class="uif-image">	</h1>
+                        <h1><img id="u2elq10" src="http://ux.kuali.org/prototypes/kc/p2-devbranch/themes/kc/img/logo.png" alt="" class="uif-image"> </h1>
                     </div>
                     </a></div>
                 <div id="u1gk19wq" class="collapse navbar-collapse navbar-ex1-collapse uif-listGroup">
@@ -917,10 +928,6 @@ $section = '';
 </form>
 <?php include ('includes/footer-scripts.php') ?>
 
-
-
-
-
 <!-- MODAL -- budget summary -->
 <?php include ('includes/modal-budget-summary.php') ?>
 <!-- MODAL -- budget settings  -->
@@ -928,13 +935,6 @@ $section = '';
 
 <!-- MODAL -- budget open propsal -->
 <?php include ('includes/modal-budget-open-prop.php') ?>
-
-
-
-
-
-
-
 
 <!-- NO QUOTES
 <div class="modal fade" id="summary" tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true>
@@ -1077,7 +1077,7 @@ $section = '';
         </div>
     </div>
 </div>
- -->
+ --> 
 
 <!--NO QUOTES --
 
@@ -1188,8 +1188,7 @@ $section = '';
     </div>
 </div>
 
-Modal -->
-
+Modal --> 
 
 <!-- NO QUOTES ?
 <div class="modal fade" id="switchdoc" tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true>
