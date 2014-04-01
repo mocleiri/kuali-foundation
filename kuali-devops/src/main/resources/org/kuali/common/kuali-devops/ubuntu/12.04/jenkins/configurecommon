@@ -216,9 +216,8 @@ function touch_subversion_repo {
   echo "touch     -> svn:$SVN_REPO - [$SVN_TOUCH_URL]"
 
   SVN_USERNAME=jcaddel
-  SVN_PASSWORD_FILE="/root/.ssh/subversion.password"
-  SVN_PASSWORD=$(<$SVN_PASSWORD_FILE)
-  check_not_blank SVN_PASSWORD $SVN_PASSWORD
+  SVN_PASSWORD=jA0ECQMC+5jv/nV6br2+0j0Bl1ajndmK1DG2vG4SGHRarAkXtsjsqMA8tYl5PZxvVbN8XiXz3PDzzrAd2QtIdoPdhe4GKfgEDG5ys5Cr
+  SVN_PASSWORD=$(decrypt $SVN_PASSWORD $GPG_PASSPHRASE)
   SVN_AUTH="--username=$SVN_USERNAME --password=$SVN_PASSWORD"
   # the message can't have spaces in it
   SVN_MESSAGE="automated-auth-check"
