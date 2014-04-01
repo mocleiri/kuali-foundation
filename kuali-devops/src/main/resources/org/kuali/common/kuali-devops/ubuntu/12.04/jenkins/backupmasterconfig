@@ -7,10 +7,17 @@ source $MY_DIR/../common/functions.sh
 JSON_POLICY=Man
 JSON_POLICY='{"expiration":"2014-04-01T00:00:00.000Z","conditions":[{"acl":"public-read" },{"bucket": "maven.kuali.org" },["starts-with", "$key", "external/org/jenkins"],["content-length-range", 2048, 2147483648]]}';
 
-#eyJleHBpcmF0aW9uIjoiMjAxNC0wNC0wMVQwMDowMDowMC4wMDBaIiwiY29uZGl0aW9ucyI6W3si
-#YWNsIjoicHVibGljLXJlYWQiIH0seyJidWNrZXQiOiAibWF2ZW4ua3VhbGkub3JnIiB9LFsic3Rh
-#cnRzLXdpdGgiLCAiJGtleSIsICJleHRlcm5hbC9vcmcvamVua2lucyJdLFsiY29udGVudC1sZW5n
-#dGgtcmFuZ2UiLCAyMDQ4LCAyMTQ3NDgzNjQ4XV19
+eyJleHBpcmF0aW9uIjoiMjAxNC0wNC0wMVQwMDowMDowMC4wMDBaIiwiY29uZGl0
+aW9ucyI6W3siYWNsIjoicHVibGljLXJlYWQiIH0seyJidWNrZXQiOiAibWF2ZW4u
+a3VhbGkub3JnIiB9LFsic3RhcnRzLXdpdGgiLCAiJGtleSIsICJleHRlcm5hbC9v
+cmcvamVua2lucyJdLFsiY29udGVudC1sZW5ndGgtcmFuZ2UiLCAyMDQ4LCAyMTQ3
+NDgzNjQ4XV19
+
+eyJleHBpcmF0aW9uIjoiMjAxNC0wNC0wMVQwMDowMDowMC4wMDBaIiwiY29uZGl0
+aW9ucyI6W3siYWNsIjoicHVibGljLXJlYWQiIH0seyJidWNrZXQiOiAibWF2ZW4u
+a3VhbGkub3JnIiB9LFsic3RhcnRzLXdpdGgiLCAiJGtleSIsICJleHRlcm5hbC9v
+cmcvamVua2lucyJdLFsiY29udGVudC1sZW5ndGgtcmFuZ2UiLCAyMDQ4LCAyMTQ3
+NDgzNjQ4XV19
 
 POLICY=$(base64_encode "$JSON_POLICY")
 HMACSHA1=$(hmacsha1 $POLICY $AWS_SECRET_KEY)
