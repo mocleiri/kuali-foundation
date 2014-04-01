@@ -18,7 +18,7 @@
             <li <?php if ($page == 'cost-sharing') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="cost-sharing.php"><span class="icon-random"></span><span class="uif-innerText">Cost Sharing &amp; Unrecovered F&amp;A</span></a></li>
             <li <?php if ($page == 'project-income') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="project-income.php"><span class="icon-money"></span><span class="uif-innerText">Project Income</span></a></li>
             <li <?php if ($page == 'modular') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="modular.php"><span class="icon-ok"></span><span class="uif-innerText">Modular</span></a></li>
-            <li <?php if ($page == 'notes') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="notes.php"><span class="icon-th-list"></span><span class="uif-note">Budget Notes</span></a></li>
+            <li <?php if ($page == 'notes') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="notes.php"><span class="icon-th-list"></span><span class="uif-innerText">Budget Notes</span></a></li>
         </ul>
     </div>
 </nav>

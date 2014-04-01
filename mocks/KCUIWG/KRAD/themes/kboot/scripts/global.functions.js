@@ -37,8 +37,17 @@ jQuery(document).ready(function($) {
 
                 // If the data-edit-type is a select...
                 } else if ($(this).find('span').data('edit-type') == 'select') {
+                    var select_menu_options = $(this).data('edit-type-options');
                     var current_value = $(this).text();
-                    $(this).html('<select class="form-control input-sm" name="' + $(this).find('span').data('edit-name') + '" id="' + $(this).find('span').data('edit-id') + '"><option value="' + current_value + '">' + current_value + '</option>');
+                    var rebuild_select_menu = '<select class="form-control input-sm" name="' + $(this).find('span').data('edit-name') + '" id="' + $(this).find('span').data('edit-id') + '"><option value="' + current_value + '" selected="selected">' + current_value + '</option>';
+
+                    $(select_menu_options).each(function() {
+                       rebuild_select_menu += '<option value="' +  + '">' +  + '</option>';
+                    });
+
+                    rebuild_select_menu += '</select>';
+
+                    $(this).html(rebuild_select_menu);
 
                 // If the data-edit-type is a textarea...
                 } else if ($(this).find('span').data('edit-type') == 'textarea') {
@@ -62,13 +71,9 @@ jQuery(document).ready(function($) {
             var uif_action_row = '<tr class="uif-new-row uif-edit-append-row"><td colspan="' + editable_inputs.length + '">';
 
             if (that.parent().parent().hasClass('not-deletable')) {
-
                 uif_action_row += '<a href="#" class="uif-cancel pull-right" data-cancel-object="' + row_before_edit + '">Cancel edit</a>';
-
             } else {
-
                 uif_action_row += '<a href="#" class="uif-delete pull-left danger"><span class="icon icon-trash"></span> Delete entry</a><a href="#" class="uif-cancel pull-right" data-cancel-object="' + row_before_edit + '">Cancel edit</a>';
-
             }
 
             uif_action_row +=  '</td></tr>';
@@ -117,18 +122,31 @@ jQuery(document).ready(function($) {
                     var new_value = '<span data-edit-type="input" data-edit-name="" data-edit-id="">' + $(this).find('input').val() + '</span>';
                     $(this).html(new_value);
 
-                    // If it's a select menu...
+                // If it's a select menu...
                 } else if ($(this).find('select').length > 0) {
-                    var new_value = '<span data-edit-type="select" data-edit-name="" data-edit-id="">' + $(this).find('select option:selected').text() + '</span>';
-                    $(this).html(new_value);
 
-                    // If it's a textarea...
+                    var that = $(this);
+                    var edit_type_options = [];
+
+//                    console.log(that.find('select>option[0]'));
+
+                    $(that.find('select>option')).each(function() {
+//                        console.log($(this).text());
+                        edit_type_options.push($(this).text());
+                    });
+
+//                    console.log(edit_type_options);
+
+                    var new_value = '<span data-edit-type="select" data-edit-type-options="' + edit_type_options + '" data-edit-name="" data-edit-id="">' + that.find('select option:selected').text() + '</span>';
+                    that.html(new_value);
+
+                // If it's a textarea...
                 } else if ($(this).find('textarea').length > 0) {
                     var new_value = '<span data-edit-type="textarea" data-edit-name="" data-edit-id="">' + $(this).find('textarea').val() + '</span>';
                     $(this).html(new_value);
 
-                    // If it's something else...
-                    // Just skip it at this time
+                // If it's something else...
+                // Just skip it at this time
                 } else {
 
                 }

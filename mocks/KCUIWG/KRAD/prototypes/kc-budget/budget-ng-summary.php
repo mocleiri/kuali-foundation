@@ -160,123 +160,105 @@ $section = '';
                     <tbody>
                         <tr>
                             <th>&nbsp;</th>
-                            <th>P1</th>
-                            <th>P2</th>
-                            <th>P3</th>
-                            <th>P4</th>
-                            <th>P5</th>
-                            <th>Totals</th>
+                            <th>P1 <span class="sr-only">Period 1</span></th>
+                            <th>P2 <span class="sr-only">Period 2</span></th>
+                            <th>P3 <span class="sr-only">Period 3</span></th>
+                            <th>P4 <span class="sr-only">Period 4</span></th>
+                            <th>P5 <span class="sr-only">Period 5</span></th>
+                            <th>Totals <span class="sr-only">Period totals</span></th>
                         </tr>
                         <tr class="active">
-                            <td><strong> Personnel</strong></td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
+                            <td colspan="7"><a href="budget-ng-personnelCosts-projPersonnel.php"><strong>Personnel</strong></a></td>
                         </tr>
                         <tr class="">
                             <td><a href="#"> <span aria-hidden="true" class="icon-chevron-right"></span> Salary</a></td>
-                            <td>156934</td>
-                            <td>156934</td>
-                            <td>156934</td>
-                            <td>156934</td>
-                            <td>156934</td>
-                            <td>784670</td>
+                            <td>$156,934</td>
+                            <td>$156,934</td>
+                            <td>$156,934</td>
+                            <td>$156,934</td>
+                            <td>$156,934</td>
+                            <td>$784,670</td>
                         </tr>
                         <tr class="">
                             <td><a href="#"> <span aria-hidden="true" class="icon-chevron-right"></span> Fringe</a></td>
-                            <td>37345</td>
-                            <td>37345</td>
-                            <td>37345</td>
-                            <td>37345</td>
-                            <td>37345</td>
-                            <td>186725</td>
+                            <td>$37,345</td>
+                            <td>$37,345</td>
+                            <td>$37,345</td>
+                            <td>$37,345</td>
+                            <td>$37,345</td>
+                            <td>$186,725</td>
                         </tr>
                         <tr class="">
                             <td><a href="#"> <span aria-hidden="true" class="icon-chevron-right"></span> Calculated Direct Costs</a></td>
-                            <td>28284</td>
-                            <td>28284</td>
-                            <td>28284</td>
-                            <td>28284</td>
-                            <td>28284</td>
-                            <td>141420</td>
+                            <td>$28,284</td>
+                            <td>$28,284</td>
+                            <td>$28,284</td>
+                            <td>$28,284</td>
+                            <td>$28,284</td>
+                            <td>$141,420</td>
                         </tr>
                         <tr class="">
-                            <td>Personnel Subtotal </td>
-                            <td><strong>222563</strong></td>
-                            <td><strong>222563</strong></td>
-                            <td><strong>222563</strong></td>
-                            <td><strong>222563</strong></td>
-                            <td><strong>222563</strong></td>
-                            <td><strong>837456</strong></td>
+                            <td>Personnel Subtotal</td>
+                            <td><strong>$222,563</strong></td>
+                            <td><strong>$222,563</strong></td>
+                            <td><strong>$222,563</strong></td>
+                            <td><strong>$222,563</strong></td>
+                            <td><strong>$222,563</strong></td>
+                            <td><strong>$837,456</strong></td>
                         </tr>
                         <tr class="active">
-                            <td><strong> Non-personnel</strong></td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
+                            <td colspan="7"><a href="budget-ng-nonpersonnel.php"><strong>Non-personnel</strong></a></td>
                         </tr>
                         <tr class="">
-                            <td><a href="#"> <span aria-hidden="true" class="icon-chevron-right"></span> Calculated Direct Costs</a></td>
-                            <td>38546</td>
-                            <td>38546</td>
-                            <td>38546</td>
-                            <td>38546</td>
-                            <td>38546</td>
-                            <td>219348</td>
+                            <td><a href="#"><span aria-hidden="true" class="icon-chevron-right"></span> Calculated Direct Costs</a></td>
+                            <td>$38,546</td>
+                            <td>$38,546</td>
+                            <td>$38,546</td>
+                            <td>$38,546</td>
+                            <td>$38,546</td>
+                            <td>$219,348</td>
                         </tr>
                         <tr class="">
-                            <td>Nonpersonnel Subtotal </td>
-                            <td><strong>38546</strong></td>
-                            <td><strong>38546</strong></td>
-                            <td><strong>38546</strong></td>
-                            <td><strong>38546</strong></td>
-                            <td><strong>38546</strong></td>
-                            <td><strong>219348</strong></td>
+                            <td>Nonpersonnel Subtotal</td>
+                            <td><strong>$38,546</strong></td>
+                            <td><strong>$38,546</strong></td>
+                            <td><strong>$38,546</strong></td>
+                            <td><strong>$38,546</strong></td>
+                            <td><strong>$38,546</strong></td>
+                            <td><strong>$219,348</strong></td>
                         </tr>
                         <tr class="active">
-                            <td><strong> Totals</strong></td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
+                            <td colspan="7"><strong>Totals</strong></td>
                         </tr>
                         <tr>
                             <td>Total Direct Cost</td>
-                            <td>723454</td>
-                            <td>723454</td>
-                            <td>723454</td>
-                            <td>723454</td>
-                            <td>723454</td>
-                            <td>496432</td>
+                            <td>$723,454</td>
+                            <td>$723,454</td>
+                            <td>$723,454</td>
+                            <td>$723,454</td>
+                            <td>$723,454</td>
+                            <td>$496,432</td>
                         </tr>
                         <tr>
                             <td>Total F&amp;A Costs</td>
-                            <td>34537</td>
-                            <td>34537</td>
-                            <td>34537</td>
-                            <td>34537</td>
-                            <td>34537</td>
-                            <td>154578</td>
+                            <td>$34,537</td>
+                            <td>$34,537</td>
+                            <td>$34,537</td>
+                            <td>$34,537</td>
+                            <td>$34,537</td>
+                            <td>$154,578</td>
                         </tr>
                         <!-- tr>
             <td colspan="5" >Totals</td>
           </tr> -->
                         <tr class="active">
                             <td>Total Costs</td>
-                            <td class=""><strong>238546</strong></td>
-                            <td class=""><strong>238546</strong></td>
-                            <td class=""><strong>238546</strong></td>
-                            <td class=""><strong>238546</strong></td>
-                            <td class=""><strong>238546</strong></td>
-                            <td class=""><strong>2219348</strong></td>
+                            <td class=""><strong>$238,546</strong></td>
+                            <td class=""><strong>$238,546</strong></td>
+                            <td class=""><strong>$238,546</strong></td>
+                            <td class=""><strong>$238,546</strong></td>
+                            <td class=""><strong>$238,546</strong></td>
+                            <td class=""><strong>$2,219,348</strong></td>
                         </tr>
                     </tbody>
                 </table>
