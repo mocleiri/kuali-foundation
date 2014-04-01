@@ -163,12 +163,12 @@ function hmacsha1 {
   echo -n "$1" | openssl sha1 -hmac "$2" -binary | xxd -p
 }
 
-# base64_encode value
+# base64encode value
 function base64_encode {
   echo -n "$1" | base64 --wrap=0
 }
 
-# hex_to_base64 value
+# hex2base64 value
 function hex_to_base64 {
   echo -n "$1" | xxd -r -p | base64 --wrap=0
 }

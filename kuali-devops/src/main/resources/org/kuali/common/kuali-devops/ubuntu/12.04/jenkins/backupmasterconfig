@@ -27,8 +27,8 @@ URL=http://$BUCKET
 
 JSON_POLICY="{\"expiration\":\"$EXPIRATION\",\"conditions\":[{\"acl\":\"$ACL\" },{\"bucket\": \"$BUCKET\" },[\"starts-with\", \"\$key\", \"$KEY_PREFIX\"],[\"content-length-range\", $MIN_SIZE, $MAX_SIZE]]}";
 
-POLICY=$(base64_encode "$JSON_POLICY")
+POLICY=$(base64encode "$JSON_POLICY")
 HMACSHA1=$(hmacsha1 $POLICY $AWS_SECRET_KEY)
-SIGNATURE=$(hex_to_base64 $HMACSHA1)
+SIGNATURE=$(hex2base64 $HMACSHA1)
 
 curl -F "key=$KEY" -F "acl=$ACL" -F "AWSAccessKeyId=$ACCESS_KEY" -F "Policy=$POLICY" -F "Signature=$SIGNATURE" -F "file=@$FILE" $URL
