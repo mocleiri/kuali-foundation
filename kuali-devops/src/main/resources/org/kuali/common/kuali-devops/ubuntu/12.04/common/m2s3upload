@@ -80,4 +80,9 @@ VERSION=$7
 
 check_args
 
-M2_REMOTE_PATH=$($MY_DIR/m2path --repo="$REPO"  $GROUP_ID $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
+# Replace any dots with a forward slash
+GROUP_ID=$(get_path $GROUP_ID)
+
+M2_FILENAME=$($MY_DIR/m2filename $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
+
+echo $M2_FILENAME
