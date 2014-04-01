@@ -61,7 +61,7 @@ HMACSHA1=$(hmacsha1 $RAWSTRING $SECRET_KEY)
 SIGNATURE=$(base64encode $HMACSHA1)
 EXPIRES=$(date +%s)
 EXPIRES=$(($EXPIRES - 15))
-EXPIRES=1
+EXPIRES=2396373702
 
 URL=http://s3.amazonaws.com/$BUCKET/$KEY
 execute_quietly "curl --fail --get --data-urlencode AWSAccessKeyId=$ACCESS_KEY --data-urlencode Signature=$SIGNATURE --data-urlencode Expires=$EXPIRES --output $FILENAME $URL"
