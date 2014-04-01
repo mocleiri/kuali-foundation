@@ -1,7 +1,7 @@
 function check_args {
   check_not_blank STACK $STACK
   check_not_blank VERSION $VERSION
-  check_not_blank PASSWORD $PASSWORD
+  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
 }
 
 function tar_config {
