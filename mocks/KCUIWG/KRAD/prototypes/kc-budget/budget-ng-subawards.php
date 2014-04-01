@@ -142,11 +142,12 @@ $section = '';
             <?php include ('includes/uif-navigation-budget.php') ?>
             <div id="Uif-BreadcrumbUpdate" style="display:;"></div>
             <main id="LabsProposal-Page" class="uif-page uif-hasLeftNav" data-server_messages=false data-role=Page data-parent=LabsProposal style="margin-left: 235px;">
-                <header class="clearfix uif-header-contentWrapper">
+                <header class="clearfix uif-header-contentWrapper pull-left">
                     <div id="u148pgf0" class="uif-pageHeader clearfix" data-header_for=LabsProposal-Page>
                         <h2 class="uif-headerText"><span class="uif-headerText-span">Subawards </span></h2>
                     </div>
                 </header>
+                <div class="pull-right"> <a href="#"> <span class="icon-compass"></span> Guide Me</a></div>
                 <p class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">Upload a pre-formatted budget document for a subawardee organization or enter details manually.</p>
                 <div class="col-md-12"> 
                     <button class="btn btn-default btn-starter launch-modal" data-modal-page="modal/modal-attachments/attachments.proposal.add.php">Attach subawardee budget</button>
