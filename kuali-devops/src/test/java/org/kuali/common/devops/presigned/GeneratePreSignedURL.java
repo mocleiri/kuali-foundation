@@ -1,5 +1,7 @@
 package org.kuali.common.devops.presigned;
 
+import static com.amazonaws.auth.SigningAlgorithm.HmacSHA1;
+import static org.kuali.common.util.Encodings.UTF8;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.net.URL;
@@ -10,7 +12,6 @@ import javax.crypto.spec.SecretKeySpec;
 import org.jasypt.util.text.TextEncryptor;
 import org.junit.Test;
 import org.kuali.common.devops.logic.Passwords;
-import org.kuali.common.util.Encodings;
 import org.kuali.common.util.enc.EncUtils;
 import org.slf4j.Logger;
 
@@ -33,8 +34,8 @@ public class GeneratePreSignedURL {
 			String stringToSign = "GET\n\n\n1396391061\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom";
 			// 189e671278ba818abbe4f38f09a3961184471ddb - wrong
 			// fe2688cee03761c7f541c04ce245531fa106f129 - right
-			String hmacsha1 = hmacsha1(stringToSign, getSecretKey());
-			logger.info(hmacsha1);
+			String hmacsha1hex = hmacsha1hex(stringToSign, getSecretKey());
+			logger.info(hmacsha1hex);
 			System.out.println("expiration=" + expiration);
 			String bucket = "maven.kuali.org";
 			String key = "private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom";
@@ -57,9 +58,12 @@ public class GeneratePreSignedURL {
 		return sb.toString();
 	}
 
-	protected String hmacsha1(String data, String key) throws Exception {
-		byte[] bytes = sign(data.getBytes(Encodings.UTF8), key.getBytes(Encodings.UTF8), SigningAlgorithm.HmacSHA1);
-		return hex(bytes);
+	protected String hmacsha1hex(String data, String key) throws Exception {
+		return hex(hmacsha1bytes(data, key));
+	}
+
+	protected byte[] hmacsha1bytes(String data, String key) throws Exception {
+		return sign(data.getBytes(UTF8), key.getBytes(UTF8), HmacSHA1);
 	}
 
 	protected byte[] sign(byte[] data, byte[] key, SigningAlgorithm algorithm) throws AmazonClientException {
