@@ -158,14 +158,17 @@ function echo_lines {
   done < $FILENAME
 }
 
+# hmacsha1 key value
 function hmacsha1 {
   echo -n "$1" | openssl sha1 -hmac "$2" -binary | xxd -p
 }
 
+# base64_encode value
 function base64_encode {
   echo -n "$1" | openssl enc -base64
 }
 
+# hex_to_base64 value
 function hex_to_base64 {
   echo -n "$1" | xxd -r -p | openssl enc -base64
 }
