@@ -147,9 +147,123 @@ $section = '';
                         <h2 class="uif-headerText"><span class="uif-headerText-span">Subawards </span></h2>
                     </div>
                 </header>
-                <p id="u1iaxrzf" class="uif-message uif-boxLayoutVerticalItem clearfix">Upload a pre-formatted budget document for a subawardee organization or enter details manually.</p>
+                <p class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">Upload a pre-formatted budget document for a subawardee organization or enter details manually.</p>
+                <div class="col-md-12"> 
+                    <button class="btn btn-default btn-starter launch-modal" data-modal-page="modal/modal-attachments/attachments.proposal.add.php">Attach subawardee budget</button>
+                </div>  
                 <br>
-                
+                <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent=Demo-Disclosure-Example1>
+                    <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for=u1qq592w>
+                        <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=umbrella href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Umbrella Corporation.pdf</span></a></h3>
+                    </header>
+                    <div id="umbrella" data-role=disclosureContent data-open=true class="uif-disclosureContent">
+                        <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
+                            <div class="row">
+                                <div class="col-md-3">                                           
+                                    <p><b>Organization name:</b></p>                                    
+                                </div>
+                                <div class="col-md-4">
+                                    <p><b>Umbrella Corporation</b></p>  
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">                                           
+                                    <p><b>Comments:</b></p>                                    
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">                                           
+                                    <p><b>Form name:</b></p>                                    
+                                </div>
+                                <div class="col-md-4">
+                                    <p><b>Umbrella Corporation.pdf</b></p>  
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">                                           
+                                    <p><b>PDF last updated:</b></p>                                    
+                                </div>
+                                <div class="col-md-4">
+                                    <p><b>03/11/2014 03:27 PM</b></p>  
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">                                           
+                                    <p><b>XML last updated:</b></p>                                    
+                                </div>
+                                <div class="col-md-4">
+                                    <p><b>03/11/2014 03:27 PM</b></p>    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">                                           
+                                    <p><b>Subaward status code:</b></p>                                    
+                                </div>
+                                <div class="col-md-4"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">                                           
+                                    <p><b>Namespace:</b></p>                                    
+                                </div>
+                                <div class="col-md-4"></div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-1"></div>                                          
+                                <div class="col-md-2">                                           
+                                    <p><b>Direct cost</b></p>                                    
+                                </div>
+                                <div class="col-md-2">
+                                    <p><b>F&amp;A cost</b></p>
+                                </div>
+                                <div class="col-md-2">
+                                    <p><b>Cost sharing</b></p>
+                                </div>
+                                <div class="col-md-2">
+                                    <p><b>Total cost</b></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">                                               
+                                    <p><b>1</b></p> 
+                                </div>
+                                <div class="col-md-2">                                               
+                                    <input type="text" class="form-control" placeholder="0.00">
+                                </div>
+                                <div class="col-md-2">                                          
+                                    <input type="text" class="form-control" placeholder="0.00">
+                                </div>
+                                <div class="col-md-2">                                 
+                                    <input type="text" class="form-control" placeholder="0.00">
+                                </div>
+                                <div class="col-md-2">                                 
+                                    <p><b>0.00</b></p> 
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">                                               
+                                    <p><b>2</b></p> 
+                                </div>
+                                <div class="col-md-2">                                               
+                                    <input type="text" class="form-control" placeholder="0.00">
+                                </div>
+                                <div class="col-md-2">                                          
+                                    <input type="text" class="form-control" placeholder="0.00">
+                                </div>
+                                <div class="col-md-2">                                 
+                                    <input type="text" class="form-control" placeholder="0.00">
+                                </div>
+                                <div class="col-md-2">                                 
+                                    <p><b>0.00</b></p> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
             </main>
         </div>
         <!-- VIEW FOOTER -->
