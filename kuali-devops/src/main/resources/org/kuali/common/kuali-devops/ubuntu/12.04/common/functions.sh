@@ -185,5 +185,5 @@ function encrypt {
 
 # decrypt value password
 function decrypt {
-  echo -n "$1" | base64 --decode | gpg --batch --yes --passphrase "$2" --no-use-agent --decrypt
+  echo -n "$1" | base64 --decode | gpg --batch --yes --passphrase "$2" --quiet --no-use-agent --decrypt
 }
