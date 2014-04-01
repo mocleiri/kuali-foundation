@@ -149,32 +149,58 @@ $page = 'personnel-assign';
                 </header>
                 <p id="u1iaxrzf" class="uif-message uif-boxLayoutVerticalItem clearfix">Assign personnel to one or all periods and configure efforts and charges.</p>
                 <br>
-                <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                    <li class="active"><a href="#p1" data-toggle="tab">Period 1 </a></li>
-                    <li><a href="#p2" data-toggle="tab">Period 2</a></li>
-                    <li><a href="#p3" data-toggle="tab">Period 3</a></li>
-                    <li><a href="#p4" data-toggle="tab">Period 4</a></li>
-                    <li><a href="#p5" data-toggle="tab">Period 5</a></li>
-                </ul>
-                <div id="my-tab-content" class="tab-content">
-                    <div class="tab-pane active" id="p1">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h3 class> Period 1 <br>
-                                    <small>1/12/14 - 1/12/15</small></h3>
-                            </div>
-                            <div class="col-md-6 text-right">
-                                <div class="btn-group" style="margin-top:15px">
-                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Detailed View <span class="caret"></span> </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="">Summary View</a> </li>
-                                        <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="">Detailed View</a> </li>
-                                    </ul>
+<!--                <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">-->
+<!--                    <li class="active"><a href="#p1" data-toggle="tab">Period 1 </a></li>-->
+<!--                    <li><a href="#p2" data-toggle="tab">Period 2</a></li>-->
+<!--                    <li><a href="#p3" data-toggle="tab">Period 3</a></li>-->
+<!--                    <li><a href="#p4" data-toggle="tab">Period 4</a></li>-->
+<!--                    <li><a href="#p5" data-toggle="tab">Period 5</a></li>-->
+<!--                </ul>-->
+
+                <div class="well">
+                    <div class="row">
+                        <form action="" method="" class="form-horizontal">
+                            <div class="form-group">
+                                <label for="personnel-working-period" class="control-label col-sm-2">Select period:</label>
+                                <div class="col-sm-8">
+                                    <select name="personnel-working-period" id="personnel-working-period" class="form-control input-sm uif-dropdownControl">
+                                        <option value="1">1: 01/12/2014 - 01/12/2015</option>
+                                        <option value="2">2: 01/12/2015 - 01/12/2016</option>
+                                        <option value="3">3: 01/12/2016 - 01/12/2017</option>
+                                        <option value="4">4: 01/12/2017 - 01/12/2018</option>
+                                        <option value="5">5: 01/12/2018 - 01/12/2019</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <button class="btn btn-default">Load period</button>
                                 </div>
                             </div>
-                        </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="my-tab-content" class="tab-content">
+                    <div class="tab-pane active" id="p1">
                         <div class="col-md-12">
                             <div class="well well-sm" style="margin-top:15px;">
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3>Period 1<br /><small>01/12/2014 - 01/12/2015</small></h3>
+                                    </div>
+                                    <div class="col-md-8 text-right">
+                                        <div class="btn-group" style="margin-top:15px">
+                                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Detailed View <span class="caret"></span> </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="">Summary View</a> </li>
+                                                <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="">Detailed View</a> </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr />
+
                                 <h4> Assign Personnel</h4>
                                 <hr>
                                 <div class="form-horizontal" role="form">
@@ -182,8 +208,14 @@ $page = 'personnel-assign';
                                         <label for="inputEmail3" class="col-sm-2 control-label">Personnel</label>
                                         <div class="col-sm-10">
                                             <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl" data-role="Control" data-control_for="u11k8c5e">
-                                                <option value="B">Select</option>
+                                                <option value="B">- Select -</option>
+                                                <option>Jason Bourne</option>
+                                                <option>Marie Calendar</option>
+                                                <option>Maynard James Keenan</option>
+                                                <option>Ramen Noodle</option>
+                                                <option>TBN</option>
                                             </select>
+<!--                                            <br /><a href="#" data-toggle="modal" data-target="add-multi-personnel">Add multiple</a>-->
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -211,24 +243,24 @@ $page = 'personnel-assign';
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="p2">
-                        <p>orange orange orange orange orange</p>
-                    </div>
-                    <div class="tab-pane" id="p3">
-                        <p>yellow yellow yellow yellow yellow</p>
-                    </div>
-                    <div class="tab-pane" id="p4">
-                        <p>green green green green green</p>
-                    </div>
-                    <div class="tab-pane" id="p5">
-                        <p>blue blue blue blue blue</p>
-                    </div>
+<!--                    <div class="tab-pane" id="p2">-->
+<!--                        <p>orange orange orange orange orange</p>-->
+<!--                    </div>-->
+<!--                    <div class="tab-pane" id="p3">-->
+<!--                        <p>yellow yellow yellow yellow yellow</p>-->
+<!--                    </div>-->
+<!--                    <div class="tab-pane" id="p4">-->
+<!--                        <p>green green green green green</p>-->
+<!--                    </div>-->
+<!--                    <div class="tab-pane" id="p5">-->
+<!--                        <p>blue blue blue blue blue</p>-->
+<!--                    </div>-->
                 </div>
-                <script type="text/javascript">
-    jQuery(document).ready(function ($) {
-        $('#tabs').tab();
-    });
-</script> 
+<!--                <script type="text/javascript">-->
+<!--    jQuery(document).ready(function ($) {-->
+<!--        $('#tabs').tab();-->
+<!--    });-->
+<!--</script> -->
                 <br>
                 <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example1">
                     <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for="u1qq592w">
