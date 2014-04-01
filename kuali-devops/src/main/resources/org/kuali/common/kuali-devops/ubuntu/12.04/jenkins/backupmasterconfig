@@ -19,11 +19,38 @@ source $MY_DIR/../common/functions.sh
 
 usage() { echo "Usage: $ME [-q --quiet] [-h --help] stack version password" 1>&2; exit 1; }
 
+QUIET=false
+
+ARGS=$(getopt --options hqa:p:t:c: --longoptions "help,quiet,acl:,prefix:,type:,classifier:" --name "$ME" -- "$@");
+if [ $? -ne 0 ]; then usage; fi
+eval set -- "$ARGS";
+while true; do
+  case "$1" in
+    -h|--help)
+      usage;
+      shift;
+      ;;
+    -q|--quiet)
+      QUIET=true;
+      shift;
+      ;;
+    --)
+      shift;
+      break;
+      ;;
+  esac
+done
+
 STACK=$1
 VERSION=$2
 GPG_PASSPHRASE=$3
 
 check_args
+
+QUIET_FLAG=""
+if [ "$QUIET" == "true" ]; then
+  QUIET_FLAG="-q"
+fi
 
 GROUP_ID=org.jenkins
 ARTIFACT_ID=jenkins-master-backup
@@ -42,4 +69,4 @@ GPG_DECRYPTED=$TAR_FILE
 GPG_ENCRYPTED=$TAR_FILE.gpg
 encrypt_file $GPG_DECRYPTED $GPG_ENCRYPTED
 
-$MY_DIR/../common/m2s3upload $GPG_ENCRYPTED $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --type=$TYPE --prefix=$PREFIX
+$MY_DIR/../common/m2s3upload $QUIET_FLAG $GPG_ENCRYPTED $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --type=$TYPE --prefix=$PREFIX
