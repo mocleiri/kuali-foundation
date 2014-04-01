@@ -173,6 +173,7 @@ function hex2base64 {
   echo -n "$1" | xxd -r -p | base64 --wrap=0
 }
 
+# convert any dots into forward slashes
 function get_path {
   echo -n "$1" | tr "." "/"
 }
