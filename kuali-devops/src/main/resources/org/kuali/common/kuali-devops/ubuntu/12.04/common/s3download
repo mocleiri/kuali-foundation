@@ -54,6 +54,8 @@ SECRET_KEY=$3
 BUCKET=$4
 KEY=$5
 
+check_args
+
 URL=https://$BUCKET.s3.amazonaws.com
 
 #curl --get --data-urlencode "AWSAccessKeyId=xyz" --data-urlencode "Expires=xyz" --data-urlencode "Signature=xyz" https://whatever.com/whatever
