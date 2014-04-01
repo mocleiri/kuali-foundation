@@ -58,9 +58,9 @@ check_args
 
 RAWSTRING=$(string_to_sign $BUCKET $KEY)
 HMACSHA1=$(hmacsha1 $RAWSTRING $SECRET_KEY)
-BASE64=$(base64encode $HMACSHA1)
+SIGNATURE=$(base64encode $HMACSHA1)
 EXPIRES=$(date +%s)
 EXPIRES=$(($EXPIRES + 15))
 
 URL=https://$BUCKET.s3.amazonaws.com/$KEY
-execute_quietly "curl --fail --get --data-urlencode AWSAccessKeyId=$ACCESS_KEY --data-urlencode Signature=$BASE64 --data-urlencode Expires=$EXPIRES --output=$FILENAME $URL"
+execute_quietly "curl --fail --get --data-urlencode AWSAccessKeyId=$ACCESS_KEY --data-urlencode Signature=$SIGNATURE --data-urlencode Expires=$EXPIRES --output=$FILENAME $URL"
