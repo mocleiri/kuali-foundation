@@ -57,6 +57,7 @@ KEY=$5
 check_args
 
 RAWSTRING=$(string_to_sign $BUCKET $KEY)
+echo "[$RAWSTRING]"
 HMACSHA1=$(hmacsha1 $RAWSTRING $SECRET_KEY)
 SIGNATURE=$(base64encode $HMACSHA1)
 EXPIRES=$(date +%s)
