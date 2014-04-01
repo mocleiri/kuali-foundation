@@ -1,3 +1,9 @@
+function check_args {
+  check_not_blank STACK
+  check_not_blank VERSION $VERSION
+  check_not_blank PASSWORD $PASSWORD
+}
+
 function tar_config {
    echo "tar.gz    -> master config"
    rm -rf /ssd/master.* /ssd/.jenkins
