@@ -1,3 +1,10 @@
+function zip_config {
+   echo "zip     -> master config"
+   cd /home/tomcat7
+   rm -f $ZIP
+   zip -q -r $ZIP .jenkins -x **/plugins/** **/workspace/** **/logs/slaves/**
+}
+
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
@@ -8,6 +15,7 @@ usage() { echo "Usage: $ME [-q --quiet] [-h --help] stack version password secre
 STACK=$1
 VERSION=$2
 GPG_PASSPHRASE=$3
+SECRET_KEY=$4
 
 GROUP_ID=org.jenkins
 ARTIFACT_ID=jenkins-master-backup
@@ -17,3 +25,8 @@ TYPE=zip.gpg
 PREFIX=external
 ACCESS_KEY=AKIAJFD5IM7IPVVUEBNA
 BUCKET=maven.kuali.org
+
+ZIP=/tmp/master.zip
+zip_config
+
+#source $MY_DIR/../common/m2s3upload $ZIP $ACCESS_KEY $ACCESS_KEY $SECRET_KEY $GROUP_ID $ARTIFACT_ID $VERSION --type=$TYPE  
