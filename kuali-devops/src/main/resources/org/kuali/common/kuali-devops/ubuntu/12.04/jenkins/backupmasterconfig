@@ -3,32 +3,17 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-STACK=test
-TIMESTAMP=20140331-181500
-JENKINS_VERSION=1.532.2
+usage() { echo "Usage: $ME [-q --quiet] [-h --help] stack version password secret_key" 1>&2; exit 1; }
+
+STACK=$1
+VERSION=$2
+GPG_PASSPHRASE=$3
+
 GROUP_ID=org.jenkins
 ARTIFACT_ID=jenkins-master-backup
-VERSION=$JENKINS_VERSION
 CLASSIFIER=$STACK-$TIMESTAMP
 TYPE=zip.gpg
 
-GROUP_ID_PATH=$(get_path $GROUP_ID)
-REPO=external
+PREFIX=external
 ACCESS_KEY=AKIAJFD5IM7IPVVUEBNA
-ACL=public-read
 BUCKET=maven.kuali.org
-EXPIRATION=2099-01-01T00:00:00.000Z
-FILE=master.zip
-KEY=$REPO/$GROUP_ID_PATH/$ARTIFACT_ID/$VERSION/$ARTIFACT_ID-$VERSION-$CLASSIFIER.$TYPE
-MIN_SIZE=0
-MAX_SIZE=1099511627776
-KEY_PREFIX=$REPO/$GROUP_ID_PATH
-URL=http://$BUCKET
-
-JSON_POLICY="{\"expiration\":\"$EXPIRATION\",\"conditions\":[{\"acl\":\"$ACL\" },{\"bucket\": \"$BUCKET\" },[\"starts-with\", \"\$key\", \"$KEY_PREFIX\"],[\"content-length-range\", $MIN_SIZE, $MAX_SIZE]]}";
-
-POLICY=$(base64encode "$JSON_POLICY")
-HMACSHA1=$(hmacsha1 $POLICY $AWS_SECRET_KEY)
-SIGNATURE=$(hex2base64 $HMACSHA1)
-
-execute_quietly "curl --fail -F key=$KEY -F acl=$ACL -F AWSAccessKeyId=$ACCESS_KEY -F Policy=$POLICY -F Signature=$SIGNATURE -F file=@$FILE $URL"
