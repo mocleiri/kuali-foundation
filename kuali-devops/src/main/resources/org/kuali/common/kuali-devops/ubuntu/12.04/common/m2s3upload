@@ -6,10 +6,11 @@ source $MY_DIR/../common/functions.sh
 usage() { echo "Usage: $ME [-q --quiet] [-h --help] [-a --acl=public-read] [-p --prefix=release] [-t --type=zip] [-c --classifier=linux-x64] access_key secret_key bucket group_id artifact_id version filename" 1>&2; exit 1; }
 
 QUIET=false
+
 # default is public read
 ACL=public-read
 
-# allow uploads up to one terabyte
+# anything up to a terabyte is ok
 MIN_SIZE=0
 MAX_SIZE=1099511627776
 
