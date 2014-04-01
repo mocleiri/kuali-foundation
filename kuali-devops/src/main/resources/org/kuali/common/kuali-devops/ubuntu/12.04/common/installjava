@@ -44,7 +44,7 @@ function install_jdk {
 
   NEXUS_DEV_REPO="http://nexus.kuali.org/content/groups/developer"
 
-  # Make the call to the smart downloader
+  # Download and cache the jdk
   $MY_DIR/m2download $QUIET_FLAG --repo="$NEXUS_DEV_REPO" --classifier=$JDK_CLASSIFIER --type=$JDK_TYPE --username=$NEXUS_USER --password=$NEXUS_PASSWORD $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION
   
   JDK_UNZIP_DIR=$JDK_ARTIFACT_ID-$JDK_VERSION
