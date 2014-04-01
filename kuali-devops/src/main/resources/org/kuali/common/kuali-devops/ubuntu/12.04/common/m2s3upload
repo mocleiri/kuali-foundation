@@ -9,6 +9,11 @@ QUIET=false
 
 # default is public read
 ACL=public-read
+PREFIX=""
+FILE=$(basename "$FILENAME")
+EXTENSION="${FILE##*.}"
+TYPE=$EXTENSION
+CLASSIFIER=""
 
 # anything up to a terabyte is ok
 MIN_SIZE=0
