@@ -16,8 +16,9 @@ function check_args {
 function string_to_sign {
    local BUCKET=$1
    local KEY=$2
-   local DATE=$(rfc2616date)
-   printf "GET\n\n\n%s\n%s" "$DATE" "/$BUCKET/$KEY"
+   #local DATE=$(rfc2616date)
+   local EXPIRES=$3
+   printf "GET\n\n\n%s\n%s" "$EXPIRES" "/$BUCKET/$KEY"
 }
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
@@ -56,13 +57,13 @@ KEY=$5
 
 check_args
 
-RAWSTRING=$(string_to_sign $BUCKET $KEY)
+EXPIRES=$(date +%s)
+EXPIRES=$(($EXPIRES + 15))
+RAWSTRING=$(string_to_sign $BUCKET $KEY $EXPIRES)
 echo "[$RAWSTRING]"
 HMACSHA1=$(hmacsha1 $RAWSTRING $SECRET_KEY)
 SIGNATURE=$(base64encode $HMACSHA1)
 SIGNATURE=$(urlencode $SIGNATURE)
-EXPIRES=$(date +%s)
-EXPIRES=$(($EXPIRES + 15))
 
 URL="https://s3.amazonaws.com/$BUCKET/$KEY?AWSAccessKeyId=$ACCESS_KEY&Expires=$EXPIRES&Signature=$SIGNATURE"
 execute_quietly "curl --output $FILENAME $URL"
