@@ -6,6 +6,20 @@ function check_args {
   check_not_blank KEY $KEY
 }
 
+
+GET\n
+\n
+\n
+Tue, 27 Mar 2007 19:36:42 +0000\n
+/johnsmith/photos/puppy.jpg
+
+function string_to_sign {
+   BUCKET=$1
+   KEY=$2
+   DATE=$(rfc2616date)
+   printf "GET\n\n\n%s\n%s" "$DATE" "/$BUCKET/$KEY"  
+}
+
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
