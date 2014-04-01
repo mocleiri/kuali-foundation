@@ -25,7 +25,8 @@ function string_to_sign {
    local BUCKET=$1
    local KEY=$2
    local EXPIRES=$3
-   echo -e -n "GET\n\n\n$EXPIRES\n/$BUCKET/$KEY"
+   #echo -e -n "GET\n\n\n$EXPIRES\n/$BUCKET/$KEY"
+   echo -e -n "GET\n\n\n1396391061\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom"
 }
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
