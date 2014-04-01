@@ -94,7 +94,7 @@ $section = '';
                     <div id="LabsProposal-MoreDocInfo" class="dropdown uif-boxLayoutVerticalItem clearfix"><a href="#" class="dropdown-toggle" data-toggle=dropdown> more info... </a>
                         <section id="uhlixhs" class="dropdown-menu uif-gridGroup">
                             <h4 class="uif-headerText">Document Info</h4>
-                            <table id="u98wduy" class="table table-condensed uif-table-fixed" role=presentation>
+                            <table id="u98wduy" class="edit-table table table-condensed uif-table-fixed" role="presentation">
                                 <tbody>
                                     <tr>
                                         <th scope=row>Label</th>
@@ -156,7 +156,7 @@ $section = '';
                         <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Reset to Institutional Defaults</a> <a href="#" class="btn btn-xs btn-default">Refresh Rates</a></div>
                         <br>
                         <br>
-                        <table class="table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby=Demo-LightTableGroup1_lightTable_info>
+                        <table class="edit-table table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby=Demo-LightTableGroup1_lightTable_info>
                             <thead>
                                 <tr role=row>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-sort=ascending aria-label="
@@ -295,7 +295,7 @@ $section = '';
                         <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Reset to Institutional Defaults</a> <a href="#" class="btn btn-xs btn-default">Refresh Rates</a></div>
                         <br>
                         <br>
-                        <table class="table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby=Demo-LightTableGroup1_lightTable_info>
+                        <table class="edit-table table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby=Demo-LightTableGroup1_lightTable_info>
                             <thead>
                                 <tr role=row>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-sort=ascending aria-label="
@@ -380,7 +380,7 @@ $section = '';
                         <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Reset to Institutional Defaults</a> <a href="#" class="btn btn-xs btn-default">Refresh Rates</a></div>
                         <br>
                         <br>
-                        <table class="table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby=Demo-LightTableGroup1_lightTable_info>
+                        <table class="edit-table table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby=Demo-LightTableGroup1_lightTable_info>
                             <thead>
                                 <tr role=row>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-sort=ascending aria-label="
@@ -627,7 +627,7 @@ $section = '';
                         <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Reset to Institutional Defaults</a> <a href="#" class="btn btn-xs btn-default">Refresh Rates</a></div>
                         <br>
                         <br>
-                        <table class="table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby=Demo-LightTableGroup1_lightTable_info>
+                        <table class="edit-table table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby=Demo-LightTableGroup1_lightTable_info>
                             <thead>
                                 <tr role=row>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-sort=ascending aria-label="
@@ -752,7 +752,7 @@ $section = '';
                         <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Reset to Institutional Defaults</a> <a href="#" class="btn btn-xs btn-default">Refresh Rates</a></div>
                         <br>
                         <br>
-                        <table class="table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby=Demo-LightTableGroup1_lightTable_info>
+                        <table class="edit-table table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby=Demo-LightTableGroup1_lightTable_info>
                             <thead>
                                 <tr role=row>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-sort=ascending aria-label="
