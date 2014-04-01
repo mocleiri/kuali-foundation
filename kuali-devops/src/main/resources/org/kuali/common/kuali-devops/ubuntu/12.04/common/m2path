@@ -55,7 +55,7 @@ VERSION=$3
 
 check_args
 
-# Replace any dots with a forward slash in the group id
+# Replace any dots with a forward slash
 GROUP_ID=$(get_path $GROUP_ID)
 
 M2_FILENAME=$($MY_DIR/m2filename $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
