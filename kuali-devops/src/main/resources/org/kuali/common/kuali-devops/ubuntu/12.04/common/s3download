@@ -59,7 +59,7 @@ EXPIRES=$(date +%s)
 EXPIRES=$(($EXPIRES + 900))
 RAWSTRING=$(string_to_sign $BUCKET $KEY $EXPIRES)
 HMACSHA1=$(hmacsha1 $RAWSTRING $SECRET_KEY)
-BASE64=$(base64encode $HMACSHA1)
+BASE64=$(hex2base64 $HMACSHA1)
 SIGNATURE=$(urlencode $BASE64)
 
 echo " --- "
