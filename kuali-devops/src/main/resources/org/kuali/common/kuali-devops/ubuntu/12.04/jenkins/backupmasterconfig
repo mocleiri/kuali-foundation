@@ -5,7 +5,7 @@ function check_args {
 }
 
 function tar_config {
-   echo "tar.gz    -> master config"
+   echo "tar.gz    -> /home/tomcat7/.jenkins"
    rm -rf /ssd/master.* /ssd/.jenkins
    cd /home/tomcat7
    tar -zcf $TAR_FILE .jenkins --exclude=**/plugins/** --exclude=**/workspace/** --exclude=**/logs/slaves/**
