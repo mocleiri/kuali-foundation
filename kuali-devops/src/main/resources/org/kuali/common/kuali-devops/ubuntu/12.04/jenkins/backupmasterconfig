@@ -7,15 +7,16 @@ source $MY_DIR/../common/functions.sh
 ACCESS_KEY=AKIAJFD5IM7IPVVUEBNA
 ACL=public-read
 BUCKET=maven.kuali.org
-EXPIRATION="2021-01-01T00:00:00.000Z"
+EXPIRATION=2021-01-01T00:00:00.000Z
 FILE=master.zip
-KEY="external/org/jenkins/master.zip"
-TYPE="application/zip"
-URL=http://$BUCKET
+KEY=external/org/jenkins/master.zip
 MIN_SIZE=0
 MAX_SIZE=2147483648
+KEY_PREFIX=external/org/jenkins
+TYPE=application/zip
+URL=http://$BUCKET
 
-JSON_POLICY="{\"expiration\":\"$EXPIRATION\",\"conditions\":[{\"acl\":\"public-read\" },{\"bucket\": \"maven.kuali.org\" },[\"starts-with\", \"\$key\", \"external/org/jenkins\"],[\"content-length-range\", 0, 2147483648]]}";
+JSON_POLICY="{\"expiration\":\"$EXPIRATION\",\"conditions\":[{\"acl\":\"$ACL\" },{\"bucket\": \"$BUCKET\" },[\"starts-with\", \"\$key\", \"$KEY_PREFIX\"],[\"content-length-range\", $MIN_SIZE, $MAX_SIZE]]}";
 
 POLICY=$(base64_encode "$JSON_POLICY")
 HMACSHA1=$(hmacsha1 $POLICY $AWS_SECRET_KEY)
