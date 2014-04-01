@@ -4,8 +4,8 @@ ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
 
-JSON_POLICY=Man
 JSON_POLICY='{"expiration":"2021-01-01T12:00:00.000Z","conditions":[{"acl":"public-read" },{"bucket": "maven.kuali.org" },["starts-with", "$key", "external/org/jenkins"],["content-length-range", 2048, 2147483648]]}';
+JSON_POLICY=Man
 POLICY=$(base64_encode $JSON_POLICY)
 HMACSHA1=$(hmacsha1 $POLICY $AWS_SECRET_KEY)
 SIGNATURE=$(hex_to_base64 $HMACSHA1)
@@ -22,5 +22,7 @@ ACCESS_KEY=AKIAJFD5IM7IPVVUEBNA
 TYPE="application/zip"
 FILE=master.zip
 URL=http://maven.kuali.org
+
+exit 1
 
 curl -F "key=$KEY" -F "acl=$ACL" -F "AWSAccessKeyId=$ACCESS_KEY" -F "Policy=$POLICY" -F "Signature=$SIGNATURE" -F "Content-Type=$TYPE" -F "file=@$FILE" $URL
