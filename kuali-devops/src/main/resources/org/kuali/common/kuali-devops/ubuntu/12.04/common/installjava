@@ -38,15 +38,9 @@ function install_jdk {
   JDK_VERSION=${!JDK_FRAGMENT_VAR}-$JDK_UPDATE
   JDK_TYPE=zip
 
-  NEXUS_CONFIG_DIR=$MY_DIR/../../../nexus
-  GPG_ENCRYPTED=$NEXUS_CONFIG_DIR/nexus.password.gpg
-  GPG_DECRYPTED=$NEXUS_CONFIG_DIR/nexus.password
-  echo "decrypt   -> nexus password"
-  decrypt_file $GPG_ENCRYPTED $GPG_DECRYPTED
-
   NEXUS_USER=developer
-  NEXUS_PASSWORD=$(<$GPG_DECRYPTED)
-  execute_quietly "rm $GPG_DECRYPTED"
+  NEXUS_PASSWORD=jA0ECQMCYpWe5Z+W3Em+0j4BwNhCtOhfaxUIp1eJ4czuEuyYjJknpsk4SixovPkZ3m85USs0OvK5uxRcpuc2jVT/r7bhBFLqU2s+N4K1vQ==
+  NEXUS_PASSWORD=$(decrypt $NEXUS_PASSWORD $GPG_PASSPHRASE)
 
   NEXUS_DEV_REPO="http://nexus.kuali.org/content/groups/developer"
 
