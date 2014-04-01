@@ -4,7 +4,6 @@ import static org.kuali.common.util.Encodings.UTF8;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.util.Properties;
 
 import org.kuali.common.util.properties.rice.RiceLoader;
@@ -23,7 +22,7 @@ public class RicePropertiesFunction implements Function<String, Properties> {
 		try {
 			ByteArrayInputStream in = new ByteArrayInputStream(content.getBytes(UTF8));
 			return RiceLoader.load(in);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new Properties();
 		}
