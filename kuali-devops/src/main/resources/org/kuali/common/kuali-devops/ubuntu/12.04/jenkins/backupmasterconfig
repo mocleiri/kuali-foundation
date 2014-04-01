@@ -9,7 +9,7 @@ POLICY=Man
 BASE64_POLICY=$(base64_encode "$POLICY")
 HMACSHA1=$(echo -n "$BASE64_POLICY" | openssl sha1 -hmac "$AWS_SECRET_KEY")
 
-HMACSHA1_2=$(hmansha1 $BASE64_POLICY $AWS_SECRET_KEY)
+HMACSHA1_2=$(hmacsha1 $BASE64_POLICY $AWS_SECRET_KEY)
 echo "2=[$HMACSHA1_2]
 
 SIGNATURE=$(hex_to_base64 "$HMACSHA1")
