@@ -19,7 +19,7 @@ function string_to_sign {
    #local DATE=$(rfc2616date)
    local EXPIRES=$3
    local TOKEN="/$KEY"
-   echo -e -n "GET\n\n\n$EXPIRES\n\n$TOKEN"
+   echo -e -n "GET\n\n\n$EXPIRES\n$TOKEN"
 }
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
