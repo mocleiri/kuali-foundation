@@ -3,7 +3,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-q --quiet] [-h --help] [-a --acl=public-read] access_key secret_key filename bucket key " 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-q --quiet] [-h --help] [-a --acl=public-read] [-p --prefix=release] [-t --type=zip] [-c --classifier=linux-x64] access_key secret_key bucket group_id artifact_id version filename" 1>&2; exit 1; }
 
 QUIET=false
 # default is public read
