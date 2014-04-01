@@ -1,0 +1,27 @@
+
+MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+ME=$(basename $0)
+source $MY_DIR/../common/functions.sh
+
+usage() { echo "Usage: $ME [-q --quiet] [-h --help] [-a --acl=public-read] access_key secret_key filename bucket key " 1>&2; exit 1; }
+
+ACL=public-read
+MIN_SIZE=0
+MAX_SIZE=1099511627776
+EXPIRATION=2999-01-01T00:00:00.000Z
+
+ACCESS_KEY=$1
+SECRET_KEY=$2
+FILENAME=$3
+BUCKET=$4
+KEY=$5
+
+URL=http://$BUCKET
+KEY_PREFIX=$KEY
+
+POLICY="{\"expiration\":\"$EXPIRATION\",\"conditions\":[{\"acl\":\"$ACL\" },{\"bucket\": \"$BUCKET\" },[\"starts-with\", \"\$key\", \"$KEY_PREFIX\"],[\"content-length-range\", $MIN_SIZE, $MAX_SIZE]]}";
+POLICY=$(base64encode "$POLICY")
+HMACSHA1=$(hmacsha1 $POLICY $SECRET_KEY)
+SIGNATURE=$(hex2base64 $HMACSHA1)
+
+execute_quietly "curl --fail -F key=$KEY -F acl=$ACL -F AWSAccessKeyId=$ACCESS_KEY -F Policy=$POLICY -F Signature=$SIGNATURE -F file=@$FILENAME $URL"
