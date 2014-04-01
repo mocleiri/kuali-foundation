@@ -17,7 +17,7 @@ function string_to_sign {
    BUCKET=$1
    KEY=$2
    DATE=$(rfc2616date)
-   printf "GET\n\n\n%s\n%s" "$DATE" "/$BUCKET/$KEY"  
+   printf "GET\n\n\n%s\n%s" "$DATE" "/$BUCKET/$KEY"
 }
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
