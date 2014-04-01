@@ -62,12 +62,13 @@ EXPIRES=$(date +%s)
 EXPIRES=$(($EXPIRES + 15))
 RAWSTRING=$(string_to_sign $BUCKET $KEY $EXPIRES)
 HMACSHA1=$(hmacsha1 $RAWSTRING $SECRET_KEY)
-SIGNATURE=$(base64encode $HMACSHA1)
-SIGNATURE=$(urlencode $SIGNATURE)
+BASE64=$(base64encode $HMACSHA1)
+SIGNATURE=$(urlencode $BASE64)
 
 echo "expires=$EXPIRES"
 echo "rawstring=$RAWSTRING"
 echo "hmacsha1=$HMACSHA1"
+echo "base64=$BASE64"
 echo "signature=$SIGNATURE"
 
 URL="https://s3.amazonaws.com/$BUCKET/$KEY?AWSAccessKeyId=$ACCESS_KEY&Expires=$EXPIRES&Signature=$SIGNATURE"
