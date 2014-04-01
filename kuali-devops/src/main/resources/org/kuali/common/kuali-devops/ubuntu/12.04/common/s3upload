@@ -16,7 +16,7 @@ FILENAME=$3
 BUCKET=$4
 KEY=$5
 
-URL=http://$BUCKET
+URL=https://$BUCKET
 KEY_PREFIX=$KEY
 
 POLICY="{\"expiration\":\"$EXPIRATION\",\"conditions\":[{\"acl\":\"$ACL\" },{\"bucket\": \"$BUCKET\" },[\"starts-with\", \"\$key\", \"$KEY_PREFIX\"],[\"content-length-range\", $MIN_SIZE, $MAX_SIZE]]}";
