@@ -4,19 +4,21 @@ ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
 GROUP_ID=$(get_path org.jenkins)
-
-echo $GROUP_ID
+ARTIFACT_ID=jenkins-master-backup
+VERSION=2014-03-31-181500
+CLASSIFIER=testci
+TYPE=gpg
+REPO=external
 
 ACCESS_KEY=AKIAJFD5IM7IPVVUEBNA
 ACL=public-read
 BUCKET=maven.kuali.org
 EXPIRATION=2099-01-01T00:00:00.000Z
 FILE=master.zip
-KEY=external/org/jenkins/master.zip
+KEY=$REPO/$GROUP_ID/$ARTIFACT_ID/$VERSION/$ARTIFACT_ID-$VERSION-$CLASSIFIER.$TYPE
 MIN_SIZE=0
 MAX_SIZE=2147483648
-KEY_PREFIX=external/org/jenkins
-TYPE=application/zip
+KEY_PREFIX=$REPO/$GROUP_ID
 URL=http://$BUCKET
 
 JSON_POLICY="{\"expiration\":\"$EXPIRATION\",\"conditions\":[{\"acl\":\"$ACL\" },{\"bucket\": \"$BUCKET\" },[\"starts-with\", \"\$key\", \"$KEY_PREFIX\"],[\"content-length-range\", $MIN_SIZE, $MAX_SIZE]]}";
