@@ -61,4 +61,4 @@ HMACSHA1=$(hmacsha1 $RAWSTRING $SECRET_KEY)
 BASE64=$(base64encode $HMACSHA1)
 
 URL=https://$BUCKET.s3.amazonaws.com/$KEY
-curl --get --data-urlencode "AWSAccessKeyId=$ACCESS_KEY" --data-urlencode "Signature=$BASE64" $URL
+execute_quietly "curl --get --data-urlencode AWSAccessKeyId=$ACCESS_KEY --data-urlencode Signature=$BASE64 $URL"
