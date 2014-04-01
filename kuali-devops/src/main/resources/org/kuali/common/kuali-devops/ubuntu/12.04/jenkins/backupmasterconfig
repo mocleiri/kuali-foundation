@@ -21,7 +21,6 @@ usage() { echo "Usage: $ME [-q --quiet] [-h --help] stack version password" 1>&2
 STACK=$1
 VERSION=$2
 GPG_PASSPHRASE=$3
-SECRET_KEY=$4
 
 GROUP_ID=org.jenkins
 ARTIFACT_ID=jenkins-master-backup
