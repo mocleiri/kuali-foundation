@@ -5,6 +5,7 @@ source $MY_DIR/../common/functions.sh
 
 usage() { echo "Usage: $ME [-q --quiet] [-h --help] [-a --acl=public-read] access_key secret_key filename bucket key " 1>&2; exit 1; }
 
+QUIET=false
 # default is public read
 ACL=public-read
 
@@ -14,6 +15,32 @@ MAX_SIZE=1099511627776
 
 # This is not the expiration date on the uploaded file, it's the expiration date on the policy that controls the file upload
 EXPIRATION=2999-01-01T00:00:00.000Z
+
+ARGS=$(getopt --options hqa: --longoptions "help,quiet,acl:" --name "$ME" -- "$@");
+if [ $? -ne 0 ]; then usage; fi
+eval set -- "$ARGS";
+while true; do
+  case "$1" in
+    -h|--help)
+      usage;
+      shift;
+      ;;
+    -q|--quiet)
+      QUIET=true;
+      shift;
+      ;;
+    -a|--acl)
+      shift;
+      ACL="$1";
+      shift;
+      ;;
+    --)
+      shift;
+      break;
+      ;;
+  esac
+done
+
 
 ACCESS_KEY=$1
 SECRET_KEY=$2
