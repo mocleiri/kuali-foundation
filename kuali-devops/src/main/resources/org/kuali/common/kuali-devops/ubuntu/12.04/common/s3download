@@ -63,4 +63,4 @@ EXPIRES=$(date +%s)
 EXPIRES=$(($EXPIRES + 15))
 
 URL=https://$BUCKET.s3.amazonaws.com/$KEY
-execute_quietly "curl --get --data-urlencode AWSAccessKeyId=$ACCESS_KEY --data-urlencode Signature=$BASE64 --date-urlencode Expires=$EXPIRES $URL"
+execute_quietly "curl --get --data-urlencode AWSAccessKeyId=$ACCESS_KEY --data-urlencode Signature=$BASE64 --date-urlencode Expires=$EXPIRES --output=$FILENAME $URL"
