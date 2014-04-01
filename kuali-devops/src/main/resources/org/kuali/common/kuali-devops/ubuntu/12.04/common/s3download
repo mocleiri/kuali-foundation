@@ -60,7 +60,6 @@ check_args
 EXPIRES=$(date +%s)
 EXPIRES=$(($EXPIRES + 15))
 RAWSTRING=$(string_to_sign $BUCKET $KEY $EXPIRES)
-echo "[$RAWSTRING]"
 HMACSHA1=$(hmacsha1 $RAWSTRING $SECRET_KEY)
 SIGNATURE=$(base64encode $HMACSHA1)
 SIGNATURE=$(urlencode $SIGNATURE)
