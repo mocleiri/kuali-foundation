@@ -56,8 +56,9 @@ KEY=$5
 
 check_args
 
-URL=https://$BUCKET.s3.amazonaws.com
+RAWSTRING=$(string_to_sign $BUCKET $KEY)
+HMACSHA1=$(hmacsha1 $RAWSTRING $SECRET_KEY)
+BASE64=$(base64encoding $HMACSHA1)
 
-STRING=$(string_to_sign $BUCKET $KEY)
-
-#curl --get --data-urlencode "AWSAccessKeyId=xyz" --data-urlencode "Expires=xyz" --data-urlencode "Signature=xyz" https://whatever.com/whatever
+URL=https://$BUCKET.s3.amazonaws.com/$KEY
+curl --get --data-urlencode "AWSAccessKeyId=$ACCESS_KEY" --data-urlencode "Signature=$BASE64" $URL
