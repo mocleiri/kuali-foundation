@@ -5,7 +5,7 @@ source $MY_DIR/../common/functions.sh
 
 
 JSON_POLICY=Man
-JSON_POLICY='{"expiration":"2014-04-01T00:00:00.000Z","conditions":[{"acl":"public-read" },{"bucket": "maven.kuali.org" },["starts-with", "$key", "external/org/jenkins"],["content-length-range", 2048, 2147483648]]}';
+JSON_POLICY='{"expiration":"2021-01-01T00:00:00.000Z","conditions":[{"acl":"public-read" },{"bucket": "maven.kuali.org" },["starts-with", "$key", "external/org/jenkins"],["content-length-range", 2048, 2147483648]]}';
 
 
 POLICY=$(base64_encode "$JSON_POLICY")
