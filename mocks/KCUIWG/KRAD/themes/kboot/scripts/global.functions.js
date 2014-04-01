@@ -37,13 +37,21 @@ jQuery(document).ready(function($) {
 
                 // If the data-edit-type is a select...
                 } else if ($(this).find('span').data('edit-type') == 'select') {
-                    var select_menu_options = $(this).data('edit-type-options');
+
+                    var o_data = $(this).find('span');
+                    var o_data_options = o_data.data('edit-type-options');
+                    var o_data_options_array = o_data_options.split(',');
                     var current_value = $(this).text();
                     var rebuild_select_menu = '<select class="form-control input-sm" name="' + $(this).find('span').data('edit-name') + '" id="' + $(this).find('span').data('edit-id') + '"><option value="' + current_value + '" selected="selected">' + current_value + '</option>';
 
-                    $(select_menu_options).each(function() {
-                       rebuild_select_menu += '<option value="' +  + '">' +  + '</option>';
-                    });
+                    for (var i = 0; i < o_data_options_array.length; i++) {
+
+                        if (o_data_options_array[i] == current_value) {
+
+                        } else {
+                            rebuild_select_menu += '<option value="' + o_data_options_array[i] + '">' + o_data_options_array[i] + '</option>';
+                        }
+                    }
 
                     rebuild_select_menu += '</select>';
 
