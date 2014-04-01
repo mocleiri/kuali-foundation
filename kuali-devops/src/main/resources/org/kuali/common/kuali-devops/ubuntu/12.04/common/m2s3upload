@@ -88,6 +88,11 @@ if [ "$TYPE" == "" ]; then
   TYPE=$EXTENSION
 fi
 
+QUIET_FLAG=""
+if [ "$QUIET" == "true" ]; then
+  QUIET_FLAG="-q"
+fi
+
 M2_FILENAME=$($MY_DIR/m2filename $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
 
 if [ "$PREFIX" == "" ]; then
@@ -96,4 +101,4 @@ else
   KEY=$PREFIX/$GROUP_ID/$ARTIFACT_ID/$VERSION/$M2_FILENAME
 fi
 
-$MY_DIR/s3upload $FILENAME $ACCESS_KEY $SECRET_KEY $BUCKET $KEY
+$MY_DIR/s3upload $QUIET_FLAG $FILENAME $ACCESS_KEY $SECRET_KEY $BUCKET $KEY
