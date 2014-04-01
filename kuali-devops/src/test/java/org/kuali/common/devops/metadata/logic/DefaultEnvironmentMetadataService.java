@@ -131,12 +131,12 @@ public class DefaultEnvironmentMetadataService implements EnvironmentMetadataSer
 		String url = helper.prefix + helper.fqdn + (suffix1.isPresent() ? suffix1.get() : "");
 		Stopwatch sw = Stopwatch.createStarted();
 		HttpWaitResult result = helper.urlCache.getUnchecked(url);
-		logger.debug(String.format("[%s] - %s", url, FormatUtils.getTime(sw)));
+		logger.info(String.format("[%s] - %s", url, FormatUtils.getTime(sw)));
 		Optional<String> content = getContent(result);
 		if (!content.isPresent() && suffix2.isPresent()) {
 			sw = Stopwatch.createStarted();
 			url = helper.prefix + helper.fqdn + (suffix2.isPresent() ? suffix2.get() : "");
-			logger.debug(String.format("[%s] - %s", url, FormatUtils.getTime(sw)));
+			logger.info(String.format("[%s] - %s", url, FormatUtils.getTime(sw)));
 			result = helper.urlCache.getUnchecked(url);
 			content = getContent(result);
 		}

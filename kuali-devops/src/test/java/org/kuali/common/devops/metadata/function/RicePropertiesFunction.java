@@ -1,7 +1,6 @@
 package org.kuali.common.devops.metadata.function;
 
 import static org.kuali.common.util.Encodings.UTF8;
-import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.io.ByteArrayInputStream;
@@ -25,7 +24,8 @@ public class RicePropertiesFunction implements Function<String, Properties> {
 			ByteArrayInputStream in = new ByteArrayInputStream(content.getBytes(UTF8));
 			return RiceLoader.load(in);
 		} catch (IOException e) {
-			throw illegalState(e, "unexpected io error loading properties -> \n\n%s\n\n", content);
+			e.printStackTrace();
+			return new Properties();
 		}
 	}
 
