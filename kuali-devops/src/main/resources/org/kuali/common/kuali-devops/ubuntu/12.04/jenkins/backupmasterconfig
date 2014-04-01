@@ -3,7 +3,8 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-GROUP_ID=$(get_path org.jenkins)
+GROUP_ID=org.jenkins
+GROUP_ID_PATH=$(get_path $GROUP_ID)
 ARTIFACT_ID=jenkins-master-backup
 VERSION=2014-03-31-181500
 CLASSIFIER=testci.zip
