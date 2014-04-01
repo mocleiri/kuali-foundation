@@ -188,6 +188,7 @@ function decrypt {
   echo -n "$1" | base64 --decode | gpg --batch --yes --passphrase "$2" --quiet --no-use-agent --decrypt
 }
 
-function rfc2616date { 
-  echo -n "$(TZ=UTC date '+%a, %e %b %Y %H:%M:%S %z')"
+function rfc2616date {
+  echo -n "Tue, 27 Mar 2007 19:36:42 +0000"
+  #echo -n "$(TZ=UTC date '+%a, %e %b %Y %H:%M:%S %z')"
 }  
