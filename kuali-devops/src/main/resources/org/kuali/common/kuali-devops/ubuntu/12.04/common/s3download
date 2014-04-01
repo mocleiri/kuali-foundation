@@ -14,9 +14,9 @@ function check_args {
 # /johnsmith/photos/puppy.jpg
 
 function string_to_sign {
-   BUCKET=$1
-   KEY=$2
-   DATE=$(rfc2616date)
+   local BUCKET=$1
+   local KEY=$2
+   local DATE=$(rfc2616date)
    printf "GET\n\n\n%s\n%s" "$DATE" "/$BUCKET/$KEY"
 }
 
