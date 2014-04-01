@@ -174,5 +174,5 @@ function hex_to_base64 {
 }
 
 function get_path {
-  echo -n "${1//[.]/\/}"
+  echo -n "$1//[.]/\/"
 }
