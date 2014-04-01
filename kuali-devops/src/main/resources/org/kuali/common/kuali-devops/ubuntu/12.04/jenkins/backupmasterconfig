@@ -4,25 +4,22 @@ ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
 
-POLICY='{"expiration":"2021-01-01T12:00:00.000Z","conditions":[{"acl":"public-read" },{"bucket": "maven.kuali.org" },["starts-with", "$key", "external/org/jenkins"],["content-length-range", 2048, 2147483648]]';
-BASE64_POLICY=$(base64_encode $POLICY)
-HMACSHA1=$(hmacsha1 $BASE64_POLICY $AWS_SECRET_KEY)
-
+JSON_POLICY='{"expiration":"2021-01-01T12:00:00.000Z","conditions":[{"acl":"public-read" },{"bucket": "maven.kuali.org" },["starts-with", "$key", "external/org/jenkins"],["content-length-range", 2048, 2147483648]]';
+POLICY=$(base64_encode $JSON_POLICY)
+HMACSHA1=$(hmacsha1 $POLICY $AWS_SECRET_KEY)
 SIGNATURE=$(hex_to_base64 $HMACSHA1)
 
 echo "aws_secret_key=[$AWS_SECRET_KEY]"
-echo "policy=$POLICY"
-echo "base64_policy=[$BASE64_POLICY]"
+echo "json_policy=$JSON_POLICY"
+echo "policy=[$POLICY]"
 echo "hmacsha1=[$HMACSHA1]"
 echo "signature=[$SIGNATURE]"
 
-curl \
--F "key=external/org/jenkins/master.zip" \
--F "acl=public-read" \
--F "AWSAccessKeyId=AKIAJFD5IM7IPVVUEBNA" \
--F "Policy=$BASE64_POLICY" \
--F "Signature=$SIGNATURE" \
--F "Content-Type=application/zip" \
--F "file=@master.zip" \
-http://maven.kuali.org
+ACL=public-read
+KEY="external/org/jenkins/master.zip"
+ACCESS_KEY=AKIAJFD5IM7IPVVUEBNA
+TYPE="application/zip"
+FILE=master.zip
+URL=http://maven.kuali.org
 
+curl -F "key=$KEY" -F "acl=$ACL" -F "AWSAccessKeyId=$ACCESS_KEY" -F "Policy=$POLICY" -F "Signature=$SIGNATURE" -F "Content-Type=$TYPE" -F "file=@$FILE" $URL
