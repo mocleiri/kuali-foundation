@@ -62,7 +62,7 @@ SIGNATURE=$(base64encode $HMACSHA1)
 EXPIRES=$(date +%s)
 EXPIRES=$(($EXPIRES + 15))
 
-URL=http://$BUCKET.s3.amazonaws.com/$KEY
+URL=http://s3.amazonaws.com/$BUCKET/$KEY
 execute_quietly "curl --fail --get --data-urlencode AWSAccessKeyId=$ACCESS_KEY --data-urlencode Signature=$SIGNATURE --data-urlencode Expires=$EXPIRES --output $FILENAME $URL"
 
 #http://s3.amazonaws.com/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom
