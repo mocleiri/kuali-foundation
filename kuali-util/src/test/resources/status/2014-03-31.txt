@@ -17,4 +17,4 @@ Tuesday
 - the size of that backup is too large to continue checking into Subversion like what is being done for the seed configuration
 - enhanced scripting to allow authenticated download of resources from S3 so large files no longer have to be encrypted with GPG when being uploaded in order to protect them
 - saves time both ways (upload and download)
-- meeting with Jessica
+- weekly meeting with Jessica
