@@ -24,14 +24,6 @@ GPG_PASSPHRASE=$3
 
 check_args
 
-ENCRYPTED=$(encrypt $STACK $GPG_PASSPHRASE)
-DECRYPTED=$(decrypt $ENCRYPTED $GPG_PASSPHRASE)
-
-echo "enc=$ENCRYPTED"
-echo "dec=$DECRYPTED"
-
-exit 1
-
 GROUP_ID=org.jenkins
 ARTIFACT_ID=jenkins-master-backup
 CLASSIFIER=$STACK-$TIMESTAMP
@@ -39,6 +31,7 @@ TYPE=tar.gz.gpg
 
 PREFIX=external
 ACCESS_KEY=AKIAJFD5IM7IPVVUEBNA
+SECRET_KEY=$(decrypt "jA0ECQMCH+1hmsTpTJBg0l0Bm4TN02PIJ4thS5r2Vil00WzxLK3zzx1Ex1VPwCm9piYBThswdQ4w5YerNyzX5dApt2R/7tkefO6qh5BF/Tsj5033CmrpFQO8lwfLOvGVymZQh7YSZ8fYXSNFK5M=" $GPG_PASSPHRASE)
 BUCKET=maven.kuali.org
 
 TAR_FILE=/ssd/master.tar.gz
