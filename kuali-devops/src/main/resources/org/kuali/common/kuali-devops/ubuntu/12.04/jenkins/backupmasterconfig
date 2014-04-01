@@ -17,8 +17,6 @@ echo "base64_policy=[$BASE64_POLICY]"
 echo "hmacsha1=[$HMACSHA1]"
 echo "signature=[$SIGNATURE]"
 
-exit 1
-
 curl \
 -F "key=external/org/jenkins/master.zip" \
 -F "acl=public-read" \
