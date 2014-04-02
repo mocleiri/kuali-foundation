@@ -1,5 +1,4 @@
 function check_args {
-  check_not_blank FILENAME $FILENAME
   check_not_blank ACCESS_KEY $ACCESS_KEY
   check_not_blank SECRET_KEY $SECRET_KEY
   check_not_blank BUCKET $BUCKET
