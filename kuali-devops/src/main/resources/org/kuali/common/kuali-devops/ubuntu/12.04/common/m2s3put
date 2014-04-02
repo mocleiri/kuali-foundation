@@ -22,13 +22,6 @@ PREFIX=""
 TYPE=""
 CLASSIFIER=""
 
-# anything up to a terabyte is ok
-MIN_SIZE=0
-MAX_SIZE=1099511627776
-
-# This is not the expiration date on the uploaded file, it's the expiration date on the policy that controls the file upload
-EXPIRATION=2999-01-01T00:00:00.000Z
-
 ARGS=$(getopt --options hqa:p:t:c: --longoptions "help,quiet,acl:,prefix:,type:,classifier:" --name "$ME" -- "$@");
 if [ $? -ne 0 ]; then usage; fi
 eval set -- "$ARGS";
