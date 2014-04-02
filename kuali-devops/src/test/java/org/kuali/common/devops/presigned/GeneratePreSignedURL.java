@@ -12,7 +12,6 @@ import javax.crypto.spec.SecretKeySpec;
 import org.jasypt.util.text.TextEncryptor;
 import org.junit.Test;
 import org.kuali.common.devops.logic.Passwords;
-import org.kuali.common.util.HexUtils;
 import org.kuali.common.util.enc.EncUtils;
 import org.slf4j.Logger;
 
@@ -30,19 +29,20 @@ public class GeneratePreSignedURL {
 	@Test
 	public void test() {
 		try {
+			String secretKey = getSecretKey();
 			long expiration = System.currentTimeMillis() + 1000 * 60 * 60 * 72;
 			// long expiration = 1396391061646L;
 			String stringToSign = "GET\n\n\n1396391061\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom";
 			// 189e671278ba818abbe4f38f09a3961184471ddb - wrong
 			// fe2688cee03761c7f541c04ce245531fa106f129 - right
-			String hmacsha1hex = hmacsha1hex(stringToSign, getSecretKey());
+			String hmacsha1hex = hmacsha1hex(stringToSign, secretKey);
 			logger.info(hmacsha1hex);
 			System.out.println("expiration=" + expiration);
 			String bucket = "maven.kuali.org";
 			String key = "private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom";
 			GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(bucket, key);
 			request.setExpiration(new java.util.Date(expiration));
-			AWSCredentials foundation = getFoundationCreds();
+			AWSCredentials foundation = getFoundationCreds(secretKey);
 			AmazonS3Client client = new AmazonS3Client(foundation);
 			URL url = client.generatePresignedUrl(request);
 			logger.info(url.toString());
@@ -52,7 +52,7 @@ public class GeneratePreSignedURL {
 	}
 
 	protected String hmacsha1hex(String data, String key) throws Exception {
-		return HexUtils.toHexString(hmacsha1bytes(data, key));
+		return hex(hmacsha1bytes(data, key));
 	}
 
 	protected byte[] hmacsha1bytes(String data, String key) throws Exception {
@@ -75,9 +75,8 @@ public class GeneratePreSignedURL {
 		return enc.decrypt("uXNCzc6efcKz1zvp4t5Fj4wyR9oGw2GZ2VOB3SXZaoXaV1BA1Gao2d2vWXnjqUA1oKzg+0s9NAM=");
 	}
 
-	private AWSCredentials getFoundationCreds() {
+	private AWSCredentials getFoundationCreds(String secretKey) {
 		String accessKey = "AKIAJFD5IM7IPVVUEBNA";
-		String secretKey = getSecretKey();
 		return new BasicAWSCredentials(accessKey, secretKey);
 	}
 
