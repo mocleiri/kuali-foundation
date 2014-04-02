@@ -10,7 +10,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-usage() { echo "Usage: $ME [-h --help] [-q --quiet] [-c --classifier=linux-x64] [--cookies=\$HOME/Downloads/cookies.txt] [-t --type=tar.gz] jdk7/jdk8 u51/u00 b13/b132" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h --help] [-q --quiet] [-c --classifier=linux-x64] [--cookies=\$HOME/Downloads/cookies.txt] [-t --type=tar.gz] jdk7/jdk8 u51/u0 b13/b132" 1>&2; exit 1; }
 
 QUIET=false
 CLASSIFIER=linux-x64
