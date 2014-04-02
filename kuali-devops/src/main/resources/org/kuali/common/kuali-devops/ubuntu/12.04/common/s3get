@@ -57,7 +57,7 @@ SIGNATURE=$(hex2base64 $HMACSHA1)
 # setup a url that downloads the correct file 
 URL=https://$BUCKET.s3.amazonaws.com/$KEY
 
-# make the curl call, failing if things go wrong and automatically creating any non-existent dirs on the local file system
+# make the curl call, failing if things go wrong and automatically creating any non-existent dirs
 execute_quietly "curl --create-dirs --fail --get --data Expires=$EXPIRES --data AWSAccessKeyId=$ACCESS_KEY --data-urlencode Signature=$SIGNATURE --output $FILENAME $URL"
 
 
