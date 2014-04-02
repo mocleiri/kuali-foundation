@@ -15,13 +15,6 @@ source $MY_DIR/../common/functions.sh
 # hmacsha1  = 3a5fcf0bed9ba1360a0d9da111ff393feed3a098
 # signature = CFSwJUS0TmLvm51b901KreoRXhM=
 
-
-echo "string=[$STRING]"
-echo "hmacsha1=$HMACSHA1"
-echo "base64=$BASE64"
-
-exit 1
-
 usage() { echo "Usage: $ME [-q --quiet] [-h --help] filename access_key secret_key bucket key" 1>&2; exit 1; }
 
 QUIET=false
