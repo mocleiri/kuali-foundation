@@ -12,7 +12,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-q --quiet] [-h --help] [-a --acl=public-read] [-p --prefix=release] [-t --type=zip] [-c --classifier=linux-x64] filename access_key secret_key bucket group_id artifact_id version" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-q --quiet] [-h --help] [-a --acl=public-read] [-p --prefix=release] [-t --type=zip] [-c --classifier=linux-x64] access_key secret_key bucket group_id artifact_id version" 1>&2; exit 1; }
 
 QUIET=false
 
@@ -88,7 +88,7 @@ fi
 
 if [ ! -f "$M2_LOCAL_PATH" ]; then
   echo "download  -> https://$BUCKET/$KEY"
-  $MY_DIR/s3get --acl=$ACL $QUIET_FLAG $FILENAME $ACCESS_KEY $SECRET_KEY $BUCKET $KEY
+  $MY_DIR/s3get $QUIET_FLAG $M2_LOCAL_PATH $ACCESS_KEY $SECRET_KEY $BUCKET $KEY
 fi
 
 
