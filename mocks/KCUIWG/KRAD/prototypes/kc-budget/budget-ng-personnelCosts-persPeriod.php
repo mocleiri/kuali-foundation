@@ -2,7 +2,6 @@
 $section = 'personnel';
 $page = 'personnel-assign';
 ?>
-
 <!DOCTYPE HTML>
 <html lang=en>
 <head>
@@ -21,7 +20,7 @@ $page = 'personnel-assign';
                     <button type=button class="navbar-toggle" data-toggle=collapse data-target=.navbar-ex1-collapse><span class="sr-only">Toggle navigation</span> <span class="icon-reorder"></span></button>
                     <a class="navbar-brand" href="index.php">
                     <div class="logoBrand">
-                        <h1><img id="u2elq10" src="http://ux.kuali.org/prototypes/kc/p2-devbranch/themes/kc/img/logo.png" alt="" class="uif-image"> </h1>
+                        <h1><img id="u2elq10" src="http://ux.kuali.org/prototypes/kc/p2-devbranch/themes/kc/img/logo.png" alt="" class="uif-image"></h1>
                     </div>
                     </a></div>
                 <div id="u1gk19wq" class="collapse navbar-collapse navbar-ex1-collapse uif-listGroup">
@@ -149,189 +148,442 @@ $page = 'personnel-assign';
                 </header>
                 <p id="u1iaxrzf" class="uif-message uif-boxLayoutVerticalItem clearfix">Assign personnel to one or all periods and configure efforts and charges.</p>
                 <br>
-                <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                    <li class="active"><a href="#p1" data-toggle="tab">Period 1 </a></li>
-                    <li><a href="#p2" data-toggle="tab">Period 2</a></li>
-                    <li><a href="#p3" data-toggle="tab">Period 3</a></li>
-                    <li><a href="#p4" data-toggle="tab">Period 4</a></li>
-                    <li><a href="#p5" data-toggle="tab">Period 5</a></li>
+                <ul id="tabs" class="nav nav-tabs" data-tabs=tabs>
+                    <li class="active"><a href="#p1" data-toggle=tab>Period 1 </a></li>
+                    <li><a href="#p2" data-toggle=tab>Period 2</a></li>
+                    <li><a href="#p3" data-toggle=tab>Period 3</a></li>
+                    <li><a href="#p4" data-toggle=tab>Period 4</a></li>
+                    <li><a href="#p5" data-toggle=tab>Period 5</a></li>
                 </ul>
                 <div id="my-tab-content" class="tab-content">
                     <div class="tab-pane active" id="p1">
-                        <div class="col-md-12">
-                            <div class="well well-sm" style="margin-top:15px;">
-
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h3>Period 1<br /><small>01/12/2014 - 01/12/2015</small></h3>
-                                    </div>
-                                    <div class="col-md-8 text-right">
-                                        <div class="btn-group" style="margin-top:15px">
-                                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Detailed View <span class="caret"></span> </button>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="">Summary View</a> </li>
-                                                <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="">Detailed View</a> </li>
-                                            </ul>
-                                        </div>
+                        <h3 class>Period 1<br>
+                            <small>1/12/14 - 1/12/15</small></h3>
+                      
+                        <div class="well " style="margin-top:15px;">  <h4>Assign Personnel</h4>
+                       
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for=exampleInputEmail1>Person</label>
+                                        <select class="form-control">
+                                            <option value="">select</option>
+                                            <option>Ward Cleaver</option>
+                                            <option>John Coltrane</option>
+                                            <option>Stan Getz</option>
+                                            <option>Dave Brubeck</option>
+                                            <option>Ella Fitzgerald</option>
+                                            <option>Billie Holiday</option>
+                                        </select>
+                                        <!--<p id="u1iaxrzf" class="uif-message text-right">
+    <a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>--></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for=exampleInputPassword1>Object Code</label>
+                                        <select class="form-control">
+                                            <option value="">select</option>
+                                            <option value=400255>Administrative Staff - Off</option>
+                                            <option value=400250>Administrative Staff - On</option>
+                                            <option value=421568>CWSP Credit - Not MTDC</option>
+                                            <option value=400550>Electronic Assembly - On</option>
+                                            <option value=400654>Exempt Technical - On</option>
+                                            <option value=400135>Faculty Emeriti</option>
+                                            <option value=400136>Faculty Retired Non-Tenured - On</option>
+                                            <option value=400105>Faculty Salaires Non-Tenured - Off</option>
+                                            <option value=400040>Faculty Salaries Non-Tenured - On</option>
+                                            <option value=400090>Faculty Salaries Tenured - Off</option>
+                                            <option value=400025>Faculty Salaries Tenured - On</option>
+                                            <option value=400315>Fellows - Non-Student- Not MTDC</option>
+                                            <option value=400700>Graduate Student Staff - On</option>
+                                            <option value=400452>Hourly Personnel - Off</option>
+                                            <option value=400450>Hourly Personnel - On</option>
+                                            <option value=400552>Mechanical Assembly - On</option>
+                                            <option value=400756>MIT Students - Off</option>
+                                            <option value=400754>MIT Students - On</option>
+                                            <option value=400155>Other Academic Staff - Off</option>
+                                            <option value=400140>Other Academic Staff - On</option>
+                                            <option value=400390>Post-Doctoral Staff</option>
+                                            <option value=400365>Program Manager</option>
+                                            <option value=400370>Project Engineering Staff - On</option>
+                                            <option value=400601>Project Support Staff - Off</option>
+                                            <option value=400600>Project Support Staff - On</option>
+                                            <option value=400556>Quality Control - On</option>
+                                            <option value=400708>Research Asst - Off</option>
+                                            <option value=400706>Research Asst - On</option>
+                                            <option value=400355>Research Staff - Off</option>
+                                            <option value=400350>Research Staff - On</option>
+                                            <option value=400115>Summer - Other Academic - Off</option>
+                                            <option value=400070>Summer Faculty - Off</option>
+                                            <option value=400005>Summer Faculty - On</option>
+                                            <option value=400050>Summer Other Academic - On</option>
+                                            <option value=420262>Temporary Help</option>
+                                            <option value=400768>Undergrad S&amp;W UROP - Off</option>
+                                            <option value=400770>Undergrad S&amp;W UROP - On</option>
+                                        </select>
                                     </div>
                                 </div>
-
-                                <hr />
-
-                                <!-- <h4> Assign Personnel</h4>
-                                <hr>
-                                <div class="form-horizontal" role="form">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="inputEmail3" class="col-sm-2 control-label">Personnel</label>
-                                        <div class="col-sm-10">
-                                            <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl" data-role="Control" data-control_for="u11k8c5e">
-                                                <option value="B">- Select -</option>
-                                                <option>Dave Brubeck</option>
-                                                <option>Ward Cleaver</option>
-                                                <option>John Coltrane</option>
-                                                <option>Ella Fitzgerald</option>
-                                                <option>Stan Getz</option>
-                                                <option>Billie Holiday</option>
-                                            </select>
-                                        </div>
+                                        <label for=exampleInputPassword1>Group</label>
+                                        <select class="form-control"> <option value="">select</option>
+                                            <option>My Custom Group 1</option>
+                                            <option>My Custom Group 2</option>
+                                            <option>My Custom Group 3</option>
+                                            <option>My Custom Group 4</option>
+                                            <option>My Custom Group 5</option>
+                                             <option>Create New Group...</option>
+                                        </select>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="inputEmail3" class="col-sm-2 control-label">Object Code Name</label>
-                                        <div class="col-sm-10">
-                                            <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl" data-role="Control" data-control_for="u11k8c5e">
-                                                <option value="B">Select</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputEmail3" class="col-sm-2 control-label">Group</label>
-                                        <div class="col-sm-10">
-                                            <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl" data-role="Control" data-control_for="u11k8c5e">
-                                                <option value="B">Select</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-default btn-xs">Assign to Period 1</button>
-                                        </div>
-                                    </div>
-                                </div> -->
-
-<!--                            <div class="row">-->
-                                    <div class="clearfix">
-                                        <h4>Assign Personnel</h4>
-                                        <hr>
-                                        <div class="form-horizontal" role="form">
-                                            <div class="col-md-5">
-                                                <h5>Available Personnel</h5>
-                                                <p>Select personnel from below to be added to the budget personnel.</p>
-                                                <div class="form-group">
-                                                    <textarea class="sr-only" id="personnel-add-box-1"></textarea>
-                                                    <div class="uif-collection-box" id="personnel-add-box-1-visible" data-dom-update="personnel-add-box-1">
-                                                        <ul>
-                                                            <li>
-                                                                <label for="personnel-result-1">
-                                                                    <input type="checkbox" name="personnel-result" id="personnel-result-1">
-                                                                    <span class="result-name">John Smith</span>
-                                                                    <span class="result-title text-faded">Research Scientist</span>
-                                                                    <span class="pull-right result-type">Employee</span>
-                                                                </label>
-                                                            </li>
-                                                            <li>
-                                                                <label for="personnel-result-2">
-                                                                    <input type="checkbox" name="personnel-result" id="personnel-result-2">
-                                                                    <span class="result-name">John Smith</span>
-                                                                    <span class="result-title text-faded">Research Scientist</span>
-                                                                    <span class="pull-right result-type">Employee</span>
-                                                                </label>
-                                                            </li>
-                                                            <li>
-                                                                <label for="personnel-result-3">
-                                                                    <input type="checkbox" name="personnel-result" id="personnel-result-3">
-                                                                    <span class="result-name">John Smith</span>
-                                                                    <span class="result-title text-faded">Research Scientist</span>
-                                                                    <span class="pull-right result-type">Employee</span>
-                                                                </label>
-                                                            </li>
-                                                            <li>
-                                                                <label for="personnel-result-4">
-                                                                    <input type="checkbox" name="personnel-result" id="personnel-result-4">
-                                                                    <span class="result-name">John Smith</span>
-                                                                    <span class="result-title text-faded">Research Scientist</span>
-                                                                    <span class="pull-right result-type">Employee</span>
-                                                                </label>
-                                                            </li>
-                                                            <li>
-                                                                <label for="personnel-result-5">
-                                                                    <input type="checkbox" name="personnel-result" id="personnel-result-5">
-                                                                    <span class="result-name">John Smith</span>
-                                                                    <span class="result-title text-faded">Research Scientist</span>
-                                                                    <span class="pull-right result-type">Employee</span>
-                                                                </label>
-                                                            </li>
-                                                            <li>
-                                                                <label for="personnel-result-6">
-                                                                    <input type="checkbox" name="personnel-result" id="personnel-result-6">
-                                                                    <span class="result-name">John Smith</span>
-                                                                    <span class="result-title text-faded">Research Scientist</span>
-                                                                    <span class="pull-right result-type">Employee</span>
-                                                                </label>
-                                                            </li>
-                                                            <li>
-                                                                <label for="personnel-result-7">
-                                                                    <input type="checkbox" name="personnel-result" id="personnel-result-7">
-                                                                    <span class="result-name">John Smith</span>
-                                                                    <span class="result-title text-faded">Research Scientist</span>
-                                                                    <span class="pull-right result-type">Employee</span>
-                                                                </label>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2 align-center">
-                                                <button class="btn btn-default btn-sm">+<span class="sr-only">Add to list</span></button><br>
-                                                <button class="btn btn-default btn-sm">-<span class="sr-only">Remove from list</span></button>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <h5>Available Personnel</h5>
-                                                <p>Select personnel from below to be added to the budget personnel.</p>
-                                                <div class="form-group">
-                                                    <textarea class="sr-only" id="personnel-add-box-1"></textarea>
-                                                    <div class="uif-collection-box" id="personnel-add-box-1-visible" data-dom-update="personnel-add-box-1">
-                                                        <ul>
-                                                            <li>
-                                                                <label for="personnel-result-1">
-                                                                    <input type="checkbox" name="personnel-result" id="personnel-result-1">
-                                                                    <span class="result-name">John Smith</span>
-                                                                    <span class="result-title text-faded">Research Scientist</span>
-                                                                    <span class="pull-right result-type">Employee</span>
-                                                                </label>
-                                                            </li>
-                                                            <li>
-                                                                <label for="personnel-result-2">
-                                                                    <input type="checkbox" name="personnel-result" id="personnel-result-2">
-                                                                    <span class="result-name">John Smith</span>
-                                                                    <span class="result-title text-faded">Research Scientist</span>
-                                                                    <span class="pull-right result-type">Employee</span>
-                                                                </label>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="clearfix">
-                                        <button class="btn btn-default">Add selected to budget period</button>
-                                    </div>
-<!--                            </div>-->
+                                </div>
+                                
+                                
+                                <div class="col-md-12 text-right">
+                                  <a href="#" type="submit" class="btn btn-default">Assign to Period 1</a>
+                                </div>
+                                
+                                
+                                
                             </div>
+                    
+                            
                         </div>
                         
+                        
+                        
+                        
+                         <h4>Assigned Personnel</h4>
+                <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent=Demo-Disclosure-Example1>
+                    <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for=u1qq592w>
+                        <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=facSalTen href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Faculty Salaries - Tenured</span></a></h3>
+                    </header>
+                    <div id="facSalTen" data-role=disclosureContent data-open=true class="uif-disclosureContent">
+                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Apply Settings to All Periods</a></div>
+                        <br>
+                        <br>
+                        <ul id="tabs2" class="nav nav-tabs" data-tabs=tabs2>
+                            <li class="active"><a href="#red" data-toggle=tab>Personnel</a></li>
+                            <li><a href="#orange" data-toggle=tab>Details</a></li>
+                            <li><a href="#yellow" data-toggle=tab>Rate Classes</a></li>
+                        </ul>
+                        <div id="my-tab-content" class="tab-content ">
+                            <div class="tab-pane active" id="red" role="" style=margin-top:15px>
+                                <table class="table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby=Demo-LightTableGroup1_lightTable_info>
+                                    <thead>
+                                        <tr role=row>
+                                            <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-sort=ascending aria-label="
+ Field 1: : activate to sort column "><label id="urh9zx8" class="uif-label">Person</label></th>
+                                            <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
+ Field 2: : activate to sort column ">Start</th>
+                                            <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
+ Field 3: : activate to sort column ">End</th>
+                                            <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
+ Field 4: : activate to sort column ascending">Effort</th>
+                                            <th class="" style="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
+ Field 4: : activate to sort column ">Charged</th>
+                                            <th class="" style="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 aria-label="
+ Field 4: : activate to sort column ">Period Type</th>
+                                            <th class="" style="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 aria-label="
+ Field 4: : activate to sort column ">Requested Salary</th>
+                                            <th class="" style="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 aria-label="
+ Field 4: : activate to sort column ">Calculated Fringe</th>
+                                            <th class="" style="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 aria-label="
+ Field 4: : activate to sort column ">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody role=alert aria-live=polite aria-relevant=all>
+                                        <tr class="not-deletable">
+                                            <td>Ward Cleaver <small class="text-muted">(PI)</small></td>
+                                            <td>1/12/14<small class="text-muted"></small></td>
+                                            <td>1/12/15</td>
+                                            <td class="text-right">100%</td>
+                                            <td><div class="dropdown dropdown-large">
+                                                    <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -808px;top: 26px;width: 890px;padding:15px; background:#fcf8e3;">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-horizontal" role=form>
+                                                                    <div class="form-group">
+                                                                        <div class="col-sm-9"></div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div class="col-sm-9">
+                                                                            <div id="u11k8c4j" class="uif-inputField" data-parent=u14jg6xp data-role=InputField data-label="Award ID">
+                                                                                <div class="input-group"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div class="col-sm-9"></div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div class="col-sm-9">
+                                                                            <div id="u11k8c4j" class="uif-inputField" data-parent=u14jg6xp data-role=InputField data-label="Award ID">
+                                                                                <div class="input-group"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div class="col-sm-9">
+                                                                            <div id="u11k8c4j" class="uif-inputField" data-parent=u14jg6xp data-role=InputField data-label="Award ID">
+                                                                                <div class="input-group"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    50%</div></td>
+                                            <td>Calendar</td>
+                                            <td class="text-right">$142,525.00</td>
+                                            <td class="text-right">$0.00</td>
+                                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle=dropdown>Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden=true class="icon-trash"></span></a></div></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="orange">
+                                <h1>Orange</h1>
+                                <p>orange orange orange orange orange</p>
+                            </div>
+                            <div class="tab-pane" id="yellow">
+                                <h1>Yellow</h1>
+                                <p>yellow yellow yellow yellow yellow</p>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $('#tabs2').tab();
+    });</script></div>
+                </section>
+                
+                
+                <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent=Demo-Disclosure-Example1>
+                    <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for=u1qq592w>
+                        <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=postDoc href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Post Doctoral Staff</span></a></h3>
+                    </header>
+                    <div id="postDoc" data-role=disclosureContent data-open=true class="uif-disclosureContent">
+                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Apply Settings to All Periods</a></div>
+                        <br>
+                        <br>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Start date</th>
+                                    <th>End date</th>
+                                    <th>% Effort</th>
+                                    <th>% Charged</th>
+                                    <th>Period type</th>
+                                    <th>Requested salary</th>
+                                    <th>Calculated fringe</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="uif-text-medium">Ramen Noodle</span> <small class="text-muted">(PI)</small></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_start class="control-label"> <span class="sr-only">Start date</span> </label>
+                                            <input type=text size=5 name="line_1_start" id="line_1_start" placeholder="mm/dd/yyyy" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_end class="control-label"> <span class="sr-only">End date</span> </label>
+                                            <input type=text size=5 name="line_1_end" id="line_1_end" placeholder="mm/dd/yyyy" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_effort class="control-label"> <span class="sr-only">Percent effort</span> </label>
+                                            <input type=text size=3 name="line_1_effort" id="line_1_effort" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_charged class="control-label"> <span class="sr-only">Percent charged</span> </label>
+                                            <input type=text size=3 name="line_1_charged" id="line_1_charged" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_period_type class="control-label"> <span class="sr-only">Percent effort</span> </label>
+                                            <select name="line_1_period_type" id="line_1_period_type" class="form-control">
+                                                <option>Calendar</option>
+                                            </select>
+                                        </div></td>
+                                    <td><label for=line_1_req_salary><span class="sr-only">Requested salary</span><span id="line_1_req_salary">$0</span></label></td>
+                                    <td><label for=line_1_calc_fringe><span class="sr-only">Calculated fringe</span><span id="line_1_calc_fringe">$0</span></label></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="uif-text-medium">Marie Calendar</span> <small class="text-muted">(KP)</small></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_start class="control-label"> <span class="sr-only">Start date</span> </label>
+                                            <input type=text size=5 name="line_1_start" id="line_1_start" placeholder="mm/dd/yyyy" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_end class="control-label"> <span class="sr-only">End date</span> </label>
+                                            <input type=text size=5 name="line_1_end" id="line_1_end" placeholder="mm/dd/yyyy" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_effort class="control-label"> <span class="sr-only">Percent effort</span> </label>
+                                            <input type=text size=3 name="line_1_effort" id="line_1_effort" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_charged class="control-label"> <span class="sr-only">Percent charged</span> </label>
+                                            <input type=text size=3 name="line_1_charged" id="line_1_charged" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_period_type class="control-label"> <span class="sr-only">Percent effort</span> </label>
+                                            <select name="line_1_period_type" id="line_1_period_type" class="form-control">
+                                                <option>Calendar</option>
+                                            </select>
+                                        </div></td>
+                                    <td><label for=line_1_req_salary><span class="sr-only">Requested salary</span><span id="line_1_req_salary">$0</span></label></td>
+                                    <td><label for=line_1_calc_fringe><span class="sr-only">Calculated fringe</span><span id="line_1_calc_fringe">$0</span></label></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="uif-text-medium">Jim Selmer</span> <small class="text-muted">(KP)</small></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_start class="control-label"> <span class="sr-only">Start date</span> </label>
+                                            <input type=text size=5 name="line_1_start" id="line_1_start" placeholder="mm/dd/yyyy" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_end class="control-label"> <span class="sr-only">End date</span> </label>
+                                            <input type=text size=5 name="line_1_end" id="line_1_end" placeholder="mm/dd/yyyy" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_effort class="control-label"> <span class="sr-only">Percent effort</span> </label>
+                                            <input type=text size=3 name="line_1_effort" id="line_1_effort" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_charged class="control-label"> <span class="sr-only">Percent charged</span> </label>
+                                            <input type=text size=3 name="line_1_charged" id="line_1_charged" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_period_type class="control-label"> <span class="sr-only">Percent effort</span> </label>
+                                            <select name="line_1_period_type" id="line_1_period_type" class="form-control">
+                                                <option>Calendar</option>
+                                            </select>
+                                        </div></td>
+                                    <td><label for=line_1_req_salary><span class="sr-only">Requested salary</span><span id="line_1_req_salary">$0</span></label></td>
+                                    <td><label for=line_1_calc_fringe><span class="sr-only">Calculated fringe</span><span id="line_1_calc_fringe">$0</span></label></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
+                </section>
+                
+                <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent=Demo-Disclosure-Example1>
+                    <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for=u1qq592w>
+                        <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=summerFac href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Summer Faculty</span></a></h3>
+                    </header>
+                    <div id="summerFac" data-role=disclosureContent data-open=true class="uif-disclosureContent">
+                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Apply Settings to All Periods</a></div>
+                        <br>
+                        <br>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Start date</th>
+                                    <th>End date</th>
+                                    <th>% Effort</th>
+                                    <th>% Charged</th>
+                                    <th>Period type</th>
+                                    <th>Requested salary</th>
+                                    <th>Calculated fringe</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="uif-text-medium">Ramen Noodle</span> <small class="text-muted">(PI)</small></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_start class="control-label"> <span class="sr-only">Start date</span> </label>
+                                            <input type=text size=5 name="line_1_start" id="line_1_start" placeholder="mm/dd/yyyy" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_end class="control-label"> <span class="sr-only">End date</span> </label>
+                                            <input type=text size=5 name="line_1_end" id="line_1_end" placeholder="mm/dd/yyyy" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_effort class="control-label"> <span class="sr-only">Percent effort</span> </label>
+                                            <input type=text size=3 name="line_1_effort" id="line_1_effort" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_charged class="control-label"> <span class="sr-only">Percent charged</span> </label>
+                                            <input type=text size=3 name="line_1_charged" id="line_1_charged" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_period_type class="control-label"> <span class="sr-only">Percent effort</span> </label>
+                                            <select name="line_1_period_type" id="line_1_period_type" class="form-control">
+                                                <option>Calendar</option>
+                                            </select>
+                                        </div></td>
+                                    <td><label for=line_1_req_salary><span class="sr-only">Requested salary</span><span id="line_1_req_salary">$0</span></label></td>
+                                    <td><label for=line_1_calc_fringe><span class="sr-only">Calculated fringe</span><span id="line_1_calc_fringe">$0</span></label></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="uif-text-medium">Marie Calendar</span> <small class="text-muted">(KP)</small></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_start class="control-label"> <span class="sr-only">Start date</span> </label>
+                                            <input type=text size=5 name="line_1_start" id="line_1_start" placeholder="mm/dd/yyyy" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_end class="control-label"> <span class="sr-only">End date</span> </label>
+                                            <input type=text size=5 name="line_1_end" id="line_1_end" placeholder="mm/dd/yyyy" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_effort class="control-label"> <span class="sr-only">Percent effort</span> </label>
+                                            <input type=text size=3 name="line_1_effort" id="line_1_effort" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_charged class="control-label"> <span class="sr-only">Percent charged</span> </label>
+                                            <input type=text size=3 name="line_1_charged" id="line_1_charged" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_period_type class="control-label"> <span class="sr-only">Percent effort</span> </label>
+                                            <select name="line_1_period_type" id="line_1_period_type" class="form-control">
+                                                <option>Calendar</option>
+                                            </select>
+                                        </div></td>
+                                    <td><label for=line_1_req_salary><span class="sr-only">Requested salary</span><span id="line_1_req_salary">$0</span></label></td>
+                                    <td><label for=line_1_calc_fringe><span class="sr-only">Calculated fringe</span><span id="line_1_calc_fringe">$0</span></label></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="uif-text-medium">Jim Selmer</span> <small class="text-muted">(KP)</small></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_start class="control-label"> <span class="sr-only">Start date</span> </label>
+                                            <input type=text size=5 name="line_1_start" id="line_1_start" placeholder="mm/dd/yyyy" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_end class="control-label"> <span class="sr-only">End date</span> </label>
+                                            <input type=text size=5 name="line_1_end" id="line_1_end" placeholder="mm/dd/yyyy" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_effort class="control-label"> <span class="sr-only">Percent effort</span> </label>
+                                            <input type=text size=3 name="line_1_effort" id="line_1_effort" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_charged class="control-label"> <span class="sr-only">Percent charged</span> </label>
+                                            <input type=text size=3 name="line_1_charged" id="line_1_charged" class="form-control">
+                                        </div></td>
+                                    <td><div class="form-group-sm">
+                                            <label for=line_1_period_type class="control-label"> <span class="sr-only">Percent effort</span> </label>
+                                            <select name="line_1_period_type" id="line_1_period_type" class="form-control">
+                                                <option>Calendar</option>
+                                            </select>
+                                        </div></td>
+                                    <td><label for=line_1_req_salary><span class="sr-only">Requested salary</span><span id="line_1_req_salary">$0</span></label></td>
+                                    <td><label for=line_1_calc_fringe><span class="sr-only">Calculated fringe</span><span id="line_1_calc_fringe">$0</span></label></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     <div class="tab-pane" id="p2">
                         <p>orange orange orange orange orange</p>
                     </div>
@@ -344,389 +596,22 @@ $page = 'personnel-assign';
                     <div class="tab-pane" id="p5">
                         <p>blue blue blue blue blue</p>
                     </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                 </div>
                 <script type="text/javascript">
     jQuery(document).ready(function ($) {
         $('#tabs').tab();
-    });
-</script> 
-                <br>
-                
-                
-                 <h4> Assigned Personnel</h4>
-                 
-                 
-                <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example1">
-                    <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for="u1qq592w">
-                        <h3 class="uif-headerText"><a data-role="disclosureLink" data-linkfor="facSalTen" href="#" id="u1qq592w_toggle" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Faculty Salaries - Tenured</span></a></h3>
-                    </header>
-                    <div id="facSalTen" data-role="disclosureContent" data-open="true" class="uif-disclosureContent">
-                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Apply Settings to All Periods</a></div><br><br>
-                        
-                        
-                   
-
-                        
- <ul id="tabs2" class="nav nav-tabs" data-tabs="tabs2">
-        <li class="active"><a href="#red" data-toggle="tab">Personnel</a></li>
-        <li><a href="#orange" data-toggle="tab">Details</a></li>
-        <li><a href="#yellow" data-toggle="tab">Rate Classes</a></li>
-        
-    </ul>
-    <div id="my-tab-content" class="tab-content ">
-        <div class="tab-pane active" id="red" role="" style="margin-top:15px">
-        
-        
-        
-     
-        
-        
-        
-                
-                        
-                    <table class="table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby="Demo-LightTableGroup1_lightTable_info">
-                    <thead>
-                        <tr role="row">
-                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
- Field 1: : activate to sort column "><label id="urh9zx8" class="uif-label">Person</label></th>
-                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
- Field 2: : activate to sort column ">Start</th>
-                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
- Field 3: : activate to sort column ">End</th>
-                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
- Field 4: : activate to sort column ascending">Effort</th>
-                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
- Field 4: : activate to sort column "> Charged</th>
-                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
- Field 4: : activate to sort column ">Period Type</th>
-                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
- Field 4: : activate to sort column ">Requested Salary</th>
-                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
- Field 4: : activate to sort column ">Calculated Fringe</th>
-                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
- Field 4: : activate to sort column ">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody role="alert" aria-live="polite" aria-relevant="all">
-                        
-                        <tr class="not-deletable">
-                            <td>Ward Cleaver <small class="text-muted">(PI)</small></td>
-                            <td>1/12/14<small class="text-muted"></small></td>
-                            <td>1/12/15</td>
-                            <td class="text-right">100%</td>
-                            <td><div class="dropdown dropdown-large">
-                                <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -808px;top: 26px;width: 890px;padding:15px; background:#fcf8e3;">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-horizontal" role="form">
-                                                <div class="form-group">
-                                                    <div class="col-sm-9">                                                        </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="col-sm-9">
-                                                        <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                            <div class="input-group">                                                                </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="col-sm-9">                                                        </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="col-sm-9">
-                                                        <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                            <div class="input-group">                                                                </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="col-sm-9">
-                                                        <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                            <div class="input-group">                                                                </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            50%</div></td>
-                            <td>Calendar</td>
-                            <td class="text-right">$142,525.00</td>
-                            <td class="text-right">$0.00</td>
-                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
-                                
-                            </div></td>
-                            </tr>
-                    </tbody>
-                </table>
-        </div>
-        <div class="tab-pane" id="orange">
-            <h1>Orange</h1>
-            <p>orange orange orange orange orange</p>
-        </div>
-        <div class="tab-pane" id="yellow">
-            <h1>Yellow</h1>
-            <p>yellow yellow yellow yellow yellow</p>
-        </div>
-     
-    </div>
-    
-    
-    
-    
-<script type="text/javascript">
-    jQuery(document).ready(function ($) {
-        $('#tabs2').tab();
-    });
-</script>    
-                        
-                        
-                   
-                   
-                    </div>
-                </section>
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example1">
-                    <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for="u1qq592w">
-                        <h3 class="uif-headerText"><a data-role="disclosureLink" data-linkfor="postDoc" href="#" id="u1qq592w_toggle" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Post Doctoral Staff</span></a></h3>
-                    </header>
-                    <div id="postDoc" data-role="disclosureContent" data-open="true" class="uif-disclosureContent">
-                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Apply Settings to All Periods</a></div>
-                        <br>
-                        <br>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Start date</th>
-                                    <th>End date</th>
-                                    <th>% Effort</th>
-                                    <th>% Charged</th>
-                                    <th>Period type</th>
-                                    <th>Requested salary</th>
-                                    <th>Calculated fringe</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><span class="uif-text-medium">Ramen Noodle</span> <small class="text-muted">(PI)</small></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_start" class="control-label"> <span class="sr-only">Start date</span> </label>
-                                            <input type="text" size="5" name="line_1_start" id="line_1_start" placeholder="mm/dd/yyyy" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_end" class="control-label"> <span class="sr-only">End date</span> </label>
-                                            <input type="text" size="5" name="line_1_end" id="line_1_end" placeholder="mm/dd/yyyy" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_effort" class="control-label"> <span class="sr-only">Percent effort</span> </label>
-                                            <input type="text" size="3" name="line_1_effort" id="line_1_effort" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_charged" class="control-label"> <span class="sr-only">Percent charged</span> </label>
-                                            <input type="text" size="3" name="line_1_charged" id="line_1_charged" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_period_type" class="control-label"> <span class="sr-only">Percent effort</span> </label>
-                                            <select name="line_1_period_type" id="line_1_period_type" class="form-control">
-                                                <option>Calendar</option>
-                                            </select>
-                                        </div></td>
-                                    <td><label for="line_1_req_salary"><span class="sr-only">Requested salary</span><span id="line_1_req_salary">$0</span></label></td>
-                                    <td><label for="line_1_calc_fringe"><span class="sr-only">Calculated fringe</span><span id="line_1_calc_fringe">$0</span></label></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="uif-text-medium">Marie Calendar</span> <small class="text-muted">(KP)</small></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_start" class="control-label"> <span class="sr-only">Start date</span> </label>
-                                            <input type="text" size="5" name="line_1_start" id="line_1_start" placeholder="mm/dd/yyyy" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_end" class="control-label"> <span class="sr-only">End date</span> </label>
-                                            <input type="text" size="5" name="line_1_end" id="line_1_end" placeholder="mm/dd/yyyy" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_effort" class="control-label"> <span class="sr-only">Percent effort</span> </label>
-                                            <input type="text" size="3" name="line_1_effort" id="line_1_effort" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_charged" class="control-label"> <span class="sr-only">Percent charged</span> </label>
-                                            <input type="text" size="3" name="line_1_charged" id="line_1_charged" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_period_type" class="control-label"> <span class="sr-only">Percent effort</span> </label>
-                                            <select name="line_1_period_type" id="line_1_period_type" class="form-control">
-                                                <option>Calendar</option>
-                                            </select>
-                                        </div></td>
-                                    <td><label for="line_1_req_salary"><span class="sr-only">Requested salary</span><span id="line_1_req_salary">$0</span></label></td>
-                                    <td><label for="line_1_calc_fringe"><span class="sr-only">Calculated fringe</span><span id="line_1_calc_fringe">$0</span></label></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="uif-text-medium">Jim Selmer</span> <small class="text-muted">(KP)</small></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_start" class="control-label"> <span class="sr-only">Start date</span> </label>
-                                            <input type="text" size="5" name="line_1_start" id="line_1_start" placeholder="mm/dd/yyyy" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_end" class="control-label"> <span class="sr-only">End date</span> </label>
-                                            <input type="text" size="5" name="line_1_end" id="line_1_end" placeholder="mm/dd/yyyy" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_effort" class="control-label"> <span class="sr-only">Percent effort</span> </label>
-                                            <input type="text" size="3" name="line_1_effort" id="line_1_effort" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_charged" class="control-label"> <span class="sr-only">Percent charged</span> </label>
-                                            <input type="text" size="3" name="line_1_charged" id="line_1_charged" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_period_type" class="control-label"> <span class="sr-only">Percent effort</span> </label>
-                                            <select name="line_1_period_type" id="line_1_period_type" class="form-control">
-                                                <option>Calendar</option>
-                                            </select>
-                                        </div></td>
-                                    <td><label for="line_1_req_salary"><span class="sr-only">Requested salary</span><span id="line_1_req_salary">$0</span></label></td>
-                                    <td><label for="line_1_calc_fringe"><span class="sr-only">Calculated fringe</span><span id="line_1_calc_fringe">$0</span></label></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example1">
-                    <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for="u1qq592w">
-                        <h3 class="uif-headerText"><a data-role="disclosureLink" data-linkfor="summerFac" href="#" id="u1qq592w_toggle" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Summer Faculty</span></a></h3>
-                    </header>
-                    <div id="summerFac" data-role="disclosureContent" data-open="true" class="uif-disclosureContent">
-                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Apply Settings to All Periods</a></div>
-                        <br>
-                        <br>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Start date</th>
-                                    <th>End date</th>
-                                    <th>% Effort</th>
-                                    <th>% Charged</th>
-                                    <th>Period type</th>
-                                    <th>Requested salary</th>
-                                    <th>Calculated fringe</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><span class="uif-text-medium">Ramen Noodle</span> <small class="text-muted">(PI)</small></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_start" class="control-label"> <span class="sr-only">Start date</span> </label>
-                                            <input type="text" size="5" name="line_1_start" id="line_1_start" placeholder="mm/dd/yyyy" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_end" class="control-label"> <span class="sr-only">End date</span> </label>
-                                            <input type="text" size="5" name="line_1_end" id="line_1_end" placeholder="mm/dd/yyyy" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_effort" class="control-label"> <span class="sr-only">Percent effort</span> </label>
-                                            <input type="text" size="3" name="line_1_effort" id="line_1_effort" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_charged" class="control-label"> <span class="sr-only">Percent charged</span> </label>
-                                            <input type="text" size="3" name="line_1_charged" id="line_1_charged" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_period_type" class="control-label"> <span class="sr-only">Percent effort</span> </label>
-                                            <select name="line_1_period_type" id="line_1_period_type" class="form-control">
-                                                <option>Calendar</option>
-                                            </select>
-                                        </div></td>
-                                    <td><label for="line_1_req_salary"><span class="sr-only">Requested salary</span><span id="line_1_req_salary">$0</span></label></td>
-                                    <td><label for="line_1_calc_fringe"><span class="sr-only">Calculated fringe</span><span id="line_1_calc_fringe">$0</span></label></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="uif-text-medium">Marie Calendar</span> <small class="text-muted">(KP)</small></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_start" class="control-label"> <span class="sr-only">Start date</span> </label>
-                                            <input type="text" size="5" name="line_1_start" id="line_1_start" placeholder="mm/dd/yyyy" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_end" class="control-label"> <span class="sr-only">End date</span> </label>
-                                            <input type="text" size="5" name="line_1_end" id="line_1_end" placeholder="mm/dd/yyyy" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_effort" class="control-label"> <span class="sr-only">Percent effort</span> </label>
-                                            <input type="text" size="3" name="line_1_effort" id="line_1_effort" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_charged" class="control-label"> <span class="sr-only">Percent charged</span> </label>
-                                            <input type="text" size="3" name="line_1_charged" id="line_1_charged" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_period_type" class="control-label"> <span class="sr-only">Percent effort</span> </label>
-                                            <select name="line_1_period_type" id="line_1_period_type" class="form-control">
-                                                <option>Calendar</option>
-                                            </select>
-                                        </div></td>
-                                    <td><label for="line_1_req_salary"><span class="sr-only">Requested salary</span><span id="line_1_req_salary">$0</span></label></td>
-                                    <td><label for="line_1_calc_fringe"><span class="sr-only">Calculated fringe</span><span id="line_1_calc_fringe">$0</span></label></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="uif-text-medium">Jim Selmer</span> <small class="text-muted">(KP)</small></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_start" class="control-label"> <span class="sr-only">Start date</span> </label>
-                                            <input type="text" size="5" name="line_1_start" id="line_1_start" placeholder="mm/dd/yyyy" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_end" class="control-label"> <span class="sr-only">End date</span> </label>
-                                            <input type="text" size="5" name="line_1_end" id="line_1_end" placeholder="mm/dd/yyyy" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_effort" class="control-label"> <span class="sr-only">Percent effort</span> </label>
-                                            <input type="text" size="3" name="line_1_effort" id="line_1_effort" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_charged" class="control-label"> <span class="sr-only">Percent charged</span> </label>
-                                            <input type="text" size="3" name="line_1_charged" id="line_1_charged" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_period_type" class="control-label"> <span class="sr-only">Percent effort</span> </label>
-                                            <select name="line_1_period_type" id="line_1_period_type" class="form-control">
-                                                <option>Calendar</option>
-                                            </select>
-                                        </div></td>
-                                    <td><label for="line_1_req_salary"><span class="sr-only">Requested salary</span><span id="line_1_req_salary">$0</span></label></td>
-                                    <td><label for="line_1_calc_fringe"><span class="sr-only">Calculated fringe</span><span id="line_1_calc_fringe">$0</span></label></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-                
-                
-                
-                
+    });</script><br>
+               
                 
                 
             </main>
@@ -775,146 +660,16 @@ $page = 'personnel-assign';
         </table>
     </div>
 </form>
-
-
-
-
-
-    
 <?php include ('includes/footer-scripts.php') ?>
-
 <!-- MODAL -- budget summary -->
 <?php include ('includes/modal-budget-summary.php') ?>
 <!-- MODAL -- budget settings  -->
 <?php include ('includes/modal-budget-settings.php') ?>
-
 <!-- MODAL -- budget open propsal -->
 <?php include ('includes/modal-budget-open-prop.php') ?>
 
-
-
-
 <!-- NO QUOTES AROUND ATTRIBUTES
-<div class="modal fade" id="summary" tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true>
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type=button class="close" data-dismiss=modal aria-hidden=true>&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Summary</h4>
-            </div>
-            <div class="modal-body">
-                <p>Here's a summary of your current budget.</p>
-                <table class="table table-condensed credit-allocation">
-                    <tbody>
-                        <tr>
-                            <th>&nbsp;</th>
-                            <th>P1</th>
-                            <th>P2</th>
-                            <th>P3</th>
-                            <th>P4</th>
-                            <th>P5</th>
-                            <th>Totals</th>
-                        </tr>
-                        <tr class="active">
-                            <td><strong> Personnel</strong></td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr class="">
-                            <td><a href="#"> <span aria-hidden=true class="icon-chevron-right"></span> Salary</a></td>
-                            <td>156934</td>
-                            <td>156934</td>
-                            <td>156934</td>
-                            <td>156934</td>
-                            <td>156934</td>
-                            <td>784670</td>
-                        </tr>
-                        <tr class="">
-                            <td><a href="#"> <span aria-hidden=true class="icon-chevron-right"></span> Fringe</a></td>
-                            <td>37345</td>
-                            <td>37345</td>
-                            <td>37345</td>
-                            <td>37345</td>
-                            <td>37345</td>
-                            <td>186725</td>
-                        </tr>
-                        <tr class="">
-                            <td><a href="#"> <span aria-hidden=true class="icon-chevron-right"></span> Calculated Direct Costs</a></td>
-                            <td>28284</td>
-                            <td>28284</td>
-                            <td>28284</td>
-                            <td>28284</td>
-                            <td>28284</td>
-                            <td>141420</td>
-                        </tr>
-                        <tr class="">
-                            <td>Personnel Subtotal</td>
-                            <td><strong>222563</strong></td>
-                            <td><strong>222563</strong></td>
-                            <td><strong>222563</strong></td>
-                            <td><strong>222563</strong></td>
-                            <td><strong>222563</strong></td>
-                            <td><strong>837456</strong></td>
-                        </tr>
-                        <tr class="active">
-                            <td><strong> Non-personnel</strong></td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr class="">
-                            <td><a href="#"> <span aria-hidden=true class="icon-chevron-right"></span> Calculated Direct Costs</a></td>
-                            <td>38546</td>
-                            <td>38546</td>
-                            <td>38546</td>
-                            <td>38546</td>
-                            <td>38546</td>
-                            <td>219348</td>
-                        </tr>
-                        <tr class="">
-                            <td>Nonpersonnel Subtotal</td>
-                            <td><strong>38546</strong></td>
-                            <td><strong>38546</strong></td>
-                            <td><strong>38546</strong></td>
-                            <td><strong>38546</strong></td>
-                            <td><strong>38546</strong></td>
-                            <td><strong>219348</strong></td>
-                        </tr>
-                        <tr class="active">
-                            <td><strong> Totals</strong></td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>Total Direct Cost</td>
-                            <td>723454</td>
-                            <td>723454</td>
-                            <td>723454</td>
-                            <td>723454</td>
-                            <td>723454</td>
-                            <td>496432</td>
-                        </tr>
-                        <tr>
-                            <td>Total F&amp;A Costs</td>
-                            <td>34537</td>
-                            <td>34537</td>
-                            <td>34537</td>
-                            <td>34537</td>
-                            <td>34537</td>
-                            <td>154578</td>
-                        </tr>
-                        <!-- tr>
+<div class="modal fade" id="summary" tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type=button class="close" data-dismiss=modal aria-hidden=true>&times;</button><h4 class="modal-title" id="myModalLabel">Summary</h4></div><div class="modal-body"><p>Here's a summary of your current budget.</p><table class="table table-condensed credit-allocation"><tbody><tr><th>&nbsp;</th><th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th><th>Totals</th></tr><tr class="active"><td><strong> Personnel</strong></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr class=""><td><a href="#"> <span aria-hidden=true class="icon-chevron-right"></span> Salary</a></td><td>156934</td><td>156934</td><td>156934</td><td>156934</td><td>156934</td><td>784670</td></tr><tr class=""><td><a href="#"> <span aria-hidden=true class="icon-chevron-right"></span> Fringe</a></td><td>37345</td><td>37345</td><td>37345</td><td>37345</td><td>37345</td><td>186725</td></tr><tr class=""><td><a href="#"> <span aria-hidden=true class="icon-chevron-right"></span> Calculated Direct Costs</a></td><td>28284</td><td>28284</td><td>28284</td><td>28284</td><td>28284</td><td>141420</td></tr><tr class=""><td>Personnel Subtotal</td><td><strong>222563</strong></td><td><strong>222563</strong></td><td><strong>222563</strong></td><td><strong>222563</strong></td><td><strong>222563</strong></td><td><strong>837456</strong></td></tr><tr class="active"><td><strong> Non-personnel</strong></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr class=""><td><a href="#"> <span aria-hidden=true class="icon-chevron-right"></span> Calculated Direct Costs</a></td><td>38546</td><td>38546</td><td>38546</td><td>38546</td><td>38546</td><td>219348</td></tr><tr class=""><td>Nonpersonnel Subtotal</td><td><strong>38546</strong></td><td><strong>38546</strong></td><td><strong>38546</strong></td><td><strong>38546</strong></td><td><strong>38546</strong></td><td><strong>219348</strong></td></tr><tr class="active"><td><strong> Totals</strong></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>Total Direct Cost</td><td>723454</td><td>723454</td><td>723454</td><td>723454</td><td>723454</td><td>496432</td></tr><tr><td>Total F&amp;A Costs</td><td>34537</td><td>34537</td><td>34537</td><td>34537</td><td>34537</td><td>154578</td></tr><!-- tr>
             <td colspan="5" >Totals</td>
           </tr> --><!--
                         <tr class="active">
