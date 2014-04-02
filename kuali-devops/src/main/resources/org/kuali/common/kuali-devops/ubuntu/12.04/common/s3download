@@ -79,6 +79,6 @@ URL="https://$BUCKET.s3.amazonaws.com/$KEY"
 # kUNB%2BAOhwfR931%2B4FpEOceXYcxU%3D
 # kUNB+AOhwfR931+4FpEOceXYcxU=
 
-curl --fail --get --data Expires=n1396678108 --data AWSAccessKeyId=AKIAJFD5IM7IPVVUEBNA --data-urlencode Signature=CFSwJUS0TmLvm51b901KreoRXhM= https://maven.kuali.org.s3.amazonaws.com/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom
+curl --fail --get --data Expires=1396678108 --data AWSAccessKeyId=AKIAJFD5IM7IPVVUEBNA --data-urlencode Signature=CFSwJUS0TmLvm51b901KreoRXhM= https://maven.kuali.org.s3.amazonaws.com/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom
 
 
