@@ -156,94 +156,92 @@ $section = '';
                 <div class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">
                     <div class="row">
                         <div class="well">
-
-                    
-                        <div class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">
-                            <div class="row">
-                                <div class="col-md-3">                                           
-                                    <p><b>Organization name:</b></p>                                    
+                            <div class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">
+                                <div class="row">
+                                    <div class="col-md-3">                                           
+                                        <p><b>Organization name:</b></p>                                    
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control"> 
+                                    </div>
+                                    <div class="col-md-1">
+                                        <span class="icon-search"></span>
+                                    </div>
                                 </div>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control"> 
+                                <div class="row">
+                                    <div class="col-md-3">                                           
+                                        <p><b>Comments:</b></p>                                    
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control">
+                                    </div>
                                 </div>
-                                <div class="col-md-1">
-                                    <span class="icon-search"></span>
+                                <div class="row">
+                                    <div class="col-md-3">                                           
+                                        <p><b>Subaward status code:</b></p>                                    
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3">                                           
-                                    <p><b>Comments:</b></p>                                    
+                                <div class="row">
+                                    <div class="col-md-3">                                           
+                                        <p><b>Namespace:</b></p>                                    
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control">
+                                    </div>
                                 </div>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control">
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-1"></div>                                          
+                                    <div class="col-md-2">                                           
+                                        <p><b>Direct cost</b></p>                                    
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p><b>F&amp;A cost</b></p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p><b>Cost sharing</b></p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p><b>Total cost</b></p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3">                                           
-                                    <p><b>Subaward status code:</b></p>                                    
+                                <div class="row">
+                                    <div class="col-md-1">                                               
+                                        <p><b>1</b></p> 
+                                    </div>
+                                    <div class="col-md-2">                                               
+                                        <input type="text" class="form-control" placeholder="0.00">
+                                    </div>
+                                    <div class="col-md-2">                                          
+                                        <input type="text" class="form-control" placeholder="0.00">
+                                    </div>
+                                    <div class="col-md-2">                                 
+                                        <input type="text" class="form-control" placeholder="0.00">
+                                    </div>
+                                    <div class="col-md-2">                                 
+                                        <p><b>0.00</b></p> 
+                                    </div>
                                 </div>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control">
+                                <div class="row">
+                                    <div class="col-md-1">                                               
+                                        <p><b>2</b></p> 
+                                    </div>
+                                    <div class="col-md-2">                                               
+                                        <input type="text" class="form-control" placeholder="0.00">
+                                    </div>
+                                    <div class="col-md-2">                                          
+                                        <input type="text" class="form-control" placeholder="0.00">
+                                    </div>
+                                    <div class="col-md-2">                                 
+                                        <input type="text" class="form-control" placeholder="0.00">
+                                    </div>
+                                    <div class="col-md-2">                                 
+                                        <p><b>0.00</b></p> 
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3">                                           
-                                    <p><b>Namespace:</b></p>                                    
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-1"></div>                                          
-                                <div class="col-md-2">                                           
-                                    <p><b>Direct cost</b></p>                                    
-                                </div>
-                                <div class="col-md-2">
-                                    <p><b>F&amp;A cost</b></p>
-                                </div>
-                                <div class="col-md-2">
-                                    <p><b>Cost sharing</b></p>
-                                </div>
-                                <div class="col-md-2">
-                                    <p><b>Total cost</b></p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-1">                                               
-                                    <p><b>1</b></p> 
-                                </div>
-                                <div class="col-md-2">                                               
-                                    <input type="text" class="form-control" placeholder="0.00">
-                                </div>
-                                <div class="col-md-2">                                          
-                                    <input type="text" class="form-control" placeholder="0.00">
-                                </div>
-                                <div class="col-md-2">                                 
-                                    <input type="text" class="form-control" placeholder="0.00">
-                                </div>
-                                <div class="col-md-2">                                 
-                                    <p><b>0.00</b></p> 
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-1">                                               
-                                    <p><b>2</b></p> 
-                                </div>
-                                <div class="col-md-2">                                               
-                                    <input type="text" class="form-control" placeholder="0.00">
-                                </div>
-                                <div class="col-md-2">                                          
-                                    <input type="text" class="form-control" placeholder="0.00">
-                                </div>
-                                <div class="col-md-2">                                 
-                                    <input type="text" class="form-control" placeholder="0.00">
-                                </div>
-                                <div class="col-md-2">                                 
-                                    <p><b>0.00</b></p> 
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>  
