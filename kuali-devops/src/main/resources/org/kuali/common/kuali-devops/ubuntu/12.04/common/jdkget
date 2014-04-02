@@ -10,13 +10,14 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-usage() { echo "Usage: $ME [-h --help] [-q --quiet] [-c --classifier=linux-x64] [-t --type=tar.gz] jdk6/jdk7/jdk8 u45/u51/u1 b05/b13/b132" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h --help] [-q --quiet] [-c --classifier=linux-x64] [--cookies=\$HOME/Downloads/cookies.txt] [-t --type=tar.gz] jdk7/jdk8 u51/u00 b13/b132" 1>&2; exit 1; }
 
 QUIET=false
 CLASSIFIER=linux-x64
 TYPE=tar.gz
+COOKIES=$HOME/Downloads/cookies.txt
 
-ARGS=$(getopt --options hqc:t: --longoptions "help,quiet,classifier:,type:" --name "$ME" -- "$@");
+ARGS=$(getopt --options hqu:b:c:t: --longoptions "help,quiet,update:,build:,cookies:,classifier:,type:" --name "$ME" -- "$@");
 if [ $? -ne 0 ]; then usage; fi
 eval set -- "$ARGS";
 while true; do
@@ -27,6 +28,11 @@ while true; do
       ;;
     -q|--quiet)
       QUIET=true;
+      shift;
+      ;;
+    -b|--build)
+      shift;
+      CLASSIFIER="$1";
       shift;
       ;;
     -c|--classifier)
@@ -46,15 +52,15 @@ while true; do
   esac
 done
 
-COOKIES=$1
+JDK=$1
 UPDATE=$2
 BUILD=$3
+COOKIES=$4
 
 check_args
 
 # http://download.oracle.com/otn-pub/java/jdk/8-b132/jdk-8-linux-x64.tar.gz
 # http://download.oracle.com/otn-pub/java/jdk/7u51-b13/jdk-7u51-linux-x64.tar.gz
-# http://download.oracle.com/otn    /java/jdk/6u45-b06/jdk-6u45-linux-x64.bin
 
 DOWNLOADS=/root/Downloads/jdks
 URL=http://download.oracle.com/otn-pub/java/jdk/7$UPDATE-$BUILD/jdk-7$BUILD-$CLASSIFIER.$TYPE
