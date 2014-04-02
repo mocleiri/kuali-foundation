@@ -6,14 +6,6 @@ function check_args {
   check_not_blank KEY $KEY
 }
 
-function string_to_sign {
-   local BUCKET=$1
-   local KEY=$2
-   local EXPIRES=$3
-   #echo -e -n "GET\n\n\n$EXPIRES\n/$BUCKET/$KEY"
-   echo -e -n "GET\n\n\n1396678108\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom"
-}
-
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
@@ -23,10 +15,6 @@ source $MY_DIR/../common/functions.sh
 # hmacsha1  = 3a5fcf0bed9ba1360a0d9da111ff393feed3a098
 # signature = CFSwJUS0TmLvm51b901KreoRXhM=
 
-STRING=$(printf "GET\nGET")
-HMACSHA1=0854b02544b44e62ef9b9d5bf74d4aadea115e13
-HMACSHA1=$(echo -e -n "GET\n\n\n1396678108\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom" | openssl sha1 -hmac "jIKJP0sL9cu3GsHoti0mqcbH4MMLDCthsn0lms0y" | sed "s/^.* //")
-BASE64=$(hex2base64 $HMACSHA1)
 
 echo "string=[$STRING]"
 echo "hmacsha1=$HMACSHA1"
@@ -68,29 +56,10 @@ check_args
 
 EXPIRES=$(date +%s)
 EXPIRES=$(($EXPIRES + 900))
-RAWSTRING=$(string_to_sign $BUCKET $KEY $EXPIRES)
-HMACSHA1=$(hmacsha1 $RAWSTRING $SECRET_KEY)
-BASE64=$(hex2base64 $HMACSHA1)
-SIGNATURE=$(urlencode $BASE64)
+HMACSHA1=$(echo -e -n "GET\n\n\n$EXPIRES\n/$BUCKET/$KEY" | openssl sha1 -hmac $SECRET_KEY | sed "s/^.* //")
+SIGNATURE=$(hex2base64 $HMACSHA1)
 
-EXPIRES=1396667142
-SIGNATURE=$(urlencode "zujsJ29orKujnGCS42AOl5GYQbY=")
-
-
-echo "rawstring=$RAWSTRING"
-echo "hmacsha1=$HMACSHA1"
-echo "base64=$BASE64"
-echo "signature=$SIGNATURE"
-
-#URL="https://$BUCKET.s3.amazonaws.com/$KEY?AWSAccessKeyId=$ACCESS_KEY&Expires=$EXPIRES&Signature=$SIGNATURE"
 URL="https://$BUCKET.s3.amazonaws.com/$KEY"
-#execute_quietly "curl --output $FILENAME $URL"
-#execute_quietly "curl --show-error --fail --output $FILENAME $URL"
-#execute_quietly "curl --fail --get --data-urlencode AWSAccessKeyId=$ACCESS_KEY --data-urlencode Signature=$SIGNATURE --data-urlencode Expires=$EXPIRES --output $FILENAME $URL"
-
-# kUNB%2BAOhwfR931%2B4FpEOceXYcxU%3D
-# kUNB+AOhwfR931+4FpEOceXYcxU=
-
-curl --fail --get --data Expires=1396678108 --data AWSAccessKeyId=AKIAJFD5IM7IPVVUEBNA --data-urlencode Signature=CFSwJUS0TmLvm51b901KreoRXhM= https://maven.kuali.org.s3.amazonaws.com/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom
+curl --fail --get --data Expires=$EXPIRES --data AWSAccessKeyId=$ACCESS_KEY --data-urlencode Signature=$SIGNATURE $URL
 
 
