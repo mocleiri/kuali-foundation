@@ -23,11 +23,12 @@ source $MY_DIR/../common/functions.sh
 # hmacsha1  = 3a5fcf0bed9ba1360a0d9da111ff393feed3a098
 # signature = CFSwJUS0TmLvm51b901KreoRXhM=
 
-STRING=GET
+STRING=$(printf "GET\nGET")
 HMACSHA1=0854b02544b44e62ef9b9d5bf74d4aadea115e13
 HMACSHA1=$(hmacsha1 $STRING "jIKJP0sL9cu3GsHoti0mqcbH4MMLDCthsn0lms0y")
 BASE64=$(hex2base64 $HMACSHA1)
 
+echo "string=[$STRING]"
 echo "hmacsha1=$HMACSHA1"
 echo "base64=$BASE64"
 
