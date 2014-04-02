@@ -10,14 +10,15 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-usage() { echo "Usage: $ME [-h --help] [-q --quiet] [-c --classifier=linux-x64] [-t --type=tar.gz] [--cookies=\$HOME/Downloads/cookies.txt] jdk7/jdk8 u51/u0 b13/b132" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h --help] [-q --quiet] [-c --classifier=linux-x64] [-t --type=tar.gz] [-d --downloads=$HOME/Downloads] [--cookies=\$HOME/Downloads/cookies.txt] jdk7/jdk8 u51/u0 b13/b132" 1>&2; exit 1; }
 
 QUIET=false
 CLASSIFIER=linux-x64
 TYPE=tar.gz
 COOKIES=$HOME/Downloads/cookies.txt
+DOWNLOADS=$HOME/Downloads
 
-ARGS=$(getopt --options hqc:t: --longoptions "help,quiet,classifier:,type:,cookies:" --name "$ME" -- "$@");
+ARGS=$(getopt --options hqc:t:d: --longoptions "help,quiet,classifier:,type:,cookies:,downloads:" --name "$ME" -- "$@");
 if [ $? -ne 0 ]; then usage; fi
 eval set -- "$ARGS";
 while true; do
@@ -53,12 +54,14 @@ BUILD=$3
 
 check_args
 
+JDK_LEVEL=${JDK:3:1}
+
 if [ "$UPDATE" == "u0" ]; then
   UPDATE=""
 fi
 
-# http://download.oracle.com/otn-pub/java/jdk/8-b132/jdk-8-linux-x64.tar.gz
-# http://download.oracle.com/otn-pub/java/jdk/7u51-b13/jdk-7u51-linux-x64.tar.gz
+FILENAME=jdk-$JDK_LEVEL-$CLASSIFIER.$TYPE
+URL=http://download.oracle.com/otn-pub/java/jdk/$JDK_LEVEL-$BUILD/$FILENAME
 
-DOWNLOADS=$HOME/Downloads/jdks
-URL=http://download.oracle.com/otn-pub/java/jdk/7$UPDATE-$BUILD/jdk-7$BUILD-$CLASSIFIER.$TYPE
+echo $FILENAME
+echo $URL
