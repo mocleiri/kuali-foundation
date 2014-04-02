@@ -1,8 +1,3 @@
-# expires, bucket, key
-function string_to_sign {
-  echo -e -n "GET\n\n\n$1\n/$2/$3"
-}
-
 function check_args {
   check_not_blank FILENAME $FILENAME
   check_not_blank ACCESS_KEY $ACCESS_KEY
