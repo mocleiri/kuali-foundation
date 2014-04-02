@@ -58,6 +58,6 @@ HMACSHA1=$(hmacsha1 "$STRING" $SECRET_KEY)
 SIGNATURE=$(hex2base64 $HMACSHA1)
 URL="https://$BUCKET.s3.amazonaws.com/$KEY"
 
-execute_quietly "curl --create-dirs --fail --get --data Expires=$EXPIRES --data AWSAccessKeyId=$ACCESS_KEY --data-urlencode Signature=$SIGNATURE --output $FILENAME $URL"
+curl --create-dirs --fail --get --data Expires=$EXPIRES --data AWSAccessKeyId=$ACCESS_KEY --data-urlencode Signature=$SIGNATURE --output $FILENAME $URL
 
 
