@@ -16,7 +16,7 @@ usage() { echo "Usage: $ME [-q --quiet] [-h --help] [-p --prefix=release] [-t --
 QUIET=false
 
 # default is public read
-ACL=public-read
+LOCAL=$HOME/.m2/repository
 PREFIX=""
 TYPE=jar
 CLASSIFIER=""
@@ -70,7 +70,7 @@ if [ "$QUIET" == "true" ]; then
   QUIET_FLAG="-q"
 fi
 
-M2_LOCAL_PATH=$($MY_DIR/m2path  --repo="$LOCAL" $GROUP_ID $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
+M2_LOCAL_PATH=$($MY_DIR/m2path --repo="$LOCAL" $GROUP_ID $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
 M2_FILENAME=$($MY_DIR/m2filename $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
 
 if [ "$PREFIX" == "" ]; then
