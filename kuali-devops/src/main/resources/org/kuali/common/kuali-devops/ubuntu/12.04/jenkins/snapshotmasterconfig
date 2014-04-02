@@ -52,6 +52,7 @@ if [ "$QUIET" == "true" ]; then
   QUIET_FLAG="-q"
 fi
 
+ACL=authenticated-read
 GROUP_ID=org.jenkins
 ARTIFACT_ID=jenkins-master-backup
 TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
@@ -66,16 +67,12 @@ BUCKET=maven.kuali.org
 
 TAR_FILE=/ssd/master.tar.gz
 tar_config
-GPG_DECRYPTED=$TAR_FILE
-GPG_ENCRYPTED=$TAR_FILE.gpg
-echo "encrypt   -> $GPG_DECRYPTED"
-encrypt_file $GPG_DECRYPTED $GPG_ENCRYPTED
 
 M2_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --repo=$BUCKET/$PREFIX --type=$TYPE --classifier=$CLASSIFIER)
 echo "upload    -> https://$M2_PATH"
-$MY_DIR/../common/m2s3put $QUIET_FLAG $GPG_ENCRYPTED $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --type=$TYPE --prefix=$PREFIX --classifier=$CLASSIFIER
+$MY_DIR/../common/m2s3put $QUIET_FLAG $TAR_FILE $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --acl=$ACL --type=$TYPE --prefix=$PREFIX --classifier=$CLASSIFIER
 
 CLASSIFIER=$STACK-latest
 M2_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --repo=$BUCKET/$PREFIX --type=$TYPE --classifier=$CLASSIFIER)
 echo "upload    -> https://$M2_PATH"
-$MY_DIR/../common/m2s3put $QUIET_FLAG $GPG_ENCRYPTED $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --type=$TYPE --prefix=$PREFIX --classifier=$CLASSIFIER
+$MY_DIR/../common/m2s3put $QUIET_FLAG $TAR_FILE $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --acl=$ACL --type=$TYPE --prefix=$PREFIX --classifier=$CLASSIFIER
