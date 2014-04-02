@@ -23,9 +23,9 @@ source $MY_DIR/../common/functions.sh
 # hmacsha1  = 3a5fcf0bed9ba1360a0d9da111ff393feed3a098
 # signature = CFSwJUS0TmLvm51b901KreoRXhM=
 
-STRING=$(string_to_sign)
+STRING=$(printf "GET\nGET")
 HMACSHA1=0854b02544b44e62ef9b9d5bf74d4aadea115e13
-HMACSHA1=$(hmacsha1 'GET\n\n\n1396678108\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom' "jIKJP0sL9cu3GsHoti0mqcbH4MMLDCthsn0lms0y")
+HMACSHA1=$(echo -e -n "GET\n\n\n1396678108\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom" | openssl sha1 -hmac "jIKJP0sL9cu3GsHoti0mqcbH4MMLDCthsn0lms0y" | sed "s/^.* //")
 BASE64=$(hex2base64 $HMACSHA1)
 
 echo "string=[$STRING]"
