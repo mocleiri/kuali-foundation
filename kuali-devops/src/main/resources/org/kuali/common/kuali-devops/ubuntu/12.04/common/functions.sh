@@ -149,15 +149,6 @@ function check_tomcat {
   fi
 }
 
-function echo_lines {
-  FILENAME=$1
-  check_exists $FILENAME
-  while read LINE
-  do
-    echo "$LINE"
-  done < $FILENAME
-}
-
 # hmacsha1 value key
 function hmacsha1 {
   echo -n "$1" | openssl sha1 -hmac "$2" -binary | sed "s/^.* //"
