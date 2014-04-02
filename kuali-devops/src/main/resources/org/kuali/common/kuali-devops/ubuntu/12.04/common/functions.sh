@@ -151,7 +151,7 @@ function check_tomcat {
 
 # hmacsha1 value key
 function hmacsha1 {
-  echo -e -n "$1" | openssl sha1 -hmac "$2" -binary | sed "s/^.* //"
+  echo -n "$1" | openssl sha1 -hmac "$2" -binary | xxd -p
 }
 
 # base64encode value
