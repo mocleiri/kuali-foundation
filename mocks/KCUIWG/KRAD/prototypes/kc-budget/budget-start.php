@@ -164,7 +164,7 @@ $page = 'asdf';
                 </div>
                 <div class="row">
                     <div class="col-md-6 text-right" ><a href="#" class="btn btn-primary btn-lg">Guide me through the steps.</a></div>
-                    <div class="col-md-6 text-left"> <a href="budget-summary.php" class="btn btn-primary btn-lg">I'll go through on my own.</a></div>
+                    <div class="col-md-6 text-left"> <a href="budget-ng-summary.php" class="btn btn-primary btn-lg">I'll go through on my own.</a></div>
                 </div>
             </main>
         </div>
