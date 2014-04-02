@@ -17,7 +17,7 @@ CLASSIFIER=linux-x64
 TYPE=tar.gz
 COOKIES=$HOME/Downloads/cookies.txt
 
-ARGS=$(getopt --options hqu:b:c:t: --longoptions "help,quiet,update:,build:,cookies:,classifier:,type:" --name "$ME" -- "$@");
+ARGS=$(getopt --options hqc:t: --longoptions "help,quiet,cookies:,classifier:,type:" --name "$ME" -- "$@");
 if [ $? -ne 0 ]; then usage; fi
 eval set -- "$ARGS";
 while true; do
