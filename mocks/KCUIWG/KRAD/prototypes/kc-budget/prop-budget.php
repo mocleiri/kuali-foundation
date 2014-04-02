@@ -343,7 +343,7 @@ $section = '';
                             <tr>
                                 <td scope="row"><input type="radio"  value="radio" name="version-list" id="radio-version-5">
                                     <label for="radio"></label></td>
-                                <td scope="row" colspan="6" class="versions"><a href="" data-toggle="modal" data-target="#switchdoc"  class="versions">NONE</a> <small>(for submission)</small></td>
+                                <td scope="row" colspan="6" class="versions">NONE <small>(for submission)</small></td>
                                     </td>
                             </tr>
                         </tbody>
