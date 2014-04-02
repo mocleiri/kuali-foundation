@@ -50,7 +50,6 @@ done
 JDK=$1
 UPDATE=$2
 BUILD=$3
-COOKIES=$4
 
 check_args
 
