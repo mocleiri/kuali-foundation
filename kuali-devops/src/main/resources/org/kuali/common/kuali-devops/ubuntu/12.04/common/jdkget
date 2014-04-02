@@ -57,5 +57,5 @@ check_args
 # http://download.oracle.com/otn-pub/java/jdk/8-b132/jdk-8-linux-x64.tar.gz
 # http://download.oracle.com/otn-pub/java/jdk/7u51-b13/jdk-7u51-linux-x64.tar.gz
 
-DOWNLOADS=/root/Downloads/jdks
+DOWNLOADS=$HOME/Downloads/jdks
 URL=http://download.oracle.com/otn-pub/java/jdk/7$UPDATE-$BUILD/jdk-7$BUILD-$CLASSIFIER.$TYPE
