@@ -1,12 +1,14 @@
 package org.kuali.common.devops.presigned;
 
 import static com.amazonaws.auth.SigningAlgorithm.HmacSHA1;
+import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Integer.toHexString;
 import static org.apache.commons.lang.StringUtils.leftPad;
 import static org.kuali.common.util.Encodings.UTF8;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.net.URL;
+import java.util.List;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -23,6 +25,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.SigningAlgorithm;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
+import com.google.common.base.Joiner;
 
 public class GeneratePreSignedURL {
 
@@ -37,6 +40,14 @@ public class GeneratePreSignedURL {
 			String stringToSign = "GET\n\n\n1396678108\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom";
 			// 3a5fcf0bed9ba1360a0d9da111ff393feed3a098 - right
 			// 0854b02544b44e62ef9b9d5bf74d4aadea115e13 - wrong
+			byte[] bytes = hmacsha1bytes(stringToSign, secretKey);
+			List<String> lines = newArrayList();
+			for (byte b : bytes) {
+				int i = b & 0xff;
+				lines.add(leftPad(Integer.toString(i), 3, " "));
+			}
+			String joined = Joiner.on(' ').join(lines);
+			logger.info(joined);
 			String hmacsha1hex = hmacsha1hex(stringToSign, secretKey);
 			logger.info(hmacsha1hex);
 			if (true) {
@@ -90,9 +101,8 @@ public class GeneratePreSignedURL {
 		for (byte b : bytes) {
 			int i = b & 0xff;
 			String hex = leftPad(toHexString(i), 2, "0");
-			sb.append(hex);
+			sb.append(leftPad(hex, 3, " "));
 		}
 		return sb.toString();
 	}
-
 }
