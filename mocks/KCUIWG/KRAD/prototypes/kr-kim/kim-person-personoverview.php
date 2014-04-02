@@ -309,7 +309,7 @@ $page = 'asdf';
                         </div>
                     </div>
                 </header>
-                <div id="u14jg6xp" class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix" data-parent="LabsProposal-Page">
+                <div id="u14jg6xp" class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix" data-parent="LabsProposal-Page">
                     <div class="form-horizontal" >
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Entity Id</label>

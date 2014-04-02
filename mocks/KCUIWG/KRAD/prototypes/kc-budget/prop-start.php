@@ -96,7 +96,7 @@ $page = 'asdf';
                         </div>
                     </div>
                 </header>
-                <div id="u14jg6xp" class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix" data-parent="LabsProposal-Page">
+                <div id="u14jg6xp" class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix" data-parent="LabsProposal-Page">
                     <div class="row ">
                         <div class="col-md-3 uif-cssGridLabelCol">
                             <label id="u11k8c13_label" for="u11k8c13_control" class="uif-label displayWith-u11k8c13" data-label_for="u11k8c13"> Proposal Type: </label>

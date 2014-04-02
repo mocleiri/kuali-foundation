@@ -243,7 +243,7 @@ line-height:0 padding: 0 .25em 0;
                         
                     </div>
                 </header>
-                <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
+                <div class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">
                     <p><strong>Do you need to add addtional personell?</strong></p>
 
                     <div class="col-md-3"> <a class="btn btn-default" href="#">No</a> </div>

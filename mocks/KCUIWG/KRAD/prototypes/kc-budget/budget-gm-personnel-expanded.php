@@ -237,7 +237,7 @@ line-height:0  padding: 0 .25em 0;
                    
                     </div>
                 </header>
-                <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
+                <div class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">
                    
                     
                     <p><strong>Personnel are people whose time is to be budgeted in any period.</strong></p>

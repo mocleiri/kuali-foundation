@@ -144,7 +144,7 @@ $page = 'personnel-assign';
             <main id="LabsProposal-Page" class="uif-page uif-hasLeftNav" data-server_messages=false data-role=Page data-parent=LabsProposal style="margin-left: 235px;">
                 <header class="clearfix uif-header-contentWrapper">
                     <div id="u148pgf0" class="uif-pageHeader clearfix" data-header_for=LabsProposal-Page>
-                        <h2 class="uif-headerText"><span class="uif-headerText-span">Project Assign Personnel to Periods</span></h2>
+                        <h2 class="uif-headerText"><span class="uif-headerText-span"> Assign Personnel to Periods</span></h2>
                     </div>
                 </header>
                 <p id="u1iaxrzf" class="uif-message uif-boxLayoutVerticalItem clearfix">Assign personnel to one or all periods and configure efforts and charges.</p>
@@ -158,24 +158,16 @@ $page = 'personnel-assign';
                 </ul>
                 <div id="my-tab-content" class="tab-content">
                     <div class="tab-pane active" id="p1">
-                        <div class="row">
-                            <div class="col-md-6">
+                       
+                          
                                 <h3 class> Period 1 <br>
                                     <small>1/12/14 - 1/12/15</small></h3>
-                            </div>
-                            <div class="col-md-6 text-right">
-                                <div class="btn-group" style="margin-top:15px">
-                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Detailed View <span class="caret"></span> </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="">Summary View</a> </li>
-                                        <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="">Detailed View</a> </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
+                           
+                            <h4> Assign Personnel</h4>
+                        
+                    
                             <div class="well well-sm" style="margin-top:15px;">
-                                <h4> Assign Personnel</h4>
+                                
                                 <hr>
                                 <div class="form-horizontal" role="form">
                                     <div class="form-group">
@@ -209,7 +201,7 @@ $page = 'personnel-assign';
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        
                     </div>
                     <div class="tab-pane" id="p2">
                         <p>orange orange orange orange orange</p>
@@ -230,111 +222,139 @@ $page = 'personnel-assign';
     });
 </script> 
                 <br>
+                
+                
+                 <h4> Assigned Personnel</h4>
+                 
+                 
                 <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example1">
                     <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for="u1qq592w">
                         <h3 class="uif-headerText"><a data-role="disclosureLink" data-linkfor="facSalTen" href="#" id="u1qq592w_toggle" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Faculty Salaries - Tenured</span></a></h3>
                     </header>
                     <div id="facSalTen" data-role="disclosureContent" data-open="true" class="uif-disclosureContent">
-                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Apply Settings to All Periods</a></div>
-                        <br>
-                        <br>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Start date</th>
-                                    <th>End date</th>
-                                    <th>% Effort</th>
-                                    <th>% Charged</th>
-                                    <th>Period type</th>
-                                    <th>Requested salary</th>
-                                    <th>Calculated fringe</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><span class="uif-text-medium">Ramen Noodle</span> <small class="text-muted">(PI)</small></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_start" class="control-label"> <span class="sr-only">Start date</span> </label>
-                                            <input type="text" size="5" name="line_1_start" id="line_1_start" placeholder="mm/dd/yyyy" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_end" class="control-label"> <span class="sr-only">End date</span> </label>
-                                            <input type="text" size="5" name="line_1_end" id="line_1_end" placeholder="mm/dd/yyyy" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_effort" class="control-label"> <span class="sr-only">Percent effort</span> </label>
-                                            <input type="text" size="3" name="line_1_effort" id="line_1_effort" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_charged" class="control-label"> <span class="sr-only">Percent charged</span> </label>
-                                            <input type="text" size="3" name="line_1_charged" id="line_1_charged" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_period_type" class="control-label"> <span class="sr-only">Percent effort</span> </label>
-                                            <select name="line_1_period_type" id="line_1_period_type" class="form-control">
-                                                <option>Calendar</option>
-                                            </select>
-                                        </div></td>
-                                    <td><label for="line_1_req_salary"><span class="sr-only">Requested salary</span><span id="line_1_req_salary">$0</span></label></td>
-                                    <td><label for="line_1_calc_fringe"><span class="sr-only">Calculated fringe</span><span id="line_1_calc_fringe">$0</span></label></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="uif-text-medium">Marie Calendar</span> <small class="text-muted">(KP)</small></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_start" class="control-label"> <span class="sr-only">Start date</span> </label>
-                                            <input type="text" size="5" name="line_1_start" id="line_1_start" placeholder="mm/dd/yyyy" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_end" class="control-label"> <span class="sr-only">End date</span> </label>
-                                            <input type="text" size="5" name="line_1_end" id="line_1_end" placeholder="mm/dd/yyyy" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_effort" class="control-label"> <span class="sr-only">Percent effort</span> </label>
-                                            <input type="text" size="3" name="line_1_effort" id="line_1_effort" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_charged" class="control-label"> <span class="sr-only">Percent charged</span> </label>
-                                            <input type="text" size="3" name="line_1_charged" id="line_1_charged" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_period_type" class="control-label"> <span class="sr-only">Percent effort</span> </label>
-                                            <select name="line_1_period_type" id="line_1_period_type" class="form-control">
-                                                <option>Calendar</option>
-                                            </select>
-                                        </div></td>
-                                    <td><label for="line_1_req_salary"><span class="sr-only">Requested salary</span><span id="line_1_req_salary">$0</span></label></td>
-                                    <td><label for="line_1_calc_fringe"><span class="sr-only">Calculated fringe</span><span id="line_1_calc_fringe">$0</span></label></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="uif-text-medium">Jim Selmer</span> <small class="text-muted">(KP)</small></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_start" class="control-label"> <span class="sr-only">Start date</span> </label>
-                                            <input type="text" size="5" name="line_1_start" id="line_1_start" placeholder="mm/dd/yyyy" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_end" class="control-label"> <span class="sr-only">End date</span> </label>
-                                            <input type="text" size="5" name="line_1_end" id="line_1_end" placeholder="mm/dd/yyyy" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_effort" class="control-label"> <span class="sr-only">Percent effort</span> </label>
-                                            <input type="text" size="3" name="line_1_effort" id="line_1_effort" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_charged" class="control-label"> <span class="sr-only">Percent charged</span> </label>
-                                            <input type="text" size="3" name="line_1_charged" id="line_1_charged" class="form-control">
-                                        </div></td>
-                                    <td><div class="form-group-sm">
-                                            <label for="line_1_period_type" class="control-label"> <span class="sr-only">Percent effort</span> </label>
-                                            <select name="line_1_period_type" id="line_1_period_type" class="form-control">
-                                                <option>Calendar</option>
-                                            </select>
-                                        </div></td>
-                                    <td><label for="line_1_req_salary"><span class="sr-only">Requested salary</span><span id="line_1_req_salary">$0</span></label></td>
-                                    <td><label for="line_1_calc_fringe"><span class="sr-only">Calculated fringe</span><span id="line_1_calc_fringe">$0</span></label></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Apply Settings to All Periods</a></div><br><br>
+                        
+                        
+                   
+
+                        
+ <ul id="tabs2" class="nav nav-tabs" data-tabs="tabs2">
+        <li class="active"><a href="#red" data-toggle="tab">Personnel</a></li>
+        <li><a href="#orange" data-toggle="tab">Details</a></li>
+        <li><a href="#yellow" data-toggle="tab">Rate Classes</a></li>
+        
+    </ul>
+    <div id="my-tab-content" class="tab-content ">
+        <div class="tab-pane active" id="red" role="" style="margin-top:15px">
+        
+        
+        
+     
+        
+        
+        
+                
+                        
+                    <table class="table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby="Demo-LightTableGroup1_lightTable_info">
+                    <thead>
+                        <tr role="row">
+                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
+ Field 1: : activate to sort column "><label id="urh9zx8" class="uif-label">Person</label></th>
+                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
+ Field 2: : activate to sort column ">Start</th>
+                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
+ Field 3: : activate to sort column ">End</th>
+                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
+ Field 4: : activate to sort column ascending">Effort</th>
+                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
+ Field 4: : activate to sort column "> Charged</th>
+                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
+ Field 4: : activate to sort column ">Period Type</th>
+                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
+ Field 4: : activate to sort column ">Requested Salary</th>
+                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
+ Field 4: : activate to sort column ">Calculated Fringe</th>
+                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
+ Field 4: : activate to sort column ">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody role="alert" aria-live="polite" aria-relevant="all">
+                        
+                        <tr class="not-deletable">
+                            <td>Ward Cleaver <small class="text-muted">(PI)</small></td>
+                            <td>1/12/14<small class="text-muted"></small></td>
+                            <td>1/12/15</td>
+                            <td class="text-right">100%</td>
+                            <td><div class="dropdown dropdown-large">
+                                <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -808px;top: 26px;width: 890px;padding:15px; background:#fcf8e3;">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-horizontal" role="form">
+                                                <div class="form-group">
+                                                    <div class="col-sm-9">                                                        </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-9">
+                                                        <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
+                                                            <div class="input-group">                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-9">                                                        </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-9">
+                                                        <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
+                                                            <div class="input-group">                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-9">
+                                                        <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
+                                                            <div class="input-group">                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            50%</div></td>
+                            <td>Calendar</td>
+                            <td class="text-right">$142,525.00</td>
+                            <td class="text-right">$0.00</td>
+                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
+                                
+                            </div></td>
+                            </tr>
+                    </tbody>
+                </table>
+        </div>
+        <div class="tab-pane" id="orange">
+            <h1>Orange</h1>
+            <p>orange orange orange orange orange</p>
+        </div>
+        <div class="tab-pane" id="yellow">
+            <h1>Yellow</h1>
+            <p>yellow yellow yellow yellow yellow</p>
+        </div>
+     
+    </div>
+    
+    
+    
+    
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $('#tabs2').tab();
+    });
+</script>    
+                        
+                        
+                   
+                   
                     </div>
                 </section>
                 
@@ -626,6 +646,12 @@ $page = 'personnel-assign';
         </table>
     </div>
 </form>
+
+
+
+
+
+    
 <?php include ('includes/footer-scripts.php') ?>
 
 <!-- MODAL -- budget summary -->
@@ -789,7 +815,7 @@ $page = 'personnel-assign';
                 <h4 class="modal-title" id="myModalLabel">Budget Settings</h4>
             </div>
             <div class="modal-body">
-                <div class="form-horizontal uif-cssGridSection" role=form>
+                <div class="form-horizontal uif-cssGridGroup" role=form>
                     <div class="form-group">
                         <label for=inputEmail3 class="col-sm-3 control-label">Project Start</label>
                         <div class="col-sm-9">

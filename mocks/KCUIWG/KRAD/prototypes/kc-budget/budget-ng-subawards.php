@@ -148,7 +148,7 @@ $section = '';
                     </div>
                 </header>
                 <div class="pull-right"> <a href="#"> <span class="icon-compass"></span> Guide Me</a></div>
-                <p class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">Upload a pre-formatted budget document for a subawardee organization or enter details manually.</p>
+                <p class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">Upload a pre-formatted budget document for a subawardee organization or enter details manually.</p>
                 <div class="col-md-12"> 
                     <button class="btn btn-default btn-starter launch-modal" data-modal-page="modal/modal-attachments/attachments.proposal.add.php">Attach subawardee budget</button>
                 </div>  
@@ -158,7 +158,7 @@ $section = '';
                         <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=umbrella href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Umbrella Corporation.pdf</span></a></h3>
                     </header>
                     <div id="umbrella" data-role=disclosureContent data-open=true class="uif-disclosureContent">
-                        <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
+                        <div class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">
                             <div class="row">
                                 <div class="col-md-3">                                           
                                     <p><b>Organization name:</b></p>                                    
@@ -462,7 +462,7 @@ $section = '';
                 <h4 class="modal-title" id="myModalLabel">Budget Settings</h4>
             </div>
             <div class="modal-body">
-                <div class="form-horizontal uif-cssGridSection" role=form>
+                <div class="form-horizontal uif-cssGridGroup" role=form>
                     <div class="form-group">
                         <label for=inputEmail3 class="col-sm-3 control-label">Project Start</label>
                         <div class="col-sm-9">

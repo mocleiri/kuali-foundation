@@ -19,7 +19,7 @@ $page = 'asdf';
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title" id="myModalLabel"> Document Search</h4>
             </div>
-            <div class="modal-body uif-cssGridSection">
+            <div class="modal-body uif-cssGridGroup">
                 
                 <h4>Results</h4>
                 

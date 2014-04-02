@@ -47,7 +47,7 @@ $page = 'periods-and-totals';
                                 </div>
                             </div>
                         </header>
-                        <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
+                        <div class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="uif-stackedCollectionSection uif-boxLayoutVerticalItem clearfix" id="accordion-periods-totals">
@@ -224,7 +224,7 @@ $page = 'periods-and-totals';
                                 <h4 class="modal-title" id="create-new-label">Create a budget version</h4>
                             </div>
                             <div class="modal-body">
-                                <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
+                                <div class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">
                                     <div class="form-group">
                                         <label for="new-version-name" class="uif-label uif-required">Name: *</label>
                                         <input id="new-version-name" type="text" name="new-version-name" value="" size="30" class="form-control input-sm uif-textControl required" data-role="Control">

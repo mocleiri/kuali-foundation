@@ -162,7 +162,7 @@ $section = '';
                         </div>
                     </div>
                 </header>
-                <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
+                <div class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">
                     <div class="row">
                         <div class="col-md-3">
                             <a class="btn btn-default" href="#">Start a detailed budget</a>

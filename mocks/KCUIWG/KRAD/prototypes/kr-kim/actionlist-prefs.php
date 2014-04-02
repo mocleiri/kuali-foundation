@@ -28,7 +28,7 @@ $page = 'asdf';
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 				<h4 class="modal-title" id="myModalLabel"> Action List Preferences</h4>
 			</div>
-			<div class="modal-body uif-cssGridSection">
+			<div class="modal-body uif-cssGridGroup">
 				<p class="pull-right"><a href="#"> <span aria-hidden="true" class="icon-arrow-left" style="color:#999"></span> Return to List</a></p>
 				<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
 					<li class="active"><a href="#general" data-toggle="tab">General</a></li>

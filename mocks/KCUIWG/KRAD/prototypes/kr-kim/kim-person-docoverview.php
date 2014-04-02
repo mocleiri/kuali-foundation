@@ -299,7 +299,7 @@ $page = 'asdf';
                         </div>
                     </div>
                 </header>
-                <div id="u14jg6xp" class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix" data-parent="LabsProposal-Page">
+                <div id="u14jg6xp" class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix" data-parent="LabsProposal-Page">
                     <div class="row ">
                         <div class="col-md-3 uif-cssGridLabelCol">
                             <label id="u11k8c13_label" for="u11k8c13_control" class="uif-label displayWith-u11k8c13" data-label_for="u11k8c13"> Description* </label>
@@ -715,7 +715,7 @@ $page = 'asdf';
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title" id="myModalLabel"> Action List Preferences</h4>
             </div>
-            <div class="modal-body uif-cssGridSection">
+            <div class="modal-body uif-cssGridGroup">
                 <p class="pull-right"><a href="#"><span aria-hidden="true" class="icon-arrow-left" style="color:#999"></span> Return to List</a></p>
                 <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
                     <li class="active"><a href="#general" data-toggle="tab">General</a></li>
@@ -937,7 +937,7 @@ $page = 'asdf';
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title" id="myModalLabel"> Document Search</h4>
             </div>
-            <div class="modal-body uif-cssGridSection">
+            <div class="modal-body uif-cssGridGroup">
                 <div class="form-horizontal" role="form">
                     <div class="row ">
                         <div class="col-md-9">
@@ -1038,7 +1038,7 @@ $page = 'asdf';
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title" id="myModalLabel"> Document Search</h4>
             </div>
-            <div class="modal-body uif-cssGridSection">
+            <div class="modal-body uif-cssGridGroup">
                 <div class="form-horizontal" role="form">
                     <div class="row ">
                         <div class="col-md-12">
@@ -1066,7 +1066,7 @@ $page = 'asdf';
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title" id="myModalLabel"> Document Search</h4>
             </div>
-            <div class="modal-body uif-cssGridSection">
+            <div class="modal-body uif-cssGridGroup">
                 <h4>Results</h4>
                 <table id="u569ish_line0" class="table table-condensed table-bordered table-hover" role="presentation">
                     <tbody>

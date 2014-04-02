@@ -253,7 +253,7 @@ $section = '';
                         </div>
                     </div>
                 </header>
-                <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
+                <div class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">
                     <div class="row">
                        
                        <textarea id="u11k8c1y_control" name="field2" rows="7" cols="40" class="form-control input-sm uif-mediumTextAreaControl has-helper required error" data-role="Control" data-control_for="u11k8c1y" aria-required="true" aria-invalid="true">List of Notes</textarea>

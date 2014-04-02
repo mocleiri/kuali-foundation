@@ -243,7 +243,7 @@ line-height:0 padding: 0 .25em 0;
                         
                     </div>
                 </header>
-                <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
+                <div class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">
                     <p><strong>Now you will enter the Period 1 effort information for each person on your budget.</strong></p>
                     <table class="table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby="Demo-LightTableGroup1_lightTable_info">
                         <tbody role="alert" aria-live="polite" aria-relevant="all">

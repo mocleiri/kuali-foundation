@@ -148,13 +148,13 @@ $section = '';
                     </div>
                 </header>
                 <div class="pull-right"> <a href="#"> <span class="icon-compass"></span> Guide Me</a></div>
-                <p class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">Enter details for the subawardee organization.</p>              
-                <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
+                <p class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">Enter details for the subawardee organization.</p>              
+                <div class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">
                     <div class="row">
                         <div class="well">
 
                     
-                        <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
+                        <div class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">
                             <div class="row">
                                 <div class="col-md-3">                                           
                                     <p><b>Organization name:</b></p>                                    
@@ -440,7 +440,7 @@ $section = '';
                 <h4 class="modal-title" id="myModalLabel">Budget Settings</h4>
             </div>
             <div class="modal-body">
-                <div class="form-horizontal uif-cssGridSection" role=form>
+                <div class="form-horizontal uif-cssGridGroup" role=form>
                     <div class="form-group">
                         <label for=inputEmail3 class="col-sm-3 control-label">Project Start</label>
                         <div class="col-sm-9">

@@ -204,7 +204,7 @@ $page = 'asdf';
 						</div>
 					</div>
 				</header>
-				<div id="u14jg6xp" class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix" data-parent="LabsProposal-Page">
+				<div id="u14jg6xp" class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix" data-parent="LabsProposal-Page">
 					<div class="row ">
 						<div class="col-md-3 uif-cssGridLabelCol">
 							<label id="u11k8c13_label" for="u11k8c13_control" class="uif-label displayWith-u11k8c13" data-label_for="u11k8c13"> Proposal Type: </label>
@@ -325,7 +325,7 @@ $page = 'asdf';
 												<li data-tabfor="u11ymtuu_line0" role="tab" tabindex="-1" aria-controls="u11ymtuu_line0_tab" aria-labelledby="ui-id-4" aria-selected="false"> <a href="#u11ymtuu_line0_tab" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-4">Degrees</a> </li>
 											</ul>
 											<div data-tabwrapperfor="u11ymts9_line0" data-type="TabWrapper" id="u11ymts9_line0_tab" aria-labelledby="ui-id-1" role="tabpanel" aria-expanded="true" aria-hidden="false">
-												<div id="u11ymts9_line0" class="uif-cssGridSection" data-parent="u10i8ym5_line0">
+												<div id="u11ymts9_line0" class="uif-cssGridGroup" data-parent="u10i8ym5_line0">
 													<div class="row ">
 														<div class="col-md-2 uif-cssGridLabelCol">
 															<label id="uzcuu63_line0_label" for="uzcuu63_line0_control" class="uif-label displayWith-uzcuu63_line0" data-label_for="uzcuu63_line0"> Field 1: </label>
@@ -367,7 +367,7 @@ $page = 'asdf';
 												</div>
 											</div>
 											<div data-tabwrapperfor="u11ymtt4_line0" data-type="TabWrapper" id="u11ymtt4_line0_tab" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
-												<div id="u11ymtt4_line0" class="uif-cssGridSection" data-parent="u10i8ym5_line0">
+												<div id="u11ymtt4_line0" class="uif-cssGridGroup" data-parent="u10i8ym5_line0">
 													<div class="row ">
 														<div class="col-md-2 uif-cssGridLabelCol">
 															<label id="u5mzxmk_line0_label" for="u5mzxmk_line0_control" class="uif-label displayWith-u5mzxmk_line0" data-label_for="u5mzxmk_line0"> Field 1: </label>
@@ -434,7 +434,7 @@ $page = 'asdf';
 												</section>
 											</div>
 											<div data-tabwrapperfor="u11ymtuu_line0" data-type="TabWrapper" id="u11ymtuu_line0_tab" aria-labelledby="ui-id-4" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
-												<div id="u11ymtuu_line0" class="uif-cssGridSection" data-parent="u10i8ym5_line0">
+												<div id="u11ymtuu_line0" class="uif-cssGridGroup" data-parent="u10i8ym5_line0">
 													<div class="row ">
 														<div class="col-md-2 uif-cssGridLabelCol">
 															<label id="uh8e6im_line0_label" for="uh8e6im_line0_control" class="uif-label displayWith-uh8e6im_line0" data-label_for="uh8e6im_line0"> Field 1: </label>
@@ -499,7 +499,7 @@ $page = 'asdf';
 												<li data-tabfor="u11ymtuu_line1" role="tab" tabindex="-1" aria-controls="u11ymtuu_line1_tab" aria-labelledby="ui-id-8" aria-selected="false"> <a href="#u11ymtuu_line1_tab" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-8">Degrees</a> </li>
 											</ul>
 											<div data-tabwrapperfor="u11ymts9_line1" data-type="TabWrapper" id="u11ymts9_line1_tab" aria-labelledby="ui-id-5" role="tabpanel" aria-expanded="true" aria-hidden="false">
-												<div id="u11ymts9_line1" class="uif-cssGridSection" data-parent="u10i8ym5_line1">
+												<div id="u11ymts9_line1" class="uif-cssGridGroup" data-parent="u10i8ym5_line1">
 													<div class="row ">
 														<div class="col-md-2 uif-cssGridLabelCol">
 															<label id="uzcuu63_line1_label" for="uzcuu63_line1_control" class="uif-label displayWith-uzcuu63_line1" data-label_for="uzcuu63_line1"> Field 1: </label>
@@ -541,7 +541,7 @@ $page = 'asdf';
 												</div>
 											</div>
 											<div data-tabwrapperfor="u11ymtt4_line1" data-type="TabWrapper" id="u11ymtt4_line1_tab" aria-labelledby="ui-id-6" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
-												<div id="u11ymtt4_line1" class="uif-cssGridSection" data-parent="u10i8ym5_line1">
+												<div id="u11ymtt4_line1" class="uif-cssGridGroup" data-parent="u10i8ym5_line1">
 													<div class="row ">
 														<div class="col-md-2 uif-cssGridLabelCol">
 															<label id="u5mzxmk_line1_label" for="u5mzxmk_line1_control" class="uif-label displayWith-u5mzxmk_line1" data-label_for="u5mzxmk_line1"> Field 1: </label>
@@ -608,7 +608,7 @@ $page = 'asdf';
 												</section>
 											</div>
 											<div data-tabwrapperfor="u11ymtuu_line1" data-type="TabWrapper" id="u11ymtuu_line1_tab" aria-labelledby="ui-id-8" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
-												<div id="u11ymtuu_line1" class="uif-cssGridSection" data-parent="u10i8ym5_line1">
+												<div id="u11ymtuu_line1" class="uif-cssGridGroup" data-parent="u10i8ym5_line1">
 													<div class="row ">
 														<div class="col-md-2 uif-cssGridLabelCol">
 															<label id="uh8e6im_line1_label" for="uh8e6im_line1_control" class="uif-label displayWith-uh8e6im_line1" data-label_for="uh8e6im_line1"> Field 1: </label>

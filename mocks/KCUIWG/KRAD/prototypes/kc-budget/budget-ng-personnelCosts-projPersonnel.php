@@ -674,7 +674,7 @@ $page = 'personnel-costs';
                 <h4 class="modal-title" id="myModalLabel">Budget Settings</h4>
             </div>
             <div class="modal-body">
-                <div class="form-horizontal uif-cssGridSection" role=form>
+                <div class="form-horizontal uif-cssGridGroup" role=form>
                     <div class="form-group">
                         <label for=inputEmail3 class="col-sm-3 control-label">Project Start</label>
                         <div class="col-sm-9">

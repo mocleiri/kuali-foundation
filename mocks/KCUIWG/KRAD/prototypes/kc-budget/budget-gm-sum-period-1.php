@@ -230,7 +230,7 @@ line-height:0  padding: 0 .25em 0;
                 <div class="uif-boxLayoutVerticalItem clearfix">
                     <p><b>Enter the summary details for Period 1:</b></p>
                 </div>
-                <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
+                <div class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">
                     <div class="row">
                         <div class="well">
                             <div class="row">
@@ -501,7 +501,7 @@ line-height:0  padding: 0 .25em 0;
                 <h4 class="modal-title" id="myModalLabel">Budget Settings</h4>
             </div>
             <div class="modal-body">
-                <div class="form-horizontal uif-cssGridSection" role="form">
+                <div class="form-horizontal uif-cssGridGroup" role="form">
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-3 control-label">Project Start</label>
                         <div class="col-sm-9">

@@ -233,7 +233,7 @@ line-height:0  padding: 0 .25em 0;
                    
                     </div>
                 </header>
-                <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
+                <div class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">
                     <div class="row">
                     <!-- <div class="pad1em whitesmoke">-->
                   

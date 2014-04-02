@@ -47,7 +47,7 @@ $page = 'personnel-assign';
                                 </div>
                             </div>
                         </header>
-                        <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
+                        <div class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">
                             <form action="#" method="#" class="form-horizontal">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -220,7 +220,7 @@ $page = 'personnel-assign';
                                 </div>
                             </div>
                         </header>
-                        <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
+                        <div class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="uif-stackedCollectionSection uif-boxLayoutVerticalItem clearfix">
