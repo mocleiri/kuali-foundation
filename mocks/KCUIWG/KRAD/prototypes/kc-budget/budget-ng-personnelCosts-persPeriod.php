@@ -158,23 +158,40 @@ $page = 'personnel-assign';
                 </ul>
                 <div id="my-tab-content" class="tab-content">
                     <div class="tab-pane active" id="p1">
-                       
-                          
-                                <h3 class> Period 1 <br>
-                                    <small>1/12/14 - 1/12/15</small></h3>
-                           
-                            <h4> Assign Personnel</h4>
-                        
-                    
+                        <div class="col-md-12">
                             <div class="well well-sm" style="margin-top:15px;">
-                                
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3>Period 1<br /><small>01/12/2014 - 01/12/2015</small></h3>
+                                    </div>
+                                    <div class="col-md-8 text-right">
+                                        <div class="btn-group" style="margin-top:15px">
+                                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Detailed View <span class="caret"></span> </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="">Summary View</a> </li>
+                                                <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="">Detailed View</a> </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr />
+
+                                <!-- <h4> Assign Personnel</h4>
                                 <hr>
                                 <div class="form-horizontal" role="form">
                                     <div class="form-group">
                                         <label for="inputEmail3" class="col-sm-2 control-label">Personnel</label>
                                         <div class="col-sm-10">
                                             <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl" data-role="Control" data-control_for="u11k8c5e">
-                                                <option value="B">Select</option>
+                                                <option value="B">- Select -</option>
+                                                <option>Dave Brubeck</option>
+                                                <option>Ward Cleaver</option>
+                                                <option>John Coltrane</option>
+                                                <option>Ella Fitzgerald</option>
+                                                <option>Stan Getz</option>
+                                                <option>Billie Holiday</option>
                                             </select>
                                         </div>
                                     </div>
@@ -199,8 +216,120 @@ $page = 'personnel-assign';
                                             <button type="submit" class="btn btn-default btn-xs">Assign to Period 1</button>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
+
+<!--                            <div class="row">-->
+                                    <div class="clearfix">
+                                        <h4>Assign Personnel</h4>
+                                        <hr>
+                                        <div class="form-horizontal" role="form">
+                                            <div class="col-md-5">
+                                                <h5>Available Personnel</h5>
+                                                <p>Select personnel from below to be added to the budget personnel.</p>
+                                                <div class="form-group">
+                                                    <textarea class="sr-only" id="personnel-add-box-1"></textarea>
+                                                    <div class="uif-collection-box" id="personnel-add-box-1-visible" data-dom-update="personnel-add-box-1">
+                                                        <ul>
+                                                            <li>
+                                                                <label for="personnel-result-1">
+                                                                    <input type="checkbox" name="personnel-result" id="personnel-result-1">
+                                                                    <span class="result-name">John Smith</span>
+                                                                    <span class="result-title text-faded">Research Scientist</span>
+                                                                    <span class="pull-right result-type">Employee</span>
+                                                                </label>
+                                                            </li>
+                                                            <li>
+                                                                <label for="personnel-result-2">
+                                                                    <input type="checkbox" name="personnel-result" id="personnel-result-2">
+                                                                    <span class="result-name">John Smith</span>
+                                                                    <span class="result-title text-faded">Research Scientist</span>
+                                                                    <span class="pull-right result-type">Employee</span>
+                                                                </label>
+                                                            </li>
+                                                            <li>
+                                                                <label for="personnel-result-3">
+                                                                    <input type="checkbox" name="personnel-result" id="personnel-result-3">
+                                                                    <span class="result-name">John Smith</span>
+                                                                    <span class="result-title text-faded">Research Scientist</span>
+                                                                    <span class="pull-right result-type">Employee</span>
+                                                                </label>
+                                                            </li>
+                                                            <li>
+                                                                <label for="personnel-result-4">
+                                                                    <input type="checkbox" name="personnel-result" id="personnel-result-4">
+                                                                    <span class="result-name">John Smith</span>
+                                                                    <span class="result-title text-faded">Research Scientist</span>
+                                                                    <span class="pull-right result-type">Employee</span>
+                                                                </label>
+                                                            </li>
+                                                            <li>
+                                                                <label for="personnel-result-5">
+                                                                    <input type="checkbox" name="personnel-result" id="personnel-result-5">
+                                                                    <span class="result-name">John Smith</span>
+                                                                    <span class="result-title text-faded">Research Scientist</span>
+                                                                    <span class="pull-right result-type">Employee</span>
+                                                                </label>
+                                                            </li>
+                                                            <li>
+                                                                <label for="personnel-result-6">
+                                                                    <input type="checkbox" name="personnel-result" id="personnel-result-6">
+                                                                    <span class="result-name">John Smith</span>
+                                                                    <span class="result-title text-faded">Research Scientist</span>
+                                                                    <span class="pull-right result-type">Employee</span>
+                                                                </label>
+                                                            </li>
+                                                            <li>
+                                                                <label for="personnel-result-7">
+                                                                    <input type="checkbox" name="personnel-result" id="personnel-result-7">
+                                                                    <span class="result-name">John Smith</span>
+                                                                    <span class="result-title text-faded">Research Scientist</span>
+                                                                    <span class="pull-right result-type">Employee</span>
+                                                                </label>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 align-center">
+                                                <button class="btn btn-default btn-sm">+<span class="sr-only">Add to list</span></button><br>
+                                                <button class="btn btn-default btn-sm">-<span class="sr-only">Remove from list</span></button>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <h5>Available Personnel</h5>
+                                                <p>Select personnel from below to be added to the budget personnel.</p>
+                                                <div class="form-group">
+                                                    <textarea class="sr-only" id="personnel-add-box-1"></textarea>
+                                                    <div class="uif-collection-box" id="personnel-add-box-1-visible" data-dom-update="personnel-add-box-1">
+                                                        <ul>
+                                                            <li>
+                                                                <label for="personnel-result-1">
+                                                                    <input type="checkbox" name="personnel-result" id="personnel-result-1">
+                                                                    <span class="result-name">John Smith</span>
+                                                                    <span class="result-title text-faded">Research Scientist</span>
+                                                                    <span class="pull-right result-type">Employee</span>
+                                                                </label>
+                                                            </li>
+                                                            <li>
+                                                                <label for="personnel-result-2">
+                                                                    <input type="checkbox" name="personnel-result" id="personnel-result-2">
+                                                                    <span class="result-name">John Smith</span>
+                                                                    <span class="result-title text-faded">Research Scientist</span>
+                                                                    <span class="pull-right result-type">Employee</span>
+                                                                </label>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clearfix">
+                                        <button class="btn btn-default">Add selected to budget period</button>
+                                    </div>
+<!--                            </div>-->
                             </div>
+                        </div>
                         
                     </div>
                     <div class="tab-pane" id="p2">

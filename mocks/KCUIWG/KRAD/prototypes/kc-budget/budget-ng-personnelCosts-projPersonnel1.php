@@ -231,7 +231,7 @@ $page = 'personnel-costs';
                             <td>Associate Provost <small class="text-muted">(AA014)</small></td>
                             <td>12 month</td>
                             <td class="text-right">$247,457</td>
-                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle=dropdown>Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
+                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle=dropdown>Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs uif-delete" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
                                     <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -808px;top: 26px;width: 890px;padding:15px; background:#fcf8e3;">
                                         <p class="lead">Ward Cleaver</p>
                                         <hr>
@@ -326,7 +326,7 @@ $page = 'personnel-costs';
                             <td>Dean/Faculty <small class="text-muted">AA042</small></td>
                             <td>12 month</td>
                             <td class="text-right">$163,771</td>
-                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle=dropdown>Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
+                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle=dropdown>Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs uif-delete" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
                                 <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -808px;top: 26px;width: 890px;padding:15px; background:#fcf8e3;">
                                     <p class="lead">John Coltrane</p>
                                     <hr>
@@ -401,323 +401,12 @@ $page = 'personnel-costs';
                             </div></td>
                         </tr>
                         <tr class="not-deletable active">
-                            <td colspan=5><strong class="pull-left">Additional Personnel</strong> <a href="#" class="btn btn-default btn-xs pull-right" data-toggle="">Add</a></td>
+                            <td colspan=5><strong class="pull-left">Additional Personnel</strong> <a class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#modal-add-personnel" href="#">Add more people to this budget</a></td>
                         </tr>
                         <tr class="not-deletable">
-                            <td>Stan Getz <small class="text-muted">Key Person</small></td>
-                            <td>Dean/Faculty <small class="text-muted">AA042</small></td>
-                            <td>Summer</td>
-                            <td class="text-right">$73,734</td>
-                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle=dropdown>Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
-                                <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -808px;top: 26px;width: 890px;padding:15px; background:#fcf8e3;">
-                                    <p class="lead">Stan Getz</p>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-horizontal" role=form>
-                                                <div class="form-group">
-                                                    <label for=inputEmail3 class="col-sm-3 control-label">Role:</label>
-                                                    <div class="col-sm-9">
-                                                        <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
-                                                            <option value="COI">Co-Investigator</option>
-                                                            <option value="KP">Key Person</option>
-                                                            <option value="PI" selected="selected">Principal Investigator</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for=inputPassword3 class="col-sm-3 control-label">Job Code:</label>
-                                                    <div class="col-sm-9">
-                                                        <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                            <div class="input-group">
-                                                                <input id="u11k8c4j_control" type="text" name="field3" value="Associate Provost (AA014)" size="30" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-search" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for=inputPassword3 class="col-sm-3 control-label">Appointment Type:</label>
-                                                    <div class="col-sm-9">
-                                                        <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
-                                                            <option value="1">TEMPORARY EMPLOYEE</option>
-                                                            <option value="2">SUMMER EMPLOYEE</option>
-                                                            <option value="3">9M DURATION</option>
-                                                            <option value="4">10M DURATION</option>
-                                                            <option value="5">11M DURATION</option>
-                                                            <option value="6" selected="selected">12M DURATION</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for=inputPassword3 class="col-sm-3 control-label">Salary Effective Date:</label>
-                                                    <div class="col-sm-9">
-                                                        <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                            <div class="input-group">
-                                                                <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for=inputPassword3 class="col-sm-3 control-label">Salary Annivesary Date:</label>
-                                                    <div class="col-sm-9">
-                                                        <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                            <div class="input-group">
-                                                                <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for=inputPassword3 class="col-sm-3 control-label">Base Salary:</label>
-                                                    <div class="col-sm-9">
-                                                        <input type=text class="form-control" id="inputPassword3" value="247457.00">
-                                                    </div>
-                                                </div>    <hr><div class="form-group">
-                                                    <div class="col-sm-offset-3 col-sm-9"> <a href="#" class="btn btn-primary btn-sm">Save Changes</a> <a href="#" class="btn btn-default btn-sm">Cancel</a> </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div></td>
-                        </tr>
-                        <tr class="not-deletable">
-                            <td>Dave Brubeck <small class="text-muted">Key Person</small></td>
-                            <td>Dean/Faculty <small class="text-muted">AA042</small></td>
-                            <td>9 Month</td>
-                            <td class="text-right">$82,832</td>
-                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle=dropdown>Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
-                                <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -808px;top: 26px;width: 890px;padding:15px; background:#fcf8e3;">
-                                    <p class="lead">Dave Brubeck</p>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-horizontal" role=form>
-                                                <div class="form-group">
-                                                    <label for=inputEmail3 class="col-sm-3 control-label">Role:</label>
-                                                    <div class="col-sm-9">
-                                                        <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
-                                                            <option value="COI">Co-Investigator</option>
-                                                            <option value="KP">Key Person</option>
-                                                            <option value="PI" selected="selected">Principal Investigator</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for=inputPassword3 class="col-sm-3 control-label">Job Code:</label>
-                                                    <div class="col-sm-9">
-                                                        <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                            <div class="input-group">
-                                                                <input id="u11k8c4j_control" type="text" name="field3" value="Associate Provost (AA014)" size="30" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-search" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for=inputPassword3 class="col-sm-3 control-label">Appointment Type:</label>
-                                                    <div class="col-sm-9">
-                                                        <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
-                                                            <option value="1">TEMPORARY EMPLOYEE</option>
-                                                            <option value="2">SUMMER EMPLOYEE</option>
-                                                            <option value="3">9M DURATION</option>
-                                                            <option value="4">10M DURATION</option>
-                                                            <option value="5">11M DURATION</option>
-                                                            <option value="6" selected="selected">12M DURATION</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for=inputPassword3 class="col-sm-3 control-label">Salary Effective Date:</label>
-                                                    <div class="col-sm-9">
-                                                        <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                            <div class="input-group">
-                                                                <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for=inputPassword3 class="col-sm-3 control-label">Salary Annivesary Date:</label>
-                                                    <div class="col-sm-9">
-                                                        <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                            <div class="input-group">
-                                                                <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for=inputPassword3 class="col-sm-3 control-label">Base Salary:</label>
-                                                    <div class="col-sm-9">
-                                                        <input type=text class="form-control" id="inputPassword3" value="247457.00">
-                                                    </div>
-                                                </div>    <hr><div class="form-group">
-                                                    <div class="col-sm-offset-3 col-sm-9"> <a href="#" class="btn btn-primary btn-sm">Save Changes</a> <a href="#" class="btn btn-default btn-sm">Cancel</a> </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div></td>
-                        </tr>
-                        <tr class="not-deletable">
-                            <td>Ella Fitzgerald <small class="text-muted">Key Person</small></td>
-                            <td>Associate Provost <small class="text-muted">AA014</small></td>
-                            <td>Temporary</td>
-                            <td class="text-right">$42,777</td>
-                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle=dropdown>Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
-                                <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -808px;top: 26px;width: 890px;padding:15px; background:#fcf8e3;">
-                                    <p class="lead">Ella Fitzgerald</p>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-horizontal" role=form>
-                                                <div class="form-group">
-                                                    <label for=inputEmail3 class="col-sm-3 control-label">Role:</label>
-                                                    <div class="col-sm-9">
-                                                        <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
-                                                            <option value="COI">Co-Investigator</option>
-                                                            <option value="KP">Key Person</option>
-                                                            <option value="PI" selected="selected">Principal Investigator</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for=inputPassword3 class="col-sm-3 control-label">Job Code:</label>
-                                                    <div class="col-sm-9">
-                                                        <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                            <div class="input-group">
-                                                                <input id="u11k8c4j_control" type="text" name="field3" value="Associate Provost (AA014)" size="30" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-search" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for=inputPassword3 class="col-sm-3 control-label">Appointment Type:</label>
-                                                    <div class="col-sm-9">
-                                                        <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
-                                                            <option value="1">TEMPORARY EMPLOYEE</option>
-                                                            <option value="2">SUMMER EMPLOYEE</option>
-                                                            <option value="3">9M DURATION</option>
-                                                            <option value="4">10M DURATION</option>
-                                                            <option value="5">11M DURATION</option>
-                                                            <option value="6" selected="selected">12M DURATION</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for=inputPassword3 class="col-sm-3 control-label">Salary Effective Date:</label>
-                                                    <div class="col-sm-9">
-                                                        <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                            <div class="input-group">
-                                                                <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for=inputPassword3 class="col-sm-3 control-label">Salary Annivesary Date:</label>
-                                                    <div class="col-sm-9">
-                                                        <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                            <div class="input-group">
-                                                                <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for=inputPassword3 class="col-sm-3 control-label">Base Salary:</label>
-                                                    <div class="col-sm-9">
-                                                        <input type=text class="form-control" id="inputPassword3" value="247457.00">
-                                                    </div>
-                                                </div>    <hr><div class="form-group">
-                                                    <div class="col-sm-offset-3 col-sm-9"> <a href="#" class="btn btn-primary btn-sm">Save Changes</a> <a href="#" class="btn btn-default btn-sm">Cancel</a> </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div></td>
-                        </tr>
-                        <tr class="not-deletable">
-                            <td>Billie Holiday <small class="text-muted">Key Person</small></td>
-                            <td>Associate Provost <small class="text-muted">AA014</small></td>
-                            <td>12 month</td>
-                            <td class="text-right">$115,373</td>
-                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle=dropdown>Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
-                                <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -808px;top: 26px;width: 890px;padding:15px; background:#fcf8e3;">
-                                    <p class="lead">Billie Holiday </p>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-horizontal" role=form>
-                                                <div class="form-group">
-                                                    <label for=inputEmail3 class="col-sm-3 control-label">Role:</label>
-                                                    <div class="col-sm-9">
-                                                        <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
-                                                            <option value="COI">Co-Investigator</option>
-                                                            <option value="KP">Key Person</option>
-                                                            <option value="PI" selected="selected">Principal Investigator</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for=inputPassword3 class="col-sm-3 control-label">Job Code:</label>
-                                                    <div class="col-sm-9">
-                                                        <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                            <div class="input-group">
-                                                                <input id="u11k8c4j_control" type="text" name="field3" value="Associate Provost (AA014)" size="30" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-search" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for=inputPassword3 class="col-sm-3 control-label">Appointment Type:</label>
-                                                    <div class="col-sm-9">
-                                                        <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
-                                                            <option value="1">TEMPORARY EMPLOYEE</option>
-                                                            <option value="2">SUMMER EMPLOYEE</option>
-                                                            <option value="3">9M DURATION</option>
-                                                            <option value="4">10M DURATION</option>
-                                                            <option value="5">11M DURATION</option>
-                                                            <option value="6" selected="selected">12M DURATION</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for=inputPassword3 class="col-sm-3 control-label">Salary Effective Date:</label>
-                                                    <div class="col-sm-9">
-                                                        <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                            <div class="input-group">
-                                                                <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for=inputPassword3 class="col-sm-3 control-label">Salary Annivesary Date:</label>
-                                                    <div class="col-sm-9">
-                                                        <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                            <div class="input-group">
-                                                                <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for=inputPassword3 class="col-sm-3 control-label">Base Salary:</label>
-                                                    <div class="col-sm-9">
-                                                        <input type=text class="form-control" id="inputPassword3" value="247457.00">
-                                                    </div>
-                                                </div>    <hr><div class="form-group">
-                                                    <div class="col-sm-offset-3 col-sm-9"> <a href="#" class="btn btn-primary btn-sm">Save Changes</a> <a href="#" class="btn btn-default btn-sm">Cancel</a> </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div></td>
+                            <td colspan="5">
+                                No additional personnel have been added.
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -775,6 +464,166 @@ $page = 'personnel-costs';
 <?php include ('includes/modal-budget-settings.php') ?>
 <!-- MODAL -- budget open propsal -->
 <?php include ('includes/modal-budget-open-prop.php') ?>
+
+<div id="modal-add-personnel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" aria-labbeledby="create-new-title">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="#" method="#">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="create-new-label">Add budget personnel</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="#" method="#" class="form-horizontal">
+                        <div class="clearfix">
+                            <div class="row uif-bottom-shadow uif-indicator-arrow-bottom-center">
+                                <div class="col-md-3">
+                                    <div class="uif-personnel-search-for">
+                                        <fieldset>
+                                            <legend>Search for:</legend>
+                                            <label for="employee"><input type="radio" name="personnel-search-for" id="personnel-search-for-employee"> Employee</label>
+                                            <label for="nonemployee"><input type="radio" name="personnel-search-for" id="personnel-search-for-nonemployee"> Non-Employee</label>
+                                            <label for="tbn"><input type="radio" name="personnel-search-for" id="personnel-search-for-tbn"> TBN</label>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="uif-personnel-search-form active" id="personnel-search-form-employee">
+                                        <fieldset>
+                                            <legend>Search by:</legend>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="personnel-search-by-type" class="control-label"><span class="sr-only">Search by:</span></label>
+                                                    <select name="personnel-search-by-type" id="personnel-search-by-type" class="form-control">
+                                                        <option value="first">First name</option>
+                                                        <option value="last">Last name</option>
+                                                        <option value="email">Email address</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                    <label for="personnel-search-by-text" class="control-label"><span class="sr-only">Search for</span></label>
+                                                    <input type="text" name="personnel-search-by-text" id="personnel-search-by-text" class="form-control">
+                                                    <button class="btn btn-default">Search</button>
+                                                    <p class="clearfix text-faded">Results from your search will appear in the box below.</p>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row uif-bg-shaded">
+                                <div class="col-md-5">
+                                    <div class="uif-padding-top uif-padding-top-2x uif-padding-left uif-padding-right uif-padding-bottom">
+                                        <h5>We found <span id="found-total">13 <span id="search-type">Employee</span>'s' with the first name "<span id="search-text">john</span>":</h5>
+                                        <p class="text-faded">Select personnel to add to the budget.</p>
+                                        <textarea class="sr-only" id="personnel-add-box-1"></textarea>
+                                        <div class="uif-collection-box" id="personnel-add-box-1-visible" data-dom-update="personnel-add-box-1">
+                                            <ul>
+                                                <li>
+                                                    <label for="personnel-result-1">
+                                                        <input type="checkbox" name="personnel-result" id="personnel-result-1">
+                                                        <span class="result-name">John Smith</span>
+                                                        <span class="result-title text-faded">Research Scientist</span>
+                                                        <span class="pull-right result-type">Employee</span>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label for="personnel-result-2">
+                                                        <input type="checkbox" name="personnel-result" id="personnel-result-2">
+                                                        <span class="result-name">John Smith</span>
+                                                        <span class="result-title text-faded">Research Scientist</span>
+                                                        <span class="pull-right result-type">Employee</span>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label for="personnel-result-3">
+                                                        <input type="checkbox" name="personnel-result" id="personnel-result-3">
+                                                        <span class="result-name">John Smith</span>
+                                                        <span class="result-title text-faded">Research Scientist</span>
+                                                        <span class="pull-right result-type">Employee</span>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label for="personnel-result-4">
+                                                        <input type="checkbox" name="personnel-result" id="personnel-result-4">
+                                                        <span class="result-name">John Smith</span>
+                                                        <span class="result-title text-faded">Research Scientist</span>
+                                                        <span class="pull-right result-type">Employee</span>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label for="personnel-result-5">
+                                                        <input type="checkbox" name="personnel-result" id="personnel-result-5">
+                                                        <span class="result-name">John Smith</span>
+                                                        <span class="result-title text-faded">Research Scientist</span>
+                                                        <span class="pull-right result-type">Employee</span>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label for="personnel-result-6">
+                                                        <input type="checkbox" name="personnel-result" id="personnel-result-6">
+                                                        <span class="result-name">John Smith</span>
+                                                        <span class="result-title text-faded">Research Scientist</span>
+                                                        <span class="pull-right result-type">Employee</span>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label for="personnel-result-7">
+                                                        <input type="checkbox" name="personnel-result" id="personnel-result-7">
+                                                        <span class="result-name">John Smith</span>
+                                                        <span class="result-title text-faded">Research Scientist</span>
+                                                        <span class="pull-right result-type">Employee</span>
+                                                    </label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-default btn-sm"><span class="icon icon-plus"></span><span class="sr-only">Add to list</span></button>
+                                    <button class="btn btn-default btn-sm"><span class="icon icon-minus"></span><span class="sr-only">Remove from list</span></button>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="uif-padding-top uif-padding-top-2x uif-padding-left uif-padding-right uif-padding-bottom">
+                                        <h5>You are adding the following additional personnel to this budget:</h5>
+                                        <p class="text-faded">You will be able to modify them later.</p>
+                                        <textarea class="sr-only" id="personnel-add-box-1"></textarea>
+                                        <div class="uif-collection-box" id="personnel-add-box-1-visible" data-dom-update="personnel-add-box-1">
+                                            <ul>
+                                                <li>
+                                                    <label for="personnel-result-1">
+                                                        <input type="checkbox" name="personnel-result" id="personnel-result-1">
+                                                        <span class="result-name">John Smith</span>
+                                                        <span class="result-title text-faded">Research Scientist</span>
+                                                        <span class="pull-right result-type">Employee</span>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label for="personnel-result-2">
+                                                        <input type="checkbox" name="personnel-result" id="personnel-result-2">
+                                                        <span class="result-name">John Smith</span>
+                                                        <span class="result-title text-faded">Research Scientist</span>
+                                                        <span class="pull-right result-type">Employee</span>
+                                                    </label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a role="button" class="btn btn-link" data-dismiss="modal" href="#">Cancel</a>
+                    <a role="button" class="btn btn-primary" href="budget-ng-personnelCosts-projPersonnel2.php">Add selected</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <!-- NO QUOTES
 <div class="modal fade" id="summary" tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type=button class="close" data-dismiss=modal aria-hidden=true>&times;</button><h4 class="modal-title" id="myModalLabel">Summary</h4></div><div class="modal-body"><p>Here's a summary of your current budget.</p><table class="table table-condensed credit-allocation"><tbody><tr><th>&nbsp;</th><th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th><th>Totals</th></tr><tr class="active"><td><strong> Personnel</strong></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr class=""><td><a href="#"> <span aria-hidden=true class="icon-chevron-right"></span> Salary</a></td><td>156934</td><td>156934</td><td>156934</td><td>156934</td><td>156934</td><td>784670</td></tr><tr class=""><td><a href="#"> <span aria-hidden=true class="icon-chevron-right"></span> Fringe</a></td><td>37345</td><td>37345</td><td>37345</td><td>37345</td><td>37345</td><td>186725</td></tr><tr class=""><td><a href="#"> <span aria-hidden=true class="icon-chevron-right"></span> Calculated Direct Costs</a></td><td>28284</td><td>28284</td><td>28284</td><td>28284</td><td>28284</td><td>141420</td></tr><tr class=""><td>Personnel Subtotal</td><td><strong>222563</strong></td><td><strong>222563</strong></td><td><strong>222563</strong></td><td><strong>222563</strong></td><td><strong>222563</strong></td><td><strong>837456</strong></td></tr><tr class="active"><td><strong> Non-personnel</strong></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr class=""><td><a href="#"> <span aria-hidden=true class="icon-chevron-right"></span> Calculated Direct Costs</a></td><td>38546</td><td>38546</td><td>38546</td><td>38546</td><td>38546</td><td>219348</td></tr><tr class=""><td>Nonpersonnel Subtotal</td><td><strong>38546</strong></td><td><strong>38546</strong></td><td><strong>38546</strong></td><td><strong>38546</strong></td><td><strong>38546</strong></td><td><strong>219348</strong></td></tr><tr class="active"><td><strong> Totals</strong></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>Total Direct Cost</td><td>723454</td><td>723454</td><td>723454</td><td>723454</td><td>723454</td><td>496432</td></tr><tr><td>Total F&amp;A Costs</td><td>34537</td><td>34537</td><td>34537</td><td>34537</td><td>34537</td><td>154578</td></tr><!-- tr>
