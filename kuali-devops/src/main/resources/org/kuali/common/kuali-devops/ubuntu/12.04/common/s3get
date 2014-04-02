@@ -46,9 +46,9 @@ check_args
 EXPIRES=$(date +%s)
 EXPIRES=$(($EXPIRES + 900))
 
-# openssl return hmacsha1 with a prefix "(stdin)= 0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33"
-# the sed call at the end, strips that off
-# the hmacsha1 function from functions.sh isn't working (suspect that the \n confuses things)
+# openssl returns hmacsha1 with a prefix "(stdin)= 0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33"
+# the sed call at the end, strips off (stdin)=
+# the hmacsha1 function from functions.sh isn't working (suspect the \n confuses things)
 HMACSHA1=$(echo -e -n "GET\n\n\n$EXPIRES\n/$BUCKET/$KEY" | openssl sha1 -hmac $SECRET_KEY | sed "s/^.* //")
 
 # convert the hex to base64
