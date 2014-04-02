@@ -23,7 +23,7 @@ source $MY_DIR/../common/functions.sh
 # hmacsha1  = 3a5fcf0bed9ba1360a0d9da111ff393feed3a098
 # signature = CFSwJUS0TmLvm51b901KreoRXhM=
 
-HMACSHA1=3a5fcf0bed9ba1360a0d9da111ff393feed3a098
+HMACSHA1=0854b02544b44e62ef9b9d5bf74d4aadea115e13
 BASE64=$(hex2base64 $HMACSHA1)
 
 echo $BASE64
