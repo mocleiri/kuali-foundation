@@ -147,8 +147,16 @@ $section = '';
                         <h2 class="uif-headerText"><span class="uif-headerText-span">Subawards </span></h2>
                     </div>
                 </header>
+
+                <!--
                 <div class="pull-right"> <a href="#"> <span class="icon-compass"></span> Guide Me</a></div>
+<<<<<<< .mine
+                -->
+
+                <p class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">Upload a pre-formatted budget document for a subawardee organization or enter details manually.</p>
+=======
                 <p class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">Upload a pre-formatted budget document for a subawardee organization or enter details manually.</p>
+>>>>>>> .r37911
                 <div class="col-md-12"> 
                     <button class="btn btn-default btn-starter launch-modal" data-modal-page="modal/modal-attachments/attachments.proposal.add.php">Attach subawardee budget</button>
                 </div>  

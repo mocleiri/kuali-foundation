@@ -147,9 +147,16 @@ $section = '';
                         <h2 class="uif-headerText"><span class="uif-headerText-span">Subawards </span></h2>
                     </div>
                 </header>
+                <!--
                 <div class="pull-right"> <a href="#"> <span class="icon-compass"></span> Guide Me</a></div>
+<<<<<<< .mine
+                -->
+                <p class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">Enter details for the subawardee organization.</p>              
+                <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
+=======
                 <p class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">Enter details for the subawardee organization.</p>              
                 <div class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">
+>>>>>>> .r37911
                     <div class="row">
                         <div class="well">
 
