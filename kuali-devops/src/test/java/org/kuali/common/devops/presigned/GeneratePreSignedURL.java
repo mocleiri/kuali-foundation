@@ -30,16 +30,13 @@ public class GeneratePreSignedURL {
 	@Test
 	public void test() {
 		try {
-			// long expiration = System.currentTimeMillis() + 1000 * 60 * 120;
-			long expiration = 1396391061646L;
+			long expiration = System.currentTimeMillis() + 1000 * 60 * 60 * 72;
+			//long expiration = 1396391061646L;
 			String stringToSign = "GET\n\n\n1396391061\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom";
 			// 189e671278ba818abbe4f38f09a3961184471ddb - wrong
 			// fe2688cee03761c7f541c04ce245531fa106f129 - right
 			String hmacsha1hex = hmacsha1hex(stringToSign, getSecretKey());
 			logger.info(hmacsha1hex);
-			if (true) {
-				return;
-			}
 			System.out.println("expiration=" + expiration);
 			String bucket = "maven.kuali.org";
 			String key = "private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom";
