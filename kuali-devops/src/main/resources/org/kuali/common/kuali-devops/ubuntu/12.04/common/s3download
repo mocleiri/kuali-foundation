@@ -6,11 +6,6 @@ function check_args {
   check_not_blank KEY $KEY
 }
 
-# millis = 1396678108436
-# GET\n\n\n1396678108\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom
-# hmacsha1  = 3a5fcf0bed9ba1360a0d9da111ff393feed3a098
-# signature = CFSwJUS0TmLvm51b901KreoRXhM=
-
 function string_to_sign {
    local BUCKET=$1
    local KEY=$2
@@ -22,6 +17,18 @@ function string_to_sign {
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
+
+# millis = 1396678108436
+# GET\n\n\n1396678108\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom
+# hmacsha1  = 3a5fcf0bed9ba1360a0d9da111ff393feed3a098
+# signature = CFSwJUS0TmLvm51b901KreoRXhM=
+
+HMACSHA1=3a5fcf0bed9ba1360a0d9da111ff393feed3a098
+BASE64=$(hex2base64 $HMACSHA1)
+
+echo $BASE64
+
+exit 1
 
 usage() { echo "Usage: $ME [-q --quiet] [-h --help] filename access_key secret_key bucket key" 1>&2; exit 1; }
 
