@@ -13,7 +13,7 @@
                     <li <?php if ($page == 'personnel-assign') { echo 'class="active"'; } ?>><a class="uif-actionLink" tabindex="0" href="budget-ng-personnelCosts-persPeriod.php">Assign Personnel to Periods</a></li>
                 </ul>
             </li>
-            <li <?php if ($page == 'non-personnel') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="non-personnel.php"><span class="icon-beaker"></span><span class="uif-innerText">Non-Personnel Costs</span></a></li>
+            <li <?php if ($page == 'non-personnel') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="budget-ng-non-personnel.php"><span class="icon-beaker"></span><span class="uif-innerText">Non-Personnel Costs</span></a></li>
             <li <?php if ($page == 'subawards') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="budget-ng-subawards.php"><span class="icon-file"></span><span class="uif-innerText">Subawards</span></a></li>
             <li <?php if ($page == 'cost-sharing') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="budget-ng-cost-sharing.php"><span class="icon-random"></span><span class="uif-innerText" style="word-spacing:-.05em;letter-spacing:-.01em;">Cost Sharing &amp; Unrecovered F&amp;A</span></a></li>
             <li <?php if ($page == 'project-income') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="budget-ng-income.php"><span class="icon-money"></span><span class="uif-innerText">Project Income</span></a></li>
