@@ -19,7 +19,7 @@ QUIET=false
 # default is public read
 ACL=public-read
 PREFIX=""
-TYPE=""
+TYPE=jar
 CLASSIFIER=""
 
 ARGS=$(getopt --options hqa:p:t:c: --longoptions "help,quiet,acl:,prefix:,type:,classifier:" --name "$ME" -- "$@");
@@ -62,13 +62,12 @@ while true; do
   esac
 done
 
-FILENAME=$1
-ACCESS_KEY=$2
-SECRET_KEY=$3
-BUCKET=$4
-GROUP_ID=$5
-ARTIFACT_ID=$6
-VERSION=$7
+ACCESS_KEY=$1
+SECRET_KEY=$2
+BUCKET=$3
+GROUP_ID=$4
+ARTIFACT_ID=$5
+VERSION=$6
 
 check_args
 
