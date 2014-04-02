@@ -71,7 +71,7 @@ echo "base64=$BASE64"
 echo "signature=$SIGNATURE"
 
 #URL="https://$BUCKET.s3.amazonaws.com/$KEY?AWSAccessKeyId=$ACCESS_KEY&Expires=$EXPIRES&Signature=$SIGNATURE"
-URL="https://$BUCKET.s3.amazonaws.com/$KEY
+URL="https://$BUCKET.s3.amazonaws.com/$KEY"
 #execute_quietly "curl --output $FILENAME $URL"
 #execute_quietly "curl --show-error --fail --output $FILENAME $URL"
 execute_quietly "curl --fail --get --data-urlencode AWSAccessKeyId=$ACCESS_KEY --data-urlencode Signature=$SIGNATURE --data-urlencode Expires=$EXPIRES --output $FILENAME $URL"
