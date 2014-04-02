@@ -37,8 +37,8 @@ public class GeneratePreSignedURL {
 			String secretKey = getSecretKey();
 			// long expiration = System.currentTimeMillis() + 1000 * 60 * 60 * 72;
 			long expiration = 1396678108436L;
-			//String stringToSign = "GET\n\n\n1396678108\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom";
-			String stringToSign = "GET\r\nGET";
+			String stringToSign = "GET\n\n\n1396678108\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom";
+			// String stringToSign = "GET\n";
 			// 3a5fcf0bed9ba1360a0d9da111ff393feed3a098 - right
 			// 0854b02544b44e62ef9b9d5bf74d4aadea115e13 - wrong
 			byte[] bytes = hmacsha1bytes(stringToSign, secretKey);
