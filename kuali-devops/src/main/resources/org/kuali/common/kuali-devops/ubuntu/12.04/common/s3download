@@ -77,8 +77,8 @@ URL="https://$BUCKET.s3.amazonaws.com/$KEY"
 #execute_quietly "curl --fail --get --data-urlencode AWSAccessKeyId=$ACCESS_KEY --data-urlencode Signature=$SIGNATURE --data-urlencode Expires=$EXPIRES --output $FILENAME $URL"
 
 # kUNB%2BAOhwfR931%2B4FpEOceXYcxU%3D
-# kUNB+AOhwfR931%2B4FpEOceXYcxU=
+# kUNB+AOhwfR931+4FpEOceXYcxU=
 
-curl --fail --get --data-urlencode Expires=1396667743 --data-urlencode AWSAccessKeyId=AKIAJFD5IM7IPVVUEBNA --data-urlencode Signature=kUNB+AOhwfR931%2B4FpEOceXYcxU= https://maven.kuali.org.s3.amazonaws.com/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom
+curl --fail --get --data Expires=1396667743 --data AWSAccessKeyId=AKIAJFD5IM7IPVVUEBNA --data-urlencode Signature=kUNB+AOhwfR931+4FpEOceXYcxU= https://maven.kuali.org.s3.amazonaws.com/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom
 
 
