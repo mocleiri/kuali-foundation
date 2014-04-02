@@ -15,7 +15,6 @@ usage() { echo "Usage: $ME [-q --quiet] [-h --help] [-p --prefix=release] [-t --
 
 QUIET=false
 
-# default is public read
 LOCAL=$HOME/.m2/repository
 PREFIX=""
 TYPE=jar
