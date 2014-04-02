@@ -23,6 +23,7 @@ public class RicePropertiesFunction implements Function<String, Properties> {
 			ByteArrayInputStream in = new ByteArrayInputStream(content.getBytes(UTF8));
 			return RiceLoader.load(in);
 		} catch (Exception e) {
+			// TODO Don't do this
 			e.printStackTrace();
 			return new Properties();
 		}
