@@ -72,10 +72,23 @@ VERSION=$7
 
 check_args
 
+QUIET_FLAG=""
+if [ "$QUIET" == "true" ]; then
+  QUIET_FLAG="-q"
+fi
+
 M2_LOCAL_PATH=$($MY_DIR/m2path  --repo="$LOCAL" $GROUP_ID $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
-M2_REMOTE_PATH=$($MY_DIR/m2path --repo="$REPO"  $GROUP_ID $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
+M2_FILENAME=$($MY_DIR/m2filename $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
+
+if [ "$PREFIX" == "" ]; then
+  KEY=$GROUP_ID/$ARTIFACT_ID/$VERSION/$M2_FILENAME
+else
+  KEY=$PREFIX/$GROUP_ID/$ARTIFACT_ID/$VERSION/$M2_FILENAME
+fi
 
 if [ ! -f "$M2_LOCAL_PATH" ]; then
-  echo "download  -> $M2_REMOTE_PATH"
-  $MY_DIR/s3get $M2_REMOTE_PATH $M2_LOCAL_PATH $USERNAME $PASSWORD
+  echo "download  -> https://$BUCKET/$KEY"
+  $MY_DIR/s3get --acl=$ACL $QUIET_FLAG $FILENAME $ACCESS_KEY $SECRET_KEY $BUCKET $KEY
 fi
+
+
