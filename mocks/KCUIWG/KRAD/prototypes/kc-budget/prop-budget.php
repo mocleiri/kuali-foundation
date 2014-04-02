@@ -195,26 +195,13 @@ $section = '';
                     </div>
                     <div id="uw4ggjs" class="uif-verticalBoxGroup uif-header-lowerGroup" data-parent="LabsProposal-Page"> </div>
                 </header>
+                
+                <!-- radio -->
+                
                 <section id="u11ymttz_line0" class="uif-gridSubSection" data-parent="u10i8ym5_line0">
                     <header id="u1cnha8c_line0" class="uif-subSectionHeader" data-header_for="u11ymttz_line0">
                         <h4 class="uif-headerText"> <span class="uif-headerText-span"> Versions </span> </h4>
                     </header>
-                    <div class="well well-sm">
-                        <p>Please select a final budget version that will be submitted with this proposal:</p>
-                        <div class="form-inline" role="form">
-                            <div class="form-group">
-                                <label class="sr-only" for="exampleInputEmail1">Final Version</label>
-                                <select class="form-control">
-                                    <option>None</option>
-                                    <option>Version 1</option>
-                                    <option selected>Version 2</option>
-                                    <option>Version 3</option>
-                                    <option>Version 4</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-default btn-xs">Apply</button>
-                        </div>
-                    </div>
                     <p class="pull-left">The following budgets are linked to this proposal:</p>
                     <a href="" data-toggle="modal" data-target="#createNew" class="btn btn-primary btn-xs pull-right"> Create New</a> 
                     
@@ -261,15 +248,18 @@ $section = '';
                     <table id="u569ish_line0" class="table table-condensed table-bordered" role="presentation">
                         <tbody>
                             <tr>
-                                <th scope="row" class="col-md-3">Name</th>
+                                <th scope="row" style="width:20px">&nbsp;</th>
+                                <th scope="row">Name</th>
                                 <th class="uif-gridLayoutCell">Direct Cost</th>
                                 <th class="uif-gridLayoutCell">F&amp;A</th>
                                 <th class="uif-gridLayoutCell">Total</th>
                                 <th class="uif-gridLayoutCell">Status</th>
-                                <th style="width:40px" class="uif-gridLayoutCell"></th>
+                                <th class="uif-gridLayoutCell">Actions</th>
                             </tr>
                             <tr>
-                                <td scope="row"><a href="" data-toggle="modal" data-target="#switchdoc"  class="">Version 1</a></td>
+                                <td scope="row"><input type="radio" value="radio" name="version-list" id="radio-version-1">
+                                    <label for="radio"></label></td>
+                                <td scope="row"><a href="" data-toggle="modal" data-target="#switchdoc"  class="versions">Version 1</a> <small>(for submission)</small></td>
                                 <td class="">  22,835.00</td>
                                 <td class="">  6,170.00</td>
                                 <td class="">29,005.00</td>
@@ -282,51 +272,15 @@ $section = '';
                                             <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="#summary"><span aria-hidden="true" class="icon-eye-open"></span> View Summary</a> </li>
                                             <li><a href=""  data-toggle="modal" data-target="#copyNew" class=""><span aria-hidden="true" class="icon-copy"></span> Copy</a></li>
                                             <li><a href="#"><span aria-hidden="true" class="icon-print"></span> Print</a></li>
-                                            <!--<li class="divider"></li>
-                                            <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>-->
+                                            <li class="divider"></li>
+                                            <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>
                                         </ul>
-                                    </div>
-                                    
-                                    <!--
-<div class="dropdown"> <a data-toggle="dropdown" href="#">Details</a>
-										<div class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="padding:12px">
-											<h4>Version 1</h4>
-											<table class="table table-condensed" style="width:300px;" >
-												<tr>
-													<td>Residual Funds</td>
-													<td>&nbsp;</td>
-												</tr>
-												<tr>
-													<td>Cost Sharing</td>
-													<td>947165.00</td>
-												</tr>
-												<tr>
-													<td>Unrecovered F&amp;A</td>
-													<td>119225.00 </td>
-												</tr>
-												<tr>
-													<td>F&amp;A Rate Type</td>
-													<td>MTDC</td>
-												</tr>
-												<tr>
-													<td>Last Updated</td>
-													<td>Mar 7, 2014 9:15:21 AM </td>
-												</tr>
-												<tr>
-													<td>Last Updated By</td>
-													<td>thrclark</td>
-												</tr>
-												<tr>
-													<td>Comments</td>
-													<td>&nbsp;</td>
-												</tr>
-											</table>
-										</div>
-									</div>
-									--></td>
+                                    </div></td>
                             </tr>
                             <tr>
-                                <td scope="row"><a href="" data-toggle="modal" data-target="#switchdoc"  class="">Version 2</a> <small>(for submission)</small></td>
+                                <td scope="row"  class="success"><input type="radio"  value="radio" name="version-list" id="radio-version-2" checked>
+                                    <label for="radio"></label></td>
+                                <td class="showMe" scope="row"><a href="" data-toggle="modal" data-target="#switchdoc"   class="versions">Version 2</a> <small>(for submission)</small></td>
                                 <td class="">  22,835.00</td>
                                 <td class="">  6,170.00</td>
                                 <td class="">29,005.00</td>
@@ -334,56 +288,20 @@ $section = '';
                                 <td class=""><!-- Single button -->
                                     
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Action <span class="caret"></span> </button>
+                                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Action <span class="caret"></span></button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="#summary"><span aria-hidden="true" class="icon-eye-open"></span> View Summary</a> </li>
+                                            <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="#summary"><span aria-hidden="true" class="icon-eye-open"></span> View Summary</a></li>
                                             <li><a href=""  data-toggle="modal" data-target="#copyNew" class=""><span aria-hidden="true" class="icon-copy"></span> Copy</a></li>
                                             <li><a href="#"><span aria-hidden="true" class="icon-print"></span> Print</a></li>
-                                            <!--<li class="divider"></li>
-                                            <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>-->
+                                            <li class="divider"></li>
+                                            <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>
                                         </ul>
-                                    </div>
-                                    
-                                    <!--
-<div class="dropdown"> <a data-toggle="dropdown" href="#">Details</a>
-										<div class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="padding:12px">
-											<h4>Version 1</h4>
-											<table class="table table-condensed" style="width:300px;" >
-												<tr>
-													<td>Residual Funds</td>
-													<td>&nbsp;</td>
-												</tr>
-												<tr>
-													<td>Cost Sharing</td>
-													<td>947165.00</td>
-												</tr>
-												<tr>
-													<td>Unrecovered F&amp;A</td>
-													<td>119225.00 </td>
-												</tr>
-												<tr>
-													<td>F&amp;A Rate Type</td>
-													<td>MTDC</td>
-												</tr>
-												<tr>
-													<td>Last Updated</td>
-													<td>Mar 7, 2014 9:15:21 AM </td>
-												</tr>
-												<tr>
-													<td>Last Updated By</td>
-													<td>thrclark</td>
-												</tr>
-												<tr>
-													<td>Comments</td>
-													<td>&nbsp;</td>
-												</tr>
-											</table>
-										</div>
-									</div>
-									--></td>
+                                    </div></td>
                             </tr>
                             <tr>
-                                <td scope="row"><a href="" data-toggle="modal" data-target="#switchdoc"  class="">Version 3</a></td>
+                                <td scope="row"><input type="radio" value="radio" name="version-list" id="radio-version-3">
+                                    <label for="radio"></label></td>
+                                <td scope="row"><a href="" data-toggle="modal" data-target="#switchdoc"   class="versions">Version 3</a> <small>(for submission)</small></td>
                                 <td class="">  22,835.00</td>
                                 <td class="">  6,170.00</td>
                                 <td class="">29,005.00</td>
@@ -391,56 +309,20 @@ $section = '';
                                 <td class=""><!-- Single button -->
                                     
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Action <span class="caret"></span> </button>
+                                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Action <span class="caret"></span></button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="#summary"><span aria-hidden="true" class="icon-eye-open"></span> View Summary</a> </li>
+                                            <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="#summary"><span aria-hidden="true" class="icon-eye-open"></span> View Summary</a></li>
                                             <li><a href=""  data-toggle="modal" data-target="#copyNew" class=""><span aria-hidden="true" class="icon-copy"></span> Copy</a></li>
                                             <li><a href="#"><span aria-hidden="true" class="icon-print"></span> Print</a></li>
-                                            <!--<li class="divider"></li>
-                                            <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>-->
+                                            <li class="divider"></li>
+                                            <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>
                                         </ul>
-                                    </div>
-                                    
-                                    <!--
-<div class="dropdown"> <a data-toggle="dropdown" href="#">Details</a>
-										<div class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="padding:12px">
-											<h4>Version 1</h4>
-											<table class="table table-condensed" style="width:300px;" >
-												<tr>
-													<td>Residual Funds</td>
-													<td>&nbsp;</td>
-												</tr>
-												<tr>
-													<td>Cost Sharing</td>
-													<td>947165.00</td>
-												</tr>
-												<tr>
-													<td>Unrecovered F&amp;A</td>
-													<td>119225.00 </td>
-												</tr>
-												<tr>
-													<td>F&amp;A Rate Type</td>
-													<td>MTDC</td>
-												</tr>
-												<tr>
-													<td>Last Updated</td>
-													<td>Mar 7, 2014 9:15:21 AM </td>
-												</tr>
-												<tr>
-													<td>Last Updated By</td>
-													<td>thrclark</td>
-												</tr>
-												<tr>
-													<td>Comments</td>
-													<td>&nbsp;</td>
-												</tr>
-											</table>
-										</div>
-									</div>
-									--></td>
+                                    </div></td>
                             </tr>
                             <tr>
-                                <td scope="row"><a href="" data-toggle="modal" data-target="#switchdoc"  class="">Version 4</a></td>
+                                <td scope="row"><input type="radio" value="radio" name="version-list" id="radio-version-4">
+                                    <label for="radio"></label></td>
+                                <td scope="row"><a href="" data-toggle="modal" data-target="#switchdoc"  class="versions">Version 4</a> <small>(for submission)</small></td>
                                 <td class="">  22,835.00</td>
                                 <td class="">  6,170.00</td>
                                 <td class="">29,005.00</td>
@@ -448,53 +330,21 @@ $section = '';
                                 <td class=""><!-- Single button -->
                                     
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Action <span class="caret"></span> </button>
+                                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Action <span class="caret"></span></button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="#summary"><span aria-hidden="true" class="icon-eye-open"></span> View Summary</a> </li>
+                                            <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="#summary"><span aria-hidden="true" class="icon-eye-open"></span> View Summary</a></li>
                                             <li><a href=""  data-toggle="modal" data-target="#copyNew" class=""><span aria-hidden="true" class="icon-copy"></span> Copy</a></li>
                                             <li><a href="#"><span aria-hidden="true" class="icon-print"></span> Print</a></li>
-                                            <!--<li class="divider"></li>
-                                            <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>-->
+                                            <li class="divider"></li>
+                                            <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>
                                         </ul>
-                                    </div>
-                                    
-                                    <!--
-<div class="dropdown"> <a data-toggle="dropdown" href="#">Details</a>
-										<div class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="padding:12px">
-											<h4>Version 1</h4>
-											<table class="table table-condensed" style="width:300px;" >
-												<tr>
-													<td>Residual Funds</td>
-													<td>&nbsp;</td>
-												</tr>
-												<tr>
-													<td>Cost Sharing</td>
-													<td>947165.00</td>
-												</tr>
-												<tr>
-													<td>Unrecovered F&amp;A</td>
-													<td>119225.00 </td>
-												</tr>
-												<tr>
-													<td>F&amp;A Rate Type</td>
-													<td>MTDC</td>
-												</tr>
-												<tr>
-													<td>Last Updated</td>
-													<td>Mar 7, 2014 9:15:21 AM </td>
-												</tr>
-												<tr>
-													<td>Last Updated By</td>
-													<td>thrclark</td>
-												</tr>
-												<tr>
-													<td>Comments</td>
-													<td>&nbsp;</td>
-												</tr>
-											</table>
-										</div>
-									</div>
-									--></td>
+                                    </div></td>
+                            </tr>
+                            <tr>
+                                <td scope="row"><input type="radio"  value="radio" name="version-list" id="radio-version-5">
+                                    <label for="radio"></label></td>
+                                <td scope="row" colspan="6" class="versions"><a href="" data-toggle="modal" data-target="#switchdoc"  class="versions">NONE</a> <small>(for submission)</small></td>
+                                    </td>
                             </tr>
                         </tbody>
                     </table>
@@ -549,8 +399,64 @@ $section = '';
                         </div>
                     </div>
                     
-                    <!-- /Modal -->
+                    <!-- /Modal --> 
                     
+                </section>
+                
+                <!-- // radio --> 
+                
+                <!-- Modal -->
+                <div class="modal fade" id="copyNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel">Copy this Budget Version</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-3 control-label">Parent Proposal</label>
+                                        <div class="col-sm-9">
+                                            <p class="form-control-static">#23533 </p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Budget Name</label>
+                                        <div class="col-sm-9">
+                                            <input type=" text" class="form-control" id="" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary " data-toggle=""> Copy </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- /Modal --> 
+                
+                <!-- Modal -->
+                <div class="modal fade" id="openBudget" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel">Open Budget Version</h4>
+                            </div>
+                            <div class="modal-body"> You are about to leave this document to work on a budget document. </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <a href="budget-periods.php" class="btn btn-primary " data-toggle=""> Open Budget </a> </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- /Modal -->
+                
                 </section>
             </main>
         </div>
@@ -600,7 +506,89 @@ $section = '';
         </table>
     </div>
 </form>
-<?php include ('includes/footer-scripts.php') ?>
+
+<!-- scripts --> 
+
+<script type="text/javascript" src="../../plugins/jquery/jquery-1.8.3.js"></script> 
+<script type="text/javascript" src="../../plugins/validate/jquery.validate.js"></script> 
+<script type="text/javascript" src="../../plugins/jqueryUI/jquery-ui-1.9.2.js"></script> 
+<script type="text/javascript" src="../../plugins/datatables/jquery.dataTables.js"></script> 
+<script type="text/javascript" src="../../themes/bootstrap/scripts/bootstrap.js"></script> 
+<script type="text/javascript" src="../../plugins/scrollto/jquery.scrollTo-1.4.6.js"></script> 
+<script type="text/javascript" src="../../plugins/jqform/jquery.form-3.31.0.js"></script> 
+<script type="text/javascript" src="../../plugins/globalize/globalize.js"></script> 
+<script type="text/javascript" src="../../plugins/menu/krad.navigationMenu.js"></script> 
+<script type="text/javascript" src="../../plugins/menu/krad.tabMenu.js"></script> 
+
+<!--
+
+<script type="text/javascript" src="../../plugins/jgrowl/jquery.jgrowl.js"></script>
+--> 
+<script type="text/javascript" src="../../plugins/textpopout/krad.textareaPopout.js"></script> 
+<script type="text/javascript" src="../../plugins/validate/additional_validations.js"></script> 
+<script type="text/javascript" src="../../plugins/cookie/jquery.cookie.js"></script> 
+<script type="text/javascript" src="../../plugins/watermark/jquery.watermark.js"></script> 
+<script type="text/javascript" src="../../plugins/countdown/jquery.countdown.js"></script> 
+<script type="text/javascript" src="../../plugins/blockUI/jquery.blockUI.js"></script> 
+<script type="text/javascript" src="../../plugins/color/jquery.color.js"></script> 
+<script type="text/javascript" src="../../plugins/json/jquery.json-2.2.js"></script> 
+<script type="text/javascript" src="../../plugins/datatables/jquery.dataTables.rowGrouping.js"></script> 
+<script type="text/javascript" src="../../plugins/datatables/TableTools.js"></script> 
+<script type="text/javascript" src="../../plugins/datatables/ZeroClipboard.js"></script> 
+<!-- <script type="text/javascript" src="../../plugins/jstree/jquery.jstree.js"></script>
+<script type="text/javascript" src="../../plugins/jqueryUI/jquery.ui.autocomplete.html.js"></script> --- --> 
+<script type="text/javascript" src="../../plugins/fancybox/jquery.fancybox.js"></script> 
+<script type="text/javascript" src="../../plugins/fancybox/jquery.fancybox.pack.js"></script> 
+<script type="text/javascript" src="../../plugins/prettify/prettify.js"></script> 
+<script type="text/javascript" src="../../plugins/easydrag/jquery.easydrag.js"></script> 
+<script type="text/javascript" src="../../plugins/tooltip/jquery.bubblepopup.v2.3.1.js"></script> 
+<script type="text/javascript" src="../../krad/scripts/krad.variables.js"></script> 
+<script type="text/javascript" src="../../krad/scripts/krad.utility.js"></script><!--
+<script type="text/javascript" src="../../krad/scripts/krad.initialize.js"></script>
+<script type="text/javascript" src="../../krad/scripts/krad.request.js"></script>
+<script type="text/javascript" src="../../krad/scripts/krad.response.js"></script>
+<script type="text/javascript" src="../../krad/scripts/krad.actions.js"></script>
+<script type="text/javascript" src="../../krad/scripts/krad.dirty.js"></script>
+<script type="text/javascript" src="../../krad/scripts/krad.lookup.js"></script>
+<script type="text/javascript" src="../../krad/scripts/krad.message.js"></script>--> 
+<script type="text/javascript" src="../../krad/scripts/krad.session.js"></script> 
+<script type="text/javascript" src="../../krad/scripts/krad.url.js"></script> 
+<script type="text/javascript" src="../../krad/scripts/krad.validate.js"></script> 
+<script type="text/javascript" src="../../krad/scripts/krad.widget.js"></script> 
+<script type="text/javascript" src="../../plugins/easing/jquery.easing-1.3.pack.js"></script> 
+<script type="text/javascript" src="../../themes/kboot/scripts/less-1.5.0.min.js"></script> 
+<script type="text/javascript" src="../scripts/kradSampleApp.js"></script> 
+<script type="text/javascript">
+    //    setGrowlDefaults({position:"top-right",sticky:false,life:7000});setBlockUIDefaults({fadeIn:400,fadeOut:800,centerX:true,centerY:true,blockingImage:"../krad/images/loading.gif"}, 'navigation');setBlockUIDefaults({fadeIn:400,fadeOut:800,centerX:true,centerY:true,blockingImage:"../krad/images/loader.gif"}, 'refresh');setConfigParam("kradImageLocation","../krad/images/");setConfigParam("kradUrl","../kr-krad");setConfigParam("applicationUrl","http://localhost:8080/krad-dev");setConfigParam("scriptCleanup","true");
+</script> 
+<script type="text/javascript" src="../../themes/kboot/scripts/global.functions.js"></script>
+<style type="text/css">
+ td:nth-child(2){min-width:160px;}
+ small{display:none;}
+    .showMe small { display:inline;}
+</style>
+<script>
+
+jQuery(document).ready(function() {
+
+
+    var $radioButtons = $('input[type="radio"]');
+    $radioButtons.click(function() {
+
+        $radioButtons.each(function() {
+            $(this).parent().toggleClass("success", this.checked);
+            //$(this).append( " <small>(for submission)</small>" );
+
+        });
+        $("td").removeClass("showMe");
+       $(".success").next().addClass("showMe");
+
+
+    });
+});
+</script> 
+
+<!-- // end scripts --> 
 
 <!-- Modal -->
 <div class="modal fade" id="switchdoc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
