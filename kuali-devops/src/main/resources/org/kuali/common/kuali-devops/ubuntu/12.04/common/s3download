@@ -25,7 +25,7 @@ source $MY_DIR/../common/functions.sh
 
 STRING=$(string_to_sign)
 HMACSHA1=0854b02544b44e62ef9b9d5bf74d4aadea115e13
-HMACSHA1=$(hmacsha1 $STRING "jIKJP0sL9cu3GsHoti0mqcbH4MMLDCthsn0lms0y")
+HMACSHA1=$(hmacsha1 'GET\n\n\n1396678108\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom' "jIKJP0sL9cu3GsHoti0mqcbH4MMLDCthsn0lms0y")
 BASE64=$(hex2base64 $HMACSHA1)
 
 echo "string=[$STRING]"
