@@ -65,6 +65,9 @@ VERSION=$6
 
 check_args
 
+# Replace any dots with a forward slash
+GROUP_ID=$(get_path $GROUP_ID)
+
 QUIET_FLAG=""
 if [ "$QUIET" == "true" ]; then
   QUIET_FLAG="-q"
