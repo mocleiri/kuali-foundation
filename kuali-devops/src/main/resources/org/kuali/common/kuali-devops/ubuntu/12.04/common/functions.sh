@@ -160,7 +160,7 @@ function echo_lines {
 
 # hmacsha1 value key
 function hmacsha1 {
-  echo -n "$1" | openssl sha1 -hmac "$2" -binary | xxd -p
+  echo -n "$1" | openssl sha1 -hmac "$2" -binary | | sed "s/^.* //"
 }
 
 # base64encode value
