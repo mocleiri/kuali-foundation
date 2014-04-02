@@ -1,6 +1,8 @@
 package org.kuali.common.devops.presigned;
 
 import static com.amazonaws.auth.SigningAlgorithm.HmacSHA1;
+import static java.lang.Integer.toHexString;
+import static org.apache.commons.lang.StringUtils.leftPad;
 import static org.kuali.common.util.Encodings.UTF8;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
@@ -86,7 +88,9 @@ public class GeneratePreSignedURL {
 	protected String hex(byte[] bytes) {
 		StringBuilder sb = new StringBuilder();
 		for (byte b : bytes) {
-			sb.append(String.format("%02X", b).toLowerCase());
+			int i = b & 0xff;
+			String hex = leftPad(toHexString(i), 2, "0");
+			sb.append(hex);
 		}
 		return sb.toString();
 	}
