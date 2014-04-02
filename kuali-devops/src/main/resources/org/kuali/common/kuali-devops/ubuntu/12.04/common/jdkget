@@ -30,11 +30,6 @@ while true; do
       QUIET=true;
       shift;
       ;;
-    -b|--build)
-      shift;
-      CLASSIFIER="$1";
-      shift;
-      ;;
     -c|--classifier)
       shift;
       CLASSIFIER="$1";
