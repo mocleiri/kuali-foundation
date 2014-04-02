@@ -57,7 +57,7 @@ GROUP_ID=org.jenkins
 ARTIFACT_ID=jenkins-master-backup
 TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
 CLASSIFIER=$STACK-$TIMESTAMP
-TYPE=tar.gz.gpg
+TYPE=tar.gz
 
 PREFIX=private
 ACCESS_KEY=AKIAJFD5IM7IPVVUEBNA
