@@ -1,0 +1,60 @@
+#!/bin/bash
+
+function check_args {
+  check_not_blank COOKIES $COOKIES
+  check_not_blank UPDATE $UPDATE
+  check_not_blank BUILD $BUILD
+}
+
+MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+ME=$(basename $0)
+source $MY_DIR/functions.sh
+
+usage() { echo "Usage: $ME [-h --help] [-q --quiet] [-c --classifier=linux-x64] [-t --type=tar.gz] cookies update build" 1>&2; exit 1; }
+
+QUIET=false
+CLASSIFIER=linux-x64
+TYPE=tar.gz
+
+ARGS=$(getopt --options hqc:t: --longoptions "help,quiet,classifier:,type:" --name "$ME" -- "$@");
+if [ $? -ne 0 ]; then usage; fi
+eval set -- "$ARGS";
+while true; do
+  case "$1" in
+    -h|--help)
+      usage;
+      shift;
+      ;;
+    -q|--quiet)
+      QUIET=true;
+      shift;
+      ;;
+    -c|--classifier)
+      shift;
+      CLASSIFIER="$1";
+      shift;
+      ;;
+    -t|--type)
+      shift;
+      TYPE="$1";
+      shift;
+      ;;
+    --)
+      shift;
+      break;
+      ;;
+  esac
+done
+
+COOKIES=$1
+UPDATE=$2
+BUILD=$3
+
+check_args
+
+# http://download.oracle.com/otn-pub/java/jdk/8-b132/jdk-8-linux-x64.tar.gz
+# http://download.oracle.com/otn-pub/java/jdk/7u51-b13/jdk-7u51-linux-x64.tar.gz
+# http://download.oracle.com/otn/java/jdk/6u45-b06/jdk-6u45-linux-x64.bin
+
+DOWNLOADS=/root/Downloads/jdks
+URL=http://download.oracle.com/otn-pub/java/jdk/7$UPDATE-$BUILD/jdk-7$BUILD-$CLASSIFIER.$TYPE
