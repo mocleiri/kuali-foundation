@@ -7,8 +7,8 @@ function check_args {
 }
 
 
-# GET\n\n\n1396667142\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom
-# zujsJ29orKujnGCS42AOl5GYQbY=
+# GET\n\n\n1396678108\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom
+# CFSwJUS0TmLvm51b901KreoRXhM=
 
 function string_to_sign {
    local BUCKET=$1
