@@ -10,11 +10,6 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-# millis = 1396678108436
-# GET\n\n\n1396678108\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom
-# hmacsha1  = 3a5fcf0bed9ba1360a0d9da111ff393feed3a098
-# signature = CFSwJUS0TmLvm51b901KreoRXhM=
-
 usage() { echo "Usage: $ME [-q --quiet] [-h --help] filename access_key secret_key bucket key" 1>&2; exit 1; }
 
 QUIET=false
@@ -51,8 +46,8 @@ EXPIRES=$(date +%s)
 EXPIRES=$(($EXPIRES + 900))
 HMACSHA1=$(echo -e -n "GET\n\n\n$EXPIRES\n/$BUCKET/$KEY" | openssl sha1 -hmac $SECRET_KEY | sed "s/^.* //")
 SIGNATURE=$(hex2base64 $HMACSHA1)
-
 URL="https://$BUCKET.s3.amazonaws.com/$KEY"
+
 execute_silently "curl --fail --get --data Expires=$EXPIRES --data AWSAccessKeyId=$ACCESS_KEY --data-urlencode Signature=$SIGNATURE $URL"
 
 
