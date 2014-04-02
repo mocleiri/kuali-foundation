@@ -14,8 +14,7 @@ public class RicePropertiesFunction implements Function<String, Properties> {
 
 	@Override
 	public Properties apply(String content) {
-		checkNotNull(content, "content");
-		return getProperties(content);
+		return getProperties(checkNotNull(content, "content"));
 	}
 
 	protected Properties getProperties(String content) {
