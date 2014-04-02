@@ -62,6 +62,8 @@ HMACSHA1=$(hmacsha1 $RAWSTRING $SECRET_KEY)
 BASE64=$(hex2base64 $HMACSHA1)
 SIGNATURE=$(urlencode $BASE64)
 
+SIGNATURE=$(urlencode "ZmUyNjg4Y2VlMDM3NjFjN2Y1NDFjMDRjZTI0NTUzMWZhMTA2ZjEyOQ==")
+
 echo "rawstring=$RAWSTRING"
 echo "hmacsha1=$HMACSHA1"
 echo "base64=$BASE64"

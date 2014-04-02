@@ -37,6 +37,9 @@ public class GeneratePreSignedURL {
 			// fe2688cee03761c7f541c04ce245531fa106f129 - right
 			String hmacsha1hex = hmacsha1hex(stringToSign, getSecretKey());
 			logger.info(hmacsha1hex);
+			if (true) {
+				return;
+			}
 			System.out.println("expiration=" + expiration);
 			String bucket = "maven.kuali.org";
 			String key = "private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom";
