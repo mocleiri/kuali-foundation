@@ -63,12 +63,14 @@ SIGNATURE=$(urlencode $BASE64)
 
 SIGNATURE=$(urlencode "ZmUyNjg4Y2VlMDM3NjFjN2Y1NDFjMDRjZTI0NTUzMWZhMTA2ZjEyOQ==")
 
+
 echo "rawstring=$RAWSTRING"
 echo "hmacsha1=$HMACSHA1"
 echo "base64=$BASE64"
 echo "signature=$SIGNATURE"
 
 URL="https://$BUCKET.s3.amazonaws.com/$KEY?AWSAccessKeyId=$ACCESS_KEY&Expires=$EXPIRES&Signature=$SIGNATURE"
+URL="https://maven.kuali.org.s3.amazonaws.com/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom?Expires=1396667142&AWSAccessKeyId=AKIAJFD5IM7IPVVUEBNA&Signature=zujsJ29orKujnGCS42AOl5GYQbY%3D"
 echo $URL
 execute_quietly "curl --output $FILENAME $URL"
 #execute_quietly "curl --show-error --fail --output $FILENAME $URL"
