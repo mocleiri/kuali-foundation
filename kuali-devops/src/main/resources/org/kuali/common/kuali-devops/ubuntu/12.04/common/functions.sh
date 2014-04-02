@@ -187,24 +187,3 @@ function encrypt {
 function decrypt {
   echo -n "$1" | base64 --decode | gpg --batch --yes --passphrase "$2" --quiet --no-use-agent --decrypt
 }
-
-function rfc2616date {
-  echo -n "$(TZ=UTC date '+%a, %-e %b %Y %H:%M:%S %z')"
-}  
-
-
-function urlencode {
-  local string="${1}"
-  local strlen=${#string}
-  local encoded=""
-
-  for (( pos=0 ; pos<strlen ; pos++ )); do
-     c=${string:$pos:1}
-     case "$c" in
-        [-_.~a-zA-Z0-9] ) o="${c}" ;;
-        * )               printf -v o '%%%02x' "'$c"
-     esac
-     encoded+="${o}"
-  done
-  echo "${encoded}" 
-}
