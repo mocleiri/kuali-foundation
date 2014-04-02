@@ -175,7 +175,7 @@ function hex2base64 {
 
 # convert any dots into forward slashes
 function get_path {
-  echo -n "$1" | tr "." "/"
+  echo -n "$1" | tr '.' '/'
 }
 
 # decrypt value password
