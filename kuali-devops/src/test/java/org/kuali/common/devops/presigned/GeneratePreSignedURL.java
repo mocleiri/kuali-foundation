@@ -41,18 +41,23 @@ public class GeneratePreSignedURL {
 			// 3a5fcf0bed9ba1360a0d9da111ff393feed3a098 - right
 			// 0854b02544b44e62ef9b9d5bf74d4aadea115e13 - wrong
 			byte[] bytes = hmacsha1bytes(stringToSign, secretKey);
-			List<String> lines = newArrayList();
+			List<String> byteList = newArrayList();
 			for (byte b : bytes) {
 				int i = b & 0xff;
-				lines.add(leftPad(Integer.toString(i), 3, " "));
+				byteList.add(leftPad(Integer.toString(i), 4, " "));
 			}
-			String joined = Joiner.on(' ').join(lines);
-			logger.info(joined);
-			String hmacsha1hex = hmacsha1hex(stringToSign, secretKey);
-			logger.info(hmacsha1hex);
-			if (true) {
-				return;
+			List<String> rawBytes = newArrayList();
+			for (byte b : bytes) {
+				rawBytes.add(leftPad(b + "", 4, " "));
 			}
+			logger.info(Joiner.on(' ').join(rawBytes));
+			logger.info(Joiner.on(' ').join(byteList));
+			List<String> hexList = hex(bytes);
+			for (int i = 0; i < hexList.size(); i++) {
+				String padded = leftPad(hexList.get(i), 4, " ");
+				hexList.set(i, padded);
+			}
+			logger.info(Joiner.on(' ').join(hexList));
 			System.out.println("expiration=" + expiration);
 			String bucket = "maven.kuali.org";
 			String key = "private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom";
@@ -68,7 +73,7 @@ public class GeneratePreSignedURL {
 	}
 
 	protected String hmacsha1hex(String data, String key) throws Exception {
-		return hex(hmacsha1bytes(data, key));
+		return null; // hex(hmacsha1bytes(data, key));
 	}
 
 	protected byte[] hmacsha1bytes(String data, String key) throws Exception {
@@ -96,13 +101,13 @@ public class GeneratePreSignedURL {
 		return new BasicAWSCredentials(accessKey, secretKey);
 	}
 
-	protected String hex(byte[] bytes) {
-		StringBuilder sb = new StringBuilder();
+	protected List<String> hex(byte[] bytes) {
+		List<String> list = newArrayList();
 		for (byte b : bytes) {
 			int i = b & 0xff;
 			String hex = leftPad(toHexString(i), 2, "0");
-			sb.append(leftPad(hex, 3, " "));
+			list.add(hex);
 		}
-		return sb.toString();
+		return list;
 	}
 }
