@@ -6,7 +6,7 @@ function check_args {
   check_not_blank KEY $KEY
 }
 
-
+# millis = 1396678108436
 # GET\n\n\n1396678108\n/maven.kuali.org/private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom
 # CFSwJUS0TmLvm51b901KreoRXhM=
 
