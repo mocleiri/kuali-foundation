@@ -15,19 +15,10 @@
 # limitations under the License.
 #
 
-function get_jdk_fragment {
-  echo "JDK${JDK_LEVEL}_FRAGMENT"
-}
-
 function install_jdk {
-
-  JDK6_FRAGMENT=1.6.0
-  JDK7_FRAGMENT=1.7.0
-  JDK8_FRAGMENT=1.8.0
 
   # Extract the jdk level from the JDK variable
   JDK_LEVEL=${JDK:3:1}
-  check_not_blank JDK_LEVEL $JDK_LEVEL
   
   # Extract a specific jdk version based on the jdk level
   JDK_FRAGMENT_VAR=$(get_jdk_fragment)
@@ -35,7 +26,7 @@ function install_jdk {
   JDK_GROUP_ID=com.oracle
   JDK_ARTIFACT_ID=$JDK
   JDK_CLASSIFIER=linux-x64
-  JDK_VERSION=${!JDK_FRAGMENT_VAR}-$JDK_UPDATE
+  JDK_VERSION=1.${JDK_LEVEL}.0-$JDK_UPDATE
   JDK_TYPE=zip
 
   NEXUS_USER=developer
