@@ -71,7 +71,7 @@ else
   URL=http://download.oracle.com/otn-pub/java/jdk/$JDK_LEVEL$UPDATE-$BUILD/$FILENAME
 fi
 
-CLASSIFIER=$CLASSIFIER-orginal
+CLASSIFIER=$CLASSIFIER-original
 
 FULLPATH=$($MY_DIR/m2path $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE)
 
