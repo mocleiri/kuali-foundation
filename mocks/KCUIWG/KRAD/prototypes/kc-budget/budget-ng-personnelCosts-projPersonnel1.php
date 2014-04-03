@@ -935,9 +935,10 @@ $page = 'personnel-costs';
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <a role="button" class="btn btn-link" data-dismiss="modal" href="#">Cancel</a>
-                    <a role="button" class="btn btn-primary" href="budget-ng-personnelCosts-projPersonnel2.php">Add selected</a>
+                <div id="u19v7dpm" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer=true data-parent=LabsProposal style="position:fixed; left: 0; bottom: 0px;">
+                    <a href="budget-ng-rates.php" id="ufuknm4" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Go back</a>
+                    <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem" >Save</a>
+                    <a href="budget-ng-personnelCosts-persPeriod1.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Save and Continue</a>
                 </div>
             </form>
         </div>
