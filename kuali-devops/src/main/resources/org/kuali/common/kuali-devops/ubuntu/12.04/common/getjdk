@@ -67,7 +67,7 @@ URL=http://download.oracle.com/otn-pub/java/jdk/$JDK_LEVEL-$BUILD/$FILENAME
 
 CLASSIFIER=$CLASSIFIER-orginal
 
-FULLPATH=$(MY_DIR/m2path $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE)
+FULLPATH=$($MY_DIR/m2path $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE)
 
 download -c $COOKIES $URL $FULLPATH
  
