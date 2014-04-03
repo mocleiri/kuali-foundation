@@ -80,4 +80,4 @@ mv $OLD_UNPACK_DIR $NEW_UNPACK_DIR
 rm -f $NEW_UNPACK_DIR/*src.zip
 cp $NEW_UNPACK_DIR/lib/tools.jar $NEW_UNPACK_DIR/jre/lib/ext/tools.jar
 tar --gzip --create --file $NEW_M2_FILENAME $NEW_UNPACK_DIR
-rm -f $NEW_UNPACK_DIR
+rm -rf $NEW_UNPACK_DIR
