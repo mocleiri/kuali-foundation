@@ -15,6 +15,27 @@
 # limitations under the License.
 #
 
+function download {
+
+  download_usage() { echo "download: [-c \$HOME/cookies.txt] url filename" 1>&2; exit; }
+
+  local OPTIND
+  while getopts ":c:" o; do
+    case "${o}" in
+      c)
+        c="${OPTARG}"
+        ;;
+      *)
+        download_usage
+        ;;
+      esac
+  done
+  shift $((OPTIND-1))
+
+  echo "c: [${c}], non-option arguments: $*"
+
+}
+
 # download a url to file
 # create any local directories as needed
 # follow redirects
