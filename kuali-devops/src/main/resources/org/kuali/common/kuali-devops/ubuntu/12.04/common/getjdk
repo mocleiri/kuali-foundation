@@ -65,5 +65,5 @@ URL=http://download.oracle.com/otn-pub/java/jdk/$JDK_LEVEL-$BUILD/$FILENAME
 echo $FILENAME
 echo $URL
 
-$MY_DIR/m2downloadurl $URL com.oracle $JDK $UPDATE --classifier=$CLASSIFIER --type=$TYPE
+$MY_DIR/download $URL com.oracle $JDK $UPDATE --classifier=$CLASSIFIER --type=$TYPE
  
