@@ -41,6 +41,9 @@ function download {
       esac
   done
   shift $((OPTIND-1))
+  
+  local URL=$URL
+  local FILENAME=$FILENAME
 
   check_not_blank URL $URL
   check_not_blank FILENAME $FILENAME
