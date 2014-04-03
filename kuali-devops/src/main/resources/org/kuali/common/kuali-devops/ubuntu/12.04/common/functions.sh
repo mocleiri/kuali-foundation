@@ -23,6 +23,7 @@ function download {
   local USERNAME=""
   local PASSWORD=""
   local OPTIND
+  local CURL
   while getopts ":c:" OPTIONS; do
     case "${OPTIONS}" in
       c)
@@ -44,7 +45,18 @@ function download {
   check_not_blank URL $URL
   check_not_blank FILENAME $FILENAME
   
-  echo "COOKIES=[${COOKIES}], non-option arguments: $*"
+  CURL="curl --location --fail --create-dirs"
+  if [ -n "$USERNAME" ]; then 
+    CURL="$CURL --user $USERNAME:$PASSWORD" 
+  fi
+  
+  if [ -n "$COOKIES" ]; then 
+    CURL="$CURL --cookie $COOKIES" 
+  fi
+
+  CURL="$CURL --output $FILENAME $URL"
+  
+  echo "$CURL"
 
 }
 
