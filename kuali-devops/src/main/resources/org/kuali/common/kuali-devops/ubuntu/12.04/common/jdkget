@@ -59,16 +59,18 @@ GROUP_ID=com.oracle
 ARTIFACT_ID=$JDK
 VERSION=1.$JDK_LEVEL.0-$UPDATE
 
+URL=http://download.oracle.com/otn-pub/java/jdk/
+
 # The very first version of jdk 8 just came out.  Thus there is no update version.
 # eg it's just jdk-8-linux-x64.tar.gz instead of jdk-8u5-linux-x64.tar.gz
 # http://download.oracle.com/otn-pub/java/jdk/7u51-b13/jdk-7u51-linux-x64.tar.gz
 # http://download.oracle.com/otn-pub/java/jdk/8-b123/jdk-8-linux-x64.tar.gz
 if [ "$UPDATE" == "u0" ]; then
   FILENAME=jdk-$JDK_LEVEL-$CLASSIFIER.$TYPE
-  URL=http://download.oracle.com/otn-pub/java/jdk/$JDK_LEVEL-$BUILD/$FILENAME
+  URL=$URL/$JDK_LEVEL-$BUILD/$FILENAME
 else
   FILENAME=jdk-$JDK_LEVEL$UPDATE-$CLASSIFIER.$TYPE
-  URL=http://download.oracle.com/otn-pub/java/jdk/$JDK_LEVEL$UPDATE-$BUILD/$FILENAME
+  URL=$URL/$JDK_LEVEL$UPDATE-$BUILD/$FILENAME
 fi
 
 CLASSIFIER=$CLASSIFIER-original
