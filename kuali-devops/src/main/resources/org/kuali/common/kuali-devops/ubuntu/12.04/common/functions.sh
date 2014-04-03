@@ -59,7 +59,7 @@ function download {
 
   CURL="$CURL --output $FILENAME $URL"
   
-  echo "$CURL"
+  execute_quietly "$CURL"
 
 }
 
