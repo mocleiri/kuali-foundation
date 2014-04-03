@@ -17,7 +17,7 @@
 
 function download {
 
-  download_usage() { echo "download: [-c \$HOME/cookies.txt] [-u username] [-p password] url filename" 1>&2; exit; }
+  usage() { echo "Usage: download [-c \$HOME/cookies.txt] [-u username] [-p password] url filename" 1>&2; exit; }
 
   local COOKIES=""
   local USERNAME=""
