@@ -37,13 +37,12 @@ function install_jdk {
   
   exit 1
   
-  UNZIP_DIR=$ARTIFACT_ID-$VERSION
-  ZIP_FILE=$ARTIFACT_ID-$VERSION-$CLASSIFIER.$TYPE
+  JDK_DIR=$ARTIFACT_ID-$VERSION
   BASEDIR=/usr/java
   mkdir -p $BASEDIR
 
   # Make sure the JDK and the symbolic link are both gone
-  TARGET=$BASEDIR/$UNZIP_DIR
+  TARGET=$BASEDIR/$JDK_DIR
   LINK=$BASEDIR/$ARTIFACT_ID
   echo "purge     -> $JDK"
   rm -rf $LINK $TARGET
@@ -55,11 +54,6 @@ function install_jdk {
 
   # Create the symbolic link  eg: /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
   execute_quietly "ln -s $TARGET $LINK"
-  
-  TOOLS_JAR=$LINK/lib/tools.jar
-  TOOLS_JAR_COPY=$LINK/jre/lib/ext/tools.jar
-  echo "copy      -> $TOOLS_JAR_COPY"
-  execute_quietly "cp $TOOLS_JAR $TOOLS_JAR_COPY"
   
 }
 
