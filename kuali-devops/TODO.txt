@@ -19,6 +19,8 @@ TODO's
 - region copy/standup
 - make use of new tar.gz S3 backup
 
+- Ruby Version Manager - pin ourselves to a specific version of Ruby Version Manager, use that specific version of RVM to install different Ruby versions
+
 - CAS groups (talk to Farooq)
 -- using modified Jenkins CAS plugin right now
 -- no easy way to get multi-valued attributes out of CAS
