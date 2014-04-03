@@ -52,6 +52,7 @@ function install_jdk {
 
   # Create the symbolic link  eg: /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
   execute_quietly "ln -s $TARGET $LINK"
+  execute_quietly "chown -R root:root $BASEDIR"
   
 }
 
