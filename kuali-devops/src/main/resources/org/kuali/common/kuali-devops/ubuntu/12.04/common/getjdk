@@ -57,11 +57,16 @@ check_args
 JDK_LEVEL=${JDK:3:1}
 GROUP_ID=com.oracle
 ARTIFACT_ID=$JDK
-VERSION=$UPDATE
 
+# The very first JDK8 just came out and so there is no update version
+# eg it's just jdk-8-linux-x64.tar.gz instead of jdk-8u5-linux-x64.tar.gz
 if [ "$UPDATE" == "u0" ]; then
   UPDATE=""
+  VERSION=1.$JDK_LEVEL.0
+else
+  VERSION=1.$JDK_LEVEL.0-$UPDATE
 fi
+
 
 # http://download.oracle.com/otn-pub/java/jdk/7u51-b13/jdk-7u51-linux-x64.tar.gz
 FILENAME=jdk-$JDK_LEVEL$UPDATE-$CLASSIFIER.$TYPE
