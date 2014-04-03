@@ -27,7 +27,7 @@ function install_jdk {
   JDK_ARTIFACT_ID=$JDK
   JDK_CLASSIFIER=linux-x64
   JDK_VERSION=1.${JDK_LEVEL}.0-$JDK_UPDATE
-  JDK_TYPE=zip
+  JDK_TYPE=tar.gz
 
   NEXUS_USER=developer
   NEXUS_PASSWORD=jA0ECQMCYpWe5Z+W3Em+0j4BwNhCtOhfaxUIp1eJ4czuEuyYjJknpsk4SixovPkZ3m85USs0OvK5uxRcpuc2jVT/r7bhBFLqU2s+N4K1vQ==
