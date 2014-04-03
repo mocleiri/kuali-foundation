@@ -3,7 +3,6 @@
 function check_args {
   check_not_blank JDK $JDK
   check_not_blank UPDATE $UPDATE
-  check_not_blank BUILD $BUILD
 }
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
@@ -49,7 +48,6 @@ done
 
 JDK=$1
 UPDATE=$2
-BUILD=$3
 
 check_args
 
