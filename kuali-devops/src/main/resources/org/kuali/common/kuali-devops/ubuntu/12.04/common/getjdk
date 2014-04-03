@@ -62,12 +62,12 @@ if [ "$UPDATE" == "u0" ]; then
   UPDATE=""
 fi
 
-local FILENAME=jdk-$JDK_LEVEL-$CLASSIFIER.$TYPE
-local URL=http://download.oracle.com/otn-pub/java/jdk/$JDK_LEVEL-$BUILD/$FILENAME
+FILENAME=jdk-$JDK_LEVEL-$CLASSIFIER.$TYPE
+URL=http://download.oracle.com/otn-pub/java/jdk/$JDK_LEVEL-$BUILD/$FILENAME
 
 CLASSIFIER=$CLASSIFIER-orginal
 
-local PATH=$(MY_DIR/m2path $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE)
+FULLPATH=$(MY_DIR/m2path $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE)
 
-download -c $COOKIES $URL $PATH
+download -c $COOKIES $URL $FULLPATH
  
