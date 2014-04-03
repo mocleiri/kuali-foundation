@@ -44,8 +44,6 @@ function download {
   check_not_blank URL $URL
   check_not_blank FILENAME $FILENAME
   
-  
-  
   echo "COOKIES=[${COOKIES}], non-option arguments: $*"
 
 }
