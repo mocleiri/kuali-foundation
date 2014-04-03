@@ -74,7 +74,7 @@ set -x
 DIR=$(dirname $OLD_M2_LOCAL_PATH)
 cd $DIR
 rm -rf $OLD_UNPACK_DIR $NEW_UNPACK_DIR
-tar --verbose --extract --file $OLD_M2_FILENAME
+tar --extract --file $OLD_M2_FILENAME
 mv $OLD_UNPACK_DIR $NEW_UNPACK_DIR
 rm -f $NEW_UNPACK_DIR/*src.zip
 #tar -zcvf $NEW_M2_FILENAME $NEW_UNPACK_DIR
