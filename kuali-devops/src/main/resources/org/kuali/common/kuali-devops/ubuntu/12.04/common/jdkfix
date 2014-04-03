@@ -71,7 +71,7 @@ check_exists $OLD_M2_LOCAL_PATH
 
 DIR=$(dirname $OLD_M2_LOCAL_PATH)
 cd $DIR
-rm -rf jdk1.$JDK_LEVEL.0
+rm -rf $OLD_UNPACK_DIR
 tar --verbose --extract --file $OLD_M2_FILENAME
 mv $OLD_UNPACK_DIR $NEW_UNPACK_DIR
 rm -f $NEW_UNPACK_DIR/*src.zip
