@@ -77,6 +77,6 @@ M2_LOCAL_PATH=$($MY_DIR/m2path $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLA
 
 if [ ! -f "$M2_LOCAL_PATH" ]; then
   echo "download  -> $URL"
-  download -c $COOKIES $URL $FULLPATH
+  download -c $COOKIES $URL $M2_LOCAL_PATH
 fi
  
