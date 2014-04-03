@@ -15,7 +15,9 @@ usage() { echo "Usage: $ME [-h --help] [-q --quiet] [-c --classifier=linux-x64] 
 QUIET=false
 CLASSIFIER=linux-x64
 TYPE=tar.gz
-COOKIES=$HOME/cookies.txt
+BUCKET=maven.kuali.org
+PREFIX=private
+ACL=authenticated-read
 
 ARGS=$(getopt --options hqc:t:b:p:a: --longoptions "help,quiet,classifier:,type:,bucket:,prefix:,acl:" --name "$ME" -- "$@");
 if [ $? -ne 0 ]; then usage; fi
