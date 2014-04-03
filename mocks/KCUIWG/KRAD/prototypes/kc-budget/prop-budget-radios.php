@@ -74,114 +74,16 @@ $page = 'asdf';
     </header>
     <!-- Backdoor info (here to inherit stickyness with the header, if set) --> 
 </header>
-<form id="kualiForm" action="../kr-krad/uicomponents" method="post" accept-charset="UTF-8">
+<form action="" method="post" accept-charset="UTF-8">
     <!-- VIEW -->
     <div id="LabsProposal" class="clearfix uif-formView" data-role="View" style="margin-top: 75px;"> 
         <!-- BREADCRUMBS --> 
         <!-- VIEW HEADER -->
-        <header class="container uif-viewHeader-contentWrapper">
-            <div id="ueqbqhn" class="uif-viewHeader" data-header_for="LabsProposal">
-                <h1 class="uif-headerText">
-                    <p id="u1p8pc9q" class="uif-viewHeader-areaTitle"> Proposal Development </p>
-                    <span class="uif-headerText-span"> Proposal: #23533 </span> <span class="uif-supportTitle-wrapper">
-                    <div id="u1hgnm9q" class="uif-viewHeader-supportTitle" data-parent="ueqbqhn"> PI:&nbsp; Edward Haskell</div>
-                    </span> </h1>
-                <div id="LabsProposal-DocInfo" class="uif-verticalBoxGroup uif-header-rightGroup uif-documentInfo" data-parent="LabsProposal">
-                    <div id="u1f206jn" class="uif-messageField uif-boxLayoutVerticalItem clearfix" data-label="Doc Nbr">
-                        <label id="uj8x9wj" for="uauh5yk_span" class="uif-label" data-label_for="u1f206jn"> Doc Nbr: </label>
-                        <p id="uauh5yk" class="uif-message"> 2743 </p>
-                    </div>
-                    <div id="u1f206ki" class="uif-messageField uif-boxLayoutVerticalItem clearfix" data-label="Initiator">
-                        <label id="ujre4xu" for="u7lh763_span" class="uif-label" data-label_for="u1f206ki"> Initiator: </label>
-                        <p id="u7lh763" class="uif-message"> thrclark </p>
-                    </div>
-                    <div id="u1f206ld" class="uif-messageField uif-boxLayoutVerticalItem clearfix" data-label="Status">
-                        <label id="uk9uzz5" for="u4ch8dm_span" class="uif-label" data-label_for="u1f206ld"> Status: </label>
-                        <p id="u4ch8dm" class="uif-message"> In Progress </p>
-                    </div>
-                    <div id="u1f206ld" class="uif-messageField uif-boxLayoutVerticalItem clearfix" data-label="Status">
-                        <label id="uk9uzz5" for="u4ch8dm_span" class="uif-label" data-label_for="u1f206ld"> Budget: </label>
-                        <p id="u4ch8dm" class="uif-message"> <a href="" data-toggle="modal" data-target="#switchdoc" class="">Version 2</a></p>
-                    </div>
-                    <div id="LabsProposal-MoreDocInfo" class="dropdown uif-boxLayoutVerticalItem clearfix"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> more info... </a>
-                        <section id="uhlixhs" class="dropdown-menu uif-gridGroup">
-                            <h4 class="uif-headerText"> Document Info </h4>
-                            <table id="u98wduy" class="table table-condensed uif-table-fixed" role="presentation">
-                                <tbody>
-                                    <tr>
-                                        <th scope="row"> <label id="u1v1pkxy" for="u1hmj9zj_span" class="uif-label displayWith-u1qpse12" data-label_for="u1qpse12"> Doc Nbr </label></th>
-                                        <td class="uif-gridLayoutCell"><div id="u1qpse12" class="uif-messageField" data-label="Doc Nbr">
-                                                <p id="u1hmj9zj" class="uif-message"> 2743 </p>
-                                            </div></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"> <label id="u1vk6fz9" for="u91iqlm" class="uif-label displayWith-upf4ga4" data-label_for="upf4ga4"> Initiator </label></th>
-                                        <td class="uif-gridLayoutCell"><div id="upf4ga4" class="uif-linkField" data-label="Initiator"> <a id="u91iqlm" href="#" target="_self" class="uif-link">thrclark</a> </div></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"> <label id="u1w2nb0k" for="u1b4jcel_span" class="uif-label displayWith-u1qpse2s" data-label_for="u1qpse2s"> Status </label></th>
-                                        <td class="uif-gridLayoutCell"><div id="u1qpse2s" class="uif-messageField" data-label="Status">
-                                                <p id="u1b4jcel" class="uif-message"> In Progress </p>
-                                            </div></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"> <label id="u1wl461v" for="u17vjdm4_span" class="uif-label displayWith-u1qpse3n" data-label_for="u1qpse3n"> PI </label></th>
-                                        <td class="uif-gridLayoutCell"><div id="u1qpse3n" class="uif-messageField" data-label="PI">
-                                                <p id="u17vjdm4" class="uif-message"> Ken Graves </p>
-                                            </div></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"> <label id="u1x3l136" for="u14mjetn_span" class="uif-label displayWith-u1qpse4i" data-label_for="u1qpse4i"> Created </label></th>
-                                        <td class="uif-gridLayoutCell"><div id="u1qpse4i" class="uif-messageField" data-label="Created">
-                                                <p id="u14mjetn" class="uif-message"> 04:27pm 07/09/2013 </p>
-                                            </div></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"> <label id="u1xm1w4h" for="u11djg16_span" class="uif-label displayWith-u1qpse5d" data-label_for="u1qpse5d"> Updated </label></th>
-                                        <td class="uif-gridLayoutCell"><div id="u1qpse5d" class="uif-messageField" data-label="Updated">
-                                                <p id="u11djg16" class="uif-message"> 12:22pm 07/12/2013 </p>
-                                            </div></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"> <label id="u1y4ir5s" for="uy4jh8p_span" class="uif-label displayWith-u1qpse68" data-label_for="u1qpse68"> Proposal Nbr </label></th>
-                                        <td class="uif-gridLayoutCell"><div id="u1qpse68" class="uif-messageField" data-label="Proposal Nbr">
-                                                <p id="uy4jh8p" class="uif-message"> #23533 </p>
-                                            </div></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"> <label id="u1ymzm73" for="uuvjig8_span" class="uif-label displayWith-u1qpse73" data-label_for="u1qpse73"> Sponsor Name </label></th>
-                                        <td class="uif-gridLayoutCell"><div id="u1qpse73" class="uif-messageField" data-label="Sponsor Name">
-                                                <p id="uuvjig8" class="uif-message"> NIH </p>
-                                            </div></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"> <label id="u1ymzm73" for="uuvjig8_span" class="uif-label displayWith-u1qpse73" data-label_for="u1qpse73"> Budget Versions</label></th>
-                                        <td class="uif-gridLayoutCell"><div id="u1qpse73" class="uif-messageField" data-label="Sponsor Name">
-                                                <ul id="ud9tgcp_control" class="uif-optionList" data-role="Control" data-control_for="ud9tgcp">
-                                                    <li class="uif-optionList-item"> <span data-key="1"><a href="#">Version 1</a></span> </li>
-                                                    <li class="uif-optionList-item"> <span data-key="2"><a href="#"><strong>Version 2</strong></a></span> </li>
-                                                    <li class="uif-optionList-item"> <span data-key="3"><a href="#">Version 3</a></span> </li>
-                                                    <li class="uif-optionList-item"> <span data-key="3"><a href="#">Version 4</a></span> </li>
-                                                </ul>
-                                            </div></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </section>
-                    </div>
-                </div>
-            </div>
-            <div id="LabsProposal-DocActionBar" class="uif-actionBar uif-header-lowerGroup">
-                <ul>
-                    <li> <a id="uotglmx" class="uif-actionLink" tabindex="0" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;toggleAuditMode&quot;}"> Data Validation <span style="color:#090">(on)</span> </a> </li>
-                    <li> <a id="uotglns" class="uif-actionLink" tabindex="0" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;print&quot;}"><span class="icon-print"></span>Print</a> </li>
-                    <li> <a id="uotglon" class="uif-actionLink" tabindex="0" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;copy&quot;}"><span class="icon-copy"></span>Copy</a> </li>
-                    <li> <a id="uotglpi" class="uif-actionLink" tabindex="0" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;medusa&quot;}"><span class="icon-tasks"></span>Medusa</a> </li>
-                    <li> <a id="uotglqd" class="uif-actionLink" tabindex="0" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;showHierarchy&quot;}"><span class="icon-list-ol"></span>Hierarchy</a> </li>
-                    <li> <a id="uotglr8" class="uif-actionLink" tabindex="0" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;access&quot;}"><span class="icon-lock"></span>Access</a> </li>
-                </ul>
-            </div>
-        </header>
+        <?php include ('includes/uif-viewHeader-pd.php') ?>
+        <!-- // VIEW HEADER  -->
+
+
+
         <!-- VIEW CONTENT -->
         <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper container"> 
             <!-- VIEW NAVIGATION -->
@@ -253,9 +155,9 @@ $page = 'asdf';
                                 <th class="uif-gridLayoutCell">Actions</th>
                             </tr>
                             <tr>
-                                <td scope="row"><input type="radio" name="radio" id="radio" value="radio">
+                                <td scope="row"><input type="radio" value="radio" name="version-list" id="radio-version-1">
                                     <label for="radio"></label></td>
-                                <td scope="row"><a href="" data-toggle="modal" data-target="#switchdoc"  class="">Version 1</a></td>
+                                <td scope="row"><a href="" data-toggle="modal" data-target="#switchdoc"  class="versions">Version 1</a> <small>(for submission)</small></td>
                                 <td class="">  22,835.00</td>
                                 <td class="">  6,170.00</td>
                                 <td class="">29,005.00</td>
@@ -272,49 +174,12 @@ $page = 'asdf';
                                             <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>
                                         </ul>
                                     </div>
-                                    
-                                    <!--
-<div class="dropdown"> <a data-toggle="dropdown" href="#">Details</a>
-										<div class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="padding:12px">
-											<h4>Version 1</h4>
-											<table class="table table-condensed" style="width:300px;" >
-												<tr>
-													<td>Residual Funds</td>
-													<td>&nbsp;</td>
-												</tr>
-												<tr>
-													<td>Cost Sharing</td>
-													<td>947165.00</td>
-												</tr>
-												<tr>
-													<td>Unrecovered F&amp;A</td>
-													<td>119225.00 </td>
-												</tr>
-												<tr>
-													<td>F&amp;A Rate Type</td>
-													<td>MTDC</td>
-												</tr>
-												<tr>
-													<td>Last Updated</td>
-													<td>Mar 7, 2014 9:15:21 AM </td>
-												</tr>
-												<tr>
-													<td>Last Updated By</td>
-													<td>thrclark</td>
-												</tr>
-												<tr>
-													<td>Comments</td>
-													<td>&nbsp;</td>
-												</tr>
-											</table>
-										</div>
-									</div>
-									--></td>
+                               </td>
                             </tr>
                             <tr>
-                                <td scope="row"  class="success"><input type="radio" name="radio" id="radio" value="radio" checked>
+                                <td scope="row"  class="success"><input type="radio"  value="radio" name="version-list" id="radio-version-2" checked>
                                     <label for="radio"></label></td>
-                                <td scope="row"><a href="" data-toggle="modal" data-target="#switchdoc"  class="">Version 2</a> <small>(for submission)</small></td>
+                                <td class="showMe" scope="row"><a href="" data-toggle="modal" data-target="#switchdoc"   class="versions">Version 2</a> <small>(for submission)</small></td>
                                 <td class="">  22,835.00</td>
                                 <td class="">  6,170.00</td>
                                 <td class="">29,005.00</td>
@@ -331,49 +196,12 @@ $page = 'asdf';
                                             <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>
                                         </ul>
                                     </div>
-                                    
-                                    <!--
-<div class="dropdown"> <a data-toggle="dropdown" href="#">Details</a>
-										<div class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="padding:12px">
-											<h4>Version 1</h4>
-											<table class="table table-condensed" style="width:300px;" >
-												<tr>
-													<td>Residual Funds</td>
-													<td>&nbsp;</td>
-												</tr>
-												<tr>
-													<td>Cost Sharing</td>
-													<td>947165.00</td>
-												</tr>
-												<tr>
-													<td>Unrecovered F&amp;A</td>
-													<td>119225.00 </td>
-												</tr>
-												<tr>
-													<td>F&amp;A Rate Type</td>
-													<td>MTDC</td>
-												</tr>
-												<tr>
-													<td>Last Updated</td>
-													<td>Mar 7, 2014 9:15:21 AM </td>
-												</tr>
-												<tr>
-													<td>Last Updated By</td>
-													<td>thrclark</td>
-												</tr>
-												<tr>
-													<td>Comments</td>
-													<td>&nbsp;</td>
-												</tr>
-											</table>
-										</div>
-									</div>
-									--></td>
+                                 </td>
                             </tr>
                             <tr>
-                                <td scope="row"><input type="radio" name="radio" id="radio" value="radio">
+                                <td scope="row"><input type="radio" value="radio" name="version-list" id="radio-version-3">
                                     <label for="radio"></label></td>
-                                <td scope="row"><a href="" data-toggle="modal" data-target="#switchdoc"  class="">Version 3</a></td>
+                                <td scope="row"><a href="" data-toggle="modal" data-target="#switchdoc"   class="versions">Version 3</a> <small>(for submission)</small></td>
                                 <td class="">  22,835.00</td>
                                 <td class="">  6,170.00</td>
                                 <td class="">29,005.00</td>
@@ -390,49 +218,12 @@ $page = 'asdf';
                                             <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>
                                         </ul>
                                     </div>
-                                    
-                                    <!--
-<div class="dropdown"> <a data-toggle="dropdown" href="#">Details</a>
-										<div class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="padding:12px">
-											<h4>Version 1</h4>
-											<table class="table table-condensed" style="width:300px;" >
-												<tr>
-													<td>Residual Funds</td>
-													<td>&nbsp;</td>
-												</tr>
-												<tr>
-													<td>Cost Sharing</td>
-													<td>947165.00</td>
-												</tr>
-												<tr>
-													<td>Unrecovered F&amp;A</td>
-													<td>119225.00 </td>
-												</tr>
-												<tr>
-													<td>F&amp;A Rate Type</td>
-													<td>MTDC</td>
-												</tr>
-												<tr>
-													<td>Last Updated</td>
-													<td>Mar 7, 2014 9:15:21 AM </td>
-												</tr>
-												<tr>
-													<td>Last Updated By</td>
-													<td>thrclark</td>
-												</tr>
-												<tr>
-													<td>Comments</td>
-													<td>&nbsp;</td>
-												</tr>
-											</table>
-										</div>
-									</div>
-									--></td>
+                               </td>
                             </tr>
                             <tr>
-                                <td scope="row"><input type="radio" name="radio" id="radio" value="radio">
+                                <td scope="row"><input type="radio" value="radio" name="version-list" id="radio-version-4">
                                     <label for="radio"></label></td>
-                                <td scope="row"><a href="" data-toggle="modal" data-target="#switchdoc"  class="">Version 4</a></td>
+                                <td scope="row"><a href="" data-toggle="modal" data-target="#switchdoc"  class="versions">Version 4</a> <small>(for submission)</small></td>
                                 <td class="">  22,835.00</td>
                                 <td class="">  6,170.00</td>
                                 <td class="">29,005.00</td>
@@ -448,45 +239,13 @@ $page = 'asdf';
                                             <li class="divider"></li>
                                             <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>
                                         </ul>
-                                    </div>
-                                    
-                                    <!--
-<div class="dropdown"> <a data-toggle="dropdown" href="#">Details</a>
-										<div class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="padding:12px">
-											<h4>Version 1</h4>
-											<table class="table table-condensed" style="width:300px;" >
-												<tr>
-													<td>Residual Funds</td>
-													<td>&nbsp;</td>
-												</tr>
-												<tr>
-													<td>Cost Sharing</td>
-													<td>947165.00</td>
-												</tr>
-												<tr>
-													<td>Unrecovered F&amp;A</td>
-													<td>119225.00 </td>
-												</tr>
-												<tr>
-													<td>F&amp;A Rate Type</td>
-													<td>MTDC</td>
-												</tr>
-												<tr>
-													<td>Last Updated</td>
-													<td>Mar 7, 2014 9:15:21 AM </td>
-												</tr>
-												<tr>
-													<td>Last Updated By</td>
-													<td>thrclark</td>
-												</tr>
-												<tr>
-													<td>Comments</td>
-													<td>&nbsp;</td>
-												</tr>
-											</table>
-										</div>
-									</div>
-									--></td>
+                                    </div></td>
+                            </tr>
+                            <tr>
+                                <td scope="row"><input type="radio"  value="radio" name="version-list" id="radio-version-5">
+                                    <label for="radio"></label></td>
+                                <td scope="row" colspan="6" class="versions"><a href="" data-toggle="modal" data-target="#switchdoc"  class="versions">NONE</a> <small>(for submission)</small></td>
+                                    </td>
                             </tr>
                         </tbody>
                     </table>
@@ -541,7 +300,7 @@ $page = 'asdf';
                         </div>
                     </div>
                     
-                    <!-- /Modal -->
+                    <!-- /Modal --> 
                     
                 </section>
             </main>
@@ -592,7 +351,99 @@ $page = 'asdf';
         </table>
     </div>
 </form>
-<?php include ('includes/footer-scripts.php') ?>
+
+
+
+
+
+
+
+<script type="text/javascript" src="../../plugins/jquery/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="../../plugins/validate/jquery.validate.js"></script>
+<script type="text/javascript" src="../../plugins/jqueryUI/jquery-ui-1.9.2.js"></script>
+
+
+<script type="text/javascript" src="../../plugins/datatables/jquery.dataTables.js"></script>
+<script type="text/javascript" src="../../themes/bootstrap/scripts/bootstrap.js"></script>
+<script type="text/javascript" src="../../plugins/scrollto/jquery.scrollTo-1.4.6.js"></script>
+<script type="text/javascript" src="../../plugins/jqform/jquery.form-3.31.0.js"></script>
+<script type="text/javascript" src="../../plugins/globalize/globalize.js"></script>
+<script type="text/javascript" src="../../plugins/menu/krad.navigationMenu.js"></script>
+<script type="text/javascript" src="../../plugins/menu/krad.tabMenu.js"></script>
+
+<!--
+
+<script type="text/javascript" src="../../plugins/jgrowl/jquery.jgrowl.js"></script>
+-->
+<script type="text/javascript" src="../../plugins/textpopout/krad.textareaPopout.js"></script>
+<script type="text/javascript" src="../../plugins/validate/additional_validations.js"></script>
+<script type="text/javascript" src="../../plugins/cookie/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../plugins/watermark/jquery.watermark.js"></script>
+<script type="text/javascript" src="../../plugins/countdown/jquery.countdown.js"></script>
+<script type="text/javascript" src="../../plugins/blockUI/jquery.blockUI.js"></script>
+<script type="text/javascript" src="../../plugins/color/jquery.color.js"></script>
+<script type="text/javascript" src="../../plugins/json/jquery.json-2.2.js"></script>
+<script type="text/javascript" src="../../plugins/datatables/jquery.dataTables.rowGrouping.js"></script>
+<script type="text/javascript" src="../../plugins/datatables/TableTools.js"></script>
+<script type="text/javascript" src="../../plugins/datatables/ZeroClipboard.js"></script>
+<!-- <script type="text/javascript" src="../../plugins/jstree/jquery.jstree.js"></script>
+<script type="text/javascript" src="../../plugins/jqueryUI/jquery.ui.autocomplete.html.js"></script> --- -->
+<script type="text/javascript" src="../../plugins/fancybox/jquery.fancybox.js"></script>
+<script type="text/javascript" src="../../plugins/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript" src="../../plugins/prettify/prettify.js"></script>
+<script type="text/javascript" src="../../plugins/easydrag/jquery.easydrag.js"></script>
+<script type="text/javascript" src="../../plugins/tooltip/jquery.bubblepopup.v2.3.1.js"></script>
+<script type="text/javascript" src="../../krad/scripts/krad.variables.js"></script>
+<script type="text/javascript" src="../../krad/scripts/krad.utility.js"></script><!--
+<script type="text/javascript" src="../../krad/scripts/krad.initialize.js"></script>
+<script type="text/javascript" src="../../krad/scripts/krad.request.js"></script>
+<script type="text/javascript" src="../../krad/scripts/krad.response.js"></script>
+<script type="text/javascript" src="../../krad/scripts/krad.actions.js"></script>
+<script type="text/javascript" src="../../krad/scripts/krad.dirty.js"></script>
+<script type="text/javascript" src="../../krad/scripts/krad.lookup.js"></script>
+<script type="text/javascript" src="../../krad/scripts/krad.message.js"></script>-->
+<script type="text/javascript" src="../../krad/scripts/krad.session.js"></script>
+<script type="text/javascript" src="../../krad/scripts/krad.url.js"></script>
+<script type="text/javascript" src="../../krad/scripts/krad.validate.js"></script>
+<script type="text/javascript" src="../../krad/scripts/krad.widget.js"></script>
+<script type="text/javascript" src="../../plugins/easing/jquery.easing-1.3.pack.js"></script>
+<script type="text/javascript" src="../../themes/kboot/scripts/less-1.5.0.min.js"></script>
+<script type="text/javascript" src="../scripts/kradSampleApp.js"></script>
+<script type="text/javascript">
+    //    setGrowlDefaults({position:"top-right",sticky:false,life:7000});setBlockUIDefaults({fadeIn:400,fadeOut:800,centerX:true,centerY:true,blockingImage:"../krad/images/loading.gif"}, 'navigation');setBlockUIDefaults({fadeIn:400,fadeOut:800,centerX:true,centerY:true,blockingImage:"../krad/images/loader.gif"}, 'refresh');setConfigParam("kradImageLocation","../krad/images/");setConfigParam("kradUrl","../kr-krad");setConfigParam("applicationUrl","http://localhost:8080/krad-dev");setConfigParam("scriptCleanup","true");
+</script>
+
+<script type="text/javascript" src="../../themes/kboot/scripts/global.functions.js"></script>
+
+
+
+
+
+<style type="text/css">
+
+ small{display:none;}
+    .showMe small { display:inline;}
+</style>
+<script>
+
+jQuery(document).ready(function() {
+
+
+    var $radioButtons = $('input[type="radio"]');
+    $radioButtons.click(function() {
+
+        $radioButtons.each(function() {
+            $(this).parent().toggleClass("success", this.checked);
+            //$(this).append( " <small>(for submission)</small>" );
+
+        });
+        $("td").removeClass("showMe");
+       $(".success").next().addClass("showMe");
+
+
+    });
+});
+</script>
 
 <!-- Modal -->
 <div class="modal fade" id="switchdoc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -756,9 +607,9 @@ $page = 'asdf';
             </div>
         </div>
     </div>
-</div>
+</div><!-- end Modal -->
 
-<!-- end Modal -->
+
 
 </body>
 </html>
