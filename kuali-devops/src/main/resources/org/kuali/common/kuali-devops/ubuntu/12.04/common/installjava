@@ -50,7 +50,7 @@ function install_jdk {
   # Unpack the JDK into /usr/java
   echo "install   -> $LINK - [$TARGET]"
   M2_LOCAL_PATH=$($MY_DIR/m2path $GROUP_ID $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
-  execute_quietly "unzip -o $M2_LOCAL_PATH -d $BASEDIR"
+  execute_quietly "tar -xvf $M2_LOCAL_PATH --directory $BASEDIR"
 
   # Create the symbolic link  eg: /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
   execute_quietly "ln -s $TARGET $LINK"
