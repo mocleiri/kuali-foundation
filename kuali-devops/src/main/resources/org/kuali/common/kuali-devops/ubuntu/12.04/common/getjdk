@@ -73,7 +73,10 @@ fi
 
 CLASSIFIER=$CLASSIFIER-original
 
-FULLPATH=$($MY_DIR/m2path $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE)
+M2_LOCAL_PATH=$($MY_DIR/m2path $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE)
 
-download -c $COOKIES $URL $FULLPATH
+if [ ! -f "$M2_LOCAL_PATH" ]; then
+  echo "download  -> $URL"
+  download -c $COOKIES $URL $FULLPATH
+fi
  
