@@ -35,8 +35,6 @@ function install_jdk {
   # Download and cache the jdk
   $MY_DIR/m2s3get $QUIET_FLAG $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --prefix=$PREFIX --classifier=$CLASSIFIER --type=$TYPE
   
-  exit 1
-  
   JDK_DIR=$ARTIFACT_ID-$VERSION
   BASEDIR=/usr/java
   mkdir -p $BASEDIR
