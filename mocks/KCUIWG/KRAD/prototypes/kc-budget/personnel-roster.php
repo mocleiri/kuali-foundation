@@ -272,7 +272,10 @@ $page = 'personnel-costs';
             </div>
 
             <div id="Uif-Dialogs"></div>
-        
+            
+            <!-- MODAL ADD PERSONNEL -->
+<?php include ('includes/modal-budget-add-personnel.php') ?>
+        <!--
             <div id="modal-add-personnel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" aria-labbeledby="create-new-title">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -434,7 +437,7 @@ $page = 'personnel-costs';
             </div>
 
         </div>
-
+-->
         <span id="formInfo">
             <input type="hidden" name="viewId" value="LabsProposal">
             <input type="hidden" name="formKey" value="2e468a13-a495-44cc-acd7-aac6b2ed97a0">

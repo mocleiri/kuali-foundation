@@ -260,11 +260,7 @@ $page = 'personnel-objects';
 
 
 
-
-
-
 <?php include ('includes/footer-scripts.php') ?>
-
 <!-- MODAL -- budget summary -->
 <?php include ('includes/modal-budget-summary.php') ?>
 <!-- MODAL -- budget settings  -->
@@ -272,7 +268,6 @@ $page = 'personnel-objects';
 
 <!-- MODAL -- budget open propsal -->
 <?php include ('includes/modal-budget-open-prop.php') ?>
-
 
 
 

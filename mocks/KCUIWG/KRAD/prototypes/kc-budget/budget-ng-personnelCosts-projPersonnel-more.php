@@ -489,9 +489,12 @@ $page = 'personnel-costs';
 <!-- MODAL -- budget open propsal -->
 <?php include ('includes/modal-budget-open-prop.php') ?>
 
+  <!-- MODAL ADD PERSONNEL -->
+<?php include ('includes/modal-budget-add-personnel.php') ?>
+    
+ 
 
-
-<div id="modal-add-personnel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" aria-labbeledby="create-new-title">
+<!--<div id="modal-add-personnel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" aria-labbeledby="create-new-title">
     <div class="modal-dialog">
         <div class="modal-content">
             <form action="#" method="#">
@@ -649,7 +652,7 @@ $page = 'personnel-costs';
             </form>
         </div>
     </div>
-</div>
+</div>-->
 
 <!-- NO QUOTES
 <div class="modal fade" id="summary" tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true>
