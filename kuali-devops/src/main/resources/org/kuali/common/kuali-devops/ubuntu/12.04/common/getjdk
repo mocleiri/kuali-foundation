@@ -54,16 +54,20 @@ BUILD=$3
 check_args
 
 JDK_LEVEL=${JDK:3:1}
+GROUP_ID=com.oracle
+ARTIFACT_ID=$JDK
+VERSION=$UPDATE
 
 if [ "$UPDATE" == "u0" ]; then
   UPDATE=""
 fi
 
-FILENAME=jdk-$JDK_LEVEL-$CLASSIFIER.$TYPE
-URL=http://download.oracle.com/otn-pub/java/jdk/$JDK_LEVEL-$BUILD/$FILENAME
+local FILENAME=jdk-$JDK_LEVEL-$CLASSIFIER.$TYPE
+local URL=http://download.oracle.com/otn-pub/java/jdk/$JDK_LEVEL-$BUILD/$FILENAME
 
-echo $FILENAME
-echo $URL
+CLASSIFIER=$CLASSIFIER-orginal
 
-download -c $COOKIES $URL com.oracle $JDK $UPDATE --classifier=$CLASSIFIER --type=$TYPE
+local PATH=$(MY_DIR/m2path $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE)
+
+download -c $COOKIES $URL $PATH
  
