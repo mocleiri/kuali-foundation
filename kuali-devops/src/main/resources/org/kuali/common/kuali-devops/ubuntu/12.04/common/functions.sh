@@ -26,7 +26,7 @@ function download {
   while getopts ":c:" OPTIONS; do
     case "${OPTIONS}" in
       c)
-        c="${OPTARG}"
+        COOKIES="${OPTARG}"
         ;;
       *)
         download_usage
