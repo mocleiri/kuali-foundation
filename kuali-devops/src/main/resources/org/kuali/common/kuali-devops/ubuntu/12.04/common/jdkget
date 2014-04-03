@@ -59,7 +59,7 @@ GROUP_ID=com.oracle
 ARTIFACT_ID=$JDK
 VERSION=1.$JDK_LEVEL.0-$UPDATE
 
-# The very first JDK8 just came out and so there is no update version
+# The very first version of jdk 8 just came out.  Thus there is no update version.
 # eg it's just jdk-8-linux-x64.tar.gz instead of jdk-8u5-linux-x64.tar.gz
 # http://download.oracle.com/otn-pub/java/jdk/7u51-b13/jdk-7u51-linux-x64.tar.gz
 # http://download.oracle.com/otn-pub/java/jdk/8-b123/jdk-8-linux-x64.tar.gz
