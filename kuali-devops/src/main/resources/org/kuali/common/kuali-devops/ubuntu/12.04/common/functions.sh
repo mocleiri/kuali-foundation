@@ -17,11 +17,14 @@
 
 function download {
 
-  download_usage() { echo "download: [-c \$HOME/cookies.txt] url filename" 1>&2; exit; }
+  download_usage() { echo "download: [-c \$HOME/cookies.txt] [-u username] [-p password] url filename" 1>&2; exit; }
 
+  local COOKIES=""
+  local USERNAME=""
+  local PASSWORD=""
   local OPTIND
-  while getopts ":c:" o; do
-    case "${o}" in
+  while getopts ":c:" OPTIONS; do
+    case "${OPTIONS}" in
       c)
         c="${OPTARG}"
         ;;
@@ -32,7 +35,7 @@ function download {
   done
   shift $((OPTIND-1))
 
-  echo "c: [${c}], non-option arguments: $*"
+  echo "COOKIES=[${COOKIES}], non-option arguments: $*"
 
 }
 
