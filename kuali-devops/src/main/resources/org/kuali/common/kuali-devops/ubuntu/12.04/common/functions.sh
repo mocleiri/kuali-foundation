@@ -42,8 +42,8 @@ function download {
   done
   shift $((OPTIND-1))
   
-  local URL=$URL
-  local FILENAME=$FILENAME
+  local URL=$1
+  local FILENAME=$2
 
   check_not_blank URL $URL
   check_not_blank FILENAME $FILENAME
