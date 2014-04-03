@@ -73,6 +73,6 @@ DIR=$(dirname $OLD_M2_LOCAL_PATH)
 cd $DIR
 rm -rf jdk1.$JDK_LEVEL.0
 tar --verbose --extract --file $OLD_M2_FILENAME
-#mv $OLD_UNPACK_DIR $NEW_UNPACK_DIR
+mv $OLD_UNPACK_DIR $NEW_UNPACK_DIR
 #rm -f $NEW_UNPACK_DIR/*src.zip
 #tar -zcvf $NEW_M2_FILENAME $NEW_UNPACK_DIR
