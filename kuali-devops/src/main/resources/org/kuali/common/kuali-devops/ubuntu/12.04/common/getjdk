@@ -65,7 +65,3 @@ URL=http://download.oracle.com/otn-pub/java/jdk/$JDK_LEVEL-$BUILD/$FILENAME
 
 echo $FILENAME
 echo $URL
-
-apt-get install ruby-1.9.3
-gem install --no-rdoc --no-ri bundler
-bundle install
