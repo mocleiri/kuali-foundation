@@ -14,6 +14,11 @@
     limitations under the License.
 ====
 
+TODO's
+- Mike's subversion 1.7 client
+- region copy/standup
+- make use of new tar.gz S3 backup
+
 - CAS groups (talk to Farooq)
 -- using modified Jenkins CAS plugin right now
 -- no easy way to get multi-valued attributes out of CAS

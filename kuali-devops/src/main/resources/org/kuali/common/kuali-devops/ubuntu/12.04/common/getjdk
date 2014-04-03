@@ -65,3 +65,9 @@ URL=http://download.oracle.com/otn-pub/java/jdk/$JDK_LEVEL-$BUILD/$FILENAME
 
 echo $FILENAME
 echo $URL
+
+TODO's
+- Mike's subversion 1.7 client
+- region copy/standup
+- make use of new tar.gz S3 backup
+ 
