@@ -20,13 +20,10 @@ function install_jdk {
   # Extract the jdk level from the JDK variable
   JDK_LEVEL=${JDK:3:1}
   
-  # Extract a specific jdk version based on the jdk level
-  JDK_FRAGMENT_VAR=$(get_jdk_fragment)
-  
   JDK_GROUP_ID=com.oracle
   JDK_ARTIFACT_ID=$JDK
   JDK_CLASSIFIER=linux-x64
-  JDK_VERSION=1.${JDK_LEVEL}.0-$JDK_UPDATE
+  JDK_VERSION=1.$JDK_LEVEL.0-$JDK_UPDATE
   JDK_TYPE=tar.gz
 
   NEXUS_USER=developer
