@@ -18,13 +18,13 @@
 function install_jdk {
 
   # Extract the jdk level from the JDK variable
-  JDK_LEVEL=${JDK:3:1}
+  LEVEL=${JDK:3:1}
   
-  JDK_GROUP_ID=com.oracle
-  JDK_ARTIFACT_ID=$JDK
-  JDK_CLASSIFIER=linux-x64
-  JDK_VERSION=1.$JDK_LEVEL.0-$JDK_UPDATE
-  JDK_TYPE=tar.gz
+  GROUP_ID=com.oracle
+  ARTIFACT_ID=$JDK
+  CLASSIFIER=linux-x64
+  VERSION=1.$LEVEL.0-$UPDATE
+  TYPE=tar.gz
 
   ACCESS_KEY=AKIAJFD5IM7IPVVUEBNA
   SECRET_KEY=jA0ECQMCcSOVTI3J0Ym+0l0B3rTDQ9MBRtjvjvT6LvPxk2Aqqx/bqYPNzU42uL+EBSh//otXUlFhqnnizUm1iald6rntwAnbUxLlza463B7wu8s+J3Y00GtCm3A/bbuPCfuRnOGRDsg+t8Gfi7E=
@@ -33,31 +33,31 @@ function install_jdk {
   PREFIX=private
 
   # Download and cache the jdk
-  $MY_DIR/m2s3get $QUIET_FLAG $ACCESS_KEY $SECRET_KEY $BUCKET $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION --prefix=$PREFIX --classifier=$JDK_CLASSIFIER --type=$JDK_TYPE
+  $MY_DIR/m2s3get $QUIET_FLAG $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --prefix=$PREFIX --classifier=$CLASSIFIER --type=$TYPE
   
   exit 1
   
-  JDK_UNZIP_DIR=$JDK_ARTIFACT_ID-$JDK_VERSION
-  JDK_ZIP_FILE=$JDK_ARTIFACT_ID-$JDK_VERSION-$JDK_CLASSIFIER.$JDK_TYPE
-  JDK_BASEDIR=/usr/java
-  mkdir -p $JDK_BASEDIR
+  UNZIP_DIR=$ARTIFACT_ID-$VERSION
+  ZIP_FILE=$ARTIFACT_ID-$VERSION-$CLASSIFIER.$TYPE
+  BASEDIR=/usr/java
+  mkdir -p $BASEDIR
 
   # Make sure the JDK and the symbolic link are both gone
-  JDK_TARGET=$JDK_BASEDIR/$JDK_UNZIP_DIR
-  JDK_LINK=$JDK_BASEDIR/$JDK_ARTIFACT_ID
+  TARGET=$BASEDIR/$UNZIP_DIR
+  LINK=$BASEDIR/$ARTIFACT_ID
   echo "purge     -> $JDK"
-  rm -rf $JDK_LINK $JDK_TARGET
+  rm -rf $LINK $TARGET
 
   # Unpack the JDK into /usr/java
-  echo "install   -> $JDK_LINK - [$JDK_TARGET]"
-  M2_LOCAL_PATH=$($MY_DIR/m2path $JDK_GROUP_ID $JDK_ARTIFACT_ID $JDK_VERSION --classifier="$JDK_CLASSIFIER" --type="$JDK_TYPE")
-  execute_quietly "unzip -o $M2_LOCAL_PATH -d $JDK_BASEDIR"
+  echo "install   -> $LINK - [$TARGET]"
+  M2_LOCAL_PATH=$($MY_DIR/m2path $GROUP_ID $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
+  execute_quietly "unzip -o $M2_LOCAL_PATH -d $BASEDIR"
 
   # Create the symbolic link  eg: /usr/java/jdk7 -> /usr/java/jdk7-1.7.0-u51
-  execute_quietly "ln -s $JDK_TARGET $JDK_LINK"
+  execute_quietly "ln -s $TARGET $LINK"
   
-  TOOLS_JAR=$JDK_LINK/lib/tools.jar
-  TOOLS_JAR_COPY=$JDK_LINK/jre/lib/ext/tools.jar
+  TOOLS_JAR=$LINK/lib/tools.jar
+  TOOLS_JAR_COPY=$LINK/jre/lib/ext/tools.jar
   echo "copy      -> $TOOLS_JAR_COPY"
   execute_quietly "cp $TOOLS_JAR $TOOLS_JAR_COPY"
   
@@ -66,7 +66,7 @@ function install_jdk {
 function check_args {
 
   check_not_blank JDK $JDK
-  check_not_blank JDK_UPDATE $JDK_UPDATE
+  check_not_blank UPDATE $UPDATE
   check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
   check_jdk
     
@@ -97,7 +97,7 @@ done
 shift $(( OPTIND - 1 ));
 
 JDK=$1
-JDK_UPDATE=$2
+UPDATE=$2
 GPG_PASSPHRASE=$3
 
 check_args
