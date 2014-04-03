@@ -3,7 +3,6 @@
 function check_args {
   check_not_blank JDK $JDK
   check_not_blank UPDATE $UPDATE
-  check_not_blank BUILD $BUILD
 }
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
@@ -40,6 +39,21 @@ while true; do
     -t|--type)
       shift;
       TYPE="$1";
+      shift;
+      ;;
+    -b|--bucket)
+      shift;
+      BUCKET="$1";
+      shift;
+      ;;
+    -p|--prefix)
+      shift;
+      PREFIX="$1";
+      shift;
+      ;;
+    -a|--acl)
+      shift;
+      ACL="$1";
       shift;
       ;;
     --)
