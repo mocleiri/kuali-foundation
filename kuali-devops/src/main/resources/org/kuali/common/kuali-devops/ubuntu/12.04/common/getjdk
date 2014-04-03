@@ -64,4 +64,6 @@ URL=http://download.oracle.com/otn-pub/java/jdk/$JDK_LEVEL-$BUILD/$FILENAME
 
 echo $FILENAME
 echo $URL
+
+$MY_DIR/m2downloadurl $URL com.oracle $JDK $UPDATE
  
