@@ -28,6 +28,12 @@ function download {
       c)
         COOKIES="${OPTARG}"
         ;;
+      u)
+        USERNAME="${OPTARG}"
+        ;;
+      p)
+        PASSWORD="${OPTARG}"
+        ;;
       *)
         download_usage
         ;;
