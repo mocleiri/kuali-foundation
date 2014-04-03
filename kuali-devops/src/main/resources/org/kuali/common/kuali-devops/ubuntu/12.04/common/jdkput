@@ -3,13 +3,14 @@
 function check_args {
   check_not_blank JDK $JDK
   check_not_blank UPDATE $UPDATE
+  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
 }
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-usage() { echo "Usage: $ME [-h --help] [-q --quiet] [-c --classifier=linux-x64] [-t --type=tar.gz] [-b --bucket=maven.kuali.org] [-p --prefix=private] [-a --acl=authenticated-read] jdk7/jdk8 u51/u0" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h --help] [-q --quiet] [-c --classifier=linux-x64] [-t --type=tar.gz] [-b --bucket=maven.kuali.org] [-p --prefix=private] [-a --acl=authenticated-read] jdk7/jdk8 u51/u0 password" 1>&2; exit 1; }
 
 QUIET=false
 CLASSIFIER=linux-x64
@@ -66,6 +67,7 @@ done
 
 JDK=$1
 UPDATE=$2
+GPG_PASSPHRASE=$3
 
 check_args
 
@@ -75,6 +77,9 @@ ARTIFACT_ID=$JDK
 VERSION=1.$JDK_LEVEL.0-$UPDATE
 
 M2_LOCAL_PATH=$($MY_DIR/m2path $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE)
+
+ACCESS_KEY=AKIAJFD5IM7IPVVUEBNA
+SECRET_KEY=$(decrypt jA0ECQMCcSOVTI3J0Ym+0l0B3rTDQ9MBRtjvjvT6LvPxk2Aqqx/bqYPNzU42uL+EBSh//otXUlFhqnnizUm1iald6rntwAnbUxLlza463B7wu8s+J3Y00GtCm3A/bbuPCfuRnOGRDsg+t8Gfi7E=)
 
 if [ ! -f "$M2_LOCAL_PATH" ]; then
   echo "download  -> $URL"
