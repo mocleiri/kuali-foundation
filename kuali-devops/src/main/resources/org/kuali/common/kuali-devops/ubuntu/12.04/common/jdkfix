@@ -69,6 +69,8 @@ NEW_UNPACK_DIR=$JDK-$VERSION
 
 check_exists $OLD_M2_LOCAL_PATH
 
+set -x
+
 DIR=$(dirname $OLD_M2_LOCAL_PATH)
 cd $DIR
 rm -rf $OLD_UNPACK_DIR
