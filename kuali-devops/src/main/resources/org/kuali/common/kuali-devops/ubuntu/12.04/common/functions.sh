@@ -41,6 +41,11 @@ function download {
   done
   shift $((OPTIND-1))
 
+  check_not_blank URL $URL
+  check_not_blank FILENAME $FILENAME
+  
+  
+  
   echo "COOKIES=[${COOKIES}], non-option arguments: $*"
 
 }
