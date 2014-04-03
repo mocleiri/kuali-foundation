@@ -47,6 +47,7 @@ while true; do
   esac
 done
 
+
 JDK=$1
 UPDATE=$2
 BUILD=$3
@@ -62,8 +63,9 @@ if [ "$UPDATE" == "u0" ]; then
   UPDATE=""
 fi
 
-FILENAME=jdk-$JDK_LEVEL-$CLASSIFIER.$TYPE
-URL=http://download.oracle.com/otn-pub/java/jdk/$JDK_LEVEL-$BUILD/$FILENAME
+# http://download.oracle.com/otn-pub/java/jdk/7u51-b13/jdk-7u51-linux-x64.tar.gz
+FILENAME=jdk-$JDK_LEVEL$UPDATE-$CLASSIFIER.$TYPE
+URL=http://download.oracle.com/otn-pub/java/jdk/$JDK_LEVEL$UPDATE-$BUILD/$FILENAME
 
 CLASSIFIER=$CLASSIFIER-orginal
 
