@@ -15,8 +15,7 @@ usage() { echo "Usage: $ME [-h --help] [-q --quiet] [-c --classifier=linux-x64] 
 QUIET=false
 CLASSIFIER=linux-x64
 TYPE=tar.gz
-COOKIES=$HOME/Downloads/cookies.txt
-DOWNLOADS=$HOME/Downloads
+COOKIES=$HOME/cookies.txt
 
 ARGS=$(getopt --options hqc:t:d: --longoptions "help,quiet,classifier:,type:,cookies:,downloads:" --name "$ME" -- "$@");
 if [ $? -ne 0 ]; then usage; fi
@@ -65,9 +64,4 @@ URL=http://download.oracle.com/otn-pub/java/jdk/$JDK_LEVEL-$BUILD/$FILENAME
 
 echo $FILENAME
 echo $URL
-
-TODO's
-- Mike's subversion 1.7 client
-- region copy/standup
-- make use of new tar.gz S3 backup
  
