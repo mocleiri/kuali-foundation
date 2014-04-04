@@ -14,12 +14,14 @@ public final class JenkinsContext {
 	private final Tags.Name name;
 	private final Tags.Stack stack;
 	private final Region region;
+	private final BackupMode backupMode;
 
 	private JenkinsContext(Builder builder) {
 		this.dnsPrefix = builder.dnsPrefix;
 		this.name = builder.name;
 		this.stack = builder.stack;
 		this.region = builder.region;
+		this.backupMode = builder.backupMode;
 	}
 
 	public static Builder builder() {
@@ -32,6 +34,11 @@ public final class JenkinsContext {
 		private Tags.Name name;
 		private Tags.Stack stack;
 		private Region region = Region.getRegion(Regions.DEFAULT_REGION);
+		private BackupMode backupMode;
+
+		public Builder withBackupMode(BackupMode backupMode) {
+			return withBackupMode(backupMode);
+		}
 
 		public Builder withRegion(String region) {
 			return withRegion(Regions.fromName(region));
@@ -97,6 +104,14 @@ public final class JenkinsContext {
 		public void setRegion(Region region) {
 			this.region = region;
 		}
+
+		public BackupMode getBackupMode() {
+			return backupMode;
+		}
+
+		public void setBackupMode(BackupMode backupMode) {
+			this.backupMode = backupMode;
+		}
 	}
 
 	public String getDnsPrefix() {
@@ -113,6 +128,10 @@ public final class JenkinsContext {
 
 	public Region getRegion() {
 		return region;
+	}
+
+	public BackupMode getBackupMode() {
+		return backupMode;
 	}
 
 }
