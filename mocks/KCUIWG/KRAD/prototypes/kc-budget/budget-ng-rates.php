@@ -105,7 +105,7 @@ $section = '';
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> Campus Contract </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
- Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> On/Off Campus </label></th>
+ Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> On Campus </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 3: : activate to sort column ascending"><label id="uosze9s" class="uif-label"> Fiscal Year </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
@@ -258,7 +258,7 @@ $section = '';
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> Campus Contract </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
- Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> On/Off Campus </label></th>
+ Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> On Campus </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 3: : activate to sort column ascending"><label id="uosze9s" class="uif-label"> Fiscal Year </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
@@ -351,7 +351,7 @@ $section = '';
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> Campus Contract </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
- Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> On/Off Campus </label></th>
+ Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> On Campus </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 3: : activate to sort column ascending"><label id="uosze9s" class="uif-label"> Fiscal Year </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
@@ -624,7 +624,7 @@ $section = '';
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> Campus Contract </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
- Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> On/Off Campus </label></th>
+ Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> On Campus </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 3: : activate to sort column ascending"><label id="uosze9s" class="uif-label"> Fiscal Year </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
@@ -707,7 +707,7 @@ $section = '';
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> Campus Contract </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
- Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> On/Off Campus </label></th>
+ Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> On Campus </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 3: : activate to sort column ascending"><label id="uosze9s" class="uif-label"> Fiscal Year </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
@@ -760,7 +760,7 @@ $section = '';
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> Campus Contract </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
- Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> On/Off Campus </label></th>
+ Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> On Campus </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 3: : activate to sort column ascending"><label id="uosze9s" class="uif-label"> Fiscal Year </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
@@ -843,7 +843,7 @@ $section = '';
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> Campus Contract </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
- Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> On/Off Campus </label></th>
+ Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> On Campus </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 3: : activate to sort column ascending"><label id="uosze9s" class="uif-label"> Fiscal Year </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="

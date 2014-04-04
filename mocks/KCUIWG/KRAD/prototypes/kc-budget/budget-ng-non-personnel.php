@@ -224,11 +224,14 @@ $section = '';
                                     </thead>
                                     <tbody role="alert" aria-live="polite" aria-relevant="all">
                                         <tr class="not-deletable">
-                                            <td>Equipment - Not MTDC</td>
+                                            <td><span data-edit-type="select" data-edit-type-options="Equipment - Not MTDC,Equipment - MTDC">Equipment - Not MTDC</span></td>
                                             <td>Microscope</td>
                                             <td>1</td>
                                             <td class="text-right">$0.00</td>
-                                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span><span aria-hidden="true" class="icon-trash"></span></a></div></td>
+                                            <td>
+<!--                                                <div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span><span aria-hidden="true" class="icon-trash"></span></a></div></td>-->
+                                                <a class="icon icon-edit uif-edit-btn" href="#"><span class="sr-only">Edit</span></a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

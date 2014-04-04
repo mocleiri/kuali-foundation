@@ -112,8 +112,8 @@ $section = '';
                     </thead>
                     <tbody>
                         <tr class="uif-new-row">
-                            <td>02/01/2014</td>
-                            <td>01/31/2015</td>
+                            <td><span data-edit-type="date">02/01/2014</span></td>
+                            <td><span data-edit-type="date">01/31/2015</span></td>
                             <td class="not-editable"><div class="pull-right">12.0</div></td>
                             <td><label for="line_1_total"><span class="sr-only">Period total</span>
                                     <input type="text" size="3" class="pull-right" name="line_1_total" id="line_1_total">
@@ -139,8 +139,8 @@ $section = '';
                             <td><a tabindex="0" class="icon icon-save"><span class="sr-only">Save</span></a></td>
                         </tr>
                         <tr class="uif-new-row">
-                            <td>02/01/2015</td>
-                            <td>01/31/2016</td>
+                            <td><span data-edit-type="date">02/01/2015</span></td>
+                            <td><span data-edit-type="date">01/31/2016</span></td>
                             <td class="not-editable"><div class="pull-right">12.0</div></td>
                             <td><label for="line_2_total"><span class="sr-only">Period total</span>
                                     <input type="text" size="3" class="pull-right" name="line_2_total" id="line_2_total">
@@ -166,8 +166,8 @@ $section = '';
                             <td><a tabindex="0" class="icon icon-save"><span class="sr-only">Save</span></a></td>
                         </tr>
                         <tr class="uif-new-row">
-                            <td>02/01/2016</td>
-                            <td>01/31/2017</td>
+                            <td><span data-edit-type="date">02/01/2016</span></td>
+                            <td><span data-edit-type="date">01/31/2017</span></td>
                             <td class="not-editable"><div class="pull-right">12.0</div></td>
                             <td><label for="line_3_total"><span class="sr-only">Period total</span>
                                     <input type="text" size="3" class="pull-right" name="line_3_total" id="line_3_total">
@@ -193,8 +193,8 @@ $section = '';
                             <td><a tabindex="0" class="icon icon-save"><span class="sr-only">Save</span></a></td>
                         </tr>
                         <tr class="uif-new-row">
-                            <td>02/01/2017</td>
-                            <td>01/31/2018</td>
+                            <td><span data-edit-type="date"></span>02/01/2017</td>
+                            <td><span data-edit-type="date"></span>01/31/2018</td>
                             <td class="not-editable"><div class="pull-right">12.0</div></td>
                             <td><label for="line_4_total"><span class="sr-only">Period total</span>
                                     <input type="text" size="3" class="pull-right" name="line_4_total" id="line_4_total">
@@ -220,8 +220,8 @@ $section = '';
                             <td><a tabindex="0" class="icon icon-save"><span class="sr-only">Save</span></a></td>
                         </tr>
                         <tr class="uif-new-row">
-                            <td>02/01/2018</td>
-                            <td>01/31/2019</td>
+                            <td><span data-edit-type="date">02/01/2018</span></td>
+                            <td><span data-edit-type="date">01/31/2019</span></td>
                             <td class="not-editable"><div class="pull-right">12.0</div></td>
                             <td><label for="line_5_total"><span class="sr-only">Period total</span>
                                     <input type="text" size="3" class="pull-right" name="line_5_total" id="line_5_total">
@@ -248,10 +248,10 @@ $section = '';
                         </tr>
                         <tr class="uif-new-row">
                             <td><label for="line_5_start"><span class="sr-only">Period start</span>
-                                    <input type="text" size="5" name="line_5_start" id="line_5_start" placeholder="mm/dd/yyyy">
+                                    <input type="date" class="form-control input-sm" size="5" name="line_5_start" id="line_5_start" placeholder="mm/dd/yyyy">
                                 </label></td>
                             <td><label for="line_5_end"><span class="sr-only">Period end</span>
-                                    <input type="text" size="5" name="line_5_end" id="line_5_end" placeholder="mm/dd/yyyy">
+                                    <input type="date" class="form-control input-sm" size="5" name="line_5_end" id="line_5_end" placeholder="mm/dd/yyyy">
                                 </label></td>
                             <td></td>
                             <td><label for="line_5_total"><span class="sr-only">Period total</span>
@@ -295,13 +295,15 @@ $section = '';
                     </tfoot>
                 </table>
                 <div class="pull-right">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Actions <span class="caret"></span> </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Reset to period defaults</a></li>
-                            <li><a href="#">Recalculate with changes</a></li>
-                        </ul>
-                    </div>
+                    <button class="btn btn-default btn-xs">Reset to period defaults</button>
+                    <button class="btn btn-default btn-xs">Recalculate with changes</button>
+<!--                    <div class="btn-group">-->
+<!--                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Actions <span class="caret"></span> </button>-->
+<!--                        <ul class="dropdown-menu" role="menu">-->
+<!--                            <li><a href="#">Reset to period defaults</a></li>-->
+<!--                            <li><a href="#">Recalculate with changes</a></li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
                 </div>
             </main>
         </div>

@@ -17,6 +17,8 @@ jQuery(document).ready(function($) {
 
     $('table').on('click keydown', '.icon-edit', function(e) {
 
+        e.preventDefault();
+
         if (e.keyCode == 13) {
             $(this).trigger('click');
         }
@@ -34,6 +36,11 @@ jQuery(document).ready(function($) {
                 if ($(this).find('span').data('edit-type') == 'input') {
                     var current_value = $(this).text();
                     $(this).html('<input type="text" class="form-control input-sm" name="' + $(this).find('span').data('edit-name') + '" id="' + $(this).find('span').data('edit-id') + '" value="' + current_value + '" size="3" />');
+
+                    // If the data-edit-type is a date...
+                } else if ($(this).find('span').data('edit-type') == 'date') {
+                    var current_value = $(this).text();
+                    $(this).html('<input type="date" class="form-control input-sm" name="' + $(this).find('span').data('edit-name') + '" id="' + $(this).find('span').data('edit-id') + '" value="' + current_value + '" size="3" />');
 
                 // If the data-edit-type is a select...
                 } else if ($(this).find('span').data('edit-type') == 'select') {
@@ -94,6 +101,8 @@ jQuery(document).ready(function($) {
 
     }).on('click keydown', '.uif-cancel', function(e) {
 
+        e.preventDefault();
+
         if (e.keyCode == 13) {
             $(this).trigger('click');
         }
@@ -108,10 +117,14 @@ jQuery(document).ready(function($) {
 
     }).on('click keydown', '.uif-delete', function(e) {
 
+        e.preventDefault();
+
         $(this).parent().parent().prev().fadeOut();
         $(this).parent().parent().fadeOut();
 
     }).on('click keydown', '.icon-save', function(e) {
+
+        e.preventDefault();
 
         if (e.keyCode == 13) {
             $(this).trigger('click');
@@ -128,6 +141,11 @@ jQuery(document).ready(function($) {
                 // If it's an input...
                 if ($(this).find('input').length > 0) {
                     var new_value = '<span data-edit-type="input" data-edit-name="" data-edit-id="">' + $(this).find('input').val() + '</span>';
+                    $(this).html(new_value);
+
+                    // If it's a date...
+                } else if ($(this).find('input').length > 0) {
+                    var new_value = '<span data-edit-type="date" data-edit-name="" data-edit-id="">' + $(this).find('input').val() + '</span>';
                     $(this).html(new_value);
 
                 // If it's a select menu...
