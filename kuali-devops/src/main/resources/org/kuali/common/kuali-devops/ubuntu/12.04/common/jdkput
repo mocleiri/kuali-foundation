@@ -82,6 +82,7 @@ ARTIFACT_ID=$JDK
 VERSION=1.$JDK_LEVEL.0-$UPDATE
 
 M2_LOCAL_PATH=$($MY_DIR/m2path $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE)
+M2_REMOTE_PATH=$($MY_DIR/m2path $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE --repo=https://$BUCKET/$PREFIX)
 
 check_exists $M2_LOCAL_PATH
 
@@ -90,5 +91,5 @@ if [ "$QUIET" == "true" ]; then
   QUIET_FLAG="-q"
 fi
 
-echo "upload    -> [$GROUP_ID:$ARTIFACT_ID:$VERSION:$CLASSIFIER:$TYPE] to https://$BUCKET/$PREFIX"
+echo "upload    -> $M2_REMOTE_PATH"
 $MY_DIR/m2s3put $QUIET_FLAG --prefix=$PREFIX --type=$TYPE --acl=$ACL --classifier=$CLASSIFIER $M2_LOCAL_PATH $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION
