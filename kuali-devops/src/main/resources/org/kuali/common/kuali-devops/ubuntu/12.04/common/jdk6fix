@@ -80,5 +80,5 @@ rm -rf $OLD_UNPACK_DIR $NEW_UNPACK_DIR
 # make sure the .bin file is executable
 chmod 755 $OLD_M2_FILENAME
 
-# execute the bin file in order to unpack the distribution
+# execute the bin file to unpack the distribution
 execute_quietly "./$OLD_M2_FILENAME"
