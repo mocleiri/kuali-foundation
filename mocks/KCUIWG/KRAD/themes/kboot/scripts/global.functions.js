@@ -200,7 +200,7 @@ jQuery(document).ready(function($) {
  */
 
 
-$(window).load(function(){
+jQuery(window).load(function($) {
 var Privileges = jQuery('#personType');
 var select = this.value;
 Privileges.change(function () {

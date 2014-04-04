@@ -33,10 +33,7 @@
 <script type="text/javascript" src="../../plugins/tooltip/jquery.bubblepopup.v2.3.1.js"></script> 
 <script type="text/javascript" src="../../krad/scripts/krad.variables.js"></script> 
 <script type="text/javascript" src="../../krad/scripts/krad.utility.js"></script> 
-<!--
-Causing conflicts?
 <script type="text/javascript" src="../../krad/scripts/krad.initialize.js"></script>
--->
 <script type="text/javascript" src="../../krad/scripts/krad.request.js"></script> 
 <script type="text/javascript" src="../../krad/scripts/krad.response.js"></script> 
 <script type="text/javascript" src="../../krad/scripts/krad.actions.js"></script> 
