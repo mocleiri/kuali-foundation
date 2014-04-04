@@ -137,8 +137,8 @@ function configure_tomcat_user {
   rm -rf $TOMCAT_HOME/.gnupg $TOMCAT_HOME/.ssh $TOMCAT_HOME/.m2 $TOMCAT_HOME/.subversion
   cp -R /root/.gnupg       $TOMCAT_HOME
   cp -R /root/.ssh         $TOMCAT_HOME
-  echo "copy      -> root m2 repo"
-  cp -R /root/.m2          $TOMCAT_HOME
+  echo "link      -> root m2 repo"
+  ln -s $TOMCAT_HOME/.m2   /root/.m2
   cp -R /root/.subversion  $TOMCAT_HOME
   
   # Sets up Java + Maven + Jenkins Master
