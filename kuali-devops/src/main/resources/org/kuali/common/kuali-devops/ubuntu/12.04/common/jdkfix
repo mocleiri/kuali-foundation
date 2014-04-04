@@ -50,6 +50,9 @@ GROUP_ID=com.oracle
 ARTIFACT_ID=$JDK
 VERSION=1.$JDK_LEVEL.0-$UPDATE
 TYPE=tar.gz
+if [ "$JDK" == "jdk6" ]; then
+  TYPE=bin
+fi
 
 OLD_CLASSIFIER=$CLASSIFIER-original
 NEW_CLASSIFIER=$CLASSIFIER
@@ -79,7 +82,11 @@ cd $DIR
 rm -rf $OLD_UNPACK_DIR $NEW_UNPACK_DIR
 
 # extract the original .tar.gz from Oracle
-tar --extract --file $OLD_M2_FILENAME
+if [ "$TYPE" == "bin" ]; then
+  ./$OLD_M2_FILENAME > /dev/null
+else
+  tar --extract --file $OLD_M2_FILENAME
+fi
 
 # change 1.7.0_51 -> 1.7.0-u51
 mv $OLD_UNPACK_DIR $NEW_UNPACK_DIR
