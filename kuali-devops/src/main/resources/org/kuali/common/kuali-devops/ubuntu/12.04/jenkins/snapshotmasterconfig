@@ -12,7 +12,7 @@ function check_args {
   
 }
 
-function tar_config {
+function create_tar_file {
    echo "tar.gz    -> /home/tomcat7/.jenkins"
    execute_quietly "rm -rf /ssd/master.*"
    execute_quietly "cd /home/tomcat7"
@@ -89,7 +89,7 @@ BUCKET=maven.kuali.org
 PREFIX=private
 
 TAR_FILE=/ssd/master.tar.gz
-tar_config
+create_tar_file
 
 M2_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --repo=$BUCKET/$PREFIX --type=$TYPE --classifier=$CLASSIFIER)
 echo "upload    -> https://$M2_PATH"
