@@ -239,7 +239,7 @@ function touch_subversion_repos {
 
 # This is so the Subversion client ends up on 1.7.9
 function setup_svn_ppa {
-  echo "configure -> svn/ppa (Subversion 1.7)
+  echo "configure -> svn/ppa (Subversion 1.7)"
   execute_quietly "apt-add-repository ppa:svn/ppa -y"
   execute_quietly "apt-get update -y"
 }
