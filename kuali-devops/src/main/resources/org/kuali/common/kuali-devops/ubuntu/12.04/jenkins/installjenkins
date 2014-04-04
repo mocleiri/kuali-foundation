@@ -245,7 +245,7 @@ function configure_jenkins {
   local TYPE=tar.gz
   local PREFIX=private
   local BUCKET=maven.kuali.org
-  $MY_DIR/../common/m2download $QUIET_FLAG --prefix=$PREFIX --type=$TYPE --classifier=$CLASSIFIER $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION
+  $MY_DIR/../common/m2s3get $QUIET_FLAG --prefix=$PREFIX --type=$TYPE --classifier=$CLASSIFIER $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION
   
   exit 1
    
