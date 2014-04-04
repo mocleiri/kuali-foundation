@@ -1,0 +1,31 @@
+#!/bin/bash
+
+MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+ME=$(basename $0)
+source $MY_DIR/functions.sh
+
+usage() { echo "Usage: $ME password" 1>&2; exit 1; }
+
+GPG_PASSPHRASE=$1
+
+check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
+
+JDK6_UPDATE=u45
+JDK7_UPDATE=u51
+JDK8_UPDATE=u0
+
+JDK6_BUILD=b06
+JDK7_BUILD=b13
+JDK8_BUILD=b132
+
+jdkget $QUIET jdk6 $JDK6UPDATE $JDK6_BUILD
+jdkget $QUIET jdk7 $JDK7UPDATE $JDK7_BUILD
+jdkget $QUIET jdk8 $JDK8UPDATE $JDK8_BUILD
+
+jdkfix jdk6 $JDK6_BUILD
+jdkfix jdk7 $JDK7_BUILD
+jdkfix jdk8 $JDK8_BUILD
+
+jdkput jdk6 $JDK6_BUILD $GPG_PASSPHRASE
+jdkput jdk7 $JDK7_BUILD $GPG_PASSPHRASE
+jdkput jdk8 $JDK8_BUILD $GPG_PASSPHRASE
