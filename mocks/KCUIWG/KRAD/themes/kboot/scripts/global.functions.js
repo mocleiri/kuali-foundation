@@ -208,29 +208,36 @@ jQuery(document).ready(function($) {
 
     setupSidebarNavMenu('uif_budget_navigation_menu', 'icon-angle-down', 'icon-angle-right');
 
-});
+
+    /*
+     * Select listener
+     * This is specifically for the personnel addition modal
+     * Original: thrclark
+     * Update: clrux
+     */
 
 
+    $('select#personType').on('change', function() {
 
-/*
- * Javascript for TBN Personnel selection process
- * thrclark
- */
+        if ( $(this).filter(':selected') == 'emp' || $(this).val() == 'emp' ) {
+            $('.employee').show();
+        } else {
+            $('.employee').hide();
+        }
 
+        if ( $(this).filter(':selected') == 'nonemp' || $(this).val() == 'nonemp' ) {
+            $('.nonemployee').show();
+        } else {
+            $('.nonemployee').hide();
+        }
 
-jQuery(window).load(function($) {
-var Privileges = jQuery('#personType');
-var select = this.value;
-Privileges.change(function () {
-    if ($(this).val() == 'emp') {
-        $('.employee').show();
-    } else $('.employee').hide();
-    if ($(this).val() == 'nonemp') {
-        $('.nonemployee').show();
-    } else $('.nonemployee').hide();
-    if ($(this).val() == 'tbn') {
-        $('.tbn').show();
-    } else $('.tbn').hide();
-});
+        if ( $(this).filter(':selected') == 'tbn' || $(this).val() == 'tbn' ) {
+            $('.tbn').show();
+        } else {
+            $('.tbn').hide();
+        }
+
+    });
+
 });
 

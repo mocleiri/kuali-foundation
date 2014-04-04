@@ -18,9 +18,9 @@
                                 <div class="col-md-6">
                                     <select name="privileges" id="personType" class="form-control" onclick="craateUserJsObject.ShowPrivileges();">
                                         <option id="" value="">select</option>
-                                        <option id="some" value="emp">Employee</option>
-                                        <option id="some" value="nonemp">Non-Employee</option>
-                                        <option id="all" value="tbn">To Be Named</option>
+                                        <option id="emp" value="emp">Employee</option>
+                                        <option id="nonemp" value="nonemp">Non-Employee</option>
+                                        <option id="tbn" value="tbn">To Be Named</option>
                                     </select>
                                 </div>
                             </div>
