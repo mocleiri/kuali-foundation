@@ -237,7 +237,7 @@ function touch_subversion_repos {
   
 }
 
-# This is so the Subversion client ends up on 1.7
+# This is so the Subversion client ends up on 1.7.9
 function setup_svn_ppa {
   apt-add-repository ppa:svn/ppa -y
   apt-get update -y
