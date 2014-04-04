@@ -9,7 +9,7 @@ function check_args {
 
 function create_tar_file {
    echo "tar.gz    -> /home/tomcat7/.jenkins"
-   execute_quietly "rm -rf /ssd/master.*"
+   execute_quietly "rm -rf $TAR_DIR/master.*"
    execute_quietly "cd /home/tomcat7"
 
    # Same thing as thin but no build history or config history
@@ -83,7 +83,8 @@ source $MY_DIR/../common/aws.sh
 BUCKET=maven.kuali.org
 PREFIX=private
 
-TAR_FILE=/ssd/master.tar.gz
+TAR_DIR=/tmp/master.tar.gz
+TAR_FILE=$TAR_DIR/master.tar.gz
 create_tar_file
 
 M2_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --repo=$BUCKET/$PREFIX --type=$TYPE --classifier=$CLASSIFIER)
