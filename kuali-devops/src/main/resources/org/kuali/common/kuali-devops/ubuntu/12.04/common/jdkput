@@ -12,9 +12,6 @@ ME=$(basename $0)
 # Import common functions
 source $MY_DIR/functions.sh
 
-# Import the credentials for Kuali Foundation
-source $MY_DIR/aws.sh
-
 usage() { echo "Usage: $ME [-h --help] [-q --quiet] [-c --classifier=linux-x64] [-t --type=tar.gz] [-b --bucket=maven.kuali.org] [-p --prefix=private] [-a --acl=authenticated-read] jdk6/jdk7/jdk8 u45/u51/u0 password" 1>&2; exit 1; }
 
 QUIET=false
@@ -75,6 +72,9 @@ UPDATE=$2
 GPG_PASSPHRASE=$3
 
 check_args
+
+# Import the credentials for Kuali Foundation
+source $MY_DIR/aws.sh
 
 JDK_LEVEL=${JDK:3:1}
 GROUP_ID=com.oracle
