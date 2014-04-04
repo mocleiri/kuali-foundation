@@ -9,13 +9,13 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/functions.sh
 
-usage() { echo "Usage: $ME [-h --help] [-q --quiet] [-c --classifier=linux-x64] jdk7/jdk8 u51/u0" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h --help] [-q --quiet] [-c --classifier=linux-x64] u45" 1>&2; exit 1; }
 
 QUIET=false
 CLASSIFIER=linux-x64
 TYPE=tar.gz
 
-ARGS=$(getopt --options hqc: --longoptions "help,quiet,classifier:" --name "$ME" -- "$@");
+ARGS=$(getopt --options hqc:t: --longoptions "help,quiet,classifier:" --name "$ME" -- "$@");
 if [ $? -ne 0 ]; then usage; fi
 eval set -- "$ARGS";
 while true; do
