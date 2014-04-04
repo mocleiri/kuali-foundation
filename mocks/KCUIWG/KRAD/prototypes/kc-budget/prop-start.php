@@ -299,5 +299,11 @@ $page = 'asdf';
 <div id="jGrowl" class="top-right jGrowl">
     <div class="jGrowl-notification"></div>
 </div>
+
+<!-- MODAL BUDGET VERSIONS -->
+<?php include ('includes/modal-budget-versions.php') ?>
+ 
+ 
+
 </body>
 </html>

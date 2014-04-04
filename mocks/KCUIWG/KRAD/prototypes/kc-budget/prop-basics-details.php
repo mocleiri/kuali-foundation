@@ -352,6 +352,9 @@ $section = 'basics-proposalDetails';
 </div>
 
 <!-- end Modal -->
-
+<!-- MODAL BUDGET VERSIONS -->
+<?php include ('includes/modal-budget-versions.php') ?>
+ 
+ 
 </body>
 </html>

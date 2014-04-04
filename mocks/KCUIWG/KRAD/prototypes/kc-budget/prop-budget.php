@@ -491,10 +491,7 @@ $section = '';
 <!-- // end scripts --> 
 
 
-        
-        <a  class="uif-actionLink" data-toggle="modal" data-target="#modal-budget-versions"><span class="icon-eye"></span>Budget Versions</a>
-        -->
-
+   
 
 <!-- Modal -->
 <div class="modal fade" id="switchdoc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -661,6 +658,10 @@ $section = '';
 </div>
 
 <!-- end Modal -->
+<!-- MODAL BUDGET VERSIONS -->
+<?php include ('includes/modal-budget-versions.php') ?>
+ 
+ 
 
 </body>
 </html>
