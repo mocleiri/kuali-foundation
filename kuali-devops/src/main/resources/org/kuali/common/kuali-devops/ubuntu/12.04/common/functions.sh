@@ -228,10 +228,10 @@ function decrypt {
 }
 
 function check_jenkins_mode {
-  if [ $MODE == "min" ] || [ $MODE == "thin" ] || [ $MODE == "full" ]; then
+  if [$MODE == "empty"] || [ $MODE == "min" ] || [ $MODE == "thin" ] || [ $MODE == "full" ]; then
     MODE=$MODE
   else
-    echo "MODE must be one of min/thin/full"
+    echo "MODE must be one of empty/min/thin/full"
     usage
   fi
 }
