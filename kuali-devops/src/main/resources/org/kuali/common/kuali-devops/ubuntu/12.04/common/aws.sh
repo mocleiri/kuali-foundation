@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-check_not_blank $GPG_PASSPHRASE
+check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
 
 ACCESS_KEY=AKIAJFD5IM7IPVVUEBNA
 SECRET_KEY=jA0ECQMCcSOVTI3J0Ym+0l0B3rTDQ9MBRtjvjvT6LvPxk2Aqqx/bqYPNzU42uL+EBSh//otXUlFhqnnizUm1iald6rntwAnbUxLlza463B7wu8s+J3Y00GtCm3A/bbuPCfuRnOGRDsg+t8Gfi7E=
