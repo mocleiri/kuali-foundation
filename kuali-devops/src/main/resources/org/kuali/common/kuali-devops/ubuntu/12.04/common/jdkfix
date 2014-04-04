@@ -83,6 +83,7 @@ rm -rf $OLD_UNPACK_DIR $NEW_UNPACK_DIR
 
 # extract the original .tar.gz from Oracle
 if [ "$TYPE" == "bin" ]; then
+  chmod 755 ./$OLD_M2_FILENAME
   ./$OLD_M2_FILENAME > /dev/null
 else
   tar --extract --file $OLD_M2_FILENAME
