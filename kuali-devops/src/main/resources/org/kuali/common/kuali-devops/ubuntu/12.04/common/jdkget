@@ -59,13 +59,17 @@ GROUP_ID=com.oracle
 ARTIFACT_ID=$JDK
 VERSION=1.$JDK_LEVEL.0-$UPDATE
 
-URL=http://download.oracle.com/otn-pub/java/jdk
-
-# The very first version of jdk 8 just came out.  Thus there is no update version.
-# eg it's just jdk-8-linux-x64.tar.gz instead of jdk-8u5-linux-x64.tar.gz
+# Example URL's
 # http://download.oracle.com/otn-pub/java/jdk/7u51-b13/jdk-7u51-linux-x64.tar.gz
 # http://download.oracle.com/otn-pub/java/jdk/8-b123/jdk-8-linux-x64.tar.gz
 # http://download.oracle.com/otn/java/jdk/6u45-b06/jdk-6u45-linux-x64.bin
+URL=http://download.oracle.com/otn-pub/java/jdk
+if [ "$JDK" == "jdk6" ]; then
+  URL=http://download.oracle.com/otn/java/jdk
+fi
+
+# The very first version of jdk 8 just came out.  Thus there is no update version.
+# eg it's just jdk-8-linux-x64.tar.gz instead of jdk-8u5-linux-x64.tar.gz
 if [ "$UPDATE" == "u0" ]; then
   FILENAME=jdk-$JDK_LEVEL-$CLASSIFIER.$TYPE
   URL=$URL/$JDK_LEVEL-$BUILD/$FILENAME
@@ -74,6 +78,7 @@ else
   URL=$URL/$JDK_LEVEL$UPDATE-$BUILD/$FILENAME
 fi
 
+# Add a suffix to mark that this is direct from Oracle 
 CLASSIFIER=$CLASSIFIER-original
 
 M2_LOCAL_PATH=$($MY_DIR/m2path $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE)
