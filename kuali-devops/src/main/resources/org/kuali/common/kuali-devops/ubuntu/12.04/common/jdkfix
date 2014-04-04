@@ -13,7 +13,6 @@ usage() { echo "Usage: $ME [-h --help] [-q --quiet] [-c --classifier=linux-x64] 
 
 QUIET=false
 CLASSIFIER=linux-x64
-TYPE=tar.gz
 
 ARGS=$(getopt --options hqc: --longoptions "help,quiet,classifier:" --name "$ME" -- "$@");
 if [ $? -ne 0 ]; then usage; fi
@@ -50,6 +49,7 @@ JDK_LEVEL=${JDK:3:1}
 GROUP_ID=com.oracle
 ARTIFACT_ID=$JDK
 VERSION=1.$JDK_LEVEL.0-$UPDATE
+TYPE=tar.gz
 
 OLD_CLASSIFIER=$CLASSIFIER-original
 NEW_CLASSIFIER=$CLASSIFIER
