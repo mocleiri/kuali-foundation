@@ -140,6 +140,7 @@ function configure_tomcat_user {
   echo "link      -> root m2 repo"
   ln -s /root/.m2          $TOMCAT_HOME/.m2
   chmod 644 /root/.m2 /root/.m2/settings.xml
+  chmod 755 /root/.m2 /root/.m2/repository
   cp -R /root/.subversion  $TOMCAT_HOME
   
   # Sets up Java + Maven + Jenkins Master
