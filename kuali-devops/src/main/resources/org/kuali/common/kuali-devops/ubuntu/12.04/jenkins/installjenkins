@@ -236,6 +236,14 @@ function update_jenkins_config_xml {
   # Update the value
   execute_quietly "sed -i -e ${EC2_REGION_LINE_NUMBER}s/<string>.*<\/string>/<string>$REGION<\/string>/ $JENKINS_CONFIG_FILE"
   
+  echo "configure -> jenkins:master:version"
+  # This is the line number containing the name of the environment variable "JENKINS_VERSION"
+  JENKINS_VERSION_LINE_NUMBER=$(cat -n $JENKINS_CONFIG_FILE | grep "<string>JENKINS_VERSION</string>" | cut -f 1 | xargs)
+  # The next line contains the value
+  JENKINS_VERSION_LINE_NUMBER=$(($JENKINS_VERSION_LINE_NUMBER + 1))
+  # Update the value
+  execute_quietly "sed -i -e ${JENKINS_VERSION_LINE_NUMBER}s/<string>.*<\/string>/<string>$JENKINS_VERSION<\/string>/ $JENKINS_CONFIG_FILE"
+  
 }
 
 function configure_build_slave_ami_job {
