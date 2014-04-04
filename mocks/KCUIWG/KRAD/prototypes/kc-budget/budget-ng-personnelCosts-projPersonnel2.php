@@ -181,11 +181,7 @@ $page = 'personnel-costs';
                                                     <div class="form-group">
                                                         <label for="inputEmail3" class="col-sm-3 control-label">Role:</label>
                                                         <div class="col-sm-9">
-                                                            <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
-                                                                <option value="COI">Co-Investigator</option>
-                                                                <option value="KP">Key Person</option>
-                                                                <option value="PI" selected="selected">Principal Investigator</option>
-                                                            </select>
+                                                            <p class="form-control-static">Principle Investigator</p>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -248,8 +244,8 @@ $page = 'personnel-costs';
                                 </div></td>
                         </tr>
                         <tr class="not-deletable">
-                            <td>John Coltrane <small class="text-muted">Co-PI</small></td>
-                            <td>Dean/Faculty <small class="text-muted">AA042</small></td>
+                            <td>John Coltrane <small class="text-muted">(Co-PI)</small></td>
+                            <td>Dean/Faculty <small class="text-muted">(AA042)</small></td>
                             <td>12 month</td>
                             <td class="text-right">$163,771</td>
                             <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
@@ -262,11 +258,7 @@ $page = 'personnel-costs';
                                                     <div class="form-group">
                                                         <label for="inputEmail3" class="col-sm-3 control-label">Role:</label>
                                                         <div class="col-sm-9">
-                                                            <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
-                                                                <option value="COI">Co-Investigator</option>
-                                                                <option value="KP">Key Person</option>
-                                                                <option value="PI" selected="selected">Principal Investigator</option>
-                                                            </select>
+                                                           <p class="form-control-static">Co-Investigator</p>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -332,8 +324,8 @@ $page = 'personnel-costs';
                             <td colspan="5"><strong class="pull-left">Additional Personnel</strong></td>
                         </tr>
                         <tr class="not-deletable">
-                            <td>Stan Getz <small class="text-muted">Key Person</small></td>
-                            <td>Dean/Faculty <small class="text-muted">AA042</small></td>
+                            <td>Stan Getz <small class="text-muted">(Research Assistant)</small></td>
+                            <td>Dean/Faculty <small class="text-muted">(AA042)</small></td>
                             <td>Summer</td>
                             <td class="text-right">$73,734</td>
                             <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
@@ -343,14 +335,9 @@ $page = 'personnel-costs';
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-horizontal" role="form">
-                                                    <div class="form-group">
-                                                        <label for="inputEmail3" class="col-sm-3 control-label">Role:</label>
+                                                    <div class="form-group"> <label for="inputEmail3" class="col-sm-3 control-label">Title:</label>
                                                         <div class="col-sm-9">
-                                                            <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
-                                                                <option value="COI">Co-Investigator</option>
-                                                                <option value="KP">Key Person</option>
-                                                                <option value="PI" selected="selected">Principal Investigator</option>
-                                                            </select>
+                                                             <input type="text" class="form-control" id="" value="Research Assistant">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -413,8 +400,8 @@ $page = 'personnel-costs';
                                 </div></td>
                         </tr>
                         <tr class="not-deletable">
-                            <td>Dave Brubeck <small class="text-muted">Key Person</small></td>
-                            <td>Dean/Faculty <small class="text-muted">AA042</small></td>
+                            <td>Dave Brubeck <small class="text-muted">(Research Assistant)</small></td>
+                            <td>Dean/Faculty <small class="text-muted">(AA042)</small></td>
                             <td>9 Month</td>
                             <td class="text-right">$82,832</td>
                             <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
@@ -424,14 +411,9 @@ $page = 'personnel-costs';
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-horizontal" role="form">
-                                                    <div class="form-group">
-                                                        <label for="inputEmail3" class="col-sm-3 control-label">Role:</label>
+                                                    <div class="form-group"> <label for="inputEmail3" class="col-sm-3 control-label">Title:</label>
                                                         <div class="col-sm-9">
-                                                            <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
-                                                                <option value="COI">Co-Investigator</option>
-                                                                <option value="KP">Key Person</option>
-                                                                <option value="PI" selected="selected">Principal Investigator</option>
-                                                            </select>
+                                                             <input type="text" class="form-control" id="" value="Research Assistant">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -494,8 +476,8 @@ $page = 'personnel-costs';
                                 </div></td>
                         </tr>
                         <tr class="not-deletable">
-                            <td>Ella Fitzgerald <small class="text-muted">Key Person</small></td>
-                            <td>Associate Provost <small class="text-muted">AA014</small></td>
+                            <td>Ella Fitzgerald <small class="text-muted">(Research Assistant)</small></td>
+                            <td>Associate Provost <small class="text-muted">(AA014)</small></td>
                             <td>Temporary</td>
                             <td class="text-right">$42,777</td>
                             <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
@@ -505,14 +487,9 @@ $page = 'personnel-costs';
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-horizontal" role="form">
-                                                    <div class="form-group">
-                                                        <label for="inputEmail3" class="col-sm-3 control-label">Role:</label>
+                                                   <div class="form-group"> <label for="inputEmail3" class="col-sm-3 control-label">Title:</label>
                                                         <div class="col-sm-9">
-                                                            <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
-                                                                <option value="COI">Co-Investigator</option>
-                                                                <option value="KP">Key Person</option>
-                                                                <option value="PI" selected="selected">Principal Investigator</option>
-                                                            </select>
+                                                             <input type="text" class="form-control" id="" value="Research Assistant">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -574,26 +551,38 @@ $page = 'personnel-costs';
                                     </div>
                                 </div></td>
                         </tr>
+                      
                         <tr class="not-deletable">
-                            <td>Billie Holiday <small class="text-muted">Key Person</small></td>
-                            <td>Associate Provost <small class="text-muted">AA014</small></td>
-                            <td>12 month</td>
-                            <td class="text-right">$115,373</td>
+                            <td>TBA Research </td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td >&nbsp;</td>
                             <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
                                     <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -808px;top: 26px;width: 890px;padding:15px; background:#fcf8e3;">
-                                        <p class="lead">Billie Holiday </p>
+                                        <p class="lead">TBA Research </p>
                                         <hr>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-horizontal" role="form">
-                                                    <div class="form-group">
-                                                        <label for="inputEmail3" class="col-sm-3 control-label">Role:</label>
+                                                
+                                                
+                                                  <div class="form-group">
+                                                        <label for="inputPassword3" class="col-sm-3 control-label">Person:</label>
                                                         <div class="col-sm-9">
-                                                            <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
-                                                                <option value="COI">Co-Investigator</option>
-                                                                <option value="KP">Key Person</option>
-                                                                <option value="PI" selected="selected">Principal Investigator</option>
-                                                            </select>
+                                                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
+                                                                <div class="input-group">
+                                                                    <input id="u11k8c4j_control" type="text" name="field3" value="" size="30" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
+                                                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-search" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    <div class="form-group"> <label for="inputEmail3" class="col-sm-3 control-label">Title:</label>
+                                                        <div class="col-sm-9">
+                                                             <input type="text" class="form-control" id="" value="">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -601,7 +590,7 @@ $page = 'personnel-costs';
                                                         <div class="col-sm-9">
                                                             <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
                                                                 <div class="input-group">
-                                                                    <input id="u11k8c4j_control" type="text" name="field3" value="Associate Provost (AA014)" size="30" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
+                                                                    <input id="u11k8c4j_control" type="text" name="field3" value="" size="30" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
                                                                     <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-search" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
                                                             </div>
                                                         </div>
@@ -615,7 +604,7 @@ $page = 'personnel-costs';
                                                                 <option value="3">9M DURATION</option>
                                                                 <option value="4">10M DURATION</option>
                                                                 <option value="5">11M DURATION</option>
-                                                                <option value="6" selected="selected">12M DURATION</option>
+                                                                <option value="6">12M DURATION</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -624,7 +613,7 @@ $page = 'personnel-costs';
                                                         <div class="col-sm-9">
                                                             <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
                                                                 <div class="input-group">
-                                                                    <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
+                                                                    <input id="u11k8c4j_control" type="text" name="field3" value="" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
                                                                     <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
                                                             </div>
                                                         </div>
@@ -634,7 +623,7 @@ $page = 'personnel-costs';
                                                         <div class="col-sm-9">
                                                             <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
                                                                 <div class="input-group">
-                                                                    <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
+                                                                    <input id="u11k8c4j_control" type="text" name="field3" value="" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
                                                                     <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
                                                             </div>
                                                         </div>
@@ -642,7 +631,7 @@ $page = 'personnel-costs';
                                                     <div class="form-group">
                                                         <label for="inputPassword3" class="col-sm-3 control-label">Base Salary:</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                                                            <input type="text" class="form-control" id="inputPassword3" value="">
                                                         </div>
                                                     </div>
                                                     <hr>
@@ -655,6 +644,8 @@ $page = 'personnel-costs';
                                     </div>
                                 </div></td>
                         </tr>
+                        
+                        
                     </tbody>
                 </table>
                 <a href="#" class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#modal-add-personnel"><span aria-hidden="true" class="icon-plus"></span> Add More People</a><br>
@@ -721,6 +712,7 @@ $page = 'personnel-costs';
 <?php include ('includes/modal-budget-add-personnel.php') ?>
 <?php include ('includes/modal-budget-add-personnel1.php') ?>
 <?php include ('includes/modal-budget-add-personnel1-results.php') ?>
+<?php include ('includes/modal-budget-add-personnel1-results-tbn.php') ?>
     
 
 

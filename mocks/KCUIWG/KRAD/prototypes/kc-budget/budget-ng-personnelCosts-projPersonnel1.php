@@ -181,11 +181,7 @@ $page = 'personnel-costs';
                                                     <div class="form-group">
                                                         <label for="inputEmail3" class="col-sm-3 control-label">Role:</label>
                                                         <div class="col-sm-9">
-                                                            <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
-                                                                <option value="COI">Co-Investigator</option>
-                                                                <option value="KP">Key Person</option>
-                                                                <option value="PI" selected="selected">Principal Investigator</option>
-                                                            </select>
+                                                            <p class="form-control-static">Principle Investigator</p>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -248,8 +244,8 @@ $page = 'personnel-costs';
                                 </div></td>
                         </tr>
                         <tr class="not-deletable">
-                            <td>John Coltrane <small class="text-muted">Co-PI</small></td>
-                            <td>Dean/Faculty <small class="text-muted">AA042</small></td>
+                            <td>John Coltrane <small class="text-muted">(Co-PI)</small></td>
+                            <td>Dean/Faculty <small class="text-muted">(AA042)</small></td>
                             <td>12 month</td>
                             <td class="text-right">$163,771</td>
                             <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
@@ -262,11 +258,7 @@ $page = 'personnel-costs';
                                                     <div class="form-group">
                                                         <label for="inputEmail3" class="col-sm-3 control-label">Role:</label>
                                                         <div class="col-sm-9">
-                                                            <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
-                                                                <option value="COI">Co-Investigator</option>
-                                                                <option value="KP">Key Person</option>
-                                                                <option value="PI" selected="selected">Principal Investigator</option>
-                                                            </select>
+                                                           <p class="form-control-static">Co-Investigator</p>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -392,6 +384,7 @@ $page = 'personnel-costs';
 <?php include ('includes/modal-budget-add-personnel.php') ?>
 <?php include ('includes/modal-budget-add-personnel1.php') ?>
 <?php include ('includes/modal-budget-add-personnel1-results.php') ?>
+<?php include ('includes/modal-budget-add-personnel1-results-tbn.php') ?>
     
 
 <!-- MODAL BUDGET VERSIONS -->
