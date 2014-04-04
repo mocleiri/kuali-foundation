@@ -166,7 +166,7 @@ $section = '';
                         <h4>Assign Non-Personnel</h4>
                         <div class="well " style="margin-top:15px;">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">Object Code Name</label>
                                         <select class="form-control">
@@ -177,19 +177,19 @@ $section = '';
                                         </select>
                                         <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>--></div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">Description</label>
                                         <input type="text" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">Quantity</label>
                                         <input type="text" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">Total Base Cost</label>
                                         <input type="text" class="form-control" placeholder="0.00">
