@@ -7,7 +7,7 @@ function check_args {
     MODE=$MODE
   else
     echo "MODE must be one of min/thin/full"
-    usage()
+    exit 1
   fi
   
 }
