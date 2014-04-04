@@ -9,8 +9,6 @@ function check_args {
     echo "MODE must be one of min/thin/full"
     usage()
   fi
-fi
-  
   
 }
 
