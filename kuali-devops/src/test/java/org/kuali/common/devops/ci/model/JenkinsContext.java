@@ -34,7 +34,7 @@ public final class JenkinsContext {
 		private Tags.Name name;
 		private Tags.Stack stack;
 		private Region region = Region.getRegion(Regions.DEFAULT_REGION);
-		private BackupMode backupMode;
+		private BackupMode backupMode = BackupMode.THIN;
 
 		public Builder withBackupMode(BackupMode backupMode) {
 			return withBackupMode(backupMode);
