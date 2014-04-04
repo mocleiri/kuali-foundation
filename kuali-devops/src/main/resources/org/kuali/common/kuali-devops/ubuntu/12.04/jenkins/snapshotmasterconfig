@@ -83,7 +83,7 @@ source $MY_DIR/../common/aws.sh
 BUCKET=maven.kuali.org
 PREFIX=private
 
-TAR_DIR=/tmp/master.tar.gz
+TAR_DIR=/tmp
 TAR_FILE=$TAR_DIR/master.tar.gz
 create_tar_file
 
