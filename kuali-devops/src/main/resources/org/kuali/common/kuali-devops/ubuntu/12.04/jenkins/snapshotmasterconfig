@@ -84,7 +84,7 @@ BUCKET=maven.kuali.org
 PREFIX=private
 
 TAR_DIR=/tmp
-TAR_FILE=$TAR_DIR/master.tar.gz
+TAR_FILE=$TAR_DIR/master-$STACK-$MODE.tar.gz
 create_tar_file
 
 M2_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --repo=$BUCKET/$PREFIX --type=$TYPE --classifier=$CLASSIFIER)
