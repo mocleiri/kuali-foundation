@@ -71,6 +71,9 @@ GPG_PASSPHRASE=$3
 
 check_args
 
+# Import the credentials for Kuali Foundation
+source $MY_DIR/aws.sh
+
 JDK_LEVEL=${JDK:3:1}
 GROUP_ID=com.oracle
 ARTIFACT_ID=$JDK
