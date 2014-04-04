@@ -184,5 +184,7 @@ $section = '';
 
 <!-- MODAL -- budget open propsal -->
 <?php include ('includes/modal-budget-open-prop.php') ?>
+<!-- MODAL BUDGET VERSIONS -->
+<?php include ('includes/modal-budget-versions.php') ?>
 </body>
 </html>

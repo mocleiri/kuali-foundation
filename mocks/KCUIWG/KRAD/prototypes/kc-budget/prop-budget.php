@@ -146,7 +146,7 @@ $section = '';
                     </div>
                     
                     <!-- /Modal -->
-                    
+                    <!-- BUDGET VERSIONS -->
                     <table id="u569ish_line0" class="table table-condensed table-bordered" role="presentation">
                         <tbody>
                             <tr>
@@ -250,7 +250,7 @@ $section = '';
                             </tr>
                         </tbody>
                     </table>
-                    
+                        <!-- //BUDGET VERSIONS -->
                     <!-- Modal -->
                     <div class="modal fade" id="copyNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -465,32 +465,36 @@ $section = '';
 </script> 
 <script type="text/javascript" src="../../themes/kboot/scripts/global.functions.js"></script>
 <style type="text/css">
- td:nth-child(2){min-width:160px;}
+ #u569ish_line0  td:nth-child(2){min-width:160px;}
  small{display:none;}
     .showMe small { display:inline;}
 </style>
 <script>
 
-jQuery(document).ready(function() {
 
-
-    var $radioButtons = $('input[type="radio"]');
+(function($){
+    var $radioButtons = $('#u569ish_line0  input[type="radio"]');
     $radioButtons.click(function() {
-
         $radioButtons.each(function() {
             $(this).parent().toggleClass("success", this.checked);
-            //$(this).append( " <small>(for submission)</small>" );
-
         });
-        $("td").removeClass("showMe");
+       $("#u569ish_line0  td").removeClass("showMe");
        $(".success").next().addClass("showMe");
 
 
     });
-});
+}(jQuery))
+
+
 </script> 
 
 <!-- // end scripts --> 
+
+
+        
+        <a  class="uif-actionLink" data-toggle="modal" data-target="#modal-budget-versions"><span class="icon-eye"></span>Budget Versions</a>
+        -->
+
 
 <!-- Modal -->
 <div class="modal fade" id="switchdoc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
