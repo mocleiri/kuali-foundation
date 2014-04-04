@@ -82,3 +82,19 @@ chmod 755 $OLD_M2_FILENAME
 
 # execute the bin file to unpack the distribution
 ./$OLD_M2_FILENAME > /dev/null
+
+# change 1.7.0_51 -> 1.7.0-u51
+mv $OLD_UNPACK_DIR $NEW_UNPACK_DIR
+
+# don't need any of the zipped up source code
+rm -f $NEW_UNPACK_DIR/*src.zip
+
+# Copy tools.jar into the jar dir (AppDynamics is unable to provide detailed heap statistics without this)
+cp $NEW_UNPACK_DIR/lib/tools.jar $NEW_UNPACK_DIR/jre/lib/ext/tools.jar
+
+# Create a tar.gz from the 1.7.0-u51 directory
+tar --gzip --create --file $NEW_M2_FILENAME $NEW_UNPACK_DIR
+
+# Remove the 1.7.0-u51 directory
+rm -rf $NEW_UNPACK_DIR
+
