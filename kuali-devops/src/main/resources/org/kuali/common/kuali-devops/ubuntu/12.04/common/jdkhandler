@@ -1,0 +1,51 @@
+#!/bin/bash
+
+MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+ME=$(basename $0)
+source $MY_DIR/functions.sh
+
+usage() { echo "Usage: $ME [-h --help] [-q --quiet] jdk6/jdk7/jdk8 u45/u51/u0 b06/b13/b132 password" 1>&2; exit 1; }
+
+QUIET=false
+CLASSIFIER=linux-x64
+COOKIES=$HOME/cookies.txt
+
+ARGS=$(getopt --options hqc:t: --longoptions "help,quiet" --name "$ME" -- "$@");
+if [ $? -ne 0 ]; then usage; fi
+eval set -- "$ARGS";
+while true; do
+  case "$1" in
+    -h|--help)
+      usage;
+      shift;
+      ;;
+    -q|--quiet)
+      QUIET=true;
+      shift;
+      ;;
+    --)
+      shift;
+      break;
+      ;;
+  esac
+done
+
+JDK=$1
+UPDATE=$2
+BUILD=$3
+GPG_PASSPHRASE=$4
+
+check_not_blank JDK $JDK
+check_not_blank UPDATE $UPDATE
+check_not_blank BUILD $BUILD
+check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
+
+QUIET_FLAG=""
+if [ "$QUIET" == "true" ]; then
+  QUIET_FLAG="-q"
+fi
+
+
+$MY_DIR/jdkget $QUIET_FLAG $JDK $UPDATE $BUILD
+$MY_DIR/jdkfix $QUIET_FLAG $JDK $UPDATE
+$MY_DIR/jdkput $QUIET_FLAG $JDK $UPDATE $GPG_PASSPHRASE
