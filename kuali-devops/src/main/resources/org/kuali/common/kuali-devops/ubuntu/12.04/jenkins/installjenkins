@@ -98,7 +98,7 @@ function install_plugins {
   # supported plugins (in alphabetical order)
   install_plugin build-pipeline-plugin 1.4.2
 
-  # We are using a fork of the cas-plugin to work around issues with supplying group/role information correctly from KIS and CAS
+  # We are using a fork of the cas-plugin to work around issues with the infrastructure team being unable to correctly supply group/role information
   install_cas_plugin
 
   install_plugin credentials           1.10
