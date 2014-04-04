@@ -240,8 +240,8 @@ function touch_subversion_repos {
 function setup_svn_ppa {
   SVN_PPA_PUBLIC_KEY=jA0ECQMCCfWJisNWIUC+0ukBAvmXP35LPY+w/6qVvuM2n0+78n5WIo0qUZF8vHw3lmbaO6GKonSAPf0N+/6r9MHpCijHuGBMwgj8LOFvfhoehg2uNpTaWYQKBq4DJVJ7XmRQu0pdLDO/1B8cKsGSRWlfVdRNZN8QI/bI2dd8B17+X9Xlge/7HxSTI4FQ1gziuzKBLRiyqSna6MtxSFHFTEOCh5wCFB4McrV1n7Yb+IsgqPj2ajot0UGAcjdvkO4yL3sI+iBz+rN9Qbc31zT47QBO1+XhToOzg7JNOlBYwVuiZWMLYbliJ1nEVYo1UHKVUFl9MKHnotT7iG7TavlisVxHbo479TqinNvyTmEHM5q0VKr7gQ151wuTgs7zbON6I3hzMemue7LWyYNkB2S3u3SfjNxEC1BtubAC+7TznnQ5aK/PSF4E5nWD6GU2Db+ad2LbQBn1rCT1yAo7ynZkb0mdvJ9qHZ1M0p8hi6PxueIhskDXurC9qXNegDpfeTiSKljLQG959w2dPTPdU5pI/lTwfqt+74xLk7raUjy9ghbIVvvKP4bQBrXrN2f8bXhAT/Ng5VWyWc4rNwv4LIfJOLsEwMj1N5C0rX5m43BiJUS4Y5XuoXL130W6ZFiRvWCgkAH8otR8bVlBqWdiJiRGc4INPmkueIOkb9M/V6iK/le/nk4xWWrunWujG+lSW0SadB1bTIyMJXyVOcE4lWgB8EJA4fnDzq2I4ehaQoN1FQ==
   SVN_PPA_PUBLIC_KEY=$(decrypt $SVN_PPA_PUBLIC_KEY $GPG_PASSPHRASE)
-  execute_quietly "echo -n $SVN_PPA_PUBLIC_KEY > /tmp/svn_ppa.pub"
-  execute_quietly "apt-key add /tmp/svn_ppa.pub" 
+  echo -n $SVN_PPA_PUBLIC_KEY > /tmp/svn_ppa.pub
+  apt-key add /tmp/svn_ppa.pub 
 }
 
 
