@@ -301,7 +301,6 @@ execute_quietly "mkdir -p $FIREFOX_BASEDIR"
 configure_secrets
 setup_svn_ppa
 install_packages
-exit 1
 install_maven 3.0.5 30
 install_maven 3.1.0 31
 install_maven 3.2.1 32
