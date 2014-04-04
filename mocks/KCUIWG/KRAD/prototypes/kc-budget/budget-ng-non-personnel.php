@@ -261,81 +261,37 @@ $section = '';
                     </div>
                     <div class="tab-pane" id="p2">
                         <h3 class="">Period 2 <small>(1/12/15 - 1/11/16)</small></h3>
-                        <h4>Assign Personnel</h4>
+                        <h4>Assign  Non-personnel</h4>
                         <div class="well " style="margin-top:15px;">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="">Person</label>
-                                        <select class="form-control">
+                                        <label for="label">Object Code Name</label>
+                                        <select name="select" class="form-control">
                                             <option value="">select</option>
-                                            <option>Ward Cleaver</option>
-                                            <option>John Coltrane</option>
-                                            <option>Stan Getz</option>
-                                            <option>Dave Brubeck</option>
-                                            <option>Ella Fitzgerald</option>
-                                            <option>Billie Holiday</option>
+                                            <option>Equipment - Not MTDC</option>
+                                            <option>Equipment Rental - Not MTDC</option>
+                                            <option>Travel Expenses</option>
                                         </select>
-                                        <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>--></div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="">Object Code</label>
-                                        <select class="form-control">
-                                            <option value="">select</option>
-                                            <option value="400255">Administrative Staff - Off</option>
-                                            <option value="400250">Administrative Staff - On</option>
-                                            <option value="421568">CWSP Credit - Not MTDC</option>
-                                            <option value="400550">Electronic Assembly - On</option>
-                                            <option value="400654">Exempt Technical - On</option>
-                                            <option value="400135">Faculty Emeriti</option>
-                                            <option value="400136">Faculty Retired Non-Tenured - On</option>
-                                            <option value="400105">Faculty Salaires Non-Tenured - Off</option>
-                                            <option value="400040">Faculty Salaries Non-Tenured - On</option>
-                                            <option value="400090">Faculty Salaries Tenured - Off</option>
-                                            <option value="400025">Faculty Salaries Tenured - On</option>
-                                            <option value="400315">Fellows - Non-Student- Not MTDC</option>
-                                            <option value="400700">Graduate Student Staff - On</option>
-                                            <option value="400452">Hourly Personnel - Off</option>
-                                            <option value="400450">Hourly Personnel - On</option>
-                                            <option value="400552">Mechanical Assembly - On</option>
-                                            <option value="400756">MIT Students - Off</option>
-                                            <option value="400754">MIT Students - On</option>
-                                            <option value="400155">Other Academic Staff - Off</option>
-                                            <option value="400140">Other Academic Staff - On</option>
-                                            <option value="400390">Post-Doctoral Staff</option>
-                                            <option value="400365">Program Manager</option>
-                                            <option value="400370">Project Engineering Staff - On</option>
-                                            <option value="400601">Project Support Staff - Off</option>
-                                            <option value="400600">Project Support Staff - On</option>
-                                            <option value="400556">Quality Control - On</option>
-                                            <option value="400708">Research Asst - Off</option>
-                                            <option value="400706">Research Asst - On</option>
-                                            <option value="400355">Research Staff - Off</option>
-                                            <option value="400350">Research Staff - On</option>
-                                            <option value="400115">Summer - Other Academic - Off</option>
-                                            <option value="400070">Summer Faculty - Off</option>
-                                            <option value="400005">Summer Faculty - On</option>
-                                            <option value="400050">Summer Other Academic - On</option>
-                                            <option value="420262">Temporary Help</option>
-                                            <option value="400768">Undergrad S&amp;W UROP - Off</option>
-                                            <option value="400770">Undergrad S&amp;W UROP - On</option>
-                                        </select>
+                                        <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>-->
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">Group</label>
-                                        <small class="text-muted"> (optional)</small>
-                                        <select class="form-control">
-                                            <option value="">select</option>
-                                            <option>My Custom Group 1</option>
-                                            <option>My Custom Group 2</option>
-                                            <option>My Custom Group 3</option>
-                                            <option>My Custom Group 4</option>
-                                            <option>My Custom Group 5</option>
-                                            <option>Create New Group...</option>
-                                        </select>
+                                        <label for="label">Description</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="label">Quantity</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="label">Total Base Cost</label>
+                                        <input type="text" class="form-control" placeholder="0.00">
                                     </div>
                                 </div>
                             </div>
@@ -346,81 +302,37 @@ $section = '';
                     </div>
                     <div class="tab-pane" id="p3">
                         <h3 class="">Period 3 <small>(1/12/16 - 1/11/17)</small></h3>
-                        <h4>Assign Personnel</h4>
+                        <h4>Assign  Non-personnel</h4>
                         <div class="well " style="margin-top:15px;">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="">Person</label>
-                                        <select class="form-control">
+                                        <label for="label">Object Code Name</label>
+                                        <select name="select2" class="form-control">
                                             <option value="">select</option>
-                                            <option>Ward Cleaver</option>
-                                            <option>John Coltrane</option>
-                                            <option>Stan Getz</option>
-                                            <option>Dave Brubeck</option>
-                                            <option>Ella Fitzgerald</option>
-                                            <option>Billie Holiday</option>
+                                            <option>Equipment - Not MTDC</option>
+                                            <option>Equipment Rental - Not MTDC</option>
+                                            <option>Travel Expenses</option>
                                         </select>
-                                        <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>--></div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="">Object Code</label>
-                                        <select class="form-control">
-                                            <option value="">select</option>
-                                            <option value="400255">Administrative Staff - Off</option>
-                                            <option value="400250">Administrative Staff - On</option>
-                                            <option value="421568">CWSP Credit - Not MTDC</option>
-                                            <option value="400550">Electronic Assembly - On</option>
-                                            <option value="400654">Exempt Technical - On</option>
-                                            <option value="400135">Faculty Emeriti</option>
-                                            <option value="400136">Faculty Retired Non-Tenured - On</option>
-                                            <option value="400105">Faculty Salaires Non-Tenured - Off</option>
-                                            <option value="400040">Faculty Salaries Non-Tenured - On</option>
-                                            <option value="400090">Faculty Salaries Tenured - Off</option>
-                                            <option value="400025">Faculty Salaries Tenured - On</option>
-                                            <option value="400315">Fellows - Non-Student- Not MTDC</option>
-                                            <option value="400700">Graduate Student Staff - On</option>
-                                            <option value="400452">Hourly Personnel - Off</option>
-                                            <option value="400450">Hourly Personnel - On</option>
-                                            <option value="400552">Mechanical Assembly - On</option>
-                                            <option value="400756">MIT Students - Off</option>
-                                            <option value="400754">MIT Students - On</option>
-                                            <option value="400155">Other Academic Staff - Off</option>
-                                            <option value="400140">Other Academic Staff - On</option>
-                                            <option value="400390">Post-Doctoral Staff</option>
-                                            <option value="400365">Program Manager</option>
-                                            <option value="400370">Project Engineering Staff - On</option>
-                                            <option value="400601">Project Support Staff - Off</option>
-                                            <option value="400600">Project Support Staff - On</option>
-                                            <option value="400556">Quality Control - On</option>
-                                            <option value="400708">Research Asst - Off</option>
-                                            <option value="400706">Research Asst - On</option>
-                                            <option value="400355">Research Staff - Off</option>
-                                            <option value="400350">Research Staff - On</option>
-                                            <option value="400115">Summer - Other Academic - Off</option>
-                                            <option value="400070">Summer Faculty - Off</option>
-                                            <option value="400005">Summer Faculty - On</option>
-                                            <option value="400050">Summer Other Academic - On</option>
-                                            <option value="420262">Temporary Help</option>
-                                            <option value="400768">Undergrad S&amp;W UROP - Off</option>
-                                            <option value="400770">Undergrad S&amp;W UROP - On</option>
-                                        </select>
+                                        <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>-->
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">Group</label>
-                                        <small class="text-muted"> (optional)</small>
-                                        <select class="form-control">
-                                            <option value="">select</option>
-                                            <option>My Custom Group 1</option>
-                                            <option>My Custom Group 2</option>
-                                            <option>My Custom Group 3</option>
-                                            <option>My Custom Group 4</option>
-                                            <option>My Custom Group 5</option>
-                                            <option>Create New Group...</option>
-                                        </select>
+                                        <label for="label">Description</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="label">Quantity</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="label">Total Base Cost</label>
+                                        <input type="text" class="form-control" placeholder="0.00">
                                     </div>
                                 </div>
                             </div>
@@ -431,81 +343,37 @@ $section = '';
                     </div>
                     <div class="tab-pane" id="p4">
                         <h3 class="">Period 4 <small>(1/12/17 - 1/11/18)</small></h3>
-                        <h4>Assign Personnel</h4>
+                        <h4>Assign  Non-personnel</h4>
                         <div class="well " style="margin-top:15px;">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="">Person</label>
-                                        <select class="form-control">
+                                        <label for="label">Object Code Name</label>
+                                        <select name="select3" class="form-control">
                                             <option value="">select</option>
-                                            <option>Ward Cleaver</option>
-                                            <option>John Coltrane</option>
-                                            <option>Stan Getz</option>
-                                            <option>Dave Brubeck</option>
-                                            <option>Ella Fitzgerald</option>
-                                            <option>Billie Holiday</option>
+                                            <option>Equipment - Not MTDC</option>
+                                            <option>Equipment Rental - Not MTDC</option>
+                                            <option>Travel Expenses</option>
                                         </select>
-                                        <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>--></div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="">Object Code</label>
-                                        <select class="form-control">
-                                            <option value="">select</option>
-                                            <option value="400255">Administrative Staff - Off</option>
-                                            <option value="400250">Administrative Staff - On</option>
-                                            <option value="421568">CWSP Credit - Not MTDC</option>
-                                            <option value="400550">Electronic Assembly - On</option>
-                                            <option value="400654">Exempt Technical - On</option>
-                                            <option value="400135">Faculty Emeriti</option>
-                                            <option value="400136">Faculty Retired Non-Tenured - On</option>
-                                            <option value="400105">Faculty Salaires Non-Tenured - Off</option>
-                                            <option value="400040">Faculty Salaries Non-Tenured - On</option>
-                                            <option value="400090">Faculty Salaries Tenured - Off</option>
-                                            <option value="400025">Faculty Salaries Tenured - On</option>
-                                            <option value="400315">Fellows - Non-Student- Not MTDC</option>
-                                            <option value="400700">Graduate Student Staff - On</option>
-                                            <option value="400452">Hourly Personnel - Off</option>
-                                            <option value="400450">Hourly Personnel - On</option>
-                                            <option value="400552">Mechanical Assembly - On</option>
-                                            <option value="400756">MIT Students - Off</option>
-                                            <option value="400754">MIT Students - On</option>
-                                            <option value="400155">Other Academic Staff - Off</option>
-                                            <option value="400140">Other Academic Staff - On</option>
-                                            <option value="400390">Post-Doctoral Staff</option>
-                                            <option value="400365">Program Manager</option>
-                                            <option value="400370">Project Engineering Staff - On</option>
-                                            <option value="400601">Project Support Staff - Off</option>
-                                            <option value="400600">Project Support Staff - On</option>
-                                            <option value="400556">Quality Control - On</option>
-                                            <option value="400708">Research Asst - Off</option>
-                                            <option value="400706">Research Asst - On</option>
-                                            <option value="400355">Research Staff - Off</option>
-                                            <option value="400350">Research Staff - On</option>
-                                            <option value="400115">Summer - Other Academic - Off</option>
-                                            <option value="400070">Summer Faculty - Off</option>
-                                            <option value="400005">Summer Faculty - On</option>
-                                            <option value="400050">Summer Other Academic - On</option>
-                                            <option value="420262">Temporary Help</option>
-                                            <option value="400768">Undergrad S&amp;W UROP - Off</option>
-                                            <option value="400770">Undergrad S&amp;W UROP - On</option>
-                                        </select>
+                                        <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>-->
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">Group</label>
-                                        <small class="text-muted"> (optional)</small>
-                                        <select class="form-control">
-                                            <option value="">select</option>
-                                            <option>My Custom Group 1</option>
-                                            <option>My Custom Group 2</option>
-                                            <option>My Custom Group 3</option>
-                                            <option>My Custom Group 4</option>
-                                            <option>My Custom Group 5</option>
-                                            <option>Create New Group...</option>
-                                        </select>
+                                        <label for="label">Description</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="label">Quantity</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="label">Total Base Cost</label>
+                                        <input type="text" class="form-control" placeholder="0.00">
                                     </div>
                                 </div>
                             </div>
@@ -516,81 +384,37 @@ $section = '';
                     </div>
                     <div class="tab-pane" id="p5">
                         <h3 class="">Period 5 <small>(1/12/18 - 1/11/19)</small></h3>
-                        <h4>Assign Personnel</h4>
+                        <h4>Assign  Non-personnel</h4>
                         <div class="well " style="margin-top:15px;">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="">Person</label>
-                                        <select class="form-control">
+                                        <label for="label">Object Code Name</label>
+                                        <select name="select4" class="form-control">
                                             <option value="">select</option>
-                                            <option>Ward Cleaver</option>
-                                            <option>John Coltrane</option>
-                                            <option>Stan Getz</option>
-                                            <option>Dave Brubeck</option>
-                                            <option>Ella Fitzgerald</option>
-                                            <option>Billie Holiday</option>
+                                            <option>Equipment - Not MTDC</option>
+                                            <option>Equipment Rental - Not MTDC</option>
+                                            <option>Travel Expenses</option>
                                         </select>
-                                        <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>--></div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="">Object Code</label>
-                                        <select class="form-control">
-                                            <option value="">select</option>
-                                            <option value="400255">Administrative Staff - Off</option>
-                                            <option value="400250">Administrative Staff - On</option>
-                                            <option value="421568">CWSP Credit - Not MTDC</option>
-                                            <option value="400550">Electronic Assembly - On</option>
-                                            <option value="400654">Exempt Technical - On</option>
-                                            <option value="400135">Faculty Emeriti</option>
-                                            <option value="400136">Faculty Retired Non-Tenured - On</option>
-                                            <option value="400105">Faculty Salaires Non-Tenured - Off</option>
-                                            <option value="400040">Faculty Salaries Non-Tenured - On</option>
-                                            <option value="400090">Faculty Salaries Tenured - Off</option>
-                                            <option value="400025">Faculty Salaries Tenured - On</option>
-                                            <option value="400315">Fellows - Non-Student- Not MTDC</option>
-                                            <option value="400700">Graduate Student Staff - On</option>
-                                            <option value="400452">Hourly Personnel - Off</option>
-                                            <option value="400450">Hourly Personnel - On</option>
-                                            <option value="400552">Mechanical Assembly - On</option>
-                                            <option value="400756">MIT Students - Off</option>
-                                            <option value="400754">MIT Students - On</option>
-                                            <option value="400155">Other Academic Staff - Off</option>
-                                            <option value="400140">Other Academic Staff - On</option>
-                                            <option value="400390">Post-Doctoral Staff</option>
-                                            <option value="400365">Program Manager</option>
-                                            <option value="400370">Project Engineering Staff - On</option>
-                                            <option value="400601">Project Support Staff - Off</option>
-                                            <option value="400600">Project Support Staff - On</option>
-                                            <option value="400556">Quality Control - On</option>
-                                            <option value="400708">Research Asst - Off</option>
-                                            <option value="400706">Research Asst - On</option>
-                                            <option value="400355">Research Staff - Off</option>
-                                            <option value="400350">Research Staff - On</option>
-                                            <option value="400115">Summer - Other Academic - Off</option>
-                                            <option value="400070">Summer Faculty - Off</option>
-                                            <option value="400005">Summer Faculty - On</option>
-                                            <option value="400050">Summer Other Academic - On</option>
-                                            <option value="420262">Temporary Help</option>
-                                            <option value="400768">Undergrad S&amp;W UROP - Off</option>
-                                            <option value="400770">Undergrad S&amp;W UROP - On</option>
-                                        </select>
+                                        <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>-->
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">Group</label>
-                                        <small class="text-muted"> (optional)</small>
-                                        <select class="form-control">
-                                            <option value="">select</option>
-                                            <option>My Custom Group 1</option>
-                                            <option>My Custom Group 2</option>
-                                            <option>My Custom Group 3</option>
-                                            <option>My Custom Group 4</option>
-                                            <option>My Custom Group 5</option>
-                                            <option>Create New Group...</option>
-                                        </select>
+                                        <label for="label">Description</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="label">Quantity</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="label">Total Base Cost</label>
+                                        <input type="text" class="form-control" placeholder="0.00">
                                     </div>
                                 </div>
                             </div>
