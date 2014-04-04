@@ -81,7 +81,7 @@ else
   URL=$URL/$JDK_LEVEL$UPDATE-$BUILD/$FILENAME
 fi
 
-# Add a suffix to mark that this is direct from Oracle 
+# Add a suffix to mark that this is the original file downloaded directly from Oracle 
 CLASSIFIER=$CLASSIFIER-original
 
 M2_LOCAL_PATH=$($MY_DIR/m2path $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE)
