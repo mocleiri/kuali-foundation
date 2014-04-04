@@ -42,7 +42,7 @@ KEY=$5
 
 check_args
 
-# expire things 15 minutes from now
+# the signature we create is only good for the next 15 minutes
 EXPIRES=$(date +%s)
 EXPIRES=$(($EXPIRES + 900))
 
