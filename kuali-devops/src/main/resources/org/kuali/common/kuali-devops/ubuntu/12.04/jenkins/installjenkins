@@ -241,7 +241,7 @@ function configure_jenkins {
   local GROUP_ID=org.jenkins
   local ARTIFACT_ID=jenkins-master-backup
   local VERSION=$JENKINS_VERSION
-  local CLASSIFIER=$STACK-latest
+  local CLASSIFIER=$STACK-latest-thin
   local TYPE=tar.gz
   local PREFIX=private
   local BUCKET=maven.kuali.org
