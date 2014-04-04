@@ -238,6 +238,17 @@ function configure_build_slave_ami_job {
 function configure_jenkins {
 
   echo "configure -> jenkins"
+  local GROUP_ID=org.jenkins
+  local ARTIFACT_ID=jenkins-master-backup
+  local VERSION=$JENKINS_VERSION
+  local CLASSIFIER=$STACK-latest
+  local TYPE=tar.gz
+  local PREFIX=private
+  local BUCKET=maven.kuali.org
+  $MY_DIR/../common/m2download $QUIET_FLAG --prefix=$PREFIX --type=$TYPE --classifier=$CLASSIFIER $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION
+  
+  exit 1
+   
   JENKINS_CONFIG_DIR=$MY_DIR/../../../jenkins
   GPG_ENCRYPTED=$JENKINS_CONFIG_DIR/master.zip.gpg
   # zip of Jenkins config files from the .jenkins home dir
