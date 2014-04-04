@@ -99,8 +99,7 @@ $section = 'basics-proposalDetails';
     <div id="LabsProposal" class="clearfix uif-formView" data-role="View" style="margin-top: 75px;"> 
         <!-- BREADCRUMBS --> 
         <!-- VIEW HEADER --> 
-        
-        <!-- VIEW HEADER -->
+     
         <?php include('includes/uif-viewHeader-pd.php') ?>
         <!-- // VIEW HEADER  --> 
         
@@ -330,6 +329,37 @@ $section = 'basics-proposalDetails';
 <?php include('includes/footer-scripts.php') ?>
 
 <!-- Modal -->
+
+<div class="modal fade" id="switchdoc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Open Version</h4>
+            </div>
+            <div class="modal-body">
+                <p>You are about to open a budget document attached to this proposal document. Are you sure you want to do this?</p>
+                <small>
+                <label style="font-weight:normal">
+                    <input type="checkbox">
+                    Don't ask me this again </label>
+                </small> </div>
+            <div class="modal-footer"> <a href="" class="btn btn-default" data-dismiss="modal">Cancel</a> <a href="budget-ng-summary.php" class="btn btn-primary">Open Budget Document</a> </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- broken link replaced with the code above
+
+
 <div class="modal fade" id="switchdoc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -349,12 +379,11 @@ $section = 'basics-proposalDetails';
                     href="budget-periods.php" class="btn btn-primary">Open Budget Document</a></div>
         </div>
     </div>
-</div>
+</div>-->
 
 <!-- end Modal -->
 <!-- MODAL BUDGET VERSIONS -->
 <?php include ('includes/modal-budget-versions.php') ?>
- 
  
 </body>
 </html>
