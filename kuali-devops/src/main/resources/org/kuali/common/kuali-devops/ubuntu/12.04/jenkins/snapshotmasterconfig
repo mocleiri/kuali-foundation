@@ -12,18 +12,12 @@ function create_tar_file {
    execute_quietly "rm -rf /ssd/master.*"
    execute_quietly "cd /home/tomcat7"
 
-   # Config, but no jobs, build history or config history
-   local  EMPTY="--exclude=**/plugins/** --exclude=**/workspace/** --exclude=**/jobs/** --exclude=**/config-history/**"
-
    # Same thing as thin but no build history or config history
    local  MIN="--exclude=**/plugins/** --exclude=**/workspace/** --exclude=**/logs/slaves/** --exclude=**/config-history/** --exclude=**/builds/** --exclude=**/lastStable/** --exclude=**/lastSuccessful/**"
    
    # All config including config history and build history
    local THIN="--exclude=**/plugins/** --exclude=**/workspace/** --exclude=**/logs/slaves/**"
 
-   if [ $MODE == "empty" ]; then
-     execute_quietly "tar --gzip --verbose --create --file $TAR_FILE .jenkins $EMPTY"
-   fi
    if [ $MODE == "min" ]; then
      execute_quietly "tar --gzip --verbose --create --file $TAR_FILE .jenkins $MIN"
    fi
