@@ -8,10 +8,14 @@ jQuery(document).ready(function($) {
     /*
      * Editable rows in datatables
      * Requires: table tr td
+     *
      * Notes: 1) To prevent editing of a field, add .not-editable to the parent <td>
      *        2) Requires the icons .icon-save and .icon-edit
+     *
+     * Original: clrux
+     *
      * TODO:  1) Add column totaling
-     *        2) Get row highlighting for editing
+     * TODO:  2) Get row highlighting for editing
      */
 
 
@@ -37,7 +41,7 @@ jQuery(document).ready(function($) {
                     var current_value = $(this).text();
                     $(this).html('<input type="text" class="form-control input-sm" name="' + $(this).find('span').data('edit-name') + '" id="' + $(this).find('span').data('edit-id') + '" value="' + current_value + '" size="3" />');
 
-                    // If the data-edit-type is a date...
+                // If the data-edit-type is a date...
                 } else if ($(this).find('span').data('edit-type') == 'date') {
                     var current_value = $(this).text();
                     $(this).html('<input type="date" class="form-control input-sm" name="' + $(this).find('span').data('edit-name') + '" id="' + $(this).find('span').data('edit-id') + '" value="' + current_value + '" size="3" />');
@@ -69,8 +73,7 @@ jQuery(document).ready(function($) {
                     var current_value = $(this).text();
                     $(this).html('<textarea class="form-control input-sm" name="' + $(this).find('span').data('edit-name') + '" id="' + $(this).find('span').data('edit-id') + '">' + current_value + '</textarea>');
 
-                // If it's something else
-                // Skip it for now
+                // If it's something else, skip it for now
                 } else {
                     var current_value = $(this).text();
                     $(this).html('<input type="text" class="form-control input-sm" name="' + $(this).find('span').data('edit-name') + '" id="' + $(this).find('span').data('edit-id') + '" value="' + current_value + '" size="3" />');
@@ -143,7 +146,7 @@ jQuery(document).ready(function($) {
                     var new_value = '<span data-edit-type="input" data-edit-name="" data-edit-id="">' + $(this).find('input').val() + '</span>';
                     $(this).html(new_value);
 
-                    // If it's a date...
+                // If it's a date...
                 } else if ($(this).find('input').length > 0) {
                     var new_value = '<span data-edit-type="date" data-edit-name="" data-edit-id="">' + $(this).find('input').val() + '</span>';
                     $(this).html(new_value);
@@ -154,14 +157,9 @@ jQuery(document).ready(function($) {
                     var that = $(this);
                     var edit_type_options = [];
 
-//                    console.log(that.find('select>option[0]'));
-
                     $(that.find('select>option')).each(function() {
-//                        console.log($(this).text());
                         edit_type_options.push($(this).text());
                     });
-
-//                    console.log(edit_type_options);
 
                     var new_value = '<span data-edit-type="select" data-edit-type-options="' + edit_type_options + '" data-edit-name="" data-edit-id="">' + that.find('select option:selected').text() + '</span>';
                     that.html(new_value);
@@ -171,8 +169,7 @@ jQuery(document).ready(function($) {
                     var new_value = '<span data-edit-type="textarea" data-edit-name="" data-edit-id="">' + $(this).find('textarea').val() + '</span>';
                     $(this).html(new_value);
 
-                // If it's something else...
-                // Just skip it at this time
+                // If it's something else, skip it at this time
                 } else {
 
                 }
@@ -204,6 +201,8 @@ jQuery(document).ready(function($) {
      * Requires: krad.variables.js
      *           krad.widgets.js
      *           (and jQuery, of course)
+     *
+     * Original: clrux
      */
 
     setupSidebarNavMenu('uif_budget_navigation_menu', 'icon-angle-down', 'icon-angle-right');
@@ -212,6 +211,7 @@ jQuery(document).ready(function($) {
     /*
      * Select listener
      * This is specifically for the personnel addition modal
+     *
      * Original: thrclark
      * Update: clrux
      */
