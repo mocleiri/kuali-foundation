@@ -3,13 +3,8 @@ function check_args {
   check_not_blank MODE $MODE
   check_not_blank VERSION $VERSION
   check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
-  if [ $MODE == "min" ] || [ $MODE == "thin" ] || [ $MODE == "full" ]; then
-    MODE=$MODE
-  else
-    echo "MODE must be one of min/thin/full"
-    usage
-  fi
   
+  check_jenkins_mode
 }
 
 function create_tar_file {

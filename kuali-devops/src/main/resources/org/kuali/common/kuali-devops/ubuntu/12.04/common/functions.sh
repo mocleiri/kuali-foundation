@@ -226,3 +226,12 @@ function encrypt {
 function decrypt {
   echo -n "$1" | base64 --decode | gpg --batch --yes --passphrase "$2" --quiet --no-use-agent --decrypt
 }
+
+function check_jenkins_mode {
+  if [ $MODE == "min" ] || [ $MODE == "thin" ] || [ $MODE == "full" ]; then
+    MODE=$MODE
+  else
+    echo "MODE must be one of min/thin/full"
+    usage
+  fi
+}

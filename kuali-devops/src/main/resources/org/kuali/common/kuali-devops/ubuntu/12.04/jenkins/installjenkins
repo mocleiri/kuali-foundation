@@ -270,15 +270,19 @@ function check_args {
   check_not_blank FQDN $FQDN
   check_not_blank REGION $REGION
   check_not_blank STACK $STACK
+  check_not_blank MODE $MODE
   check_not_blank JENKINS_VERSION $JENKINS_VERSION
   check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
+  
+  check_jenkins_mode
+  
 }
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] fqdn region stack version password" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] fqdn region stack mode version password" 1>&2; exit 1; }
 
 QUIET=false
 while getopts hq flag; do
@@ -301,8 +305,9 @@ shift $(( OPTIND - 1 ));
 FQDN=$1
 REGION=$2
 STACK=$3
-JENKINS_VERSION=$4
-GPG_PASSPHRASE=$5
+MODE=$4
+JENKINS_VERSION=$5
+GPG_PASSPHRASE=$6
 
 check_args
 
