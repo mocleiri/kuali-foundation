@@ -238,6 +238,8 @@ function touch_subversion_repos {
 }
 
 function setup_svn_ppa {
+  echo "deb http://ppa.launchpad.net/svn/ppa/ubuntu precise main"     >> /etc/apt/sources.list 
+  echo "deb-src http://ppa.launchpad.net/svn/ppa/ubuntu precise main" >> /etc/apt/sources.list 
   apt-key add $MY_DIR/svn_ppa.pub 
 }
 
