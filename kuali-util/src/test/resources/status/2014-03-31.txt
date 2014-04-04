@@ -16,5 +16,33 @@ Tuesday
 - added logic to extract and automatically sync a backup of all configuration (including config-history and build history) to S3 each night
 - the size of that backup is too large to continue checking into Subversion like what is being done for the seed configuration
 - enhanced scripting to allow authenticated download of resources from S3 so large files no longer have to be encrypted with GPG when being uploaded in order to protect them
+- s3get / s3put
 - saves time both ways (upload and download)
 - weekly meeting with Jessica
+
+Wednesday
+---------
+- added m2s3get and m2s3put to simplify storing private maven based resources in S3
+- coordinated with KS on new CI details
+-- timing related to next release of LTS ubuntu (15 days from today)
+-- subversion 1.6 clients and how/when we'll move to 1.7
+-- extended discussion on overall CI setup
+-- test job Haroon added completed in 1/2 the time that it takes on current CI 
+
+
+Thursday
+--------
+
+- Rice 
+-- Call with Jessica - tar.gz, coordinate on email from OLE related to release
+
+- continued work on improving testci setup/configuration/flexibility
+- 
+
+Friday
+------
+
+- added min/thin/full modes to automated CI S3 synchronization routines
+- added support for these modes to the install scripts
+-  
+ 
