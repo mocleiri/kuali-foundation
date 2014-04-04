@@ -191,3 +191,28 @@ jQuery(document).ready(function($) {
     setupSidebarNavMenu('uif_budget_navigation_menu', 'icon-angle-down', 'icon-angle-right');
 
 });
+
+
+
+/*
+ * Javascript for TBN Personnel selection process
+ * thrclark
+ */
+
+
+$(window).load(function(){
+var Privileges = jQuery('#personType');
+var select = this.value;
+Privileges.change(function () {
+    if ($(this).val() == 'emp') {
+        $('.employee').show();
+    } else $('.employee').hide();
+    if ($(this).val() == 'nonemp') {
+        $('.nonemployee').show();
+    } else $('.nonemployee').hide();
+    if ($(this).val() == 'tbn') {
+        $('.tbn').show();
+    } else $('.tbn').hide();
+});
+});
+
