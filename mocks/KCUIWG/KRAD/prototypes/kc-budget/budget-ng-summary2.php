@@ -2,7 +2,6 @@
 $page = 'summary';
 $section = '';
 ?>
-
 <!DOCTYPE HTML>
 
 <html lang="en">
@@ -219,8 +218,8 @@ $section = '';
         </div>
         <!-- VIEW FOOTER -->
         <div id="u19v7dpm" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;">
-            <button id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;save&quot;}"> Save </button>
-            <button id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;saveContinue&quot;}"> Save and Continue </button>
+            <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save</button>
+            <a href="budget-ng-periods.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Save and Continue</a>
         </div>
         <!-- DIALOGS/Placeholders --> </div>
     <span id="formInfo">

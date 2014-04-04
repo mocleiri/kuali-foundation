@@ -883,9 +883,9 @@ $section = '';
             </main>
         </div>
         <!-- VIEW FOOTER -->
-        <div id="u19v7dpm" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer=true data-parent=LabsProposal style="position:fixed; left: 0; bottom: 0px;">
-            <a href="budget-ng-rates.php" id="ufuknm4" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Go back</a>
-            <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem" >Save</a>
+        <div id="u19v7dpm" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;">
+            <a href="budget-ng-periods-saved.php" id="ufuknm4" class="btn btn-default uif-primaryActionButton uif-boxLayoutHorizontalItem">Go back</a>
+            <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save</button>
             <a href="budget-ng-personnelCosts-projPersonnel1.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Save and Continue</a>
         </div>
         <!-- DIALOGS/Placeholders --></div>
