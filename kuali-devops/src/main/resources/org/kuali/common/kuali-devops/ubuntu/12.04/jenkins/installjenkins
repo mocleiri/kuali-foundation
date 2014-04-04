@@ -251,8 +251,6 @@ function configure_jenkins {
   
   execute_quietly "tar --extract --verbose --file $TAR_GZ --directory $TOMCAT_HOME"
   
-  exit 1
-  
   # Modify jenkins.model.JenkinsLocationConfiguration.xml with the proper dns value and admin email address
   configure_jenkins_location
   
