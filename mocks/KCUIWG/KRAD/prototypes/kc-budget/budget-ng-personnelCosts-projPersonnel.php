@@ -305,6 +305,9 @@ $page = 'personnel-costs';
   <!-- MODAL ADD PERSONNEL -->
 <?php include ('includes/modal-budget-add-personnel.php') ?>
     
+<!-- MODAL BUDGET VERSIONS -->
+<?php include ('includes/modal-budget-versions.php') ?>
+ 
  
 
 <!--

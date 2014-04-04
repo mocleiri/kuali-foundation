@@ -717,6 +717,9 @@ $page = 'personnel-costs';
 <?php include ('includes/modal-budget-open-prop.php') ?>
   <!-- MODAL ADD PERSONNEL -->
 <?php include ('includes/modal-budget-add-personnel.php') ?>
+	<!-- MODAL BUDGET VERSIONS -->
+	<?php include ('includes/modal-budget-versions.php') ?>
+ 
     
  
 <!--<div id="modal-add-personnel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" aria-labbeledby="create-new-title">

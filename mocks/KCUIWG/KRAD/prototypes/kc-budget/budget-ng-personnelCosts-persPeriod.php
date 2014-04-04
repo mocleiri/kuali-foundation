@@ -799,6 +799,9 @@ $page = 'personnel-assign';
     <?php include ('includes/modal-budget-settings.php') ?>
     <!-- MODAL -- budget open propsal -->
     <?php include ('includes/modal-budget-open-prop.php') ?>
+	<!-- MODAL BUDGET VERSIONS -->
+	<?php include ('includes/modal-budget-versions.php') ?>
+	
     <!-- Modal -->
     <div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">

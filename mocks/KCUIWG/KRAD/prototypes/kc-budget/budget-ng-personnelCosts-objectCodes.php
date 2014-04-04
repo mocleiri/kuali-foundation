@@ -207,7 +207,8 @@ $page = 'personnel-objects';
 
 <!-- MODAL -- budget open propsal -->
 <?php include ('includes/modal-budget-open-prop.php') ?>
-
+<!-- MODAL BUDGET VERSIONS -->
+<?php include ('includes/modal-budget-versions.php') ?>
 
 
 <!-- NO QUOTES AROUND ATTRIBUTES

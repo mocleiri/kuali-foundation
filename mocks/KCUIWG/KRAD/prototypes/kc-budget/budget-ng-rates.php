@@ -936,6 +936,9 @@ $section = '';
 
 <!-- MODAL -- budget open propsal -->
 <?php include ('includes/modal-budget-open-prop.php') ?>
+<!-- MODAL BUDGET VERSIONS -->
+<?php include ('includes/modal-budget-versions.php') ?>
+ 
 
 <!-- NO QUOTES
 <div class="modal fade" id="summary" tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true>
