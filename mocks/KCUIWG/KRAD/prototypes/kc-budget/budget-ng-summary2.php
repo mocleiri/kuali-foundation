@@ -95,7 +95,7 @@ $section = '';
                         <h2 class="uif-headerText"> <span class="uif-headerText-span">Budget Summary </span> </h2>
                     </div>
                 </header>
-                <div class="pull-right"> <a href="#"> <span class="icon-compass"></span> Guide Me</a></div>
+                <div class="pull-right"> <!-- <a href="#"><span class="icon-compass"></span> Guide Me</a> --></div>
                 <table class="table table-condensed credit-allocation">
                     <tbody>
                     <tr>
