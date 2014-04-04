@@ -155,8 +155,9 @@ public class SpinUpJenkinsMaster {
 			String common = getResource(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
 			String jenkins = getResource(basedir, pid, distro, distroVersion, "jenkins/installjenkins");
 			exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
-			exec(channel, jenkins, quietFlag, jenkinsMaster, jenkinsContext.getRegion().getName(), jenkinsContext.getStack().getTag().getValue(), "thin",
-					Constants.JENKINS_VERSION, gpgPassphrase);
+			String stack = jenkinsContext.getStack().getTag().getValue();
+			String backupMode = jenkinsContext.getBackupMode().name().toLowerCase();
+			exec(channel, jenkins, quietFlag, jenkinsMaster, jenkinsContext.getRegion().getName(), stack, backupMode, Constants.JENKINS_VERSION, gpgPassphrase);
 
 			// The spin up process should have given DNS enough time to settle down
 			info("Verifying SSH to -> [%s]", jenkinsMaster);
