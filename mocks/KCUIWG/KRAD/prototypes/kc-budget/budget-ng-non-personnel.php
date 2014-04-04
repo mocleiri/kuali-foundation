@@ -146,62 +146,460 @@ $section = '';
                         <h2 class="uif-headerText"><span class="uif-headerText-span">Non-Personnel Costs </span></h2>
                     </div>
                 </header>
+
                 <!--
                 <div class="pull-right"> <a href="#"> <span class="icon-compass"></span> Guide Me</a></div>
                 -->
-                <p class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">Add and configure non-personnel items for this budget period.</p>
+
+                <p id="u1iaxrzf" class="uif-message uif-boxLayoutVerticalItem clearfix">Add and configure non-personnel items for this budget period.</p>
                 <br>
-                <div class="uif-cssGridSection uif-boxLayoutVerticalItem clearfix">
-                    <div class="row">
-                        <div class="well">
+                <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+                    <li class="active"><a href="#p1" data-toggle="tab">Period 1 </a></li>
+                    <li class=""><a href="#p2" data-toggle="tab">Period 2</a></li>
+                    <li><a href="#p3" data-toggle="tab">Period 3</a></li>
+                    <li><a href="#p4" data-toggle="tab">Period 4</a></li>
+                    <li><a href="#p5" data-toggle="tab">Period 5</a></li>
+                </ul>
+                <div id="my-tab-content" class="tab-content">
+                    <div class="tab-pane active" id="p1">
+                        <h3 class="">Period 1 <small>(1/12/14 - 1/11/15)</small></h3>
+                        <h4>Assign Non-Personnel</h4>
+                        <div class="well " style="margin-top:15px;">
                             <div class="row">
-                                <div class="col-md-2">                                           
-                                    <p><b>Budget Period:</b></p>                                    
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Object Code Name</label>
+                                        <select class="form-control">
+                                            <option value="">select</option>
+                                            <option>Equipment - Not MTDC</option>
+                                            <option>Equipment Rental - Not MTDC</option>
+                                            <option>Travel Expenses</option>
+                                        </select>
+                                        <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>--></div>
                                 </div>
                                 <div class="col-md-4">
-                                    <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl" data-role="Control" data-control_for="u11k8c5e">
-                                        <option value="B">1: 01/01/2014 - 12/31/2015</option>
-                                    </select>
+                                    <div class="form-group">
+                                        <label for="">Description</label>
+                                        <input type="text" class="form-control">
+                                    </div>
                                 </div>
-                                <div class="col-md-1">                                           
-                                    <p><b>View:</b></p>                                    
-                                </div> 
-                                <div class="col-md-3">
-                                    <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl" data-role="Control" data-control_for="u11k8c5e">
-                                        <option value="B">Simple</option>
-                                    </select>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Quantity</label>
+                                        <input type="text" class="form-control">
+                                    </div>
                                 </div>
-                                <div class="col-md-2">                                           
-                                    <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Reload view</a>                                  
-                                </div> 
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Total Base Cost</label>
+                                        <input type="text" class="form-control" placeholder="0.00">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-right"><a href="#" type="submit" class="btn btn-primary btn-xs">Assign to Period 1</a></div>
+                            </div>
+                        </div>
+                        <h4 class="pull-left" >Assigned Non-personnel</h4>
+                        <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example1">
+                            <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for="u1qq592w">
+                                <h3 class="uif-headerText"><a data-role="disclosureLink" data-linkfor="facSalTen" href="#" id="u1qq592w_toggle" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span>Equipment</span></a></h3>
+                            </header>
+                            <div id="facSalTen" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style="">
+                                
+                                <table class="table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby="Demo-LightTableGroup1_lightTable_info">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
+ Field 1: : activate to sort column "><label id="urh9zx8" class="uif-label">Item</label></th>
+                                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
+ Field 4: : activate to sort column ascending">Description</th>
+                                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
+ Field 4: : activate to sort column ascending">Quantity</th>                                          
+                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
+ Field 4: : activate to sort column ">Total Base Cost</th>
+                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
+ Field 4: : activate to sort column ">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody role="alert" aria-live="polite" aria-relevant="all">
+                                        <tr class="not-deletable">
+                                            <td>Equipment - Not MTDC</td>
+                                            <td>Microscope</td>
+                                            <td>1</td>
+                                            <td class="text-right">$0.00</td>
+                                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span><span aria-hidden="true" class="icon-trash"></span></a></div></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                        <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example1">
+                            <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for="u1qq592w">
+                                <h3 class="uif-headerText"><a data-role="disclosureLink" data-linkfor="facSalTen" href="#" id="u1qq592w_toggle" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span>Travel</span></a></h3>
+                            </header>
+                            <div id="facSalTen" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style="">
+                                
+                            </div>
+                        </section>
+                        <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example1">
+                            <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for="u1qq592w">
+                                <h3 class="uif-headerText"><a data-role="disclosureLink" data-linkfor="facSalTen" href="#" id="u1qq592w_toggle" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span>Participant Support</span></a></h3>
+                            </header>
+                            <div id="facSalTen" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style="">
+                                
+                            </div>
+                        </section>
+                        <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example1">
+                            <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for="u1qq592w">
+                                <h3 class="uif-headerText"><a data-role="disclosureLink" data-linkfor="facSalTen" href="#" id="u1qq592w_toggle" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span>Other</span></a></h3>
+                            </header>
+                            <div id="facSalTen" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style="">
+                                
+                            </div>
+                        </section>
+                    </div>
+                    <div class="tab-pane" id="p2">
+                        <h3 class="">Period 2 <small>(1/12/15 - 1/11/16)</small></h3>
+                        <h4>Assign Personnel</h4>
+                        <div class="well " style="margin-top:15px;">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Person</label>
+                                        <select class="form-control">
+                                            <option value="">select</option>
+                                            <option>Ward Cleaver</option>
+                                            <option>John Coltrane</option>
+                                            <option>Stan Getz</option>
+                                            <option>Dave Brubeck</option>
+                                            <option>Ella Fitzgerald</option>
+                                            <option>Billie Holiday</option>
+                                        </select>
+                                        <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>--></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Object Code</label>
+                                        <select class="form-control">
+                                            <option value="">select</option>
+                                            <option value="400255">Administrative Staff - Off</option>
+                                            <option value="400250">Administrative Staff - On</option>
+                                            <option value="421568">CWSP Credit - Not MTDC</option>
+                                            <option value="400550">Electronic Assembly - On</option>
+                                            <option value="400654">Exempt Technical - On</option>
+                                            <option value="400135">Faculty Emeriti</option>
+                                            <option value="400136">Faculty Retired Non-Tenured - On</option>
+                                            <option value="400105">Faculty Salaires Non-Tenured - Off</option>
+                                            <option value="400040">Faculty Salaries Non-Tenured - On</option>
+                                            <option value="400090">Faculty Salaries Tenured - Off</option>
+                                            <option value="400025">Faculty Salaries Tenured - On</option>
+                                            <option value="400315">Fellows - Non-Student- Not MTDC</option>
+                                            <option value="400700">Graduate Student Staff - On</option>
+                                            <option value="400452">Hourly Personnel - Off</option>
+                                            <option value="400450">Hourly Personnel - On</option>
+                                            <option value="400552">Mechanical Assembly - On</option>
+                                            <option value="400756">MIT Students - Off</option>
+                                            <option value="400754">MIT Students - On</option>
+                                            <option value="400155">Other Academic Staff - Off</option>
+                                            <option value="400140">Other Academic Staff - On</option>
+                                            <option value="400390">Post-Doctoral Staff</option>
+                                            <option value="400365">Program Manager</option>
+                                            <option value="400370">Project Engineering Staff - On</option>
+                                            <option value="400601">Project Support Staff - Off</option>
+                                            <option value="400600">Project Support Staff - On</option>
+                                            <option value="400556">Quality Control - On</option>
+                                            <option value="400708">Research Asst - Off</option>
+                                            <option value="400706">Research Asst - On</option>
+                                            <option value="400355">Research Staff - Off</option>
+                                            <option value="400350">Research Staff - On</option>
+                                            <option value="400115">Summer - Other Academic - Off</option>
+                                            <option value="400070">Summer Faculty - Off</option>
+                                            <option value="400005">Summer Faculty - On</option>
+                                            <option value="400050">Summer Other Academic - On</option>
+                                            <option value="420262">Temporary Help</option>
+                                            <option value="400768">Undergrad S&amp;W UROP - Off</option>
+                                            <option value="400770">Undergrad S&amp;W UROP - On</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Group</label>
+                                        <small class="text-muted"> (optional)</small>
+                                        <select class="form-control">
+                                            <option value="">select</option>
+                                            <option>My Custom Group 1</option>
+                                            <option>My Custom Group 2</option>
+                                            <option>My Custom Group 3</option>
+                                            <option>My Custom Group 4</option>
+                                            <option>My Custom Group 5</option>
+                                            <option>Create New Group...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-right"><a href="#" type="submit" class="btn btn-primary btn-xs">Assign to Period 2</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="p3">
+                        <h3 class="">Period 3 <small>(1/12/16 - 1/11/17)</small></h3>
+                        <h4>Assign Personnel</h4>
+                        <div class="well " style="margin-top:15px;">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Person</label>
+                                        <select class="form-control">
+                                            <option value="">select</option>
+                                            <option>Ward Cleaver</option>
+                                            <option>John Coltrane</option>
+                                            <option>Stan Getz</option>
+                                            <option>Dave Brubeck</option>
+                                            <option>Ella Fitzgerald</option>
+                                            <option>Billie Holiday</option>
+                                        </select>
+                                        <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>--></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Object Code</label>
+                                        <select class="form-control">
+                                            <option value="">select</option>
+                                            <option value="400255">Administrative Staff - Off</option>
+                                            <option value="400250">Administrative Staff - On</option>
+                                            <option value="421568">CWSP Credit - Not MTDC</option>
+                                            <option value="400550">Electronic Assembly - On</option>
+                                            <option value="400654">Exempt Technical - On</option>
+                                            <option value="400135">Faculty Emeriti</option>
+                                            <option value="400136">Faculty Retired Non-Tenured - On</option>
+                                            <option value="400105">Faculty Salaires Non-Tenured - Off</option>
+                                            <option value="400040">Faculty Salaries Non-Tenured - On</option>
+                                            <option value="400090">Faculty Salaries Tenured - Off</option>
+                                            <option value="400025">Faculty Salaries Tenured - On</option>
+                                            <option value="400315">Fellows - Non-Student- Not MTDC</option>
+                                            <option value="400700">Graduate Student Staff - On</option>
+                                            <option value="400452">Hourly Personnel - Off</option>
+                                            <option value="400450">Hourly Personnel - On</option>
+                                            <option value="400552">Mechanical Assembly - On</option>
+                                            <option value="400756">MIT Students - Off</option>
+                                            <option value="400754">MIT Students - On</option>
+                                            <option value="400155">Other Academic Staff - Off</option>
+                                            <option value="400140">Other Academic Staff - On</option>
+                                            <option value="400390">Post-Doctoral Staff</option>
+                                            <option value="400365">Program Manager</option>
+                                            <option value="400370">Project Engineering Staff - On</option>
+                                            <option value="400601">Project Support Staff - Off</option>
+                                            <option value="400600">Project Support Staff - On</option>
+                                            <option value="400556">Quality Control - On</option>
+                                            <option value="400708">Research Asst - Off</option>
+                                            <option value="400706">Research Asst - On</option>
+                                            <option value="400355">Research Staff - Off</option>
+                                            <option value="400350">Research Staff - On</option>
+                                            <option value="400115">Summer - Other Academic - Off</option>
+                                            <option value="400070">Summer Faculty - Off</option>
+                                            <option value="400005">Summer Faculty - On</option>
+                                            <option value="400050">Summer Other Academic - On</option>
+                                            <option value="420262">Temporary Help</option>
+                                            <option value="400768">Undergrad S&amp;W UROP - Off</option>
+                                            <option value="400770">Undergrad S&amp;W UROP - On</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Group</label>
+                                        <small class="text-muted"> (optional)</small>
+                                        <select class="form-control">
+                                            <option value="">select</option>
+                                            <option>My Custom Group 1</option>
+                                            <option>My Custom Group 2</option>
+                                            <option>My Custom Group 3</option>
+                                            <option>My Custom Group 4</option>
+                                            <option>My Custom Group 5</option>
+                                            <option>Create New Group...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-right"><a href="#" type="submit" class="btn btn-primary btn-xs">Assign to Period 3</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="p4">
+                        <h3 class="">Period 4 <small>(1/12/17 - 1/11/18)</small></h3>
+                        <h4>Assign Personnel</h4>
+                        <div class="well " style="margin-top:15px;">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Person</label>
+                                        <select class="form-control">
+                                            <option value="">select</option>
+                                            <option>Ward Cleaver</option>
+                                            <option>John Coltrane</option>
+                                            <option>Stan Getz</option>
+                                            <option>Dave Brubeck</option>
+                                            <option>Ella Fitzgerald</option>
+                                            <option>Billie Holiday</option>
+                                        </select>
+                                        <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>--></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Object Code</label>
+                                        <select class="form-control">
+                                            <option value="">select</option>
+                                            <option value="400255">Administrative Staff - Off</option>
+                                            <option value="400250">Administrative Staff - On</option>
+                                            <option value="421568">CWSP Credit - Not MTDC</option>
+                                            <option value="400550">Electronic Assembly - On</option>
+                                            <option value="400654">Exempt Technical - On</option>
+                                            <option value="400135">Faculty Emeriti</option>
+                                            <option value="400136">Faculty Retired Non-Tenured - On</option>
+                                            <option value="400105">Faculty Salaires Non-Tenured - Off</option>
+                                            <option value="400040">Faculty Salaries Non-Tenured - On</option>
+                                            <option value="400090">Faculty Salaries Tenured - Off</option>
+                                            <option value="400025">Faculty Salaries Tenured - On</option>
+                                            <option value="400315">Fellows - Non-Student- Not MTDC</option>
+                                            <option value="400700">Graduate Student Staff - On</option>
+                                            <option value="400452">Hourly Personnel - Off</option>
+                                            <option value="400450">Hourly Personnel - On</option>
+                                            <option value="400552">Mechanical Assembly - On</option>
+                                            <option value="400756">MIT Students - Off</option>
+                                            <option value="400754">MIT Students - On</option>
+                                            <option value="400155">Other Academic Staff - Off</option>
+                                            <option value="400140">Other Academic Staff - On</option>
+                                            <option value="400390">Post-Doctoral Staff</option>
+                                            <option value="400365">Program Manager</option>
+                                            <option value="400370">Project Engineering Staff - On</option>
+                                            <option value="400601">Project Support Staff - Off</option>
+                                            <option value="400600">Project Support Staff - On</option>
+                                            <option value="400556">Quality Control - On</option>
+                                            <option value="400708">Research Asst - Off</option>
+                                            <option value="400706">Research Asst - On</option>
+                                            <option value="400355">Research Staff - Off</option>
+                                            <option value="400350">Research Staff - On</option>
+                                            <option value="400115">Summer - Other Academic - Off</option>
+                                            <option value="400070">Summer Faculty - Off</option>
+                                            <option value="400005">Summer Faculty - On</option>
+                                            <option value="400050">Summer Other Academic - On</option>
+                                            <option value="420262">Temporary Help</option>
+                                            <option value="400768">Undergrad S&amp;W UROP - Off</option>
+                                            <option value="400770">Undergrad S&amp;W UROP - On</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Group</label>
+                                        <small class="text-muted"> (optional)</small>
+                                        <select class="form-control">
+                                            <option value="">select</option>
+                                            <option>My Custom Group 1</option>
+                                            <option>My Custom Group 2</option>
+                                            <option>My Custom Group 3</option>
+                                            <option>My Custom Group 4</option>
+                                            <option>My Custom Group 5</option>
+                                            <option>Create New Group...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-right"><a href="#" type="submit" class="btn btn-primary btn-xs">Assign to Period 4</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="p5">
+                        <h3 class="">Period 5 <small>(1/12/18 - 1/11/19)</small></h3>
+                        <h4>Assign Personnel</h4>
+                        <div class="well " style="margin-top:15px;">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Person</label>
+                                        <select class="form-control">
+                                            <option value="">select</option>
+                                            <option>Ward Cleaver</option>
+                                            <option>John Coltrane</option>
+                                            <option>Stan Getz</option>
+                                            <option>Dave Brubeck</option>
+                                            <option>Ella Fitzgerald</option>
+                                            <option>Billie Holiday</option>
+                                        </select>
+                                        <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>--></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Object Code</label>
+                                        <select class="form-control">
+                                            <option value="">select</option>
+                                            <option value="400255">Administrative Staff - Off</option>
+                                            <option value="400250">Administrative Staff - On</option>
+                                            <option value="421568">CWSP Credit - Not MTDC</option>
+                                            <option value="400550">Electronic Assembly - On</option>
+                                            <option value="400654">Exempt Technical - On</option>
+                                            <option value="400135">Faculty Emeriti</option>
+                                            <option value="400136">Faculty Retired Non-Tenured - On</option>
+                                            <option value="400105">Faculty Salaires Non-Tenured - Off</option>
+                                            <option value="400040">Faculty Salaries Non-Tenured - On</option>
+                                            <option value="400090">Faculty Salaries Tenured - Off</option>
+                                            <option value="400025">Faculty Salaries Tenured - On</option>
+                                            <option value="400315">Fellows - Non-Student- Not MTDC</option>
+                                            <option value="400700">Graduate Student Staff - On</option>
+                                            <option value="400452">Hourly Personnel - Off</option>
+                                            <option value="400450">Hourly Personnel - On</option>
+                                            <option value="400552">Mechanical Assembly - On</option>
+                                            <option value="400756">MIT Students - Off</option>
+                                            <option value="400754">MIT Students - On</option>
+                                            <option value="400155">Other Academic Staff - Off</option>
+                                            <option value="400140">Other Academic Staff - On</option>
+                                            <option value="400390">Post-Doctoral Staff</option>
+                                            <option value="400365">Program Manager</option>
+                                            <option value="400370">Project Engineering Staff - On</option>
+                                            <option value="400601">Project Support Staff - Off</option>
+                                            <option value="400600">Project Support Staff - On</option>
+                                            <option value="400556">Quality Control - On</option>
+                                            <option value="400708">Research Asst - Off</option>
+                                            <option value="400706">Research Asst - On</option>
+                                            <option value="400355">Research Staff - Off</option>
+                                            <option value="400350">Research Staff - On</option>
+                                            <option value="400115">Summer - Other Academic - Off</option>
+                                            <option value="400070">Summer Faculty - Off</option>
+                                            <option value="400005">Summer Faculty - On</option>
+                                            <option value="400050">Summer Other Academic - On</option>
+                                            <option value="420262">Temporary Help</option>
+                                            <option value="400768">Undergrad S&amp;W UROP - Off</option>
+                                            <option value="400770">Undergrad S&amp;W UROP - On</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Group</label>
+                                        <small class="text-muted"> (optional)</small>
+                                        <select class="form-control">
+                                            <option value="">select</option>
+                                            <option>My Custom Group 1</option>
+                                            <option>My Custom Group 2</option>
+                                            <option>My Custom Group 3</option>
+                                            <option>My Custom Group 4</option>
+                                            <option>My Custom Group 5</option>
+                                            <option>Create New Group...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-right"><a href="#" type="submit" class="btn btn-primary btn-xs">Assign to Period 5</a></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent=Demo-Disclosure-Example1>
-                    <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for=u1qq592w>
-                        <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=reserachFA href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span>Equipment</span></a></h3>
-                    </header>
-                    
-                </section>
-                <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent=Demo-Disclosure-Example1>
-                    <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for=u1qq592w>
-                        <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=reserachFA href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span>Travel</span></a></h3>
-                    </header>
-                    
-                </section>
-                <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent=Demo-Disclosure-Example1>
-                    <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for=u1qq592w>
-                        <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=reserachFA href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span>Participant Support</span></a></h3>
-                    </header>
-                    
-                </section>
-                <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent=Demo-Disclosure-Example1>
-                    <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for=u1qq592w>
-                        <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=reserachFA href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span>Other</span></a></h3>
-                    </header>
-                    
-                </section>
             </main>
         </div>
         <!-- VIEW FOOTER -->
