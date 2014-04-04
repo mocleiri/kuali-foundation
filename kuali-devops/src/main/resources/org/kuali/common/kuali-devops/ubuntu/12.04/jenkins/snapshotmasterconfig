@@ -17,14 +17,14 @@ function tar_config {
    execute_quietly "rm -rf /ssd/master.*"
    execute_quietly "cd /home/tomcat7"
 
-   local THIN="--exclude=**/plugins/** --exclude=**/workspace/** --exclude=**/logs/slaves/** --exclude=**/config-history/** --exclude=**/builds/** --exclude=**/lastStable/** --exclude=**/lastSuccessful/**"
-   local MEDIUM="--exclude=**/plugins/** --exclude=**/workspace/** --exclude=**/logs/slaves/**"
+   local MIN="--exclude=**/plugins/** --exclude=**/workspace/** --exclude=**/logs/slaves/** --exclude=**/config-history/** --exclude=**/builds/** --exclude=**/lastStable/** --exclude=**/lastSuccessful/**"
+   local THIN="--exclude=**/plugins/** --exclude=**/workspace/** --exclude=**/logs/slaves/**"
 
+   if [ $MODE == "min" ]; then
+     execute_quietly "tar --gzip --verbose --create --file $TAR_FILE .jenkins $MIN"
+   fi
    if [ $MODE == "thin" ]; then
      execute_quietly "tar --gzip --verbose --create --file $TAR_FILE .jenkins $THIN"
-   fi
-   if [ $MODE == "medium" ]; then
-     execute_quietly "tar --gzip --verbose --create --file $TAR_FILE .jenkins $MEDIUM"
    fi
    if [ $MODE == "full" ]; then
      execute_quietly "tar --gzip --verbose --create --file $TAR_FILE .jenkins"
