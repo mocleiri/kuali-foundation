@@ -17,7 +17,10 @@ function tar_config {
    execute_quietly "rm -rf /ssd/master.*"
    execute_quietly "cd /home/tomcat7"
 
-   local MIN="--exclude=**/plugins/** --exclude=**/workspace/** --exclude=**/logs/slaves/** --exclude=**/config-history/** --exclude=**/builds/** --exclude=**/lastStable/** --exclude=**/lastSuccessful/**"
+   # Same thing as thin but no build history or config history
+   local  MIN="--exclude=**/plugins/** --exclude=**/workspace/** --exclude=**/logs/slaves/** --exclude=**/config-history/** --exclude=**/builds/** --exclude=**/lastStable/** --exclude=**/lastSuccessful/**"
+   
+   # All config including config history and build history
    local THIN="--exclude=**/plugins/** --exclude=**/workspace/** --exclude=**/logs/slaves/**"
 
    if [ $MODE == "min" ]; then
