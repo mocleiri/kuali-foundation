@@ -247,16 +247,11 @@ function configure_jenkins {
   local BUCKET=maven.kuali.org
   source $MY_DIR/../common/aws.sh
   $MY_DIR/../common/m2s3get $QUIET_FLAG --prefix=$PREFIX --type=$TYPE --classifier=$CLASSIFIER $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION
+  local TAR_GZ=$MY_DIR/../m2path --classifier=$CLASSIFIER --type=$TYPE $GROUP_ID $ARTIFACT_ID $VERSION
+  
+  execute_quietly "tar --extract --verbox --file $TAR_GZ --directory $TOMCAT_HOME"
   
   exit 1
-   
-  JENKINS_CONFIG_DIR=$MY_DIR/../../../jenkins
-  GPG_ENCRYPTED=$JENKINS_CONFIG_DIR/master.zip.gpg
-  # zip of Jenkins config files from the .jenkins home dir
-  GPG_DECRYPTED=$JENKINS_CONFIG_DIR/master.zip
-  decrypt_file $GPG_ENCRYPTED $GPG_DECRYPTED
-  execute_quietly "unzip -o $GPG_DECRYPTED -d $TOMCAT_HOME"
-  execute_quietly "rm $GPG_DECRYPTED"
   
   # Modify jenkins.model.JenkinsLocationConfiguration.xml with the proper dns value and admin email address
   configure_jenkins_location
