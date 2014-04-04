@@ -1,7 +1,17 @@
 function check_args {
   check_not_blank STACK $STACK
+  check_not_blank MODE $MODE
   check_not_blank VERSION $VERSION
   check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
+  if [ $MODE == "min" ] || [ $MODE == "thin" ] || [ $MODE == "full" ]; then
+    MODE=$MODE
+  else
+    echo "MODE must be one of min/thin/full
+    usage();
+  fi
+fi
+  
+  
 }
 
 function tar_config {
@@ -17,7 +27,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-q --quiet] [-h --help] stack version password" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-q --quiet] [-h --help] stack mode version password" 1>&2; exit 1; }
 
 QUIET=false
 
@@ -42,8 +52,9 @@ while true; do
 done
 
 STACK=$1
-VERSION=$2
-GPG_PASSPHRASE=$3
+MODE=$2
+VERSION=$3
+GPG_PASSPHRASE=$4
 
 check_args
 
