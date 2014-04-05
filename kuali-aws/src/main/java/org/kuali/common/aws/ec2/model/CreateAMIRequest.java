@@ -103,7 +103,7 @@ public final class CreateAMIRequest {
 		return instanceId;
 	}
 
-	public ImmutableTag getName() {
+	public Tag getName() {
 		return name;
 	}
 
