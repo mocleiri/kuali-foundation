@@ -95,58 +95,53 @@ public class CreateBuildSlaveAMI {
 	private static final Map<String, JenkinsContext> CONTEXTS = SpinUpJenkinsMaster.getJenkinsContexts(Tags.Name.SLAVE);
 
 	@Test
-	public void test() {
-		try {
-			System.setProperty("ec2.stack", "test");
-			logger.info(format("build slave ami process :: starting"));
-			VirtualSystem vs = VirtualSystem.create();
-			// Default to quiet mode unless they've supplied -Dec2.quiet=false
-			boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
-			JenkinsContext jenkinsContext = SpinUpJenkinsMaster.getJenkinsContext(vs, CONTEXTS);
-			// Configurable items
-			BasicLaunchRequest request = getSlaveLaunchRequest(jenkinsContext);
-			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
+	public void test() throws Exception {
+		logger.info(format("build slave ami process :: starting"));
+		VirtualSystem vs = VirtualSystem.create();
+		// Default to quiet mode unless they've supplied -Dec2.quiet=false
+		boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
+		JenkinsContext jenkinsContext = SpinUpJenkinsMaster.getJenkinsContext(vs, CONTEXTS);
+		// Configurable items
+		BasicLaunchRequest request = getSlaveLaunchRequest(jenkinsContext);
+		ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
-			EC2Service service = getEC2Service(amazonAccount, jenkinsContext.getRegion());
-			List<Tag> tags = getSlaveTags(jenkinsContext);
-			Instance instance = launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
-			// Instance instance = service.getInstance("i-d20676da");
-			service.tag(instance.getInstanceId(), tags);
-			logger.info(format("public dns: %s", instance.getPublicDnsName()));
-			String dns = instance.getPublicDnsName();
-			String privateKey = KUALI_KEY.getPrivateKey().get();
-			SpinUpJenkinsMaster.verifySSH(UBUNTU, dns, privateKey);
-			SpinUpJenkinsMaster.bootstrap(dns, privateKey);
-			SecureChannel channel = SpinUpJenkinsMaster.openSecureChannel(ROOT, dns, privateKey, quiet);
-			String basedir = SpinUpJenkinsMaster.publishProject(channel, pid, ROOT, dns, quiet);
+		EC2Service service = getEC2Service(amazonAccount, jenkinsContext.getRegion());
+		List<Tag> tags = getSlaveTags(jenkinsContext);
+		Instance instance = launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
+		// Instance instance = service.getInstance("i-d20676da");
+		service.tag(instance.getInstanceId(), tags);
+		logger.info(format("public dns: %s", instance.getPublicDnsName()));
+		String dns = instance.getPublicDnsName();
+		String privateKey = KUALI_KEY.getPrivateKey().get();
+		SpinUpJenkinsMaster.verifySSH(UBUNTU, dns, privateKey);
+		SpinUpJenkinsMaster.bootstrap(dns, privateKey);
+		SecureChannel channel = SpinUpJenkinsMaster.openSecureChannel(ROOT, dns, privateKey, quiet);
+		String basedir = SpinUpJenkinsMaster.publishProject(channel, pid, ROOT, dns, quiet);
 
-			String gpgPassphrase = Auth.decrypt(GPG_PASSPHRASE_ENCRYPTED);
-			String quietFlag = (quiet) ? "-q" : "";
-			String dnsPrefix = jenkinsContext.getDnsPrefix();
-			String jenkinsMaster = Joiner.on('.').join(dnsPrefix, DOMAIN);
+		String gpgPassphrase = Auth.decrypt(GPG_PASSPHRASE_ENCRYPTED);
+		String quietFlag = (quiet) ? "-q" : "";
+		String dnsPrefix = jenkinsContext.getDnsPrefix();
+		String jenkinsMaster = Joiner.on('.').join(dnsPrefix, DOMAIN);
 
-			setupEssentials(channel, basedir, pid, distro, distroVersion, gpgPassphrase, dnsPrefix, quietFlag);
-			String common = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
-			String slave = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/configureslave");
-			SpinUpJenkinsMaster.exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
-			SpinUpJenkinsMaster.exec(channel, slave, quietFlag, jenkinsMaster);
-			cacheBinaries(channel, basedir, pid);
-			channel.close();
-			service.stopInstance(instance.getInstanceId());
-			String description = format("automated ec2 slave ami - %s", today);
-			List<BlockDeviceMapping> additionalMappings = ImmutableBlockDeviceMapping.DEFAULT_INSTANCE_STORES;
-			CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(name).withRootVolume(request.getRootVolume())
-					.withAdditionalMappings(additionalMappings).withTimeoutMillis(request.getTimeoutMillis()).withDescription(description).build();
-			Image image = service.createAmi(creator);
-			logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
-			logger.info(format("terminating instance [%s]", instance.getInstanceId()));
-			service.terminateInstance(instance.getInstanceId());
-			cleanupAmis(service);
-			updateMasterAMI(jenkinsMaster, pid, privateKey, quiet, image.getImageId());
-			logger.info(format("build slave ami process :: complete - [%s]", getTime(sw)));
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
+		setupEssentials(channel, basedir, pid, distro, distroVersion, gpgPassphrase, dnsPrefix, quietFlag);
+		String common = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
+		String slave = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/configureslave");
+		SpinUpJenkinsMaster.exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
+		SpinUpJenkinsMaster.exec(channel, slave, quietFlag, jenkinsMaster);
+		cacheBinaries(channel, basedir, pid);
+		channel.close();
+		service.stopInstance(instance.getInstanceId());
+		String description = format("automated ec2 slave ami - %s", today);
+		List<BlockDeviceMapping> additionalMappings = ImmutableBlockDeviceMapping.DEFAULT_INSTANCE_STORES;
+		CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(name).withRootVolume(request.getRootVolume())
+				.withAdditionalMappings(additionalMappings).withTimeoutMillis(request.getTimeoutMillis()).withDescription(description).build();
+		Image image = service.createAmi(creator);
+		logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
+		logger.info(format("terminating instance [%s]", instance.getInstanceId()));
+		service.terminateInstance(instance.getInstanceId());
+		cleanupAmis(service);
+		updateMasterAMI(jenkinsMaster, pid, privateKey, quiet, image.getImageId());
+		logger.info(format("build slave ami process :: complete - [%s]", getTime(sw)));
 	}
 
 	protected void cacheBinaries(SecureChannel channel, String basedir, ProjectIdentifier pid) {
