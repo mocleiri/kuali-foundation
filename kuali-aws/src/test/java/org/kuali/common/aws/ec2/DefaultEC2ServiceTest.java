@@ -72,9 +72,9 @@ public class DefaultEC2ServiceTest {
 			Stopwatch sw = createStarted();
 			AWSCredentials credentials = Auth.getCredentials(Credentials.FOUNDATION);
 			AmazonEC2Client client = new AmazonEC2Client(credentials);
-			Region dst = Region.getRegion(Regions.US_WEST_2);
 			Region src = Region.getRegion(Regions.US_EAST_1);
 			String ami = "ami-7dada414";
+			Region dst = Region.getRegion(Regions.US_WEST_2);
 			client.setRegion(dst);
 			CopyImageRequest request = new CopyImageRequest();
 			request.setSourceRegion(src.getName());
@@ -82,8 +82,7 @@ public class DefaultEC2ServiceTest {
 			logger.info(format("copying [%s] from %s to %s", ami, src, dst));
 			CopyImageResult result = client.copyImage(request);
 			String resultAmi = result.getImageId();
-			logger.info(format("copied [%s] from %s to %s - %s", ami, src, dst, FormatUtils.getTime(sw)));
-			logger.info(format("resultAmi [%s]", resultAmi));
+			logger.info(format("copied [%s] from %s to %s as [%s] - %s", ami, src, dst, resultAmi, FormatUtils.getTime(sw)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

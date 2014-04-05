@@ -68,6 +68,8 @@ import org.slf4j.Logger;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.AuthorizeSecurityGroupIngressRequest;
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
+import com.amazonaws.services.ec2.model.CopyImageRequest;
+import com.amazonaws.services.ec2.model.CopyImageResult;
 import com.amazonaws.services.ec2.model.CreateSecurityGroupRequest;
 import com.amazonaws.services.ec2.model.CreateSnapshotRequest;
 import com.amazonaws.services.ec2.model.CreateSnapshotResult;
@@ -99,6 +101,7 @@ import com.amazonaws.services.ec2.model.IpPermission;
 import com.amazonaws.services.ec2.model.KeyPairInfo;
 import com.amazonaws.services.ec2.model.ModifyInstanceAttributeRequest;
 import com.amazonaws.services.ec2.model.Placement;
+import com.amazonaws.services.ec2.model.Region;
 import com.amazonaws.services.ec2.model.RegisterImageRequest;
 import com.amazonaws.services.ec2.model.RegisterImageResult;
 import com.amazonaws.services.ec2.model.Reservation;
@@ -138,6 +141,15 @@ public final class DefaultEC2Service implements EC2Service {
 		this.service = service;
 		this.context = context;
 		this.client = LaunchUtils.getClient(context);
+	}
+
+	@Override
+	public String copyAmi(Region region, String ami) {
+		CopyImageRequest request = new CopyImageRequest();
+		request.setSourceImageId(ami);
+		request.setSourceRegion(region.getRegionName());
+		CopyImageResult result = client.copyImage(request);
+		return result.getImageId();
 	}
 
 	@Override
