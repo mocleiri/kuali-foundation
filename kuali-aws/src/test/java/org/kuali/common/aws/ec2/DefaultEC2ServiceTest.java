@@ -78,9 +78,9 @@ public class DefaultEC2ServiceTest {
 			CopyImageRequest request = new CopyImageRequest();
 			request.setSourceRegion(src.getName());
 			request.setSourceImageId(ami);
-			logger.info(format("copying %s from %s to %s", ami, dst, src));
+			logger.info(format("copying %s from %s to %s", ami, src, dst));
 			client.copyImage(request);
-			logger.info(format("copyied %s from %s to %s - %s", ami, dst, src, FormatUtils.getTime(sw)));
+			logger.info(format("copyied %s from %s to %s - %s", ami, src, dst, FormatUtils.getTime(sw)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
