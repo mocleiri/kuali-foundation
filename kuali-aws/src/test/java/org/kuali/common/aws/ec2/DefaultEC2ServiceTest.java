@@ -51,6 +51,7 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
 import com.amazonaws.services.ec2.model.CopyImageRequest;
+import com.amazonaws.services.ec2.model.CopyImageResult;
 import com.amazonaws.services.ec2.model.EbsBlockDevice;
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Instance;
@@ -78,9 +79,11 @@ public class DefaultEC2ServiceTest {
 			CopyImageRequest request = new CopyImageRequest();
 			request.setSourceRegion(src.getName());
 			request.setSourceImageId(ami);
-			logger.info(format("copying %s from %s to %s", ami, src, dst));
-			client.copyImage(request);
-			logger.info(format("copyied %s from %s to %s - %s", ami, src, dst, FormatUtils.getTime(sw)));
+			logger.info(format("copying [%s] from %s to %s", ami, src, dst));
+			CopyImageResult result = client.copyImage(request);
+			String resultAmi = result.getImageId();
+			logger.info(format("copied [%s] from %s to %s - %s", ami, src, dst, FormatUtils.getTime(sw)));
+			logger.info(format("resultAmi [%s]", resultAmi));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
