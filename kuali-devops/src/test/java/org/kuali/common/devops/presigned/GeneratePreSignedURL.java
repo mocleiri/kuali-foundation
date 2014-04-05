@@ -59,9 +59,6 @@ public class GeneratePreSignedURL {
 				hexList.set(i, padded);
 			}
 			logger.info(Joiner.on(' ').join(hexList));
-			if (true) {
-				return;
-			}
 			System.out.println("expiration=" + expiration);
 			String bucket = "maven.kuali.org";
 			String key = "private/com/oracle/jdk6/1.6.0-u43/jdk6-1.6.0-u43.pom";
