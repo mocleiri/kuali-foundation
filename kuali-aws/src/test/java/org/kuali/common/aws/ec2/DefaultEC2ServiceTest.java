@@ -65,6 +65,7 @@ public class DefaultEC2ServiceTest {
 
 	private static final Logger logger = newLogger();
 
+	@Test
 	public void testCopyAMI() {
 		try {
 			Stopwatch sw = createStarted();
