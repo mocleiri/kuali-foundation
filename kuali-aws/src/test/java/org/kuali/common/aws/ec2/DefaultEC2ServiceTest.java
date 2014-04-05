@@ -16,6 +16,8 @@
 package org.kuali.common.aws.ec2;
 
 import static com.google.common.base.Optional.absent;
+import static com.google.common.base.Stopwatch.createStarted;
+import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static org.kuali.common.aws.ec2.model.ImmutableBlockDeviceMapping.INSTANCE_STORE_0;
 import static org.kuali.common.aws.ec2.model.ImmutableBlockDeviceMapping.INSTANCE_STORE_1;
@@ -44,13 +46,18 @@ import org.kuali.common.util.wait.DefaultWaitService;
 import org.slf4j.Logger;
 
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
+import com.amazonaws.services.ec2.model.CopyImageRequest;
 import com.amazonaws.services.ec2.model.EbsBlockDevice;
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Optional;
+import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
@@ -58,7 +65,28 @@ public class DefaultEC2ServiceTest {
 
 	private static final Logger logger = newLogger();
 
+	public void testCopyAMI() {
+		try {
+			Stopwatch sw = createStarted();
+			AWSCredentials credentials = Auth.getCredentials(Credentials.FOUNDATION);
+			AmazonEC2Client client = new AmazonEC2Client(credentials);
+			Region dst = Region.getRegion(Regions.US_WEST_2);
+			Region src = Region.getRegion(Regions.US_EAST_1);
+			String ami = "ami-7dada414";
+			client.setRegion(dst);
+			CopyImageRequest request = new CopyImageRequest();
+			request.setSourceRegion(src.getName());
+			request.setSourceImageId(ami);
+			logger.info(format("copying %s from %s to %s", ami, dst, src));
+			client.copyImage(request);
+			logger.info(format("copyied %s from %s to %s - %s", ami, dst, src, FormatUtils.getTime(sw)));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Test
+	@Ignore
 	public void testLaunchWithSSD() {
 		try {
 			DefaultEC2Service service = getUSWestService();
