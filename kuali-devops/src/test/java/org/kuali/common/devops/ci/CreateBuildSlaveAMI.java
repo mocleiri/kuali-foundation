@@ -131,19 +131,18 @@ public class CreateBuildSlaveAMI {
 			SpinUpJenkinsMaster.exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
 			SpinUpJenkinsMaster.exec(channel, slave, quietFlag, jenkinsMaster);
 			cacheBinaries(channel, basedir, pid);
+			channel.close();
 			service.stopInstance(instance.getInstanceId());
-
 			String description = format("automated ec2 slave ami - %s", today);
 			List<BlockDeviceMapping> additionalMappings = ImmutableBlockDeviceMapping.DEFAULT_INSTANCE_STORES;
 			CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(name).withRootVolume(request.getRootVolume())
 					.withAdditionalMappings(additionalMappings).withTimeoutMillis(request.getTimeoutMillis()).withDescription(description).build();
 			Image image = service.createAmi(creator);
 			logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
-			cleanupAmis(service);
-			updateMasterAMI(jenkinsMaster, pid, privateKey, quiet, image.getImageId());
-			channel.close();
 			logger.info(format("terminating instance [%s]", instance.getInstanceId()));
 			service.terminateInstance(instance.getInstanceId());
+			cleanupAmis(service);
+			updateMasterAMI(jenkinsMaster, pid, privateKey, quiet, image.getImageId());
 			logger.info(format("build slave ami process :: complete - [%s]", getTime(sw)));
 		} catch (Throwable e) {
 			e.printStackTrace();
