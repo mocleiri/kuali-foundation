@@ -120,7 +120,7 @@ public class CreateBuildSlaveAMI {
 		configureInstance(service, instance, tags, pid, quiet, privateKey, jenkinsContext.getDnsPrefix(), getJenkinsMaster(jenkinsContext));
 
 		// Create a new AMI from this slave, and copy it around to every US region
-		String ami = updateAMIs(instance, service, request);
+		String ami = createAndPropagateAMI(instance, service, request);
 
 		// Update the master with the AMI we just created
 		updateMasterAMI(getJenkinsMaster(jenkinsContext), pid, privateKey, quiet, ami);
@@ -157,7 +157,7 @@ public class CreateBuildSlaveAMI {
 		service.stopInstance(instance.getInstanceId());
 	}
 
-	protected String updateAMIs(Instance instance, EC2Service service, BasicLaunchRequest request) {
+	protected String createAndPropagateAMI(Instance instance, EC2Service service, BasicLaunchRequest request) {
 		String description = format("automated ec2 slave ami - %s", today);
 		List<BlockDeviceMapping> additionalMappings = ImmutableBlockDeviceMapping.DEFAULT_INSTANCE_STORES;
 		CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(name).withRootVolume(request.getRootVolume())
