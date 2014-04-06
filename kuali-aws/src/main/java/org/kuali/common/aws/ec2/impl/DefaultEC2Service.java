@@ -46,6 +46,7 @@ import org.kuali.common.aws.ec2.model.CreateAMIRequest;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.InstanceStateName;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
+import org.kuali.common.aws.ec2.model.Regions;
 import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.ec2.model.security.Permission;
@@ -137,7 +138,7 @@ public final class DefaultEC2Service implements EC2Service {
 	private final WaitService service;
 
 	public DefaultEC2Service(AWSCredentials credentials) {
-		this(EC2ServiceContext.create(credentials), new DefaultWaitService());
+		this(credentials, new Region().withRegionName(Regions.DEFAULT_REGION.getName()));
 	}
 
 	public DefaultEC2Service(AWSCredentials credentials, Region region) {
