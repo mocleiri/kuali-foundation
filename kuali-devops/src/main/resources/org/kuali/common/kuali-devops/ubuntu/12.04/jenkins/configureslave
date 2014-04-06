@@ -34,10 +34,6 @@ function slave_shutdown_scripting {
   EC2SLAVE_DST=/etc/init.d/ec2slave
   cp $EC2SLAVE_SRC $EC2SLAVE_DST
 
-  EXCLUDES_SRC=$EC2SLAVE_SRC_DIR/rsync.excludes
-  EXCLUDES_DST=$EC2SLAVE_DST_DIR/rsync.excludes
-  cp $EXCLUDES_SRC $EXCLUDES_DST
-
   COPY_REPO_SRC=$EC2SLAVE_SRC_DIR/copy_repo_to_master.sh
   COPY_REPO_DST=$EC2SLAVE_DST_DIR/copy_repo_to_master.sh
   cp $COPY_REPO_SRC $COPY_REPO_DST
