@@ -133,13 +133,9 @@ function install_plugins {
 function configure_tomcat_user {
 
   echo "configure -> $TOMCAT:user"
-  echo "purge     -> gpg ssh m2 svn"
-  rm -rf $TOMCAT_HOME/.gnupg $TOMCAT_HOME/.ssh $TOMCAT_HOME/.m2 $TOMCAT_HOME/.subversion
-  cp -R /root/.gnupg        $TOMCAT_HOME
-  cp -R /root/.ssh          $TOMCAT_HOME
-  cp -R /root/.subversion   $TOMCAT_HOME
-  echo "copy      -> root m2 repo"
-  execute_quietly "rsync --archive --verbose --stats /root/.m2 $TOMCAT_HOME --exclude=**/com/oracle/jdk*/** --exclude=**/firefox/** --exclude=**/org/jenkins/**" 
+  echo "purge     -> $TOMCAT_HOME"
+  rm -rf $TOMCAT_HOME
+  mkdir -p $TOMCAT_HOME
   
   # Sets up Java + Maven + Jenkins Master
   cp /root/.bashrc       $TOMCAT_HOME/.bash_profile
