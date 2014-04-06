@@ -60,11 +60,13 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.SetUtils;
 import org.kuali.common.util.condition.Condition;
+import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitContext;
 import org.kuali.common.util.wait.WaitResult;
 import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
 
+import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.AuthorizeSecurityGroupIngressRequest;
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
@@ -133,6 +135,14 @@ public final class DefaultEC2Service implements EC2Service {
 
 	private final EC2ServiceContext context;
 	private final WaitService service;
+
+	public DefaultEC2Service(AWSCredentials credentials, Region region) {
+		this(EC2ServiceContext.create(credentials, region), new DefaultWaitService());
+	}
+
+	public DefaultEC2Service(AWSCredentials credentials) {
+		this(EC2ServiceContext.create(credentials), new DefaultWaitService());
+	}
 
 	public DefaultEC2Service(EC2ServiceContext context, WaitService service) {
 		checkNotNull(context, "context");

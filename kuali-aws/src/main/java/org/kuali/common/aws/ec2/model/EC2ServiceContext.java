@@ -22,6 +22,7 @@ import org.kuali.common.util.FormatUtils;
 
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.services.ec2.model.Region;
 import com.google.common.base.Optional;
 
 public final class EC2ServiceContext {
@@ -34,6 +35,10 @@ public final class EC2ServiceContext {
 	private final Optional<String> endpoint;
 	private final Optional<ClientConfiguration> configuration;
 	private final Optional<Integer> timeOffsetInSeconds;
+
+	public static EC2ServiceContext create(AWSCredentials credentials, Region region) {
+		return builder(credentials).withRegionName(region.getRegionName()).build();
+	}
 
 	public static EC2ServiceContext create(AWSCredentials credentials) {
 		return builder(credentials).build();
