@@ -184,9 +184,9 @@ done
 
 shift $(( OPTIND - 1 ));
 
-check_not_blank JENKINS_VERSION $JENKINS_VERSION
-
 JENKINS_VERSION=$1
+
+check_not_blank JENKINS_VERSION $JENKINS_VERSION
 
 QUIET_FLAG=""
 if [ "$QUIET" == "true" ]; then
