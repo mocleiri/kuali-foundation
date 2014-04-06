@@ -15,6 +15,11 @@
 # limitations under the License.
 #
 
+#
+# Install a plain vanilla jenkins and a plain vanilla list of jenkins plugins
+# Do some basic tomcat7 configuration related to memory settings etc 
+#
+
 function install_jenkins {
   
   echo "install   -> jenkins:$JENKINS_VERSION"
