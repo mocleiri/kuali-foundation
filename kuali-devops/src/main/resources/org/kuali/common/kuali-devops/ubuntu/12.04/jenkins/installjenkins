@@ -132,8 +132,7 @@ function install_plugins {
 
 function configure_tomcat_user {
 
-  echo "configure -> $TOMCAT:user"
-  echo "purge     -> $TOMCAT_HOME"
+  echo "configure -> $TOMCAT_HOME"
   rm -rf $TOMCAT_HOME
   mkdir -p $TOMCAT_HOME
   
