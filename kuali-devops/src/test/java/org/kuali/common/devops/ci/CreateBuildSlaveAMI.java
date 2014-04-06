@@ -3,6 +3,7 @@ package org.kuali.common.devops.ci;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Maps.newHashMap;
 import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
 import static java.lang.String.format;
@@ -11,6 +12,9 @@ import static java.util.Collections.reverse;
 import static java.util.Collections.sort;
 import static org.apache.commons.lang.StringUtils.leftPad;
 import static org.apache.commons.lang3.StringUtils.equalsIgnoreCase;
+import static org.kuali.common.aws.ec2.model.Regions.US_EAST_1;
+import static org.kuali.common.aws.ec2.model.Regions.US_WEST_1;
+import static org.kuali.common.aws.ec2.model.Regions.US_WEST_2;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
 import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.exec;
@@ -33,6 +37,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
@@ -71,6 +76,7 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 
 public class CreateBuildSlaveAMI {
 
@@ -93,6 +99,7 @@ public class CreateBuildSlaveAMI {
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 80;
 
 	private static final Map<String, JenkinsContext> CONTEXTS = SpinUpJenkinsMaster.getJenkinsContexts(Tags.Name.SLAVE);
+	private static final Set<String> US_REGIONS = ImmutableSet.of(US_EAST_1.getName(), US_WEST_1.getName(), US_WEST_2.getName());
 
 	@Test
 	public void test() throws Exception {
@@ -296,6 +303,14 @@ public class CreateBuildSlaveAMI {
 		LaunchInstanceContext context = LaunchInstanceContext.builder(blr.getAmi(), KUALI_KEY).withTimeoutMillis(blr.getTimeoutMillis()).withType(blr.getType())
 				.withRootVolume(blr.getRootVolume()).withSecurityGroups(securityGroups).withTags(tags).withAdditionalMappings(additionalMappings).build();
 		return service.launchInstance(context);
+	}
+
+	protected static Map<String, EC2Service> getServiceMap(AWSCredentials credentials, Set<String> regions) {
+		Map<String, EC2Service> map = newHashMap();
+		for (String region : regions) {
+			map.put(region, new DefaultEC2Service(credentials, region));
+		}
+		return map;
 	}
 
 	protected static EC2Service getEC2Service(String account, Region region) {
