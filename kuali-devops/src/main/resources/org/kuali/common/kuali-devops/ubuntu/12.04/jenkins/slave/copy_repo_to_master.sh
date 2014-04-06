@@ -8,10 +8,9 @@ REPO=/root/.m2/repository
 SRC=$REPO/
 JENKINS_MASTER=FILL_ME_IN_PLEASE
 DST=root@$JENKINS_MASTER:$REPO
-EXCLUDEFILE=/usr/share/ec2slave/rsync.excludes
 
 # Make the rsync call
-rsync --archive --stats -v $SRC $DST --exclude-from $EXCLUDEFILE
+rsync --archive --stats -v $SRC $DST --exclude="**/org/kuali/**" --exclude="**/SNAPSHOT*.*
 
 set +x
 date
