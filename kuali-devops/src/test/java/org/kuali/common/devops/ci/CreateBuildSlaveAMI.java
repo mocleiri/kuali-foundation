@@ -164,7 +164,7 @@ public class CreateBuildSlaveAMI {
 		// Make sure we only have 7 AMI's for CI slaves in the current region
 		cleanupAmis(service);
 
-		// Copy this new AMI to every US region
+		// Copy the new AMI to every US region
 		copyAmi(service.getRegion(), US_REGIONS, image.getImageId(), name);
 
 		return image.getImageId();
