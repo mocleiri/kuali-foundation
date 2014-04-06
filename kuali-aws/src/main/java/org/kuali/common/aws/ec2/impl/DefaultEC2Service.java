@@ -141,6 +141,10 @@ public final class DefaultEC2Service implements EC2Service {
 		this(credentials, new Region().withRegionName(Regions.DEFAULT_REGION.getName()));
 	}
 
+	public DefaultEC2Service(AWSCredentials credentials, String region) {
+		this(credentials, new Region().withRegionName(region));
+	}
+
 	public DefaultEC2Service(AWSCredentials credentials, Region region) {
 		this(EC2ServiceContext.create(credentials, region), new DefaultWaitService());
 	}
