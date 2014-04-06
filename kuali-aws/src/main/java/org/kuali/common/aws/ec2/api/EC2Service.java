@@ -42,7 +42,11 @@ import com.google.common.base.Optional;
  * </p>
  */
 public interface EC2Service {
-	
+
+	String getRegion();
+
+	String getAccessKey();
+
 	String copyAmi(Region region, String ami);
 
 	Instance startInstance(String instanceId);

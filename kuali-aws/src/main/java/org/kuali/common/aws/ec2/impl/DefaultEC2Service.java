@@ -159,6 +159,16 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	@Override
+	public String getAccessKey() {
+		return context.getCredentials().getAWSAccessKeyId();
+	}
+
+	@Override
+	public String getRegion() {
+		return context.getRegion();
+	}
+
+	@Override
 	public String copyAmi(Region region, String ami) {
 		CopyImageRequest request = new CopyImageRequest();
 		request.setSourceImageId(ami);

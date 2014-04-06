@@ -93,12 +93,8 @@ public class ShowLaunchConfig implements Executable {
 	}
 
 	protected String getRegionLocation(EC2ServiceContext context) {
-		Optional<String> regionName = context.getRegionName();
-		if (!regionName.isPresent()) {
-			return Regions.DEFAULT_REGION.getLocation();
-		}
 		Map<String, Regions> map = Regions.asMap();
-		Regions region = map.get(regionName.get());
+		Regions region = map.get(context.getRegion());
 		if (region == null) {
 			// They've supplied a region we don't know about
 			return "unknown";
@@ -108,13 +104,7 @@ public class ShowLaunchConfig implements Executable {
 	}
 
 	protected String getRegionName(EC2ServiceContext context) {
-		Optional<String> regionName = context.getRegionName();
-		if (regionName.isPresent()) {
-			return regionName.get();
-		} else {
-			// Java SDK defaults to us-east-1 if no region is supplied
-			return Regions.DEFAULT_REGION.getName();
-		}
+		return context.getRegion();
 	}
 
 	public EC2ServiceContext getServiceContext() {

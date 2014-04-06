@@ -28,7 +28,6 @@ import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.springframework.util.Assert;
 
-import com.amazonaws.regions.Region;
 import com.amazonaws.regions.RegionUtils;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.InstanceType;
@@ -83,10 +82,7 @@ public class LaunchUtils {
 		if (context.getTimeOffsetInSeconds().isPresent()) {
 			client.setTimeOffset(context.getTimeOffsetInSeconds().get());
 		}
-		if (context.getRegionName().isPresent()) {
-			Region region = RegionUtils.getRegion(context.getRegionName().get());
-			client.setRegion(region);
-		}
+		client.setRegion(RegionUtils.getRegion(context.getRegion()));
 		if (context.getEndpoint().isPresent()) {
 			client.setEndpoint(context.getEndpoint().get());
 		}

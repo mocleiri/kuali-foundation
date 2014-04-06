@@ -31,13 +31,13 @@ public final class EC2ServiceContext {
 	private final int sleepIntervalMillis;
 	private final int initialPauseMillis;
 	private final int terminationTimeoutMillis;
-	private final Optional<String> regionName;
+	private final String region;
 	private final Optional<String> endpoint;
 	private final Optional<ClientConfiguration> configuration;
 	private final Optional<Integer> timeOffsetInSeconds;
 
 	public static EC2ServiceContext create(AWSCredentials credentials, Region region) {
-		return builder(credentials).withRegionName(region.getRegionName()).build();
+		return builder(credentials).withRegion(region.getRegionName()).build();
 	}
 
 	public static EC2ServiceContext create(AWSCredentials credentials) {
@@ -53,7 +53,7 @@ public final class EC2ServiceContext {
 		this.sleepIntervalMillis = builder.sleepIntervalMillis;
 		this.initialPauseMillis = builder.initialPauseMillis;
 		this.terminationTimeoutMillis = builder.terminationTimeoutMillis;
-		this.regionName = builder.regionName;
+		this.region = builder.region;
 		this.endpoint = builder.endpoint;
 		this.configuration = builder.configuration;
 		this.timeOffsetInSeconds = builder.timeOffsetInSeconds;
@@ -65,7 +65,7 @@ public final class EC2ServiceContext {
 		private int sleepIntervalMillis = FormatUtils.getMillisAsInt("15s");
 		private int initialPauseMillis = FormatUtils.getMillisAsInt("1s");
 		private int terminationTimeoutMillis = FormatUtils.getMillisAsInt("15m");
-		private Optional<String> regionName = Optional.of(Regions.DEFAULT_REGION.getName());
+		private String region = Regions.DEFAULT_REGION.getName();
 		private Optional<String> endpoint = absent();
 		private Optional<ClientConfiguration> configuration = absent();
 		private Optional<Integer> timeOffsetInSeconds = absent();
@@ -89,17 +89,9 @@ public final class EC2ServiceContext {
 			return this;
 		}
 
-		public Builder withRegionName(Optional<String> regionName) {
-			this.regionName = regionName;
+		public Builder withRegion(String region) {
+			this.region = region;
 			return this;
-		}
-
-		public Builder withRegionName(String regionName) {
-			return withRegionName(Optional.of(regionName));
-		}
-
-		public Builder withRegion(Regions region) {
-			return withRegionName(region.getName());
 		}
 
 		public Builder withEndpoint(Optional<String> endpoint) {
@@ -146,12 +138,12 @@ public final class EC2ServiceContext {
 			this.terminationTimeoutMillis = terminationTimeoutMillis;
 		}
 
-		public Optional<String> getRegionName() {
-			return regionName;
+		public String getRegion() {
+			return region;
 		}
 
-		public void setRegionName(Optional<String> regionName) {
-			this.regionName = regionName;
+		public void setRegion(String region) {
+			this.region = region;
 		}
 
 		public Optional<String> getEndpoint() {
@@ -199,8 +191,8 @@ public final class EC2ServiceContext {
 		return terminationTimeoutMillis;
 	}
 
-	public Optional<String> getRegionName() {
-		return regionName;
+	public String getRegion() {
+		return region;
 	}
 
 	public Optional<String> getEndpoint() {

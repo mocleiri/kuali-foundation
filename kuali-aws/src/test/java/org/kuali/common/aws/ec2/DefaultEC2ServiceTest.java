@@ -134,7 +134,7 @@ public class DefaultEC2ServiceTest {
 
 	private static final DefaultEC2Service getUSWestService() {
 		AWSCredentials credentials = Auth.getCredentials(Credentials.FOUNDATION);
-		EC2ServiceContext context = EC2ServiceContext.builder(credentials).withRegion(US_WEST_1).build();
+		EC2ServiceContext context = EC2ServiceContext.builder(credentials).withRegion(US_WEST_1.getName()).build();
 		return new DefaultEC2Service(context, new DefaultWaitService());
 	}
 
