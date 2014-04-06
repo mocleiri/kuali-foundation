@@ -116,10 +116,29 @@ public class CreateBuildSlaveAMI {
 		List<Tag> tags = getSlaveTags(jenkinsContext);
 		Instance instance = launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
 		// Instance instance = service.getInstance("i-d20676da");
+		String privateKey = KUALI_KEY.getPrivateKey().get();
+		configureInstance(service, instance, tags, pid, quiet, privateKey, jenkinsContext.getDnsPrefix(), getJenkinsMaster(jenkinsContext));
+
+		// Create a new AMI from this slave, and copy it around to every US region
+		String ami = updateAMIs(instance, service, request);
+
+		// Update the master with the AMI we just created
+		updateMasterAMI(getJenkinsMaster(jenkinsContext), pid, privateKey, quiet, ami);
+
+		// log a message showing total elapsed time
+		logger.info(format("build slave ami process :: complete - [%s]", getTime(sw)));
+	}
+
+	protected String getJenkinsMaster(JenkinsContext context) {
+		String dnsPrefix = context.getDnsPrefix();
+		return Joiner.on('.').join(dnsPrefix, DOMAIN);
+	}
+
+	protected void configureInstance(EC2Service service, Instance instance, List<Tag> tags, ProjectIdentifier pid, boolean quiet, String privateKey, String dnsPrefix,
+			String jenkinsMaster) throws Exception {
 		service.tag(instance.getInstanceId(), tags);
 		logger.info(format("public dns: %s", instance.getPublicDnsName()));
 		String dns = instance.getPublicDnsName();
-		String privateKey = KUALI_KEY.getPrivateKey().get();
 		SpinUpJenkinsMaster.verifySSH(UBUNTU, dns, privateKey);
 		SpinUpJenkinsMaster.bootstrap(dns, privateKey);
 		SecureChannel channel = SpinUpJenkinsMaster.openSecureChannel(ROOT, dns, privateKey, quiet);
@@ -127,8 +146,6 @@ public class CreateBuildSlaveAMI {
 
 		String gpgPassphrase = Auth.decrypt(GPG_PASSPHRASE_ENCRYPTED);
 		String quietFlag = (quiet) ? "-q" : "";
-		String dnsPrefix = jenkinsContext.getDnsPrefix();
-		String jenkinsMaster = Joiner.on('.').join(dnsPrefix, DOMAIN);
 
 		setupEssentials(channel, basedir, pid, distro, distroVersion, gpgPassphrase, dnsPrefix, quietFlag);
 		String common = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
@@ -138,15 +155,6 @@ public class CreateBuildSlaveAMI {
 		cacheBinaries(channel, basedir, pid);
 		channel.close();
 		service.stopInstance(instance.getInstanceId());
-
-		// Create a new AMI from this slave, and copy it around to every US region
-		String ami = updateAMIs(instance, service, request);
-
-		// Update the master with the AMI we just created
-		updateMasterAMI(jenkinsMaster, pid, privateKey, quiet, ami);
-
-		// log a message showing total elapsed time
-		logger.info(format("build slave ami process :: complete - [%s]", getTime(sw)));
 	}
 
 	protected String updateAMIs(Instance instance, EC2Service service, BasicLaunchRequest request) {
