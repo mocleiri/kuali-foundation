@@ -103,34 +103,30 @@ public class CreateBuildSlaveAMI {
 
 	@Test
 	public void test() throws Exception {
-		try {
-			logger.info(format("build slave ami process :: starting"));
-			VirtualSystem vs = VirtualSystem.create();
-			// Default to quiet mode unless they've supplied -Dec2.quiet=false
-			boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
-			JenkinsContext jenkinsContext = SpinUpJenkinsMaster.getJenkinsContext(vs, CONTEXTS);
-			// Configurable items
-			BasicLaunchRequest request = getSlaveLaunchRequest(jenkinsContext);
-			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
+		logger.info(format("build slave ami process :: starting"));
+		VirtualSystem vs = VirtualSystem.create();
+		// Default to quiet mode unless they've supplied -Dec2.quiet=false
+		boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
+		JenkinsContext jenkinsContext = SpinUpJenkinsMaster.getJenkinsContext(vs, CONTEXTS);
+		// Configurable items
+		BasicLaunchRequest request = getSlaveLaunchRequest(jenkinsContext);
+		ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
-			EC2Service service = getEC2Service(amazonAccount, jenkinsContext.getRegion());
-			List<Tag> tags = getSlaveTags(jenkinsContext);
-			Instance instance = launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
-			// Instance instance = service.getInstance("i-39c83531");
-			String privateKey = KUALI_KEY.getPrivateKey().get();
-			configureInstance(service, instance, tags, pid, quiet, privateKey, jenkinsContext.getDnsPrefix(), getJenkinsMaster(jenkinsContext));
+		EC2Service service = getEC2Service(amazonAccount, jenkinsContext.getRegion());
+		List<Tag> tags = getSlaveTags(jenkinsContext);
+		Instance instance = launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
+		// Instance instance = service.getInstance("i-39c83531");
+		String privateKey = KUALI_KEY.getPrivateKey().get();
+		configureInstance(service, instance, tags, pid, quiet, privateKey, jenkinsContext.getDnsPrefix(), getJenkinsMaster(jenkinsContext));
 
-			// Create a new AMI from this slave, and copy it around to every US region
-			String ami = createAndPropagateAMI(instance, service, request);
+		// Create a new AMI from this slave, and copy it around to every US region
+		String ami = createAndPropagateAMI(instance, service, request);
 
-			// Update the master with the AMI we just created
-			updateMasterAMI(getJenkinsMaster(jenkinsContext), pid, privateKey, quiet, ami);
+		// Update the master with the AMI we just created
+		updateMasterAMI(getJenkinsMaster(jenkinsContext), pid, privateKey, quiet, ami);
 
-			// log a message showing total elapsed time
-			logger.info(format("build slave ami process :: complete - [%s]", getTime(sw)));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		// log a message showing total elapsed time
+		logger.info(format("build slave ami process :: complete - [%s]", getTime(sw)));
 	}
 
 	protected String getJenkinsMaster(JenkinsContext context) {
