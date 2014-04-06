@@ -316,8 +316,7 @@ public class CreateBuildSlaveAMI {
 	protected static EC2Service getEC2Service(String account, Region region) {
 		AWSCredentials creds = Auth.getAwsCredentials(account);
 		WaitService ws = new DefaultWaitService();
-		String regionName = region.getName();
-		EC2ServiceContext ec = new EC2ServiceContext.Builder(creds).withRegionName(Optional.of(regionName)).build();
+		EC2ServiceContext ec = new EC2ServiceContext.Builder(creds).withRegion(region.getName()).build();
 		return new DefaultEC2Service(ec, ws);
 	}
 
