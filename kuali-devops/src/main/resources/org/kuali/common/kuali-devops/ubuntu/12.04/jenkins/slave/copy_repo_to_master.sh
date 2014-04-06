@@ -9,7 +9,7 @@ SRC=$REPO/
 DST=root@$JENKINS_MASTER:$REPO
 
 # Make the rsync call
-rsync --archive --stats -v $SRC $DST --exclude='**/org/kuali/**' --exclude='**/SNAPSHOT*.*'
+rsync --archive --stats --verbose $SRC $DST --exclude='**/org/kuali/**' --exclude='**/SNAPSHOT*.*'
 
 set +x
 date
