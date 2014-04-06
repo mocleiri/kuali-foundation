@@ -26,7 +26,6 @@ import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
 
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Instance;
-import com.amazonaws.services.ec2.model.Region;
 import com.amazonaws.services.ec2.model.SecurityGroup;
 import com.amazonaws.services.ec2.model.Snapshot;
 import com.amazonaws.services.ec2.model.Tag;
@@ -47,7 +46,7 @@ public interface EC2Service {
 
 	String getAccessKey();
 
-	String copyAmi(Region region, String ami);
+	String copyAmi(String region, String ami);
 
 	Instance startInstance(String instanceId);
 

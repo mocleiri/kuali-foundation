@@ -68,6 +68,7 @@ import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
 
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.regions.RegionUtils;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.AuthorizeSecurityGroupIngressRequest;
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
@@ -118,6 +119,7 @@ import com.amazonaws.services.ec2.model.StopInstancesRequest;
 import com.amazonaws.services.ec2.model.Tag;
 import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
 import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
@@ -169,10 +171,13 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	@Override
-	public String copyAmi(Region region, String ami) {
+	public String copyAmi(String region, String ami) {
+		checkNotBlank(region, "region");
+		checkNotBlank(ami, "ami");
+		Preconditions.checkNotNull(RegionUtils.getRegion(region), "region %s is unknown", region);
 		CopyImageRequest request = new CopyImageRequest();
 		request.setSourceImageId(ami);
-		request.setSourceRegion(region.getRegionName());
+		request.setSourceRegion(region);
 		CopyImageResult result = client.copyImage(request);
 		return result.getImageId();
 	}
