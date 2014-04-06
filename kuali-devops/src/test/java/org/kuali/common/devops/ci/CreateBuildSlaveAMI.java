@@ -198,6 +198,7 @@ public class CreateBuildSlaveAMI {
 		List<String> args = newArrayList();
 		args.add("initialize");
 		args.add("-Pupdate");
+		args.add("--quiet");
 		args.add("-Dorg.slf4j.simpleLogger.log.org.kuali.maven.wagon=warn");
 		args.add("-f");
 		args.add(pom);
