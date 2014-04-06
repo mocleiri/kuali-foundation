@@ -76,7 +76,7 @@ function copy_repo_from_master {
   REMOTE_REPO=$JENKINS_MASTER:$M2_REPO
   echo "rsync     -> $REMOTE_REPO"
   echo "rsync     -> start -> $(date)"
-  execute_quietly "rsync --archive --verbose --stats root@$REMOTE_REPO/ $M2_REPO" 
+  execute_quietly "rsync --archive --verbose --stats root@$REMOTE_REPO/ $M2_REPO --exclude=**/com/oracle/jdk*/** --exclude=**/firefox/** --exclude=**/org/jenkins/**" 
   echo "rsync     -> stop  -> $(date)"
   
 }
