@@ -143,6 +143,14 @@ public class CreateBuildSlaveAMI {
 		CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(name).withRootVolume(request.getRootVolume())
 				.withAdditionalMappings(additionalMappings).withTimeoutMillis(request.getTimeoutMillis()).withDescription(description).build();
 		Image image = service.createAmi(creator);
+		for (String region : US_REGIONS) {
+			if (!region.equals(service.getRegion())) {
+				EC2Service otherRegionService = new DefaultEC2Service(Auth.getAwsCredentials(amazonAccount), region);
+				String otherRegionAmi = otherRegionService.copyAmi(region, image.getImageId());
+				otherRegionService.tag(otherRegionAmi, name);
+				cleanupAmis(otherRegionService);
+			}
+		}
 		logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
 		logger.info(format("terminating instance [%s]", instance.getInstanceId()));
 		service.terminateInstance(instance.getInstanceId());
@@ -214,6 +222,8 @@ public class CreateBuildSlaveAMI {
 
 		// Most recent images are at the bottom (we need them at the top)
 		reverse(filtered);
+
+		logger.info(format("cleaning up AMI's in %s", service.getRegion()));
 
 		// Show AMI's
 		for (Image image : filtered) {
