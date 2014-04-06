@@ -139,7 +139,8 @@ function configure_tomcat_user {
   cp -R /root/.ssh          $TOMCAT_HOME
   cp -R /root/.subversion   $TOMCAT_HOME
   echo "copy      -> root m2 repo"
-  cp -R /root/.m2 $TOMCAT_HOME
+  #cp -R /root/.m2 $TOMCAT_HOME
+  execute_quietly "rsync --archive --verbose --stats /root/.m2/ $TOMCAT_HOME --exclude=**/com/oracle/jdk*/** --exclude=**/firefox/** --exclude=**/org/jenkins/**" 
   
   # Sets up Java + Maven + Jenkins Master
   cp /root/.bashrc       $TOMCAT_HOME/.bash_profile
