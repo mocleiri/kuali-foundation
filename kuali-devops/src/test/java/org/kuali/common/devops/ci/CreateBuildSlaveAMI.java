@@ -138,6 +138,18 @@ public class CreateBuildSlaveAMI {
 		cacheBinaries(channel, basedir, pid);
 		channel.close();
 		service.stopInstance(instance.getInstanceId());
+
+		// Create a new AMI from this slave, and copy it around to every US region
+		String ami = updateAMIs(instance, service, request);
+
+		// Update the master with the AMI we just created
+		updateMasterAMI(jenkinsMaster, pid, privateKey, quiet, ami);
+
+		// log a message showing total elapsed time
+		logger.info(format("build slave ami process :: complete - [%s]", getTime(sw)));
+	}
+
+	protected String updateAMIs(Instance instance, EC2Service service, BasicLaunchRequest request) {
 		String description = format("automated ec2 slave ami - %s", today);
 		List<BlockDeviceMapping> additionalMappings = ImmutableBlockDeviceMapping.DEFAULT_INSTANCE_STORES;
 		CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(name).withRootVolume(request.getRootVolume())
@@ -146,17 +158,15 @@ public class CreateBuildSlaveAMI {
 		logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
 		logger.info(format("terminating instance [%s]", instance.getInstanceId()));
 		service.terminateInstance(instance.getInstanceId());
+
 		// Make sure we only have 7 AMI's for CI slaves in the current region
 		cleanupAmis(service);
 
 		// Copy this new AMI to every US region
 		copyAmi(service.getRegion(), image.getImageId(), name);
 
-		// Update the master with the AMI we just created
-		updateMasterAMI(jenkinsMaster, pid, privateKey, quiet, image.getImageId());
-		
-		// log a message showing total elapsed time
-		logger.info(format("build slave ami process :: complete - [%s]", getTime(sw)));
+		return image.getImageId();
+
 	}
 
 	protected void copyAmi(String sourceRegion, String ami, Tag name) {
