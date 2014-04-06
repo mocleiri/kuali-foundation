@@ -103,30 +103,36 @@ public class CreateBuildSlaveAMI {
 
 	@Test
 	public void test() throws Exception {
-		logger.info(format("build slave ami process :: starting"));
-		VirtualSystem vs = VirtualSystem.create();
-		// Default to quiet mode unless they've supplied -Dec2.quiet=false
-		boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
-		JenkinsContext jenkinsContext = SpinUpJenkinsMaster.getJenkinsContext(vs, CONTEXTS);
-		// Configurable items
-		BasicLaunchRequest request = getSlaveLaunchRequest(jenkinsContext);
-		ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
+		try {
+			System.setProperty("ec2.region", "us-west-2");
+			System.setProperty("ec2.stack", "test");
+			logger.info(format("build slave ami process :: starting"));
+			VirtualSystem vs = VirtualSystem.create();
+			// Default to quiet mode unless they've supplied -Dec2.quiet=false
+			boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
+			JenkinsContext jenkinsContext = SpinUpJenkinsMaster.getJenkinsContext(vs, CONTEXTS);
+			// Configurable items
+			BasicLaunchRequest request = getSlaveLaunchRequest(jenkinsContext);
+			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
-		EC2Service service = getEC2Service(amazonAccount, jenkinsContext.getRegion());
-		List<Tag> tags = getSlaveTags(jenkinsContext);
-		Instance instance = launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
-		// Instance instance = service.getInstance("i-d20676da");
-		String privateKey = KUALI_KEY.getPrivateKey().get();
-		configureInstance(service, instance, tags, pid, quiet, privateKey, jenkinsContext.getDnsPrefix(), getJenkinsMaster(jenkinsContext));
+			EC2Service service = getEC2Service(amazonAccount, jenkinsContext.getRegion());
+			List<Tag> tags = getSlaveTags(jenkinsContext);
+			Instance instance = launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
+			// Instance instance = service.getInstance("i-39c83531");
+			String privateKey = KUALI_KEY.getPrivateKey().get();
+			configureInstance(service, instance, tags, pid, quiet, privateKey, jenkinsContext.getDnsPrefix(), getJenkinsMaster(jenkinsContext));
 
-		// Create a new AMI from this slave, and copy it around to every US region
-		String ami = createAndPropagateAMI(instance, service, request);
+			// Create a new AMI from this slave, and copy it around to every US region
+			String ami = createAndPropagateAMI(instance, service, request);
 
-		// Update the master with the AMI we just created
-		updateMasterAMI(getJenkinsMaster(jenkinsContext), pid, privateKey, quiet, ami);
+			// Update the master with the AMI we just created
+			updateMasterAMI(getJenkinsMaster(jenkinsContext), pid, privateKey, quiet, ami);
 
-		// log a message showing total elapsed time
-		logger.info(format("build slave ami process :: complete - [%s]", getTime(sw)));
+			// log a message showing total elapsed time
+			logger.info(format("build slave ami process :: complete - [%s]", getTime(sw)));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	protected String getJenkinsMaster(JenkinsContext context) {
@@ -163,6 +169,7 @@ public class CreateBuildSlaveAMI {
 		CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(name).withRootVolume(request.getRootVolume())
 				.withAdditionalMappings(additionalMappings).withTimeoutMillis(request.getTimeoutMillis()).withDescription(description).build();
 		Image image = service.createAmi(creator);
+		// Image image = service.getImage("ami-824229b2");
 		logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
 
 		// Now that the AMI has been created, we can terminate the slave instance
@@ -259,7 +266,7 @@ public class CreateBuildSlaveAMI {
 		// Show AMI's
 		for (Image image : filtered) {
 			Tag tag = findRequiredTag(image.getTags(), name.getKey(), startsWithToken);
-			logger.info(format("slave ami   -> %s = [%s]", tag.getValue(), image.getImageId()));
+			logger.debug(format("slave ami   -> %s = [%s]", tag.getValue(), image.getImageId()));
 		}
 		List<Image> deletes = newArrayList();
 		for (int i = minimumAmisToKeep; i < filtered.size(); i++) {
