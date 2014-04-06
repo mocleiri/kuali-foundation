@@ -16,12 +16,14 @@
 package org.kuali.common.aws.ec2.model;
 
 import static com.google.common.base.Optional.absent;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.util.FormatUtils;
 
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.regions.RegionUtils;
 import com.amazonaws.services.ec2.model.Region;
 import com.google.common.base.Optional;
 
@@ -111,7 +113,9 @@ public final class EC2ServiceContext {
 
 		@Override
 		public EC2ServiceContext build() {
-			return validate(new EC2ServiceContext(this));
+			EC2ServiceContext context = validate(new EC2ServiceContext(this));
+			checkNotNull(RegionUtils.getRegion(context.getRegion()), "region %s is unknown", context.getRegion());
+			return context;
 		}
 
 		public int getSleepIntervalMillis() {
