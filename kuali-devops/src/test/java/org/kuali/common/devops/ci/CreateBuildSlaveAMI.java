@@ -246,7 +246,7 @@ public class CreateBuildSlaveAMI {
 		// Most recent images are at the bottom (we need them at the top)
 		reverse(filtered);
 
-		logger.info(format("cleaning up AMI's in %s", service.getRegion()));
+		logger.info(format("cleaning up AMI's in region -> %s", service.getRegion()));
 
 		// Show AMI's
 		for (Image image : filtered) {
