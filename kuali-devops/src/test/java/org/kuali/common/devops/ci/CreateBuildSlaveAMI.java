@@ -143,20 +143,31 @@ public class CreateBuildSlaveAMI {
 		CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(name).withRootVolume(request.getRootVolume())
 				.withAdditionalMappings(additionalMappings).withTimeoutMillis(request.getTimeoutMillis()).withDescription(description).build();
 		Image image = service.createAmi(creator);
-		for (String region : US_REGIONS) {
-			if (!region.equals(service.getRegion())) {
-				EC2Service otherRegionService = new DefaultEC2Service(Auth.getAwsCredentials(amazonAccount), region);
-				String otherRegionAmi = otherRegionService.copyAmi(region, image.getImageId());
-				otherRegionService.tag(otherRegionAmi, name);
-				cleanupAmis(otherRegionService);
-			}
-		}
 		logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
 		logger.info(format("terminating instance [%s]", instance.getInstanceId()));
 		service.terminateInstance(instance.getInstanceId());
+		// Make sure we only have 7 AMI's for CI slaves in the current region
 		cleanupAmis(service);
+
+		// Copy this new AMI to every US region
+		copyAmi(service.getRegion(), image.getImageId(), name);
+
+		// Update the master with the AMI we just created
 		updateMasterAMI(jenkinsMaster, pid, privateKey, quiet, image.getImageId());
+		
+		// log a message showing total elapsed time
 		logger.info(format("build slave ami process :: complete - [%s]", getTime(sw)));
+	}
+
+	protected void copyAmi(String sourceRegion, String ami, Tag name) {
+		for (String region : US_REGIONS) {
+			if (!region.equals(sourceRegion)) {
+				EC2Service service = new DefaultEC2Service(Auth.getAwsCredentials(amazonAccount), region);
+				String copiedAmi = service.copyAmi(sourceRegion, ami);
+				service.tag(copiedAmi, name);
+				cleanupAmis(service);
+			}
+		}
 	}
 
 	protected void cacheBinaries(SecureChannel channel, String basedir, ProjectIdentifier pid) {
