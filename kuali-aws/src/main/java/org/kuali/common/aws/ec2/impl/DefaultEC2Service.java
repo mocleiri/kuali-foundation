@@ -136,12 +136,12 @@ public final class DefaultEC2Service implements EC2Service {
 	private final EC2ServiceContext context;
 	private final WaitService service;
 
-	public DefaultEC2Service(AWSCredentials credentials, Region region) {
-		this(EC2ServiceContext.create(credentials, region), new DefaultWaitService());
-	}
-
 	public DefaultEC2Service(AWSCredentials credentials) {
 		this(EC2ServiceContext.create(credentials), new DefaultWaitService());
+	}
+
+	public DefaultEC2Service(AWSCredentials credentials, Region region) {
+		this(EC2ServiceContext.create(credentials, region), new DefaultWaitService());
 	}
 
 	public DefaultEC2Service(EC2ServiceContext context, WaitService service) {
