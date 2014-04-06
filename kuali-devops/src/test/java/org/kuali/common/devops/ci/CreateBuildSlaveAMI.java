@@ -104,8 +104,6 @@ public class CreateBuildSlaveAMI {
 	@Test
 	public void test() throws Exception {
 		try {
-			System.setProperty("ec2.region", "us-west-2");
-			System.setProperty("ec2.stack", "test");
 			logger.info(format("build slave ami process :: starting"));
 			VirtualSystem vs = VirtualSystem.create();
 			// Default to quiet mode unless they've supplied -Dec2.quiet=false
