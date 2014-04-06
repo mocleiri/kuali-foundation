@@ -156,6 +156,8 @@ public class CreateBuildSlaveAMI {
 				.withAdditionalMappings(additionalMappings).withTimeoutMillis(request.getTimeoutMillis()).withDescription(description).build();
 		Image image = service.createAmi(creator);
 		logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
+
+		// Now that the AMI has been created, we can terminate the slave instance
 		logger.info(format("terminating instance [%s]", instance.getInstanceId()));
 		service.terminateInstance(instance.getInstanceId());
 
