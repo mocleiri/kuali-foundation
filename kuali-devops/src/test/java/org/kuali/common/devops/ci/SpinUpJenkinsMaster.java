@@ -135,6 +135,7 @@ public class SpinUpJenkinsMaster {
 			// do jenkins specific configuration
 			String common = getResource(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
 			String jenkins = getResource(basedir, pid, distro, distroVersion, "jenkins/installjenkins");
+			String configureMaster = getResource(basedir, pid, distro, distroVersion, "jenkins/configuremaster");
 			exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
 			String stack = jenkinsContext.getStack().getTag().getValue();
 			String backupMode = jenkinsContext.getBackupMode().name().toLowerCase();
