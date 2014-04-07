@@ -11,6 +11,21 @@ $section = '';
     <title>Kuali :: Fluid Application Header</title>
     <!-- GLOBAL STYLES -->
     <?php include ('includes/styles.php') ?>
+    <style type="text/css">
+#export-pdf-excel, #generate-periods {
+	margin-top: 20px;
+}
+#export-pdf-excel .dropdown-menu {
+	min-width: 40px;
+	padding: 3px 0px;
+}
+#export-pdf-excel .dropdown-menu a {
+	padding: 3px 10px 5px 10px;
+}
+#export-pdf-excel .dropdown-menu span {
+	padding: 0 3px 0 1px;
+}
+</style>
 </head>
 
 <body id="Uif-Application" style="padding-bottom: 570px;">
@@ -94,7 +109,20 @@ $section = '';
                         <h2 class="uif-headerText"> <span class="uif-headerText-span">Budget Summary </span> </h2>
                     </div>
                 </header>
-                <div class="pull-right"> <!-- <a href="#"><span class="icon-compass"></span> Guide Me</a> --></div>
+                <div class="pull-right"> <!-- <a href="#"><span class="icon-compass"></span> Guide Me</a> -->
+                
+                             <div class="btn-group" id="export-pdf-excel">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Export <span class="caret"></span></button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#"  data-toggle="modal" data-target="#copyNew" class=""><span aria-hidden="true" class="icon-file-excel"></span>Excel</a></li>
+                            <li><a href="#"><span aria-hidden="true" class="icon-file-pdf"></span>Pdf</a></li>
+                        </ul>
+                    </div>
+                    <!-- // export  -->
+                
+                
+                
+                </div>
                 <table class="table table-condensed credit-allocation">
                     <tbody>
                     <tr>
@@ -270,7 +298,6 @@ $section = '';
 <?php include ('includes/modal-budget-open-prop.php') ?>
 <!-- MODAL BUDGET VERSIONS -->
 <?php include ('includes/modal-budget-versions.php') ?>
-
 
 </body>
 </html>

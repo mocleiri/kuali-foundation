@@ -12,6 +12,21 @@ $section = '';
 <title>Kuali :: Fluid Application Header</title>
 <!-- GLOBAL STYLES -->
 <?php include ('includes/styles.php') ?>
+<style type="text/css">
+#export-pdf-excel, #generate-periods {
+	margin-top: 20px;
+}
+#export-pdf-excel .dropdown-menu {
+	min-width: 40px;
+	padding: 3px 0px;
+}
+#export-pdf-excel .dropdown-menu a {
+	padding: 3px 10px 5px 10px;
+}
+#export-pdf-excel .dropdown-menu span {
+	padding: 0 3px 0 1px;
+}
+</style>
 </head>
 
 <body id="Uif-Application" style="padding-bottom: 570px;">
@@ -95,7 +110,17 @@ $section = '';
                         <h2 class="uif-headerText"> <span class="uif-headerText-span">Budget Summary </span> </h2>
                     </div>
                 </header>
-                <div class="pull-right"><!-- <a href="#"><span class="icon-compass"></span> Guide Me</a> --></div>
+                <div class="pull-right"> 
+                    <!-- export -->
+                    <div class="btn-group" id="export-pdf-excel">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Export <span class="caret"></span></button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#"  data-toggle="modal" data-target="#copyNew" class=""><span aria-hidden="true" class="icon-file-excel"></span>Excel</a></li>
+                            <li><a href="#"><span aria-hidden="true" class="icon-file-pdf"></span>Pdf</a></li>
+                        </ul>
+                    </div>
+                    <!-- // export  --> 
+                </div>
                 <table class="table table-condensed credit-allocation">
                     <tbody>
                         <tr>
@@ -204,24 +229,21 @@ $section = '';
                     <tfoot>
                         <tr>
                             <td></td>
-                            <td class="uif-center-aligned uif-column-special">
-                                <a href="budget-ng-summary2.php" class="btn btn-default btn-xs">Generate Periods <br> from Period 1</a>
-                            </td>
+                            <td class="uif-center-aligned uif-column-special"><a href="#" class="btn btn-default btn-xs uif-actionLink" data-toggle="modal" data-target="#modal-generate-versions">Generate Periods <br> from Period 1</a></td>
                             <td colspan="5"></td>
                         </tr>
                     </tfoot>
                 </table>
-
-<!--                <div class="well">-->
-<!--                    <button class="btn btn-default btn-xs">Generate all other periods based on Period 1</button>-->
-<!--                </div>-->
+                
+                <!--                <div class="well">--> 
+                <!--                    <button class="btn btn-default btn-xs">Generate all other periods based on Period 1</button>--> 
+                <!--                </div>--> 
             </main>
         </div>
         <!-- VIEW FOOTER -->
-        <div id="u19v7dpm" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;">
-            <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save</button>
-            <a href="budget-ng-periods.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Save and Continue</a>
-        </div>
+        <div id="u19v7dpm" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;"> <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save
+            </button>
+            <a href="budget-ng-periods.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Save and Continue</a> </div>
         <!-- DIALOGS/Placeholders --> </div>
     <span id="formInfo">
     <input type="hidden" name="viewId" value="LabsProposal">
@@ -271,7 +293,7 @@ $section = '';
 <?php include ('includes/modal-budget-open-prop.php') ?>
 <!-- MODAL BUDGET VERSIONS -->
 <?php include ('includes/modal-budget-versions.php') ?>
- 
+
 
 </body>
 </html>
