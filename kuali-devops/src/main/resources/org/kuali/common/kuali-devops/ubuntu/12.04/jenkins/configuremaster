@@ -151,6 +151,7 @@ function configure_jenkins {
 }
 
 function check_args {
+
   check_not_blank FQDN $FQDN
   check_not_blank REGION $REGION
   check_not_blank STACK $STACK
