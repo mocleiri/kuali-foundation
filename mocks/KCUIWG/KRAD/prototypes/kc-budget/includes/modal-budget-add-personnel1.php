@@ -248,7 +248,13 @@
             <a href="" class="btn btn-default" data-dismiss="modal">Cancel</a> 
             <a href="" style="display:none;" data-dismiss="modal" class="btn btn-primary employee" data-toggle="modal" data-target="#modal-add-personnel1-results">Search</a>
             <a href="" style="display:none;" data-dismiss="modal" class="btn btn-primary nonemployee" data-toggle="modal" data-target="#modal-add-personnel1-results">Search</a>
-            <a href="" style="display:none;" data-dismiss="modal" class="btn btn-primary tbn" data-toggle="modal" data-target="">Add TBN Personnel to Budget</a> </div>
+           
+            
+            
+            <a href="budget-ng-personnelCosts-projPersonnel2.php" class="btn btn-primary tbn" data-dismiss="" style="display:none;">Add TBN Personnel to Budget</a>
+            
+            
+             </div>
         </div>
     </div>
 </div>
