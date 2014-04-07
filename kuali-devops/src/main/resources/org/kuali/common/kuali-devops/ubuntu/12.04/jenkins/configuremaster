@@ -28,6 +28,12 @@ function configure_tomcat_user {
   # Make sure everything is owned by tomcat
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
   
+  
+  echo "configure -> tomcat7 sudo"
+  FILE=/etc/sudoers.d/90-cloudimg-ubuntu
+  echo "ubuntu ALL=(ALL) NOPASSWD:ALL"  > $FILE
+  echo "tomcat7 ALL=(ALL) NOPASSWD:ALL" >> $FILE
+  
 }
 
 function configure_jenkins_location {
