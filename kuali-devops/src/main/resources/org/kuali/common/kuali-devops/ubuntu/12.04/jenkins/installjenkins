@@ -128,7 +128,7 @@ function install_plugins {
   install_plugin parameterized-trigger 2.24
   install_plugin scm-api               0.2
   install_plugin ssh-credentials       1.6.1
-  install_plugin subversion            2.2
+  install_plugin subversion            1.54
   install_plugin token-macro           1.10
   install_plugin template-project      1.4.1
 
