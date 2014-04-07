@@ -226,13 +226,13 @@ $section = '';
                             <td class="uif-right-aligned">-</td>
                         </tr>
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <td></td>
-                            <td class="uif-center-aligned uif-column-special"><a href="#" class="btn btn-default btn-xs uif-actionLink" data-toggle="modal" data-target="#modal-generate-versions">Generate Periods <br> from Period 1</a></td>
-                            <td colspan="5"></td>
-                        </tr>
-                    </tfoot>
+<!--                    <tfoot>-->
+<!--                        <tr>-->
+<!--                            <td></td>-->
+<!--                            <td class="uif-center-aligned uif-column-special"><a href="#" class="btn btn-default btn-xs uif-actionLink" data-toggle="modal" data-target="#modal-generate-versions">Generate Periods <br> from Period 1</a></td>-->
+<!--                            <td colspan="5"></td>-->
+<!--                        </tr>-->
+<!--                    </tfoot>-->
                 </table>
                 
                 <!--                <div class="well">--> 

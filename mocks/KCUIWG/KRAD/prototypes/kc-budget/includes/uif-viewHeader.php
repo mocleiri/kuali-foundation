@@ -62,12 +62,12 @@
             <li><a  class="uif-actionLink" data-toggle="modal" data-target="#modal-budget-versions"><span class="icon-money"></span>Budget Versions</a> </li>
             
 
- <!--  removed for split test ------- 
-  
-         <li><a class="uif-actionLink" data-toggle="modal" data-target="#modal-generate-versions"><span class="icon-stack"></span>Generate All Periods </a>  
-</li>  
+ <!--  removed for split test ------->
 
--->
+         <li><a class="uif-actionLink" data-toggle="modal" data-target="#modal-generate-versions"><span class="icon-stack"></span>Generate All Periods </a>
+</li>
+
+<!-- -->
         </ul>
     </div>
 </header>
