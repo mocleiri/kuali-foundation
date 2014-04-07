@@ -1,6 +1,6 @@
 /*
  * Javascript for POC prototype
- * clrux
+ * clrux, thrclark
  */
 
 jQuery(document).ready(function($) {

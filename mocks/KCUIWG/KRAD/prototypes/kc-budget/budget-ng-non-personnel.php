@@ -218,6 +218,8 @@ $section = '';
  Field 4: : activate to sort column ascending">Quantity</th>                                          
                                             <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
  Field 4: : activate to sort column ">Total Base Cost</th>
+                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
+ Field 4: : activate to sort column ">Cost sharing</th>
                                             <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
  Field 4: : activate to sort column ">Actions</th>
                                         </tr>
@@ -227,6 +229,7 @@ $section = '';
                                             <td><span data-edit-type="select" data-edit-type-options="Equipment - Not MTDC,Equipment - MTDC">Equipment - Not MTDC</span></td>
                                             <td>Microscope</td>
                                             <td>1</td>
+                                            <td class="text-right">$0.00</td>
                                             <td class="text-right">$0.00</td>
                                             <td>
 <!--                                                <div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span><span aria-hidden="true" class="icon-trash"></span></a></div></td>-->

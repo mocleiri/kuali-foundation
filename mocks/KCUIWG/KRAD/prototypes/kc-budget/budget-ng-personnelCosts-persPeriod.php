@@ -213,11 +213,11 @@ $page = 'personnel-assign';
                                         </tr>
                                     </thead>
                                     <tbody role="alert" aria-live="polite" aria-relevant="all">
-                                        <tr class="not-deletable">
+                                        <tr>
                                             <td>Ward Cleaver <small class="text-muted">(PI)</small></td>
-                                            <td>1/12/14<small class="text-muted"></small></td>
-                                            <td>1/12/15</td>
-                                            <td class="text-right">100%</td>
+                                            <td><span data-edit-type="input">1/12/14</span><small class="text-muted"></small></td>
+                                            <td><span data-edit-type="input">1/12/15</span></td>
+                                            <td class="text-right"><span class="date-edit-type">100%</span></td>
                                             <td><div class="dropdown dropdown-large">
                                                     <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -808px;top: 26px;width: 890px;padding:15px; background:#fcf8e3;">
                                                         <div class="row">
@@ -253,12 +253,16 @@ $page = 'personnel-assign';
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    50%</div></td>
+                                                    </div>50%
+                                                </div>
+                                            </td>
                                             <td>Calendar</td>
                                             <td class="text-right">$142,525.00</td>
                                             <td class="text-right">$0.00</td>
-                                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span><span aria-hidden="true" class="icon-trash"></span></a></div></td>
+                                            <td>
+<!--                                                <div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span><span aria-hidden="true" class="icon-trash"></span></a></div>-->
+                                                <a class="icon icon-edit uif-btn-edit" href="#"><span class="sr-only">Edit</span></a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -294,7 +298,7 @@ $page = 'personnel-assign';
                                         </tr>
                                     </thead>
                                     <tbody role="alert" aria-live="polite" aria-relevant="all">
-                                        <tr class="not-deletable">
+                                        <tr>
                                             <td>John Coltrane <small class="text-muted">(Key Person)</small></td>
                                             <td>1/12/14<small class="text-muted"></small></td>
                                             <td>1/12/15</td>
@@ -339,7 +343,10 @@ $page = 'personnel-assign';
                                             <td>Calendar</td>
                                             <td class="text-right">$142,525.00</td>
                                             <td class="text-right">$0.00</td>
-                                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span><span aria-hidden="true" class="icon-trash"></span></a></div></td>
+                                            <td>
+<!--                                                <div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span><span aria-hidden="true" class="icon-trash"></span></a></div>-->
+                                                <a class="icon icon-edit uif-btn-edit" href="#"><span class="sr-only">Edit</span></a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -375,7 +382,7 @@ $page = 'personnel-assign';
                                         </tr>
                                     </thead>
                                     <tbody role="alert" aria-live="polite" aria-relevant="all">
-                                        <tr class="not-deletable">
+                                        <tr>
                                             <td>Ward Cleaver <small class="text-muted">(PI)</small></td>
                                             <td>1/12/14<small class="text-muted"></small></td>
                                             <td>1/12/15</td>
@@ -420,7 +427,10 @@ $page = 'personnel-assign';
                                             <td>Calendar</td>
                                             <td class="text-right">$142,525.00</td>
                                             <td class="text-right">$0.00</td>
-                                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span><span aria-hidden="true" class="icon-trash"></span></a></div></td>
+                                            <td>
+<!--                                                <div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span><span aria-hidden="true" class="icon-trash"></span></a></div>-->
+                                                <a class="icon icon-edit uif-btn-edit" href="#"><span class="sr-only">Edit</span></a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
