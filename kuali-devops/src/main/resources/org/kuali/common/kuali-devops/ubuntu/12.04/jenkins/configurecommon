@@ -72,7 +72,7 @@ function download_m2_repo_cache {
   local GROUP_ID=org.jenkins
   local ARTIFACT_ID=jenkins-master-repo
   local VERSION=m2
-  local CLASSIFIER=lastest
+  local CLASSIFIER=latest
   local TYPE=tar.gz
   
   echo "download   -> m2 repo cache"
