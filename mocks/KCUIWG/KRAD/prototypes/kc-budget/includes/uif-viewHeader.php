@@ -21,30 +21,30 @@
                     <h4 class="uif-headerText"> Document Info </h4>
                     <table id="u98wduy" class="edit-table table table-condensed uif-table-fixed" role="presentation">
                         <tbody>
-                        <tr>
-                            <th scope="row">Label</th>
-                            <td class="uif-gridLayoutCell">Item</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Label</th>
-                            <td class="uif-gridLayoutCell">Item</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Label</th>
-                            <td class="uif-gridLayoutCell">Item</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Label</th>
-                            <td class="uif-gridLayoutCell">Item</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Label</th>
-                            <td class="uif-gridLayoutCell">Item</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Label</th>
-                            <td class="uif-gridLayoutCell">Item</td>
-                        </tr>
+                            <tr>
+                                <th scope="row">Label</th>
+                                <td class="uif-gridLayoutCell">Item</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Label</th>
+                                <td class="uif-gridLayoutCell">Item</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Label</th>
+                                <td class="uif-gridLayoutCell">Item</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Label</th>
+                                <td class="uif-gridLayoutCell">Item</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Label</th>
+                                <td class="uif-gridLayoutCell">Item</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Label</th>
+                                <td class="uif-gridLayoutCell">Item</td>
+                            </tr>
                         </tbody>
                     </table>
                 </section>
@@ -53,14 +53,21 @@
     </div>
     <div id="LabsProposal-DocActionBar" class="uif-actionBar uif-header-lowerGroup">
         <ul>
-      <!--      <li> <a id="uotglns" class="uif-actionLink" tabindex="0" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;print&quot;}"><span class="icon-print"></span>Print</a> </li>
+            <!--      <li> <a id="uotglns" class="uif-actionLink" tabindex="0" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;print&quot;}"><span class="icon-print"></span>Print</a> </li>
             <li> <a id="uotglon" class="uif-actionLink" tabindex="0" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;copy&quot;}"><span class="icon-copy"></span>Copy</a> </li>
             <li> <a id="uotglr8" class="uif-actionLink" tabindex="0" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;access&quot;}"><span class="icon-lock"></span>Access</a> </li>-->
             <li> <a id="uotglmx" class="uif-actionLink" tabindex="0" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;toggleAuditMode&quot;}"> Data Validation <span style="color:#090">(on)</span> </a> </li>
             <li> <a id="uotglr8" class="uif-actionLink"  data-toggle="modal" data-target="#budgetSettings"><span class="icon-cog"></span>Budget Settings</a> </li>
             <li> <a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="#summary"><span class="icon-eye"></span>Summary</a> </li>
-            <li><a  class="uif-actionLink" data-toggle="modal" data-target="#modal-budget-versions"><span class="icon-money"></span>Budget Versions</a>
-</li>
+            <li><a  class="uif-actionLink" data-toggle="modal" data-target="#modal-budget-versions"><span class="icon-money"></span>Budget Versions</a> </li>
+            
+
+ <!--  removed for split test ------- 
+  
+         <li><a class="uif-actionLink" data-toggle="modal" data-target="#modal-generate-versions"><span class="icon-stack"></span>Generate All Periods </a>  
+</li>  
+
+-->
         </ul>
     </div>
 </header>
