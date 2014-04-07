@@ -1,5 +1,5 @@
 <style type="text/css">
-.uif-collection-box {border:1px solid #E5E5E5; background:#fff; height:170px; overflow:scroll;width:95%;overflow-x:hidden;}
+.uif-collection-box {border:1px solid #E5E5E5; background:#fff; height:170px; overflow:scroll;width:95%;overflow-x:hidden; margin:0 0 10px;}
 .uif-collection-box .result-title{font-weight:normal;margin:0px 0 10px 15px;line-height:0; float:left; clear:both;}
 .uif-collection-box input[type="checkbox"]{ margin:3px 3px  10px 0; float:left;}
 .uif-collection-box li{padding:5px; float:left; clear:both; width:100%;border-bottom:1px dotted #ccc;}
@@ -10,6 +10,9 @@
 .uif-indicator-arrow-bottom-center:after {top: 100%;left: 50%;border: solid transparent;content: " ";height: 0;width: 0;position: absolute;pointer-events: none;border-color: rgba(255, 255, 255, 0);border-top-color: #fff;border-width: 30px;margin-left: -30px;}
 .uif-bg-shaded{background:#f5f5f5; margin:0; padding:0; width:98.7%;}
 .uif-personnel-search-for legend{padding-bottom:0; margin-bottom:0;}
+#personnel-search-by-type{margin:2px 2px 0 0 ;}
+#personnel-search-by-text{width:13.5em; padding:3px; margin:0 0 0 2px;}
+#personal-add-results{margin-left:5px;}
 </style>
 <div id="modal-add-personnel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
@@ -24,7 +27,7 @@
 <form action="#" method="get" class="form-horizontal pad5">
                 <div class="clearfix">
                     <div class="row uif-bottom-shadow uif-indicator-arrow-bottom-center">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="uif-personnel-search-for">
                                 <fieldset>
                                     <legend>Search for:</legend>
@@ -40,7 +43,7 @@
                                 </fieldset>
                             </div>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                             <div class="uif-personnel-search-form active" id="personnel-search-form-employee">
                                 <fieldset>
                                     <legend>Search by:</legend>
@@ -57,7 +60,7 @@
                                     <div class="col-md-8">
                                         <div class="form-group">
                                             <label for="personnel-search-by-text" class="control-label"><span class="sr-only">Search for</span></label>
-                                            <input type="text" name="personnel-search-by-text" id="personnel-search-by-text" class="form-control">
+                                            <input type="text" name="personnel-search-by-text" id="personnel-search-by-text" class=" input-sm " >
                                             <button class="btn btn-default">Search</button>
                                         </div>
                                     </div>
@@ -66,7 +69,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row uif-bg-shaded" >
+                    <div class="row uif-bg-shaded" id="personal-add-results">
                         <div class="col-md-5">
                             <div class="uif-padding-top uif-padding-top-2x uif-padding-left uif-padding-right uif-padding-bottom">
                                 <h5>We found <span id="found-total">13 </span><span id="search-type">Employee</span>'s' with the first name "<span id="search-text">john</span>":</h5>
@@ -113,7 +116,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                       <div class="col-md-2">
                             <button class="btn btn-default btn-sm"><span class="icon icon-plus"></span><span class="sr-only">Add to list</span></button>
                             <button class="btn btn-default btn-sm"><span class="icon icon-minus"></span><span class="sr-only">Remove from list</span></button>
                         </div>
