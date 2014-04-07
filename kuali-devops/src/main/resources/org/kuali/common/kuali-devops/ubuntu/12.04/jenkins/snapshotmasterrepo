@@ -62,7 +62,7 @@ source $MY_DIR/../common/aws.sh
 BUCKET=maven.kuali.org
 PREFIX=private
 
-TAR_DIR=/tmp
+TAR_DIR=/ssd
 TAR_FILE=$TAR_DIR/$ARTIFACT_ID.tar.gz
 create_tar_file
 
