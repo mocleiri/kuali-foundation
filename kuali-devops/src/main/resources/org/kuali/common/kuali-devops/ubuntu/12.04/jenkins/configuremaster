@@ -71,48 +71,41 @@ function update_jenkins_config_xml {
   execute_quietly "sed -i -e s@<name>ec2-.*</name>@<name>ec2-$REGION</name>@g $JENKINS_CONFIG_FILE"
   execute_quietly "sed -i -e s@<region>.*</region>@<region>$REGION</region>@g $JENKINS_CONFIG_FILE"
   
-  echo "configure -> jenkins:slaves (remove)"
+  echo "remove    -> jenkins:slaves (if any)"
   # delete everything between <slaves> and </slaves> (including the tags themselves)
   execute_quietly "sed -i /<slaves>/,/<\/slaves>/d $JENKINS_CONFIG_FILE"
   
-  echo "configure -> jenkins:slave:stack:tag"
-  # The line right after <name>Stack</name> contains the value eg test/prod
-  STACK_TAG_LINE_NUMBER=$(get_next_line_number $JENKINS_CONFIG_FILE "<name>Stack</name>")
-  # Update the Stack value
-  execute_quietly "sed -i -e ${STACK_TAG_LINE_NUMBER}s/<value>.*<\/value>/<value>$STACK<\/value>/ $JENKINS_CONFIG_FILE"
+  echo "update    -> slave :: tag :: Stack=$STACK"
+  update_slave_tag $JENKINS_CONFIG_FILE "Stack" $STACK
   
-  echo "configure -> jenkins:master:env:tag"
-  # This is the line number containing the name of the environment variable "JENKINS_MASTER"
-  JENKINS_MASTER_ENV_LINE_NUMBER=$(cat -n $JENKINS_CONFIG_FILE | grep "<string>JENKINS_MASTER</string>" | cut -f 1 | xargs)
-  # The next line contains the value
-  JENKINS_MASTER_ENV_LINE_NUMBER=$(($JENKINS_MASTER_ENV_LINE_NUMBER + 1))
-  # Update the value
-  execute_quietly "sed -i -e ${JENKINS_MASTER_ENV_LINE_NUMBER}s/<string>.*<\/string>/<string>$FQDN<\/string>/ $JENKINS_CONFIG_FILE"
+  echo "update    -> env :: JENKINS_MASTER=$JENKINS_MASTER"
+  update_global_environment_variable $JENKINS_CONFIG_FILE "JENKINS_MASTER" $JENKINS_MASTER
   
-  echo "configure -> jenkins:master:ec2:stack"
-  # This is the line number containing the name of the environment variable "EC2_STACK"
-  EC2_STACK_LINE_NUMBER=$(cat -n $JENKINS_CONFIG_FILE | grep "<string>EC2_STACK</string>" | cut -f 1 | xargs)
-  # The next line contains the value
-  EC2_STACK_LINE_NUMBER=$(($EC2_STACK_LINE_NUMBER + 1))
-  # Update the value
-  execute_quietly "sed -i -e ${EC2_STACK_LINE_NUMBER}s/<string>.*<\/string>/<string>$STACK<\/string>/ $JENKINS_CONFIG_FILE"
+  echo "update    -> env :: EC2_STACK=$STACK"
+  update_global_environment_variable $JENKINS_CONFIG_FILE "EC2_STACK" $STACK
   
-  echo "configure -> jenkins:master:ec2:region"
-  # This is the line number containing the name of the environment variable "EC2_REGION"
-  EC2_REGION_LINE_NUMBER=$(cat -n $JENKINS_CONFIG_FILE | grep "<string>EC2_REGION</string>" | cut -f 1 | xargs)
-  # The next line contains the value
-  EC2_REGION_LINE_NUMBER=$(($EC2_REGION_LINE_NUMBER + 1))
-  # Update the value
-  execute_quietly "sed -i -e ${EC2_REGION_LINE_NUMBER}s/<string>.*<\/string>/<string>$REGION<\/string>/ $JENKINS_CONFIG_FILE"
+  echo "update    -> env :: EC2_REGION=$REGION"
+  update_global_environment_variable $JENKINS_CONFIG_FILE "EC2_REGION" $REGION
   
-  echo "configure -> jenkins:master:version"
-  # This is the line number containing the name of the environment variable "JENKINS_VERSION"
-  JENKINS_VERSION_LINE_NUMBER=$(cat -n $JENKINS_CONFIG_FILE | grep "<string>JENKINS_VERSION</string>" | cut -f 1 | xargs)
-  # The next line contains the value
-  JENKINS_VERSION_LINE_NUMBER=$(($JENKINS_VERSION_LINE_NUMBER + 1))
-  # Update the value
-  execute_quietly "sed -i -e ${JENKINS_VERSION_LINE_NUMBER}s/<string>.*<\/string>/<string>$JENKINS_VERSION<\/string>/ $JENKINS_CONFIG_FILE"
+  echo "update    -> env :: JENKINS_VERSION=$JENKINS_VERSION"
+  update_global_environment_variable $JENKINS_CONFIG_FILE "JENKINS_VERSION" $JENKINS_VERSION
   
+}
+
+function update_slave_tag {
+  local FILE=$1
+  local NAME=$2
+  local VALUE=$3
+  LINE_NUMBER=$(get_next_line_number $FILE "<name>$NAME</name>")
+  execute_quietly "sed -i -e ${LINE_NUMBER}s/<value>.*<\/value>/<value>$STACK<\/value>/ $FILE"
+}
+
+function update_global_environment_variable {
+  local FILE=$1
+  local NAME=$2
+  local VALUE=$3
+  LINE_NUMBER=$(get_next_line_number $FILE "<string>$NAME</string>")
+  execute_quietly "sed -i -e ${LINE_NUMBER}s/<string>.*<\/string>/<string>$VALUE<\/string>/ $FILE
 }
 
 function configure_build_slave_ami_job {
