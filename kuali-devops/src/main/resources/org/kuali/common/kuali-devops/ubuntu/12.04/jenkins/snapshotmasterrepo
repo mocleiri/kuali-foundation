@@ -50,7 +50,7 @@ fi
 
 TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
 ACL=authenticated-read
-GROUP_ID=org.kuali.common
+GROUP_ID=org.jenkins
 ARTIFACT_ID=master-repository-backup
 VERSION=$TIMESTAMP
 TYPE=tar.gz
