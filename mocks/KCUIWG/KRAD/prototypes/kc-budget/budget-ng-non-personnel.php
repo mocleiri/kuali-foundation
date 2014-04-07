@@ -201,31 +201,26 @@ $section = '';
                             </div>
                         </div>
                         <h4 class="pull-left" >Assigned Non-personnel</h4>
-                        <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example1">
-                            <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for="u1qq592w">
-                                <h3 class="uif-headerText"><a data-role="disclosureLink" data-linkfor="facSalTen" href="#" id="u1qq592w_toggle" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span>Equipment</span></a></h3>
+
+                        <section id="a1" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example1">
+                            <header id="u1l3ufy30" class="uif-sectionHeader" data-header_for="a1">
+                                <h3 class="uif-headerText"><a data-role="disclosureLink" data-linkfor="facSalTena1" href="#" id="a1_toggle" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="a1_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="a1_toggle_col" class="icon-caret-right"></span>Equipment</span></a></h3>
                             </header>
-                            <div id="facSalTen" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style="">
+                            <div id="facSalTena1" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style="">
                                 
                                 <table class="table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby="Demo-LightTableGroup1_lightTable_info">
                                     <thead>
                                         <tr role="row">
-                                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
- Field 1: : activate to sort column "><label id="urh9zx8" class="uif-label">Item</label></th>
-                                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
- Field 4: : activate to sort column ascending">Description</th>
-                                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
- Field 4: : activate to sort column ascending">Quantity</th>                                          
-                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
- Field 4: : activate to sort column ">Total Base Cost</th>
-                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
- Field 4: : activate to sort column ">Cost sharing</th>
-                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
- Field 4: : activate to sort column ">Actions</th>
+                                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label=""><label id="urh9zx8" class="uif-label">Item</label></th>
+                                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">Description</th>
+                                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">Quantity</th>
+                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">Total Base Cost</th>
+                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">Cost sharing</th>
+                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody role="alert" aria-live="polite" aria-relevant="all">
-                                        <tr class="not-deletable">
+                                        <tr>
                                             <td><span data-edit-type="select" data-edit-type-options="Equipment - Not MTDC,Equipment - MTDC">Equipment - Not MTDC</span></td>
                                             <td>Microscope</td>
                                             <td>1</td>
@@ -240,30 +235,28 @@ $section = '';
                                 </table>
                             </div>
                         </section>
-                        <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example1">
-                            <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for="u1qq592w">
-                                <h3 class="uif-headerText"><a data-role="disclosureLink" data-linkfor="facSalTen" href="#" id="u1qq592w_toggle" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span>Travel</span></a></h3>
+
+                        <section id="a2" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example2">
+                            <header id="u1l3ufy3a" class="uif-sectionHeader" data-header_for="a2">
+                                <h3 class="uif-headerText"><a data-role="disclosureLink" data-linkfor="facSalTena2" href="#" id="a2_toggle" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="a2_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="a2_toggle_col" class="icon-caret-right"></span>Travel</span></a></h3>
                             </header>
-                            <div id="facSalTen" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style="">
-                                
-                            </div>
+                            <div id="facSalTena2" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style=""></div>
                         </section>
-                        <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example1">
-                            <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for="u1qq592w">
-                                <h3 class="uif-headerText"><a data-role="disclosureLink" data-linkfor="facSalTen" href="#" id="u1qq592w_toggle" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span>Participant Support</span></a></h3>
+
+                        <section id="a3" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example3">
+                            <header id="u1l3ufy3b" class="uif-sectionHeader" data-header_for="a3">
+                                <h3 class="uif-headerText"><a data-role="disclosureLink" data-linkfor="facSalTena3" href="#" id="a3_toggle" data-open="true" data-widgetid="u1vpenbx" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="a3_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="a3_toggle_col" class="icon-caret-right"></span>Participant Support</span></a></h3>
                             </header>
-                            <div id="facSalTen" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style="">
-                                
-                            </div>
+                            <div id="facSalTena3" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style=""></div>
                         </section>
-                        <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example1">
-                            <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for="u1qq592w">
-                                <h3 class="uif-headerText"><a data-role="disclosureLink" data-linkfor="facSalTen" href="#" id="u1qq592w_toggle" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span>Other</span></a></h3>
+
+                        <section id="a4" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example4">
+                            <header id="u1l3ufy3c" class="uif-sectionHeader" data-header_for="a4">
+                                <h3 class="uif-headerText"><a data-role="disclosureLink" data-linkfor="facSalTena4" href="#" id="a4_toggle" data-open="true" data-widgetid="u1vpenby" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="a4_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="a4_toggle_col" class="icon-caret-right"></span>Other</span></a></h3>
                             </header>
-                            <div id="facSalTen" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style="">
-                                
-                            </div>
+                            <div id="facSalTena4" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style=""></div>
                         </section>
+
                     </div>
                     <div class="tab-pane" id="p2">
                         <h3 class="">Period 2 <small>(1/12/15 - 1/11/16)</small></h3>
