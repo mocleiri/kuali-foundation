@@ -140,3 +140,49 @@
 }(jQuery))
 </script> 
 <!-- end Modal --> 
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal-generate-versions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Generate Periods</h4>
+            </div>
+            <div class="modal-body">
+                <p>You are about to generate data for each period based on the current period (1). This is a one-time action and cannot be undone. </p>
+				<P>Are you sure you want to do this?</p>
+                <small>
+                <label style="font-weight:normal">
+                    <input type="checkbox">
+                    Don't ask me this again </label>
+                </small> </div>
+            <div class="modal-footer"> <a href="" class="btn btn-default" data-dismiss="modal">Cancel</a> <a href="budget-ng-summary2.php" class="btn btn-primary">Generate All Periods</a> </div>
+        </div>
+    </div>
+</div>
+<!-- end Modal --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
