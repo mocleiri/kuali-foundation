@@ -5,7 +5,9 @@ import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newTreeMap;
 import static java.lang.String.format;
+import static java.util.Collections.reverse;
 import static java.util.Collections.singletonList;
+import static java.util.Collections.sort;
 import static org.apache.commons.lang3.StringUtils.equalsIgnoreCase;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_MASTER;
@@ -36,6 +38,7 @@ import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.core.system.VirtualSystem;
 import org.kuali.common.devops.aws.Tags;
+import org.kuali.common.devops.ci.CreateBuildSlaveAMI.ImageTagsComparator;
 import org.kuali.common.devops.ci.model.BasicLaunchRequest;
 import org.kuali.common.devops.ci.model.Constants;
 import org.kuali.common.devops.ci.model.JenkinsContext;
@@ -72,6 +75,7 @@ import org.slf4j.Logger;
 
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
+import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Joiner;
@@ -136,11 +140,13 @@ public class SpinUpJenkinsMaster {
 			String common = getResource(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
 			String jenkins = getResource(basedir, pid, distro, distroVersion, "jenkins/installjenkins");
 			String configureMaster = getResource(basedir, pid, distro, distroVersion, "jenkins/configuremaster");
+			String latestSlaveAMI = findLatestSlaveAMI(service);
 			exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
 			String stack = jenkinsContext.getStack().getTag().getValue();
 			String backupMode = jenkinsContext.getBackupMode().name().toLowerCase();
 			exec(channel, jenkins, quietFlag, Constants.JENKINS_VERSION);
-			exec(channel, configureMaster, quietFlag, jenkinsMaster, jenkinsContext.getRegion().getName(), stack, backupMode, Constants.JENKINS_VERSION, gpgPassphrase);
+			exec(channel, configureMaster, quietFlag, jenkinsMaster, jenkinsContext.getRegion().getName(), stack, backupMode, latestSlaveAMI, Constants.JENKINS_VERSION,
+					gpgPassphrase);
 
 			// The spin up process should have given DNS enough time to settle down
 			info("Verifying SSH to -> [%s]", jenkinsMaster);
@@ -149,6 +155,18 @@ public class SpinUpJenkinsMaster {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected String findLatestSlaveAMI(EC2Service service) {
+		List<Image> images = service.getMyImages();
+		List<Image> slaveImages = CreateBuildSlaveAMI.getFilteredImages(images, CreateBuildSlaveAMI.name.getKey(), CreateBuildSlaveAMI.startsWithToken);
+		// Sort by Name tag
+		sort(slaveImages, new ImageTagsComparator());
+
+		// Most recent images are at the bottom (we need them at the top)
+		reverse(slaveImages);
+		checkState(slaveImages.size() > 0, "expected at least one slave image but there were zero");
+		return slaveImages.get(0).getImageId();
 	}
 
 	protected static Map<String, JenkinsContext> getJenkinsContexts(Tags.Name name) {

@@ -83,15 +83,15 @@ public class CreateBuildSlaveAMI {
 	private static final Logger logger = Loggers.newLogger();
 
 	private final Stopwatch sw = createStarted();
-	private final VirtualSystem vs = VirtualSystem.create();
+	private static final VirtualSystem vs = VirtualSystem.create();
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_BUILD_SLAVE.getGroup());
 	private final Distro distro = Distro.UBUNTU;
 	private final String distroVersion = Constants.DISTRO_VERSION;
-	private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-	private final String today = format.format(new Date());
-	private final String buildNumber = getBuildNumber();
-	private final String startsWithToken = "ci.slave";
-	private final Tag name = new ImmutableTag("Name", format("%s.%s-build-%s", startsWithToken, today, buildNumber));
+	private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	private static final String today = format.format(new Date());
+	private static final String buildNumber = getBuildNumber(vs);
+	public static final String startsWithToken = "ci.slave";
+	public static final Tag name = new ImmutableTag("Name", format("%s.%s-build-%s", startsWithToken, today, buildNumber));
 	private static final String amazonAccount = Constants.AMAZON_ACCOUNT;
 	public static final KeyPair KUALI_KEY = Auth.getKeyPair(amazonAccount);
 	private final int minimumAmisToKeep = 7;
@@ -104,7 +104,6 @@ public class CreateBuildSlaveAMI {
 	@Test
 	public void test() throws Exception {
 		logger.info(format("build slave ami process :: starting"));
-		VirtualSystem vs = VirtualSystem.create();
 		// Default to quiet mode unless they've supplied -Dec2.quiet=false
 		boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
 		JenkinsContext jenkinsContext = SpinUpJenkinsMaster.getJenkinsContext(vs, CONTEXTS);
@@ -279,7 +278,7 @@ public class CreateBuildSlaveAMI {
 
 	}
 
-	protected Tag findRequiredTag(List<Tag> tags, String tagKey, String prefix) {
+	protected static Tag findRequiredTag(List<Tag> tags, String tagKey, String prefix) {
 		for (Tag tag : tags) {
 			if (tagKey.equals(tag.getKey())) {
 				String value = tag.getValue();
@@ -291,7 +290,7 @@ public class CreateBuildSlaveAMI {
 		throw illegalState("Unable to locate tag %s", tagKey);
 	}
 
-	protected List<Image> getFilteredImages(List<Image> images, String tagKey, String prefix) {
+	protected static List<Image> getFilteredImages(List<Image> images, String tagKey, String prefix) {
 		List<Image> filtered = newArrayList();
 		for (Image image : images) {
 			List<Tag> tags = image.getTags();
@@ -302,7 +301,7 @@ public class CreateBuildSlaveAMI {
 		return filtered;
 	}
 
-	protected boolean matches(List<Tag> tags, String key, String prefix) {
+	protected static boolean matches(List<Tag> tags, String key, String prefix) {
 		checkNotNull(tags, "tags");
 		checkNotBlank(key, "key");
 		checkNotBlank(prefix, "prefix");
@@ -314,7 +313,7 @@ public class CreateBuildSlaveAMI {
 		return false;
 	}
 
-	protected boolean matches(Tag tag, String key, String prefix) {
+	protected static boolean matches(Tag tag, String key, String prefix) {
 		if (key.equals(tag.getKey())) {
 			String value = tag.getValue();
 			if (value != null && value.startsWith(prefix)) {
@@ -366,7 +365,7 @@ public class CreateBuildSlaveAMI {
 	/**
 	 * If the environment variable BUILD_NUMBER is set, add a prefix and return, otherwise return System.currentTimeMillis()
 	 */
-	protected String getBuildNumber() {
+	protected static String getBuildNumber(VirtualSystem vs) {
 		Optional<String> buildNumber = fromNullable(vs.getEnvironment().getProperty("BUILD_NUMBER"));
 		if (buildNumber.isPresent()) {
 			// Jenkins always sets an environment variable called BUILD_NUMBER
@@ -377,7 +376,7 @@ public class CreateBuildSlaveAMI {
 		}
 	}
 
-	private class ImageTagsComparator implements Comparator<Image> {
+	public static class ImageTagsComparator implements Comparator<Image> {
 
 		@Override
 		public int compare(Image one, Image two) {
