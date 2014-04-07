@@ -70,6 +70,9 @@ function update_jenkins_config_xml {
   echo "configure -> jenkins:region"
   execute_quietly "sed -i -e s@<name>ec2-.*</name>@<name>ec2-$REGION</name>@g $JENKINS_CONFIG_FILE"
   execute_quietly "sed -i -e s@<region>.*</region>@<region>$REGION</region>@g $JENKINS_CONFIG_FILE"
+
+  # Update the build slave AMI
+  execute_quietly "sed -i -e s@<ami>.*</ami>@<ami>$AMI</ami>@g $JENKINS_CONFIG_FILE"
   
   echo "remove    -> jenkins:slaves (if any)"
   # delete everything between <slaves> and </slaves> (including the tags themselves)
