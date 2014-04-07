@@ -53,7 +53,7 @@ fi
 TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
 ACL=authenticated-read
 GROUP_ID=org.jenkins
-ARTIFACT_ID=master-repository-backup
+ARTIFACT_ID=jenkins-master-m2-repo
 CLASSIFIER=$TIMESTAMP
 TYPE=tar.gz
 
