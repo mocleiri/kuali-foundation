@@ -48,11 +48,11 @@ if [ "$QUIET" == "true" ]; then
   QUIET_FLAG="-q"
 fi
 
+TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
 ACL=authenticated-read
 GROUP_ID=org.kuali.common
 ARTIFACT_ID=master-repository-backup
-TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
-CLASSIFIER=$STACK-$TIMESTAMP-$MODE
+VERSION=$TIMESTAMP
 TYPE=tar.gz
 
 source $MY_DIR/../common/aws.sh
@@ -63,11 +63,11 @@ TAR_DIR=/tmp
 TAR_FILE=$TAR_DIR/$ARTIFACT_ID.tar.gz
 create_tar_file
 
-M2_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --repo=$BUCKET/$PREFIX --type=$TYPE --classifier=$CLASSIFIER)
+M2_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --repo=$BUCKET/$PREFIX --type=$TYPE)
 echo "upload    -> https://$M2_PATH"
-$MY_DIR/../common/m2s3put $QUIET_FLAG $TAR_FILE $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --acl=$ACL --type=$TYPE --prefix=$PREFIX --classifier=$CLASSIFIER
+$MY_DIR/../common/m2s3put $QUIET_FLAG $TAR_FILE $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --acl=$ACL --type=$TYPE --prefix=$PREFIX
 
 CLASSIFIER=$STACK-latest-$MODE
-M2_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --repo=$BUCKET/$PREFIX --type=$TYPE --classifier=$CLASSIFIER)
+M2_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --repo=$BUCKET/$PREFIX --type=$TYPE)
 echo "upload    -> https://$M2_PATH"
-$MY_DIR/../common/m2s3put $QUIET_FLAG $TAR_FILE $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --acl=$ACL --type=$TYPE --prefix=$PREFIX --classifier=$CLASSIFIER
+$MY_DIR/../common/m2s3put $QUIET_FLAG $TAR_FILE $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --acl=$ACL --type=$TYPE --prefix=$PREFIX
