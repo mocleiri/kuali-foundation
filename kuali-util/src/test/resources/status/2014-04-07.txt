@@ -7,3 +7,9 @@ Monday
 -- configurejenkins updates the vanilla jenkins with Kuali specific config (secret keys, security settings, jobs, config history, etc)
 -- documented improved method for obtaining Oracle JDK's
 -- coordinated with Martin on CI related tasks, bringing jobs from ci.rice.kuali.org over to ci.kuali.org
+
+- responded to Peri related to an OLE JIRA about UTF-8 (
+
+- created automated routine to post M2 repository cache to S3 each night
+- reconfigured the tomcat7 user so it has sudo privileges without requiring a password
+- 
