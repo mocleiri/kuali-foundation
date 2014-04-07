@@ -110,19 +110,6 @@ function update_global_environment_variable {
   execute_quietly "sed -i -e ${LINE_NUMBER}s/<string>.*<\/string>/<string>$VALUE<\/string>/ $FILE"
 }
 
-function configure_build_slave_ami_job {
-
-  # explain what we are up to
-  echo "configure -> jenkins:buildslavejob"
-  
-  # This is the config file containing the config for the job that updates the build slave AMI
-  JENKINS_CONFIG_FILE=$JENKINS_HOME/jobs/kdo-create-build-slave-ami/config.xml
-
-  execute_quietly "sed -i -e s:EC2_STACK=.*:EC2_STACK=$STACK:g    $JENKINS_CONFIG_FILE"
-  execute_quietly "sed -i -e s:EC2_REGION=.*:EC2_REGION=$REGION:g $JENKINS_CONFIG_FILE"
-  
-}
-
 function configure_jenkins {
 
   echo "configure -> jenkins"
@@ -145,9 +132,6 @@ function configure_jenkins {
   # Modify ~/.jenkins/config.xml as needed
   update_jenkins_config_xml
 
-  # Modify ~/.jenkins/jobs/kdo-create-build-slave-ami/config.xml with the correct stack and region values
-  configure_build_slave_ami_job
-  
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
 
 }
