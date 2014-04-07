@@ -15,7 +15,7 @@ DST=root@$JENKINS_MASTER:$REPO
 # Make the rsync call
 # Ignore all SNAPSHOT's and Kuali artifacts
 # Kuali artifacts get pre-cached on the build slaves by a different process
-rsync --archive --stats --verbose $SRC $DST --exclude='**/org/kuali/**' --exclude='**/SNAPSHOT*.*'
+rsync --archive --stats --verbose $SRC $DST --exclude=**/org/kuali/** --exclude=**/SNAPSHOT*.*
 
 set +x
 date
