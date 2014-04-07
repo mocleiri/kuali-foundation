@@ -97,7 +97,7 @@ function update_slave_tag {
   local NAME=$2
   local VALUE=$3
   LINE_NUMBER=$(get_next_line_number $FILE "<name>$NAME</name>")
-  execute_quietly "sed -i -e ${LINE_NUMBER}s/<value>.*<\/value>/<value>$STACK<\/value>/ $FILE"
+  execute_quietly "sed -i -e ${LINE_NUMBER}s/<value>.*<\/value>/<value>$VALUE<\/value>/ $FILE"
 }
 
 function update_global_environment_variable {
