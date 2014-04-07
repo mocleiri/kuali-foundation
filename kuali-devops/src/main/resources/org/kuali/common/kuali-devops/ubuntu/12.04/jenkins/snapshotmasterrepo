@@ -67,7 +67,7 @@ M2_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --repo=$BUCKE
 echo "upload    -> https://$M2_PATH"
 $MY_DIR/../common/m2s3put $QUIET_FLAG $TAR_FILE $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --acl=$ACL --type=$TYPE --prefix=$PREFIX
 
-CLASSIFIER=$STACK-latest-$MODE
+VERSION=latest
 M2_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --repo=$BUCKET/$PREFIX --type=$TYPE)
 echo "upload    -> https://$M2_PATH"
 $MY_DIR/../common/m2s3put $QUIET_FLAG $TAR_FILE $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --acl=$ACL --type=$TYPE --prefix=$PREFIX
