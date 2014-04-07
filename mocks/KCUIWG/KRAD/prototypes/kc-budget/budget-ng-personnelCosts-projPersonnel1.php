@@ -322,8 +322,8 @@ $page = 'personnel-costs';
                         </tr>
                     </tbody>
                 </table>
-                <a href="#" class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#modal-add-personnel"><span aria-hidden="true" class="icon-plus"></span> Add More People</a><br>
-                <br>
+                <!--<a href="#" class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#modal-add-personnel"><span aria-hidden="true" class="icon-plus"></span> Add More People</a>-->
+              
                 <a href="#" class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#modal-add-personnel1"><span aria-hidden="true" class="icon-plus"></span> Add More People</a> </main>
         </div>
         <!-- VIEW FOOTER -->
