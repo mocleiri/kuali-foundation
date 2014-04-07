@@ -93,7 +93,11 @@ $section = '';
                         <h2 class="uif-headerText"> <span class="uif-headerText-span"> Periods &amp; Totals </span> </h2>
                     </div>
                 </header>
+
+                <!--    
                 <div class="pull-right"> <a href="#"> <span class="icon-compass"></span> Guide Me</a></div>
+                -->
+
                 <table id="u569ish_line0" class=" edit-table table table-condensed table-bordered" role="presentation">
                     <thead>
                         <tr class="active">
@@ -104,9 +108,9 @@ $section = '';
                             <th>Direct</th>
                             <th>F&amp;A</th>
                             <th>Unrecovered F&amp;A</th>
-                            <th>Cost sharing</th>
-                            <th>Cost limits</th>
-                            <th>Direct limits</th>
+                            <th>Cost Sharing</th>
+                            <th>Cost Limits</th>
+                            <th>Direct Limits</th>
                             <th><span class="sr-only">Actions</span></th>
                         </tr>
                     </thead>
