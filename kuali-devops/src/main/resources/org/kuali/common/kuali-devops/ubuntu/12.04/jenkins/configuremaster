@@ -17,7 +17,6 @@
 
 function configure_tomcat_user {
 
-  echo "configure -> $TOMCAT:user"
   echo "purge     -> gpg ssh m2 svn"
   rm -rf $TOMCAT_HOME/.gnupg $TOMCAT_HOME/.ssh $TOMCAT_HOME/.m2 $TOMCAT_HOME/.subversion
   cp -R /root/.gnupg        $TOMCAT_HOME
@@ -28,150 +27,6 @@ function configure_tomcat_user {
   
   # Make sure everything is owned by tomcat
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
-  
-}
-
-function install_jenkins {
-  
-  echo "install   -> jenkins:$JENKINS_VERSION"
-  
-  GROUP_ID=org.jenkins
-  ARTIFACT_ID=jenkins
-  VERSION=$JENKINS_VERSION
-  TYPE=war
-  JENKINS_URL=http://mirrors.jenkins-ci.org/war-stable/$JENKINS_VERSION/jenkins.war
-  
-  $MY_DIR/../common/m2downloadurl $QUIET_FLAG $JENKINS_URL $GROUP_ID $ARTIFACT_ID $VERSION --type=$TYPE
-  M2_LOCAL_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --type="$TYPE")
-  
-  TOMCAT_DIR=/var/lib/$TOMCAT
-  TOMCAT_CLEANUP=/usr/share/$TOMCAT/bin/cleanup.sh
-  TOMCAT_WEBAPPS=$TOMCAT_DIR/webapps
-  TOMCAT_ROOT=$TOMCAT_WEBAPPS/ROOT
-  TOMCAT_ROOT_WAR=$TOMCAT_WEBAPPS/ROOT.war
-
-  # Remove everything from Tomcat's webapps directory (but don't delete the directory itself)
-  # Delete the /home/tomcat7/.jenkins directory
-  execute_quietly "rm -rf $TOMCAT_WEBAPPS/* $JENKINS_HOME"
-
-  # Copy the war file from .m2 to webapps
-  execute_quietly "cp $M2_LOCAL_PATH $TOMCAT_ROOT_WAR"
-  
-  # Make sure the war file is owned by tomcat7
-  execute_quietly "chown $TOMCAT:$TOMCAT $TOMCAT_ROOT_WAR"
-  
-  # Run the cleanup script that removes old log files, sets up JSP's, etc
-  $TOMCAT_CLEANUP
-  
-}
-
-function install_plugin {
-
-  REPO=https://updates.jenkins-ci.org/download/plugins
-  GROUP_ID=org.jenkins.plugins
-  ARTIFACT_ID=$1
-  VERSION=$2
-  TYPE=jpi
-  PLUGIN_URL=$REPO/$ARTIFACT_ID/$VERSION/$ARTIFACT_ID.hpi
-  
-  $MY_DIR/../common/m2downloadurl $QUIET_FLAG $PLUGIN_URL $GROUP_ID $ARTIFACT_ID $VERSION --type=$TYPE
-  M2_LOCAL_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --type="$TYPE")
-  
-  echo "install   -> plugin :: $ARTIFACT_ID :: $VERSION"
-  PLUGIN_FILE=$JENKINS_HOME/plugins/$ARTIFACT_ID.$TYPE
-  execute_quietly "cp $M2_LOCAL_PATH $PLUGIN_FILE"
-  execute_quietly "touch $PLUGIN_FILE.pinned" 
-  
-}
-
-function install_cas_plugin {
-
-  REPO=http://maven.kuali.org/external
-  GROUP_ID=org/jenkins/plugins
-  ARTIFACT_ID=cas-plugin
-  VERSION=1.1.2-kuali-patch1
-  TYPE=jpi
-  
-  PLUGIN_URL=$REPO/$GROUP_ID/$ARTIFACT_ID/$VERSION/$ARTIFACT_ID-$VERSION.$TYPE
-  
-  $MY_DIR/../common/m2downloadurl $QUIET_FLAG $PLUGIN_URL $GROUP_ID $ARTIFACT_ID $VERSION --type=$TYPE
-  M2_LOCAL_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --type="$TYPE")
-  
-  echo "install   -> plugin :: $ARTIFACT_ID :: $VERSION"
-  PLUGIN_FILE=$JENKINS_HOME/plugins/$ARTIFACT_ID.$TYPE
-  execute_quietly "cp $M2_LOCAL_PATH $PLUGIN_FILE"
-  execute_quietly "touch $PLUGIN_FILE.pinned" 
-  
-}
-
-function install_plugins {
-
-  echo "configure -> jenkins:plugins"
-
-  execute_quietly "rm    -rf $JENKINS_HOME/plugins"
-  execute_quietly "mkdir -p  $JENKINS_HOME/plugins"
-
-  # supported plugins (in alphabetical order)
-  install_plugin build-pipeline-plugin 1.4.2
-
-  # We are using a fork of the cas-plugin to work around issues with the infrastructure team being unable to correctly supply group/role information
-  install_cas_plugin
-
-  install_plugin credentials           1.10
-  install_plugin cucumber-reports      0.0.22 
-  install_plugin dashboard-view        2.9.2
-  install_plugin depgraph-view         0.11
-  install_plugin ec2                   1.21
-  install_plugin email-ext             2.37.2
-  install_plugin git                   2.0.3
-  install_plugin git-client            1.6.3
-  install_plugin greenballs            1.14
-  install_plugin jobConfigHistory      2.5
-  install_plugin jquery                1.7.2-1 
-  install_plugin jquery-ui             1.0.2
-  install_plugin ldap                  1.8
-  install_plugin mailer                1.8
-  install_plugin mask-passwords        2.7.2
-  install_plugin maven-plugin          2.1
-  install_plugin nested-view           1.14
-  install_plugin next-build-number     1.1
-  install_plugin node-iterator-api     1.2
-  install_plugin parameterized-trigger 2.22
-  install_plugin scm-api               0.2
-  install_plugin ssh-credentials       1.6.1
-  install_plugin token-macro           1.10
-  install_plugin template-project      1.4.1
-
-  chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME  
-  
-}
-
-function configure_tomcat_user {
-
-  echo "configure -> $TOMCAT:user"
-  echo "purge     -> gpg ssh m2 svn"
-  rm -rf $TOMCAT_HOME/.gnupg $TOMCAT_HOME/.ssh $TOMCAT_HOME/.m2 $TOMCAT_HOME/.subversion
-  cp -R /root/.gnupg        $TOMCAT_HOME
-  cp -R /root/.ssh          $TOMCAT_HOME
-  cp -R /root/.subversion   $TOMCAT_HOME
-  echo "copy      -> root m2 repo"
-  cp -R /root/.m2 $TOMCAT_HOME
-  
-  # Sets up Java + Maven + Jenkins Master
-  cp /root/.bashrc       $TOMCAT_HOME/.bash_profile
-  cp /root/.bash_aliases $TOMCAT_HOME/.bash_aliases
-  
-  # Make sure everything is owned by tomcat
-  chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
-  
-}
-
-function configure_tomcat {
-
-  echo "configure -> $TOMCAT"
-  ECHO="JAVA_OPTS=\"\$JAVA_OPTS -Duser.timezone=$JENKINS_TIMEZONE\""
-  TOMCAT_OPT_FILE=/etc/default/$TOMCAT
-  echo "$ECHO" >> $TOMCAT_OPT_FILE
   
 }
 
@@ -364,11 +219,6 @@ TOMCAT_OPT_FILE=/etc/default/$TOMCAT
 
 echo "stop      -> $TOMCAT:service"
 execute_quietly "service $TOMCAT stop"
-
-configure_tomcat
-configure_tomcat_user
-install_jenkins
-install_plugins
 configure_jenkins
 echo "start     -> $TOMCAT:service"
 execute_quietly "service $TOMCAT start"
