@@ -236,16 +236,18 @@ function check_jenkins_mode {
   fi
 }
 
+# get the line number inside a file that matches a token
+function get_line_number {
+  local FILE=$1
+  local TOKEN=$2
+  echo $(cat -n $FILE | grep "$TOKEN" | cut -f 1 | xargs)
+}
+
+# get the line number inside a file that comes after the line that matches a token
 function get_next_line_number {
   local FILE=$1
   local TOKEN=$2
   local LINE_NUMBER=$(get_line_number "$FILE" "$TOKEN")
   echo $(($LINE_NUMBER + 1))
-}
-
-function get_line_number {
-  local FILE=$1
-  local TOKEN=$2
-  echo $(cat -n $FILE | grep "$TOKEN" | cut -f 1 | xargs)
 }
 
