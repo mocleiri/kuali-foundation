@@ -9,6 +9,11 @@
             <div class="modal-body">
               <!--  <p>Here's a summary of your current budget.</p>-->
                    <!-- BUDGET VERSIONS -->
+                   
+                   
+                   <a href="" data-toggle="modal" data-dismiss="modal" data-target="#createNew" class="btn btn-primary btn-xs pull-right"> Create New</a><br /><br />
+                   
+                   
                     <table id="u569ish_line0" class="table table-condensed table-bordered" role="presentation">
                         <tbody>
                             <tr>
