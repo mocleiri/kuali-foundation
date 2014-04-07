@@ -99,25 +99,6 @@ public class SpinUpJenkinsMaster {
 
 	private static final Map<String, JenkinsContext> CONTEXTS = getJenkinsContexts(Tags.Name.MASTER);
 
-	protected static Map<String, JenkinsContext> getJenkinsContexts(Tags.Name name) {
-		String region = System.getProperty("ec2.region", Regions.DEFAULT_REGION.getName());
-		JenkinsContext prod = JenkinsContext.builder().withRegion(region).withDnsPrefix("ci").withStack(Tags.Stack.PRODUCTION).withName(name).build();
-		JenkinsContext test = JenkinsContext.builder().withRegion(region).withDnsPrefix("testci").withStack(Tags.Stack.TEST).withName(name).build();
-		SortedMap<String, JenkinsContext> contexts = newTreeMap();
-		contexts.put("test", test);
-		contexts.put("prod", prod);
-		return ImmutableMap.copyOf(contexts);
-	}
-
-	protected static JenkinsContext getJenkinsContext(VirtualSystem vs, Map<String, JenkinsContext> contexts) {
-		String usage = format("\n\nusage: -Dec2.stack=%s\n\n", Joiner.on('/').join(CONTEXTS.keySet()));
-		String jenkinsContextKey = vs.getProperties().getProperty("ec2.stack");
-		checkState(jenkinsContextKey != null, usage);
-		JenkinsContext jenkinsContext = contexts.get(jenkinsContextKey);
-		checkState(jenkinsContext != null, usage);
-		return jenkinsContext;
-	}
-
 	@Test
 	public void test() {
 		try {
@@ -166,6 +147,25 @@ public class SpinUpJenkinsMaster {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected static Map<String, JenkinsContext> getJenkinsContexts(Tags.Name name) {
+		String region = System.getProperty("ec2.region", Regions.DEFAULT_REGION.getName());
+		JenkinsContext prod = JenkinsContext.builder().withRegion(region).withDnsPrefix("ci").withStack(Tags.Stack.PRODUCTION).withName(name).build();
+		JenkinsContext test = JenkinsContext.builder().withRegion(region).withDnsPrefix("testci").withStack(Tags.Stack.TEST).withName(name).build();
+		SortedMap<String, JenkinsContext> contexts = newTreeMap();
+		contexts.put("test", test);
+		contexts.put("prod", prod);
+		return ImmutableMap.copyOf(contexts);
+	}
+
+	protected static JenkinsContext getJenkinsContext(VirtualSystem vs, Map<String, JenkinsContext> contexts) {
+		String usage = format("\n\nusage: -Dec2.stack=%s\n\n", Joiner.on('/').join(CONTEXTS.keySet()));
+		String jenkinsContextKey = vs.getProperties().getProperty("ec2.stack");
+		checkState(jenkinsContextKey != null, usage);
+		JenkinsContext jenkinsContext = contexts.get(jenkinsContextKey);
+		checkState(jenkinsContext != null, usage);
+		return jenkinsContext;
 	}
 
 	protected static void setupEssentials(SecureChannel channel, String basedir, ProjectIdentifier pid, Distro distro, String distroVersion, String gpgPassphrase,
