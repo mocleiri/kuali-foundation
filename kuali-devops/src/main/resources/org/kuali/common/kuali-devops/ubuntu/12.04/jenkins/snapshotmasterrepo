@@ -3,9 +3,11 @@ function create_tar_file {
    execute_quietly "rm -rf $TAR_DIR/repository.*"
    execute_quietly "cd /root/.m2"
 
+   date
    # Same thing as thin but no build history or config history
    local  EXCLUDES="--exclude=**/_remote.repositories --exclude=**/_maven.repositories --exclude=**/oracle/jdk* --exclude=**/firefox/** --exclude=**/org/jenkins/** --exclude=**/apache-maven/** --exclude=**/builds/**"
    execute_quietly "tar --gzip --verbose --create --file $TAR_FILE repository $EXCLUDES"
+   date
    
    execute_quietly "cd $MY_DIR"
 }
