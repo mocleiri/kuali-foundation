@@ -1,7 +1,7 @@
 function create_tar_file {
-   echo "tar.gz    -> /home/tomcat7/.m2/repository"
+   echo "tar.gz    -> /root/.m2/repository"
    execute_quietly "rm -rf $TAR_DIR/repository.*"
-   execute_quietly "cd /home/tomcat7/.m2"
+   execute_quietly "cd /root/.m2"
 
    # Same thing as thin but no build history or config history
    local  EXCLUDES="--exclude=**/oracle/jdk* --exclude=**/firefox/** --exclude=**/org/jenkins/** --exclude=**/apache-maven/** --exclude=**/builds/**"
