@@ -128,6 +128,8 @@ function install_plugins {
   install_plugin parameterized-trigger 2.24
   install_plugin scm-api               0.2
   install_plugin ssh-credentials       1.6.1
+  # version 1.54 instead of the 2.x line because 2.2 reported -1 for the revision number on KS svn:externals
+  # 1.54 reports the correct revision number
   install_plugin subversion            1.54
   install_plugin token-macro           1.10
   install_plugin template-project      1.4.1
