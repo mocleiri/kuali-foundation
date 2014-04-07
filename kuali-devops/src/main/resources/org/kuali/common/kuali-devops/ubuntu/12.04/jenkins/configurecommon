@@ -67,6 +67,22 @@ function install_firefox {
 
 }
 
+function download_m2_repo_cache {
+
+  local GROUP_ID=org.jenkins
+  local ARTIFACT_ID=jenkins-master-repo
+  local VERSION=m2
+  local CLASSIFIER=lastest
+  local TYPE=tar.gz
+  
+  echo "download   -> m2 repo cache"
+  
+  source $MY_DIR/../common/aws.sh
+  
+  $MY_DIR/../common/m2s3get $QUIET_FLAG --prefix=$PREFIX --type=$TYPE --classifier=$CLASSIFIER $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION
+  
+}
+
 function install_maven {
 
   # 3.0.5, 3.1.0, 3.2.1
