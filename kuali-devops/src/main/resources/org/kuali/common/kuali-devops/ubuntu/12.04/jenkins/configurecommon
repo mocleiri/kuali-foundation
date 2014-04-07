@@ -74,6 +74,8 @@ function download_m2_repo_cache {
   local VERSION=m2
   local CLASSIFIER=latest
   local TYPE=tar.gz
+  local BUCKET=maven.kuali.org
+  local PREFIX=private
   
   echo "download   -> m2 repo cache"
   
