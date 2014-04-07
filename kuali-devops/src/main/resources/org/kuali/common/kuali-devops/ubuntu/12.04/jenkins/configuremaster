@@ -92,6 +92,7 @@ function update_jenkins_config_xml {
   
 }
 
+# Update the section of config.xml that holds the tags for CI slaves
 function update_slave_tag {
   local FILE=$1
   local NAME=$2
@@ -100,6 +101,7 @@ function update_slave_tag {
   execute_quietly "sed -i -e ${LINE_NUMBER}s/<value>.*<\/value>/<value>$VALUE<\/value>/ $FILE"
 }
 
+# Update the section of config.xml that holds global environment variables
 function update_global_environment_variable {
   local FILE=$1
   local NAME=$2
