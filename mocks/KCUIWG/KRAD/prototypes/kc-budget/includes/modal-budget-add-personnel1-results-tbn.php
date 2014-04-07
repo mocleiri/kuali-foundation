@@ -8,65 +8,53 @@
             </div>
             <div class="modal-body uif-cssGridGroup">
                 
-                <h4>Results</h4>
+         
+                
+                <p id="" class="uif-message ">Select the quantity of each 'to be named' person category to be returned to your budget.</p><br />
                 
                 
 <table id="u569ish_line0" class="table table-condensed table-bordered table-hover" role="presentation">
 							<tbody>
 								<tr>
-									<th scope="row">&nbsp;</th>
-									<th scope="row">TBN ID</th>
-									<th class="uif-gridLayoutCell">Person Name </th>
-									<th class="uif-gridLayoutCell">Job</th>
+									<th class="uif-gridLayoutCell">Person Category </th>
+									<th scope="row">Quantity</th>
 								</tr>
 								<tr class="">
-								    <td><input type="checkbox" name="checkbox" id="checkbox" />
-							        <label for="checkbox"></label></td>
-								    <td   title="DeptAward  Viewer">1</td>
 								    <td  title="TBA Research"> TBA Research
 								        &nbsp; </td>
-									<td>Default</td>
+								    <td><input type="text" size="" class="" name="" id="" />
+								        <label for="checkbox"></label></td>
 								</tr>
 								<tr>
-								    <td class=""><input type="checkbox" name="checkbox" id="checkbox" />
-								        <label for="checkbox"></label></td>
-								    <td   title="DOMINIC  NUGENT">2</td>
 								    <td  title="Research Associate"> Research Associate
 								        &nbsp; </td>
-								    <td>Default</td>
-								</tr>
-								<tr>
-								    <td class=""><input type="checkbox" name="checkbox" id="checkbox" />
+								    <td class=""><input type="text" size="" class="" name="" id="" />
 								        <label for="checkbox"></label></td>
-								    <td   title="TREVOR  DUGGINS">3</td>
+							    </tr>
+								<tr>
 								    <td  title="Data Entry Assistant"> Data Entry Assistant
 								        &nbsp; </td>
-								    <td>Default</td>
-								</tr>
-								<tr>
-								    <td class=""><input type="checkbox" name="checkbox" id="checkbox" />
+								    <td class=""><input type="text" size="" class="" name="" id="" />
 								        <label for="checkbox"></label></td>
-								    <td   title="DARREN  DEVANEY">4</td>
+							    </tr>
+								<tr>
 								    <td  title="Computer Programmer"> Computer Programmer
 								        &nbsp; </td>
-								    <td>Default</td>
-								</tr>
-								<tr>
-								    <td class=""><input type="checkbox" name="checkbox" id="checkbox" />
+								    <td class=""><input type="text" size="" class="" name="" id="" />
 								        <label for="checkbox"></label></td>
-								    <td   title="EMORY  EAGLE">5</td>
+							    </tr>
+								<tr>
 								    <td  title="Data Manager"> Data Manager
 								        &nbsp; </td>
-								    <td>Default</td>
-								</tr>
-								<tr>
-								    <td class=""><input type="checkbox" name="checkbox" id="checkbox" />
+								    <td class=""><input type="text" size="" class="" name="" id="" />
 								        <label for="checkbox"></label></td>
-								    <td   title="OLIVER  ELGIN">6</td>
+							    </tr>
+								<tr>
 								    <td  title="Project Director"> Project Director
 								        &nbsp; </td>
-								    <td>Default</td>
-								</tr>
+								    <td class=""><input type="text" size="" class="" name="" id="" />
+								        <label for="checkbox"></label></td>
+							    </tr>
 							</tbody>
 						</table>                
                 

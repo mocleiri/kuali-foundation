@@ -135,24 +135,111 @@
                             
                             <!--  To Be Named-->
                             
+                            
+                        <!--
+                            
                             <div class="form-group tbn" style="display:none;">
-                                <label for="inputEmail3" class="col-md-3 control-label">TBN ID</label>
+                                <label for="inputEmail3" class="col-md-3 control-label">TBA Research</label>
                                 <div class="col-md-6">
                                     <input class="form-control" type="text" placeholder="">
                                 </div>
                             </div>
                             <div class="form-group tbn" style="display:none;">
-                                <label for="inputEmail3" class="col-md-3 control-label">Person Name</label>
+                                <label for="inputEmail3" class="col-md-3 control-label">Research Associate  </label>
                                 <div class="col-md-6">
                                     <input class="form-control" type="text" placeholder="">
                                 </div>
                             </div>
                             <div class="form-group tbn" style="display:none;">
-                                <label for="inputEmail3" class="col-md-3 control-label">Job Code</label>
+                                <label for="inputEmail3" class="col-md-3 control-label">Data Entry Assistant </label>
                                 <div class="col-md-6">
                                     <input class="form-control" type="text" placeholder="">
                                 </div>
                             </div>
+                            
+                            
+                            <div class="form-group tbn" style="display:none;">
+                                <label for="inputEmail3" class="col-md-3 control-label">Computer Programmer   </label>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="text" placeholder="">
+                                </div>
+                            </div>
+                            
+                            
+                            
+                       <div class="form-group tbn" style="display:none;">
+                                <label for="inputEmail3" class="col-md-3 control-label">Data Manager  </label>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="text" placeholder="">
+                                </div>
+                            </div>
+                            
+                              <div class="form-group tbn" style="display:none;">
+                                <label for="inputEmail3" class="col-md-3 control-label">Project Director   </label>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="text" placeholder="">
+                                </div>
+                            </div>
+                            -->
+                           
+                            
+                            
+                            
+                            
+                                
+                <p style="display:none;" id="" class="uif-message tbn">Select the quantity of each 'to be named' person category to be returned to your budget.</p><br />
+                
+                
+<table id="" class="table table-condensed table-bordered tbn" role="presentation"style="display:none;" >
+							<tbody>
+								<tr>
+									<th class="uif-gridLayoutCell">Person Category </th>
+									<th scope="row" style="width:5%">Quantity</th>
+								</tr>
+								<tr class="">
+								    <td  title="TBA Research"> TBA Research
+								        &nbsp; </td>
+								    <td><input type="text" size="" class="" name="" id="" placeholder="" />
+								        <label for=""></label></td>
+								</tr>
+								<tr>
+								    <td  title="Research Associate"> Research Associate
+								        &nbsp; </td>
+								    <td class=""><input type="text" size="" class="" name="" id="" placeholder="" />
+								        <label for=""></label></td>
+							    </tr>
+								<tr>
+								    <td  title="Data Entry Assistant"> Data Entry Assistant
+								        &nbsp; </td>
+								    <td class=""><input type="text" size="" class="" name="" id="" placeholder="" />
+								        <label for=""></label></td>
+							    </tr>
+								<tr>
+								    <td  title="Computer Programmer"> Computer Programmer
+								        &nbsp; </td>
+								    <td class=""><input type="text" size="" class="" name="" id="" placeholder="" />
+								        <label for=""></label></td>
+							    </tr>
+								<tr>
+								    <td  title="Data Manager"> Data Manager
+								        &nbsp; </td>
+								    <td class=""><input type="text" size="" class="" name="" id="" placeholder="" />
+								        <label for=""></label></td>
+							    </tr>
+								<tr>
+								    <td  title="Project Director"> Project Director
+								        &nbsp; </td>
+								    <td class=""><input type="text" size="" class="" name="" id="" placeholder="" />
+								        <label for=""></label></td>
+							    </tr>
+							</tbody>
+						</table>                
+                        
+                        
+                        
+                            
+                            
+                            
                         </div>
                     </div>
                 </div>
@@ -161,7 +248,7 @@
             <a href="" class="btn btn-default" data-dismiss="modal">Cancel</a> 
             <a href="" style="display:none;" data-dismiss="modal" class="btn btn-primary employee" data-toggle="modal" data-target="#modal-add-personnel1-results">Search</a>
             <a href="" style="display:none;" data-dismiss="modal" class="btn btn-primary nonemployee" data-toggle="modal" data-target="#modal-add-personnel1-results">Search</a>
-            <a href="" style="display:none;" data-dismiss="modal" class="btn btn-primary tbn" data-toggle="modal" data-target="#modal-add-personnel1-results-tbn">Search</a> </div>
+            <a href="" style="display:none;" data-dismiss="modal" class="btn btn-primary tbn" data-toggle="modal" data-target="">Add TBN Personnel to Budget</a> </div>
         </div>
     </div>
 </div>
