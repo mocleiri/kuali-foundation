@@ -48,11 +48,11 @@ if [ "$QUIET" == "true" ]; then
   QUIET_FLAG="-q"
 fi
 
+VERSION=m2
 TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
 ACL=authenticated-read
 GROUP_ID=org.jenkins
 ARTIFACT_ID=jenkins-master-repo
-VERSION=m2
 CLASSIFIER=$TIMESTAMP
 TYPE=tar.gz
 
