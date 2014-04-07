@@ -112,8 +112,6 @@ $section = '';
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Institution Rate</label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Applicable Rate </label></th>
-                                    <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
- Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> </label></th>
                             </thead>
                             <tbody role=alert aria-live=polite aria-relevant=all>
                                 <tr class="not-deletable">
@@ -122,118 +120,95 @@ $section = '';
                                     <td>2008</td>
                                     <td>07/01/2007</td>
                                     <td>0.00</td>
-                                    <td>0.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="0.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td>MTDC</td>
-                                    
+                                    <td>MTDC</td>                                   
                                     <td>No</td>
                                     <td>2008</td>
                                     <td>07/01/2007</td>
                                     <td>48.00</td>
-                                    <td>48.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="48.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td>Materials and Services</td>
-                                    
+                                    <td>Materials and Services</td>                                  
                                     <td>No</td>
                                     <td>2002</td>
                                     <td>07/01/2001</td>
                                     <td>10.00</td>
-                                    <td>10.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="10.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td>Materials and Services</td>
-                                    
+                                    <td>Materials and Services</td>                                 
                                     <td>No</td>
                                     <td>2002</td>
                                     <td>07/01/2001</td>
                                     <td>10.00</td>
-                                    <td>10.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="10.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td>S&amp;W</td>
-                                    
+                                    <td>S&amp;W</td>                                  
                                     <td>No</td>
                                     <td>1980</td>
                                     <td>07/01/1979</td>
                                     <td>62.00</td>
-                                    <td>62.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="62.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td>S&amp;W</td>
-                                    
+                                    <td>S&amp;W</td>                                  
                                     <td>No</td>
                                     <td>1980</td>
                                     <td>07/01/1979</td>
                                     <td>63.00</td>
-                                    <td>63.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="63.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td>Salaries</td>
-                                    
+                                    <td>Salaries</td>                                   
                                     <td>No</td>
                                     <td>2006</td>
                                     <td>07/01/2005</td>
                                     <td>9.00</td>
-                                    <td>9.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="9.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td>Salaries</td>
-                                    
+                                    <td>Salaries</td>                                    
                                     <td>No</td>
                                     <td>2006</td>
                                     <td>07/01/2005</td>
                                     <td>62.00</td>
-                                    <td>62.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="62.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td>TDC</td>
-                                    
+                                    <td>TDC</td>                                  
                                     <td>No</td>
                                     <td>2004</td>
                                     <td>07/01/2003</td>
                                     <td>0.00</td>
-                                    <td>0.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="0.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td>TDC</td>
-                                    
+                                    <td>TDC</td>                                  
                                     <td>No</td>
                                     <td>2004</td>
                                     <td>07/01/2003</td>
                                     <td>0.00</td>
-                                    <td>0.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="0.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td>MTDC</td>
-                                    
+                                    <td>MTDC</td>                                   
                                     <td>No</td>
                                     <td>2007</td>
                                     <td>01/07/2007</td>
                                     <td>0.00</td>
-                                    <td>0.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="0.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td>MTDC</td>
-                                    
+                                    <td>MTDC</td>                                  
                                     <td>No</td>
                                     <td>2007</td>
                                     <td>01/07/2007</td>
                                     <td>48.00</td>
-                                    <td>48.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="48.00"></td> 
                                 </tr>
                             </tbody>
                         </table>
@@ -251,8 +226,7 @@ $section = '';
                             <thead>
                                 <tr role=row>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-sort=ascending aria-label="
- Field 1: : activate to sort column descending"><label id="urh9zx8" class="uif-label">Description</label></th>
-                                    
+ Field 1: : activate to sort column descending"><label id="urh9zx8" class="uif-label">Description</label></th>                                  
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> On Campus </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
@@ -263,67 +237,53 @@ $section = '';
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Institution Rate</label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Applicable Rate </label></th>
-                                    <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
- Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> </label></th>
                                 <tr class="not-deletable">
-                                    <td>EB on LA</td>
-                                    
+                                    <td>EB on LA</td>                                   
                                     <td>Yes</td>
                                     <td>2006</td>
                                     <td>07/01/2005</td>
                                     <td>25.00</td>
-                                    <td>25.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="25.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td>EB on LA</td>
-                                    
+                                    <td>EB on LA</td>                   
                                     <td>Yes</td>
                                     <td>2006</td>
                                     <td>07/01/2005</td>
                                     <td>27.00</td>
-                                    <td>27.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="27.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td>Research Rate</td>
-                                    
+                                    <td>Research Rate</td>                                   
                                     <td>Yes</td>
                                     <td>2006</td>
                                     <td>07/01/2005</td>
                                     <td>25.00</td>
-                                    <td>25.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="25.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td>Research Rate</td>
-                                    
+                                    <td>Research Rate</td>                                  
                                     <td>Yes</td>
                                     <td>2006</td>
                                     <td>07/01/2005</td>
                                     <td>27.00</td>
-                                    <td>27.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="27.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td>UROP Rate</td>
-                                    
+                                    <td>UROP Rate</td>                                   
                                     <td>Yes</td>
                                     <td>2004</td>
                                     <td>07/01/2003</td>
                                     <td>0.00</td>
-                                    <td>0.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="0.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td>UROP Rate</td>
-                                    
+                                    <td>UROP Rate</td>                                   
                                     <td>Yes</td>
                                     <td>2004</td>
                                     <td>07/01/2003</td>
                                     <td>0.00</td>
-                                    <td>0.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="0.00"></td> 
                                 </tr>
                             </thead>
                             <tbody role=alert aria-live=polite aria-relevant=all>
@@ -343,8 +303,7 @@ $section = '';
                             <thead>
                                 <tr role=row>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-sort=ascending aria-label="
- Field 1: : activate to sort column descending"><label id="urh9zx8" class="uif-label">Description</label></th>
-                                    
+ Field 1: : activate to sort column descending"><label id="urh9zx8" class="uif-label">Description</label></th>                              
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> On Campus </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
@@ -355,247 +314,197 @@ $section = '';
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Institution Rate</label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Applicable Rate </label></th>
-                                    <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
- Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> </label></th>
                                 <tr class="not-deletable">
                                     <td class="result-table">Administrative Salaries (7/1)</td>
-                                    
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2014</td>
                                     <td class="result-table">07/01/2013</td>
                                     <td class="result-table">3.00</td>
-                                    <td class="result-table">3.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="3.00"></td>                                   
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Administrative Salaries (7/1)</td>
-                                    
+                                    <td class="result-table">Administrative Salaries (7/1)</td>                                 
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2014</td>
                                     <td class="result-table">07/01/2013</td>
                                     <td class="result-table">3.00</td>
-                                    <td class="result-table">3.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="3.00"></td>   
                                 </tr>
                                 <tr class="not-deletable">
                                     <td class="result-table">Administrative Salaries (7/1)</td>
-                                    
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2015</td>
                                     <td class="result-table">07/01/2014</td>
                                     <td class="result-table">3.00</td>
-                                    <td class="result-table">3.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="3.00"></td>   
                                 </tr>
                                 <tr class="not-deletable">
                                     <td class="result-table">Administrative Salaries (7/1)</td>
-                                   
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2015</td>
                                     <td class="result-table">07/01/2014</td>
                                     <td class="result-table">3.00</td>
-                                    <td class="result-table">3.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="3.00"></td>   
                                 </tr>
                                 <tr class="not-deletable">
                                     <td class="result-table">Faculty Salaries (6/1)</td>
-                                    
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2014</td>
                                     <td class="result-table">07/01/2013</td>
                                     <td class="result-table">3.00</td>
-                                    <td class="result-table">3.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="3.00"></td>   
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Faculty Salaries (6/1)</td>
-                                    
+                                    <td class="result-table">Faculty Salaries (6/1)</td>                                  
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2014</td>
                                     <td class="result-table">07/01/2013</td>
                                     <td class="result-table">3.00</td>
-                                    <td class="result-table">3.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="3.00"></td>   
                                 </tr>
                                 <tr class="not-deletable">
                                     <td class="result-table">Faculty Salaries (6/1)</td>
-                                    
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2015</td>
                                     <td class="result-table">07/01/2014</td>
                                     <td class="result-table">3.00</td>
-                                    <td class="result-table">3.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="3.00"></td>   
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Faculty Salaries (6/1)</td>
-                                    
+                                    <td class="result-table">Faculty Salaries (6/1)</td>                                   
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2015</td>
                                     <td class="result-table">07/01/2014</td>
                                     <td class="result-table">3.00</td>
-                                    <td class="result-table">3.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="3.00"></td>    
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Materials and Services</td>
-                                    
+                                    <td class="result-table">Materials and Services</td>                                 
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2014</td>
                                     <td class="result-table">07/01/2013</td>
                                     <td class="result-table">3.00</td>
-                                    <td class="result-table">3.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="3.00"></td>                                     
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Materials and Services</td>
-                                   
+                                    <td class="result-table">Materials and Services</td>                                
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2014</td>
                                     <td class="result-table">07/01/2013</td>
                                     <td class="result-table">3.00</td>
-                                    <td class="result-table">3.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="3.00"></td>                                       
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Materials and Services</td>
-                                   
+                                    <td class="result-table">Materials and Services</td>                                  
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2015</td>
                                     <td class="result-table">07/01/2014</td>
                                     <td class="result-table">3.00</td>
-                                    <td class="result-table">3.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="3.00"></td>                                      
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Materials and Services</td>
-                                    
+                                    <td class="result-table">Materials and Services</td>                                   
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2015</td>
                                     <td class="result-table">07/01/2014</td>
                                     <td class="result-table">3.00</td>
-                                    <td class="result-table">3.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="3.00"></td>                                      
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Research Staff (1/1)</td>
-                                    
+                                    <td class="result-table">Research Staff (1/1)</td>                                   
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2014</td>
                                     <td class="result-table">01/01/2014</td>
                                     <td class="result-table">3.00</td>
-                                    <td class="result-table">3.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="3.00"></td>                                      
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Research Staff (1/1)</td>
-                                    
+                                    <td class="result-table">Research Staff (1/1)</td>                                   
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2014</td>
                                     <td class="result-table">01/01/2014</td>
                                     <td class="result-table">3.00</td>
-                                    <td class="result-table">3.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="3.00"></td>                                      
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Research Staff (1/1)</td>
-                                    
+                                    <td class="result-table">Research Staff (1/1)</td>                                   
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2015</td>
                                     <td class="result-table">01/01/2015</td>
                                     <td class="result-table">3.00</td>
-                                    <td class="result-table">3.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="3.00"></td>                                      
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Research Staff (1/1)</td>
-                                    
+                                    <td class="result-table">Research Staff (1/1)</td>                                  
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2015</td>
                                     <td class="result-table">01/01/2015</td>
                                     <td class="result-table">3.00</td>
-                                    <td class="result-table">3.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="3.00"></td>                                      
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Students (6/1)</td>
-                                    
+                                    <td class="result-table">Students (6/1)</td>                                   
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2011</td>
                                     <td class="result-table">06/01/2011</td>
                                     <td class="result-table">3.00</td>
-                                    <td class="result-table">3.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="3.00"></td>                                     
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Students (6/1)</td>
-                                    
+                                    <td class="result-table">Students (6/1)</td>                                   
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2011</td>
                                     <td class="result-table">06/01/2011</td>
                                     <td class="result-table">3.00</td>
-                                    <td class="result-table">3.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="3.00"></td>                                     
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Support Staff Salaries (4/1)</td>
-                                   
+                                    <td class="result-table">Support Staff Salaries (4/1)</td>                                  
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2014</td>
                                     <td class="result-table">04/01/2014</td>
                                     <td class="result-table">3.00</td>
-                                    <td class="result-table">3.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="3.00"></td>                                      
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Support Staff Salaries (4/1)</td>
-                                    
+                                    <td class="result-table">Support Staff Salaries (4/1)</td>                                    
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2014</td>
                                     <td class="result-table">04/01/2014</td>
                                     <td class="result-table">3.00</td>
-                                    <td class="result-table">3.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="3.00"></td>                                      
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td>MTDC</td>
-                                    
+                                    <td>MTDC</td>                                  
                                     <td>No</td>
                                     <td>2008</td>
                                     <td>07/01/2007</td>
                                     <td>0.00</td>
-                                    <td>0.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="0.00"></td>                                      
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td>MTDC</td>
-                                    
+                                    <td>MTDC</td>                                  
                                     <td>No</td>
                                     <td>2008</td>
                                     <td>07/01/2007</td>
                                     <td>48.00</td>
-                                    <td>48.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="48.00"></td>                                      
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td>Materials and Services</td>
-                                    
+                                    <td>Materials and Services</td>                                  
                                     <td>No</td>
                                     <td>2002</td>
                                     <td>07/01/2001</td>
                                     <td>10.00</td>
-                                    <td>10.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="10.00"></td>                                      
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td>Materials and Services</td>
-                                    
+                                    <td>Materials and Services</td>                                    
                                     <td>No</td>
                                     <td>2002</td>
                                     <td>07/01/2001</td>
                                     <td>10.00</td>
-                                    <td>10.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="10.00"></td>                                     
                                 </tr>
                             </thead>
                             <tbody role=alert aria-live=polite aria-relevant=all>
@@ -615,8 +524,7 @@ $section = '';
                             <thead>
                                 <tr role=row>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-sort=ascending aria-label="
- Field 1: : activate to sort column descending"><label id="urh9zx8" class="uif-label">Description</label></th>
-                                    
+ Field 1: : activate to sort column descending"><label id="urh9zx8" class="uif-label">Description</label></th>                                  
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> On Campus </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
@@ -627,57 +535,45 @@ $section = '';
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Institution Rate</label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Applicable Rate </label></th>
-                                    <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
- Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> </label></th>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Vacation</td>
-                                   
+                                    <td class="result-table">Vacation</td>                                   
                                     <td class="result-table">No</td>
                                     <td class="result-table">2006</td>
                                     <td class="result-table">07/01/2005</td>
                                     <td class="result-table">10.50</td>
-                                    <td class="result-table">10.50</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="10.50"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Vacation</td>
-                                    
+                                    <td class="result-table">Vacation</td>                                   
                                     <td class="result-table">No</td>
                                     <td class="result-table">2006</td>
                                     <td class="result-table">07/01/2005</td>
                                     <td class="result-table">9.50</td>
-                                    <td class="result-table">9.50</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="9.50"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Vacation on LA</td>
-                                    
+                                    <td class="result-table">Vacation on LA</td>                                   
                                     <td class="result-table">No</td>
                                     <td class="result-table">2006</td>
                                     <td class="result-table">07/01/2005</td>
                                     <td class="result-table">8.00</td>
-                                    <td class="result-table">8.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="8.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Vacation on LA</td>
-                                    
+                                    <td class="result-table">Vacation on LA</td>                                 
                                     <td class="result-table">No</td>
                                     <td class="result-table">2006</td>
                                     <td class="result-table">07/01/2005</td>
                                     <td class="result-table">8.00</td>
-                                    <td class="result-table">8.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="8.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Administrative Salaries (7/1)</td>
-                                    
+                                    <td class="result-table">Administrative Salaries (7/1)</td>                                   
                                     <td class="result-table">No</td>
                                     <td class="result-table">2014</td>
                                     <td class="result-table">07/01/2013</td>
                                     <td class="result-table">3.00</td>
-                                    <td class="result-table">3.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="3.00"></td> 
                                 </tr>
                             </thead>
                             <tbody role=alert aria-live=polite aria-relevant=all>
@@ -697,8 +593,7 @@ $section = '';
                             <thead>
                                 <tr role=row>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-sort=ascending aria-label="
- Field 1: : activate to sort column descending"><label id="urh9zx8" class="uif-label">Description</label></th>
-                                    
+ Field 1: : activate to sort column descending"><label id="urh9zx8" class="uif-label">Description</label></th>                                  
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> On Campus </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
@@ -709,27 +604,21 @@ $section = '';
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Institution Rate</label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Applicable Rate </label></th>
-                                    <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
- Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> </label></th>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Lab Allocation - Salaries</td>
-                                    
+                                    <td class="result-table">Lab Allocation - Salaries</td>                                   
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2012</td>
                                     <td class="result-table">07/01/2011</td>
                                     <td class="result-table">8.00</td>
-                                    <td class="result-table">8.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="8.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Lab Allocation - Salaries</td>
-                                    
+                                    <td class="result-table">Lab Allocation - Salaries</td>                                  
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2012</td>
                                     <td class="result-table">07/01/2011</td>
                                     <td class="result-table">8.00</td>
-                                    <td class="result-table">8.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="8.00"></td> 
                                 </tr>
                             </thead>
                             <tbody role=alert aria-live=polite aria-relevant=all>
@@ -750,7 +639,6 @@ $section = '';
                                 <tr role=row>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-sort=ascending aria-label="
  Field 1: : activate to sort column descending"><label id="urh9zx8" class="uif-label">Description</label></th>
-                                    
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> On Campus </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
@@ -761,57 +649,45 @@ $section = '';
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Institution Rate</label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Applicable Rate </label></th>
-                                    <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
- Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> </label></th>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Lab Allocation - Utilities</td>
-                                    
+                                    <td class="result-table">Lab Allocation - Utilities</td>                                  
                                     <td class="result-table">No</td>
                                     <td class="result-table">2005</td>
                                     <td class="result-table">07/01/2004</td>
                                     <td class="result-table">8.00</td>
-                                    <td class="result-table">8.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="8.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Lab Allocation - Utilities</td>
-                                    
+                                    <td class="result-table">Lab Allocation - Utilities</td>                                  
                                     <td class="result-table">No</td>
                                     <td class="result-table">2005</td>
                                     <td class="result-table">07/01/2004</td>
                                     <td class="result-table">8.00</td>
-                                    <td class="result-table">8.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="8.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Lab Allocation - M&amp;S</td>
-                                    
+                                    <td class="result-table">Lab Allocation - M&amp;S</td>                               
                                     <td class="result-table">No</td>
                                     <td class="result-table">2011</td>
                                     <td class="result-table">07/01/2010</td>
                                     <td class="result-table">1.00</td>
-                                    <td class="result-table">1.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="1.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Lab Allocation - M&amp;S</td>
-                                    
+                                    <td class="result-table">Lab Allocation - M&amp;S</td>                                   
                                     <td class="result-table">No</td>
                                     <td class="result-table">2011</td>
                                     <td class="result-table">07/01/2010</td>
                                     <td class="result-table">1.00</td>
-                                    <td class="result-table">1.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="1.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Lab Allocation - Salaries</td>
-                                    
+                                    <td class="result-table">Lab Allocation - Salaries</td>                                  
                                     <td class="result-table">No</td>
                                     <td class="result-table">2012</td>
                                     <td class="result-table">07/01/2011</td>
                                     <td class="result-table">8.00</td>
-                                    <td class="result-table">8.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="8.00"></td> 
                                 </tr>
                             </thead>
                             <tbody role=alert aria-live=polite aria-relevant=all>
@@ -831,8 +707,7 @@ $section = '';
                             <thead>
                                 <tr role=row>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-sort=ascending aria-label="
- Field 1: : activate to sort column descending"><label id="urh9zx8" class="uif-label">Description</label></th>
-                                   
+ Field 1: : activate to sort column descending"><label id="urh9zx8" class="uif-label">Description</label></th>                                  
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> On Campus </label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
@@ -843,27 +718,21 @@ $section = '';
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Institution Rate</label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Applicable Rate </label></th>
-                                    <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
- Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> </label></th>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Other</td>
-                                   
+                                    <td class="result-table">Other</td>                                 
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2000</td>
                                     <td class="result-table">07/01/1999</td>
                                     <td class="result-table">0.00</td>
-                                    <td class="result-table">0.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="0.00"></td> 
                                 </tr>
                                 <tr class="not-deletable">
-                                    <td class="result-table">Other</td>
-                                    
+                                    <td class="result-table">Other</td>                                   
                                     <td class="result-table">Yes</td>
                                     <td class="result-table">2000</td>
                                     <td class="result-table">07/01/1999</td>
                                     <td class="result-table">0.00</td>
-                                    <td class="result-table">0.00</td>
-                                    <td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
+                                    <td class="result-table"><input type="text" size="3" placeholder="0.00"></td> 
                                 </tr>
                             </thead>
                             <tbody role=alert aria-live=polite aria-relevant=all>
