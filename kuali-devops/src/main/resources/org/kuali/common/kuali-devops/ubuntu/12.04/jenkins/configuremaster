@@ -66,6 +66,10 @@ function update_jenkins_config_xml {
   REPLACE="<casServerUrl>https://$CAS</casServerUrl>"
   execute_quietly "sed -i -e s@$FIND@$REPLACE@g $JENKINS_LOCATION_CONFIG_FILE"
 
+  echo "remove    -> slave :: existing"
+  # delete everything between <slaves> and </slaves> (including the tags themselves)
+  execute_quietly "sed -i /<slaves>/,/<\/slaves>/d $JENKINS_CONFIG_FILE"
+  
   # Update the EC2 Region for the slaves
   echo "configure -> slave :: region [$REGION]"
   execute_quietly "sed -i -e s@<name>ec2-.*</name>@<name>ec2-$REGION</name>@g $JENKINS_CONFIG_FILE"
@@ -74,10 +78,6 @@ function update_jenkins_config_xml {
   # Update the build slave AMI
   echo "configure -> slave :: ami [$AMI]"
   execute_quietly "sed -i -e s@<ami>.*</ami>@<ami>$AMI</ami>@g $JENKINS_CONFIG_FILE"
-  
-  echo "remove    -> jenkins:slaves (if any)"
-  # delete everything between <slaves> and </slaves> (including the tags themselves)
-  execute_quietly "sed -i /<slaves>/,/<\/slaves>/d $JENKINS_CONFIG_FILE"
   
   echo "update    -> slave :: tag :: Stack=$STACK"
   update_slave_tag $JENKINS_CONFIG_FILE "Stack" $STACK
