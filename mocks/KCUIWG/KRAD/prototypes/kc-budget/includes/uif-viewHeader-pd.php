@@ -22,7 +22,7 @@
             </div>
             <div id="u1f206ld" class="uif-messageField uif-boxLayoutVerticalItem clearfix" data-label="Status">
                 <label id="uk9uzz5" for="u4ch8dm_span" class="uif-label" data-label_for="u1f206ld"> Budget: </label>
-                <p id="u4ch8dm" class="uif-message"> <a href="" data-toggle="modal" data-target="#switchdoc" class="">Version 2</a></p>
+                <p id="u4ch8dm" class="uif-message"> <a href="" data-toggle="modal" data-target="#switchdoc" class="">Version 5</a></p>
             </div>
             <div id="LabsProposal-MoreDocInfo" class="dropdown uif-boxLayoutVerticalItem clearfix"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> more info... </a>
                 <section id="uhlixhs" class="dropdown-menu uif-gridGroup">

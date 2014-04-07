@@ -109,10 +109,10 @@ $page = 'personnel-assign';
                                             <option value="">select</option>
                                             <option>Ward Cleaver</option>
                                             <option>John Coltrane</option>
-                                            <option>Stan Getz</option>
-                                            <option>Dave Brubeck</option>
-                                            <option>Ella Fitzgerald</option>
-                                            <option>Billie Holiday</option>
+                                            <option>Oliver Elgin</option>
+                                            <option>Darren Devaney</option>
+                                            <option>Emory Eagle</option>
+                                            <option>TBN</option>
                                         </select>
                                         <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>--></div>
                                 </div>
@@ -178,7 +178,7 @@ $page = 'personnel-assign';
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12 text-right"><a href="#" type="submit" class="btn btn-primary btn-xs">Assign to Period 1</a></div>
+                                <div class="col-md-12 text-right"><a href="budget-ng-personnelCosts-persPeriod2.php" type="submit" class="btn btn-primary btn-xs">Assign to Period 1</a></div>
                             </div>
                         </div>
                         <h4 class="pull-left" >Assigned Personnel</h4>
@@ -449,10 +449,10 @@ $page = 'personnel-assign';
                                             <option value="">select</option>
                                             <option>Ward Cleaver</option>
                                             <option>John Coltrane</option>
-                                            <option>Stan Getz</option>
-                                            <option>Dave Brubeck</option>
-                                            <option>Ella Fitzgerald</option>
-                                            <option>Billie Holiday</option>
+                                            <option>Oliver Elgin</option>
+                                            <option>Darren Devaney</option>
+                                            <option>Emory Eagle</option>
+                                            <option>TBN</option>
                                         </select>
                                         <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>--></div>
                                 </div>
@@ -534,10 +534,10 @@ $page = 'personnel-assign';
                                             <option value="">select</option>
                                             <option>Ward Cleaver</option>
                                             <option>John Coltrane</option>
-                                            <option>Stan Getz</option>
-                                            <option>Dave Brubeck</option>
-                                            <option>Ella Fitzgerald</option>
-                                            <option>Billie Holiday</option>
+                                            <option>Oliver Elgin</option>
+                                            <option>Darren Devaney</option>
+                                            <option>Emory Eagle</option>
+                                            <option>TBN</option>
                                         </select>
                                         <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>--></div>
                                 </div>
@@ -619,10 +619,10 @@ $page = 'personnel-assign';
                                             <option value="">select</option>
                                             <option>Ward Cleaver</option>
                                             <option>John Coltrane</option>
-                                            <option>Stan Getz</option>
-                                            <option>Dave Brubeck</option>
-                                            <option>Ella Fitzgerald</option>
-                                            <option>Billie Holiday</option>
+                                            <option>Oliver Elgin</option>
+                                            <option>Darren Devaney</option>
+                                            <option>Emory Eagle</option>
+                                            <option>TBN</option>
                                         </select>
                                         <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>--></div>
                                 </div>
@@ -704,10 +704,10 @@ $page = 'personnel-assign';
                                             <option value="">select</option>
                                             <option>Ward Cleaver</option>
                                             <option>John Coltrane</option>
-                                            <option>Stan Getz</option>
-                                            <option>Dave Brubeck</option>
-                                            <option>Ella Fitzgerald</option>
-                                            <option>Billie Holiday</option>
+                                            <option>Oliver Elgin</option>
+                                            <option>Darren Devaney</option>
+                                            <option>Emory Eagle</option>
+                                            <option>TBN</option>
                                         </select>
                                         <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>--></div>
                                 </div>

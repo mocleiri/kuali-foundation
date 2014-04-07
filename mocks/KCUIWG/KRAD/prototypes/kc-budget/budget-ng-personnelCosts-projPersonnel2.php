@@ -323,14 +323,14 @@ $page = 'personnel-costs';
                         <tr class="not-deletable active">
                             <td colspan="5"><strong class="pull-left">Additional Personnel</strong></td>
                         </tr>
-                        <tr class="not-deletable">
-                            <td>Stan Getz <small class="text-muted">(Research Assistant)</small></td>
+                        <tr>
+                            <td>OLIVER ELGIN <small class="text-muted">(Research Assistant)</small></td>
                             <td>Dean/Faculty <small class="text-muted">(AA042)</small></td>
                             <td>Summer</td>
                             <td class="text-right">$73,734</td>
                             <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
                                     <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -808px;top: 26px;width: 890px;padding:15px; background:#fcf8e3;">
-                                        <p class="lead">Stan Getz</p>
+                                        <p class="lead">OLIVER ELGIN</p>
                                         <hr>
                                         <div class="row">
                                             <div class="col-md-12">
@@ -399,14 +399,14 @@ $page = 'personnel-costs';
                                     </div>
                                 </div></td>
                         </tr>
-                        <tr class="not-deletable">
-                            <td>Dave Brubeck <small class="text-muted">(Research Assistant)</small></td>
+                        <tr>
+                            <td>DARREN DEVANEY <small class="text-muted">(Research Assistant)</small></td>
                             <td>Dean/Faculty <small class="text-muted">(AA042)</small></td>
                             <td>9 Month</td>
                             <td class="text-right">$82,832</td>
                             <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
                                     <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -808px;top: 26px;width: 890px;padding:15px; background:#fcf8e3;">
-                                        <p class="lead">Dave Brubeck</p>
+                                        <p class="lead">DARREN DEVANEY</p>
                                         <hr>
                                         <div class="row">
                                             <div class="col-md-12">
@@ -475,14 +475,14 @@ $page = 'personnel-costs';
                                     </div>
                                 </div></td>
                         </tr>
-                        <tr class="not-deletable">
-                            <td>Ella Fitzgerald <small class="text-muted">(Research Assistant)</small></td>
+                        <tr>
+                            <td>EMORY EAGLE <small class="text-muted">(Research Assistant)</small></td>
                             <td>Associate Provost <small class="text-muted">(AA014)</small></td>
                             <td>Temporary</td>
                             <td class="text-right">$42,777</td>
                             <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
                                     <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -808px;top: 26px;width: 890px;padding:15px; background:#fcf8e3;">
-                                        <p class="lead">Ella Fitzgerald</p>
+                                        <p class="lead">EMORY EAGLE</p>
                                         <hr>
                                         <div class="row">
                                             <div class="col-md-12">
@@ -552,7 +552,7 @@ $page = 'personnel-costs';
                                 </div></td>
                         </tr>
                       
-                        <tr class="not-deletable">
+                        <tr>
                             <td>TBA Research </td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
