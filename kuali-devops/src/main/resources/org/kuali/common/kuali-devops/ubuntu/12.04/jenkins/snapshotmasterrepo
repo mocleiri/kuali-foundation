@@ -49,10 +49,12 @@ if [ "$QUIET" == "true" ]; then
 fi
 
 TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
+MONTH=$(date +"%Y%m")
 ACL=authenticated-read
 GROUP_ID=org.jenkins
 ARTIFACT_ID=master-repository-backup
-VERSION=$TIMESTAMP
+VERSION=$MONTH
+CLASSIFIER=$TIMESTAMP
 TYPE=tar.gz
 
 source $MY_DIR/../common/aws.sh
@@ -63,11 +65,11 @@ TAR_DIR=/tmp
 TAR_FILE=$TAR_DIR/$ARTIFACT_ID.tar.gz
 create_tar_file
 
-M2_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --repo=$BUCKET/$PREFIX --type=$TYPE)
+M2_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --repo=$BUCKET/$PREFIX --type=$TYPE --classifier=$CLASSIFIER)
 echo "upload    -> https://$M2_PATH"
-$MY_DIR/../common/m2s3put $QUIET_FLAG $TAR_FILE $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --acl=$ACL --type=$TYPE --prefix=$PREFIX
+$MY_DIR/../common/m2s3put $QUIET_FLAG $TAR_FILE $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --acl=$ACL --type=$TYPE --prefix=$PREFIX --classifier=$CLASSIFIER
 
-VERSION=latest
-M2_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --repo=$BUCKET/$PREFIX --type=$TYPE)
+CLASSIFIER=latest
+M2_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --repo=$BUCKET/$PREFIX --type=$TYPE --classifier=$CLASSIFIER)
 echo "upload    -> https://$M2_PATH"
-$MY_DIR/../common/m2s3put $QUIET_FLAG $TAR_FILE $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --acl=$ACL --type=$TYPE --prefix=$PREFIX
+$MY_DIR/../common/m2s3put $QUIET_FLAG $TAR_FILE $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --acl=$ACL --type=$TYPE --prefix=$PREFIX --classifier=$CLASSIFIER
