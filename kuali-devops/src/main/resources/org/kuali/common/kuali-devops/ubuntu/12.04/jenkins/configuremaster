@@ -146,8 +146,6 @@ function configure_jenkins {
   
   execute_quietly "tar --extract --verbose --file $TAR_GZ --directory $TOMCAT_HOME"
   
-  exit 1
-  
   # Modify jenkins.model.JenkinsLocationConfiguration.xml with the proper dns value and admin email address
   configure_jenkins_location
   
@@ -155,7 +153,7 @@ function configure_jenkins {
   update_jenkins_config_xml
 
   # Modify ~/.jenkins/jobs/kdo-create-build-slave-ami/config.xml with the correct stack and region values
-  #configure_build_slave_ami_job
+  configure_build_slave_ami_job
   
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
 
