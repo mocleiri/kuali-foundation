@@ -19,13 +19,13 @@ function create_tar_file {
    local THIN="--exclude=**/plugins/** --exclude=**/workspace/** --exclude=**/logs/slaves/**"
 
    if [ $MODE == "min" ]; then
-     execute_quietly "tar --gzip --verbose --create --file $TAR_FILE .jenkins $MIN"
+     execute_quietly "tar --ignore-failed-read --gzip --verbose --create --file $TAR_FILE .jenkins $MIN"
    fi
    if [ $MODE == "thin" ]; then
-     execute_quietly "tar --gzip --verbose --create --file $TAR_FILE .jenkins $THIN"
+     execute_quietly "tar --ignore-failed-read  --gzip --verbose --create --file $TAR_FILE .jenkins $THIN"
    fi
    if [ $MODE == "full" ]; then
-     execute_quietly "tar --gzip --verbose --create --file $TAR_FILE .jenkins"
+     execute_quietly "tar  --ignore-failed-read --gzip --verbose --create --file $TAR_FILE .jenkins"
    fi
    
    execute_quietly "cd $MY_DIR"
