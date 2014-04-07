@@ -1,7 +1,9 @@
 Monday
 ------
-- Continued work on brining up the new CI
+- Continued work on bringing up the new CI
 - split the installjenkins script into 2 scripts
 -- installjenkins and configurejenkins
 -- installjenkins just creates and verifies a vanilla Jenkins instance with a set of plugins (no Kuali specific config)
 -- configurejenkins updates the vanilla jenkins with Kuali specific config (secret keys, security settings, jobs, config history, etc)
+-- documented improved method for obtaining Oracle JDK's
+-- coordinated with Martin on CI related tasks, bringing jobs from ci.rice.kuali.org over to ci.kuali.org
