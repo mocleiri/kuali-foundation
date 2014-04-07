@@ -83,7 +83,7 @@ function download_m2_repo_cache {
   $MY_DIR/../common/m2s3get $QUIET_FLAG --prefix=$PREFIX --type=$TYPE --classifier=$CLASSIFIER $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION
   
   echo "extract   -> m2 repo cache"
-  M2_LOCAL_PATH=$($MY_DIR/m2path $GROUP_ID $ARTIFACT_ID $VERSION --classifier="$CLASSIFIER" --type="$TYPE")
+  M2_LOCAL_PATH=$($MY_DIR/m2path $GROUP_ID $ARTIFACT_ID $VERSION --classifier=$CLASSIFIER --type=$TYPE)
   execute_quietly "tar --extract --verbose --file $M2_LOCAL_PATH --directory /root/.m2"
   
 }
