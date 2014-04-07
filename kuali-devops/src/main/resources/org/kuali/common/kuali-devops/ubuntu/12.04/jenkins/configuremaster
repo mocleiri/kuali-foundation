@@ -202,6 +202,7 @@ TOMCAT_OPT_FILE=/etc/default/$TOMCAT
 
 echo "stop      -> $TOMCAT:service"
 execute_quietly "service $TOMCAT stop"
+configure_tomcat_user
 configure_jenkins
 echo "start     -> $TOMCAT:service"
 execute_quietly "service $TOMCAT start"
