@@ -66,8 +66,8 @@ function update_jenkins_config_xml {
   REPLACE="<casServerUrl>https://$CAS</casServerUrl>"
   execute_quietly "sed -i -e s@$FIND@$REPLACE@g $JENKINS_LOCATION_CONFIG_FILE"
 
-  # Update the EC2 Region
-  echo "configure -> jenkins:region"
+  # Update the EC2 Region for the slaves
+  echo "configure -> slave region $REGION"
   execute_quietly "sed -i -e s@<name>ec2-.*</name>@<name>ec2-$REGION</name>@g $JENKINS_CONFIG_FILE"
   execute_quietly "sed -i -e s@<region>.*</region>@<region>$REGION</region>@g $JENKINS_CONFIG_FILE"
 
