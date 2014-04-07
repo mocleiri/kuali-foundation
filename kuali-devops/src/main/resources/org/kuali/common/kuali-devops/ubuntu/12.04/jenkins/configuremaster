@@ -105,7 +105,7 @@ function update_global_environment_variable {
   local NAME=$2
   local VALUE=$3
   LINE_NUMBER=$(get_next_line_number $FILE "<string>$NAME</string>")
-  execute_quietly "sed -i -e ${LINE_NUMBER}s/<string>.*<\/string>/<string>$VALUE<\/string>/ $FILE
+  execute_quietly "sed -i -e ${LINE_NUMBER}s/<string>.*<\/string>/<string>$VALUE<\/string>/ $FILE"
 }
 
 function configure_build_slave_ami_job {
