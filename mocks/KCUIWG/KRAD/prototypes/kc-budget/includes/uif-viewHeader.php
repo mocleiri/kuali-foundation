@@ -2,7 +2,7 @@
     <div id="ueqbqhn" class="uif-viewHeader" data-header_for="LabsProposal">
         <h1 class="uif-headerText">
             <p id="u1p8pc9q" class="uif-viewHeader-areaTitle"> Proposal Budget Development </p>
-            <span class="uif-headerText-span"> Budget: Version 2</span> </h1>
+            <span class="uif-headerText-span"> Budget: Version 5</span> </h1>
         <div id="LabsProposal-DocInfo" class="uif-verticalBoxGroup uif-header-rightGroup uif-documentInfo" data-parent="LabsProposal">
             <div id="u1f206ki" class="uif-messageField uif-boxLayoutVerticalItem clearfix" data-label="Initiator">
                 <label id="ujre4xu" for="u7lh763_span" class="uif-label" data-label_for="u1f206ki"> Final Version: </label>
