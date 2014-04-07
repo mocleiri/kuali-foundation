@@ -114,13 +114,13 @@
                     </tr>
                     </tbody>
                     <tfoot>
-                    <tr>
+                    <!-- // I noticed that the Budget Versions > Action> Budget Summary “white box” view shows the “generate periods” option – I don’t think that function should be an option on this “quick view” of the summary. -- ***//  tr>
                         <td></td>
                         <td class="uif-center-aligned uif-column-special">
                             <button class="btn btn-default btn-xs">Generate Periods <br> from Period 1</button>
                         </td>
                         <td colspan="5"></td>
-                    </tr>
+                    </tr -->
                     </tfoot>
                 </table>
             </div>
