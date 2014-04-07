@@ -15,7 +15,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-q --quiet] [-h --help] password" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-q --quiet] [-h --help] version password" 1>&2; exit 1; }
 
 QUIET=false
 
@@ -39,8 +39,10 @@ while true; do
   esac
 done
 
-GPG_PASSPHRASE=$1
+VERSION=$1
+GPG_PASSPHRASE=$2
 
+check_not_blank VERSION $VERSION
 check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
 
 QUIET_FLAG=""
@@ -49,11 +51,9 @@ if [ "$QUIET" == "true" ]; then
 fi
 
 TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
-MONTH=$(date +"%Y%m")
 ACL=authenticated-read
 GROUP_ID=org.jenkins
 ARTIFACT_ID=master-repository-backup
-VERSION=$MONTH
 CLASSIFIER=$TIMESTAMP
 TYPE=tar.gz
 
