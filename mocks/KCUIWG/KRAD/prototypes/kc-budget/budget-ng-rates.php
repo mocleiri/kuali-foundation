@@ -113,7 +113,7 @@ $section = '';
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Institution Rate</label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
- Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Application Rate </label></th>
+ Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Applicable Rate </label></th>
                                     <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> </label></th>
                             </thead>
@@ -266,7 +266,7 @@ $section = '';
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Institution Rate</label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
- Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Application Rate </label></th>
+ Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Applicable Rate </label></th>
                                     <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> </label></th>
                                 <tr class="not-deletable">
@@ -359,7 +359,7 @@ $section = '';
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Institution Rate</label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
- Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Application Rate </label></th>
+ Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Applicable Rate </label></th>
                                     <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> </label></th>
                                 <tr class="not-deletable">
@@ -632,7 +632,7 @@ $section = '';
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Institution Rate</label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
- Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Application Rate </label></th>
+ Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Applicable Rate </label></th>
                                     <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> </label></th>
                                 <tr class="not-deletable">
@@ -715,7 +715,7 @@ $section = '';
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Institution Rate</label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
- Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Application Rate </label></th>
+ Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Applicable Rate </label></th>
                                     <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> </label></th>
                                 <tr class="not-deletable">
@@ -768,7 +768,7 @@ $section = '';
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Institution Rate</label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
- Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Application Rate </label></th>
+ Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Applicable Rate </label></th>
                                     <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> </label></th>
                                 <tr class="not-deletable">
@@ -851,7 +851,7 @@ $section = '';
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Institution Rate</label></th>
                                     <th class="sorting" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
- Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Application Rate </label></th>
+ Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Applicable Rate </label></th>
                                     <th class="" role=columnheader tabindex=0 aria-controls=Demo-LightTableGroup1_lightTable rowspan=1 colspan=1 aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> </label></th>
                                 <tr class="not-deletable">
