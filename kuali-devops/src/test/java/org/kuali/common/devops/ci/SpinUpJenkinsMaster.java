@@ -106,6 +106,8 @@ public class SpinUpJenkinsMaster {
 	@Test
 	public void test() {
 		try {
+			System.setProperty("ec2.stack", "test");
+			System.setProperty("ec2.region", "us-west-2");
 			VirtualSystem vs = VirtualSystem.create();
 			// Default to quiet mode unless they've supplied -Dec2.quiet=false
 			boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
@@ -120,8 +122,8 @@ public class SpinUpJenkinsMaster {
 			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
 			EC2Service service = getEC2Service(amazonAccount, jenkinsContext.getRegion());
-			Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
-			// Instance instance = service.getInstance("i-51609359");
+			// Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
+			Instance instance = service.getInstance("i-ab57a4a3");
 			info("public dns: %s", instance.getPublicDnsName());
 			updateDns(instance, jenkinsMaster);
 			String dns = instance.getPublicDnsName();
