@@ -22,7 +22,7 @@ function create_tar_file {
      execute_quietly "tar --ignore-failed-read --gzip --verbose --create --file $TAR_FILE .jenkins $MIN"
    fi
    if [ $MODE == "thin" ]; then
-     execute_quietly "tar --ignore-failed-read  --gzip --verbose --create --file $TAR_FILE .jenkins $THIN"
+     execute_quietly "tar --ignore-failed-read --gzip --verbose --create --file $TAR_FILE .jenkins $THIN"
    fi
    if [ $MODE == "full" ]; then
      execute_quietly "tar --ignore-failed-read --gzip --verbose --create --file $TAR_FILE .jenkins"
