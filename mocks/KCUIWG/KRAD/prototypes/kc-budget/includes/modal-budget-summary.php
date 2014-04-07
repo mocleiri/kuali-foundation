@@ -12,7 +12,7 @@
                     <tbody>
                     <tr>
                         <th>&nbsp;</th>
-                        <th class="uif-column-special uif-center-aligned">P1 <span class="sr-only">Period 1</span></th>
+                        <th class=" uif-center-aligned">P1 <span class="sr-only">Period 1</span></th>
                         <th class="uif-center-aligned">P2 <span class="sr-only">Period 2</span></th>
                         <th class="uif-center-aligned">P3 <span class="sr-only">Period 3</span></th>
                         <th class="uif-center-aligned">P4 <span class="sr-only">Period 4</span></th>
@@ -24,7 +24,7 @@
                     </tr>
                     <tr class="">
                         <td><a href="#"> <span aria-hidden="true" class="icon-chevron-right"></span> Salary</a></td>
-                        <td class="uif-column-special uif-right-aligned">$156,934</td>
+                        <td class=" uif-right-aligned">$156,934</td>
                         <td class="uif-right-aligned">$156,934</td>
                         <td class="uif-right-aligned">$156,934</td>
                         <td class="uif-right-aligned">$156,934</td>
@@ -33,7 +33,7 @@
                     </tr>
                     <tr class="">
                         <td><a href="#"> <span aria-hidden="true" class="icon-chevron-right"></span> Fringe</a></td>
-                        <td class="uif-column-special uif-right-aligned">$37,345</td>
+                        <td class=" uif-right-aligned">$37,345</td>
                         <td class="uif-right-aligned">$37,345</td>
                         <td class="uif-right-aligned">$37,345</td>
                         <td class="uif-right-aligned">$37,345</td>
@@ -42,7 +42,7 @@
                     </tr>
                     <tr class="">
                         <td><a href="#"> <span aria-hidden="true" class="icon-chevron-right"></span> Calculated Direct Costs</a></td>
-                        <td class="uif-column-special uif-right-aligned">$28,284</td>
+                        <td class=" uif-right-aligned">$28,284</td>
                         <td class="uif-right-aligned">$28,284</td>
                         <td class="uif-right-aligned">$28,284</td>
                         <td class="uif-right-aligned">$28,284</td>
@@ -51,7 +51,7 @@
                     </tr>
                     <tr class="">
                         <td>Personnel Subtotal</td>
-                        <td class="uif-column-special uif-right-aligned"><strong>$222,563</strong></td>
+                        <td class=" uif-right-aligned"><strong>$222,563</strong></td>
                         <td class="uif-right-aligned"><strong>$222,563</strong></td>
                         <td class="uif-right-aligned"><strong>$222,563</strong></td>
                         <td class="uif-right-aligned"><strong>$222,563</strong></td>
@@ -63,7 +63,7 @@
                     </tr>
                     <tr class="">
                         <td><a href="#"><span aria-hidden="true" class="icon-chevron-right"></span> Calculated Direct Costs</a></td>
-                        <td class="uif-column-special uif-right-aligned">$38,546</td>
+                        <td class=" uif-right-aligned">$38,546</td>
                         <td class="uif-right-aligned">$38,546</td>
                         <td class="uif-right-aligned">$38,546</td>
                         <td class="uif-right-aligned">$38,546</td>
@@ -72,7 +72,7 @@
                     </tr>
                     <tr class="">
                         <td>Nonpersonnel Subtotal</td>
-                        <td class="uif-column-special uif-right-aligned"><strong>$38,546</strong></td>
+                        <td class=" uif-right-aligned"><strong>$38,546</strong></td>
                         <td class="uif-right-aligned"><strong>$38,546</strong></td>
                         <td class="uif-right-aligned"><strong>$38,546</strong></td>
                         <td class="uif-right-aligned"><strong>$38,546</strong></td>
@@ -84,7 +84,7 @@
                     </tr>
                     <tr>
                         <td>Total Direct Cost</td>
-                        <td class="uif-column-special uif-right-aligned">$723,454</td>
+                        <td class=" uif-right-aligned">$723,454</td>
                         <td class="uif-right-aligned">$723,454</td>
                         <td class="uif-right-aligned">$723,454</td>
                         <td class="uif-right-aligned">$723,454</td>
@@ -93,7 +93,7 @@
                     </tr>
                     <tr>
                         <td>Total F&amp;A Costs</td>
-                        <td class="uif-column-special uif-right-aligned">$34,537</td>
+                        <td class=" uif-right-aligned">$34,537</td>
                         <td class="uif-right-aligned">$34,537</td>
                         <td class="uif-right-aligned">$34,537</td>
                         <td class="uif-right-aligned">$34,537</td>
@@ -105,7 +105,7 @@
       </tr> -->
                     <tr class="active">
                         <td>Total Costs</td>
-                        <td class="uif-column-special uif-right-aligned"><strong>$238,546</strong></td>
+                        <td class=" uif-right-aligned"><strong>$238,546</strong></td>
                         <td class="uif-right-aligned"><strong>$238,546</strong></td>
                         <td class="uif-right-aligned"><strong>$238,546</strong></td>
                         <td class="uif-right-aligned"><strong>$238,546</strong></td>
@@ -116,7 +116,7 @@
                     <tfoot>
                     <!-- // I noticed that the Budget Versions > Action> Budget Summary “white box” view shows the “generate periods” option – I don’t think that function should be an option on this “quick view” of the summary. -- ***//  tr>
                         <td></td>
-                        <td class="uif-center-aligned uif-column-special">
+                        <td class="uif-center-aligned ">
                             <button class="btn btn-default btn-xs">Generate Periods <br> from Period 1</button>
                         </td>
                         <td colspan="5"></td>
