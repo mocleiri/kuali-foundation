@@ -34,9 +34,7 @@ Thursday
 --------
 - Rice 
 -- Call with Jessica - tar.gz, coordinate on email from OLE related to release
-
 - continued work on improving testci setup/configuration/flexibility
-- 
 
 Friday
 ------
