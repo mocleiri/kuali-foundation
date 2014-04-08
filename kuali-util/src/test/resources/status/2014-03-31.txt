@@ -29,7 +29,6 @@ Wednesday
 -- extended discussion on overall CI setup
 -- test job Haroon added completed in 1/2 the time that it takes on current CI 
 
-
 Thursday
 --------
 - Rice 
