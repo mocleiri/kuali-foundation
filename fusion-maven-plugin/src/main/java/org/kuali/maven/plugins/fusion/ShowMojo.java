@@ -32,6 +32,7 @@ import org.apache.maven.project.MavenProject;
  */
 @Mojo(aggregator=true, name = FusionMavenPluginConstants.SHOW_MOJO)
 @Execute(goal=FusionMavenPluginConstants.SHOW_MOJO)
+@Deprecated
 public class ShowMojo extends AbstractMojo {
 
 	SVNUtils svnUtils = SVNUtils.getInstance();

@@ -18,15 +18,17 @@ package org.kuali.maven.plugins.fusion;
 public class Mapping implements Comparable<Mapping> {
 
 	String module;
+	String branchName;
 	String versionProperty;
 
 	public Mapping() {
-		this(null, null);
+		this(null, null, null);
 	}
 
-	public Mapping(String module, String versionProperty) {
+	public Mapping(String module, String branchName, String versionProperty) {
 		super();
 		this.module = module;
+		this.branchName = branchName;
 		this.versionProperty = versionProperty;
 	}
 
@@ -50,4 +52,14 @@ public class Mapping implements Comparable<Mapping> {
 	public void setVersionProperty(String property) {
 		this.versionProperty = property;
 	}
+
+	public String getBranchName() {
+		return branchName;
+	}
+
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
+	
+	
 }

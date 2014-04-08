@@ -26,10 +26,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.eclipse.jgit.api.AddCommand;
+import org.eclipse.jgit.api.CheckoutCommand;
+import org.eclipse.jgit.api.CheckoutResult;
+import org.eclipse.jgit.api.CommitCommand;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.ListBranchCommand;
+import org.eclipse.jgit.api.ListBranchCommand.ListMode;
+import org.eclipse.jgit.api.errors.CheckoutConflictException;
+import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.InvalidRefNameException;
+import org.eclipse.jgit.api.errors.NoFilepatternException;
+import org.eclipse.jgit.api.errors.NoHeadException;
+import org.eclipse.jgit.api.errors.NoMessageException;
+import org.eclipse.jgit.api.errors.RefAlreadyExistsException;
+import org.eclipse.jgit.api.errors.RefNotFoundException;
+import org.eclipse.jgit.api.errors.UnmergedPathsException;
+import org.eclipse.jgit.api.errors.WrongRepositoryStateException;
+import org.eclipse.jgit.dircache.DirCache;
+import org.eclipse.jgit.lib.CommitBuilder;
+import org.eclipse.jgit.lib.Constants;
+import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.ObjectInserter;
+import org.eclipse.jgit.lib.PersonIdent;
+import org.eclipse.jgit.lib.Ref;
+import org.eclipse.jgit.lib.RefUpdate;
+import org.eclipse.jgit.lib.RefUpdate.Result;
 import org.eclipse.jgit.lib.Repository;
-import org.kuali.maven.plugins.fusion.MojoHelper;
-import org.kuali.maven.plugins.fusion.SVNExternal;
+import org.eclipse.jgit.lib.TreeFormatter;
+import org.eclipse.jgit.revwalk.RevCommit;
+import org.junit.Assert;
 import org.kuali.student.git.model.GitRepositoryUtils;
+import org.kuali.student.svn.model.ExternalModuleInfo;
 
 /**
  * 
@@ -99,68 +128,160 @@ public class GitTestRepositoryUtils {
 		
 		return workingCopyFile;
 	}
-	private static boolean createModuleStructure (File workingCopy, String moduleName) {
-		
-		File module = new File (workingCopy, moduleName);
 	
-		if (!module.mkdir()) {
-			return false;
-		}
+	public static CheckoutResult checkoutOrphan (Repository repo, String branchName, String startingPoint) throws RefAlreadyExistsException, RefNotFoundException, InvalidRefNameException, CheckoutConflictException, GitAPIException {
 		
-		File tags = new File (module, "tags");
-		File branches = new File (module, "branches");
-		File trunk = new File (module, "trunk");
+		CheckoutCommand co = new Git(repo).checkout();
 		
-		if (tags.mkdir() && branches.mkdir() && trunk.mkdir())
-			return true;
-		else
-			return false;
+		co.setName(branchName);
 		
+		co.setCreateBranch(true);
+		
+		co.setOrphan(true);
+		
+		co.setStartPoint(startingPoint);
+		
+		co.call();
+		
+		CheckoutResult result = co.getResult();
+		
+		return result;
 	}
-	public static void createExternalsBaseStructure (String repositoryName) throws IOException {
+	
+	public static List<Ref> listBranches (Repository repo, ListMode listMode) throws GitAPIException {
+		ListBranchCommand listBranchCommand = new Git(repo).branchList();
+		
+		listBranchCommand.setListMode(listMode);
+		
+		return listBranchCommand.call();
+	}
+	
+	
+	public static List<ExternalModuleInfo> createFusionBaseStructure (Repository repo) throws IOException, RefAlreadyExistsException, RefNotFoundException, InvalidRefNameException, CheckoutConflictException, GitAPIException {
+		
+		List<ExternalModuleInfo>externals = new ArrayList<>();
+		
+		createBaseCommit(repo, "base commit");
 		
 		// checkout at the root to create the initial structure
-		File workingCopy = checkOut(repositoryName, null, MAIN_WC, null, null);
+		CheckoutResult result = checkoutOrphan(repo, "aggregate", "master");
 		
-		// make an aggregate
-		createModuleStructure(workingCopy, "aggregate");
+		Assert.assertNotEquals (CheckoutResult.ERROR_RESULT, result);
 		
-		// make a module 1
-		createModuleStructure(workingCopy, "module1");
-		
-		// make a module 2
-		createModuleStructure(workingCopy, "module2");
+		File workingCopy = repo.getWorkTree();
 		
 		
 		// create the pom
-		createParentPomFile(repositoryName, new File (new File (workingCopy, "aggregate"), "trunk"), new String[] {"module1", "module2"}, "2.0.0-FR1-SNAPSHOT", "2.0.0-FR1-SNAPSHOT", "1.0.0-FR1-SNAPSHOT");
+		createParentPomFile("student", workingCopy, new String[] {"module1", "module2"}, "2.0.0-FR1-SNAPSHOT", "2.0.0-FR1-SNAPSHOT", "1.0.0-FR1-SNAPSHOT");
+		
+		stageFiles(repo, "pom.xml");
+		
+		commitBranch(repo, "created the student pom file", true);
+		
+		result = checkoutOrphan(repo, "module1", "master");
+		
+		Assert.assertNotEquals (CheckoutResult.ERROR_RESULT, result);
 		
 		// create the module 1 pom
-		createModulePomFile (new File (new File (workingCopy, "module1"), "trunk"), "module1", "2.0.0-FR1-SNAPSHOT", "2.0.0-FR1-SNAPSHOT");
+		createModulePomFile (workingCopy, "module1", "2.0.0-FR1-SNAPSHOT", "2.0.0-FR1-SNAPSHOT");
+		
+		stageFiles(repo, "pom.xml");
+		
+		RevCommit module1Commit = commitBranch(repo, "created the module 1 pom file", true);
+		
+		externals.add(new ExternalModuleInfo("module1", "module1", -1L, module1Commit.getId()));
+		
+		result = checkoutOrphan(repo, "module2", "master");
+		
+		Assert.assertNotEquals (CheckoutResult.ERROR_RESULT, result);
 		
 		// create the module 2 pom
-		createModulePomFile (new File (new File (workingCopy, "module2"), "trunk"), "module2", "2.0.0-FR1-SNAPSHOT", "1.0.0-FR1-SNAPSHOT");
+		createModulePomFile (workingCopy, "module2", "2.0.0-FR1-SNAPSHOT", "1.0.0-FR1-SNAPSHOT");
 		
-//		SVNUtils.getInstance().addFiles(new File (workingCopy, "aggregate"), null, null);
-//		SVNUtils.getInstance().addFiles(new File (workingCopy, "module1"), null, null);
-//		SVNUtils.getInstance().addFiles(new File (workingCopy, "module2"), null, null);
+		stageFiles(repo, "pom.xml");
+		
+		RevCommit module2Commit = commitBranch(repo, "created the module 2 pom file", true);
+		
+		externals.add(new ExternalModuleInfo("module2", "module2", -1L, module2Commit.getId()));
 		
 		
-		List<SVNExternal> externals = new ArrayList<SVNExternal>();
+		checkOut(repo, "aggregate");
 		
-		externals.add(new SVNExternal("file://" + getRepositoryPath(repositoryName, "/module1/trunk"), "module1", null));
-		externals.add(new SVNExternal("file://" + getRepositoryPath(repositoryName, "/module2/trunk"), "module2", null));
-		
-//		SVNCommitInfo commitInfo = SVNUtils.getInstance().commit(workingCopy, "initial commit", null, null);
-//		
-//		commitInfo = SVNUtils.getInstance().setExternals(getRepositoryPath(repositoryName, "/aggregate/trunk"), externals);
-		
-		// clean up the working copy
-		deleteRepositoryWorkingCopy(repositoryName, MAIN_WC);
-		
+		return externals;
 		
 	}
 
+	public static Ref checkOut(Repository repo, String branchName) throws RefAlreadyExistsException, RefNotFoundException, InvalidRefNameException, CheckoutConflictException, GitAPIException {
+	
+		CheckoutCommand checkOutCommand = new Git (repo).checkout();
+		
+		checkOutCommand.setName(Constants.R_HEADS + branchName);
+		
+		checkOutCommand.setCreateBranch(false);
+		
+		checkOutCommand.setOrphan(false);
+
+		return checkOutCommand.call();
+		
+	}
+	
+	private static DirCache stageFiles (Repository repo, String ...paths) throws NoFilepatternException, GitAPIException {
+		AddCommand addCommand = new Git(repo).add();
+		
+		for (String path : paths) {
+			
+			addCommand.addFilepattern(path);
+		}
+		
+		return addCommand.call();
+	}
+	private static RevCommit commitBranch(Repository repo, String message, boolean allKnownFiles) throws NoHeadException, NoMessageException, UnmergedPathsException, ConcurrentRefUpdateException, WrongRepositoryStateException, GitAPIException {
+		
+		CommitCommand commitCommand = new Git(repo).commit();
+		
+		PersonIdent ident;
+		commitCommand.setAuthor(ident = new PersonIdent("admin", "admin@kuali.org"));
+		
+		commitCommand.setCommitter(ident);
+		
+		commitCommand.setAll(allKnownFiles);
+		
+		commitCommand.setMessage(message);
+		
+		return commitCommand.call();
+		
+	}
+	
+	private static Result createBaseCommit(Repository repo, String message) throws IOException {
+		
+		CommitBuilder builder = new CommitBuilder();
+		
+		PersonIdent ident;
+		builder.setAuthor(ident = new PersonIdent("admin", "admin@kuali.org"));
+		
+		builder.setCommitter(ident);
+		
+		TreeFormatter tf = new TreeFormatter();
+		
+		ObjectInserter inserter = repo.newObjectInserter();
+
+		ObjectId treeId = inserter.insert(tf);
+		
+		builder.setMessage(message);
+		
+		builder.setTreeId(treeId);
+		
+		ObjectId commit = inserter.insert(builder);
+		
+		RefUpdate update = repo.getRefDatabase().newUpdate(Constants.R_HEADS + "master", false);
+		
+		update.setNewObjectId(commit);
+		
+		Result result = update.update();
+		
+		return result;
+		
+	}
 	private static void createModulePomFile(File targetPath, String moduleName, String parentPomVersion, String pomVersion) throws FileNotFoundException {
 
 		PrintWriter pw = new PrintWriter(new File (targetPath, "pom.xml"));
@@ -233,7 +354,7 @@ public class GitTestRepositoryUtils {
 		
 		File repository = new File (BUILD_DIR, repositoryName);
 		
-		String scmString = "scm:svn:file://localhost/" + repository.getAbsolutePath();
+		String scmString = "scm:git:file://localhost/" + repository.getAbsolutePath();
 		
 		pw.println("\t<scm>");
 
@@ -254,27 +375,29 @@ public class GitTestRepositoryUtils {
 		// write out the linkage to this version of the externals maven plugin
 		// build -> plugin management -> plugins
 		
-		pw.println("\t<build>\n\t\t<pluginManagement>\n\t\t\t<plugins>");
+		pw.println("\t<build>\n\t\t\t\t\t<plugins>");
 		
 		pw.println("<plugin>\r\n" + 
 				"                    <groupId>org.kuali.maven.plugins</groupId>\r\n" + 
-				"                    <artifactId>externals-maven-plugin</artifactId>\r\n" + 
+				"                    <artifactId>fusion-maven-plugin</artifactId>\r\n" + 
 				"                    <configuration>\r\n" + 
-				"                        <commitMessage>[externals-maven-plugin] Automated pom formatting</commitMessage>\r\n" + 
-				"                        <mappings>\r\n" + 
-				"                            <mapping>\r\n" + 
-				"                                <module>module1</module>\r\n" + 
-				"                                <versionProperty>module1.version</versionProperty>\r\n" + 
-				"                            </mapping>\r\n" + 
-				"                            <mapping>\r\n" + 
-				"                                <module>module2</module>\r\n" + 
-				"                                <versionProperty>module2.version</versionProperty>\r\n" + 
-				"                            </mapping>\r\n" + 
-				"                        </mappings>\r\n" + 
+				"                        <mappings>\r\n");
+		
+		
+		for (String moduleName : moduleNames) {
+			pw.print("<mapping>\r\n" + 
+			"                                <module>"+moduleName+"</module>\r\n" + 
+					"<branchName>" + moduleName + "</branchName>" +
+			"                                <versionProperty>" + moduleName.replaceAll("-", ".") + ".version</versionProperty>\r\n" + 
+			"                            </mapping>"); 
+		}
+		
+		
+				pw.println("</mappings>\r\n" + 
 				"                    </configuration>\r\n" + 
 				"                </plugin>");
 		
-		pw.println("\t\t\t</plugins>\n\t\t</pluginManagement>\n\t</build>");
+		pw.println("\t\t\t</plugins>\n\t\t</build>");
 		
 		// write out the modules
 		pw.println("\t<modules>");

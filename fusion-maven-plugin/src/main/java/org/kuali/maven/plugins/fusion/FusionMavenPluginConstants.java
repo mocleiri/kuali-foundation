@@ -51,5 +51,8 @@ public final class FusionMavenPluginConstants {
 
 	public static final String FUSION_BUILD_NUMBER = "fusion.buildNumberProperty";
 	public static final String FUSION_BUILD_NUMBER_DEFAULT = "env.BUILD_NUMBER";
+
+	public static final String CHECKOUT_FUSED_BRANCH_PREFIX = "fusion.checkoutFusedBranch";
+	public static final String CHECKOUT_FUSED_BRANCH_PREFIX_DEFAULT = "true";
 	
 }

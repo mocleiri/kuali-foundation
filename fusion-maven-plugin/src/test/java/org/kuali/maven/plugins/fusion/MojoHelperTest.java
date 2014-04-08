@@ -23,29 +23,41 @@ import java.util.Properties;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.ListBranchCommand.ListMode;
+import org.eclipse.jgit.api.errors.CheckoutConflictException;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.InvalidRefNameException;
+import org.eclipse.jgit.api.errors.RefAlreadyExistsException;
+import org.eclipse.jgit.api.errors.RefNotFoundException;
+import org.eclipse.jgit.lib.Ref;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.util.Version;
 import org.kuali.common.util.VersionUtils;
-import org.kuali.maven.plugins.fusion.BuildTag;
-import org.kuali.maven.plugins.fusion.GAV;
-import org.kuali.maven.plugins.fusion.Mapping;
-import org.kuali.maven.plugins.fusion.MojoHelper;
-import org.kuali.maven.plugins.fusion.SVNUtils;
-import org.kuali.maven.plugins.fusion.TagStyle;
+import org.kuali.student.svn.model.AbstractGitRespositoryTestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Ignore
-public class MojoHelperTest {
+public class MojoHelperTest extends AbstractGitRespositoryTestCase {
+	
 	private static final Logger logger = LoggerFactory.getLogger(MojoHelperTest.class);
 	SVNUtils svnUtils = SVNUtils.getInstance();
 
 	MojoHelper helper = MojoHelper.getInstance(new LogOnlyTestMojo());
 	private static final String POM = "pom.xml";
 	private static final String IGNORE = "src,target,.svn,.git";
-	private static final File BASEDIR = new File(System.getProperty("user.dir"), "target"+File.separator+"test-aggregate");
+
+	
+	/**
+	 * @param name
+	 * @param bare
+	 */
+	public MojoHelperTest() {
+		super("mojo-helper-test");
+	}
 
 	@Test
 	public void testIsKnownQualifier() {
@@ -147,43 +159,33 @@ public class MojoHelperTest {
 	
 	
 	@Test
-	@Ignore
-	public void testOnTemporaryRepository () {
+	public void testOnTemporaryRepository () throws GitAPIException, IOException {
 		
-		try {
-			GitTestRepositoryUtils.deleteRepository("test-repository");
-			GitTestRepositoryUtils.deleteRepositoryWorkingCopy("test-repository");
-		} catch (IOException e1) {
-			// fall through
-		}
-//		SVNURL svnUrl = null;
-//		try {
-//			
-//			svnUrl = GitTestRepositoryUtils.createRepository("test-repository");
-//		} catch (SVNException e) {
-//			
-//			Assert.fail("failed to create test-repository");
-//		}
+		GitTestRepositoryUtils.createFusionBaseStructure(this.repo);
 		
-		try {
-			GitTestRepositoryUtils.createExternalsBaseStructure("test-repository");
-		} catch (IOException e) {
-			Assert.fail("failed to create the base structure in test-repository.");
-		}
+		List<Ref> branches = GitTestRepositoryUtils.listBranches(repo, ListMode.ALL);
 		
-		File workingCopy = GitTestRepositoryUtils.checkOut("test-repository", "aggregate/trunk", null, null);
+		Assert.assertNotNull (branches);
 		
-		logger.info ("workingCopy = " + workingCopy.getAbsolutePath());
+		Assert.assertEquals(4, branches.size());
 		
-		// check that the modules materialized properly
+		/*
+		 * Would use the fusion plugin here
+		 */
 		
-		File module1 = new File (workingCopy, "module1");
-		
-		Assert.assertEquals (true, module1.exists());
-		
-		File module2 = new File (workingCopy, "module2");
-		
-		Assert.assertEquals (true, module2.exists());
+//		File workingCopy = GitTestRepositoryUtils.checkOut("test-repository", "aggregate/trunk", null, null);
+//		
+//		logger.info ("workingCopy = " + workingCopy.getAbsolutePath());
+//		
+//		// check that the modules materialized properly
+//		
+//		File module1 = new File (workingCopy, "module1");
+//		
+//		Assert.assertEquals (true, module1.exists());
+//		
+//		File module2 = new File (workingCopy, "module2");
+//		
+//		Assert.assertEquals (true, module2.exists());
 		
 		
 	}
@@ -203,27 +205,29 @@ public class MojoHelperTest {
 	}
 
 	@Test
-	public void testValidate() {
-		try {
-			List<File> poms = helper.getPoms(BASEDIR, POM, IGNORE);
+	public void testValidate() throws RefAlreadyExistsException, RefNotFoundException, InvalidRefNameException, CheckoutConflictException, IOException, GitAPIException {
+		
+		GitTestRepositoryUtils.createFusionBaseStructure(this.repo);
+		
+			List<File> poms = helper.getPoms(repo.getWorkTree(), POM, IGNORE);
 			List<DefaultMutableTreeNode> nodes = helper.getNodes(poms);
-			DefaultMutableTreeNode tree = helper.getTree(BASEDIR, nodes, POM);
+			DefaultMutableTreeNode tree = helper.getTree(repo.getWorkTree(), nodes, POM);
 			helper.fillInGavs(tree);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
-	// @Test
-	public void testUpdateVersions() {
+	 @Test
+	public void testUpdateVersions() throws RefAlreadyExistsException, RefNotFoundException, InvalidRefNameException, CheckoutConflictException, IOException, GitAPIException {
+		 
+		 GitTestRepositoryUtils.createFusionBaseStructure(this.repo);
+		 
 		int buildNumber = 100;
 		GAV gav = new GAV("org.kuali.student", "student", "2.0.0-SNAPSHOT");
 		List<Mapping> mappings = new ArrayList<Mapping>();
-		mappings.add(new Mapping("ks-api", "ks.api.version"));
-		mappings.add(new Mapping("ks-core", "ks.core.version"));
-		mappings.add(new Mapping("ks-enroll", "ks.enroll.version"));
-		mappings.add(new Mapping("ks-lum", "ks.lum.version"));
-		mappings.add(new Mapping("ks-deployments", "ks.deployments.version"));
+		mappings.add(new Mapping("ks-api", "ks-api", "ks.api.version"));
+		mappings.add(new Mapping("ks-core", "ks-core", "ks.core.version"));
+		mappings.add(new Mapping("ks-enroll", "ks-enroll", "ks.enroll.version"));
+		mappings.add(new Mapping("ks-lum", "ks-lum", "ks.lum.version"));
+		mappings.add(new Mapping("ks-deployments", "ks-deployments", "ks.deployments.version"));
 
 		Properties properties = new Properties();
 		properties.setProperty("ks.api.version", "2.0.0-M5-SNAPSHOT");
@@ -231,43 +235,45 @@ public class MojoHelperTest {
 		properties.setProperty("ks.enroll.version", "1.0.0-SNAPSHOT");
 		properties.setProperty("ks.lum.version", "2.0.0-SNAPSHOT");
 		properties.setProperty("ks.deployments.version", "2.0.0-SNAPSHOT");
+		
+		/*
+		 * TODO: make sure this works once fusion is turned on.
+		 */
 
-		List<File> files = helper.getPoms(BASEDIR, POM, IGNORE);
-		List<DefaultMutableTreeNode> nodes = helper.getNodes(files);
-		DefaultMutableTreeNode node = helper.getTree(BASEDIR, nodes, POM);
-//		List<SVNExternal> externals = svnUtils.getExternals(BASEDIR);
-		BuildTag rootTag = helper.getBuildTag(BASEDIR, gav, TagStyle.BUILDNUMBER, buildNumber);
-		helper.updateBuildInfo(node, rootTag, TagStyle.BUILDNUMBER, buildNumber);
-		List<BuildTag> moduleTags = helper.getBuildTags(properties, null, mappings, TagStyle.REVISION, buildNumber);
-		helper.updateBuildInfo(nodes, moduleTags, mappings, TagStyle.REVISION, buildNumber);
-		helper.updateGavs(node);
-		helper.updateProperties(node, properties, mappings);
-		logger.info("\n" + helper.getDisplayString(node));
+//		List<File> files = helper.getPoms(BASEDIR, POM, IGNORE);
+//		List<DefaultMutableTreeNode> nodes = helper.getNodes(files);
+//		DefaultMutableTreeNode node = helper.getTree(BASEDIR, nodes, POM);
+////		List<SVNExternal> externals = svnUtils.getExternals(BASEDIR);
+//		BuildTag rootTag = helper.getBuildTag(BASEDIR, gav, TagStyle.BUILDNUMBER, buildNumber);
+//		helper.updateBuildInfo(node, rootTag, TagStyle.BUILDNUMBER, buildNumber);
+//		List<BuildTag> moduleTags = helper.getBuildTags(properties, null, mappings, TagStyle.REVISION, buildNumber);
+//		helper.updateBuildInfo(nodes, moduleTags, mappings, TagStyle.REVISION, buildNumber);
+//		helper.updateGavs(node);
+//		helper.updateProperties(node, properties, mappings);
+//		logger.info("\n" + helper.getDisplayString(node));
 	}
 
-	// @Test
-	public void testGetTree() {
-		try {
-			List<File> poms = helper.getPoms(BASEDIR, POM, IGNORE);
+	 @Test
+	public void testGetTree() throws RefAlreadyExistsException, RefNotFoundException, InvalidRefNameException, CheckoutConflictException, IOException, GitAPIException {
+		 
+		 GitTestRepositoryUtils.createFusionBaseStructure(this.repo);
+		 
+			List<File> poms = helper.getPoms(repo.getWorkTree(), POM, IGNORE);
 			List<DefaultMutableTreeNode> nodes = helper.getNodes(poms);
-			DefaultMutableTreeNode tree = helper.getTree(BASEDIR, nodes, POM);
+			DefaultMutableTreeNode tree = helper.getTree(repo.getWorkTree(), nodes, POM);
 			String s = helper.getDisplayString(tree);
 			logger.info("Maven Structure:\n" + s);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
-	// @Test
-	public void testGetFiles() {
-		try {
-			List<File> poms = helper.getPoms(BASEDIR, POM, IGNORE);
+	 @Test
+	public void testGetFiles() throws RefAlreadyExistsException, RefNotFoundException, InvalidRefNameException, CheckoutConflictException, IOException, GitAPIException {
+		 
+		 GitTestRepositoryUtils.createFusionBaseStructure(this.repo);
+		 
+			List<File> poms = helper.getPoms(repo.getWorkTree(), POM, IGNORE);
 			List<DefaultMutableTreeNode> nodes = helper.getNodes(poms);
-			DefaultMutableTreeNode tree = helper.getTree(BASEDIR, nodes, POM);
-			String s = helper.getDisplayString(tree, BASEDIR, POM);
+			DefaultMutableTreeNode tree = helper.getTree(repo.getWorkTree(), nodes, POM);
+			String s = helper.getDisplayString(tree, repo.getWorkTree(), POM);
 			logger.info("Maven Structure:\n" + s);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 }
