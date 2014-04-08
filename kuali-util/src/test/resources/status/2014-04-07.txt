@@ -14,3 +14,10 @@ Monday
 - reconfigured the tomcat7 user so it has sudo privileges without requiring a password
 - responded to email from Amazon claiming that the Rice secret key is publicly available in Mike O'Clereigh's github account
 - the secret key is encrypted, it's not publicly available 
+
+Tuesday
+-------
+
+- Continued work on bringing up the new CI
+-- tested that a KS deploy works correctly 
+-- confirms SSH keys are setup correctly + a bunch of other things
