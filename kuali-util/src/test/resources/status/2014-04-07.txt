@@ -37,4 +37,4 @@ Tuesday
 -- where the source code lives eg Subversion / GitHub is irrelevant to that process 
 
 -- Simulated disaster recovery by auto-migrating Kuali's CI service back and forth between all 3 US regions (us-west-2, us-west-1, and us-east-1)
--- Takes ~17 minutes to fully migrate the service to another region with all data/configuration perfectly replicated
+-- Takes ~17 minutes to fully migrate the service to another region with all build history kept intact
