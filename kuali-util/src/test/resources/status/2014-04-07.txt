@@ -23,7 +23,7 @@ Tuesday
 
 - responded to a bogus email from Amazon claiming Rice's secret key was publicly exposed
 
-- OLE MySQL utf8 vs utf8mb
+- OLE MySQL utf8 vs utf8mb4
 -- analyzed maven-impex-plugin
 -- analyzed velocity templates
 -- batted around potential ideas/solutions/etc for enabling
