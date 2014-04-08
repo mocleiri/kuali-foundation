@@ -7,7 +7,7 @@ REPO=/root/.m2/repository
 # The trailing slash is significant here
 SRC=$REPO/
 
-# This gets replaced by a real value by the process that creates the AMI
+# This gets replaced with a real value by the process that creates the AMI
 # Cannot rely on an environment variable provided by the master because this script only executes when the instance is shutting down
 JENKINS_MASTER=FILL_ME_IN_PLEASE
 DST=root@$JENKINS_MASTER:$REPO
