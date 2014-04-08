@@ -16,7 +16,7 @@
 /**
  * 
  */
-package org.kuali.maven.plugins.externals;
+package org.kuali.maven.plugins.fusion;
 
 import java.io.File;
 import java.io.FileNotFoundException;
