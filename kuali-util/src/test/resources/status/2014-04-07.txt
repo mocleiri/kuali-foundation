@@ -33,3 +33,8 @@ Tuesday
 - consulting/empathizing with KC on some craziness Travis found with a BIRT library they depend on
 -- BIRT physically embeds a handful of other OSS projects inside of its own jar
 -- this causes ridiculous, non-deterministic issues at runtime since there are now 2 different versions of the same class on the classpath
+-- provided assurance that DevOps can very quickly/easily publish an updated jar file both to Maven Central and internally
+-- where the source code lives eg Subversion / GitHub is irrelevant to that process 
+
+-- Simulated disaster recovery by auto-migrating Kuali's CI service back and forth between all 3 US regions (us-west-2, us-west-1, and us-east-1)
+-- Takes ~17 minutes to fully migrate the service to another region
