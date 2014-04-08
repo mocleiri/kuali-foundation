@@ -31,3 +31,5 @@ Tuesday
 - weekly meeting with Jessica
 
 - consulting/empathizing with KC on some craziness Travis found with a BIRT library they depend on
+-- BIRT physically embeds a handful of other OSS projects inside of its own jar
+-- this causes some pretty ridiculous issues at runtime since there are now 2 different versions of the same class on the classpath
