@@ -36,5 +36,7 @@ Tuesday
 -- provided assurance that DevOps can very quickly/easily publish an updated jar file both to Maven Central and internally
 -- where the source code lives eg Subversion / GitHub is irrelevant to that process 
 
+-- left several detailed code reviews on the fusion-maven-plugin KS is developing highlighting a few ways to simplify/improve things
+
 -- Simulated disaster recovery by auto-migrating Kuali's CI service back and forth between all 3 US regions (us-east-1, us-west-1, us-west-2)
 -- Takes ~17 minutes to fully migrate the service to another region with all build history kept intact
