@@ -127,8 +127,8 @@
 </div>
 <style type="text/css">
  #u569ish_line0 td:nth-child(2){min-width:160px;}
- small{display:none;}
-.showMe small { display:inline;}
+ #u569ish_line0 small{display:none;}
+ #u569ish_line0  .showMe small { display:inline;}
 </style>
 <script>
 (function($){
