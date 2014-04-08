@@ -29,3 +29,5 @@ Tuesday
 -- batted around potential ideas/solutions/etc for enabling
 - combined Kuali call (OLE, KS, Rice, OLE, KPME)
 - weekly meeting with Jessica
+
+- consulting/empathizing with KC on some craziness Travis found with a BIRT library they depend on
