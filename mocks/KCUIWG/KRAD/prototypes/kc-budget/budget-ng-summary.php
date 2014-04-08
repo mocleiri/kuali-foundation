@@ -235,9 +235,9 @@ $section = '';
 <!--                    </tfoot>-->
                 </table>
                 
-                <!--                <div class="well">--> 
-                <!--                    <button class="btn btn-default btn-xs">Generate all other periods based on Period 1</button>--> 
-                <!--                </div>--> 
+                                <div class="well">
+                                    <button class="btn btn-default btn-xs">Generate all other periods based on Period 1</button>-->
+                                </div>
             </main>
         </div>
         <!-- VIEW FOOTER -->

@@ -64,8 +64,7 @@
 
  <!--  removed for split test ------->
 
-         <li><a class="uif-actionLink" data-toggle="modal" data-target="#modal-generate-versions"><span class="icon-stack"></span>Generate All Periods </a>
-</li>
+         <!-- <li><a class="uif-actionLink" data-toggle="modal" data-target="#modal-generate-versions"><span class="icon-stack"></span>Generate All Periods </a></li> -->
 
 <!-- -->
         </ul>
