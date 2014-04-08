@@ -133,7 +133,7 @@ $section = '';
                             <th style="width: 12%" class="uif-center-aligned">Totals <span class="sr-only">Period totals</span></th>
                         </tr>
                         <tr class="active">
-                            <td colspan="7"><a href="budget-ng-personnelCosts-projPersonnel.php"><strong>Personnel</strong></a></td>
+                            <td colspan="7"><a href="budget-ng-personnelCosts-projPersonnel1.php"><strong>Personnel</strong></a></td>
                         </tr>
                         <tr class="">
                             <td><a href="#"> <span aria-hidden="true" class="icon-chevron-right"></span> Salary</a></td>
