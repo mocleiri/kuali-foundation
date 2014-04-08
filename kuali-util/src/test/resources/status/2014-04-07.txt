@@ -10,6 +10,5 @@ Monday
 
 - responded to Peri related to an OLE JIRA about UTF-8 (
 
-- created automated routine to post M2 repository cache to S3 each night
+- created automated routine to post M2 repository cache to S3 on demand
 - reconfigured the tomcat7 user so it has sudo privileges without requiring a password
-- 
