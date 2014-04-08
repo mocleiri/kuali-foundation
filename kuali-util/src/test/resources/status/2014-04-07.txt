@@ -21,3 +21,12 @@ Tuesday
 - Continued work on bringing up the new CI
 -- tested that a KS deploy works correctly 
 -- confirms SSH keys are setup correctly + a bunch of other things
+
+- responded to a bogus email from Amazon claiming Rice's secret key was publicly exposed
+
+- OLE MySQL utf8 vs utf8mb
+-- analyzed maven-impex-plugin
+-- analyzed velocity templates
+-- batted around potential ideas/solutions/etc for enabling
+- combined Kuali call (OLE, KS, Rice, OLE, KPME)
+- weekly meeting with Jessica
