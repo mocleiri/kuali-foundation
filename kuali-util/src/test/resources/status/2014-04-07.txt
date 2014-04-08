@@ -13,7 +13,7 @@ Monday
 - created automated routine to post M2 repository cache to S3 on demand
 - reconfigured the tomcat7 user so it has sudo privileges without requiring a password
 - responded to email from Amazon claiming that the Rice secret key is publicly available in Mike O'Clereigh's github account
-- the secret key is encrypted, it's not publicly available 
+- the secret key is encrypted, it's not publicly available
 
 Tuesday
 -------
@@ -22,6 +22,8 @@ Tuesday
 -- confirms SSH keys are setup correctly + a bunch of other things
 
 - responded to a bogus email from Amazon claiming Rice's secret key was publicly exposed
+-- emailed and texted Lue Ann from Amazon related to the bogus email, waiting to hear back
+
 
 - OLE MySQL utf8 vs utf8mb4
 -- analyzed maven-impex-plugin
