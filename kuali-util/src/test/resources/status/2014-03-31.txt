@@ -32,7 +32,6 @@ Wednesday
 
 Thursday
 --------
-
 - Rice 
 -- Call with Jessica - tar.gz, coordinate on email from OLE related to release
 
@@ -41,7 +40,6 @@ Thursday
 
 Friday
 ------
-
 - added min/thin/full modes to automated CI S3 synchronization routines
 - added support for these modes to the install scripts
 - added service method to EC2Service allowing an AMI created in one region to be copied to another region

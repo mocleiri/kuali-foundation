@@ -17,7 +17,6 @@ Monday
 
 Tuesday
 -------
-
 - Continued work on bringing up the new CI
 -- tested that a KS deploy works correctly 
 -- confirms SSH keys are setup correctly + a bunch of other things
