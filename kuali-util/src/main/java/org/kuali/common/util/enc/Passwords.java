@@ -33,7 +33,7 @@ public final class Passwords {
 
 	private static String password;
 
-	public synchronized static String getEncPassword() {
+	public synchronized static String getDefaultEncryptionPassword() {
 		if (password == null) {
 			password = initPassword();
 		}
