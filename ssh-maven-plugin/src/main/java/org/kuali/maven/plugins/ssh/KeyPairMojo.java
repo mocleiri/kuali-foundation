@@ -75,7 +75,7 @@ public class KeyPairMojo extends AbstractMojo {
 	public void execute() {
 		checkNotNull(publicKey, "publicKey");
 		checkNotNull(privateKey, "privateKey");
-		GenerateKeyPairContext context = new GenerateKeyPairContext.Builder(keyName).withAlgorithm(algorithm).withSize(size).build();
+		GenerateKeyPairContext context = GenerateKeyPairContext.builder(keyName).withAlgorithm(algorithm).withSize(size).build();
 		SshService service = new JCraftSshService();
 		KeyPair keyPair = service.generateKeyPair(context);
 		checkState(keyPair.getPrivateKey().isPresent(), "privateKey is required");
