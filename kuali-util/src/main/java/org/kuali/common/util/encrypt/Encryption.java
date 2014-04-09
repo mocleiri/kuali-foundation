@@ -32,7 +32,6 @@ public final class Encryption {
 	private static final File SETTINGS = getSettingsXmlFile();
 	private static final Logger logger = newLogger();
 
-	private static String password;
 	private static Encryptor encryptor;
 
 	public synchronized static Encryptor getDefaultEncryptor() {
@@ -42,14 +41,7 @@ public final class Encryption {
 		return encryptor;
 	}
 
-	private static String getDefaultEncryptionPassword() {
-		if (password == null) {
-			password = initPassword();
-		}
-		return password;
-	}
-
-	protected static String initPassword() {
+	protected static String getDefaultEncryptionPassword() {
 		Optional<Property> sys = getSystemPassword();
 		if (sys.isPresent()) {
 			logger.info(format("located [%s] in system properties", sys.get().getKey()));
