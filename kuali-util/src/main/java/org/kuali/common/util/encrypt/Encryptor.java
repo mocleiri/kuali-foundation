@@ -1,4 +1,4 @@
-package org.kuali.common.util.enc;
+package org.kuali.common.util.encrypt;
 
 public interface Encryptor {
 

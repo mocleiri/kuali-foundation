@@ -1,9 +1,11 @@
-package org.kuali.common.util.enc;
+package org.kuali.common.util.encrypt.jasypt;
 
 import static org.kuali.common.util.enc.EncStrength.DEFAULT_ENCRYPTION_STRENGTH;
 import static org.kuali.common.util.enc.EncUtils.getTextEncryptor;
 
 import org.jasypt.util.text.TextEncryptor;
+import org.kuali.common.util.enc.EncStrength;
+import org.kuali.common.util.encrypt.Encryptor;
 
 public final class DefaultEncryptor implements Encryptor {
 

@@ -1,4 +1,4 @@
-package org.kuali.common.util.enc;
+package org.kuali.common.util.encrypt;
 
 import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.kuali.common.util.Str;
+import org.kuali.common.util.encrypt.jasypt.DefaultEncryptor;
 import org.kuali.common.util.file.CanonicalFile;
 import org.slf4j.Logger;
 
