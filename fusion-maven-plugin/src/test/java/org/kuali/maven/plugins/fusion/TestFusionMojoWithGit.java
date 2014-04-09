@@ -23,27 +23,16 @@ import org.kuali.student.svn.model.ExternalModuleInfo;
  * A test case that will test the operation of the fusion mojo on a testing git repository
  *
  */
-public class TestFusionMojoWithGit extends AbstractFusionPluginTestCase {
-
-	private Repository repo;
+public class TestFusionMojoWithGit extends AbstractFusionMojoWithGit {
 
 	/**
 	 * 
 	 */
 	public TestFusionMojoWithGit() {
-		
+		super ("fusion-mojo-with-git");
 	}
 
 	
-	@Override
-	protected void onBefore() throws Exception {
-		
-		File repoDirectory;
-		FileUtils.deleteDirectory(repoDirectory = new File ("target/fusion-mojo-with-git"));
-		repo = GitRepositoryUtils.buildFileRepository(repoDirectory, true, false);
-		
-		
-	}
 	
 	
 	public void testFusion() throws Exception {

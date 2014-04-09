@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -157,6 +158,58 @@ public class GitTestRepositoryUtils {
 	}
 	
 	
+	public static RevCommit createFusedBaseStructure (Repository repo) throws FileNotFoundException, NoFilepatternException, GitAPIException {
+		/*
+		 * In some cases we don't want to test the fusion part or to run the fusion mojo before to create the commit.
+		 */
+		List<ExternalModuleInfo>externals = new ArrayList<>();
+		
+		
+		File workingCopy = repo.getWorkTree();
+		
+		
+		// create the pom
+		File parentPomFile = createParentPomFile("student", workingCopy, new String[] {"module1", "module2"}, "2.0.0-FR1-SNAPSHOT", "2.0.0-FR1-SNAPSHOT", "1.0.0-FR1-SNAPSHOT");
+		
+		stageFiles(repo, getPath (workingCopy, parentPomFile));
+		
+		
+		File module1Dir = new File (workingCopy, "module1");
+		
+		module1Dir.mkdirs();
+		
+		// create the module 1 pom
+		File module1PomFile = createModulePomFile (module1Dir, "module1", "2.0.0-FR1-SNAPSHOT", "2.0.0-FR1-SNAPSHOT");
+		
+		stageFiles(repo, getPath(workingCopy, module1PomFile));
+		
+		File module2Dir = new File (workingCopy, "module2");
+		
+		module2Dir.mkdirs();
+		
+		// create the module 2 pom
+		File module2PomFile = createModulePomFile (module2Dir, "module2", "2.0.0-FR1-SNAPSHOT", "1.0.0-FR1-SNAPSHOT");
+		
+		stageFiles(repo, getPath(workingCopy, module2PomFile));
+		
+		CommitCommand commitCommand = new Git (repo).commit();
+		
+		PersonIdent pi;
+		
+		commitCommand.setAuthor(pi = new PersonIdent("admin", "admin@kuali.org"));
+		
+		commitCommand.setCommitter(pi);
+		
+		commitCommand.setMessage("Initial Commit");
+		
+		return commitCommand.call();
+		
+	}
+	
+	private static String getPath(File baseFile, File targetFile) {
+		return targetFile.getAbsolutePath().substring(baseFile.getAbsolutePath().length());
+		
+	}
 	public static List<ExternalModuleInfo> createFusionBaseStructure (Repository repo) throws IOException, RefAlreadyExistsException, RefNotFoundException, InvalidRefNameException, CheckoutConflictException, GitAPIException {
 		
 		List<ExternalModuleInfo>externals = new ArrayList<>();
@@ -282,9 +335,11 @@ public class GitTestRepositoryUtils {
 		return result;
 		
 	}
-	private static void createModulePomFile(File targetPath, String moduleName, String parentPomVersion, String pomVersion) throws FileNotFoundException {
+	private static File createModulePomFile(File targetPath, String moduleName, String parentPomVersion, String pomVersion) throws FileNotFoundException {
 
-		PrintWriter pw = new PrintWriter(new File (targetPath, "pom.xml"));
+		File pomFile = new File (targetPath, "pom.xml");
+		
+		PrintWriter pw = new PrintWriter(pomFile);
 		
 		pw.println("<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\r\n" + 
 				"    xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n" + 
@@ -301,11 +356,15 @@ public class GitTestRepositoryUtils {
 		pw.println("</project>");
 		
 		pw.close();
+		
+		return pomFile;
 	}
 
-	private static void createParentPomFile(String repositoryName, File targetPath, String[]moduleNames, String pomVersion, String module1PomVersion, String module2PomVersion) throws FileNotFoundException {
+	private static File createParentPomFile(String repositoryName, File targetPath, String[]moduleNames, String pomVersion, String module1PomVersion, String module2PomVersion) throws FileNotFoundException {
 
-		PrintWriter pw = new PrintWriter(new File (targetPath, "pom.xml"));
+		File pomFile = new File (targetPath, "pom.xml");
+		
+		PrintWriter pw = new PrintWriter(pomFile);
 		
 		pw.println("<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\r\n" + 
 				"    xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n" + 
@@ -415,6 +474,8 @@ public class GitTestRepositoryUtils {
 		pw.println("</project>");
 		
 		pw.close();
+		
+		return pomFile;
 	}
 	
 	public static String getRepositoryPath (String repositoryName, String repositorySubPath) {

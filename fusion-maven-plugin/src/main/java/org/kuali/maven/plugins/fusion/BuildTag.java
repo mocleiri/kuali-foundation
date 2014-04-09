@@ -15,12 +15,19 @@
  */
 package org.kuali.maven.plugins.fusion;
 
+import org.eclipse.jgit.lib.ObjectId;
+
 public class BuildTag {
 
 	String sourceUrl;
 	long sourceRevision;
 	String tagUrl;
 	boolean skipped;
+	
+	String name;
+	
+	ObjectId commitId;
+	
 
 	public String getSourceUrl() {
 		return sourceUrl;
@@ -53,4 +60,34 @@ public class BuildTag {
 	public void setSkipped(boolean skipped) {
 		this.skipped = skipped;
 	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the commitId
+	 */
+	public ObjectId getCommitId() {
+		return commitId;
+	}
+
+	/**
+	 * @param commitId the commitId to set
+	 */
+	public void setCommitId(ObjectId commitId) {
+		this.commitId = commitId;
+	}
+	
+	
 }

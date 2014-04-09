@@ -21,7 +21,7 @@
   <parent>
    <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-maven</artifactId>
-    <version>3.4.1</version>
+    <version>3.4.5</version>
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>fusion-maven-plugin</artifactId>
@@ -104,26 +104,26 @@
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
       <version>${maven.min.version}</version>
-       <scope>test</scope>
+       <scope>provided</scope>
     </dependency>
       <dependency>
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-model</artifactId>
          <version>${maven.min.version}</version>
-          <scope>test</scope>
+          <scope>provided</scope>
     </dependency>
     <dependency>
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-core</artifactId>
          <version>${maven.min.version}</version>
-          <scope>test</scope>
+          <scope>provided</scope>
     </dependency>
     
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-aether-provider</artifactId>
       <version>${maven.min.version}</version>
-       <scope>test</scope>
+       <scope>provided</scope>
     </dependency>
 
     <dependency>
@@ -131,7 +131,6 @@
       <artifactId>maven-compat</artifactId>
       <!--  I needed to set this back from 3.1.1 to make the unit test harness work. -->
       <version>${maven.min.version}</version>
-       <scope>test</scope>
     </dependency>
     
     

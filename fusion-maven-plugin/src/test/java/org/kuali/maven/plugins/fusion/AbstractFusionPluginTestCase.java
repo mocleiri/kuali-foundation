@@ -63,6 +63,8 @@ public abstract class AbstractFusionPluginTestCase extends AbstractMojoTestCase 
 
 		project.setFile(pomFile);
 		
+		reader.close();
+		
 		return project;
 	}
 	
