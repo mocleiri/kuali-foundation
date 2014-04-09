@@ -1,5 +1,6 @@
 package org.kuali.common.util.encrypt;
 
+import static java.lang.String.format;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import org.kuali.common.util.encrypt.jasypt.DefaultJasyptEncryptor;
@@ -21,10 +22,10 @@ public final class Encryption {
 			Optional<EncryptionContext> context = new DefaultEncryptionContextProviderChain().getEncryptionContext();
 			if (context.isPresent()) {
 				encryptor = new DefaultJasyptEncryptor(context.get());
-				logger.info("encryption enabled [strength=%s]", context.get().getStrength());
+				logger.info(format("encryption enabled [strength=%s]", context.get().getStrength()));
 			} else {
 				encryptor = NoOpEncryptor.INSTANCE;
-				logger.info("encryption disabled - [%s] is not set", ENCRYPTION_PASSWORD_KEY);
+				logger.info(format("encryption disabled - [%s] is not set", ENCRYPTION_PASSWORD_KEY));
 			}
 		}
 		return encryptor;
