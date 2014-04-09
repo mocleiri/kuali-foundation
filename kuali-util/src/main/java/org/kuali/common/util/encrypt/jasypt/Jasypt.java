@@ -24,12 +24,12 @@ import org.jasypt.util.text.StrongTextEncryptor;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.enc.EncStrength;
 
-public class JasyptUtils {
+public class Jasypt {
 
 	/**
 	 * Return a <code>BasicTextEncryptor</code> or <code>StrongTextEncryptor</code> depending on what <code>strength</code> is set to
 	 */
-	public static TextEncryptor buildTextEncryptor(String password, EncStrength strength) {
+	public static TextEncryptor buildJasyptTextEncryptor(String password, EncStrength strength) {
 		checkNotBlank(password, "password");
 		checkNotNull(strength, "strength");
 		switch (strength) {
