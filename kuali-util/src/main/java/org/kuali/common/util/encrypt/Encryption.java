@@ -1,6 +1,9 @@
 package org.kuali.common.util.encrypt;
 
 import org.kuali.common.util.encrypt.jasypt.DefaultJasyptEncryptor;
+import org.kuali.common.util.encrypt.provider.DefaultEncryptionContextProviderChain;
+
+import com.google.common.base.Optional;
 
 public final class Encryption {
 
@@ -11,7 +14,10 @@ public final class Encryption {
 
 	public synchronized static Encryptor buildDefaultEncryptor() {
 		if (encryptor == null) {
-			encryptor = new DefaultJasyptEncryptor();
+			Optional<EncryptionContext> context = new DefaultEncryptionContextProviderChain().getEncryptionContext();
+			if (context.isPresent()) {
+				encryptor = new DefaultJasyptEncryptor(context.get());
+			}
 		}
 		return encryptor;
 	}

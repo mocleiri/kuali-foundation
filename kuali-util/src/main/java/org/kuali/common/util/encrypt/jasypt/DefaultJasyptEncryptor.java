@@ -7,13 +7,8 @@ import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.enc.EncStrength;
 import org.kuali.common.util.encrypt.EncryptionContext;
 import org.kuali.common.util.encrypt.Encryptor;
-import org.kuali.common.util.encrypt.provider.DefaultEncryptionContextProviderChain;
 
 public final class DefaultJasyptEncryptor implements Encryptor {
-
-	public DefaultJasyptEncryptor() {
-		this(new DefaultEncryptionContextProviderChain().getEncryptionContext().get());
-	}
 
 	public DefaultJasyptEncryptor(String password) {
 		this(password, DEFAULT_ENCRYPTION_STRENGTH);
