@@ -25,6 +25,9 @@ import com.google.common.collect.ImmutableList;
 
 public final class Encryption {
 
+	public static final String ENCRYPTION_PASSWORD_KEY = "enc.password";
+	public static final String ENCRYPTION_STRENGTH_KEY = "enc.password.strength";
+
 	// If this is set to "true" any passwords stored as system properties get removed from the system properties
 	private static final String REMOVE_SYSTEM_PROPERTY_KEY = "enc.password.remove";
 	private static final List<String> SYS_KEYS = ImmutableList.of("enc.password", "properties.enc.password");
