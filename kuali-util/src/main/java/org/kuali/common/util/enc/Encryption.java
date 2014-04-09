@@ -43,7 +43,7 @@ public final class Encryption {
 	protected static String initPassword() {
 		Optional<Property> sys = getSystemPassword();
 		if (sys.isPresent()) {
-			logger.info(format("Located [%s] in system properties", sys.get().getKey()));
+			logger.info(format("located [%s] in system properties", sys.get().getKey()));
 			if (Boolean.getBoolean(REMOVE_SYSTEM_PROPERTY_KEY)) {
 				removeSystemProperties();
 			}
@@ -51,12 +51,12 @@ public final class Encryption {
 		}
 		Optional<String> env = getEnvPassword();
 		if (env.isPresent()) {
-			logger.info(format("Located [%s] in environment variables", ENV_KEY));
+			logger.info(format("located [%s] in environment variables", ENV_KEY));
 			return Str.reveal(env.get());
 		}
 		Optional<Property> settings = getSettingsXmlPassword();
 		if (settings.isPresent()) {
-			logger.info(format("Located [%s] in [%s]", settings.get().getKey(), SETTINGS));
+			logger.info(format("located [%s] in [%s]", settings.get().getKey(), SETTINGS));
 			return Str.reveal(settings.get().getValue());
 		} else {
 			throw illegalState("encryption password could not be found in system properties, environment variables, or [%s]", SETTINGS);
@@ -67,7 +67,7 @@ public final class Encryption {
 		for (String key : SYS_KEYS) {
 			String value = System.getProperty(key);
 			if (value != null) {
-				logger.info(format("Removing system property [%s]", key));
+				logger.info(format("removing system property [%s]", key));
 				System.getProperties().remove(key);
 			}
 		}
