@@ -1,7 +1,7 @@
 package org.kuali.common.util.encrypt.jasypt;
 
 import static org.kuali.common.util.enc.EncStrength.DEFAULT_ENCRYPTION_STRENGTH;
-import static org.kuali.common.util.enc.EncUtils.getTextEncryptor;
+import static org.kuali.common.util.encrypt.jasypt.JasyptUtils.buildTextEncryptor;
 
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.enc.EncStrength;
@@ -14,7 +14,7 @@ public final class JasyptEncryptor implements Encryptor {
 	}
 
 	public JasyptEncryptor(String password, EncStrength strength) {
-		this.encryptor = getTextEncryptor(password, strength);
+		this.encryptor = buildTextEncryptor(password, strength);
 	}
 
 	private final TextEncryptor encryptor;
