@@ -7,7 +7,7 @@ public class EncryptionTest {
 	@Test
 	public void test() {
 		try {
-			Encryptor encryptor = Encryption.getDefaultEncryptor();
+			Encryptor encryptor = Encryption.buildDefaultEncryptor();
 			String text = "foo";
 			String encrypted = encryptor.encrypt(text);
 			String decrypted = encryptor.decrypt(encrypted);

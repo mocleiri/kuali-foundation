@@ -9,7 +9,7 @@ public final class Encryption {
 
 	private static Encryptor encryptor;
 
-	public synchronized static Encryptor getDefaultEncryptor() {
+	public synchronized static Encryptor buildDefaultEncryptor() {
 		if (encryptor == null) {
 			encryptor = new DefaultJasyptEncryptor();
 		}
