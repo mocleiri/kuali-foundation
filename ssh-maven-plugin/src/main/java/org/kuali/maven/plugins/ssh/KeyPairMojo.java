@@ -91,7 +91,7 @@ public class KeyPairMojo extends AbstractMojo {
 			getLog().info("Private Key generated to -> " + getRelativePath(privateKey));
 			FileUtils.write(privateKey, keyPair.getPrivateKey().get());
 		} catch (IOException e) {
-			throw illegalState("Unexpected IO error", e);
+			throw illegalState("unexpected io error", e);
 		}
 	}
 
