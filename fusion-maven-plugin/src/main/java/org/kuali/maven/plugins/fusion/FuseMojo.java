@@ -29,6 +29,7 @@ import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
+import org.kuali.maven.plugins.fusion.util.GitFusionUtils;
 import org.kuali.student.git.model.GitRepositoryUtils;
 import org.kuali.student.git.model.SvnExternalsUtils;
 import org.kuali.student.git.model.ref.utils.GitRefUtils;
@@ -103,10 +104,13 @@ public class FuseMojo extends AbstractFusionMojo {
 
 			if (this.fusionDataFile != null) {
 				
+				FileInputStream inputStream;
 				/*
 				 * Source the externals from the file not the pom.
 				 */
-				externals.addAll(SvnExternalsUtils.extractFusionMavenPluginData(new FileInputStream (this.fusionDataFile)));
+				externals.addAll(SvnExternalsUtils.extractFusionMavenPluginData(inputStream = new FileInputStream (this.fusionDataFile)));
+				
+				inputStream.close();
 				
 				for (ExternalModuleInfo external : externals) {
 					
@@ -123,6 +127,13 @@ public class FuseMojo extends AbstractFusionMojo {
 							+ mapping.getBranchName());
 
 					if (branchHead == null) {
+						
+						objectReader.release();
+						objectInserter.flush();
+						rw.release();
+
+						repo.close();
+						
 						throw new MojoFailureException(
 								"Unable to find a branch head for : "
 										+ mapping.getBranchName());
@@ -153,22 +164,7 @@ public class FuseMojo extends AbstractFusionMojo {
 			 * number is set.
 			 */
 
-			CommitBuilder commitBuilder = new CommitBuilder();
-
-			PersonIdent ident = new PersonIdent("jcaddel", "jcaddel@kuali.org");
-
-			commitBuilder.setAuthor(ident);
-			commitBuilder.setCommitter(ident);
-
-			commitBuilder.setMessage("Fused " + currentBranchName);
-
-			commitBuilder.setTreeId(fusedTree);
-
-			commitBuilder.setParentIds(new ArrayList<>(mergeParents));
-
-			commitBuilder.setEncoding("UTF-8");
-
-			ObjectId commitId = objectInserter.insert(commitBuilder);
+			ObjectId commitId = GitFusionUtils.commit(objectInserter, "jcaddel", "jcaddel@kuali.org", "Fused " + currentBranchName, fusedTree.toObjectId(), mergeParents);
 
 			String fusedBranchName = "fused_" + currentBranchName;
 
@@ -201,10 +197,13 @@ public class FuseMojo extends AbstractFusionMojo {
 
 				getLog().info("checkedout fused branch : " + fusedBranchName);
 			}
+			
 			objectReader.release();
 			objectInserter.flush();
 			rw.release();
 
+			repo.close();
+			
 		} catch (Exception e) {
 
 			if (e instanceof MojoExecutionException)

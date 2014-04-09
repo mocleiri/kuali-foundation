@@ -95,41 +95,35 @@
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-container-default</artifactId>
       <version>1.5.5</version>
+       <scope>test</scope>
     </dependency>
     
      <!-- maven -->
      
-    <dependency>
-      <groupId>org.kuali.common</groupId>
-      <artifactId>kuali-maven</artifactId>
-      <version>${kuali-maven.version}</version>
-    </dependency>
      <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
       <version>${maven.min.version}</version>
+       <scope>test</scope>
     </dependency>
       <dependency>
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-model</artifactId>
          <version>${maven.min.version}</version>
+          <scope>test</scope>
     </dependency>
     <dependency>
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-core</artifactId>
          <version>${maven.min.version}</version>
+          <scope>test</scope>
     </dependency>
     
-    <dependency>
-        <groupId>org.apache.maven</groupId>
-        <artifactId>maven-core</artifactId>
-         <version>${maven.min.version}</version>
-    </dependency>
-     
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-aether-provider</artifactId>
       <version>${maven.min.version}</version>
+       <scope>test</scope>
     </dependency>
 
     <dependency>
@@ -137,6 +131,7 @@
       <artifactId>maven-compat</artifactId>
       <!--  I needed to set this back from 3.1.1 to make the unit test harness work. -->
       <version>${maven.min.version}</version>
+       <scope>test</scope>
     </dependency>
     
     

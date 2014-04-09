@@ -4,29 +4,14 @@
 package org.kuali.maven.plugins.fusion;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.maven.execution.DefaultMavenExecutionRequest;
-import org.apache.maven.execution.MavenExecutionRequest;
-import org.apache.maven.plugin.testing.AbstractMojoTestCase;
-import org.apache.maven.plugins.annotations.Parameter;
-import org.apache.maven.project.DefaultProjectBuilder;
-import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.project.ProjectBuilder;
-import org.apache.maven.project.ProjectBuildingRequest;
-import org.apache.maven.project.ProjectBuildingResult;
-import org.apache.maven.repository.RepositorySystem;
-import org.apache.maven.repository.internal.MavenRepositorySystemSession;
-import org.eclipse.jgit.api.errors.CheckoutConflictException;
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.InvalidRefNameException;
-import org.eclipse.jgit.api.errors.RefAlreadyExistsException;
-import org.eclipse.jgit.api.errors.RefNotFoundException;
+import org.eclipse.jgit.lib.Constants;
+import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
-import org.junit.Test;
+import org.junit.Assert;
 import org.kuali.student.git.model.GitRepositoryUtils;
 import org.kuali.student.git.model.SvnExternalsUtils;
 import org.kuali.student.git.model.branch.large.LargeBranchNameProviderMapImpl;
@@ -128,6 +113,48 @@ public class TestFusionMojoWithGit extends AbstractFusionPluginTestCase {
 		mojo.execute();
 	}
 	
+	
+	public void testSplitMojo() throws Exception {
+		
+		testFusion();
+		
+		File pomFile = getTestFile(repo.getWorkTree().getAbsolutePath(), "pom.xml");
+		
+		assertNotNull(pomFile);
+		
+		assertTrue(pomFile.exists());
+		
+		SplitMojo mojo = (SplitMojo) lookupMojo(FusionMavenPluginConstants.SPLIT_MOJO, pomFile);
+		
+		MavenProject project = readProjectFromPom(pomFile);
+
+		mojo.project = project;
+		
+		mojo.amend = "true";
+		
+		mojo.commitBeforeSplit = "true";
+		
+		assertNotNull(mojo);
+		
+		assertNotNull(mojo.mappings);
+		
+		assertEquals(2, mojo.mappings.size());
+		
+		// use the GAV to set the pom versions.
+		
+		mojo.execute();
+		
+		Ref splitModule1 = repo.getRef(Constants.R_HEADS + "split_module1");
+		
+		Ref splitModule2 = repo.getRef(Constants.R_HEADS + "split_module2");
+		
+		Assert.assertNotNull(splitModule1);
+		
+		Assert.assertNotNull(splitModule2);
+		
+		
+		
+	}
 	
 
 }

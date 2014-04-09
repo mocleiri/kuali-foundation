@@ -55,4 +55,10 @@ public final class FusionMavenPluginConstants {
 	public static final String CHECKOUT_FUSED_BRANCH_PREFIX = "fusion.checkoutFusedBranch";
 	public static final String CHECKOUT_FUSED_BRANCH_PREFIX_DEFAULT = "true";
 	
+	public static final String COMMIT_BEFORE_SPLITTING_FUSED_BRANCH_PREFIX = "fusion.commitBeforeSplit";
+	public static final String COMMIT_BEFORE_SPLITTING_FUSED_BRANCH_PREFIX_DEFAULT = "true";
+	
+	public static final String AMMEND_FUSED_BRANCH_PREFIX = "fusion.commitBeforeSplit";
+	public static final String AMMEND_BRANCH_PREFIX_DEFAULT = "true";
+	
 }
