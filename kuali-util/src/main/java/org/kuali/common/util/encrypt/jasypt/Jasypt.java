@@ -23,9 +23,17 @@ import org.jasypt.util.text.BasicTextEncryptor;
 import org.jasypt.util.text.StrongTextEncryptor;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.enc.EncStrength;
+import org.kuali.common.util.encrypt.EncContext;
 
 public class Jasypt {
-	
+
+	/**
+	 * Return a <code>BasicTextEncryptor</code> or <code>StrongTextEncryptor</code> depending on what <code>strength</code> is set to
+	 */
+	public static TextEncryptor buildTextEncryptor(EncContext context) {
+		return buildTextEncryptor(context.getPassword(), context.getStrength());
+	}
+
 	/**
 	 * Return a <code>BasicTextEncryptor</code> or <code>StrongTextEncryptor</code> depending on what <code>strength</code> is set to
 	 */

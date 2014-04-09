@@ -1,8 +1,8 @@
-package org.kuali.common.util.encrypt.jasypt.provider;
+package org.kuali.common.util.encrypt.provider;
 
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
-public final class SystemPropertiesJasyptContextProvider extends AbstractJasyptContextProvider {
+public final class SystemPropertiesEncryptionContextProvider extends AbstractEncryptionContextProvider {
 
 	@Override
 	protected String getValueFromSource(String key) {
