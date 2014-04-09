@@ -254,10 +254,10 @@ input {
                                         </tr>
                                     </tfoot>
                                 </table>
-                                <div class="pull-right btn-actions"> <a class="btn btn-default  btn-xs"  href="#"><span class="icon-tab" aria-hidden="true"></span>Sync</a> <a class="btn btn-default  btn-xs" href="#"><span class="icon-refresh2" aria-hidden="true"></span>Reload</a> <a class="btn btn-default btn-xs"   href="#"><span class="icon-save" aria-hidden="true"></span>Save</a> </div>
+                                
                             </div>
                         </section>
-                        
+                        <div class="pull-right btn-actions"> <a class="btn btn-default  btn-xs"  href="#"><span class="icon-tab" aria-hidden="true"></span>Sync</a> <a class="btn btn-default  btn-xs" href="#"><span class="icon-refresh2" aria-hidden="true"></span>Reload</a> <a class="btn btn-default btn-xs"   href="#"><span class="icon-save" aria-hidden="true"></span>Save</a> </div>
                         <!-- // sections --> 
                     </div>
                     
@@ -387,10 +387,8 @@ input {
                                         </tr>
                                     </tfoot>
                                 </table>
-                                <div class="pull-right btn-actions"> <a class="btn btn-default  btn-xs"  href="#"><span class="icon-tab" aria-hidden="true"></span>Sync</a> <a class="btn btn-default  btn-xs" href="#"><span class="icon-refresh2" aria-hidden="true"></span>Reload</a> <a class="btn btn-default btn-xs"   href="#"><span class="icon-save" aria-hidden="true"></span>Save</a> </div>
-                            </div>
                         </section>
-                        
+                        <div class="pull-right btn-actions"> <a class="btn btn-default  btn-xs"  href="#"><span class="icon-tab" aria-hidden="true"></span>Sync</a> <a class="btn btn-default  btn-xs" href="#"><span class="icon-refresh2" aria-hidden="true"></span>Reload</a> <a class="btn btn-default btn-xs"   href="#"><span class="icon-save" aria-hidden="true"></span>Save</a> </div>
                         <!-- // sections --> 
                         
                     </div>
@@ -518,9 +516,14 @@ input {
                                         </tr>
                                     </tfoot>
                                 </table>
-                                <div class="pull-right btn-actions"> <a class="btn btn-default  btn-xs"  href="#"><span class="icon-tab" aria-hidden="true"></span>Sync</a> <a class="btn btn-default  btn-xs" href="#"><span class="icon-refresh2" aria-hidden="true"></span>Reload</a> <a class="btn btn-default btn-xs"   href="#"><span class="icon-save" aria-hidden="true"></span>Save</a> </div>
+                          
                             </div>
                         </section>
+                        
+                        <div class="pull-right btn-actions"> <a class="btn btn-default  btn-xs"  href="#"><span class="icon-tab" aria-hidden="true"></span>Sync</a> <a class="btn btn-default  btn-xs" href="#"><span class="icon-refresh2" aria-hidden="true"></span>Reload</a> <a class="btn btn-default btn-xs"   href="#"><span class="icon-save" aria-hidden="true"></span>Save</a> </div>
+                        
+                        
+                        
                         <!-- // sections --> 
                     </div>
                     <div class="tab-pane" id="p4">
@@ -647,9 +650,10 @@ input {
                                         </tr>
                                     </tfoot>
                                 </table>
-                                <div class="pull-right btn-actions"> <a class="btn btn-default  btn-xs"  href="#"><span class="icon-tab" aria-hidden="true"></span>Sync</a> <a class="btn btn-default  btn-xs" href="#"><span class="icon-refresh2" aria-hidden="true"></span>Reload</a> <a class="btn btn-default btn-xs"   href="#"><span class="icon-save" aria-hidden="true"></span>Save</a> </div>
+                 
                             </div>
                         </section>
+                        <div class="pull-right btn-actions"> <a class="btn btn-default  btn-xs"  href="#"><span class="icon-tab" aria-hidden="true"></span>Sync</a> <a class="btn btn-default  btn-xs" href="#"><span class="icon-refresh2" aria-hidden="true"></span>Reload</a> <a class="btn btn-default btn-xs"   href="#"><span class="icon-save" aria-hidden="true"></span>Save</a> </div>
                         <!-- // sections --> 
                     </div>
                     <div class="tab-pane" id="p5">
@@ -776,9 +780,10 @@ input {
                                         </tr>
                                     </tfoot>
                                 </table>
-                                <div class="pull-right btn-actions"> <a class="btn btn-default  btn-xs"  href="#"><span class="icon-tab" aria-hidden="true"></span>Sync</a> <a class="btn btn-default  btn-xs" href="#"><span class="icon-refresh2" aria-hidden="true"></span>Reload</a> <a class="btn btn-default btn-xs"   href="#"><span class="icon-save" aria-hidden="true"></span>Save</a> </div>
+                                
                             </div>
                         </section>
+                        <div class="pull-right btn-actions"> <a class="btn btn-default  btn-xs"  href="#"><span class="icon-tab" aria-hidden="true"></span>Sync</a> <a class="btn btn-default  btn-xs" href="#"><span class="icon-refresh2" aria-hidden="true"></span>Reload</a> <a class="btn btn-default btn-xs"   href="#"><span class="icon-save" aria-hidden="true"></span>Save</a> </div>
                         <!-- // sections --> 
                         
                     </div>
