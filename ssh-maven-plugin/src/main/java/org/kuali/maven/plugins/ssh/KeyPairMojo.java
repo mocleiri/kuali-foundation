@@ -16,6 +16,7 @@
 package org.kuali.maven.plugins.ssh;
 
 import static com.google.common.base.Preconditions.checkState;
+import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.io.File;
@@ -90,7 +91,7 @@ public class KeyPairMojo extends AbstractMojo {
 			getLog().info("Private Key generated to -> " + getRelativePath(privateKey));
 			FileUtils.write(privateKey, keyPair.getPrivateKey().get());
 		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
+			throw illegalState("Unexpected IO error", e);
 		}
 	}
 
