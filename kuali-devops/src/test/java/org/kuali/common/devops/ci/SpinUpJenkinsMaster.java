@@ -287,7 +287,7 @@ public class SpinUpJenkinsMaster {
 	}
 
 	protected static void verifySSH(String username, String hostname, String privateKey) {
-		WaitContext context = WaitContext.builder(getMillisAsInt("10m")).sleepMillis(getMillisAsInt("5s")).build();
+		WaitContext context = WaitContext.builder(getMillisAsInt("20m")).sleepMillis(getMillisAsInt("5s")).build();
 		WaitService service = new DefaultWaitService();
 		Condition condition = getSshCondition(username, hostname, privateKey);
 		service.wait(context, condition);
