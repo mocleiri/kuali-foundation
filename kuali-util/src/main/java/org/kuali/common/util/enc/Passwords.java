@@ -24,6 +24,8 @@ import com.google.common.collect.ImmutableList;
 
 public final class Passwords {
 
+	// If this is set to "true" any passwords stored as system properties get removed from the system properties
+	private static final String REMOVE_SYSTEM_PROPERTY_KEY = "enc.password.remove";
 	private static final List<String> SYS_KEYS = ImmutableList.of("enc.password", "properties.enc.password");
 	private static final String ENV_KEY = "ENC_PASSWORD";
 	private static final File SETTINGS = getSettingsXmlFile();
@@ -42,7 +44,7 @@ public final class Passwords {
 		Optional<Property> sys = getSystemPassword();
 		if (sys.isPresent()) {
 			logger.info(format("Located [%s] in system properties", sys.get().getKey()));
-			if (Boolean.getBoolean("enc.password.remove")) {
+			if (Boolean.getBoolean(REMOVE_SYSTEM_PROPERTY_KEY)) {
 				removeSystemProperties();
 			}
 			return Str.reveal(sys.get().getValue());
