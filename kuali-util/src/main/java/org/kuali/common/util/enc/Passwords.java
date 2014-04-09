@@ -42,6 +42,9 @@ public final class Passwords {
 		Optional<Property> sys = getSystemPassword();
 		if (sys.isPresent()) {
 			logger.info(format("Located [%s] in system properties", sys.get().getKey()));
+			if (Boolean.getBoolean("enc.password.remove")) {
+				removeSystemProperties();
+			}
 			return Str.reveal(sys.get().getValue());
 		}
 		Optional<String> env = getEnvPassword();
@@ -55,6 +58,16 @@ public final class Passwords {
 			return Str.reveal(settings.get().getValue());
 		} else {
 			throw illegalState("encryption password could not be found in system properties, environment variables, or [%s]", SETTINGS);
+		}
+	}
+
+	protected static void removeSystemProperties() {
+		for (String key : SYS_KEYS) {
+			String value = System.getProperty(key);
+			if (value != null) {
+				logger.info(format("Removing system property [%s]", key));
+				System.getProperties().remove(key);
+			}
 		}
 	}
 
