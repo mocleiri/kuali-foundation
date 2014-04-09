@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.kuali.common.util.Str;
-import org.kuali.common.util.encrypt.jasypt.DefaultEncryptor;
+import org.kuali.common.util.encrypt.jasypt.JasyptEncryptor;
 import org.kuali.common.util.file.CanonicalFile;
 import org.slf4j.Logger;
 
@@ -37,7 +37,7 @@ public final class Encryption {
 
 	public synchronized static Encryptor getDefaultEncryptor() {
 		if (encryptor == null) {
-			encryptor = new DefaultEncryptor(getDefaultEncryptionPassword());
+			encryptor = new JasyptEncryptor(getDefaultEncryptionPassword());
 		}
 		return encryptor;
 	}
