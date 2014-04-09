@@ -32,8 +32,16 @@ public final class Encryption {
 	private static final Logger logger = newLogger();
 
 	private static String password;
+	private static Encryptor encryptor;
 
-	public synchronized static String getDefaultEncryptionPassword() {
+	public synchronized static Encryptor getDefaultEncryptor() {
+		if (encryptor == null) {
+			encryptor = new DefaultEncryptor(getDefaultEncryptionPassword());
+		}
+		return encryptor;
+	}
+
+	private static String getDefaultEncryptionPassword() {
 		if (password == null) {
 			password = initPassword();
 		}
