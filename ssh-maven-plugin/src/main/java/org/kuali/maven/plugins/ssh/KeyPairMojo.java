@@ -15,6 +15,9 @@
  */
 package org.kuali.maven.plugins.ssh;
 
+import static com.google.common.base.Preconditions.checkState;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -23,14 +26,13 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.kuali.common.util.Assert;
+import org.kuali.common.core.ssh.Algorithm;
+import org.kuali.common.core.ssh.GenerateKeyPairContext;
+import org.kuali.common.core.ssh.KeyPair;
+import org.kuali.common.core.ssh.SshService;
+import org.kuali.common.core.ssh.jcraft.JCraftSshService;
 import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.file.CanonicalFile;
-import org.kuali.common.util.ssh.api.SshService;
-import org.kuali.common.util.ssh.api.impl.DefaultSshService;
-import org.kuali.common.util.ssh.model.Algorithm;
-import org.kuali.common.util.ssh.model.GenerateKeyPairContext;
-import org.kuali.common.util.ssh.model.KeyPair;
 
 /**
  * Generate a public key / private key pair in the format desired by AWS (Amazon Web Services)
@@ -71,12 +73,13 @@ public class KeyPairMojo extends AbstractMojo {
 
 	@Override
 	public void execute() {
-		Assert.noNulls(publicKey, privateKey);
-		GenerateKeyPairContext context = new GenerateKeyPairContext.Builder(keyName).algorithm(algorithm).size(size).build();
-		SshService service = new DefaultSshService();
+		checkNotNull(publicKey, "publicKey");
+		checkNotNull(privateKey, "privateKey");
+		GenerateKeyPairContext context = new GenerateKeyPairContext.Builder(keyName).withAlgorithm(algorithm).withSize(size).build();
+		SshService service = new JCraftSshService();
 		KeyPair keyPair = service.generateKeyPair(context);
-		Assert.present(keyPair.getPrivateKey());
-		Assert.present(keyPair.getPublicKey());
+		checkState(keyPair.getPrivateKey().isPresent(), "privateKey is required");
+		checkState(keyPair.getPublicKey().isPresent(), "publicKey is required");
 		write(keyPair);
 	}
 

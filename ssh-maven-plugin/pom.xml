@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-maven</artifactId>
-    <version>3.3.36</version>
+    <version>3.4.5</version>
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>ssh-maven-plugin</artifactId>
@@ -38,7 +38,6 @@
   </scm>
   <properties>
     <jsch.version>0.1.50</jsch.version>
-    <kuali-util.version>4.4.10-SNAPSHOT</kuali-util.version>
   </properties>
   <developers>
     <developer>
@@ -61,6 +60,10 @@
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-util</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.kuali.common</groupId>
+      <artifactId>kuali-core</artifactId>
     </dependency>
   </dependencies>
   <build>
