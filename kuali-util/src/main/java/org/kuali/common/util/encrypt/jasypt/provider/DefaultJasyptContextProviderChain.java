@@ -1,8 +1,10 @@
-package org.kuali.common.util.encrypt.jasypt;
+package org.kuali.common.util.encrypt.jasypt.provider;
 
 import static com.google.common.base.Optional.absent;
 
 import java.util.List;
+
+import org.kuali.common.util.encrypt.jasypt.JasyptContext;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;

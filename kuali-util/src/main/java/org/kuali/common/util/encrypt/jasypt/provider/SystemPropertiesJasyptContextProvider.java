@@ -1,4 +1,4 @@
-package org.kuali.common.util.encrypt.jasypt;
+package org.kuali.common.util.encrypt.jasypt.provider;
 
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 

@@ -1,4 +1,4 @@
-package org.kuali.common.util.encrypt.jasypt;
+package org.kuali.common.util.encrypt.jasypt.provider;
 
 import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
@@ -8,6 +8,7 @@ import static org.kuali.common.util.encrypt.Encryption.ENCRYPTION_PASSWORD_KEY;
 import static org.kuali.common.util.encrypt.Encryption.ENCRYPTION_STRENGTH_KEY;
 
 import org.kuali.common.util.enc.EncStrength;
+import org.kuali.common.util.encrypt.jasypt.JasyptContext;
 
 import com.google.common.base.Optional;
 

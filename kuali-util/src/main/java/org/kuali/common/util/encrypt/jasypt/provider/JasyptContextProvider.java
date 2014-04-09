@@ -1,4 +1,6 @@
-package org.kuali.common.util.encrypt.jasypt;
+package org.kuali.common.util.encrypt.jasypt.provider;
+
+import org.kuali.common.util.encrypt.jasypt.JasyptContext;
 
 import com.google.common.base.Optional;
 
