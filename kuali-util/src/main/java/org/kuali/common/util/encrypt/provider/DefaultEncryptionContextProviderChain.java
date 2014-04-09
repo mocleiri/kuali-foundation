@@ -4,7 +4,7 @@ import static org.kuali.common.util.base.Exceptions.illegalState;
 
 import java.util.List;
 
-import org.kuali.common.util.encrypt.EncContext;
+import org.kuali.common.util.encrypt.EncryptionContext;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
@@ -30,9 +30,9 @@ public final class DefaultEncryptionContextProviderChain implements EncryptionCo
 	}
 
 	@Override
-	public Optional<EncContext> getEncryptionContext() {
+	public Optional<EncryptionContext> getEncryptionContext() {
 		for (EncryptionContextProvider provider : providers) {
-			Optional<EncContext> context = provider.getEncryptionContext();
+			Optional<EncryptionContext> context = provider.getEncryptionContext();
 			if (context.isPresent()) {
 				return context;
 			}

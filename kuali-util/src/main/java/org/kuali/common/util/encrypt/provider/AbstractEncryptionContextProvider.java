@@ -8,20 +8,20 @@ import static org.kuali.common.util.encrypt.Encryption.ENCRYPTION_PASSWORD_KEY;
 import static org.kuali.common.util.encrypt.Encryption.ENCRYPTION_STRENGTH_KEY;
 
 import org.kuali.common.util.enc.EncStrength;
-import org.kuali.common.util.encrypt.EncContext;
+import org.kuali.common.util.encrypt.EncryptionContext;
 
 import com.google.common.base.Optional;
 
 public abstract class AbstractEncryptionContextProvider implements EncryptionContextProvider {
 
 	@Override
-	public Optional<EncContext> getEncryptionContext() {
+	public Optional<EncryptionContext> getEncryptionContext() {
 		Optional<String> password = getOptionalString(ENCRYPTION_PASSWORD_KEY);
 		if (!password.isPresent()) {
 			return absent();
 		} else {
 			EncStrength strength = getEncryptionStrength();
-			return Optional.of(new EncContext(password.get(), strength));
+			return Optional.of(new EncryptionContext(password.get(), strength));
 		}
 	}
 
