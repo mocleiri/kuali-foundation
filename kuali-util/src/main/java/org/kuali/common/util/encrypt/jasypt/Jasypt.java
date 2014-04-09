@@ -25,7 +25,7 @@ import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.enc.EncStrength;
 
 public class Jasypt {
-
+	
 	/**
 	 * Return a <code>BasicTextEncryptor</code> or <code>StrongTextEncryptor</code> depending on what <code>strength</code> is set to
 	 */
