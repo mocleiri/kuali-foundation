@@ -12,6 +12,7 @@ public class EncryptionTest {
 			String encrypted = encryptor.encrypt(text);
 			String decrypted = encryptor.decrypt(encrypted);
 			System.out.println(text);
+			System.out.println(encrypted);
 			System.out.println(decrypted);
 		} catch (Throwable e) {
 			e.printStackTrace();
