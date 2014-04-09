@@ -22,7 +22,7 @@ import org.slf4j.Logger;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
-public final class Passwords {
+public final class Encryption {
 
 	// If this is set to "true" any passwords stored as system properties get removed from the system properties
 	private static final String REMOVE_SYSTEM_PROPERTY_KEY = "enc.password.remove";
