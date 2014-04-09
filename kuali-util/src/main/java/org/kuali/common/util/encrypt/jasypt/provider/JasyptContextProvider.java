@@ -6,6 +6,6 @@ import com.google.common.base.Optional;
 
 public interface JasyptContextProvider {
 
-	Optional<EncContext> getJasyptContext();
+	Optional<EncContext> getEncryptionContext();
 
 }

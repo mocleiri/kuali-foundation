@@ -30,9 +30,9 @@ public final class DefaultJasyptContextProviderChain implements JasyptContextPro
 	}
 
 	@Override
-	public Optional<EncContext> getJasyptContext() {
+	public Optional<EncContext> getEncryptionContext() {
 		for (JasyptContextProvider provider : providers) {
-			Optional<EncContext> context = provider.getJasyptContext();
+			Optional<EncContext> context = provider.getEncryptionContext();
 			if (context.isPresent()) {
 				return context;
 			}

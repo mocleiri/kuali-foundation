@@ -12,7 +12,7 @@ import org.kuali.common.util.encrypt.jasypt.provider.DefaultJasyptContextProvide
 public final class DefaultJasyptEncryptor implements Encryptor {
 
 	public DefaultJasyptEncryptor() {
-		this(new DefaultJasyptContextProviderChain().getJasyptContext().get());
+		this(new DefaultJasyptContextProviderChain().getEncryptionContext().get());
 	}
 
 	public DefaultJasyptEncryptor(String password) {

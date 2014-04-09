@@ -15,7 +15,7 @@ import com.google.common.base.Optional;
 public abstract class AbstractJasyptContextProvider implements JasyptContextProvider {
 
 	@Override
-	public Optional<EncContext> getJasyptContext() {
+	public Optional<EncContext> getEncryptionContext() {
 		Optional<String> password = getOptionalString(ENCRYPTION_PASSWORD_KEY);
 		if (!password.isPresent()) {
 			return absent();
