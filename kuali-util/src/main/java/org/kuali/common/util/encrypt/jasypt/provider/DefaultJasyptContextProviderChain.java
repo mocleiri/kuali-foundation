@@ -11,6 +11,10 @@ import com.google.common.collect.ImmutableList;
 
 public final class DefaultJasyptContextProviderChain implements JasyptContextProvider {
 
+	public DefaultJasyptContextProviderChain() {
+		this(new SystemPropertiesJasyptContextProvider(), new EnvironmentVariableJasyptContextProvider(), new SimpleMavenJasyptContextProvider());
+	}
+
 	public DefaultJasyptContextProviderChain(JasyptContextProvider... providers) {
 		this(ImmutableList.copyOf(providers));
 	}
