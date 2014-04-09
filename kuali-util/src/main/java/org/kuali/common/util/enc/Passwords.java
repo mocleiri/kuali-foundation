@@ -6,6 +6,7 @@ import static java.lang.String.format;
 import static org.apache.commons.io.FileUtils.readFileToString;
 import static org.apache.commons.lang3.StringUtils.substringBetween;
 import static org.apache.commons.lang3.StringUtils.trimToNull;
+import static org.kuali.common.util.Encodings.UTF8;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.log.Loggers.newLogger;
@@ -14,7 +15,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import org.kuali.common.util.Encodings;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.file.CanonicalFile;
 import org.slf4j.Logger;
@@ -94,7 +94,7 @@ public final class Passwords {
 
 	protected static String getSettingsXmlContent() {
 		try {
-			return readFileToString(SETTINGS, Encodings.UTF8);
+			return readFileToString(SETTINGS, UTF8);
 		} catch (IOException e) {
 			throw illegalState(e, "unexpected io error -> [%s]", SETTINGS);
 		}
