@@ -606,6 +606,7 @@
           <artifactId>sql-maven-plugin</artifactId>
           <version>${plugin.sql.version}</version>
         </plugin>
+        <!-- extremely simple ssh key pair generation -->
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>ssh-maven-plugin</artifactId>
