@@ -1,6 +1,6 @@
 package org.kuali.common.util.encrypt.provider;
 
-import static com.google.common.base.Optional.absent;
+import static org.kuali.common.util.base.Exceptions.illegalState;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ public final class DefaultEncryptionContextProviderChain implements EncryptionCo
 				return context;
 			}
 		}
-		return absent();
+		throw illegalState("unable to locate encryption password in any of the %s providers", providers.size());
 	}
 
 }
