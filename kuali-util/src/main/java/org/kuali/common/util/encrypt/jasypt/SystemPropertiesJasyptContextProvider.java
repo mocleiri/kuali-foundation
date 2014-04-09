@@ -12,7 +12,7 @@ import org.kuali.common.util.enc.EncStrength;
 
 import com.google.common.base.Optional;
 
-public final class SystemPropertiesJasypyContextProvider implements JasyptContextProvider {
+public final class SystemPropertiesJasyptContextProvider implements JasyptContextProvider {
 
 	@Override
 	public Optional<JasyptContext> getJasyptContext() {
