@@ -1,10 +1,12 @@
 package org.kuali.common.util.encrypt;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class EncryptionTest {
 
 	@Test
+	@Ignore
 	public void test() {
 		try {
 			Encryptor encryptor = Encryption.buildDefaultEncryptor();
