@@ -5,16 +5,26 @@ import static org.kuali.common.util.encrypt.jasypt.Jasypt.buildTextEncryptor;
 
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.enc.EncStrength;
+import org.kuali.common.util.encrypt.EncContext;
 import org.kuali.common.util.encrypt.Encryptor;
+import org.kuali.common.util.encrypt.jasypt.provider.DefaultJasyptContextProviderChain;
 
 public final class DefaultJasyptEncryptor implements Encryptor {
+
+	public DefaultJasyptEncryptor() {
+		this(new DefaultJasyptContextProviderChain().getJasyptContext().get());
+	}
 
 	public DefaultJasyptEncryptor(String password) {
 		this(password, DEFAULT_ENCRYPTION_STRENGTH);
 	}
 
 	public DefaultJasyptEncryptor(String password, EncStrength strength) {
-		this.encryptor = buildTextEncryptor(password, strength);
+		this(new EncContext(password, strength));
+	}
+
+	public DefaultJasyptEncryptor(EncContext context) {
+		this.encryptor = buildTextEncryptor(context.getPassword(), context.getStrength());
 	}
 
 	private final TextEncryptor encryptor;
