@@ -8,8 +8,11 @@ import org.jasypt.util.text.TextEncryptor;
 
 public final class DefaultEncryptor implements Encryptor {
 
-	public DefaultEncryptor() {
-		this(getDefaultEncryptionPassword());
+	/**
+	 * Create an encryptor based on system properties, environment variables, and Maven's settings.xml file
+	 */
+	public static DefaultEncryptor createDefaultEncryptor() {
+		return new DefaultEncryptor(getDefaultEncryptionPassword());
 	}
 
 	public DefaultEncryptor(String password) {
