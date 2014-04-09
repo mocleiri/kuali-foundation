@@ -24,7 +24,6 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.kuali.common.core.ssh.Algorithm;
@@ -39,7 +38,6 @@ import org.kuali.common.util.file.CanonicalFile;
  * Generate a public key / private key pair in the format desired by AWS (Amazon Web Services)
  */
 @Mojo(name = "keypair", threadSafe = true)
-@Execute(goal = "keypair")
 public class KeyPairMojo extends AbstractMojo {
 
 	/**
