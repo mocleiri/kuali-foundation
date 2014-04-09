@@ -18,6 +18,7 @@ package org.kuali.common.util.enc;
 import static org.kuali.common.util.base.Exceptions.illegalArgument;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
+import static org.kuali.common.util.enc.EncStrength.DEFAULT_ENCRYPTION_STRENGTH;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +70,7 @@ public class EncUtils {
 	 * Returns a <code>BasicTextEncryptor</code> that uses <code>password</code> to encrypt/decrypt.
 	 */
 	public static TextEncryptor getTextEncryptor(String password) {
-		return getTextEncryptor(password, EncStrength.DEFAULT_VALUE);
+		return getTextEncryptor(password, DEFAULT_ENCRYPTION_STRENGTH);
 	}
 
 	/**
