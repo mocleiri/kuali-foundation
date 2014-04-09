@@ -42,8 +42,9 @@ KEY=$5
 
 check_args
 
-# the signature we create is only good for the next 15 minutes
+# this is the number of seconds since midnight Jan 1, 1970 UTC
 EXPIRES=$(date +%s)
+# add 15 minutes to current time
 EXPIRES=$(($EXPIRES + 900))
 
 # openssl adds a prefix, eg "(stdin)= 0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33"
