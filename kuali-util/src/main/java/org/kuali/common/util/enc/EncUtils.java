@@ -15,6 +15,10 @@
  */
 package org.kuali.common.util.enc;
 
+import static org.kuali.common.util.base.Exceptions.illegalArgument;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
+import static org.kuali.common.util.base.Precondition.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,7 +76,8 @@ public class EncUtils {
 	 * Return a <code>BasicTextEncryptor</code> or <code>StrongTextEncryptor</code> depending on what <code>strength</code> is set to
 	 */
 	public static TextEncryptor getTextEncryptor(String password, EncStrength strength) {
-		Assert.noBlanks(password);
+		checkNotBlank(password, "password");
+		checkNotNull(strength, "strength");
 		switch (strength) {
 		case BASIC:
 			BasicTextEncryptor basic = new BasicTextEncryptor();
@@ -83,7 +88,7 @@ public class EncUtils {
 			strong.setPassword(password);
 			return strong;
 		default:
-			throw new IllegalArgumentException("Encryption strength [" + strength + "] is unknown");
+			throw illegalArgument("encryption strength [%s] is unknown", strength);
 		}
 	}
 

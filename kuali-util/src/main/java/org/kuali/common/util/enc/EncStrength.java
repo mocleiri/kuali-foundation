@@ -19,5 +19,6 @@ public enum EncStrength {
 
 	BASIC, STRONG;
 
-	public static final EncStrength DEFAULT_VALUE = BASIC;
+	public static final EncStrength DEFAULT_ENCRYPTION_STRENGTH = BASIC;
+	public static final EncStrength DEFAULT_VALUE = DEFAULT_ENCRYPTION_STRENGTH;
 }
