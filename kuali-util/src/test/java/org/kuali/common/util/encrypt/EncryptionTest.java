@@ -8,10 +8,10 @@ public class EncryptionTest {
 	public void test() {
 		try {
 			Encryptor encryptor = Encryption.buildDefaultEncryptor();
-			String text = "foo";
-			String encrypted = encryptor.encrypt(text);
+			String plaintext = "foo";
+			String encrypted = encryptor.encrypt(plaintext);
 			String decrypted = encryptor.decrypt(encrypted);
-			System.out.println(text);
+			System.out.println(plaintext);
 			System.out.println(encrypted);
 			System.out.println(decrypted);
 		} catch (Throwable e) {
