@@ -27,6 +27,7 @@ Tuesday
 -- analyzed maven-impex-plugin
 -- analyzed velocity templates
 -- batted around potential ideas/solutions/etc for making the character set and collation configurable via a property
+- Skype conversation with Giles related to utf8mb4 and Rice
 
 - combined Kuali call (OLE, KS, Rice, OLE, KPME)
 - weekly meeting with Jessica
