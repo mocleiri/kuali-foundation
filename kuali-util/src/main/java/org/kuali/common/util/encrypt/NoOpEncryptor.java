@@ -1,6 +1,8 @@
 package org.kuali.common.util.encrypt;
 
-public class NoOpEncryptor implements Encryptor {
+// Singleton enum pattern
+public enum NoOpEncryptor implements Encryptor {
+	INSTANCE;
 
 	@Override
 	public String encrypt(String text) {

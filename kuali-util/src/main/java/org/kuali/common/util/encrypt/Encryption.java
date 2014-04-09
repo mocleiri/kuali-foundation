@@ -17,6 +17,8 @@ public final class Encryption {
 			Optional<EncryptionContext> context = new DefaultEncryptionContextProviderChain().getEncryptionContext();
 			if (context.isPresent()) {
 				encryptor = new DefaultJasyptEncryptor(context.get());
+			} else {
+				encryptor = NoOpEncryptor.INSTANCE;
 			}
 		}
 		return encryptor;
