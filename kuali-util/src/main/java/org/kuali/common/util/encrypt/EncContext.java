@@ -1,13 +1,13 @@
-package org.kuali.common.util.encrypt.jasypt;
+package org.kuali.common.util.encrypt;
 
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import org.kuali.common.util.enc.EncStrength;
 
-public final class JasyptContext {
+public final class EncContext {
 
-	public JasyptContext(String password, EncStrength strength) {
+	public EncContext(String password, EncStrength strength) {
 		this.password = checkNotBlank(password, "password");
 		this.strength = checkNotNull(strength, "strength");
 	}

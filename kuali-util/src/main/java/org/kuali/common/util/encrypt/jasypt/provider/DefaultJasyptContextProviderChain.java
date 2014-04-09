@@ -4,7 +4,7 @@ import static com.google.common.base.Optional.absent;
 
 import java.util.List;
 
-import org.kuali.common.util.encrypt.jasypt.JasyptContext;
+import org.kuali.common.util.encrypt.EncContext;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
@@ -26,9 +26,9 @@ public final class DefaultJasyptContextProviderChain implements JasyptContextPro
 	}
 
 	@Override
-	public Optional<JasyptContext> getJasyptContext() {
+	public Optional<EncContext> getJasyptContext() {
 		for (JasyptContextProvider provider : providers) {
-			Optional<JasyptContext> context = provider.getJasyptContext();
+			Optional<EncContext> context = provider.getJasyptContext();
 			if (context.isPresent()) {
 				return context;
 			}
