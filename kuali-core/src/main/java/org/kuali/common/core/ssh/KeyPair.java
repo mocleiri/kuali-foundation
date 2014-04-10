@@ -46,7 +46,6 @@ public final class KeyPair {
 
 	public static class Builder extends ValidatingBuilder<KeyPair> {
 
-		// Required
 		private final String name;
 		private String publicKey;
 		private String privateKey;
