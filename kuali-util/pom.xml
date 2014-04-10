@@ -77,6 +77,10 @@
         <project.metainf.skipIfEqual>true</project.metainf.skipIfEqual>
       </properties>
     </profile>
+    <!-- Produce an executable jar that encrypts/decrypts text and files -->
+    <!-- mvn -Penc clean compile assembly:single -->
+    <!-- Invoke the jar -->
+    <!-- java -jar target/kuali-util-4.4.11-SNAPSHOT-jar-with-dependencies.jar -e foo -->
     <profile>
       <id>enc</id>
       <properties>
