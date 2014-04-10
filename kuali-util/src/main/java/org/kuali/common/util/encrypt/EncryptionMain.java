@@ -13,6 +13,6 @@ public final class EncryptionMain {
 	}
 
 	private static void usage() {
-		System.out.println("EncryptionMain: text");
+		System.out.println("Usage: EncryptionMain text");
 	}
 }
