@@ -9,6 +9,7 @@ import javax.validation.constraints.Min;
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import org.kuali.common.devops.metadata.model.format.TagListFormat;
+import org.kuali.common.util.spring.format.optional.OptionalStringFormat;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
@@ -17,7 +18,9 @@ import com.google.common.collect.ImmutableList;
 public final class EC2Instance implements Comparable<EC2Instance> {
 
 	private final String id;
+	@OptionalStringFormat
 	private final Optional<String> name;
+	@OptionalStringFormat
 	private final Optional<String> publicDnsName;
 	private final String type;
 	private final String ami;
