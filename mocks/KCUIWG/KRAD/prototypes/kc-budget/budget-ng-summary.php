@@ -222,7 +222,7 @@ $section = '';
                             <td class="uif-right-aligned">-</td>
                             <td class="uif-right-aligned">-</td>
                             <td class="uif-right-aligned">-</td>
-                            <td class="uif-right-aligned">-</td>
+                             <td class="uif-right-aligned">-</td>
                             <td class="uif-right-aligned">-</td>
                         </tr>
                     </tbody>
