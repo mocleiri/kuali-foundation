@@ -72,7 +72,8 @@ Thursday
 -- http://site.origin.kuali.org/common/kuali-devops/latest/status/student.htm is a PHP app
 - Met with Larry on KS version numbering scheme
 -- Came up with multi-module version number concept for taking advantage of the meta information embedded inside the jars/wars
-- KS is not exactly happy with how WUSH / Subversion is interacting with EC2 and local checkouts
+
+- KS is disappointed with how WUSH / Subversion is interacting with EC2 and local checkouts
 
 - Created extremely simple command line routines for using java to encrypt/decrypt text and files
 
