@@ -1,8 +1,12 @@
 package org.kuali.common.devops.logic;
 
+import static com.google.common.collect.Sets.newHashSet;
 import static org.kuali.common.util.base.Exceptions.illegalArgument;
 import static org.kuali.common.util.encrypt.Encryption.buildDefaultEncryptor;
 
+import java.util.Set;
+
+import org.kuali.common.aws.model.ImmutableAWSCredentials;
 import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.devops.aws.EncryptedAwsCredentials;
 import org.kuali.common.devops.aws.EncryptedKeyPair;
@@ -39,23 +43,28 @@ public class Auth {
 		return DNSMadeEasyCredentials.builder().withApiKey(apiKey).withSecretKey(secretKey).build();
 	}
 
+	public static Set<String> getAwsAccountNames() {
+		Set<String> names = newHashSet();
+		for (EncryptedAwsCredentials credentials : EncryptedAwsCredentials.values()) {
+			names.add(credentials.name().toLowerCase());
+		}
+		return names;
+	}
+
 	public static AWSCredentials getAwsCredentials(String account) {
 		for (EncryptedAwsCredentials credentials : EncryptedAwsCredentials.values()) {
 			if (credentials.name().equalsIgnoreCase(account)) {
-				return getKeyPair(credentials);
+				return getAwsCredentials(credentials);
 			}
 		}
+		throw illegalArgument("unknown account -> %s", account);
 	}
+
 	public static AWSCredentials getAwsCredentials(EncryptedAwsCredentials encrypted) {
 		Encryptor encryptor = buildDefaultEncryptor();
 		String accessKey = encryptor.decrypt(encrypted.getAWSAccessKeyId());
 		String secretKey = encryptor.decrypt(encrypted.getAWSSecretKey());
-		return new ImmutableAWSCredentials
-		for (EncryptedAwsCredentials credentials : EncryptedAwsCredentials.values()) {
-			if (credentials.name().equalsIgnoreCase(account)) {
-				return getKeyPair(credentials);
-			}
-		}
+		return new ImmutableAWSCredentials(accessKey, secretKey);
 	}
 
 }

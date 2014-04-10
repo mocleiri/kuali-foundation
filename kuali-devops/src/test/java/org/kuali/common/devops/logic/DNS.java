@@ -97,7 +97,7 @@ public class DNS {
 	}
 
 	protected static Map<String, String> queryProvider() {
-		DNSMadeEasyServiceContext context = new DNSMadeEasyServiceContext(Auth.getDnsmeCredentials(), URLS.PRODUCTION, DOMAIN);
+		DNSMadeEasyServiceContext context = new DNSMadeEasyServiceContext(Auth.getDNSMECredentials(), URLS.PRODUCTION, DOMAIN);
 		DnsService dns = new DNSMadeEasyDnsService(context);
 		DnsRecordSearchCriteria criteria = newDnsRecordSearchCriteria(CNAME);
 		List<DnsRecord> records = dns.getRecords(criteria);
