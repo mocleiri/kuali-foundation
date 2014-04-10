@@ -7,114 +7,123 @@
                 <h4 class="modal-title" id="myModalLabel">Summary</h4>
             </div>
             <div class="modal-body">
+                <div class="pull-right">
+                    <div class="btn-group" id="export-pdf-excel">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Export <span class="caret"></span></button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#"  data-toggle="modal" data-target="#copyNew" class=""><span aria-hidden="true" class="icon-file-excel"></span>Excel</a></li>
+                            <li><a href="#"><span aria-hidden="true" class="icon-file-pdf"></span>Pdf</a></li>
+                        </ul>
+                    </div>
+                </div>
                 <p>Here's a summary of your current budget.</p>
                 <table class="table table-condensed credit-allocation">
                     <tbody>
-                    <tr>
-                        <th>&nbsp;</th>
-                        <th class=" uif-center-aligned">P1 <span class="sr-only">Period 1</span></th>
-                        <th class="uif-center-aligned">P2 <span class="sr-only">Period 2</span></th>
-                        <th class="uif-center-aligned">P3 <span class="sr-only">Period 3</span></th>
-                        <th class="uif-center-aligned">P4 <span class="sr-only">Period 4</span></th>
-                        <th class="uif-center-aligned">P5 <span class="sr-only">Period 5</span></th>
-                        <th class="uif-center-aligned">Totals <span class="sr-only">Period totals</span></th>
-                    </tr>
-                    <tr class="active">
-                        <td colspan="7"><a href="budget-ng-personnelCosts-projPersonnel.php"><strong>Personnel</strong></a></td>
-                    </tr>
-                    <tr class="">
-                        <td><a href="#"> <span aria-hidden="true" class="icon-chevron-right"></span> Salary</a></td>
-                        <td class=" uif-right-aligned">$156,934</td>
-                        <td class="uif-right-aligned">$156,934</td>
-                        <td class="uif-right-aligned">$156,934</td>
-                        <td class="uif-right-aligned">$156,934</td>
-                        <td class="uif-right-aligned">$156,934</td>
-                        <td class="uif-right-aligned">$784,670</td>
-                    </tr>
-                    <tr class="">
-                        <td><a href="#"> <span aria-hidden="true" class="icon-chevron-right"></span> Fringe</a></td>
-                        <td class=" uif-right-aligned">$37,345</td>
-                        <td class="uif-right-aligned">$37,345</td>
-                        <td class="uif-right-aligned">$37,345</td>
-                        <td class="uif-right-aligned">$37,345</td>
-                        <td class="uif-right-aligned">$37,345</td>
-                        <td class="uif-right-aligned">$186,725</td>
-                    </tr>
-                    <tr class="">
-                        <td><a href="#"> <span aria-hidden="true" class="icon-chevron-right"></span> Calculated Direct Costs</a></td>
-                        <td class=" uif-right-aligned">$28,284</td>
-                        <td class="uif-right-aligned">$28,284</td>
-                        <td class="uif-right-aligned">$28,284</td>
-                        <td class="uif-right-aligned">$28,284</td>
-                        <td class="uif-right-aligned">$28,284</td>
-                        <td class="uif-right-aligned">$141,420</td>
-                    </tr>
-                    <tr class="">
-                        <td>Personnel Subtotal</td>
-                        <td class=" uif-right-aligned"><strong>$222,563</strong></td>
-                        <td class="uif-right-aligned"><strong>$222,563</strong></td>
-                        <td class="uif-right-aligned"><strong>$222,563</strong></td>
-                        <td class="uif-right-aligned"><strong>$222,563</strong></td>
-                        <td class="uif-right-aligned"><strong>$222,563</strong></td>
-                        <td class="uif-right-aligned"><strong>$837,456</strong></td>
-                    </tr>
-                    <tr class="active">
-                        <td colspan="7"><a href="budget-ng-nonpersonnel.php"><strong>Non-personnel</strong></a></td>
-                    </tr>
-                    <tr class="">
-                        <td><a href="#"><span aria-hidden="true" class="icon-chevron-right"></span> Calculated Direct Costs</a></td>
-                        <td class=" uif-right-aligned">$38,546</td>
-                        <td class="uif-right-aligned">$38,546</td>
-                        <td class="uif-right-aligned">$38,546</td>
-                        <td class="uif-right-aligned">$38,546</td>
-                        <td class="uif-right-aligned">$38,546</td>
-                        <td class="uif-right-aligned">$219,348</td>
-                    </tr>
-                    <tr class="">
-                        <td>Nonpersonnel Subtotal</td>
-                        <td class=" uif-right-aligned"><strong>$38,546</strong></td>
-                        <td class="uif-right-aligned"><strong>$38,546</strong></td>
-                        <td class="uif-right-aligned"><strong>$38,546</strong></td>
-                        <td class="uif-right-aligned"><strong>$38,546</strong></td>
-                        <td class="uif-right-aligned"><strong>$38,546</strong></td>
-                        <td class="uif-right-aligned"><strong>$219,348</strong></td>
-                    </tr>
-                    <tr class="active">
-                        <td colspan="7"><strong>Totals</strong></td>
-                    </tr>
-                    <tr>
-                        <td>Total Direct Cost</td>
-                        <td class=" uif-right-aligned">$723,454</td>
-                        <td class="uif-right-aligned">$723,454</td>
-                        <td class="uif-right-aligned">$723,454</td>
-                        <td class="uif-right-aligned">$723,454</td>
-                        <td class="uif-right-aligned">$723,454</td>
-                        <td class="uif-right-aligned">$496,432</td>
-                    </tr>
-                    <tr>
-                        <td>Total F&amp;A Costs</td>
-                        <td class=" uif-right-aligned">$34,537</td>
-                        <td class="uif-right-aligned">$34,537</td>
-                        <td class="uif-right-aligned">$34,537</td>
-                        <td class="uif-right-aligned">$34,537</td>
-                        <td class="uif-right-aligned">$34,537</td>
-                        <td class="uif-right-aligned">$154,578</td>
-                    </tr>
-                    <!-- tr>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th class=" uif-center-aligned">P1 <span class="sr-only">Period 1</span></th>
+                            <th class="uif-center-aligned">P2 <span class="sr-only">Period 2</span></th>
+                            <th class="uif-center-aligned">P3 <span class="sr-only">Period 3</span></th>
+                            <th class="uif-center-aligned">P4 <span class="sr-only">Period 4</span></th>
+                            <th class="uif-center-aligned">P5 <span class="sr-only">Period 5</span></th>
+                            <th class="uif-center-aligned">Totals <span class="sr-only">Period totals</span></th>
+                        </tr>
+                        <tr class="active">
+                            <td colspan="7"><a href="budget-ng-personnelCosts-projPersonnel.php"><strong>Personnel</strong></a></td>
+                        </tr>
+                        <tr class="">
+                            <td><a href="#"> <span aria-hidden="true" class="icon-chevron-right"></span> Salary</a></td>
+                            <td class=" uif-right-aligned">$156,934</td>
+                            <td class="uif-right-aligned">$156,934</td>
+                            <td class="uif-right-aligned">$156,934</td>
+                            <td class="uif-right-aligned">$156,934</td>
+                            <td class="uif-right-aligned">$156,934</td>
+                            <td class="uif-right-aligned">$784,670</td>
+                        </tr>
+                        <tr class="">
+                            <td><a href="#"> <span aria-hidden="true" class="icon-chevron-right"></span> Fringe</a></td>
+                            <td class=" uif-right-aligned">$37,345</td>
+                            <td class="uif-right-aligned">$37,345</td>
+                            <td class="uif-right-aligned">$37,345</td>
+                            <td class="uif-right-aligned">$37,345</td>
+                            <td class="uif-right-aligned">$37,345</td>
+                            <td class="uif-right-aligned">$186,725</td>
+                        </tr>
+                        <tr class="">
+                            <td><a href="#"> <span aria-hidden="true" class="icon-chevron-right"></span> Calculated Direct Costs</a></td>
+                            <td class=" uif-right-aligned">$28,284</td>
+                            <td class="uif-right-aligned">$28,284</td>
+                            <td class="uif-right-aligned">$28,284</td>
+                            <td class="uif-right-aligned">$28,284</td>
+                            <td class="uif-right-aligned">$28,284</td>
+                            <td class="uif-right-aligned">$141,420</td>
+                        </tr>
+                        <tr class="">
+                            <td>Personnel Subtotal</td>
+                            <td class=" uif-right-aligned"><strong>$222,563</strong></td>
+                            <td class="uif-right-aligned"><strong>$222,563</strong></td>
+                            <td class="uif-right-aligned"><strong>$222,563</strong></td>
+                            <td class="uif-right-aligned"><strong>$222,563</strong></td>
+                            <td class="uif-right-aligned"><strong>$222,563</strong></td>
+                            <td class="uif-right-aligned"><strong>$837,456</strong></td>
+                        </tr>
+                        <tr class="active">
+                            <td colspan="7"><a href="budget-ng-nonpersonnel.php"><strong>Non-personnel</strong></a></td>
+                        </tr>
+                        <tr class="">
+                            <td><a href="#"><span aria-hidden="true" class="icon-chevron-right"></span> Calculated Direct Costs</a></td>
+                            <td class=" uif-right-aligned">$38,546</td>
+                            <td class="uif-right-aligned">$38,546</td>
+                            <td class="uif-right-aligned">$38,546</td>
+                            <td class="uif-right-aligned">$38,546</td>
+                            <td class="uif-right-aligned">$38,546</td>
+                            <td class="uif-right-aligned">$219,348</td>
+                        </tr>
+                        <tr class="">
+                            <td>Nonpersonnel Subtotal</td>
+                            <td class=" uif-right-aligned"><strong>$38,546</strong></td>
+                            <td class="uif-right-aligned"><strong>$38,546</strong></td>
+                            <td class="uif-right-aligned"><strong>$38,546</strong></td>
+                            <td class="uif-right-aligned"><strong>$38,546</strong></td>
+                            <td class="uif-right-aligned"><strong>$38,546</strong></td>
+                            <td class="uif-right-aligned"><strong>$219,348</strong></td>
+                        </tr>
+                        <tr class="active">
+                            <td colspan="7"><strong>Totals</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Total Direct Cost</td>
+                            <td class=" uif-right-aligned">$723,454</td>
+                            <td class="uif-right-aligned">$723,454</td>
+                            <td class="uif-right-aligned">$723,454</td>
+                            <td class="uif-right-aligned">$723,454</td>
+                            <td class="uif-right-aligned">$723,454</td>
+                            <td class="uif-right-aligned">$496,432</td>
+                        </tr>
+                        <tr>
+                            <td>Total F&amp;A Costs</td>
+                            <td class=" uif-right-aligned">$34,537</td>
+                            <td class="uif-right-aligned">$34,537</td>
+                            <td class="uif-right-aligned">$34,537</td>
+                            <td class="uif-right-aligned">$34,537</td>
+                            <td class="uif-right-aligned">$34,537</td>
+                            <td class="uif-right-aligned">$154,578</td>
+                        </tr>
+                        <!-- tr>
         <td colspan="5" >Totals</td>
       </tr> -->
-                    <tr class="active">
-                        <td>Total Costs</td>
-                        <td class=" uif-right-aligned"><strong>$238,546</strong></td>
-                        <td class="uif-right-aligned"><strong>$238,546</strong></td>
-                        <td class="uif-right-aligned"><strong>$238,546</strong></td>
-                        <td class="uif-right-aligned"><strong>$238,546</strong></td>
-                        <td class="uif-right-aligned"><strong>$238,546</strong></td>
-                        <td class="uif-right-aligned"><strong>$2,219,348</strong></td>
-                    </tr>
+                        <tr class="active">
+                            <td>Total Costs</td>
+                            <td class=" uif-right-aligned"><strong>$238,546</strong></td>
+                            <td class="uif-right-aligned"><strong>$238,546</strong></td>
+                            <td class="uif-right-aligned"><strong>$238,546</strong></td>
+                            <td class="uif-right-aligned"><strong>$238,546</strong></td>
+                            <td class="uif-right-aligned"><strong>$238,546</strong></td>
+                            <td class="uif-right-aligned"><strong>$2,219,348</strong></td>
+                        </tr>
                     </tbody>
                     <tfoot>
-                    <!-- // I noticed that the Budget Versions > Action> Budget Summary “white box” view shows the “generate periods” option – I don’t think that function should be an option on this “quick view” of the summary. -- ***//  tr>
+                        <!-- // I noticed that the Budget Versions > Action> Budget Summary “white box” view shows the “generate periods” option – I don’t think that function should be an option on this “quick view” of the summary. -- ***//  tr>
                         <td></td>
                         <td class="uif-center-aligned ">
                             <button class="btn btn-default btn-xs">Generate Periods <br> from Period 1</button>
