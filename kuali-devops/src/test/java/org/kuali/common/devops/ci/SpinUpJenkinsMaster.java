@@ -103,7 +103,6 @@ public class SpinUpJenkinsMaster {
 	// What should we go with for default root volume size, 256?)
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 256;
 
-
 	@Test
 	public void test() {
 		try {
@@ -124,8 +123,8 @@ public class SpinUpJenkinsMaster {
 			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
 			EC2Service service = getEC2Service(amazonAccount, jenkinsContext.getRegion());
-			// Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
-			Instance instance = service.getInstance("i-7799ea2b");
+			Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
+			// Instance instance = service.getInstance("i-7799ea2b");
 			info("public dns: %s", instance.getPublicDnsName());
 			updateDns(instance, jenkinsMaster);
 			String dns = instance.getPublicDnsName();
