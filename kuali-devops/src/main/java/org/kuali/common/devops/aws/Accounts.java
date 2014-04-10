@@ -8,10 +8,10 @@ import org.kuali.common.util.Assert;
 
 public enum Accounts {
 
-	FOUNDATION("foundation", "3627-3510-8948", "The Kuali Foundation Inc."), //
-	STUDENT("student", "0523-3819-3506", "Kuali Student"), //
-	RICE("rice", "7898-1396-8323", "Kuali Rice"), //
-	OLE("ole", "7867-4615-1229", "Kuali OLE"); //
+	FOUNDATION("foundation", "LT/L6vhenEvUms15oHjSTjiohLNdAOxk", "The Kuali Foundation Inc."), //
+	STUDENT("student", "SOnZSbgoOxeC7c0UhnzeEexICurcQm3M", "Kuali Student"), //
+	RICE("rice", "EOePxVxBqQJeoHakLYP7EmxUiWu8/2qq", "Kuali Rice"), //
+	OLE("ole", "pbqNKsLTtIdJer7k+8WAzpbQk8wsL6bH", "Kuali OLE"); //
 
 	private final AwsAccount account;
 

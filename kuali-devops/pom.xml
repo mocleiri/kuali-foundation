@@ -37,6 +37,7 @@
   <properties>
     <kuali-httpclient.version>1.0.0</kuali-httpclient.version>
     <kuali-dns.version>1.0.0</kuali-dns.version>
+    <kuali-core.version>1.0.1-SNAPSHOT</kuali-core.version>
     <kuali-aws.version>1.0.1</kuali-aws.version>
     <plugin.wagon.version>1.0.5</plugin.wagon.version>
 
