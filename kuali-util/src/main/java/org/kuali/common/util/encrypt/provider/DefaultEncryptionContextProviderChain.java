@@ -10,7 +10,7 @@ import org.kuali.common.util.encrypt.EncryptionContext;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
-public final class DefaultEncryptionContextProviderChain implements EncryptionContextProvider {
+public final class DefaultEncryptionContextProviderChain {
 
 	public DefaultEncryptionContextProviderChain(String passwordKey, String strengthKey) {
 		List<EncryptionContextProvider> providers = newArrayList();
@@ -34,22 +34,11 @@ public final class DefaultEncryptionContextProviderChain implements EncryptionCo
 		return providers;
 	}
 
-	public Optional<EncryptionContextProvider> getProvider() {
+	public Optional<ChainContext> getChainContext() {
 		for (EncryptionContextProvider provider : providers) {
 			Optional<EncryptionContext> context = provider.getEncryptionContext();
 			if (context.isPresent()) {
-				return Optional.of(provider);
-			}
-		}
-		return absent();
-	}
-
-	@Override
-	public Optional<EncryptionContext> getEncryptionContext() {
-		for (EncryptionContextProvider provider : providers) {
-			Optional<EncryptionContext> context = provider.getEncryptionContext();
-			if (context.isPresent()) {
-				return context;
+				return Optional.of(new ChainContext(context.get(), provider));
 			}
 		}
 		return absent();

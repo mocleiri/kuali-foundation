@@ -4,6 +4,7 @@ import static java.lang.String.format;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import org.kuali.common.util.encrypt.jasypt.DefaultJasyptEncryptor;
+import org.kuali.common.util.encrypt.provider.ChainContext;
 import org.kuali.common.util.encrypt.provider.DefaultEncryptionContextProviderChain;
 import org.slf4j.Logger;
 
@@ -21,12 +22,13 @@ public final class Encryption {
 
 	public synchronized static Encryptor buildDefaultEncryptor() {
 		if (encryptor == null) {
-			DefaultEncryptionContextProviderChain provider = new DefaultEncryptionContextProviderChain(ENCRYPTION_PASSWORD_KEY, ENCRYPTION_STRENGTH_KEY);
-			Optional<EncryptionContext> context = provider.getEncryptionContext();
-			if (context.isPresent()) {
-				String providerClassName = provider.getProvider().get().getClass().getSimpleName();
-				logger.info(format("encryption enabled - [class=%s, key=%s, strength=%s]", providerClassName, ENCRYPTION_PASSWORD_KEY, context.get().getStrength()));
-				encryptor = new DefaultJasyptEncryptor(context.get());
+			DefaultEncryptionContextProviderChain chain = new DefaultEncryptionContextProviderChain(ENCRYPTION_PASSWORD_KEY, ENCRYPTION_STRENGTH_KEY);
+			Optional<ChainContext> chainContext = chain.getChainContext();
+			if (chainContext.isPresent()) {
+				EncryptionContext context = chainContext.get().getContext();
+				String providerClassName = chainContext.get().getClass().getSimpleName();
+				logger.info(format("encryption enabled - [class=%s, key=%s, strength=%s]", providerClassName, ENCRYPTION_PASSWORD_KEY, context.getStrength()));
+				encryptor = new DefaultJasyptEncryptor(chainContext.get().getContext());
 			} else {
 				logger.info(format("encryption disabled - [%s] is not set", ENCRYPTION_PASSWORD_KEY));
 				encryptor = NoOpEncryptor.INSTANCE;
