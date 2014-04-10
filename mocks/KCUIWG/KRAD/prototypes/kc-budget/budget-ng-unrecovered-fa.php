@@ -1,12 +1,13 @@
 <?php
 $section = 'institute';
-$page = 'cost-sharing';
+$page = 'unrecovered';
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>Kuali :: Fluid Application Header</title>
+
 <!-- GLOBAL STYLES -->
 <?php include ('includes/styles.php') ?>
 	<style type="text/css">
@@ -96,7 +97,7 @@ $page = 'cost-sharing';
 			<header class="clearfix uif-header-contentWrapper">
 				<div id="u148pgf0" class="uif-pageHeader clearfix" data-header_for="LabsProposal-Page">
 					<h2 class="uif-headerText">
-						<span class="uif-headerText-span">Cost Sharing</span>
+						<span class="uif-headerText-span">Unrecovered F&amp;A </span>
 					</h2>
 				</div>
 			</header>
@@ -104,7 +105,7 @@ $page = 'cost-sharing';
 				Assign and distribute unallocated expenses to stakeholders, institutions, or other individuals. 
 			</p>
 			<br>
-			<section>
+			<section class="uif-boxLayoutVerticalItem clearfix">
 				<table class="edit-table table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby="Demo-LightTableGroup1_lightTable_info">
 					<thead>
 						<tr role="row">
@@ -127,10 +128,10 @@ $page = 'cost-sharing';
 						<tr class="not-deletable">
 							<td>2014</td>
 							<td>62.00</td>
-							<td>NO</td>
+							<td>No</td>
 							<td>Cost Sharing Type</td>
-							<td>0.00</td>
-							<td>0.00</td>
+							<td>25.00</td>
+							<td>25.00</td>
 							<td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
 						</tr>
 						<tr class="uif-new-row">
@@ -160,7 +161,7 @@ $page = 'cost-sharing';
 <!-- summary -->
 				<div class="well well-sm" style="margin-top:-1.4em;">
 					<h4>
-						Cost Sharing Summary
+						Unrecovered F&amp;A Summary
 					</h4>
 					<table class="data-row-table ">
 						<tr>
@@ -244,11 +245,11 @@ $page = 'cost-sharing';
 </form>
 
 <?php include ('includes/footer-scripts.php') ?>
-<!-- MODAL  budget summary -->
+<!-- MODAL budget summary -->
 <?php include ('includes/modal-budget-summary.php') ?>
 <!-- MODAL  budget settings  -->
 <?php include ('includes/modal-budget-settings.php') ?>
-<!-- MODAL  budget open propsal -->
+<!-- MODAL budget open propsal -->
 <?php include ('includes/modal-budget-open-prop.php') ?>
 <!-- MODAL BUDGET VERSIONS -->
 <?php include ('includes/modal-budget-versions.php') ?>
