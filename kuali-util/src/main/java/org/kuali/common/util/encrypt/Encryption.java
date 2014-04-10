@@ -5,7 +5,6 @@ import static org.kuali.common.util.log.Loggers.newLogger;
 
 import org.kuali.common.util.encrypt.jasypt.DefaultJasyptEncryptor;
 import org.kuali.common.util.encrypt.provider.DefaultEncryptionContextProviderChain;
-import org.kuali.common.util.encrypt.provider.EncryptionContextProvider;
 import org.slf4j.Logger;
 
 import com.google.common.base.Optional;
@@ -22,10 +21,10 @@ public final class Encryption {
 
 	public synchronized static Encryptor buildDefaultEncryptor() {
 		if (encryptor == null) {
-			EncryptionContextProvider provider = new DefaultEncryptionContextProviderChain(ENCRYPTION_PASSWORD_KEY, ENCRYPTION_STRENGTH_KEY);
+			DefaultEncryptionContextProviderChain provider = new DefaultEncryptionContextProviderChain(ENCRYPTION_PASSWORD_KEY, ENCRYPTION_STRENGTH_KEY);
 			Optional<EncryptionContext> context = provider.getEncryptionContext();
 			if (context.isPresent()) {
-				logger.info(format("encryption enabled [strength=%s]", context.get().getStrength()));
+				logger.info(format("encryption enabled - [%s] located in [%s] - strength=%s]", ENCRYPTION_PASSWORD_KEY, provider.getProvider().get(), context.get().getStrength()));
 				encryptor = new DefaultJasyptEncryptor(context.get());
 			} else {
 				logger.info(format("encryption disabled - [%s] is not set", ENCRYPTION_PASSWORD_KEY));

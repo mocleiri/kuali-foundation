@@ -34,6 +34,16 @@ public final class DefaultEncryptionContextProviderChain implements EncryptionCo
 		return providers;
 	}
 
+	public Optional<EncryptionContextProvider> getProvider() {
+		for (EncryptionContextProvider provider : providers) {
+			Optional<EncryptionContext> context = provider.getEncryptionContext();
+			if (context.isPresent()) {
+				return Optional.of(provider);
+			}
+		}
+		return absent();
+	}
+
 	@Override
 	public Optional<EncryptionContext> getEncryptionContext() {
 		for (EncryptionContextProvider provider : providers) {
