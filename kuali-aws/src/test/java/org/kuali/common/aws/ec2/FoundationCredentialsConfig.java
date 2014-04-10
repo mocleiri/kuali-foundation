@@ -50,7 +50,7 @@ public class FoundationCredentialsConfig implements AwsCredentialsConfig {
 	@Override
 	@Bean
 	public AWSCredentials awsCredentials() {
-		return new ImmutableAWSCredentials.Builder(awsCredentialsProvider()).build();
+		return ImmutableAWSCredentials.copyOf(awsCredentialsProvider().getCredentials());
 	}
 
 }
