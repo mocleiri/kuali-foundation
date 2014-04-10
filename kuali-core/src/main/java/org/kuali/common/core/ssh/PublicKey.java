@@ -25,11 +25,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public final class PublicKey {
 
 	private final String name;
-	private final String publicKey;
+	private final String content;
 
 	private PublicKey(Builder builder) {
 		this.name = builder.name;
-		this.publicKey = builder.publicKey;
+		this.content = builder.content;
 	}
 
 	public static Builder builder() {
@@ -39,15 +39,15 @@ public final class PublicKey {
 	public static class Builder extends ValidatingBuilder<PublicKey> {
 
 		private String name;
-		private String publicKey;
+		private String content;
 
 		public Builder withName(String name) {
 			this.name = name;
 			return this;
 		}
 
-		public Builder withPublicKey(String publicKey) {
-			this.publicKey = publicKey;
+		public Builder withContent(String content) {
+			this.content = content;
 			return this;
 		}
 
@@ -56,16 +56,20 @@ public final class PublicKey {
 			return validate(new PublicKey(this));
 		}
 
-		public String getPublicKey() {
-			return publicKey;
-		}
-
-		public void setPublicKey(String publicKey) {
-			this.publicKey = publicKey;
-		}
-
 		public String getName() {
 			return name;
+		}
+
+		public String getContent() {
+			return content;
+		}
+
+		public void setContent(String content) {
+			this.content = content;
+		}
+
+		public void setName(String name) {
+			this.name = name;
 		}
 	}
 
@@ -73,8 +77,8 @@ public final class PublicKey {
 		return name;
 	}
 
-	public String getPublicKey() {
-		return publicKey;
+	public String getContent() {
+		return content;
 	}
 
 }
