@@ -11,10 +11,10 @@ import com.google.common.base.Optional;
 
 public final class Encryption {
 
-	public static final String ENCRYPTION_PASSWORD_KEY = "enc.password";
+	public static final String ENCRYPTION_PASSWORD_KEY = "enc.pwd";
 	public static final String ENCRYPTION_STRENGTH_KEY = "enc.strength";
 
-	private static final String ENCRYPTION_PASSWORD_REMOVE_KEY = "enc.password.remove";
+	private static final String ENCRYPTION_PASSWORD_REMOVE_KEY = "enc.pwd.remove";
 	private static final Logger logger = newLogger();
 
 	private static Encryptor encryptor;
