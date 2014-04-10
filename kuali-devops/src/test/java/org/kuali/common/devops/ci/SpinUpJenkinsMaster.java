@@ -103,15 +103,17 @@ public class SpinUpJenkinsMaster {
 	// What should we go with for default root volume size, 256?)
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 256;
 
-	private static final Map<String, JenkinsContext> CONTEXTS = getJenkinsContexts(Tags.Name.MASTER);
 
 	@Test
 	public void test() {
 		try {
+			System.setProperty("ec2.stack", "test");
+			System.setProperty("ec2.region", "us-west-1");
 			VirtualSystem vs = VirtualSystem.create();
+			Map<String, JenkinsContext> contexts = getJenkinsContexts(Tags.Name.MASTER);
 			// Default to quiet mode unless they've supplied -Dec2.quiet=false
 			boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
-			JenkinsContext jenkinsContext = getJenkinsContext(vs, CONTEXTS);
+			JenkinsContext jenkinsContext = getJenkinsContext(vs, contexts);
 			String dnsPrefix = jenkinsContext.getDnsPrefix();
 			String jenkinsMaster = Joiner.on('.').join(dnsPrefix, DOMAIN);
 			List<Tag> tags = getMasterTags(jenkinsContext, jenkinsMaster);
@@ -122,8 +124,8 @@ public class SpinUpJenkinsMaster {
 			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
 			EC2Service service = getEC2Service(amazonAccount, jenkinsContext.getRegion());
-			Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
-			// Instance instance = service.getInstance("i-ab57a4a3");
+			// Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
+			Instance instance = service.getInstance("i-7799ea2b");
 			info("public dns: %s", instance.getPublicDnsName());
 			updateDns(instance, jenkinsMaster);
 			String dns = instance.getPublicDnsName();
@@ -182,7 +184,7 @@ public class SpinUpJenkinsMaster {
 	}
 
 	protected static JenkinsContext getJenkinsContext(VirtualSystem vs, Map<String, JenkinsContext> contexts) {
-		String usage = format("\n\nusage: -Dec2.stack=%s\n\n", Joiner.on('/').join(CONTEXTS.keySet()));
+		String usage = format("\n\nusage: -Dec2.stack=%s\n\n", Joiner.on('/').join(contexts.keySet()));
 		String jenkinsContextKey = vs.getProperties().getProperty("ec2.stack");
 		checkState(jenkinsContextKey != null, usage);
 		JenkinsContext jenkinsContext = contexts.get(jenkinsContextKey);
