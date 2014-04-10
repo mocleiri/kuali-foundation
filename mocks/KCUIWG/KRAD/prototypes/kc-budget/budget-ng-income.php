@@ -11,7 +11,6 @@ $section = '';
     <?php include ('includes/styles.php') ?>
     <style type="text/css">
 
-
         .data-row-table th{ padding:5px; text-align:right; }
     </style>
 </head>
@@ -91,12 +90,8 @@ $section = '';
         </div>
     </header>
     <p id="u1iaxrzf" class="uif-message uif-boxLayoutVerticalItem clearfix">Verify and adjust additional program income costs as necessary for this budget.</p>
-    <br>
-    <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent=Demo-Disclosure-Example1>
-        <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for=u1qq592w>
-            <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor="projectIncome" href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Project Income</span></a></h3>
-        </header>
-        <div id="projectIncome" data-role=disclosureContent data-open=true class="uif-disclosureContent"> <br>
+   
+    
             <table class="edit-table table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby=Demo-LightTableGroup1_lightTable_info>
                 <thead>
                 <tr role=row>
@@ -152,8 +147,7 @@ $section = '';
 
                 </table>
             </div>    <!--//summary  -->
-        </div>
-    </section>
+  
 </main>
 </div>
 <!-- VIEW FOOTER -->
