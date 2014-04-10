@@ -85,7 +85,7 @@
             <configuration>
               <archive>
                 <manifest>
-                  <mainClass>fully.qualified.MainClass</mainClass>
+                  <mainClass>org.kuali.common.util.encrypt.EncryptionMain</mainClass>
                 </manifest>
               </archive>
               <descriptorRefs>
