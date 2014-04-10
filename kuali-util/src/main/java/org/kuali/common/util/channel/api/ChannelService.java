@@ -19,6 +19,10 @@ import java.io.IOException;
 
 import org.kuali.common.util.channel.model.ChannelContext;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public interface ChannelService {
 
 	SecureChannel openChannel(ChannelContext context) throws IOException;

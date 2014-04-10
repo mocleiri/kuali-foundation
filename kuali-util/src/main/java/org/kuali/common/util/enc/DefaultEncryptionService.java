@@ -10,6 +10,10 @@ import org.kuali.common.util.PropertyUtils;
 
 import com.google.common.collect.Sets;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public final class DefaultEncryptionService implements EncryptionService {
 
 	private final TextEncryptor encryptor;

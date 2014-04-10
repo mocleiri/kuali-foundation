@@ -32,6 +32,10 @@ import org.kuali.common.util.Str;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class EncUtils {
 
 	private static final String MAGIC_PREFIX = "enc--"; // Handy for passing encrypted args via CLI. Parenthesis tend to confuse CLI shells

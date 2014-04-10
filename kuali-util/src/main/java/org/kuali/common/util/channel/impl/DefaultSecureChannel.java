@@ -67,6 +67,10 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public final class DefaultSecureChannel implements SecureChannel {
 
 	private static final Logger logger = newLogger();

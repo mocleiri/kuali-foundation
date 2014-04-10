@@ -19,7 +19,6 @@ import java.io.File;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.util.enc.EncUtils;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
@@ -59,16 +58,22 @@ public abstract class Assert extends org.springframework.util.Assert {
 
 	/**
 	 * Assert that <code>text</code> is encrypted
+	 * 
+	 * @deprecated
 	 */
+	@Deprecated
 	public static void encrypted(String text) {
-		isTrue(EncUtils.isEncrypted(text), "text must be encrypted");
+		isTrue(org.kuali.common.util.enc.EncUtils.isEncrypted(text), "text must be encrypted");
 	}
 
 	/**
 	 * Assert that <code>text</code> is not encrypted
+	 * 
+	 * @deprecated
 	 */
+	@Deprecated
 	public static void notEncrypted(String text) {
-		isFalse(EncUtils.isEncrypted(text), "text is already encrypted");
+		isFalse(org.kuali.common.util.enc.EncUtils.isEncrypted(text), "text is already encrypted");
 	}
 
 	/**

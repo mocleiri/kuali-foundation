@@ -4,9 +4,8 @@ import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
 import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.trimToNull;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.enc.EncStrength.DEFAULT_ENCRYPTION_STRENGTH;
-import static org.kuali.common.util.encrypt.Encryption.ENCRYPTION_PASSWORD_KEY;
-import static org.kuali.common.util.encrypt.Encryption.ENCRYPTION_STRENGTH_KEY;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import org.kuali.common.util.enc.EncStrength;
@@ -17,11 +16,18 @@ import com.google.common.base.Optional;
 
 public abstract class AbstractEncryptionContextProvider implements EncryptionContextProvider {
 
+	public AbstractEncryptionContextProvider(String encryptionPasswordKey, String encryptionStrengthKey) {
+		this.encryptionPasswordKey = checkNotBlank(encryptionPasswordKey, "encryptionPasswordKey");
+		this.encryptionStrengthKey = checkNotBlank(encryptionStrengthKey, "encryptionStrengthKey");
+	}
+
 	private static final Logger logger = newLogger();
+	private final String encryptionPasswordKey;
+	private final String encryptionStrengthKey;
 
 	@Override
 	public Optional<EncryptionContext> getEncryptionContext() {
-		Optional<String> password = getOptionalString(ENCRYPTION_PASSWORD_KEY);
+		Optional<String> password = getOptionalString(encryptionPasswordKey);
 		if (!password.isPresent()) {
 			return absent();
 		} else {
@@ -38,7 +44,7 @@ public abstract class AbstractEncryptionContextProvider implements EncryptionCon
 	protected abstract String getValueFromSource(String key);
 
 	protected EncStrength getEncryptionStrength() {
-		Optional<String> optional = getOptionalString(ENCRYPTION_STRENGTH_KEY);
+		Optional<String> optional = getOptionalString(encryptionStrengthKey);
 		if (optional.isPresent()) {
 			return EncStrength.valueOf(optional.get().toUpperCase());
 		} else {

@@ -2,6 +2,10 @@ package org.kuali.common.util.enc;
 
 import java.util.Properties;
 
+/**
+ * @deprecated 
+ */
+@Deprecated
 public interface EncryptionService {
 
 	/**

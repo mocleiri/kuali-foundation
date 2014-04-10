@@ -38,7 +38,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.enc.EncStrength;
-import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.properties.rice.RiceLoader;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
@@ -327,7 +326,7 @@ public class PropertyUtils {
 			String defaultStrength = EncStrength.BASIC.name();
 			String strength = getRequiredResolvedProperty(properties, "properties.enc.strength", defaultStrength);
 			EncStrength es = EncStrength.valueOf(strength);
-			TextEncryptor decryptor = EncUtils.getTextEncryptor(password, es);
+			TextEncryptor decryptor = org.kuali.common.util.enc.EncUtils.getTextEncryptor(password, es);
 			decrypt(properties, decryptor);
 		}
 	}
@@ -485,13 +484,16 @@ public class PropertyUtils {
 	 * <pre>
 	 * my.value = ENC(DGA$S24FaIO)
 	 * </pre>
+	 * 
+	 * @deprecated
 	 */
+	@Deprecated
 	public static List<String> getEncryptedKeys(Properties properties) {
 		List<String> all = getSortedKeys(properties);
 		List<String> encrypted = new ArrayList<String>();
 		for (String key : all) {
 			String value = properties.getProperty(key);
-			if (EncUtils.isEncrypted(value)) {
+			if (org.kuali.common.util.enc.EncUtils.isEncrypted(value)) {
 				encrypted.add(key);
 			}
 		}
@@ -504,12 +506,15 @@ public class PropertyUtils {
 	 * <pre>
 	 * my.value = ENC(DGA$S24FaIO)
 	 * </pre>
+	 * 
+	 * @deprecated
 	 */
+	@Deprecated
 	public static void decrypt(Properties properties, TextEncryptor encryptor, List<String> includes, List<String> excludes) {
 		List<String> keys = getSortedKeys(properties, includes, excludes);
 		for (String key : keys) {
 			String value = properties.getProperty(key);
-			if (EncUtils.isEncrypted(value)) {
+			if (org.kuali.common.util.enc.EncUtils.isEncrypted(value)) {
 				String decryptedValue = decryptPropertyValue(encryptor, value);
 				properties.setProperty(key, decryptedValue);
 			}
@@ -523,7 +528,7 @@ public class PropertyUtils {
 	 */
 	@Deprecated
 	public static boolean isEncryptedPropertyValue(String value) {
-		return EncUtils.isEncrypted(value);
+		return org.kuali.common.util.enc.EncUtils.isEncrypted(value);
 	}
 
 	/**

@@ -39,6 +39,10 @@ import com.google.common.base.Charsets;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public final class ChannelContext {
 
 	private final Optional<String> username;

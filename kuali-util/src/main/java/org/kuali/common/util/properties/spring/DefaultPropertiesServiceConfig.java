@@ -22,6 +22,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 @Configuration
 @Import({ SpringServiceConfig.class, AutowiredProjectConfig.class })
 public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
@@ -50,7 +54,7 @@ public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
 
 	private PropertyProcessor getPostProcessor(Properties overrides) {
 		EnvironmentService env = new BasicEnvironmentService(overrides);
-		EncContext context = EncContext.builder(env).removeSystemProperties(true).build();
+		EncContext context = EncContext.builder(env).removeSystemProperties(false).build();
 		PropertyProcessor override = new OverridingProcessor(overrides);
 		PropertyProcessor decrypt = new JasyptDecryptingProcessor(context.getTextEncryptor());
 		PropertyProcessor resolver = new ResolvingProcessor();

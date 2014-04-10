@@ -5,6 +5,10 @@ import org.kuali.common.util.channel.impl.DefaultChannelService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * @deprecated Use EncContext instead
+ */
+@Deprecated
 @Configuration
 public class DefaultSecureChannelServiceConfig implements SecureChannelConfig {
 

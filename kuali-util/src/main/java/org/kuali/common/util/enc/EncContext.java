@@ -14,6 +14,10 @@ import org.kuali.common.util.spring.env.EnvironmentService;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
+/**
+ * @deprecated Use EncContext instead
+ */
+@Deprecated
 public final class EncContext {
 
 	private final Optional<TextEncryptor> textEncryptor;

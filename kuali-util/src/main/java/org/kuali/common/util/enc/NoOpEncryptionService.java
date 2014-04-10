@@ -2,6 +2,10 @@ package org.kuali.common.util.enc;
 
 import java.util.Properties;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public final class NoOpEncryptionService implements EncryptionService {
 
 	public static final NoOpEncryptionService INSTANCE = new NoOpEncryptionService();

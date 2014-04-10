@@ -14,6 +14,10 @@ import org.springframework.context.annotation.Import;
 
 import com.google.common.base.Optional;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 @Configuration
 @Import({ SpringServiceConfig.class })
 public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
