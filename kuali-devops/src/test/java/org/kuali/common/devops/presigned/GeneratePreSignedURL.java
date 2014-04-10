@@ -5,6 +5,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Integer.toHexString;
 import static org.apache.commons.lang.StringUtils.leftPad;
 import static org.kuali.common.util.Encodings.UTF8;
+import static org.kuali.common.util.encrypt.Encryption.buildDefaultEncryptor;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.net.URL;
@@ -14,11 +15,12 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.junit.Test;
+import org.kuali.common.aws.model.ImmutableAWSCredentials;
+import org.kuali.common.util.encrypt.Encryptor;
 import org.slf4j.Logger;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.SigningAlgorithm;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
@@ -89,12 +91,14 @@ public class GeneratePreSignedURL {
 	}
 
 	private String getSecretKey() {
-		return enc.decrypt("uXNCzc6efcKz1zvp4t5Fj4wyR9oGw2GZ2VOB3SXZaoXaV1BA1Gao2d2vWXnjqUA1oKzg+0s9NAM=");
+		Encryptor enc = buildDefaultEncryptor();
+		return enc.decrypt("5wLZjsZuyGvsbIPPXUz0XVBUhJUbOkaeqx3rZ7l+9Nc5/4WaTyn4dvlWlyVfRlzO/GSfvkRaQ+A=");
 	}
 
 	private AWSCredentials getFoundationCreds(String secretKey) {
-		String accessKey = "AKIAJFD5IM7IPVVUEBNA";
-		return new BasicAWSCredentials(accessKey, secretKey);
+		Encryptor enc = buildDefaultEncryptor();
+		String accessKey = enc.decrypt("PmSynm07/94iRu9BQCXrfp+ieOEfC9CIyL+u/R84LU8=");
+		return new ImmutableAWSCredentials(accessKey, secretKey);
 	}
 
 	protected List<String> hex(byte[] bytes) {
