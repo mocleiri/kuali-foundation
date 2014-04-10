@@ -76,7 +76,7 @@ Thursday
 
 - Created extremely simple command line routines for using java to encrypt/decrypt text and files
 - Can now very easily encrypt/decrypt text and files using either bash or java from the command line
--- This will speed things up tremendously going forward, as there are numerous items that need to be able to be encrypted via either technique
+-- This will speed things up tremendously going forward, as there are numerous items that need to be able to be encrypted via both techniques
 
 - OLE - Troubleshooting with Peri on how to work in utf8mb4 instead of utf8
 -- He's using the replacer-maven-plugin to switch things out
