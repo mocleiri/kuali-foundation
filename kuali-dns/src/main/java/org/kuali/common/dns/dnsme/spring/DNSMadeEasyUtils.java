@@ -1,10 +1,11 @@
 package org.kuali.common.dns.dnsme.spring;
 
+import static org.kuali.common.util.encrypt.Encryption.buildDefaultEncryptor;
+import static org.kuali.common.util.nullify.NullUtils.trimToNull;
+
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
-import org.kuali.common.util.enc.EncUtils;
-import org.kuali.common.util.enc.EncryptionService;
-import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.encrypt.Encryptor;
 import org.kuali.common.util.spring.env.EnvironmentService;
 
 public class DNSMadeEasyUtils {
@@ -14,15 +15,12 @@ public class DNSMadeEasyUtils {
 	private static final String URL_KEY = "dnsme.url";
 	private static final String DOMAIN_KEY = "dnsme.domain";
 
-	public static DNSMadeEasyServiceContext getServiceContext(EnvironmentService env, EncryptionService enc, String restApiUrl, String domain,
-			DNSMadeEasyCredentials.Builder encrypted) {
-		String url = NullUtils.trimToNull(env.getString(URL_KEY, restApiUrl));
-		String domainName = NullUtils.trimToNull(env.getString(DOMAIN_KEY, domain));
-		String apiKey = NullUtils.trimToNull(env.getString(API_KEY, encrypted.getApiKey()));
-		String secretKey = NullUtils.trimToNull(env.getString(SECRET_KEY, encrypted.getSecretKey()));
-		if (EncUtils.isEncrypted(secretKey)) {
-			secretKey = enc.decrypt(secretKey);
-		}
+	public static DNSMadeEasyServiceContext getServiceContext(EnvironmentService env, String restApiUrl, String domain, DNSMadeEasyCredentials encrypted) {
+		Encryptor encryptor = buildDefaultEncryptor();
+		String url = trimToNull(env.getString(URL_KEY, restApiUrl));
+		String domainName = trimToNull(env.getString(DOMAIN_KEY, domain));
+		String apiKey = encryptor.decrypt(trimToNull(env.getString(API_KEY, encrypted.getApiKey())));
+		String secretKey = encryptor.decrypt(trimToNull(env.getString(SECRET_KEY, encrypted.getSecretKey())));
 		DNSMadeEasyCredentials credentials = DNSMadeEasyCredentials.builder().withApiKey(apiKey).withSecretKey(secretKey).build();
 		return new DNSMadeEasyServiceContext(credentials, url, domainName);
 	}

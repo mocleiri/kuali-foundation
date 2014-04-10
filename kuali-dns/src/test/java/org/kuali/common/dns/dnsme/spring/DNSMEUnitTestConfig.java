@@ -4,8 +4,6 @@ import org.kuali.common.dns.dnsme.URLS;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
 import org.kuali.common.dns.spring.DomainNameConfig;
-import org.kuali.common.util.enc.EncryptionService;
-import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
+@Import({ SpringServiceConfig.class })
 public class DNSMEUnitTestConfig implements DNSMEServiceContextConfig, DomainNameConfig {
 
 	private static final String DOMAIN_NAME_KEY = "dns.domain";
@@ -22,9 +20,6 @@ public class DNSMEUnitTestConfig implements DNSMEServiceContextConfig, DomainNam
 
 	@Autowired
 	EnvironmentService env;
-
-	@Autowired
-	EncryptionService enc;
 
 	@Override
 	@Bean
@@ -35,9 +30,9 @@ public class DNSMEUnitTestConfig implements DNSMEServiceContextConfig, DomainNam
 	@Override
 	@Bean
 	public DNSMadeEasyServiceContext dnsMadeEasyServiceContext() {
-		DNSMadeEasyCredentials.Builder credentials = Credentials.PRODUCTION.getCredentials();
+		DNSMadeEasyCredentials encrypted = EncryptedDNSMECredentials.PRODUCTION.getCredentials();
 		String restApiURL = URLS.PRODUCTION;
-		return DNSMadeEasyUtils.getServiceContext(env, enc, restApiURL, domainName(), credentials);
+		return DNSMadeEasyUtils.getServiceContext(env, restApiURL, domainName(), encrypted);
 	}
 
 }

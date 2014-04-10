@@ -6,12 +6,9 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 public final class DNSMadeEasyServiceContext {
 
 	public DNSMadeEasyServiceContext(DNSMadeEasyCredentials credentials, String restApiUrl, String domainName) {
-		checkNotNull(credentials, "credentials");
-		checkNotBlank(restApiUrl, "restApiUrl");
-		checkNotBlank(domainName, "domainName");
-		this.credentials = credentials;
-		this.restApiUrl = restApiUrl;
-		this.domainName = domainName;
+		this.credentials = checkNotNull(credentials, "credentials");
+		this.restApiUrl = checkNotBlank(restApiUrl, "restApiUrl");
+		this.domainName = checkNotBlank(domainName, "domainName");
 	}
 
 	private final DNSMadeEasyCredentials credentials;
