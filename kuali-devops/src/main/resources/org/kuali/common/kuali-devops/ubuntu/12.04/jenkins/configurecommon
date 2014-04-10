@@ -236,8 +236,8 @@ function touch_subversion_repo {
   SVN_TOUCH_URL="https://svn.kuali.org/repos/$SVN_REPO/sandbox/kuali-devops/temp/auth-check/touch"
   echo "touch     -> svn:$SVN_REPO - [$SVN_TOUCH_URL]"
 
-  SVN_USERNAME=jA0ECQMCQYBLITLWax6+0jwB1AMc6ScqOEaTDMDgz9qfAw0zs0hHYZPwQy+0P4S3cf6+P+OLintgD+phqHsdyTDFgGhBG5FezEMijtk=
-  SVN_PASSWORD=jA0ECQMC+5jv/nV6br2+0j0Bl1ajndmK1DG2vG4SGHRarAkXtsjsqMA8tYl5PZxvVbN8XiXz3PDzzrAd2QtIdoPdhe4GKfgEDG5ys5Cr
+  SVN_USERNAME=jA0ECQMCClQvecZGYw++0jwBZ5ul9bl5R1VkhFJsfvESUAR4mnSdScbnPTDNGYbffSdljGlJao02MnoxCIVyaHpqYzJ4lH3JxbqRoDc
+  SVN_PASSWORD=jA0ECQMC+5Djf7TwqeC+0j0B5zPpUg8CqKk+U19wSAAx85CGpzJe0ts76So1EsCLbay+A4bNEA6+LqjlcvZNEfabfI36KXOuorya3+kZ
   SVN_USERNAME=$(decrypt $SVN_USERNAME $GPG_PASSPHRASE)
   SVN_PASSWORD=$(decrypt $SVN_PASSWORD $GPG_PASSPHRASE)
   SVN_AUTH="--username=$SVN_USERNAME --password=$SVN_PASSWORD"
