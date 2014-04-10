@@ -22,7 +22,6 @@ import static org.kuali.common.util.ReflectionUtils.validateIsSuperType;
 import java.lang.reflect.Field;
 
 import org.kuali.common.core.validate.annotation.ValidType;
-import org.kuali.common.util.ReflectionUtils;
 
 import com.google.common.base.Optional;
 
@@ -69,7 +68,7 @@ public class ValidTypeValidator extends AbstractFieldsValidator<ValidType, Objec
 	protected boolean isSkip(Field field) {
 
 		// If this field does not descend from superType, we can skip checking it's type
-		if (!ReflectionUtils.isSuperType(superType, field.getType())) {
+		if (!isSuperType(superType, field.getType())) {
 			return true;
 		}
 
