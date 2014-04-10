@@ -85,5 +85,3 @@ Thursday
 - KC - troubleshooting with Travis on Maven setup
      - generated-sources vs generated-resources related to BIRT and XML beans
 
-
--   
