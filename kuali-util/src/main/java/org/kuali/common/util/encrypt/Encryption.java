@@ -27,7 +27,7 @@ public final class Encryption {
 			if (chainContext.isPresent()) {
 				EncryptionContext context = chainContext.get().getContext();
 				String providerClassName = chainContext.get().getProvider().getClass().getSimpleName();
-				logger.info(format("encryption enabled - [class=%s, key=%s, strength=%s]", providerClassName, ENCRYPTION_PASSWORD_KEY, context.getStrength()));
+				logger.info(format("encryption enabled - [%s, key=%s, strength=%s]", providerClassName, ENCRYPTION_PASSWORD_KEY, context.getStrength()));
 				encryptor = new DefaultJasyptEncryptor(chainContext.get().getContext());
 			} else {
 				logger.info(format("encryption disabled - [%s] is not set", ENCRYPTION_PASSWORD_KEY));
