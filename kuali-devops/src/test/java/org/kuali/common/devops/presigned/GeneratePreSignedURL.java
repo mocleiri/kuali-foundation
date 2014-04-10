@@ -13,10 +13,7 @@ import java.util.List;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.jasypt.util.text.TextEncryptor;
 import org.junit.Test;
-import org.kuali.common.devops.logic.Passwords;
-import org.kuali.common.util.enc.EncUtils;
 import org.slf4j.Logger;
 
 import com.amazonaws.AmazonClientException;
@@ -92,8 +89,6 @@ public class GeneratePreSignedURL {
 	}
 
 	private String getSecretKey() {
-		String password = Passwords.getEncPassword();
-		TextEncryptor enc = EncUtils.getTextEncryptor(password);
 		return enc.decrypt("uXNCzc6efcKz1zvp4t5Fj4wyR9oGw2GZ2VOB3SXZaoXaV1BA1Gao2d2vWXnjqUA1oKzg+0s9NAM=");
 	}
 

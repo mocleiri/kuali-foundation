@@ -2,6 +2,7 @@ package org.kuali.common.devops.logic;
 
 import static org.kuali.common.util.base.Exceptions.illegalArgument;
 import static org.kuali.common.util.enc.EncUtils.isEncrypted;
+import static org.kuali.common.util.encrypt.Encryption.buildDefaultEncryptor;
 
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.core.ssh.KeyPair;
@@ -9,6 +10,7 @@ import org.kuali.common.devops.aws.EncryptedAwsCredentials;
 import org.kuali.common.devops.dnsme.EncryptedDNSMECredentials;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
 import org.kuali.common.util.enc.EncUtils;
+import org.kuali.common.util.encrypt.Encryptor;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.google.common.base.Optional;
@@ -49,11 +51,10 @@ public class Auth {
 	}
 
 	public static DNSMadeEasyCredentials getDnsmeCredentials() {
-		String password = Passwords.getEncPassword();
-		TextEncryptor enc = EncUtils.getTextEncryptor(password);
-		String apiKey = EncryptedDNSMECredentials.PRODUCTION.getCredentials().getApiKey();
-		String secretKey = EncryptedDNSMECredentials.PRODUCTION.getCredentials().getSecretKey();
-		secretKey = enc.decrypt(EncUtils.unwrap(secretKey));
+		DNSMadeEasyCredentials creds = EncryptedDNSMECredentials.PRODUCTION.getCredentials();
+		Encryptor encryptor = buildDefaultEncryptor();
+		String apiKey = encryptor.decrypt(creds.getApiKey());
+		String secretKey = encryptor.decrypt(creds.getSecretKey());
 		return DNSMadeEasyCredentials.builder().withApiKey(apiKey).withSecretKey(secretKey).build();
 	}
 
@@ -64,6 +65,5 @@ public class Auth {
 			}
 		}
 	}
-
 
 }
