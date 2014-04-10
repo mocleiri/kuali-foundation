@@ -96,7 +96,7 @@ public class CreateBuildSlaveAMI {
 	public static final String startsWithToken = "ci.slave";
 	public static final Tag name = new ImmutableTag("Name", format("%s.%s-build-%s", startsWithToken, today, buildNumber));
 	private static final String amazonAccount = Constants.AMAZON_ACCOUNT;
-	public static final KeyPair KUALI_KEY = Auth.getKeyPair(amazonAccount);
+	public static final KeyPair KUALI_KEY = Auth.getKeyPair("devops");
 	private final int minimumAmisToKeep = 7;
 	private final Encryptor encryptor = buildDefaultEncryptor();
 	private final String kisPasswordEncrypted = "Sqjxyh1Mrxxw02zR4hAlgWPCg7HtwM2k";
