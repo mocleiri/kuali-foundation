@@ -55,7 +55,7 @@ public final class EncryptionMain {
 			if (arg.startsWith("--file")) {
 				List<String> tokens = Splitter.on('=').splitToList(arg);
 				checkState(tokens.size() == 2, "expected 2 tokens from [%s], but got %s instead", arg, tokens.size());
-				String filename = tokens.get(1);
+				String filename = tokens.get(1).replace("~", System.getProperty("user.home"));
 				return Optional.<File> of(new CanonicalFile(filename));
 			}
 		}
