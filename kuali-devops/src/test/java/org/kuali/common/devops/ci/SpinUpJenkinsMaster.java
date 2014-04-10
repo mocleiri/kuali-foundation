@@ -13,11 +13,11 @@ import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_MASTER;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getBasicLaunchRequest;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getEC2Service;
-import static org.kuali.common.devops.logic.Auth.getDnsmeCredentials;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
 import static org.kuali.common.dns.model.CNAMEContext.newCNAMEContext;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
 import static org.kuali.common.util.base.Exceptions.illegalArgument;
+import static org.kuali.common.util.encrypt.Encryption.buildDefaultEncryptor;
 import static org.kuali.common.util.log.LoggerLevel.INFO;
 import static org.kuali.common.util.log.LoggerLevel.WARN;
 import static org.kuali.common.util.maven.RepositoryUtils.getDefaultLocalRepository;
@@ -57,6 +57,7 @@ import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.CommandContext;
 import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.condition.Condition;
+import org.kuali.common.util.encrypt.Encryptor;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.Loggers;
 import org.kuali.common.util.maven.RepositoryUtils;
@@ -97,6 +98,7 @@ public class SpinUpJenkinsMaster {
 	private final String distroVersion = Constants.DISTRO_VERSION;
 	private static final String ROOT = Constants.ROOT;
 	private static final String UBUNTU = Constants.UBUNTU;
+	private final Encryptor encryptor = buildDefaultEncryptor();
 
 	// What should we go with for default root volume size, 256?)
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 256;
@@ -115,7 +117,7 @@ public class SpinUpJenkinsMaster {
 			List<Tag> tags = getMasterTags(jenkinsContext, jenkinsMaster);
 			info("jenkins -> [%s :: %s]", jenkinsContext.getStack().getTag().getValue(), jenkinsMaster);
 			KeyPair keyPair = CreateBuildSlaveAMI.KUALI_KEY;
-			String privateKey = keyPair.getPrivateKey().get();
+			String privateKey = keyPair.getPrivateKey();
 			BasicLaunchRequest request = getMasterLaunchRequest(jenkinsContext);
 			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
@@ -130,7 +132,7 @@ public class SpinUpJenkinsMaster {
 			bootstrap(dns, privateKey);
 			SecureChannel channel = openSecureChannel(ROOT, dns, privateKey, quiet);
 			String basedir = publishProject(channel, pid, ROOT, dns, quiet);
-			String gpgPassphrase = Auth.decrypt(gpgPassphraseEncrypted);
+			String gpgPassphrase = encryptor.decrypt(gpgPassphraseEncrypted);
 			String quietFlag = (quiet) ? "-q" : "";
 
 			// configure basics, java, and tomcat
@@ -307,7 +309,7 @@ public class SpinUpJenkinsMaster {
 	}
 
 	protected DnsService getDnsService() {
-		DNSMadeEasyServiceContext context = new DNSMadeEasyServiceContext(getDnsmeCredentials(), URLS.PRODUCTION, DOMAIN);
+		DNSMadeEasyServiceContext context = new DNSMadeEasyServiceContext(Auth.getDNSMECredentials(), URLS.PRODUCTION, DOMAIN);
 		return new DNSMadeEasyDnsService(context);
 	}
 
