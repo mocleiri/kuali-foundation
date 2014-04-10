@@ -20,24 +20,34 @@ public final class Encryption {
 
 	private static Encryptor encryptor;
 
-	public synchronized static Encryptor buildDefaultEncryptor() {
+	public synchronized static Encryptor buildDefaultEncryptor(boolean quiet) {
 		if (encryptor == null) {
 			DefaultEncryptionContextProviderChain chain = new DefaultEncryptionContextProviderChain(ENCRYPTION_PASSWORD_KEY, ENCRYPTION_STRENGTH_KEY);
 			Optional<ChainProviderContext> chainContext = chain.getChainContext();
 			if (chainContext.isPresent()) {
 				EncryptionContext context = chainContext.get().getContext();
 				String providerClassName = chainContext.get().getProvider().getClass().getSimpleName();
-				logger.info(format("encryption enabled - [%s, key=%s, strength=%s]", providerClassName, ENCRYPTION_PASSWORD_KEY, context.getStrength()));
+				if (!quiet) {
+					logger.info(format("encryption enabled - [%s, key=%s, strength=%s]", providerClassName, ENCRYPTION_PASSWORD_KEY, context.getStrength()));
+				}
 				encryptor = new DefaultJasyptEncryptor(context);
 			} else {
-				logger.info(format("encryption disabled - [%s] is not set", ENCRYPTION_PASSWORD_KEY));
+				if (!quiet) {
+					logger.info(format("encryption disabled - [%s] is not set", ENCRYPTION_PASSWORD_KEY));
+				}
 				encryptor = NoOpEncryptor.INSTANCE;
 			}
 			if (Boolean.getBoolean(ENCRYPTION_PASSWORD_REMOVE_KEY) && System.getProperty(ENCRYPTION_PASSWORD_KEY) != null) {
-				logger.info(format("removing system property [%s]", ENCRYPTION_PASSWORD_KEY));
+				if (!quiet) {
+					logger.info(format("removing system property [%s]", ENCRYPTION_PASSWORD_KEY));
+				}
 				System.getProperties().remove(ENCRYPTION_PASSWORD_KEY);
 			}
 		}
 		return encryptor;
+	}
+
+	public synchronized static Encryptor buildDefaultEncryptor() {
+		return buildDefaultEncryptor(false);
 	}
 }
