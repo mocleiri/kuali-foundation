@@ -3,7 +3,6 @@ package org.kuali.common.util.encrypt.provider;
 import static org.apache.commons.io.FileUtils.readFileToString;
 import static org.apache.commons.lang3.StringUtils.substringBetween;
 import static org.kuali.common.util.base.Exceptions.illegalState;
-import static org.kuali.common.util.encrypt.Encryption.ENCRYPTION_STRENGTH_KEY;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,8 +11,8 @@ public final class SimpleMavenEncryptionContextProvider extends AbstractEncrypti
 
 	private final File USER_SETTINGS = getSettingsFile();
 
-	public SimpleMavenEncryptionContextProvider(String encryptionPasswordKey) {
-		super(encryptionPasswordKey, ENCRYPTION_STRENGTH_KEY);
+	public SimpleMavenEncryptionContextProvider(String passwordKey, String strengthKey) {
+		super(passwordKey, strengthKey);
 	}
 
 	@Override

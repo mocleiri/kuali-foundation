@@ -1,7 +1,7 @@
 package org.kuali.common.util.encrypt.provider;
 
 import static com.google.common.base.Optional.absent;
-import static org.kuali.common.util.encrypt.Encryption.ENCRYPTION_PASSWORD_KEY;
+import static com.google.common.collect.Lists.newArrayList;
 
 import java.util.List;
 
@@ -12,13 +12,12 @@ import com.google.common.collect.ImmutableList;
 
 public final class DefaultEncryptionContextProviderChain implements EncryptionContextProvider {
 
-	public DefaultEncryptionContextProviderChain() {
-		this(ENCRYPTION_PASSWORD_KEY);
-	}
-
-	public DefaultEncryptionContextProviderChain(String encryptionPasswordKey) {
-		this(new SystemPropertiesEncryptionContextProvider(encryptionPasswordKey), new EnvironmentVariableEncryptionContextProvider(encryptionPasswordKey),
-				new SimpleMavenEncryptionContextProvider(encryptionPasswordKey));
+	public DefaultEncryptionContextProviderChain(String passwordKey, String strengthKey) {
+		List<EncryptionContextProvider> providers = newArrayList();
+		providers.add(new SystemPropertiesEncryptionContextProvider(passwordKey, strengthKey));
+		providers.add(new EnvironmentVariableEncryptionContextProvider(passwordKey, strengthKey));
+		providers.add(new SimpleMavenEncryptionContextProvider(passwordKey, strengthKey));
+		this.providers = ImmutableList.copyOf(providers);
 	}
 
 	public DefaultEncryptionContextProviderChain(EncryptionContextProvider... providers) {

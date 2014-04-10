@@ -1,12 +1,11 @@
 package org.kuali.common.util.encrypt.provider;
 
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
-import static org.kuali.common.util.encrypt.Encryption.ENCRYPTION_STRENGTH_KEY;
 
 public final class EnvironmentVariableEncryptionContextProvider extends AbstractEncryptionContextProvider {
 
-	public EnvironmentVariableEncryptionContextProvider(String encryptionPasswordKey) {
-		super(encryptionPasswordKey, ENCRYPTION_STRENGTH_KEY);
+	public EnvironmentVariableEncryptionContextProvider(String passwordKey, String strengthKey) {
+		super(passwordKey, strengthKey);
 	}
 
 	@Override

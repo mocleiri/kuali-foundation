@@ -5,14 +5,15 @@ import static org.kuali.common.util.log.Loggers.newLogger;
 
 import org.kuali.common.util.encrypt.jasypt.DefaultJasyptEncryptor;
 import org.kuali.common.util.encrypt.provider.DefaultEncryptionContextProviderChain;
+import org.kuali.common.util.encrypt.provider.EncryptionContextProvider;
 import org.slf4j.Logger;
 
 import com.google.common.base.Optional;
 
 public final class Encryption {
 
-	public static final String ENCRYPTION_PASSWORD_KEY = "enc.pwd";
-	public static final String ENCRYPTION_STRENGTH_KEY = "enc.strength";
+	private static final String ENCRYPTION_PASSWORD_KEY = "enc.pwd";
+	private static final String ENCRYPTION_STRENGTH_KEY = "enc.strength";
 
 	private static final String ENCRYPTION_PASSWORD_REMOVE_KEY = "enc.pwd.remove";
 	private static final Logger logger = newLogger();
@@ -21,7 +22,8 @@ public final class Encryption {
 
 	public synchronized static Encryptor buildDefaultEncryptor() {
 		if (encryptor == null) {
-			Optional<EncryptionContext> context = new DefaultEncryptionContextProviderChain(ENCRYPTION_PASSWORD_KEY).getEncryptionContext();
+			EncryptionContextProvider provider = new DefaultEncryptionContextProviderChain(ENCRYPTION_PASSWORD_KEY, ENCRYPTION_STRENGTH_KEY);
+			Optional<EncryptionContext> context = provider.getEncryptionContext();
 			if (context.isPresent()) {
 				logger.info(format("encryption enabled [strength=%s]", context.get().getStrength()));
 				encryptor = new DefaultJasyptEncryptor(context.get());
