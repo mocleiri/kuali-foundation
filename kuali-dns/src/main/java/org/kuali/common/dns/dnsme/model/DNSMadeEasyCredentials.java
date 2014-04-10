@@ -15,8 +15,10 @@
  */
 package org.kuali.common.dns.dnsme.model;
 
-import static org.kuali.common.util.base.Precondition.checkNotBlank;
+import org.kuali.common.core.build.ValidatingBuilder;
+import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
+@IdiotProofImmutable
 public final class DNSMadeEasyCredentials {
 
 	private final String apiKey;
@@ -31,7 +33,7 @@ public final class DNSMadeEasyCredentials {
 		return new Builder();
 	}
 
-	public static class Builder implements org.apache.commons.lang3.builder.Builder<DNSMadeEasyCredentials> {
+	public static class Builder extends ValidatingBuilder<DNSMadeEasyCredentials> {
 
 		private String apiKey;
 		private String secretKey;
@@ -48,14 +50,7 @@ public final class DNSMadeEasyCredentials {
 
 		@Override
 		public DNSMadeEasyCredentials build() {
-			DNSMadeEasyCredentials instance = new DNSMadeEasyCredentials(this);
-			validate(instance);
-			return instance;
-		}
-
-		private static void validate(DNSMadeEasyCredentials instance) {
-			checkNotBlank(instance.apiKey, "apiKey");
-			checkNotBlank(instance.secretKey, "secretKey");
+			return validate(new DNSMadeEasyCredentials(this));
 		}
 
 		public String getApiKey() {
