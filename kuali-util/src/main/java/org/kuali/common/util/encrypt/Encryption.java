@@ -4,7 +4,7 @@ import static java.lang.String.format;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import org.kuali.common.util.encrypt.jasypt.DefaultJasyptEncryptor;
-import org.kuali.common.util.encrypt.provider.ChainContext;
+import org.kuali.common.util.encrypt.provider.ChainProviderContext;
 import org.kuali.common.util.encrypt.provider.DefaultEncryptionContextProviderChain;
 import org.slf4j.Logger;
 
@@ -23,7 +23,7 @@ public final class Encryption {
 	public synchronized static Encryptor buildDefaultEncryptor() {
 		if (encryptor == null) {
 			DefaultEncryptionContextProviderChain chain = new DefaultEncryptionContextProviderChain(ENCRYPTION_PASSWORD_KEY, ENCRYPTION_STRENGTH_KEY);
-			Optional<ChainContext> chainContext = chain.getChainContext();
+			Optional<ChainProviderContext> chainContext = chain.getChainContext();
 			if (chainContext.isPresent()) {
 				EncryptionContext context = chainContext.get().getContext();
 				String providerClassName = chainContext.get().getProvider().getClass().getSimpleName();

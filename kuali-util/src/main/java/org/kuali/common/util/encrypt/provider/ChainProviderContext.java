@@ -4,9 +4,9 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import org.kuali.common.util.encrypt.EncryptionContext;
 
-public final class ChainContext {
+public final class ChainProviderContext {
 
-	public ChainContext(EncryptionContext context, EncryptionContextProvider provider) {
+	public ChainProviderContext(EncryptionContext context, EncryptionContextProvider provider) {
 		this.context = checkNotNull(context, "context");
 		this.provider = checkNotNull(provider, "provider");
 	}

@@ -34,11 +34,11 @@ public final class DefaultEncryptionContextProviderChain {
 		return providers;
 	}
 
-	public Optional<ChainContext> getChainContext() {
+	public Optional<ChainProviderContext> getChainContext() {
 		for (EncryptionContextProvider provider : providers) {
 			Optional<EncryptionContext> context = provider.getEncryptionContext();
 			if (context.isPresent()) {
-				return Optional.of(new ChainContext(context.get(), provider));
+				return Optional.of(new ChainProviderContext(context.get(), provider));
 			}
 		}
 		return absent();
