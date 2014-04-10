@@ -39,7 +39,7 @@
     <kuali-dns.version>1.0.1-SNAPSHOT</kuali-dns.version>
     <kuali-core.version>1.0.1-SNAPSHOT</kuali-core.version>
     <kuali-util.version>4.4.11-SNAPSHOT</kuali-util.version>
-    <kuali-aws.version>1.0.1</kuali-aws.version>
+    <kuali-aws.version>1.0.2-SNAPSHOT</kuali-aws.version>
     <plugin.wagon.version>1.0.5</plugin.wagon.version>
 
     <junit.version>4.11</junit.version>
