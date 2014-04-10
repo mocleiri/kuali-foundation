@@ -44,3 +44,12 @@ Tuesday
 
 -- Simulated disaster recovery by auto-migrating Kuali's new CI service back and forth between all 3 US regions (us-east-1, us-west-1, us-west-2)
 -- Takes ~17 minutes to fully migrate the service to another region complete with all jobs and build history
+
+Wednesday
+---------
+
+- 25% of the day (2 hours) spent in meetings 
+-- 1 hour for the KTI
+-- 1 hour for the ARC/TRC
+
+- 
