@@ -18,7 +18,7 @@ package org.kuali.common.aws.auth;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.aws.model.ImmutableCredentials;
+import org.kuali.common.aws.model.ImmutableAWSCredentials;
 import org.kuali.common.aws.model.ImmutableSessionCredentials;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.enc.EncUtils;
@@ -167,7 +167,7 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 			AWSSessionCredentials sessionCreds = (AWSSessionCredentials) creds;
 			return new ImmutableSessionCredentials(accessKey, secretKey, sessionCreds.getSessionToken());
 		} else {
-			return new ImmutableCredentials.Builder(accessKey, secretKey).build();
+			return new ImmutableAWSCredentials(accessKey, secretKey);
 		}
 	}
 

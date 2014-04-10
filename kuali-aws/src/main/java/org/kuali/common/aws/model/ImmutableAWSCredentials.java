@@ -17,27 +17,25 @@ package org.kuali.common.aws.model;
 
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
-import com.amazonaws.auth.AWSSessionCredentials;
+import com.amazonaws.auth.AWSCredentials;
 
-public final class ImmutableSessionCredentials implements AWSSessionCredentials {
+public final class ImmutableAWSCredentials implements AWSCredentials {
 
-	public ImmutableSessionCredentials copyOf(AWSSessionCredentials credentials) {
-		if (credentials instanceof ImmutableSessionCredentials) {
-			return (ImmutableSessionCredentials) credentials;
+	public static ImmutableAWSCredentials copyOf(AWSCredentials credentials) {
+		if (credentials instanceof ImmutableAWSCredentials) {
+			return (ImmutableAWSCredentials) credentials;
 		} else {
-			return new ImmutableSessionCredentials(credentials.getAWSAccessKeyId(), credentials.getAWSSecretKey(), credentials.getSessionToken());
+			return new ImmutableAWSCredentials(credentials.getAWSAccessKeyId(), credentials.getAWSSecretKey());
 		}
 	}
 
-	public ImmutableSessionCredentials(String accessKey, String secretKey, String sessionToken) {
+	public ImmutableAWSCredentials(String accessKey, String secretKey) {
 		this.accessKey = checkNotBlank(accessKey, "accessKey");
 		this.secretKey = checkNotBlank(secretKey, "secretKey");
-		this.sessionToken = checkNotBlank(sessionToken, "sessionToken");
 	}
 
 	private final String accessKey;
 	private final String secretKey;
-	private final String sessionToken;
 
 	@Override
 	public String getAWSAccessKeyId() {
@@ -47,11 +45,6 @@ public final class ImmutableSessionCredentials implements AWSSessionCredentials 
 	@Override
 	public String getAWSSecretKey() {
 		return secretKey;
-	}
-
-	@Override
-	public String getSessionToken() {
-		return sessionToken;
 	}
 
 }

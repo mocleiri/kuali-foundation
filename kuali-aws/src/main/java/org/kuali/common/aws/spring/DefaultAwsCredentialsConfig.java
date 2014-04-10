@@ -16,7 +16,7 @@
 package org.kuali.common.aws.spring;
 
 import org.kuali.common.aws.auth.DefaultProviderChain;
-import org.kuali.common.aws.model.ImmutableCredentials;
+import org.kuali.common.aws.model.ImmutableAWSCredentials;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -49,7 +49,7 @@ public class DefaultAwsCredentialsConfig implements AwsCredentialsConfig {
 	@Bean
 	public AWSCredentials awsCredentials() {
 		AWSCredentialsProvider provider = awsCredentialsProvider();
-		return new ImmutableCredentials.Builder(provider).build();
+		return ImmutableAWSCredentials.copyOf(provider.getCredentials());
 	}
 
 }

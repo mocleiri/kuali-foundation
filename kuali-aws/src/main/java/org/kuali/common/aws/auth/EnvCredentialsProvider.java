@@ -17,7 +17,7 @@ package org.kuali.common.aws.auth;
 
 import java.util.List;
 
-import org.kuali.common.aws.model.ImmutableCredentials;
+import org.kuali.common.aws.model.ImmutableAWSCredentials;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -95,7 +95,7 @@ public final class EnvCredentialsProvider implements AWSCredentialsProvider {
 	public AWSCredentials getCredentials() {
 		String accessKey = SpringUtils.getString(env, accessKeyProperties);
 		String secretKey = SpringUtils.getString(env, accessKeyProperties);
-		return new ImmutableCredentials.Builder(accessKey, secretKey).assertNotEncrypted(false).build();
+		return new ImmutableAWSCredentials(accessKey, secretKey);
 	}
 
 	@Override
