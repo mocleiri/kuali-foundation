@@ -19,17 +19,17 @@ import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 import com.amazonaws.auth.AWSCredentials;
 
-public enum Credentials implements AWSCredentials {
+public enum EncryptedAwsCredentials implements AWSCredentials {
 
-	FOUNDATION("AKIAJFD5IM7IPVVUEBNA", "enc--uXNCzc6efcKz1zvp4t5Fj4wyR9oGw2GZ2VOB3SXZaoXaV1BA1Gao2d2vWXnjqUA1oKzg+0s9NAM="), //
-	STUDENT("AKIAJZ72UQ5ZCVEDMAPQ", "enc--fXH7NKtbCDnn17aoTOPL707itdwlz6VKyHJaKCHAuBk//XGTyGef+2CeM89GqpIPZYk4ewKia2Y="), //
-	RICE("AKIAIZFPMJVCNOYYAZ2Q", "enc--iDHNEii2oWjbwqJMaaT4f5SKhiNHyhWhcd9NIHTPIByNJlUg72B4czVFeIf/rNYJvp/gFXQkTj0="), //
-	OLE("AKIAI453FI76LUZ7T7CA", "enc--2UP9ztdMy32DdN62ZMjD+K0jMYCrKkYzI2xies0asEU4cc7sWOF47a2CDu314ojHoSrz/CtFaAs=");
+	FOUNDATION("YbHpITe4Q2m8uIbISkgv7pzKDQRNHitmXq688vneT+E=", "Lq924d5rBEel47mOwFTUl429ADZPI9dgKU+WJF253PStruafXbofMAfWC+dGTjGXykyCFVcT0os="), //
+	STUDENT("1qX8qo6+OPWttFNuvrRN5bTUoxncnTeQr87hhE3UWUs=", "NERgtnAql47LomO7wa06+rU2AI3pbYSpOYZZDVdAXJP7vWtzki6jTB4Vys8pzmM4h/qAXXbgmqs="), //
+	RICE("gD0RPJ6Q4qnHVqvcy05gPTzgQyCfPrdEz9aivyh0tk8=", "n6ZFYgj1tbVkhPvvTD/QltvFicvag65OJSPdT1eOW3sKu4nBbfLHunyGRK1pFFJafuePnvSOUAA="), //
+	OLE("DsNWIZtKF7XRlgoM7D6H3ywghJw5y+yaz9zgEPsH4IY=", "regjgo+ZtWY187I0TFNFSNO0DsjU7qDzCWLcwIEWwsr2zijUW5imm4WxPSfB+c7lsep/Yf64cH4=");
 
 	private final String accessKey;
 	private final String secretKey;
 
-	private Credentials(String accessKey, String secretKey) {
+	private EncryptedAwsCredentials(String accessKey, String secretKey) {
 		this.accessKey = checkNotBlank(accessKey, "accessKey");
 		this.secretKey = checkNotBlank(secretKey, "secretKey");
 	}

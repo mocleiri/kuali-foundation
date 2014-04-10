@@ -15,7 +15,7 @@
  */
 package org.kuali.common.aws.ec2;
 
-import org.kuali.common.aws.Credentials;
+import org.kuali.common.aws.EncryptedAwsCredentials;
 import org.kuali.common.aws.auth.DefaultProviderChain;
 import org.kuali.common.aws.model.ImmutableCredentials;
 import org.kuali.common.aws.spring.AwsCredentialsConfig;
@@ -44,7 +44,7 @@ public class FoundationCredentialsConfig implements AwsCredentialsConfig {
 	@Override
 	@Bean
 	public AWSCredentialsProvider awsCredentialsProvider() {
-		return new DefaultProviderChain.Builder().enc(enc).env(env).credentials(Credentials.FOUNDATION).build();
+		return new DefaultProviderChain.Builder().enc(enc).env(env).credentials(EncryptedAwsCredentials.FOUNDATION).build();
 	}
 
 	@Override

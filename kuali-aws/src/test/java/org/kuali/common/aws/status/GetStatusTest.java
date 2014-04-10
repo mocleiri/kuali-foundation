@@ -28,7 +28,7 @@ import java.util.SortedSet;
 import org.apache.commons.io.FileUtils;
 import org.codehaus.plexus.util.StringUtils;
 import org.junit.Test;
-import org.kuali.common.aws.Credentials;
+import org.kuali.common.aws.EncryptedAwsCredentials;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
@@ -148,7 +148,7 @@ public class GetStatusTest {
 	}
 
 	protected String getProjectName(String accessKey) {
-		for (Credentials credentials : Credentials.values()) {
+		for (EncryptedAwsCredentials credentials : EncryptedAwsCredentials.values()) {
 			if (accessKey.equals(credentials.getAWSAccessKeyId())) {
 				return credentials.name().toLowerCase();
 			}

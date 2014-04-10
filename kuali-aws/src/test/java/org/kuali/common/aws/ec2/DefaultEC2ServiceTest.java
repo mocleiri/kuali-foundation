@@ -26,7 +26,7 @@ import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.kuali.common.aws.Credentials;
+import org.kuali.common.aws.EncryptedAwsCredentials;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.CreateAMIRequest;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
@@ -60,7 +60,7 @@ public class DefaultEC2ServiceTest {
 	public void testCopyAMI() {
 		try {
 			Stopwatch sw = createStarted();
-			AWSCredentials credentials = Auth.getCredentials(Credentials.FOUNDATION);
+			AWSCredentials credentials = Auth.getCredentials(EncryptedAwsCredentials.FOUNDATION);
 			AmazonEC2Client client = new AmazonEC2Client(credentials);
 			Region src = Region.getRegion(Regions.US_EAST_1);
 			String ami = "ami-7dada414";
@@ -105,13 +105,13 @@ public class DefaultEC2ServiceTest {
 	}
 
 	private static final DefaultEC2Service getUSWestService() {
-		AWSCredentials credentials = Auth.getCredentials(Credentials.FOUNDATION);
+		AWSCredentials credentials = Auth.getCredentials(EncryptedAwsCredentials.FOUNDATION);
 		EC2ServiceContext context = EC2ServiceContext.builder(credentials).withRegion(US_WEST_1.getName()).build();
 		return new DefaultEC2Service(context, new DefaultWaitService());
 	}
 
 	private static final DefaultEC2Service getEC2Service() {
-		AWSCredentials credentials = Auth.getCredentials(Credentials.FOUNDATION);
+		AWSCredentials credentials = Auth.getCredentials(EncryptedAwsCredentials.FOUNDATION);
 		EC2ServiceContext context = EC2ServiceContext.create(credentials);
 		return new DefaultEC2Service(context, new DefaultWaitService());
 	}

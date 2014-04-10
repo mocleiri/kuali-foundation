@@ -20,7 +20,7 @@ import static org.kuali.common.util.enc.EncUtils.isEncrypted;
 import java.util.List;
 
 import org.jasypt.util.text.TextEncryptor;
-import org.kuali.common.aws.Credentials;
+import org.kuali.common.aws.EncryptedAwsCredentials;
 import org.kuali.common.aws.KeyPairBuilders;
 import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.util.enc.EncUtils;
@@ -42,7 +42,7 @@ public class Auth {
 		return KeyPair.builder(builder.getName()).withPrivateKey(privateKey).withPublicKey(builder.getPublicKey()).build();
 	}
 
-	public static AWSCredentials getCredentials(Credentials credentials) {
+	public static AWSCredentials getCredentials(EncryptedAwsCredentials credentials) {
 		String password = Passwords.getEncPassword();
 		TextEncryptor enc = EncUtils.getTextEncryptor(password);
 		String accessKey = credentials.getAWSAccessKeyId();
@@ -57,7 +57,7 @@ public class Auth {
 		String password = Passwords.getEncPassword();
 		TextEncryptor enc = EncUtils.getTextEncryptor(password);
 		List<AWSCredentials> list = Lists.newArrayList();
-		for (AWSCredentials credentials : Credentials.values()) {
+		for (AWSCredentials credentials : EncryptedAwsCredentials.values()) {
 			String accessKey = credentials.getAWSAccessKeyId();
 			String secretKey = credentials.getAWSSecretKey();
 			if (EncUtils.isEncrypted(secretKey)) {
