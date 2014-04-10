@@ -83,5 +83,3 @@ Thursday
 -- Release kuali-cm
 -- Update the top level pom with the new version of kuali-cm
 -- Release the pom
-
- 
