@@ -69,7 +69,7 @@ Thursday
 
 - Pointed Eric W at the logs for demo.rice for Accunet troubleshooting
 - Corrected mis-perception that the engine behind the environments page is a lame ass PHP application (it's not only pure java all it needs is a GUI and it can be a real time application) 
-- Met with Larry on KS version numbering scheme
+- KS met with Larry on version numbering scheme
 -- Came up with multi-module version number concept for taking advantage of the meta information embedded inside the jars/wars
 
 - KS is disappointed with how WUSH / Subversion is interacting with EC2 and local checkouts
