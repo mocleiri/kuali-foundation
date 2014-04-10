@@ -29,8 +29,8 @@ import com.google.common.base.Optional;
 public final class KeyPair {
 
 	private final String name;
-	private final Optional<String> publicKey;
-	private final Optional<String> privateKey;
+	private final String publicKey;
+	private final String privateKey;
 	private final Optional<String> fingerprint;
 
 	private KeyPair(Builder builder) {
@@ -48,10 +48,8 @@ public final class KeyPair {
 
 		// Required
 		private final String name;
-
-		// Optional
-		private Optional<String> publicKey = absent();
-		private Optional<String> privateKey = absent();
+		private String publicKey;
+		private String privateKey;
 		private Optional<String> fingerprint = absent();
 
 		public Builder(String name) {
@@ -59,21 +57,11 @@ public final class KeyPair {
 		}
 
 		public Builder withPublicKey(String publicKey) {
-			return withPublicKey(Optional.of(publicKey));
-		}
-
-		@JsonSetter
-		public Builder withPublicKey(Optional<String> publicKey) {
 			this.publicKey = publicKey;
 			return this;
 		}
 
 		public Builder withPrivateKey(String privateKey) {
-			return withPrivateKey(Optional.of(privateKey));
-		}
-
-		@JsonSetter
-		public Builder withPrivateKey(Optional<String> privateKey) {
 			this.privateKey = privateKey;
 			return this;
 		}
@@ -93,19 +81,19 @@ public final class KeyPair {
 			return validate(new KeyPair(this));
 		}
 
-		public Optional<String> getPublicKey() {
+		public String getPublicKey() {
 			return publicKey;
 		}
 
-		public void setPublicKey(Optional<String> publicKey) {
+		public void setPublicKey(String publicKey) {
 			this.publicKey = publicKey;
 		}
 
-		public Optional<String> getPrivateKey() {
+		public String getPrivateKey() {
 			return privateKey;
 		}
 
-		public void setPrivateKey(Optional<String> privateKey) {
+		public void setPrivateKey(String privateKey) {
 			this.privateKey = privateKey;
 		}
 
@@ -126,11 +114,11 @@ public final class KeyPair {
 		return name;
 	}
 
-	public Optional<String> getPublicKey() {
+	public String getPublicKey() {
 		return publicKey;
 	}
 
-	public Optional<String> getPrivateKey() {
+	public String getPrivateKey() {
 		return privateKey;
 	}
 
