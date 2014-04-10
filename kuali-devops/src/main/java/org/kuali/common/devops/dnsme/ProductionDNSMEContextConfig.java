@@ -1,7 +1,6 @@
 package org.kuali.common.devops.dnsme;
 
 import org.kuali.common.dns.dnsme.URLS;
-import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
 import org.kuali.common.dns.dnsme.spring.DNSMEServiceContextConfig;
 import org.kuali.common.dns.dnsme.spring.DNSMadeEasyUtils;
@@ -31,9 +30,9 @@ public class ProductionDNSMEContextConfig implements DNSMEServiceContextConfig {
 	@Override
 	@Bean
 	public DNSMadeEasyServiceContext dnsMadeEasyServiceContext() {
-		DNSMadeEasyCredentials.Builder credentials = DNSMadeEasyCreds.PRODUCTION.getCredentials();
+		EncryptedDNSMECredentials encrypted = EncryptedDNSMECredentials.PRODUCTION.getCredentials();
 		String restApiURL = URLS.PRODUCTION;
-		return DNSMadeEasyUtils.getServiceContext(env, enc, restApiURL, config.domainName(), credentials);
+		return DNSMadeEasyUtils.getServiceContext(env, enc, restApiURL, config.domainName(), encrypted);
 	}
 
 }
