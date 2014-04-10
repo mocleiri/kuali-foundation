@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public final class SimpleMavenEncryptionContextProvider extends AbstractEncryptionContextProvider {
 
-	private final File USER_SETTINGS = getSettingsFile();
+	private static final File USER_SETTINGS = getSettingsFile();
 
 	public SimpleMavenEncryptionContextProvider(String passwordKey, String strengthKey) {
 		super(passwordKey, strengthKey);
