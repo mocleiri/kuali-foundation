@@ -16,6 +16,7 @@
 package org.kuali.common.core.validate;
 
 import static com.google.common.base.Optional.absent;
+import static org.kuali.common.util.ReflectionUtils.isSuperType;
 import static org.kuali.common.util.ReflectionUtils.validateIsSuperType;
 
 import java.lang.reflect.Field;
@@ -50,7 +51,7 @@ public class ValidTypeValidator extends AbstractFieldsValidator<ValidType, Objec
 		}
 
 		// Otherwise, make sure it descends from the correct type
-		if (ReflectionUtils.isSuperType(type, field.getType())) {
+		if (isSuperType(type, field.getType())) {
 			// If it does, we are good to go
 			return absent();
 		} else {
