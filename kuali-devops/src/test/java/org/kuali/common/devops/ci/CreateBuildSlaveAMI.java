@@ -29,6 +29,7 @@ import static org.kuali.common.util.FormatUtils.getTime;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
+import static org.kuali.common.util.encrypt.Encryption.buildDefaultEncryptor;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -51,6 +52,7 @@ import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.core.ssh.KeyPair;
+import org.kuali.common.core.ssh.PublicKey;
 import org.kuali.common.core.system.VirtualSystem;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.ci.model.BasicLaunchRequest;
@@ -59,6 +61,7 @@ import org.kuali.common.devops.ci.model.JenkinsContext;
 import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.channel.api.SecureChannel;
+import org.kuali.common.util.encrypt.Encryptor;
 import org.kuali.common.util.log.Loggers;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.kuali.common.util.wait.DefaultWaitService;
@@ -95,7 +98,8 @@ public class CreateBuildSlaveAMI {
 	private static final String amazonAccount = Constants.AMAZON_ACCOUNT;
 	public static final KeyPair KUALI_KEY = Auth.getKeyPair(amazonAccount);
 	private final int minimumAmisToKeep = 7;
-	private final String kisPasswordEncrypted = "lZ7Yxs1+9a9a5di5q1JuiVNnZiNjZN0F";
+	private final Encryptor encryptor = buildDefaultEncryptor();
+	private final String kisPasswordEncrypted = "Sqjxyh1Mrxxw02zR4hAlgWPCg7HtwM2k";
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 80;
 
 	private static final Map<String, JenkinsContext> CONTEXTS = SpinUpJenkinsMaster.getJenkinsContexts(Tags.Name.SLAVE);
@@ -115,7 +119,7 @@ public class CreateBuildSlaveAMI {
 		List<Tag> tags = getSlaveTags(jenkinsContext);
 		Instance instance = launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
 		// Instance instance = service.getInstance("i-39c83531");
-		String privateKey = KUALI_KEY.getPrivateKey().get();
+		String privateKey = KUALI_KEY.getPrivateKey();
 		configureInstance(service, instance, tags, pid, quiet, privateKey, jenkinsContext.getDnsPrefix(), getJenkinsMaster(jenkinsContext));
 
 		// Create a new AMI from this slave, and copy it around to every US region
@@ -143,7 +147,7 @@ public class CreateBuildSlaveAMI {
 		SecureChannel channel = SpinUpJenkinsMaster.openSecureChannel(ROOT, dns, privateKey, quiet);
 		String basedir = SpinUpJenkinsMaster.publishProject(channel, pid, ROOT, dns, quiet);
 
-		String gpgPassphrase = Auth.decrypt(GPG_PASSPHRASE_ENCRYPTED);
+		String gpgPassphrase = encryptor.decrypt(GPG_PASSPHRASE_ENCRYPTED);
 		String quietFlag = (quiet) ? "-q" : "";
 
 		setupEssentials(channel, basedir, pid, distro, distroVersion, gpgPassphrase, dnsPrefix, quietFlag);
@@ -206,7 +210,7 @@ public class CreateBuildSlaveAMI {
 
 	protected void updateMasterAMI(String jenkinsMaster, ProjectIdentifier pid, String privateKey, boolean quiet, String ami) throws IOException {
 		logger.info(format("updating %s with new AMI", jenkinsMaster));
-		String kisPassword = Auth.decrypt(kisPasswordEncrypted);
+		String kisPassword = encryptor.decrypt(kisPasswordEncrypted);
 		SecureChannel masterChannel = SpinUpJenkinsMaster.openSecureChannel(ROOT, jenkinsMaster, privateKey, quiet);
 		String basedir = SpinUpJenkinsMaster.publishProject(masterChannel, pid, ROOT, jenkinsMaster, quiet);
 		String rubyScript = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/update_jenkins_" + Constants.JENKINS_VERSION + "_ami_headless.rb");
@@ -342,7 +346,8 @@ public class CreateBuildSlaveAMI {
 	protected static Instance launchAndWait(EC2Service service, BasicLaunchRequest blr, List<KualiSecurityGroup> securityGroups, List<Tag> tags, String regionName) {
 		logger.info(format("launch instance -> %s %s %s %sgb", regionName, blr.getAmi(), blr.getType().toString(), blr.getRootVolume().getSizeInGigabytes().get()));
 		List<BlockDeviceMapping> additionalMappings = ImmutableBlockDeviceMapping.DEFAULT_INSTANCE_STORES;
-		LaunchInstanceContext context = LaunchInstanceContext.builder(blr.getAmi(), KUALI_KEY).withTimeoutMillis(blr.getTimeoutMillis()).withType(blr.getType())
+		PublicKey publicKey = PublicKey.builder().withName(KUALI_KEY.getName()).withContent(KUALI_KEY.getPublicKey()).build();
+		LaunchInstanceContext context = LaunchInstanceContext.builder(blr.getAmi(), publicKey).withTimeoutMillis(blr.getTimeoutMillis()).withType(blr.getType())
 				.withRootVolume(blr.getRootVolume()).withSecurityGroups(securityGroups).withTags(tags).withAdditionalMappings(additionalMappings).build();
 		return service.launchInstance(context);
 	}
