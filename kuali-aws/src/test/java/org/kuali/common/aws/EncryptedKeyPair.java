@@ -1,0 +1,37 @@
+/**
+ * Copyright 2004-2014 The Kuali Foundation
+ *
+ * Licensed under the Educational Community License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.opensource.org/licenses/ecl2.php
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.kuali.common.aws;
+
+import org.kuali.common.core.ssh.KeyPair;
+
+public enum EncryptedKeyPair {
+
+	DEVOPS(
+			"kuali-devops",
+			"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");
+
+	private final KeyPair keyPair;
+
+	private EncryptedKeyPair(String name, String publicKey, String privateKey) {
+		this.keyPair = KeyPair.builder(name).withPublicKey(publicKey).withPrivateKey(privateKey).build();
+	}
+
+	public KeyPair getKeyPair() {
+		return keyPair;
+	}
+
+}

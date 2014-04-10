@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.aws.EncryptedAwsCredentials;
-import org.kuali.common.aws.KeyPairBuilders;
+import org.kuali.common.aws.EncryptedKeyPair;
 import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.util.enc.EncUtils;
 
@@ -31,7 +31,7 @@ import com.google.common.collect.Lists;
 
 public class Auth {
 
-	public static KeyPair getKeyPair(KeyPairBuilders kpb) {
+	public static KeyPair getKeyPair(EncryptedKeyPair kpb) {
 		String password = Passwords.getEncPassword();
 		TextEncryptor enc = EncUtils.getTextEncryptor(password);
 		KeyPair.Builder builder = kpb.getBuilder();
