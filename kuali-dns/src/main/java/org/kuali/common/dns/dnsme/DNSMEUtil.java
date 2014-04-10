@@ -15,6 +15,8 @@
  */
 package org.kuali.common.dns.dnsme;
 
+import static java.lang.System.currentTimeMillis;
+
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.text.SimpleDateFormat;
@@ -104,7 +106,7 @@ public class DNSMEUtil {
 		 * 
 		 * It would have been much better of them to accept timestamps that are within 5 minutes (plus OR minus) of their internal clocks.
 		 */
-		long millis = System.currentTimeMillis() - ONE_MINUTE_DELAY;
+		long millis = currentTimeMillis() - ONE_MINUTE_DELAY;
 		String requestDate = getHTTPDate(new Date(millis));
 		String hash = getHash(account.getSecretKey(), requestDate);
 		List<Header> headers = new ArrayList<Header>();
