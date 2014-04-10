@@ -15,9 +15,7 @@
  */
 package org.kuali.common.dns.dnsme.model;
 
-import static com.google.common.base.Preconditions.checkArgument;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
-import static org.kuali.common.util.enc.EncUtils.isEncrypted;
 
 public final class DNSMadeEasyCredentials {
 
@@ -58,7 +56,6 @@ public final class DNSMadeEasyCredentials {
 		private static void validate(DNSMadeEasyCredentials instance) {
 			checkNotBlank(instance.apiKey, "apiKey");
 			checkNotBlank(instance.secretKey, "secretKey");
-			checkArgument(!isEncrypted(instance.secretKey), "secretKey cannot be encrypted");
 		}
 
 		public String getApiKey() {
