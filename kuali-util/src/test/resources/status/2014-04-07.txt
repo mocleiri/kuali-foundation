@@ -76,5 +76,7 @@ Thursday
 - KS is disappointed with how WUSH / Subversion is interacting with EC2 and local checkouts
 
 - Created extremely simple command line routines for using java to encrypt/decrypt text and files
+- Can now very easily encrypt/decrypt text and files using either bash or java from the command line
+-- This will speed things up tremendously going forward, as there are numerous items that need to be able to be encrypted via either technique
 
 -   
