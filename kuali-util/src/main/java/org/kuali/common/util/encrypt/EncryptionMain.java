@@ -1,15 +1,18 @@
 package org.kuali.common.util.encrypt;
 
 import static com.google.common.base.Optional.absent;
+import static com.google.common.base.Preconditions.checkState;
 import static org.apache.commons.io.FileUtils.readFileToString;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.kuali.common.util.file.CanonicalFile;
 
 import com.google.common.base.Optional;
+import com.google.common.base.Splitter;
 
 public final class EncryptionMain {
 
@@ -49,7 +52,10 @@ public final class EncryptionMain {
 	private static Optional<File> getFile(String[] args) {
 		for (String arg : args) {
 			if (arg.equals("-f") || arg.equals("--file")) {
-				return Optional.<File> of(new CanonicalFile(arg));
+				List<String> tokens = Splitter.on('=').splitToList(arg);
+				checkState(tokens.size() == 2, "expected 2 tokens from [%s], but got %s instead", arg, tokens.size());
+				String filename = tokens.get(1);
+				return Optional.<File> of(new CanonicalFile(filename));
 			}
 		}
 		return absent();
