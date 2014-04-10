@@ -21,7 +21,6 @@ import java.util.List;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
-import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringUtils;
@@ -38,10 +37,10 @@ import com.google.common.collect.ImmutableList;
 public class LaunchUtils {
 
 	// private static final String AMI_KEY = "ec2.ami";
-	private static final String KEY_NAME_KEY = "ec2.keyName";
-	private static final String KEY_FINGERPRINT_KEY = "ec2.keyFingerprint";
-	private static final String PUBLIC_KEY_KEY = "ec2.publicKey";
-	private static final String PRIVATE_KEY_KEY = "ec2.privateKey";
+	// private static final String KEY_NAME_KEY = "ec2.keyName";
+	// private static final String KEY_FINGERPRINT_KEY = "ec2.keyFingerprint";
+	// private static final String PUBLIC_KEY_KEY = "ec2.publicKey";
+	// private static final String PRIVATE_KEY_KEY = "ec2.privateKey";
 	private static final String TYPE_KEY = "ec2.type";
 	// TODO Be smarter about allowing overrides for security groups / permissions
 	// private static final String SECURITY_GROUPS_KEY = "ec2.securityGroups";
@@ -57,17 +56,6 @@ public class LaunchUtils {
 	// private static final KeyPair NOKEYPAIR = new KeyPair.Builder(NullUtils.NONE).build();
 
 	// private static final LaunchInstanceContext NOCONTEXT = new LaunchInstanceContext.Builder(NullUtils.NONE, NOKEYPAIR).build();
-
-	/**
-	 * Get a key pair based on the values from <code>provided</code> unless overridden by values from the environment.
-	 */
-	public static KeyPair getKeyPair(EnvironmentService env, KeyPair provided) {
-		String name = NullUtils.trimToNull(env.getString(KEY_NAME_KEY, provided.getName()));
-		Optional<String> publicKey = SpringUtils.getString(env, PUBLIC_KEY_KEY, provided.getPublicKey());
-		Optional<String> privateKey = SpringUtils.getString(env, PRIVATE_KEY_KEY, provided.getPrivateKey());
-		Optional<String> fingerprint = SpringUtils.getString(env, KEY_FINGERPRINT_KEY, provided.getFingerprint());
-		return new KeyPair.Builder(name).withPublicKey(publicKey.orNull()).withPrivateKey(privateKey.orNull()).withFingerprint(fingerprint.orNull()).build();
-	}
 
 	protected static AmazonEC2Client newAmazonEC2Client(EC2ServiceContext context) {
 		if (context.getConfiguration().isPresent()) {

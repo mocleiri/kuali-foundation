@@ -19,10 +19,7 @@ import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Stopwatch.createStarted;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
-import static org.kuali.common.aws.ec2.model.ImmutableBlockDeviceMapping.INSTANCE_STORE_0;
-import static org.kuali.common.aws.ec2.model.ImmutableBlockDeviceMapping.INSTANCE_STORE_1;
 import static org.kuali.common.aws.ec2.model.Regions.US_WEST_1;
-import static org.kuali.common.aws.ec2.model.security.NamedPermissions.ALLOW_SSH_FROM_ANYWHERE;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.util.List;
@@ -30,17 +27,13 @@ import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.aws.Credentials;
-import org.kuali.common.aws.KeyPairBuilders;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.CreateAMIRequest;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.ImmutableBlockDeviceMapping;
 import org.kuali.common.aws.ec2.model.ImmutableTag;
-import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
-import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.status.Auth;
-import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.slf4j.Logger;
@@ -55,11 +48,8 @@ import com.amazonaws.services.ec2.model.CopyImageResult;
 import com.amazonaws.services.ec2.model.EbsBlockDevice;
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Instance;
-import com.amazonaws.services.ec2.model.InstanceType;
-import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Optional;
 import com.google.common.base.Stopwatch;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 public class DefaultEC2ServiceTest {
@@ -84,24 +74,6 @@ public class DefaultEC2ServiceTest {
 			String resultAmi = result.getImageId();
 			logger.info(format("copied [%s] from %s to %s as [%s] - %s", ami, src, dst, resultAmi, FormatUtils.getTime(sw)));
 		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Test
-	@Ignore
-	public void testLaunchWithSSD() {
-		try {
-			DefaultEC2Service service = getUSWestService();
-			KeyPair keyPair = Auth.getKeyPair(KeyPairBuilders.FOUNDATION);
-			List<Tag> tags = ImmutableList.<Tag> of(new ImmutableTag("Name", String.format("ci.slave.ssd.%s", currentTimeMillis() / (1000 * 60))));
-			List<BlockDeviceMapping> additionalMappings = ImmutableList.<BlockDeviceMapping> of(INSTANCE_STORE_0, INSTANCE_STORE_1);
-			InstanceType type = InstanceType.C3Xlarge;
-			KualiSecurityGroup ksg = KualiSecurityGroup.builder("ci").addPermission(ALLOW_SSH_FROM_ANYWHERE.getPermission()).build();
-			LaunchInstanceContext context = LaunchInstanceContext.builder("ami-709ba735", keyPair).withSecurityGroup(ksg).withType(type).withAdditionalMappings(additionalMappings)
-					.withTags(tags).build();
-			service.launchInstance(context);
-		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}

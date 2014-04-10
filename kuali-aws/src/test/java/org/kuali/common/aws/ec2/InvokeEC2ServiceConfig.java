@@ -15,25 +15,14 @@
  */
 package org.kuali.common.aws.ec2;
 
-import java.util.List;
-
-import org.kuali.common.aws.KeyPairBuilders;
 import org.kuali.common.aws.ec2.api.EC2Service;
-import org.kuali.common.aws.ec2.model.AMI;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
-import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
-import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.spring.AwsServiceConfig;
-import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-
-import com.amazonaws.services.ec2.model.Tag;
-import com.google.common.collect.ImmutableList;
 
 @Configuration
 @Import({ AwsServiceConfig.class, SpringServiceConfig.class, FoundationCredentialsConfig.class })
@@ -47,27 +36,5 @@ public class InvokeEC2ServiceConfig {
 
 	@Autowired
 	EnvironmentService env;
-
-	@Bean
-	public Object invokeEC2Service() {
-		String publicKey = KeyPairBuilders.DEVOPS.getBuilder().build().getPublicKey().get();
-		KeyPair keyPair = new KeyPair.Builder("kuali-devops").withPublicKey(publicKey).build();
-		List<KualiSecurityGroup> groups = getSecurityGroups();
-		String ami = AMI.AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09.getId();
-		List<Tag> tags = ImmutableList.of(new Tag("Name", "ci.testing"));
-		LaunchInstanceContext context = new LaunchInstanceContext.Builder(ami, keyPair).withSecurityGroups(groups).withTags(tags).build();
-		service.launchInstance(context);
-		return null;
-	}
-
-	protected List<KualiSecurityGroup> getSecurityGroups() {
-		throw new UnsupportedOperationException("fix me!");
-		/*
-		KualiSecurityGroup ci = NamedSecurityGroup.CI.getGroup();
-		KualiSecurityGroup master = SecurityGroups.CI_MASTER.getGroup();
-		// KualiSecurityGroup slave = SecurityGroups.CI_BUILD_SLAVE.getGroup();
-		return ImmutableList.of(ci, master);
-		*/
-	}
 
 }

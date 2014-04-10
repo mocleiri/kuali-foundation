@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.core.build.ValidatingBuilder;
-import org.kuali.common.core.ssh.KeyPair;
+import org.kuali.common.core.ssh.PublicKey;
 import org.kuali.common.util.FormatUtils;
 
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
@@ -38,7 +38,7 @@ public final class LaunchInstanceContext {
 	// To launch an instance the only part of the KeyPair object that is *required* is the key name
 	// If you supply the name only (ie no public key), you must have already registered a key pair with Amazon under that name
 	// If you supply both the name and the public key, the launch routine automatically registers a key pair with Amazon
-	private final KeyPair keyPair;
+	private final PublicKey publicKey;
 	private final InstanceType type;
 	private final ImmutableList<KualiSecurityGroup> securityGroups;
 
@@ -58,7 +58,7 @@ public final class LaunchInstanceContext {
 
 	private LaunchInstanceContext(Builder builder) {
 		this.ami = builder.ami;
-		this.keyPair = builder.keyPair;
+		this.publicKey = builder.publicKey;
 		this.type = builder.type;
 		this.securityGroups = ImmutableList.copyOf(builder.securityGroups);
 		this.overrideExistingSecurityGroupPermissions = builder.overrideExistingSecurityGroupPermissions;
@@ -72,15 +72,15 @@ public final class LaunchInstanceContext {
 		this.additionalMappings = ImmutableBlockDeviceMapping.copyOf(builder.additionalMappings);
 	}
 
-	public static Builder builder(String ami, KeyPair keyPair) {
-		return new Builder(ami, keyPair);
+	public static Builder builder(String ami, PublicKey publicKey) {
+		return new Builder(ami, publicKey);
 	}
 
 	public static class Builder extends ValidatingBuilder<LaunchInstanceContext> {
 
 		// Required
 		private final String ami;
-		private final KeyPair keyPair;
+		private final PublicKey publicKey;
 
 		// Optional
 		private InstanceType type = InstanceType.M3Medium;
@@ -95,9 +95,9 @@ public final class LaunchInstanceContext {
 		private Optional<RootVolume> rootVolume = absent();
 		private List<BlockDeviceMapping> additionalMappings = newArrayList();
 
-		public Builder(String ami, KeyPair keyPair) {
+		public Builder(String ami, PublicKey publicKey) {
 			this.ami = ami;
-			this.keyPair = keyPair;
+			this.publicKey = publicKey;
 		}
 
 		public Builder withType(InstanceType type) {
@@ -252,8 +252,8 @@ public final class LaunchInstanceContext {
 			return ami;
 		}
 
-		public KeyPair getKeyPair() {
-			return keyPair;
+		public PublicKey getPublicKey() {
+			return publicKey;
 		}
 	}
 
@@ -261,8 +261,8 @@ public final class LaunchInstanceContext {
 		return ami;
 	}
 
-	public KeyPair getKeyPair() {
-		return keyPair;
+	public PublicKey getPublicKey() {
+		return publicKey;
 	}
 
 	public InstanceType getType() {

@@ -55,7 +55,7 @@ import org.kuali.common.aws.ec2.model.security.SetPermissionsResult;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusValue;
 import org.kuali.common.aws.ec2.util.LaunchUtils;
-import org.kuali.common.core.ssh.KeyPair;
+import org.kuali.common.core.ssh.PublicKey;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
@@ -695,13 +695,10 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	protected Instance issueRunInstanceRequest(LaunchInstanceContext context) {
-		KeyPair keyPair = context.getKeyPair();
-		if (!isExistingKey(keyPair.getName())) {
-			Optional<String> publicKey = keyPair.getPublicKey();
-			String name = keyPair.getName();
-			checkState(publicKey.isPresent(), "Unable to setup server authentication.  Key [%s] does not exist and no public key was supplied.", name);
-			logger.info("Importing key [{}]", keyPair.getName());
-			importKey(keyPair.getName(), keyPair.getPublicKey().get());
+		PublicKey publicKey = context.getPublicKey();
+		if (!isExistingKey(publicKey.getName())) {
+			logger.info("Importing key [{}]", publicKey.getName());
+			importKey(publicKey.getName(), publicKey.getContent());
 		}
 
 		List<String> securityGroupNames = getSecurityGroupNames();
@@ -769,7 +766,7 @@ public final class DefaultEC2Service implements EC2Service {
 		rir.setMaxCount(1);
 		rir.setMinCount(1);
 		rir.setImageId(context.getAmi());
-		rir.setKeyName(context.getKeyPair().getName());
+		rir.setKeyName(context.getPublicKey().getName());
 		rir.setSecurityGroups(getNames(context.getSecurityGroups()));
 		rir.setInstanceType(context.getType());
 		rir.setDisableApiTermination(context.isPreventTermination());
