@@ -65,6 +65,7 @@
     <javax.el-api.version>${javax.el.version}</javax.el-api.version>
     <metainf-services.version>1.5</metainf-services.version>
     <jsr305.version>2.0.3</jsr305.version>
+    <slf4j-log4j12.scope>provided</slf4j-log4j12.scope>
   </properties>
   <profiles>
     <profile>
@@ -78,8 +79,34 @@
     </profile>
     <profile>
       <id>enc</id>
+      <properties>
+        <slf4j-log4j12.scope>compile</slf4j-log4j12.scope>
+      </properties>
       <build>
         <plugins>
+          <plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>copy-resources</id>
+                <phase>process-resources</phase>
+                <goals>
+                  <goal>copy-resources</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>${project.basedir}/target/classes</outputDirectory>
+                  <resources>
+                    <resource>
+                      <directory>src/test/resources</directory>
+                      <includes>
+                        <include>log4j.xml</include>
+                      </includes>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
           <plugin>
             <artifactId>maven-assembly-plugin</artifactId>
             <configuration>
@@ -233,7 +260,7 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
       <version>${slf4j.version}</version>
-      <scope>provided</scope>
+      <scope>${slf4j-log4j12.scope}</scope>
     </dependency>
     <!-- Only required until this bug is fixed -> https://java.net/jira/browse/JAXB-415 -->
     <!-- The JAXB reference implementation shipped with the JDK blows up if an adapter adapts a non-null bound value to null -->
