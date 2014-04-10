@@ -100,6 +100,7 @@ public class CreateBuildSlaveAMI {
 	private final int minimumAmisToKeep = 7;
 	private final Encryptor encryptor = buildDefaultEncryptor();
 	private final String kisPasswordEncrypted = "Sqjxyh1Mrxxw02zR4hAlgWPCg7HtwM2k";
+	private final String kisUsernameEncrypted = "juxljv8wTGmqvCsTAcUifg==";
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 80;
 
 	private static final Map<String, JenkinsContext> CONTEXTS = SpinUpJenkinsMaster.getJenkinsContexts(Tags.Name.SLAVE);
@@ -211,12 +212,13 @@ public class CreateBuildSlaveAMI {
 	protected void updateMasterAMI(String jenkinsMaster, ProjectIdentifier pid, String privateKey, boolean quiet, String ami) throws IOException {
 		logger.info(format("updating %s with new AMI", jenkinsMaster));
 		String kisPassword = encryptor.decrypt(kisPasswordEncrypted);
+		String kisUsername = encryptor.decrypt(kisUsernameEncrypted);
 		SecureChannel masterChannel = SpinUpJenkinsMaster.openSecureChannel(ROOT, jenkinsMaster, privateKey, quiet);
 		String basedir = SpinUpJenkinsMaster.publishProject(masterChannel, pid, ROOT, jenkinsMaster, quiet);
 		String rubyScript = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/update_jenkins_" + Constants.JENKINS_VERSION + "_ami_headless.rb");
 		SpinUpJenkinsMaster.verifySSH(ROOT, jenkinsMaster, privateKey);
 		SecureChannel channel = SpinUpJenkinsMaster.openSecureChannel(ROOT, jenkinsMaster, privateKey, quiet);
-		SpinUpJenkinsMaster.exec(channel, "ruby", rubyScript, "jcaddel", kisPassword, ami, jenkinsMaster);
+		SpinUpJenkinsMaster.exec(channel, "ruby", rubyScript, kisUsername, kisPassword, ami, jenkinsMaster);
 	}
 
 	protected static void setupEssentials(SecureChannel channel, String basedir, ProjectIdentifier pid, Distro distro, String distroVersion, String gpgPassphrase,
