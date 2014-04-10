@@ -15,57 +15,44 @@
  */
 package org.kuali.common.aws.status;
 
-import static org.kuali.common.util.enc.EncUtils.isEncrypted;
+import static com.google.common.collect.Lists.newArrayList;
 
 import java.util.List;
 
-import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.aws.EncryptedAwsCredentials;
 import org.kuali.common.aws.EncryptedKeyPair;
 import org.kuali.common.core.ssh.KeyPair;
-import org.kuali.common.util.enc.EncUtils;
+import org.kuali.common.util.encrypt.Encryption;
+import org.kuali.common.util.encrypt.Encryptor;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.google.common.collect.Lists;
 
 public class Auth {
 
-	public static KeyPair getKeyPair(EncryptedKeyPair kpb) {
-		String password = Passwords.getEncPassword();
-		TextEncryptor enc = EncUtils.getTextEncryptor(password);
-		KeyPair.Builder builder = kpb.getBuilder();
-		String privateKey = builder.getPrivateKey().get();
-		if (isEncrypted(privateKey)) {
-			privateKey = enc.decrypt(EncUtils.unwrap(privateKey));
-		}
-		return KeyPair.builder(builder.getName()).withPrivateKey(privateKey).withPublicKey(builder.getPublicKey()).build();
+	public static KeyPair getKeyPair(EncryptedKeyPair encrypted) {
+		Encryptor encryptor = Encryption.buildDefaultEncryptor();
+		KeyPair keyPair = encrypted.getKeyPair();
+		String publicKey = encryptor.decrypt(keyPair.getPublicKey());
+		String privateKey = encryptor.decrypt(keyPair.getPrivateKey());
+		return KeyPair.builder(keyPair.getName()).withPublicKey(publicKey).withPrivateKey(privateKey).build();
 	}
 
-	public static AWSCredentials getCredentials(EncryptedAwsCredentials credentials) {
-		String password = Passwords.getEncPassword();
-		TextEncryptor enc = EncUtils.getTextEncryptor(password);
-		String accessKey = credentials.getAWSAccessKeyId();
-		String secretKey = credentials.getAWSSecretKey();
-		if (EncUtils.isEncrypted(secretKey)) {
-			secretKey = enc.decrypt(EncUtils.unwrap(secretKey));
-		}
+	public static AWSCredentials getCredentials(EncryptedAwsCredentials encrypted) {
+		Encryptor encryptor = Encryption.buildDefaultEncryptor();
+		String accessKey = encryptor.decrypt(encrypted.getAWSAccessKeyId());
+		String secretKey = encryptor.decrypt(encrypted.getAWSSecretKey());
 		return new BasicAWSCredentials(accessKey, secretKey);
 	}
 
 	public static List<AWSCredentials> getCredentials() {
-		String password = Passwords.getEncPassword();
-		TextEncryptor enc = EncUtils.getTextEncryptor(password);
-		List<AWSCredentials> list = Lists.newArrayList();
-		for (AWSCredentials credentials : EncryptedAwsCredentials.values()) {
-			String accessKey = credentials.getAWSAccessKeyId();
-			String secretKey = credentials.getAWSSecretKey();
-			if (EncUtils.isEncrypted(secretKey)) {
-				secretKey = enc.decrypt(EncUtils.unwrap(secretKey));
-			}
-			list.add(new BasicAWSCredentials(accessKey, secretKey));
+		List<AWSCredentials> list = newArrayList();
+		for (EncryptedAwsCredentials credentials : EncryptedAwsCredentials.values()) {
+			AWSCredentials decrypted = getCredentials(credentials);
+			list.add(decrypted);
 		}
 		return list;
+
 	}
 
 }
