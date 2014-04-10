@@ -4,6 +4,7 @@ import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Preconditions.checkState;
 import static org.apache.commons.io.FileUtils.readFileToString;
 import static org.kuali.common.util.base.Exceptions.illegalState;
+import static org.kuali.common.util.encrypt.Encryption.buildDefaultEncryptor;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,10 +30,10 @@ public final class EncryptionMain {
 		}
 		String text = getText(args);
 		if (encrypt) {
-			System.out.println(Encryption.buildDefaultEncryptor().encrypt(text));
+			System.out.println(buildDefaultEncryptor().encrypt(text));
 		}
 		if (decrypt) {
-			System.out.println(Encryption.buildDefaultEncryptor().decrypt(text));
+			System.out.println(buildDefaultEncryptor().decrypt(text));
 		}
 	}
 
@@ -51,7 +52,7 @@ public final class EncryptionMain {
 
 	private static Optional<File> getFile(String[] args) {
 		for (String arg : args) {
-			if (arg.equals("-f") || arg.equals("--file")) {
+			if (arg.startsWith("--file")) {
 				List<String> tokens = Splitter.on('=').splitToList(arg);
 				checkState(tokens.size() == 2, "expected 2 tokens from [%s], but got %s instead", arg, tokens.size());
 				String filename = tokens.get(1);
