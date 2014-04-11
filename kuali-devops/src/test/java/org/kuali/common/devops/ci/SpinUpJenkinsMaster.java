@@ -123,8 +123,8 @@ public class SpinUpJenkinsMaster {
 			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
 			EC2Service service = getEC2Service(amazonAccount, jenkinsContext.getRegion());
-			Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
-			// Instance instance = service.getInstance("i-7799ea2b");
+			// Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
+			Instance instance = service.getInstance("i-9c89fac0");
 			info("public dns: %s", instance.getPublicDnsName());
 			updateDns(instance, jenkinsMaster);
 			String dns = instance.getPublicDnsName();
@@ -228,9 +228,8 @@ public class SpinUpJenkinsMaster {
 		info("scp:to   -> %s", to);
 		channel.scp(jar, remoteJar);
 		info("unpack   -> %s to %s", remoteJar.getAbsolutePath(), remotePublishDir);
-		execFormattedCommand(channel, quiet, "apt-get install unzip -y");
 		execFormattedCommand(channel, quiet, "rm -rf %s", remotePublishDir);
-		execFormattedCommand(channel, quiet, "unzip -o %s -d %s", remoteJar.getAbsolutePath(), remotePublishDir);
+		execFormattedCommand(channel, quiet, "tar --extract --verbose --file %s --directory %s", remoteJar.getAbsolutePath(), remotePublishDir);
 		execFormattedCommand(channel, quiet, "chmod -R 755 %s", remotePublishDir);
 		return remotePublishDir;
 	}
