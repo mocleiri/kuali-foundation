@@ -17,7 +17,7 @@
 
 function download {
 
-  usage() { echo "Usage: download [-c \$HOME/cookies.txt] [-u username] [-p password] url filename" 1>&2; exit; }
+  download_usage() { echo "Usage: download [-c \$HOME/cookies.txt] [-u username] [-p password] url filename" 1>&2; exit; }
 
   local COOKIES=""
   local USERNAME=""
@@ -69,8 +69,6 @@ function download {
 # return a non-zero error code if the download fails (ie 404 etc)
 # optionally use basic authentication
 function download_url {
-
-  usage() { echo "Usage: download_url url filename username password" 1>&2; exit 1; }
 
   CURL_URL=$1
   CURL_FILENAME=$2
