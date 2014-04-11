@@ -120,6 +120,7 @@ function configure_tomcat {
 
   TOMCAT_LOGS=/var/lib/$TOMCAT/logs
   TOMCAT_WEBAPPS=/var/lib/$TOMCAT/webapps
+  TOMCAT_RESOURCES=$TOMCAT_WEBAPPS/resources
   TOMCAT_BIN=/usr/share/$TOMCAT/bin
   TOMCAT_CLEANUP=$TOMCAT_BIN/cleanup.sh
   USR_BIN_CLEANUP=/usr/bin/cleanup.sh
@@ -130,6 +131,7 @@ function configure_tomcat {
   chmod 755 $TOMCAT_BIN/cleanup.sh
   rm -f $USR_BIN_CLEANUP
   ln -s $TOMCAT_CLEANUP $USR_BIN_CLEANUP
+  rm -rf $TOMCAT_RESOURCES; mkdir -p $TOMCAT_RESOURCES
 
   # Setup the tomcat user with a normal /home directory and enable su
   echo "configure -> $TOMCAT:user"
