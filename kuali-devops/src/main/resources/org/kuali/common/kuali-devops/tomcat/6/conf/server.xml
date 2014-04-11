@@ -35,9 +35,7 @@
     <Engine name="Catalina" defaultHost="localhost">
       <Host name="localhost" appBase="webapps" unpackWARs="true" autoDeploy="true">
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="${catalina.base}/logs" prefix="access_log" fileDateFormat="yyyy-MM-dd.HH" suffix=".log" pattern="%t %H cookie:%{SESSIONID}c request:%{SESSIONID}r %m %U %s %q %r %a %T" />
-        <Context docBase="${catalina.base}" path="/tomcat" allowLinking="true" />
-        <Context docBase="${user.home}" path="/tomcat/home" allowLinking="true" />
-        <Context docBase="/" path="/tomcat/browse" allowLinking="true" />
+        <Context docBase="${catalina.base}/logs" path="/tomcat/logs" allowLinking="true" />
       </Host>
     </Engine>
   </Service>
