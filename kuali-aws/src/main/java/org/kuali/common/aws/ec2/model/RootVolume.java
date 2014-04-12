@@ -72,13 +72,12 @@ public final class RootVolume {
 
 		@Override
 		public RootVolume build() {
-			RootVolume instance = validate(new RootVolume(this));
-			validateInstance(instance);
-			return instance;
+			return validateInstance(validate(new RootVolume(this)));
 		}
 
-		private static void validateInstance(RootVolume instance) {
+		private static RootVolume validateInstance(RootVolume instance) {
 			checkMin(instance.getSizeInGigabytes(), 1, "sizeInGigabytes");
+			return instance;
 		}
 	}
 
