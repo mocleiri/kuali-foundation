@@ -108,10 +108,12 @@ function install_plugins {
 
   install_plugin credentials           1.10
   install_plugin cucumber-reports      0.0.23 
+  install_plugin cvs                   2.11 
   install_plugin dashboard-view        2.9.2
   install_plugin depgraph-view         0.11
   install_plugin ec2                   1.21
   install_plugin email-ext             2.37.2.2
+  install_plugin external-monitor-job  1.2
   install_plugin git                   2.2.0
   install_plugin git-client            1.8.0
   install_plugin greenballs            1.14
@@ -126,13 +128,16 @@ function install_plugins {
   install_plugin next-build-number     1.1
   install_plugin node-iterator-api     1.2
   install_plugin parameterized-trigger 2.24
+  install_plugin pam-auth              1.1
   install_plugin scm-api               0.2
   install_plugin ssh-credentials       1.6.1
+  install_plugin ssh-slaves            1.6
   # version 1.54 instead of the 2.x line because 2.2 reports -1 for the revision number on KS svn:externals
   # version 1.54 reports the correct revision number
   install_plugin subversion            2.2
-  install_plugin token-macro           1.10
   install_plugin template-project      1.4.1
+  install_plugin token-macro           1.10
+  install_plugin translation           1.11
 
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME  
   
