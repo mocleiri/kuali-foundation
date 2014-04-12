@@ -166,11 +166,17 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] version" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] [-t US/Eastern] version" 1>&2; exit 1; }
 
 QUIET=false
+JENKINS_TIMEZONE=US/Eastern
+
 while getopts hq flag; do
   case $flag in
+    t)
+      JENKINS_TIMEZONE="$OPTARG";
+      shift;
+      ;;
     h)
       usage;
       ;;
@@ -198,7 +204,6 @@ fi
 TOMCAT=tomcat7
 TOMCAT_HOME=/home/$TOMCAT
 JENKINS_HOME=$TOMCAT_HOME/.jenkins
-JENKINS_TIMEZONE=US/Eastern
 TOMCAT_OPT_FILE=/etc/default/$TOMCAT
 
 echo "stop      -> $TOMCAT:service"
