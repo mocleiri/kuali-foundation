@@ -5,7 +5,6 @@ import static javax.crypto.Cipher.DECRYPT_MODE;
 import static javax.crypto.Cipher.ENCRYPT_MODE;
 import static org.kuali.common.util.Encodings.UTF8;
 import static org.kuali.common.util.HexUtils.getBytesFromHexString;
-import static org.kuali.common.util.HexUtils.toHexString;
 import static org.kuali.common.util.HexUtils.toHexStringLower;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.log.Loggers.newLogger;
@@ -43,7 +42,7 @@ public class AESTest {
 		try {
 			String plaintext = "hello world";
 			String password = "password";
-			String salt = toHexString(getSalt(saltLength)).toLowerCase();
+			String salt = toHexStringLower(getSalt(saltLength));
 			String key = toHexStringLower(getSecretKey(password, salt).getEncoded());
 
 			EncryptionResult result = encrypt(plaintext, password, salt);
@@ -97,7 +96,7 @@ public class AESTest {
 			AlgorithmParameters params = cipher.getParameters();
 			byte[] iv = params.getParameterSpec(IvParameterSpec.class).getIV();
 			byte[] ciphertext = cipher.doFinal(plaintext.getBytes(UTF8));
-			return new EncryptionResult(Base64.encode(ciphertext).replace("\n", "").replace("\r", ""), toHexString(iv).toLowerCase());
+			return new EncryptionResult(Base64.encode(ciphertext).replace("\n", "").replace("\r", ""), toHexStringLower(iv));
 		} catch (Exception e) {
 			throw illegalState(e);
 		}
