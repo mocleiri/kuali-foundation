@@ -14,6 +14,6 @@ public final class Constants {
 	public static final String DISTRO_VERSION = "12.04";
 	public static final String ROOT = "root";
 	public static final String UBUNTU = "ubuntu";
-	public static final String JENKINS_VERSION = "1.532.2";
+	public static final String JENKINS_VERSION = "1.532.3";
 
 }
