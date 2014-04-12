@@ -45,10 +45,12 @@ public class AES2Test {
 	@Test
 	public void test() {
 		try {
+
 			String plaintext = "hello world";
 			String password = "password";
 
 			String encrypted = encrypt(plaintext, password);
+			info("encrypted=%s", encrypted);
 			String decrypted = decrypt(encrypted, password);
 			BasicTextEncryptor encryptor = new BasicTextEncryptor();
 			encryptor.setPassword(password);
@@ -108,7 +110,8 @@ public class AES2Test {
 			offset = add(bytes, salt, offset);
 			offset = add(bytes, ciphertext, offset);
 			offset = add(bytes, iv, offset);
-			return new String(encodeBase64(bytes), ASCII);
+			byte[] encoded = encodeBase64(bytes);
+			return new String(encoded, ASCII);
 		} catch (Exception e) {
 			throw illegalState(e);
 		}
