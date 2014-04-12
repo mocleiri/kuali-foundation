@@ -30,7 +30,6 @@ import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 import static org.kuali.common.util.base.Threads.sleep;
-import static org.kuali.common.util.enc.EncUtils.isEncrypted;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.util.ArrayList;
@@ -152,11 +151,8 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	public DefaultEC2Service(EC2ServiceContext context, WaitService service) {
-		checkNotNull(context, "context");
-		checkNotNull(service, "service");
-		checkArgument(!isEncrypted(context.getCredentials().getAWSSecretKey()), "AWS secret key is encrypted");
-		this.service = service;
-		this.context = context;
+		this.context = checkNotNull(context, "context");
+		this.service = checkNotNull(service, "service");
 		this.client = LaunchUtils.getClient(context);
 	}
 
