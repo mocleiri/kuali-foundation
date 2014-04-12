@@ -1,5 +1,6 @@
 package org.kuali.common.util.encrypt;
 
+import static com.google.common.base.Preconditions.checkState;
 import static java.lang.String.format;
 import static java.lang.System.arraycopy;
 import static javax.crypto.Cipher.ENCRYPT_MODE;
@@ -22,16 +23,22 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.junit.Test;
+import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 
 public class AES2Test {
 
 	private static final Logger logger = newLogger();
 
+	// OpenSSL hard codes this prefix if a salt is used
+	private static final String OPENSSL_PREFIX = "Salted__";
+	private static final byte[] OPENSSL_PREFIX_BYTES = Str.getBytes(OPENSSL_PREFIX, UTF8);
+
 	String cipherTransformation = "AES/CBC/PKCS5Padding";
 	String secretKeyFactoryAlgorithm = "PBKDF2WithHmacSHA1";
 	String secretKeySpecAlgorithm = "AES";
 	int bits = 128;
+	int initializationVectorLength = 16;
 	int saltLength = 8;
 	int iterationCount = 1024 * 64;
 
@@ -86,20 +93,38 @@ public class AES2Test {
 	protected String encrypt(String plaintext, String password) {
 		try {
 			byte[] salt = getSalt(saltLength);
+			checkState(salt.length == saltLength, "salt must be %s bytes", saltLength);
 			SecretKey secret = getSecretKey(password, salt);
 			Cipher cipher = Cipher.getInstance(cipherTransformation);
 			cipher.init(ENCRYPT_MODE, secret);
 			AlgorithmParameters params = cipher.getParameters();
 			byte[] iv = params.getParameterSpec(IvParameterSpec.class).getIV();
+			checkState(iv.length == initializationVectorLength, "initialization vector must be %s bytes", initializationVectorLength);
+			byte[] prefix = OPENSSL_PREFIX_BYTES;
 			byte[] ciphertext = cipher.doFinal(plaintext.getBytes(UTF8));
-			byte[] bytes = new byte[ciphertext.length + iv.length + salt.length];
-			arraycopy(ciphertext, 0, bytes, 0, ciphertext.length);
-			arraycopy(iv, 0, bytes, ciphertext.length, iv.length);
-			arraycopy(salt, 0, bytes, ciphertext.length + iv.length, salt.length);
+			byte[] bytes = allocate(prefix, salt, ciphertext, iv);
+			int offset = 0;
+			offset = add(bytes, prefix, offset);
+			offset = add(bytes, salt, offset);
+			offset = add(bytes, ciphertext, offset);
+			offset = add(bytes, iv, offset);
 			return new String(encodeBase64(bytes), ASCII);
 		} catch (Exception e) {
 			throw illegalState(e);
 		}
+	}
+
+	protected byte[] allocate(byte[]... arrays) {
+		int length = 0;
+		for (byte[] array : arrays) {
+			length += array.length;
+		}
+		return new byte[length];
+	}
+
+	protected int add(byte[] dst, byte[] src, int offset) {
+		arraycopy(src, 0, dst, offset, src.length);
+		return offset + src.length;
 	}
 
 	protected byte[] getSalt(int length) {
