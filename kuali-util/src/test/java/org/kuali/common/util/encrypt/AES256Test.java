@@ -38,6 +38,7 @@ public class AES256Test {
 			EncryptionResult result = encrypt(plaintext, password, salt);
 			System.out.println(result.getInitializationVector());
 			System.out.println(result.getEncryptedText());
+			System.out.println(decrypt(result, password, salt));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
