@@ -6,6 +6,7 @@ import static javax.crypto.Cipher.ENCRYPT_MODE;
 import static org.kuali.common.util.Encodings.UTF8;
 import static org.kuali.common.util.HexUtils.getBytesFromHexString;
 import static org.kuali.common.util.HexUtils.toHexString;
+import static org.kuali.common.util.HexUtils.toHexStringLower;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
@@ -43,18 +44,20 @@ public class AESTest {
 			String plaintext = "hello world";
 			String password = "password";
 			String salt = toHexString(getSalt(saltLength)).toLowerCase();
+			String key = toHexStringLower(getSecretKey(password, salt).getEncoded());
+
 			EncryptionResult result = encrypt(plaintext, password, salt);
 			String decrypted = decrypt(result, password, salt);
 			BasicTextEncryptor encryptor = new BasicTextEncryptor();
 			encryptor.setPassword(password);
-			info("plaintext        -> %s", plaintext);
-			info("password         -> %s", password);
-			info("salt             -> %s", salt);
-			info("init vector      -> %s", result.getInitializationVector());
-			info("encrypted text   -> %s", result.getEncryptedText());
-			info("decrypted text   -> %s", decrypted);
-			info("jasypt encrypted -> %s", encryptor.encrypt(plaintext));
-			info("jasypt decrypted -> %s", encryptor.decrypt(encryptor.encrypt(plaintext)));
+			// info("password         -> %s", password);
+			info("salt=%s", salt);
+			info("key=%s", key);
+			info("iv =%s", result.getInitializationVector());
+			info("data=%s", result.getEncryptedText());
+			// info("decrypted text   -> %s", decrypted);
+			// info("jasypt encrypted -> %s", encryptor.encrypt(plaintext));
+			// info("jasypt decrypted -> %s", encryptor.decrypt(encryptor.encrypt(plaintext)));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -65,6 +68,7 @@ public class AESTest {
 			byte[] iv = getBytesFromHexString(encrypted.getInitializationVector());
 			byte[] ciphertext = Base64.decode(encrypted.getEncryptedText());
 			SecretKey secret = getSecretKey(password, salt);
+			secret.getEncoded();
 			Cipher cipher = Cipher.getInstance(cipherTransformation);
 			cipher.init(DECRYPT_MODE, secret, new IvParameterSpec(iv));
 			return new String(cipher.doFinal(ciphertext), UTF8);

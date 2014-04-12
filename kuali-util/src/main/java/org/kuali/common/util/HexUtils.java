@@ -77,6 +77,13 @@ public class HexUtils {
 	}
 
 	/**
+	 * Convert each <code>byte</code> into its 2 digit hexadecimal form.
+	 */
+	public static String toHexStringLower(byte[] bytes) {
+		return toHexString(bytes).toLowerCase();
+	}
+
+	/**
 	 * Return true if every character is valid hex <code>0-9</code>, <code>a-f</code>, or <code>A-F</code>
 	 */
 	public static final boolean isHex(char... chars) {
