@@ -698,7 +698,7 @@ public final class DefaultEC2Service implements EC2Service {
 		PublicKey publicKey = context.getPublicKey();
 		if (!isExistingKey(publicKey.getName())) {
 			logger.info("Importing key [{}]", publicKey.getName());
-			importKey(publicKey.getName(), publicKey.getContent());
+			importKey(publicKey.getName(), publicKey.getValue());
 		}
 
 		List<String> securityGroupNames = getSecurityGroupNames();
