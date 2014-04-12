@@ -25,7 +25,7 @@ import org.kuali.common.util.property.ImmutableProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * Strongly typed and immutable object containing the same information available via {@code java.lang.System}
+ * Strongly typed and immutable version of {@code java.lang.System}
  */
 @IdiotProofImmutable
 @JsonDeserialize(builder = VirtualSystem.Builder.class)
