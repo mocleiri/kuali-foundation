@@ -348,7 +348,7 @@ public class CreateBuildSlaveAMI {
 	protected static Instance launchAndWait(EC2Service service, BasicLaunchRequest blr, List<KualiSecurityGroup> securityGroups, List<Tag> tags, String regionName) {
 		logger.info(format("launch instance -> %s %s %s %sgb", regionName, blr.getAmi(), blr.getType().toString(), blr.getRootVolume().getSizeInGigabytes().get()));
 		List<BlockDeviceMapping> additionalMappings = ImmutableBlockDeviceMapping.DEFAULT_INSTANCE_STORES;
-		PublicKey publicKey = PublicKey.builder().withName(KUALI_KEY.getName()).withContent(KUALI_KEY.getPublicKey()).build();
+		PublicKey publicKey = PublicKey.builder().withName(KUALI_KEY.getName()).withValue(KUALI_KEY.getPublicKey()).build();
 		LaunchInstanceContext context = LaunchInstanceContext.builder(blr.getAmi(), publicKey).withTimeoutMillis(blr.getTimeoutMillis()).withType(blr.getType())
 				.withRootVolume(blr.getRootVolume()).withSecurityGroups(securityGroups).withTags(tags).withAdditionalMappings(additionalMappings).build();
 		return service.launchInstance(context);
