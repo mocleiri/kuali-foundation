@@ -251,9 +251,10 @@ function get_next_line_number {
 
 function configure_jenkins_update_center {
   
-  local CONFIG_FILE=$JENKINS_HOME/hudson.model.UpdateCenter.xml
-  local LTS_PLUGIN_UPDATES=http://updates.jenkins-ci.org/stable/update-center.json
+  local FILE=hudson.model.UpdateCenter.xml
+  local DST=$JENKINS_HOME/$FILE
+  local SRC=$MY_DIR/master/config/$FILE
   
   echo "configure -> LTS Plugin Updates"
-  execute_quietly "sed -i -e s@<url>.*</url>@<url>$LTS_PLUGIN_UPDATES</url>@g $CONFIG_FILE"
+  execute_quietly "cp $SRC $DST"
 }
