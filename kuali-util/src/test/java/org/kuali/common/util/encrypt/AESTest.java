@@ -60,14 +60,6 @@ public class AESTest {
 		}
 	}
 
-	protected static void info(String msg, Object... args) {
-		if (args == null) {
-			logger.info(msg);
-		} else {
-			logger.info(format(msg, args));
-		}
-	}
-
 	protected String decrypt(EncryptionResult encrypted, String password, String salt) {
 		try {
 			byte[] iv = getBytesFromHexString(encrypted.getInitializationVector());
@@ -112,4 +104,13 @@ public class AESTest {
 		new SecureRandom().nextBytes(salt);
 		return salt;
 	}
+
+	protected static void info(String msg, Object... args) {
+		if (args == null) {
+			logger.info(msg);
+		} else {
+			logger.info(format(msg, args));
+		}
+	}
+
 }
