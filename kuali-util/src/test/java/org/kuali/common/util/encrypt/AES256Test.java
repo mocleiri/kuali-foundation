@@ -2,6 +2,7 @@ package org.kuali.common.util.encrypt;
 
 import static javax.crypto.Cipher.ENCRYPT_MODE;
 import static org.kuali.common.util.Encodings.UTF8;
+import static org.kuali.common.util.base.Exceptions.illegalState;
 
 import java.security.AlgorithmParameters;
 import java.security.SecureRandom;
@@ -24,7 +25,17 @@ public class AES256Test {
 	public void test() {
 		try {
 			String plaintext = "hello world";
-			char[] password = "password".toCharArray();
+			String password = "password";
+			EncryptionResult result = encrypt(plaintext, password);
+			System.out.println(result.getInitializationVector());
+			System.out.println(result.getEncryptedText());
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
+
+	protected EncryptionResult encrypt(String plaintext, String password) {
+		try {
 			String secretKeyFactoryAlgorithm = "PBKDF2WithHmacSHA1";
 			String secretKeySpecAlgorithm = "AES";
 			String cipherTransformation = "AES/CBC/PKCS5Padding";
@@ -33,7 +44,7 @@ public class AES256Test {
 			int iterationCount = 1024 * 64;
 			byte[] salt = getSalt(saltLength);
 			SecretKeyFactory factory = SecretKeyFactory.getInstance(secretKeyFactoryAlgorithm);
-			KeySpec spec = new PBEKeySpec(password, salt, iterationCount, bits);
+			KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterationCount, bits);
 			SecretKey tmp = factory.generateSecret(spec);
 			SecretKey secret = new SecretKeySpec(tmp.getEncoded(), secretKeySpecAlgorithm);
 			Cipher cipher = Cipher.getInstance(cipherTransformation);
@@ -41,10 +52,11 @@ public class AES256Test {
 			AlgorithmParameters params = cipher.getParameters();
 			byte[] iv = params.getParameterSpec(IvParameterSpec.class).getIV();
 			byte[] ciphertext = cipher.doFinal(plaintext.getBytes(UTF8));
-			System.out.println(Base64.encode(iv));
-			System.out.println(Base64.encode(ciphertext));
-		} catch (Throwable e) {
-			e.printStackTrace();
+			String initializationVector = Base64.encode(iv);
+			String encryptedText = Base64.encode(ciphertext);
+			return new EncryptionResult(initializationVector, encryptedText);
+		} catch (Exception e) {
+			throw illegalState(e);
 		}
 	}
 
