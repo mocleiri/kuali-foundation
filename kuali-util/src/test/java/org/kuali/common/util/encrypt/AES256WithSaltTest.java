@@ -41,7 +41,7 @@ public class AES256WithSaltTest {
 		try {
 			String plaintext = "hello world";
 			String password = "password";
-			String salt = toHexString(getSalt(saltLength));
+			String salt = toHexString(getSalt(saltLength)).toLowerCase();
 			EncryptionResult result = encrypt(plaintext, password, salt);
 			String decrypted = decrypt(result, password, salt);
 			info("plaintext      -> %s", plaintext);
