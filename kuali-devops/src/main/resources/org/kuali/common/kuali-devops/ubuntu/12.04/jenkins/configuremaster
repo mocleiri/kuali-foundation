@@ -147,7 +147,7 @@ function configure_jenkins {
   IMAGES=$MY_DIR/master/images
   
   execute_quietly "mkdir -p $TOMCAT_RESOURCES"
-  execute_quietly "cp $IMAGES $TOMCAT_RESOURCES"
+  execute_quietly "cp -R $IMAGES $TOMCAT_RESOURCES"
 
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
 
