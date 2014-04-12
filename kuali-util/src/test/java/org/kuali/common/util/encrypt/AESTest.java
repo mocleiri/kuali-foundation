@@ -26,7 +26,7 @@ import org.slf4j.Logger;
 
 import com.sun.org.apache.xml.internal.security.utils.Base64;
 
-public class AES256WithSaltTest {
+public class AESTest {
 
 	private static final Logger logger = newLogger();
 
@@ -40,7 +40,7 @@ public class AES256WithSaltTest {
 	@Test
 	public void test() {
 		try {
-			String plaintext = "hello worldhello worldhello worldhello worldhello worldhello worldhello worldhello worldhello worldhello world";
+			String plaintext = "hello world";
 			String password = "password";
 			String salt = toHexString(getSalt(saltLength)).toLowerCase();
 			EncryptionResult result = encrypt(plaintext, password, salt);
@@ -50,8 +50,8 @@ public class AES256WithSaltTest {
 			info("plaintext        -> %s", plaintext);
 			info("password         -> %s", password);
 			info("salt             -> %s", salt);
-			info("encrypted text   -> %s", result.getEncryptedText());
 			info("init vector      -> %s", result.getInitializationVector());
+			info("encrypted text   -> %s", result.getEncryptedText());
 			info("decrypted text   -> %s", decrypted);
 			info("jasypt encrypted -> %s", encryptor.encrypt(plaintext));
 			info("jasypt decrypted -> %s", encryptor.decrypt(encryptor.encrypt(plaintext)));
@@ -101,7 +101,7 @@ public class AES256WithSaltTest {
 			AlgorithmParameters params = cipher.getParameters();
 			byte[] iv = params.getParameterSpec(IvParameterSpec.class).getIV();
 			byte[] ciphertext = cipher.doFinal(plaintext.getBytes(UTF8));
-			return new EncryptionResult(Base64.encode(ciphertext).replace("\n", "").replace("\r", ""), toHexString(iv));
+			return new EncryptionResult(Base64.encode(ciphertext).replace("\n", "").replace("\r", ""), toHexString(iv).toLowerCase());
 		} catch (Exception e) {
 			throw illegalState(e);
 		}
