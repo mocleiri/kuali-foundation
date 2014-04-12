@@ -4,9 +4,9 @@ import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 public final class EncryptionResult {
 
-	public EncryptionResult(String initializationVector, String encryptedText) {
-		this.initializationVector = checkNotBlank(initializationVector, "initializationVector");
+	public EncryptionResult(String encryptedText, String initializationVector) {
 		this.encryptedText = checkNotBlank(encryptedText, "encryptedText");
+		this.initializationVector = checkNotBlank(initializationVector, "initializationVector");
 	}
 
 	private final String initializationVector;
