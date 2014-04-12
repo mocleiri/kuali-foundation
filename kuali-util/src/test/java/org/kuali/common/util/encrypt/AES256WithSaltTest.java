@@ -32,7 +32,7 @@ public class AES256WithSaltTest {
 	String cipherTransformation = "AES/CBC/PKCS5Padding";
 	String secretKeyFactoryAlgorithm = "PBKDF2WithHmacSHA1";
 	String secretKeySpecAlgorithm = "AES";
-	int bits = 256;
+	int bits = 128;
 	int saltLength = 8;
 	int iterationCount = 1024 * 64;
 
