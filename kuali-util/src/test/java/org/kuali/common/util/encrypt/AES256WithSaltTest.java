@@ -47,12 +47,12 @@ public class AES256WithSaltTest {
 			String decrypted = decrypt(result, password, salt);
 			BasicTextEncryptor encryptor = new BasicTextEncryptor();
 			encryptor.setPassword(password);
-			info("plaintext      -> %s", plaintext);
-			info("password       -> %s", password);
-			info("salt           -> %s", salt);
-			info("encrypted text -> %s", result.getEncryptedText());
-			info("init vector    -> %s", result.getInitializationVector());
-			info("decrypted text -> %s", decrypted);
+			info("plaintext        -> %s", plaintext);
+			info("password         -> %s", password);
+			info("salt             -> %s", salt);
+			info("encrypted text   -> %s", result.getEncryptedText());
+			info("init vector      -> %s", result.getInitializationVector());
+			info("decrypted text   -> %s", decrypted);
 			info("jasypt encrypted -> %s", encryptor.encrypt(plaintext));
 			info("jasypt decrypted -> %s", encryptor.decrypt(encryptor.encrypt(plaintext)));
 		} catch (Throwable e) {
