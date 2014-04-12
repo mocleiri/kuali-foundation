@@ -40,7 +40,7 @@ public class AES256WithSaltTest {
 	@Test
 	public void test() {
 		try {
-			String plaintext = "hello world";
+			String plaintext = "hello worldhello worldhello worldhello worldhello worldhello worldhello worldhello worldhello worldhello world";
 			String password = "password";
 			String salt = toHexString(getSalt(saltLength)).toLowerCase();
 			EncryptionResult result = encrypt(plaintext, password, salt);
@@ -70,7 +70,7 @@ public class AES256WithSaltTest {
 
 	protected String decrypt(EncryptionResult encrypted, String password, String salt) {
 		try {
-			byte[] iv = Base64.decode(encrypted.getInitializationVector());
+			byte[] iv = getBytesFromHexString(encrypted.getInitializationVector());
 			byte[] ciphertext = Base64.decode(encrypted.getEncryptedText());
 			SecretKey secret = getSecretKey(password, salt);
 			Cipher cipher = Cipher.getInstance(cipherTransformation);
@@ -101,7 +101,7 @@ public class AES256WithSaltTest {
 			AlgorithmParameters params = cipher.getParameters();
 			byte[] iv = params.getParameterSpec(IvParameterSpec.class).getIV();
 			byte[] ciphertext = cipher.doFinal(plaintext.getBytes(UTF8));
-			return new EncryptionResult(Base64.encode(ciphertext), Base64.encode(iv));
+			return new EncryptionResult(Base64.encode(ciphertext).replace("\n", "").replace("\r", ""), toHexString(iv));
 		} catch (Exception e) {
 			throw illegalState(e);
 		}
