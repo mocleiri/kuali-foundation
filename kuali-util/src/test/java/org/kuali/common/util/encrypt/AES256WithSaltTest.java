@@ -36,8 +36,8 @@ public class AES256WithSaltTest {
 			String password = "password";
 			String salt = Base64.encode(getSalt(saltLength));
 			EncryptionResult result = encrypt(plaintext, password, salt);
-			System.out.println(result.getInitializationVector());
 			System.out.println(result.getEncryptedText());
+			System.out.println(result.getInitializationVector());
 			System.out.println(decrypt(result, password, salt));
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -76,7 +76,7 @@ public class AES256WithSaltTest {
 			AlgorithmParameters params = cipher.getParameters();
 			byte[] iv = params.getParameterSpec(IvParameterSpec.class).getIV();
 			byte[] ciphertext = cipher.doFinal(plaintext.getBytes(UTF8));
-			return new EncryptionResult(Base64.encode(iv), Base64.encode(ciphertext));
+			return new EncryptionResult(Base64.encode(ciphertext), Base64.encode(iv));
 		} catch (Exception e) {
 			throw illegalState(e);
 		}
