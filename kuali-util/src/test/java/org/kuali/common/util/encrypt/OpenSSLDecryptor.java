@@ -130,7 +130,7 @@ public class OpenSSLDecryptor {
 
 			// --- create key and IV ---
 
-			// the IV is useless, OpenSSL might as well have use zero's
+			// the IV is useless, OpenSSL might as well have used zero's
 			final byte[][] keyAndIV = EVP_BytesToKey(KEY_SIZE_BITS / Byte.SIZE, aesCBC.getBlockSize(), md5, salt, args[ARG_INDEX_PASSWORD].getBytes(ASCII), ITERATIONS);
 			SecretKeySpec key = new SecretKeySpec(keyAndIV[INDEX_KEY], "AES");
 			IvParameterSpec iv = new IvParameterSpec(keyAndIV[INDEX_IV]);
