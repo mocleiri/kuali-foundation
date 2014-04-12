@@ -1,9 +1,13 @@
 package org.kuali.common.util.encrypt;
 
+import static java.lang.String.format;
 import static javax.crypto.Cipher.DECRYPT_MODE;
 import static javax.crypto.Cipher.ENCRYPT_MODE;
 import static org.kuali.common.util.Encodings.UTF8;
+import static org.kuali.common.util.HexUtils.getBytesFromHexString;
+import static org.kuali.common.util.HexUtils.toHexString;
 import static org.kuali.common.util.base.Exceptions.illegalState;
+import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.security.AlgorithmParameters;
 import java.security.SecureRandom;
@@ -17,10 +21,13 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.junit.Test;
+import org.slf4j.Logger;
 
 import com.sun.org.apache.xml.internal.security.utils.Base64;
 
 public class AES256WithSaltTest {
+
+	private static final Logger logger = newLogger();
 
 	String cipherTransformation = "AES/CBC/PKCS5Padding";
 	String secretKeyFactoryAlgorithm = "PBKDF2WithHmacSHA1";
@@ -34,13 +41,25 @@ public class AES256WithSaltTest {
 		try {
 			String plaintext = "hello world";
 			String password = "password";
-			String salt = Base64.encode(getSalt(saltLength));
+			String salt = toHexString(getSalt(saltLength));
 			EncryptionResult result = encrypt(plaintext, password, salt);
-			System.out.println(result.getEncryptedText());
-			System.out.println(result.getInitializationVector());
-			System.out.println(decrypt(result, password, salt));
+			String decrypted = decrypt(result, password, salt);
+			info("plaintext      -> %s", plaintext);
+			info("password       -> %s", password);
+			info("salt           -> %s", salt);
+			info("encrypted text -> %s", result.getEncryptedText());
+			info("init vector    -> %s", result.getInitializationVector());
+			info("decrypted text -> %s", decrypted);
 		} catch (Throwable e) {
 			e.printStackTrace();
+		}
+	}
+
+	protected static void info(String msg, Object... args) {
+		if (args == null) {
+			logger.info(msg);
+		} else {
+			logger.info(format(msg, args));
 		}
 	}
 
@@ -59,8 +78,9 @@ public class AES256WithSaltTest {
 
 	protected SecretKey getSecretKey(String password, String salt) {
 		try {
+			byte[] saltBytes = getBytesFromHexString(salt);
 			SecretKeyFactory factory = SecretKeyFactory.getInstance(secretKeyFactoryAlgorithm);
-			KeySpec spec = new PBEKeySpec(password.toCharArray(), Base64.decode(salt), iterationCount, bits);
+			KeySpec spec = new PBEKeySpec(password.toCharArray(), saltBytes, iterationCount, bits);
 			SecretKey tmp = factory.generateSecret(spec);
 			return new SecretKeySpec(tmp.getEncoded(), secretKeySpecAlgorithm);
 		} catch (Exception e) {
