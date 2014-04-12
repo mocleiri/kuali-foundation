@@ -20,6 +20,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.jasypt.util.text.BasicTextEncryptor;
 import org.junit.Test;
 import org.slf4j.Logger;
 
@@ -44,12 +45,16 @@ public class AES256WithSaltTest {
 			String salt = toHexString(getSalt(saltLength)).toLowerCase();
 			EncryptionResult result = encrypt(plaintext, password, salt);
 			String decrypted = decrypt(result, password, salt);
+			BasicTextEncryptor encryptor = new BasicTextEncryptor();
+			encryptor.setPassword(password);
 			info("plaintext      -> %s", plaintext);
 			info("password       -> %s", password);
 			info("salt           -> %s", salt);
 			info("encrypted text -> %s", result.getEncryptedText());
 			info("init vector    -> %s", result.getInitializationVector());
 			info("decrypted text -> %s", decrypted);
+			info("jasypt encrypted -> %s", encryptor.encrypt(plaintext));
+			info("jasypt decrypted -> %s", encryptor.decrypt(encryptor.encrypt(plaintext)));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
