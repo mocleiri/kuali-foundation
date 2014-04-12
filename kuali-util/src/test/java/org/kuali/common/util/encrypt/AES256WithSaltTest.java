@@ -20,7 +20,7 @@ import org.junit.Test;
 
 import com.sun.org.apache.xml.internal.security.utils.Base64;
 
-public class AES256Test {
+public class AES256WithSaltTest {
 
 	String cipherTransformation = "AES/CBC/PKCS5Padding";
 	String secretKeyFactoryAlgorithm = "PBKDF2WithHmacSHA1";
