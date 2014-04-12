@@ -249,3 +249,11 @@ function get_next_line_number {
   echo $(($LINE_NUMBER + 1))
 }
 
+function configure_jenkins_update_center {
+  
+  local CONFIG_FILE=$JENKINS_HOME/hudson.model.UpdateCenter.xml
+  local LTS_PLUGIN_UPDATES=http://updates.jenkins-ci.org/stable/update-center.json
+  
+  echo "configure -> LTS Plugin Updates"
+  execute_quietly "sed -i -e s@<url>.*</url>@<url>$LTS_PLUGIN_UPDATES</url>@g $CONFIG_FILE"
+}

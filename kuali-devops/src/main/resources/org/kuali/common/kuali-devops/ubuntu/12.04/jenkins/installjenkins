@@ -213,6 +213,7 @@ configure_tomcat
 configure_tomcat_user
 install_jenkins
 install_plugins
+configure_jenkins_update_center
 echo "start     -> $TOMCAT:service"
 execute_quietly "service $TOMCAT start"
 echo "wait      -> jenkins:ready"
