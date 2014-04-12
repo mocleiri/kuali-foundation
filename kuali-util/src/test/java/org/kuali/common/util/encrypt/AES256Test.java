@@ -47,10 +47,7 @@ public class AES256Test {
 		try {
 			byte[] iv = Base64.decode(encrypted.getInitializationVector());
 			byte[] ciphertext = Base64.decode(encrypted.getEncryptedText());
-			SecretKeyFactory factory = SecretKeyFactory.getInstance(secretKeyFactoryAlgorithm);
-			KeySpec spec = new PBEKeySpec(password.toCharArray(), Base64.decode(salt), iterationCount, bits);
-			SecretKey tmp = factory.generateSecret(spec);
-			SecretKey secret = new SecretKeySpec(tmp.getEncoded(), secretKeySpecAlgorithm);
+			SecretKey secret = getSecretKey(password, salt);
 			Cipher cipher = Cipher.getInstance(cipherTransformation);
 			cipher.init(DECRYPT_MODE, secret, new IvParameterSpec(iv));
 			return new String(cipher.doFinal(ciphertext), UTF8);
@@ -59,20 +56,26 @@ public class AES256Test {
 		}
 	}
 
-	protected EncryptionResult encrypt(String plaintext, String password, String salt) {
+	protected SecretKey getSecretKey(String password, String salt) {
 		try {
 			SecretKeyFactory factory = SecretKeyFactory.getInstance(secretKeyFactoryAlgorithm);
 			KeySpec spec = new PBEKeySpec(password.toCharArray(), Base64.decode(salt), iterationCount, bits);
 			SecretKey tmp = factory.generateSecret(spec);
-			SecretKey secret = new SecretKeySpec(tmp.getEncoded(), secretKeySpecAlgorithm);
+			return new SecretKeySpec(tmp.getEncoded(), secretKeySpecAlgorithm);
+		} catch (Exception e) {
+			throw illegalState(e);
+		}
+	}
+
+	protected EncryptionResult encrypt(String plaintext, String password, String salt) {
+		try {
+			SecretKey secret = getSecretKey(password, salt);
 			Cipher cipher = Cipher.getInstance(cipherTransformation);
 			cipher.init(ENCRYPT_MODE, secret);
 			AlgorithmParameters params = cipher.getParameters();
 			byte[] iv = params.getParameterSpec(IvParameterSpec.class).getIV();
 			byte[] ciphertext = cipher.doFinal(plaintext.getBytes(UTF8));
-			String initializationVector = Base64.encode(iv);
-			String encryptedText = Base64.encode(ciphertext);
-			return new EncryptionResult(initializationVector, encryptedText);
+			return new EncryptionResult(Base64.encode(iv), Base64.encode(ciphertext));
 		} catch (Exception e) {
 			throw illegalState(e);
 		}
