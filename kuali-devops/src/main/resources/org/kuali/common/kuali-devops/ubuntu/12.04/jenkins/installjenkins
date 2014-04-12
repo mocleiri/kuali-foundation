@@ -130,7 +130,7 @@ function install_plugins {
   install_plugin ssh-credentials       1.6.1
   # version 1.54 instead of the 2.x line because 2.2 reports -1 for the revision number on KS svn:externals
   # version 1.54 reports the correct revision number
-  install_plugin subversion            1.54
+  install_plugin subversion            2.2
   install_plugin token-macro           1.10
   install_plugin template-project      1.4.1
 
@@ -218,4 +218,3 @@ echo "start     -> $TOMCAT:service"
 execute_quietly "service $TOMCAT start"
 echo "wait      -> jenkins:ready"
 wait_for_string "/var/lib/$TOMCAT/logs/catalina.out" "Jenkins is fully up and running"
-
