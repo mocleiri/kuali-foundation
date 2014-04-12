@@ -7,6 +7,7 @@ import static javax.crypto.Cipher.ENCRYPT_MODE;
 import static org.jasypt.contrib.org.apache.commons.codec_1_3.binary.Base64.encodeBase64;
 import static org.kuali.common.util.Encodings.ASCII;
 import static org.kuali.common.util.Encodings.UTF8;
+import static org.kuali.common.util.HexUtils.toHexStringLower;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
@@ -48,6 +49,17 @@ public class AES2Test {
 
 			String plaintext = "hello world";
 			String password = "password";
+
+			byte[] salt = getSalt(saltLength);
+			System.out.println(toHexStringLower(salt));
+			for (int i = 0; i < 10; i++) {
+				byte[] iv = getInitializationVector(password, salt);
+				System.out.println(toHexStringLower(iv));
+			}
+
+			if (true) {
+				return;
+			}
 
 			String encrypted = encrypt(plaintext, password);
 			info("encrypted=%s", encrypted);
@@ -92,6 +104,18 @@ public class AES2Test {
 		}
 	}
 
+	protected byte[] getInitializationVector(String password, byte[] salt) {
+		try {
+			SecretKey secret = getSecretKey(password, salt);
+			Cipher cipher = Cipher.getInstance(cipherTransformation);
+			cipher.init(ENCRYPT_MODE, secret);
+			AlgorithmParameters params = cipher.getParameters();
+			return params.getParameterSpec(IvParameterSpec.class).getIV();
+		} catch (Exception e) {
+			throw illegalState(e);
+		}
+	}
+
 	protected String encrypt(String plaintext, String password) {
 		try {
 			byte[] prefix = OPENSSL_PREFIX_BYTES;
@@ -104,12 +128,12 @@ public class AES2Test {
 			byte[] iv = params.getParameterSpec(IvParameterSpec.class).getIV();
 			checkState(iv.length == initializationVectorLength, "initialization vector must be %s bytes", initializationVectorLength);
 			byte[] ciphertext = cipher.doFinal(plaintext.getBytes(UTF8));
-			byte[] bytes = allocate(prefix, salt, ciphertext, iv);
+			byte[] bytes = allocate(prefix, salt, ciphertext);
 			int offset = 0;
 			offset = add(bytes, prefix, offset);
 			offset = add(bytes, salt, offset);
 			offset = add(bytes, ciphertext, offset);
-			offset = add(bytes, iv, offset);
+			// offset = add(bytes, iv, offset);
 			byte[] encoded = encodeBase64(bytes);
 			return new String(encoded, ASCII);
 		} catch (Exception e) {
