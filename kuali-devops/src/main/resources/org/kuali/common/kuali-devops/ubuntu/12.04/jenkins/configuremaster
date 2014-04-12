@@ -141,6 +141,11 @@ function configure_jenkins {
   
   # Modify ~/.jenkins/config.xml as needed
   update_jenkins_config_xml
+  
+  TOMCAT_RESOURCES=/var/lib/$TOMCAT/webapps/resources
+  IMAGES=$MY_DIR/master/images
+  
+  execute_quietly "cp $IMAGES $TOMCAT_RESOURCES"
 
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
 
