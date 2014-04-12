@@ -255,6 +255,6 @@ function configure_jenkins_update_center {
   local DST=$JENKINS_HOME/$FILE
   local SRC=$MY_DIR/master/config/$FILE
   
-  echo "configure -> LTS Plugin Updates"
+  echo "configure -> plugins :: LTS updates"
   execute_quietly "cp $SRC $DST"
 }
