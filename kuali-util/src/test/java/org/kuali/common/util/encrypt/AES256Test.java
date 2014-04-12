@@ -1,5 +1,6 @@
 package org.kuali.common.util.encrypt;
 
+import static javax.crypto.Cipher.ENCRYPT_MODE;
 import static org.kuali.common.util.Encodings.UTF8;
 
 import java.security.AlgorithmParameters;
@@ -36,7 +37,7 @@ public class AES256Test {
 			SecretKey tmp = factory.generateSecret(spec);
 			SecretKey secret = new SecretKeySpec(tmp.getEncoded(), secretKeySpecAlgorithm);
 			Cipher cipher = Cipher.getInstance(cipherTransformation);
-			cipher.init(Cipher.ENCRYPT_MODE, secret);
+			cipher.init(ENCRYPT_MODE, secret);
 			AlgorithmParameters params = cipher.getParameters();
 			byte[] iv = params.getParameterSpec(IvParameterSpec.class).getIV();
 			byte[] ciphertext = cipher.doFinal(plaintext.getBytes(UTF8));
