@@ -148,6 +148,8 @@ function configure_jenkins {
   
   execute_quietly "mkdir -p $TOMCAT_RESOURCES"
   execute_quietly "cp -R $IMAGES $TOMCAT_RESOURCES"
+  
+  # LTS plugin updates
   configure_jenkins_update_center
 
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME
