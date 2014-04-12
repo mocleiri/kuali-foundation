@@ -24,12 +24,18 @@ public class AES256Test {
 		try {
 			String plaintext = "hello world";
 			char[] password = "password".toCharArray();
-			byte[] salt = getSalt(8);
-			SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-			KeySpec spec = new PBEKeySpec(password, salt, 65536, 256);
+			String secretKeyFactoryAlgorithm = "PBKDF2WithHmacSHA1";
+			String secretKeySpecAlgorithm = "AES";
+			String cipherTransformation = "AES/CBC/PKCS5Padding";
+			int bits = 256;
+			int saltLength = 8;
+			int iterationCount = 1024 * 64;
+			byte[] salt = getSalt(saltLength);
+			SecretKeyFactory factory = SecretKeyFactory.getInstance(secretKeyFactoryAlgorithm);
+			KeySpec spec = new PBEKeySpec(password, salt, iterationCount, bits);
 			SecretKey tmp = factory.generateSecret(spec);
-			SecretKey secret = new SecretKeySpec(tmp.getEncoded(), "AES");
-			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+			SecretKey secret = new SecretKeySpec(tmp.getEncoded(), secretKeySpecAlgorithm);
+			Cipher cipher = Cipher.getInstance(cipherTransformation);
 			cipher.init(Cipher.ENCRYPT_MODE, secret);
 			AlgorithmParameters params = cipher.getParameters();
 			byte[] iv = params.getParameterSpec(IvParameterSpec.class).getIV();
