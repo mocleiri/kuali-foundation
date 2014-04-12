@@ -131,8 +131,7 @@ public final class DefaultEC2Service implements EC2Service {
 	private static final String SNAPSHOT_COMPLETED_STATE = "completed";
 	private static final String AMI_AVAILABLE_STATE = "available";
 
-	// Don't expose the AmazonEC2Client object via a getter
-	// It is mutable and therefore not inherently thread safe
+	// Don't expose the AmazonEC2Client object via a getter, it's not thread safe
 	private final AmazonEC2Client client;
 
 	private final EC2ServiceContext context;
