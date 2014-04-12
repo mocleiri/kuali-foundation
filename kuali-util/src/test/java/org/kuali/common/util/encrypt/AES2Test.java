@@ -92,6 +92,7 @@ public class AES2Test {
 
 	protected String encrypt(String plaintext, String password) {
 		try {
+			byte[] prefix = OPENSSL_PREFIX_BYTES;
 			byte[] salt = getSalt(saltLength);
 			checkState(salt.length == saltLength, "salt must be %s bytes", saltLength);
 			SecretKey secret = getSecretKey(password, salt);
@@ -100,7 +101,6 @@ public class AES2Test {
 			AlgorithmParameters params = cipher.getParameters();
 			byte[] iv = params.getParameterSpec(IvParameterSpec.class).getIV();
 			checkState(iv.length == initializationVectorLength, "initialization vector must be %s bytes", initializationVectorLength);
-			byte[] prefix = OPENSSL_PREFIX_BYTES;
 			byte[] ciphertext = cipher.doFinal(plaintext.getBytes(UTF8));
 			byte[] bytes = allocate(prefix, salt, ciphertext, iv);
 			int offset = 0;
