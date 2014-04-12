@@ -45,7 +45,6 @@ public class OpenSSLTest {
 			byte[] secret = getBytesFromHexString("5f4dcc3b5aa765d61d8327deb882cf99");
 			byte[] iv = getBytesFromHexString("2b95990a9151374abd8ff8c5a7a0fe08");
 			byte[] data = Base64.decode("16GRjUXjW5vCqs9bQrAEEQ==");
-
 			Cipher cipher = Cipher.getInstance(cipherTransformation);
 			Key key = new SecretKeySpec(secret, secretKeySpecAlgorithm);
 			cipher.init(DECRYPT_MODE, key, new IvParameterSpec(iv));
