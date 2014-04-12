@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util;
 
+import static org.kuali.common.util.base.Exceptions.illegalArgument;
+
 import java.io.UnsupportedEncodingException;
 
 import org.apache.commons.lang3.CharSet;
@@ -53,8 +55,7 @@ public class HexUtils {
 	}
 
 	/**
-	 * Convert <code>string</code> into a <code>byte[]</code> using the specified encoding, then convert each <code>byte</code> into its 2
-	 * digit hexadecimal form.
+	 * Convert <code>string</code> into a <code>byte[]</code> using the specified encoding, then convert each <code>byte</code> into its 2 digit hexadecimal form.
 	 */
 	public static String toHexString(String string, String encoding) throws UnsupportedEncodingException {
 		byte[] bytes = encoding == null ? string.getBytes() : string.getBytes(encoding);
@@ -88,8 +89,8 @@ public class HexUtils {
 	}
 
 	/**
-	 * Given a string in <code>strictly hex</code> format, return the corresponding <code>byte[]</code>. <code>strictly hex</code> in the
-	 * context of this method means that the string:<br>
+	 * Given a string in <code>strictly hex</code> format, return the corresponding <code>byte[]</code>. <code>strictly hex</code> in the context of this method means that the
+	 * string:<br>
 	 * 1 - Contains only the characters <code>a-f</code>, <code>A-F</code>, and <code>0-9</code><br>
 	 * 2 - Its length is an even number.
 	 */
@@ -97,7 +98,7 @@ public class HexUtils {
 		char[] chars = hex.toCharArray();
 		int length = chars.length;
 		if (length % 2 != 0) {
-			throw new IllegalArgumentException("Invalid hex string [" + hex + "].  String must contain an even number of characters.  " + length + " is not an even number!");
+			throw illegalArgument("Invalid hex string [%s].  String must contain an even number of characters.  %s is not an even number!", hex, length);
 		}
 		byte[] bytes = new byte[length / 2];
 		int byteIndex = 0;
@@ -107,8 +108,8 @@ public class HexUtils {
 			String s = c1 + "" + c2;
 			if (!isHex(c1, c2)) {
 				int byteNumber = i / 2 + 1;
-				throw new IllegalArgumentException("Invalid hex string [" + hex + "].  Invalid hex detected at byte " + byteNumber + " [" + s
-				        + "].  Both characters must be in the range " + HEX_RANGES_STRING);
+				throw illegalArgument("Invalid hex string [%s].  Invalid hex detected at byte %s [%s].  Both characters must be in the range %s", hex, byteNumber, s,
+						HEX_RANGES_STRING);
 			}
 			int integer = Integer.parseInt(s, 16);
 			int masked = integer & BYTE_MASK;
@@ -119,8 +120,8 @@ public class HexUtils {
 	}
 
 	/**
-	 * Given a string in <code>strictly hex</code> format and the <code>encoding</code> that was used to produce the hex, convert it back to
-	 * a Java <code>String</code>. <code>strictly hex</code> in the context of this method means that the string:<br>
+	 * Given a string in <code>strictly hex</code> format and the <code>encoding</code> that was used to produce the hex, convert it back to a Java <code>String</code>.
+	 * <code>strictly hex</code> in the context of this method means that the string:<br>
 	 * 1 - Contains only the characters <code>a-f</code>, <code>A-F</code>, and <code>0-9</code><br>
 	 * 2 - Its length is an even number.
 	 */
