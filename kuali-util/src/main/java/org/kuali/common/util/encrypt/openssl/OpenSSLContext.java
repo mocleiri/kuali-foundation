@@ -24,7 +24,7 @@ public final class OpenSSLContext {
 	}
 
 	/**
-	 * Returns a context for 128 AES encryption compatible with OpenSSL
+	 * Returns a context for 128 bit AES encryption compatible with OpenSSL
 	 */
 	public static OpenSSLContext buildDefaultOpenSSLContext() {
 		return builder().build();
