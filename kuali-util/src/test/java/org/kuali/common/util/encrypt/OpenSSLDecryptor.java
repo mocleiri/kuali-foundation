@@ -26,11 +26,8 @@ public class OpenSSLDecryptor {
 	private static final int SALT_SIZE = 8;
 	private static final int CIPHERTEXT_OFFSET = SALT_OFFSET + SALT_SIZE;
 
-	private static final int KEY_SIZE_BITS = 256;
+	private static final int KEY_SIZE_BITS = 128;
 
-	/**
-	 * Thanks go to Ola Bini for releasing this source on his blog. The source was obtained from <a href="http://olabini.com/blog/tag/evp_bytestokey/">here</a> .
-	 */
 	public static byte[][] EVP_BytesToKey(int key_len, int iv_len, MessageDigest md, byte[] salt, byte[] data, int count) {
 		byte[][] both = new byte[2][];
 		byte[] key = new byte[key_len];
@@ -109,7 +106,6 @@ public class OpenSSLDecryptor {
 			byte[] encrypted = Arrays.copyOfRange(headerSaltAndCipherText, CIPHERTEXT_OFFSET, headerSaltAndCipherText.length);
 
 			// --- specify cipher and digest for EVP_BytesToKey method ---
-
 			Cipher aesCBC = Cipher.getInstance("AES/CBC/PKCS5Padding");
 			MessageDigest md5 = MessageDigest.getInstance("MD5");
 
@@ -120,7 +116,6 @@ public class OpenSSLDecryptor {
 			IvParameterSpec iv = new IvParameterSpec(keyAndIV[INDEX_IV]);
 
 			// --- initialize cipher instance and decrypt ---
-
 			aesCBC.init(Cipher.DECRYPT_MODE, key, iv);
 			byte[] decrypted = aesCBC.doFinal(encrypted);
 
