@@ -41,11 +41,6 @@ public final class OpenSSLContext {
 		private String digest = "MD5";
 		private String algorithm = "AES";
 
-		@Override
-		public OpenSSLContext build() {
-			return validate(new OpenSSLContext(this));
-		}
-
 		private OpenSSLContext validate(OpenSSLContext instance) {
 			checkMin(instance.iterations, 0, "iterations");
 			checkNotBlank(saltPrefix, "saltPrefix");
@@ -55,6 +50,11 @@ public final class OpenSSLContext {
 			checkNotBlank(digest, "digest");
 			checkNotBlank(algorithm, "algorithm");
 			return instance;
+		}
+
+		@Override
+		public OpenSSLContext build() {
+			return validate(new OpenSSLContext(this));
 		}
 
 		public Builder withAlgorithm(String algorithm) {
