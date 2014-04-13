@@ -16,8 +16,8 @@ public class OpenSSLTest {
 	public void testDecryption() {
 		String password = "password";
 		String plaintext = "hello world";
-		// echo "hello world" | openssl enc -a -k password -aes-128-cbc
-		String encrypted = "U2FsdGVkX18vbF5M7WNqNkLl+md21FjM+zdcQmdvKgg=";
+		// echo -n "hello world" | openssl enc -a -k password -aes-128-cbc
+		String encrypted = "U2FsdGVkX1+uljwXw0UbWA5bCxt6vUOZowNobg99FWY=";
 		Encryptor encryptor = new OpenSSLEncryptor(password);
 		String decrypted = encryptor.decrypt(encrypted);
 		assertEquals(plaintext, decrypted);
