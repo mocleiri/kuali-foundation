@@ -2,6 +2,7 @@ package org.kuali.common.util.encrypt;
 
 import static org.jasypt.contrib.org.apache.commons.codec_1_3.binary.Base64.decodeBase64;
 import static org.kuali.common.util.Encodings.ASCII;
+import static org.kuali.common.util.HexUtils.toHexString;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -13,8 +14,6 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-
-import org.kuali.common.util.HexUtils;
 
 public class OpenSSLDecryptor {
 
@@ -103,7 +102,7 @@ public class OpenSSLDecryptor {
 
 			// header is "Salted__", ASCII encoded, if salt is being used (the default)
 			byte[] salt = Arrays.copyOfRange(headerSaltAndCipherText, SALT_OFFSET, SALT_OFFSET + SALT_SIZE);
-			System.out.println("salt=" + HexUtils.toHexString(salt));
+			System.out.println("salt=" + toHexString(salt));
 			byte[] encrypted = Arrays.copyOfRange(headerSaltAndCipherText, CIPHERTEXT_OFFSET, headerSaltAndCipherText.length);
 
 			// --- specify cipher and digest for EVP_BytesToKey method ---
