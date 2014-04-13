@@ -28,8 +28,8 @@ public class OpenSSLDecryptor {
 			String password = "password";
 
 			// --- base 64 data ---
-			String base64 = "U2FsdGVkX19WFuCfjQ37hzy75W/8e/XMIFdjswnwjn8=";
-			byte[] headerSaltAndCipherText = decodeBase64(base64.getBytes(ASCII));
+			String base64String = "U2FsdGVkX19WFuCfjQ37hzy75W/8e/XMIFdjswnwjn8=";
+			byte[] headerSaltAndCipherText = decodeBase64(base64String.getBytes(ASCII));
 
 			// --- extract salt
 			// header is "Salted__", ASCII encoded, if salt is being used (the default)
