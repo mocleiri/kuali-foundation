@@ -93,8 +93,8 @@ public class OpenSSLDecryptor {
 	public static void main(String[] args) {
 		try {
 			// --- base 64 data ---
-			String password = "password";
-			String dataBase64 = "2FsdGVkX185kO1B7z5F3Xc+YwG1/QdOC1lphcfEH+I=";
+			String password = "mypass";
+			String dataBase64 = "U2FsdGVkX1/Oq6bluk1so8i68lkGeIozD/bLBBZlc7c=";
 			byte[] headerSaltAndCipherText = decodeBase64(dataBase64.getBytes(ASCII));
 
 			// --- extract salt & encrypted ---
