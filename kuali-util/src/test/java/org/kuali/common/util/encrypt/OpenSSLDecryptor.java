@@ -26,15 +26,17 @@ public class OpenSSLDecryptor {
 	public static void main(String[] args) {
 		try {
 			String password = "password";
+
 			// --- base 64 data ---
 			String base64 = "U2FsdGVkX19WFuCfjQ37hzy75W/8e/XMIFdjswnwjn8=";
 			byte[] headerSaltAndCipherText = decodeBase64(base64.getBytes(ASCII));
 
-			// --- extract salt & encrypted ---
-
+			// --- extract salt
 			// header is "Salted__", ASCII encoded, if salt is being used (the default)
 			byte[] salt = copyOfRange(headerSaltAndCipherText, SALT_OFFSET, SALT_OFFSET + SALT_SIZE);
 			System.out.println("salt=" + toHexStringLower(salt));
+
+			// --- extract encrypted
 			byte[] encrypted = copyOfRange(headerSaltAndCipherText, CIPHERTEXT_OFFSET, headerSaltAndCipherText.length);
 
 			// --- specify cipher and digest for EVP_BytesToKey method ---
