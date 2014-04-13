@@ -1,8 +1,10 @@
 package org.kuali.common.util.encrypt.openssl;
 
 import static java.util.Arrays.copyOfRange;
+import static javax.crypto.Cipher.DECRYPT_MODE;
 import static org.codehaus.plexus.util.Base64.decodeBase64;
 import static org.kuali.common.util.Encodings.ASCII;
+import static org.kuali.common.util.Encodings.UTF8;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
@@ -10,10 +12,11 @@ import static org.kuali.common.util.encrypt.openssl.OpenSSLContext.buildDefaultO
 import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.buildEncryptedContext;
 import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.checkBase64;
 import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.createBytesFromChars;
-
-import java.security.MessageDigest;
+import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.toByteArray;
 
 import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 import org.kuali.common.util.Str;
 import org.kuali.common.util.encrypt.Encryptor;
@@ -41,31 +44,46 @@ public final class OpenSSLEncryptor implements Encryptor {
 
 	@Override
 	public String decrypt(String text) {
-		checkNotBlank(text, "text");
-		return null;
-	}
+		// Null not allowed
+		checkNotNull(text, "text");
 
-	protected OpenSSLEncryptedContext getEncryptedContext(String text) {
+		// Decode the base64 text into bytes
 		byte[] bytes = decodeBase64(Str.getBytes(checkBase64(text), ASCII));
 
-		// OpenSSL inserts the prefix "Salted__" if salt is being used (the default)
+		// OpenSSL always inserts the prefix "Salted__" followed by the salt itself
+		// They have to explicitly use the -nosalt option to turn this off (which OpenSSL strongly advises against)
 		int saltOffset = context.getSaltPrefix().length();
 		byte[] salt = copyOfRange(bytes, saltOffset, saltOffset + context.getSaltSize());
 
-		// Everything after the salt prefix and salt are the encrypted bytes
-		int ciphertextOffset = saltOffset + context.getSaltSize();
-		byte[] encrypted = copyOfRange(bytes, ciphertextOffset, bytes.length);
-
 		try {
-			// --- specify cipher and digest for EVP_BytesToKey method ---
+			// specify cipher and digest
 			Cipher cipher = Cipher.getInstance(context.getTransformation());
-			MessageDigest messageDigest = MessageDigest.getInstance(context.getDigest());
 
+			// the IV length is driven by the cipher block size
 			int initVectorLength = cipher.getBlockSize();
-			byte[] data = createBytesFromChars(password);
-			OpenSSLEncryptedContext encryptedContext = buildEncryptedContext(context, initVectorLength, messageDigest, salt, data);
 
-			return null;
+			// Convert the characters from the password into bytes
+			byte[] data = createBytesFromChars(password);
+
+			// Calculate the iv + key bytes using the exact same technique OpenSSL does
+			OpenSSLEncryptedContext oec = buildEncryptedContext(context, initVectorLength, salt, data);
+
+			// Create java objects from the raw bytes
+			SecretKeySpec key = new SecretKeySpec(toByteArray(oec.getKey()), context.getAlgorithm());
+			IvParameterSpec iv = new IvParameterSpec(toByteArray(oec.getInitVector()));
+
+			// initialize the cipher instance
+			cipher.init(DECRYPT_MODE, key, iv);
+
+			// extract the encrypted bytes from the raw base64 decoded bytes
+			int ciphertextOffset = saltOffset + context.getSaltSize();
+			byte[] encrypted = copyOfRange(bytes, ciphertextOffset, bytes.length);
+
+			// Decrypt them into their original form
+			byte[] decrypted = cipher.doFinal(encrypted);
+
+			// Construct a string from the decrypted bytes
+			return new String(decrypted, UTF8);
 		} catch (Exception e) {
 			throw illegalState(e);
 		}
