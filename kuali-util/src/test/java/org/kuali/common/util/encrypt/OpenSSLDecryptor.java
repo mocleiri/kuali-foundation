@@ -25,10 +25,10 @@ public class OpenSSLDecryptor {
 
 	public static void main(String[] args) {
 		try {
-			// --- base 64 data ---
 			String password = "password";
-			String base64Encrypted = "U2FsdGVkX19WFuCfjQ37hzy75W/8e/XMIFdjswnwjn8=";
-			byte[] headerSaltAndCipherText = decodeBase64(base64Encrypted.getBytes(ASCII));
+			// --- base 64 data ---
+			String base64 = "U2FsdGVkX19WFuCfjQ37hzy75W/8e/XMIFdjswnwjn8=";
+			byte[] headerSaltAndCipherText = decodeBase64(base64.getBytes(ASCII));
 
 			// --- extract salt & encrypted ---
 
