@@ -2,7 +2,7 @@ package org.kuali.common.util.encrypt;
 
 import static org.jasypt.contrib.org.apache.commons.codec_1_3.binary.Base64.decodeBase64;
 import static org.kuali.common.util.Encodings.ASCII;
-import static org.kuali.common.util.HexUtils.toHexString;
+import static org.kuali.common.util.HexUtils.toHexStringLower;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -102,7 +102,7 @@ public class OpenSSLDecryptor {
 
 			// header is "Salted__", ASCII encoded, if salt is being used (the default)
 			byte[] salt = Arrays.copyOfRange(headerSaltAndCipherText, SALT_OFFSET, SALT_OFFSET + SALT_SIZE);
-			System.out.println("salt=" + toHexString(salt));
+			System.out.println("salt=" + toHexStringLower(salt));
 			byte[] encrypted = Arrays.copyOfRange(headerSaltAndCipherText, CIPHERTEXT_OFFSET, headerSaltAndCipherText.length);
 
 			// --- specify cipher and digest for EVP_BytesToKey method ---
@@ -112,6 +112,11 @@ public class OpenSSLDecryptor {
 			// --- create key and IV ---
 			// the IV is useless, OpenSSL might as well have used zero's
 			final byte[][] keyAndIV = EVP_BytesToKey(KEY_SIZE_BITS / Byte.SIZE, aesCBC.getBlockSize(), md5, salt, password.getBytes(ASCII), ITERATIONS);
+
+			byte[] keyBytes = keyAndIV[INDEX_KEY];
+			byte[] ivBytes = keyAndIV[INDEX_IV];
+			System.out.println("key=" + toHexStringLower(keyBytes));
+			System.out.println("iv=" + toHexStringLower(ivBytes));
 
 			SecretKeySpec key = new SecretKeySpec(keyAndIV[INDEX_KEY], "AES");
 			IvParameterSpec iv = new IvParameterSpec(keyAndIV[INDEX_IV]);
@@ -124,9 +129,9 @@ public class OpenSSLDecryptor {
 			System.out.println(answer);
 		} catch (BadPaddingException e) {
 			// AKA "something went wrong"
-			throw new IllegalStateException("Bad password, algorithm, mode or padding; no salt, wrong number of iterations or corrupted ciphertext.");
+			throw new IllegalStateException("Bad password, algorithm, mode or padding; no salt, wrong number of iterations or corrupted ciphertext.", e);
 		} catch (IllegalBlockSizeException e) {
-			throw new IllegalStateException("Bad algorithm, mode or corrupted (resized) ciphertext.");
+			throw new IllegalStateException("Bad algorithm, mode or corrupted (resized) ciphertext.", e);
 		} catch (GeneralSecurityException e) {
 			throw new IllegalStateException(e);
 		} catch (IOException e) {
