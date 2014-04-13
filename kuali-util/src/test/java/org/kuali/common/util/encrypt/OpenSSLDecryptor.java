@@ -21,13 +21,13 @@ public class OpenSSLDecryptor {
 	private static final int SALT_SIZE = 8;
 	private static final int CIPHERTEXT_OFFSET = SALT_OFFSET + SALT_SIZE;
 
-	private static final int KEY_SIZE_BITS = 256;
+	private static final int KEY_SIZE_BITS = 128;
 
 	public static void main(String[] args) {
 		try {
 			// --- base 64 data ---
 			String password = "password";
-			String base64Encrypted = "U2FsdGVkX18MLZ5tlJIDThNk7SGkw+cDxA/ynRtDWEc=";
+			String base64Encrypted = "U2FsdGVkX19WFuCfjQ37hzy75W/8e/XMIFdjswnwjn8=";
 			byte[] headerSaltAndCipherText = decodeBase64(base64Encrypted.getBytes(ASCII));
 
 			// --- extract salt & encrypted ---
