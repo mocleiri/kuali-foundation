@@ -24,7 +24,7 @@ public class OpenSSLDecryptor {
 	private static final int SALT_SIZE = 8;
 	private static final int CIPHERTEXT_OFFSET = SALT_OFFSET + SALT_SIZE;
 
-	private static final int KEY_SIZE_BITS = 128;
+	private static final int KEY_SIZE_BITS = 256;
 
 	public static byte[][] EVP_BytesToKey(int key_len, int iv_len, MessageDigest md, byte[] salt, byte[] data, int count) {
 		byte[][] both = new byte[2][];
