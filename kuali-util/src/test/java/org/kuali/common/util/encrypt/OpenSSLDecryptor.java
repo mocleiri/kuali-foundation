@@ -121,7 +121,7 @@ public class OpenSSLDecryptor {
 			System.out.println(answer);
 		} catch (BadPaddingException e) {
 			// AKA "something went wrong"
-			throw new IllegalStateException("Bad password, algorithm, mode or padding;" + " no salt, wrong number of iterations or corrupted ciphertext.");
+			throw new IllegalStateException("Bad password, algorithm, mode or padding; no salt, wrong number of iterations or corrupted ciphertext.");
 		} catch (IllegalBlockSizeException e) {
 			throw new IllegalStateException("Bad algorithm, mode or corrupted (resized) ciphertext.");
 		} catch (GeneralSecurityException e) {
