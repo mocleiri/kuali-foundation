@@ -43,7 +43,7 @@ public final class OpenSSLEncryptor implements Encryptor {
 		return null;
 	}
 
-	protected String checkBase64(String text) {
+	protected static String checkBase64(String text) {
 		checkNotBlank(text, "text");
 		for (char c : text.toCharArray()) {
 			checkArgument(isBase64(c), "'%s' is not a base 64 character", c);
@@ -51,7 +51,7 @@ public final class OpenSSLEncryptor implements Encryptor {
 		return text;
 	}
 
-	protected boolean isBase64(char c) {
+	protected static boolean isBase64(char c) {
 		if (isLetter(c) || isDigit(c)) {
 			return true;
 		} else {
