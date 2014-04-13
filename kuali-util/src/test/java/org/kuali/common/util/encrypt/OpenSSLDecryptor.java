@@ -27,6 +27,54 @@ public class OpenSSLDecryptor {
 
 	private static final int KEY_SIZE_BITS = 256;
 
+	public static void main(String[] args) {
+		try {
+			// --- base 64 data ---
+			String password = "password";
+			String base64Encrypted = "U2FsdGVkX18MLZ5tlJIDThNk7SGkw+cDxA/ynRtDWEc=";
+			byte[] headerSaltAndCipherText = decodeBase64(base64Encrypted.getBytes(ASCII));
+
+			// --- extract salt & encrypted ---
+
+			// header is "Salted__", ASCII encoded, if salt is being used (the default)
+			byte[] salt = Arrays.copyOfRange(headerSaltAndCipherText, SALT_OFFSET, SALT_OFFSET + SALT_SIZE);
+			System.out.println("salt=" + toHexStringLower(salt));
+			byte[] encrypted = Arrays.copyOfRange(headerSaltAndCipherText, CIPHERTEXT_OFFSET, headerSaltAndCipherText.length);
+
+			// --- specify cipher and digest for EVP_BytesToKey method ---
+			Cipher aesCBC = Cipher.getInstance("AES/CBC/PKCS5Padding");
+			MessageDigest md5 = MessageDigest.getInstance("MD5");
+
+			// --- create key and IV ---
+			// the IV is useless, OpenSSL might as well have used zero's
+			final byte[][] keyAndIV = EVP_BytesToKey(KEY_SIZE_BITS / Byte.SIZE, aesCBC.getBlockSize(), md5, salt, password.getBytes(ASCII), ITERATIONS);
+
+			byte[] keyBytes = keyAndIV[INDEX_KEY];
+			byte[] ivBytes = keyAndIV[INDEX_IV];
+			System.out.println("key=" + toHexStringLower(keyBytes));
+			System.out.println("iv=" + toHexStringLower(ivBytes));
+
+			SecretKeySpec key = new SecretKeySpec(keyAndIV[INDEX_KEY], "AES");
+			IvParameterSpec iv = new IvParameterSpec(keyAndIV[INDEX_IV]);
+
+			// --- initialize cipher instance and decrypt ---
+			aesCBC.init(Cipher.DECRYPT_MODE, key, iv);
+			byte[] decrypted = aesCBC.doFinal(encrypted);
+
+			String answer = new String(decrypted, ASCII);
+			System.out.println(answer);
+		} catch (BadPaddingException e) {
+			// AKA "something went wrong"
+			throw new IllegalStateException("Bad password, algorithm, mode or padding; no salt, wrong number of iterations or corrupted ciphertext.", e);
+		} catch (IllegalBlockSizeException e) {
+			throw new IllegalStateException("Bad algorithm, mode or corrupted (resized) ciphertext.", e);
+		} catch (GeneralSecurityException e) {
+			throw new IllegalStateException(e);
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
 	public static byte[][] EVP_BytesToKey(int key_len, int iv_len, MessageDigest md, byte[] salt, byte[] data, int count) {
 		byte[][] both = new byte[2][];
 		byte[] key = new byte[key_len];
@@ -89,54 +137,6 @@ public class OpenSSLDecryptor {
 			md_buf[i] = 0;
 		}
 		return both;
-	}
-
-	public static void main(String[] args) {
-		try {
-			// --- base 64 data ---
-			String password = "password";
-			String base64Encrypted = "U2FsdGVkX18MLZ5tlJIDThNk7SGkw+cDxA/ynRtDWEc=";
-			byte[] headerSaltAndCipherText = decodeBase64(base64Encrypted.getBytes(ASCII));
-
-			// --- extract salt & encrypted ---
-
-			// header is "Salted__", ASCII encoded, if salt is being used (the default)
-			byte[] salt = Arrays.copyOfRange(headerSaltAndCipherText, SALT_OFFSET, SALT_OFFSET + SALT_SIZE);
-			System.out.println("salt=" + toHexStringLower(salt));
-			byte[] encrypted = Arrays.copyOfRange(headerSaltAndCipherText, CIPHERTEXT_OFFSET, headerSaltAndCipherText.length);
-
-			// --- specify cipher and digest for EVP_BytesToKey method ---
-			Cipher aesCBC = Cipher.getInstance("AES/CBC/PKCS5Padding");
-			MessageDigest md5 = MessageDigest.getInstance("MD5");
-
-			// --- create key and IV ---
-			// the IV is useless, OpenSSL might as well have used zero's
-			final byte[][] keyAndIV = EVP_BytesToKey(KEY_SIZE_BITS / Byte.SIZE, aesCBC.getBlockSize(), md5, salt, password.getBytes(ASCII), ITERATIONS);
-
-			byte[] keyBytes = keyAndIV[INDEX_KEY];
-			byte[] ivBytes = keyAndIV[INDEX_IV];
-			System.out.println("key=" + toHexStringLower(keyBytes));
-			System.out.println("iv=" + toHexStringLower(ivBytes));
-
-			SecretKeySpec key = new SecretKeySpec(keyAndIV[INDEX_KEY], "AES");
-			IvParameterSpec iv = new IvParameterSpec(keyAndIV[INDEX_IV]);
-
-			// --- initialize cipher instance and decrypt ---
-			aesCBC.init(Cipher.DECRYPT_MODE, key, iv);
-			byte[] decrypted = aesCBC.doFinal(encrypted);
-
-			String answer = new String(decrypted, ASCII);
-			System.out.println(answer);
-		} catch (BadPaddingException e) {
-			// AKA "something went wrong"
-			throw new IllegalStateException("Bad password, algorithm, mode or padding; no salt, wrong number of iterations or corrupted ciphertext.", e);
-		} catch (IllegalBlockSizeException e) {
-			throw new IllegalStateException("Bad algorithm, mode or corrupted (resized) ciphertext.", e);
-		} catch (GeneralSecurityException e) {
-			throw new IllegalStateException(e);
-		} catch (IOException e) {
-			throw new IllegalStateException(e);
-		}
 	}
 
 }
