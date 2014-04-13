@@ -14,6 +14,7 @@ import org.kuali.common.util.encrypt.Encryptor;
 
 public final class OpenSSLEncryptor implements Encryptor {
 
+	// Not exposed via a getter
 	private final char[] password;
 	private final OpenSSLContext context;
 
@@ -57,6 +58,10 @@ public final class OpenSSLEncryptor implements Encryptor {
 		} else {
 			return c == '/' || c == '+' || c == '=';
 		}
+	}
+
+	public OpenSSLContext getContext() {
+		return context;
 	}
 
 }
