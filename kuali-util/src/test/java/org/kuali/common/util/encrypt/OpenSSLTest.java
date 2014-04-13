@@ -1,9 +1,9 @@
 package org.kuali.common.util.encrypt;
 
 import static java.lang.String.format;
+import static org.junit.Assert.assertEquals;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.kuali.common.util.encrypt.openssl.OpenSSLEncryptor;
 import org.slf4j.Logger;
@@ -20,7 +20,7 @@ public class OpenSSLTest {
 		String encrypted = "U2FsdGVkX18vbF5M7WNqNkLl+md21FjM+zdcQmdvKgg=";
 		Encryptor encryptor = new OpenSSLEncryptor(password);
 		String decrypted = encryptor.decrypt(encrypted);
-		Assert.assertEquals(plaintext, decrypted);
+		assertEquals(plaintext, decrypted);
 	}
 
 	protected static void info(String msg, Object... args) {
