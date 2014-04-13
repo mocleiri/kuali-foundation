@@ -23,7 +23,7 @@ public class OpenSSLTest {
 
 	private static final Logger logger = newLogger();
 
-	// openssl enc -nosalt -k password -in test -aes-128-cbc -p -out test.enc | tr '[:upper:]' '[:lower:]'; echo "data=$(base64 test.enc)"
+	// openssl enc -a -k password -in plaintext -aes-128-cbc -p -out plaintext.enc | tr '[:upper:]' '[:lower:]'; echo "data=$(base64 test.enc)"
 
 	String cipherTransformation = "AES/CBC/PKCS5Padding";
 	String secretKeySpecAlgorithm = "AES";
