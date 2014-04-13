@@ -9,7 +9,7 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 import static org.kuali.common.util.encrypt.openssl.OpenSSLContext.buildDefaultOpenSSLContext;
 import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.buildEncryptedContext;
 import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.checkBase64;
-import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.copyAsBytes;
+import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.createBytesFromChars;
 
 import java.security.MessageDigest;
 
@@ -62,7 +62,7 @@ public final class OpenSSLEncryptor implements Encryptor {
 			MessageDigest messageDigest = MessageDigest.getInstance(context.getDigest());
 
 			int initVectorLength = cipher.getBlockSize();
-			byte[] data = copyAsBytes(password);
+			byte[] data = createBytesFromChars(password);
 			OpenSSLEncryptedContext encryptedContext = buildEncryptedContext(context, initVectorLength, messageDigest, salt, data);
 
 			return null;

@@ -44,7 +44,7 @@ public class OpenSSLUtils {
 		}
 	}
 
-	public static byte[] copyAsBytes(char[] chars) {
+	public static byte[] createBytesFromChars(char[] chars) {
 		return Str.getBytes(new String(chars), UTF8);
 	}
 
