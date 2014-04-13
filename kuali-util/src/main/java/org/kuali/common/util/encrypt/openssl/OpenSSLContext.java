@@ -23,6 +23,9 @@ public final class OpenSSLContext {
 		this.algorithm = builder.algorithm;
 	}
 
+	/**
+	 * Returns a context for 128 AES encryption compatible with OpenSSL
+	 */
 	public static OpenSSLContext buildDefaultOpenSSLContext() {
 		return builder().build();
 	}
