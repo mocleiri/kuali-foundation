@@ -98,6 +98,7 @@ public class OpenSSLDecryptor {
 	public static void main(String[] args) {
 		try {
 			// --- base 64 data ---
+			String password = "password";
 			String dataBase64 = "2FsdGVkX185kO1B7z5F3Xc+YwG1/QdOC1lphcfEH+I=";
 			byte[] headerSaltAndCipherText = decodeBase64(dataBase64.getBytes(ASCII));
 
@@ -113,8 +114,6 @@ public class OpenSSLDecryptor {
 			MessageDigest md5 = MessageDigest.getInstance("MD5");
 
 			// --- create key and IV ---
-
-			String password = "password";
 			// the IV is useless, OpenSSL might as well have used zero's
 			final byte[][] keyAndIV = EVP_BytesToKey(KEY_SIZE_BITS / Byte.SIZE, aesCBC.getBlockSize(), md5, salt, password.getBytes(ASCII), ITERATIONS);
 			SecretKeySpec key = new SecretKeySpec(keyAndIV[INDEX_KEY], "AES");
