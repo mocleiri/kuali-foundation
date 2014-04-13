@@ -14,10 +14,8 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-/**
- * Class created for StackOverflow by owlstead. This is open source, you are free to copy and use for any purpose.
- */
 public class OpenSSLDecryptor {
+
 	private static final int INDEX_KEY = 0;
 	private static final int INDEX_IV = 1;
 	private static final int ITERATIONS = 1;
