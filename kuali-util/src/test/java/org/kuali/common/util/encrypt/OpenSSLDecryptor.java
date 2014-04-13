@@ -1,11 +1,11 @@
 package org.kuali.common.util.encrypt;
 
+import static java.util.Arrays.copyOfRange;
 import static org.jasypt.contrib.org.apache.commons.codec_1_3.binary.Base64.decodeBase64;
 import static org.kuali.common.util.Encodings.ASCII;
 import static org.kuali.common.util.HexUtils.toHexStringLower;
 
 import java.security.MessageDigest;
-import java.util.Arrays;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -33,9 +33,9 @@ public class OpenSSLDecryptor {
 			// --- extract salt & encrypted ---
 
 			// header is "Salted__", ASCII encoded, if salt is being used (the default)
-			byte[] salt = Arrays.copyOfRange(headerSaltAndCipherText, SALT_OFFSET, SALT_OFFSET + SALT_SIZE);
+			byte[] salt = copyOfRange(headerSaltAndCipherText, SALT_OFFSET, SALT_OFFSET + SALT_SIZE);
 			System.out.println("salt=" + toHexStringLower(salt));
-			byte[] encrypted = Arrays.copyOfRange(headerSaltAndCipherText, CIPHERTEXT_OFFSET, headerSaltAndCipherText.length);
+			byte[] encrypted = copyOfRange(headerSaltAndCipherText, CIPHERTEXT_OFFSET, headerSaltAndCipherText.length);
 
 			// --- specify cipher and digest for EVP_BytesToKey method ---
 			Cipher aesCBC = Cipher.getInstance("AES/CBC/PKCS5Padding");
