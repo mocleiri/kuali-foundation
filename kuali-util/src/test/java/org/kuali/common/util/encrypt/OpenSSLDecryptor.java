@@ -4,14 +4,10 @@ import static org.jasypt.contrib.org.apache.commons.codec_1_3.binary.Base64.deco
 import static org.kuali.common.util.Encodings.ASCII;
 import static org.kuali.common.util.HexUtils.toHexStringLower;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
 import java.util.Arrays;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -63,15 +59,8 @@ public class OpenSSLDecryptor {
 
 			String answer = new String(decrypted, ASCII);
 			System.out.println(answer);
-		} catch (BadPaddingException e) {
-			// AKA "something went wrong"
-			throw new IllegalStateException("Bad password, algorithm, mode or padding; no salt, wrong number of iterations or corrupted ciphertext.", e);
-		} catch (IllegalBlockSizeException e) {
-			throw new IllegalStateException("Bad algorithm, mode or corrupted (resized) ciphertext.", e);
-		} catch (GeneralSecurityException e) {
-			throw new IllegalStateException(e);
-		} catch (IOException e) {
-			throw new IllegalStateException(e);
+		} catch (Throwable e) {
+			e.printStackTrace();
 		}
 	}
 
