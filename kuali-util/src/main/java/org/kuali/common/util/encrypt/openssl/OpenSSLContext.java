@@ -5,6 +5,7 @@ import static org.kuali.common.util.base.Precondition.checkMin;
 public final class OpenSSLContext {
 
 	private final int iterations;
+	private final String saltPrefix;
 	private final int saltOffset;
 	private final int saltSize;
 	private final int ciphertextOffset;
@@ -17,6 +18,7 @@ public final class OpenSSLContext {
 		this.iterations = builder.iterations;
 		this.saltOffset = builder.saltOffset;
 		this.saltSize = builder.saltSize;
+		this.saltPrefix = builder.saltPrefix;
 		this.ciphertextOffset = builder.ciphertextOffset;
 		this.keySizeBits = builder.keySizeBits;
 		this.transformation = builder.transformation;
@@ -35,7 +37,8 @@ public final class OpenSSLContext {
 	public static class Builder implements org.apache.commons.lang3.builder.Builder<OpenSSLContext> {
 
 		private int iterations = 1;
-		private int saltOffset = 8;
+		private String saltPrefix = "Salted__";
+		private int saltOffset = saltPrefix.length();;
 		private int saltSize = 8;
 		private int ciphertextOffset = saltOffset + saltSize;
 		private int keySizeBits = 128;
@@ -45,6 +48,11 @@ public final class OpenSSLContext {
 
 		public Builder withAlgorithm(String algorithm) {
 			this.algorithm = algorithm;
+			return this;
+		}
+
+		public Builder withSaltPrefix(String saltPrefix) {
+			this.saltPrefix = saltPrefix;
 			return this;
 		}
 
@@ -96,6 +104,78 @@ public final class OpenSSLContext {
 			checkMin(instance.keySizeBits, 0, "keySizeBits");
 			return instance;
 		}
+
+		public int getIterations() {
+			return iterations;
+		}
+
+		public void setIterations(int iterations) {
+			this.iterations = iterations;
+		}
+
+		public String getSaltPrefix() {
+			return saltPrefix;
+		}
+
+		public void setSaltPrefix(String saltPrefix) {
+			this.saltPrefix = saltPrefix;
+		}
+
+		public int getSaltOffset() {
+			return saltOffset;
+		}
+
+		public void setSaltOffset(int saltOffset) {
+			this.saltOffset = saltOffset;
+		}
+
+		public int getSaltSize() {
+			return saltSize;
+		}
+
+		public void setSaltSize(int saltSize) {
+			this.saltSize = saltSize;
+		}
+
+		public int getCiphertextOffset() {
+			return ciphertextOffset;
+		}
+
+		public void setCiphertextOffset(int ciphertextOffset) {
+			this.ciphertextOffset = ciphertextOffset;
+		}
+
+		public int getKeySizeBits() {
+			return keySizeBits;
+		}
+
+		public void setKeySizeBits(int keySizeBits) {
+			this.keySizeBits = keySizeBits;
+		}
+
+		public String getTransformation() {
+			return transformation;
+		}
+
+		public void setTransformation(String transformation) {
+			this.transformation = transformation;
+		}
+
+		public String getDigest() {
+			return digest;
+		}
+
+		public void setDigest(String digest) {
+			this.digest = digest;
+		}
+
+		public String getAlgorithm() {
+			return algorithm;
+		}
+
+		public void setAlgorithm(String algorithm) {
+			this.algorithm = algorithm;
+		}
 	}
 
 	public int getIterations() {
@@ -128,5 +208,9 @@ public final class OpenSSLContext {
 
 	public String getAlgorithm() {
 		return algorithm;
+	}
+
+	public String getSaltPrefix() {
+		return saltPrefix;
 	}
 }
