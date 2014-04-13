@@ -1,13 +1,19 @@
 package org.kuali.common.util.encrypt.openssl;
 
-import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Arrays.copyOfRange;
 import static org.codehaus.plexus.util.Base64.decodeBase64;
-import static org.kuali.common.util.Ascii.isDigit;
-import static org.kuali.common.util.Ascii.isLetter;
 import static org.kuali.common.util.Encodings.ASCII;
+import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 import static org.kuali.common.util.encrypt.openssl.OpenSSLContext.buildDefaultOpenSSLContext;
+import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.buildEncryptedContext;
+import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.checkBase64;
+import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.copyAsBytes;
+
+import java.security.MessageDigest;
+
+import javax.crypto.Cipher;
 
 import org.kuali.common.util.Str;
 import org.kuali.common.util.encrypt.Encryptor;
@@ -41,22 +47,27 @@ public final class OpenSSLEncryptor implements Encryptor {
 
 	protected OpenSSLEncryptedContext getEncryptedContext(String text) {
 		byte[] bytes = decodeBase64(Str.getBytes(checkBase64(text), ASCII));
-		return null;
-	}
 
-	protected static String checkBase64(String text) {
-		checkNotBlank(text, "text");
-		for (char c : text.toCharArray()) {
-			checkArgument(isBase64(c), "'%s' is not a base 64 character", c);
-		}
-		return text;
-	}
+		// OpenSSL inserts the prefix "Salted__" if salt is being used (the default)
+		int saltOffset = context.getSaltPrefix().length();
+		byte[] salt = copyOfRange(bytes, saltOffset, saltOffset + context.getSaltSize());
 
-	protected static boolean isBase64(char c) {
-		if (isLetter(c) || isDigit(c)) {
-			return true;
-		} else {
-			return c == '/' || c == '+' || c == '=';
+		// Everything after the salt prefix and salt are the encrypted bytes
+		int ciphertextOffset = saltOffset + context.getSaltSize();
+		byte[] encrypted = copyOfRange(bytes, ciphertextOffset, bytes.length);
+
+		try {
+			// --- specify cipher and digest for EVP_BytesToKey method ---
+			Cipher cipher = Cipher.getInstance(context.getTransformation());
+			MessageDigest messageDigest = MessageDigest.getInstance(context.getDigest());
+
+			int initVectorLength = cipher.getBlockSize();
+			byte[] data = copyAsBytes(password);
+			OpenSSLEncryptedContext encryptedContext = buildEncryptedContext(context, initVectorLength, messageDigest, salt, data);
+
+			return null;
+		} catch (Exception e) {
+			throw illegalState(e);
 		}
 	}
 
