@@ -67,19 +67,19 @@ public final class OpenSSLEncryptedContext {
 
 	}
 
-	public ImmutableList<Byte> getSalt() {
+	public List<Byte> getSalt() {
 		return salt;
 	}
 
-	public ImmutableList<Byte> getEncrypted() {
+	public List<Byte> getEncrypted() {
 		return encrypted;
 	}
 
-	public ImmutableList<Byte> getKey() {
+	public List<Byte> getKey() {
 		return key;
 	}
 
-	public ImmutableList<Byte> getInitVector() {
+	public List<Byte> getInitVector() {
 		return initVector;
 	}
 }

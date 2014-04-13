@@ -14,7 +14,6 @@ import org.kuali.common.util.encrypt.Encryptor;
 
 public final class OpenSSLEncryptor implements Encryptor {
 
-	private static final char[] OTHER_BASE64_CHARS = { '+', '/', '=' };
 	private final char[] password;
 	private final OpenSSLContext context;
 
