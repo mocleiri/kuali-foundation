@@ -51,7 +51,7 @@ public final class OpenSSLEncryptor implements Encryptor {
 		byte[] bytes = decodeBase64(Str.getBytes(checkBase64(text), ASCII));
 
 		// OpenSSL always inserts the prefix "Salted__" followed by the salt itself
-		// They have to explicitly use the -nosalt option to turn this off (which OpenSSL strongly advises against)
+		// You have to explicitly use the -nosalt option to turn this off (which OpenSSL strongly advises against)
 		int saltOffset = context.getSaltPrefix().length();
 		byte[] salt = copyOfRange(bytes, saltOffset, saltOffset + context.getSaltSize());
 
