@@ -14,6 +14,8 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.kuali.common.util.HexUtils;
+
 public class OpenSSLDecryptor {
 
 	private static final int INDEX_KEY = 0;
@@ -93,14 +95,15 @@ public class OpenSSLDecryptor {
 	public static void main(String[] args) {
 		try {
 			// --- base 64 data ---
-			String password = "mypass";
-			String base64Encrypted = "U2FsdGVkX1/Oq6bluk1so8i68lkGeIozD/bLBBZlc7c=";
+			String password = "password";
+			String base64Encrypted = "U2FsdGVkX18MLZ5tlJIDThNk7SGkw+cDxA/ynRtDWEc=";
 			byte[] headerSaltAndCipherText = decodeBase64(base64Encrypted.getBytes(ASCII));
 
 			// --- extract salt & encrypted ---
 
 			// header is "Salted__", ASCII encoded, if salt is being used (the default)
 			byte[] salt = Arrays.copyOfRange(headerSaltAndCipherText, SALT_OFFSET, SALT_OFFSET + SALT_SIZE);
+			System.out.println("salt=" + HexUtils.toHexString(salt));
 			byte[] encrypted = Arrays.copyOfRange(headerSaltAndCipherText, CIPHERTEXT_OFFSET, headerSaltAndCipherText.length);
 
 			// --- specify cipher and digest for EVP_BytesToKey method ---
@@ -110,6 +113,7 @@ public class OpenSSLDecryptor {
 			// --- create key and IV ---
 			// the IV is useless, OpenSSL might as well have used zero's
 			final byte[][] keyAndIV = EVP_BytesToKey(KEY_SIZE_BITS / Byte.SIZE, aesCBC.getBlockSize(), md5, salt, password.getBytes(ASCII), ITERATIONS);
+
 			SecretKeySpec key = new SecretKeySpec(keyAndIV[INDEX_KEY], "AES");
 			IvParameterSpec iv = new IvParameterSpec(keyAndIV[INDEX_IV]);
 
