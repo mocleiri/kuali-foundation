@@ -66,7 +66,7 @@ public class OpenSSLDecryptor {
 		}
 	}
 
-	public static byte[][] EVP_BytesToKey(int keyLength, int initVectorLength, MessageDigest md, byte[] salt, byte[] password, int count) {
+	public static byte[][] EVP_BytesToKey(int keyLength, int initVectorLength, MessageDigest md, byte[] salt, byte[] data, int count) {
 		byte[][] both = new byte[2][];
 		byte[] key = new byte[keyLength];
 		int key_ix = 0;
