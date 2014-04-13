@@ -10,6 +10,8 @@ public final class OpenSSLContext {
 	private final int ciphertextOffset;
 	private final int keySizeBits;
 	private final String transformation;
+	private final String digest;
+	private final String algorithm;
 
 	private OpenSSLContext(Builder builder) {
 		this.iterations = builder.iterations;
@@ -18,6 +20,8 @@ public final class OpenSSLContext {
 		this.ciphertextOffset = builder.ciphertextOffset;
 		this.keySizeBits = builder.keySizeBits;
 		this.transformation = builder.transformation;
+		this.digest = builder.digest;
+		this.algorithm = builder.algorithm;
 	}
 
 	public static OpenSSLContext buildDefaultOpenSSLContext() {
@@ -36,6 +40,18 @@ public final class OpenSSLContext {
 		private int ciphertextOffset = saltOffset + saltSize;
 		private int keySizeBits = 128;
 		private String transformation = "AES/CBC/PKCS5Padding";
+		private String digest = "MD5";
+		private String algorithm = "AES";
+
+		public Builder withAlgorithm(String algorithm) {
+			this.algorithm = algorithm;
+			return this;
+		}
+
+		public Builder withDigest(String digest) {
+			this.digest = digest;
+			return this;
+		}
 
 		public Builder withTransformation(String transformation) {
 			this.transformation = transformation;
@@ -104,5 +120,13 @@ public final class OpenSSLContext {
 
 	public String getTransformation() {
 		return transformation;
+	}
+
+	public String getDigest() {
+		return digest;
+	}
+
+	public String getAlgorithm() {
+		return algorithm;
 	}
 }
