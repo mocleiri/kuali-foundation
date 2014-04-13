@@ -1,15 +1,12 @@
 package org.kuali.common.util.encrypt;
 
 import static org.jasypt.contrib.org.apache.commons.codec_1_3.binary.Base64.decodeBase64;
+import static org.kuali.common.util.Encodings.ASCII;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
 import java.util.Arrays;
-import java.util.List;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -17,19 +14,13 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.kuali.common.util.Encodings;
-
 /**
  * Class created for StackOverflow by owlstead. This is open source, you are free to copy and use for any purpose.
  */
 public class OpenSSLDecryptor {
-	private static final Charset ASCII = Charset.forName("ASCII");
 	private static final int INDEX_KEY = 0;
 	private static final int INDEX_IV = 1;
 	private static final int ITERATIONS = 1;
-
-	private static final int ARG_INDEX_FILENAME = 0;
-	private static final int ARG_INDEX_PASSWORD = 1;
 
 	private static final int SALT_OFFSET = 8;
 	private static final int SALT_SIZE = 8;
@@ -106,16 +97,9 @@ public class OpenSSLDecryptor {
 
 	public static void main(String[] args) {
 		try {
-			// --- read base 64 encoded file ---
-
-			File f = new File(args[ARG_INDEX_FILENAME]);
-			List<String> lines = Files.readAllLines(f.toPath(), ASCII);
-			StringBuilder sb = new StringBuilder();
-			for (String line : lines) {
-				sb.append(line.trim());
-			}
-			String dataBase64 = sb.toString();
-			byte[] headerSaltAndCipherText = decodeBase64(dataBase64.getBytes(Encodings.UTF8));
+			// --- base 64 data ---
+			String dataBase64 = "2FsdGVkX185kO1B7z5F3Xc+YwG1/QdOC1lphcfEH+I=";
+			byte[] headerSaltAndCipherText = decodeBase64(dataBase64.getBytes(ASCII));
 
 			// --- extract salt & encrypted ---
 
@@ -130,8 +114,9 @@ public class OpenSSLDecryptor {
 
 			// --- create key and IV ---
 
+			String password = "password";
 			// the IV is useless, OpenSSL might as well have used zero's
-			final byte[][] keyAndIV = EVP_BytesToKey(KEY_SIZE_BITS / Byte.SIZE, aesCBC.getBlockSize(), md5, salt, args[ARG_INDEX_PASSWORD].getBytes(ASCII), ITERATIONS);
+			final byte[][] keyAndIV = EVP_BytesToKey(KEY_SIZE_BITS / Byte.SIZE, aesCBC.getBlockSize(), md5, salt, password.getBytes(ASCII), ITERATIONS);
 			SecretKeySpec key = new SecretKeySpec(keyAndIV[INDEX_KEY], "AES");
 			IvParameterSpec iv = new IvParameterSpec(keyAndIV[INDEX_IV]);
 
