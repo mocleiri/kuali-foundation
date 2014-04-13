@@ -1,6 +1,7 @@
 package org.kuali.common.util.encrypt.openssl;
 
 import static org.kuali.common.util.base.Precondition.checkMin;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 public final class OpenSSLContext {
 
@@ -40,6 +41,22 @@ public final class OpenSSLContext {
 		private String digest = "MD5";
 		private String algorithm = "AES";
 
+		@Override
+		public OpenSSLContext build() {
+			return validate(new OpenSSLContext(this));
+		}
+
+		private OpenSSLContext validate(OpenSSLContext instance) {
+			checkMin(instance.iterations, 0, "iterations");
+			checkNotBlank(saltPrefix, "saltPrefix");
+			checkMin(instance.saltSize, 0, "saltSize");
+			checkMin(instance.keySizeBits, 0, "keySizeBits");
+			checkNotBlank(transformation, "transformation");
+			checkNotBlank(digest, "digest");
+			checkNotBlank(algorithm, "algorithm");
+			return instance;
+		}
+
 		public Builder withAlgorithm(String algorithm) {
 			this.algorithm = algorithm;
 			return this;
@@ -73,18 +90,6 @@ public final class OpenSSLContext {
 		public Builder withKeySizeBits(int keySizeBits) {
 			this.keySizeBits = keySizeBits;
 			return this;
-		}
-
-		@Override
-		public OpenSSLContext build() {
-			return validate(new OpenSSLContext(this));
-		}
-
-		private OpenSSLContext validate(OpenSSLContext instance) {
-			checkMin(instance.iterations, 0, "iterations");
-			checkMin(instance.saltSize, 0, "saltSize");
-			checkMin(instance.keySizeBits, 0, "keySizeBits");
-			return instance;
 		}
 
 		public int getIterations() {
