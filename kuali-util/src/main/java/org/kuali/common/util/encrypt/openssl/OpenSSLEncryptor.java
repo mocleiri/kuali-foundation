@@ -38,7 +38,7 @@ public final class OpenSSLEncryptor implements Encryptor {
 
 	@Override
 	public String encrypt(String text) {
-		checkNotBlank(text, "text");
+		checkNotNull(text, "text");
 		return null;
 	}
 
