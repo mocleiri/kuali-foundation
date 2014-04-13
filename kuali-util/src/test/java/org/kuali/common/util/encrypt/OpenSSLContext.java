@@ -18,6 +18,14 @@ public final class OpenSSLContext {
 		this.keySizeBits = builder.keySizeBits;
 	}
 
+	public static OpenSSLContext buildDefaultOpenSSLContext() {
+		return builder().build();
+	}
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder implements org.apache.commons.lang3.builder.Builder<OpenSSLContext> {
 
 		private int iterations = 1;
