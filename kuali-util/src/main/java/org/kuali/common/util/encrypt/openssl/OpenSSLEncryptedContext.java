@@ -10,9 +10,9 @@ import com.google.common.collect.ImmutableList;
 public final class OpenSSLEncryptedContext {
 
 	private final ImmutableList<Byte> salt;
-	private final ImmutableList<Byte> encrypted;
 	private final ImmutableList<Byte> key;
 	private final ImmutableList<Byte> initVector;
+	private final ImmutableList<Byte> encrypted;
 
 	private OpenSSLEncryptedContext(Builder builder) {
 		this.salt = ImmutableList.copyOf(builder.salt);
@@ -28,9 +28,9 @@ public final class OpenSSLEncryptedContext {
 	public static class Builder implements org.apache.commons.lang3.builder.Builder<OpenSSLEncryptedContext> {
 
 		private List<Byte> salt = newArrayList();
-		private List<Byte> encrypted = newArrayList();
 		private List<Byte> key = newArrayList();
 		private List<Byte> initVector = newArrayList();
+		private List<Byte> encrypted = newArrayList();
 
 		public Builder withSalt(List<Byte> salt) {
 			this.salt = salt;
@@ -59,9 +59,9 @@ public final class OpenSSLEncryptedContext {
 
 		private static OpenSSLEncryptedContext validate(OpenSSLEncryptedContext instance) {
 			checkNotNull(instance.salt, "salt");
-			checkNotNull(instance.encrypted, "encrypted");
 			checkNotNull(instance.key, "key");
 			checkNotNull(instance.initVector, "initVector");
+			checkNotNull(instance.encrypted, "encrypted");
 			return instance;
 		}
 
