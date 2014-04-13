@@ -1,4 +1,4 @@
-package org.kuali.common.util.encrypt.openssl;
+package org.kuali.common.util.encrypt;
 
 import static java.util.Arrays.copyOfRange;
 import static org.jasypt.contrib.org.apache.commons.codec_1_3.binary.Base64.decodeBase64;
