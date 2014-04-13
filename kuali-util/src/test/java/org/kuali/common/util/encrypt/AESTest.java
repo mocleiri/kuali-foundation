@@ -4,6 +4,7 @@ import static java.lang.String.format;
 import static javax.crypto.Cipher.DECRYPT_MODE;
 import static javax.crypto.Cipher.ENCRYPT_MODE;
 import static org.codehaus.plexus.util.Base64.decodeBase64;
+import static org.codehaus.plexus.util.Base64.encodeBase64;
 import static org.kuali.common.util.Encodings.UTF8;
 import static org.kuali.common.util.HexUtils.getBytesFromHexString;
 import static org.kuali.common.util.HexUtils.toHexStringLower;
@@ -21,7 +22,6 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.codehaus.plexus.util.Base64;
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -96,7 +96,7 @@ public class AESTest {
 			AlgorithmParameters params = cipher.getParameters();
 			byte[] iv = params.getParameterSpec(IvParameterSpec.class).getIV();
 			byte[] ciphertext = cipher.doFinal(plaintext.getBytes(UTF8));
-			return new EncryptionResult(new String(Base64.encodeBase64(ciphertext), UTF8).replace("\n", "").replace("\r", ""), toHexStringLower(iv));
+			return new EncryptionResult(new String(encodeBase64(ciphertext), UTF8).replace("\n", "").replace("\r", ""), toHexStringLower(iv));
 		} catch (Exception e) {
 			throw illegalState(e);
 		}
