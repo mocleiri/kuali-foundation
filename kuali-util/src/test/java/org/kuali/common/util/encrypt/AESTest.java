@@ -3,6 +3,7 @@ package org.kuali.common.util.encrypt;
 import static java.lang.String.format;
 import static javax.crypto.Cipher.DECRYPT_MODE;
 import static javax.crypto.Cipher.ENCRYPT_MODE;
+import static org.codehaus.plexus.util.Base64.decodeBase64;
 import static org.kuali.common.util.Encodings.UTF8;
 import static org.kuali.common.util.HexUtils.getBytesFromHexString;
 import static org.kuali.common.util.HexUtils.toHexStringLower;
@@ -20,11 +21,10 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.codehaus.plexus.util.Base64;
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.junit.Test;
 import org.slf4j.Logger;
-
-import com.sun.org.apache.xml.internal.security.utils.Base64;
 
 public class AESTest {
 
@@ -65,7 +65,7 @@ public class AESTest {
 	protected String decrypt(EncryptionResult encrypted, String password, String salt) {
 		try {
 			byte[] iv = getBytesFromHexString(encrypted.getInitializationVector());
-			byte[] ciphertext = Base64.decode(encrypted.getEncryptedText());
+			byte[] ciphertext = decodeBase64(encrypted.getEncryptedText().getBytes(UTF8));
 			SecretKey secret = getSecretKey(password, salt);
 			secret.getEncoded();
 			Cipher cipher = Cipher.getInstance(cipherTransformation);
@@ -96,7 +96,7 @@ public class AESTest {
 			AlgorithmParameters params = cipher.getParameters();
 			byte[] iv = params.getParameterSpec(IvParameterSpec.class).getIV();
 			byte[] ciphertext = cipher.doFinal(plaintext.getBytes(UTF8));
-			return new EncryptionResult(Base64.encode(ciphertext).replace("\n", "").replace("\r", ""), toHexStringLower(iv));
+			return new EncryptionResult(new String(Base64.encodeBase64(ciphertext), UTF8).replace("\n", "").replace("\r", ""), toHexStringLower(iv));
 		} catch (Exception e) {
 			throw illegalState(e);
 		}
