@@ -27,7 +27,10 @@ public final class OpenSSLContext {
 	}
 
 	/**
-	 * Returns a context for 256 bit AES encryption compatible with OpenSSL
+	 * <p>
+	 * If EncryptionStrength.STRONG_ENCRYPTION_STRENGTH is passed in, AES 256 is used. Using AES 256 <strong>REQUIRES</strong> installing java's
+	 * "unlimited strength jurisdiction policy files"
+	 * <p>
 	 */
 	public static OpenSSLContext buildOpenSSLContext(EncryptionStrength strength) {
 		if (STRONG_ENCRYPTION_STRENGTH.equals(strength)) {
