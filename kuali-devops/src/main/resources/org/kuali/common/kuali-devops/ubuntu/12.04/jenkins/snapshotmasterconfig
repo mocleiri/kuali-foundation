@@ -17,7 +17,7 @@ function check_tar_status {
   STATUS="$?"
   # 0 == normal tar with no issues
   # 1 == this can happen if the directory changes while tar is running
-  if [[ ! ("$STATUS" == "0" || "$STATUS" == "27") ]]; then
+  if [[ ! ("$STATUS" == "0" || "$STATUS" == "1") ]]; then
     echo
     echo "error executing: \"$TAR_COMMAND\""
     echo "exit value: $STATUS"
