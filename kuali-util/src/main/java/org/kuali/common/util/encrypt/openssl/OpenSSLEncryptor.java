@@ -116,7 +116,7 @@ public final class OpenSSLEncryptor implements Encryptor {
 			// initialize the cipher instance
 			cipher.init(DECRYPT_MODE, key, iv);
 
-			// extract the encrypted bytes from the raw base64 decoded bytes
+			// extract the portion of the array containing the encrypted bytes
 			int ciphertextOffset = saltOffset + context.getSaltSize();
 			byte[] encrypted = copyOfRange(bytes, ciphertextOffset, bytes.length);
 
