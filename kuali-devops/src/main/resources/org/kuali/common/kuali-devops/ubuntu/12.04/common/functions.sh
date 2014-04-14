@@ -130,19 +130,19 @@ function wait_for_string {
 }
 
 function encrypt_file {
-  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
-  GPG_DECRYPTED=$1
-  GPG_ENCRYPTED=$2
-  check_exists $GPG_DECRYPTED
-  execute_quietly "gpg --batch --yes --passphrase $GPG_PASSPHRASE --cipher-algo AES256 --symmetric --output $GPG_ENCRYPTED $GPG_DECRYPTED"
+  check_not_blank AES_PASSPHRASE $AES_PASSPHRASE
+  AES_DECRYPTED=$1
+  AES_ENCRYPTED=$2
+  check_exists $AES_DECRYPTED
+  execute_quietly "gpg --batch --yes --passphrase $AES_PASSPHRASE --cipher-algo AES256 --symmetric --output $AES_ENCRYPTED $AES_DECRYPTED"
 }
 
 function decrypt_file {
-  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
-  GPG_ENCRYPTED=$1
-  GPG_DECRYPTED=$2
-  check_exists $GPG_ENCRYPTED
-  execute_quietly "gpg --batch --yes --passphrase $GPG_PASSPHRASE --decrypt --output $GPG_DECRYPTED $GPG_ENCRYPTED"
+  check_not_blank AES_PASSPHRASE $AES_PASSPHRASE
+  AES_ENCRYPTED=$1
+  AES_DECRYPTED=$2
+  check_exists $AES_ENCRYPTED
+  execute_quietly "gpg --batch --yes --passphrase $AES_PASSPHRASE --decrypt --output $AES_DECRYPTED $AES_ENCRYPTED"
 }
 
 function execute_quietly {
