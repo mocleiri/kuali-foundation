@@ -71,7 +71,7 @@ function configure_tomcat_ssl {
   TOMCAT_SSL_DIR=/var/lib/$TOMCAT/conf/ssl
   rm -rf $TOMCAT_SSL_DIR; mkdir -p $TOMCAT_SSL_DIR
   
-  AES_ENCRYPTED=$TOMCAT_GENERIC_CONFIG/ssl.zip.gpg
+  AES_ENCRYPTED=$TOMCAT_GENERIC_CONFIG/ssl.zip.aes
   AES_DECRYPTED=$TOMCAT_GENERIC_CONFIG/ssl.zip
   decrypt_file $AES_ENCRYPTED $AES_DECRYPTED
   execute_quietly "unzip -o $AES_DECRYPTED -d $TOMCAT_SSL_DIR"

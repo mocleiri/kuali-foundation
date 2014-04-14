@@ -199,16 +199,16 @@ function configure_secrets {
 
   # Extract secrets into /root/.ssh
   echo "configure -> secrets"
-  AES_ENCRYPTED=$MY_DIR/secrets.zip.gpg
+  AES_ENCRYPTED=$MY_DIR/secrets.zip.aes
   AES_DECRYPTED=$MY_DIR/secrets.zip
   decrypt_file $AES_ENCRYPTED $AES_DECRYPTED
   execute_quietly "unzip -o $AES_DECRYPTED -d /root"
   execute_quietly "rm $AES_DECRYPTED"
 
   # Setup GPG
-  AES_KEY=/root/.ssh/jcaddel.gpg.private
+  GPG_KEY=/root/.ssh/jcaddel.gpg.private
   rm -rf /root/.gnupg
-  execute_quietly "gpg --allow-secret-key-import --import $AES_KEY"
+  execute_quietly "gpg --allow-secret-key-import --import $GPG_KEY"
   
   # setup maven
   execute_quietly "mkdir -p /root/.m2/repository"  
