@@ -14,12 +14,13 @@ public class OpenSSLTest {
 
 	@Test
 	public void testEncryption() {
-		String password = "password";
-		String plaintext = "hello world";
+		String password = "foo";
+		String plaintext = "bar";
 		Encryptor encryptor = new OpenSSLEncryptor(password);
 		String encrypted = encryptor.encrypt(plaintext);
 		String decrypted = encryptor.decrypt(encrypted);
 		assertEquals(plaintext, decrypted);
+		info("password=%s", password);
 		info("plaintext=%s", plaintext);
 		info("encrypted=%s", encrypted);
 		info("decrypted=%s", decrypted);
