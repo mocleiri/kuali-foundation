@@ -212,7 +212,7 @@ function decrypt_file {
   AES_ENCRYPTED=$1
   AES_DECRYPTED=$2
   check_exists $AES_ENCRYPTED
-  execute_quietly "openssl enc -aes128 -e -base64 -A -k $2 -in $AES_ENCRYPTED -out $AES_DECRYPTED"
+  execute_quietly "openssl enc -aes128 -d -base64 -A -k $2 -in $AES_ENCRYPTED -out $AES_DECRYPTED"
 }
 
 # decrypt value password
