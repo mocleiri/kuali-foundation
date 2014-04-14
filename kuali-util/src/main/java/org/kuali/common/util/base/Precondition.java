@@ -47,7 +47,7 @@ public class Precondition {
 	}
 
 	/**
-	 * Ensures that a String passed as an argument is not not whitespace, empty ("") or null
+	 * Ensures that a String passed as an argument is not whitespace, empty ("") or null
 	 * 
 	 * @param arg
 	 *            a String passed as an argument
