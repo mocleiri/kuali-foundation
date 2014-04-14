@@ -137,7 +137,7 @@ function execute_quietly {
     echo "$COMMAND"
     $COMMAND
   fi
-  check_status $COMMAND
+  check_status "$COMMAND"
 }
 
 function check_status {
