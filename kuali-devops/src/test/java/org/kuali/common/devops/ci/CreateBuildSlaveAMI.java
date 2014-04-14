@@ -99,8 +99,8 @@ public class CreateBuildSlaveAMI {
 	public static final KeyPair KUALI_KEY = Auth.getKeyPair("devops");
 	private final int minimumAmisToKeep = 7;
 	private final Encryptor encryptor = buildDefaultEncryptor();
-	private final String kisPasswordEncrypted = "Sqjxyh1Mrxxw02zR4hAlgWPCg7HtwM2k";
-	private final String kisUsernameEncrypted = "juxljv8wTGmqvCsTAcUifg==";
+	private final String kisUsernameEncrypted = "U2FsdGVkX18yas/kI9ymLV41TRC9tcoE8P2YaoQmtOc=";
+	private final String kisPasswordEncrypted = "U2FsdGVkX18M5faj1sGRINZ0p5dNNW3FFEPxM1lx3Gw=";
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 80;
 
 	private static final Map<String, JenkinsContext> CONTEXTS = SpinUpJenkinsMaster.getJenkinsContexts(Tags.Name.SLAVE);
