@@ -121,7 +121,7 @@ public class CreateBuildSlaveAMI {
 		Instance instance = launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
 		// Instance instance = service.getInstance("i-39c83531");
 		String privateKey = KUALI_KEY.getPrivateKey();
-		configureInstance(service, instance, tags, pid, quiet, privateKey, jenkinsContext.getDnsPrefix(), getJenkinsMaster(jenkinsContext));
+		configureInstance(service, instance, tags, pid, quiet, privateKey, jenkinsContext.getDnsPrefix(), getJenkinsMaster(jenkinsContext), jenkinsContext);
 
 		// Create a new AMI from this slave, and copy it around to every US region
 		String ami = createAndPropagateAMI(instance, service, request);
@@ -139,7 +139,7 @@ public class CreateBuildSlaveAMI {
 	}
 
 	protected void configureInstance(EC2Service service, Instance instance, List<Tag> tags, ProjectIdentifier pid, boolean quiet, String privateKey, String dnsPrefix,
-			String jenkinsMaster) throws Exception {
+			String jenkinsMaster, JenkinsContext jenkinsContext) throws Exception {
 		service.tag(instance.getInstanceId(), tags);
 		logger.info(format("public dns: %s", instance.getPublicDnsName()));
 		String dns = instance.getPublicDnsName();
@@ -152,9 +152,10 @@ public class CreateBuildSlaveAMI {
 		String quietFlag = (quiet) ? "-q" : "";
 
 		setupEssentials(channel, basedir, pid, distro, distroVersion, aesPassphrase, dnsPrefix, quietFlag);
+		String stack = jenkinsContext.getStack().getTag().getValue();
 		String common = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
 		String slave = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/configureslave");
-		SpinUpJenkinsMaster.exec(channel, common, quietFlag, jenkinsMaster, aesPassphrase);
+		SpinUpJenkinsMaster.exec(channel, common, quietFlag, jenkinsMaster, stack, aesPassphrase);
 		SpinUpJenkinsMaster.exec(channel, slave, quietFlag, jenkinsMaster);
 		cacheBinaries(channel, basedir, pid);
 		channel.close();

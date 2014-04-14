@@ -142,8 +142,8 @@ public class SpinUpJenkinsMaster {
 			String jenkins = getResource(basedir, pid, distro, distroVersion, "jenkins/installjenkins");
 			String configureMaster = getResource(basedir, pid, distro, distroVersion, "jenkins/configuremaster");
 			String latestSlaveAMI = findLatestSlaveAMI(service);
-			exec(channel, common, quietFlag, jenkinsMaster, aesPassphrase);
 			String stack = jenkinsContext.getStack().getTag().getValue();
+			exec(channel, common, quietFlag, jenkinsMaster, stack, aesPassphrase);
 			String backupMode = jenkinsContext.getBackupMode().name().toLowerCase();
 			exec(channel, jenkins, quietFlag, Constants.JENKINS_VERSION);
 			exec(channel, configureMaster, quietFlag, jenkinsMaster, jenkinsContext.getRegion().getName(), stack, backupMode, latestSlaveAMI, Constants.JENKINS_VERSION,
