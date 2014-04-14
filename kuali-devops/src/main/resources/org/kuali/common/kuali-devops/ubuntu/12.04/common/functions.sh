@@ -204,7 +204,7 @@ function encrypt_file {
   AES_DECRYPTED=$1
   AES_ENCRYPTED=$2
   check_exists $AES_DECRYPTED
-  execute_quietly "openssl enc -aes128 -e -base64 -k $2 -in $AES_DECRYPTED -out $AES_ENCRYPTED"
+  execute_quietly "openssl enc -aes128 -e -base64 -k $AES_PASSPHRASE -in $AES_DECRYPTED -out $AES_ENCRYPTED"
 }
 
 function decrypt_file {
@@ -212,7 +212,7 @@ function decrypt_file {
   AES_ENCRYPTED=$1
   AES_DECRYPTED=$2
   check_exists $AES_ENCRYPTED
-  execute_quietly "openssl enc -aes128 -d -base64 -k $2 -in $AES_ENCRYPTED -out $AES_DECRYPTED"
+  execute_quietly "openssl enc -aes128 -d -base64 -k $AES_PASSPHRASE -in $AES_ENCRYPTED -out $AES_DECRYPTED"
 }
 
 # decrypt value password
