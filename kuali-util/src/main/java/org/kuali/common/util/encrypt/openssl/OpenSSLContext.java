@@ -44,14 +44,14 @@ public final class OpenSSLContext {
 		private String digest = "MD5";
 		private String algorithm = "AES";
 
-		private OpenSSLContext validate(OpenSSLContext instance) {
+		private static OpenSSLContext validate(OpenSSLContext instance) {
 			checkMin(instance.iterations, 0, "iterations");
-			checkNotBlank(saltPrefix, "saltPrefix");
+			checkNotBlank(instance.saltPrefix, "saltPrefix");
 			checkMin(instance.saltSize, 0, "saltSize");
 			checkMin(instance.keySizeBits, 0, "keySizeBits");
-			checkNotBlank(transformation, "transformation");
-			checkNotBlank(digest, "digest");
-			checkNotBlank(algorithm, "algorithm");
+			checkNotBlank(instance.transformation, "transformation");
+			checkNotBlank(instance.digest, "digest");
+			checkNotBlank(instance.algorithm, "algorithm");
 			return instance;
 		}
 
