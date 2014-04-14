@@ -216,11 +216,17 @@ function decrypt_file {
 }
 
 # decrypt value password
+# -e == encrypt
+# -A == no line wrapping the base 64
+# -k == password
 function encrypt {
   echo -e -n "$1" | openssl enc -aes128 -e -base64 -A -k $2
 }
 
 # decrypt value password
+# -d == decrypt
+# -A == no line wrapping the base 64
+# -k == password
 function decrypt {
   echo -e -n "$1" | openssl enc -aes128 -d -base64 -A -k $2
 }
