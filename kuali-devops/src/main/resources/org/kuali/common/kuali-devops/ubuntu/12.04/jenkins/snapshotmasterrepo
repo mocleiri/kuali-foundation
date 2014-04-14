@@ -41,9 +41,9 @@ while true; do
   esac
 done
 
-GPG_PASSPHRASE=$1
+AES_PASSPHRASE=$1
 
-check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
+check_not_blank AES_PASSPHRASE $AES_PASSPHRASE
 
 QUIET_FLAG=""
 if [ "$QUIET" == "true" ]; then

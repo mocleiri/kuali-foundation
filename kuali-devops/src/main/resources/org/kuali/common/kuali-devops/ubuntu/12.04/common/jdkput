@@ -3,7 +3,7 @@
 function check_args {
   check_not_blank JDK $JDK
   check_not_blank UPDATE $UPDATE
-  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
+  check_not_blank AES_PASSPHRASE $AES_PASSPHRASE
 }
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
@@ -69,7 +69,7 @@ done
 
 JDK=$1
 UPDATE=$2
-GPG_PASSPHRASE=$3
+AES_PASSPHRASE=$3
 
 check_args
 

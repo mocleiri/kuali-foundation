@@ -31,12 +31,12 @@ done
 JDK=$1
 UPDATE=$2
 BUILD=$3
-GPG_PASSPHRASE=$4
+AES_PASSPHRASE=$4
 
 check_not_blank JDK $JDK
 check_not_blank UPDATE $UPDATE
 check_not_blank BUILD $BUILD
-check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
+check_not_blank AES_PASSPHRASE $AES_PASSPHRASE
 
 QUIET_FLAG=""
 if [ "$QUIET" == "true" ]; then
@@ -46,4 +46,4 @@ fi
 
 $MY_DIR/jdkget $QUIET_FLAG $JDK $UPDATE $BUILD
 $MY_DIR/jdkfix $QUIET_FLAG $JDK $UPDATE
-$MY_DIR/jdkput $QUIET_FLAG $JDK $UPDATE $GPG_PASSPHRASE
+$MY_DIR/jdkput $QUIET_FLAG $JDK $UPDATE $AES_PASSPHRASE

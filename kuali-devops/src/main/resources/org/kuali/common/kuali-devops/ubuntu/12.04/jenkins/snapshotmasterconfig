@@ -2,7 +2,7 @@ function check_args {
   check_not_blank STACK $STACK
   check_not_blank MODE $MODE
   check_not_blank VERSION $VERSION
-  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
+  check_not_blank AES_PASSPHRASE $AES_PASSPHRASE
   
   check_jenkins_mode
 }
@@ -63,7 +63,7 @@ done
 STACK=$1
 MODE=$2
 VERSION=$3
-GPG_PASSPHRASE=$4
+AES_PASSPHRASE=$4
 
 check_args
 

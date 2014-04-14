@@ -164,7 +164,7 @@ function check_args {
   check_not_blank MODE $MODE
   check_not_blank AMI $AMI
   check_not_blank JENKINS_VERSION $JENKINS_VERSION
-  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
+  check_not_blank AES_PASSPHRASE $AES_PASSPHRASE
   
   check_jenkins_mode
   
@@ -200,7 +200,7 @@ STACK=$3
 MODE=$4
 AMI=$5
 JENKINS_VERSION=$6
-GPG_PASSPHRASE=$7
+AES_PASSPHRASE=$7
 
 check_args
 

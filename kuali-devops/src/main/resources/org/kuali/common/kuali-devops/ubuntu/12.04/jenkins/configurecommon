@@ -199,16 +199,16 @@ function configure_secrets {
 
   # Extract secrets into /root/.ssh
   echo "configure -> secrets"
-  GPG_ENCRYPTED=$MY_DIR/secrets.zip.gpg
-  GPG_DECRYPTED=$MY_DIR/secrets.zip
-  decrypt_file $GPG_ENCRYPTED $GPG_DECRYPTED
-  execute_quietly "unzip -o $GPG_DECRYPTED -d /root"
-  execute_quietly "rm $GPG_DECRYPTED"
+  AES_ENCRYPTED=$MY_DIR/secrets.zip.gpg
+  AES_DECRYPTED=$MY_DIR/secrets.zip
+  decrypt_file $AES_ENCRYPTED $AES_DECRYPTED
+  execute_quietly "unzip -o $AES_DECRYPTED -d /root"
+  execute_quietly "rm $AES_DECRYPTED"
 
   # Setup GPG
-  GPG_KEY=/root/.ssh/jcaddel.gpg.private
+  AES_KEY=/root/.ssh/jcaddel.gpg.private
   rm -rf /root/.gnupg
-  execute_quietly "gpg --allow-secret-key-import --import $GPG_KEY"
+  execute_quietly "gpg --allow-secret-key-import --import $AES_KEY"
   
   # setup maven
   execute_quietly "mkdir -p /root/.m2/repository"  
@@ -238,8 +238,8 @@ function touch_subversion_repo {
 
   SVN_USERNAME=jA0ECQMCClQvecZGYw++0jwBZ5ul9bl5R1VkhFJsfvESUAR4mnSdScbnPTDNGYbffSdljGlJao02MnoxCIVyaHpqYzJ4lH3JxbqRoDc=
   SVN_PASSWORD=jA0ECQMC+5Djf7TwqeC+0j0B5zPpUg8CqKk+U19wSAAx85CGpzJe0ts76So1EsCLbay+A4bNEA6+LqjlcvZNEfabfI36KXOuorya3+kZ
-  SVN_USERNAME=$(decrypt $SVN_USERNAME $GPG_PASSPHRASE)
-  SVN_PASSWORD=$(decrypt $SVN_PASSWORD $GPG_PASSPHRASE)
+  SVN_USERNAME=$(decrypt $SVN_USERNAME $AES_PASSPHRASE)
+  SVN_PASSWORD=$(decrypt $SVN_PASSWORD $AES_PASSPHRASE)
   SVN_AUTH="--username=$SVN_USERNAME --password=$SVN_PASSWORD"
   # the message can't have spaces in it
   SVN_MESSAGE="automated-auth-check"
@@ -269,7 +269,7 @@ function setup_svn_ppa {
 
 function check_args {
   check_not_blank JENKINS_MASTER $JENKINS_MASTER
-  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
+  check_not_blank AES_PASSPHRASE $AES_PASSPHRASE
 }
 
 MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
@@ -305,7 +305,7 @@ done
 shift $(( OPTIND - 1 ));
 
 JENKINS_MASTER=$1
-GPG_PASSPHRASE=$2
+AES_PASSPHRASE=$2
 
 check_args
 

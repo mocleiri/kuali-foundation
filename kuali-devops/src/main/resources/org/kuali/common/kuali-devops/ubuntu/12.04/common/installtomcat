@@ -71,10 +71,10 @@ function configure_tomcat_ssl {
   TOMCAT_SSL_DIR=/var/lib/$TOMCAT/conf/ssl
   rm -rf $TOMCAT_SSL_DIR; mkdir -p $TOMCAT_SSL_DIR
   
-  GPG_ENCRYPTED=$TOMCAT_GENERIC_CONFIG/ssl.zip.gpg
-  GPG_DECRYPTED=$TOMCAT_GENERIC_CONFIG/ssl.zip
-  decrypt_file $GPG_ENCRYPTED $GPG_DECRYPTED
-  execute_quietly "unzip -o $GPG_DECRYPTED -d $TOMCAT_SSL_DIR"
+  AES_ENCRYPTED=$TOMCAT_GENERIC_CONFIG/ssl.zip.gpg
+  AES_DECRYPTED=$TOMCAT_GENERIC_CONFIG/ssl.zip
+  decrypt_file $AES_ENCRYPTED $AES_DECRYPTED
+  execute_quietly "unzip -o $AES_DECRYPTED -d $TOMCAT_SSL_DIR"
   
   SSL_KEYSTORE_FILE=$TOMCAT_SSL_DIR/wildcard.$DOMAIN.keystore.pkcs12
   SSL_PASSWORD_FILE=$TOMCAT_SSL_DIR/wildcard.$DOMAIN.keystore.password
@@ -86,7 +86,7 @@ function configure_tomcat_ssl {
   execute_quietly "openssl pkcs12 -in $SSL_KEYSTORE_FILE -out $TOMCAT_SSL_DIR/SSLCertificateKeyFile.pem   -nocerts -nodes  -passin file:$SSL_PASSWORD_FILE"
   
   # this errors out if there is an issue deleting the files
-  execute_quietly "rm $SSL_KEYSTORE_FILE $SSL_PASSWORD_FILE $GPG_DECRYPTED"
+  execute_quietly "rm $SSL_KEYSTORE_FILE $SSL_PASSWORD_FILE $AES_DECRYPTED"
   rm -f $TOMCAT_SSL_DIR/wildcard.*
   
 }
@@ -196,7 +196,7 @@ function install_tomcat {
 function check_args {
   check_not_blank TOMCAT $TOMCAT
   check_not_blank JDK $JDK
-  check_not_blank GPG_PASSPHRASE $GPG_PASSPHRASE
+  check_not_blank AES_PASSPHRASE $AES_PASSPHRASE
   check_not_blank MAX_HEAP $MAX_HEAP
   check_not_blank MAX_PERM $MAX_PERM
   check_not_blank DOMAIN $DOMAIN
@@ -251,7 +251,7 @@ done
 
 TOMCAT=$1
 JDK=$2
-GPG_PASSPHRASE=$3
+AES_PASSPHRASE=$3
 
 check_args
 
