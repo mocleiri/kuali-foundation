@@ -17,7 +17,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-q --quiet] [-h --help] version password" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-q --quiet] [-h --help] password" 1>&2; exit 1; }
 
 QUIET=false
 
@@ -55,7 +55,7 @@ TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
 ACL=authenticated-read
 GROUP_ID=org.jenkins
 ARTIFACT_ID=jenkins-master-repo
-CLASSIFIER=$TIMESTAMP
+CLASSIFIER=$STACK-$TIMESTAMP
 TYPE=tar.gz
 
 source $MY_DIR/../common/aws.sh
@@ -70,7 +70,7 @@ M2_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --repo=$BUCKE
 echo "upload    -> https://$M2_PATH"
 $MY_DIR/../common/m2s3put $QUIET_FLAG $TAR_FILE $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --acl=$ACL --type=$TYPE --prefix=$PREFIX --classifier=$CLASSIFIER
 
-CLASSIFIER=latest
+CLASSIFIER=$STACK-latest
 M2_PATH=$($MY_DIR/../common/m2path $GROUP_ID $ARTIFACT_ID $VERSION --repo=$BUCKET/$PREFIX --type=$TYPE --classifier=$CLASSIFIER)
 echo "upload    -> https://$M2_PATH"
 $MY_DIR/../common/m2s3put $QUIET_FLAG $TAR_FILE $ACCESS_KEY $SECRET_KEY $BUCKET $GROUP_ID $ARTIFACT_ID $VERSION --acl=$ACL --type=$TYPE --prefix=$PREFIX --classifier=$CLASSIFIER
