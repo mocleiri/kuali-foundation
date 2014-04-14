@@ -7,6 +7,25 @@ function check_args {
   check_jenkins_mode
 }
 
+#
+# The .jenkins directory is very active and gets written to during the tar
+# We are going to ignore exit value 1 so the tar command will succeed
+# This should be ok as the config files are what the tar command needs to capture perfectly
+# Since the config files change very infrequently, we should be ok here
+#
+function check_tar_status {
+  STATUS="$?"
+  # 6 == user does not exist
+  # 0 == user was successfully deleted
+  if [[ ! ("$STATUS" == "0" || "$STATUS" == "1") ]]; then
+    echo
+    echo "error executing: \"$TAR_COMMAND\""
+    echo "exit value: $STATUS"
+    echo 
+    exit $STATUS
+  fi
+}
+
 function create_tar_file {
    echo "tar.gz    -> /home/tomcat7/.jenkins"
    execute_quietly "rm -rf $TAR_DIR/master.*"
@@ -18,15 +37,19 @@ function create_tar_file {
    # All config including config history and build history
    local THIN="--exclude=**/plugins/** --exclude=**/workspace/** --exclude=**/logs/slaves/**"
 
+   local TAR_COMMAND=""
    if [ $MODE == "min" ]; then
-     execute_quietly "sudo tar --ignore-failed-read --gzip --verbose --create --file $TAR_FILE .jenkins $MIN"
+     TAR_COMMAND="tar --ignore-failed-read --gzip --verbose --create --file $TAR_FILE .jenkins $MIN"
    fi
    if [ $MODE == "thin" ]; then
-     execute_quietly "sudo tar --ignore-failed-read --gzip --verbose --create --file $TAR_FILE .jenkins $THIN"
+     TAR_COMMAND="tar --ignore-failed-read --gzip --verbose --create --file $TAR_FILE .jenkins $THIN"
    fi
    if [ $MODE == "full" ]; then
-     execute_quietly "sudo tar --ignore-failed-read --gzip --verbose --create --file $TAR_FILE .jenkins"
+     TAR_COMMAND="tar --ignore-failed-read --gzip --verbose --create --file $TAR_FILE .jenkins"
    fi
+   
+   $TAR_COMMAND
+   check_tar_status
    
    execute_quietly "cd $MY_DIR"
 }
