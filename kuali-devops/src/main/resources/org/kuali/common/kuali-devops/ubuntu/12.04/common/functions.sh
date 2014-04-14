@@ -261,7 +261,7 @@ function configure_jenkins_update_center {
   local DST=$JENKINS_HOME/$FILE
   local SRC=$MY_DIR/master/config/$FILE
   
-  echo "configure -> plugins :: LTS updates"
+  echo "configure -> plugins :: lts updates"
   execute_quietly "mkdir -p $JENKINS_HOME"
   execute_quietly "cp $SRC $DST"
   execute_quietly "chown $TOMCAT:$TOMCAT $DST"
