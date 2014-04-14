@@ -7,7 +7,7 @@ public final class Constants {
 	private Constants() {
 	}
 
-	public static final String GPG_PASSPHRASE_ENCRYPTED = "VRK9Vsz1WwXtbrAEaSKSTa/Vf56mrrkDDcsExJMoKTM=";
+	public static final String AES_PASSPHRASE_ENCRYPTED = "U2FsdGVkX19zDYPt6I2UZDFCXWmH9VGTaEm6G4JmDCqkzK/Hi32hYH+WJPHmuCuF";
 	public static final String AMAZON_ACCOUNT = "foundation";
 	public static final String DOMAIN = "kuali.org";
 	public static final Distro DISTRO = Distro.UBUNTU;

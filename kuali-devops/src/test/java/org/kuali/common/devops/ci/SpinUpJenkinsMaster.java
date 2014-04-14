@@ -13,6 +13,7 @@ import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_MASTER;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getBasicLaunchRequest;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getEC2Service;
+import static org.kuali.common.devops.ci.model.Constants.AES_PASSPHRASE_ENCRYPTED;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
 import static org.kuali.common.dns.model.CNAMEContext.newCNAMEContext;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
@@ -91,7 +92,6 @@ public class SpinUpJenkinsMaster {
 
 	private final Stopwatch sw = createStarted();
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_MASTER.getGroup());
-	private final String gpgPassphraseEncrypted = Constants.GPG_PASSPHRASE_ENCRYPTED;
 	private final String amazonAccount = Constants.AMAZON_ACCOUNT;
 	private static final String DOMAIN = Constants.DOMAIN;
 	private final Distro distro = Distro.UBUNTU;
@@ -131,7 +131,7 @@ public class SpinUpJenkinsMaster {
 			bootstrap(dns, privateKey);
 			SecureChannel channel = openSecureChannel(ROOT, dns, privateKey, quiet);
 			String basedir = publishProject(channel, pid, ROOT, dns, quiet);
-			String gpgPassphrase = encryptor.decrypt(gpgPassphraseEncrypted);
+			String gpgPassphrase = encryptor.decrypt(AES_PASSPHRASE_ENCRYPTED);
 			String quietFlag = (quiet) ? "-q" : "";
 
 			// configure basics, java, and tomcat

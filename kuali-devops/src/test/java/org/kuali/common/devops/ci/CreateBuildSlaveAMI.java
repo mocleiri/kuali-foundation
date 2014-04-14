@@ -19,8 +19,8 @@ import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
 import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.exec;
 import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.getResource;
+import static org.kuali.common.devops.ci.model.Constants.AES_PASSPHRASE_ENCRYPTED;
 import static org.kuali.common.devops.ci.model.Constants.DOMAIN;
-import static org.kuali.common.devops.ci.model.Constants.GPG_PASSPHRASE_ENCRYPTED;
 import static org.kuali.common.devops.ci.model.Constants.ROOT;
 import static org.kuali.common.devops.ci.model.Constants.UBUNTU;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
@@ -148,7 +148,7 @@ public class CreateBuildSlaveAMI {
 		SecureChannel channel = SpinUpJenkinsMaster.openSecureChannel(ROOT, dns, privateKey, quiet);
 		String basedir = SpinUpJenkinsMaster.publishProject(channel, pid, ROOT, dns, quiet);
 
-		String gpgPassphrase = encryptor.decrypt(GPG_PASSPHRASE_ENCRYPTED);
+		String gpgPassphrase = encryptor.decrypt(AES_PASSPHRASE_ENCRYPTED);
 		String quietFlag = (quiet) ? "-q" : "";
 
 		setupEssentials(channel, basedir, pid, distro, distroVersion, gpgPassphrase, dnsPrefix, quietFlag);
