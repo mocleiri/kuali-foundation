@@ -61,26 +61,11 @@ public final class OpenSSLEncryptor implements Encryptor {
 		checkNotNull(text, "text");
 
 		byte[] salt = createSalt(context.getSaltSize());
+		byte[] plaintext = getUTF8Bytes(text);
 
 		try {
 			// specify cipher and digest
-			Cipher cipher = Cipher.getInstance(context.getTransformation());
-
-			// the IV length is driven by the cipher block size
-			int initVectorLength = cipher.getBlockSize();
-
-			// Calculate the iv + key bytes using the exact same technique OpenSSL does
-			OpenSSLEncryptedContext oec = buildEncryptedContext(context, initVectorLength, salt, passwordBytes);
-
-			// Create java objects from the raw bytes
-			SecretKeySpec key = new SecretKeySpec(toByteArray(oec.getKey()), context.getAlgorithm());
-			IvParameterSpec iv = new IvParameterSpec(toByteArray(oec.getInitVector()));
-
-			// initialize the cipher instance
-			cipher.init(ENCRYPT_MODE, key, iv);
-
-			// Encrypt the bytes the string is composed of
-			byte[] encrypted = cipher.doFinal(Str.getBytes(text, UTF8));
+			byte[] encrypted = doCipher(ENCRYPT_MODE, salt, plaintext);
 
 			// Combine the prefix, salt, and the encrypted bytes into one array
 			byte[] bytes = combineByteArrays(prefix, salt, encrypted);
@@ -109,6 +94,22 @@ public final class OpenSSLEncryptor implements Encryptor {
 		byte[] salt = copyOfRange(bytes, saltOffset, saltOffset + context.getSaltSize());
 
 		try {
+			// extract the portion of the array containing the encrypted bytes
+			int ciphertextOffset = saltOffset + context.getSaltSize();
+			byte[] encrypted = copyOfRange(bytes, ciphertextOffset, bytes.length);
+
+			// specify cipher and digest
+			byte[] decrypted = doCipher(DECRYPT_MODE, salt, encrypted);
+
+			// Construct a string from the decrypted bytes
+			return new String(decrypted, UTF8);
+		} catch (Exception e) {
+			throw illegalState(e);
+		}
+	}
+
+	protected byte[] doCipher(int mode, byte[] salt, byte[] bytes) {
+		try {
 			// specify cipher and digest
 			Cipher cipher = Cipher.getInstance(context.getTransformation());
 
@@ -123,17 +124,10 @@ public final class OpenSSLEncryptor implements Encryptor {
 			IvParameterSpec iv = new IvParameterSpec(toByteArray(oec.getInitVector()));
 
 			// initialize the cipher instance
-			cipher.init(DECRYPT_MODE, key, iv);
+			cipher.init(mode, key, iv);
 
-			// extract the portion of the array containing the encrypted bytes
-			int ciphertextOffset = saltOffset + context.getSaltSize();
-			byte[] encrypted = copyOfRange(bytes, ciphertextOffset, bytes.length);
-
-			// Decrypt them into their original form
-			byte[] decrypted = cipher.doFinal(encrypted);
-
-			// Construct a string from the decrypted bytes
-			return new String(decrypted, UTF8);
+			// Return the initialized cipher
+			return cipher.doFinal(bytes);
 		} catch (Exception e) {
 			throw illegalState(e);
 		}
