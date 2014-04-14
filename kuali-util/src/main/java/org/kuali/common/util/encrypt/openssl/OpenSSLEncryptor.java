@@ -26,6 +26,15 @@ import javax.crypto.spec.SecretKeySpec;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.encrypt.Encryptor;
 
+/**
+ * 
+ * This class encrypts and decrypts strings using the same technique as OpenSSL. It enables java code and OpenSSL to decrypt strings encrypted by either one.
+ * 
+ * <pre>
+ * echo -n "foo" | openssl enc -aes128 -e -base64 -A -k password
+ * echo -n "U2FsdGVkX1/WqX83Xtf6SlHhaLeOFhbv4pDo/obzE8Y=" | openssl enc -aes128 -d -base64 -A -k password
+ * </pre>
+ */
 public final class OpenSSLEncryptor implements Encryptor {
 
 	// Immutable and safe to expose via a getter
