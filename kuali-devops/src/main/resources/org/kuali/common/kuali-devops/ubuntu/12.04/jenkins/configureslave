@@ -16,7 +16,6 @@
 #
 
 
-
 function check_args {
   check_not_blank JENKINS_MASTER $JENKINS_MASTER
 }
