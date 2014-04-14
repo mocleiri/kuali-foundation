@@ -63,4 +63,4 @@ POLICY=$(base64encode "$POLICY")
 HMACSHA1=$(hmacsha1 $POLICY $SECRET_KEY)
 SIGNATURE=$(hex2base64 $HMACSHA1)
 
-execute_quietly "curl --fail -F key=$KEY -F acl=$ACL -F AWSAccessKeyId=$ACCESS_KEY -F Policy=$POLICY -F Signature=$SIGNATURE -F file=@$FILENAME $URL"
+execute_quietly "curl --insecure --fail -F key=$KEY -F acl=$ACL -F AWSAccessKeyId=$ACCESS_KEY -F Policy=$POLICY -F Signature=$SIGNATURE -F file=@$FILENAME $URL"
