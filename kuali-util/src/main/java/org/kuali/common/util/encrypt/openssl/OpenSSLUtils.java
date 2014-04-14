@@ -2,6 +2,7 @@ package org.kuali.common.util.encrypt.openssl;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.collect.Lists.newArrayList;
+import static java.lang.System.arraycopy;
 import static org.kuali.common.util.Ascii.isDigit;
 import static org.kuali.common.util.Ascii.isLetter;
 import static org.kuali.common.util.Encodings.UTF8;
@@ -19,7 +20,29 @@ import com.google.common.collect.ImmutableList;
 
 public class OpenSSLUtils {
 
-	public static byte[] getSalt(int length) {
+	public static byte[] combineByteArrays(byte[]... arrays) {
+		byte[] bytes = allocateByteArray(arrays);
+		int offset = 0;
+		for (byte[] array : arrays) {
+			offset = addByteArray(bytes, array, offset);
+		}
+		return bytes;
+	}
+
+	public static int addByteArray(byte[] dst, byte[] src, int offset) {
+		arraycopy(src, 0, dst, offset, src.length);
+		return offset + src.length;
+	}
+
+	public static byte[] allocateByteArray(byte[]... arrays) {
+		int length = 0;
+		for (byte[] array : arrays) {
+			length += array.length;
+		}
+		return new byte[length];
+	}
+
+	public static byte[] createSalt(int length) {
 		byte[] salt = new byte[length];
 		new SecureRandom().nextBytes(salt);
 		return salt;

@@ -2,7 +2,9 @@ package org.kuali.common.util.encrypt.openssl;
 
 import static java.util.Arrays.copyOfRange;
 import static javax.crypto.Cipher.DECRYPT_MODE;
+import static javax.crypto.Cipher.ENCRYPT_MODE;
 import static org.codehaus.plexus.util.Base64.decodeBase64;
+import static org.codehaus.plexus.util.Base64.encodeBase64;
 import static org.kuali.common.util.Encodings.ASCII;
 import static org.kuali.common.util.Encodings.UTF8;
 import static org.kuali.common.util.base.Exceptions.illegalState;
@@ -11,7 +13,9 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 import static org.kuali.common.util.encrypt.openssl.OpenSSLContext.buildDefaultOpenSSLContext;
 import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.buildEncryptedContext;
 import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.checkBase64;
+import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.combineByteArrays;
 import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.createBytesFromChars;
+import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.createSalt;
 import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.toByteArray;
 
 import javax.crypto.Cipher;
@@ -23,9 +27,13 @@ import org.kuali.common.util.encrypt.Encryptor;
 
 public final class OpenSSLEncryptor implements Encryptor {
 
-	// Not exposed via a getter
-	private final char[] password;
+	// Immutable and safe to expose via a getter
 	private final OpenSSLContext context;
+
+	// Internal only. Do not expose via getters
+	private final char[] password;
+	private final byte[] prefix;
+	private final byte[] passwordBytes;
 
 	public OpenSSLEncryptor(String password) {
 		this(buildDefaultOpenSSLContext(), password);
@@ -34,12 +42,47 @@ public final class OpenSSLEncryptor implements Encryptor {
 	public OpenSSLEncryptor(OpenSSLContext context, String password) {
 		this.password = checkNotBlank(password, "password").toCharArray();
 		this.context = checkNotNull(context, "context");
+		this.passwordBytes = createBytesFromChars(this.password);
+		this.prefix = Str.getBytes(context.getSaltPrefix(), UTF8);
 	}
 
 	@Override
 	public String encrypt(String text) {
 		checkNotNull(text, "text");
-		return null;
+
+		byte[] salt = createSalt(context.getSaltSize());
+
+		try {
+			// specify cipher and digest
+			Cipher cipher = Cipher.getInstance(context.getTransformation());
+
+			// the IV length is driven by the cipher block size
+			int initVectorLength = cipher.getBlockSize();
+
+			// Calculate the iv + key bytes using the exact same technique OpenSSL does
+			OpenSSLEncryptedContext oec = buildEncryptedContext(context, initVectorLength, salt, passwordBytes);
+
+			// Create java objects from the raw bytes
+			SecretKeySpec key = new SecretKeySpec(toByteArray(oec.getKey()), context.getAlgorithm());
+			IvParameterSpec iv = new IvParameterSpec(toByteArray(oec.getInitVector()));
+
+			// initialize the cipher instance
+			cipher.init(ENCRYPT_MODE, key, iv);
+
+			// Encrypt the bytes the string is composed of
+			byte[] encrypted = cipher.doFinal(Str.getBytes(text, UTF8));
+
+			// Combine the prefix, salt, and the encrypted bytes into one array
+			byte[] bytes = combineByteArrays(prefix, salt, encrypted);
+
+			// Convert everything into base64
+			byte[] base64 = encodeBase64(bytes);
+
+			// Convert the base64 bytes into a string
+			return new String(base64, ASCII);
+		} catch (Exception e) {
+			throw illegalState(e);
+		}
 	}
 
 	@Override
@@ -62,11 +105,8 @@ public final class OpenSSLEncryptor implements Encryptor {
 			// the IV length is driven by the cipher block size
 			int initVectorLength = cipher.getBlockSize();
 
-			// Convert the characters from the password into bytes
-			byte[] data = createBytesFromChars(password);
-
 			// Calculate the iv + key bytes using the exact same technique OpenSSL does
-			OpenSSLEncryptedContext oec = buildEncryptedContext(context, initVectorLength, salt, data);
+			OpenSSLEncryptedContext oec = buildEncryptedContext(context, initVectorLength, salt, passwordBytes);
 
 			// Create java objects from the raw bytes
 			SecretKeySpec key = new SecretKeySpec(toByteArray(oec.getKey()), context.getAlgorithm());
