@@ -10,6 +10,7 @@ import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.List;
 
 import org.kuali.common.util.Str;
@@ -17,6 +18,12 @@ import org.kuali.common.util.Str;
 import com.google.common.collect.ImmutableList;
 
 public class OpenSSLUtils {
+
+	public static byte[] getSalt(int length) {
+		byte[] salt = new byte[length];
+		new SecureRandom().nextBytes(salt);
+		return salt;
+	}
 
 	public static final byte[] toByteArray(List<Byte> bytes) {
 		byte[] array = new byte[bytes.size()];
@@ -26,11 +33,11 @@ public class OpenSSLUtils {
 		return array;
 	}
 
-	public static ImmutableList<Byte> copyOf(byte[] original) {
-		return copyOf(original, 0, original.length);
+	public static ImmutableList<Byte> toByteList(byte[] original) {
+		return toByteList(original, 0, original.length);
 	}
 
-	public static ImmutableList<Byte> copyOf(byte[] original, int offset, int length) {
+	public static ImmutableList<Byte> toByteList(byte[] original, int offset, int length) {
 		List<Byte> list = newArrayList();
 		for (int i = offset; i < length; i++) {
 			list.add(original[i]);
@@ -118,9 +125,9 @@ public class OpenSSLUtils {
 			}
 
 			OpenSSLEncryptedContext.Builder builder = OpenSSLEncryptedContext.builder();
-			builder.withSalt(copyOf(salt));
-			builder.withKey(copyOf(key));
-			builder.withInitVector(copyOf(initVector));
+			builder.withSalt(toByteList(salt));
+			builder.withKey(toByteList(key));
+			builder.withInitVector(toByteList(initVector));
 			return builder.build();
 		} catch (NoSuchAlgorithmException e) {
 			throw illegalState(e);
