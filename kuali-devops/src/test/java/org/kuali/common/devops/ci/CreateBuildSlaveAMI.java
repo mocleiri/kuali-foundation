@@ -148,13 +148,13 @@ public class CreateBuildSlaveAMI {
 		SecureChannel channel = SpinUpJenkinsMaster.openSecureChannel(ROOT, dns, privateKey, quiet);
 		String basedir = SpinUpJenkinsMaster.publishProject(channel, pid, ROOT, dns, quiet);
 
-		String gpgPassphrase = encryptor.decrypt(AES_PASSPHRASE_ENCRYPTED);
+		String aesPassphrase = encryptor.decrypt(AES_PASSPHRASE_ENCRYPTED);
 		String quietFlag = (quiet) ? "-q" : "";
 
-		setupEssentials(channel, basedir, pid, distro, distroVersion, gpgPassphrase, dnsPrefix, quietFlag);
+		setupEssentials(channel, basedir, pid, distro, distroVersion, aesPassphrase, dnsPrefix, quietFlag);
 		String common = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
 		String slave = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/configureslave");
-		SpinUpJenkinsMaster.exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
+		SpinUpJenkinsMaster.exec(channel, common, quietFlag, jenkinsMaster, aesPassphrase);
 		SpinUpJenkinsMaster.exec(channel, slave, quietFlag, jenkinsMaster);
 		cacheBinaries(channel, basedir, pid);
 		channel.close();
@@ -221,16 +221,16 @@ public class CreateBuildSlaveAMI {
 		SpinUpJenkinsMaster.exec(channel, "ruby", rubyScript, kisUsername, kisPassword, ami, jenkinsMaster);
 	}
 
-	protected static void setupEssentials(SecureChannel channel, String basedir, ProjectIdentifier pid, Distro distro, String distroVersion, String gpgPassphrase,
+	protected static void setupEssentials(SecureChannel channel, String basedir, ProjectIdentifier pid, Distro distro, String distroVersion, String aesPassphrase,
 			String dnsPrefix, String quietFlag) {
 		String basics = getResource(basedir, pid, distro, distroVersion, "common/configurebasics");
 		String ssd = getResource(basedir, pid, distro, distroVersion, "common/configuressd");
 		String java = getResource(basedir, pid, distro, distroVersion, "common/installjava");
 		exec(channel, basics, quietFlag);
 		exec(channel, ssd, quietFlag);
-		exec(channel, java, quietFlag, "jdk6", System.getProperty("jdk6.version", "u45"), gpgPassphrase);
-		exec(channel, java, quietFlag, "jdk7", System.getProperty("jdk7.version", "u51"), gpgPassphrase);
-		exec(channel, java, quietFlag, "jdk8", System.getProperty("jdk8.version", "u0"), gpgPassphrase);
+		exec(channel, java, quietFlag, "jdk6", System.getProperty("jdk6.version", "u45"), aesPassphrase);
+		exec(channel, java, quietFlag, "jdk7", System.getProperty("jdk7.version", "u51"), aesPassphrase);
+		exec(channel, java, quietFlag, "jdk8", System.getProperty("jdk8.version", "u0"), aesPassphrase);
 	}
 
 	protected static BasicLaunchRequest getSlaveLaunchRequest(JenkinsContext context) {

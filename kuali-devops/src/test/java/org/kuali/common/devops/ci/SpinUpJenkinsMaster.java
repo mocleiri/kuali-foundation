@@ -131,23 +131,23 @@ public class SpinUpJenkinsMaster {
 			bootstrap(dns, privateKey);
 			SecureChannel channel = openSecureChannel(ROOT, dns, privateKey, quiet);
 			String basedir = publishProject(channel, pid, ROOT, dns, quiet);
-			String gpgPassphrase = encryptor.decrypt(AES_PASSPHRASE_ENCRYPTED);
+			String aesPassphrase = encryptor.decrypt(AES_PASSPHRASE_ENCRYPTED);
 			String quietFlag = (quiet) ? "-q" : "";
 
 			// configure basics, java, and tomcat
-			setupEssentials(channel, basedir, pid, distro, distroVersion, gpgPassphrase, dnsPrefix, quietFlag);
+			setupEssentials(channel, basedir, pid, distro, distroVersion, aesPassphrase, dnsPrefix, quietFlag);
 
 			// do jenkins specific configuration
 			String common = getResource(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
 			String jenkins = getResource(basedir, pid, distro, distroVersion, "jenkins/installjenkins");
 			String configureMaster = getResource(basedir, pid, distro, distroVersion, "jenkins/configuremaster");
 			String latestSlaveAMI = findLatestSlaveAMI(service);
-			exec(channel, common, quietFlag, jenkinsMaster, gpgPassphrase);
+			exec(channel, common, quietFlag, jenkinsMaster, aesPassphrase);
 			String stack = jenkinsContext.getStack().getTag().getValue();
 			String backupMode = jenkinsContext.getBackupMode().name().toLowerCase();
 			exec(channel, jenkins, quietFlag, Constants.JENKINS_VERSION);
 			exec(channel, configureMaster, quietFlag, jenkinsMaster, jenkinsContext.getRegion().getName(), stack, backupMode, latestSlaveAMI, Constants.JENKINS_VERSION,
-					gpgPassphrase);
+					aesPassphrase);
 
 			// The spin up process should have given DNS enough time to settle down
 			info("Verifying SSH to -> [%s]", jenkinsMaster);
@@ -189,7 +189,7 @@ public class SpinUpJenkinsMaster {
 		return jenkinsContext;
 	}
 
-	protected static void setupEssentials(SecureChannel channel, String basedir, ProjectIdentifier pid, Distro distro, String distroVersion, String gpgPassphrase,
+	protected static void setupEssentials(SecureChannel channel, String basedir, ProjectIdentifier pid, Distro distro, String distroVersion, String aesPassphrase,
 			String dnsPrefix, String quietFlag) {
 		String basics = getResource(basedir, pid, distro, distroVersion, "common/configurebasics");
 		String ssd = getResource(basedir, pid, distro, distroVersion, "common/configuressd");
@@ -199,10 +199,10 @@ public class SpinUpJenkinsMaster {
 		exec(channel, basics, quietFlag);
 		exec(channel, ssd, quietFlag);
 		exec(channel, sethostname, dnsPrefix, DOMAIN);
-		exec(channel, java, quietFlag, "jdk6", System.getProperty("jdk6.version", "u45"), gpgPassphrase);
-		exec(channel, java, quietFlag, "jdk7", System.getProperty("jdk7.version", "u51"), gpgPassphrase);
-		exec(channel, java, quietFlag, "jdk8", System.getProperty("jdk8.version", "u0"), gpgPassphrase);
-		exec(channel, tomcat, quietFlag, "tomcat7", "jdk7", gpgPassphrase);
+		exec(channel, java, quietFlag, "jdk6", System.getProperty("jdk6.version", "u45"), aesPassphrase);
+		exec(channel, java, quietFlag, "jdk7", System.getProperty("jdk7.version", "u51"), aesPassphrase);
+		exec(channel, java, quietFlag, "jdk8", System.getProperty("jdk8.version", "u0"), aesPassphrase);
+		exec(channel, tomcat, quietFlag, "tomcat7", "jdk7", aesPassphrase);
 	}
 
 	protected static void bootstrap(String hostname, String privateKey) throws IOException {
