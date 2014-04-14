@@ -29,7 +29,7 @@ public final class Encryption {
 			if (chainContext.isPresent()) {
 				EncryptionContext context = chainContext.get().getContext();
 				String providerClassName = chainContext.get().getProvider().getClass().getSimpleName();
-				info(quiet, "encryption enabled - [%s, key=%s, strength=%s]", providerClassName, ENCRYPTION_PASSWORD_KEY, context.getStrength());
+				info(quiet, "encryption enabled - [%s, key=%s, %s]", providerClassName, ENCRYPTION_PASSWORD_KEY, context.getStrength());
 				OpenSSLContext osc = buildOpenSSLContext(context.getStrength());
 				encryptor = new OpenSSLEncryptor(osc, context.getPassword());
 			} else {
