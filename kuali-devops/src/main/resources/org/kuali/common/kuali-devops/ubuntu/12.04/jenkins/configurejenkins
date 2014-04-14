@@ -15,6 +15,12 @@
 # limitations under the License.
 #
 
+#
+# This is pushing the limits for what should be getting done via bash scripting
+# Should really migrate this into puppet or java or something else with enhanced capabilities 
+#
+
+
 function configure_tomcat_user {
 
   echo "purge     -> gpg ssh m2 svn"
@@ -213,7 +219,9 @@ fi
 TOMCAT=tomcat7
 TOMCAT_HOME=/home/$TOMCAT
 JENKINS_HOME=$TOMCAT_HOME/.jenkins
-JENKINS_ADMIN_EMAIL_ADDRESS=jcaddel@kuali.org
+JENKINS_ADMIN_EMAIL_ADDRESS=U2FsdGVkX19a06Gz2RzmX3AA9e94v5M28cxcgL/NlHmM5aOw34hWLO+xYBO5Lcf5
+JENKINS_ADMIN_EMAIL_ADDRESS=$(decrypt $JENKINS_ADMIN_EMAIL_ADDRESS $AES_PASSPHRASE)
+
 JENKINS_TIMEZONE=US/Eastern
 TOMCAT_OPT_FILE=/etc/default/$TOMCAT
 
