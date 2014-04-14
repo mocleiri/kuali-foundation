@@ -2,9 +2,9 @@ package org.kuali.common.util.encrypt.openssl;
 
 import static org.kuali.common.util.base.Precondition.checkMin;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
+import static org.kuali.common.util.encrypt.EncryptionStrength.STRONG_ENCRYPTION_STRENGTH;
 
-import org.kuali.common.util.enc.EncStrength;
-import org.kuali.common.util.encrypt.EncryptionContext;
+import org.kuali.common.util.encrypt.EncryptionStrength;
 
 public final class OpenSSLContext {
 
@@ -29,9 +29,9 @@ public final class OpenSSLContext {
 	/**
 	 * Returns a context for 256 bit AES encryption compatible with OpenSSL
 	 */
-	public static OpenSSLContext buildOpenSSLContext(EncryptionContext context) {
-		if (context.getStrength().equals(EncStrength.STRONG)) {
-			return builder().withKeySizeBits(256).build();
+	public static OpenSSLContext buildOpenSSLContext(EncryptionStrength strength) {
+		if (STRONG_ENCRYPTION_STRENGTH.equals(strength)) {
+			return builder().withKeySizeBits(Builder.STRONG_KEY_SIZE_BITS).build();
 		} else {
 			return buildDefaultOpenSSLContext();
 		}
@@ -49,6 +49,8 @@ public final class OpenSSLContext {
 	}
 
 	public static class Builder implements org.apache.commons.lang3.builder.Builder<OpenSSLContext> {
+
+		private static final int STRONG_KEY_SIZE_BITS = 256;
 
 		private int iterations = 1;
 		private String saltPrefix = "Salted__";

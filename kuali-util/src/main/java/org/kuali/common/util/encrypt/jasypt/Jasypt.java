@@ -22,8 +22,8 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.jasypt.util.text.StrongTextEncryptor;
 import org.jasypt.util.text.TextEncryptor;
-import org.kuali.common.util.enc.EncStrength;
 import org.kuali.common.util.encrypt.EncryptionContext;
+import org.kuali.common.util.encrypt.EncryptionStrength;
 
 public class Jasypt {
 
@@ -37,15 +37,15 @@ public class Jasypt {
 	/**
 	 * Return a <code>BasicTextEncryptor</code> or <code>StrongTextEncryptor</code> depending on what <code>strength</code> is set to
 	 */
-	public static TextEncryptor buildTextEncryptor(String password, EncStrength strength) {
+	public static TextEncryptor buildTextEncryptor(String password, EncryptionStrength strength) {
 		checkNotBlank(password, "password");
 		checkNotNull(strength, "strength");
 		switch (strength) {
-		case BASIC:
+		case BASIC_ENCRYPTION_STRENGTH:
 			BasicTextEncryptor basic = new BasicTextEncryptor();
 			basic.setPassword(password);
 			return basic;
-		case STRONG:
+		case STRONG_ENCRYPTION_STRENGTH:
 			StrongTextEncryptor strong = new StrongTextEncryptor();
 			strong.setPassword(password);
 			return strong;

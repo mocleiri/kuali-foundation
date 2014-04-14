@@ -4,10 +4,10 @@ import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
 import static org.apache.commons.lang3.StringUtils.trimToNull;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
-import static org.kuali.common.util.enc.EncStrength.DEFAULT_ENCRYPTION_STRENGTH;
+import static org.kuali.common.util.encrypt.EncryptionStrength.DEFAULT_ENCRYPTION_STRENGTH;
 
-import org.kuali.common.util.enc.EncStrength;
 import org.kuali.common.util.encrypt.EncryptionContext;
+import org.kuali.common.util.encrypt.EncryptionStrength;
 
 import com.google.common.base.Optional;
 
@@ -27,7 +27,7 @@ public abstract class AbstractEncryptionContextProvider implements EncryptionCon
 		if (!password.isPresent()) {
 			return absent();
 		} else {
-			EncStrength strength = getEncryptionStrength();
+			EncryptionStrength strength = getEncryptionStrength();
 			return Optional.of(new EncryptionContext(password.get(), strength));
 		}
 	}
@@ -38,10 +38,10 @@ public abstract class AbstractEncryptionContextProvider implements EncryptionCon
 
 	protected abstract String getValueFromSource(String key);
 
-	protected EncStrength getEncryptionStrength() {
+	protected EncryptionStrength getEncryptionStrength() {
 		Optional<String> optional = getOptionalString(encryptionStrengthKey);
 		if (optional.isPresent()) {
-			return EncStrength.valueOf(optional.get().toUpperCase());
+			return EncryptionStrength.valueOf(optional.get().toUpperCase());
 		} else {
 			return DEFAULT_ENCRYPTION_STRENGTH;
 		}

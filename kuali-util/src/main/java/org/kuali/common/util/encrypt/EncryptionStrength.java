@@ -13,16 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.enc;
+package org.kuali.common.util.encrypt;
 
-/**
- * @deprecated 
- */
-@Deprecated
-public enum EncStrength {
+public enum EncryptionStrength {
 
-	BASIC, STRONG;
+	BASIC_ENCRYPTION_STRENGTH, STRONG_ENCRYPTION_STRENGTH;
 
-	public static final EncStrength DEFAULT_ENCRYPTION_STRENGTH = BASIC;
-	public static final EncStrength DEFAULT_VALUE = DEFAULT_ENCRYPTION_STRENGTH;
+	public static final EncryptionStrength DEFAULT_ENCRYPTION_STRENGTH = BASIC_ENCRYPTION_STRENGTH;
 }
