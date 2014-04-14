@@ -38,10 +38,14 @@ function install_jenkins {
   TOMCAT_WEBAPPS=$TOMCAT_DIR/webapps
   TOMCAT_ROOT=$TOMCAT_WEBAPPS/ROOT
   TOMCAT_ROOT_WAR=$TOMCAT_WEBAPPS/ROOT.war
+  TOMCAT_RESOURCES=/var/lib/$TOMCAT/webapps/resources
 
   # Remove everything from Tomcat's webapps directory (but don't delete the directory itself)
   # Delete the /home/tomcat7/.jenkins directory
   execute_quietly "rm -rf $TOMCAT_WEBAPPS/* $JENKINS_HOME"
+
+  # Directory for placing resources that can be publicly exposed (eg images, THIRD_PARTY.txt, etc)
+  execute_quietly "mkdir -p $TOMCAT_RESOURCES"
 
   # Copy the war file from .m2 to webapps
   execute_quietly "cp $M2_LOCAL_PATH $TOMCAT_ROOT_WAR"
@@ -134,6 +138,8 @@ function install_plugins {
   install_plugin ssh-slaves            1.6
   # version 1.54 instead of the 2.x line because 2.2 reports -1 for the revision number on KS svn:externals
   # version 1.54 reports the correct revision number
+  # Saw some really funky polling behavior where jenkins was constantly polling and re-polling like it was stuck in a loop
+  # Only happened once, and haven't seen it again since.  Not sure if it was attributable to the 2.2 plugin.
   install_plugin subversion            2.2
   install_plugin template-project      1.4.1
   install_plugin token-macro           1.10
