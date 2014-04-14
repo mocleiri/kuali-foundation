@@ -7,6 +7,7 @@ import static org.codehaus.plexus.util.Base64.decodeBase64;
 import static org.codehaus.plexus.util.Base64.encodeBase64;
 import static org.kuali.common.util.Encodings.ASCII;
 import static org.kuali.common.util.Encodings.UTF8;
+import static org.kuali.common.util.Str.getAsciiBytes;
 import static org.kuali.common.util.Str.getUTF8Bytes;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
@@ -23,7 +24,6 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.kuali.common.util.Str;
 import org.kuali.common.util.encrypt.Encryptor;
 
 /**
@@ -58,13 +58,17 @@ public final class OpenSSLEncryptor implements Encryptor {
 
 	@Override
 	public String encrypt(String text) {
+		// Null not allowed
 		checkNotNull(text, "text");
 
+		// Generate a random salt
 		byte[] salt = createSalt(context.getSaltSize());
+
+		// Convert the plain text into bytes
 		byte[] plaintext = getUTF8Bytes(text);
 
 		try {
-			// specify cipher and digest
+			// encrypt the plaintext using the salt
 			byte[] encrypted = doCipher(ENCRYPT_MODE, salt, plaintext);
 
 			// Combine the prefix, salt, and the encrypted bytes into one array
@@ -86,7 +90,7 @@ public final class OpenSSLEncryptor implements Encryptor {
 		checkNotNull(text, "text");
 
 		// Decode the base64 text into bytes
-		byte[] bytes = decodeBase64(Str.getBytes(checkBase64(text), ASCII));
+		byte[] bytes = decodeBase64(getAsciiBytes(checkBase64(text)));
 
 		// OpenSSL always inserts the prefix "Salted__" followed by the salt itself
 		// You have to explicitly use the -nosalt option to turn this off (which OpenSSL strongly advises against)
@@ -94,11 +98,13 @@ public final class OpenSSLEncryptor implements Encryptor {
 		byte[] salt = copyOfRange(bytes, saltOffset, saltOffset + context.getSaltSize());
 
 		try {
-			// extract the portion of the array containing the encrypted bytes
+			// encrypted bytes come after the prefix and the salt
 			int encryptedBytesOffset = saltOffset + context.getSaltSize();
+
+			// extract the portion of the array containing the encrypted bytes
 			byte[] encrypted = copyOfRange(bytes, encryptedBytesOffset, bytes.length);
 
-			// specify cipher and digest
+			// decrypt the bytes using the salt that was embedded in the text
 			byte[] decrypted = doCipher(DECRYPT_MODE, salt, encrypted);
 
 			// Construct a string from the decrypted bytes

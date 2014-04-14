@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util;
 
+import static org.kuali.common.util.Encodings.ASCII;
+
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -220,6 +222,14 @@ public class Str {
 			return new String(bytes, encoding);
 		} catch (UnsupportedEncodingException e) {
 			throw new IllegalArgumentException(e);
+		}
+	}
+
+	public static final byte[] getAsciiBytes(String s) {
+		if (s == null) {
+			return null;
+		} else {
+			return getBytes(s, ASCII);
 		}
 	}
 
