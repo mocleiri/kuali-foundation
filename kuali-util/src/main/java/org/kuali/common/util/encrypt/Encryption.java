@@ -3,7 +3,7 @@ package org.kuali.common.util.encrypt;
 import static java.lang.String.format;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
-import org.kuali.common.util.encrypt.jasypt.DefaultJasyptEncryptor;
+import org.kuali.common.util.encrypt.openssl.OpenSSLEncryptor;
 import org.kuali.common.util.encrypt.provider.ChainProviderContext;
 import org.kuali.common.util.encrypt.provider.DefaultEncryptionContextProviderChain;
 import org.slf4j.Logger;
@@ -28,7 +28,7 @@ public final class Encryption {
 				EncryptionContext context = chainContext.get().getContext();
 				String providerClassName = chainContext.get().getProvider().getClass().getSimpleName();
 				info(quiet, "encryption enabled - [%s, key=%s, strength=%s]", providerClassName, ENCRYPTION_PASSWORD_KEY, context.getStrength());
-				encryptor = new DefaultJasyptEncryptor(context);
+				encryptor = new OpenSSLEncryptor(context.getPassword());
 			} else {
 				info(quiet, "encryption disabled - [%s] is not set", ENCRYPTION_PASSWORD_KEY);
 				encryptor = NoOpEncryptor.INSTANCE;
