@@ -7,6 +7,7 @@ import static org.codehaus.plexus.util.Base64.decodeBase64;
 import static org.codehaus.plexus.util.Base64.encodeBase64;
 import static org.kuali.common.util.Encodings.ASCII;
 import static org.kuali.common.util.Encodings.UTF8;
+import static org.kuali.common.util.Str.getUTF8Bytes;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
@@ -43,7 +44,7 @@ public final class OpenSSLEncryptor implements Encryptor {
 		this.password = checkNotBlank(password, "password").toCharArray();
 		this.context = checkNotNull(context, "context");
 		this.passwordBytes = createBytesFromChars(this.password);
-		this.prefix = Str.getBytes(context.getSaltPrefix(), UTF8);
+		this.prefix = getUTF8Bytes(context.getSaltPrefix());
 	}
 
 	@Override
