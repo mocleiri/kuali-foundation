@@ -28,7 +28,7 @@ import org.kuali.common.util.encrypt.Encryptor;
 
 /**
  * 
- * This class encrypts and decrypts strings using the same technique as OpenSSL. It enables java code and OpenSSL to decrypt strings encrypted by either one.
+ * This class encrypts and decrypts strings using the same technique as OpenSSL. It enables java code and OpenSSL to share encrypted strings with each other.
  * 
  * <pre>
  * echo -n "foo" | openssl enc -aes128 -e -base64 -A -k password
