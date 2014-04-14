@@ -84,4 +84,22 @@ Thursday
 
 - KC - troubleshooting with Travis on Maven setup
      - generated-sources vs generated-resources related to BIRT and XML beans
+     
+Friday
+------
+
+- Heartbleed OpenSSL
+-- Regenerated root AWS access credentials for all 4 accounts under devops management
+-- Generated IAM administrative accounts for all 4 accounts under devops management
+-- Generated a new public key/private key pair for use going forward
+
+- Developed OpenSSL compatible Java code
+-- Allows command line OpenSSL and Java to share encrypted strings with each other
+-- Makes a number of configuration related items much, much, much simpler (keys, usernames, passwords, email addresses, etc)
+
+Sunday
+------
+- Rotated out root AWS access credentials and replaced them with the new IAM credentials
+- Verified that Nexus, Sonar, and Jenkins all continued to function as needed
+
 

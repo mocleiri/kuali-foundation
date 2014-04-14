@@ -1,0 +1,14 @@
+Monday
+------
+- Fixed jenkins job issue with environments page not getting updated correctly
+- Continued work on bringing KS over to new CI setup
+-- OpenSSL + AES encryption instead of GPG
+-- Java and bash can now both share encrypted strings with each other
+-- Tweak testci config to use AES_PASSPHRASE instead of GPG_PASSPHRASE
+-- Fix minor issues with tomcat install routine
+
+-- Spin up Jenkins using -Dec2.stack=prod in all 3 US regions (east, west1, west2)
+-- Co-ordinate with Mike on plan for bringing KS over
+--- Develop more advanced dashboards/views etc on testci
+--- Let this bake in overnight for a few nights
+--- Once that works comfortably, spin up ci.kuali.org and migrate things to that
