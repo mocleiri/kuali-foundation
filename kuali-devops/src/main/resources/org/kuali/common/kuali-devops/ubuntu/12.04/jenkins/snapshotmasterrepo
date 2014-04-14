@@ -17,7 +17,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-q --quiet] [-h --help] password" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-q --quiet] [-h --help] stack password" 1>&2; exit 1; }
 
 QUIET=false
 
@@ -41,8 +41,10 @@ while true; do
   esac
 done
 
-AES_PASSPHRASE=$1
+STACK=$1
+AES_PASSPHRASE=$2
 
+check_not_blank STACK $STACK
 check_not_blank AES_PASSPHRASE $AES_PASSPHRASE
 
 QUIET_FLAG=""
