@@ -4,7 +4,7 @@ import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
 
 public enum EncryptedDNSMECredentials {
 
-	PRODUCTION("QvPcbYfgeT8o8eJcVGO/MnaBckeUSr+fOm2Q/emZV+SQzmAHBGb/l+0AU5tdX2Hs", "13Ba852eRs+PjjLD6EYICtsF30A2MprT/8rwrIV12RbmQ8j2m4TAqYXJvtgjGOsI");
+	PRODUCTION("U2FsdGVkX18d3prd5c5/M/xU6tCkPz6idK8m8VWZxEGNMarPLSVsIoZezEFUmZ0OK81Gs8IdytOfAlfqrXz2yA==", "U2FsdGVkX1/WnqUvodEf1xBGnD0ShVLu6q5nKAKzpMohsVzSch8PTKx+7VSOPeSOBTcwIn6PVM9Z8Dgy3gXayQ==");
 
 	private final DNSMadeEasyCredentials credentials;
 
