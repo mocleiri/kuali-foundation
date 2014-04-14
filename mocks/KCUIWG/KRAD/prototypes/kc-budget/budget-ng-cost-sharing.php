@@ -11,6 +11,8 @@ $page = 'cost-sharing';
 <?php include ('includes/styles.php') ?>
 	<style type="text/css">
 .data-row-table th{ padding:5px; text-align:right; }
+.edit-table input{min-width: 10em;width:100%;}
+#u19v7dpm{padding:1em 0 ;}
 	</style>
 </head>
 <body id="Uif-Application" style="padding-bottom: 570px;">
@@ -111,11 +113,9 @@ $page = 'cost-sharing';
 							<th class="sorting" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
  Field 1: : activate to sort column descending"><label id="urh9zx8" class="uif-label">Fiscal Year</label></th>
 							<th class="sorting" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
- Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> Applicable Rates</label></th>
-							<th class="sorting" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
- Field 3: : activate to sort column ascending"><label id="uosze9s" class="uif-label"> Campus</label></th>
-							<th class="sorting" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
- Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Type </label></th>
+ Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label">Percentage</label></th>
+					
+							
 							<th class="sorting" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Source Account</label></th>
 							<th class="sorting" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
@@ -126,11 +126,11 @@ $page = 'cost-sharing';
 					<tbody role="alert" aria-live="polite" aria-relevant="all">
 						<tr class="not-deletable">
 							<td>2014</td>
-							<td>62.00</td>
-							<td>NO</td>
-							<td>Cost Sharing Type</td>
+							<td>6</td>
+						
+							<td>Cate Start Up</td>
 							<td>0.00</td>
-							<td>0.00</td>
+						
 							<td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
 						</tr>
 						<tr class="uif-new-row">
@@ -143,12 +143,8 @@ $page = 'cost-sharing';
 							<td><label for="line_3_fa"><span class="sr-only">Period F&amp;A</span> 
 							<input type="text" size="3" name="line_3_fa" id="line_3_fa">
 							</label></td>
-							<td><label for="line_3_unrecovered"><span class="sr-only">Period unrecovered F&amp;A</span> 
-							<input type="text" size="3" name="line_3_unrecovered" id="line_3_unrecovered">
-							</label></td>
-							<td><label for="line_3_cost-sharing"><span class="sr-only">Period Cost sharing</span> 
-							<input type="text" size="3" name="line_3_cost-sharing" id="line_3_cost-sharing">
-							</label></td>
+						
+						
 							<td><label for="line_3_cost-limit"><span class="sr-only">Period Cost limit</span> 
 							<input type="text" size="3" name="line_3_cost-limit" id="line_3_cost-limit">
 							</label></td>

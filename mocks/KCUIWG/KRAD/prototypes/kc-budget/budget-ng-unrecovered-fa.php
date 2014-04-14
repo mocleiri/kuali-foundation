@@ -12,6 +12,8 @@ $page = 'unrecovered';
 <?php include ('includes/styles.php') ?>
 	<style type="text/css">
 .data-row-table th{ padding:5px; text-align:right; }
+.edit-table input{min-width: 10em;width:100%;}
+#u19v7dpm{padding:1em 0 ;}
 	</style>
 </head>
 <body id="Uif-Application" style="padding-bottom: 570px;">
