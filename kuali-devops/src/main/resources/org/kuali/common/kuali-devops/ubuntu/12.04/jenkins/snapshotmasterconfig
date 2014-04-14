@@ -48,7 +48,12 @@ function create_tar_file {
      TAR_COMMAND="tar --ignore-failed-read --gzip --verbose --create --file $TAR_FILE .jenkins"
    fi
    
-   $TAR_COMMAND
+   if [ "$QUIET" = "true" ]; then
+     $TAR_COMMAND > /dev/null 2>&1
+   else
+     echo "$TAR_COMMAND"
+     $TAR_COMMAND
+   fi
    check_tar_status
    
    execute_quietly "cd $MY_DIR"
