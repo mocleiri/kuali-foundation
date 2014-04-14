@@ -95,8 +95,8 @@ public final class OpenSSLEncryptor implements Encryptor {
 
 		try {
 			// extract the portion of the array containing the encrypted bytes
-			int ciphertextOffset = saltOffset + context.getSaltSize();
-			byte[] encrypted = copyOfRange(bytes, ciphertextOffset, bytes.length);
+			int encryptedBytesOffset = saltOffset + context.getSaltSize();
+			byte[] encrypted = copyOfRange(bytes, encryptedBytesOffset, bytes.length);
 
 			// specify cipher and digest
 			byte[] decrypted = doCipher(DECRYPT_MODE, salt, encrypted);
