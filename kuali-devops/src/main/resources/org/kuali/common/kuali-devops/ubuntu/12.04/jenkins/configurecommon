@@ -74,7 +74,7 @@ function download_m2_repo_cache {
   local GROUP_ID=org.jenkins
   local ARTIFACT_ID=jenkins-master-repo
   local VERSION=m2
-  local CLASSIFIER=latest
+  local CLASSIFIER=$STACK-latest
   local TYPE=tar.gz
   local BUCKET=maven.kuali.org
   local PREFIX=private
@@ -276,7 +276,7 @@ MY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ME=$(basename $0)
 source $MY_DIR/../common/functions.sh
 
-usage() { echo "Usage: $ME [-h] [-q] [-m \"-Xmx2g -XX:MaxPermSize=256m\"] [-p \"package1 package2 package3\"] master password" 1>&2; exit 1; }
+usage() { echo "Usage: $ME [-h] [-q] [-m \"-Xmx2g -XX:MaxPermSize=256m\"] [-p \"package1 package2 package3\"] master stack password" 1>&2; exit 1; }
 
 QUIET=false
 PACKAGES="subversion git graphviz ant xvfb libasound2 libgtk2.0-0"
@@ -305,7 +305,8 @@ done
 shift $(( OPTIND - 1 ));
 
 JENKINS_MASTER=$1
-AES_PASSPHRASE=$2
+STACK=$2
+AES_PASSPHRASE=$3
 
 check_args
 
