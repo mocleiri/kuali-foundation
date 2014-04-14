@@ -1,14 +1,15 @@
-package org.kuali.common.util.encrypt;
+package org.kuali.common.util.encrypt.openssl;
 
 import static java.lang.String.format;
 import static org.junit.Assert.assertEquals;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import org.junit.Test;
+import org.kuali.common.util.encrypt.Encryptor;
 import org.kuali.common.util.encrypt.openssl.OpenSSLEncryptor;
 import org.slf4j.Logger;
 
-public class OpenSSLTest {
+public class OpenSSLEncryptorTest {
 
 	private static final Logger logger = newLogger();
 
