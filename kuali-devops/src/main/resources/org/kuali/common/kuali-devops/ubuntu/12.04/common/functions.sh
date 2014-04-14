@@ -129,22 +129,6 @@ function wait_for_string {
   
 }
 
-function encrypt_file {
-  check_not_blank AES_PASSPHRASE $AES_PASSPHRASE
-  AES_DECRYPTED=$1
-  AES_ENCRYPTED=$2
-  check_exists $AES_DECRYPTED
-  execute_quietly "gpg --batch --yes --passphrase $AES_PASSPHRASE --cipher-algo AES256 --symmetric --output $AES_ENCRYPTED $AES_DECRYPTED"
-}
-
-function decrypt_file {
-  check_not_blank AES_PASSPHRASE $AES_PASSPHRASE
-  AES_ENCRYPTED=$1
-  AES_DECRYPTED=$2
-  check_exists $AES_ENCRYPTED
-  execute_quietly "gpg --batch --yes --passphrase $AES_PASSPHRASE --decrypt --output $AES_DECRYPTED $AES_ENCRYPTED"
-}
-
 function execute_quietly {
   COMMAND=$1
   if [ "$QUIET" = "true" ]; then
@@ -215,14 +199,30 @@ function get_path {
   echo -n "$1" | tr '.' '/'
 }
 
+function encrypt_file {
+  check_not_blank AES_PASSPHRASE $AES_PASSPHRASE
+  AES_DECRYPTED=$1
+  AES_ENCRYPTED=$2
+  check_exists $AES_DECRYPTED
+  execute_quietly "openssl enc -aes128 -e -base64 -A -k $2 -in $AES_DECRYPTED -out $AES_ENCRYPTED"
+}
+
+function decrypt_file {
+  check_not_blank AES_PASSPHRASE $AES_PASSPHRASE
+  AES_ENCRYPTED=$1
+  AES_DECRYPTED=$2
+  check_exists $AES_ENCRYPTED
+  execute_quietly "openssl enc -aes128 -e -base64 -A -k $2 -in $AES_ENCRYPTED -out $AES_DECRYPTED"
+}
+
 # decrypt value password
 function encrypt {
-  echo -n "$1" | gpg --no-use-agent --batch --yes --passphrase "$2" --cipher-algo AES256 --symmetric | base64 --wrap=0
+  echo -e -n "$1" | openssl enc -aes128 -e -base64 -A -k $2
 }
 
 # decrypt value password
 function decrypt {
-  echo -n "$1" | base64 --decode | gpg --batch --yes --passphrase "$2" --quiet --no-use-agent --decrypt
+  echo -e -n "$1" | openssl enc -aes128 -d -base64 -A -k $2
 }
 
 function check_jenkins_mode {
