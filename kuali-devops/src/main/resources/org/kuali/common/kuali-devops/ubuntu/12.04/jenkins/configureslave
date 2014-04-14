@@ -68,18 +68,6 @@ function install_mysql_server {
    
 }
 
-function copy_repo_from_master {
-
-  M2_REPO=/root/.m2/repository
-  mkdir -p $M2_REPO
-  REMOTE_REPO=$JENKINS_MASTER:$M2_REPO
-  echo "rsync     -> $REMOTE_REPO"
-  echo "rsync     -> start -> $(date)"
-  execute_quietly "rsync --archive --verbose --stats root@$REMOTE_REPO/ $M2_REPO --exclude=**/oracle/jdk*/** --exclude=**/firefox/** --exclude=**/org/jenkins/**" 
-  echo "rsync     -> stop  -> $(date)"
-  
-}
-
 function enable_root_ssh {
   echo "enable    -> root ssh"
   # set disable_root to 0 in the cloud config 
@@ -117,5 +105,4 @@ check_args
 
 slave_shutdown_scripting
 install_mysql_server
-copy_repo_from_master
 enable_root_ssh
