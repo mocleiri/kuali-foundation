@@ -1,8 +1,10 @@
 package org.kuali.common.util.encrypt;
 
 import static java.lang.String.format;
+import static org.kuali.common.util.encrypt.openssl.OpenSSLContext.buildOpenSSLContext;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
+import org.kuali.common.util.encrypt.openssl.OpenSSLContext;
 import org.kuali.common.util.encrypt.openssl.OpenSSLEncryptor;
 import org.kuali.common.util.encrypt.provider.ChainProviderContext;
 import org.kuali.common.util.encrypt.provider.DefaultEncryptionContextProviderChain;
@@ -28,7 +30,8 @@ public final class Encryption {
 				EncryptionContext context = chainContext.get().getContext();
 				String providerClassName = chainContext.get().getProvider().getClass().getSimpleName();
 				info(quiet, "encryption enabled - [%s, key=%s, strength=%s]", providerClassName, ENCRYPTION_PASSWORD_KEY, context.getStrength());
-				encryptor = new OpenSSLEncryptor(context.getPassword());
+				OpenSSLContext osc = buildOpenSSLContext(context);
+				encryptor = new OpenSSLEncryptor(osc, context.getPassword());
 			} else {
 				info(quiet, "encryption disabled - [%s] is not set", ENCRYPTION_PASSWORD_KEY);
 				encryptor = NoOpEncryptor.INSTANCE;

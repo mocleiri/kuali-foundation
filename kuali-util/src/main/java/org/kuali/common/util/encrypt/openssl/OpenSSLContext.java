@@ -3,6 +3,9 @@ package org.kuali.common.util.encrypt.openssl;
 import static org.kuali.common.util.base.Precondition.checkMin;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
+import org.kuali.common.util.enc.EncStrength;
+import org.kuali.common.util.encrypt.EncryptionContext;
+
 public final class OpenSSLContext {
 
 	private final int iterations;
@@ -21,6 +24,17 @@ public final class OpenSSLContext {
 		this.transformation = builder.transformation;
 		this.digest = builder.digest;
 		this.algorithm = builder.algorithm;
+	}
+
+	/**
+	 * Returns a context for 256 bit AES encryption compatible with OpenSSL
+	 */
+	public static OpenSSLContext buildOpenSSLContext(EncryptionContext context) {
+		if (context.getStrength().equals(EncStrength.STRONG)) {
+			return builder().withKeySizeBits(256).build();
+		} else {
+			return buildDefaultOpenSSLContext();
+		}
 	}
 
 	/**
