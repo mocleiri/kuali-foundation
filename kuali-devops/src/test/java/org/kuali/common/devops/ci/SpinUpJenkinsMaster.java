@@ -11,9 +11,11 @@ import static java.util.Collections.sort;
 import static org.apache.commons.lang3.StringUtils.equalsIgnoreCase;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_MASTER;
+import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.CI_SLAVE_STARTS_WITH_TOKEN;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getBasicLaunchRequest;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getEC2Service;
 import static org.kuali.common.devops.ci.model.Constants.AES_PASSPHRASE_ENCRYPTED;
+import static org.kuali.common.devops.ci.model.Constants.JENKINS_VERSION;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
 import static org.kuali.common.dns.model.CNAMEContext.newCNAMEContext;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
@@ -144,8 +146,8 @@ public class SpinUpJenkinsMaster {
 		String stack = jenkinsContext.getStack().getTag().getValue();
 		exec(channel, common, quietFlag, jenkinsMaster, stack, aesPassphrase);
 		String backupMode = jenkinsContext.getBackupMode().name().toLowerCase();
-		exec(channel, jenkins, quietFlag, Constants.JENKINS_VERSION);
-		exec(channel, configureMaster, quietFlag, jenkinsMaster, jenkinsContext.getRegion().getName(), stack, backupMode, latestSlaveAMI, Constants.JENKINS_VERSION, aesPassphrase);
+		exec(channel, jenkins, quietFlag, JENKINS_VERSION);
+		exec(channel, configureMaster, quietFlag, jenkinsMaster, jenkinsContext.getRegion().getName(), stack, backupMode, latestSlaveAMI, JENKINS_VERSION, aesPassphrase);
 
 		// The spin up process should have given DNS enough time to settle down
 		info("Verifying SSH to -> [%s]", jenkinsMaster);
@@ -155,7 +157,7 @@ public class SpinUpJenkinsMaster {
 
 	protected String findLatestSlaveAMI(EC2Service service, Tag stack) {
 		List<Image> images = service.getMyImages();
-		List<Image> slaveImages = CreateBuildSlaveAMI.getFilteredImages(images, stack, CreateBuildSlaveAMI.name.getKey(), CreateBuildSlaveAMI.startsWithToken);
+		List<Image> slaveImages = CreateBuildSlaveAMI.getFilteredImages(images, stack, CreateBuildSlaveAMI.name.getKey(), CI_SLAVE_STARTS_WITH_TOKEN);
 		// Sort by Name tag
 		sort(slaveImages, new ImageTagsComparator());
 
