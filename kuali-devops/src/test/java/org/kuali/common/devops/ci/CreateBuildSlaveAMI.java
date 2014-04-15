@@ -24,6 +24,7 @@ import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.openSecureChannel;
 import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.publishProject;
 import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.verifySSH;
 import static org.kuali.common.devops.ci.model.Constants.AES_PASSPHRASE_ENCRYPTED;
+import static org.kuali.common.devops.ci.model.Constants.AMAZON_ACCOUNT;
 import static org.kuali.common.devops.ci.model.Constants.DISTRO;
 import static org.kuali.common.devops.ci.model.Constants.DISTRO_VERSION;
 import static org.kuali.common.devops.ci.model.Constants.DOMAIN;
@@ -61,7 +62,6 @@ import org.kuali.common.core.ssh.PublicKey;
 import org.kuali.common.core.system.VirtualSystem;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.ci.model.BasicLaunchRequest;
-import org.kuali.common.devops.ci.model.Constants;
 import org.kuali.common.devops.ci.model.JenkinsContext;
 import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.util.FormatUtils;
@@ -95,15 +95,14 @@ public class CreateBuildSlaveAMI {
 	private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	private static final String today = format.format(new Date());
 	private static final String buildNumber = getBuildNumber();
-	public static final String startsWithToken = "ci.slave";
-	public static final Tag name = new ImmutableTag("Name", format("%s.%s-build-%s", startsWithToken, today, buildNumber));
-	private static final String amazonAccount = Constants.AMAZON_ACCOUNT;
-	public static final KeyPair KUALI_KEY = Auth.getKeyPair("devops");
+	public static final String CI_SLAVE_STARTS_WITH_TOKEN = "ci.slave";
+	public static final Tag name = new ImmutableTag("Name", format("%s.%s-build-%s", CI_SLAVE_STARTS_WITH_TOKEN, today, buildNumber));
+	public static final KeyPair DEVOPS_KEYPAIR = Auth.getKeyPair("devops");
 	private final int minimumAmisToKeep = 7;
 	private final Encryptor encryptor = getDefaultEncryptor();
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 80;
 
-	private static final Map<String, JenkinsContext> CONTEXTS = SpinUpJenkinsMaster.getJenkinsContexts(Tags.Name.SLAVE);
+	public static final Map<String, JenkinsContext> CONTEXTS = SpinUpJenkinsMaster.getJenkinsContexts(Tags.Name.SLAVE);
 	private static final Set<String> US_REGIONS = ImmutableSet.of(US_EAST_1.getName(), US_WEST_1.getName(), US_WEST_2.getName());
 
 	@Test
@@ -118,11 +117,11 @@ public class CreateBuildSlaveAMI {
 		BasicLaunchRequest request = getSlaveLaunchRequest(jenkinsContext);
 		ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
-		EC2Service service = getEC2Service(amazonAccount, jenkinsContext.getRegion());
+		EC2Service service = getEC2Service(AMAZON_ACCOUNT, jenkinsContext.getRegion());
 		List<Tag> tags = getSlaveTags(jenkinsContext);
 		Instance instance = launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
 		// Instance instance = service.getInstance("i-b488d5bd");
-		String privateKey = KUALI_KEY.getPrivateKey();
+		String privateKey = DEVOPS_KEYPAIR.getPrivateKey();
 		configureInstance(service, instance, tags, pid, quiet, privateKey, jenkinsContext.getDnsPrefix(), getJenkinsMaster(jenkinsContext), jenkinsContext);
 
 		// Create a new AMI from this slave, and copy it around to every US region
@@ -188,7 +187,7 @@ public class CreateBuildSlaveAMI {
 	protected void copyAmi(String sourceRegion, Set<String> regions, String ami, Tag name, Tag stack) {
 		for (String region : regions) {
 			if (!region.equals(sourceRegion)) {
-				EC2Service service = new DefaultEC2Service(Auth.getAwsCredentials(amazonAccount), region);
+				EC2Service service = new DefaultEC2Service(Auth.getAwsCredentials(AMAZON_ACCOUNT), region);
 				String copiedAmi = service.copyAmi(sourceRegion, ami);
 				// Tack test/prod onto the end of the name to make it very clear which stack the ami belongs to
 				Tag namePlusStack = new ImmutableTag(name.getKey(), name.getValue() + "-" + stack.getValue());
@@ -246,7 +245,7 @@ public class CreateBuildSlaveAMI {
 
 	protected void cleanupAmis(EC2Service service, Tag stack) {
 		List<Image> images = service.getMyImages();
-		List<Image> filtered = getFilteredImages(images, stack, name.getKey(), startsWithToken);
+		List<Image> filtered = getFilteredImages(images, stack, name.getKey(), CI_SLAVE_STARTS_WITH_TOKEN);
 		// Sort by Name tag
 		sort(filtered, new ImageTagsComparator());
 
@@ -257,7 +256,7 @@ public class CreateBuildSlaveAMI {
 
 		// Show AMI's
 		for (Image image : filtered) {
-			Tag tag = findRequiredTag(image.getTags(), name.getKey(), startsWithToken);
+			Tag tag = findRequiredTag(image.getTags(), name.getKey(), CI_SLAVE_STARTS_WITH_TOKEN);
 			logger.debug(format("slave ami   -> %s = [%s]", tag.getValue(), image.getImageId()));
 		}
 		List<Image> deletes = newArrayList();
@@ -269,7 +268,7 @@ public class CreateBuildSlaveAMI {
 		logger.info(format("slave ami's -> retain -> %s", minimumAmisToKeep));
 		logger.info(format("slave ami's -> delete -> %s", deletes.size()));
 		for (Image image : deletes) {
-			Tag tag = findRequiredTag(image.getTags(), name.getKey(), startsWithToken);
+			Tag tag = findRequiredTag(image.getTags(), name.getKey(), CI_SLAVE_STARTS_WITH_TOKEN);
 			logger.info(format("slave ami   -> delete -> %s - [%s]", image.getImageId(), tag.getValue()));
 			service.purgeAmi(image.getImageId());
 		}
@@ -355,7 +354,7 @@ public class CreateBuildSlaveAMI {
 	protected static Instance launchAndWait(EC2Service service, BasicLaunchRequest blr, List<KualiSecurityGroup> securityGroups, List<Tag> tags, String regionName) {
 		logger.info(format("launch instance -> %s %s %s %sgb", regionName, blr.getAmi(), blr.getType().toString(), blr.getRootVolume().getSizeInGigabytes().get()));
 		List<BlockDeviceMapping> additionalMappings = ImmutableBlockDeviceMapping.DEFAULT_INSTANCE_STORES;
-		PublicKey publicKey = PublicKey.builder().withName(KUALI_KEY.getName()).withValue(KUALI_KEY.getPublicKey()).build();
+		PublicKey publicKey = PublicKey.builder().withName(DEVOPS_KEYPAIR.getName()).withValue(DEVOPS_KEYPAIR.getPublicKey()).build();
 		LaunchInstanceContext context = LaunchInstanceContext.builder(blr.getAmi(), publicKey).withTimeoutMillis(blr.getTimeoutMillis()).withType(blr.getType())
 				.withRootVolume(blr.getRootVolume()).withSecurityGroups(securityGroups).withTags(tags).withAdditionalMappings(additionalMappings).build();
 		return service.launchInstance(context);
@@ -404,8 +403,8 @@ public class CreateBuildSlaveAMI {
 		public int compare(Image one, Image two) {
 			checkNotNull(one.getTags(), "one.tags");
 			checkNotNull(two.getTags(), "two.tags");
-			String val1 = findRequiredTag(one.getTags(), name.getKey(), startsWithToken).getValue();
-			String val2 = findRequiredTag(two.getTags(), name.getKey(), startsWithToken).getValue();
+			String val1 = findRequiredTag(one.getTags(), name.getKey(), CI_SLAVE_STARTS_WITH_TOKEN).getValue();
+			String val2 = findRequiredTag(two.getTags(), name.getKey(), CI_SLAVE_STARTS_WITH_TOKEN).getValue();
 			return val1.compareTo(val2);
 		}
 

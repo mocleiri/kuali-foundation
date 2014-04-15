@@ -114,7 +114,7 @@ public class SpinUpJenkinsMaster {
 		String jenkinsMaster = Joiner.on('.').join(dnsPrefix, DOMAIN);
 		List<Tag> tags = getMasterTags(jenkinsContext, jenkinsMaster);
 		info("jenkins -> [%s :: %s]", jenkinsContext.getStack().getTag().getValue(), jenkinsMaster);
-		KeyPair keyPair = CreateBuildSlaveAMI.KUALI_KEY;
+		KeyPair keyPair = CreateBuildSlaveAMI.DEVOPS_KEYPAIR;
 		String privateKey = keyPair.getPrivateKey();
 		BasicLaunchRequest request = getMasterLaunchRequest(jenkinsContext);
 		ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
