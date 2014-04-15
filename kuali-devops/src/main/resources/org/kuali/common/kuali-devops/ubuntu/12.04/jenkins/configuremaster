@@ -76,7 +76,7 @@ function update_jenkins_config_xml {
   echo "configure -> jenkins:cas [$CAS]"
   FIND="<casServerUrl>.*</casServerUrl>"
   REPLACE="<casServerUrl>https://$CAS</casServerUrl>"
-  execute_quietly "sed -i -e s@$FIND@$REPLACE@g $JENKINS_LOCATION_CONFIG_FILE"
+  execute_quietly "sed -i -e s@$FIND@$REPLACE@g $JENKINS_CONFIG_FILE"
 
   echo "remove    -> slave :: existing"
   # delete everything between <slaves> and </slaves> (including the tags themselves)
