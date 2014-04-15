@@ -177,7 +177,7 @@ public class CreateBuildSlaveAMI {
 		service.terminateInstance(instance.getInstanceId());
 
 		// Make sure we only have 7 AMI's for CI slaves in the current region
-		cleanupAmis(service);
+		cleanupAmis(service, stack);
 
 		// Copy the new AMI to every US region
 		copyAmi(service.getRegion(), US_REGIONS, image.getImageId(), name, stack);
@@ -195,7 +195,7 @@ public class CreateBuildSlaveAMI {
 				Tag namePlusStack = new ImmutableTag(name.getKey(), name.getValue() + "-" + stack.getValue());
 				service.tag(copiedAmi, namePlusStack);
 				service.tag(copiedAmi, stack);
-				cleanupAmis(service);
+				cleanupAmis(service, stack);
 			}
 		}
 	}
@@ -257,9 +257,9 @@ public class CreateBuildSlaveAMI {
 		return BasicLaunchRequest.builder().withAmi(ami).withRootVolume(rootVolume).withTimeoutMillis(timeoutMillis).withType(type).build();
 	}
 
-	protected void cleanupAmis(EC2Service service) {
+	protected void cleanupAmis(EC2Service service, Tag stack) {
 		List<Image> images = service.getMyImages();
-		List<Image> filtered = getFilteredImages(images, name.getKey(), startsWithToken);
+		List<Image> filtered = getFilteredImages(images, stack, name.getKey(), startsWithToken);
 		// Sort by Name tag
 		sort(filtered, new ImageTagsComparator());
 
@@ -290,6 +290,8 @@ public class CreateBuildSlaveAMI {
 	}
 
 	protected static Tag findRequiredTag(List<Tag> tags, String tagKey, String prefix) {
+		checkNotBlank(prefix, "prefix");
+		checkNotBlank(tagKey, "tagKey");
 		for (Tag tag : tags) {
 			if (tagKey.equals(tag.getKey())) {
 				String value = tag.getValue();
@@ -301,15 +303,28 @@ public class CreateBuildSlaveAMI {
 		throw illegalState("Unable to locate tag %s", tagKey);
 	}
 
-	protected static List<Image> getFilteredImages(List<Image> images, String tagKey, String prefix) {
+	protected static List<Image> getFilteredImages(List<Image> images, Tag stack, String tagKey, String prefix) {
 		List<Image> filtered = newArrayList();
 		for (Image image : images) {
 			List<Tag> tags = image.getTags();
-			if (matches(tags, tagKey, prefix)) {
+			if (matches(tags, tagKey, prefix) && exactMatch(stack, tags)) {
 				filtered.add(image);
 			}
 		}
 		return filtered;
+	}
+
+	protected static boolean exactMatch(Tag tag, List<Tag> tags) {
+		checkNotNull(tags, "tags");
+		checkNotNull(tag, "tag");
+		for (Tag element : tags) {
+			boolean matchingKey = tag.getKey().equals(element.getKey());
+			boolean matchingValue = tag.getValue().equals(element.getValue());
+			if (matchingKey && matchingValue) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	protected static boolean matches(List<Tag> tags, String key, String prefix) {

@@ -141,7 +141,7 @@ public class SpinUpJenkinsMaster {
 			String common = getResource(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
 			String jenkins = getResource(basedir, pid, distro, distroVersion, "jenkins/installjenkins");
 			String configureMaster = getResource(basedir, pid, distro, distroVersion, "jenkins/configuremaster");
-			String latestSlaveAMI = findLatestSlaveAMI(service);
+			String latestSlaveAMI = findLatestSlaveAMI(service, jenkinsContext.getStack().getTag());
 			String stack = jenkinsContext.getStack().getTag().getValue();
 			exec(channel, common, quietFlag, jenkinsMaster, stack, aesPassphrase);
 			String backupMode = jenkinsContext.getBackupMode().name().toLowerCase();
@@ -158,9 +158,9 @@ public class SpinUpJenkinsMaster {
 		}
 	}
 
-	protected String findLatestSlaveAMI(EC2Service service) {
+	protected String findLatestSlaveAMI(EC2Service service, Tag stack) {
 		List<Image> images = service.getMyImages();
-		List<Image> slaveImages = CreateBuildSlaveAMI.getFilteredImages(images, CreateBuildSlaveAMI.name.getKey(), CreateBuildSlaveAMI.startsWithToken);
+		List<Image> slaveImages = CreateBuildSlaveAMI.getFilteredImages(images, stack, CreateBuildSlaveAMI.name.getKey(), CreateBuildSlaveAMI.startsWithToken);
 		// Sort by Name tag
 		sort(slaveImages, new ImageTagsComparator());
 
