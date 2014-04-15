@@ -239,7 +239,7 @@ public class CreateBuildSlaveAMI {
 	protected static BasicLaunchRequest getSlaveLaunchRequest(JenkinsContext context) {
 		BasicLaunchRequest.Builder builder = BasicLaunchRequest.builder();
 		builder.setAmi(SpinUpJenkinsMaster.getDefaultAMI(context.getRegion()));
-		builder.setTimeoutMillis(FormatUtils.getMillisAsInt("1h"));
+		builder.setTimeoutMillis(FormatUtils.getMillisAsInt("2h"));
 		builder.setRootVolume(RootVolume.create(DEFAULT_ROOT_VOLUME_SIZE, true));
 		return getBasicLaunchRequest(builder.build());
 	}
