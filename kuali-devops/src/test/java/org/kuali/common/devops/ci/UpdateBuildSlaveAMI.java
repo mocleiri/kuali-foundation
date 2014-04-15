@@ -55,7 +55,6 @@ public class UpdateBuildSlaveAMI {
 
 	@Test
 	public void test() throws Exception {
-		System.setProperty("ec2.stack", "test");
 		VirtualSystem vs = VirtualSystem.create();
 		// Default to quiet mode unless they've supplied -Dec2.quiet=false
 		boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
