@@ -127,7 +127,7 @@ public class CreateBuildSlaveAMI {
 		String ami = createAndPropagateAMI(instance, service, request);
 
 		// Update the master with the AMI we just created
-		updateMasterAMI(getJenkinsMaster(jenkinsContext), pid, privateKey, quiet, ami);
+		// updateMasterAMI(getJenkinsMaster(jenkinsContext), pid, privateKey, quiet, ami);
 
 		// log a message showing total elapsed time
 		logger.info(format("build slave ami process :: complete - [%s]", getTime(sw)));
