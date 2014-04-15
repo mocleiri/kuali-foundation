@@ -1,6 +1,8 @@
 package org.kuali.common.devops.ci;
 
 import static com.google.common.base.Preconditions.checkState;
+import static com.google.common.base.Stopwatch.createStarted;
+import static java.lang.String.format;
 import static java.util.Collections.reverse;
 import static java.util.Collections.sort;
 import static org.apache.commons.lang3.StringUtils.equalsIgnoreCase;
@@ -31,6 +33,7 @@ import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.core.system.VirtualSystem;
 import org.kuali.common.devops.ci.CreateBuildSlaveAMI.ImageTagsComparator;
 import org.kuali.common.devops.ci.model.JenkinsContext;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.encrypt.Encryptor;
 import org.kuali.common.util.project.model.ProjectIdentifier;
@@ -38,11 +41,13 @@ import org.slf4j.Logger;
 
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Tag;
+import com.google.common.base.Stopwatch;
 
 public class UpdateBuildSlaveAMI {
 
 	private static final Logger logger = newLogger();
 
+	private final Stopwatch stopwatch = createStarted();
 	private final Encryptor encryptor = getDefaultEncryptor();
 	private final String kisUsernameEncrypted = "U2FsdGVkX18yas/kI9ymLV41TRC9tcoE8P2YaoQmtOc=";
 	private final String kisPasswordEncrypted = "U2FsdGVkX18M5faj1sGRINZ0p5dNNW3FFEPxM1lx3Gw=";
@@ -50,6 +55,7 @@ public class UpdateBuildSlaveAMI {
 
 	@Test
 	public void test() throws Exception {
+		System.setProperty("ec2.stack", "test");
 		VirtualSystem vs = VirtualSystem.create();
 		// Default to quiet mode unless they've supplied -Dec2.quiet=false
 		boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
@@ -59,7 +65,7 @@ public class UpdateBuildSlaveAMI {
 		String privateKey = DEVOPS_KEYPAIR.getPrivateKey();
 		String jenkinsMaster = getJenkinsMaster(jenkinsContext);
 		updateMasterAMI(jenkinsMaster, privateKey, quiet, ami);
-
+		info("updated %s with ami %s - %s", jenkinsMaster, ami, FormatUtils.getTime(stopwatch));
 	}
 
 	protected void updateMasterAMI(String jenkinsMaster, String privateKey, boolean quiet, String ami) throws IOException {
@@ -98,7 +104,7 @@ public class UpdateBuildSlaveAMI {
 		if (args == null) {
 			logger.info(msg);
 		} else {
-			logger.info(msg, args);
+			logger.info(format(msg, args));
 		}
 	}
 
