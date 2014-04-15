@@ -216,7 +216,7 @@ public class CreateBuildSlaveAMI {
 		String kisUsername = encryptor.decrypt(kisUsernameEncrypted);
 		SecureChannel masterChannel = SpinUpJenkinsMaster.openSecureChannel(ROOT, jenkinsMaster, privateKey, quiet);
 		String basedir = SpinUpJenkinsMaster.publishProject(masterChannel, pid, ROOT, jenkinsMaster, quiet);
-		String rubyScript = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/update_jenkins_" + Constants.JENKINS_VERSION + "_ami_headless.rb");
+		String rubyScript = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/update_jenkins_ami_headless.rb");
 		SpinUpJenkinsMaster.verifySSH(ROOT, jenkinsMaster, privateKey);
 		SecureChannel channel = SpinUpJenkinsMaster.openSecureChannel(ROOT, jenkinsMaster, privateKey, quiet);
 		SpinUpJenkinsMaster.exec(channel, "ruby", rubyScript, kisUsername, kisPassword, ami, jenkinsMaster);
