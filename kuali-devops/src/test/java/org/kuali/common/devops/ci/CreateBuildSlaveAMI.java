@@ -17,9 +17,15 @@ import static org.kuali.common.aws.ec2.model.Regions.US_WEST_1;
 import static org.kuali.common.aws.ec2.model.Regions.US_WEST_2;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
+import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.bootstrap;
 import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.exec;
 import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.getResource;
+import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.openSecureChannel;
+import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.publishProject;
+import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.verifySSH;
 import static org.kuali.common.devops.ci.model.Constants.AES_PASSPHRASE_ENCRYPTED;
+import static org.kuali.common.devops.ci.model.Constants.DISTRO;
+import static org.kuali.common.devops.ci.model.Constants.DISTRO_VERSION;
 import static org.kuali.common.devops.ci.model.Constants.DOMAIN;
 import static org.kuali.common.devops.ci.model.Constants.ROOT;
 import static org.kuali.common.devops.ci.model.Constants.UBUNTU;
@@ -31,7 +37,6 @@ import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 import static org.kuali.common.util.encrypt.Encryption.buildDefaultEncryptor;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
@@ -87,8 +92,6 @@ public class CreateBuildSlaveAMI {
 
 	private final Stopwatch sw = createStarted();
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_BUILD_SLAVE.getGroup());
-	private final Distro distro = Distro.UBUNTU;
-	private final String distroVersion = Constants.DISTRO_VERSION;
 	private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	private static final String today = format.format(new Date());
 	private static final String buildNumber = getBuildNumber();
@@ -145,20 +148,20 @@ public class CreateBuildSlaveAMI {
 		service.tag(instance.getInstanceId(), tags);
 		logger.info(format("public dns: %s", instance.getPublicDnsName()));
 		String dns = instance.getPublicDnsName();
-		SpinUpJenkinsMaster.verifySSH(UBUNTU, dns, privateKey);
-		SpinUpJenkinsMaster.bootstrap(dns, privateKey);
-		SecureChannel channel = SpinUpJenkinsMaster.openSecureChannel(ROOT, dns, privateKey, quiet);
-		String basedir = SpinUpJenkinsMaster.publishProject(channel, pid, ROOT, dns, quiet);
+		verifySSH(UBUNTU, dns, privateKey);
+		bootstrap(dns, privateKey);
+		SecureChannel channel = openSecureChannel(ROOT, dns, privateKey, quiet);
+		String basedir = publishProject(channel, pid, ROOT, dns, quiet);
 
 		String aesPassphrase = encryptor.decrypt(AES_PASSPHRASE_ENCRYPTED);
 		String quietFlag = (quiet) ? "-q" : "";
 
-		setupEssentials(channel, basedir, pid, distro, distroVersion, aesPassphrase, dnsPrefix, quietFlag);
+		setupEssentials(channel, basedir, pid, DISTRO, DISTRO_VERSION, aesPassphrase, dnsPrefix, quietFlag);
 		String stack = jenkinsContext.getStack().getTag().getValue();
-		String common = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
-		String slave = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/configureslave");
-		SpinUpJenkinsMaster.exec(channel, common, quietFlag, jenkinsMaster, stack, aesPassphrase);
-		SpinUpJenkinsMaster.exec(channel, slave, quietFlag, jenkinsMaster);
+		String common = getResource(basedir, pid, DISTRO, DISTRO_VERSION, "jenkins/configurecommon");
+		String slave = getResource(basedir, pid, DISTRO, DISTRO_VERSION, "jenkins/configureslave");
+		exec(channel, common, quietFlag, jenkinsMaster, stack, aesPassphrase);
+		exec(channel, slave, quietFlag, jenkinsMaster);
 		cacheBinaries(channel, basedir, pid);
 		channel.close();
 		service.stopInstance(instance.getInstanceId());
@@ -213,18 +216,6 @@ public class CreateBuildSlaveAMI {
 		args.add("-f");
 		args.add(pom);
 		SpinUpJenkinsMaster.exec(channel, "mvn", args);
-	}
-
-	protected void updateMasterAMI(String jenkinsMaster, ProjectIdentifier pid, String privateKey, boolean quiet, String ami) throws IOException {
-		logger.info(format("updating %s with new AMI", jenkinsMaster));
-		String kisPassword = encryptor.decrypt(kisPasswordEncrypted);
-		String kisUsername = encryptor.decrypt(kisUsernameEncrypted);
-		SecureChannel masterChannel = SpinUpJenkinsMaster.openSecureChannel(ROOT, jenkinsMaster, privateKey, quiet);
-		String basedir = SpinUpJenkinsMaster.publishProject(masterChannel, pid, ROOT, jenkinsMaster, quiet);
-		String rubyScript = SpinUpJenkinsMaster.getResource(basedir, pid, distro, distroVersion, "jenkins/update_jenkins_ami_headless.rb");
-		SpinUpJenkinsMaster.verifySSH(ROOT, jenkinsMaster, privateKey);
-		SecureChannel channel = SpinUpJenkinsMaster.openSecureChannel(ROOT, jenkinsMaster, privateKey, quiet);
-		SpinUpJenkinsMaster.exec(channel, "ruby", rubyScript, kisUsername, kisPassword, ami, jenkinsMaster);
 	}
 
 	protected static void setupEssentials(SecureChannel channel, String basedir, ProjectIdentifier pid, Distro distro, String distroVersion, String aesPassphrase,
