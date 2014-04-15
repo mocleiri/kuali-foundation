@@ -7,7 +7,7 @@ import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.publishProject;
 import static org.kuali.common.devops.ci.model.Constants.DISTRO;
 import static org.kuali.common.devops.ci.model.Constants.DISTRO_VERSION;
 import static org.kuali.common.devops.ci.model.Constants.ROOT;
-import static org.kuali.common.util.encrypt.Encryption.buildDefaultEncryptor;
+import static org.kuali.common.util.encrypt.Encryption.getDefaultEncryptor;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class UpdateBuildSlaveAMI {
 
 	private static final Logger logger = newLogger();
 
-	private final Encryptor encryptor = buildDefaultEncryptor();
+	private final Encryptor encryptor = getDefaultEncryptor();
 	private final String kisUsernameEncrypted = "U2FsdGVkX18yas/kI9ymLV41TRC9tcoE8P2YaoQmtOc=";
 	private final String kisPasswordEncrypted = "U2FsdGVkX18M5faj1sGRINZ0p5dNNW3FFEPxM1lx3Gw=";
 

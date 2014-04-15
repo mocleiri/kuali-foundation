@@ -35,7 +35,7 @@ import static org.kuali.common.util.FormatUtils.getTime;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
-import static org.kuali.common.util.encrypt.Encryption.buildDefaultEncryptor;
+import static org.kuali.common.util.encrypt.Encryption.getDefaultEncryptor;
 
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
@@ -100,7 +100,7 @@ public class CreateBuildSlaveAMI {
 	private static final String amazonAccount = Constants.AMAZON_ACCOUNT;
 	public static final KeyPair KUALI_KEY = Auth.getKeyPair("devops");
 	private final int minimumAmisToKeep = 7;
-	private final Encryptor encryptor = buildDefaultEncryptor();
+	private final Encryptor encryptor = getDefaultEncryptor();
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 80;
 
 	private static final Map<String, JenkinsContext> CONTEXTS = SpinUpJenkinsMaster.getJenkinsContexts(Tags.Name.SLAVE);

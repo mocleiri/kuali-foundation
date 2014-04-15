@@ -18,7 +18,7 @@ import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_
 import static org.kuali.common.dns.model.CNAMEContext.newCNAMEContext;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
 import static org.kuali.common.util.base.Exceptions.illegalArgument;
-import static org.kuali.common.util.encrypt.Encryption.buildDefaultEncryptor;
+import static org.kuali.common.util.encrypt.Encryption.getDefaultEncryptor;
 import static org.kuali.common.util.log.LoggerLevel.INFO;
 import static org.kuali.common.util.log.LoggerLevel.WARN;
 import static org.kuali.common.util.maven.RepositoryUtils.getDefaultLocalRepository;
@@ -98,7 +98,7 @@ public class SpinUpJenkinsMaster {
 	private final String distroVersion = Constants.DISTRO_VERSION;
 	private static final String ROOT = Constants.ROOT;
 	private static final String UBUNTU = Constants.UBUNTU;
-	private final Encryptor encryptor = buildDefaultEncryptor();
+	private final Encryptor encryptor = getDefaultEncryptor();
 
 	// What should we go with for default root volume size, 256?)
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 256;

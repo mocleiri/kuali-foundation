@@ -2,7 +2,7 @@ package org.kuali.common.devops.logic;
 
 import static com.google.common.collect.Sets.newHashSet;
 import static org.kuali.common.util.base.Exceptions.illegalArgument;
-import static org.kuali.common.util.encrypt.Encryption.buildDefaultEncryptor;
+import static org.kuali.common.util.encrypt.Encryption.getDefaultEncryptor;
 
 import java.util.Set;
 
@@ -28,7 +28,7 @@ public class Auth {
 	}
 
 	public static KeyPair getKeyPair(EncryptedKeyPair encrypted) {
-		Encryptor encryptor = buildDefaultEncryptor();
+		Encryptor encryptor = getDefaultEncryptor();
 		KeyPair keyPair = encrypted.getKeyPair();
 		String publicKey = encryptor.decrypt(keyPair.getPublicKey());
 		String privateKey = encryptor.decrypt(keyPair.getPrivateKey());
@@ -37,7 +37,7 @@ public class Auth {
 
 	public static DNSMadeEasyCredentials getDNSMECredentials() {
 		DNSMadeEasyCredentials creds = EncryptedDNSMECredentials.PRODUCTION.getCredentials();
-		Encryptor encryptor = buildDefaultEncryptor();
+		Encryptor encryptor = getDefaultEncryptor();
 		String apiKey = encryptor.decrypt(creds.getApiKey());
 		String secretKey = encryptor.decrypt(creds.getSecretKey());
 		return DNSMadeEasyCredentials.builder().withApiKey(apiKey).withSecretKey(secretKey).build();
@@ -61,7 +61,7 @@ public class Auth {
 	}
 
 	public static AWSCredentials getAwsCredentials(EncryptedAwsCredentials encrypted) {
-		Encryptor encryptor = buildDefaultEncryptor();
+		Encryptor encryptor = getDefaultEncryptor();
 		String accessKey = encryptor.decrypt(encrypted.getAWSAccessKeyId());
 		String secretKey = encryptor.decrypt(encrypted.getAWSSecretKey());
 		return new ImmutableAWSCredentials(accessKey, secretKey);

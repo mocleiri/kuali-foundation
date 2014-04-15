@@ -5,7 +5,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Integer.toHexString;
 import static org.apache.commons.lang.StringUtils.leftPad;
 import static org.kuali.common.util.Encodings.UTF8;
-import static org.kuali.common.util.encrypt.Encryption.buildDefaultEncryptor;
+import static org.kuali.common.util.encrypt.Encryption.getDefaultEncryptor;
 import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.net.URL;
@@ -91,12 +91,12 @@ public class GeneratePreSignedURL {
 	}
 
 	private String getSecretKey() {
-		Encryptor enc = buildDefaultEncryptor();
+		Encryptor enc = getDefaultEncryptor();
 		return enc.decrypt("5wLZjsZuyGvsbIPPXUz0XVBUhJUbOkaeqx3rZ7l+9Nc5/4WaTyn4dvlWlyVfRlzO/GSfvkRaQ+A=");
 	}
 
 	private AWSCredentials getFoundationCreds(String secretKey) {
-		Encryptor enc = buildDefaultEncryptor();
+		Encryptor enc = getDefaultEncryptor();
 		String accessKey = enc.decrypt("PmSynm07/94iRu9BQCXrfp+ieOEfC9CIyL+u/R84LU8=");
 		return new ImmutableAWSCredentials(accessKey, secretKey);
 	}
