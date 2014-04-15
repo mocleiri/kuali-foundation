@@ -104,58 +104,53 @@ public class SpinUpJenkinsMaster {
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 256;
 
 	@Test
-	public void test() {
-		try {
-			VirtualSystem vs = VirtualSystem.create();
-			Map<String, JenkinsContext> contexts = getJenkinsContexts(Tags.Name.MASTER);
-			// Default to quiet mode unless they've supplied -Dec2.quiet=false
-			boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
-			JenkinsContext jenkinsContext = getJenkinsContext(vs, contexts);
-			String dnsPrefix = jenkinsContext.getDnsPrefix();
-			String jenkinsMaster = Joiner.on('.').join(dnsPrefix, DOMAIN);
-			List<Tag> tags = getMasterTags(jenkinsContext, jenkinsMaster);
-			info("jenkins -> [%s :: %s]", jenkinsContext.getStack().getTag().getValue(), jenkinsMaster);
-			KeyPair keyPair = CreateBuildSlaveAMI.KUALI_KEY;
-			String privateKey = keyPair.getPrivateKey();
-			BasicLaunchRequest request = getMasterLaunchRequest(jenkinsContext);
-			ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
+	public void test() throws Exception {
+		VirtualSystem vs = VirtualSystem.create();
+		Map<String, JenkinsContext> contexts = getJenkinsContexts(Tags.Name.MASTER);
+		// Default to quiet mode unless they've supplied -Dec2.quiet=false
+		boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
+		JenkinsContext jenkinsContext = getJenkinsContext(vs, contexts);
+		String dnsPrefix = jenkinsContext.getDnsPrefix();
+		String jenkinsMaster = Joiner.on('.').join(dnsPrefix, DOMAIN);
+		List<Tag> tags = getMasterTags(jenkinsContext, jenkinsMaster);
+		info("jenkins -> [%s :: %s]", jenkinsContext.getStack().getTag().getValue(), jenkinsMaster);
+		KeyPair keyPair = CreateBuildSlaveAMI.KUALI_KEY;
+		String privateKey = keyPair.getPrivateKey();
+		BasicLaunchRequest request = getMasterLaunchRequest(jenkinsContext);
+		ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
-			EC2Service service = getEC2Service(amazonAccount, jenkinsContext.getRegion());
-			Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
-			// Instance instance = service.getInstance("i-90b47298");
-			info("public dns: %s", instance.getPublicDnsName());
-			updateDns(instance, jenkinsMaster);
-			String dns = instance.getPublicDnsName();
-			// While spinning things up, use the Amazon DNS name since the DNSME alias can take a while (few minutes) to propagate
-			verifySSH(UBUNTU, dns, privateKey);
-			bootstrap(dns, privateKey);
-			SecureChannel channel = openSecureChannel(ROOT, dns, privateKey, quiet);
-			String basedir = publishProject(channel, pid, ROOT, dns, quiet);
-			String aesPassphrase = encryptor.decrypt(AES_PASSPHRASE_ENCRYPTED);
-			String quietFlag = (quiet) ? "-q" : "";
+		EC2Service service = getEC2Service(amazonAccount, jenkinsContext.getRegion());
+		Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
+		// Instance instance = service.getInstance("i-90b47298");
+		info("public dns: %s", instance.getPublicDnsName());
+		updateDns(instance, jenkinsMaster);
+		String dns = instance.getPublicDnsName();
+		// While spinning things up, use the Amazon DNS name since the DNSME alias can take a while (few minutes) to propagate
+		verifySSH(UBUNTU, dns, privateKey);
+		bootstrap(dns, privateKey);
+		SecureChannel channel = openSecureChannel(ROOT, dns, privateKey, quiet);
+		String basedir = publishProject(channel, pid, ROOT, dns, quiet);
+		String aesPassphrase = encryptor.decrypt(AES_PASSPHRASE_ENCRYPTED);
+		String quietFlag = (quiet) ? "-q" : "";
 
-			// configure basics, java, and tomcat
-			setupEssentials(channel, basedir, pid, distro, distroVersion, aesPassphrase, dnsPrefix, quietFlag);
+		// configure basics, java, and tomcat
+		setupEssentials(channel, basedir, pid, distro, distroVersion, aesPassphrase, dnsPrefix, quietFlag);
 
-			// do jenkins specific configuration
-			String common = getResource(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
-			String jenkins = getResource(basedir, pid, distro, distroVersion, "jenkins/installjenkins");
-			String configureMaster = getResource(basedir, pid, distro, distroVersion, "jenkins/configuremaster");
-			String latestSlaveAMI = findLatestSlaveAMI(service, jenkinsContext.getStack().getTag());
-			String stack = jenkinsContext.getStack().getTag().getValue();
-			exec(channel, common, quietFlag, jenkinsMaster, stack, aesPassphrase);
-			String backupMode = jenkinsContext.getBackupMode().name().toLowerCase();
-			exec(channel, jenkins, quietFlag, Constants.JENKINS_VERSION);
-			exec(channel, configureMaster, quietFlag, jenkinsMaster, jenkinsContext.getRegion().getName(), stack, backupMode, latestSlaveAMI, Constants.JENKINS_VERSION,
-					aesPassphrase);
+		// do jenkins specific configuration
+		String common = getResource(basedir, pid, distro, distroVersion, "jenkins/configurecommon");
+		String jenkins = getResource(basedir, pid, distro, distroVersion, "jenkins/installjenkins");
+		String configureMaster = getResource(basedir, pid, distro, distroVersion, "jenkins/configuremaster");
+		String latestSlaveAMI = findLatestSlaveAMI(service, jenkinsContext.getStack().getTag());
+		String stack = jenkinsContext.getStack().getTag().getValue();
+		exec(channel, common, quietFlag, jenkinsMaster, stack, aesPassphrase);
+		String backupMode = jenkinsContext.getBackupMode().name().toLowerCase();
+		exec(channel, jenkins, quietFlag, Constants.JENKINS_VERSION);
+		exec(channel, configureMaster, quietFlag, jenkinsMaster, jenkinsContext.getRegion().getName(), stack, backupMode, latestSlaveAMI, Constants.JENKINS_VERSION, aesPassphrase);
 
-			// The spin up process should have given DNS enough time to settle down
-			info("Verifying SSH to -> [%s]", jenkinsMaster);
-			verifySSH(ROOT, jenkinsMaster, privateKey);
-			info("[%s] jenkins is ready - %s", jenkinsMaster, FormatUtils.getTime(sw));
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
+		// The spin up process should have given DNS enough time to settle down
+		info("Verifying SSH to -> [%s]", jenkinsMaster);
+		verifySSH(ROOT, jenkinsMaster, privateKey);
+		info("[%s] jenkins is ready - %s", jenkinsMaster, FormatUtils.getTime(sw));
 	}
 
 	protected String findLatestSlaveAMI(EC2Service service, Tag stack) {
