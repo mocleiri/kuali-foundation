@@ -86,13 +86,12 @@ public class CreateBuildSlaveAMI {
 	private static final Logger logger = Loggers.newLogger();
 
 	private final Stopwatch sw = createStarted();
-	private static final VirtualSystem vs = VirtualSystem.create();
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_BUILD_SLAVE.getGroup());
 	private final Distro distro = Distro.UBUNTU;
 	private final String distroVersion = Constants.DISTRO_VERSION;
 	private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	private static final String today = format.format(new Date());
-	private static final String buildNumber = getBuildNumber(vs);
+	private static final String buildNumber = getBuildNumber();
 	public static final String startsWithToken = "ci.slave";
 	public static final Tag name = new ImmutableTag("Name", format("%s.%s-build-%s", startsWithToken, today, buildNumber));
 	private static final String amazonAccount = Constants.AMAZON_ACCOUNT;
@@ -108,6 +107,8 @@ public class CreateBuildSlaveAMI {
 
 	@Test
 	public void test() throws Exception {
+		VirtualSystem vs = VirtualSystem.create();
+
 		logger.info(format("build slave ami process :: starting"));
 		// Default to quiet mode unless they've supplied -Dec2.quiet=false
 		boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
@@ -119,7 +120,7 @@ public class CreateBuildSlaveAMI {
 		EC2Service service = getEC2Service(amazonAccount, jenkinsContext.getRegion());
 		List<Tag> tags = getSlaveTags(jenkinsContext);
 		Instance instance = launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
-		// Instance instance = service.getInstance("i-39c83531");
+		// Instance instance = service.getInstance("i-b488d5bd");
 		String privateKey = KUALI_KEY.getPrivateKey();
 		configureInstance(service, instance, tags, pid, quiet, privateKey, jenkinsContext.getDnsPrefix(), getJenkinsMaster(jenkinsContext), jenkinsContext);
 
@@ -169,7 +170,7 @@ public class CreateBuildSlaveAMI {
 		CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(name).withRootVolume(request.getRootVolume())
 				.withAdditionalMappings(additionalMappings).withTimeoutMillis(request.getTimeoutMillis()).withDescription(description).build();
 		Image image = service.createAmi(creator);
-		// Image image = service.getImage("ami-824229b2");
+		// Image image = service.getImage("ami-56b9d366");
 		info("created %s - %s", image.getImageId(), FormatUtils.getTime(sw));
 
 		// Now that the AMI has been created, we can terminate the slave instance
@@ -400,8 +401,8 @@ public class CreateBuildSlaveAMI {
 	/**
 	 * If the environment variable BUILD_NUMBER is set, add a prefix and return, otherwise return System.currentTimeMillis()
 	 */
-	protected static String getBuildNumber(VirtualSystem vs) {
-		Optional<String> buildNumber = fromNullable(vs.getEnvironment().getProperty("BUILD_NUMBER"));
+	protected static String getBuildNumber() {
+		Optional<String> buildNumber = fromNullable(System.getProperty("BUILD_NUMBER"));
 		if (buildNumber.isPresent()) {
 			// Jenkins always sets an environment variable called BUILD_NUMBER
 			return leftPad(parseLong(buildNumber.get()) + "", 4, "0");
