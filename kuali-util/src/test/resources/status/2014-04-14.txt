@@ -16,7 +16,8 @@ Monday
 --- An issue still remains with the CAS SSO login not redirecting back to ci.kuali.org correctly
 
 - Minor amount of feedback on Rice 2.4 plans and KS
-- Huge amount of contribution towards creating an environment @ Kuali that makes it drop dead simple, easy, safe, and reliable for KS to consume Rice builds/releases
+- HUGE success story here. 
+-- DevOps has succeeded in creating an environment @ Kuali that makes it drop dead simple, easy, safe, and reliable for KS to consume Rice builds/releases
 
 - Released kuali-sql for OLE
 -- 2 patches related to utf8mb4 vs utf8
