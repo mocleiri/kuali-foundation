@@ -125,7 +125,7 @@ public class CreateBuildSlaveAMI {
 
 		// Create a new AMI from this slave, and copy it around to every US region
 		String ami = createAndPropagateAMI(instance, service, request);
-		logger.info(format("AMI [%s] is now available in all %s US regions", ami, US_REGIONS.size()));
+		info("AMI [%s] is now available in all %s US regions", ami, US_REGIONS.size());
 
 		// Update the master with the AMI we just created
 		// updateMasterAMI(getJenkinsMaster(jenkinsContext), pid, privateKey, quiet, ami);
@@ -369,6 +369,14 @@ public class CreateBuildSlaveAMI {
 		WaitService ws = new DefaultWaitService();
 		EC2ServiceContext ec = new EC2ServiceContext.Builder(creds).withRegion(region.getName()).build();
 		return new DefaultEC2Service(ec, ws);
+	}
+
+	protected void info(String msg, Object... args) {
+		if (args == null) {
+			logger.info(msg);
+		} else {
+			logger.info(format(msg, args));
+		}
 	}
 
 	/**
