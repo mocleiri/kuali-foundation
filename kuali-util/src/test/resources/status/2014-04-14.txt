@@ -28,7 +28,7 @@ Tuesday
 
 - Troubleshooting CAS issue
 -- Mike fixed it!
--- Very simple issue with the trailing slash being left off the url
+-- Very simple issue with the trailing slash being left off the CAS url
 -- Configure CAS and test CAS so ci.kuali.org and testci.kuali.org can use either one to authenticate against
 
 - Dropped another Accunetix file onto demo.rice.kuali.org for Eric W.
