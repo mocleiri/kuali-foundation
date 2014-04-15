@@ -16,7 +16,7 @@
 package org.kuali.common.aws.status;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static org.kuali.common.util.encrypt.Encryption.buildDefaultEncryptor;
+import static org.kuali.common.util.encrypt.Encryption.getDefaultEncryptor;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 public class Auth {
 
 	public static KeyPair getKeyPair(EncryptedKeyPair encrypted) {
-		Encryptor encryptor = buildDefaultEncryptor();
+		Encryptor encryptor = getDefaultEncryptor();
 		KeyPair keyPair = encrypted.getKeyPair();
 		String publicKey = encryptor.decrypt(keyPair.getPublicKey());
 		String privateKey = encryptor.decrypt(keyPair.getPrivateKey());
@@ -39,7 +39,7 @@ public class Auth {
 	}
 
 	public static AWSCredentials getCredentials(EncryptedAwsCredentials encrypted) {
-		Encryptor encryptor = buildDefaultEncryptor();
+		Encryptor encryptor = getDefaultEncryptor();
 		String accessKey = encryptor.decrypt(encrypted.getAWSAccessKeyId());
 		String secretKey = encryptor.decrypt(encrypted.getAWSSecretKey());
 		return new BasicAWSCredentials(accessKey, secretKey);
