@@ -98,12 +98,12 @@ $page = 'cost-sharing';
 			<header class="clearfix uif-header-contentWrapper">
 				<div id="u148pgf0" class="uif-pageHeader clearfix" data-header_for="LabsProposal-Page">
 					<h2 class="uif-headerText">
-						<span class="uif-headerText-span">Cost Sharing</span>
+						<span class="uif-headerText-span">Additional Cost Sharing</span>
 					</h2>
 				</div>
 			</header>
 			<p id="u1iaxrzf" class="uif-message uif-boxLayoutVerticalItem clearfix">
-				Assign and distribute unallocated expenses to stakeholders, institutions, or other individuals. 
+				Assign and distribute any additional unallocated expenses to stakeholders, institutions, or other individuals.
 			</p>
 			<br>
 			<section>

@@ -116,7 +116,7 @@
                 
                 
             </div>
-        <div class="modal-footer"><a href="" class="btn btn-default"  data-dismiss="modal" data-toggle="modal" data-target="#modal-add-personnel1"><span aria-hidden="true" class="icon-arrow-left"></span> Refine Search</a> <a href="budget-ng-personnelCosts-projPersonnel2.php" class="btn btn-primary" data-dismiss=""> Return Selected</a></div></div>
+        <div class="modal-footer"><a href="" class="btn btn-default"  data-dismiss="modal" data-toggle="modal" data-target="#modal-add-personnel1"><span aria-hidden="true" class="icon-arrow-left"></span> Refine Search</a> <a href="budget-ng-personnelCosts-projPersonnel2.php" class="btn btn-primary" data-dismiss="">Add selected personnel</a></div></div>
     </div>
 </div>
 

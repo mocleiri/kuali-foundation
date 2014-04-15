@@ -53,6 +53,9 @@ $page = 'personnel-costs';
 	color: #428bca;
 	font-size: 18px;
 }
+.hilite {
+    background: #ffffcc;
+}
 @media (max-width: 768px) {
 .dropdown-menu-large {
 	margin-left: 0;
@@ -148,6 +151,13 @@ $page = 'personnel-costs';
                 </header>
                 <p id="u1iaxrzf" class="uif-message uif-boxLayoutVerticalItem clearfix">Personnel added to the proposal are shown below. Review, configure, and add additional personnel to the budget.</p>
                 <br>
+
+                <!-- User feedback messaging -->
+                <div class="alert alert-success">
+                    <i class="icon icon-checkmark"></i> Additional personnel were successfully added!
+                </div>
+                <!-- // -->
+
                 <table class="table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby="Demo-LightTableGroup1_lightTable_info">
                     <thead>
                         <tr role="row">
@@ -323,7 +333,7 @@ $page = 'personnel-costs';
                         <tr class="not-deletable active">
                             <td colspan="5"><strong class="pull-left">Additional Personnel</strong></td>
                         </tr>
-                        <tr>
+                        <tr class="hilite">
                             <td>OLIVER ELGIN <small class="text-muted">(Research Assistant)</small></td>
                             <td>Dean/Faculty <small class="text-muted">(AA042)</small></td>
                             <td>Summer</td>
@@ -399,7 +409,7 @@ $page = 'personnel-costs';
                                     </div>
                                 </div></td>
                         </tr>
-                        <tr>
+                        <tr class="hilite">
                             <td>DARREN DEVANEY <small class="text-muted">(Research Assistant)</small></td>
                             <td>Dean/Faculty <small class="text-muted">(AA042)</small></td>
                             <td>9 Month</td>
@@ -475,7 +485,7 @@ $page = 'personnel-costs';
                                     </div>
                                 </div></td>
                         </tr>
-                        <tr>
+                        <tr class="hilite">
                             <td>EMORY EAGLE <small class="text-muted">(Research Assistant)</small></td>
                             <td>Associate Provost <small class="text-muted">(AA014)</small></td>
                             <td>Temporary</td>
@@ -551,8 +561,8 @@ $page = 'personnel-costs';
                                     </div>
                                 </div></td>
                         </tr>
-                      
-                        <tr>
+
+                        <!-- <tr>
                             <td>TBA Research </td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
@@ -643,7 +653,7 @@ $page = 'personnel-costs';
                                         </div>
                                     </div>
                                 </div></td>
-                        </tr>
+                        </tr> -->
                         
                         
                     </tbody>

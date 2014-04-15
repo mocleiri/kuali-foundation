@@ -201,6 +201,7 @@ $section = '';
                             </div>
                         </div>
                         <h4 class="pull-left" >Assigned Non-personnel</h4>
+                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default"  data-toggle="modal" data-target="#applyRates">Copy Non-Personnel to all periods...</a></div>
 
                         <section id="a1" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example1">
                             <header id="u1l3ufy30" class="uif-sectionHeader" data-header_for="a1">
@@ -479,6 +480,20 @@ $section = '';
 
 <!-- MODAL -- budget open propsal -->
 <?php include ('includes/modal-budget-open-prop.php') ?>
+
+<div class="modal fade in" id="applyRates" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display:;">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="myModalLabel">Copy Non-Personnel to all periods...</h4>
+        </div>
+        <div class="modal-body">
+            <p>Would you like to apply Period 1 non-personnel to all periods? Please note that all other non-personnel info will be overwritten.</p>
+        </div>
+        <div class="modal-footer"> <a href="" class="btn btn-default" data-dismiss="modal">Cancel</a> <a href="prop-basics-details.php" class="btn btn-primary">Yes, Apply to All Periods</a> </div>
+    </div>
+</div>
 
 <!-- NO QUOTES
 <div class="modal fade" id="summary" tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true>

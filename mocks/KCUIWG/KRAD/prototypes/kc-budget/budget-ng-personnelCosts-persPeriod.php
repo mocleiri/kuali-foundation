@@ -182,7 +182,7 @@ $page = 'personnel-assign';
                             </div>
                         </div>
                         <h4 class="pull-left" >Assigned Personnel</h4>
-                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default"  data-toggle="modal" data-target="#applyRates">Apply P1 Data to All Periods</a></div>
+                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default"  data-toggle="modal" data-target="#applyRates">Copy Personnel to all periods...</a></div>
                         <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example1">
                             <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for="u1qq592w">
                                 <h3 class="uif-headerText"><a data-role="disclosureLink" data-linkfor="facSalTen" href="#" id="u1qq592w_toggle" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Faculty Salaries - Tenured</span></a></h3>
@@ -208,6 +208,8 @@ $page = 'personnel-assign';
  Field 4: : activate to sort column ">Requested Salary</th>
                                             <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
  Field 4: : activate to sort column ">Calculated Fringe</th>
+                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
+ Field 4: : activate to sort column ">Cost sharing</th>
                                             <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
  Field 4: : activate to sort column ">Actions</th>
                                         </tr>
@@ -259,6 +261,7 @@ $page = 'personnel-assign';
                                             <td>Calendar</td>
                                             <td class="text-right">$142,525.00</td>
                                             <td class="text-right">$0.00</td>
+                                            <td class="text-right">$0.00</td>
                                             <td>
 <!--                                                <div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span><span aria-hidden="true" class="icon-trash"></span></a></div>-->
                                                 <a class="icon icon-edit uif-btn-edit" href="#"><span class="sr-only">Edit</span></a>
@@ -293,6 +296,8 @@ $page = 'personnel-assign';
  Field 4: : activate to sort column ">Requested Salary</th>
                                             <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
  Field 4: : activate to sort column ">Calculated Fringe</th>
+                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
+ Field 4: : activate to sort column ">Cost sharing</th>
                                             <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
  Field 4: : activate to sort column ">Actions</th>
                                         </tr>
@@ -343,6 +348,7 @@ $page = 'personnel-assign';
                                             <td>Calendar</td>
                                             <td class="text-right">$142,525.00</td>
                                             <td class="text-right">$0.00</td>
+                                            <td class="text-right">$0.00</td>
                                             <td>
 <!--                                                <div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span><span aria-hidden="true" class="icon-trash"></span></a></div>-->
                                                 <a class="icon icon-edit uif-btn-edit" href="#"><span class="sr-only">Edit</span></a>
@@ -377,6 +383,8 @@ $page = 'personnel-assign';
  Field 4: : activate to sort column ">Requested Salary</th>
                                             <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
  Field 4: : activate to sort column ">Calculated Fringe</th>
+                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
+ Field 4: : activate to sort column ">Cost sharing</th>
                                             <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
  Field 4: : activate to sort column ">Actions</th>
                                         </tr>
@@ -426,6 +434,7 @@ $page = 'personnel-assign';
                                                     50%</div></td>
                                             <td>Calendar</td>
                                             <td class="text-right">$142,525.00</td>
+                                            <td class="text-right">$0.00</td>
                                             <td class="text-right">$0.00</td>
                                             <td>
 <!--                                                <div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span><span aria-hidden="true" class="icon-trash"></span></a></div>-->
@@ -995,7 +1004,7 @@ $page = 'personnel-assign';
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="myModalLabel"> Apply Rates</h4>
+                <h4 class="modal-title" id="myModalLabel">Copy Personnel to all periods...</h4>
             </div>
             <div class="modal-body">
                 <p>Would you like to apply Period 1 personnel to all periods? Please note that all other personnel info will be overwritten.</p>
