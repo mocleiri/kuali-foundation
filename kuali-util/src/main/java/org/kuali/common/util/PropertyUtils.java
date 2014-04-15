@@ -37,7 +37,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
-import org.kuali.common.util.enc.EncStrength;
 import org.kuali.common.util.properties.rice.RiceLoader;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
@@ -323,9 +322,9 @@ public class PropertyUtils {
 			String password = getRequiredResolvedProperty(properties, "properties.enc.password");
 
 			// Strength is optional (defaults to BASIC)
-			String defaultStrength = EncStrength.BASIC.name();
+			String defaultStrength = org.kuali.common.util.enc.EncStrength.BASIC.name();
 			String strength = getRequiredResolvedProperty(properties, "properties.enc.strength", defaultStrength);
-			EncStrength es = EncStrength.valueOf(strength);
+			org.kuali.common.util.enc.EncStrength es = org.kuali.common.util.enc.EncStrength.valueOf(strength);
 			TextEncryptor decryptor = org.kuali.common.util.enc.EncUtils.getTextEncryptor(password, es);
 			decrypt(properties, decryptor);
 		}
