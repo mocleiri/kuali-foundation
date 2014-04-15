@@ -6,8 +6,10 @@ import static java.util.Collections.sort;
 import static org.apache.commons.lang3.StringUtils.equalsIgnoreCase;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.CI_SLAVE_STARTS_WITH_TOKEN;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.CONTEXTS;
+import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.DEVOPS_KEYPAIR;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getEC2Service;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getFilteredImages;
+import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getJenkinsMaster;
 import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.exec;
 import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.getJenkinsContext;
 import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.getResource;
@@ -26,7 +28,6 @@ import java.util.List;
 
 import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
-import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.core.system.VirtualSystem;
 import org.kuali.common.devops.ci.CreateBuildSlaveAMI.ImageTagsComparator;
 import org.kuali.common.devops.ci.model.JenkinsContext;
@@ -55,7 +56,9 @@ public class UpdateBuildSlaveAMI {
 		JenkinsContext jenkinsContext = getJenkinsContext(vs, CONTEXTS);
 		EC2Service service = getEC2Service(AMAZON_ACCOUNT, jenkinsContext.getRegion());
 		String ami = getMostRecentAMI(service, jenkinsContext);
-		KeyPair keyPair = CreateBuildSlaveAMI.DEVOPS_KEYPAIR;
+		String privateKey = DEVOPS_KEYPAIR.getPrivateKey();
+		String jenkinsMaster = getJenkinsMaster(jenkinsContext);
+		updateMasterAMI(jenkinsMaster, privateKey, quiet, ami);
 
 	}
 

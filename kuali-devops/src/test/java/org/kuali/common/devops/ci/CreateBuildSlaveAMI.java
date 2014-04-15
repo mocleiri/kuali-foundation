@@ -132,7 +132,7 @@ public class CreateBuildSlaveAMI {
 		logger.info(format("build slave ami process :: complete - [%s]", getTime(sw)));
 	}
 
-	protected String getJenkinsMaster(JenkinsContext context) {
+	protected static String getJenkinsMaster(JenkinsContext context) {
 		String dnsPrefix = context.getDnsPrefix();
 		return Joiner.on('.').join(dnsPrefix, DOMAIN);
 	}
