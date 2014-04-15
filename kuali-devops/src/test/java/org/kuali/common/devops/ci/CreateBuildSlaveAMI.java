@@ -170,10 +170,10 @@ public class CreateBuildSlaveAMI {
 				.withAdditionalMappings(additionalMappings).withTimeoutMillis(request.getTimeoutMillis()).withDescription(description).build();
 		Image image = service.createAmi(creator);
 		// Image image = service.getImage("ami-824229b2");
-		logger.info(format("created %s - %s", image.getImageId(), FormatUtils.getTime(sw)));
+		info("created %s - %s", image.getImageId(), FormatUtils.getTime(sw));
 
 		// Now that the AMI has been created, we can terminate the slave instance
-		logger.info(format("terminating instance [%s]", instance.getInstanceId()));
+		info("terminating instance [%s]", instance.getInstanceId());
 		service.terminateInstance(instance.getInstanceId());
 
 		// Make sure we only have 7 AMI's for CI slaves in the current region
@@ -191,7 +191,9 @@ public class CreateBuildSlaveAMI {
 			if (!region.equals(sourceRegion)) {
 				EC2Service service = new DefaultEC2Service(Auth.getAwsCredentials(amazonAccount), region);
 				String copiedAmi = service.copyAmi(sourceRegion, ami);
-				service.tag(copiedAmi, name);
+				// Tack test/prod onto the end of the name to make it very clear which stack the ami belongs to
+				Tag namePlusStack = new ImmutableTag(name.getKey(), name.getValue() + "-" + stack.getValue());
+				service.tag(copiedAmi, namePlusStack);
 				service.tag(copiedAmi, stack);
 				cleanupAmis(service);
 			}
