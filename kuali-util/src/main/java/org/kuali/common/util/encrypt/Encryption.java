@@ -21,21 +21,29 @@ public final class Encryption {
 	private static final Logger logger = newLogger();
 
 	private static Encryptor encryptor;
-	
+
+	public static Encryptor buildEncryptor() {
+		return buildEncryptor(false);
+	}
+
+	public static Encryptor buildEncryptor(boolean quiet) {
+		DefaultEncryptionContextProviderChain chain = new DefaultEncryptionContextProviderChain(ENCRYPTION_PASSWORD_KEY, ENCRYPTION_STRENGTH_KEY);
+		Optional<ChainProviderContext> chainContext = chain.getChainContext();
+		if (chainContext.isPresent()) {
+			EncryptionContext context = chainContext.get().getContext();
+			String providerClassName = chainContext.get().getProvider().getClass().getSimpleName();
+			info(quiet, "encryption enabled - [%s, key=%s, %s]", providerClassName, ENCRYPTION_PASSWORD_KEY, context.getStrength());
+			OpenSSLContext osc = buildOpenSSLContext(context.getStrength());
+			return new OpenSSLEncryptor(osc, context.getPassword());
+		} else {
+			info(quiet, "encryption disabled - [%s] is not set", ENCRYPTION_PASSWORD_KEY);
+			return NoOpEncryptor.INSTANCE;
+		}
+	}
+
 	public synchronized static Encryptor getDefaultEncryptor(boolean quiet) {
 		if (encryptor == null) {
-			DefaultEncryptionContextProviderChain chain = new DefaultEncryptionContextProviderChain(ENCRYPTION_PASSWORD_KEY, ENCRYPTION_STRENGTH_KEY);
-			Optional<ChainProviderContext> chainContext = chain.getChainContext();
-			if (chainContext.isPresent()) {
-				EncryptionContext context = chainContext.get().getContext();
-				String providerClassName = chainContext.get().getProvider().getClass().getSimpleName();
-				info(quiet, "encryption enabled - [%s, key=%s, %s]", providerClassName, ENCRYPTION_PASSWORD_KEY, context.getStrength());
-				OpenSSLContext osc = buildOpenSSLContext(context.getStrength());
-				encryptor = new OpenSSLEncryptor(osc, context.getPassword());
-			} else {
-				info(quiet, "encryption disabled - [%s] is not set", ENCRYPTION_PASSWORD_KEY);
-				encryptor = NoOpEncryptor.INSTANCE;
-			}
+			encryptor = buildEncryptor(quiet);
 			if (Boolean.getBoolean(ENCRYPTION_PASSWORD_REMOVE_KEY) && System.getProperty(ENCRYPTION_PASSWORD_KEY) != null) {
 				info(quiet, "removing system property [%s]", ENCRYPTION_PASSWORD_KEY);
 				System.getProperties().remove(ENCRYPTION_PASSWORD_KEY);
@@ -44,7 +52,7 @@ public final class Encryption {
 		return encryptor;
 	}
 
-	public synchronized static Encryptor getDefaultEncryptor() {
+	public static Encryptor getDefaultEncryptor() {
 		return getDefaultEncryptor(false);
 	}
 
