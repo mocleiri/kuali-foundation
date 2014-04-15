@@ -12,3 +12,10 @@ Monday
 --- Develop more advanced dashboards/views etc on testci
 --- Let this bake in overnight for a few nights
 --- Once that works comfortably, spin up ci.kuali.org and migrate things to that
+--- Fixed devops bug related to "prod" instance getting spun up but pointing to test-cas
+--- An issue still remains with the SSO login not redirecting back to ci.kuali.org correctly
+
+- Released kuali-sql for OLE
+-- 2 patches related to utf8mb4 vs utf8
+-- Had to shorten a Liquibase table column from VARCHAR(255) to VARCHAR(191) so MySQL 5.5+ with utf8mb4 would be able to use it as a primary key
+-- Changed Liquibase SQL so it honored the ${mysql.charcterSet} and ${mysql.collate} properties instead of being hard coded to utf8 
