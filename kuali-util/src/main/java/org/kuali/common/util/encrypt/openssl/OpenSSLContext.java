@@ -28,9 +28,12 @@ public final class OpenSSLContext {
 
 	/**
 	 * <p>
-	 * If EncryptionStrength.STRONG_ENCRYPTION_STRENGTH is passed in, AES 256 is used. Using AES 256 <strong>REQUIRES</strong> installing java's
-	 * "unlimited strength jurisdiction policy files"
+	 * If EncryptionStrength.STRONG_ENCRYPTION_STRENGTH is passed in, AES 256 is used, otherwise AES 128.
 	 * <p>
+	 * 
+	 * <p>
+	 * <strong>WARNING:</strong> AES 256 causes an exception to be thrown unless you have installed java's "unlimited strength jurisdiction policy files"
+	 * </p>
 	 */
 	public static OpenSSLContext buildOpenSSLContext(EncryptionStrength strength) {
 		if (STRONG_ENCRYPTION_STRENGTH.equals(strength)) {
