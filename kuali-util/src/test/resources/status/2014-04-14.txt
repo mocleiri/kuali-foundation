@@ -15,7 +15,19 @@ Monday
 --- Fixed devops bug related to "prod" instance getting spun up but pointing to test-cas
 --- An issue still remains with the SSO login not redirecting back to ci.kuali.org correctly
 
+- Minor amount of feedback on Rice 2.4 plans and KS
+- Huge amount of contribution towards creating an environment @ Kuali that makes it drop dead simple, easy, safe, and reliable for KS to consume Rice builds/releases
+
 - Released kuali-sql for OLE
 -- 2 patches related to utf8mb4 vs utf8
 -- Had to shorten a Liquibase table column from VARCHAR(255) to VARCHAR(191) so MySQL 5.5+ with utf8mb4 would be able to use it as a primary key
 -- Changed Liquibase SQL so it honored the ${mysql.charcterSet} and ${mysql.collate} properties instead of being hard coded to utf8 
+
+Tuesday
+-------
+
+- Troubleshooting CAS issues
+-- Mike fixed it!
+-- Very simple issue with the trailing slash being left off the url
+
+- Dropped another Accunetix file onto demo.rice.kuali.org for Eric W.
