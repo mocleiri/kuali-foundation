@@ -59,25 +59,6 @@ public class UpdateBuildSlaveAMI {
 
 	}
 
-	protected String getMostRecentAMI(EC2Service service, JenkinsContext context) {
-
-		List<Image> images = service.getMyImages();
-		Tag stack = context.getStack().getTag();
-		Tag name = context.getName().getTag();
-
-		List<Image> filtered = getFilteredImages(images, stack, name.getKey(), CI_SLAVE_STARTS_WITH_TOKEN);
-		// This sort them by date
-		sort(filtered, new ImageTagsComparator());
-		// Most recent images are at the bottom, this brings them to the top
-		reverse(filtered);
-
-		// Make sure we have at least one image
-		checkState(filtered.size() > 0, "need at least one image");
-
-		// Return the most recent one
-		return filtered.get(0).getImageId();
-	}
-
 	protected void updateMasterAMI(String jenkinsMaster, String privateKey, boolean quiet, String ami) throws IOException {
 		info("updating %s with ami [%s]", jenkinsMaster, ami);
 		String kisUsername = encryptor.decrypt(kisUsernameEncrypted);
@@ -86,6 +67,28 @@ public class UpdateBuildSlaveAMI {
 		String basedir = publishProject(channel, PID, ROOT, jenkinsMaster, quiet);
 		String rubyScript = getResource(basedir, PID, DISTRO, DISTRO_VERSION, "jenkins/update_jenkins_ami_headless.rb");
 		exec(channel, "ruby", rubyScript, kisUsername, kisPassword, ami, jenkinsMaster);
+	}
+
+	protected String getMostRecentAMI(EC2Service service, JenkinsContext context) {
+
+		List<Image> images = service.getMyImages();
+		Tag stack = context.getStack().getTag();
+		Tag name = context.getName().getTag();
+
+		// Extract just the ci.slave AMI's for this stack
+		List<Image> filtered = getFilteredImages(images, stack, name.getKey(), CI_SLAVE_STARTS_WITH_TOKEN);
+
+		// This sort them by date
+		sort(filtered, new ImageTagsComparator());
+
+		// Most recent images are at the bottom, this brings them to the top
+		reverse(filtered);
+
+		// Make sure we have at least one image
+		checkState(filtered.size() > 0, "need at least one image");
+
+		// Return the most recent one
+		return filtered.get(0).getImageId();
 	}
 
 	private static void info(String msg, Object... args) {
