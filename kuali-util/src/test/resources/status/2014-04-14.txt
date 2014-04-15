@@ -13,7 +13,7 @@ Monday
 --- Let this bake in overnight for a few nights
 --- Once that works comfortably, spin up ci.kuali.org and migrate things to that
 --- Fixed devops bug related to "prod" instance getting spun up but pointing to test-cas
---- An issue still remains with the SSO login not redirecting back to ci.kuali.org correctly
+--- An issue still remains with the CAS SSO login not redirecting back to ci.kuali.org correctly
 
 - Minor amount of feedback on Rice 2.4 plans and KS
 - Huge amount of contribution towards creating an environment @ Kuali that makes it drop dead simple, easy, safe, and reliable for KS to consume Rice builds/releases
@@ -26,8 +26,9 @@ Monday
 Tuesday
 -------
 
-- Troubleshooting CAS issues
+- Troubleshooting CAS issue
 -- Mike fixed it!
 -- Very simple issue with the trailing slash being left off the url
+-- Configure CAS and test CAS so ci.kuali.org and testci.kuali.org can use either one to authenticate against
 
 - Dropped another Accunetix file onto demo.rice.kuali.org for Eric W.
