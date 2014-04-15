@@ -124,7 +124,7 @@ public class CreateBuildSlaveAMI {
 		configureInstance(service, instance, tags, pid, quiet, privateKey, jenkinsContext.getDnsPrefix(), getJenkinsMaster(jenkinsContext), jenkinsContext);
 
 		// Create a new AMI from this slave, and copy it around to every US region
-		String ami = createAndPropagateAMI(instance, service, request);
+		String ami = createAndPropagateAMI(instance, service, request, jenkinsContext.getStack().getTag());
 		info("AMI [%s] is now available in all %s US regions", ami, US_REGIONS.size());
 
 		// Update the master with the AMI we just created
@@ -163,7 +163,7 @@ public class CreateBuildSlaveAMI {
 		service.stopInstance(instance.getInstanceId());
 	}
 
-	protected String createAndPropagateAMI(Instance instance, EC2Service service, BasicLaunchRequest request) {
+	protected String createAndPropagateAMI(Instance instance, EC2Service service, BasicLaunchRequest request, Tag stack) {
 		String description = format("automated ec2 slave ami - %s", today);
 		List<BlockDeviceMapping> additionalMappings = ImmutableBlockDeviceMapping.DEFAULT_INSTANCE_STORES;
 		CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(name).withRootVolume(request.getRootVolume())
@@ -180,18 +180,19 @@ public class CreateBuildSlaveAMI {
 		cleanupAmis(service);
 
 		// Copy the new AMI to every US region
-		copyAmi(service.getRegion(), US_REGIONS, image.getImageId(), name);
+		copyAmi(service.getRegion(), US_REGIONS, image.getImageId(), name, stack);
 
 		return image.getImageId();
 
 	}
 
-	protected void copyAmi(String sourceRegion, Set<String> regions, String ami, Tag name) {
+	protected void copyAmi(String sourceRegion, Set<String> regions, String ami, Tag name, Tag stack) {
 		for (String region : regions) {
 			if (!region.equals(sourceRegion)) {
 				EC2Service service = new DefaultEC2Service(Auth.getAwsCredentials(amazonAccount), region);
 				String copiedAmi = service.copyAmi(sourceRegion, ami);
 				service.tag(copiedAmi, name);
+				service.tag(copiedAmi, stack);
 				cleanupAmis(service);
 			}
 		}
