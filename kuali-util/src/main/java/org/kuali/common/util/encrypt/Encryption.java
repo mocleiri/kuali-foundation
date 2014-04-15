@@ -21,8 +21,8 @@ public final class Encryption {
 	private static final Logger logger = newLogger();
 
 	private static Encryptor encryptor;
-
-	public synchronized static Encryptor buildDefaultEncryptor(boolean quiet) {
+	
+	public synchronized static Encryptor getDefaultEncryptor(boolean quiet) {
 		if (encryptor == null) {
 			DefaultEncryptionContextProviderChain chain = new DefaultEncryptionContextProviderChain(ENCRYPTION_PASSWORD_KEY, ENCRYPTION_STRENGTH_KEY);
 			Optional<ChainProviderContext> chainContext = chain.getChainContext();
@@ -44,18 +44,19 @@ public final class Encryption {
 		return encryptor;
 	}
 
+	public synchronized static Encryptor getDefaultEncryptor() {
+		return getDefaultEncryptor(false);
+	}
+
 	private static void info(boolean quiet, String msg, Object... args) {
 		if (quiet) {
 			return;
 		}
-		if (args == null || args.length == 0) {
+		if (args == null) {
 			logger.info(msg);
 		} else {
 			logger.info(format(msg, args));
 		}
 	}
 
-	public synchronized static Encryptor buildDefaultEncryptor() {
-		return buildDefaultEncryptor(false);
-	}
 }

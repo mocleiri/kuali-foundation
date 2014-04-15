@@ -4,7 +4,7 @@ import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Preconditions.checkState;
 import static org.apache.commons.io.FileUtils.readFileToString;
 import static org.kuali.common.util.base.Exceptions.illegalState;
-import static org.kuali.common.util.encrypt.Encryption.buildDefaultEncryptor;
+import static org.kuali.common.util.encrypt.Encryption.getDefaultEncryptor;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,10 +31,10 @@ public final class EncryptionMain {
 		}
 		String text = getText(args);
 		if (encrypt) {
-			System.out.println(buildDefaultEncryptor(quiet).encrypt(text));
+			System.out.println(getDefaultEncryptor(quiet).encrypt(text));
 		}
 		if (decrypt) {
-			System.out.println(buildDefaultEncryptor(quiet).decrypt(text));
+			System.out.println(getDefaultEncryptor(quiet).decrypt(text));
 		}
 	}
 
