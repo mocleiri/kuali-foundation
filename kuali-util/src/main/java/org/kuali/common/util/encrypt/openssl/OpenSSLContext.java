@@ -32,7 +32,7 @@ public final class OpenSSLContext {
 	 * <p>
 	 * 
 	 * <p>
-	 * <strong>WARNING:</strong> AES 256 causes an exception to be thrown unless you have installed java's "unlimited strength jurisdiction policy files"
+	 * <strong>WARNING:</strong> AES 256 causes an exception to be thrown unless you've installed java's "unlimited strength jurisdiction policy files"
 	 * </p>
 	 */
 	public static OpenSSLContext buildOpenSSLContext(EncryptionStrength strength) {
