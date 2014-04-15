@@ -17,4 +17,5 @@
 .edit-table tr:hover{background:#EEF7FB;; color:#000;}
 .edit-table .icon-edit{padding:0; padding-top:5px;vertical-align:bottom; text-decoration:none; }
 .edit-table tr  td:last-of-type{  text-align:center; }
+#u19v7dpm {padding-bottom: 1em;}
 </style>
