@@ -125,6 +125,7 @@ public class CreateBuildSlaveAMI {
 
 		// Create a new AMI from this slave, and copy it around to every US region
 		String ami = createAndPropagateAMI(instance, service, request);
+		logger.info(format("AMI [%s] is now available in all %s US regions", ami, US_REGIONS.size()));
 
 		// Update the master with the AMI we just created
 		// updateMasterAMI(getJenkinsMaster(jenkinsContext), pid, privateKey, quiet, ami);
