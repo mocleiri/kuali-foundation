@@ -1,6 +1,6 @@
 package org.kuali.common.dns.dnsme.spring;
 
-import static org.kuali.common.util.encrypt.Encryption.buildDefaultEncryptor;
+import static org.kuali.common.util.encrypt.Encryption.getDefaultEncryptor;
 import static org.kuali.common.util.nullify.NullUtils.trimToNull;
 
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
@@ -16,7 +16,7 @@ public class DNSMadeEasyUtils {
 	private static final String DOMAIN_KEY = "dnsme.domain";
 
 	public static DNSMadeEasyServiceContext getServiceContext(EnvironmentService env, String restApiUrl, String domain, DNSMadeEasyCredentials encrypted) {
-		Encryptor encryptor = buildDefaultEncryptor();
+		Encryptor encryptor = getDefaultEncryptor();
 		String url = trimToNull(env.getString(URL_KEY, restApiUrl));
 		String domainName = trimToNull(env.getString(DOMAIN_KEY, domain));
 		String apiKey = encryptor.decrypt(trimToNull(env.getString(API_KEY, encrypted.getApiKey())));
