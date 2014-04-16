@@ -17,5 +17,11 @@
 .edit-table tr:hover{background:#EEF7FB;; color:#000;}
 .edit-table .icon-edit{padding:0; padding-top:5px;vertical-align:bottom; text-decoration:none; }
 .edit-table tr  td:last-of-type{  text-align:center; }
-#u19v7dpm {padding-bottom: 1em;}
+#u19v7dpm {padding-bottom: 1em; }/* pad the bottom fixed bar */
+/*  relocating the action bar */
+main{margin-top:1.3em}
+#ueqbqhn{padding-bottom: 1.3em;}
+header{position:relative;}
+#LabsProposal-DocActionBar{padding:5px 0 5px 1em; background:#F5F5F5; position: absolute;right:0;bottom:-31px; border:1px solid #ccc;border-bottom-right-radius:10px;border-bottom-left-radius:10px}
+/*  // relocating the action bar */
 </style>
