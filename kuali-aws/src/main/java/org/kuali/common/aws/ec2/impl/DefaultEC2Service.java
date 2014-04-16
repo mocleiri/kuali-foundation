@@ -166,6 +166,15 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	@Override
+	public String copyAmi(String region, String ami) {
+		return copyAmi(region, ami, Optional.<String> absent());
+	}
+
+	@Override
+	public String copyAmi(String region, String ami, String name) {
+		return copyAmi(region, ami, Optional.of(name));
+	}
+
 	public String copyAmi(String region, String ami, Optional<String> name) {
 		checkNotBlank(region, "region");
 		checkNotBlank(ami, "ami");
