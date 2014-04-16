@@ -10,6 +10,7 @@ import static org.kuali.common.util.nullify.NullUtils.trimToNull;
 import org.junit.Test;
 import org.kuali.common.core.system.VirtualSystem;
 import org.kuali.common.devops.aws.Tags.Stack;
+import org.kuali.common.devops.ci.model.CloneJenkinsStackContext;
 import org.slf4j.Logger;
 
 import com.google.common.base.Optional;

@@ -1,10 +1,9 @@
-package org.kuali.common.devops.ci;
+package org.kuali.common.devops.ci.model;
 
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.aws.Tags.Stack;
-import org.kuali.common.devops.ci.model.BackupMode;
 
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.RegionUtils;
