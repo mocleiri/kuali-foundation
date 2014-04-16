@@ -162,9 +162,11 @@ public class CreateBuildSlaveAMI {
 	}
 
 	protected String createAndPropagateAMI(Instance instance, EC2Service service, BasicLaunchRequest request, Tag stack) {
+		// Tack test/prod onto the end of the name to make it very clear which stack the ami belongs to
 		String description = format("automated ec2 slave ami - %s", today);
+		Tag namePlusStack = new ImmutableTag(name.getKey(), name.getValue() + "-" + stack.getValue());
 		List<BlockDeviceMapping> additionalMappings = ImmutableBlockDeviceMapping.DEFAULT_INSTANCE_STORES;
-		CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(name).withRootVolume(request.getRootVolume())
+		CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(namePlusStack).withRootVolume(request.getRootVolume())
 				.withAdditionalMappings(additionalMappings).withTimeoutMillis(request.getTimeoutMillis()).withDescription(description).build();
 		Image image = service.createAmi(creator);
 		// Image image = service.getImage("ami-56b9d366");
@@ -184,13 +186,11 @@ public class CreateBuildSlaveAMI {
 
 	}
 
-	protected void copyAmi(String sourceRegion, Set<String> regions, String ami, Tag name, Tag stack) {
+	protected void copyAmi(String sourceRegion, Set<String> regions, String ami, Tag namePlusStack, Tag stack) {
 		for (String region : regions) {
 			if (!region.equals(sourceRegion)) {
 				EC2Service service = new DefaultEC2Service(Auth.getAwsCredentials(AMAZON_ACCOUNT), region);
 				String copiedAmi = service.copyAmi(sourceRegion, ami);
-				// Tack test/prod onto the end of the name to make it very clear which stack the ami belongs to
-				Tag namePlusStack = new ImmutableTag(name.getKey(), name.getValue() + "-" + stack.getValue());
 				service.tag(copiedAmi, namePlusStack);
 				service.tag(copiedAmi, stack);
 				cleanupAmis(service, stack);
