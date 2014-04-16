@@ -41,7 +41,6 @@ Wednesday
 KTI 9 - 10am
 
 - Created standard CI dashboards for OLE, Rice, KPME, Student, and Mobility
-- Touched up numerous jobs related in various ways
+- Touched up numerous CI jobs in various ways
 - Tasked Mike with an issue where chaining jobs together wasn't working quite right
 - Fixed issue with CreateBuildSlaveAMI.java where it wasn't wasn't tagging the AMI with prod/test correctly
-
