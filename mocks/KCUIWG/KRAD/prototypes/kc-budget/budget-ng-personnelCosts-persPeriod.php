@@ -91,10 +91,10 @@ $page = 'personnel-assign';
                 <br>
                 <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
                     <li class="active"><a href="#p1" data-toggle="tab">Period 1 </a></li>
-                    <li class=""><a href="#p2" data-toggle="tab">Period 2</a></li>
-                    <li><a href="#p3" data-toggle="tab">Period 3</a></li>
-                    <li><a href="#p4" data-toggle="tab">Period 4</a></li>
-                    <li><a href="#p5" data-toggle="tab">Period 5</a></li>
+                    <li class=""><a href="#p2" data-toggle="tab" class="tabWarning">Period 2</a></li>
+                    <li><a href="#p3" data-toggle="tab" class="tabWarning">Period 3</a></li>
+                    <li><a href="#p4" data-toggle="tab" class="tabWarning">Period 4</a></li>
+                    <li><a href="#p5" data-toggle="tab" class="tabWarning">Period 5</a></li>
                 </ul>
                 <div id="my-tab-content" class="tab-content">
                     <div class="tab-pane active" id="p1">
@@ -812,12 +812,29 @@ $page = 'personnel-assign';
 <?php include ('includes/footer-scripts.php') ?>
 <script type="text/javascript">
     jQuery(document).ready(function ($) {
+    
+    
+
+	
+$(".tabWarning").click(function(e){
+
+  alert("[MODAL WINDOW] --- You are about to enter costs in a later period. Doing so will prevent you from using the generate all periods function to auto-calculate later periods. Do you wish to continue? {{ CANCEL (button)  | CONTINUE (button) }} ---[MODAL WINDOW]");
+return false;
+
+});
+	
         $('#tabs').tab();
-    });</script><!-- MODAL -- budget summary -->
+    });</script>
+    
+  
+    
+    
+    
+    <!-- MODAL budget summary -->
     <?php include ('includes/modal-budget-summary.php') ?>
-    <!-- MODAL -- budget settings  -->
+    <!-- MODAL budget settings  -->
     <?php include ('includes/modal-budget-settings.php') ?>
-    <!-- MODAL -- budget open propsal -->
+    <!-- MODAL budget open propsal -->
     <?php include ('includes/modal-budget-open-prop.php') ?>
 	<!-- MODAL BUDGET VERSIONS -->
 	<?php include ('includes/modal-budget-versions.php') ?>

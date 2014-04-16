@@ -108,7 +108,7 @@ $section = '';
                     <a href="" data-toggle="modal" data-target="#createNew" class="btn btn-primary btn-xs pull-right"> Create New</a> 
                     
                     <!-- Modal -->
-                    <div class="modal fade" id="createNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <!--  <div class="modal fade" id="createNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -134,17 +134,18 @@ $section = '';
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Create <span class="caret"></span> </button>
+                                      
+                                      <button type="button" href="budget-ng-start.php"  class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Create <span class="caret"></span> </button>
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a href="#">Create and stay on Proposal</a></li>
-                                            <li><a href="budget-start.php">Create and go to Budget</a></li>
+                                            <li><a href="budget-ng-start.php">Create and go to Budget</a></li> 
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+                    -->
                     <!-- /Modal -->
                     <!-- BUDGET VERSIONS -->
                     <table id="u569ish_line0" class="table table-condensed table-bordered" role="presentation">

@@ -155,10 +155,10 @@ $section = '';
                 <br>
                 <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
                     <li class="active"><a href="#p1" data-toggle="tab">Period 1 </a></li>
-                    <li class=""><a href="#p2" data-toggle="tab">Period 2</a></li>
-                    <li><a href="#p3" data-toggle="tab">Period 3</a></li>
-                    <li><a href="#p4" data-toggle="tab">Period 4</a></li>
-                    <li><a href="#p5" data-toggle="tab">Period 5</a></li>
+                    <li class=""><a href="#p2" data-toggle="tab" class="tabWarning" >Period 2</a></li>
+                    <li><a href="#p3" data-toggle="tab" class="tabWarning">Period 3</a></li>
+                    <li><a href="#p4" data-toggle="tab" class="tabWarning">Period 4</a></li>
+                    <li><a href="#p5" data-toggle="tab" class="tabWarning">Period 5</a></li>
                 </ul>
                 <div id="my-tab-content" class="tab-content">
                     <div class="tab-pane active" id="p1">
@@ -430,7 +430,7 @@ $section = '';
         <div id="u19v7dpm" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;">
             <a href="budget-ng-personnelCosts-persPeriod.php" id="ufuknm4" class="btn btn-default uif-primaryActionButton uif-boxLayoutHorizontalItem">Go back</a>
             <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save</button>
-            <a href="budget-ng-subawards.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Save and Continue</a>
+            <a href="#" id="save-modal-button" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem" data-toggle="modal" data-target="#save-modal">Save and Continue</a>
         </div>
         <!-- DIALOGS/Placeholders --></div>
     <span id="formInfo">
@@ -473,12 +473,59 @@ $section = '';
 </form>
 <?php include ('includes/footer-scripts.php') ?>
 
-<!-- MODAL -- budget summary -->
+
+<script>
+
+		(function($){
+
+
+$(".tabWarning").click(function(e){
+
+  alert("[MODAL WINDOW] --- You are about to enter costs in a later period. Doing so will prevent you from using the generate all periods function to auto-calculate later periods. Do you wish to continue? {{ CANCEL (button)  | CONTINUE (button) }} ---[MODAL WINDOW]");
+return false;
+
+});
+}(jQuery))
+
+</script>
+
+
+
+<div class="modal fade" id="save-modal" tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type=button class="close" data-dismiss=modal aria-hidden=true>&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Generate All Periods?</h4>
+            </div>
+            <div class="modal-body">
+                <p>Would you like to use the generate all periods functionality to auto-calculate later periods based on period 1 data? Please note that this action can only be taken once.</p>
+                <small>
+                <label style=font-weight:normal>
+                    <input type=checkbox>
+                    Dont ask me this again </label>
+                </small></div>
+            <div class="modal-footer"><a href="budget-ng-subawards.php" class="btn btn-default" data-dismiss=modal>No</a> <a href="budget-ng-subawards.php" class="btn btn-primary">Yes Generate All Periods</a></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- MODAL  budget summary -->
 <?php include ('includes/modal-budget-summary.php') ?>
-<!-- MODAL -- budget settings  -->
+<!-- MODAL  budget settings  -->
 <?php include ('includes/modal-budget-settings.php') ?>
 
-<!-- MODAL -- budget open propsal -->
+<!-- MODAL  budget open propsal -->
 <?php include ('includes/modal-budget-open-prop.php') ?>
 
 <div class="modal fade in" id="applyRates" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display:;">

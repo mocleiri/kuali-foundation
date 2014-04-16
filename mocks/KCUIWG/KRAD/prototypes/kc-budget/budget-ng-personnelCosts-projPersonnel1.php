@@ -330,7 +330,7 @@ $page = 'personnel-costs';
         <div id="u19v7dpm" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;">
             <a href="budget-ng-rates.php" id="ufuknm4" class="btn btn-default uif-primaryActionButton uif-boxLayoutHorizontalItem">Go back</a>
             <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save</button>
-            <a href="budget-ng-personnelCosts-persPeriod.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Save and Continue</a>
+            <a href="budget-ng-personnelCosts-persPeriod.php" id="save-continue" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Save and Continue</a>
         </div>
         <!-- DIALOGS/Placeholders --></div>
     <span id="formInfo">
@@ -372,12 +372,40 @@ $page = 'personnel-costs';
     </div>
 </form>
 <?php include ('includes/footer-scripts.php') ?>
-<!-- MODAL -- budget summary -->
+<!-- MODAL  budget summary -->
 <?php include ('includes/modal-budget-summary.php') ?>
-<!-- MODAL -- budget settings  -->
+<!-- MODAL budget settings  -->
 <?php include ('includes/modal-budget-settings.php') ?>
-<!-- MODAL -- budget open propsal -->
+<!-- MODAL  budget open propsal -->
 <?php include ('includes/modal-budget-open-prop.php') ?>
+
+
+<script>
+
+//replacing the "version 5"
+
+(function($){
+  		
+
+			
+ $("#save-continue").click(function (e) {	
+	  //e.preventDefault();		
+			
+		
+  });
+
+	  
+
+}(jQuery))
+
+
+</script>
+
+
+
+
+
+
 
 
 
