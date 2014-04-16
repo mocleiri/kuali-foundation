@@ -169,6 +169,7 @@ public class CreateBuildSlaveAMI {
 		CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(namePlusStack).withRootVolume(request.getRootVolume())
 				.withAdditionalMappings(additionalMappings).withTimeoutMillis(request.getTimeoutMillis()).withDescription(description).build();
 		Image image = service.createAmi(creator);
+		service.tag(image.getImageId(), stack);
 		// Image image = service.getImage("ami-56b9d366");
 		info("created %s - %s", image.getImageId(), FormatUtils.getTime(sw));
 
