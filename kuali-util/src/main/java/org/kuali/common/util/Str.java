@@ -211,6 +211,14 @@ public class Str {
 		}
 	}
 
+	public static final String getAsciiString(byte[] bytes) {
+		return getString(bytes, ASCII);
+	}
+
+	public static final String getUTF8String(byte[] bytes) {
+		return getString(bytes, UTF8);
+	}
+
 	public static final String getString(byte[] bytes, String encoding) {
 		if (bytes == null) {
 			return null;

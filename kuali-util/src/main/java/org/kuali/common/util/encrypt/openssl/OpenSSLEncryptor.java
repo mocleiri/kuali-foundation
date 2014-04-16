@@ -3,11 +3,12 @@ package org.kuali.common.util.encrypt.openssl;
 import static java.util.Arrays.copyOfRange;
 import static javax.crypto.Cipher.DECRYPT_MODE;
 import static javax.crypto.Cipher.ENCRYPT_MODE;
+import static org.apache.commons.io.IOUtils.toByteArray;
 import static org.codehaus.plexus.util.Base64.decodeBase64;
 import static org.codehaus.plexus.util.Base64.encodeBase64;
-import static org.kuali.common.util.Encodings.ASCII;
 import static org.kuali.common.util.Encodings.UTF8;
 import static org.kuali.common.util.Str.getAsciiBytes;
+import static org.kuali.common.util.Str.getAsciiString;
 import static org.kuali.common.util.Str.getUTF8Bytes;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
@@ -16,9 +17,13 @@ import static org.kuali.common.util.encrypt.openssl.OpenSSLContext.buildDefaultO
 import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.buildEncryptedContext;
 import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.checkBase64;
 import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.combineByteArrays;
-import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.createBytesFromChars;
 import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.createSalt;
 import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.toByteArray;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -41,19 +46,42 @@ public final class OpenSSLEncryptor implements Encryptor {
 	private final OpenSSLContext context;
 
 	// Internal only. Do not expose via getters
-	private final char[] password;
+	private final byte[] password;
 	private final byte[] prefix;
-	private final byte[] passwordBytes;
 
 	public OpenSSLEncryptor(String password) {
 		this(buildDefaultOpenSSLContext(), password);
 	}
 
 	public OpenSSLEncryptor(OpenSSLContext context, String password) {
-		this.password = checkNotBlank(password, "password").toCharArray();
+		this.password = getUTF8Bytes(checkNotBlank(password, "password"));
 		this.context = checkNotNull(context, "context");
-		this.passwordBytes = createBytesFromChars(this.password);
 		this.prefix = getUTF8Bytes(context.getSaltPrefix());
+	}
+
+	public void encrypt(File src, File dst) {
+		checkNotNull(src, "src");
+		checkNotNull(dst, "dst");
+	}
+
+	public void encrypt(InputStream in, OutputStream out) throws IOException {
+		byte[] bytes = toByteArray(in);
+		byte[] encrypted = encrypt(bytes);
+		out.write(encrypted);
+	}
+
+	public byte[] encrypt(byte[] bytes) {
+		// Null not allowed
+		checkNotNull(bytes, "bytes");
+
+		// Generate a random salt
+		byte[] salt = createSalt(context.getSaltSize());
+
+		// encrypt the bytes using the salt
+		byte[] encrypted = doCipher(ENCRYPT_MODE, salt, bytes);
+
+		// Combine the prefix, salt, and encrypted bytes into one array
+		return combineByteArrays(prefix, salt, encrypted);
 	}
 
 	@Override
@@ -61,27 +89,17 @@ public final class OpenSSLEncryptor implements Encryptor {
 		// Null not allowed
 		checkNotNull(text, "text");
 
-		// Generate a random salt
-		byte[] salt = createSalt(context.getSaltSize());
+		// Convert the text into bytes
+		byte[] bytes = getUTF8Bytes(text);
 
-		// Convert the plain text into bytes
-		byte[] plaintext = getUTF8Bytes(text);
+		// Encrypt the bytes
+		byte[] encrypted = encrypt(bytes);
 
-		try {
-			// encrypt the plaintext using the salt
-			byte[] encrypted = doCipher(ENCRYPT_MODE, salt, plaintext);
+		// Convert the encrypted bytes into base64 bytes
+		byte[] base64 = encodeBase64(encrypted);
 
-			// Combine the prefix, salt, and the encrypted bytes into one array
-			byte[] bytes = combineByteArrays(prefix, salt, encrypted);
-
-			// Convert everything into base64
-			byte[] base64 = encodeBase64(bytes);
-
-			// Convert the base64 bytes into a string
-			return new String(base64, ASCII);
-		} catch (Exception e) {
-			throw illegalState(e);
-		}
+		// Convert the base64 bytes into a string
+		return getAsciiString(base64);
 	}
 
 	@Override
@@ -123,7 +141,7 @@ public final class OpenSSLEncryptor implements Encryptor {
 			int initVectorLength = cipher.getBlockSize();
 
 			// Calculate the iv + key bytes using the exact same technique OpenSSL does
-			OpenSSLEncryptedContext oec = buildEncryptedContext(context, initVectorLength, salt, passwordBytes);
+			OpenSSLEncryptedContext oec = buildEncryptedContext(context, initVectorLength, salt, password);
 
 			// Create java objects from the raw bytes
 			SecretKeySpec key = new SecretKeySpec(toByteArray(oec.getKey()), context.getAlgorithm());
@@ -132,7 +150,7 @@ public final class OpenSSLEncryptor implements Encryptor {
 			// initialize the cipher instance
 			cipher.init(mode, key, iv);
 
-			// Return the initialized cipher
+			// Return the encrypted/decrypted bytes
 			return cipher.doFinal(bytes);
 		} catch (Exception e) {
 			throw illegalState(e);
