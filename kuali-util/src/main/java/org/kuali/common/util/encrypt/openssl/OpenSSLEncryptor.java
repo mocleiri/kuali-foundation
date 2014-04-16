@@ -69,7 +69,7 @@ public final class OpenSSLEncryptor implements Encryptor {
 		try {
 			in = openInputStream(src);
 			out = openOutputStream(dst);
-			encrypt(in, out, true);
+			encrypt(in, out);
 		} catch (IOException e) {
 			throw illegalState(e);
 		} finally {
@@ -78,10 +78,11 @@ public final class OpenSSLEncryptor implements Encryptor {
 		}
 	}
 
-	public void encrypt(InputStream in, OutputStream out, boolean chunked) throws IOException {
+	public void encrypt(InputStream in, OutputStream out) throws IOException {
 		byte[] bytes = toByteArray(in);
 		byte[] encrypted = encrypt(bytes);
-		out.write(encrypted);
+		byte[] base64 = encodeBase64(encrypted,true);
+		out.write(base64);
 	}
 
 	public byte[] encrypt(byte[] bytes) {
