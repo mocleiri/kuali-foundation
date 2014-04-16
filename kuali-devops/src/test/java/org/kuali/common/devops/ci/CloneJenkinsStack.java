@@ -3,16 +3,23 @@ package org.kuali.common.devops.ci;
 import static com.google.common.base.Optional.fromNullable;
 import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.equalsIgnoreCase;
+import static org.kuali.common.devops.ci.UpdateBuildSlaveAMI.getMostRecentAMI;
+import static org.kuali.common.devops.ci.model.Constants.AMAZON_ACCOUNT;
+import static org.kuali.common.devops.logic.Auth.getAwsCredentials;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.log.Loggers.newLogger;
 import static org.kuali.common.util.nullify.NullUtils.trimToNull;
 
 import org.junit.Test;
+import org.kuali.common.aws.ec2.api.EC2Service;
+import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.core.system.VirtualSystem;
+import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.aws.Tags.Stack;
 import org.kuali.common.devops.ci.model.CloneJenkinsStackContext;
 import org.slf4j.Logger;
 
+import com.amazonaws.auth.AWSCredentials;
 import com.google.common.base.Optional;
 
 public class CloneJenkinsStack {
@@ -24,7 +31,9 @@ public class CloneJenkinsStack {
 		VirtualSystem vs = VirtualSystem.create();
 		boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
 		CloneJenkinsStackContext context = getCloneJenkinsStackContext(vs);
-
+		AWSCredentials creds = getAwsCredentials(AMAZON_ACCOUNT);
+		EC2Service service = new DefaultEC2Service(creds, context.getRegion().getName());
+		String ami = getMostRecentAMI(service, context.getDstStack().getTag(), Tags.Name.SLAVE.getTag());
 	}
 
 	private static CloneJenkinsStackContext getCloneJenkinsStackContext(VirtualSystem vs) {

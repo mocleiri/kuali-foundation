@@ -78,10 +78,12 @@ public class UpdateBuildSlaveAMI {
 	}
 
 	protected static String getMostRecentAMI(EC2Service service, JenkinsContext context) {
+		return getMostRecentAMI(service, context.getStack().getTag(), context.getName().getTag());
+	}
+
+	protected static String getMostRecentAMI(EC2Service service, Tag stack, Tag name) {
 
 		List<Image> images = service.getMyImages();
-		Tag stack = context.getStack().getTag();
-		Tag name = context.getName().getTag();
 
 		// Extract just the ci.slave AMI's for this stack
 		List<Image> filtered = getFilteredImages(images, stack, name.getKey(), CI_SLAVE_STARTS_WITH_TOKEN);

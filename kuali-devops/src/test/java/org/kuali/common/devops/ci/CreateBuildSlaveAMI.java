@@ -30,6 +30,7 @@ import static org.kuali.common.devops.ci.model.Constants.DISTRO_VERSION;
 import static org.kuali.common.devops.ci.model.Constants.DOMAIN;
 import static org.kuali.common.devops.ci.model.Constants.ROOT;
 import static org.kuali.common.devops.ci.model.Constants.UBUNTU;
+import static org.kuali.common.devops.logic.Auth.getAwsCredentials;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
 import static org.kuali.common.util.FormatUtils.getTime;
@@ -192,7 +193,7 @@ public class CreateBuildSlaveAMI {
 	protected void copyAmi(String sourceRegion, Set<String> regions, String ami, Tag namePlusStack, Tag stack) {
 		for (String region : regions) {
 			if (!region.equals(sourceRegion)) {
-				EC2Service service = new DefaultEC2Service(Auth.getAwsCredentials(AMAZON_ACCOUNT), region);
+				EC2Service service = new DefaultEC2Service(getAwsCredentials(AMAZON_ACCOUNT), region);
 				String copiedAmi = service.copyAmi(sourceRegion, ami);
 				service.tag(copiedAmi, namePlusStack);
 				service.tag(copiedAmi, stack);
