@@ -212,7 +212,7 @@ public class CreateBuildSlaveAMI {
 		args.add("-Dorg.slf4j.simpleLogger.log.org.kuali.maven.wagon=warn");
 		args.add("-f");
 		args.add(pom);
-		SpinUpJenkinsMaster.exec(channel, "mvn", args);
+		exec(channel, "mvn", args);
 	}
 
 	protected static void setupEssentials(SecureChannel channel, String basedir, ProjectIdentifier pid, Distro distro, String distroVersion, String aesPassphrase,
