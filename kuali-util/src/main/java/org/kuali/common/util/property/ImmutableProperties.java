@@ -67,11 +67,7 @@ public final class ImmutableProperties extends Properties {
 	 */
 	@Deprecated
 	public static Properties of(Properties properties) {
-		if (properties instanceof ImmutableProperties) {
-			return properties;
-		} else {
-			return new ImmutableProperties(properties);
-		}
+		return copyOf(properties);
 	}
 
 	/**
