@@ -27,7 +27,7 @@ public final class CloneJenkinsStackContext {
 
 		private Region region = RegionUtils.getRegion("us-west-1");
 		private Stack srcStack = Tags.Stack.TEST;
-		private Stack dstStack = Tags.Stack.PRODUCTION;
+		private Stack dstStack = Tags.Stack.PROD;
 		private BackupMode mode = BackupMode.THIN;
 
 		public Builder withMode(BackupMode mode) {

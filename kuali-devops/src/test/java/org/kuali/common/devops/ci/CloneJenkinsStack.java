@@ -23,6 +23,7 @@ import org.kuali.common.devops.ci.model.CloneJenkinsStackContext;
 import org.slf4j.Logger;
 
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Optional;
 
@@ -32,19 +33,27 @@ public class CloneJenkinsStack {
 
 	@Test
 	public void test() throws Exception {
-		VirtualSystem vs = VirtualSystem.create();
-		boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
-		CloneJenkinsStackContext context = getCloneJenkinsStackContext(vs);
-		AWSCredentials creds = getAwsCredentials(KUALI_FOUNDATION_ACCOUNT);
-		EC2Service service = new DefaultEC2Service(creds, context.getRegion().getName());
-		String ami = getMostRecentAMI(service, context.getDstStack().getTag(), Tags.Name.SLAVE.getTag());
+		try {
+			System.setProperty("ec2.stack.src", "test");
+			System.setProperty("ec2.stack.dst", "prod");
+			System.setProperty("ec2.ami.region", "us-west-1");
+			VirtualSystem vs = VirtualSystem.create();
+			boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
+			CloneJenkinsStackContext context = getCloneJenkinsStackContext(vs);
+			AWSCredentials creds = getAwsCredentials(KUALI_FOUNDATION_ACCOUNT);
+			EC2Service service = new DefaultEC2Service(creds, context.getRegion().getName());
+			String ami = getMostRecentAMI(service, context.getDstStack().getTag(), Tags.Name.SLAVE.getTag());
+			Image image = service.getImage(ami);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	protected void copyAmi(String sourceRegion, Set<String> regions, String ami, Tag stack) {
+	protected void copyAmi(String sourceRegion, Set<String> regions, Image ami, Tag stack) {
 		for (String region : regions) {
 			if (!region.equals(sourceRegion)) {
 				EC2Service service = new DefaultEC2Service(getAwsCredentials(KUALI_FOUNDATION_ACCOUNT), region);
-				String copiedAmi = service.copyAmi(sourceRegion, ami);
+				String copiedAmi = service.copyAmi(sourceRegion, ami.getImageId());
 				service.tag(copiedAmi, stack);
 				cleanupAmis(service, stack, 7);
 			}
@@ -52,8 +61,8 @@ public class CloneJenkinsStack {
 	}
 
 	private static CloneJenkinsStackContext getCloneJenkinsStackContext(VirtualSystem vs) {
-		Stack src = Stack.valueOf(getRequiredProperty(vs, "ec2.stack.src"));
-		Stack dst = Stack.valueOf(getRequiredProperty(vs, "ec2.stack.dst"));
+		Stack src = Stack.valueOf(getRequiredProperty(vs, "ec2.stack.src").toUpperCase());
+		Stack dst = Stack.valueOf(getRequiredProperty(vs, "ec2.stack.dst").toUpperCase());
 		String region = getRequiredProperty(vs, "ec2.ami.region");
 		return new CloneJenkinsStackContext.Builder().withDstStack(dst).withSrcStack(src).withRegion(region).build();
 	}

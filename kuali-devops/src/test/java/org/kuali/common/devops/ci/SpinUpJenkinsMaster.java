@@ -169,7 +169,7 @@ public class SpinUpJenkinsMaster {
 
 	protected static Map<String, JenkinsContext> getJenkinsContexts(Tags.Name name) {
 		String region = System.getProperty("ec2.region", Regions.DEFAULT_REGION.getName());
-		JenkinsContext prod = JenkinsContext.builder().withRegion(region).withDnsPrefix("ci").withStack(Tags.Stack.PRODUCTION).withName(name).build();
+		JenkinsContext prod = JenkinsContext.builder().withRegion(region).withDnsPrefix("ci").withStack(Tags.Stack.PROD).withName(name).build();
 		JenkinsContext test = JenkinsContext.builder().withRegion(region).withDnsPrefix("testci").withStack(Tags.Stack.TEST).withName(name).build();
 		SortedMap<String, JenkinsContext> contexts = newTreeMap();
 		contexts.put("test", test);
