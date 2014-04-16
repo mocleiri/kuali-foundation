@@ -18,6 +18,7 @@ package org.kuali.common.aws.ec2.impl;
 import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
@@ -118,7 +119,6 @@ import com.amazonaws.services.ec2.model.StopInstancesRequest;
 import com.amazonaws.services.ec2.model.Tag;
 import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
 import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
@@ -169,7 +169,7 @@ public final class DefaultEC2Service implements EC2Service {
 	public String copyAmi(String region, String ami) {
 		checkNotBlank(region, "region");
 		checkNotBlank(ami, "ami");
-		Preconditions.checkNotNull(RegionUtils.getRegion(region), "region %s is unknown", region);
+		checkNotNull(RegionUtils.getRegion(region), "region %s is unknown", region);
 		CopyImageRequest request = new CopyImageRequest();
 		request.setSourceImageId(ami);
 		request.setSourceRegion(region);
