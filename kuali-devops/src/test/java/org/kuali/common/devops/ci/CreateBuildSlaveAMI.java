@@ -387,7 +387,7 @@ public class CreateBuildSlaveAMI {
 	 * If the environment variable BUILD_NUMBER is set, add a prefix and return, otherwise return System.currentTimeMillis()
 	 */
 	protected static String getBuildNumber() {
-		Optional<String> buildNumber = fromNullable(System.getProperty("BUILD_NUMBER"));
+		Optional<String> buildNumber = fromNullable(System.getenv("BUILD_NUMBER"));
 		if (buildNumber.isPresent()) {
 			// Jenkins always sets an environment variable called BUILD_NUMBER
 			return leftPad(parseLong(buildNumber.get()) + "", 4, "0");
