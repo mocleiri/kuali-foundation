@@ -137,8 +137,6 @@ function install_plugins {
   install_plugin ssh-credentials       1.6.1
   install_plugin ssh-slaves            1.6
   # Note: Version 1.54 reports the correct revision number, where as 2.2 reports -1 for the revision number on KS svn:externals
-  # Also, saw some really funky polling behavior where jenkins was constantly polling and re-polling like it was stuck in a loop
-  # Only happened once, and haven't seen it again since.  Not sure if it was attributable to the 2.2 plugin.
   install_plugin subversion            2.2
   install_plugin template-project      1.4.1
   install_plugin token-macro           1.10
