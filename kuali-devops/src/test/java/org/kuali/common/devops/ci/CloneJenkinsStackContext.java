@@ -14,11 +14,13 @@ public final class CloneJenkinsStackContext {
 	private final Region region;
 	private final Stack srcStack;
 	private final Stack dstStack;
+	private final Mode mode;
 
 	private CloneJenkinsStackContext(Builder builder) {
 		this.region = builder.region;
 		this.srcStack = builder.srcStack;
 		this.dstStack = builder.dstStack;
+		this.mode = builder.mode;
 	}
 
 	public static class Builder extends ValidatingBuilder<CloneJenkinsStackContext> {
@@ -26,6 +28,16 @@ public final class CloneJenkinsStackContext {
 		private Region region = RegionUtils.getRegion("us-west-1");
 		private Stack srcStack = Tags.Stack.TEST;
 		private Stack dstStack = Tags.Stack.PRODUCTION;
+		private Mode mode = Mode.THIN;
+
+		public Builder withMode(Mode mode) {
+			this.mode = mode;
+			return this;
+		}
+
+		public Builder withMode(String mode) {
+			return withMode(Mode.valueOf(mode));
+		}
 
 		public Builder withRegion(String region) {
 			this.region = RegionUtils.getRegion(region);
@@ -58,6 +70,10 @@ public final class CloneJenkinsStackContext {
 
 	public Stack getDstStack() {
 		return dstStack;
+	}
+
+	public Mode getMode() {
+		return mode;
 	}
 
 }
