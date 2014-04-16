@@ -77,7 +77,7 @@ public class UpdateBuildSlaveAMI {
 		exec(channel, "ruby", rubyScript, kisUsername, kisPassword, ami, jenkinsMaster);
 	}
 
-	protected String getMostRecentAMI(EC2Service service, JenkinsContext context) {
+	protected static String getMostRecentAMI(EC2Service service, JenkinsContext context) {
 
 		List<Image> images = service.getMyImages();
 		Tag stack = context.getStack().getTag();
