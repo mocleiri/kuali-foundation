@@ -17,6 +17,7 @@ package org.kuali.common.core.ssh.jcraft;
 
 import static com.jcraft.jsch.KeyPair.DSA;
 import static com.jcraft.jsch.KeyPair.RSA;
+import static com.jcraft.jsch.KeyPair.genKeyPair;
 import static org.kuali.common.util.Encodings.UTF8;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
@@ -47,7 +48,7 @@ public class JCraftSshService implements SshService {
 
 	protected com.jcraft.jsch.KeyPair getKeyPair(JSch jsch, int type, int size) {
 		try {
-			return com.jcraft.jsch.KeyPair.genKeyPair(jsch, type, size);
+			return genKeyPair(jsch, type, size);
 		} catch (JSchException e) {
 			throw new IllegalStateException(e);
 		}
