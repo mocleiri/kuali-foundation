@@ -166,13 +166,14 @@ public class CreateBuildSlaveAMI {
 		String description = format("automated ec2 slave ami - %s", today);
 
 		// Tack test/prod onto the end of the name to make it very clear which stack the ami belongs to
-		Tag namePlusStack = new ImmutableTag(name.getKey(), name.getValue() + "-" + stack.getValue());
 		
 		List<BlockDeviceMapping> additionalMappings = ImmutableBlockDeviceMapping.DEFAULT_INSTANCE_STORES;
-		CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(namePlusStack).withRootVolume(request.getRootVolume())
+		CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(name).withRootVolume(request.getRootVolume())
 				.withAdditionalMappings(additionalMappings).withTimeoutMillis(request.getTimeoutMillis()).withDescription(description).build();
 		Image image = service.createAmi(creator);
+		Tag namePlusStack = new ImmutableTag(name.getKey(), name.getValue() + "-" + stack.getValue());
 		service.tag(image.getImageId(), stack);
+		service.tag(image.getImageId(), namePlusStack);
 		// Image image = service.getImage("ami-56b9d366");
 		info("created %s - %s", image.getImageId(), FormatUtils.getTime(sw));
 
