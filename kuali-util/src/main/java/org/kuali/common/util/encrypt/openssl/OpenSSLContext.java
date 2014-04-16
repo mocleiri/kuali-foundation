@@ -28,7 +28,7 @@ public final class OpenSSLContext {
 
 	/**
 	 * <p>
-	 * If EncryptionStrength.STRONG_ENCRYPTION_STRENGTH is passed in, AES 256 is used, otherwise AES 128.
+	 * <code>EncryptionStrength.STRONG_ENCRYPTION_STRENGTH</code> means AES 256, otherwise AES 128.
 	 * <p>
 	 * 
 	 * <p>
