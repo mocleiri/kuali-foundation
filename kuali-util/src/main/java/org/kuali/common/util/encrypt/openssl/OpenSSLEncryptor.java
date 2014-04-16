@@ -9,10 +9,10 @@ import static org.apache.commons.io.IOUtils.closeQuietly;
 import static org.apache.commons.io.IOUtils.toByteArray;
 import static org.codehaus.plexus.util.Base64.decodeBase64;
 import static org.codehaus.plexus.util.Base64.encodeBase64;
-import static org.kuali.common.util.Encodings.UTF8;
 import static org.kuali.common.util.Str.getAsciiBytes;
 import static org.kuali.common.util.Str.getAsciiString;
 import static org.kuali.common.util.Str.getUTF8Bytes;
+import static org.kuali.common.util.Str.getUTF8String;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
@@ -130,21 +130,17 @@ public final class OpenSSLEncryptor implements Encryptor {
 		int saltOffset = context.getSaltPrefix().length();
 		byte[] salt = copyOfRange(bytes, saltOffset, saltOffset + context.getSaltSize());
 
-		try {
-			// encrypted bytes come after the prefix and the salt
-			int encryptedBytesOffset = saltOffset + context.getSaltSize();
+		// encrypted bytes come after the prefix and the salt
+		int encryptedBytesOffset = saltOffset + context.getSaltSize();
 
-			// extract the portion of the array containing the encrypted bytes
-			byte[] encrypted = copyOfRange(bytes, encryptedBytesOffset, bytes.length);
+		// extract the portion of the array containing the encrypted bytes
+		byte[] encrypted = copyOfRange(bytes, encryptedBytesOffset, bytes.length);
 
-			// decrypt the bytes using the salt that was embedded in the text
-			byte[] decrypted = doCipher(context, DECRYPT_MODE, salt, encrypted, password);
+		// decrypt the bytes using the salt that was embedded in the text
+		byte[] decrypted = doCipher(context, DECRYPT_MODE, salt, encrypted, password);
 
-			// Construct a string from the decrypted bytes
-			return new String(decrypted, UTF8);
-		} catch (Exception e) {
-			throw illegalState(e);
-		}
+		// Construct a string from the decrypted bytes
+		return getUTF8String(decrypted);
 	}
 
 	protected static byte[] doCipher(OpenSSLContext context, int mode, byte[] salt, byte[] bytes, byte[] password) {
