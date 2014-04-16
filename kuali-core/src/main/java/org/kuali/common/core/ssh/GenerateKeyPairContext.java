@@ -29,12 +29,20 @@ public final class GenerateKeyPairContext {
 	@Min(0)
 	private final int size;
 
+	public static GenerateKeyPairContext build() {
+		return builder().build();
+	}
+
 	public static GenerateKeyPairContext create(String name) {
 		return builder(name).build();
 	}
 
 	public static Builder builder(String name) {
 		return new Builder(name);
+	}
+
+	public static Builder builder() {
+		return new Builder();
 	}
 
 	public static class Builder extends ValidatingBuilder<GenerateKeyPairContext> {
