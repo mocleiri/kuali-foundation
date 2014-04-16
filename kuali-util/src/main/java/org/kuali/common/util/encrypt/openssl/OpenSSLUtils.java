@@ -11,6 +11,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.List;
+import java.util.Random;
 
 import org.kuali.common.util.base.Precondition;
 
@@ -18,7 +19,7 @@ import com.google.common.collect.ImmutableList;
 
 public class OpenSSLUtils {
 	
-	private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+	private static final Random RANDOM = new SecureRandom();
 
 	public static byte[] combineByteArrays(byte[]... arrays) {
 		byte[] bytes = allocateByteArray(arrays);
@@ -44,7 +45,7 @@ public class OpenSSLUtils {
 
 	public static byte[] createSalt(int length) {
 		byte[] salt = new byte[length];
-		SECURE_RANDOM.nextBytes(salt);
+		RANDOM.nextBytes(salt);
 		return salt;
 	}
 
