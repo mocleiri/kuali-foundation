@@ -16,6 +16,7 @@ import java.util.Set;
 import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
+import org.kuali.common.aws.ec2.model.ImmutableTag;
 import org.kuali.common.core.system.VirtualSystem;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.aws.Tags.Stack;
@@ -42,19 +43,24 @@ public class CloneJenkinsStack {
 			CloneJenkinsStackContext context = getCloneJenkinsStackContext(vs);
 			AWSCredentials creds = getAwsCredentials(KUALI_FOUNDATION_ACCOUNT);
 			EC2Service service = new DefaultEC2Service(creds, context.getRegion().getName());
-			String ami = getMostRecentAMI(service, context.getDstStack().getTag(), Tags.Name.SLAVE.getTag());
+			String ami = getMostRecentAMI(service, context.getSrcStack().getTag(), Tags.Name.SLAVE.getTag());
 			Image image = service.getImage(ami);
+			copyAmi(context.getRegion().getName(), CreateBuildSlaveAMI.US_REGIONS, image, context.getDstStack().getTag());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	protected void copyAmi(String sourceRegion, Set<String> regions, Image ami, Tag stack) {
+		String oldName = ami.getName();
+		int pos = oldName.lastIndexOf("-");
+		String newName = oldName.substring(0, pos) + "-" + stack.getValue();
 		for (String region : regions) {
 			if (!region.equals(sourceRegion)) {
 				EC2Service service = new DefaultEC2Service(getAwsCredentials(KUALI_FOUNDATION_ACCOUNT), region);
-				String copiedAmi = service.copyAmi(sourceRegion, ami.getImageId());
+				String copiedAmi = service.copyAmi(sourceRegion, ami.getImageId(), newName);
 				service.tag(copiedAmi, stack);
+				service.tag(copiedAmi, new ImmutableTag(Tags.Name.SLAVE.getTag().getKey(), newName));
 				cleanupAmis(service, stack, 7);
 			}
 		}

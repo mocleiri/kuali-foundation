@@ -104,7 +104,7 @@ public class CreateBuildSlaveAMI {
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 80;
 
 	public static final Map<String, JenkinsContext> CONTEXTS = SpinUpJenkinsMaster.getJenkinsContexts(Tags.Name.SLAVE);
-	private static final Set<String> US_REGIONS = ImmutableSet.of(US_EAST_1.getName(), US_WEST_1.getName(), US_WEST_2.getName());
+	public static final Set<String> US_REGIONS = ImmutableSet.of(US_EAST_1.getName(), US_WEST_1.getName(), US_WEST_2.getName());
 
 	@Test
 	public void test() throws Exception {
