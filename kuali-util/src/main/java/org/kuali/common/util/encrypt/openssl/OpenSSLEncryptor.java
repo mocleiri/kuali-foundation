@@ -56,8 +56,8 @@ public final class OpenSSLEncryptor implements Encryptor {
 	}
 
 	public OpenSSLEncryptor(OpenSSLContext context, String password) {
-		this.password = getUTF8Bytes(checkNotNull(password, "password"));
 		this.context = checkNotNull(context, "context");
+		this.password = getUTF8Bytes(checkNotNull(password, "password"));
 		this.prefix = getUTF8Bytes(context.getSaltPrefix());
 	}
 
