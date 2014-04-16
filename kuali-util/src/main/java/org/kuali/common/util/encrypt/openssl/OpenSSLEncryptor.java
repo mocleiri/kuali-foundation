@@ -3,6 +3,9 @@ package org.kuali.common.util.encrypt.openssl;
 import static java.util.Arrays.copyOfRange;
 import static javax.crypto.Cipher.DECRYPT_MODE;
 import static javax.crypto.Cipher.ENCRYPT_MODE;
+import static org.apache.commons.io.FileUtils.openInputStream;
+import static org.apache.commons.io.FileUtils.openOutputStream;
+import static org.apache.commons.io.IOUtils.closeQuietly;
 import static org.apache.commons.io.IOUtils.toByteArray;
 import static org.codehaus.plexus.util.Base64.decodeBase64;
 import static org.codehaus.plexus.util.Base64.encodeBase64;
@@ -62,15 +65,27 @@ public final class OpenSSLEncryptor implements Encryptor {
 	public void encrypt(File src, File dst) {
 		checkNotNull(src, "src");
 		checkNotNull(dst, "dst");
+		InputStream in = null;
+		OutputStream out = null;
+		try {
+			in = openInputStream(src);
+			out = openOutputStream(dst);
+			encrypt(in, out, true);
+		} catch (IOException e) {
+			throw illegalState(e);
+		} finally {
+			closeQuietly(in);
+			closeQuietly(out);
+		}
 	}
 
-	public void encrypt(InputStream in, OutputStream out) throws IOException {
+	public void encrypt(InputStream in, OutputStream out, boolean chunked) throws IOException {
 		byte[] bytes = toByteArray(in);
-		byte[] encrypted = encrypt(bytes);
+		byte[] encrypted = encryptBase64(bytes, chunked);
 		out.write(encrypted);
 	}
 
-	public byte[] encrypt(byte[] bytes) {
+	public byte[] encryptBase64(byte[] bytes, boolean chunked) {
 		// Null not allowed
 		checkNotNull(bytes, "bytes");
 
@@ -78,10 +93,13 @@ public final class OpenSSLEncryptor implements Encryptor {
 		byte[] salt = createSalt(context.getSaltSize());
 
 		// encrypt the bytes using the salt
-		byte[] encrypted = doCipher(ENCRYPT_MODE, salt, bytes);
+		byte[] encrypted = doCipher(context, ENCRYPT_MODE, salt, bytes, password);
 
 		// Combine the prefix, salt, and encrypted bytes into one array
-		return combineByteArrays(prefix, salt, encrypted);
+		byte[] combined = combineByteArrays(prefix, salt, encrypted);
+
+		// Encode the results as base64
+		return encodeBase64(combined, chunked);
 	}
 
 	@Override
@@ -93,13 +111,10 @@ public final class OpenSSLEncryptor implements Encryptor {
 		byte[] bytes = getUTF8Bytes(text);
 
 		// Encrypt the bytes
-		byte[] encrypted = encrypt(bytes);
-
-		// Convert the encrypted bytes into base64 bytes
-		byte[] base64 = encodeBase64(encrypted);
+		byte[] encrypted = encryptBase64(bytes, false);
 
 		// Convert the base64 bytes into a string
-		return getAsciiString(base64);
+		return getAsciiString(encrypted);
 	}
 
 	@Override
@@ -123,7 +138,7 @@ public final class OpenSSLEncryptor implements Encryptor {
 			byte[] encrypted = copyOfRange(bytes, encryptedBytesOffset, bytes.length);
 
 			// decrypt the bytes using the salt that was embedded in the text
-			byte[] decrypted = doCipher(DECRYPT_MODE, salt, encrypted);
+			byte[] decrypted = doCipher(context, DECRYPT_MODE, salt, encrypted, password);
 
 			// Construct a string from the decrypted bytes
 			return new String(decrypted, UTF8);
@@ -132,7 +147,7 @@ public final class OpenSSLEncryptor implements Encryptor {
 		}
 	}
 
-	protected byte[] doCipher(int mode, byte[] salt, byte[] bytes) {
+	protected static byte[] doCipher(OpenSSLContext context, int mode, byte[] salt, byte[] bytes, byte[] password) {
 		try {
 			// specify cipher and digest
 			Cipher cipher = Cipher.getInstance(context.getTransformation());
