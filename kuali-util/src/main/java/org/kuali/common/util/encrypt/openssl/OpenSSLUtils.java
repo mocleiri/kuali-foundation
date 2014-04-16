@@ -5,7 +5,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.System.arraycopy;
 import static org.kuali.common.util.Ascii.isDigit;
 import static org.kuali.common.util.Ascii.isLetter;
-import static org.kuali.common.util.base.Exceptions.illegalState;
+import static org.kuali.common.util.base.Exceptions.illegalArgument;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.security.MessageDigest;
@@ -17,7 +17,7 @@ import java.util.Random;
 import com.google.common.collect.ImmutableList;
 
 public class OpenSSLUtils {
-	
+
 	private static final Random RANDOM = new SecureRandom();
 
 	public static byte[] combineByteArrays(byte[]... arrays) {
@@ -84,72 +84,77 @@ public class OpenSSLUtils {
 		}
 	}
 
-	public static OpenSSLEncryptedContext buildEncryptedContext(OpenSSLContext context, int initVectorLength, byte[] salt, byte[] data) {
+	public static MessageDigest getMessageDigest(String algorithm) {
 		try {
-			MessageDigest md = MessageDigest.getInstance(context.getDigest());
-			int keyLength = context.getKeySizeBits() / Byte.SIZE;
-			byte[] key = new byte[keyLength];
-			int keyIndex = 0;
-			byte[] initVector = new byte[initVectorLength];
-			int initVectorIndex = 0;
-			byte[] md_buf = null;
-			int nkey = keyLength;
-			int niv = initVectorLength;
-			int i = 0;
-			int addmd = 0;
-			for (;;) {
-				md.reset();
-				if (addmd++ > 0) {
-					md.update(md_buf);
-				}
-				md.update(data);
-				if (null != salt) {
-					md.update(salt, 0, 8);
-				}
-				md_buf = md.digest();
-				for (i = 1; i < context.getIterations(); i++) {
-					md.reset();
-					md.update(md_buf);
-					md_buf = md.digest();
-				}
-				i = 0;
-				if (nkey > 0) {
-					for (;;) {
-						if (nkey == 0)
-							break;
-						if (i == md_buf.length)
-							break;
-						key[keyIndex++] = md_buf[i];
-						nkey--;
-						i++;
-					}
-				}
-				if (niv > 0 && i != md_buf.length) {
-					for (;;) {
-						if (niv == 0)
-							break;
-						if (i == md_buf.length)
-							break;
-						initVector[initVectorIndex++] = md_buf[i];
-						niv--;
-						i++;
-					}
-				}
-				if (nkey == 0 && niv == 0) {
-					break;
-				}
-			}
-			for (i = 0; i < md_buf.length; i++) {
-				md_buf[i] = 0;
-			}
-
-			OpenSSLEncryptedContext.Builder builder = OpenSSLEncryptedContext.builder();
-			builder.withSalt(toByteList(salt));
-			builder.withKey(toByteList(key));
-			builder.withInitVector(toByteList(initVector));
-			return builder.build();
+			return MessageDigest.getInstance(algorithm);
 		} catch (NoSuchAlgorithmException e) {
-			throw illegalState(e);
+			throw illegalArgument(e);
 		}
+
+	}
+
+	public static OpenSSLEncryptedContext buildEncryptedContext(OpenSSLContext context, int initVectorLength, byte[] salt, byte[] data) {
+		MessageDigest md = getMessageDigest(context.getDigestAlgorithm());
+		int keyLength = context.getKeySizeBits() / Byte.SIZE;
+		byte[] key = new byte[keyLength];
+		int keyIndex = 0;
+		byte[] initVector = new byte[initVectorLength];
+		int initVectorIndex = 0;
+		byte[] md_buf = null;
+		int nkey = keyLength;
+		int niv = initVectorLength;
+		int i = 0;
+		int addmd = 0;
+		for (;;) {
+			md.reset();
+			if (addmd++ > 0) {
+				md.update(md_buf);
+			}
+			md.update(data);
+			if (null != salt) {
+				md.update(salt, 0, 8);
+			}
+			md_buf = md.digest();
+			for (i = 1; i < context.getIterations(); i++) {
+				md.reset();
+				md.update(md_buf);
+				md_buf = md.digest();
+			}
+			i = 0;
+			if (nkey > 0) {
+				for (;;) {
+					if (nkey == 0)
+						break;
+					if (i == md_buf.length)
+						break;
+					key[keyIndex++] = md_buf[i];
+					nkey--;
+					i++;
+				}
+			}
+			if (niv > 0 && i != md_buf.length) {
+				for (;;) {
+					if (niv == 0)
+						break;
+					if (i == md_buf.length)
+						break;
+					initVector[initVectorIndex++] = md_buf[i];
+					niv--;
+					i++;
+				}
+			}
+			if (nkey == 0 && niv == 0) {
+				break;
+			}
+		}
+		for (i = 0; i < md_buf.length; i++) {
+			md_buf[i] = 0;
+		}
+
+		OpenSSLEncryptedContext.Builder builder = OpenSSLEncryptedContext.builder();
+		builder.withSalt(toByteList(salt));
+		builder.withKey(toByteList(key));
+		builder.withInitVector(toByteList(initVector));
+		return builder.build();
 	}
 }

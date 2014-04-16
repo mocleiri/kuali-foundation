@@ -13,7 +13,7 @@ public final class OpenSSLContext {
 	private final int saltSize;
 	private final int keySizeBits;
 	private final String transformation;
-	private final String digest;
+	private final String digestAlgorithm;
 	private final String algorithm;
 
 	private OpenSSLContext(Builder builder) {
@@ -22,7 +22,7 @@ public final class OpenSSLContext {
 		this.saltPrefix = builder.saltPrefix;
 		this.keySizeBits = builder.keySizeBits;
 		this.transformation = builder.transformation;
-		this.digest = builder.digest;
+		this.digestAlgorithm = builder.digestAlgorithm;
 		this.algorithm = builder.algorithm;
 	}
 
@@ -63,7 +63,7 @@ public final class OpenSSLContext {
 		private int saltSize = 8;
 		private int keySizeBits = 128;
 		private String transformation = "AES/CBC/PKCS5Padding";
-		private String digest = "MD5";
+		private String digestAlgorithm = "MD5";
 		private String algorithm = "AES";
 
 		private static OpenSSLContext validate(OpenSSLContext instance) {
@@ -72,7 +72,7 @@ public final class OpenSSLContext {
 			checkMin(instance.saltSize, 0, "saltSize");
 			checkMin(instance.keySizeBits, 0, "keySizeBits");
 			checkNotBlank(instance.transformation, "transformation");
-			checkNotBlank(instance.digest, "digest");
+			checkNotBlank(instance.digestAlgorithm, "digest");
 			checkNotBlank(instance.algorithm, "algorithm");
 			return instance;
 		}
@@ -92,8 +92,8 @@ public final class OpenSSLContext {
 			return this;
 		}
 
-		public Builder withDigest(String digest) {
-			this.digest = digest;
+		public Builder withDigestAlgorithm(String digestAlgorithm) {
+			this.digestAlgorithm = digestAlgorithm;
 			return this;
 		}
 
@@ -157,12 +157,12 @@ public final class OpenSSLContext {
 			this.transformation = transformation;
 		}
 
-		public String getDigest() {
-			return digest;
+		public String getDigestAlgorithm() {
+			return digestAlgorithm;
 		}
 
-		public void setDigest(String digest) {
-			this.digest = digest;
+		public void setDigestAlgorithm(String digest) {
+			this.digestAlgorithm = digest;
 		}
 
 		public String getAlgorithm() {
@@ -190,8 +190,8 @@ public final class OpenSSLContext {
 		return transformation;
 	}
 
-	public String getDigest() {
-		return digest;
+	public String getDigestAlgorithm() {
+		return digestAlgorithm;
 	}
 
 	public String getAlgorithm() {
