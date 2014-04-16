@@ -183,18 +183,17 @@ public class CreateBuildSlaveAMI {
 		cleanupAmis(service, stack);
 
 		// Copy the new AMI to every US region
-		copyAmi(service.getRegion(), US_REGIONS, image.getImageId(), name, stack);
+		copyAmi(service.getRegion(), US_REGIONS, image.getImageId(), stack);
 
 		return image.getImageId();
 
 	}
 
-	protected void copyAmi(String sourceRegion, Set<String> regions, String ami, Tag namePlusStack, Tag stack) {
+	protected void copyAmi(String sourceRegion, Set<String> regions, String ami, Tag stack) {
 		for (String region : regions) {
 			if (!region.equals(sourceRegion)) {
 				EC2Service service = new DefaultEC2Service(getAwsCredentials(KUALI_FOUNDATION_ACCOUNT), region);
-				String copiedAmi = service.copyAmi(sourceRegion, ami, Optional.of(namePlusStack.getValue()));
-				service.tag(copiedAmi, namePlusStack);
+				String copiedAmi = service.copyAmi(sourceRegion, ami);
 				service.tag(copiedAmi, stack);
 				cleanupAmis(service, stack);
 			}
