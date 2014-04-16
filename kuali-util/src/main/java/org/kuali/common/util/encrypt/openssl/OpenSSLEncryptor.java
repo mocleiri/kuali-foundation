@@ -14,7 +14,6 @@ import static org.kuali.common.util.Str.getAsciiString;
 import static org.kuali.common.util.Str.getUTF8Bytes;
 import static org.kuali.common.util.Str.getUTF8String;
 import static org.kuali.common.util.base.Exceptions.illegalState;
-import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 import static org.kuali.common.util.encrypt.openssl.OpenSSLContext.buildDefaultOpenSSLContext;
 import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.buildEncryptedContext;
@@ -57,7 +56,7 @@ public final class OpenSSLEncryptor implements Encryptor {
 	}
 
 	public OpenSSLEncryptor(OpenSSLContext context, String password) {
-		this.password = getUTF8Bytes(checkNotBlank(password, "password"));
+		this.password = getUTF8Bytes(checkNotNull(password, "password"));
 		this.context = checkNotNull(context, "context");
 		this.prefix = getUTF8Bytes(context.getSaltPrefix());
 	}
@@ -81,11 +80,11 @@ public final class OpenSSLEncryptor implements Encryptor {
 
 	public void encrypt(InputStream in, OutputStream out, boolean chunked) throws IOException {
 		byte[] bytes = toByteArray(in);
-		byte[] encrypted = encryptBase64(bytes, chunked);
+		byte[] encrypted = encrypt(bytes);
 		out.write(encrypted);
 	}
 
-	public byte[] encryptBase64(byte[] bytes, boolean chunked) {
+	public byte[] encrypt(byte[] bytes) {
 		// Null not allowed
 		checkNotNull(bytes, "bytes");
 
@@ -96,10 +95,7 @@ public final class OpenSSLEncryptor implements Encryptor {
 		byte[] encrypted = doCipher(context, ENCRYPT_MODE, salt, bytes, password);
 
 		// Combine the prefix, salt, and encrypted bytes into one array
-		byte[] combined = combineByteArrays(prefix, salt, encrypted);
-
-		// Encode the results as base64
-		return encodeBase64(combined, chunked);
+		return combineByteArrays(prefix, salt, encrypted);
 	}
 
 	@Override
@@ -111,10 +107,13 @@ public final class OpenSSLEncryptor implements Encryptor {
 		byte[] bytes = getUTF8Bytes(text);
 
 		// Encrypt the bytes
-		byte[] encrypted = encryptBase64(bytes, false);
+		byte[] encrypted = encrypt(bytes);
+		
+		// Encode as base 64
+		byte[] base64 = encodeBase64(encrypted);
 
 		// Convert the base64 bytes into a string
-		return getAsciiString(encrypted);
+		return getAsciiString(base64);
 	}
 
 	@Override
