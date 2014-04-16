@@ -3,6 +3,7 @@ package org.kuali.common.devops.ci;
 import static com.google.common.base.Optional.fromNullable;
 import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.equalsIgnoreCase;
+import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.cleanupAmis;
 import static org.kuali.common.devops.ci.UpdateBuildSlaveAMI.getMostRecentAMI;
 import static org.kuali.common.devops.ci.model.Constants.KUALI_FOUNDATION_ACCOUNT;
 import static org.kuali.common.devops.logic.Auth.getAwsCredentials;
@@ -45,6 +46,7 @@ public class CloneJenkinsStack {
 				EC2Service service = new DefaultEC2Service(getAwsCredentials(KUALI_FOUNDATION_ACCOUNT), region);
 				String copiedAmi = service.copyAmi(sourceRegion, ami);
 				service.tag(copiedAmi, stack);
+				cleanupAmis(service, stack, 7);
 			}
 		}
 	}
