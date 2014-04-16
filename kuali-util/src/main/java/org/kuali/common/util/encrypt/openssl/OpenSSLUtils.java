@@ -5,7 +5,6 @@ import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.System.arraycopy;
 import static org.kuali.common.util.Ascii.isDigit;
 import static org.kuali.common.util.Ascii.isLetter;
-import static org.kuali.common.util.Encodings.UTF8;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
@@ -13,8 +12,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.List;
-
-import org.kuali.common.util.Str;
 
 import com.google.common.collect.ImmutableList;
 
@@ -84,10 +81,6 @@ public class OpenSSLUtils {
 		} else {
 			return c == '/' || c == '+' || c == '=';
 		}
-	}
-
-	public static byte[] createBytesFromChars(char[] chars) {
-		return Str.getBytes(new String(chars), UTF8);
 	}
 
 	public static OpenSSLEncryptedContext buildEncryptedContext(OpenSSLContext context, int initVectorLength, byte[] salt, byte[] data) {
