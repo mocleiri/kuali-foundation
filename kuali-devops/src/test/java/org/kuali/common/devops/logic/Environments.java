@@ -55,7 +55,7 @@ public class Environments extends Examiner {
 	private static final String BUILD_DATE_DISPLAY_FORMAT = "yyyy-MM-dd HH:mm z";
 	private static final String BUILD_DATE_DISPLAY_TIME_ZONE = "US/Eastern";
 	private static final String NOT_AVAILABLE = "n/a";
-	private static final String AMAZON_EC2_INSTANCE_DETAILS_LINK = "http://aws.amazon.com/ec2/instance-types/instance-details/";
+	private static final String AMAZON_EC2_INSTANCE_DETAILS_LINK = "http://aws.amazon.com/ec2/instance-types/";
 	private static final String SHRUB = "http://shrub.appspot.com/maven.kuali.org";
 	private static final String KUALI = "http://maven.kuali.org";
 	private static final Map<String, Optional<String>> repositoryLinks = newConcurrentMap();
