@@ -22,15 +22,15 @@ public class CloneJenkinsStack {
 	public void test() throws Exception {
 		VirtualSystem vs = VirtualSystem.create();
 		boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
-		JenkinsCloneContext context = getJenkinsCloneContext(vs);
+		CloneJenkinsStackContext context = getJenkinsCloneContext(vs);
 
 	}
 
-	private static JenkinsCloneContext getJenkinsCloneContext(VirtualSystem vs) {
+	private static CloneJenkinsStackContext getJenkinsCloneContext(VirtualSystem vs) {
 		Stack src = Stack.valueOf(getRequiredProperty(vs, "ec2.stack.src"));
 		Stack dst = Stack.valueOf(getRequiredProperty(vs, "ec2.stack.dst"));
 		String region = getRequiredProperty(vs, "ec2.ami.region");
-		return new JenkinsCloneContext.Builder().withDstStack(dst).withSrcStack(src).withRegion(region).build();
+		return new CloneJenkinsStackContext.Builder().withDstStack(dst).withSrcStack(src).withRegion(region).build();
 	}
 
 	private static String getRequiredProperty(VirtualSystem vs, String key) {

@@ -9,19 +9,19 @@ import com.amazonaws.regions.Region;
 import com.amazonaws.regions.RegionUtils;
 
 @IdiotProofImmutable
-public final class JenkinsCloneContext {
+public final class CloneJenkinsStackContext {
 
 	private final Region region;
 	private final Stack srcStack;
 	private final Stack dstStack;
 
-	private JenkinsCloneContext(Builder builder) {
+	private CloneJenkinsStackContext(Builder builder) {
 		this.region = builder.region;
 		this.srcStack = builder.srcStack;
 		this.dstStack = builder.dstStack;
 	}
 
-	public static class Builder extends ValidatingBuilder<JenkinsCloneContext> {
+	public static class Builder extends ValidatingBuilder<CloneJenkinsStackContext> {
 
 		private Region region = RegionUtils.getRegion("us-west-1");
 		private Stack srcStack = Tags.Stack.TEST;
@@ -43,8 +43,8 @@ public final class JenkinsCloneContext {
 		}
 
 		@Override
-		public JenkinsCloneContext build() {
-			return validate(new JenkinsCloneContext(this));
+		public CloneJenkinsStackContext build() {
+			return validate(new CloneJenkinsStackContext(this));
 		}
 	}
 
