@@ -39,12 +39,13 @@ public final class GenerateKeyPairContext {
 
 	public static class Builder extends ValidatingBuilder<GenerateKeyPairContext> {
 
-		// Required
-		private final String name;
-
 		// Optional
+		private String name = System.getProperty("user.name");
 		private Algorithm algorithm = Algorithm.RSA;
 		private int size = 2048;
+
+		public Builder() {
+		}
 
 		public Builder(String name) {
 			this.name = name;
