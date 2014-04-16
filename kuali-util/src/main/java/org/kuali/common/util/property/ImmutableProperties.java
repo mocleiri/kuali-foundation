@@ -15,7 +15,7 @@
  */
 package org.kuali.common.util.property;
 
-import static com.google.common.base.Preconditions.checkState;
+import static com.google.common.base.Preconditions.checkArgument;
 import static java.util.Collections.unmodifiableCollection;
 import static java.util.Collections.unmodifiableSet;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
@@ -43,7 +43,7 @@ public final class ImmutableProperties extends Properties {
 			Set<String> keys = original.stringPropertyNames();
 
 			// If the sizes are different, original contains at least one key or value that is not a string
-			checkState(keys.size() == original.size(), "Immutable properties only support strings");
+			checkArgument(keys.size() == original.size(), "Immutable properties only support strings");
 
 			// Copy every key/value pair from original - can't use putAll() since it calls put() which is now disabled
 			for (String key : keys) {
