@@ -19,6 +19,8 @@ import org.kuali.common.util.Str;
 import com.google.common.collect.ImmutableList;
 
 public class OpenSSLUtils {
+	
+	private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
 	public static byte[] combineByteArrays(byte[]... arrays) {
 		byte[] bytes = allocateByteArray(arrays);
@@ -44,7 +46,7 @@ public class OpenSSLUtils {
 
 	public static byte[] createSalt(int length) {
 		byte[] salt = new byte[length];
-		new SecureRandom().nextBytes(salt);
+		SECURE_RANDOM.nextBytes(salt);
 		return salt;
 	}
 
