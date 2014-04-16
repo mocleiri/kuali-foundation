@@ -24,7 +24,7 @@ import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.openSecureChannel;
 import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.publishProject;
 import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.verifySSH;
 import static org.kuali.common.devops.ci.model.Constants.AES_PASSPHRASE_ENCRYPTED;
-import static org.kuali.common.devops.ci.model.Constants.AMAZON_ACCOUNT;
+import static org.kuali.common.devops.ci.model.Constants.KUALI_FOUNDATION_ACCOUNT;
 import static org.kuali.common.devops.ci.model.Constants.DISTRO;
 import static org.kuali.common.devops.ci.model.Constants.DISTRO_VERSION;
 import static org.kuali.common.devops.ci.model.Constants.DOMAIN;
@@ -118,7 +118,7 @@ public class CreateBuildSlaveAMI {
 		BasicLaunchRequest request = getSlaveLaunchRequest(jenkinsContext);
 		ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
-		EC2Service service = getEC2Service(AMAZON_ACCOUNT, jenkinsContext.getRegion());
+		EC2Service service = getEC2Service(KUALI_FOUNDATION_ACCOUNT, jenkinsContext.getRegion());
 		List<Tag> tags = getSlaveTags(jenkinsContext);
 		Instance instance = launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
 		// Instance instance = service.getInstance("i-b488d5bd");
@@ -194,7 +194,7 @@ public class CreateBuildSlaveAMI {
 	protected void copyAmi(String sourceRegion, Set<String> regions, String ami, Tag namePlusStack, Tag stack) {
 		for (String region : regions) {
 			if (!region.equals(sourceRegion)) {
-				EC2Service service = new DefaultEC2Service(getAwsCredentials(AMAZON_ACCOUNT), region);
+				EC2Service service = new DefaultEC2Service(getAwsCredentials(KUALI_FOUNDATION_ACCOUNT), region);
 				String copiedAmi = service.copyAmi(sourceRegion, ami);
 				service.tag(copiedAmi, namePlusStack);
 				service.tag(copiedAmi, stack);

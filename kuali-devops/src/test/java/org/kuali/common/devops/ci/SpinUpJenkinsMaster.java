@@ -94,7 +94,7 @@ public class SpinUpJenkinsMaster {
 
 	private final Stopwatch sw = createStarted();
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_MASTER.getGroup());
-	private final String amazonAccount = Constants.AMAZON_ACCOUNT;
+	private final String amazonAccount = Constants.KUALI_FOUNDATION_ACCOUNT;
 	private static final String DOMAIN = Constants.DOMAIN;
 	private final Distro distro = Distro.UBUNTU;
 	private final String distroVersion = Constants.DISTRO_VERSION;

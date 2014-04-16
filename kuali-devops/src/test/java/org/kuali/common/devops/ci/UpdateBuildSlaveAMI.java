@@ -17,7 +17,7 @@ import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.getJenkinsContext;
 import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.getResource;
 import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.openSecureChannel;
 import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.publishProject;
-import static org.kuali.common.devops.ci.model.Constants.AMAZON_ACCOUNT;
+import static org.kuali.common.devops.ci.model.Constants.KUALI_FOUNDATION_ACCOUNT;
 import static org.kuali.common.devops.ci.model.Constants.DISTRO;
 import static org.kuali.common.devops.ci.model.Constants.DISTRO_VERSION;
 import static org.kuali.common.devops.ci.model.Constants.ROOT;
@@ -59,7 +59,7 @@ public class UpdateBuildSlaveAMI {
 		// Default to quiet mode unless they've supplied -Dec2.quiet=false
 		boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
 		JenkinsContext jenkinsContext = getJenkinsContext(vs, CONTEXTS);
-		EC2Service service = getEC2Service(AMAZON_ACCOUNT, jenkinsContext.getRegion());
+		EC2Service service = getEC2Service(KUALI_FOUNDATION_ACCOUNT, jenkinsContext.getRegion());
 		String ami = getMostRecentAMI(service, jenkinsContext);
 		String privateKey = DEVOPS_KEYPAIR.getPrivateKey();
 		String jenkinsMaster = getJenkinsMaster(jenkinsContext);

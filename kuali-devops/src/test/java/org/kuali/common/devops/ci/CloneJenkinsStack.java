@@ -4,7 +4,7 @@ import static com.google.common.base.Optional.fromNullable;
 import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.equalsIgnoreCase;
 import static org.kuali.common.devops.ci.UpdateBuildSlaveAMI.getMostRecentAMI;
-import static org.kuali.common.devops.ci.model.Constants.AMAZON_ACCOUNT;
+import static org.kuali.common.devops.ci.model.Constants.KUALI_FOUNDATION_ACCOUNT;
 import static org.kuali.common.devops.logic.Auth.getAwsCredentials;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.log.Loggers.newLogger;
@@ -31,7 +31,7 @@ public class CloneJenkinsStack {
 		VirtualSystem vs = VirtualSystem.create();
 		boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
 		CloneJenkinsStackContext context = getCloneJenkinsStackContext(vs);
-		AWSCredentials creds = getAwsCredentials(AMAZON_ACCOUNT);
+		AWSCredentials creds = getAwsCredentials(KUALI_FOUNDATION_ACCOUNT);
 		EC2Service service = new DefaultEC2Service(creds, context.getRegion().getName());
 		String ami = getMostRecentAMI(service, context.getDstStack().getTag(), Tags.Name.SLAVE.getTag());
 	}
