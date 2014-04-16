@@ -3,28 +3,33 @@ package org.kuali.common.devops.ci;
 import org.kuali.common.aws.ec2.model.ImmutableTag;
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
+import org.kuali.common.devops.aws.Tags;
+
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.RegionUtils;
+import com.amazonaws.services.ec2.model.Tag;
 
 @IdiotProofImmutable
 public final class JenkinsCloneContext {
 
-	private final String region;
+	private final Region region;
 	private final ImmutableTag srcStack;
 	private final ImmutableTag dstStack;
 
 	private JenkinsCloneContext(Builder builder) {
 		this.region = builder.region;
-		this.srcStack = builder.srcStack;
-		this.dstStack = builder.dstStack;
+		this.srcStack = ImmutableTag.copyOf(builder.srcStack);
+		this.dstStack = ImmutableTag.copyOf(builder.dstStack);
 	}
 
 	public static class Builder extends ValidatingBuilder<JenkinsCloneContext> {
 
-		private String region;
-		private ImmutableTag srcStack;
-		private ImmutableTag dstStack;
+		private Region region = RegionUtils.getRegion("us-west-1");
+		private Tag srcStack = Tags.Stack.TEST.getTag();
+		private Tag dstStack = Tags.Stack.PRODUCTION.getTag();
 
 		public Builder withRegion(String region) {
-			this.region = region;
+			this.region = RegionUtils.getRegion(region);
 			return this;
 		}
 
@@ -44,15 +49,15 @@ public final class JenkinsCloneContext {
 		}
 	}
 
-	public String getRegion() {
+	public Region getRegion() {
 		return region;
 	}
 
-	public ImmutableTag getSrcStack() {
+	public Tag getSrcStack() {
 		return srcStack;
 	}
 
-	public ImmutableTag getDstStack() {
+	public Tag getDstStack() {
 		return dstStack;
 	}
 
