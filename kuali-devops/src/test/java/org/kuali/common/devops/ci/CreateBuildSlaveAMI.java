@@ -162,9 +162,11 @@ public class CreateBuildSlaveAMI {
 	}
 
 	protected String createAndPropagateAMI(Instance instance, EC2Service service, BasicLaunchRequest request, Tag stack) {
-		// Tack test/prod onto the end of the name to make it very clear which stack the ami belongs to
 		String description = format("automated ec2 slave ami - %s", today);
+
+		// Tack test/prod onto the end of the name to make it very clear which stack the ami belongs to
 		Tag namePlusStack = new ImmutableTag(name.getKey(), name.getValue() + "-" + stack.getValue());
+		
 		List<BlockDeviceMapping> additionalMappings = ImmutableBlockDeviceMapping.DEFAULT_INSTANCE_STORES;
 		CreateAMIRequest creator = CreateAMIRequest.builder().withInstanceId(instance.getInstanceId()).withName(namePlusStack).withRootVolume(request.getRootVolume())
 				.withAdditionalMappings(additionalMappings).withTimeoutMillis(request.getTimeoutMillis()).withDescription(description).build();
