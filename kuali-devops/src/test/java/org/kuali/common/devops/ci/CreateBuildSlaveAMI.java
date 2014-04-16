@@ -180,7 +180,7 @@ public class CreateBuildSlaveAMI {
 		service.terminateInstance(instance.getInstanceId());
 
 		// Make sure we only have 7 AMI's for CI slaves in the current region
-		cleanupAmis(service, stack);
+		cleanupAmis(service, stack, minimumAmisToKeep);
 
 		// Copy the new AMI to every US region
 		copyAmi(service.getRegion(), US_REGIONS, image.getImageId(), stack);
@@ -195,7 +195,7 @@ public class CreateBuildSlaveAMI {
 				EC2Service service = new DefaultEC2Service(getAwsCredentials(KUALI_FOUNDATION_ACCOUNT), region);
 				String copiedAmi = service.copyAmi(sourceRegion, ami);
 				service.tag(copiedAmi, stack);
-				cleanupAmis(service, stack);
+				cleanupAmis(service, stack, minimumAmisToKeep);
 			}
 		}
 	}
@@ -245,9 +245,9 @@ public class CreateBuildSlaveAMI {
 		return BasicLaunchRequest.builder().withAmi(ami).withRootVolume(rootVolume).withTimeoutMillis(timeoutMillis).withType(type).build();
 	}
 
-	protected void cleanupAmis(EC2Service service, Tag stack) {
+	protected static void cleanupAmis(EC2Service service, Tag stack, int minToKeep) {
 		List<Image> images = service.getMyImages();
-		List<Image> filtered = getFilteredImages(images, stack, name.getKey(), CI_SLAVE_STARTS_WITH_TOKEN);
+		List<Image> filtered = getFilteredImages(images, stack, Tags.Name.SLAVE.getTag().getKey(), CI_SLAVE_STARTS_WITH_TOKEN);
 		// Sort by Name tag
 		sort(filtered, new ImageTagsComparator());
 
@@ -262,12 +262,12 @@ public class CreateBuildSlaveAMI {
 			logger.debug(format("slave ami   -> %s = [%s]", tag.getValue(), image.getImageId()));
 		}
 		List<Image> deletes = newArrayList();
-		for (int i = minimumAmisToKeep; i < filtered.size(); i++) {
+		for (int i = minToKeep; i < filtered.size(); i++) {
 			deletes.add(filtered.get(i));
 		}
 		sort(deletes, new ImageTagsComparator());
 		logger.info(format("slave ami's ->  total -> %s", filtered.size()));
-		logger.info(format("slave ami's -> retain -> %s", minimumAmisToKeep));
+		logger.info(format("slave ami's -> retain -> %s", minToKeep));
 		logger.info(format("slave ami's -> delete -> %s", deletes.size()));
 		for (Image image : deletes) {
 			Tag tag = findRequiredTag(image.getTags(), name.getKey(), CI_SLAVE_STARTS_WITH_TOKEN);
@@ -377,7 +377,7 @@ public class CreateBuildSlaveAMI {
 		return new DefaultEC2Service(ec, ws);
 	}
 
-	protected void info(String msg, Object... args) {
+	protected static void info(String msg, Object... args) {
 		if (args == null) {
 			logger.info(msg);
 		} else {

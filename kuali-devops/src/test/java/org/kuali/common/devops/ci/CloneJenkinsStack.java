@@ -10,6 +10,8 @@ import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.log.Loggers.newLogger;
 import static org.kuali.common.util.nullify.NullUtils.trimToNull;
 
+import java.util.Set;
+
 import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
@@ -20,6 +22,7 @@ import org.kuali.common.devops.ci.model.CloneJenkinsStackContext;
 import org.slf4j.Logger;
 
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Optional;
 
 public class CloneJenkinsStack {
@@ -34,6 +37,16 @@ public class CloneJenkinsStack {
 		AWSCredentials creds = getAwsCredentials(KUALI_FOUNDATION_ACCOUNT);
 		EC2Service service = new DefaultEC2Service(creds, context.getRegion().getName());
 		String ami = getMostRecentAMI(service, context.getDstStack().getTag(), Tags.Name.SLAVE.getTag());
+	}
+
+	protected void copyAmi(String sourceRegion, Set<String> regions, String ami, Tag stack) {
+		for (String region : regions) {
+			if (!region.equals(sourceRegion)) {
+				EC2Service service = new DefaultEC2Service(getAwsCredentials(KUALI_FOUNDATION_ACCOUNT), region);
+				String copiedAmi = service.copyAmi(sourceRegion, ami);
+				service.tag(copiedAmi, stack);
+			}
+		}
 	}
 
 	private static CloneJenkinsStackContext getCloneJenkinsStackContext(VirtualSystem vs) {
