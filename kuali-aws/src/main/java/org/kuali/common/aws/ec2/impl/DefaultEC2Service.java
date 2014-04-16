@@ -166,13 +166,17 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	@Override
-	public String copyAmi(String region, String ami) {
+	public String copyAmi(String region, String ami, Optional<String> name) {
 		checkNotBlank(region, "region");
 		checkNotBlank(ami, "ami");
+		checkNotBlank(name, "name");
 		checkNotNull(RegionUtils.getRegion(region), "region %s is unknown", region);
 		CopyImageRequest request = new CopyImageRequest();
 		request.setSourceImageId(ami);
 		request.setSourceRegion(region);
+		if (name.isPresent()) {
+			request.setName(name.get());
+		}
 		CopyImageResult result = client.copyImage(request);
 		return result.getImageId();
 	}

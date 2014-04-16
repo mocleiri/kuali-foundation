@@ -46,7 +46,7 @@ public interface EC2Service {
 
 	String getAccessKey();
 
-	String copyAmi(String region, String ami);
+	String copyAmi(String region, String ami, Optional<String> name);
 
 	Instance startInstance(String instanceId);
 
