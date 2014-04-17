@@ -1,14 +1,17 @@
 package org.kuali.common.aws.s3;
 
-import org.kuali.common.aws.ec2.model.Regions;
+import static org.kuali.common.aws.ec2.model.Regions.DEFAULT_REGION;
+
 import org.kuali.common.aws.model.ImmutableAWSCredentials;
 import org.kuali.common.core.build.ValidatingBuilder;
+import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.RegionUtils;
 import com.amazonaws.services.s3.AmazonS3Client;
 
+@IdiotProofImmutable
 public final class DefaultS3Service implements S3Service {
 
 	private final ImmutableAWSCredentials credentials;
@@ -37,7 +40,7 @@ public final class DefaultS3Service implements S3Service {
 	public static class Builder extends ValidatingBuilder<DefaultS3Service> {
 
 		private AWSCredentials credentials;
-		private Region region = RegionUtils.getRegion(Regions.DEFAULT_REGION.getName());
+		private Region region = RegionUtils.getRegion(DEFAULT_REGION.getName());
 
 		public Builder withCredentials(ImmutableAWSCredentials credentials) {
 			this.credentials = credentials;
@@ -55,7 +58,7 @@ public final class DefaultS3Service implements S3Service {
 		}
 	}
 
-	public ImmutableAWSCredentials getCredentials() {
+	public AWSCredentials getCredentials() {
 		return credentials;
 	}
 
