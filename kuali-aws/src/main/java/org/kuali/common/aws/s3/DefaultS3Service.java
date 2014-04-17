@@ -24,6 +24,9 @@ public final class DefaultS3Service implements S3Service {
 	// Mutable! Don't expose via a getter
 	private final AmazonS3Client client;
 
+	/**
+	 * Copy an object in a bucket to another name. Copies the original objects metadata and ACL.
+	 */
 	@Override
 	public CopyObjectResult copyObject(String bucket, String srcKey, String dstKey) {
 		checkNotBlank(bucket, "bucket");
