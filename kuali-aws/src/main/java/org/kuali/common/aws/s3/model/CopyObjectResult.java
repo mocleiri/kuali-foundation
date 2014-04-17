@@ -1,7 +1,7 @@
 package org.kuali.common.aws.s3.model;
 
 import static com.google.common.base.Optional.absent;
-import static com.google.common.base.Optional.fromNullable;
+import static org.apache.commons.lang3.StringUtils.trimToNull;
 
 import javax.validation.constraints.Min;
 
@@ -34,12 +34,18 @@ public final class CopyObjectResult {
 		Builder builder = builder();
 		builder.withEtag(mutable.getETag());
 		builder.withLastModifiedDate(mutable.getLastModifiedDate().getTime());
-		builder.withVersionId(mutable.getVersionId());
-		builder.withServerSideEncryption(mutable.getServerSideEncryption());
+		if (trimToNull(mutable.getVersionId()) != null) {
+			builder.withVersionId(trimToNull(mutable.getVersionId()));
+		}
+		if (trimToNull(mutable.getServerSideEncryption()) != null) {
+			builder.withServerSideEncryption(trimToNull(mutable.getServerSideEncryption()));
+		}
+		if (trimToNull(mutable.getExpirationTimeRuleId()) != null) {
+			builder.withExpirationTimeRuleId(trimToNull(mutable.getExpirationTimeRuleId()));
+		}
 		if (mutable.getExpirationTime() != null) {
 			builder.withExpirationTime(mutable.getExpirationTime().getTime());
 		}
-		builder.withExpirationTimeRuleId(mutable.getExpirationTimeRuleId());
 		return builder.build();
 	}
 
@@ -67,12 +73,12 @@ public final class CopyObjectResult {
 		}
 
 		public Builder withVersionId(String versionId) {
-			this.versionId = fromNullable(versionId);
+			this.versionId = Optional.of(versionId);
 			return this;
 		}
 
 		public Builder withServerSideEncryption(String serverSideEncryption) {
-			this.serverSideEncryption = fromNullable(serverSideEncryption);
+			this.serverSideEncryption = Optional.of(serverSideEncryption);
 			return this;
 		}
 
@@ -86,7 +92,7 @@ public final class CopyObjectResult {
 		}
 
 		public Builder withExpirationTimeRuleId(String expirationTimeRuleId) {
-			this.expirationTimeRuleId = fromNullable(expirationTimeRuleId);
+			this.expirationTimeRuleId = Optional.of(expirationTimeRuleId);
 			return this;
 		}
 
