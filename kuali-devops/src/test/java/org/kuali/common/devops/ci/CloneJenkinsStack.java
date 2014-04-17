@@ -55,15 +55,25 @@ public class CloneJenkinsStack {
 		String oldName = ami.getName();
 		int pos = oldName.lastIndexOf("-");
 		String newName = oldName.substring(0, pos) + "-" + stack.getValue();
+		String copiedAmi = null;
+		String copiedRegion = null;
 		for (String region : regions) {
 			if (!region.equals(sourceRegion)) {
 				EC2Service service = new DefaultEC2Service(getAwsCredentials(KUALI_FOUNDATION_ACCOUNT), region);
-				String copiedAmi = service.copyAmi(sourceRegion, ami.getImageId(), newName);
+				info("copying %s to %s", newName, region);
+				copiedAmi = service.copyAmi(sourceRegion, ami.getImageId(), newName);
+				copiedRegion = region;
 				service.tag(copiedAmi, stack);
 				service.tag(copiedAmi, new ImmutableTag(Tags.Name.SLAVE.getTag().getKey(), newName));
 				cleanupAmis(service, stack, 7);
 			}
 		}
+		EC2Service service = new DefaultEC2Service(getAwsCredentials(KUALI_FOUNDATION_ACCOUNT), copiedRegion);
+		info("copying %s to %s", newName, copiedRegion);
+		String amiCopiedBackToSourceRegion = service.copyAmi(sourceRegion, copiedAmi, newName);
+		service.tag(amiCopiedBackToSourceRegion, stack);
+		service.tag(amiCopiedBackToSourceRegion, new ImmutableTag(Tags.Name.SLAVE.getTag().getKey(), newName));
+		cleanupAmis(service, stack, 7);
 	}
 
 	private static CloneJenkinsStackContext getCloneJenkinsStackContext(VirtualSystem vs) {
