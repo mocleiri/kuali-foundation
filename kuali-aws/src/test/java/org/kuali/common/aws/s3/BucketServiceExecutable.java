@@ -15,6 +15,9 @@
  */
 package org.kuali.common.aws.s3;
 
+import org.kuali.common.aws.s3.old.BucketService;
+import org.kuali.common.aws.s3.old.ListingResult;
+import org.kuali.common.aws.s3.old.ObjectListingsContext;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.execute.Executable;

@@ -13,16 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.aws.s3;
+package org.kuali.common.aws.s3.old;
 
-import org.kuali.common.util.FormatUtils;
 
-public abstract class BucketConstants {
+public interface BucketService {
 
-	public static final int DEFAULT_PREFIX_ESTIMATE = 100;
-	public static final String DEFAULT_DELIMITER = "/";
-	public static final int DEFAULT_MAX_KEYS = 1000;
-	public static final int DEFAULT_MAX_LISTINGS = 10000;
-	public static final int DEFAULT_LISTINGS_TIMEOUT_MILLIS = (int) FormatUtils.getMillis("10m");
+	/**
+	 * Examine an S3 bucket and return ObjectListings
+	 */
+	ListingResult getObjectListings(ObjectListingsContext context);
 
 }

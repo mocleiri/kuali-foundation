@@ -24,7 +24,7 @@ import java.util.TimeZone;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.common.aws.AmazonWebServiceRequestType;
 import org.kuali.common.aws.TypedRequest;
-import org.kuali.common.aws.s3.BucketContext;
+import org.kuali.common.aws.s3.old.BucketContext;
 import org.kuali.common.util.Str;
 
 import com.amazonaws.services.s3.model.CopyObjectRequest;

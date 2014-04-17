@@ -20,7 +20,7 @@ import java.util.List;
 
 import org.kuali.common.aws.AmazonWebServiceRequestType;
 import org.kuali.common.aws.TypedRequest;
-import org.kuali.common.aws.s3.BucketContext;
+import org.kuali.common.aws.s3.old.BucketContext;
 
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.PutObjectRequest;

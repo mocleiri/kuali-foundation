@@ -18,7 +18,7 @@ package org.kuali.common.aws.cloudfront;
 import java.util.Comparator;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.common.aws.s3.BucketConstants;
+import org.kuali.common.aws.s3.old.BucketConstants;
 
 /**
  * Sort version numbers in the correct order.

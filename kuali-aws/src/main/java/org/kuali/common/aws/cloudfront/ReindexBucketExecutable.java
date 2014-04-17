@@ -17,10 +17,10 @@ package org.kuali.common.aws.cloudfront;
 
 import java.util.List;
 
-import org.kuali.common.aws.s3.BucketContext;
-import org.kuali.common.aws.s3.BucketService;
-import org.kuali.common.aws.s3.ListingResult;
-import org.kuali.common.aws.s3.ObjectListingsContext;
+import org.kuali.common.aws.s3.old.BucketContext;
+import org.kuali.common.aws.s3.old.BucketService;
+import org.kuali.common.aws.s3.old.ListingResult;
+import org.kuali.common.aws.s3.old.ObjectListingsContext;
 import org.kuali.common.util.execute.Executable;
 
 import com.amazonaws.services.s3.model.ObjectListing;
