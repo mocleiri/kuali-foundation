@@ -69,9 +69,9 @@ function install_mysql_server {
   service mysql stop
 
   MY_CNF=/etc/mysql/my.cnf
-  sed -i 's/[mysqld]/[mysqld]\nmax_connections=1000/' $MY_CNF
-  sed -i 's/[mysqld]/[mysqld]\nlower_case_table_names=1/' $MY_CNF
-  sed -i 's/[mysqld]/[mysqld]\ntransaction-isolation=READ-COMMITTED/' $MY_CNF
+  sed -i 's/[mysqld]/[mysqld]\nmax_connections=1000\n/' $MY_CNF
+  sed -i 's/[mysqld]/[mysqld]\nlower_case_table_names=1\n/' $MY_CNF
+  sed -i 's/[mysqld]/[mysqld]\ntransaction-isolation=READ-COMMITTED\n/' $MY_CNF
   
   service mysql start
   
