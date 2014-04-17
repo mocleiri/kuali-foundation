@@ -1,8 +1,11 @@
 package org.kuali.common.aws.s3;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static org.kuali.common.aws.ec2.model.Regions.DEFAULT_REGION;
+import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 import org.kuali.common.aws.model.ImmutableAWSCredentials;
+import org.kuali.common.aws.s3.model.CopyObjectResult;
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
@@ -21,7 +24,12 @@ public final class DefaultS3Service implements S3Service {
 	private final AmazonS3Client client;
 
 	@Override
-	public void copyObject(String bucket, String srcKey, String dstKey) {
+	public CopyObjectResult copyObject(String bucket, String srcKey, String dstKey) {
+		checkNotBlank(bucket, "bucket");
+		checkNotBlank(srcKey, "srcKey");
+		checkNotBlank(dstKey, "dstKey");
+		checkArgument(!srcKey.equals(dstKey), "srcKey cannot be the same as dstKey -> [%s] == [%s]", srcKey, dstKey);
+		return CopyObjectResult.copyOf(client.copyObject(bucket, srcKey, bucket, dstKey));
 	}
 
 	private DefaultS3Service(Builder builder) {
