@@ -84,7 +84,7 @@ public class CloneJenkinsStack {
 	protected String getJenkinsBackupKey(String artifactId, String version, String stack, Optional<String> mode) {
 		String prefix = "private";
 		String groupId = "org.jenkins";
-		String classifier = stack + "-latest-" + (mode.isPresent() ? mode.get() : "");
+		String classifier = stack + "-latest" + (mode.isPresent() ? "-" + mode.get() : "");
 		String type = "tar.gz";
 		String filename = artifactId + "-" + version + "-" + classifier + "." + type;
 		return Joiner.on('/').join(prefix, getPath(groupId), artifactId, version, filename);
