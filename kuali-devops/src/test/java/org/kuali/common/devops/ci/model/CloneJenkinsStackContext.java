@@ -31,7 +31,7 @@ public final class CloneJenkinsStackContext {
 		private Stack srcStack = Tags.Stack.TEST;
 		private Stack dstStack = Tags.Stack.PROD;
 		private BackupMode mode = BackupMode.THIN;
-		private String version = "1.532.3";
+		private String version = Constants.JENKINS_VERSION;
 
 		public Builder withMode(BackupMode mode) {
 			this.mode = mode;
