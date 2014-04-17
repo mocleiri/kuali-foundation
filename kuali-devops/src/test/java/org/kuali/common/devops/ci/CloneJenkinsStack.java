@@ -65,7 +65,7 @@ public class CloneJenkinsStack {
 		int pos = amiName.lastIndexOf("-");
 		String newName = amiName.substring(0, pos) + "-" + stack.getValue();
 		EC2Service service = new DefaultEC2Service(getAwsCredentials(KUALI_FOUNDATION_ACCOUNT), dstRegion);
-		info("copying %s from %s to %s as %s", amiName, srcRegion, dstRegion, newName);
+		info("copying [%s] from [%s] to [%s] as [%s]", amiName, srcRegion, dstRegion, newName);
 		String newAmi = service.copyAmi(srcRegion, ami, newName);
 		service.tag(newAmi, stack);
 		service.tag(newAmi, new ImmutableTag(Tags.Name.SLAVE.getTag().getKey(), newName));
