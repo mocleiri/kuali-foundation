@@ -65,7 +65,7 @@ public class CloneJenkinsStack {
 		String region = "us-east-1";
 		String bucket = "maven.kuali.org";
 		AWSCredentials creds = getAwsCredentials(KUALI_FOUNDATION_ACCOUNT);
-		S3Service service = DefaultS3Service.builder().withCredentials(creds).withRegion(RegionUtils.getRegion(region)).build();
+		S3Service service = DefaultS3Service.builder(creds).withRegion(RegionUtils.getRegion(region)).build();
 		String srcKey1 = getJenkinsMasterBackupKey(context.getVersion(), context.getSrcStack().getTag().getValue(), context.getMode().name().toLowerCase());
 		String dstKey1 = getJenkinsMasterBackupKey(context.getVersion(), context.getDstStack().getTag().getValue(), context.getMode().name().toLowerCase());
 		String srcKey2 = getJenkinsMasterRepoBackupKey(context.getSrcStack().getTag().getValue());
