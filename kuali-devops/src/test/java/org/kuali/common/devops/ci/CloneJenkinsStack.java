@@ -65,7 +65,7 @@ public class CloneJenkinsStack {
 		String dstKey1 = getJenkinsMasterBackupKey(context.getVersion(), context.getDstStack().getTag().getValue(), context.getMode().name().toLowerCase());
 		String srcKey2 = getJenkinsMasterRepoBackupKey(context.getSrcStack().getTag().getValue());
 		String dstKey2 = getJenkinsMasterRepoBackupKey(context.getDstStack().getTag().getValue());
-		info("copy backup objects from '%s' to '%s' [%s %s]", context.getSrcStack().getTag().getValue(), context.getDstStack().getTag().getValue(), region, bucket);
+		info("copy backup objects from '%s' to '%s' [%s :: %s]", context.getSrcStack().getTag().getValue(), context.getDstStack().getTag().getValue(), region, bucket);
 		info("src -> https://%s/%s", bucket, srcKey1);
 		info("dst -> https://%s/%s", bucket, dstKey1);
 		service.copyObject(bucket, srcKey1, dstKey1);
