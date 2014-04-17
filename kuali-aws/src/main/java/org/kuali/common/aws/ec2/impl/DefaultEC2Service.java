@@ -190,7 +190,7 @@ public final class DefaultEC2Service implements EC2Service {
 		}
 		CopyImageResult result = client.copyImage(request);
 		Threads.sleep(1000);
-		waitForAmiState(result.getImageId(), AMI_AVAILABLE_STATE, getMillisAsInt("30m"));
+		waitForAmiState(result.getImageId(), AMI_AVAILABLE_STATE, getMillisAsInt("2h"));
 		return result.getImageId();
 	}
 
