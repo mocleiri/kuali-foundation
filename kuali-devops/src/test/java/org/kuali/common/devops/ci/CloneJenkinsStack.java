@@ -39,8 +39,8 @@ public class CloneJenkinsStack {
 
 	/**
 	 * 1 - Copy the latest ci.slave-xxx-test AMI from us-west-1 to all 3 US regions as ci.slave-xxx-prod<br>
-	 * 2 - Copy the latest jenkins-master-backup from test to prod<br>
-	 * 3 - Copy the latest jenkins-master-repo from test to prod<br>
+	 * 2 - Copy the latest jenkins-master-backup-xxx-test.tar.gz to jenkins-master-backup-xxx-prod.tar.gz<br>
+	 * 3 - Copy the latest jenkins-master-repo-m2-test.tar.gz to jenkins-master-repo-m2-prod.tar.gz<br>
 	 */
 	@Test
 	public void test() throws Exception {
