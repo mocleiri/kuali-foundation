@@ -55,17 +55,23 @@ public class CloneJenkinsStack {
 			System.setProperty("ec2.ami.region.src", "us-west-1");
 			VirtualSystem vs = VirtualSystem.create();
 			CloneJenkinsStackContext context = getCloneJenkinsStackContext(vs);
-			AWSCredentials creds = getAwsCredentials(KUALI_FOUNDATION_ACCOUNT);
-			EC2Service service = new DefaultEC2Service(creds, context.getRegion().getName());
-			String ami = getMostRecentAMI(service, context.getSrcStack().getTag(), Tags.Name.SLAVE.getTag());
-			Image image = service.getImage(ami);
-			copyAmi(context.getRegion().getName(), US_REGIONS, image, context.getDstStack().getTag());
+			if (!Boolean.getBoolean("ec2.ami.skip")) {
+				copyAMI(context);
+			}
 			copyBackups(context);
 			info("cloning completed - %s", FormatUtils.getTime(sw));
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail(e.getMessage());
 		}
+	}
+
+	protected void copyAMI(CloneJenkinsStackContext context) {
+		AWSCredentials creds = getAwsCredentials(KUALI_FOUNDATION_ACCOUNT);
+		EC2Service service = new DefaultEC2Service(creds, context.getRegion().getName());
+		String ami = getMostRecentAMI(service, context.getSrcStack().getTag(), Tags.Name.SLAVE.getTag());
+		Image image = service.getImage(ami);
+		copyAmi(context.getRegion().getName(), US_REGIONS, image, context.getDstStack().getTag());
 	}
 
 	protected void copyBackups(CloneJenkinsStackContext context) {
