@@ -1,6 +1,7 @@
 package org.kuali.common.devops.ci;
 
 import static com.google.common.base.Optional.fromNullable;
+import static com.google.common.base.Stopwatch.createStarted;
 import static java.lang.String.format;
 import static org.junit.Assert.fail;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.US_REGIONS;
@@ -25,6 +26,7 @@ import org.kuali.common.core.system.VirtualSystem;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.aws.Tags.Stack;
 import org.kuali.common.devops.ci.model.CloneJenkinsStackContext;
+import org.kuali.common.util.FormatUtils;
 import org.slf4j.Logger;
 
 import com.amazonaws.auth.AWSCredentials;
@@ -33,6 +35,7 @@ import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
+import com.google.common.base.Stopwatch;
 
 public class CloneJenkinsStack {
 
@@ -46,6 +49,7 @@ public class CloneJenkinsStack {
 	@Test
 	public void test() throws Exception {
 		try {
+			Stopwatch sw = createStarted();
 			System.setProperty("ec2.stack.src", "test");
 			System.setProperty("ec2.stack.dst", "prod");
 			System.setProperty("ec2.ami.region.src", "us-west-1");
@@ -57,6 +61,7 @@ public class CloneJenkinsStack {
 			Image image = service.getImage(ami);
 			copyAmi(context.getRegion().getName(), US_REGIONS, image, context.getDstStack().getTag());
 			copyBackups(context);
+			info("cloning completed - %s", FormatUtils.getTime(sw));
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail(e.getMessage());
