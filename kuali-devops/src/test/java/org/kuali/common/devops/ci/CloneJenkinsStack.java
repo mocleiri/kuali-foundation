@@ -36,7 +36,7 @@ public class CloneJenkinsStack {
 		try {
 			System.setProperty("ec2.stack.src", "test");
 			System.setProperty("ec2.stack.dst", "prod");
-			System.setProperty("ec2.ami.region", "us-west-1");
+			System.setProperty("ec2.ami.region.src", "us-west-1");
 			VirtualSystem vs = VirtualSystem.create();
 			CloneJenkinsStackContext context = getCloneJenkinsStackContext(vs);
 			AWSCredentials creds = getAwsCredentials(KUALI_FOUNDATION_ACCOUNT);
@@ -76,7 +76,7 @@ public class CloneJenkinsStack {
 	private static CloneJenkinsStackContext getCloneJenkinsStackContext(VirtualSystem vs) {
 		Stack src = Stack.valueOf(getRequiredProperty(vs, "ec2.stack.src").toUpperCase());
 		Stack dst = Stack.valueOf(getRequiredProperty(vs, "ec2.stack.dst").toUpperCase());
-		String region = getRequiredProperty(vs, "ec2.ami.region");
+		String region = getRequiredProperty(vs, "ec2.ami.region.src");
 		return new CloneJenkinsStackContext.Builder().withDstStack(dst).withSrcStack(src).withRegion(region).build();
 	}
 
