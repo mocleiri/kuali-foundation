@@ -13,6 +13,7 @@ import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_MASTER;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.CI_SLAVE_STARTS_WITH_TOKEN;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getBasicLaunchRequest;
+import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getCommonTags;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getEC2Service;
 import static org.kuali.common.devops.ci.model.Constants.AES_PASSPHRASE_ENCRYPTED;
 import static org.kuali.common.devops.ci.model.Constants.JENKINS_VERSION;
@@ -322,7 +323,7 @@ public class SpinUpJenkinsMaster {
 	protected static List<Tag> getMasterTags(JenkinsContext context, String fqdn) {
 		List<Tag> tags = newArrayList();
 		tags.add(new Tag("fqdn", fqdn));
-		tags.addAll(CreateBuildSlaveAMI.getCommonTags(context.getStack().getTag()));
+		tags.addAll(getCommonTags(context.getStack().getTag()));
 		tags.add(context.getName().getTag());
 		return ImmutableList.copyOf(tags);
 	}
