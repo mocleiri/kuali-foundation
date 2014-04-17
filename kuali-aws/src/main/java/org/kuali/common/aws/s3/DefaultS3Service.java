@@ -13,6 +13,7 @@ import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.RegionUtils;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CopyObjectRequest;
 
 @IdiotProofImmutable
 public final class DefaultS3Service implements S3Service {
@@ -29,7 +30,9 @@ public final class DefaultS3Service implements S3Service {
 		checkNotBlank(srcKey, "srcKey");
 		checkNotBlank(dstKey, "dstKey");
 		checkArgument(!srcKey.equals(dstKey), "srcKey cannot be the same as dstKey -> [%s] == [%s]", srcKey, dstKey);
-		return CopyObjectResult.copyOf(client.copyObject(bucket, srcKey, bucket, dstKey));
+		CopyObjectRequest request = new CopyObjectRequest(bucket, srcKey, bucket, dstKey);
+		request.setAccessControlList(client.getObjectAcl(bucket, srcKey));
+		return CopyObjectResult.copyOf(client.copyObject(request));
 	}
 
 	private DefaultS3Service(Builder builder) {
