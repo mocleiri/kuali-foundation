@@ -2,7 +2,6 @@ package org.kuali.common.devops.ci;
 
 import static com.google.common.base.Optional.fromNullable;
 import static java.lang.String.format;
-import static org.apache.commons.lang3.StringUtils.equalsIgnoreCase;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.cleanupAmis;
 import static org.kuali.common.devops.ci.UpdateBuildSlaveAMI.getMostRecentAMI;
 import static org.kuali.common.devops.ci.model.Constants.KUALI_FOUNDATION_ACCOUNT;
@@ -39,7 +38,6 @@ public class CloneJenkinsStack {
 			System.setProperty("ec2.stack.dst", "prod");
 			System.setProperty("ec2.ami.region", "us-west-1");
 			VirtualSystem vs = VirtualSystem.create();
-			boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
 			CloneJenkinsStackContext context = getCloneJenkinsStackContext(vs);
 			AWSCredentials creds = getAwsCredentials(KUALI_FOUNDATION_ACCOUNT);
 			EC2Service service = new DefaultEC2Service(creds, context.getRegion().getName());
@@ -52,28 +50,27 @@ public class CloneJenkinsStack {
 	}
 
 	protected void copyAmi(String srcRegion, Set<String> regions, Image ami, Tag stack) {
-		String oldName = ami.getName();
-		int pos = oldName.lastIndexOf("-");
-		String newName = oldName.substring(0, pos) + "-" + stack.getValue();
 		String copiedAmi = null;
 		String copiedRegion = null;
 		for (String dstRegion : regions) {
 			if (!dstRegion.equals(srcRegion)) {
-				EC2Service service = new DefaultEC2Service(getAwsCredentials(KUALI_FOUNDATION_ACCOUNT), dstRegion);
-				info("copying %s from %s to %s as %s", oldName, srcRegion, dstRegion, newName);
-				copiedAmi = service.copyAmi(srcRegion, ami.getImageId(), newName);
+				copiedAmi = copyAMI(srcRegion, ami.getImageId(), ami.getName(), dstRegion, stack);
 				copiedRegion = dstRegion;
-				service.tag(copiedAmi, stack);
-				service.tag(copiedAmi, new ImmutableTag(Tags.Name.SLAVE.getTag().getKey(), newName));
-				cleanupAmis(service, stack, 7);
 			}
 		}
-		EC2Service service = new DefaultEC2Service(getAwsCredentials(KUALI_FOUNDATION_ACCOUNT), srcRegion);
-		info("copying %s from %s to %s as %s", newName, copiedRegion, srcRegion, newName);
-		String amiCopiedBackToSourceRegion = service.copyAmi(copiedRegion, copiedAmi, newName);
-		service.tag(amiCopiedBackToSourceRegion, stack);
-		service.tag(amiCopiedBackToSourceRegion, new ImmutableTag(Tags.Name.SLAVE.getTag().getKey(), newName));
+		copyAMI(copiedRegion, copiedAmi, ami.getName(), srcRegion, stack);
+	}
+
+	protected String copyAMI(String srcRegion, String ami, String amiName, String dstRegion, Tag stack) {
+		int pos = amiName.lastIndexOf("-");
+		String newName = amiName.substring(0, pos) + "-" + stack.getValue();
+		EC2Service service = new DefaultEC2Service(getAwsCredentials(KUALI_FOUNDATION_ACCOUNT), dstRegion);
+		info("copying %s from %s to %s as %s", amiName, srcRegion, dstRegion, newName);
+		String newAmi = service.copyAmi(srcRegion, ami, newName);
+		service.tag(newAmi, stack);
+		service.tag(newAmi, new ImmutableTag(Tags.Name.SLAVE.getTag().getKey(), newName));
 		cleanupAmis(service, stack, 7);
+		return newAmi;
 	}
 
 	private static CloneJenkinsStackContext getCloneJenkinsStackContext(VirtualSystem vs) {
