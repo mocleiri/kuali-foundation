@@ -28,7 +28,6 @@ public class ObjectListingsContext {
 	}
 
 	public ObjectListingsContext(AmazonS3Client client, BucketContext bucketContext, ListingRequest request) {
-		super();
 		this.client = client;
 		this.bucketContext = bucketContext;
 		this.request = request;
