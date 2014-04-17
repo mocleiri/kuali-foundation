@@ -64,7 +64,7 @@ function install_mysql_server {
   execute_quietly "apt-get install mysql-server -y"
   
   # Remove the password for the root user
-  execute_quietly "mysqladmin -u root -p$MYSQL_ROOT_PASSWORD password ''"
+  mysqladmin -u root -p$MYSQL_ROOT_PASSWORD password ''
    
 }
 
