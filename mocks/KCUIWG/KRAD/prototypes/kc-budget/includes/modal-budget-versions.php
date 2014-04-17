@@ -160,12 +160,13 @@
             <div class="modal-body">
                 <p>You are about to generate data for each period based on the current period (1). This is a one-time action and cannot be undone. </p>
 				<P>Are you sure you want to do this?</p>
-                <small>
+                <!--<small>
                 <label style="font-weight:normal">
                     <input type="checkbox">
                     Don't ask me this again </label>
-                </small> </div>
-            <div class="modal-footer"> <a href="" class="btn btn-default" data-dismiss="modal">Cancel</a> <a href="budget-ng-summary2.php" class="btn btn-primary">Generate All Periods</a> </div>
+                </small> -->
+            </div>
+            <div class="modal-footer"> <a href="" class="btn btn-default" data-dismiss="modal">No, Cancel</a> <a href="budget-ng-summary2.php" class="btn btn-primary">Yes, Generate All Periods</a> </div>
         </div>
     </div>
 </div>
