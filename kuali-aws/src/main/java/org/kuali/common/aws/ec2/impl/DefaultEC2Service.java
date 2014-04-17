@@ -26,6 +26,7 @@ import static java.util.Collections.singletonList;
 import static org.kuali.common.aws.ec2.model.InstanceStateName.RUNNING;
 import static org.kuali.common.aws.ec2.model.InstanceStateName.STOPPED;
 import static org.kuali.common.aws.ec2.model.InstanceStateName.TERMINATED;
+import static org.kuali.common.util.FormatUtils.getMillisAsInt;
 import static org.kuali.common.util.FormatUtils.getTime;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
@@ -60,6 +61,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.SetUtils;
+import org.kuali.common.util.base.Threads;
 import org.kuali.common.util.condition.Condition;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitContext;
@@ -187,6 +189,8 @@ public final class DefaultEC2Service implements EC2Service {
 			request.setName(name.get());
 		}
 		CopyImageResult result = client.copyImage(request);
+		Threads.sleep(1000);
+		waitForAmiState(result.getImageId(), AMI_AVAILABLE_STATE, getMillisAsInt("30m"));
 		return result.getImageId();
 	}
 
