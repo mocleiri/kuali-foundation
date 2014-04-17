@@ -58,12 +58,16 @@ public class CloneJenkinsStack {
 				copiedRegion = dstRegion;
 			}
 		}
-		copyAMI(copiedRegion, copiedAmi, ami.getName(), srcRegion, stack);
+		copyAMI(copiedRegion, copiedAmi, getNewName(ami.getName(), stack.getValue()), srcRegion, stack);
+	}
+
+	protected String getNewName(String amiName, String stack) {
+		int pos = amiName.lastIndexOf("-");
+		return amiName.substring(0, pos) + "-" + stack;
 	}
 
 	protected String copyAMI(String srcRegion, String ami, String amiName, String dstRegion, Tag stack) {
-		int pos = amiName.lastIndexOf("-");
-		String newName = amiName.substring(0, pos) + "-" + stack.getValue();
+		String newName = getNewName(amiName, stack.getValue());
 		EC2Service service = new DefaultEC2Service(getAwsCredentials(KUALI_FOUNDATION_ACCOUNT), dstRegion);
 		info("copying [%s] from [%s] to [%s] as [%s]", amiName, srcRegion, dstRegion, newName);
 		String newAmi = service.copyAmi(srcRegion, ami, newName);
