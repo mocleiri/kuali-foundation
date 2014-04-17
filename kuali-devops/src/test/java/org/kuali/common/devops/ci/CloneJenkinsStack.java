@@ -69,6 +69,18 @@ public class CloneJenkinsStack {
 		service.copyObject(bucket, srcKey2, dstKey2);
 	}
 
+	protected void copyAmi(String srcRegion, Set<String> regions, Image ami, Tag stack) {
+		String copiedAmi = null;
+		String copiedRegion = null;
+		for (String dstRegion : regions) {
+			if (!dstRegion.equals(srcRegion)) {
+				copiedAmi = copyAMI(srcRegion, ami.getImageId(), ami.getName(), dstRegion, stack);
+				copiedRegion = dstRegion;
+			}
+		}
+		copyAMI(copiedRegion, copiedAmi, getNewName(ami.getName(), stack.getValue()), srcRegion, stack);
+	}
+
 	// private/org/jenkins/jenkins-master-repo/m2/jenkins-master-repo-m2-test-latest.tar.gz
 	protected String getJenkinsMasterRepoBackupKey(String stack) {
 		return getJenkinsBackupKey("jenkins-master-repo", "m2", stack, Optional.<String> absent());
@@ -85,18 +97,6 @@ public class CloneJenkinsStack {
 		String type = "tar.gz";
 		String filename = artifactId + "-" + version + "-" + classifier + "." + type;
 		return Joiner.on('/').join(prefix, getPath(groupId), artifactId, version, filename);
-	}
-
-	protected void copyAmi(String srcRegion, Set<String> regions, Image ami, Tag stack) {
-		String copiedAmi = null;
-		String copiedRegion = null;
-		for (String dstRegion : regions) {
-			if (!dstRegion.equals(srcRegion)) {
-				copiedAmi = copyAMI(srcRegion, ami.getImageId(), ami.getName(), dstRegion, stack);
-				copiedRegion = dstRegion;
-			}
-		}
-		copyAMI(copiedRegion, copiedAmi, getNewName(ami.getName(), stack.getValue()), srcRegion, stack);
 	}
 
 	protected String getNewName(String amiName, String stack) {
