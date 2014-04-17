@@ -86,7 +86,7 @@ public final class CopyObjectResult {
 		}
 
 		public Builder withExpirationTimeRuleId(String expirationTimeRuleId) {
-			this.expirationTimeRuleId = Optional.of(expirationTimeRuleId);
+			this.expirationTimeRuleId = fromNullable(expirationTimeRuleId);
 			return this;
 		}
 
