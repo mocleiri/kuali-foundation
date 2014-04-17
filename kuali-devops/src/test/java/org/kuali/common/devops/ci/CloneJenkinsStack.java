@@ -49,7 +49,7 @@ public class CloneJenkinsStack {
 			EC2Service service = new DefaultEC2Service(creds, context.getRegion().getName());
 			String ami = getMostRecentAMI(service, context.getSrcStack().getTag(), Tags.Name.SLAVE.getTag());
 			Image image = service.getImage(ami);
-			circulateAMI(context.getRegion().getName(), US_REGIONS, image, context.getDstStack().getTag());
+			copyAmi(context.getRegion().getName(), US_REGIONS, image, context.getDstStack().getTag());
 			copyBackups(context);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -87,7 +87,7 @@ public class CloneJenkinsStack {
 		return Joiner.on('/').join(prefix, getPath(groupId), artifactId, version, filename);
 	}
 
-	protected void circulateAMI(String srcRegion, Set<String> regions, Image ami, Tag stack) {
+	protected void copyAmi(String srcRegion, Set<String> regions, Image ami, Tag stack) {
 		String copiedAmi = null;
 		String copiedRegion = null;
 		for (String dstRegion : regions) {
