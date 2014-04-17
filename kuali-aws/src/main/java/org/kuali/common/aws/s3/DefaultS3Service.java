@@ -47,18 +47,17 @@ public final class DefaultS3Service implements S3Service {
 		this.client.setRegion(region);
 	}
 
-	public static Builder builder() {
-		return new Builder();
+	public static Builder builder(AWSCredentials credentials) {
+		return new Builder(credentials);
 	}
 
 	public static class Builder extends ValidatingBuilder<DefaultS3Service> {
 
-		private AWSCredentials credentials;
+		private final AWSCredentials credentials;
 		private Region region = RegionUtils.getRegion(DEFAULT_REGION.getName());
 
-		public Builder withCredentials(AWSCredentials credentials) {
+		public Builder(AWSCredentials credentials) {
 			this.credentials = credentials;
-			return this;
 		}
 
 		public Builder withRegion(Region region) {
