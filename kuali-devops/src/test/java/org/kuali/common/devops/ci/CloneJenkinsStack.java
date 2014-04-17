@@ -51,26 +51,26 @@ public class CloneJenkinsStack {
 		}
 	}
 
-	protected void copyAmi(String sourceRegion, Set<String> regions, Image ami, Tag stack) {
+	protected void copyAmi(String srcRegion, Set<String> regions, Image ami, Tag stack) {
 		String oldName = ami.getName();
 		int pos = oldName.lastIndexOf("-");
 		String newName = oldName.substring(0, pos) + "-" + stack.getValue();
 		String copiedAmi = null;
 		String copiedRegion = null;
-		for (String region : regions) {
-			if (!region.equals(sourceRegion)) {
-				EC2Service service = new DefaultEC2Service(getAwsCredentials(KUALI_FOUNDATION_ACCOUNT), region);
-				info("copying %s to %s as %s", oldName, region, newName);
-				copiedAmi = service.copyAmi(sourceRegion, ami.getImageId(), newName);
-				copiedRegion = region;
+		for (String dstRegion : regions) {
+			if (!dstRegion.equals(srcRegion)) {
+				EC2Service service = new DefaultEC2Service(getAwsCredentials(KUALI_FOUNDATION_ACCOUNT), dstRegion);
+				info("copying %s from %s to %s as %s", oldName, srcRegion, dstRegion, newName);
+				copiedAmi = service.copyAmi(srcRegion, ami.getImageId(), newName);
+				copiedRegion = dstRegion;
 				service.tag(copiedAmi, stack);
 				service.tag(copiedAmi, new ImmutableTag(Tags.Name.SLAVE.getTag().getKey(), newName));
 				cleanupAmis(service, stack, 7);
 			}
 		}
-		EC2Service service = new DefaultEC2Service(getAwsCredentials(KUALI_FOUNDATION_ACCOUNT), copiedRegion);
-		info("copying %s to %s as %s", oldName, copiedRegion, newName);
-		String amiCopiedBackToSourceRegion = service.copyAmi(sourceRegion, copiedAmi, newName);
+		EC2Service service = new DefaultEC2Service(getAwsCredentials(KUALI_FOUNDATION_ACCOUNT), srcRegion);
+		info("copying %s from %s to %s as %s", newName, copiedRegion, srcRegion, newName);
+		String amiCopiedBackToSourceRegion = service.copyAmi(copiedRegion, copiedAmi, newName);
 		service.tag(amiCopiedBackToSourceRegion, stack);
 		service.tag(amiCopiedBackToSourceRegion, new ImmutableTag(Tags.Name.SLAVE.getTag().getKey(), newName));
 		cleanupAmis(service, stack, 7);
