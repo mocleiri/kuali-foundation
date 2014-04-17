@@ -1,5 +1,7 @@
 package org.kuali.common.aws.s3.model;
 
+import javax.validation.constraints.Min;
+
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
@@ -7,9 +9,11 @@ import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 public final class CopyObjectResult {
 
 	private String etag;
+	@Min(0)
 	private long lastModifiedDate;
 	private String versionId;
 	private String serverSideEncryption;
+	@Min(0)
 	private long expirationTime;
 	private String expirationTimeRuleId;
 
