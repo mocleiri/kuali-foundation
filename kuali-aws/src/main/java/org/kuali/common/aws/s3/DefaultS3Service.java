@@ -56,7 +56,7 @@ public final class DefaultS3Service implements S3Service {
 		private AWSCredentials credentials;
 		private Region region = RegionUtils.getRegion(DEFAULT_REGION.getName());
 
-		public Builder withCredentials(ImmutableAWSCredentials credentials) {
+		public Builder withCredentials(AWSCredentials credentials) {
 			this.credentials = credentials;
 			return this;
 		}

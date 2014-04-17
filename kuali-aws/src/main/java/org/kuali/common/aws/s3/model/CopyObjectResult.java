@@ -1,21 +1,24 @@
 package org.kuali.common.aws.s3.model;
 
+import static com.google.common.base.Optional.absent;
+
 import javax.validation.constraints.Min;
 
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
+import com.google.common.base.Optional;
+
 @IdiotProofImmutable
 public final class CopyObjectResult {
 
-	private String etag;
+	private final String etag;
 	@Min(0)
-	private long lastModifiedDate;
-	private String versionId;
-	private String serverSideEncryption;
-	@Min(0)
-	private long expirationTime;
-	private String expirationTimeRuleId;
+	private final long lastModifiedDate;
+	private final Optional<String> versionId;
+	private final Optional<String> serverSideEncryption;
+	private final Optional<Long> expirationTime;
+	private final Optional<String> expirationTimeRuleId;
 
 	private CopyObjectResult(Builder builder) {
 		this.etag = builder.etag;
@@ -32,7 +35,9 @@ public final class CopyObjectResult {
 		builder.withLastModifiedDate(mutable.getLastModifiedDate().getTime());
 		builder.withVersionId(mutable.getVersionId());
 		builder.withServerSideEncryption(mutable.getServerSideEncryption());
-		builder.withExpirationTime(mutable.getExpirationTime().getTime());
+		if (mutable.getExpirationTime() != null) {
+			builder.withExpirationTime(mutable.getExpirationTime().getTime());
+		}
 		builder.withExpirationTimeRuleId(mutable.getExpirationTimeRuleId());
 		return builder.build();
 	}
@@ -45,10 +50,10 @@ public final class CopyObjectResult {
 
 		private String etag;
 		private long lastModifiedDate;
-		private String versionId;
-		private String serverSideEncryption;
-		private long expirationTime;
-		private String expirationTimeRuleId;
+		private Optional<String> versionId = absent();
+		private Optional<String> serverSideEncryption = absent();
+		private Optional<Long> expirationTime = absent();
+		private Optional<String> expirationTimeRuleId = absent();
 
 		public Builder withEtag(String etag) {
 			this.etag = etag;
@@ -61,22 +66,26 @@ public final class CopyObjectResult {
 		}
 
 		public Builder withVersionId(String versionId) {
-			this.versionId = versionId;
+			this.versionId = Optional.of(versionId);
 			return this;
 		}
 
 		public Builder withServerSideEncryption(String serverSideEncryption) {
-			this.serverSideEncryption = serverSideEncryption;
+			this.serverSideEncryption = Optional.of(serverSideEncryption);
 			return this;
 		}
 
-		public Builder withExpirationTime(long expirationTime) {
+		public Builder withExpirationTime(Optional<Long> expirationTime) {
 			this.expirationTime = expirationTime;
 			return this;
 		}
 
+		public Builder withExpirationTime(long expirationTime) {
+			return withExpirationTime(Optional.of(expirationTime));
+		}
+
 		public Builder withExpirationTimeRuleId(String expirationTimeRuleId) {
-			this.expirationTimeRuleId = expirationTimeRuleId;
+			this.expirationTimeRuleId = Optional.of(expirationTimeRuleId);
 			return this;
 		}
 
@@ -90,48 +99,24 @@ public final class CopyObjectResult {
 		return etag;
 	}
 
-	public void setEtag(String etag) {
-		this.etag = etag;
-	}
-
 	public long getLastModifiedDate() {
 		return lastModifiedDate;
 	}
 
-	public void setLastModifiedDate(long lastModifiedDate) {
-		this.lastModifiedDate = lastModifiedDate;
-	}
-
-	public String getVersionId() {
+	public Optional<String> getVersionId() {
 		return versionId;
 	}
 
-	public void setVersionId(String versionId) {
-		this.versionId = versionId;
-	}
-
-	public String getServerSideEncryption() {
+	public Optional<String> getServerSideEncryption() {
 		return serverSideEncryption;
 	}
 
-	public void setServerSideEncryption(String serverSideEncryption) {
-		this.serverSideEncryption = serverSideEncryption;
-	}
-
-	public long getExpirationTime() {
+	public Optional<Long> getExpirationTime() {
 		return expirationTime;
 	}
 
-	public void setExpirationTime(long expirationTime) {
-		this.expirationTime = expirationTime;
-	}
-
-	public String getExpirationTimeRuleId() {
+	public Optional<String> getExpirationTimeRuleId() {
 		return expirationTimeRuleId;
-	}
-
-	public void setExpirationTimeRuleId(String expirationTimeRuleId) {
-		this.expirationTimeRuleId = expirationTimeRuleId;
 	}
 
 }
