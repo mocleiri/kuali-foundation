@@ -256,7 +256,7 @@ jQuery(document).ready(function($) {
          cookie_value = $(this).data('cookie-value');
          cookie_time = Math.floor((new Date()).getTime() / 1000);
 
-         document.cookie = "uif-generated=" + cookie_type + cookie_value + "; expires=" + cookie_time + "; path=/";
+         document.cookie = cookie_type + "=" + cookie_value + "; expires=" + cookie_time + "; path=/";
 
      });
 
