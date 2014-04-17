@@ -1,6 +1,7 @@
 package org.kuali.common.aws.s3.model;
 
 import static com.google.common.base.Optional.absent;
+import static com.google.common.base.Optional.fromNullable;
 
 import javax.validation.constraints.Min;
 
@@ -66,12 +67,12 @@ public final class CopyObjectResult {
 		}
 
 		public Builder withVersionId(String versionId) {
-			this.versionId = Optional.of(versionId);
+			this.versionId = fromNullable(versionId);
 			return this;
 		}
 
 		public Builder withServerSideEncryption(String serverSideEncryption) {
-			this.serverSideEncryption = Optional.of(serverSideEncryption);
+			this.serverSideEncryption = fromNullable(serverSideEncryption);
 			return this;
 		}
 
