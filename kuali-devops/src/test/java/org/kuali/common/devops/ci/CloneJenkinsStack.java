@@ -18,6 +18,8 @@ import org.junit.Test;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.ImmutableTag;
+import org.kuali.common.aws.s3.DefaultS3Service;
+import org.kuali.common.aws.s3.S3Service;
 import org.kuali.common.core.system.VirtualSystem;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.aws.Tags.Stack;
@@ -25,6 +27,7 @@ import org.kuali.common.devops.ci.model.CloneJenkinsStackContext;
 import org.slf4j.Logger;
 
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.regions.RegionUtils;
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Joiner;
@@ -42,10 +45,7 @@ public class CloneJenkinsStack {
 			System.setProperty("ec2.ami.region.src", "us-west-1");
 			VirtualSystem vs = VirtualSystem.create();
 			CloneJenkinsStackContext context = getCloneJenkinsStackContext(vs);
-			String srcKey = getJenkinsMasterBackupKey("1.532.3", context.getSrcStack().getTag().getValue(), context.getMode().name().toLowerCase());
-			String dstKey = getJenkinsMasterBackupKey("1.532.3", context.getDstStack().getTag().getValue(), context.getMode().name().toLowerCase());
-			info("srcKey = %s", srcKey);
-			info("dstKey = %s", dstKey);
+			copyBackups(context);
 			if (true) {
 				return;
 			}
@@ -59,16 +59,34 @@ public class CloneJenkinsStack {
 		}
 	}
 
+	protected void copyBackups(CloneJenkinsStackContext context) {
+		String region = "us-east-1";
+		String bucket = "maven.kuali.org";
+		AWSCredentials creds = getAwsCredentials(KUALI_FOUNDATION_ACCOUNT);
+		S3Service service = DefaultS3Service.builder().withCredentials(creds).withRegion(RegionUtils.getRegion(region)).build();
+		String srcKey1 = getJenkinsMasterBackupKey(context.getVersion(), context.getSrcStack().getTag().getValue(), context.getMode().name().toLowerCase());
+		String dstKey1 = getJenkinsMasterBackupKey(context.getVersion(), context.getDstStack().getTag().getValue(), context.getMode().name().toLowerCase());
+		String srcKey2 = getJenkinsMasterRepoBackupKey(context.getSrcStack().getTag().getValue(), context.getMode().name().toLowerCase());
+		String dstKey2 = getJenkinsMasterRepoBackupKey(context.getDstStack().getTag().getValue(), context.getMode().name().toLowerCase());
+		service.copyObject(bucket, srcKey1, dstKey1);
+		service.copyObject(bucket, srcKey2, dstKey2);
+	}
+
+	// private/org/jenkins/jenkins-master-repo/m2/jenkins-master-repo-m2-test-latest.tar.gz
+	protected String getJenkinsMasterRepoBackupKey(String stack, String mode) {
+		return getJenkinsBackupKey("jenkins-master-repo", "m2", stack, mode);
+	}
+
 	protected String getJenkinsMasterBackupKey(String version, String stack, String mode) {
+		return getJenkinsBackupKey("jenkins-master-backup", version, stack, mode);
+	}
+
+	protected String getJenkinsBackupKey(String artifactId, String version, String stack, String mode) {
 		String prefix = "private";
 		String groupId = "org.jenkins";
-		String artifactId = "jenkins-master-backup";
 		String classifier = stack + "-latest-" + mode;
 		String type = "tar.gz";
 		String filename = artifactId + "-" + version + "-" + classifier + "." + type;
-		// org/jenkins/jenkins-master-backup/1.532.3/test-latest-thin/tar.gz
-		// private/org/jenkins/jenkins-master-backup/1.532.3/jenkins-master-backup-1.532.3-test-latest-thin.tar.gz
-
 		return Joiner.on('/').join(prefix, getPath(groupId), artifactId, version, filename);
 	}
 
@@ -104,8 +122,7 @@ public class CloneJenkinsStack {
 		Stack src = Stack.valueOf(getRequiredProperty(vs, "ec2.stack.src").toUpperCase());
 		Stack dst = Stack.valueOf(getRequiredProperty(vs, "ec2.stack.dst").toUpperCase());
 		String region = getRequiredProperty(vs, "ec2.ami.region.src");
-		String version = getRequiredProperty(vs, "jenkins.version");
-		return new CloneJenkinsStackContext.Builder().withDstStack(dst).withSrcStack(src).withRegion(region).withVersion(version).build();
+		return new CloneJenkinsStackContext.Builder().withDstStack(dst).withSrcStack(src).withRegion(region).build();
 	}
 
 	private static String getRequiredProperty(VirtualSystem vs, String key) {
