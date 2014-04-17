@@ -7,11 +7,15 @@ import org.kuali.common.core.build.ValidatingBuilder;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.RegionUtils;
+import com.amazonaws.services.s3.AmazonS3Client;
 
 public final class DefaultS3Service implements S3Service {
 
 	private final ImmutableAWSCredentials credentials;
 	private final Region region;
+
+	// Mutable! Don't expose via a getter
+	private final AmazonS3Client client;
 
 	@Override
 	public void copyObject(String bucket, String srcKey, String dstKey) {
@@ -20,6 +24,10 @@ public final class DefaultS3Service implements S3Service {
 	private DefaultS3Service(Builder builder) {
 		this.credentials = ImmutableAWSCredentials.copyOf(builder.credentials);
 		this.region = builder.region;
+
+		// Setup the client
+		this.client = new AmazonS3Client(credentials);
+		this.client.setRegion(region);
 	}
 
 	public static Builder builder() {
