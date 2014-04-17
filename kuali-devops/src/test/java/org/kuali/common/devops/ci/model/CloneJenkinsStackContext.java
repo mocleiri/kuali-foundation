@@ -15,12 +15,14 @@ public final class CloneJenkinsStackContext {
 	private final Stack srcStack;
 	private final Stack dstStack;
 	private final BackupMode mode;
+	private final String version;
 
 	private CloneJenkinsStackContext(Builder builder) {
 		this.region = builder.region;
 		this.srcStack = builder.srcStack;
 		this.dstStack = builder.dstStack;
 		this.mode = builder.mode;
+		this.version = builder.version;
 	}
 
 	public static class Builder extends ValidatingBuilder<CloneJenkinsStackContext> {
@@ -29,6 +31,7 @@ public final class CloneJenkinsStackContext {
 		private Stack srcStack = Tags.Stack.TEST;
 		private Stack dstStack = Tags.Stack.PROD;
 		private BackupMode mode = BackupMode.THIN;
+		private String version = "1.532.3";
 
 		public Builder withMode(BackupMode mode) {
 			this.mode = mode;
@@ -41,6 +44,11 @@ public final class CloneJenkinsStackContext {
 
 		public Builder withRegion(String region) {
 			this.region = RegionUtils.getRegion(region);
+			return this;
+		}
+
+		public Builder withVersion(String version) {
+			this.version = version;
 			return this;
 		}
 
@@ -74,6 +82,10 @@ public final class CloneJenkinsStackContext {
 
 	public BackupMode getMode() {
 		return mode;
+	}
+
+	public String getVersion() {
+		return version;
 	}
 
 }

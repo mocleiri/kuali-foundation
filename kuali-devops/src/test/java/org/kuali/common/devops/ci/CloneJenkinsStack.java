@@ -7,6 +7,7 @@ import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.cleanupAmis;
 import static org.kuali.common.devops.ci.UpdateBuildSlaveAMI.getMostRecentAMI;
 import static org.kuali.common.devops.ci.model.Constants.KUALI_FOUNDATION_ACCOUNT;
 import static org.kuali.common.devops.logic.Auth.getAwsCredentials;
+import static org.kuali.common.util.Str.getPath;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.log.Loggers.newLogger;
 import static org.kuali.common.util.nullify.NullUtils.trimToNull;
@@ -26,6 +27,7 @@ import org.slf4j.Logger;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Tag;
+import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 
 public class CloneJenkinsStack {
@@ -40,6 +42,13 @@ public class CloneJenkinsStack {
 			System.setProperty("ec2.ami.region.src", "us-west-1");
 			VirtualSystem vs = VirtualSystem.create();
 			CloneJenkinsStackContext context = getCloneJenkinsStackContext(vs);
+			String srcKey = getJenkinsMasterBackupKey("1.532.3", context.getSrcStack().getTag().getValue(), context.getMode().name().toLowerCase());
+			String dstKey = getJenkinsMasterBackupKey("1.532.3", context.getDstStack().getTag().getValue(), context.getMode().name().toLowerCase());
+			info("srcKey = %s", srcKey);
+			info("dstKey = %s", dstKey);
+			if (true) {
+				return;
+			}
 			AWSCredentials creds = getAwsCredentials(KUALI_FOUNDATION_ACCOUNT);
 			EC2Service service = new DefaultEC2Service(creds, context.getRegion().getName());
 			String ami = getMostRecentAMI(service, context.getSrcStack().getTag(), Tags.Name.SLAVE.getTag());
@@ -48,6 +57,19 @@ public class CloneJenkinsStack {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected String getJenkinsMasterBackupKey(String version, String stack, String mode) {
+		String prefix = "private";
+		String groupId = "org.jenkins";
+		String artifactId = "jenkins-master-backup";
+		String classifier = stack + "-latest-" + mode;
+		String type = "tar.gz";
+		String filename = artifactId + "-" + version + "-" + classifier + "." + type;
+		// org/jenkins/jenkins-master-backup/1.532.3/test-latest-thin/tar.gz
+		// private/org/jenkins/jenkins-master-backup/1.532.3/jenkins-master-backup-1.532.3-test-latest-thin.tar.gz
+
+		return Joiner.on('/').join(prefix, getPath(groupId), artifactId, version, filename);
 	}
 
 	protected void circulateAMI(String srcRegion, Set<String> regions, Image ami, Tag stack) {
@@ -82,7 +104,8 @@ public class CloneJenkinsStack {
 		Stack src = Stack.valueOf(getRequiredProperty(vs, "ec2.stack.src").toUpperCase());
 		Stack dst = Stack.valueOf(getRequiredProperty(vs, "ec2.stack.dst").toUpperCase());
 		String region = getRequiredProperty(vs, "ec2.ami.region.src");
-		return new CloneJenkinsStackContext.Builder().withDstStack(dst).withSrcStack(src).withRegion(region).build();
+		String version = getRequiredProperty(vs, "jenkins.version");
+		return new CloneJenkinsStackContext.Builder().withDstStack(dst).withSrcStack(src).withRegion(region).withVersion(version).build();
 	}
 
 	private static String getRequiredProperty(VirtualSystem vs, String key) {
