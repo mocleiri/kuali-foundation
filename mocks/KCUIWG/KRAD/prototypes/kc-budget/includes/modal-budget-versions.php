@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="modal-budget-versions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -17,8 +17,9 @@
                     <table id="u569ish_line0" class="table table-condensed table-bordered" role="presentation">
                         <tbody>
                             <tr>
-                                <th scope="row" style="width:20px">&nbsp;</th>
-                                <th scope="row">Name</th>
+                                <th style="width:20px">&nbsp;</th>
+                                <th>Name</th>
+                                <th>Generated</th>
                                 <th class="uif-gridLayoutCell">Direct Cost</th>
                                 <th class="uif-gridLayoutCell">F&amp;A</th>
                                 <th class="uif-gridLayoutCell">Total</th>
@@ -27,8 +28,10 @@
                             </tr>
                             <tr>
                                 <td scope="row"><input type="radio" value="radio" name="version-list" id="radio-version-1">
-                                    <label for="radio"></label></td>
+                                    <label for="radio"></label>
+                                </td>
                                 <td scope="row"><a href="" data-toggle="modal" data-target="#switchdoc"  class="versions">Version 1</a> <small>(for submission)</small></td>
+                                <td>KC-00001</td>
                                 <td class="">  22,835.00</td>
                                 <td class="">  6,170.00</td>
                                 <td class="">29,005.00</td>
@@ -46,10 +49,11 @@
                                         </ul>
                                     </div></td>
                             </tr>
-                            <tr>
-                                <td scope="row"  class="success"><input type="radio"  value="radio" name="version-list" id="radio-version-2" checked>
+                            <tr class="success">
+                                <td scope="row"><input type="radio"  value="radio" name="version-list" id="radio-version-2" checked>
                                     <label for="radio"></label></td>
-                                <td class="showMe" scope="row"><a href="" data-toggle="modal" data-target="#switchdoc"   class="versions">Version 2</a> <small>(for submission)</small></td>
+                                <td class="showMe" scope="row"><a href="" data-toggle="modal" data-target="#switchdoc" class="versions">Version 2</a> <small>(for submission)</small></td>
+                                <td>KC-00002</td>
                                 <td class="">  22,835.00</td>
                                 <td class="">  6,170.00</td>
                                 <td class="">29,005.00</td>
@@ -71,6 +75,7 @@
                                 <td scope="row"><input type="radio" value="radio" name="version-list" id="radio-version-3">
                                     <label for="radio"></label></td>
                                 <td scope="row"><a href="" data-toggle="modal" data-target="#switchdoc"   class="versions">Version 3</a> <small>(for submission)</small></td>
+                                <td>KC-00003</td>
                                 <td class="">  22,835.00</td>
                                 <td class="">  6,170.00</td>
                                 <td class="">29,005.00</td>
@@ -92,6 +97,7 @@
                                 <td scope="row"><input type="radio" value="radio" name="version-list" id="radio-version-4">
                                     <label for="radio"></label></td>
                                 <td scope="row"><a href="" data-toggle="modal" data-target="#switchdoc"  class="versions">Version 4</a> <small>(for submission)</small></td>
+                                <td>KC-00004</td>
                                 <td class="">  22,835.00</td>
                                 <td class="">  6,170.00</td>
                                 <td class="">29,005.00</td>
@@ -112,7 +118,7 @@
                             <tr>
                                 <td scope="row"><input type="radio"  value="radio" name="version-list" id="radio-version-5">
                                     <label for="radio"></label></td>
-                                <td scope="row" colspan="6" class="versions">NONE <small>(for submission)</small></td>
+                                <td scope="row" colspan="7" class="versions">NONE <small>(for submission)</small></td>
                                     </td>
                             </tr>
                         </tbody>
@@ -132,13 +138,13 @@
 </style>
 <script>
 (function($){
-    var $radioButtons = $('#u569ish_line0  input[type="radio"]');
+    var $radioButtons = $('#u569ish_line0 input[type="radio"]');
     $radioButtons.click(function() {
         $radioButtons.each(function() {
-            $(this).parent().toggleClass("success", this.checked);
+            $(this).parent().parent().toggleClass("success", this.checked);
         });
-       $("#u569ish_line0  td").removeClass("showMe");
-       $(".success").next().addClass("showMe");
+       $("#u569ish_line0 td").removeClass("showMe");
+       $(".success").find('td').next().addClass("showMe");
 
 
     });
