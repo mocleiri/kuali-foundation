@@ -19,7 +19,7 @@
                             <tr>
                                 <th style="width:20px">&nbsp;</th>
                                 <th>Name</th>
-                                <th>Generated</th>
+                                <th>Version</th>
                                 <th class="uif-gridLayoutCell">Direct Cost</th>
                                 <th class="uif-gridLayoutCell">F&amp;A</th>
                                 <th class="uif-gridLayoutCell">Total</th>

@@ -25,7 +25,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                     <div class="btn-group">
-                                    <a  href="budget-ng-start.php" type="button" class="btn btn-primary"> Create </a>
+                                    <a  href="budget-ng-start.php" type="button" class="btn btn-primary">Create</a>
                                         <!-- <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Create <span class="caret"></span> </button>
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a href="#">Create and stay on Proposal</a></li>
