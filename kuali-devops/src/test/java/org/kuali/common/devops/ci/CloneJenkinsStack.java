@@ -60,7 +60,7 @@ public class CloneJenkinsStack {
 		for (String region : regions) {
 			if (!region.equals(sourceRegion)) {
 				EC2Service service = new DefaultEC2Service(getAwsCredentials(KUALI_FOUNDATION_ACCOUNT), region);
-				info("copying %s to %s", newName, region);
+				info("copying %s to %s as %s", oldName, region, newName);
 				copiedAmi = service.copyAmi(sourceRegion, ami.getImageId(), newName);
 				copiedRegion = region;
 				service.tag(copiedAmi, stack);
@@ -69,7 +69,7 @@ public class CloneJenkinsStack {
 			}
 		}
 		EC2Service service = new DefaultEC2Service(getAwsCredentials(KUALI_FOUNDATION_ACCOUNT), copiedRegion);
-		info("copying %s to %s", newName, copiedRegion);
+		info("copying %s to %s", oldName, copiedRegion, newName);
 		String amiCopiedBackToSourceRegion = service.copyAmi(sourceRegion, copiedAmi, newName);
 		service.tag(amiCopiedBackToSourceRegion, stack);
 		service.tag(amiCopiedBackToSourceRegion, new ImmutableTag(Tags.Name.SLAVE.getTag().getKey(), newName));
