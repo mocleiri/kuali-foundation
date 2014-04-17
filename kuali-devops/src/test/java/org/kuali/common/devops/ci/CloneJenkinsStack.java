@@ -2,6 +2,7 @@ package org.kuali.common.devops.ci;
 
 import static com.google.common.base.Optional.fromNullable;
 import static java.lang.String.format;
+import static org.junit.Assert.fail;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.US_REGIONS;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.cleanupAmis;
 import static org.kuali.common.devops.ci.UpdateBuildSlaveAMI.getMostRecentAMI;
@@ -58,6 +59,7 @@ public class CloneJenkinsStack {
 			copyBackups(context);
 		} catch (Exception e) {
 			e.printStackTrace();
+			fail(e.getMessage());
 		}
 	}
 
