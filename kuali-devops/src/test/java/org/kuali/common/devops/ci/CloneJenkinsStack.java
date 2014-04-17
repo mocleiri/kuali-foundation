@@ -2,6 +2,7 @@ package org.kuali.common.devops.ci;
 
 import static com.google.common.base.Optional.fromNullable;
 import static java.lang.String.format;
+import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.US_REGIONS;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.cleanupAmis;
 import static org.kuali.common.devops.ci.UpdateBuildSlaveAMI.getMostRecentAMI;
 import static org.kuali.common.devops.ci.model.Constants.KUALI_FOUNDATION_ACCOUNT;
@@ -43,7 +44,7 @@ public class CloneJenkinsStack {
 			EC2Service service = new DefaultEC2Service(creds, context.getRegion().getName());
 			String ami = getMostRecentAMI(service, context.getSrcStack().getTag(), Tags.Name.SLAVE.getTag());
 			Image image = service.getImage(ami);
-			copyAmi(context.getRegion().getName(), CreateBuildSlaveAMI.US_REGIONS, image, context.getDstStack().getTag());
+			copyAmi(context.getRegion().getName(), US_REGIONS, image, context.getDstStack().getTag());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
