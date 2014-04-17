@@ -69,7 +69,7 @@ public class CloneJenkinsStack {
 			}
 		}
 		EC2Service service = new DefaultEC2Service(getAwsCredentials(KUALI_FOUNDATION_ACCOUNT), copiedRegion);
-		info("copying %s to %s", oldName, copiedRegion, newName);
+		info("copying %s to %s as %s", oldName, copiedRegion, newName);
 		String amiCopiedBackToSourceRegion = service.copyAmi(sourceRegion, copiedAmi, newName);
 		service.tag(amiCopiedBackToSourceRegion, stack);
 		service.tag(amiCopiedBackToSourceRegion, new ImmutableTag(Tags.Name.SLAVE.getTag().getKey(), newName));
