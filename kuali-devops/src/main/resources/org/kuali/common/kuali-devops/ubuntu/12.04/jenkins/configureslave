@@ -66,10 +66,14 @@ function install_mysql_server {
   # Remove the password for the root user
   mysqladmin -u root -p$MYSQL_ROOT_PASSWORD password ''
  
-  # [mysqld]  
-  # transaction-isolation=READ-COMMITTED
-  # lower_case_table_names=1
-  # max_connections=1000
+  service mysql stop
+
+  MY_CNF=/etc/mysql/my.cnf
+  sed -i 's/[mysqld]/[mysqld]\nmax_connections=1000/' $MY_CNF
+  sed -i 's/[mysqld]/[mysqld]\nlower_case_table_names=1/' $MY_CNF
+  sed -i 's/[mysqld]/[mysqld]\ntransaction-isolation=READ-COMMITTED/' $MY_CNF
+  
+  service mysql start
   
 }
 
