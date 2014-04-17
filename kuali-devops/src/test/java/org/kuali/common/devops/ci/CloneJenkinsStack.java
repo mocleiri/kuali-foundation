@@ -66,19 +66,19 @@ public class CloneJenkinsStack {
 		S3Service service = DefaultS3Service.builder().withCredentials(creds).withRegion(RegionUtils.getRegion(region)).build();
 		String srcKey1 = getJenkinsMasterBackupKey(context.getVersion(), context.getSrcStack().getTag().getValue(), context.getMode().name().toLowerCase());
 		String dstKey1 = getJenkinsMasterBackupKey(context.getVersion(), context.getDstStack().getTag().getValue(), context.getMode().name().toLowerCase());
-		String srcKey2 = getJenkinsMasterRepoBackupKey(context.getSrcStack().getTag().getValue(), context.getMode().name().toLowerCase());
-		String dstKey2 = getJenkinsMasterRepoBackupKey(context.getDstStack().getTag().getValue(), context.getMode().name().toLowerCase());
+		String srcKey2 = getJenkinsMasterRepoBackupKey(context.getSrcStack().getTag().getValue());
+		String dstKey2 = getJenkinsMasterRepoBackupKey(context.getDstStack().getTag().getValue());
 		service.copyObject(bucket, srcKey1, dstKey1);
 		service.copyObject(bucket, srcKey2, dstKey2);
 	}
 
 	// private/org/jenkins/jenkins-master-repo/m2/jenkins-master-repo-m2-test-latest.tar.gz
-	protected String getJenkinsMasterRepoBackupKey(String stack, String mode) {
-		return getJenkinsBackupKey("jenkins-master-repo", "m2", stack, Optional.of(mode));
+	protected String getJenkinsMasterRepoBackupKey(String stack) {
+		return getJenkinsBackupKey("jenkins-master-repo", "m2", stack, Optional.<String> absent());
 	}
 
 	protected String getJenkinsMasterBackupKey(String version, String stack, String mode) {
-		return getJenkinsBackupKey("jenkins-master-backup", version, stack, Optional.<String> absent());
+		return getJenkinsBackupKey("jenkins-master-backup", version, stack, Optional.of(mode));
 	}
 
 	protected String getJenkinsBackupKey(String artifactId, String version, String stack, Optional<String> mode) {
