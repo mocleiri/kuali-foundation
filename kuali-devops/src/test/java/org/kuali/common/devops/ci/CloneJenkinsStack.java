@@ -74,17 +74,17 @@ public class CloneJenkinsStack {
 
 	// private/org/jenkins/jenkins-master-repo/m2/jenkins-master-repo-m2-test-latest.tar.gz
 	protected String getJenkinsMasterRepoBackupKey(String stack, String mode) {
-		return getJenkinsBackupKey("jenkins-master-repo", "m2", stack, mode);
+		return getJenkinsBackupKey("jenkins-master-repo", "m2", stack, Optional.of(mode));
 	}
 
 	protected String getJenkinsMasterBackupKey(String version, String stack, String mode) {
-		return getJenkinsBackupKey("jenkins-master-backup", version, stack, mode);
+		return getJenkinsBackupKey("jenkins-master-backup", version, stack, Optional.<String> absent());
 	}
 
-	protected String getJenkinsBackupKey(String artifactId, String version, String stack, String mode) {
+	protected String getJenkinsBackupKey(String artifactId, String version, String stack, Optional<String> mode) {
 		String prefix = "private";
 		String groupId = "org.jenkins";
-		String classifier = stack + "-latest-" + mode;
+		String classifier = stack + "-latest-" + (mode.isPresent() ? mode.get() : "");
 		String type = "tar.gz";
 		String filename = artifactId + "-" + version + "-" + classifier + "." + type;
 		return Joiner.on('/').join(prefix, getPath(groupId), artifactId, version, filename);
