@@ -65,7 +65,12 @@ function install_mysql_server {
   
   # Remove the password for the root user
   mysqladmin -u root -p$MYSQL_ROOT_PASSWORD password ''
-   
+ 
+  # [mysqld]  
+  # transaction-isolation=READ-COMMITTED
+  # lower_case_table_names=1
+  # max_connections=1000
+  
 }
 
 function enable_root_ssh {
