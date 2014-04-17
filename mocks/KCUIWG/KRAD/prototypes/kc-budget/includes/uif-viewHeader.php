@@ -60,13 +60,13 @@
             <li> <a id="uotglr8" class="uif-actionLink"  data-toggle="modal" data-target="#budgetSettings"><span class="icon-cog"></span>Budget Settings</a> </li>
             <li> <a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="#summary"><span class="icon-eye"></span>Summary</a> </li>
             <li><a  class="uif-actionLink" data-toggle="modal" data-target="#modal-budget-versions"><span class="icon-money"></span>Budget Versions</a> </li>
-            
-
- <!--  removed for split test ------->
-
-          <li><a class="uif-actionLink" data-toggle="modal" data-target="#modal-generate-versions"><span class="icon-stack"></span>Generate All Periods </a></li>
-
-<!-- -->
+            <?php
+            if ($_COOKIE['uif-generated']) {
+                echo '<li><span class="uif-actionLink uif-disabled"><span class="icon-stack"></span>Generate All Periods </span></li>';
+            } else {
+                echo '<li><a class="uif-actionLink" data-toggle="modal" data-target="#modal-generate-versions"><span class="icon-stack"></span>Generate All Periods </a></li>';
+            }
+            ?>
         </ul>
     </div>
 </header>

@@ -239,5 +239,27 @@ jQuery(document).ready(function($) {
 
     });
 
+
+
+    /*
+     * Cookie listener
+     * Listens for 'set-cookie' class click and sets cookie with type and value
+     *
+     * clrux
+     */
+
+     $('.set-cookie').on('click', function(e) {
+
+         // e.preventDefault();
+
+         cookie_type = $(this).data('cookie-type');
+         cookie_value = $(this).data('cookie-value');
+         cookie_time = Math.floor((new Date()).getTime() / 1000);
+
+         document.cookie = "uif-generated=" + cookie_type + cookie_value + "; expires=" + cookie_time + "; path=/";
+
+     });
+
+
 });
 

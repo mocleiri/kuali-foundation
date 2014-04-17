@@ -166,7 +166,9 @@
                     Don't ask me this again </label>
                 </small> -->
             </div>
-            <div class="modal-footer"> <a href="" class="btn btn-default" data-dismiss="modal">No, Cancel</a> <a href="budget-ng-summary2.php" class="btn btn-primary">Yes, Generate All Periods</a> </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-default" data-dismiss="modal">No, Cancel</a> <a href="budget-ng-summary2.php" class="btn btn-primary set-cookie" data-cookie-type="pg" data-cookie-value="1">Yes, Generate All Periods</a>
+            </div>
         </div>
     </div>
 </div>
