@@ -66,6 +66,7 @@ function install_mysql_server {
   # Remove the password for the root user
   mysqladmin -u root -p$MYSQL_ROOT_PASSWORD password ''
  
+  echo "configure -> mysql-server"
   execute_quietly "service mysql stop"
 
   # Configure MySQL with the settings Rice needs
