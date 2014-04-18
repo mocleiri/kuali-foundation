@@ -43,6 +43,8 @@ KTI 9 - 10am
 - Created standard CI dashboards for OLE, Rice, KPME, Student, and Mobility
 - Touched up numerous CI jobs in various ways
 - Tasked Mike with an issue where chaining jobs together wasn't working quite right
+-- Resolution to this could not have been simpler
+-- the drop down menu in Jenkins wasn't sorted alphabetically, the automated option was at the top vs the manual option at the bottom
 - Fixed issue with CreateBuildSlaveAMI.java where it wasn't wasn't tagging the AMI with prod/test correctly
 
 Thursday
@@ -67,3 +69,12 @@ Friday
 
 - OLE log4.xml settings, people being connected to the TST Oracle schema causing deployment failure
 - CI - Jeremy Hanson is aware of the KPME 2.1 tab on testci, finished setting up perm's
+
+
+select username, osuser, machine from v$session where username is not null order by username desc, osuser asc; 
+
+select username, osuser, machine from v$session where username = 'KSENV18' order by username desc, osuser asc; 
+select username, osuser, machine from v$session where osuser <> 'tomcat' order by username desc, osuser asc; 
+
+select username from v$session;
+ 
