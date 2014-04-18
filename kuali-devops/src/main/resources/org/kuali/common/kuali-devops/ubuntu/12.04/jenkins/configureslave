@@ -66,14 +66,15 @@ function install_mysql_server {
   # Remove the password for the root user
   mysqladmin -u root -p$MYSQL_ROOT_PASSWORD password ''
  
-  service mysql stop
+  execute_quietly "service mysql stop"
 
+  # Configure MySQL with the settings Rice needs
   MY_CNF=/etc/mysql/my.cnf
-  sed -i "s/\[mysqld\]/\[mysqld\]\nmax_connections=1000/" $MY_CNF
-  sed -i "s/\[mysqld\]/\[mysqld\]\nlower_case_table_names=1/" $MY_CNF
-  sed -i "s/\[mysqld\]/\[mysqld\]\ntransaction-isolation=READ-COMMITTED/" $MY_CNF
+  execute_quietly "sed -i 's/\[mysqld\]/\[mysqld\]\nmax_connections=1000/'                 $MY_CNF"
+  execute_quietly "sed -i 's/\[mysqld\]/\[mysqld\]\nlower_case_table_names=1/'             $MY_CNF"
+  execute_quietly "sed -i 's/\[mysqld\]/\[mysqld\]\ntransaction-isolation=READ-COMMITTED/' $MY_CNF"
   
-  service mysql start
+  execute_quietly "service mysql start"
   
 }
 
