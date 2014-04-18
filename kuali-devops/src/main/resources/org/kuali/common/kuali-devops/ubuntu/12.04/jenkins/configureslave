@@ -70,9 +70,9 @@ function install_mysql_server {
 
   # Configure MySQL with the settings Rice needs
   MY_CNF=/etc/mysql/my.cnf
-  execute_quietly "sed -i 's/\[mysqld\]/\[mysqld\]\nmax_connections=1000/'                 $MY_CNF"
-  execute_quietly "sed -i 's/\[mysqld\]/\[mysqld\]\nlower_case_table_names=1/'             $MY_CNF"
-  execute_quietly "sed -i 's/\[mysqld\]/\[mysqld\]\ntransaction-isolation=READ-COMMITTED/' $MY_CNF"
+  execute_quietly "sed -i \"s/\[mysqld\]/\[mysqld\]\nmax_connections=1000/\"                 $MY_CNF"
+  execute_quietly "sed -i \"s/\[mysqld\]/\[mysqld\]\nlower_case_table_names=1/\"             $MY_CNF"
+  execute_quietly "sed -i \"s/\[mysqld\]/\[mysqld\]\ntransaction-isolation=READ-COMMITTED/\" $MY_CNF"
   
   execute_quietly "service mysql start"
   
