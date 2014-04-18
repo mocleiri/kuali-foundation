@@ -44,3 +44,20 @@ KTI 9 - 10am
 - Touched up numerous CI jobs in various ways
 - Tasked Mike with an issue where chaining jobs together wasn't working quite right
 - Fixed issue with CreateBuildSlaveAMI.java where it wasn't wasn't tagging the AMI with prod/test correctly
+
+Thursday
+--------
+
+- continued work on CI
+- coordinate with Orlando on bringing over KS jobs
+- testing out command line ssh method for pulling jobs from ci.rice and pushing them into testci
+- fixed bug in MySQL installation where the root password was getting set to two single quotes
+- enhanced MySQL installation to include 3 settings Rice needs
+-- lower_case_tables_names=1
+-- transaction_isolation=READ_COMMITTED
+-- max-connections=1000
+
+- worked with Gayathri / Geo Thomas / KC on publishing an s2s jar
+- prevented them publishing a jar with a mixed case name
+- disabled KPME and Mobility jobs on ci.rice
+- Running those on testci now
