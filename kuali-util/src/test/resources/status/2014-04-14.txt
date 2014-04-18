@@ -58,6 +58,6 @@ Thursday
 -- max-connections=1000
 
 - worked with KC (Gayathri / Geo Thomas / Travis) on publishing an s2s jar
-- prevented them publishing a jar with a mixed case name
+- prevented them from publishing a jar with a mixed case name
 - disabled KPME and Mobility jobs on ci.rice
 - Running those on testci now
