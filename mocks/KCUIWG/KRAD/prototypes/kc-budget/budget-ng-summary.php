@@ -26,6 +26,8 @@ $section = '';
 #export-pdf-excel .dropdown-menu span {
 	padding: 0 3px 0 1px;
 }
+
+
 </style>
 </head>
 
@@ -105,9 +107,10 @@ $section = '';
             <?php include ('includes/uif-navigation-budget.php') ?>
             <div id="Uif-BreadcrumbUpdate" style="display:;"> </div>
             <main id="LabsProposal-Page" class="uif-page uif-hasLeftNav" data-server_messages="false" data-role="Page" data-parent="LabsProposal" style="margin-left: 235px;">
+            
                 <header class="clearfix uif-header-contentWrapper pull-left">
-                    <div id="u148pgf0" class="uif-pageHeader clearfix" data-header_for="LabsProposal-Page">
-                        <h2 class="uif-headerText"> <span class="uif-headerText-span">Budget Summary </span> </h2>
+                  <div id="u148pgf0" class="uif-pageHeader clearfix" data-header_for="LabsProposal-Page">
+                        <h2 class="uif-headerText"> <span class="uif-headerText-span">Budget Summary</span> </h2>
                     </div>
                 </header>
                 <div class="pull-right"> 
@@ -280,12 +283,11 @@ $section = '';
     </div>
 </form>
 <?php include ('includes/footer-scripts.php') ?>
-
-<!-- MODAL -- budget summary -->
+<!-- MODAL  budget summary -->
 <?php include ('includes/modal-budget-summary.php') ?>
-<!-- MODAL -- budget settings  -->
+<!-- MODAL budget settings  -->
 <?php include ('includes/modal-budget-settings.php') ?>
-<!-- MODAL -- budget open propsal -->
+<!-- MODAL  budget open propsal -->
 <?php include ('includes/modal-budget-open-prop.php') ?>
 <!-- MODAL BUDGET VERSIONS -->
 <?php include ('includes/modal-budget-versions.php') ?>

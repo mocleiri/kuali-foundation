@@ -246,15 +246,17 @@ transform:translateX(10px)
 	
 	/*
 	
-	If a user selects summary budget and modular = yes, then:
-User should land on the modular page.
-Upon save and continue, user should be taken to the summary page to review. Note: summary will be auto-generated based on data entered into modular page.
+If a user selects summary budget and modular = yes, then:
+User should land on the periods and totals page.
+Upon save and continue, if cost sharing and or unrecovered F&A has been entered, user should be taken to those pages to enter data
+--> Upon save and continue, user should be taken to the modular page to review the pre-synced information and adjust as needed.
+Upon save and continue, user should be taken to the summary page to review
 
 	*/
 	
 	
 		if ($("#radio-start-summary-budget").is(":checked") & $("#radio-modular-budget_yes").is(":checked") ){
-			document.location.href='budget-ng-modular.php?modular-budget=yes&amp;summary=yes';
+			document.location.href='budget-ng-periods.php?modular-budget=yes&amp;summary=yes';
 			}
 			
 			
@@ -319,7 +321,7 @@ If user returns to a budget version in progress, the landing page will differ ba
 			
 		
 		else if ($("#radio-start-detail-budget").is(":checked") & $("#radio-modular-budget_yes").is(":checked") ){
-			document.location.href='budget-ng-modular.php?modular-budget=yes&amp;detail=yes';
+			document.location.href='budget-ng-personnelCosts-projPersonnel1.php?modular-budget=yes&amp;detail=yes';
 			}
 		
 	

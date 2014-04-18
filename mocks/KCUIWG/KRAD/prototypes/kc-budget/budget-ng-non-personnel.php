@@ -505,7 +505,7 @@ return false;
                     <input type=checkbox>
                     Dont ask me this again </label>
                 </small></div>
-            <div class="modal-footer"><a href="budget-ng-subawards.php" class="btn btn-default" data-dismiss=modal>No</a> <a href="budget-ng-subawards.php" class="btn btn-primary">Yes Generate All Periods</a></div>
+            <div class="modal-footer"><a href="budget-ng-subawards.php?generate=no" class="btn btn-default">No</a> <a href="budget-ng-subawards.php?generate=yes" class="btn btn-primary">Yes Generate All Periods</a></div>
         </div>
     </div>
 </div>
