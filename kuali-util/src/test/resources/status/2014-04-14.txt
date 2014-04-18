@@ -61,3 +61,9 @@ Thursday
 - prevented them from publishing a jar with a mixed case name
 - disabled KPME and Mobility jobs on ci.rice
 - Running those on testci now
+
+Friday
+------
+
+- OLE log4.xml settings, people being connected to the TST Oracle schema causing deployment failure
+- CI - Jeremy Hanson is aware of the KPME 2.1 tab on testci, finished setting up perm's
