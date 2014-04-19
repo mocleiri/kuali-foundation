@@ -1,0 +1,82 @@
+package org.springframework.jdbc.datasource;
+
+import org.kuali.common.core.build.ValidatingBuilder;
+import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
+
+@IdiotProofImmutable
+public final class OracleSession {
+
+	private final String username;
+	private final String osuser;
+	private final String machine;
+	private final String program;
+	private final String terminal;
+
+	private OracleSession(Builder builder) {
+		this.username = builder.username;
+		this.osuser = builder.osuser;
+		this.machine = builder.machine;
+		this.program = builder.program;
+		this.terminal = builder.terminal;
+	}
+
+	public static class Builder extends ValidatingBuilder<OracleSession> {
+
+		private String username;
+		private String osuser;
+		private String machine;
+		private String program;
+		private String terminal;
+
+		public Builder withUsername(String username) {
+			this.username = username;
+			return this;
+		}
+
+		public Builder withOsuser(String osuser) {
+			this.osuser = osuser;
+			return this;
+		}
+
+		public Builder withMachine(String machine) {
+			this.machine = machine;
+			return this;
+		}
+
+		public Builder withProgram(String program) {
+			this.program = program;
+			return this;
+		}
+
+		public Builder withTerminal(String terminal) {
+			this.terminal = terminal;
+			return this;
+		}
+
+		@Override
+		public OracleSession build() {
+			return validate(new OracleSession(this));
+		}
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public String getOsuser() {
+		return osuser;
+	}
+
+	public String getMachine() {
+		return machine;
+	}
+
+	public String getProgram() {
+		return program;
+	}
+
+	public String getTerminal() {
+		return terminal;
+	}
+
+}

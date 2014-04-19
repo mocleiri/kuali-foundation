@@ -15,6 +15,7 @@
  */
 package org.springframework.jdbc.datasource;
 
+import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
 import static org.kuali.common.jdbc.service.JdbcUtils.closeQuietly;
@@ -26,6 +27,7 @@ import static org.springframework.jdbc.datasource.OracleConnectionContext.newOra
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
@@ -36,7 +38,10 @@ import org.kuali.common.util.encrypt.Encryptor;
 import org.slf4j.Logger;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.Optional;
+import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Table;
 
 public class OracleDbaTest {
 
@@ -62,7 +67,7 @@ public class OracleDbaTest {
 		sql.add(" , program");
 		sql.add(" , terminal");
 		sql.add("from v$session");
-		return Joiner.on("").join(sql);
+		return Joiner.on('\n').join(sql);
 	}
 
 	protected void checkActiveConnections(OracleConnectionContext context) {
@@ -78,6 +83,25 @@ public class OracleDbaTest {
 			throw illegalState(e);
 		} finally {
 			closeQuietly(ds, conn);
+		}
+	}
+
+	protected Table<Integer, Integer, Optional<Object>> getTable(ResultSet rs) throws SQLException {
+		int columns = rs.getMetaData().getColumnCount();
+		HashBasedTable<Integer, Integer, Optional<Object>> table = HashBasedTable.create();
+		while (rs.next()) {
+			addRow(rs, columns, table);
+		}
+		return table;
+	}
+
+	protected void addRow(ResultSet rs, int columns, Table<Integer, Integer, Optional<Object>> table) throws SQLException {
+		int row = table.rowKeySet().size();
+		for (int column = 0; column < columns; column++) {
+			int resultSetIndex = column + 1;
+			Object object = rs.getObject(resultSetIndex);
+			Optional<Object> optional = fromNullable(object);
+			table.put(row, column, optional);
 		}
 	}
 
