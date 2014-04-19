@@ -40,6 +40,7 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Table;
 
 public class OracleDbaTest {
@@ -49,9 +50,10 @@ public class OracleDbaTest {
 	@Test
 	public void testOracle() {
 		try {
-			List<OracleConnectionContext> contexts = buildContexts();
-			for (OracleConnectionContext context : contexts) {
-				checkActiveConnections(context);
+			List<DataSource> dataSources = buildDataSources();
+			String sql = getCurrentSessionsSQL();
+			for (DataSource ds : dataSources) {
+				executeQuery(ds, sql);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -69,15 +71,23 @@ public class OracleDbaTest {
 		return Joiner.on('\n').join(sql);
 	}
 
-	protected void checkActiveConnections(OracleConnectionContext context) {
-		DataSource ds = null;
+	protected List<DataSource> buildDataSources() {
+		List<OracleConnectionContext> contexts = buildContexts();
+		List<DataSource> list = Lists.newArrayList();
+		for (OracleConnectionContext context : contexts) {
+			DataSource ds = buildDataSource(context);
+			list.add(ds);
+		}
+		return ImmutableList.copyOf(list);
+	}
+
+	protected ExecuteQueryResult executeQuery(DataSource ds, String sql) {
 		Connection conn = null;
 		try {
-			ds = getDataSource(context);
 			conn = doGetConnection(ds);
 			Statement stmt = conn.createStatement();
-			String sql = getCurrentSessionsSQL();
 			ResultSet rs = stmt.executeQuery(sql);
+			return null;
 		} catch (Exception e) {
 			throw illegalState(e);
 		} finally {
@@ -136,7 +146,7 @@ public class OracleDbaTest {
 		return format("jdbc:oracle:thin:@%s:%s:%s", host, port, sid);
 	}
 
-	protected static DataSource getDataSource(OracleConnectionContext context) {
+	protected static DataSource buildDataSource(OracleConnectionContext context) {
 		DriverManagerDataSource dmsd = new DriverManagerDataSource();
 		dmsd.setDriverClassName(context.getDriver());
 		dmsd.setUrl(getThinOracleJdbcUrl(context.getHost(), context.getPort(), context.getSid()));
