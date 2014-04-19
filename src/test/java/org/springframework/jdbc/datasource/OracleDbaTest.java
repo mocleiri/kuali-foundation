@@ -18,6 +18,7 @@ package org.springframework.jdbc.datasource;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
+import static org.codehaus.plexus.util.StringUtils.leftPad;
 import static org.kuali.common.jdbc.service.JdbcUtils.closeQuietly;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.encrypt.Encryption.getDefaultEncryptor;
@@ -54,12 +55,27 @@ public class OracleDbaTest {
 		try {
 			String query = buildCurrentSessionsQuery();
 			List<DataSource> dataSources = buildDataSources();
-			for (DataSource ds : dataSources) {
-				executeQuery(ds, query);
-			}
+			List<ExecuteQueryResult> results = executeQuery(dataSources, query);
+			showResults(results);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected static void showResults(List<ExecuteQueryResult> results) {
+		for (ExecuteQueryResult result : results) {
+			String count = leftPad(result.getData().size() + "", 4, " ");
+			info("active sessions: %s [%s]", count, result.getUrl());
+		}
+	}
+
+	protected static List<ExecuteQueryResult> executeQuery(List<DataSource> dataSources, String query) {
+		List<ExecuteQueryResult> results = newArrayList();
+		for (DataSource dataSource : dataSources) {
+			ExecuteQueryResult result = executeQuery(dataSource, query);
+			results.add(result);
+		}
+		return results;
 	}
 
 	protected static String buildCurrentSessionsQuery() {
@@ -82,7 +98,7 @@ public class OracleDbaTest {
 		return ImmutableList.copyOf(list);
 	}
 
-	protected ExecuteQueryResult executeQuery(DataSource ds, String query) {
+	protected static ExecuteQueryResult executeQuery(DataSource ds, String query) {
 		Connection conn = null;
 		try {
 			conn = doGetConnection(ds);
