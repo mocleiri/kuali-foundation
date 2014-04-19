@@ -24,8 +24,8 @@ public final class OracleConnectionContext {
 		this.sid = builder.sid;
 	}
 
-	public static OracleConnectionContext build(String username, String password, String host) {
-		return builder().withUsername(username).withPassword(password).withHost(host).build();
+	public static Builder newOracleConnectionContextBuilder() {
+		return builder();
 	}
 
 	public static Builder builder() {
