@@ -10,14 +10,12 @@ public final class OracleSession {
 	private final String osuser;
 	private final String machine;
 	private final String program;
-	private final String terminal;
 
 	private OracleSession(Builder builder) {
 		this.username = builder.username;
 		this.osuser = builder.osuser;
 		this.machine = builder.machine;
 		this.program = builder.program;
-		this.terminal = builder.terminal;
 	}
 
 	public static class Builder extends ValidatingBuilder<OracleSession> {
@@ -73,10 +71,6 @@ public final class OracleSession {
 
 	public String getProgram() {
 		return program;
-	}
-
-	public String getTerminal() {
-		return terminal;
 	}
 
 }

@@ -67,6 +67,29 @@ public class OracleDbaTest {
 			String count = leftPad(result.getData().size() + "", 4, " ");
 			info("active sessions: %s [%s]", count, result.getUrl());
 		}
+		for (ExecuteQueryResult result : results) {
+			List<String> csv = buildCSVFromTable(result.getData());
+			info("%s\n\n%s", result.getUrl(), Joiner.on('\n').join(csv));
+		}
+	}
+
+	protected static List<String> buildCSVFromTable(Table<Integer, Integer, Optional<Object>> table) {
+		int rows = table.rowKeySet().size();
+		int columns = table.columnKeySet().size();
+		List<String> lines = newArrayList();
+		for (int row = 0; row < rows; row++) {
+			List<String> values = newArrayList();
+			for (int column = 0; column < columns; column++) {
+				Optional<Object> value = table.get(row, column);
+				if (value.isPresent()) {
+					values.add(value.get().toString());
+				} else {
+					values.add("null");
+				}
+			}
+			lines.add(Joiner.on(',').join(values));
+		}
+		return lines;
 	}
 
 	protected static List<ExecuteQueryResult> executeQuery(List<DataSource> dataSources, String query) {
@@ -84,7 +107,6 @@ public class OracleDbaTest {
 		sql.add(" , osuser");
 		sql.add(" , machine");
 		sql.add(" , program");
-		sql.add(" , terminal");
 		sql.add("from v$session");
 		return Joiner.on('\n').join(sql);
 	}
