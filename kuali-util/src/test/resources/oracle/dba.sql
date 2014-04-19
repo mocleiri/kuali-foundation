@@ -13,3 +13,6 @@ select distinct machine from v$session where username = 'OLEENV4';
 select distinct username, machine from v$session order by machine, username;
 
 select v.username, v.machine, UTL_INADDR.get_host_address(v.machine) as ip from v$session v where username = 'OLEENV4' order by v.machine; 
+
+CREATE OR REPLACE TRIGGER KUALI_RECORD_IP_TRIGGER AFTER LOGON ON DATABASE BEGIN DBMS_APPLICATION_INFO.SET_CLIENT_INFO(SYS_CONTEXT('USERENV','IP_ADDRESS')); END;
+/
