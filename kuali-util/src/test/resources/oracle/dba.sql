@@ -16,3 +16,5 @@ select v.username, v.machine, UTL_INADDR.get_host_address(v.machine) as ip from 
 
 CREATE OR REPLACE TRIGGER KUALI_RECORD_IP_TRIGGER AFTER LOGON ON DATABASE BEGIN DBMS_APPLICATION_INFO.SET_CLIENT_INFO(SYS_CONTEXT('USERENV','IP_ADDRESS')); END;
 /
+
+select distinct username, osuser, machine, client_info from v$session order by username;
