@@ -17,10 +17,14 @@ package org.springframework.jdbc.datasource;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
+import static org.kuali.common.jdbc.service.JdbcUtils.closeQuietly;
+import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.encrypt.Encryption.getDefaultEncryptor;
 import static org.kuali.common.util.log.Loggers.newLogger;
+import static org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection;
 import static org.springframework.jdbc.datasource.OracleConnectionContext.newOracleConnectionContextBuilder;
 
+import java.sql.Connection;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -39,8 +43,24 @@ public class OracleDbaTest {
 	public void testOracle() {
 		try {
 			List<OracleConnectionContext> contexts = buildContexts();
+			for (OracleConnectionContext context : contexts) {
+				checkActiveConnections(context);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	protected void checkActiveConnections(OracleConnectionContext context) {
+		DataSource ds = null;
+		Connection conn = null;
+		try {
+			ds = getDataSource(context);
+			conn = doGetConnection(ds);
+		} catch (Exception e) {
+			throw illegalState(e);
+		} finally {
+			closeQuietly(ds, conn);
 		}
 	}
 
