@@ -25,7 +25,9 @@ import static org.kuali.common.util.log.Loggers.newLogger;
 import static org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -40,6 +42,7 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableTable;
 import com.google.common.collect.Table;
 
 public class OracleDbaTest {
@@ -50,16 +53,16 @@ public class OracleDbaTest {
 	public void testOracle() {
 		try {
 			List<DataSource> dataSources = buildDataSources();
-			String sql = getCurrentSessionsSQL();
+			String query = buildCurrentSessionsQuery();
 			for (DataSource ds : dataSources) {
-				executeQuery(ds, sql);
+				executeQuery(ds, query);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected static String getCurrentSessionsSQL() {
+	protected static String buildCurrentSessionsQuery() {
 		List<String> sql = newArrayList();
 		sql.add("select username");
 		sql.add(" , osuser");
@@ -80,13 +83,18 @@ public class OracleDbaTest {
 		return ImmutableList.copyOf(list);
 	}
 
-	protected ExecuteQueryResult executeQuery(DataSource ds, String sql) {
+	protected ExecuteQueryResult executeQuery(DataSource ds, String query) {
 		Connection conn = null;
 		try {
 			conn = doGetConnection(ds);
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			return null;
+			ResultSet rs = stmt.executeQuery(query);
+			List<ColumnMetadata> meta = buildColumnMetaData(rs.getMetaData());
+			Table<Integer, Integer, Optional<Object>> table = buildTable(rs);
+			DatabaseMetaData dbmd = conn.getMetaData();
+			String url = dbmd.getURL();
+			String username = dbmd.getUserName();
+			return ExecuteQueryResult.builder().withUrl(url).withUsername(username).withQuery(query).withMetadata(meta).withData(table).build();
 		} catch (Exception e) {
 			throw illegalState(e);
 		} finally {
@@ -94,16 +102,30 @@ public class OracleDbaTest {
 		}
 	}
 
-	protected Table<Integer, Integer, Optional<Object>> getTable(ResultSet rs) throws SQLException {
+	protected static List<ColumnMetadata> buildColumnMetaData(ResultSetMetaData rsmd) throws SQLException, ClassNotFoundException {
+		int columns = rsmd.getColumnCount();
+		List<ColumnMetadata> list = newArrayList();
+		for (int column = 0; column < columns; column++) {
+			int columnIndex = column + 1;
+			String name = rsmd.getColumnName(columnIndex);
+			String className = rsmd.getColumnClassName(columnIndex);
+			Class<?> type = Class.forName(className);
+			ColumnMetadata element = ColumnMetadata.builder().withName(name).withType(type).build();
+			list.add(element);
+		}
+		return list;
+	}
+
+	protected static Table<Integer, Integer, Optional<Object>> buildTable(ResultSet rs) throws SQLException {
 		int columns = rs.getMetaData().getColumnCount();
 		HashBasedTable<Integer, Integer, Optional<Object>> table = HashBasedTable.create();
 		while (rs.next()) {
 			addRow(rs, columns, table);
 		}
-		return table;
+		return ImmutableTable.copyOf(table);
 	}
 
-	protected void addRow(ResultSet rs, int columns, Table<Integer, Integer, Optional<Object>> table) throws SQLException {
+	protected static void addRow(ResultSet rs, int columns, Table<Integer, Integer, Optional<Object>> table) throws SQLException {
 		int row = table.rowKeySet().size();
 		for (int column = 0; column < columns; column++) {
 			int resultSetIndex = column + 1;

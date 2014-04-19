@@ -14,6 +14,10 @@ public final class ColumnMetadata {
 		this.type = builder.type;
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder extends ValidatingBuilder<ColumnMetadata> {
 
 		private String name;

@@ -14,23 +14,40 @@ import com.google.common.collect.Table;
 public final class ExecuteQueryResult {
 
 	private final String url;
+	private final String username;
 	private final String query;
 	private final ImmutableList<ColumnMetadata> metadata;
 	private final ImmutableTable<Integer, Integer, Optional<Object>> data;
 
 	private ExecuteQueryResult(Builder builder) {
 		this.url = builder.url;
+		this.username = builder.username;
 		this.query = builder.query;
 		this.metadata = ImmutableList.copyOf(builder.metadata);
 		this.data = ImmutableTable.copyOf(builder.data);
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder extends ValidatingBuilder<ExecuteQueryResult> {
 
 		private String url;
+		private String username;
 		private String query;
 		private List<ColumnMetadata> metadata;
 		private Table<Integer, Integer, Optional<Object>> data;
+
+		public Builder withUsername(String username) {
+			this.username = username;
+			return this;
+		}
+
+		public Builder withUrl(String url) {
+			this.url = url;
+			return this;
+		}
 
 		public Builder withQuery(String query) {
 			this.query = query;
@@ -67,6 +84,10 @@ public final class ExecuteQueryResult {
 
 	public String getUrl() {
 		return url;
+	}
+
+	public String getUsername() {
+		return username;
 	}
 
 }
