@@ -106,6 +106,7 @@ public class OracleDbaTest {
 		sql.add("select distinct username");
 		sql.add(" , osuser");
 		sql.add(" , machine");
+		sql.add(" , client_info as ip_address");
 		// sql.add(" , program");
 		sql.add("from v$session");
 		return Joiner.on('\n').join(sql);
