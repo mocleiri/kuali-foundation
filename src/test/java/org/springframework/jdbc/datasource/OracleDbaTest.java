@@ -29,6 +29,8 @@ import org.junit.Test;
 import org.kuali.common.util.encrypt.Encryptor;
 import org.slf4j.Logger;
 
+import com.google.common.collect.ImmutableList;
+
 public class OracleDbaTest {
 
 	private static final Logger logger = newLogger();
@@ -36,18 +38,18 @@ public class OracleDbaTest {
 	@Test
 	public void testOracle() {
 		try {
-			List<OracleConnectionContext> contexts = buildOracleConnectionContexts();
+			List<OracleConnectionContext> contexts = buildContexts();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected static List<OracleConnectionContext> buildOracleConnectionContexts() {
-		List<OracleConnectionContext> list = newArrayList();
-		list.add(buildContext("ks"));
-		list.add(buildContext("rice"));
-		list.add(buildOLEContext());
-		return list;
+	protected static List<OracleConnectionContext> buildContexts() {
+		List<OracleConnectionContext> contexts = newArrayList();
+		contexts.add(buildContext("ks"));
+		contexts.add(buildContext("rice"));
+		contexts.add(buildOLEContext());
+		return ImmutableList.copyOf(contexts);
 	}
 
 	protected static OracleConnectionContext buildOLEContext() {
