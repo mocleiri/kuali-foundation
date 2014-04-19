@@ -52,8 +52,8 @@ public class OracleDbaTest {
 	@Test
 	public void testOracle() {
 		try {
-			List<DataSource> dataSources = buildDataSources();
 			String query = buildCurrentSessionsQuery();
+			List<DataSource> dataSources = buildDataSources();
 			for (DataSource ds : dataSources) {
 				executeQuery(ds, query);
 			}
@@ -77,8 +77,7 @@ public class OracleDbaTest {
 		List<OracleConnectionContext> contexts = buildContexts();
 		List<DataSource> list = newArrayList();
 		for (OracleConnectionContext context : contexts) {
-			DataSource ds = buildDataSource(context);
-			list.add(ds);
+			list.add(buildDataSource(context));
 		}
 		return ImmutableList.copyOf(list);
 	}
