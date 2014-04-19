@@ -25,6 +25,8 @@ import static org.springframework.jdbc.datasource.DataSourceUtils.doGetConnectio
 import static org.springframework.jdbc.datasource.OracleConnectionContext.newOracleConnectionContextBuilder;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -33,6 +35,7 @@ import org.junit.Test;
 import org.kuali.common.util.encrypt.Encryptor;
 import org.slf4j.Logger;
 
+import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 
 public class OracleDbaTest {
@@ -51,12 +54,26 @@ public class OracleDbaTest {
 		}
 	}
 
+	protected static String getCurrentSessionsSQL() {
+		List<String> sql = newArrayList();
+		sql.add("select username");
+		sql.add(" , osuser");
+		sql.add(" , machine");
+		sql.add(" , program");
+		sql.add(" , terminal");
+		sql.add("from v$session");
+		return Joiner.on("").join(sql);
+	}
+
 	protected void checkActiveConnections(OracleConnectionContext context) {
 		DataSource ds = null;
 		Connection conn = null;
 		try {
 			ds = getDataSource(context);
 			conn = doGetConnection(ds);
+			Statement stmt = conn.createStatement();
+			String sql = getCurrentSessionsSQL();
+			ResultSet rs = stmt.executeQuery(sql);
 		} catch (Exception e) {
 			throw illegalState(e);
 		} finally {
