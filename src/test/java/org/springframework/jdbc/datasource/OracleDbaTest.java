@@ -103,10 +103,10 @@ public class OracleDbaTest {
 
 	protected static String buildCurrentSessionsQuery() {
 		List<String> sql = newArrayList();
-		sql.add("select username");
+		sql.add("select distinct username");
 		sql.add(" , osuser");
 		sql.add(" , machine");
-		sql.add(" , program");
+		// sql.add(" , program");
 		sql.add("from v$session");
 		return Joiner.on('\n').join(sql);
 	}
