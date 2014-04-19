@@ -24,10 +24,6 @@ public final class OracleConnectionContext {
 		this.sid = builder.sid;
 	}
 
-	public static Builder newOracleConnectionContextBuilder() {
-		return builder();
-	}
-
 	public static Builder builder() {
 		return new Builder();
 	}

@@ -23,7 +23,6 @@ import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.encrypt.Encryption.getDefaultEncryptor;
 import static org.kuali.common.util.log.Loggers.newLogger;
 import static org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection;
-import static org.springframework.jdbc.datasource.OracleConnectionContext.newOracleConnectionContextBuilder;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -130,7 +129,7 @@ public class OracleDbaTest {
 		String plaintextUsername = enc.decrypt(username);
 		String plaintextPassword = enc.decrypt(password);
 		String host = format("oracle.%s.kuali.org", project);
-		return newOracleConnectionContextBuilder().withUsername(plaintextUsername).withPassword(plaintextPassword).withHost(host).withSid(sid).build();
+		return OracleConnectionContext.builder().withUsername(plaintextUsername).withPassword(plaintextPassword).withHost(host).withSid(sid).build();
 	}
 
 	protected static String getUrl(OracleConnectionContext context) {
