@@ -19,6 +19,9 @@ import static org.kuali.common.devops.aws.NamedSecurityGroups.CI;
 import static org.kuali.common.devops.aws.NamedSecurityGroups.CI_BUILD_SLAVE;
 import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.bootstrap;
 import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.exec;
+import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.getDefaultAMI;
+import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.getJenkinsContext;
+import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.getJenkinsContexts;
 import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.getResource;
 import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.openSecureChannel;
 import static org.kuali.common.devops.ci.SpinUpJenkinsMaster.publishProject;
@@ -103,7 +106,7 @@ public class CreateBuildSlaveAMI {
 	private final Encryptor encryptor = getDefaultEncryptor();
 	private static final int DEFAULT_ROOT_VOLUME_SIZE = 80;
 
-	public static final Map<String, JenkinsContext> CONTEXTS = SpinUpJenkinsMaster.getJenkinsContexts(Tags.Name.SLAVE);
+	public static final Map<String, JenkinsContext> CONTEXTS = getJenkinsContexts(Tags.Name.SLAVE);
 	public static final Set<String> US_REGIONS = ImmutableSet.of(US_EAST_1.getName(), US_WEST_1.getName(), US_WEST_2.getName());
 
 	@Test
@@ -113,7 +116,7 @@ public class CreateBuildSlaveAMI {
 		logger.info(format("build slave ami process :: starting"));
 		// Default to quiet mode unless they've supplied -Dec2.quiet=false
 		boolean quiet = equalsIgnoreCase(vs.getProperties().getProperty("ec2.quiet"), "false") ? false : true;
-		JenkinsContext jenkinsContext = SpinUpJenkinsMaster.getJenkinsContext(vs, CONTEXTS);
+		JenkinsContext jenkinsContext = getJenkinsContext(vs, CONTEXTS);
 		// Configurable items
 		BasicLaunchRequest request = getSlaveLaunchRequest(jenkinsContext);
 		ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
@@ -228,8 +231,8 @@ public class CreateBuildSlaveAMI {
 
 	protected static BasicLaunchRequest getSlaveLaunchRequest(JenkinsContext context) {
 		BasicLaunchRequest.Builder builder = BasicLaunchRequest.builder();
-		builder.setAmi(SpinUpJenkinsMaster.getDefaultAMI(context.getRegion()));
-		builder.setTimeoutMillis(FormatUtils.getMillisAsInt("2h"));
+		builder.setAmi(getDefaultAMI(context.getRegion()));
+		builder.setTimeoutMillis(getMillisAsInt("2h"));
 		builder.setRootVolume(RootVolume.create(DEFAULT_ROOT_VOLUME_SIZE, true));
 		return getBasicLaunchRequest(builder.build());
 	}
