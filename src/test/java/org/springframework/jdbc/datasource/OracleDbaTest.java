@@ -132,14 +132,14 @@ public class OracleDbaTest {
 		return OracleConnectionContext.builder().withUsername(plaintextUsername).withPassword(plaintextPassword).withHost(host).withSid(sid).build();
 	}
 
-	protected static String getUrl(OracleConnectionContext context) {
-		return format("jdbc:oracle:thin:@%s:%s:%s", context.getHost(), context.getPort(), context.getSid());
+	protected static String getThinOracleJdbcUrl(String host, int port, String sid) {
+		return format("jdbc:oracle:thin:@%s:%s:%s", host, port, sid);
 	}
 
 	protected static DataSource getDataSource(OracleConnectionContext context) {
 		DriverManagerDataSource dmsd = new DriverManagerDataSource();
 		dmsd.setDriverClassName(context.getDriver());
-		dmsd.setUrl(getUrl(context));
+		dmsd.setUrl(getThinOracleJdbcUrl(context.getHost(), context.getPort(), context.getSid()));
 		dmsd.setUsername(context.getUsername());
 		dmsd.setPassword(context.getPassword());
 		return dmsd;
