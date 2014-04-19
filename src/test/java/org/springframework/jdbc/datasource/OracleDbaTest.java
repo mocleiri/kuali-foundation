@@ -15,27 +15,25 @@
  */
 package org.springframework.jdbc.datasource;
 
-import java.sql.CallableStatement;
+import static org.kuali.common.jdbc.JdbcUtils.closeQuietly;
+import static org.kuali.common.util.encrypt.Encryption.getDefaultEncryptor;
+import static org.kuali.common.util.log.Loggers.newLogger;
+import static org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection;
+
 import java.sql.Connection;
 
 import javax.sql.DataSource;
 
-import org.kuali.common.jdbc.JdbcUtils;
+import org.junit.Test;
+import org.kuali.common.util.encrypt.Encryptor;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class OracleDbaTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(OracleDbaTest.class);
+	private static final Logger logger = newLogger();
 
-	protected DataSource getMySQLDataSource(String url, String username, String password) {
-		DriverManagerDataSource dmsd = new DriverManagerDataSource();
-		dmsd.setDriverClassName("com.mysql.jdbc.Driver");
-		dmsd.setUrl(url);
-		dmsd.setUsername(username);
-		dmsd.setPassword(password);
-		return dmsd;
-	}
+	private final String username = "U2FsdGVkX1/kkX9m78m2GvhRB+HZ2NTaUB+yNtMi+zQ=";
+	private final String password = "U2FsdGVkX1+MvUNhiDwgoJoiZ6sfVrB7XBB4RkZ97JE=";
 
 	protected DataSource getOracleDataSource(String url, String username, String password) {
 		DriverManagerDataSource dmsd = new DriverManagerDataSource();
@@ -46,40 +44,20 @@ public class OracleDbaTest {
 		return dmsd;
 	}
 
-	// @Test
+	@Test
 	public void testOracle() {
 		try {
-			DataSource dataSource = getOracleDataSource("jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE", "master", "gw570229");
-			Connection conn = DataSourceUtils.doGetConnection(dataSource);
-			logger.info(conn + "");
-			// String sql = "{ call rdsadmin.rdsadmin_util.restricted_session(false) }";
-			// KSENV4 jeffcaddel administrators-MacBook-Pro-2.local JDBC Thin Client JDBC Thin Client 2013-01-03 15:04:24.0 667 34453
-			String sql = "{ call rdsadmin.rdsadmin_util.kill(667,34457) }";
-			String nativeSql = conn.nativeSQL(sql);
-			logger.info("native sql=" + nativeSql);
-			CallableStatement cstmt = conn.prepareCall(sql);
-			// cstmt.setString(1, "667");
-			// cstmt.setString(2, "34455");
-			cstmt.execute();
-			conn.commit();
-			cstmt.close();
-			JdbcUtils.closeQuietly(dataSource, conn);
+			Encryptor enc = getDefaultEncryptor();
+			String username = enc.decrypt(this.username);
+			String password = enc.decrypt(this.password);
+			String url = "jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE";
+			DataSource dataSource = getOracleDataSource(url, username, password);
+			Connection conn = doGetConnection(dataSource);
+			closeQuietly(dataSource, conn);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-	}
-
-	// @Test
-	public void test() {
-		try {
-			DataSource dataSource = getMySQLDataSource("jdbc:mysql://localhost", "root", null);
-			Connection conn = DataSourceUtils.doGetConnection(dataSource);
-			logger.info(conn + "");
-			JdbcUtils.closeQuietly(dataSource, conn);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 }

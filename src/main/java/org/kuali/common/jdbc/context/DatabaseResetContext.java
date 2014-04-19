@@ -16,12 +16,12 @@
 package org.kuali.common.jdbc.context;
 
 import java.util.Properties;
+import java.util.logging.SimpleFormatter;
 
 import org.kuali.common.jdbc.DefaultJdbcService;
 import org.kuali.common.jdbc.DefaultSqlReader;
 import org.kuali.common.jdbc.JdbcService;
 import org.kuali.common.jdbc.SqlReader;
-import org.kuali.common.util.SimpleFormatter;
 
 public class DatabaseResetContext {
 
