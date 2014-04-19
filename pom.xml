@@ -83,6 +83,10 @@
     </dependency>
     <dependency>
       <groupId>org.kuali.common</groupId>
+      <artifactId>kuali-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.kuali.common</groupId>
       <artifactId>kuali-deploy</artifactId>
     </dependency>
     <dependency>

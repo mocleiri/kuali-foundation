@@ -15,12 +15,9 @@
  */
 package org.springframework.jdbc.datasource;
 
-import static org.kuali.common.jdbc.JdbcUtils.closeQuietly;
+import static java.lang.String.format;
 import static org.kuali.common.util.encrypt.Encryption.getDefaultEncryptor;
 import static org.kuali.common.util.log.Loggers.newLogger;
-import static org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection;
-
-import java.sql.Connection;
 
 import javax.sql.DataSource;
 
@@ -31,33 +28,65 @@ import org.slf4j.Logger;
 public class OracleDbaTest {
 
 	private static final Logger logger = newLogger();
-
-	private final String username = "U2FsdGVkX1/kkX9m78m2GvhRB+HZ2NTaUB+yNtMi+zQ=";
-	private final String password = "U2FsdGVkX1+MvUNhiDwgoJoiZ6sfVrB7XBB4RkZ97JE=";
-
-	protected DataSource getOracleDataSource(String url, String username, String password) {
-		DriverManagerDataSource dmsd = new DriverManagerDataSource();
-		dmsd.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-		dmsd.setUrl(url);
-		dmsd.setUsername(username);
-		dmsd.setPassword(password);
-		return dmsd;
-	}
+	private static final String ORACLE_JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
 
 	@Test
 	public void testOracle() {
 		try {
-			Encryptor enc = getDefaultEncryptor();
-			String username = enc.decrypt(this.username);
-			String password = enc.decrypt(this.password);
-			String url = "jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE";
-			DataSource dataSource = getOracleDataSource(url, username, password);
-			Connection conn = doGetConnection(dataSource);
-			closeQuietly(dataSource, conn);
+			checkActiveConnections();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
 
+	protected static void checkActiveConnections() {
+		checkActiveConnections(getKSDataSource());
+		checkActiveConnections(getOLEDataSource());
+		checkActiveConnections(getRiceDataSource());
+	}
+
+	protected static void checkActiveConnections(DataSource ds) {
+	}
+
+	protected static void info(String msg, Object... args) {
+		if (args == null) {
+			logger.info(msg);
+		} else {
+			logger.info(format(msg, args));
+		}
+	}
+
+	protected static DataSource getOLEDataSource() {
+		Encryptor enc = getDefaultEncryptor();
+		String username = "U2FsdGVkX1962WWPhCy3H9wKqaXkAZ2CRxZk9ORD0Tw=";
+		String password = "U2FsdGVkX192QhrhtAYGogxTNBRgeaN0qXnYvbWZaZg=";
+		String url = "jdbc:oracle:thin:@oracle.ole.kuali.org:1521:OLE";
+		return getDataSource(url, enc.decrypt(username), enc.decrypt(password));
+	}
+
+	protected static DataSource getRiceDataSource() {
+		Encryptor enc = getDefaultEncryptor();
+		String username = "U2FsdGVkX1/kkX9m78m2GvhRB+HZ2NTaUB+yNtMi+zQ=";
+		String password = "U2FsdGVkX1+MvUNhiDwgoJoiZ6sfVrB7XBB4RkZ97JE=";
+		String url = "jdbc:oracle:thin:@oracle.rice.kuali.org:1521:ORACLE";
+		return getDataSource(url, enc.decrypt(username), enc.decrypt(password));
+	}
+
+	protected static DataSource getDataSource(String project, int port, String sid) {
+		Encryptor enc = getDefaultEncryptor();
+		String username = "U2FsdGVkX1/kkX9m78m2GvhRB+HZ2NTaUB+yNtMi+zQ=";
+		String password = "U2FsdGVkX1+MvUNhiDwgoJoiZ6sfVrB7XBB4RkZ97JE=";
+		String url = format("jdbc:oracle:thin:@oracle.%s.kuali.org:%s:%s", project, port, sid);
+		return getDataSource(url, enc.decrypt(username), enc.decrypt(password));
+	}
+
+	protected static DataSource getDataSource(String url, String username, String password) {
+		DriverManagerDataSource dmsd = new DriverManagerDataSource();
+		dmsd.setDriverClassName(ORACLE_JDBC_DRIVER);
+		dmsd.setUrl(url);
+		dmsd.setUsername(username);
+		dmsd.setPassword(password);
+		return dmsd;
 	}
 
 }
