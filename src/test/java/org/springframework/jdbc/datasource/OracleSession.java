@@ -1,12 +1,7 @@
 package org.springframework.jdbc.datasource;
 
-import static com.google.common.base.Optional.absent;
-import static com.google.common.base.Optional.fromNullable;
-
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
-
-import com.google.common.base.Optional;
 
 @IdiotProofImmutable
 public final class OracleSession {
@@ -14,7 +9,7 @@ public final class OracleSession {
 	private final String username;
 	private final String osuser;
 	private final String machine;
-	private final Optional<String> ipAddress;
+	private final String ipAddress;
 
 	private OracleSession(Builder builder) {
 		this.username = builder.username;
@@ -28,7 +23,7 @@ public final class OracleSession {
 		private String username;
 		private String osuser;
 		private String machine;
-		private Optional<String> ipAddress = absent();
+		private String ipAddress;
 
 		public Builder withUsername(String username) {
 			this.username = username;
@@ -46,10 +41,6 @@ public final class OracleSession {
 		}
 
 		public Builder withIpAddress(String ipAddress) {
-			return withIpAddress(fromNullable(ipAddress));
-		}
-
-		public Builder withIpAddress(Optional<String> ipAddress) {
 			this.ipAddress = ipAddress;
 			return this;
 		}
@@ -72,7 +63,7 @@ public final class OracleSession {
 		return machine;
 	}
 
-	public Optional<String> getIpAddress() {
+	public String getIpAddress() {
 		return ipAddress;
 	}
 
