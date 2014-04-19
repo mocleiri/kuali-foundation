@@ -40,7 +40,6 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Table;
 
 public class OracleDbaTest {
@@ -73,7 +72,7 @@ public class OracleDbaTest {
 
 	protected List<DataSource> buildDataSources() {
 		List<OracleConnectionContext> contexts = buildContexts();
-		List<DataSource> list = Lists.newArrayList();
+		List<DataSource> list = newArrayList();
 		for (OracleConnectionContext context : contexts) {
 			DataSource ds = buildDataSource(context);
 			list.add(ds);
