@@ -39,7 +39,7 @@ public final class OracleConnectionContext {
 		private String host;
 		private String driver = "oracle.jdbc.driver.OracleDriver";
 		private int port = 1521;
-		private String sid = "ORACLE";
+		private String sid = "XE";
 
 		public Builder withUsername(String username) {
 			this.username = username;
