@@ -53,7 +53,7 @@ public class OracleDbaTest {
 	@Test
 	public void testOracle() {
 		try {
-			String query = buildCurrentlyConnectedUsers();
+			String query = buildCurrentSessionsQuery();
 			List<DataSource> dataSources = buildDataSources();
 			List<ExecuteQueryResult> results = executeQuery(dataSources, query);
 			showResults(results);
@@ -71,6 +71,11 @@ public class OracleDbaTest {
 			info(" driver: [%s, %s]", db.getDriver().getName(), db.getDriver().getVersion());
 			info("  query: [%s]", query);
 			info("   rows: [%s]", result.getData().size());
+			List<Column> columns = result.getColumns();
+			for (Column column : columns) {
+				info("name=%s", column.getName());
+				info("type=%s", column.getType().getCanonicalName());
+			}
 		}
 	}
 
@@ -110,12 +115,25 @@ public class OracleDbaTest {
 		return Joiner.on('\n').join(sql);
 	}
 
+	protected static String buildCurrentSessionsQuery() {
+		List<String> sql = newArrayList();
+		sql.add("select username"); // The Oracle user they are connected as
+		sql.add(" , osuser"); // The user they are logged in as on their own machine
+		sql.add(" , machine"); // The name of the machine they are logging in from
+		sql.add(" , client_info"); // A custom kuali trigger fills this in with the IP address
+		sql.add(" , logon_time"); // Contains the time the session was started
+		sql.add("from v$session");
+		sql.add("where username is not null");
+		return Joiner.on('\n').join(sql);
+	}
+
 	protected static String buildCurrentSessionsQuery(String username) {
 		List<String> sql = newArrayList();
 		sql.add("select username"); // The Oracle user they are connected as
 		sql.add(" , osuser"); // The user they are logged in as on their own machine
 		sql.add(" , machine"); // The name of the machine they are logging in from
 		sql.add(" , client_info"); // A custom kuali trigger fills this in with the IP address
+		sql.add(" , logon_time"); // Contains the time the session was started
 		sql.add("from v$session");
 		sql.add(format("where username = '%s'", username));
 		return Joiner.on('\n').join(sql);
@@ -163,7 +181,7 @@ public class OracleDbaTest {
 			String name = rsmd.getColumnName(columnIndex);
 			String className = rsmd.getColumnClassName(columnIndex);
 			Class<?> type = Class.forName(className);
-			Column element = Column.builder().withName(name).withType(type).build();
+			Column element = Column.builder().withIndex(column).withName(name).withType(type).build();
 			list.add(element);
 		}
 		return ImmutableList.copyOf(list);

@@ -1,17 +1,22 @@
 package org.springframework.jdbc.datasource;
 
+import javax.validation.constraints.Min;
+
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
 @IdiotProofImmutable
 public final class Column {
 
+	@Min(0)
+	private final int index;
 	private final String name;
 	private final Class<?> type;
 
 	private Column(Builder builder) {
 		this.name = builder.name;
 		this.type = builder.type;
+		this.index = builder.index;
 	}
 
 	public static Builder builder() {
@@ -20,8 +25,14 @@ public final class Column {
 
 	public static class Builder extends ValidatingBuilder<Column> {
 
+		private int index = -1;
 		private String name;
 		private Class<?> type;
+
+		public Builder withIndex(int index) {
+			this.index = index;
+			return this;
+		}
 
 		public Builder withName(String name) {
 			this.name = name;
@@ -45,6 +56,10 @@ public final class Column {
 
 	public Class<?> getType() {
 		return type;
+	}
+
+	public int getIndex() {
+		return index;
 	}
 
 }
