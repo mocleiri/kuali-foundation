@@ -17,6 +17,10 @@ import com.google.common.base.Splitter;
 
 public final class EncryptionMain {
 
+	private static final String FS = File.separator;
+	private static final String USER_HOME_TOKEN = "~" + FS;
+	private static final String USER_HOME_REPLACEMENT = System.getProperty("user.home") + FS;
+
 	public static void main(String[] args) {
 		if (args == null || args.length == 0) {
 			usage();
@@ -56,7 +60,7 @@ public final class EncryptionMain {
 			if (arg.startsWith("--file")) {
 				List<String> tokens = Splitter.on('=').splitToList(arg);
 				checkState(tokens.size() == 2, "expected 2 tokens from [%s], but got %s instead", arg, tokens.size());
-				String filename = tokens.get(1).replace("~", System.getProperty("user.home"));
+				String filename = tokens.get(1).replace(USER_HOME_TOKEN, USER_HOME_REPLACEMENT);
 				return Optional.<File> of(new CanonicalFile(filename));
 			}
 		}
