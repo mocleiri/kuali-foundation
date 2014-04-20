@@ -132,7 +132,7 @@ public class OracleDbaTest {
 			conn = doGetConnection(ds);
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			List<ColumnMetadata> meta = buildColumnMetaData(rs.getMetaData());
+			List<Column> meta = buildColumnMetaData(rs.getMetaData());
 			Table<Integer, Integer, Optional<Object>> table = buildTable(rs);
 			DatabaseMetaData dbmd = conn.getMetaData();
 			String url = dbmd.getURL();
@@ -145,15 +145,15 @@ public class OracleDbaTest {
 		}
 	}
 
-	protected static List<ColumnMetadata> buildColumnMetaData(ResultSetMetaData rsmd) throws SQLException, ClassNotFoundException {
+	protected static List<Column> buildColumnMetaData(ResultSetMetaData rsmd) throws SQLException, ClassNotFoundException {
 		int columns = rsmd.getColumnCount();
-		List<ColumnMetadata> list = newArrayList();
+		List<Column> list = newArrayList();
 		for (int column = 0; column < columns; column++) {
 			int columnIndex = column + 1;
 			String name = rsmd.getColumnName(columnIndex);
 			String className = rsmd.getColumnClassName(columnIndex);
 			Class<?> type = Class.forName(className);
-			ColumnMetadata element = ColumnMetadata.builder().withName(name).withType(type).build();
+			Column element = Column.builder().withName(name).withType(type).build();
 			list.add(element);
 		}
 		return ImmutableList.copyOf(list);

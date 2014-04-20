@@ -31,7 +31,7 @@ public final class ExecuteQueryResult {
 	private final String url;
 	private final String username;
 	private final String query;
-	private final ImmutableList<ColumnMetadata> metadata;
+	private final ImmutableList<Column> metadata;
 	private final ImmutableTable<Integer, Integer, Optional<Object>> data;
 
 	private ExecuteQueryResult(Builder builder) {
@@ -51,7 +51,7 @@ public final class ExecuteQueryResult {
 		private String url;
 		private String username;
 		private String query;
-		private List<ColumnMetadata> metadata;
+		private List<Column> metadata;
 		private Table<Integer, Integer, Optional<Object>> data;
 
 		public Builder withUsername(String username) {
@@ -69,7 +69,7 @@ public final class ExecuteQueryResult {
 			return this;
 		}
 
-		public Builder withMetadata(List<ColumnMetadata> metadata) {
+		public Builder withMetadata(List<Column> metadata) {
 			this.metadata = metadata;
 			return this;
 		}
@@ -89,7 +89,7 @@ public final class ExecuteQueryResult {
 		return query;
 	}
 
-	public List<ColumnMetadata> getMetadata() {
+	public List<Column> getMetadata() {
 		return metadata;
 	}
 
