@@ -95,8 +95,7 @@ public class OracleDbaTest {
 	protected static List<ExecuteQueryResult> executeQuery(List<DataSource> dataSources, String query) {
 		List<ExecuteQueryResult> results = newArrayList();
 		for (DataSource dataSource : dataSources) {
-			ExecuteQueryResult result = executeQuery(dataSource, query);
-			results.add(result);
+			results.add(executeQuery(dataSource, query));
 		}
 		return results;
 	}
