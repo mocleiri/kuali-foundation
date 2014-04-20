@@ -52,7 +52,7 @@ public final class FileEncryptionContextProvider implements EncryptionContextPro
 	}
 
 	protected String getPassword(List<String> lines) {
-		checkState(lines.size() > 0, "The first line in [%s] must contain the encryption password");
+		checkState(lines.size() > 0, "The first non-blank, non-comment line in [%s] must contain the encryption password");
 		String password = lines.get(0);
 		checkNotBlank(password, "password");
 		return password;
