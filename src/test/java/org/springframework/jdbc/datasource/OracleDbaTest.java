@@ -183,7 +183,7 @@ public class OracleDbaTest {
 		return Database.builder().withUrl(url).withUsername(username).withProduct(product).withDriver(driver).build();
 	}
 
-	protected static List<Column> buildColumnMetaData(ResultSetMetaData rsmd) throws SQLException, ClassNotFoundException {
+	protected static List<Column> buildColumnMetaData(ResultSetMetaData rsmd) throws SQLException {
 		int columns = rsmd.getColumnCount();
 		List<Column> list = newArrayList();
 		for (int column = 0; column < columns; column++) {
@@ -197,11 +197,15 @@ public class OracleDbaTest {
 		return ImmutableList.copyOf(list);
 	}
 
-	protected static Class<?> getType(String className) throws ClassNotFoundException {
+	protected static Class<?> getType(String className) {
 		if (className.equals("byte[]")) {
 			return byte[].class;
 		} else {
-			return Class.forName(className);
+			try {
+				return Class.forName(className);
+			} catch (ClassNotFoundException e) {
+				throw illegalState(e);
+			}
 		}
 	}
 
