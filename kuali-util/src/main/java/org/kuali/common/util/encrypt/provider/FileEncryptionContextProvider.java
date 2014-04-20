@@ -41,7 +41,7 @@ public final class FileEncryptionContextProvider implements EncryptionContextPro
 	}
 
 	protected EncryptionStrength getStrength(List<String> lines) {
-		if (lines.size() < 1) {
+		if (lines.size() < 2) {
 			return DEFAULT_ENCRYPTION_STRENGTH;
 		}
 		String value = lines.get(1);
