@@ -28,15 +28,13 @@ import com.google.common.collect.Table;
 @IdiotProofImmutable
 public final class ExecuteQueryResult {
 
-	private final String url;
-	private final String username;
+	private final Database database;
 	private final String query;
 	private final ImmutableList<Column> columns;
 	private final ImmutableTable<Integer, Integer, Optional<Object>> data;
 
 	private ExecuteQueryResult(Builder builder) {
-		this.url = builder.url;
-		this.username = builder.username;
+		this.database = builder.database;
 		this.query = builder.query;
 		this.columns = ImmutableList.copyOf(builder.columns);
 		this.data = ImmutableTable.copyOf(builder.data);
@@ -48,24 +46,13 @@ public final class ExecuteQueryResult {
 
 	public static class Builder extends ValidatingBuilder<ExecuteQueryResult> {
 
-		private String url;
-		private String username;
+		private Database database;
 		private String query;
 		private List<Column> columns;
 		private Table<Integer, Integer, Optional<Object>> data;
 
-		public Builder withUsername(String username) {
-			this.username = username;
-			return this;
-		}
-
-		public Builder withUrl(String url) {
-			this.url = url;
-			return this;
-		}
-
-		public Builder withQuery(String query) {
-			this.query = query;
+		public Builder withDatabase(Database database) {
+			this.database = database;
 			return this;
 		}
 
@@ -97,12 +84,8 @@ public final class ExecuteQueryResult {
 		return data;
 	}
 
-	public String getUrl() {
-		return url;
-	}
-
-	public String getUsername() {
-		return username;
+	public Database getDatabase() {
+		return database;
 	}
 
 }

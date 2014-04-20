@@ -134,15 +134,24 @@ public class OracleDbaTest {
 			ResultSet rs = stmt.executeQuery(query);
 			List<Column> columns = buildColumnMetaData(rs.getMetaData());
 			Table<Integer, Integer, Optional<Object>> table = buildTable(rs);
-			DatabaseMetaData dbmd = conn.getMetaData();
-			String url = dbmd.getURL();
-			String username = dbmd.getUserName();
-			return ExecuteQueryResult.builder().withUrl(url).withUsername(username).withQuery(query).withColumns(columns).withData(table).build();
+			Database database = getDatabase(conn.getMetaData());
+			return ExecuteQueryResult.builder().withDatabase(database).withColumns(columns).withData(table).build();
 		} catch (Exception e) {
 			throw illegalState(e);
 		} finally {
 			closeQuietly(ds, conn);
 		}
+	}
+
+	protected static Database getDatabase(DatabaseMetaData meta) throws SQLException {
+		String url = meta.getURL();
+		String username = meta.getUserName();
+		String productName = meta.getDatabaseProductName();
+		String productVersion = meta.getDatabaseProductVersion();
+		String driverName = meta.getDriverName();
+		String driverVersion = meta.getDriverVersion();
+		return Database.builder().withUrl(url).withUsername(username).withProductName(productName).withProductVersion(productVersion).withDriverName(driverName)
+				.withDriverVersion(driverVersion).build();
 	}
 
 	protected static List<Column> buildColumnMetaData(ResultSetMetaData rsmd) throws SQLException, ClassNotFoundException {
