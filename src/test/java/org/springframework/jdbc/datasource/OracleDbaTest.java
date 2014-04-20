@@ -66,11 +66,11 @@ public class OracleDbaTest {
 		for (ExecuteQueryResult result : results) {
 			String query = flatten(result.getQuery());
 			Database db = result.getDatabase();
-			info("db: [%s %s]", db.getUrl(), db.getUsername());
-			info("product: [%s %s]", db.getProduct().getName(), db.getProduct().getVersion());
-			info("driver: [%s %s]", db.getDriver().getName(), db.getDriver().getVersion());
-			info("query: [%s]", query);
-			info(" rows: [%s]", result.getData().size());
+			info("     db: [%s, %s]", db.getUrl(), db.getUsername());
+			info("product: [%s, %s]", db.getProduct().getName(), db.getProduct().getVersion());
+			info(" driver: [%s, %s]", db.getDriver().getName(), db.getDriver().getVersion());
+			info("  query: [%s]", query);
+			info("   rows: [%s]", result.getData().size());
 		}
 	}
 
