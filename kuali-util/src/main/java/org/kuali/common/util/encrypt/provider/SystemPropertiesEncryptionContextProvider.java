@@ -4,8 +4,8 @@ import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 public final class SystemPropertiesEncryptionContextProvider extends AbstractEncryptionContextProvider {
 
-	public SystemPropertiesEncryptionContextProvider() {
-		super("enc.password", "enc.strength");
+	public SystemPropertiesEncryptionContextProvider(String passwordKey, String strengthKey) {
+		super(passwordKey, strengthKey);
 	}
 
 	@Override

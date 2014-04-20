@@ -11,14 +11,6 @@ public final class MavenEncryptionContextProvider extends AbstractEncryptionCont
 
 	private static final File USER_SETTINGS = getSettingsFile();
 
-	public MavenEncryptionContextProvider() {
-		super("enc.password", "enc.strength");
-	}
-
-	public MavenEncryptionContextProvider(String passwordKey) {
-		super(passwordKey, "enc.strength");
-	}
-
 	public MavenEncryptionContextProvider(String passwordKey, String strengthKey) {
 		super(passwordKey, strengthKey);
 	}

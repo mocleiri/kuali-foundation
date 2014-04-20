@@ -4,8 +4,8 @@ import static org.kuali.common.util.base.Precondition.checkNotBlank;
 
 public final class EnvironmentVariableEncryptionContextProvider extends AbstractEncryptionContextProvider {
 
-	public EnvironmentVariableEncryptionContextProvider() {
-		super("ENC_PASSWORD","ENC_STRENGTH");
+	public EnvironmentVariableEncryptionContextProvider(String passwordKey, String strengthKey) {
+		super(passwordKey, strengthKey);
 	}
 
 	@Override

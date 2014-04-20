@@ -12,13 +12,17 @@ import com.google.common.collect.ImmutableList;
 
 public final class DefaultEncryptionContextProviderChain implements EncryptionContextProvider {
 
+	private static final String ENC_PASSWORD_KEY = "enc.password";
+	private static final String ENC_STRENGTH_KEY = "enc.strength";
+	private static final String ENC_MAVEN_ALTERNATE_PASSWORD_KEY = "enc.pwd";
+
 	public DefaultEncryptionContextProviderChain() {
 		List<EncryptionContextProvider> providers = newArrayList();
-		providers.add(new SystemPropertiesEncryptionContextProvider());
-		providers.add(new EnvironmentVariableEncryptionContextProvider());
+		providers.add(new SystemPropertiesEncryptionContextProvider(ENC_PASSWORD_KEY, ENC_STRENGTH_KEY));
+		providers.add(new EnvironmentVariableEncryptionContextProvider(toEnvKey(ENC_PASSWORD_KEY), toEnvKey(ENC_STRENGTH_KEY)));
 		providers.add(new FileEncryptionContextProvider());
-		providers.add(new MavenEncryptionContextProvider("enc.pwd"));
-		providers.add(new MavenEncryptionContextProvider("enc.password"));
+		providers.add(new MavenEncryptionContextProvider(ENC_MAVEN_ALTERNATE_PASSWORD_KEY, ENC_STRENGTH_KEY));
+		providers.add(new MavenEncryptionContextProvider(ENC_PASSWORD_KEY, ENC_STRENGTH_KEY));
 		this.providers = ImmutableList.copyOf(providers);
 	}
 
@@ -45,6 +49,10 @@ public final class DefaultEncryptionContextProviderChain implements EncryptionCo
 			}
 		}
 		return absent();
+	}
+
+	protected static String toEnvKey(String key) {
+		return key.replace('.', '_').toUpperCase();
 	}
 
 }
