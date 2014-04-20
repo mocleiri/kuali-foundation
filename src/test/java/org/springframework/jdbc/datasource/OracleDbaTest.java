@@ -112,10 +112,10 @@ public class OracleDbaTest {
 
 	protected static String buildCurrentSessionsQuery(String username) {
 		List<String> sql = newArrayList();
-		sql.add("select distinct username");
-		sql.add(" , osuser");
-		sql.add(" , machine");
-		sql.add(" , client_info as ip_address");
+		sql.add("select username"); // The Oracle user they are connected as
+		sql.add(" , osuser"); // The user they are logged in as on their own operating system
+		sql.add(" , machine"); // The name of the machine they are logging in from
+		sql.add(" , client_info"); // A custom kuali trigger fills this in with the IP address
 		sql.add("from v$session");
 		sql.add(format("where username = '%s'", username));
 		return Joiner.on('\n').join(sql);
