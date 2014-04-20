@@ -146,12 +146,9 @@ public class OracleDbaTest {
 	protected static Database getDatabase(DatabaseMetaData meta) throws SQLException {
 		String url = meta.getURL();
 		String username = meta.getUserName();
-		String productName = meta.getDatabaseProductName();
-		String productVersion = meta.getDatabaseProductVersion();
-		String driverName = meta.getDriverName();
-		String driverVersion = meta.getDriverVersion();
-		return Database.builder().withUrl(url).withUsername(username).withProductName(productName).withProductVersion(productVersion).withDriverName(driverName)
-				.withDriverVersion(driverVersion).build();
+		Versioned product = Versioned.builder().withName(meta.getDatabaseProductName()).withVersion(meta.getDatabaseProductVersion()).build();
+		Versioned driver = Versioned.builder().withName(meta.getDriverName()).withVersion(meta.getDriverVersion()).build();
+		return Database.builder().withUrl(url).withUsername(username).withProduct(product).withDriver(driver).build();
 	}
 
 	protected static List<Column> buildColumnMetaData(ResultSetMetaData rsmd) throws SQLException, ClassNotFoundException {
