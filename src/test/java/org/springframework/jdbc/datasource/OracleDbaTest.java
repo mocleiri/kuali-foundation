@@ -19,6 +19,7 @@ import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
+import static java.util.Collections.sort;
 import static org.kuali.common.jdbc.service.JdbcUtils.closeQuietly;
 import static org.kuali.common.util.Str.flatten;
 import static org.kuali.common.util.base.Exceptions.illegalState;
@@ -77,7 +78,8 @@ public class OracleDbaTest {
 			info(" driver: [%s, %s]", db.getDriver().getName(), db.getDriver().getVersion());
 			info("  query: [%s]", query);
 			info("   rows: [%s]", result.getData().rowKeySet().size());
-			List<Column> columns = result.getColumns();
+			List<Column> columns = newArrayList(result.getColumns());
+			sort(columns, ColumnNameComparator.INSTANCE);
 			for (Column column : columns) {
 				Optional<Boolean> nullable = column.getNullable();
 				info("    name=%s", column.getName());
