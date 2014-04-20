@@ -65,6 +65,9 @@ public class OracleDbaTest {
 	protected static void showResults(List<ExecuteQueryResult> results) {
 		for (ExecuteQueryResult result : results) {
 			String query = flatten(result.getQuery());
+			Database db = result.getDatabase();
+			info("db: [%s %s %s %s %s %s]", db.getUrl(), db.getUsername(), db.getProduct().getName(), db.getProduct().getVersion(), db.getDriver().getName(), db.getDriver()
+					.getVersion());
 			info("query: [%s]", query);
 			info(" rows: [%s]", result.getData().size());
 		}
@@ -135,7 +138,7 @@ public class OracleDbaTest {
 			List<Column> columns = buildColumnMetaData(rs.getMetaData());
 			Table<Integer, Integer, Optional<Object>> table = buildTable(rs);
 			Database database = getDatabase(conn.getMetaData());
-			return ExecuteQueryResult.builder().withDatabase(database).withColumns(columns).withData(table).build();
+			return ExecuteQueryResult.builder().withDatabase(database).withQuery(query).withColumns(columns).withData(table).build();
 		} catch (Exception e) {
 			throw illegalState(e);
 		} finally {

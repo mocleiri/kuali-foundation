@@ -51,6 +51,11 @@ public final class ExecuteQueryResult {
 		private List<Column> columns;
 		private Table<Integer, Integer, Optional<Object>> data;
 
+		public Builder withQuery(String query) {
+			this.query = query;
+			return this;
+		}
+
 		public Builder withDatabase(Database database) {
 			this.database = database;
 			return this;
