@@ -54,13 +54,18 @@ public class OracleDbaTest {
 	@Test
 	public void testOracle() {
 		try {
-			String query = buildCurrentSessionsQuery();
+			// String query = buildCurrentSessionsQuery();
+			String query = buildDescribeTableSQL("v$session");
 			List<DataSource> dataSources = buildDataSources();
 			List<ExecuteQueryResult> results = executeQuery(dataSources, query);
 			showResults(results);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected static String buildDescribeTableSQL(String table) {
+		return format("select * from %s where 1=2", table);
 	}
 
 	protected static void showResults(List<ExecuteQueryResult> results) {
@@ -71,11 +76,13 @@ public class OracleDbaTest {
 			info("product: [%s, %s]", db.getProduct().getName(), db.getProduct().getVersion());
 			info(" driver: [%s, %s]", db.getDriver().getName(), db.getDriver().getVersion());
 			info("  query: [%s]", query);
-			info("   rows: [%s]", result.getData().size());
+			info("   rows: [%s]", result.getData().rowKeySet().size());
 			List<Column> columns = result.getColumns();
 			for (Column column : columns) {
-				info("name=%s", column.getName());
-				info("type=%s", column.getType().getCanonicalName());
+				Optional<Boolean> nullable = column.getNullable();
+				info("    name=%s", column.getName());
+				info("    type=%s", column.getType().getCanonicalName());
+				info("nullable=%s", nullable.isPresent() ? nullable.get() : "unknown");
 			}
 		}
 	}
@@ -118,7 +125,9 @@ public class OracleDbaTest {
 
 	protected static String buildCurrentSessionsQuery() {
 		List<String> sql = newArrayList();
-		sql.add("select username"); // The Oracle user they are connected as
+		sql.add("select sid");
+		sql.add(" , serial#");
+		sql.add(" , username"); // The Oracle user they are connected as
 		sql.add(" , osuser"); // The user they are logged in as on their own machine
 		sql.add(" , machine"); // The name of the machine they are logging in from
 		sql.add(" , client_info"); // A custom kuali trigger fills this in with the IP address
@@ -180,20 +189,23 @@ public class OracleDbaTest {
 		for (int column = 0; column < columns; column++) {
 			int columnIndex = column + 1;
 			String name = rsmd.getColumnName(columnIndex);
-			String className = rsmd.getColumnClassName(columnIndex);
-			int nullability = rsmd.isNullable(columnIndex);
-			Optional<Boolean> nullable = absent();
-			if (ResultSetMetaData.columnNoNulls == nullability) {
-
-			}
-			Class<?> type = Class.forName(className);
-			Column element = Column.builder().withIndex(column).withName(name).withType(type).build();
+			Optional<Boolean> nullable = getNullable(rsmd.isNullable(columnIndex));
+			Class<?> type = getType(rsmd.getColumnClassName(columnIndex));
+			Column element = Column.builder().withIndex(column).withName(name).withType(type).withNullable(nullable).build();
 			list.add(element);
 		}
 		return ImmutableList.copyOf(list);
 	}
 
-	protected static Optional<Boolean> getNullability(int nullability) {
+	protected static Class<?> getType(String className) throws ClassNotFoundException {
+		if (className.equals("byte[]")) {
+			return byte[].class;
+		} else {
+			return Class.forName(className);
+		}
+	}
+
+	protected static Optional<Boolean> getNullable(int nullability) {
 		switch (nullability) {
 		case ResultSetMetaData.columnNoNulls:
 			return Optional.of(false);
