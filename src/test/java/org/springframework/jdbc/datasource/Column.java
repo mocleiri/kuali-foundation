@@ -5,6 +5,8 @@ import javax.validation.constraints.Min;
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
+import com.google.common.base.Optional;
+
 @IdiotProofImmutable
 public final class Column {
 
@@ -12,11 +14,13 @@ public final class Column {
 	private final int index;
 	private final String name;
 	private final Class<?> type;
+	private final Optional<Boolean> nullable;
 
 	private Column(Builder builder) {
 		this.name = builder.name;
 		this.type = builder.type;
 		this.index = builder.index;
+		this.nullable = builder.nullable;
 	}
 
 	public static Builder builder() {
@@ -28,6 +32,16 @@ public final class Column {
 		private int index = -1;
 		private String name;
 		private Class<?> type;
+		private Optional<Boolean> nullable;
+
+		public Builder withNullable(Optional<Boolean> nullable) {
+			this.nullable = nullable;
+			return this;
+		}
+
+		public Builder withNullable(boolean nullable) {
+			return withNullable(Optional.of(nullable));
+		}
 
 		public Builder withIndex(int index) {
 			this.index = index;
@@ -60,6 +74,10 @@ public final class Column {
 
 	public int getIndex() {
 		return index;
+	}
+
+	public Optional<Boolean> getNullable() {
+		return nullable;
 	}
 
 }

@@ -15,6 +15,7 @@
  */
 package org.springframework.jdbc.datasource;
 
+import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
@@ -180,11 +181,29 @@ public class OracleDbaTest {
 			int columnIndex = column + 1;
 			String name = rsmd.getColumnName(columnIndex);
 			String className = rsmd.getColumnClassName(columnIndex);
+			int nullability = rsmd.isNullable(columnIndex);
+			Optional<Boolean> nullable = absent();
+			if (ResultSetMetaData.columnNoNulls == nullability) {
+
+			}
 			Class<?> type = Class.forName(className);
 			Column element = Column.builder().withIndex(column).withName(name).withType(type).build();
 			list.add(element);
 		}
 		return ImmutableList.copyOf(list);
+	}
+
+	protected static Optional<Boolean> getNullability(int nullability) {
+		switch (nullability) {
+		case ResultSetMetaData.columnNoNulls:
+			return Optional.of(false);
+		case ResultSetMetaData.columnNullable:
+			return Optional.of(true);
+		case ResultSetMetaData.columnNullableUnknown:
+			return absent();
+		default:
+			throw illegalState("nullability %s is unknown", nullability);
+		}
 	}
 
 	protected static Table<Integer, Integer, Optional<Object>> buildTable(ResultSet rs) throws SQLException {
@@ -234,10 +253,6 @@ public class OracleDbaTest {
 		return OracleConnectionContext.builder().withUsername(plaintextUsername).withPassword(plaintextPassword).withHost(host).withSid(sid).build();
 	}
 
-	protected static String getThinOracleJdbcUrl(String host, int port, String sid) {
-		return format("jdbc:oracle:thin:@%s:%s:%s", host, port, sid);
-	}
-
 	protected static DataSource buildDataSource(OracleConnectionContext context) {
 		DriverManagerDataSource dmsd = new DriverManagerDataSource();
 		dmsd.setDriverClassName(context.getDriver());
@@ -245,6 +260,10 @@ public class OracleDbaTest {
 		dmsd.setUsername(context.getUsername());
 		dmsd.setPassword(context.getPassword());
 		return dmsd;
+	}
+
+	protected static String getThinOracleJdbcUrl(String host, int port, String sid) {
+		return format("jdbc:oracle:thin:@%s:%s:%s", host, port, sid);
 	}
 
 	protected static void info(String msg, Object... args) {
