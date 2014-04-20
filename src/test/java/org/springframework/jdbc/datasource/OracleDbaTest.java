@@ -156,7 +156,7 @@ public class OracleDbaTest {
 			ColumnMetadata element = ColumnMetadata.builder().withName(name).withType(type).build();
 			list.add(element);
 		}
-		return list;
+		return ImmutableList.copyOf(list);
 	}
 
 	protected static Table<Integer, Integer, Optional<Object>> buildTable(ResultSet rs) throws SQLException {
