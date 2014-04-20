@@ -18,11 +18,10 @@ package org.kuali.common.core.ssh.jcraft;
 import static com.jcraft.jsch.KeyPair.DSA;
 import static com.jcraft.jsch.KeyPair.RSA;
 import static com.jcraft.jsch.KeyPair.genKeyPair;
-import static org.kuali.common.util.Encodings.UTF8;
+import static org.kuali.common.util.Str.getUTF8String;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.io.ByteArrayOutputStream;
-import java.io.UnsupportedEncodingException;
 
 import org.kuali.common.core.ssh.Algorithm;
 import org.kuali.common.core.ssh.GenerateKeyPairContext;
@@ -57,20 +56,13 @@ public class JCraftSshService implements SshService {
 	protected String getPrivateKey(com.jcraft.jsch.KeyPair keyPair) {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		keyPair.writePrivateKey(out);
-		return getUTF8String(out);
+		return getUTF8String(out.toByteArray());
 	}
 
 	protected String getPublicKey(com.jcraft.jsch.KeyPair keyPair, String name) {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		keyPair.writePublicKey(out, name);
-		return getUTF8String(out);
+		return getUTF8String(out.toByteArray());
 	}
 
-	protected String getUTF8String(ByteArrayOutputStream out) {
-		try {
-			return out.toString(UTF8);
-		} catch (UnsupportedEncodingException e) {
-			throw new IllegalStateException(e);
-		}
-	}
 }
