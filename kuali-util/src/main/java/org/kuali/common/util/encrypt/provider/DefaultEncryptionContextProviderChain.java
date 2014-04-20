@@ -10,14 +10,15 @@ import org.kuali.common.util.encrypt.EncryptionContext;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
-public final class DefaultEncryptionContextProviderChain {
+public final class DefaultEncryptionContextProviderChain implements EncryptionContextProvider {
 
-	public DefaultEncryptionContextProviderChain(String passwordKey, String strengthKey) {
+	public DefaultEncryptionContextProviderChain() {
 		List<EncryptionContextProvider> providers = newArrayList();
-		providers.add(new SystemPropertiesEncryptionContextProvider(passwordKey, strengthKey));
-		providers.add(new EnvironmentVariableEncryptionContextProvider(passwordKey, strengthKey));
+		providers.add(new SystemPropertiesEncryptionContextProvider());
+		providers.add(new EnvironmentVariableEncryptionContextProvider());
 		providers.add(new FileEncryptionContextProvider());
-		providers.add(new SimpleMavenEncryptionContextProvider(passwordKey, strengthKey));
+		providers.add(new MavenEncryptionContextProvider("enc.pwd"));
+		providers.add(new MavenEncryptionContextProvider("enc.password"));
 		this.providers = ImmutableList.copyOf(providers);
 	}
 
@@ -35,11 +36,12 @@ public final class DefaultEncryptionContextProviderChain {
 		return providers;
 	}
 
-	public Optional<ChainProviderContext> getChainContext() {
+	@Override
+	public Optional<EncryptionContext> getEncryptionContext() {
 		for (EncryptionContextProvider provider : providers) {
 			Optional<EncryptionContext> context = provider.getEncryptionContext();
 			if (context.isPresent()) {
-				return Optional.of(new ChainProviderContext(context.get(), provider));
+				return context;
 			}
 		}
 		return absent();

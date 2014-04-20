@@ -7,11 +7,19 @@ import static org.kuali.common.util.base.Exceptions.illegalState;
 import java.io.File;
 import java.io.IOException;
 
-public final class SimpleMavenEncryptionContextProvider extends AbstractEncryptionContextProvider {
+public final class MavenEncryptionContextProvider extends AbstractEncryptionContextProvider {
 
 	private static final File USER_SETTINGS = getSettingsFile();
 
-	public SimpleMavenEncryptionContextProvider(String passwordKey, String strengthKey) {
+	public MavenEncryptionContextProvider() {
+		super("enc.password", "enc.strength");
+	}
+
+	public MavenEncryptionContextProvider(String passwordKey) {
+		super(passwordKey, "enc.strength");
+	}
+
+	public MavenEncryptionContextProvider(String passwordKey, String strengthKey) {
 		super(passwordKey, strengthKey);
 	}
 

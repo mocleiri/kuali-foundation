@@ -28,17 +28,16 @@ public final class EncryptionMain {
 		}
 		boolean encrypt = matches(args, "-e", "--encrypt");
 		boolean decrypt = matches(args, "-d", "--decrypt");
-		boolean quiet = matches(args, "-q", "--quiet");
 		if (!encrypt && !decrypt) {
 			usage();
 			System.exit(1);
 		}
 		String text = getText(args);
 		if (encrypt) {
-			System.out.println(getDefaultEncryptor(quiet).encrypt(text));
+			System.out.println(getDefaultEncryptor().encrypt(text));
 		}
 		if (decrypt) {
-			System.out.println(getDefaultEncryptor(quiet).decrypt(text));
+			System.out.println(getDefaultEncryptor().decrypt(text));
 		}
 	}
 
