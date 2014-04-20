@@ -1,4 +1,4 @@
-select sid, serial#, username, osuser, machine, program, logon_time from v$session where username is not null order by username desc, osuser asc, logon_time desc;
+select sid, serial#, username, osuser, machine, program, logon_time, client_info from v$session where username = 'KSENV18' order by logon_time desc;
 
 
 select substr(sys_context('USERENV','IP_ADDRESS'),1,15) as my_ip, substr(sys_context('USERENV','SERVER_HOST'),1,15) as server_host from dual;
