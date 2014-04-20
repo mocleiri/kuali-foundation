@@ -15,12 +15,14 @@ public final class Column {
 	private final String name;
 	private final Class<?> type;
 	private final Optional<Boolean> nullable;
+	private final int javaSqlType;
 
 	private Column(Builder builder) {
 		this.name = builder.name;
 		this.type = builder.type;
 		this.index = builder.index;
 		this.nullable = builder.nullable;
+		this.javaSqlType = builder.javaSqlType;
 	}
 
 	public static Builder builder() {
@@ -30,9 +32,15 @@ public final class Column {
 	public static class Builder extends ValidatingBuilder<Column> {
 
 		private int index = -1;
+		private int javaSqlType = -1;
 		private String name;
 		private Class<?> type;
 		private Optional<Boolean> nullable;
+
+		public Builder withJavaSqlType(int javaSqlType) {
+			this.javaSqlType = javaSqlType;
+			return this;
+		}
 
 		public Builder withNullable(Optional<Boolean> nullable) {
 			this.nullable = nullable;
@@ -74,6 +82,10 @@ public final class Column {
 
 	public int getIndex() {
 		return index;
+	}
+
+	public int getJavaSqlType() {
+		return javaSqlType;
 	}
 
 	public Optional<Boolean> getNullable() {

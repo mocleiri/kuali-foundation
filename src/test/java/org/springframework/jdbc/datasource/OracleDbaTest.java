@@ -24,6 +24,7 @@ import static org.kuali.common.jdbc.service.JdbcUtils.closeQuietly;
 import static org.kuali.common.util.Str.flatten;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.encrypt.Encryption.getDefaultEncryptor;
+import static org.kuali.common.util.log.LoggerUtils.logTable;
 import static org.kuali.common.util.log.Loggers.newLogger;
 import static org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection;
 
@@ -81,13 +82,17 @@ public class OracleDbaTest {
 			info("  query: [%s]", query);
 			info("   rows: [%s]", result.getData().rowKeySet().size());
 			List<Column> columns = newArrayList(result.getColumns());
-			sort(columns, ColumnNameComparator.INSTANCE);
+			sort(columns, ColumnTypeComparator.INSTANCE);
+			List<String> tableColumns = ImmutableList.of("name", "java class", "java.sql.Types", "nullable");
+			List<Object[]> tableRows = newArrayList();
 			for (Column column : columns) {
 				Optional<Boolean> nullable = column.getNullable();
-				info("    name=%s", column.getName());
-				info("    type=%s", column.getType().getCanonicalName());
-				info("nullable=%s", nullable.isPresent() ? nullable.get() : "unknown");
+				String nullability = nullable.isPresent() ? nullable.get() + "" : "unknown";
+				Object[] tableRow = { column.getName(), column.getType().getCanonicalName(), column.getJavaSqlType(), nullability };
+				tableRows.add(tableRow);
 			}
+			logTable(tableColumns, tableRows);
+			break;
 		}
 	}
 
@@ -168,10 +173,10 @@ public class OracleDbaTest {
 			conn = doGetConnection(ds);
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			List<Column> columns = buildColumnMetaData(rs.getMetaData());
-			Table<Integer, Integer, Optional<Object>> table = buildTable(rs);
-			Database database = getDatabase(conn.getMetaData());
-			return ExecuteQueryResult.builder().withDatabase(database).withQuery(query).withColumns(columns).withData(table).build();
+			List<Column> columns = buildColumn(rs.getMetaData());
+			Table<Integer, Integer, Optional<Object>> data = buildTable(rs);
+			Database database = buildDatabase(conn.getMetaData());
+			return ExecuteQueryResult.builder().withDatabase(database).withQuery(query).withColumns(columns).withData(data).build();
 		} catch (Exception e) {
 			throw illegalState(e);
 		} finally {
@@ -179,7 +184,7 @@ public class OracleDbaTest {
 		}
 	}
 
-	protected static Database getDatabase(DatabaseMetaData meta) throws SQLException {
+	protected static Database buildDatabase(DatabaseMetaData meta) throws SQLException {
 		String url = meta.getURL();
 		String username = meta.getUserName();
 		Versioned product = Versioned.builder().withName(meta.getDatabaseProductName()).withVersion(meta.getDatabaseProductVersion()).build();
@@ -187,7 +192,7 @@ public class OracleDbaTest {
 		return Database.builder().withUrl(url).withUsername(username).withProduct(product).withDriver(driver).build();
 	}
 
-	protected static List<Column> buildColumnMetaData(ResultSetMetaData rsmd) throws SQLException {
+	protected static List<Column> buildColumn(ResultSetMetaData rsmd) throws SQLException {
 		int columns = rsmd.getColumnCount();
 		List<Column> list = newArrayList();
 		for (int column = 0; column < columns; column++) {
@@ -195,7 +200,8 @@ public class OracleDbaTest {
 			String name = rsmd.getColumnName(columnIndex);
 			Optional<Boolean> nullable = getNullable(rsmd.isNullable(columnIndex));
 			Class<?> type = getType(rsmd.getColumnClassName(columnIndex));
-			Column element = Column.builder().withIndex(column).withName(name).withType(type).withNullable(nullable).build();
+			int javaSqlType = rsmd.getColumnType(columnIndex);
+			Column element = Column.builder().withIndex(column).withJavaSqlType(javaSqlType).withName(name).withType(type).withNullable(nullable).build();
 			list.add(element);
 		}
 		return ImmutableList.copyOf(list);
