@@ -14,6 +14,8 @@ public final class DefaultEncryptionContextProviderChain implements EncryptionCo
 
 	private static final String ENC_PASSWORD_KEY = "enc.password";
 	private static final String ENC_STRENGTH_KEY = "enc.strength";
+
+	// Need this key for backwards compatibility. "enc.password" contains a different password for some existing Maven processes
 	private static final String ENC_MAVEN_ALTERNATE_PASSWORD_KEY = "enc.pwd";
 
 	public DefaultEncryptionContextProviderChain() {
