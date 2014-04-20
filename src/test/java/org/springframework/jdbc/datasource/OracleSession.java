@@ -1,7 +1,11 @@
 package org.springframework.jdbc.datasource;
 
+import static com.google.common.base.Optional.fromNullable;
+
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
+
+import com.google.common.base.Optional;
 
 @IdiotProofImmutable
 public final class OracleSession {
@@ -9,13 +13,13 @@ public final class OracleSession {
 	private final String username;
 	private final String osuser;
 	private final String machine;
-	private final String ipAddress;
+	private final Optional<String> clientInfo;
 
 	private OracleSession(Builder builder) {
 		this.username = builder.username;
 		this.osuser = builder.osuser;
 		this.machine = builder.machine;
-		this.ipAddress = builder.ipAddress;
+		this.clientInfo = builder.clientInfo;
 	}
 
 	public static class Builder extends ValidatingBuilder<OracleSession> {
@@ -23,7 +27,7 @@ public final class OracleSession {
 		private String username;
 		private String osuser;
 		private String machine;
-		private String ipAddress;
+		private Optional<String> clientInfo;
 
 		public Builder withUsername(String username) {
 			this.username = username;
@@ -40,8 +44,12 @@ public final class OracleSession {
 			return this;
 		}
 
-		public Builder withIpAddress(String ipAddress) {
-			this.ipAddress = ipAddress;
+		public Builder withIpAddress(String clientInfo) {
+			return withIpAddress(fromNullable(clientInfo));
+		}
+
+		public Builder withIpAddress(Optional<String> clientInfo) {
+			this.clientInfo = clientInfo;
 			return this;
 		}
 
@@ -63,8 +71,8 @@ public final class OracleSession {
 		return machine;
 	}
 
-	public String getIpAddress() {
-		return ipAddress;
+	public Optional<String> getClientInfo() {
+		return clientInfo;
 	}
 
 }
