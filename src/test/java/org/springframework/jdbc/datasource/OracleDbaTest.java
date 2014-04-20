@@ -53,7 +53,7 @@ public class OracleDbaTest {
 	@Test
 	public void testOracle() {
 		try {
-			String query = buildCurrentSessionsQuery();
+			String query = buildCurrentlyConnectedUsers();
 			List<DataSource> dataSources = buildDataSources();
 			List<ExecuteQueryResult> results = executeQuery(dataSources, query);
 			showResults(results);
@@ -65,7 +65,7 @@ public class OracleDbaTest {
 	protected static void showResults(List<ExecuteQueryResult> results) {
 		for (ExecuteQueryResult result : results) {
 			String count = leftPad(result.getData().size() + "", 4, " ");
-			info("active sessions: %s [%s]", count, result.getUrl());
+			info("actively connected users: %s [%s]", count, result.getUrl());
 		}
 		for (ExecuteQueryResult result : results) {
 			List<String> csv = buildCSVFromTable(result.getData());
@@ -101,14 +101,23 @@ public class OracleDbaTest {
 		return results;
 	}
 
-	protected static String buildCurrentSessionsQuery() {
+	protected static String buildCurrentlyConnectedUsers() {
+		List<String> sql = newArrayList();
+		sql.add("select distinct username");
+		sql.add("from v$session");
+		sql.add("where username is not null");
+		sql.add("order by username asc");
+		return Joiner.on('\n').join(sql);
+	}
+
+	protected static String buildCurrentSessionsQuery(String username) {
 		List<String> sql = newArrayList();
 		sql.add("select distinct username");
 		sql.add(" , osuser");
 		sql.add(" , machine");
 		sql.add(" , client_info as ip_address");
-		// sql.add(" , program");
 		sql.add("from v$session");
+		sql.add(format("where username = '%s'", username));
 		return Joiner.on('\n').join(sql);
 	}
 
