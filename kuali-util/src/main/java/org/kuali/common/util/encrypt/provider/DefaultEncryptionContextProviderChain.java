@@ -16,6 +16,7 @@ public final class DefaultEncryptionContextProviderChain {
 		List<EncryptionContextProvider> providers = newArrayList();
 		providers.add(new SystemPropertiesEncryptionContextProvider(passwordKey, strengthKey));
 		providers.add(new EnvironmentVariableEncryptionContextProvider(passwordKey, strengthKey));
+		providers.add(new FileEncryptionContextProvider());
 		providers.add(new SimpleMavenEncryptionContextProvider(passwordKey, strengthKey));
 		this.providers = ImmutableList.copyOf(providers);
 	}
