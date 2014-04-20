@@ -18,8 +18,8 @@ package org.springframework.jdbc.datasource;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
-import static org.codehaus.plexus.util.StringUtils.leftPad;
 import static org.kuali.common.jdbc.service.JdbcUtils.closeQuietly;
+import static org.kuali.common.util.Str.flatten;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.encrypt.Encryption.getDefaultEncryptor;
 import static org.kuali.common.util.log.Loggers.newLogger;
@@ -64,12 +64,9 @@ public class OracleDbaTest {
 
 	protected static void showResults(List<ExecuteQueryResult> results) {
 		for (ExecuteQueryResult result : results) {
-			String count = leftPad(result.getData().size() + "", 4, " ");
-			info("actively connected users: %s [%s]", count, result.getUrl());
-		}
-		for (ExecuteQueryResult result : results) {
-			List<String> csv = buildCSVFromTable(result.getData());
-			info("%s\n\n%s", result.getUrl(), Joiner.on('\n').join(csv));
+			String query = flatten(result.getQuery());
+			info("query: [%s]", query);
+			info(" rows: [%s]", result.getData().size());
 		}
 	}
 
