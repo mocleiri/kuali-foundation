@@ -132,12 +132,12 @@ public class OracleDbaTest {
 			conn = doGetConnection(ds);
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			List<Column> meta = buildColumnMetaData(rs.getMetaData());
+			List<Column> columns = buildColumnMetaData(rs.getMetaData());
 			Table<Integer, Integer, Optional<Object>> table = buildTable(rs);
 			DatabaseMetaData dbmd = conn.getMetaData();
 			String url = dbmd.getURL();
 			String username = dbmd.getUserName();
-			return ExecuteQueryResult.builder().withUrl(url).withUsername(username).withQuery(query).withMetadata(meta).withData(table).build();
+			return ExecuteQueryResult.builder().withUrl(url).withUsername(username).withQuery(query).withColumns(columns).withData(table).build();
 		} catch (Exception e) {
 			throw illegalState(e);
 		} finally {
