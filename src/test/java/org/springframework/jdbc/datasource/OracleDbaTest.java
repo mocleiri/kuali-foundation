@@ -73,9 +73,11 @@ public class OracleDbaTest {
 		for (ExecuteQueryResult result : results) {
 			String query = flatten(result.getQuery());
 			Database db = result.getDatabase();
+			Versioned product = db.getProduct();
+			Versioned driver = db.getDriver();
 			info("     db: [%s, %s]", db.getUrl(), db.getUsername());
-			info("product: [%s, %s]", db.getProduct().getName(), db.getProduct().getVersion());
-			info(" driver: [%s, %s]", db.getDriver().getName(), db.getDriver().getVersion());
+			info("product: [%s, %s]", product.getName(), product.getVersion());
+			info(" driver: [%s, %s]", driver.getName(), driver.getVersion());
 			info("  query: [%s]", query);
 			info("   rows: [%s]", result.getData().rowKeySet().size());
 			List<Column> columns = newArrayList(result.getColumns());
