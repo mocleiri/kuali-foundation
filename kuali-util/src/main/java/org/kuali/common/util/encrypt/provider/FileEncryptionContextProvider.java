@@ -10,6 +10,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.encrypt.EncryptionStrength.DEFAULT_ENCRYPTION_STRENGTH;
+import static org.kuali.common.util.log.Loggers.newLogger;
 import static org.kuali.common.util.nullify.NullUtils.trimToNull;
 
 import java.io.File;
@@ -19,10 +20,13 @@ import java.util.List;
 import org.kuali.common.util.encrypt.EncryptionContext;
 import org.kuali.common.util.encrypt.EncryptionStrength;
 import org.kuali.common.util.file.CanonicalFile;
+import org.slf4j.Logger;
 
 import com.google.common.base.Optional;
 
 public final class FileEncryptionContextProvider implements EncryptionContextProvider {
+
+	private static final Logger logger = newLogger();
 
 	private static final String ENC_PASSWORD_FILE_SYS_KEY = "enc.password.file";
 	private static final String ENC_PASSWORD_FILE_ENV_KEY = "ENC_PASSWORD_FILE";
@@ -32,6 +36,7 @@ public final class FileEncryptionContextProvider implements EncryptionContextPro
 	public Optional<EncryptionContext> getEncryptionContext() {
 		File file = getEncPasswordFile();
 		if (!file.exists()) {
+			logger.debug("[%s] does not exist");
 			return absent();
 		}
 		List<String> lines = readConfigFile(file);
