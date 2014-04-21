@@ -11,8 +11,10 @@ $page = 'cost-sharing';
 <!-- GLOBAL STYLES -->
 <?php include ('includes/styles.php') ?>
 	<style type="text/css">
+	
 .data-row-table th{ padding:5px; text-align:right; font-weight:bold; }
-.edit-table input,.edit-table select{min-width: 10em;width:100%;}
+.edit-table input,.edit-table select{min-width: 10em;width:100%; text-align: right;}
+.edit-table td{text-align: right;}
 #u19v7dpm{padding:1em 0 ;}
 
 tfoot th[scope="row"] strong{ float:right; margin-top:5px;}
@@ -127,9 +129,9 @@ tfoot th[scope="row"] strong{ float:right; margin-top:5px;}
 					<tbody role="alert" aria-live="polite" aria-relevant="all">
 						<tr class="not-deletable">
 							<td>1</td>
-							<td class="text-right">6</td>
-							<td>Cate Start Up</td>
-							<td class="text-right">500.00</td>
+							<td>6</td>
+							<td class="text-left">Cate Start Up</td>
+							<td>500.00</td>
 							<td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
 						</tr>
 						<tr class="uif-new-row">
