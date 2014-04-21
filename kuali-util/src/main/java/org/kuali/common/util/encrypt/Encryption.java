@@ -13,9 +13,9 @@ public final class Encryption {
 
 	public static Encryptor buildEncryptor() {
 		EncryptionContextProvider provider = new DefaultEncryptionContextProviderChain();
-		Optional<EncryptionContext> optional = provider.getEncryptionContext();
-		if (optional.isPresent()) {
-			return buildOpenSSLEncryptor(optional.get());
+		Optional<EncryptionContext> context = provider.getEncryptionContext();
+		if (context.isPresent()) {
+			return buildOpenSSLEncryptor(context.get());
 		} else {
 			return NoOpEncryptor.INSTANCE;
 		}
