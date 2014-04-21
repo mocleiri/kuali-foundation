@@ -26,7 +26,7 @@ public class OpenSSL {
 	// When using all 62 alphanumeric characters, 22 is the minimum length required for producing more combinations than what is possible with 128 bits
 	// In other words, 62^22 is greater than 2^128
 	private static final int DEFAULT_PASSWORD_LENGTH = 22;
-	private static final List<Character> DEFAULT_PASSWORD_CHARS = getPasswordChars();
+	private static final List<Character> DEFAULT_PASSWORD_CHARS = getAlphaNumericCharacters();
 
 	/**
 	 * Uses SecureRandom to generate a random 22 character alphanumeric string
@@ -205,7 +205,7 @@ public class OpenSSL {
 		return builder.build();
 	}
 
-	protected static List<Character> getPasswordChars() {
+	protected static List<Character> getAlphaNumericCharacters() {
 		List<Character> chars = newArrayList();
 		for (char c = 'A'; c < 'Z'; c++) {
 			chars.add(c);
