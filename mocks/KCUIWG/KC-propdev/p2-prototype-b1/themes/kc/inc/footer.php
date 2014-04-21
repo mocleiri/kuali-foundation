@@ -17,7 +17,7 @@
 </footer>
 
 <!-- Scripts -->
-<script>window.jQuery || document.write('<script src="assets/jquery/jquery-2.0.3.min.js"><\/script>')</script> 
+<script>window.jQuery || document.write('<script src="assets/jquery/jquery-2.0.3.min.js"><\/script>')</script>
 
 <!-- Bootstrap -->
 <script src="themes/bootstrap/js/bootstrap.min.js"></script>

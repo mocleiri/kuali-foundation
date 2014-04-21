@@ -31,8 +31,8 @@ $alt = false;
 <link rel="stylesheet" type="text/css" href="<?php echo $ROOT ?>../themes/kc/js/datatables/DT_bootstrap.css">
 
 <!-- Scripts, ideally we'd load these in the footer and not use in-line scripting -->
-<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="../themes/kc/js/jquery-1.10.1.min.js"></script>
+<script src="../themes/kc/js/jquery-migrate-1.2.1.min.js"></script>
 <!--[if lt IE 9]><script src="bootstrap/js/html5shiv.js"></script><![endif]-->
 
 
