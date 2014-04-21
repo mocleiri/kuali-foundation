@@ -13,7 +13,7 @@ include ("keypersonnel.data.php");
 <link rel="stylesheet" href="../../themes/kc/icons/style.css" />
 <link rel="stylesheet" href="../../themes/kc/css/custom.css" />
 
-<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<script src="../../themes/kc/js/jquery-1.8.3.min.js"></script>
 </head>
 <body>
 <div class="modal-dialog">
