@@ -23,6 +23,39 @@ public class OpenSSL {
 
 	private static final Random RANDOM = new SecureRandom();
 	private static final int DEFAULT_SALT_SIZE = 8;
+	private static final int DEFAULT_PASSWORD_LENGTH = 15;
+	private static final char[] PASSWORD_CHARS = getPasswordChars();
+
+	private static char[] getPasswordChars() {
+		List<Character> list = newArrayList();
+		for (char c = 'A'; c < 'Z'; c++) {
+			list.add(c);
+		}
+		for (char c = 'a'; c < 'z'; c++) {
+			list.add(c);
+		}
+		for (char c = '0'; c < '9'; c++) {
+			list.add(c);
+		}
+		char[] array = new char[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			array[i] = list.get(i);
+		}
+		return array;
+	}
+
+	public static String generatePassword() {
+		return generatePassword(DEFAULT_PASSWORD_LENGTH);
+	}
+
+	public static String generatePassword(int length) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < length; i++) {
+			int index = RANDOM.nextInt(PASSWORD_CHARS.length);
+			sb.append(PASSWORD_CHARS[index]);
+		}
+		return sb.toString();
+	}
 
 	public static OpenSSLEncryptor buildOpenSSLEncryptor(EncryptionContext context) {
 		OpenSSLContext osc = buildOpenSSLContext(context.getStrength());
