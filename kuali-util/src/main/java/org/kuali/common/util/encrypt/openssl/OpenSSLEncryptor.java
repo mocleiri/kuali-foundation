@@ -16,11 +16,11 @@ import static org.kuali.common.util.Str.getUTF8String;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 import static org.kuali.common.util.encrypt.openssl.OpenSSLContext.buildDefaultOpenSSLContext;
-import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.buildEncryptedContext;
-import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.checkBase64;
-import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.combineByteArrays;
-import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.createSalt;
-import static org.kuali.common.util.encrypt.openssl.OpenSSLUtils.toByteArray;
+import static org.kuali.common.util.encrypt.openssl.OpenSSL.buildEncryptedContext;
+import static org.kuali.common.util.encrypt.openssl.OpenSSL.checkBase64;
+import static org.kuali.common.util.encrypt.openssl.OpenSSL.combineByteArrays;
+import static org.kuali.common.util.encrypt.openssl.OpenSSL.createSalt;
+import static org.kuali.common.util.encrypt.openssl.OpenSSL.toByteArray;
 
 import java.io.File;
 import java.io.IOException;

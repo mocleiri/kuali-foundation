@@ -16,7 +16,7 @@ import java.util.Random;
 
 import com.google.common.collect.ImmutableList;
 
-public class OpenSSLUtils {
+public class OpenSSL {
 
 	private static final Random RANDOM = new SecureRandom();
 
