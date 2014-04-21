@@ -54,8 +54,30 @@ $page = 'personnel-costs';
 	font-size: 18px;
 }
 .hilite {
-    background: #ffffcc;
+
+	
 }
+
+
+
+
+
+.hilite  {
+    -webkit-animation: target-fade 8s 1;
+    -moz-animation: target-fade 8s 1;
+}
+
+@-webkit-keyframes target-fade {
+    0% { background-color:#FFC; }
+    100% { background-color:#fff; }
+}
+@-moz-keyframes target-fade {
+    0% { background-color:#FFC; }
+     100% { background-color:#fff; }
+}
+
+
+
 @media (max-width: 768px) {
 .dropdown-menu-large {
 	margin-left: 0;
@@ -72,6 +94,9 @@ $page = 'personnel-costs';
 }
 }
 </style>
+
+
+
 </head>
 <body id="Uif-Application" style="padding-bottom: 570px;">
 <!-- APPLICATION HEADER -->
@@ -155,6 +180,8 @@ $page = 'personnel-costs';
                 <!-- User feedback messaging -->
                 <div class="alert alert-success">
                     <i class="icon icon-checkmark"></i> Additional personnel were successfully added!
+                    
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 </div>
                 <!-- // -->
 
