@@ -24,10 +24,6 @@ import com.google.common.collect.ImmutableList;
 
 public class OpenSSLTest {
 
-	// 62^18
-	// 183,252,712,161,030,000,000,000,000,000,000
-	// 9,223,372,036,854,775,807
-
 	private static final Logger logger = newLogger();
 	private static final NumberFormat NF = getNumberFormat();
 
@@ -35,8 +31,8 @@ public class OpenSSLTest {
 	public void testGeneratePassword() {
 		try {
 			Stopwatch sw = createStarted();
-			int iterations = 100000;
-			int length = 40;
+			int iterations = 500000;
+			int length = 22;
 			for (int i = 0; i < iterations; i++) {
 				randomAlphanumeric(length);
 			}
@@ -45,7 +41,7 @@ public class OpenSSLTest {
 				generatePassword(length);
 			}
 			long elapsed2 = sw.elapsed(MILLISECONDS);
-			info("elapsed1=%s elapsed2=%s", FormatUtils.getTime(elapsed1), FormatUtils.getTime(elapsed2));
+			info("random=%s secure random=%s", FormatUtils.getTime(elapsed1), FormatUtils.getTime(elapsed2));
 			List<MathPow> list = newArrayList();
 			list.add(new MathPow("java int", 2, 32));
 			list.add(new MathPow("java long", 2, 64));
