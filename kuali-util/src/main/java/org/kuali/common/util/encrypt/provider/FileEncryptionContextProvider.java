@@ -5,6 +5,7 @@ import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.ImmutableList.copyOf;
 import static com.google.common.collect.Iterables.filter;
+import static java.lang.String.format;
 import static java.lang.System.getProperty;
 import static java.lang.System.getenv;
 import static org.apache.commons.io.FileUtils.readLines;
@@ -44,6 +45,7 @@ public final class FileEncryptionContextProvider implements EncryptionContextPro
 		List<String> lines = readConfigFile(file);
 		String password = getPassword(lines);
 		EncryptionStrength strength = getStrength(lines);
+		logger.debug(format("[%s, %s] encryption password located", file, strength));
 		return Optional.of(new EncryptionContext(password, strength));
 	}
 

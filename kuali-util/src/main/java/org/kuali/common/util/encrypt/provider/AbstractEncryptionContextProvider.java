@@ -30,11 +30,11 @@ public abstract class AbstractEncryptionContextProvider implements EncryptionCon
 	public Optional<EncryptionContext> getEncryptionContext() {
 		Optional<String> password = getOptionalString(passwordKey);
 		if (!password.isPresent()) {
-			logger.info(format("no encryption password found [%s, key=%s]", this.getClass().getSimpleName(), passwordKey));
+			logger.debug(format("[%s, key=%s] encryption password not found", this.getClass().getSimpleName(), passwordKey));
 			return absent();
 		} else {
 			EncryptionStrength strength = getEncryptionStrength();
-			logger.info(format("encryption password located [%s, key=%s %s]", this.getClass().getSimpleName(), passwordKey, strength));
+			logger.debug(format("[%s, key=%s %s] encryption password located", this.getClass().getSimpleName(), passwordKey, strength));
 			return Optional.of(new EncryptionContext(password.get(), strength));
 		}
 	}
