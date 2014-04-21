@@ -17,7 +17,7 @@
 .edit-table tr:hover{background:#EEF7FB;; color:#000;}
 .edit-table .icon-edit{padding:0; padding-top:5px;vertical-align:bottom; text-decoration:none; }
 .edit-table tr  td:last-of-type{  text-align:center; }
-#u19v7dpm {padding-bottom: 1em; }/* pad the bottom fixed bar */
+.uif-stickyFooter {padding-bottom: 1em; }/* pad the bottom fixed bar */
 /*  relocating the action bar */
 main{margin-top:1.3em}
 
@@ -42,4 +42,17 @@ header{position:relative;}
 #page-help .dropdown-menu li {width:100%; float:left;}
 #page-help .dropdown-menu li a{ width:100%;min-width:150px;padding:5px;}
 /* END HELP ICON */
+
+.global-actions {
+	display: inline;
+	padding-right: 10px;
+	border-right: 1px solid #ccc;
+}
+.global-navigate {
+	display: inline;
+	padding-left: 20px;
+}
+
+
+
 </style>

@@ -276,13 +276,12 @@ $page = 'personnel-assign';
                                     </div>                                    
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- VIEW FOOTER -->
+                        </div> 
+<!-- VIEW FOOTER -->
                         <div class="uif-footer clearfix" data-sticky_footer="true" data-parent="LabsProposal">
-                            <a class="btn btn-default btn btn-default uif-boxLayoutHorizontalItem" href="personnel-roster.php">Go back</a>
+                            <a class="btn btn-default btn btn-default uif-boxLayoutHorizontalItem" href="personnel-roster.php"><span class="icon-chevron-left"></span> Back</a>
                             <a class="btn btn-default btn btn-default uif-boxLayoutHorizontalItem" href="#">Save</a>
-                            <a class="btn btn-primary btn btn-primary uif-boxLayoutHorizontalItem" href="non-personnel.php">Save and continue...</a>
+                            <a class="btn btn-primary btn btn-primary uif-boxLayoutHorizontalItem" href="non-personnel.php">Continue <span class="icon-chevron-right"></span>...</a>
                         </div>
 
                     </main>

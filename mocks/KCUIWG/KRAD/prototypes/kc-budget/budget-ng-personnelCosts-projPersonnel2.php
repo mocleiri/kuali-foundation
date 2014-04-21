@@ -688,12 +688,11 @@ $page = 'personnel-costs';
               <!--  <a href="#" class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#modal-add-personnel"><span aria-hidden="true" class="icon-plus"></span> Add More People</a>-->
                
                 <a href="#" class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#modal-add-personnel1"><span aria-hidden="true" class="icon-plus"></span> Add More People</a> </main>
-        </div>
-        <!-- VIEW FOOTER -->
-        <div id="u19v7dpm" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;">
-            <a href="budget-ng-rates.php" id="ufuknm4" class="btn btn-default uif-primaryActionButton uif-boxLayoutHorizontalItem">Go back</a>
-            <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save</button>
-            <a href="budget-ng-personnelCosts-persPeriod.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Save and Continue</a>
+        </div> 
+<!-- VIEW FOOTER --> <div id="" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;"> <div class="global-actions"> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save </a> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Reload </a> <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Complete Budget </a> </div>
+            
+            <a href="budget-ng-rates.php" id="ufuknm4" class="btn btn-default uif-primaryActionButton uif-boxLayoutHorizontalItem"><span class="icon-chevron-left"></span> Back</a>
+            <a href="budget-ng-personnelCosts-persPeriod.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Continue <span class="icon-chevron-right"></span></a>
         </div>
         <!-- DIALOGS/Placeholders --></div>
     <span id="formInfo">
@@ -883,9 +882,8 @@ $page = 'personnel-costs';
                     </form>
                 </div>
                 <div id="u19v7dpm" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer=true data-parent=LabsProposal style="position:fixed; left: 0; bottom: 0px;">
-                    <a href="budget-ng-rates.php" id="ufuknm4" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Go back</a>
-                    <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem" >Save</a>
-                    <a href="budget-ng-personnelCosts-persPeriod1.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Save and Continue</a>
+                    <a href="budget-ng-rates.php" id="ufuknm4" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem"><span class="icon-chevron-left"></span> Back</a>
+                    <a href="budget-ng-personnelCosts-persPeriod1.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Continue <span class="icon-chevron-right"></span></a>
                 </div>
             </form>
         </div>

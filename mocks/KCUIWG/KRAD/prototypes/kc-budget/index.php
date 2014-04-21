@@ -93,8 +93,8 @@ $page = 'asdf';
             <!-- VIEW NAVIGATION -->
             
             <div id="Uif-BreadcrumbUpdate" style="display:none;"> </div>
-        </div>
-        <!-- VIEW FOOTER --> 
+        </div> 
+<!-- VIEW FOOTER --> 
         
         <!-- DIALOGS/Placeholders -->
         <div id="Uif-Dialogs"> </div>

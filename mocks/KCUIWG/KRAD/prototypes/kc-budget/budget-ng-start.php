@@ -176,14 +176,12 @@ transform:translateX(10px)
 
 <!-- -->
 			</main> 
-		</div>
-
-<!-- VIEW FOOTER -->
-		<div id="u19v7dpm" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;">
+		</div> 
+<!-- VIEW FOOTER --> <div id="" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;"> <div class="global-actions"> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save </a> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Reload </a> <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Complete Budget </a> </div>
+            
 		
-			<!-- <a href="budget-ng-summary2.php" id="ufuknm4" class="btn btn-default uif-primaryActionButton uif-boxLayoutHorizontalItem">Go back</a> -->
-			<a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save</button> 
-			<a href="budget-ng-rates.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Save and Continue</a> 
+			<!-- <a href="budget-ng-summary2.php" id="ufuknm4" class="btn btn-default uif-primaryActionButton uif-boxLayoutHorizontalItem"><span class="icon-chevron-left"></span> Back</a> -->
+			<a href="budget-ng-rates.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Continue <span class="icon-chevron-right"></span></a> 
 		</div>
 
 <!-- DIALOGS/Placeholders -->
@@ -222,9 +220,9 @@ transform:translateX(10px)
 	
 If a user selects summary budget and modular = yes, then:
 User should land on the periods and totals page.
-Upon save and continue, if cost sharing and or unrecovered F&A has been entered, user should be taken to those pages to enter data
---> Upon save and continue, user should be taken to the modular page to review the pre-synced information and adjust as needed.
-Upon save and continue, user should be taken to the summary page to review
+Upon Continue <span class="icon-chevron-right"></span>, if cost sharing and or unrecovered F&A has been entered, user should be taken to those pages to enter data
+--> Upon Continue <span class="icon-chevron-right"></span>, user should be taken to the modular page to review the pre-synced information and adjust as needed.
+Upon Continue <span class="icon-chevron-right"></span>, user should be taken to the summary page to review
 
 	*/
 	
@@ -238,7 +236,7 @@ Upon save and continue, user should be taken to the summary page to review
 /*
 If a user selects summary budget and modular = no, then:
 	User should land on the periods and totals page.
-	Upon save and continue, if cost sharing and or unrecovered F&A has been entered, user should be taken to those pages to enter data. Upon save and continue, user should be taken to the summary page to review.
+	Upon Continue <span class="icon-chevron-right"></span>, if cost sharing and or unrecovered F&A has been entered, user should be taken to those pages to enter data. Upon Continue <span class="icon-chevron-right"></span>, user should be taken to the summary page to review.
 	If no cost sharing or unrecovered F&A has been entered, user should be taken directly to the summary page to review.
 		*/
 		
@@ -260,14 +258,14 @@ If a user selects summary budget and modular = no, then:
 	If a user selects detailed budget and modular = no, then:
 User should land on the Project Personnel page. 
 
-Upon save and continue, user is taken to the Assign Personnel to Periods page. 
+Upon Continue <span class="icon-chevron-right"></span>, user is taken to the Assign Personnel to Periods page. 
 Note: if user attempts to navigate to a period other than period 1, the following warning will display: “You are about to enter costs in a later period. Doing so will prevent you from using the generate all periods function to auto-calculate later periods. Do you wish to continue
 
-Upon save and continue, user is taken to the Non-Personnel Page to enter data.  Note: if user attempts to navigate to a period other than period 1, the following warning will display: “You are about to enter costs in a later period. Doing so will prevent you from using the generate all periods function to auto-calculate later periods. Do you wish to continue?”
-Upon save and continue, the following message should display: “Would you like to use the generate all periods functionality to auto-calculate later periods based on period 1 data? Please note that this action can only be taken once.”
+Upon Continue <span class="icon-chevron-right"></span>, user is taken to the Non-Personnel Page to enter data.  Note: if user attempts to navigate to a period other than period 1, the following warning will display: “You are about to enter costs in a later period. Doing so will prevent you from using the generate all periods function to auto-calculate later periods. Do you wish to continue?”
+Upon Continue <span class="icon-chevron-right"></span>, the following message should display: “Would you like to use the generate all periods functionality to auto-calculate later periods based on period 1 data? Please note that this action can only be taken once.”
 
-If yes, periods are generated. Upon save and continue, user is taken to subawards tab to continue with any additional budget data entry.
-If no, out year data is not generated. Upon save and continue, user is taken to subawards tab to continue with any additional budget data entry.
+If yes, periods are generated. Upon Continue <span class="icon-chevron-right"></span>, user is taken to subawards tab to continue with any additional budget data entry.
+If no, out year data is not generated. Upon Continue <span class="icon-chevron-right"></span>, user is taken to subawards tab to continue with any additional budget data entry.
 Note that screens such as cost-sharing, unrecovered F&A, and modular will display messages indicating that no data entry is required, if that is the case.
 
 			

@@ -258,13 +258,12 @@ $page = 'personnel-costs';
                                     
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- VIEW FOOTER -->
+                        </div> 
+<!-- VIEW FOOTER -->
                         <div class="uif-footer clearfix" data-sticky_footer="true" data-parent="LabsProposal">
-                            <a class="btn btn-default btn btn-default uif-boxLayoutHorizontalItem" href="rates.php">Go back</a>
+                            <a class="btn btn-default btn btn-default uif-boxLayoutHorizontalItem" href="rates.php"><span class="icon-chevron-left"></span> Back</a>
                             <a class="btn btn-default btn btn-default uif-boxLayoutHorizontalItem" href="#">Save</a>
-                            <a class="btn btn-primary btn btn-primary uif-boxLayoutHorizontalItem" href="personnel-assign.php">Save and continue...</a>
+                            <a class="btn btn-primary btn btn-primary uif-boxLayoutHorizontalItem" href="personnel-assign.php">Continue <span class="icon-chevron-right"></span>...</a>
                         </div>
 
                     </main>

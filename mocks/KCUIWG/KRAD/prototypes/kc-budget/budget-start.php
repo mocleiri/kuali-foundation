@@ -167,8 +167,8 @@ $page = 'asdf';
                     <div class="col-md-6 text-left"> <a href="budget-ng-summary.php" class="btn btn-primary btn-lg">I'll go through on my own.</a></div>
                 </div>
             </main>
-        </div>
-        <!-- VIEW FOOTER --> 
+        </div> 
+<!-- VIEW FOOTER --> 
         
         <!-- DIALOGS/Placeholders --> </div>
     <span id="formInfo">
