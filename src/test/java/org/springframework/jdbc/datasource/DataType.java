@@ -1,6 +1,6 @@
 package org.springframework.jdbc.datasource;
 
-public enum Types {
+public enum DataType {
 
 	ARRAY(2003), //
 	BIGINT(-5), //
@@ -41,7 +41,7 @@ public enum Types {
 
 	private final int value;
 
-	private Types(int value) {
+	private DataType(int value) {
 		this.value = value;
 	}
 

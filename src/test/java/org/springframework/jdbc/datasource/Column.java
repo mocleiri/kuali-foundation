@@ -30,14 +30,14 @@ public final class Column {
 	private final String name;
 	private final Class<?> type;
 	private final Optional<Boolean> nullable;
-	private final int javaSqlType;
+	private final DataType dataType;
 
 	private Column(Builder builder) {
 		this.name = builder.name;
 		this.type = builder.type;
 		this.index = builder.index;
 		this.nullable = builder.nullable;
-		this.javaSqlType = builder.javaSqlType;
+		this.dataType = builder.dataType;
 	}
 
 	public static Builder builder() {
@@ -47,13 +47,13 @@ public final class Column {
 	public static class Builder extends ValidatingBuilder<Column> {
 
 		private int index = -1;
-		private int javaSqlType = -1;
+		private DataType dataType;
 		private String name;
 		private Class<?> type;
 		private Optional<Boolean> nullable;
 
-		public Builder withJavaSqlType(int javaSqlType) {
-			this.javaSqlType = javaSqlType;
+		public Builder withDataType(DataType dataType) {
+			this.dataType = dataType;
 			return this;
 		}
 
@@ -99,8 +99,8 @@ public final class Column {
 		return index;
 	}
 
-	public int getJavaSqlType() {
-		return javaSqlType;
+	public DataType getDataType() {
+		return dataType;
 	}
 
 	public Optional<Boolean> getNullable() {

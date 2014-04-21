@@ -88,7 +88,7 @@ public class OracleDbaTest {
 			for (Column column : columns) {
 				Optional<Boolean> nullable = column.getNullable();
 				String nullability = nullable.isPresent() ? nullable.get() + "" : "unknown";
-				Object[] tableRow = { column.getName(), column.getType().getCanonicalName(), column.getJavaSqlType(), nullability };
+				Object[] tableRow = { column.getName(), column.getType().getCanonicalName(), column.getDataType(), nullability };
 				tableRows.add(tableRow);
 			}
 			logTable(tableColumns, tableRows);
@@ -200,11 +200,20 @@ public class OracleDbaTest {
 			String name = rsmd.getColumnName(columnIndex);
 			Optional<Boolean> nullable = getNullable(rsmd.isNullable(columnIndex));
 			Class<?> type = getType(rsmd.getColumnClassName(columnIndex));
-			int javaSqlType = rsmd.getColumnType(columnIndex);
-			Column element = Column.builder().withIndex(column).withJavaSqlType(javaSqlType).withName(name).withType(type).withNullable(nullable).build();
+			DataType dataType = getDataType(rsmd.getColumnType(columnIndex));
+			Column element = Column.builder().withIndex(column).withDataType(dataType).withName(name).withType(type).withNullable(nullable).build();
 			list.add(element);
 		}
 		return ImmutableList.copyOf(list);
+	}
+
+	protected static DataType getDataType(int dataType) {
+		for (DataType element : DataType.values()) {
+			if (element.getValue() == dataType) {
+				return element;
+			}
+		}
+		throw illegalState("datatype %s is unknown", dataType);
 	}
 
 	protected static Class<?> getType(String className) {
