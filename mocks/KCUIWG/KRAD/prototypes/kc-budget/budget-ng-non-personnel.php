@@ -499,7 +499,7 @@ return false;
             </div>
             <div class="modal-body">
                 <p>Would you like to use the generate all periods functionality to auto-calculate later periods based on period 1 data? Please note that this action can only be taken once.</p></div>
-            <div class="modal-footer"><a href="budget-ng-subawards.php?generate=no" class="btn btn-default">No</a> <a href="budget-ng-subawards.php?generate=yes" class="btn btn-primary">Yes Generate All Periods</a></div>
+            <div class="modal-footer"><a href="budget-ng-summary.php?generate=no" class="btn btn-default">No</a> <a href="budget-ng-subawards.php?generate=yes" class="btn btn-primary">Yes Generate All Periods</a></div>
         </div>
     </div>
 </div>
