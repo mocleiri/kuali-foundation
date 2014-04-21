@@ -53,11 +53,12 @@ public class OracleDbaTest {
 
 	private static final Logger logger = newLogger();
 
+	private static final Object[] EMPTY_OBJECT_ARRAY = {};
+
 	@Test
 	public void testOracle() {
 		try {
-			// String query = buildCurrentSessionsQuery();
-			String query = buildDescribeTableSQL("v$session");
+			String query = buildCurrentSessionsQuery();
 			List<DataSource> dataSources = buildDataSources();
 			List<ExecuteQueryResult> results = executeQuery(dataSources, query);
 			showResults(results);
@@ -92,8 +93,34 @@ public class OracleDbaTest {
 				tableRows.add(tableRow);
 			}
 			logTable(tableColumns, tableRows);
+			showData(result);
 			break;
 		}
+	}
+
+	protected static void showData(ExecuteQueryResult result) {
+		List<String> columns = newArrayList();
+		for (Column column : result.getColumns()) {
+			columns.add(column.getName());
+		}
+		Table<Integer, Integer, Optional<Object>> table = result.getData();
+		List<Object[]> rows = newArrayList();
+		int rowCount = table.rowKeySet().size();
+		int columnCount = table.columnKeySet().size();
+		for (int row = 0; row < rowCount; row++) {
+
+			Object[] data = new Object[columnCount];
+			for (int column = 0; column < columnCount; column++) {
+				Optional<Object> entry = table.get(row, column);
+				if (entry.isPresent()) {
+					data[column] = entry.get();
+				} else {
+					data[column] = "null";
+				}
+			}
+			rows.add(data);
+		}
+		logTable(columns, rows);
 	}
 
 	protected static List<String> buildCSVFromTable(Table<Integer, Integer, Optional<Object>> table) {
@@ -142,6 +169,7 @@ public class OracleDbaTest {
 		sql.add(" , client_info"); // A custom kuali trigger fills this in with the IP address
 		sql.add(" , logon_time"); // Contains the time the session was started
 		sql.add("from v$session");
+		sql.add("order by logon_time");
 		return Joiner.on('\n').join(sql);
 	}
 
