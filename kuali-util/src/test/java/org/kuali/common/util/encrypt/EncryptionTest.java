@@ -10,16 +10,12 @@ public class EncryptionTest {
 
 	@Test
 	public void test() {
-		try {
-			Encryptor encryptor = getDefaultEncryptor();
-			String plaintext = "foo";
-			String encrypted = encryptor.encrypt(plaintext);
-			String decrypted = encryptor.decrypt(encrypted);
-			assertNotEquals(plaintext, encrypted);
-			assertEquals(plaintext, decrypted);
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
+		Encryptor encryptor = getDefaultEncryptor();
+		String plaintext = "foo";
+		String encrypted = encryptor.encrypt(plaintext);
+		String decrypted = encryptor.decrypt(encrypted);
+		assertNotEquals(plaintext, encrypted);
+		assertEquals(plaintext, decrypted);
 	}
 
 }
