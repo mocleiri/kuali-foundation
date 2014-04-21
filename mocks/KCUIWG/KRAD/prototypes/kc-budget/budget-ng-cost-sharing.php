@@ -7,12 +7,15 @@ $page = 'cost-sharing';
 <head>
 	<meta charset="UTF-8">
 	<title>Kuali :: Fluid Application Header</title>
+
 <!-- GLOBAL STYLES -->
 <?php include ('includes/styles.php') ?>
 	<style type="text/css">
 .data-row-table th{ padding:5px; text-align:right; font-weight:bold; }
 .edit-table input,.edit-table select{min-width: 10em;width:100%;}
 #u19v7dpm{padding:1em 0 ;}
+
+tfoot th[scope="row"] strong{ float:right; margin-top:5px;}
 	</style>
 </head>
 <body id="Uif-Application" style="padding-bottom: 570px;">
@@ -28,7 +31,7 @@ $page = 'cost-sharing';
 				<img id="u2elq10" src="http://ux.kuali.org/prototypes/kc/p2-devbranch/themes/kc/img/logo.png" alt="" class="uif-image"> 
 			</h1>
 		</div>
-		</a>
+		</a> 
 	</div>
 	<div id="u1gk19wq" class="collapse navbar-collapse navbar-ex1-collapse uif-listGroup">
 		<ul class="nav navbar-nav navbar-right uif-listLayout">
@@ -38,7 +41,7 @@ $page = 'cost-sharing';
 					<div class="col-md-12">
 						<section id="u9tj3ss" class="uif-listGroup">
 							<h3 class="uif-headerText">
-								Proposal Development
+								Proposal Development 
 							</h3>
 							<ul class="uif-listLayout">
 								<li><a href="prop-start.php" class="uif-actionLink" id="umdwwyj" tabindex="0" data-role="Action"> Create a Proposal </a></li>
@@ -98,12 +101,12 @@ $page = 'cost-sharing';
 			<header class="clearfix uif-header-contentWrapper">
 				<div id="u148pgf0" class="uif-pageHeader clearfix" data-header_for="LabsProposal-Page">
 					<h2 class="uif-headerText">
-						<span class="uif-headerText-span">Additional Cost Sharing</span>
+						<span class="uif-headerText-span">Cost Sharing</span> 
 					</h2>
 				</div>
 			</header>
 			<p id="u1iaxrzf" class="uif-message uif-boxLayoutVerticalItem clearfix">
-				Assign and distribute any additional unallocated expenses to stakeholders, institutions, or other individuals.
+				Assign and distribute any additional unallocated expenses to stakeholders, institutions, or other individuals. 
 			</p>
 			<br>
 			<section>
@@ -114,8 +117,6 @@ $page = 'cost-sharing';
  Field 1: : activate to sort column descending"><label id="urh9zx8" class="uif-label">Project Period</label></th>
 							<th class="sorting" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
  Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label">Percentage</label></th>
-					
-							
 							<th class="sorting" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Source Account</label></th>
 							<th class="sorting" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
@@ -127,15 +128,13 @@ $page = 'cost-sharing';
 						<tr class="not-deletable">
 							<td>1</td>
 							<td class="text-right">6</td>
-						
 							<td>Cate Start Up</td>
 							<td class="text-right">500.00</td>
-						
 							<td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
 						</tr>
 						<tr class="uif-new-row">
 							<td><label for="line_3_total"><span class="sr-only">Period total</span> 
-							 <input type="text" size="3" name="line_3_total" id="line_3_total" value="2">	
+							<input type="text" size="3" name="line_3_total" id="line_3_total" value="2">
 							</label></td>
 							<td><label for="line_3_direct"><span class="sr-only">Period direct</span> 
 							<input type="text" size="3" name="line_3_direct" id="line_3_direct">
@@ -143,16 +142,13 @@ $page = 'cost-sharing';
 							<td><label for="line_3_fa"><span class="sr-only">Period F&amp;A</span> 
 							<input type="text" size="3" name="line_3_fa" id="line_3_fa">
 							</label></td>
-						
-						
 							<td><label for="line_3_cost-limit"><span class="sr-only">Period Cost limit</span> 
 							<input type="text" size="3" name="line_3_cost-limit" id="line_3_cost-limit">
 							</label></td>
 							<td><a tabindex="0" class="icon icon-save"><span class="sr-only">Save</span></a></td>
 						</tr>
-											
-											
-					<!-- 							<tr class="uif-new-row">
+
+<!-- 							<tr class="uif-new-row">
 							<td><label for="line_4_total"><span class="sr-only">Period total</span> 
 							 <input type="text" size="4" name="line_4_total" id="line_4_total" value="3">	
 							</label></td>
@@ -189,42 +185,29 @@ $page = 'cost-sharing';
 						</tr>
 						
 						-->
-						
-						
-						
-						
-						
-						
 					</tbody>
-					
-					<tfoot class="active">
-					
-						<tr>
-							
-						
-							<th class="text-right" colspan="3">Total Allocated:</th>
-							<td ><input type="text" size="5" name="line_5_cost-limit" id="line_5_cost-limit" value="500.00"  class="text-right"></td>
-							<td></td>
-						</tr>
-							<tr>
-			
-							<th  class="text-right" colspan="3">Unallocated:</th>
-							<td><input type="text" size="5" name="line_5_cost-limit" id="line_5_cost-limit" value=""  class="text-right"></td>
-							<td></td>
-						</tr>
-					
-					</tfoot>
-					
-					
-					
-					
-					
+					<tfoot class="active"> 
+					<tr>
+						<th class="text-right" colspan="3"  scope="row"><strong>Total Allocated:</strong></th>
+						<td>
+						<input type="text" size="5" name="line_5_cost-limit" id="line_5_cost-limit" value="500.00" class="text-right">
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th class="text-right" colspan="3"  scope="row"><strong>Unallocated:</strong></th>
+						<td>
+						<input type="text" size="5" name="line_5_cost-limit" id="line_5_cost-limit" value="" class="text-right">
+						</td>
+						<td></td>
+					</tr>
+					</tfoot> 
 				</table>
 
 <!-- summary -->
 				<div class="well well-sm" style="margin-top:-1.4em;">
 					<h4>
-						Cost Sharing Summary
+						Cost Sharing Summary 
 					</h4>
 					<table class="data-row-table ">
 						<tr>
@@ -254,27 +237,26 @@ $page = 'cost-sharing';
 					</table>
 				</div>
 
-<!--//summary  -->
+<!--//summary  -->                      <div class="pull-right">
+                    <button class="btn btn-default btn-xs">Reset to Default</button>
+                    <button class="btn btn-default btn-xs">Recalculate</button>
+                </div> 
 			</section>
 			</main> 
 		</div>
 
 <!-- VIEW FOOTER -->
 		<div id="u19v7dpm" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;">
-			<a href="budget-ng-summary.php" id="ufuknm4" class="btn btn-default uif-primaryActionButton uif-boxLayoutHorizontalItem">Go back</a>
-			 <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save</button> 
-<!-- different buttons for casual user -->			 
+			<a href="budget-ng-summary.php" id="ufuknm4" class="btn btn-default uif-primaryActionButton uif-boxLayoutHorizontalItem">Go back</a> <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save</button> 
+<!-- different buttons for casual user -->
 <?php
 $currentPage =  $_SERVER['QUERY_STRING'] ;
 if ($currentPage == "modular-budget=no&amp;detail=yes") {
 ?>
-
-<a href="budget-ng-summary.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Save and Continue</a> 
-
+			<a href="budget-ng-summary.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Save and Continue</a> 
 <?php } else { ?>
-		
-		<a href="budget-ng-income.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Save and Continue</a> 
-<?php } ?>	 
+			<a href="budget-ng-income.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Save and Continue</a> 
+<?php } ?>
 		</div>
 <!-- //different buttons for casual user -->
 <!-- DIALOGS/Placeholders -->
@@ -291,7 +273,6 @@ if ($currentPage == "modular-budget=no&amp;detail=yes") {
 	<input type="hidden" name="view.singlePageView" value="true">
 	<input type="hidden" name="view.disableBrowserCache" value="true">
 	</span> 
-	
 </form>
 
 <?php include ('includes/footer-scripts.php') ?>
