@@ -498,12 +498,7 @@ return false;
                 <h4 class="modal-title" id="myModalLabel">Generate All Periods?</h4>
             </div>
             <div class="modal-body">
-                <p>Would you like to use the generate all periods functionality to auto-calculate later periods based on period 1 data? Please note that this action can only be taken once.</p>
-                <small>
-                <label style=font-weight:normal>
-                    <input type=checkbox>
-                    Dont ask me this again </label>
-                </small></div>
+                <p>Would you like to use the generate all periods functionality to auto-calculate later periods based on period 1 data? Please note that this action can only be taken once.</p></div>
             <div class="modal-footer"><a href="budget-ng-subawards.php?generate=no" class="btn btn-default">No</a> <a href="budget-ng-subawards.php?generate=yes" class="btn btn-primary">Yes Generate All Periods</a></div>
         </div>
     </div>
@@ -792,8 +787,6 @@ return false;
         </div>
     </div>
 </div>
-
-Modal --> 
 
 <!-- NO QUOTES ?
 <div class="modal fade" id="switchdoc" tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true>

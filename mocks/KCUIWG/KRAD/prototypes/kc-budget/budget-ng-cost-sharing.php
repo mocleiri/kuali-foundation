@@ -10,8 +10,8 @@ $page = 'cost-sharing';
 <!-- GLOBAL STYLES -->
 <?php include ('includes/styles.php') ?>
 	<style type="text/css">
-.data-row-table th{ padding:5px; text-align:right; }
-.edit-table input{min-width: 10em;width:100%;}
+.data-row-table th{ padding:5px; text-align:right; font-weight:bold; }
+.edit-table input,.edit-table select{min-width: 10em;width:100%;}
 #u19v7dpm{padding:1em 0 ;}
 	</style>
 </head>
@@ -111,7 +111,7 @@ $page = 'cost-sharing';
 					<thead>
 						<tr role="row">
 							<th class="sorting" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
- Field 1: : activate to sort column descending"><label id="urh9zx8" class="uif-label">Fiscal Year</label></th>
+ Field 1: : activate to sort column descending"><label id="urh9zx8" class="uif-label">Project Period</label></th>
 							<th class="sorting" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
  Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label">Percentage</label></th>
 					
@@ -125,17 +125,17 @@ $page = 'cost-sharing';
 					</thead>
 					<tbody role="alert" aria-live="polite" aria-relevant="all">
 						<tr class="not-deletable">
-							<td>2014</td>
-							<td>6</td>
+							<td>1</td>
+							<td class="text-right">6</td>
 						
 							<td>Cate Start Up</td>
-							<td>0.00</td>
+							<td class="text-right">500.00</td>
 						
 							<td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
 						</tr>
 						<tr class="uif-new-row">
 							<td><label for="line_3_total"><span class="sr-only">Period total</span> 
-							<input type="text" size="3" name="line_3_total" id="line_3_total">
+							 <input type="text" size="3" name="line_3_total" id="line_3_total" value="2">	
 							</label></td>
 							<td><label for="line_3_direct"><span class="sr-only">Period direct</span> 
 							<input type="text" size="3" name="line_3_direct" id="line_3_direct">
@@ -150,7 +150,75 @@ $page = 'cost-sharing';
 							</label></td>
 							<td><a tabindex="0" class="icon icon-save"><span class="sr-only">Save</span></a></td>
 						</tr>
+											
+											
+					<!-- 							<tr class="uif-new-row">
+							<td><label for="line_4_total"><span class="sr-only">Period total</span> 
+							 <input type="text" size="4" name="line_4_total" id="line_4_total" value="3">	
+							</label></td>
+							<td><label for="line_4_direct"><span class="sr-only">Period direct</span> 
+							<input type="text" size="4" name="line_4_direct" id="line_4_direct">
+							</label></td>
+							<td><label for="line_4_fa"><span class="sr-only">Period F&amp;A</span> 
+							<input type="text" size="4" name="line_4_fa" id="line_4_fa">
+							</label></td>
+						
+						
+							<td><label for="line_4_cost-limit"><span class="sr-only">Period Cost limit</span> 
+							<input type="text" size="4" name="line_4_cost-limit" id="line_4_cost-limit">
+							</label></td>
+							<td><a tabindex="0" class="icon icon-save"><span class="sr-only">Save</span></a></td>
+						</tr>
+						
+									<tr class="uif-new-row">
+							<td><label for="line_5_total"><span class="sr-only">Period total</span> 
+							 <input type="text" size="5" name="line_5_total" id="line_5_total" value="4">	
+							</label></td>
+							<td><label for="line_5_direct"><span class="sr-only">Period direct</span> 
+							<input type="text" size="5" name="line_5_direct" id="line_5_direct">
+							</label></td>
+							<td><label for="line_5_fa"><span class="sr-only">Period F&amp;A</span> 
+							<input type="text" size="5" name="line_5_fa" id="line_5_fa">
+							</label></td>
+						
+						
+							<td><label for="line_5_cost-limit"><span class="sr-only">Period Cost limit</span> 
+							<input type="text" size="5" name="line_5_cost-limit" id="line_5_cost-limit">
+							</label></td>
+							<td><a tabindex="0" class="icon icon-save"><span class="sr-only">Save</span></a></td>
+						</tr>
+						
+						-->
+						
+						
+						
+						
+						
+						
 					</tbody>
+					
+					<tfoot class="active">
+					
+						<tr>
+							
+						
+							<th class="text-right" colspan="3">Total Allocated:</th>
+							<td ><input type="text" size="5" name="line_5_cost-limit" id="line_5_cost-limit" value="500.00"  class="text-right"></td>
+							<td></td>
+						</tr>
+							<tr>
+			
+							<th  class="text-right" colspan="3">Unallocated:</th>
+							<td><input type="text" size="5" name="line_5_cost-limit" id="line_5_cost-limit" value=""  class="text-right"></td>
+							<td></td>
+						</tr>
+					
+					</tfoot>
+					
+					
+					
+					
+					
 				</table>
 
 <!-- summary -->

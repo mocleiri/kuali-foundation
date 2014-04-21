@@ -138,13 +138,13 @@ $section = '';
                                     <input type="text" size="3" class="pull-right " name="line_1_fa" id="line_1_fa">
                                 </label></td>
                             <td><label for="line_1_unrecovered"><span class="sr-only">Period unrecovered F&amp;A</span>
-                                    <input type="text" size="3" class="pull-right  cost-sharing" name="line_1_unrecovered" id="line_1_unrecovered">
+                                    <input type="text" size="3" class="pull-right  unrecovered" name="line_1_unrecovered" id="line_1_unrecovered">
                                 </label></td>
                             <td><label for="line_1_cost-sharing"><span class="sr-only">Period Cost sharing</span>
                                     <input type="text" size="3" class="cost-sharing pull-right " name="line_1_cost-sharing" id="line_1_cost-sharing" value="">
                                 </label></td>
                             <td><label for="line_1_cost-limit"><span class="sr-only">Period Cost limit</span>
-                                    <input type="text" size="3" class="cost-sharing pull-right " name="line_1_cost-limit" id="line_1_cost-limit">
+                                    <input type="text" size="3" class="pull-right " name="line_1_cost-limit" id="line_1_cost-limit">
                                 </label></td>
                             <td><label for="line_1_direct-limit"><span class="sr-only">Period Direct limit</span>
                                     <input type="text" size="3" class="pull-right" name="line_1_direct-limit" id="line_1_direct-limit">
@@ -162,10 +162,10 @@ $section = '';
                                     <input type="text" size="3" class="pull-right" name="line_2_direct" id="line_2_direct">
                                 </label></td>
                             <td><label for="line_2_fa"><span class="sr-only">Period F&amp;A</span>
-                                    <input type="text" size="3" class="pull-right  cost-sharing" name="line_2_fa" id="line_2_fa">
+                                    <input type="text" size="3" class="pull-right" name="line_2_fa" id="line_2_fa">
                                 </label></td>
                             <td><label for="line_2_unrecovered"><span class="sr-only">Period unrecovered F&amp;A</span>
-                                    <input type="text" size="3" class="cost-sharing pull-right " name="line_2_unrecovered" id="line_2_unrecovered">
+                                    <input type="text" size="3" class="unrecovered pull-right " name="line_2_unrecovered" id="line_2_unrecovered">
                                 </label></td>
                             <td><label for="line_2_cost-sharing"><span class="sr-only">Period Cost sharing</span>
                                     <input type="text" size="3" class="cost-sharing pull-right " name="line_2_cost-sharing" id="line_2_cost-sharing">
@@ -192,7 +192,7 @@ $section = '';
                                     <input type="text" size="3" class="pull-right" name="line_3_fa" id="line_3_fa">
                                 </label></td>
                             <td><label for="line_3_unrecovered"><span class="sr-only">Period unrecovered F&amp;A</span>
-                                    <input type="text" size="3" class="pull-right  cost-sharing" name="line_3_unrecovered" id="line_3_unrecovered">
+                                    <input type="text" size="3" class="pull-right  unrecovered" name="line_3_unrecovered" id="line_3_unrecovered">
                                 </label></td>
                             <td><label for="line_3_cost-sharing"><span class="sr-only">Period Cost sharing</span>
                                     <input type="text" size="3" class="pull-right  cost-sharing" name="line_3_cost-sharing" id="line_3_cost-sharing">
@@ -219,7 +219,7 @@ $section = '';
                                     <input type="text" size="3" class="pull-right" name="line_4_fa" id="line_4_fa">
                                 </label></td>
                             <td><label for="line_4_unrecovered"><span class="sr-only">Period unrecovered F&amp;A</span>
-                                    <input type="text" size="3" class="pull-right  cost-sharing" name="line_4_unrecovered" id="line_4_unrecovered">
+                                    <input type="text" size="3" class="pull-right  unrecovered" name="line_4_unrecovered" id="line_4_unrecovered">
                                 </label></td>
                             <td><label for="line_4_cost-sharing"><span class="sr-only">Period Cost sharing</span>
                                     <input type="text" size="3" class="pull-right  cost-sharing" name="line_4_cost-sharing" id="line_4_cost-sharing">
@@ -246,7 +246,7 @@ $section = '';
                                     <input type="text" size="3" class="pull-right" name="line_5_fa" id="line_5_fa">
                                 </label></td>
                             <td><label for="line_5_unrecovered"><span class="sr-only">Period unrecovered F&amp;A</span>
-                                    <input type="text" size="3" class="pull-right  cost-sharing" name="line_5_unrecovered" id="line_5_unrecovered">
+                                    <input type="text" size="3" class="pull-right  unrecovered" name="line_5_unrecovered" id="line_5_unrecovered">
                                 </label></td>
                             <td><label for="line_5_cost-sharing"><span class="sr-only">Period Cost sharing</span>
                                     <input type="text" size="3" class="pull-right  cost-sharing" name="line_5_cost-sharing" id="line_5_cost-sharing">
@@ -259,34 +259,34 @@ $section = '';
                                 </label></td>
                             <td><a tabindex="0" class="icon icon-save"><span class="sr-only">Save</span></a></td>
                         </tr>
-                        <tr class="uif-new-row">
-                            <td><label for="line_5_start"><span class="sr-only">Period start</span>
-                                    <input type="date" class="form-control input-sm" size="5" name="line_5_start" id="line_5_start" placeholder="mm/dd/yyyy">
+                            <tr class="uif-new-row">
+                            <td><label for="line_7_start"><span class="sr-only">Period start</span>
+                                    <input type="date" class="form-control input-sm" size="7" name="line_7_start" id="line_7_start" placeholder="mm/dd/yyyy">
                                 </label></td>
-                            <td><label for="line_5_end"><span class="sr-only">Period end</span>
-                                    <input type="date" class="form-control input-sm" size="5" name="line_5_end" id="line_5_end" placeholder="mm/dd/yyyy">
+                            <td><label for="line_7_end"><span class="sr-only">Period end</span>
+                                    <input type="date" class="form-control input-sm" size="7" name="line_7_end" id="line_7_end" placeholder="mm/dd/yyyy">
                                 </label></td>
                             <td></td>
-                            <td><label for="line_5_total"><span class="sr-only">Period total</span>
-                                    <input type="text" size="3" class="pull-right" name="line_5_total" id="line_5_total">
+                            <td><label for="line_7_total"><span class="sr-only">Period total</span>
+                                    <input type="text" size="3" class="pull-right" name="line_7_total" id="line_7_total">
                                 </label></td>
-                            <td><label for="line_5_direct"><span class="sr-only">Period direct</span>
-                                    <input type="text" size="3" class="pull-right" name="line_5_direct" id="line_5_direct">
+                            <td><label for="line_7_direct"><span class="sr-only">Period direct</span>
+                                    <input type="text" size="3" class="pull-right" name="line_7_direct" id="line_7_direct">
                                 </label></td>
-                            <td><label for="line_5_fa"><span class="sr-only">Period F&amp;A</span>
-                                    <input type="text" size="3" class="pull-right" name="line_5_fa" id="line_5_fa">
+                            <td><label for="line_7_fa"><span class="sr-only">Period F&amp;A</span>
+                                    <input type="text" size="3" class="pull-right" name="line_7_fa" id="line_7_fa">
                                 </label></td>
-                            <td><label for="line_5_unrecovered"><span class="sr-only">Period unrecovered F&amp;A</span>
-                                    <input type="text" size="3" class="pull-right  cost-sharing" name="line_5_unrecovered" id="line_5_unrecovered">
+                            <td><label for="line_7_unrecovered"><span class="sr-only">Period unrecovered F&amp;A</span>
+                                    <input type="text" size="3" class="pull-right  unrecovered" name="line_7_unrecovered" id="line_7_unrecovered">
                                 </label></td>
-                            <td><label for="line_5_cost-sharing"><span class="sr-only">Period Cost sharing</span>
-                                    <input type="text" size="3" class="pull-right  cost-sharing" name="line_5_cost-sharing" id="line_5_cost-sharing">
+                            <td><label for="line_7_cost-sharing"><span class="sr-only">Period Cost sharing</span>
+                                    <input type="text" size="3" class="pull-right  cost-sharing" name="line_7_cost-sharing" id="line_7_cost-sharing">
                                 </label></td>
-                            <td><label for="line_5_cost-limit"><span class="sr-only">Period Cost limit</span>
-                                    <input type="text" size="3" class="pull-right" name="line_5_cost-limit" id="line_5_cost-limit">
+                            <td><label for="line_7_cost-limit"><span class="sr-only">Period Cost limit</span>
+                                    <input type="text" size="3" class="pull-right" name="line_7_cost-limit" id="line_7_cost-limit">
                                 </label></td>
-                            <td><label for="line_5_direct-limit"><span class="sr-only">Period Direct limit</span>
-                                    <input type="text" size="3" class="pull-right" name="line_5_direct-limit" id="line_5_direct-limit">
+                            <td><label for="line_7_direct-limit"><span class="sr-only">Period Direct limit</span>
+                                    <input type="text" size="3" class="pull-right" name="line_7_direct-limit" id="line_7_direct-limit">
                                 </label></td>
                             <td><a tabindex="0" class="icon icon-save"><span class="sr-only">Save</span></a></td>
                         </tr>
@@ -351,7 +351,6 @@ $section = '';
 
 <?php include ('includes/footer-scripts.php') ?>
 
-<!--  -->
 
 
 <!-- different actions for casual user -->			 
@@ -371,20 +370,34 @@ If a user selects summary budget and modular = no, then:
 (function($){
 	
 		
-$("#save-continue").on( "click", function(e)  {	
-	  e.preventDefault();	
-	  	  	  
-// Cost sharing or unrecovered F&a are blank = summary page 
-if ($("input.cost-sharing").val() == ""){
- 
-document.location.href='budget-ng-summary.php?modular-budget=no&amp;detail=yes';	
-  	
-} else {
 
-document.location.href='budget-ng-cost-sharing.php?modular-budget=no&amp;detail=yes';	
-};
 
-  });  
+
+
+ $('body').on('click','#save-continue', function(e) {
+	  e.preventDefault();
+	  
+	 
+
+	
+	
+	
+if  (($("input.unrecovered").val() != "") && ($("input.cost-sharing").val() != "")){
+ document.location.href='budget-ng-cost-sharing.php?modular-budget=no&amp;detail=yes';
+} else if ($("input.unrecovered").val() != "") {
+ document.location.href='budget-ng-unrecovered-fa.php?modular-budget=no&amp;detail=yes';
+} else if  ($("input.cost-sharing").val() != ""){
+ document.location.href='budget-ng-cost-sharing.php?modular-budget=no&amp;detail=yes';
+}
+else {
+   document.location.href='budget-ng-summary.php?modular-budget=no&amp;detail=yes'
+} 
+	
+
+    
+
+
+});  
   	  
 }(jQuery))	
 </script>
@@ -403,26 +416,31 @@ document.location.href='budget-ng-cost-sharing.php?modular-budget=no&amp;detail=
 		
 
 <script>
-/*
 
-If a user selects summary budget and modular = yes, then:
-
-*/
 (function($){
 	
 		
-$("#save-continue").on( "click", function(e)  {	
-	  e.preventDefault();	
-	  	  	  
-// Cost sharing or unrecovered F&a are blank = summary page 
-if ($("input.cost-sharing").val() == ""){
- 
-document.location.href='budget-ng-modular.php?modular-budget=yes&amp;detail=yes';	
-  	
-} else {
+ $('body').on('click','#save-continue', function(e) {
+	  e.preventDefault();
+	  
+	 
 
-document.location.href='budget-ng-cost-sharing.php?modular-budget=no&amp;detail=yes';	
-};
+	
+	
+	
+if  (($("input.unrecovered").val() != "") && ($("input.cost-sharing").val() != "")){
+ document.location.href='budget-ng-cost-sharing.php?modular-budget=yes&amp;detail=yes';
+} else if ($("input.unrecovered").val() != "") {
+document.location.href='budget-ng-unrecovered-fa.php?modular-budget=yes&amp;detail=yes';
+} else if  ($("input.cost-sharing").val() != ""){
+document.location.href='budget-ng-cost-sharing.php?modular-budget=yes&amp;detail=yes';
+}
+else {
+   document.location.href='budget-ng-modular.php?modular-budget=yes&amp;detail=yes';
+} 
+	  
+	  
+
 
   });  
   	  

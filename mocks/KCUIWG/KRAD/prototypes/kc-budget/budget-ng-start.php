@@ -328,7 +328,7 @@ return false;
 </script>
 <!-- MODAL budget summary -->
 <?php include ('includes/modal-budget-summary.php') ?>
-<!-- MODAL- budget settings  -->
+<!-- MODAL budget settings  -->
 <?php include ('includes/modal-budget-settings.php') ?>
 <!-- MODAL  budget open propsal -->
 <?php include ('includes/modal-budget-open-prop.php') ?>
