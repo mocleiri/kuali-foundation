@@ -15,12 +15,12 @@ import static org.kuali.common.util.Str.getUTF8Bytes;
 import static org.kuali.common.util.Str.getUTF8String;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
-import static org.kuali.common.util.encrypt.openssl.OpenSSLContext.buildDefaultOpenSSLContext;
 import static org.kuali.common.util.encrypt.openssl.OpenSSL.buildEncryptedContext;
 import static org.kuali.common.util.encrypt.openssl.OpenSSL.checkBase64;
 import static org.kuali.common.util.encrypt.openssl.OpenSSL.combineByteArrays;
 import static org.kuali.common.util.encrypt.openssl.OpenSSL.createSalt;
 import static org.kuali.common.util.encrypt.openssl.OpenSSL.toByteArray;
+import static org.kuali.common.util.encrypt.openssl.OpenSSLContext.buildDefaultOpenSSLContext;
 
 import java.io.File;
 import java.io.IOException;
@@ -125,8 +125,7 @@ public final class OpenSSLEncryptor implements Encryptor {
 		// Decode the base64 text into bytes
 		byte[] bytes = decodeBase64(getAsciiBytes(checkBase64(text)));
 
-		// OpenSSL always inserts the prefix "Salted__" followed by the salt itself
-		// You have to explicitly use the -nosalt option to turn this off (which OpenSSL strongly advises against)
+		// OpenSSL inserts the prefix "Salted__" followed by the salt itself
 		int saltOffset = context.getSaltPrefix().length();
 		byte[] salt = copyOfRange(bytes, saltOffset, saltOffset + context.getSaltSize());
 
