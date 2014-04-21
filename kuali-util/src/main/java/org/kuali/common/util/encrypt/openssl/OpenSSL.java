@@ -22,6 +22,7 @@ import com.google.common.collect.ImmutableList;
 public class OpenSSL {
 
 	private static final Random RANDOM = new SecureRandom();
+	private static final int DEFAULT_SALT_SIZE = 8;
 
 	public static OpenSSLEncryptor buildOpenSSLEncryptor(EncryptionContext context) {
 		OpenSSLContext osc = buildOpenSSLContext(context.getStrength());
@@ -50,6 +51,16 @@ public class OpenSSL {
 		return new byte[length];
 	}
 
+	/**
+	 * Creates an 8 byte salt
+	 */
+	public static byte[] createSalt() {
+		return createSalt(DEFAULT_SALT_SIZE);
+	}
+
+	/**
+	 * Creates a salt of the indicated length
+	 */
 	public static byte[] createSalt(int length) {
 		byte[] salt = new byte[length];
 		RANDOM.nextBytes(salt);
