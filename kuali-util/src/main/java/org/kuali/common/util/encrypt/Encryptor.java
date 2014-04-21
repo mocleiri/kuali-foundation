@@ -2,8 +2,8 @@ package org.kuali.common.util.encrypt;
 
 public interface Encryptor {
 
-	String encrypt(String text);
+	String encrypt(String plaintext);
 
-	String decrypt(String text);
+	String decrypt(String encrypted);
 
 }
