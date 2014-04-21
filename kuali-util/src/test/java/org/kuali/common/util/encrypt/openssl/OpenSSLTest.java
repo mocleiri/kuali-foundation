@@ -31,7 +31,7 @@ public class OpenSSLTest {
 	public void testGeneratePassword() {
 		try {
 			Stopwatch sw = createStarted();
-			int iterations = 500000;
+			int iterations = 10000;
 			int length = 22;
 			for (int i = 0; i < iterations; i++) {
 				randomAlphanumeric(length);
@@ -55,10 +55,10 @@ public class OpenSSLTest {
 			list.add(new MathPow("alphanumeric", 62, 43));
 			list.add(new MathPow("printable ascii", 95, 38));
 			list.add(new MathPow("printable ascii", 95, 39));
-			// AWS uses 20 character access keys A-Z and 0-9
+			// AWS uses 20 character access keys composed of uppercase letters (A-Z) and digits (0-9)
 			list.add(new MathPow("aws access key", 36, 20));
-			// AWS uses 40 character base64 secret keys which equates to 30 bytes which equates to 230 bits
-			list.add(new MathPow("aws secret key", 2, 230));
+			// AWS uses 40 character base64 secret keys which equates to 30 bytes which equates to 240 bits
+			list.add(new MathPow("aws secret key", 2, 240));
 			list.add(new MathPow("atoms on planet earth", 10, 50));
 			show(list);
 			String password = generatePassword(40);
