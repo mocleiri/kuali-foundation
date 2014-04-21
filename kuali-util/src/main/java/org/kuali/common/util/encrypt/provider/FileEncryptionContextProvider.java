@@ -6,8 +6,6 @@ import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.ImmutableList.copyOf;
 import static com.google.common.collect.Iterables.filter;
 import static java.lang.String.format;
-import static java.lang.System.getProperty;
-import static java.lang.System.getenv;
 import static org.apache.commons.io.FileUtils.readLines;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.kuali.common.util.base.Exceptions.illegalState;
@@ -77,13 +75,17 @@ public final class FileEncryptionContextProvider implements EncryptionContextPro
 	}
 
 	protected static File getEncPasswordFile() {
-		Optional<String> sys = getOptional(getProperty(ENC_PASSWORD_FILE_SYS_KEY));
+		Optional<String> sys = getOptional(System.getProperty(ENC_PASSWORD_FILE_SYS_KEY));
 		if (sys.isPresent()) {
-			return new CanonicalFile(sys.get());
+			File file = new CanonicalFile(sys.get());
+			logger.debug(format("encryption system property: %s=[%s]", ENC_PASSWORD_FILE_SYS_KEY, file.getPath()));
+			return file;
 		}
-		Optional<String> env = getOptional(getenv(ENC_PASSWORD_FILE_ENV_KEY));
+		Optional<String> env = getOptional(System.getenv(ENC_PASSWORD_FILE_ENV_KEY));
 		if (env.isPresent()) {
-			return new CanonicalFile(env.get());
+			File file = new CanonicalFile(env.get());
+			logger.debug(format("encryption environment variable: %s=[%s]", ENC_PASSWORD_FILE_ENV_KEY, file.getPath()));
+			return file;
 		}
 		return DEFAULT_ENC_PASSWORD_FILE;
 	}
