@@ -5,13 +5,13 @@ public enum NoOpEncryptor implements Encryptor {
 	INSTANCE;
 
 	@Override
-	public String encrypt(String text) {
-		return text;
+	public String encrypt(String plaintext) {
+		return plaintext;
 	}
 
 	@Override
-	public String decrypt(String text) {
-		return text;
+	public String decrypt(String encrypted) {
+		return encrypted;
 	}
 
 }
