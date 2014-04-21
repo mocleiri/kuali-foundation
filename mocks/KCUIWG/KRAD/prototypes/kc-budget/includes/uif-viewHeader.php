@@ -1,5 +1,5 @@
 <header class="container uif-viewHeader-contentWrapper">
-    <div id="ueqbqhn" class="uif-viewHeader <?php echo $_GET['setClass'];?>" data-header_for="LabsProposal">
+    <div id="ueqbqhn" class="uif-viewHeader" data-header_for="LabsProposal">
         <h1 class="uif-headerText">
             <p id="u1p8pc9q" class="uif-viewHeader-areaTitle"> Proposal Budget Development </p>
             <span class="uif-headerText-span"> Budget: Version 5</span> </h1>
@@ -51,7 +51,7 @@
             </div>
         </div>
     </div>
-    <div id="LabsProposal-DocActionBar" class="uif-actionBar uif-header-lowerGroup <?php echo $_GET['setClass'];?>">
+    <div id="LabsProposal-DocActionBar" class="uif-actionBar uif-header-lowerGroup">
         <ul>
             <!--      <li> <a id="uotglns" class="uif-actionLink" tabindex="0" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;print&quot;}"><span class="icon-print"></span>Print</a> </li>
             <li> <a id="uotglon" class="uif-actionLink" tabindex="0" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;copy&quot;}"><span class="icon-copy"></span>Copy</a> </li>
