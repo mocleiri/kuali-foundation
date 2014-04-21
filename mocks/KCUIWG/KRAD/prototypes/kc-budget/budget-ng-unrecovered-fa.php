@@ -12,8 +12,10 @@ $page = 'unrecovered';
 <?php include ('includes/styles.php') ?>
 	<style type="text/css">
 .data-row-table th{ padding:5px; text-align:right; }
-.edit-table input{min-width: 10em;width:100%;}
+.edit-table input,.edit-table select{min-width: 5em;width:100%;}
+.edit-table input
 #u19v7dpm{padding:1em 0 ;}
+ td{text-align: right;}
 	</style>
 </head>
 <body id="Uif-Application" style="padding-bottom: 570px;">
@@ -29,7 +31,7 @@ $page = 'unrecovered';
 				<img id="u2elq10" src="http://ux.kuali.org/prototypes/kc/p2-devbranch/themes/kc/img/logo.png" alt="" class="uif-image"> 
 			</h1>
 		</div>
-		</a>
+		</a> 
 	</div>
 	<div id="u1gk19wq" class="collapse navbar-collapse navbar-ex1-collapse uif-listGroup">
 		<ul class="nav navbar-nav navbar-right uif-listLayout">
@@ -39,7 +41,7 @@ $page = 'unrecovered';
 					<div class="col-md-12">
 						<section id="u9tj3ss" class="uif-listGroup">
 							<h3 class="uif-headerText">
-								Proposal Development
+								Proposal Development 
 							</h3>
 							<ul class="uif-listLayout">
 								<li><a href="prop-start.php" class="uif-actionLink" id="umdwwyj" tabindex="0" data-role="Action"> Create a Proposal </a></li>
@@ -99,7 +101,7 @@ $page = 'unrecovered';
 			<header class="clearfix uif-header-contentWrapper">
 				<div id="u148pgf0" class="uif-pageHeader clearfix" data-header_for="LabsProposal-Page">
 					<h2 class="uif-headerText">
-						<span class="uif-headerText-span">Unrecovered F&amp;A </span>
+						<span class="uif-headerText-span">Unrecovered F&amp;A </span> 
 					</h2>
 				</div>
 			</header>
@@ -116,7 +118,7 @@ $page = 'unrecovered';
 							<th class="sorting" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
  Field 2: : activate to sort column ascending"><label id="u9vt7yu" class="uif-label"> Applicable Rates</label></th>
 							<th class="sorting" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
- Field 3: : activate to sort column ascending"><label id="uosze9s" class="uif-label"> Campus</label></th>
+ Field 3: : activate to sort column ascending"><label id="uosze9s" class="uif-label"> On Campus</label></th>
 							<th class="sorting" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
  Field 4: : activate to sort column ascending"><label id="u9u34v6" class="uif-label"> Type </label></th>
 							<th class="sorting" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
@@ -130,8 +132,8 @@ $page = 'unrecovered';
 						<tr class="not-deletable">
 							<td>2014</td>
 							<td>62.00</td>
-							<td>No</td>
-							<td>Cost Sharing Type</td>
+							<td class="text-left">No</td>
+							<td class="text-left">Cost Sharing Type</td>
 							<td>25.00</td>
 							<td>25.00</td>
 							<td><a href="#" class="icon icon-edit uif-btn-edit"><span class="sr-only">Edit</span></a></td>
@@ -144,7 +146,11 @@ $page = 'unrecovered';
 							<input type="text" size="3" name="line_3_direct" id="line_3_direct">
 							</label></td>
 							<td><label for="line_3_fa"><span class="sr-only">Period F&amp;A</span> 
-							<input type="text" size="3" name="line_3_fa" id="line_3_fa">
+<!-- <input type="text" size="3" name="line_3_fa" id="line_3_fa"> -->
+							<select class="form-control input-sm">
+								<option>Yes</option>
+								<option>No</option>
+							</select>
 							</label></td>
 							<td><label for="line_3_unrecovered"><span class="sr-only">Period unrecovered F&amp;A</span> 
 							<input type="text" size="3" name="line_3_unrecovered" id="line_3_unrecovered">
@@ -158,12 +164,28 @@ $page = 'unrecovered';
 							<td><a tabindex="0" class="icon icon-save"><span class="sr-only">Save</span></a></td>
 						</tr>
 					</tbody>
+								<tfoot class="active"> 
+					<tr>
+						<th class="text-right" colspan="5"  scope="row"><strong>Total Allocated:</strong></th>
+						<td>
+						<input type="text" size="5" name="line_5_cost-limit" id="line_5_cost-limit" value="25.00" class="text-right">
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th class="text-right" colspan="5"  scope="row"><strong>Unallocated:</strong></th>
+						<td>
+						<input type="text" size="5" name="line_5_cost-limit" id="line_5_cost-limit" value="" class="text-right">
+						</td>
+						<td></td>
+					</tr>
+					</tfoot> 
 				</table>
 
 <!-- summary -->
 				<div class="well well-sm" style="margin-top:-1.4em;">
 					<h4>
-						Unrecovered F&amp;A Summary
+						Unrecovered F&amp;A Summary 
 					</h4>
 					<table class="data-row-table ">
 						<tr>
@@ -193,7 +215,11 @@ $page = 'unrecovered';
 					</table>
 				</div>
 
-<!--//summary  -->
+
+<!--//summary  -->                      <div class="pull-right">
+                    <button class="btn btn-default btn-xs">Reset to Default</button>
+                    <button class="btn btn-default btn-xs">Recalculate</button>
+                </div> 
 			</section>
 			</main> 
 		</div>
@@ -217,7 +243,6 @@ $page = 'unrecovered';
 	<input type="hidden" name="view.singlePageView" value="true">
 	<input type="hidden" name="view.disableBrowserCache" value="true">
 	</span> 
-	
 </form>
 
 <?php include ('includes/footer-scripts.php') ?>
