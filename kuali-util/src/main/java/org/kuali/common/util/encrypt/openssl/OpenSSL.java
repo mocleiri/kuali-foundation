@@ -28,20 +28,9 @@ public class OpenSSL {
 	private static final int DEFAULT_PASSWORD_LENGTH = 22;
 	private static final List<Character> DEFAULT_PASSWORD_CHARS = getPasswordChars();
 
-	protected static List<Character> getPasswordChars() {
-		List<Character> chars = newArrayList();
-		for (char c = 'A'; c < 'Z'; c++) {
-			chars.add(c);
-		}
-		for (char c = 'a'; c < 'z'; c++) {
-			chars.add(c);
-		}
-		for (char c = '0'; c < '9'; c++) {
-			chars.add(c);
-		}
-		return ImmutableList.copyOf(chars);
-	}
-
+	/**
+	 * Uses SecureRandom to generate a random 22 character alphanumeric string
+	 */
 	public static String generatePassword() {
 		return generatePassword(DEFAULT_PASSWORD_LENGTH);
 	}
@@ -215,4 +204,19 @@ public class OpenSSL {
 		builder.withInitVector(toByteList(initVector));
 		return builder.build();
 	}
+
+	protected static List<Character> getPasswordChars() {
+		List<Character> chars = newArrayList();
+		for (char c = 'A'; c < 'Z'; c++) {
+			chars.add(c);
+		}
+		for (char c = 'a'; c < 'z'; c++) {
+			chars.add(c);
+		}
+		for (char c = '0'; c < '9'; c++) {
+			chars.add(c);
+		}
+		return ImmutableList.copyOf(chars);
+	}
+
 }
