@@ -26,12 +26,18 @@ public class OpenSSLTest {
 	@Test
 	public void testGeneratePassword() {
 		List<MathPow> list = newArrayList();
-		list.add(new MathPow(2, 32));
-		list.add(new MathPow(2, 64));
-		list.add(new MathPow(2, 128));
-		list.add(new MathPow(2, 256));
+		list.add(new MathPow(2, 32)); // Java integers are 32 bit
+		list.add(new MathPow(2, 64)); // Java longs are 64 bit
+		list.add(new MathPow(2, 128)); // 128 bit based encryption techniques are pretty standard
+		list.add(new MathPow(62, 21)); // There are 62 alphanumeric characters A-Z, a-z, and 0-9
 		list.add(new MathPow(62, 22)); // There are 62 alphanumeric characters A-Z, a-z, and 0-9
+		list.add(new MathPow(95, 19)); // There are 95 printable ASCII characters 32-126 (inclusive)
 		list.add(new MathPow(95, 20)); // There are 95 printable ASCII characters 32-126 (inclusive)
+		list.add(new MathPow(2, 256));
+		list.add(new MathPow(62, 42)); // There are 62 alphanumeric characters A-Z, a-z, and 0-9
+		list.add(new MathPow(62, 43)); // There are 62 alphanumeric characters A-Z, a-z, and 0-9
+		list.add(new MathPow(95, 39)); // There are 62 alphanumeric characters A-Z, a-z, and 0-9
+		list.add(new MathPow(95, 40)); // There are 62 alphanumeric characters A-Z, a-z, and 0-9
 		list.add(new MathPow(36, 20)); // AWS uses 20 character access keys A-Z and 0-9
 		list.add(new MathPow(64, 40)); // AWS uses 40 character base64 secret keys
 		show(list);

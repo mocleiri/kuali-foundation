@@ -23,25 +23,23 @@ public class OpenSSL {
 
 	private static final Random RANDOM = new SecureRandom();
 	private static final int DEFAULT_SALT_SIZE = 8;
-	private static final int DEFAULT_PASSWORD_LENGTH = 18;
-	private static final char[] PASSWORD_CHARS = getPasswordChars();
+	// When using all 62 alphanumeric characters, 22 is the minimum length required for producing more combinations than what is possible with 128 bits
+	// In other words, 62^22 is greater than 2^128
+	private static final int DEFAULT_PASSWORD_LENGTH = 22;
+	private static final List<Character> DEFAULT_PASSWORD_CHARS = getPasswordChars();
 
-	private static char[] getPasswordChars() {
-		List<Character> list = newArrayList();
+	private static List<Character> getPasswordChars() {
+		List<Character> chars = newArrayList();
 		for (char c = 'A'; c < 'Z'; c++) {
-			list.add(c);
+			chars.add(c);
 		}
 		for (char c = 'a'; c < 'z'; c++) {
-			list.add(c);
+			chars.add(c);
 		}
 		for (char c = '0'; c < '9'; c++) {
-			list.add(c);
+			chars.add(c);
 		}
-		char[] array = new char[list.size()];
-		for (int i = 0; i < list.size(); i++) {
-			array[i] = list.get(i);
-		}
-		return array;
+		return ImmutableList.copyOf(chars);
 	}
 
 	public static String generatePassword() {
@@ -49,10 +47,19 @@ public class OpenSSL {
 	}
 
 	public static String generatePassword(int length) {
+		return generatePassword(DEFAULT_PASSWORD_CHARS, length);
+	}
+
+	public static String generatePassword(List<Character> chars, int length) {
+		return generatePassword(chars, length, RANDOM);
+	}
+
+	public static String generatePassword(List<Character> chars, int length, Random random) {
 		StringBuilder sb = new StringBuilder();
+		int size = chars.size();
 		for (int i = 0; i < length; i++) {
-			int index = RANDOM.nextInt(PASSWORD_CHARS.length);
-			sb.append(PASSWORD_CHARS[index]);
+			int index = random.nextInt(size);
+			sb.append(chars.get(index));
 		}
 		return sb.toString();
 	}
