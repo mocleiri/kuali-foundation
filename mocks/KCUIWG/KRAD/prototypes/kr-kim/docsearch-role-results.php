@@ -52,26 +52,19 @@ $page = 'actionlist';
             <main id="LabsProposal-Page" class="uif-page uif-hasLeftNav" data-server_messages="false" data-role="Page" data-parent="LabsProposal" style="margin-left:;">
                 <header class="clearfix uif-header-contentWrapper">
                     <div id="u148pgf0" class="uif-pageHeader clearfix" data-header_for="LabsProposal-Page">
-                        <h2 class="uif-headerText"><span class="uif-headerText-span">My Action List </span></h2>
+                        <h2 class="uif-headerText"><span class="uif-headerText-span">Role Document Search: Results</span></h2>
                     </div>
                 </header>
-                <p class="pull-left lead">You currently have 12 actionalble items.</p>
-                <p class="pull-right"><span aria-hidden="true" class="icon-cog" style="color:#999"></span> <a id="uotglon" class="uif-actionLink" tabindex="0" data-role="Action" data-toggle="modal" data-target="#actionlist-prefs" data-submit_data="" data-dismiss="modal">Preferences</a></p>
-                <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                    <li class="active"><a href="#actions-current" data-toggle="tab">Current Items</a></li>
-                    <li><a href="#actions-completed" data-toggle="tab">Completed Actions</a></li>
-                </ul>
-                <div id="my-tab-content" class="tab-content clearfix">
-                    <div class="tab-pane active" id="actions-current">
-                        <h4>Current Items</h4>
-                        <table class="table table-condensed table-smaller-text" id="example">
+                
+                <hr>
+                <p class="pull-left lead">12 items were found.</p>
+             <table class="table table-condensed table-smaller-text table-hover" id="example">
                             <thead>
                                 <tr>
                                     <th> <a href="#">Doc ID</a></th>
-                                    <th> <a href="#">Route Status</a></th>
-                                    <th> <a href="#"> Type</a></th>
                                     <th> <a href="#">Description</a></th>
-                                    <th> <a href="#"> Action Requested</a></th>
+                                    <th> <a href="#"> Status</a></th>
+                                       <th> <a href="#">Initiator</a></th>
                                     <th> <a href="#">Created</a></th>
                                     <th style="width:130px"> <a href="#">Actions</a></th>
                                 </tr>
@@ -79,10 +72,9 @@ $page = 'actionlist';
                             <tbody>
                                 <tr>
                                     <td scope="row">3231</td>
-                                    <td class="">Approved</td>
-                                    <td scope="row">KC Award</td>
-                                    <td class="">My Research Award</td>
-                                    <td class="">Complete</td>
+                                    <td class="">By spite about do of do allow blush.  Award</td>
+                                    <td class="">Final</td>
+                                    <td>Admin</td>
                                     <td> 03/08/2014</td>
                                     <td class=""><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a>
                                             <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -1001px;top: 27px;width: 1125px;padding:15px; background:;">
@@ -143,14 +135,13 @@ $page = 'actionlist';
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a href="#" class="btn btn-xs btn-primary">Open</a> </div></td>
+                                            <a href="kim-role-overview.php" class="btn btn-xs btn-primary">Open</a> </div></td>
                                 </tr>
                                 <tr>
                                     <td scope="row">3273</td>
-                                    <td class="">Approved</td>
-                                    <td scope="row">KC Protocol</td>
-                                    <td class="">Test Title </td>
-                                    <td class="">Complete</td>
+                                    <td class="">Rank tall boy man them over post now.</td>
+                                    <td class="">Final</td>
+                                    <td>Admin</td>
                                     <td> 03/08/2014</td>
                                     <td class=""><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a>
                                             <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -1001px;top: 27px;width: 1125px;padding:15px; background:;">
@@ -211,14 +202,13 @@ $page = 'actionlist';
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a href="#" class="btn btn-xs btn-primary">Open</a> </div></td>
+                                            <a href="kim-role-overview.php" class="btn btn-xs btn-primary">Open</a> </div></td>
                                 </tr>
                                 <tr>
                                     <td scope="row">3237</td>
-                                    <td class="">Approved</td>
-                                    <td scope="row">KC Award</td>
-                                    <td class="">Another Research Award</td>
-                                    <td class="">Complete</td>
+                                    <td class="">The him father parish looked has sooner.</td>
+                                    <td class="">Saved</td>
+                                    <td>Admin</td>
                                     <td> 03/08/2014</td>
                                     <td class=""><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a>
                                             <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -1001px;top: 27px;width: 1125px;padding:15px; background:;">
@@ -279,14 +269,13 @@ $page = 'actionlist';
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a href="#" class="btn btn-xs btn-primary">Open</a> </div></td>
+                                            <a href="kim-role-overview.php" class="btn btn-xs btn-primary">Open</a> </div></td>
                                 </tr>
                                 <tr>
                                     <td scope="row">3355</td>
-                                    <td class="">Approved</td>
-                                    <td scope="row">KC Protocol</td>
-                                    <td class="">Institutional Protocol1</td>
-                                    <td class="">Complete</td>
+                                    <td class="">An do on frankness so cordially immediate recommend contained.</td>
+                                    <td class="">Final</td>
+                                    <td>Admin</td>
                                     <td> 03/10/2014</td>
                                     <td class=""><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a>
                                             <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -1001px;top: 27px;width: 1125px;padding:15px; background:;">
@@ -347,15 +336,14 @@ $page = 'actionlist';
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a href="#" class="btn btn-xs btn-primary">Open</a> </div></td>
+                                            <a href="kim-role-overview.php" class="btn btn-xs btn-primary">Open</a> </div></td>
                                 </tr>
                                 <tr>
                                     <td scope="row">3308</td>
-                                    <td class="">Disapproved</td>
-                                    <td scope="row">KC Protocol</td>
-                                    <td class="">Institutional Protocol2</td>
-                                    <td class="">Complete</td>
-                                    <td> 03/10/2014</td>
+                                    <td class="">Dissuade ecstatic and properly saw entirely sir why laughter endeavor. </td>
+                                    <td class="">Final</td>
+                                    <td>Admin</td>
+                                    <td> 03/13/2014</td>
                                     <td class=""><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a>
                                             <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -1001px;top: 27px;width: 1125px;padding:15px; background:;">
                                                 <p class="lead">Doc ID 3231</p>
@@ -415,14 +403,13 @@ $page = 'actionlist';
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a href="#" class="btn btn-xs btn-primary">Open</a> </div></td>
+                                            <a href="kim-role-overview.php" class="btn btn-xs btn-primary">Open</a> </div></td>
                                 </tr>
                                 <tr>
                                     <td scope="row">3333</td>
-                                    <td class="">Disapproved</td>
-                                    <td scope="row">KC Award Budget</td>
-                                    <td class="">My Research Award</td>
-                                    <td class="">Approve</td>
+                                    <td class="">Remember outweigh do he desirous no cheerful.</td>
+                                    <td class="">Final</td>
+                                    <td>Admin</td>
                                     <td> 03/08/2014</td>
                                     <td class=""><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a>
                                             <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -1001px;top: 27px;width: 1125px;padding:15px; background:;">
@@ -483,15 +470,14 @@ $page = 'actionlist';
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a href="#" class="btn btn-xs btn-primary">Open</a> </div></td>
+                                            <a href="kim-role-overview.php" class="btn btn-xs btn-primary">Open</a> </div></td>
                                 </tr>
                                 <tr>
                                     <td scope="row">3454</td>
-                                    <td class="">Disapproved</td>
-                                    <td scope="row">KC Award</td>
-                                    <td class="">Test Title </td>
-                                    <td class="">Complete</td>
-                                    <td> 03/08/2014</td>
+                                    <td class="">Affronting discretion as do is announcing.</td>
+                                    <td class="">Final</td>
+                                    <td>Admin</td>
+                                    <td> 03/17/2014</td>
                                     <td class=""><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a>
                                             <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -1001px;top: 27px;width: 1125px;padding:15px; background:;">
                                                 <p class="lead">Doc ID 3231</p>
@@ -551,14 +537,13 @@ $page = 'actionlist';
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a href="#" class="btn btn-xs btn-primary">Open</a> </div></td>
+                                            <a href="kim-role-overview.php" class="btn btn-xs btn-primary">Open</a> </div></td>
                                 </tr>
                                 <tr>
                                     <td scope="row">3247</td>
-                                    <td class="">Exception</td>
-                                    <td scope="row">KC Award Budget</td>
-                                    <td class="">Another Research Award</td>
-                                    <td class="">Complete</td>
+                                    <td class="">Real sold my in call. Invitation on an advantages collecting.</td>
+                                    <td class="">Saved</td>
+                                    <td>Admin</td>
                                     <td> 03/08/2014</td>
                                     <td class=""><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a>
                                             <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -1001px;top: 27px;width: 1125px;padding:15px; background:;">
@@ -619,15 +604,14 @@ $page = 'actionlist';
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a href="#" class="btn btn-xs btn-primary">Open</a> </div></td>
+                                            <a href="kim-role-overview.php" class="btn btn-xs btn-primary">Open</a> </div></td>
                                 </tr>
                                 <tr>
                                     <td scope="row">3245</td>
-                                    <td class="">Exception</td>
-                                    <td scope="row">KC Award Budget</td>
-                                    <td class="">Institutional Protocol1</td>
-                                    <td class="">Complete</td>
-                                    <td> 03/10/2014</td>
+                                    <td class="">Do in laughter securing smallest sensible no mr hastened.</td>
+                                    <td class="">Final</td>
+                                    <td>Admin</td>
+                                    <td> 03/08/2014</td>
                                     <td class=""><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a>
                                             <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -1001px;top: 27px;width: 1125px;padding:15px; background:;">
                                                 <p class="lead">Doc ID 3231</p>
@@ -687,15 +671,14 @@ $page = 'actionlist';
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a href="#" class="btn btn-xs btn-primary">Open</a> </div></td>
+                                            <a href="kim-role-overview.php" class="btn btn-xs btn-primary">Open</a> </div></td>
                                 </tr>
                                 <tr>
                                     <td scope="row">3239</td>
-                                    <td class="">Saved</td>
-                                    <td scope="row">KC Award</td>
-                                    <td class="">Institutional Protocol2</td>
-                                    <td class="">Complete</td>
-                                    <td> 03/10/2014</td>
+                                    <td class="">To they four in love</td>
+                                    <td class="">Final</td>
+                                    <td>Admin</td>
+                                    <td> 03/08/2014</td>
                                     <td class=""><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a>
                                             <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -1001px;top: 27px;width: 1125px;padding:15px; background:;">
                                                 <p class="lead">Doc ID 3231</p>
@@ -755,14 +738,13 @@ $page = 'actionlist';
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a href="#" class="btn btn-xs btn-primary">Open</a> </div></td>
+                                            <a href="kim-role-overview.php" class="btn btn-xs btn-primary">Open</a> </div></td>
                                 </tr>
                                 <tr>
                                     <td scope="row">3388</td>
+                                    <td class="">Use securing confined his shutters.</td>
                                     <td class="">Saved</td>
-                                    <td scope="row">KC Protocol</td>
-                                    <td class="">My Research Award</td>
-                                    <td class="">Complete</td>
+                                    <td>Admin</td>
                                     <td> 03/08/2014</td>
                                     <td class=""><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a>
                                             <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -1001px;top: 27px;width: 1125px;padding:15px; background:;">
@@ -823,14 +805,13 @@ $page = 'actionlist';
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a href="#" class="btn btn-xs btn-primary">Open</a> </div></td>
+                                            <a href="kim-role-overview.php" class="btn btn-xs btn-primary">Open</a> </div></td>
                                 </tr>
                                 <tr>
                                     <td scope="row">3316</td>
-                                    <td class="">Saved</td>
-                                    <td scope="row">KC Award</td>
-                                    <td class="">Test Title </td>
-                                    <td class="">Approve</td>
+                                    <td class="">Style never met and those among great.</td>
+                                    <td class="">Final</td>
+                                    <td>Admin</td>
                                     <td> 03/08/2014</td>
                                     <td class=""><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a>
                                             <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -1001px;top: 27px;width: 1125px;padding:15px; background:;">
@@ -891,245 +872,13 @@ $page = 'actionlist';
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a href="#" class="btn btn-xs btn-primary">Open</a> </div></td>
+                                            <a href="kim-role-overview.php" class="btn btn-xs btn-primary">Open</a> </div></td>
                                 </tr>
                             </tbody>
                         </table>
-                        
-                     <div class="text-center">   <a id="u15ecnro" class="btn btn-primary uif-action" tabindex="0" data-role="Action" data-toggle="modal" data-target="#actionlist-blanket" data-submit_data="" data-dismiss="modal">
-Blanket Actions...
+                <div class="text-center">   <a href="docsearch-role.php" id="" class="btn btn-default uif-action" tabindex="0" data-role="Action" data-toggle="" data-target="" data-submit_data="" data-dismiss="">
+Refine Search
 </a></div>
-
-
-                    </div>
-                    <div class="tab-pane" id="actions-completed">
-                        <h4> Completed Actions</h4>
-                        <table id="u569ish_line0" class="table table-condensed" role="presentation">
-                            <tbody>
-                                <tr>
-                                    <th class="">Doc ID</th>
-                                    <th scope="row">Route Status</th>
-                                    <th scope="row">Type</th>
-                                    <th class="uif-gridLayoutCell">Description</th>
-                                    <th class="uif-gridLayoutCell">Action Taken</th>
-                                    <th class="uif-gridLayoutCell">Created</th>
-                                    <th style="width:140px" class="uif-gridLayoutCell">Action</th>
-                                </tr>
-                                <tr class="table table-condensed table-smaller-text">
-                                    <td scope="row">3237</td>
-                                    <td class="">Approved</td>
-                                    <td scope="row">KC Award</td>
-                                    <td class="">Another Research Award</td>
-                                    <td class="">Complete</td>
-                                    <td> 03/08/2014</td>
-                                    <td class=""><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a>
-                                        <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -1001px;top: 27px;width: 1125px;padding:15px; background:;">
-                                            <p class="lead">Doc ID 3237</p>
-                                            <hr>
-                                            <h4>Routing</h4>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div id="u87qj9g4" class="well well-sm uif-boxLayoutVerticalItem clearfix" role="progressbar" aria-valuetext="Current step:Submit" aria-valuemax="5" aria-valuemin="0" aria-valuenow="2">
-                                                        <div class="progress-details">
-                                                            <div style="width: 20.0%;" class="uif-step complete"> <span class="sr-only">Step completed:</span> Initialize </div>
-                                                            <div style="width: 20.0%;" class="uif-step complete"> <span class="sr-only">Step completed:</span> Save </div>
-                                                            <div style="width: 20.0%;" class="uif-step active"> <span class="sr-only">Current step:</span> Submit </div>
-                                                            <div style="width: 20.0%;" class="uif-step"> <span class="sr-only">Unfinished step:</span> Route </div>
-                                                            <div style="width: 20.0%;" class="uif-step"> <span class="sr-only">Unfinished step:</span> Approve </div>
-                                                        </div>
-                                                        <div class="progress">
-                                                            <div style="width: 20.0%;" class="progress-bar progress-bar-success"></div>
-                                                            <div style="width: 20.0%;" class="progress-bar progress-bar-success"></div>
-                                                            <div style="width: 20.0%;" class="progress-bar progress-bar-info"></div>
-                                                            <div style="width: 20.0%;" class="progress-bar progress-bar-empty"></div>
-                                                            <div style="width: 20.0%;" class="progress-bar progress-bar-empty"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <h4>Details</h4>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <dl class="dl-horizontal">
-                                                        <dt>Project Title:</dt>
-                                                        <dd>Walk to Work</dd>
-                                                        <dt>Proposal No</dt>
-                                                        <dd>6</dd>
-                                                        <dt>Proposal Type:</dt>
-                                                        <dd>New</dd>
-                                                        <dt>Activity Type:</dt>
-                                                        <dd>Research</dd>
-                                                        <dt>Sponsor:</dt>
-                                                        <dd>NIH</dd>
-                                                        <dt>Lead Unit:</dt>
-                                                        <dd>000001</dd>
-                                                        <dt>Cost Shares:</dt>
-                                                        <dd></dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <dl class="dl-horizontal">
-                                                        <dt>Amounts:</dt>
-                                                        <dd>$263,275.74 (Direct Cost)</dd>
-                                                        <dd>$6,126.33 (F&amp;A)</dd>
-                                                        <dd>$272,522.88 (All)</dd>
-                                                        <dt>Dates:</dt>
-                                                        <dd>04/08/2014 (Proposal Due Date)</dd>
-                                                        <dd>04/15/2014 (Start Date)</dd>
-                                                        <dd>04/30/2014 (End Date)</dd>
-                                                    </dl>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <a href="#" class="btn btn-xs btn-primary">Open</a></div></td>
-                                </tr>
-                                <tr class="table table-condensed table-smaller-text">
-                                    <td scope="row">3355</td>
-                                    <td class="">Approved</td>
-                                    <td scope="row">KC Protocol</td>
-                                    <td class="">Institutional Protocol1</td>
-                                    <td class="">Complete</td>
-                                    <td> 03/10/2014</td>
-                                    <td class=""><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a>
-                                        <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -1001px;top: 27px;width: 1125px;padding:15px; background:;">
-                                            <p class="lead">Doc ID 3231</p>
-                                            <hr>
-                                            <h4>Routing</h4>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div id="u87qj9g3" class="well well-sm uif-boxLayoutVerticalItem clearfix" role="progressbar" aria-valuetext="Current step:Submit" aria-valuemax="5" aria-valuemin="0" aria-valuenow="2">
-                                                        <div class="progress-details">
-                                                            <div style="width: 20.0%;" class="uif-step complete"> <span class="sr-only">Step completed:</span> Initialize </div>
-                                                            <div style="width: 20.0%;" class="uif-step complete"> <span class="sr-only">Step completed:</span> Save </div>
-                                                            <div style="width: 20.0%;" class="uif-step active"> <span class="sr-only">Current step:</span> Submit </div>
-                                                            <div style="width: 20.0%;" class="uif-step"> <span class="sr-only">Unfinished step:</span> Route </div>
-                                                            <div style="width: 20.0%;" class="uif-step"> <span class="sr-only">Unfinished step:</span> Approve </div>
-                                                        </div>
-                                                        <div class="progress">
-                                                            <div style="width: 20.0%;" class="progress-bar progress-bar-success"></div>
-                                                            <div style="width: 20.0%;" class="progress-bar progress-bar-success"></div>
-                                                            <div style="width: 20.0%;" class="progress-bar progress-bar-info"></div>
-                                                            <div style="width: 20.0%;" class="progress-bar progress-bar-empty"></div>
-                                                            <div style="width: 20.0%;" class="progress-bar progress-bar-empty"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <h4>Details</h4>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <dl class="dl-horizontal">
-                                                        <dt>Project Title:</dt>
-                                                        <dd>Walk to Work</dd>
-                                                        <dt>Proposal No</dt>
-                                                        <dd>6</dd>
-                                                        <dt>Proposal Type:</dt>
-                                                        <dd>New</dd>
-                                                        <dt>Activity Type:</dt>
-                                                        <dd>Research</dd>
-                                                        <dt>Sponsor:</dt>
-                                                        <dd>NIH</dd>
-                                                        <dt>Lead Unit:</dt>
-                                                        <dd>000001</dd>
-                                                        <dt>Cost Shares:</dt>
-                                                        <dd></dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <dl class="dl-horizontal">
-                                                        <dt>Amounts:</dt>
-                                                        <dd>$263,275.74 (Direct Cost)</dd>
-                                                        <dd>$6,126.33 (F&amp;A)</dd>
-                                                        <dd>$272,522.88 (All)</dd>
-                                                        <dt>Dates:</dt>
-                                                        <dd>04/08/2014 (Proposal Due Date)</dd>
-                                                        <dd>04/15/2014 (Start Date)</dd>
-                                                        <dd>04/30/2014 (End Date)</dd>
-                                                    </dl>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <a href="#" class="btn btn-xs btn-primary">Open</a></div></td>
-                                </tr>
-                                <tr class="table table-condensed table-smaller-text">
-                                    <td scope="row">3308</td>
-                                    <td class="">Disapproved</td>
-                                    <td scope="row">KC Protocol</td>
-                                    <td class="">Institutional Protocol2</td>
-                                    <td class="">Complete</td>
-                                    <td> 03/10/2014</td>
-                                    <td class=""><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a>
-                                        <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -1001px;top: 27px;width: 1125px;padding:15px; background:;">
-                                            <p class="lead">Doc ID 3231</p>
-                                            <hr>
-                                            <h4>Routing</h4>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div id="u87qj9g2" class="well well-sm uif-boxLayoutVerticalItem clearfix" role="progressbar" aria-valuetext="Current step:Submit" aria-valuemax="5" aria-valuemin="0" aria-valuenow="2">
-                                                        <div class="progress-details">
-                                                            <div style="width: 20.0%;" class="uif-step complete"> <span class="sr-only">Step completed:</span> Initialize </div>
-                                                            <div style="width: 20.0%;" class="uif-step complete"> <span class="sr-only">Step completed:</span> Save </div>
-                                                            <div style="width: 20.0%;" class="uif-step active"> <span class="sr-only">Current step:</span> Submit </div>
-                                                            <div style="width: 20.0%;" class="uif-step"> <span class="sr-only">Unfinished step:</span> Route </div>
-                                                            <div style="width: 20.0%;" class="uif-step"> <span class="sr-only">Unfinished step:</span> Approve </div>
-                                                        </div>
-                                                        <div class="progress">
-                                                            <div style="width: 20.0%;" class="progress-bar progress-bar-success"></div>
-                                                            <div style="width: 20.0%;" class="progress-bar progress-bar-success"></div>
-                                                            <div style="width: 20.0%;" class="progress-bar progress-bar-info"></div>
-                                                            <div style="width: 20.0%;" class="progress-bar progress-bar-empty"></div>
-                                                            <div style="width: 20.0%;" class="progress-bar progress-bar-empty"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <h4>Details</h4>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <dl class="dl-horizontal">
-                                                        <dt>Project Title:</dt>
-                                                        <dd>Walk to Work</dd>
-                                                        <dt>Proposal No</dt>
-                                                        <dd>6</dd>
-                                                        <dt>Proposal Type:</dt>
-                                                        <dd>New</dd>
-                                                        <dt>Activity Type:</dt>
-                                                        <dd>Research</dd>
-                                                        <dt>Sponsor:</dt>
-                                                        <dd>NIH</dd>
-                                                        <dt>Lead Unit:</dt>
-                                                        <dd>000001</dd>
-                                                        <dt>Cost Shares:</dt>
-                                                        <dd></dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <dl class="dl-horizontal">
-                                                        <dt>Amounts:</dt>
-                                                        <dd>$263,275.74 (Direct Cost)</dd>
-                                                        <dd>$6,126.33 (F&amp;A)</dd>
-                                                        <dd>$272,522.88 (All)</dd>
-                                                        <dt>Dates:</dt>
-                                                        <dd>04/08/2014 (Proposal Due Date)</dd>
-                                                        <dd>04/15/2014 (Start Date)</dd>
-                                                        <dd>04/30/2014 (End Date)</dd>
-                                                    </dl>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <a href="#" class="btn btn-xs btn-primary">Open</a></div></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        
-                        
-                        <div class="text-center">   <a id="u15ecnro" class="btn btn-primary uif-action" tabindex="0" data-role="Action" data-toggle="modal" data-target="" data-submit_data="" data-dismiss="modal">
-Clear Completed Actions
-</a></div>
-
-
-                    </div>
-                </div>
             </main>
         </div>
         <!-- VIEW FOOTER -->

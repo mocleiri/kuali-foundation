@@ -1,6 +1,6 @@
 <?php
 $section = '';
-$page = 'personoverview';
+$page = 'role-responsibilities';
 ?>
 
 <!DOCTYPE HTML>
@@ -32,101 +32,136 @@ $page = 'personoverview';
 <body id="Uif-Application" style="padding-bottom: 48px;">
 <!-- APPLICATION HEADER -->
 
-
-
- <?php include ('includes/uif-applicationHeader.php') ?>
-
-
-
-
-
-
-
-
-
+<?php include ('includes/uif-applicationHeader.php') ?>
 <form id="kualiForm" action="../kr-krad/uicomponents" method="post" accept-charset="UTF-8">
     <!-- VIEW -->
     <div id="LabsProposal" class="clearfix uif-formView" data-role="View" style="margin-top: 75px;"> 
         <!-- BREADCRUMBS --> 
-        <!-- VIEW HEADER --> <?php include ('includes/uif-viewHeader-person.php') ?>
+        <!-- VIEW HEADER -->
+        <?php include ('includes/uif-viewHeader-role.php') ?>
         
         <!-- VIEW CONTENT -->
         <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper container"> 
             <!-- VIEW NAVIGATION -->
-             <?php include ('includes/uif-navigation-person.php') ?>
+            <?php include ('includes/uif-navigation-role.php') ?>
             <div id="Uif-BreadcrumbUpdate" style="display:none;"> </div>
             <main id="LabsProposal-Page" class="uif-page uif-hasLeftNav" data-server_messages="false" data-role="Page" data-parent="LabsProposal" style="margin-left: 235px;">
-                <header class="clearfix uif-header-contentWrapper">
+                <header class="clearfix uif-header-contentWrapper pull-left">
                     <div id="u148pgf0" class="uif-pageHeader clearfix" data-header_for="LabsProposal-Page">
-                        <h2 class="uif-headerText"> <span class="uif-headerText-span"> Person Overview </span> </h2>
-                    </div>
-                    <div id="uw4ggjs" class="uif-verticalBoxGroup uif-header-lowerGroup" data-parent="LabsProposal-Page">
-                        <div id="u1ndzhxa" class="text-muted uif-boxLayoutVerticalItem clearfix" data-parent="uw4ggjs">
-                            <p>* Indicates required fields</p>
-                        </div>
+                        <h2 class="uif-headerText"> <span class="uif-headerText-span"> Responsibilities </span> </h2>
                     </div>
                 </header>
-                <div id="u14jg6xp" class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix" data-parent="LabsProposal-Page">
-                    <div class="form-horizontal" >
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Entity Id</label>
-                            <div class="col-sm-10">
-                                <p class="form-control-static">10003</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Principle Id</label>
-                            <div class="col-sm-10">
-                                <p class="form-control-static">thrclark</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPassword" class="col-sm-2 control-label">Principle Name *</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="inputPassword" value="thrclark">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPassword" class="col-sm-2 control-label">Status</label>
-                            <div class="col-sm-6">
-                                <select class="form-control">
-                                    <option>Active</option>
-                                    <option>Inactive</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPassword" class="col-sm-2 control-label">Privacy Preferences</label>
-                            <div class="col-sm-6">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        Suppress Name</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        Suppress Personal</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        Suppress Phone</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        Suppress Address</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        Suppress Email </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <table id="u569ish_line0" class="table table-condensed" role="presentation">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Responsibility Namespace</th>
+                            <th class="uif-gridLayoutCell">Responsibility Identifier</th>
+                            <th class="uif-gridLayoutCell">Responsibility Name</th>
+                            <th class="uif-gridLayoutCell">Responsibility Detail Values</th>
+                            <th class="uif-gridLayoutCell">Active</th>
+                            <th class="uif-gridLayoutCell" style=" width:180px">Actions</th>
+                        </tr>
+                        <tr>
+                            <td scope="row">KR-SAP - Sample App</td>
+                            <td>KRSAP10000</td>
+                            <td>Review Travel Authorization Document</td>
+                            <td>Document Type Name:TravelAuthorizationDocument, Route Node Name:TravelApproval, Required:N, Action Details At Role Member Level:N</td>
+                            <td>yes</td>
+                            <td class=""><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Responsibility Action <b class="caret"></b></a>
+                                    <div class="dropdown-menu row" style="min-width:300px; padding:15px">
+                                        <div class="form-horizontal uif-cssGridGroup" role="form">
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-sm-6 control-label">Name</label>
+                                                <div class="col-sm-6">
+                                                    <p class="form-control-static">All</p>
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                            
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-sm-6 control-label">Action Type Code</label>
+                                                <div class="col-sm-6">
+                                                    <select class="form-control">
+                                                        <option value=""></option>
+                                                        <option value="A">APPROVE</option>
+                                                        <option value="F">FYI</option>
+                                                        <option value="K">ACKNOWLEDGE</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                       
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-sm-6 control-label">Action Policy Code</label>
+                                                <div class="col-sm-6">
+                                                    <select class="form-control">
+                                                        <option value=""></option>
+                                                        <option value="A">First</option>
+                                                        <option value="F">All</option>
+                                                  
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-sm-6 control-label">Priority Number</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="form-control" id="" placeholder="">
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                            
+                                                 
+                                            
+                                            
+                                           <div class="form-group">
+    <div class="col-sm-offset-6 col-sm-6">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"> Force Action
+        </label>
+      </div>
+    </div>
+  </div>
+                                            
+
+                                        </div>
+                                    </div>
+                                    <a href="#" class="btn btn-xs btn-default"><span class="icon-trash"></span></a> </div></td>
+                        </tr>
+                        <tr>
+                            <td scope="row">&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td><a href="#" class="btn btn-xs btn-default pull-right"> <span class="icon-plus" style="font-size:10px"></span> Add New</a></td>
+                        </tr>
+                    </tbody>
+                </table>
             </main>
         </div>
         <!-- VIEW FOOTER -->
@@ -151,8 +186,7 @@ $page = 'personoverview';
     </span> <span id="formComplete"></span>
     
 </form>
-
-<?php include ('includes/footer-scripts.php') ?> 
+<?php include ('includes/footer-scripts.php') ?>
 
 <!-- Modal -->
 <div class="modal fade" id="routelog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

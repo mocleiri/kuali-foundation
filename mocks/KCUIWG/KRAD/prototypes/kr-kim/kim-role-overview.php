@@ -1,6 +1,6 @@
 <?php
 $section = '';
-$page = 'personoverview';
+$page = 'role-overview';
 ?>
 
 <!DOCTYPE HTML>
@@ -48,17 +48,18 @@ $page = 'personoverview';
     <!-- VIEW -->
     <div id="LabsProposal" class="clearfix uif-formView" data-role="View" style="margin-top: 75px;"> 
         <!-- BREADCRUMBS --> 
-        <!-- VIEW HEADER --> <?php include ('includes/uif-viewHeader-person.php') ?>
+        <!-- VIEW HEADER -->
+         <?php include ('includes/uif-viewHeader-role.php') ?>
         
         <!-- VIEW CONTENT -->
         <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper container"> 
             <!-- VIEW NAVIGATION -->
-             <?php include ('includes/uif-navigation-person.php') ?>
+             <?php include ('includes/uif-navigation-role.php') ?>
             <div id="Uif-BreadcrumbUpdate" style="display:none;"> </div>
             <main id="LabsProposal-Page" class="uif-page uif-hasLeftNav" data-server_messages="false" data-role="Page" data-parent="LabsProposal" style="margin-left: 235px;">
                 <header class="clearfix uif-header-contentWrapper">
                     <div id="u148pgf0" class="uif-pageHeader clearfix" data-header_for="LabsProposal-Page">
-                        <h2 class="uif-headerText"> <span class="uif-headerText-span"> Person Overview </span> </h2>
+                        <h2 class="uif-headerText"> <span class="uif-headerText-span"> Role Overview </span> </h2>
                     </div>
                     <div id="uw4ggjs" class="uif-verticalBoxGroup uif-header-lowerGroup" data-parent="LabsProposal-Page">
                         <div id="u1ndzhxa" class="text-muted uif-boxLayoutVerticalItem clearfix" data-parent="uw4ggjs">
@@ -67,23 +68,35 @@ $page = 'personoverview';
                     </div>
                 </header>
                 <div id="u14jg6xp" class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix" data-parent="LabsProposal-Page">
-                    <div class="form-horizontal" >
+                    <div class="form-horizontal">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Entity Id</label>
+                            <label class="col-sm-2 control-label">Role</label>
                             <div class="col-sm-10">
-                                <p class="form-control-static">10003</p>
+                                <p class="form-control-static">59</p>
+                            </div>
+                        </div>
+                        
+
+<div class="form-group">
+                            <label class="col-sm-2 control-label">Type Name</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">Derived Role: Action Request</p>
+                            </div>
+                        </div><div class="form-group">
+                            <label class="col-sm-2 control-label">Namespace</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">KR-WKFLW - Workflow</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Principle Id</label>
-                            <div class="col-sm-10">
-                                <p class="form-control-static">thrclark</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPassword" class="col-sm-2 control-label">Principle Name *</label>
+                            <label for="inputPassword" class="col-sm-2 control-label">Role Name *</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="inputPassword" value="thrclark">
+                                <input type="text" class="form-control" id="inputPassword" value="Approve Request Recipient">
+                            </div>
+                        </div><div class="form-group">
+                            <label for="inputPassword" class="col-sm-2 control-label">Description</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control" rows="3"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -95,36 +108,7 @@ $page = 'personoverview';
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="inputPassword" class="col-sm-2 control-label">Privacy Preferences</label>
-                            <div class="col-sm-6">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        Suppress Name</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        Suppress Personal</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        Suppress Phone</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        Suppress Address</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        Suppress Email </label>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </main>

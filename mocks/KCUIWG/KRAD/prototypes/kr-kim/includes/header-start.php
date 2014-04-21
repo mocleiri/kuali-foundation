@@ -112,7 +112,7 @@
         <ul >
             <!-- <li><a class="uif-actionLink" tabindex=0 data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;toggleAuditMode&quot;}"><span class="icon-print"></span>Print</span></a></li>
             <li><a class="uif-actionLink" tabindex=0 data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;print&quot;}"><span class="icon-copy"></span>Print</a></li>
-            <li><a class="uif-actionLink" tabindex=0 data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;copy&quot;}"><span class="icon-file"></span>Budget Versions</a></li>
+            <li><a class="uif-actionLink" tabindex=0 data-role="Action" data-submit_data=""><span class="icon-file"></span>Budget Versions</a></li>
             <li><a class="uif-actionLink" tabindex=0 data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;medusa&quot;}"><span class="icon-list-ol"></span>Summary</a></li>
             <li><a class="uif-actionLink" tabindex=0 data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;showHierarchy&quot;}"><span class="icon-ok"></span>Data Validation</a></li> -->
         </ul>

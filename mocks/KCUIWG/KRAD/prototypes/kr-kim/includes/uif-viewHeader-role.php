@@ -3,8 +3,8 @@
     <div id="ueqbqhn" class="uif-viewHeader" data-header_for="LabsProposal">
         <h1 class="uif-headerText">
             <p id="u1p8pc9q" class="uif-viewHeader-areaTitle"> Identity Management </p>
-            <span class="uif-headerText-span"> Edit Person </span><span class="uif-supportTitle-wrapper">
-            <div id="u1hgnm9q" class="uif-viewHeader-supportTitle" data-parent="ueqbqhn">Thomas Clark</div>
+            <span class="uif-headerText-span"> Edit Role </span><span class="uif-supportTitle-wrapper">
+            <div id="u1hgnm9q" class="uif-viewHeader-supportTitle" data-parent="ueqbqhn">Action Request</div>
             </span></h1>
         <div id="LabsProposal-DocInfo" class="uif-verticalBoxGroup uif-header-rightGroup uif-documentInfo" data-parent="LabsProposal">
             <div id="u1f206jn" class="uif-messageField uif-boxLayoutVerticalItem clearfix" data-label="Doc Nbr">

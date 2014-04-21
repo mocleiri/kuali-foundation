@@ -51,7 +51,7 @@ $page = 'asdf';
 			</div>
 			<div class="modal-body">
 				<p class="pull-left lead">You currently have 12 actionalble items.</p>
-				<p class="pull-right"><span aria-hidden="true" class="icon-cog" style="color:#999"></span> <a id="uotglon" class="uif-actionLink" tabindex="0" data-role="Action" data-toggle="modal" data-target="#actionlist-prefs" data-submit_data="{&quot;methodToCall&quot;:&quot;copy&quot;}"  data-dismiss="modal">Preferences</a> </p>
+				<p class="pull-right"><span aria-hidden="true" class="icon-cog" style="color:#999"></span> <a id="uotglon" class="uif-actionLink" tabindex="0" data-role="Action" data-toggle="modal" data-target="#actionlist-prefs" data-submit_data=""  data-dismiss="modal">Preferences</a> </p>
 				<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
 					<li class="active"><a href="#actions-current" data-toggle="tab">Current Items</a></li>
 					<li><a href="#actions-completed" data-toggle="tab">Completed Actions</a></li>

@@ -1,6 +1,6 @@
 <?php
 $section = '';
-$page = 'personoverview';
+$page = 'role-permissions';
 ?>
 
 <!DOCTYPE HTML>
@@ -32,101 +32,70 @@ $page = 'personoverview';
 <body id="Uif-Application" style="padding-bottom: 48px;">
 <!-- APPLICATION HEADER -->
 
-
-
- <?php include ('includes/uif-applicationHeader.php') ?>
-
-
-
-
-
-
-
-
-
+<?php include ('includes/uif-applicationHeader.php') ?>
 <form id="kualiForm" action="../kr-krad/uicomponents" method="post" accept-charset="UTF-8">
     <!-- VIEW -->
     <div id="LabsProposal" class="clearfix uif-formView" data-role="View" style="margin-top: 75px;"> 
         <!-- BREADCRUMBS --> 
-        <!-- VIEW HEADER --> <?php include ('includes/uif-viewHeader-person.php') ?>
+        <!-- VIEW HEADER -->
+        <?php include ('includes/uif-viewHeader-role.php') ?>
         
         <!-- VIEW CONTENT -->
         <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper container"> 
             <!-- VIEW NAVIGATION -->
-             <?php include ('includes/uif-navigation-person.php') ?>
+            <?php include ('includes/uif-navigation-role.php') ?>
             <div id="Uif-BreadcrumbUpdate" style="display:none;"> </div>
             <main id="LabsProposal-Page" class="uif-page uif-hasLeftNav" data-server_messages="false" data-role="Page" data-parent="LabsProposal" style="margin-left: 235px;">
-                <header class="clearfix uif-header-contentWrapper">
+                <header class="clearfix uif-header-contentWrapper pull-left">
                     <div id="u148pgf0" class="uif-pageHeader clearfix" data-header_for="LabsProposal-Page">
-                        <h2 class="uif-headerText"> <span class="uif-headerText-span"> Person Overview </span> </h2>
-                    </div>
-                    <div id="uw4ggjs" class="uif-verticalBoxGroup uif-header-lowerGroup" data-parent="LabsProposal-Page">
-                        <div id="u1ndzhxa" class="text-muted uif-boxLayoutVerticalItem clearfix" data-parent="uw4ggjs">
-                            <p>* Indicates required fields</p>
-                        </div>
+                        <h2 class="uif-headerText"> <span class="uif-headerText-span"> Permissions </span> </h2>
                     </div>
                 </header>
-                <div id="u14jg6xp" class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix" data-parent="LabsProposal-Page">
-                    <div class="form-horizontal" >
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Entity Id</label>
-                            <div class="col-sm-10">
-                                <p class="form-control-static">10003</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Principle Id</label>
-                            <div class="col-sm-10">
-                                <p class="form-control-static">thrclark</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPassword" class="col-sm-2 control-label">Principle Name *</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="inputPassword" value="thrclark">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPassword" class="col-sm-2 control-label">Status</label>
-                            <div class="col-sm-6">
-                                <select class="form-control">
-                                    <option>Active</option>
-                                    <option>Inactive</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPassword" class="col-sm-2 control-label">Privacy Preferences</label>
-                            <div class="col-sm-6">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        Suppress Name</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        Suppress Personal</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        Suppress Phone</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        Suppress Address</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        Suppress Email </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+         
+                <table id="u569ish_line0" class="table table-condensed" role="presentation">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Permission Namespace</th>
+                            <th class="uif-gridLayoutCell">Permission Identifier</th>
+                            <th class="uif-gridLayoutCell">Permission Name</th>
+                            <th class="uif-gridLayoutCell">Permission Detail Values</th>
+                            <th class="uif-gridLayoutCell">Active</th>
+                            <th class="uif-gridLayoutCell text-right" style="width:80px;">Actions</th>
+                        </tr>
+                        <tr>
+                            <td scope="row">KUALI - Kuali Systems</td>
+                            <td>170</td>
+                            <td>Take Requested Apprive Action</td>
+                            <td>actionRequestCd=A</td>
+                            <td><input type="checkbox"></td>
+                            <td class="text-right"><a href="#" class="btn btn-xs btn-default">Delete</a></td>
+                        </tr>
+                        <tr>
+                            <td scope="row">KUALI - Kuali Systems</td>
+                            <td>181</td>
+                            <td>Edit Kuali ENROUTE Document Route Status Code R</td>
+                            <td>documentTypeName=KualiDocument, routeStatusCode=R</td>
+                            <td><input type="checkbox"></td>
+                          <td class="text-right"><a href="#" class="btn btn-xs btn-default">Delete</a></td>
+                        </tr>
+                        <tr>
+                            <td scope="row">KR-SYS - Enterprise Infrastructure</td>
+                            <td>334</td>
+                            <td>Send Approve Request Kuali Document</td>
+                            <td>actionRequestCd=A, documentTypeName=KualiDocument</td>
+                            <td><input type="checkbox"></td>
+                         <td class="text-right"><a href="#" class="btn btn-xs btn-default">Delete</a></td>
+                        </tr>
+                        <tr>
+                            <td scope="row">&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td><a href="#" class="btn btn-xs btn-default"> <span class="icon-plus" style="font-size:10px"></span> Add New</a></td>
+                        </tr>
+                    </tbody>
+                </table>
             </main>
         </div>
         <!-- VIEW FOOTER -->
@@ -151,8 +120,7 @@ $page = 'personoverview';
     </span> <span id="formComplete"></span>
     
 </form>
-
-<?php include ('includes/footer-scripts.php') ?> 
+<?php include ('includes/footer-scripts.php') ?>
 
 <!-- Modal -->
 <div class="modal fade" id="routelog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

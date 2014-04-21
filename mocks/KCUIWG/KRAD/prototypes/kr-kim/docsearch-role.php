@@ -51,7 +51,7 @@ $page = 'actionlist';
             <main id="LabsProposal-Page" class="uif-page uif-hasLeftNav" data-server_messages="false" data-role="Page" data-parent="LabsProposal" style="margin-left:;">
                 <header class="clearfix uif-header-contentWrapper">
                     <div id="u148pgf0" class="uif-pageHeader clearfix" data-header_for="LabsProposal-Page">
-                        <h2 class="uif-headerText"><span class="uif-headerText-span">Document Search </span></h2>
+                        <h2 class="uif-headerText"><span class="uif-headerText-span">Role Document Search </span></h2>
                     </div>
                 </header>
                 <hr>
@@ -387,21 +387,26 @@ $page = 'actionlist';
                 <div class="form-horizontal" role="form">
                     <div class="row ">
                         <div class="col-md-9">
+                        
+                        
+                        
+                        
+                        
+                        <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-3 control-label">Document Type</label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static">Role </p>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                             <div class="form-group">
-                                <label for="inputEmail3" class="col-md-3 control-label">Document Type</label>
-                                <div class="col-md-9">
-                                    <div class="uif-form-control input-group">
-                                        <input type="text" class="form-control" id="tags" name="test-username-2" value="" style="background-image:none" required>
-                                        <div class="uif-form-control-helpers input-group-addon"> 
-                                            <!-- Lookups, datepickers, etc. --> 
-                                            <a href="#"  data-role="Action" data-toggle="modal" data-target="#lookup" data-submit_data="" data-dismiss="modal"> <span aria-hidden="true" class="icon-search"></span></a> 
-                                            <!-- // --> 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-md-3 control-label">Document Name</label>
+                                <label for="inputEmail3" class="col-md-3 control-label">Role ID</label>
                                 <div class="col-md-9">
                                     <div class="uif-form-control input-group">
                                         <input type="text" class="form-control" id="tags2" name="test-username-2" value="" style="background-image:none" required>
@@ -413,85 +418,53 @@ $page = 'actionlist';
                                     </div>
                                 </div>
                             </div>
+                            
+                            
+                            
+                            
+                            
+                                 
                             <div class="form-group">
-                                <label for="inputEmail3" class="col-md-3 control-label">Initiator</label>
+                                <label for="inputEmail3" class="col-md-3 control-label">Role Namespace</label>
                                 <div class="col-md-9">
                                     <div class="uif-form-control input-group">
-                                        <input type="text" class="form-control" id="" name="test-username-2" value="" required>
+                                        <input type="text" class="form-control" id="tags2" name="test-username-2" value="" style="background-image:none" required>
                                         <div class="uif-form-control-helpers input-group-addon"> 
                                             <!-- Lookups, datepickers, etc. --> 
-                                            <a href="#"> <span aria-hidden="true" class="icon-search"></span></a> 
+                                            <a href="#"  data-role="Action" data-toggle="modal" data-target="" data-submit_data="" data-dismiss="modal"> <span aria-hidden="true" class="icon-search"></span></a> 
                                             <!-- // --> 
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            
+                                                 
                             <div class="form-group">
-                                <label for="inputEmail3" class="col-md-3 control-label">Document ID</label>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="">
-                                </div>
-                            </div>
-                            <div class="col-md-3 uif-cssGridLabelCol">
-                                <label id="u1206a7s_label" for="u1206a7s_fieldset" class="uif-label displayWith-u1206a7s uif-labelBlock" data-label_for="u1206a7s"> Date Created </label>
-                            </div>
-                            <div class="col-md-6">
-                                <div id="u1206a7s" class="uif-fieldGroup" data-parent="u1rttg5q" data-label="Project Dates" data-group="ufs91v9">
-                                    <fieldset aria-labelledby="u1206a7s_label" id="u1206a7s_fieldset">
-                                        <legend style="display: none">Project Dates</legend>
-                                        <div id="ufs91v9" class="uif-cssGridGroup" data-parent="u1206a7s">
-                                            <div class="row ">
-                                                <div class="col-md-6">
-                                                    <div id="u190upu7" class="uif-inputField" data-parent="ufs91v9" data-role="InputField">
-                                                        <div class="input-group">
-                                                            <input id="u190upu7_control" type="text" name="field4" value="" size="10" class="form-control input-sm uif-dateControl hasDatepicker valid" data-role="Control" data-control_for="u190upu7" placeholder="mm/dd/yyyy ">
-                                                            <span class="input-group-msg">
-                                                            <p id="uo9cnii" class="uif-message"> to </p>
-                                                            </span></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div id="u190upv2" class="uif-inputField" data-parent="ufs91v9" data-role="InputField">
-                                                        <input id="u190upv2_control" type="text" name="field5" value="" size="10" class="form-control input-sm uif-dateControl hasDatepicker" data-role="Control" data-control_for="u190upv2" placeholder="mm/dd/yyyy ">
-                                                    </div>
-                                                </div>
-                                            </div>
+                                <label for="inputEmail3" class="col-md-3 control-label">Role Name</label>
+                                <div class="col-md-9">
+                                    <div class="uif-form-control input-group">
+                                        <input type="text" class="form-control" id="tags2" name="test-username-2" value="" style="background-image:none" required>
+                                        <div class="uif-form-control-helpers input-group-addon"> 
+                                            <!-- Lookups, datepickers, etc. --> 
+                                            <a href="#"  data-role="Action" data-toggle="modal" data-target="" data-submit_data="" data-dismiss="modal"> <span aria-hidden="true" class="icon-search"></span></a> 
+                                            <!-- // --> 
                                         </div>
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-3 col-sm-9">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox">
-                                            Save search criteria for future searches </label>
                                     </div>
                                 </div>
                             </div>
+                            
+                            
+                            
+                            
+                            
+                       
                             <div class="form-group">
-                                <div class="col-sm-offset-3 col-sm-9"> <a id="u15ecnro" class="btn btn-default uif-action" tabindex="0" data-role="Action" data-toggle="modal" data-target="" data-submit_data="" data-dismiss=""> Cancel </a> <a id="u15ecnro" class="btn btn-primary uif-action" data-role="Action" data-toggle="modal" data-target="#docsearch-name" data-submit_data="" data-dismiss="modal"> Search </a> </div>
+                                <div class="col-sm-offset-3 col-sm-9"> <a id="u15ecnro" class="btn btn-default uif-action" tabindex="0" data-role="Action" data-toggle="modal" data-target="" data-submit_data="" data-dismiss=""> Cancel </a> <a href="docsearch-role-results.php" id="u15ecnro" class="btn btn-primary uif-action" data-role="Action" data-toggle="" data-target="" data-submit_data="" data-dismiss="modal"> Search </a> </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="btn-group pull-right"> <a type="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Load Previous Search <span class="caret"></span> </a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li role="presentation" class="dropdown-header">Recent History</li>
-                                    <li><a href="#">Initiator: jckahler </a></li>
-                                    <li><a href="#">Initiator: awddocmaintainer </a></li>
-                                    <li><a href="#">Created: 03/25/2014 </a></li>
-                                    <li class="divider"></li>
-                                    <li role="presentation" class="dropdown-header">Saved Searches</li>
-                                    <li><a href="#">My Documents</a></li>
-                                    <li><a href="#">Jims's Documents</a></li>
-                                    <li><a href="#">Carol's Documents</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#"> <span aria-hidden="true" class="icon-trash"></span> Clear All</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                    
                     </div>
-                    <div class="text-center"> </div>
+                   
                 </div>
             </main>
         </div>
@@ -518,7 +491,7 @@ $page = 'actionlist';
 <?php include ('includes/modal-routelog.php') ?>
 <?php include ('includes/modal-lookup.php') ?>
 <?php include ('includes/modal-lookup-results.php') ?>
-<?php include ('includes/modal-docsearch-name.php') ?>
+
 
 <!-- FOOTER SCRIPTS --> 
 
