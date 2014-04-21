@@ -35,7 +35,7 @@ import org.kuali.common.util.encrypt.Encryptor;
 
 /**
  * 
- * Encrypt/decrypt using the same technique as OpenSSL. This enables java code to work with data encrypted by OpenSSL (and vice versa)
+ * Encrypt/decrypt using the same techniques as OpenSSL. This enables java code to work with data encrypted by OpenSSL (and vice versa)
  * 
  * <pre>
  * echo -n "foo" | openssl enc -aes128 -e -base64 -A -k "bar"
