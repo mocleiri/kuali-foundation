@@ -25,8 +25,8 @@
 <link href="../themes/kc/js/hopscotch/css/hopscotch-0.1.1.css" rel="stylesheet" type="text/css" media="screen" />
 
 <!-- Scripts, ideally we'd load these in the footer and not use in-line scripting -->
-<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="../themes/kc/js/jquery-1.10.1.min.js"></script>
+<script src="../themes/kc/js/jquery-migrate-1.2.1.min.js"></script>
 <!--[if lt IE 9]><script src="bootstrap/js/html5shiv.js"></script><![endif]-->
 
 <script type="text/javascript" charset="utf-8" language="javascript" src="../themes/kc/js/datatables/jquery.dataTables.js"></script>
