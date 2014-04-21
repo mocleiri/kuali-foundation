@@ -3,6 +3,7 @@ package org.kuali.common.util.encrypt.openssl;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Math.pow;
 import static java.lang.String.format;
+import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
 import static org.codehaus.plexus.util.Base64.decodeBase64;
 import static org.kuali.common.util.Str.getAsciiBytes;
 import static org.kuali.common.util.encrypt.openssl.OpenSSL.generatePassword;
@@ -28,6 +29,7 @@ public class OpenSSLTest {
 
 	@Test
 	public void testGeneratePassword() {
+		info("randomAlphanumeric=%s", randomAlphanumeric(40));
 		List<MathPow> list = newArrayList();
 		list.add(new MathPow("java int", 2, 32));
 		list.add(new MathPow("java long", 2, 64));
