@@ -4,7 +4,6 @@ import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.ImmutableList.copyOf;
-import static com.google.common.collect.Iterables.filter;
 import static java.lang.String.format;
 import static org.apache.commons.io.FileUtils.readLines;
 import static org.apache.commons.lang3.StringUtils.isBlank;
@@ -60,7 +59,7 @@ public final class FileEncryptionContextProvider implements EncryptionContextPro
 	}
 
 	protected String getPassword(List<String> lines) {
-		checkState(lines.size() > 0, "[%s] must contain at least one non-blank, non-comment line containing the encryption password.");
+		checkState(lines.size() > 0, "[%s] must contain at least one line");
 		String password = lines.get(0);
 		checkNotBlank(password, "password");
 		return password;
@@ -68,7 +67,7 @@ public final class FileEncryptionContextProvider implements EncryptionContextPro
 
 	protected static List<String> readConfigFile(File file) {
 		try {
-			return copyOf(filter(readLines(file), ConfigFilePredicate.INSTANCE));
+			return copyOf(readLines(file));
 		} catch (IOException e) {
 			throw illegalState(e);
 		}
