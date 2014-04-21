@@ -1,9 +1,7 @@
 package org.kuali.common.util.encrypt;
 
-import static org.kuali.common.util.encrypt.openssl.OpenSSLContext.buildOpenSSLContext;
+import static org.kuali.common.util.encrypt.openssl.OpenSSL.buildOpenSSLEncryptor;
 
-import org.kuali.common.util.encrypt.openssl.OpenSSLContext;
-import org.kuali.common.util.encrypt.openssl.OpenSSLEncryptor;
 import org.kuali.common.util.encrypt.provider.DefaultEncryptionContextProviderChain;
 import org.kuali.common.util.encrypt.provider.EncryptionContextProvider;
 
@@ -17,9 +15,7 @@ public final class Encryption {
 		EncryptionContextProvider provider = new DefaultEncryptionContextProviderChain();
 		Optional<EncryptionContext> optional = provider.getEncryptionContext();
 		if (optional.isPresent()) {
-			EncryptionContext context = optional.get();
-			OpenSSLContext osc = buildOpenSSLContext(context.getStrength());
-			return new OpenSSLEncryptor(osc, context.getPassword());
+			return buildOpenSSLEncryptor(optional.get());
 		} else {
 			return NoOpEncryptor.INSTANCE;
 		}

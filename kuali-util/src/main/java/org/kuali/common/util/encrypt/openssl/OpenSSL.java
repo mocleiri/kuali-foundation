@@ -7,6 +7,7 @@ import static org.kuali.common.util.Ascii.isDigit;
 import static org.kuali.common.util.Ascii.isLetter;
 import static org.kuali.common.util.base.Exceptions.illegalArgument;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
+import static org.kuali.common.util.encrypt.openssl.OpenSSLContext.buildOpenSSLContext;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -14,11 +15,18 @@ import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
 
+import org.kuali.common.util.encrypt.EncryptionContext;
+
 import com.google.common.collect.ImmutableList;
 
 public class OpenSSL {
 
 	private static final Random RANDOM = new SecureRandom();
+
+	public static OpenSSLEncryptor buildOpenSSLEncryptor(EncryptionContext context) {
+		OpenSSLContext osc = buildOpenSSLContext(context.getStrength());
+		return new OpenSSLEncryptor(osc, context.getPassword());
+	}
 
 	public static byte[] combineByteArrays(byte[]... arrays) {
 		byte[] bytes = allocateByteArray(arrays);
