@@ -36,7 +36,7 @@ public enum DataType {
 	TIME(92), //
 	TIMESTAMP(93), //
 	TINYINT(-6), //
-	VARBINARY(-30), //
+	VARBINARY(-3), //
 	VARCHAR(12);
 
 	private final int value;
