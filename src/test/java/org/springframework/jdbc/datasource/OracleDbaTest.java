@@ -142,7 +142,6 @@ public class OracleDbaTest {
 		sql.add(" , client_info"); // A custom kuali trigger fills this in with the IP address
 		sql.add(" , logon_time"); // Contains the time the session was started
 		sql.add("from v$session");
-		sql.add("where username is not null");
 		return Joiner.on('\n').join(sql);
 	}
 
