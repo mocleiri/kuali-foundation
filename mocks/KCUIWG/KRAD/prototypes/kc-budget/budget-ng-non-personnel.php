@@ -166,30 +166,43 @@ $section = '';
                         <h4>Assign Non-Personnel</h4>
                         <div class="well " style="margin-top:15px;">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="">Category</label>
+                                        <select class="form-control">
+                                            <option value="">select</option>
+                                            <option>Equipment</option>
+                                            <option>Travel</option>
+                                            <option>Participant Support</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">Object Code Name</label>
                                         <select class="form-control">
                                             <option value="">select</option>
-                                            <option>Equipment - Not MTDC</option>
-                                            <option>Equipment Rental - Not MTDC</option>
-                                            <option>Travel Expenses</option>
+                                            <option>Equipment</option>
+                                            <option>Equipment Rental</option>
+                                            <option>Fabricated Equipment</option>
+                                            <option>Reactor User</option>
                                         </select>
-                                        <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>--></div>
+                                    </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="">Description</label>
                                         <input type="text" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="">Quantity</label>
                                         <input type="text" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="">Total Base Cost</label>
                                         <input type="text" class="form-control" placeholder="0.00">
@@ -213,20 +226,30 @@ $section = '';
                                     <thead>
                                         <tr role="row">
                                             <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label=""><label id="urh9zx8" class="uif-label">Item</label></th>
-                                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">Description</th>
+                                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">Start</th>
+                                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">End</th>
                                             <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">Quantity</th>
+                                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">On/Off Campus?</th>
+                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">Unrecovered F&amp;A</th>
                                             <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">Total Base Cost</th>
-                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">Cost sharing</th>
+                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">Apply Inflation?</th>
+                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">Cost Sharing</th>
+                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">Submit Cost Sharing?</th>
                                             <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody role="alert" aria-live="polite" aria-relevant="all">
                                         <tr>
-                                            <td><span data-edit-type="select" data-edit-type-options="Equipment - Not MTDC,Equipment - MTDC">Equipment - Not MTDC</span></td>
-                                            <td>Microscope</td>
+                                            <td><span data-edit-type="select" data-edit-type-options="Equipment,Equipment Rental">Microscope</span></td>
+                                            <td>01/01/14</td>
+                                            <td>12/31/14</td>
                                             <td>1</td>
+                                            <td><input type="checkbox"></td>
                                             <td class="text-right">$0.00</td>
                                             <td class="text-right">$0.00</td>
+                                            <td><input type="checkbox"></td>
+                                            <td class="text-right">$0.00</td>
+                                            <td><input type="checkbox"></td>
                                             <td>
 <!--                                                <div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span><span aria-hidden="true" class="icon-trash"></span></a></div></td>-->
                                                 <a class="icon icon-edit uif-edit-btn" href="#"><span class="sr-only">Edit</span></a>
