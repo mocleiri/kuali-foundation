@@ -1,8 +1,10 @@
 package org.kuali.common.util.encrypt.openssl;
 
+import static com.google.common.base.Stopwatch.createStarted;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Math.pow;
 import static java.lang.String.format;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
 import static org.codehaus.plexus.util.Base64.decodeBase64;
 import static org.kuali.common.util.Str.getAsciiBytes;
@@ -14,8 +16,10 @@ import java.text.NumberFormat;
 import java.util.List;
 
 import org.junit.Test;
+import org.kuali.common.util.FormatUtils;
 import org.slf4j.Logger;
 
+import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
 
 public class OpenSSLTest {
@@ -29,32 +33,47 @@ public class OpenSSLTest {
 
 	@Test
 	public void testGeneratePassword() {
-		info("randomAlphanumeric=%s", randomAlphanumeric(40));
-		List<MathPow> list = newArrayList();
-		list.add(new MathPow("java int", 2, 32));
-		list.add(new MathPow("java long", 2, 64));
-		list.add(new MathPow("128 bit", 2, 128));
-		list.add(new MathPow("alphanumeric", 62, 21));
-		list.add(new MathPow("alphanumeric", 62, 22));
-		list.add(new MathPow("printable ascii", 95, 19));
-		list.add(new MathPow("printable ascii", 95, 20));
-		list.add(new MathPow("256 bit", 2, 256));
-		list.add(new MathPow("alphanumeric", 62, 42));
-		list.add(new MathPow("alphanumeric", 62, 43));
-		list.add(new MathPow("printable ascii", 95, 38));
-		list.add(new MathPow("printable ascii", 95, 39));
-		// AWS uses 20 character access keys A-Z and 0-9
-		list.add(new MathPow("aws access key", 36, 20));
-		// AWS uses 40 character base64 secret keys which equates to 30 bytes which equates to 230 bits
-		list.add(new MathPow("aws secret key", 2, 230));
-		list.add(new MathPow("atoms on planet earch", 10, 50));
-		show(list);
-		String password = generatePassword(40);
-		byte[] asciiBytes = getAsciiBytes(password);
-		byte[] base64Bytes = decodeBase64(asciiBytes);
-		info("password.length()=%s", password.length());
-		info("asciiBytes.length=%s", asciiBytes.length);
-		info("base64Bytes.length=%s", base64Bytes.length);
+		try {
+			Stopwatch sw = createStarted();
+			int iterations = 100000;
+			int length = 40;
+			for (int i = 0; i < iterations; i++) {
+				randomAlphanumeric(length);
+			}
+			long elapsed1 = sw.elapsed(MILLISECONDS);
+			for (int i = 0; i < iterations; i++) {
+				generatePassword(length);
+			}
+			long elapsed2 = sw.elapsed(MILLISECONDS);
+			info("elapsed1=%s elapsed2=%s", FormatUtils.getTime(elapsed1), FormatUtils.getTime(elapsed2));
+			List<MathPow> list = newArrayList();
+			list.add(new MathPow("java int", 2, 32));
+			list.add(new MathPow("java long", 2, 64));
+			list.add(new MathPow("128 bit", 2, 128));
+			list.add(new MathPow("alphanumeric", 62, 21));
+			list.add(new MathPow("alphanumeric", 62, 22));
+			list.add(new MathPow("printable ascii", 95, 19));
+			list.add(new MathPow("printable ascii", 95, 20));
+			list.add(new MathPow("256 bit", 2, 256));
+			list.add(new MathPow("alphanumeric", 62, 42));
+			list.add(new MathPow("alphanumeric", 62, 43));
+			list.add(new MathPow("printable ascii", 95, 38));
+			list.add(new MathPow("printable ascii", 95, 39));
+			// AWS uses 20 character access keys A-Z and 0-9
+			list.add(new MathPow("aws access key", 36, 20));
+			// AWS uses 40 character base64 secret keys which equates to 30 bytes which equates to 230 bits
+			list.add(new MathPow("aws secret key", 2, 230));
+			list.add(new MathPow("atoms on planet earch", 10, 50));
+			show(list);
+			String password = generatePassword(40);
+			byte[] asciiBytes = getAsciiBytes(password);
+			byte[] base64Bytes = decodeBase64(asciiBytes);
+			info("password.length()=%s", password.length());
+			info("asciiBytes.length=%s", asciiBytes.length);
+			info("base64Bytes.length=%s", base64Bytes.length);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 	}
 
 	protected static void show(List<MathPow> list) {

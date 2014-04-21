@@ -28,7 +28,7 @@ public class OpenSSL {
 	private static final int DEFAULT_PASSWORD_LENGTH = 22;
 	private static final List<Character> DEFAULT_PASSWORD_CHARS = getPasswordChars();
 
-	private static List<Character> getPasswordChars() {
+	protected static List<Character> getPasswordChars() {
 		List<Character> chars = newArrayList();
 		for (char c = 'A'; c < 'Z'; c++) {
 			chars.add(c);
@@ -55,13 +55,12 @@ public class OpenSSL {
 	}
 
 	public static String generatePassword(List<Character> chars, int length, Random random) {
-		StringBuilder sb = new StringBuilder();
+		char[] buffer = new char[length];
 		int size = chars.size();
 		for (int i = 0; i < length; i++) {
-			int index = random.nextInt(size);
-			sb.append(chars.get(index));
+			buffer[i] = chars.get(random.nextInt(size));
 		}
-		return sb.toString();
+		return new String(buffer);
 	}
 
 	public static OpenSSLEncryptor buildOpenSSLEncryptor(EncryptionContext context) {
