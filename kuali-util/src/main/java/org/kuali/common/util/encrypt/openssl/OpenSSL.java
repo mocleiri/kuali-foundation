@@ -35,6 +35,9 @@ public class OpenSSL {
 		return generatePassword(DEFAULT_PASSWORD_LENGTH);
 	}
 
+	/**
+	 * Uses SecureRandom to generate a random alphanumeric string of the specified length
+	 */
 	public static String generatePassword(int length) {
 		return generatePassword(DEFAULT_PASSWORD_CHARS, length);
 	}
