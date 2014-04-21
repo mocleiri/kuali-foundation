@@ -13,6 +13,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.encrypt.EncryptionStrength.DEFAULT_ENCRYPTION_STRENGTH;
+import static org.kuali.common.util.encrypt.provider.DefaultEncryptionContextProviderChain.toEnvKey;
 import static org.kuali.common.util.log.Loggers.newLogger;
 import static org.kuali.common.util.nullify.NullUtils.trimToNull;
 
@@ -32,7 +33,7 @@ public final class FileEncryptionContextProvider implements EncryptionContextPro
 	private static final Logger logger = newLogger();
 
 	private static final String ENC_PASSWORD_FILE_SYS_KEY = "enc.password.file";
-	private static final String ENC_PASSWORD_FILE_ENV_KEY = "ENC_PASSWORD_FILE";
+	private static final String ENC_PASSWORD_FILE_ENV_KEY = toEnvKey(ENC_PASSWORD_FILE_SYS_KEY);
 	private static final File DEFAULT_ENC_PASSWORD_FILE = new CanonicalFile(System.getProperty("user.home") + "/.ssh/enc.password");
 
 	@Override
