@@ -33,7 +33,7 @@ public final class FileEncryptionContextProvider implements EncryptionContextPro
 
 	private static final String ENC_PASSWORD_FILE_SYS_KEY = "enc.password.file";
 	private static final String ENC_PASSWORD_FILE_ENV_KEY = "ENC_PASSWORD_FILE";
-	private static final File DEFAULT_ENC_PASSWORD_FILE = new CanonicalFile(System.getProperty("user.home") + "/.enc/password");
+	private static final File DEFAULT_ENC_PASSWORD_FILE = new CanonicalFile(System.getProperty("user.home") + "/.ssh/enc.password");
 
 	@Override
 	public Optional<EncryptionContext> getEncryptionContext() {
