@@ -209,8 +209,6 @@ $page = 'personnel-assign';
                                             <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
  Field 4: : activate to sort column ">Calculated Fringe</th>
                                             <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
- Field 4: : activate to sort column ">Cost sharing</th>
-                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
  Field 4: : activate to sort column ">Actions</th>
                                         </tr>
                                     </thead>
@@ -261,7 +259,6 @@ $page = 'personnel-assign';
                                             <td>Calendar</td>
                                             <td class="text-right">$142,525.00</td>
                                             <td class="text-right">$0.00</td>
-                                            <td class="text-right">$0.00</td>
                                             <td>
 <!--                                                <div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span><span aria-hidden="true" class="icon-trash"></span></a></div>-->
                                                 <a class="icon icon-edit uif-btn-edit" href="#"><span class="sr-only">Edit</span></a>
@@ -296,8 +293,6 @@ $page = 'personnel-assign';
  Field 4: : activate to sort column ">Requested Salary</th>
                                             <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
  Field 4: : activate to sort column ">Calculated Fringe</th>
-                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
- Field 4: : activate to sort column ">Cost sharing</th>
                                             <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
  Field 4: : activate to sort column ">Actions</th>
                                         </tr>
@@ -348,7 +343,6 @@ $page = 'personnel-assign';
                                             <td>Calendar</td>
                                             <td class="text-right">$142,525.00</td>
                                             <td class="text-right">$0.00</td>
-                                            <td class="text-right">$0.00</td>
                                             <td>
 <!--                                                <div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span><span aria-hidden="true" class="icon-trash"></span></a></div>-->
                                                 <a class="icon icon-edit uif-btn-edit" href="#"><span class="sr-only">Edit</span></a>
@@ -383,8 +377,6 @@ $page = 'personnel-assign';
  Field 4: : activate to sort column ">Requested Salary</th>
                                             <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
  Field 4: : activate to sort column ">Calculated Fringe</th>
-                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
- Field 4: : activate to sort column ">Cost sharing</th>
                                             <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="
  Field 4: : activate to sort column ">Actions</th>
                                         </tr>
@@ -434,7 +426,6 @@ $page = 'personnel-assign';
                                                     50%</div></td>
                                             <td>Calendar</td>
                                             <td class="text-right">$142,525.00</td>
-                                            <td class="text-right">$0.00</td>
                                             <td class="text-right">$0.00</td>
                                             <td>
 <!--                                                <div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span><span aria-hidden="true" class="icon-trash"></span></a></div>-->
