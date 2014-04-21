@@ -18,3 +18,7 @@ CREATE OR REPLACE TRIGGER KUALI_RECORD_IP_TRIGGER AFTER LOGON ON DATABASE BEGIN 
 /
 
 select distinct username, osuser, machine, client_info from v$session order by username;
+
+8834
+
+806-NNK
