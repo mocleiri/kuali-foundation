@@ -20,7 +20,7 @@ public abstract class AbstractEncryptionContextProvider implements EncryptionCon
 
 	public AbstractEncryptionContextProvider(String passwordKey, String strengthKey) {
 		this.passwordKey = checkNotBlank(passwordKey, "passwordKey");
-		this.strengthKey = checkNotBlank(passwordKey, "strengthKey");
+		this.strengthKey = checkNotBlank(strengthKey, "strengthKey");
 	}
 
 	private final String passwordKey;
