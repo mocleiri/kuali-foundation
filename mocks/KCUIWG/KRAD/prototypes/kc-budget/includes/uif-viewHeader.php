@@ -63,9 +63,9 @@
                     
             <?php
             if ($_COOKIE['pg'] || $_COOKIE['pg'] == 1) {
-                echo '<li><span class="uif-actionLink uif-disabled"><span class="icon-stack"></span>Generate All Periods </span></li>';
+                echo '<li><a class="uif-actionLink" data-toggle="modal" data-target="#modal-generate-versions"><span class="icon-stack"></span>Autocalculate Periods </a></li>';
             } else {
-                echo '<li><a class="uif-actionLink" data-toggle="modal" data-target="#modal-generate-versions"><span class="icon-stack"></span>Generate All Periods </a></li>';
+                echo '<li><a class="uif-actionLink" data-toggle="modal" data-target="#modal-generate-versions"><span class="icon-stack"></span>Autocalculate Periods </a></li>';
             }
             ?>
      

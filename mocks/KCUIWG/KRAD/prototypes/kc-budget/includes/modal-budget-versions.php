@@ -174,10 +174,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Generate Periods</h4>
+                <h4 class="modal-title" id="myModalLabel">Autocalculate Periods</h4>
             </div>
             <div class="modal-body">
-                <p>You are about to generate data for each period based on the current period (1). This is a one-time action and cannot be undone. </p>
+                <p>You are about to autocalculate data for each period based on the current period (1). This is a one-time action and cannot be undone. You will however, be able to recalculate period data. </p>
 				<P>Are you sure you want to do this?</p>
                 <!--<small>
                 <label style="font-weight:normal">
@@ -186,7 +186,7 @@
                 </small> -->
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn btn-default" data-dismiss="modal">No, Cancel</a> <a href="budget-ng-summary2.php" class="btn btn-primary set-cookie" data-cookie-type="pg" data-cookie-value="1">Yes, Generate All Periods</a>
+                <a href="#" class="btn btn-default" data-dismiss="modal">No, Cancel</a> <a href="budget-ng-summary2.php" class="btn btn-primary set-cookie" data-cookie-type="pg" data-cookie-value="1">Yes, Autocalculate All Periods</a>
             </div>
         </div>
     </div>
