@@ -7,9 +7,11 @@ import static org.kuali.common.util.base.Exceptions.illegalState;
 import java.io.File;
 import java.io.IOException;
 
+import org.kuali.common.util.file.CanonicalFile;
+
 public final class MavenEncryptionContextProvider extends AbstractEncryptionContextProvider {
 
-	private static final File USER_SETTINGS = getSettingsFile();
+	private static final File USER_SETTINGS = getDefaultSettingsXmlFile();
 
 	public MavenEncryptionContextProvider(String passwordKey, String strengthKey) {
 		super(passwordKey, strengthKey);
@@ -34,10 +36,8 @@ public final class MavenEncryptionContextProvider extends AbstractEncryptionCont
 		}
 	}
 
-	private static File getSettingsFile() {
-		String separator = File.separator;
-		String fragment = separator + ".m2" + separator + "settings.xml";
-		return new File(System.getProperty("user.home"), fragment);
+	private static File getDefaultSettingsXmlFile() {
+		return new CanonicalFile(System.getProperty("user.home") + "/.m2/settings.xml");
 	}
 
 }
