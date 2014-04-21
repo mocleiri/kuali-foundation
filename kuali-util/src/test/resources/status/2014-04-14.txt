@@ -70,11 +70,3 @@ Friday
 - OLE log4.xml settings, people being connected to the TST Oracle schema causing deployment failure
 - CI - Jeremy Hanson is aware of the KPME 2.1 tab on testci, finished setting up perm's
 
-
-select username, osuser, machine from v$session where username is not null order by username desc, osuser asc; 
-
-select username, osuser, machine from v$session where username = 'KSENV18' order by username desc, osuser asc; 
-select username, osuser, machine from v$session where osuser <> 'tomcat' order by username desc, osuser asc; 
-
-select username from v$session;
- 
