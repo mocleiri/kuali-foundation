@@ -18,23 +18,24 @@
                             <tr>
                                 <th style="width:20px">&nbsp;</th>
                                 <th>Name</th>
-                                <th colspan="6">Details</th>
+                                <th colspan="7">Details</th>
                             </tr>
                             <tr>
-                                <td scope="row" rowspan="2" valign="middle">
+                                <td scope="row" valign="middle">
                                     <input type="radio" value="radio" name="version-list" id="radio-version-1">
                                     <label for="radio"></label>
                                 </td>
-                                <td scope="row" rowspan="2" valign="middle">
+                                <td scope="row" valign="middle">
                                     <a href="" data-toggle="modal" data-target="#switchdoc"  class="versions">Version 1</a> <small>(for submission)</small><br>
                                     KC-00001
                                 </td>
                                 <td><label for="v1_directcost">Direct Cost</label>22,835.00</td>
                                 <td><label for="v1_fa">F&amp;A</label>6,170.00</td>
-                                <td><label for="v1_residual">Residual funds</label>$0</td>
                                 <td><label for="v1_total">Total</label>29,005.00</td>
                                 <td><label for="v1_status">Status</label>Complete</td>
-                                <td rowspan="2" valign="middle">
+                                <td><label for="v1_updateddate">Last updated</label>Apr 10, 2014 9:11 AM</td>
+                                <td><label for="v1_udpatedby">Updated by</label>quickstart</td>
+                                <td valign="middle">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Action <span class="caret"></span> </button>
                                         <ul class="dropdown-menu" role="menu">
@@ -47,28 +48,22 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td><label for="v1_costsharing">Cost Sharing</label>$0</td>
-                                <td><label for="v1_unrecovered">Unrecovered F&amp;A</label>$0</td>
-                                <td><label for="v1_faratetype">F&amp;A Rate Type</label>MTDC</td>
-                                <td><label for="v1_updateddate">Last updated</label>Apr 10, 2014 9:11 AM</td>
-                                <td><label for="v1_udpatedby">Updated by</label>quickstart</td>
-                            </tr>
                             <tr class="success">
-                                <td scope="row" rowspan="2" valign="middle">
+                                <td scope="row" valign="middle">
                                     <input type="radio" value="radio" name="version-list" id="radio-version-1">
                                     <label for="radio"></label>
                                 </td>
-                                <td scope="row" rowspan="2" valign="middle" class="showMe">
+                                <td scope="row" valign="middle" class="showMe">
                                     <a href="" data-toggle="modal" data-target="#switchdoc"  class="versions">Version 2</a> <small>(for submission)</small><br>
                                     KC-00002
                                 </td>
                                 <td><label for="v2_directcost">Direct Cost</label>22,835.00</td>
                                 <td><label for="v2_fa">F&amp;A</label>6,170.00</td>
-                                <td><label for="v2_residual">Residual funds</label>$0</td>
                                 <td><label for="v2_total">Total</label>29,005.00</td>
                                 <td><label for="v2_status">Status</label>Complete</td>
-                                <td rowspan="2" valign="middle">
+                                <td><label for="v1_updateddate">Last updated</label>Apr 10, 2014 9:11 AM</td>
+                                <td><label for="v1_udpatedby">Updated by</label>quickstart</td>
+                                <td valign="middle">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Action <span class="caret"></span> </button>
                                         <ul class="dropdown-menu" role="menu">
@@ -82,27 +77,21 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><label for="v2_costsharing">Cost Sharing</label>$0</td>
-                                <td><label for="v2_unrecovered">Unrecovered F&amp;A</label>$0</td>
-                                <td><label for="v2_faratetype">F&amp;A Rate Type</label>MTDC</td>
-                                <td><label for="v1_updateddate">Last updated</label>Apr 10, 2014 9:11 AM</td>
-                                <td><label for="v1_udpatedby">Updated by</label>quickstart</td>
-                            </tr>
-                            <tr>
-                                <td scope="row" rowspan="2" valign="middle">
+                                <td scope="row" valign="middle">
                                     <input type="radio" value="radio" name="version-list" id="radio-version-1">
                                     <label for="radio"></label>
                                 </td>
-                                <td scope="row" rowspan="2" valign="middle">
+                                <td scope="row" valign="middle">
                                     <a href="" data-toggle="modal" data-target="#switchdoc"  class="versions">Version 3</a> <small>(for submission)</small><br>
                                     KC-00003
                                 </td>
                                 <td><label for="v3_directcost">Direct Cost</label>22,835.00</td>
                                 <td><label for="v3_fa">F&amp;A</label>6,170.00</td>
-                                <td><label for="v3_residual">Residual funds</label>$0</td>
                                 <td><label for="v3_total">Total</label>29,005.00</td>
                                 <td><label for="v3_status">Status</label>Complete</td>
-                                <td rowspan="2" valign="middle">
+                                <td><label for="v1_updateddate">Last updated</label>Apr 10, 2014 9:11 AM</td>
+                                <td><label for="v1_udpatedby">Updated by</label>quickstart</td>
+                                <td valign="middle">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Action <span class="caret"></span> </button>
                                         <ul class="dropdown-menu" role="menu">
@@ -116,27 +105,21 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><label for="v3_costsharing">Cost Sharing</label>$0</td>
-                                <td><label for="v3_unrecovered">Unrecovered F&amp;A</label>$0</td>
-                                <td><label for="v3_faratetype">F&amp;A Rate Type</label>MTDC</td>
-                                <td><label for="v1_updateddate">Last updated</label>Apr 10, 2014 9:11 AM</td>
-                                <td><label for="v1_udpatedby">Updated by</label>quickstart</td>
-                            </tr>
-                            <tr>
-                                <td scope="row" rowspan="2" valign="middle">
+                                <td scope="row" valign="middle">
                                     <input type="radio" value="radio" name="version-list" id="radio-version-1">
                                     <label for="radio"></label>
                                 </td>
-                                <td scope="row" rowspan="2" valign="middle">
+                                <td scope="row" valign="middle">
                                     <a href="" data-toggle="modal" data-target="#switchdoc"  class="versions">Version 4</a> <small>(for submission)</small><br>
                                     KC-00004
                                 </td>
                                 <td><label for="v4_directcost">Direct Cost</label>22,835.00</td>
                                 <td><label for="v4_fa">F&amp;A</label>6,170.00</td>
-                                <td><label for="v4_residual">Residual funds</label>$0</td>
                                 <td><label for="v4_total">Total</label>29,005.00</td>
                                 <td><label for="v4_status">Status</label>Complete</td>
-                                <td rowspan="2" valign="middle">
+                                <td><label for="v1_updateddate">Last updated</label>Apr 10, 2014 9:11 AM</td>
+                                <td><label for="v1_udpatedby">Updated by</label>quickstart</td>
+                                <td valign="middle">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Action <span class="caret"></span> </button>
                                         <ul class="dropdown-menu" role="menu">
@@ -148,13 +131,6 @@
                                         </ul>
                                     </div>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td><label for="v4_costsharing">Cost Sharing</label>$0</td>
-                                <td><label for="v4_unrecovered">Unrecovered F&amp;A</label>$0</td>
-                                <td><label for="v4_faratetype">F&amp;A Rate Type</label>MTDC</td>
-                                <td><label for="v1_updateddate">Last updated</label>Apr 10, 2014 9:11 AM</td>
-                                <td><label for="v1_udpatedby">Updated by</label>quickstart</td>
                             </tr>
                         </tbody>
                     </table>
@@ -171,7 +147,7 @@
  #u569ish_line0 small{display:none;}
  #u569ish_line0  .showMe small { display:inline;}
  #u569ish_line0 label { display: block; }
- #u569ish_line0 tr.success + tr { background-color: #dff0d8; border-color: #d6e9c6; }
+ /*#u569ish_line0 tr.success + tr { background-color: #dff0d8; border-color: #d6e9c6; }*/
 </style>
 <script>
 (function($){
