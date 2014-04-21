@@ -39,7 +39,7 @@ public final class FileEncryptionContextProvider implements EncryptionContextPro
 	public Optional<EncryptionContext> getEncryptionContext() {
 		File file = getEncPasswordFile();
 		if (!file.exists()) {
-			logger.debug("[%s] does not exist");
+			logger.debug("[%s] does not exist", file);
 			return absent();
 		}
 		List<String> lines = readConfigFile(file);
