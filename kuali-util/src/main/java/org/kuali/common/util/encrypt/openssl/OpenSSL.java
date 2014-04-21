@@ -23,7 +23,7 @@ public class OpenSSL {
 
 	private static final Random RANDOM = new SecureRandom();
 	private static final int DEFAULT_SALT_SIZE = 8;
-	private static final int DEFAULT_PASSWORD_LENGTH = 15;
+	private static final int DEFAULT_PASSWORD_LENGTH = 18;
 	private static final char[] PASSWORD_CHARS = getPasswordChars();
 
 	private static char[] getPasswordChars() {
