@@ -2,21 +2,21 @@ package org.kuali.common.util.encrypt.openssl;
 
 public final class MathPow {
 
-	public MathPow(String label, int base, int pow) {
+	public MathPow(String label, double base, double pow) {
 		this.label = label;
 		this.base = base;
 		this.pow = pow;
 	}
 
 	private final String label;
-	private final int base;
-	private final int pow;
+	private final double base;
+	private final double pow;
 
-	public int getBase() {
+	public double getBase() {
 		return base;
 	}
 
-	public int getPow() {
+	public double getPow() {
 		return pow;
 	}
 

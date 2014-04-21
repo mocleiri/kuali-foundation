@@ -45,6 +45,7 @@ public class OpenSSLTest {
 		list.add(new MathPow("aws access key", 36, 20));
 		// AWS uses 40 character base64 secret keys which equates to 30 bytes which equates to 230 bits
 		list.add(new MathPow("aws secret key", 2, 230));
+		list.add(new MathPow("atoms on planet earch", 10, 50));
 		show(list);
 		String password = generatePassword(40);
 		byte[] asciiBytes = getAsciiBytes(password);
@@ -67,7 +68,7 @@ public class OpenSSLTest {
 		logTable(columns, rows);
 	}
 
-	protected static void show(int a, int b) {
+	protected static void show(double a, double b) {
 		info("Math.pow(%s, %s) = %s", a, b, NF.format(pow(a, b)));
 	}
 
