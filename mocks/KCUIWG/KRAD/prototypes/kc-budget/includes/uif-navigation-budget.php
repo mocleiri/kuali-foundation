@@ -16,7 +16,7 @@
             <li <?php if ($page == 'subawards') { echo 'class="active"'; } ?>><a class="uif-navigationActionLink" tabindex="0" href="budget-ng-subawards.php"><span class="icon-file"></span><span class="uif-innerText">Subawards</span></a></li>
                  <li <?php if ($section == 'institute') { echo 'class="active in open"'; } ?>> <a href="#" class="dropdown-toggle" data-toggle="dropdown-b"><span class="icon-office"></span> <span class="uif-innerText" >Institutional Commitments</span><span class="arrow icon-angle-right"></span></a>
                 <ul class="submenu uif-listLayout" >
-                    <li <?php if ($page == 'cost-sharing') { echo 'class="active"'; } ?>><a class="uif-actionLink" tabindex="0" href="budget-ng-cost-sharing.php">Additional Cost Sharing</a></li>
+                    <li <?php if ($page == 'cost-sharing') { echo 'class="active"'; } ?>><a class="uif-actionLink" tabindex="0" href="budget-ng-cost-sharing.php">Cost Sharing</a></li>
                     <li <?php if ($page == 'unrecovered') { echo 'class="active"'; } ?>><a class="uif-actionLink" tabindex="0" href="budget-ng-unrecovered-fa.php">Unrecovered F&amp;A</a></li>
                 </ul>
             </li>
