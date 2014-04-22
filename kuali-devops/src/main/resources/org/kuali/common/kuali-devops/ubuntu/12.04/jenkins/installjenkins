@@ -133,6 +133,7 @@ function install_plugins {
   install_plugin node-iterator-api     1.2
   install_plugin parameterized-trigger 2.24
   install_plugin pam-auth              1.1
+  install_plugin performance           1.0
   install_plugin scm-api               0.2
   install_plugin ssh-credentials       1.6.1
   install_plugin ssh-slaves            1.6
