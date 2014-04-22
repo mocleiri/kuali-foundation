@@ -1,2 +1,0 @@
-ks-enr-1.0-db-change-detector
-ks-enr-1.0-db-impex
