@@ -8,7 +8,6 @@ ks-enr-1.0-ft-rice-upgrade
 ks-enr-1.0-ft-rice-upgrade-smoke-test
 ks-enr-1.0-ft-snapshot-distributed
 ks-enr-1.0-ft-syntax-check
-ks-enr-1.0-nightly-build
 ks-enr-1.0-nightly-deploy-bundled-env2
 ks-enr-1.0-nightly-deploy-bundled-env3
 ks-enr-1.0-nightly-deploy-distributed
@@ -18,6 +17,7 @@ ks-enr-1.0-rice-upgrade-snapshot-deploy-bundled-env6
 
 
 # Completed
+ks-enr-1.0-nightly-build
 ks-enr-1.0-deploy-tagged-build
 ks-enr-1.0-deploy-release-build
 ks-enr-1.0-ft-team-blue-w-setup
