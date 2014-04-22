@@ -15,6 +15,7 @@ import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.CI_SLAVE_STARTS_WIT
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getBasicLaunchRequest;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getCommonTags;
 import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.getEC2Service;
+import static org.kuali.common.devops.ci.CreateBuildSlaveAMI.launchAndWait;
 import static org.kuali.common.devops.ci.model.Constants.AES_PASSPHRASE_ENCRYPTED;
 import static org.kuali.common.devops.ci.model.Constants.JENKINS_VERSION;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
@@ -123,7 +124,7 @@ public class SpinUpJenkinsMaster {
 		ProjectIdentifier pid = KUALI_DEVOPS_PROJECT_IDENTIFIER;
 
 		EC2Service service = getEC2Service(amazonAccount, jenkinsContext.getRegion());
-		Instance instance = CreateBuildSlaveAMI.launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
+		Instance instance = launchAndWait(service, request, securityGroups, tags, jenkinsContext.getRegion().getName());
 		// Instance instance = service.getInstance("i-90b47298");
 		info("public dns: %s", instance.getPublicDnsName());
 		updateDns(instance, jenkinsMaster);
