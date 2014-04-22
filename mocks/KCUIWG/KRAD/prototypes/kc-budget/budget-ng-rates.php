@@ -84,7 +84,8 @@ $section = '';
             <main id="LabsProposal-Page" class="uif-page uif-hasLeftNav" data-server_messages=false data-role=Page data-parent=LabsProposal style="margin-left: 235px;">
                 <header class="clearfix uif-header-contentWrapper">
                     <div id="u148pgf0" class="uif-pageHeader clearfix" data-header_for=LabsProposal-Page>
-                        <h2 class="uif-headerText"><span class="uif-headerText-span">Rates </span></h2>
+                        <h2 class="uif-headerText"> <span class="uif-headerText-span"> Rates </span>  <a href="#" class="btn btn-default btn-xs pull-right">Refresh All Rates</a> </h2>
+                        
                     </div>
                 </header>
                 <p id="u1iaxrzf" class="uif-message uif-boxLayoutVerticalItem clearfix">Verify the default rates set by your institution. You can override them if necessary by clicking the "edit" icon to the right of each row.</p>
@@ -741,7 +742,10 @@ $section = '';
                     </div>
                 </section>
             </main>
-        </div> <!-- VIEW FOOTER --> <div id="" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;"> <div class="global-actions"> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save </a> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Reload </a> <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Complete Budget </a> </div>
+        </div> 
+        
+        
+        <!-- VIEW FOOTER --> <div id="" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;"> <div class="global-actions"> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save </a> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Reload </a> <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Complete Budget </a> </div>
             
             
             
