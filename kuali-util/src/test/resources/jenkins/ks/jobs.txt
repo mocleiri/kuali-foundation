@@ -2,17 +2,14 @@
 ks-enr-1.0-db-change-detector
 ks-enr-1.0-db-impex
 ks-enr-1.0-deploy-distributed-snapshot
-ks-enr-1.0-ft-rice-upgrade
-ks-enr-1.0-ft-rice-upgrade-smoke-test
-ks-enr-1.0-ft-snapshot-distributed
-ks-enr-1.0-ft-syntax-check
-ks-enr-1.0-nightly-deploy-bundled-env2
-ks-enr-1.0-nightly-deploy-distributed
-ks-enr-1.0-nightly-deploy-distributed-perf
-ks-enr-1.0-rice-upgrade-nightly-deploy-bundled-env6
-ks-enr-1.0-rice-upgrade-snapshot-deploy-bundled-env6
 
 # Completed
+ks-enr-1.0-rice-upgrade-snapshot-deploy-bundled-env6
+ks-enr-1.0-rice-upgrade-nightly-deploy-bundled-env6
+ks-enr-1.0-ft-snapshot-distributed
+ks-enr-1.0-ft-syntax-check
+ks-enr-1.0-ft-rice-upgrade-smoke-test
+ks-enr-1.0-ft-rice-upgrade
 ks-enr-1.0-ft
 ks-enr-1.0-deploy-tagged-build
 ks-enr-1.0-deploy-release-build
@@ -29,4 +26,4 @@ ks-enr-1.0-nightly-build
   ks-enr-1.0-nightly-deploy-bundled-env6
   ks-enr-1.0-nightly-deploy-distributed -> ks-enr-1.0-ft-distributed
   ks-enr-1.0-nightly-deploy-distributed-perf -> ks-enr-1.0-performance-enrollment -> ks-enr-1.0-performance-registration
-  ks-enr-1.0-nightly-deploy-bundled-env2
+  ks-enr-1.0-nightly-deploy-bundled-env2 -> ks-enr-1.0-ft, ks-ksap-ft, ks-cm-krad-ft
