@@ -111,7 +111,7 @@ $section = '';
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <button class="btn btn-default btn-sm pull-right">Consolidate expense justifications</button>
+                                <button class="btn btn-default btn-xs pull-right">Consolidate expense justifications</button>
                             </div>
                         </div>
                
@@ -121,7 +121,7 @@ $section = '';
 <!-- VIEW FOOTER --> <div id="" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;"> <div class="global-actions"> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save </a> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Reload </a> <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Complete Budget </a> </div>
            <div class="global-navigate"> 
             <a href="budget-ng-modular.php" id="ufuknm4" class="btn btn-default uif-primaryActionButton uif-boxLayoutHorizontalItem"><span class="icon-chevron-left"></span> Back</a>
-            <a href="budget-ng-summary2.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Save and complete budget</a></div>
+            <a href="budget-ng-summary.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Continute <span class="icon-chevron-right"></span></a></div>
         </div>
         <!-- DIALOGS/Placeholders --></div>
     <span id="formInfo">

@@ -182,7 +182,7 @@ $page = 'personnel-assign';
                             </div>
                         </div>
                         <h4 class="pull-left" >Assigned Personnel</h4>
-                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default"  data-toggle="modal" data-target="#applyRates">Copy Personnel to all periods...</a></div>
+                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default"  data-toggle="" data-target="">Expand All Panels</a> <a href="#" class="btn btn-xs btn-default"  data-toggle="modal" data-target="#applyRates">Copy Personnel to All Periods...</a></div>
                         <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example1">
                             <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for="u1qq592w">
                                 <h3 class="uif-headerText"><a data-role="disclosureLink" data-linkfor="facSalTen" href="#" id="u1qq592w_toggle" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Faculty Salaries - Tenured</span></a></h3>
@@ -1011,7 +1011,7 @@ return false;
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="myModalLabel">Copy Personnel to all periods...</h4>
+                <h4 class="modal-title" id="myModalLabel">Copy Personnel to All Periods</h4>
             </div>
             <div class="modal-body">
                 <p>Would you like to apply Period 1 personnel to all periods? Please note that all other personnel info will be overwritten.</p>
