@@ -95,7 +95,7 @@ $section = '';
                         <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=reserachFA href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Research F&amp;A</span></a></h3>
                     </header>
                     <div id="reserachFA" data-role=disclosureContent data-open=true class="uif-disclosureContent">
-                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Reset to Institutional Defaults</a> <a href="#" class="btn btn-xs btn-default">Refresh Rates</a></div>
+                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Sync to Current Institutional Rates</a> <a href="#" class="btn btn-xs btn-default">Reset to Default Rates</a></div>
                         <br>
                         <br>
                         <table class="edit-table table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby=Demo-LightTableGroup1_lightTable_info>
@@ -220,7 +220,7 @@ $section = '';
                         <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=fringebenefits href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Fringe Benefits</span></a></h3>
                     </header>
                     <div id="fringebenefits" data-role=disclosureContent data-open=true class="uif-disclosureContent">
-                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Reset to Institutional Defaults</a> <a href="#" class="btn btn-xs btn-default">Refresh Rates</a></div>
+                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Sync to Current Institutional Rates</a> <a href="#" class="btn btn-xs btn-default">Reset to Default Rates</a></div>
                         <br>
                         <br>
                         <table class="edit-table table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby=Demo-LightTableGroup1_lightTable_info>
@@ -297,7 +297,7 @@ $section = '';
                         <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=inflation href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Inflation</span></a></h3>
                     </header>
                     <div id="inflation" data-role=disclosureContent data-open=true class="uif-disclosureContent">
-                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Reset to Institutional Defaults</a> <a href="#" class="btn btn-xs btn-default">Refresh Rates</a></div>
+                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Sync to Current Institutional Rates</a> <a href="#" class="btn btn-xs btn-default">Reset to Default Rates</a></div>
                         <br>
                         <br>
                         <table class="edit-table table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby=Demo-LightTableGroup1_lightTable_info>
@@ -518,7 +518,7 @@ $section = '';
                         <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=vacation href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Vacation</span></a></h3>
                     </header>
                     <div id="vacation" data-role=disclosureContent data-open=true class="uif-disclosureContent">
-                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Reset to Institutional Defaults</a> <a href="#" class="btn btn-xs btn-default">Refresh Rates</a></div>
+                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Sync to Current Institutional Rates</a> <a href="#" class="btn btn-xs btn-default">Reset to Default Rates</a></div>
                         <br>
                         <br>
                         <table class="edit-table table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby=Demo-LightTableGroup1_lightTable_info>
@@ -587,7 +587,7 @@ $section = '';
                         <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=laballocationSalaries href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Lab Allocation - Salaries</span></a></h3>
                     </header>
                     <div id="laballocationSalaries" data-role=disclosureContent data-open=true class="uif-disclosureContent">
-                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Reset to Institutional Defaults</a> <a href="#" class="btn btn-xs btn-default">Refresh Rates</a></div>
+                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Sync to Current Institutional Rates</a> <a href="#" class="btn btn-xs btn-default">Reset to Default Rates</a></div>
                         <br>
                         <br>
                         <table class="table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby=Demo-LightTableGroup1_lightTable_info>
@@ -632,7 +632,7 @@ $section = '';
                         <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=laballocationOther href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Lab Allocation - Other</span></a></h3>
                     </header>
                     <div id="laballocationOther" data-role=disclosureContent data-open=true class="uif-disclosureContent">
-                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Reset to Institutional Defaults</a> <a href="#" class="btn btn-xs btn-default">Refresh Rates</a></div>
+                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Sync to Current Institutional Rates</a> <a href="#" class="btn btn-xs btn-default">Reset to Default Rates</a></div>
                         <br>
                         <br>
                         <table class="edit-table table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby=Demo-LightTableGroup1_lightTable_info>
@@ -701,7 +701,7 @@ $section = '';
                         <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=other href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Other</span></a></h3>
                     </header>
                     <div id="other" data-role=disclosureContent data-open=true class="uif-disclosureContent">
-                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Reset to Institutional Defaults</a> <a href="#" class="btn btn-xs btn-default">Refresh Rates</a></div>
+                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default">Sync to Current Institutional Rates</a> <a href="#" class="btn btn-xs btn-default">Reset to Default Rates</a></div>
                         <br>
                         <br>
                         <table class="table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby=Demo-LightTableGroup1_lightTable_info>
