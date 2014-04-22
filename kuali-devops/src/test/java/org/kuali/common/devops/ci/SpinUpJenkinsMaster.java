@@ -20,6 +20,7 @@ import static org.kuali.common.devops.ci.model.Constants.JENKINS_VERSION;
 import static org.kuali.common.devops.project.KualiDevOpsProjectConstants.KUALI_DEVOPS_PROJECT_IDENTIFIER;
 import static org.kuali.common.dns.model.CNAMEContext.newCNAMEContext;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
+import static org.kuali.common.util.FormatUtils.getTime;
 import static org.kuali.common.util.base.Exceptions.illegalArgument;
 import static org.kuali.common.util.encrypt.Encryption.getDefaultEncryptor;
 import static org.kuali.common.util.log.LoggerLevel.INFO;
@@ -53,7 +54,6 @@ import org.kuali.common.dns.dnsme.URLS;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
 import org.kuali.common.dns.model.CNAMEContext;
 import org.kuali.common.dns.util.CreateOrReplaceCNAME;
-import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.impl.DefaultChannelService;
@@ -153,7 +153,7 @@ public class SpinUpJenkinsMaster {
 		// The spin up process should have given DNS enough time to settle down
 		info("Verifying SSH to -> [%s]", jenkinsMaster);
 		verifySSH(ROOT, jenkinsMaster, privateKey);
-		info("[%s] jenkins is ready - %s", jenkinsMaster, FormatUtils.getTime(sw));
+		info("[%s] jenkins is ready - %s", jenkinsMaster, getTime(sw));
 	}
 
 	protected String findLatestSlaveAMI(EC2Service service, Tag stack) {
