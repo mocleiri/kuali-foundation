@@ -223,7 +223,7 @@ public class SpinUpJenkinsMaster {
 		info("scp:from -> %s", jar);
 		info("scp:to   -> %s", to);
 		channel.scp(jar, remoteJar);
-		info("apt-get  -> update");
+		info("update  -> package indexes");
 		execFormattedCommand(channel, quiet, "apt-get update -y");
 		info("install  -> unzip");
 		execFormattedCommand(channel, quiet, "apt-get install unzip -y");
