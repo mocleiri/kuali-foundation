@@ -1,19 +1,63 @@
-jenkinsrice disable-job kpme-1.5-deploy		 
-jenkinsrice disable-job kpme-1.5-license	 
-jenkinsrice disable-job kpme-1.5-publish	 
-jenkinsrice disable-job kpme-1.5-release	 
-jenkinsrice disable-job kpme-1.5-third-party-license	 
-jenkinsrice disable-job kpme-1.5.3-tag-publish	 
-jenkinsrice disable-job kpme-2.0-build-unit	 
-jenkinsrice disable-job kpme-2.0-deploy	 
-jenkinsrice disable-job kpme-2.0-license	 
-jenkinsrice disable-job kpme-2.0-publish	 
-jenkinsrice disable-job kpme-2.0-release	 
-jenkinsrice disable-job kpme-2.0.2-tag-publish	 
-jenkinsrice disable-job kpme-trunk-build-unit	 
-jenkinsrice disable-job kpme-trunk-deploy	 
-jenkinsrice disable-job kpme-trunk-license	 
-jenkinsrice disable-job kpme-trunk-publish	 
-jenkinsrice disable-job kpme-trunk-release	 
-jenkinsrice disable-job kpme-trunk-sonar	 
-jenkinsrice disable-job kpme-trunk-third-party-license
+	ks-enr-1.0-change-audit-job	11 mo (#3506) 	11 mo (#3499) 	28 min	Schedule a build	 
+	ks-enr-1.0-db-change-detector	1 hr 18 min (#1675) 	N/A	9.8 sec	Schedule a build	 
+	ks-enr-1.0-db-impex	1 hr 18 min (#1147) 	3 days 22 hr (#1144) 	55 min	Schedule a build	 
+	ks-enr-1.0-dependency-update-check	3 days 10 hr (#92) 	N/A	20 min	Schedule a build	 
+	ks-enr-1.0-deploy-bundled-snapshot-env2	6 days 5 hr (#42) 	N/A	32 min	Schedule a build	 
+	ks-enr-1.0-deploy-bundled-snapshot-env3	19 hr (#298) 	N/A	40 min	Schedule a build	 
+	ks-enr-1.0-deploy-distributed-snapshot	1 hr 4 min (#2631) 	6 days 9 hr (#2574) 	51 min	Schedule a build	 
+	ks-enr-1.0-deploy-perf	1 yr 0 mo (#277) 	1 yr 0 mo (#276) 	11 min	Schedule a build	 
+	ks-enr-1.0-deploy-release-build	9 days 1 hr (#17) 	3 mo 15 days (#12) 	14 min	Schedule a build	 
+	ks-enr-1.0-deploy-release-distributed	3 mo 15 days (#2) 	3 mo 15 days (#1) 	20 min	Schedule a build	 
+	ks-enr-1.0-deploy-tagged-build	23 days (#31) 	1 mo 17 days (#26) 	17 min	Schedule a build	 
+	ks-enr-1.0-ft	1 yr 4 mo (#38) 	14 hr (#510) 	1 hr 28 min	Schedule a build	 
+	ks-enr-1.0-ft-distributed	N/A	14 hr (#329) 	8 hr 32 min	Schedule a build	 
+	ks-enr-1.0-ft-job-splitter	4 mo 2 days (#2) 	3 mo 29 days (#3) 	17 min	Schedule a build	 
+	ks-enr-1.0-ft-parameterized-hostname	N/A	20 days (#13) 	7 hr 35 min	Schedule a build	 
+	ks-enr-1.0-ft-performance	N/A	1 mo 12 days (#284) 	16 min	Schedule a build	 
+	ks-enr-1.0-ft-rice-integration	N/A	N/A	N/A	Schedule a build	 
+	ks-enr-1.0-ft-rice-upgrade	N/A	1 day 0 hr (#2) 	4 hr 37 min	Schedule a build	 
+	ks-enr-1.0-ft-rice-upgrade-smoke-test	3 days 12 hr (#33) 	2 hr 26 min (#34) 	11 min	Schedule a build	 
+	ks-enr-1.0-ft-snapshot-distributed	13 min (#2461) 	N/A	11 min	Schedule a build	 
+	ks-enr-1.0-ft-syntax-check	43 min (#291) 	N/A	13 sec	Schedule a build	 
+	ks-enr-1.0-ft-team-blue-w-setup	2 mo 24 days (#36) 	14 hr (#113) 	4 hr 20 min	Schedule a build	 
+	ks-enr-1.0-ft-team-red	4 mo 0 days (#8) 	3 mo 26 days (#9) 	8 hr 24 min	Schedule a build	 
+	ks-enr-1.0-ft-team-yellow	N/A	3 mo 26 days (#10) 	2 hr 54 min	Schedule a build	 
+	ks-enr-1.0-impex-sandbox	N/A	N/A	N/A	Schedule a build	 
+	ks-enr-1.0-impex-validate-developer-process	N/A	N/A	N/A	Schedule a build	 
+	ks-enr-1.0-kd-demo-deploy-env1	5 mo 9 days (#5) 	5 mo 11 days (#1) 	4 min 17 sec	Schedule a build	 
+	ks-enr-1.0-kd-demo-nightly	5 mo 10 days (#3) 	5 mo 11 days (#1) 	1 hr 17 min	Schedule a build	 
+	ks-enr-1.0-module-ap-unit-test	29 min (#1350) 	6 days 9 hr (#1269) 	15 min	Schedule a build	 
+	ks-enr-1.0-module-api-unit-test	32 min (#2428) 	11 days (#2280) 	10 min	Schedule a build	 
+	ks-enr-1.0-module-core-unit-test	55 min (#2120) 	6 days 9 hr (#2047) 	33 min	Schedule a build	 
+	ks-enr-1.0-module-enroll-unit-test	1 hr 10 min (#1849) 	8 days 1 hr (#1756) 	52 min	Schedule a build	 
+	ks-enr-1.0-module-lum-unit-test	1 hr 12 min (#2100) 	12 days (#1951) 	23 min	Schedule a build	 
+	ks-enr-1.0-nightly-build	16 hr (#738) 	N/A	1 hr 25 min	Schedule a build	 
+	ks-enr-1.0-nightly-deploy-bundled-env2	14 hr (#355) 	6 days 14 hr (#350) 	19 min	Schedule a build	 
+	ks-enr-1.0-nightly-deploy-bundled-env3	14 hr (#334) 	6 days 14 hr (#329) 	18 min	Schedule a build	 
+	ks-enr-1.0-nightly-deploy-distributed	14 hr (#345) 	N/A	16 min	Schedule a build	 
+	ks-enr-1.0-nightly-deploy-distributed-perf	14 hr (#230) 	N/A	17 min	Schedule a build	 
+	ks-enr-1.0-org-service-unit-test	8 mo 4 days (#13) 	N/A	1 hr 6 min	Schedule a build	 
+	ks-enr-1.0-performance-enrollment	14 hr (#97) 	20 days (#75) 	5 min 47 sec	Schedule a build	 
+	ks-enr-1.0-performance-registration	14 hr (#29) 	21 days (#7) 	38 sec	Schedule a build	 
+	ks-enr-1.0-release	3 mo 16 days (#6) 	3 mo 16 days (#5) 	1 hr 17 min	Schedule a build	 
+	ks-enr-1.0-rice-upgrade-db-change-detector	5 days 23 hr (#18) 	N/A	14 sec	Schedule a build	 
+	ks-enr-1.0-rice-upgrade-db-impex	5 days 23 hr (#24) 	2 mo 2 days (#14) 	1 hr 1 min	Schedule a build	 
+	ks-enr-1.0-rice-upgrade-nightly	1 day 2 hr (#40) 	6 days 14 hr (#35) 	1 hr 6 min	Schedule a build	 
+	ks-enr-1.0-rice-upgrade-nightly-deploy-bundled-env6	1 day 1 hr (#35) 	25 days (#19) 	17 min	Schedule a build	 
+	ks-enr-1.0-rice-upgrade-snapshot-deploy-bundled-env6	3 hr 14 min (#21) 	N/A	47 min	Schedule a build	 
+	ks-enr-1.0-rice-upgrade-unit-test	3 hr 22 min (#185) 	N/A	1 hr 34 min	Schedule a build	 
+	ks-enr-1.0-services-change-audit	12 days (#470) 	13 days (#467) 	9 min 55 sec	Schedule a build	 
+	ks-enr-1.0-services-site-deploy	14 hr (#649) 	N/A	30 min	Schedule a build	 
+	ks-enr-1.0-services-unit-test	12 days (#362) 	N/A	4 min 0 sec	Schedule a build	 
+	ks-enr-1.0-site-deploy	14 hr (#654) 	N/A	2 hr 46 min	Schedule a build	 
+	ks-enr-1.0-site-deploy-from-tag	3 mo 15 days (#6) 	N/A	1 hr 33 min	Schedule a build	 
+	ks-enr-1.0-sonar	14 hr (#3165) 	N/A	2 hr 41 min	Schedule a build	 
+	ks-enr-1.0-third-party-license	1 mo 5 days (#233) 	14 hr (#269) 	32 min	Schedule a build	 
+	ks-enr-1.0-unit-test	2 hr 10 min (#6482) 	5 days 13 hr (#6452) 	1 hr 47 min	Schedule a build	 
+    ks-enr-1.0-unit-test-jdk6	11 days (#943) 	11 days (#942) 	58 min	Schedule a build	 
+	ks-enr-1.0-unit-test-parallel-threads	6 mo 14 days (#2) 	N/A	1 hr 33 min	Schedule a build	 
+	ks-ksa-unit-test	25 days (#958) 	N/A	1 hr 0 min	Schedule a build	 
+	ks-ksap-ft	15 days (#94) 	14 hr (#109) 	1 hr 27 min	Schedule a build	 
+	ks-restart-tomcat	20 days (#18) 	N/A	0.77 sec	Schedule a build	 
+    ks-start-tomcat	5 mo 8 days (#4) 	5 mo 8 days (#2) 	0.85 sec	Schedule a build	 
+	ks-stop-tomcat	5 mo 7 days (#3) 	N/A	0.22 sec	Schedule a build	 
