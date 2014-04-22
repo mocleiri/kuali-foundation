@@ -25,6 +25,7 @@ function configure_tomcat_user {
 
   echo "purge     -> gpg ssh m2 svn"
   rm -rf $TOMCAT_HOME/.gnupg $TOMCAT_HOME/.ssh $TOMCAT_HOME/.m2 $TOMCAT_HOME/.subversion
+  echo "copy root -> gpg ssh m2 svn"
   cp -R /root/.gnupg        $TOMCAT_HOME
   cp -R /root/.ssh          $TOMCAT_HOME
   cp -R /root/.subversion   $TOMCAT_HOME
