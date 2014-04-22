@@ -1,6 +1,5 @@
 ks-enr-1.0-db-change-detector
 ks-enr-1.0-db-impex
-ks-enr-1.0-dependency-update-check
 ks-enr-1.0-deploy-bundled-snapshot-env2
 ks-enr-1.0-deploy-bundled-snapshot-env3
 ks-enr-1.0-deploy-distributed-snapshot
@@ -23,5 +22,6 @@ ks-enr-1.0-rice-upgrade-snapshot-deploy-bundled-env6
 
 
 #
+ks-enr-1.0-dependency-update-check
 ks-enr-1.0-services-site-deploy
 ks-enr-1.0-site-deploy
