@@ -9,15 +9,17 @@ ks-enr-1.0-ft-rice-upgrade-smoke-test
 ks-enr-1.0-ft-snapshot-distributed
 ks-enr-1.0-ft-syntax-check
 ks-enr-1.0-nightly-deploy-bundled-env2
-ks-enr-1.0-nightly-deploy-bundled-env3
 ks-enr-1.0-nightly-deploy-distributed
 ks-enr-1.0-nightly-deploy-distributed-perf
 ks-enr-1.0-rice-upgrade-nightly-deploy-bundled-env6
 ks-enr-1.0-rice-upgrade-snapshot-deploy-bundled-env6
 
+# Partial
+ks-enr-1.0-nightly-build
 
 # Completed
-ks-enr-1.0-nightly-build
+ks-enr-1.0-nightly-deploy-bundled-env3
+
 ks-enr-1.0-deploy-tagged-build
 ks-enr-1.0-deploy-release-build
 ks-enr-1.0-ft-team-blue-w-setup
@@ -26,3 +28,11 @@ ks-enr-1.0-deploy-bundled-snapshot-env2
 ks-enr-1.0-dependency-update-check
 ks-enr-1.0-services-site-deploy
 ks-enr-1.0-site-deploy
+
+
+# Downstream from KS Nightly Build
+ks-enr-1.0-nightly-deploy-bundled-env3
+ks-enr-1.0-nightly-deploy-bundled-env6
+ks-enr-1.0-nightly-deploy-distributed -> ks-enr-1.0-ft-distributed
+ks-enr-1.0-nightly-deploy-distributed-perf -> ks-enr-1.0-performance-enrollment -> ks-enr-1.0-performance-registration
+ks-enr-1.0-nightly-deploy-bundled-env2
