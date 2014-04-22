@@ -1,3 +1,4 @@
+# Pending
 ks-enr-1.0-db-change-detector
 ks-enr-1.0-db-impex
 ks-enr-1.0-deploy-distributed-snapshot
@@ -16,7 +17,7 @@ ks-enr-1.0-rice-upgrade-nightly-deploy-bundled-env6
 ks-enr-1.0-rice-upgrade-snapshot-deploy-bundled-env6
 
 
-#
+# Completed
 ks-enr-1.0-deploy-tagged-build
 ks-enr-1.0-deploy-release-build
 ks-enr-1.0-ft-team-blue-w-setup
