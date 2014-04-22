@@ -237,6 +237,49 @@ $page = 'personnel-costs';
                                                             <input type="text" class="form-control" id="inputPassword3" value="247457.00">
                                                         </div>
                                                     </div>
+                                                    <div class="form-group by-period">
+                                                        <div class="col-sm-3 control-label">
+                                                            <strong>Salary by period</strong> <span class="uif-disabled">(optional)</span>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <table class="table">
+                                                                <tr>
+                                                                    <th scope="col">Period</th>
+                                                                    <th scope="col">Salary</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>1</td>
+                                                                    <td>
+                                                                        <label for="period_p1_s1"><span class="sr-only">Period one salary</span></label><input type="text" class="input-sm" value="$0.00">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>2</td>
+                                                                    <td>
+                                                                        <label for="period_p1_s2"><span class="sr-only">Period two salary</span></label><input type="text" class="input-sm" value="$0.00">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>3</td>
+                                                                    <td>
+                                                                        <label for="period_p1_s3"><span class="sr-only">Period three salary</span></label><input type="text" class="input-sm" value="$0.00">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>4</td>
+                                                                    <td>
+                                                                        <label for="period_p1_s4"><span class="sr-only">Period four salary</span></label><input type="text" class="input-sm" value="$0.00">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>5</td>
+                                                                    <td>
+                                                                        <label for="period_p1_s5"><span class="sr-only">Period five salary</span></label><input type="text" class="input-sm" value="$0.00">
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
                                                     <hr>
                                                     <div class="form-group">
                                                         <div class="col-sm-offset-3 col-sm-9"> <a href="#" class="btn btn-primary btn-sm">Save Changes</a> <a href="#" class="btn btn-default btn-sm">Cancel</a> </div>
@@ -312,6 +355,49 @@ $page = 'personnel-costs';
                                                         <label for="inputPassword3" class="col-sm-3 control-label">Base Salary:</label>
                                                         <div class="col-sm-9">
                                                             <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group by-period">
+                                                        <div class="col-sm-3 control-label">
+                                                            <strong>Salary by period</strong> <span class="uif-disabled">(optional)</span>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <table class="table">
+                                                                <tr>
+                                                                    <th scope="col">Period</th>
+                                                                    <th scope="col">Salary</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>1</td>
+                                                                    <td>
+                                                                        <label for="period_p1_s1"><span class="sr-only">Period one salary</span></label><input type="text" class="input-sm" value="$0.00">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>2</td>
+                                                                    <td>
+                                                                        <label for="period_p1_s2"><span class="sr-only">Period two salary</span></label><input type="text" class="input-sm" value="$0.00">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>3</td>
+                                                                    <td>
+                                                                        <label for="period_p1_s3"><span class="sr-only">Period three salary</span></label><input type="text" class="input-sm" value="$0.00">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>4</td>
+                                                                    <td>
+                                                                        <label for="period_p1_s4"><span class="sr-only">Period four salary</span></label><input type="text" class="input-sm" value="$0.00">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>5</td>
+                                                                    <td>
+                                                                        <label for="period_p1_s5"><span class="sr-only">Period five salary</span></label><input type="text" class="input-sm" value="$0.00">
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
                                                         </div>
                                                     </div>
                                                     <hr>
