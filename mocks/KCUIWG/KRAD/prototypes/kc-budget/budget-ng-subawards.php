@@ -10,6 +10,11 @@ $section = '';
 
 <!-- GLOBAL STYLES -->
 <?php include ('includes/styles.php') ?>
+	<style>
+#modular-f-a-4b div{margin-bottom: 1em;;}
+
+
+	</style>
 </head>
 <body id="Uif-Application" style="padding-bottom: 570px;">
 <!-- APPLICATION HEADER -->
@@ -24,7 +29,7 @@ $section = '';
 				<img id="u2elq10" src="http://ux.kuali.org/prototypes/kc/p2-devbranch/themes/kc/img/logo.png" alt="" class="uif-image"> 
 			</h1>
 		</div>
-		</a>
+		</a> 
 	</div>
 	<div id="u1gk19wq" class="collapse navbar-collapse navbar-ex1-collapse uif-listGroup">
 		<ul class="nav navbar-nav navbar-right uif-listLayout">
@@ -34,7 +39,7 @@ $section = '';
 					<div class="col-md-12">
 						<section id="u9tj3ss" class="uif-listGroup">
 							<h3 class="uif-headerText">
-								Proposal Development
+								Proposal Development 
 							</h3>
 							<ul class="uif-listLayout">
 								<li><a href="prop-start.php" class="uif-actionLink" id="umdwwyj" tabindex="0" data-role="Action"> Create a Proposal </a></li>
@@ -95,7 +100,7 @@ $section = '';
 			<header class="clearfix uif-header-contentWrapper pull-left">
 				<div id="u148pgf0" class="uif-pageHeader clearfix" data-header_for="LabsProposal-Page">
 					<h2 class="uif-headerText">
-						<span class="uif-headerText-span">Subawards </span>
+						<span class="uif-headerText-span">Subawards </span> 
 					</h2>
 				</div>
 			</header>
@@ -104,180 +109,228 @@ $section = '';
                 <div class="pull-right"> <a href="#"> <span class="icon-compass"></span> Guide Me</a></div>
                 -->
 			<p class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">
-				Upload a pre-formatted budget document for a subawardee organization or enter details manually.
+				Upload a pre-formatted budget document for a subawardee organization or enter details manually. 
 			</p>
-			<div class="col-md-12">
+
+<!-- <div class="col-md-12">
 				<button class="btn btn-default btn-starter launch-modal" data-modal-page="modal/modal-attachments/attachments.proposal.add.php">Attach subawardee budget</button> 
 			</div>
-			<br>
-			<!-- remove 
-			<section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example1">
-				<header id="u1l3ufy3" class="uif-sectionHeader" data-header_for="u1qq592w">
+			<br> -->
+<!-- -->
+			<section class="uif-disclosure uif-boxLayoutVerticalItem clearfix">
+				<header class="uif-sectionHeader">
 					<h3 class="uif-headerText">
-						<a data-role="disclosureLink" data-linkfor="umbrella" href="#" id="u1qq592w_toggle" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Umbrella Corporation.pdf</span></a>
+						<a data-role="disclosureLink" data-linkfor="modular-f-a-4b" href="#" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"> <span class="uif-headerText-span"><span class="icon-caret-down"></span><span style="display:none;" class="icon-caret-right"></span> Attach Subawardee Budget</span></a> 
 					</h3>
-				</header> -->
-				<div id="umbrella">
-					<div class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">
-						<div class="row">
-							<div class="col-md-3">
-								<p>
-									<b>Organization name:</b>
-								</p>
-							</div>
-							<div class="col-md-4">
-								<p>
-									<b>Umbrella Corporation</b>
-								</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-3">
-								<p>
-									<b>Comments:</b>
-								</p>
-							</div>
-							<div class="col-md-8">
-								<input type="text" class="form-control">
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-3">
-								<p>
-									<b>Form name:</b>
-								</p>
-							</div>
-							<div class="col-md-4">
-								<p>
-									<b>Umbrella Corporation.pdf</b>
-								</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-3">
-								<p>
-									<b>PDF last updated:</b>
-								</p>
-							</div>
-							<div class="col-md-4">
-								<p>
-									<b>03/11/2014 03:27 PM</b>
-								</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-3">
-								<p>
-									<b>XML last updated:</b>
-								</p>
-							</div>
-							<div class="col-md-4">
-								<p>
-									<b>03/11/2014 03:27 PM</b>
-								</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-3">
-								<p>
-									<b>Subaward status code:</b>
-								</p>
-							</div>
-							<div class="col-md-4">
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-3">
-								<p>
-									<b>Namespace:</b>
-								</p>
-							</div>
-							<div class="col-md-4">
-							</div>
-						</div>
-						<hr>
-						<div class="row">
-							<div class="col-md-1">
-							</div>
-							<div class="col-md-2">
-								<p>
-									<b>Direct cost</b>
-								</p>
-							</div>
-							<div class="col-md-2">
-								<p>
-									<b>F&amp;A cost</b>
-								</p>
-							</div>
-							<div class="col-md-2">
-								<p>
-									<b>Cost sharing</b>
-								</p>
-							</div>
-							<div class="col-md-2">
-								<p>
-									<b>Total cost</b>
-								</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-1">
-								<p>
-									<b>1</b>
-								</p>
-							</div>
-							<div class="col-md-2">
-								<input type="text" class="form-control" placeholder="0.00">
-							</div>
-							<div class="col-md-2">
-								<input type="text" class="form-control" placeholder="0.00">
-							</div>
-							<div class="col-md-2">
-								<input type="text" class="form-control" placeholder="0.00">
-							</div>
-							<div class="col-md-2">
-								<p>
-									<b>0.00</b>
-								</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-1">
-								<p>
-									<b>2</b>
-								</p>
-							</div>
-							<div class="col-md-2">
-								<input type="text" class="form-control" placeholder="0.00">
-							</div>
-							<div class="col-md-2">
-								<input type="text" class="form-control" placeholder="0.00">
-							</div>
-							<div class="col-md-2">
-								<input type="text" class="form-control" placeholder="0.00">
-							</div>
-							<div class="col-md-2">
-								<p>
-									<b>0.00</b>
-								</p>
-							</div>
+				</header>
+				<div id="modular-f-a-4b" data-role="disclosureContent" data-open="true" class="uif-disclosureContent">
+					<div class="col-sm-5">
+						<label>Organization Name</label> 
+						<div class="input-group">
+							<input id="rate-4" class="form-control text-right" type="text" value="" name="rate-4" placeholder="search">
+							<span class="input-group-addon"> <button style="border:none;padding:0;" type="submit"><span  class="icon-search" style="padding:5px 0; background:#eee;"><span class="sr-only"search organizations</span></span></button></span> 
 						</div>
 					</div>
+					<div class="col-sm-5">
+						<label>Search for a PDF 
+						<input type="file" title="Search for a file to add" class="btn" style="margin-left:0;padding-left:0;">
+						</label> 
+					</div>
+					<div class="col-sm-2" style="border:1px dotted #fff;padding:20px 0 0;">
+						<a class="btn btn-default btn-xs pull-right" data-target="#modal-add-personnel1" data-toggle="modal" href="#"><span class="icon-plus" aria-hidden="true"></span>Add</a> 
+					</div>
+					
+					
+					
+								<div class="col-sm-12 clearfix" style="margin-top:-25px;padding-right:0;">
+												<label class="pull-left">Comments: </label> 
+											<textarea style="width:100%; height:55px;" class="form-control">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</textarea>
+											
+									
+									
+	
+</div>
+					
+				</div>
+		
+				
+				
+			</section>
+
+<!-- // -->
+<!-- -->
+			<section class="uif-disclosure uif-boxLayoutVerticalItem clearfix">
+				<header class="uif-sectionHeader">
+					<h3 class="uif-headerText">
+						<a data-role="disclosureLink" data-linkfor="modular-f-a-4b" href="#" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span class="icon-caret-down"></span> <span style="display:none;" class="icon-caret-right"></span>Existing Subaward Attachments</span></a> 
+					</h3>
+				</header>
+				<div id="modular-f-a-4b" data-role="disclosureContent" data-open="true" class="uif-disclosureContent">
+					<table class=" pad5 table table-condensed table-bordered">
+						<thead>
+							<tr>
+								<th class="col-sm-4">Organization Name</th>
+								<th class="col-sm-4">File Name</th>
+								<th class="col-sm-3">Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>General Atomics Company</td>
+								<td>uploaded-budget-1_33-v3.pdf</td>
+								<td> 
+								<div class="dropdown dropdown-large pull-right">
+									 <a href="#" class="btn btn-default btn-xs uif-delete" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a> <a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> 
+									<div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -759px;top: 26px;width: 858px;padding:15px; background:#fcf8e3;">
+										
+										
+										<div style="position:absolute;top:20px;right:-50px;width:400px;">
+										<a href="#" class="btn btn-default btn-xs">View PDF</a>
+										<a href="#" class="btn btn-default btn-xs">View XML</a>
+											<a href="#" class="btn btn-default btn-xs " >Sync from PDF</a>
+											<a href="" class="btn btn-default btn-xs">Replace</a>
+											<a href="#" class="btn btn-default btn-xs" >Delete</a>
+									
+									</div>
+										
+										
+										
+										
+										<p class="lead">
+											Attachment Details 
+										</p>
+										<hr>
+										<ul class="col-sm-12">
+											<li class="col-sm-6"><strong>Organization Name:</strong> General Atomics Company</li>
+											<li class="col-sm-6"><strong>Form Name:</strong> RR_Budget_1_3</li>
+											<li class="col-sm-6"><strong>File Name:</strong> uploaded-budget-1_33-v3.pdf</li>
+											<li class="col-sm-6"><strong>Attachments:</strong> dhk69731646fdas4f6469811</li>
+											<li class="col-sm-6"><strong>PDF Last Updated:</strong> 04/23/2014</li>
+											<li class="col-sm-6"><strong>XML Last Updated:</strong> 04/23/2014</li>
+											<li class="col-sm-6"><strong>Subaward Status Code:</strong> 1</li>
+											<li class="col-sm-6"><strong>Namespace:</strong> http://apply.grants.gov/forms/RR_Budget_1_#-v13</li>
+
+<!-- -->
+										</ul>	
+										<div class="col-sm-12" style="margin-left:7px;">
+											<label>Comments: 
+											<textarea style="width:100%; height:55px;" class="form-control">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</textarea>
+											</label> 
+									
+									
+								
+									<a class="btn btn-default btn-xs pull-right" style="margin:10px 0 ;" href="#">
+Edit Comments	
+</a>
+								
+									
+										<p class="col-sm-10 clearfix"><strong>Details</strong></p>
+											<table class=" pad5 table table-condensed table-bordered">
+												<thead>
+													<tr><th><!-- numbers --></th>
+														<th>Direct Cost</th>
+														<th>F&amp;A Cost</th>
+														<th>Cost Sharing</th>
+														<th>Total Cost</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr><td>1</td>
+														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
+														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
+														</label> </td>
+														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
+														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
+														</label> </td>
+														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
+														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
+														</label> </td>
+														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
+														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" readonly placeholder="0.00" />
+														</label> </td>
+													</tr>
+														<tr><td>2</td>
+														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
+														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
+														</label> </td>
+														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
+														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
+														</label> </td>
+														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
+														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
+														</label> </td>
+														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
+														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" readonly placeholder="0.00" />
+														</label> </td>
+													</tr>
+														<tr><td>3</td>
+														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
+														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
+														</label> </td>
+														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
+														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
+														</label> </td>
+														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
+														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
+														</label> </td>
+														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
+														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" readonly placeholder="0.00" />
+														</label> </td>
+													</tr>
+														<tr><td>4</td>
+														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
+														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
+														</label> </td>
+														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
+														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
+														</label> </td>
+														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
+														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
+														</label> </td>
+														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
+														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" readonly placeholder="0.00" />
+														</label> </td>
+													</tr>
+														<tr><td>5</td>
+														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
+														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
+														</label> </td>
+														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
+														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
+														</label> </td>
+														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
+														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
+														</label> </td>
+														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
+														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" readonly placeholder="0.00" />
+														</label> </td>
+													</tr>
+												
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+
+<!-- -->
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</section>
+<!-- // sections -->
 			</main> 
-		</div> 
-        
-        
-     
-        
-        
-        
-        
-<!-- VIEW FOOTER --> <div id="" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;"> <div class="global-actions"> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save </a> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Reload </a> <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Complete Budget </a> </div>
-            
-			<div class="global-navigate"><a href="budget-ng-non-personnel.php" id="ufuknm4" class="btn btn-default uif-primaryActionButton uif-boxLayoutHorizontalItem"><span class="icon-chevron-left"></span> Back</a> 
-            <a href="budget-ng-cost-sharing.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Continue <span class="icon-chevron-right"></span></a> </div>
+		</div>
+
+<!-- VIEW FOOTER -->
+		<div id="" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;">
+			<div class="global-actions">
+				<a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save </a> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Reload </a> <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Complete Budget </a> 
+			</div>
+			<div class="global-navigate">
+				<a href="budget-ng-non-personnel.php" id="ufuknm4" class="btn btn-default uif-primaryActionButton uif-boxLayoutHorizontalItem"><span class="icon-chevron-left"></span> Back</a> <a href="budget-ng-cost-sharing.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Continue <span class="icon-chevron-right"></span></a> 
+			</div>
 		</div>
 
 <!-- DIALOGS/Placeholders -->
@@ -294,7 +347,6 @@ $section = '';
 	<input type="hidden" name="view.singlePageView" value="true">
 	<input type="hidden" name="view.disableBrowserCache" value="true">
 	</span> 
-	
 </form>
 
 <?php include ('includes/footer-scripts.php') ?>
@@ -308,6 +360,8 @@ if ($currentPage == "generate=no") {
 ?>
 <!-- Note that screens such as cost-sharing, unrecovered F&A, and modular will display messages indicating that no data entry is required, if that is the case. -->
 <script>
+
+
 
 
 	(function($){
@@ -328,12 +382,12 @@ alert(" --Periods were not generated on the non personnel page --> Note that scr
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> 
 				<h4 class="modal-title" id="myModalLabel">
-					Summary
+					Summary 
 				</h4>
 			</div>
 			<div class="modal-body">
 				<p>
-					Here's a summary of your current budget.
+					Here's a summary of your current budget. 
 				</p>
 				<table class="table table-condensed credit-allocation">
 					<tbody>
