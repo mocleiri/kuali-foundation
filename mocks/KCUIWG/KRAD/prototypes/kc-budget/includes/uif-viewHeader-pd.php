@@ -100,7 +100,26 @@
             <li> <a id="uotglpi" class="uif-actionLink" tabindex="0" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;medusa&quot;}"><span class="icon-tasks"></span>Medusa</a> </li>
             <li> <a id="uotglqd" class="uif-actionLink" tabindex="0" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;showHierarchy&quot;}"><span class="icon-list-ol"></span>Hierarchy</a> </li>
             <li> <a id="uotglr8" class="uif-actionLink" tabindex="0" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;access&quot;}"><span class="icon-lock"></span>Access</a> </li>
-			  <li><a  class="uif-actionLink" data-toggle="modal" data-target="#modal-budget-versions"><span class="icon-money"></span>Budget Versions</a>
+			  <li><a  class="uif-actionLink" data-toggle="modal" data-target="#modal-budget-versions"><span class="icon-money"></span>Budget Versions</a></li>
+			                   <li id="page-help"> <a  class="dropdown-toggle" data-toggle="dropdown"><span class="icon-question-sign"><span class="sr-only">help</span></span><span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                           
+<li><a href="https://testdrive.kc.kuali.org/kc-ptd/static/help/default.htm?turl=Documents/requiredfieldsforsavingdocument.htm">Periods &amp; Totals</a></li>
+<li><a href="https://testdrive.kc.kuali.org/kc-ptd/static/help/default.htm?turl=Documents/requiredfieldsforsavingdocument.htm">Rates</a></li>
+<li><a href="https://testdrive.kc.kuali.org/kc-ptd/static/help/default.htm?turl=Documents/requiredfieldsforsavingdocument.htm">Personnel Cost</a></li>
+<li><a href="https://testdrive.kc.kuali.org/kc-ptd/static/help/default.htm?turl=Documents/requiredfieldsforsavingdocument.htm">Non-Personnel</a></li>
+<li><a href="https://testdrive.kc.kuali.org/kc-ptd/static/help/default.htm?turl=Documents/requiredfieldsforsavingdocument.htm">Institutional Commitments</a></li>
+<li><a href="https://testdrive.kc.kuali.org/kc-ptd/static/help/default.htm?turl=Documents/requiredfieldsforsavingdocument.htm">Project Income</a></li>
+<li><a href="https://testdrive.kc.kuali.org/kc-ptd/static/help/default.htm?turl=Documents/requiredfieldsforsavingdocument.htm">Modular</a></li>
+<li><a href="https://testdrive.kc.kuali.org/kc-ptd/static/help/default.htm?turl=Documents/requiredfieldsforsavingdocument.htm">Budget Notes</a></li>
+<li><a href="https://testdrive.kc.kuali.org/kc-ptd/static/help/default.htm?turl=Documents/requiredfieldsforsavingdocument.htm">Summary</a></li>
+<li><a href="https://testdrive.kc.kuali.org/kc-ptd/static/help/default.htm?turl=Documents/requiredfieldsforsavingdocument.htm">Glossary of Terms</a></li>
+                           
+                           
+                           
+                           
+                        </ul>
+                        </l
         </ul>
     </div>
 </header>
