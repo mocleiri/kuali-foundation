@@ -127,6 +127,12 @@ $section = '';
                                             <option>Fabricated Equipment</option>
                                             <option>Reactor User</option>
                                         </select>
+                                        <!--
+                                        <span class="input-group-btn">
+                                        <a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-sponsor-startpage.php" data-modal-height="500"></a>
+                                        </span>
+                                        <span class="icon-book">  
+                                        -->
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -160,35 +166,25 @@ $section = '';
                                 <h3 class="uif-headerText"><a data-role="disclosureLink" data-linkfor="facSalTena1" href="#" id="a1_toggle" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="a1_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="a1_toggle_col" class="icon-caret-right"></span>Equipment</span></a></h3>
                             </header>
                             <div id="facSalTena1" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style="">
-                                
+                                <p class=""><a href="#" class="uif-actionLink"  data-toggle="modal" data-target="#details">Details &amp; Rates</a></p>
                                 <table class="table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby="Demo-LightTableGroup1_lightTable_info">
                                     <thead>
                                         <tr role="row">
                                             <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label=""><label id="urh9zx8" class="uif-label">Item</label></th>
                                             <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">Start</th>
                                             <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">End</th>
-                                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">Quantity</th>
-                                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">On/Off Campus?</th>
-                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">Unrecovered F&amp;A</th>
+                                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">Quantity</th>                                            
                                             <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">Total Base Cost</th>
-                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">Apply Inflation?</th>
-                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">Cost Sharing</th>
-                                            <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="">Submit Cost Sharing?</th>
                                             <th class="" style="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" aria-label="">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody role="alert" aria-live="polite" aria-relevant="all">
                                         <tr>
-                                            <td><span data-edit-type="select" data-edit-type-options="Equipment,Equipment Rental">Microscope</span></td>
+                                            <td>Microscope</td>
                                             <td>01/01/14</td>
                                             <td>12/31/14</td>
                                             <td>1</td>
-                                            <td><input type="checkbox"></td>
                                             <td class="text-right">$0.00</td>
-                                            <td class="text-right">$0.00</td>
-                                            <td><input type="checkbox"></td>
-                                            <td class="text-right">$0.00</td>
-                                            <td><input type="checkbox"></td>
                                             <td>
 <!--                                                <div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span><span aria-hidden="true" class="icon-trash"></span></a></div></td>-->
                                                 <a class="icon icon-edit uif-edit-btn" href="#"><span class="sr-only">Edit</span></a>
@@ -226,33 +222,51 @@ $section = '';
                         <h4>Assign  Non-personnel</h4>
                         <div class="well " style="margin-top:15px;">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="label">Object Code Name</label>
-                                        <select name="select" class="form-control">
+                                        <label for="">Category</label>
+                                        <select class="form-control">
                                             <option value="">select</option>
-                                            <option>Equipment - Not MTDC</option>
-                                            <option>Equipment Rental - Not MTDC</option>
-                                            <option>Travel Expenses</option>
+                                            <option>Equipment</option>
+                                            <option>Travel</option>
+                                            <option>Participant Support</option>
+                                            <option>Other</option>
                                         </select>
-                                        <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>-->
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="label">Description</label>
+                                        <label for="">Object Code Name</label>
+                                        <select class="form-control">
+                                            <option value="">select</option>
+                                            <option>Equipment</option>
+                                            <option>Equipment Rental</option>
+                                            <option>Fabricated Equipment</option>
+                                            <option>Reactor User</option>
+                                        </select>
+                                        <!--
+                                        <span class="input-group-btn">
+                                        <a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-sponsor-startpage.php" data-modal-height="500"></a>
+                                        </span>
+                                        <span class="icon-book">  
+                                        -->
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="">Description</label>
                                         <input type="text" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="label">Quantity</label>
+                                        <label for="">Quantity</label>
                                         <input type="text" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="label">Total Base Cost</label>
+                                        <label for="">Total Base Cost</label>
                                         <input type="text" class="form-control" placeholder="0.00">
                                     </div>
                                 </div>
@@ -267,33 +281,51 @@ $section = '';
                         <h4>Assign  Non-personnel</h4>
                         <div class="well " style="margin-top:15px;">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="label">Object Code Name</label>
-                                        <select name="select2" class="form-control">
+                                        <label for="">Category</label>
+                                        <select class="form-control">
                                             <option value="">select</option>
-                                            <option>Equipment - Not MTDC</option>
-                                            <option>Equipment Rental - Not MTDC</option>
-                                            <option>Travel Expenses</option>
+                                            <option>Equipment</option>
+                                            <option>Travel</option>
+                                            <option>Participant Support</option>
+                                            <option>Other</option>
                                         </select>
-                                        <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>-->
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="label">Description</label>
+                                        <label for="">Object Code Name</label>
+                                        <select class="form-control">
+                                            <option value="">select</option>
+                                            <option>Equipment</option>
+                                            <option>Equipment Rental</option>
+                                            <option>Fabricated Equipment</option>
+                                            <option>Reactor User</option>
+                                        </select>
+                                        <!--
+                                        <span class="input-group-btn">
+                                        <a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-sponsor-startpage.php" data-modal-height="500"></a>
+                                        </span>
+                                        <span class="icon-book">  
+                                        -->
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="">Description</label>
                                         <input type="text" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="label">Quantity</label>
+                                        <label for="">Quantity</label>
                                         <input type="text" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="label">Total Base Cost</label>
+                                        <label for="">Total Base Cost</label>
                                         <input type="text" class="form-control" placeholder="0.00">
                                     </div>
                                 </div>
@@ -308,33 +340,51 @@ $section = '';
                         <h4>Assign  Non-personnel</h4>
                         <div class="well " style="margin-top:15px;">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="label">Object Code Name</label>
-                                        <select name="select3" class="form-control">
+                                        <label for="">Category</label>
+                                        <select class="form-control">
                                             <option value="">select</option>
-                                            <option>Equipment - Not MTDC</option>
-                                            <option>Equipment Rental - Not MTDC</option>
-                                            <option>Travel Expenses</option>
+                                            <option>Equipment</option>
+                                            <option>Travel</option>
+                                            <option>Participant Support</option>
+                                            <option>Other</option>
                                         </select>
-                                        <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>-->
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="label">Description</label>
+                                        <label for="">Object Code Name</label>
+                                        <select class="form-control">
+                                            <option value="">select</option>
+                                            <option>Equipment</option>
+                                            <option>Equipment Rental</option>
+                                            <option>Fabricated Equipment</option>
+                                            <option>Reactor User</option>
+                                        </select>
+                                        <!--
+                                        <span class="input-group-btn">
+                                        <a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-sponsor-startpage.php" data-modal-height="500"></a>
+                                        </span>
+                                        <span class="icon-book">  
+                                        -->
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="">Description</label>
                                         <input type="text" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="label">Quantity</label>
+                                        <label for="">Quantity</label>
                                         <input type="text" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="label">Total Base Cost</label>
+                                        <label for="">Total Base Cost</label>
                                         <input type="text" class="form-control" placeholder="0.00">
                                     </div>
                                 </div>
@@ -349,33 +399,51 @@ $section = '';
                         <h4>Assign  Non-personnel</h4>
                         <div class="well " style="margin-top:15px;">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="label">Object Code Name</label>
-                                        <select name="select4" class="form-control">
+                                        <label for="">Category</label>
+                                        <select class="form-control">
                                             <option value="">select</option>
-                                            <option>Equipment - Not MTDC</option>
-                                            <option>Equipment Rental - Not MTDC</option>
-                                            <option>Travel Expenses</option>
+                                            <option>Equipment</option>
+                                            <option>Travel</option>
+                                            <option>Participant Support</option>
+                                            <option>Other</option>
                                         </select>
-                                        <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>-->
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="label">Description</label>
+                                        <label for="">Object Code Name</label>
+                                        <select class="form-control">
+                                            <option value="">select</option>
+                                            <option>Equipment</option>
+                                            <option>Equipment Rental</option>
+                                            <option>Fabricated Equipment</option>
+                                            <option>Reactor User</option>
+                                        </select>
+                                        <!--
+                                        <span class="input-group-btn">
+                                        <a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-sponsor-startpage.php" data-modal-height="500"></a>
+                                        </span>
+                                        <span class="icon-book">  
+                                        -->
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="">Description</label>
                                         <input type="text" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="label">Quantity</label>
+                                        <label for="">Quantity</label>
                                         <input type="text" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="label">Total Base Cost</label>
+                                        <label for="">Total Base Cost</label>
                                         <input type="text" class="form-control" placeholder="0.00">
                                     </div>
                                 </div>
@@ -384,7 +452,7 @@ $section = '';
                                 <div class="col-md-12 text-right"><a href="#" type="submit" class="btn btn-primary btn-xs">Assign to Period 5</a></div>
                             </div>
                         </div>
-                    </div>
+                    </div>   
                 </div>
             </main>
         </div> 
@@ -459,6 +527,142 @@ return false;
 
 <!-- MODAL  budget open propsal -->
 <?php include ('includes/modal-budget-open-prop.php') ?>
+
+<!-- Modal -->
+    <div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">Details &amp; Rates</h4>
+                </div>
+            <div class="modal-body">
+                    <ul id="rateDetails" class="nav nav-tabs" data-tabs="tabs">
+                    <li class="active"><a href="#general" data-toggle="tab">General</a></li>
+                    <li><a href="#rates" data-toggle="tab">Rates</a></li>
+                </ul>
+                    <div id="my-tab-content" class="tab-content">
+                    <div class="tab-pane active" id="general">
+                            <h4>Details</h4>
+                            <div class="form-horizontal uif-cssGridGroup" role="form">
+                            <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">Budget Category</label>
+                                    <div class="col-sm-9">
+                                    <select class="form-control">
+                                            <option value="1">Senior Personnel</option>
+                                            <option value="2">Trainee/Participant Costs - Other</option>
+                                            <option value="3">Materials </option>
+                                            <option value="4">Human Subjects</option>
+                                            <option value="5">Vertebrate Animals</option>
+                                            <option value="6">Publication Costs/Documentation/Dissemenation</option>
+                                            <option value="7">Travel - Domestic</option>
+                                            <option value="8">Alteration and Renovations</option>
+                                            <option value="9">Inpatient Care Costs</option>
+                                            <option value="10">Duplicating</option>
+                                            <option value="11">Postage</option>
+                                            <option value="12">Telephone, Fax</option>
+                                            <option value="13" selected="selected">Equipment Rental</option>
+                                            <option value="14">Service Agreement(s)</option>
+                                            <option value="15">Communications/Marketing</option>
+                                            <option value="16">Software</option>
+                                            <option value="17">Computer Time</option>
+                                            <option value="18">Meeting Costs</option>
+                                            <option value="19">Other Operating Expenses</option>
+                                            <option value="20">Equipment</option>
+                                            <option value="21">Professional Services/Consultant</option>
+                                            <option value="22">Subcontracts</option>
+                                            <option value="23">Travel - Foreign</option>
+                                            <option value="25">Postdoctoral</option>
+                                            <option value="26">Other Professionals</option>
+                                            <option value="27">Graduate Students</option>
+                                            <option value="28">Undergraduate Students</option>
+                                            <option value="29">Project Support Staff</option>
+                                            <option value="30">Other Personnel</option>
+                                            <option value="31">Trainee/Participant Costs - Travel</option>
+                                            <option value="32">Trainee/Participant Costs - Stipends</option>
+                                            <option value="33">Outpatient costs</option>
+                                            <option value="34">Calculated Costs</option>
+                                            <option value="35">Trainee/Participant Costs - Tuition</option>
+                                            <option value="36">Trainee/Participant Costs - Subsistence</option>
+                                            <option value="37">Proposal Hierarchy Sub-Projects</option>
+                                        </select>
+                                </div>
+                                </div>
+                            <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">Unrecovered F&amp;A</label>
+                                    <div class="col-sm-9">
+                                    <p class="form-control-static">0.00</p>
+                                </div>
+                                </div>
+                            <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">Cost Sharing</label>
+                                    <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="" placeholder="$0.00">
+                                </div>
+                                </div>
+                            <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">Justification</label>
+                                    <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="" placeholder="">
+                                </div>
+                                </div>
+                            <div class="form-group">
+                                    <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="checkbox">
+                                            <label>
+                                            <input type="checkbox">
+                                            Apply Inflation </label>
+                                        </div>
+                                </div>
+                                </div>
+                            <div class="form-group">
+                                    <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="checkbox">
+                                            <label>
+                                            <input type="checkbox">
+                                            Submit Cost Sharing </label>
+                                        </div>
+                                </div>
+                                </div>
+                            <div class="form-group">
+                                    <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="checkbox">
+                                            <label>
+                                            <input type="checkbox">
+                                            On Campus </label>
+                                        </div>
+                                </div>
+                                </div>
+                        </div>
+                        </div>
+                    <div class="tab-pane" id="rates">
+                            <h4>Rates</h4>
+                            <table class="table table-condensed">
+                            <tbody>
+                                    <tr>
+                                    <th > Class </th>
+                                    <th > Type </th>
+                                    <th > Rate Cost </th>
+                                    <th > Rate Cost Sharing </th>
+                                    <th > Apply Rate? </th>
+                                </tr>
+                                    
+                                </tbody>
+                        </table>
+                        </div>
+                </div>
+                    <script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $('#rateDetails').tab();
+    });
+</script></div>
+            <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Apply to Later Periods</button>
+                </div>
+        </div>
+        </div>
+</div>
+    <!-- end Modal -->
 
 <!--
 <div class="modal fade in" id="applyRates" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display:;">
