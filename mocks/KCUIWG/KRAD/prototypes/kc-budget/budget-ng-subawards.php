@@ -110,13 +110,14 @@ $section = '';
 				<button class="btn btn-default btn-starter launch-modal" data-modal-page="modal/modal-attachments/attachments.proposal.add.php">Attach subawardee budget</button> 
 			</div>
 			<br>
+			<!-- remove 
 			<section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example1">
 				<header id="u1l3ufy3" class="uif-sectionHeader" data-header_for="u1qq592w">
 					<h3 class="uif-headerText">
 						<a data-role="disclosureLink" data-linkfor="umbrella" href="#" id="u1qq592w_toggle" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Umbrella Corporation.pdf</span></a>
 					</h3>
-				</header>
-				<div id="umbrella" data-role="disclosureContent" data-open="true" class="uif-disclosureContent">
+				</header> -->
+				<div id="umbrella">
 					<div class="uif-cssGridGroup uif-boxLayoutVerticalItem clearfix">
 						<div class="row">
 							<div class="col-md-3">
