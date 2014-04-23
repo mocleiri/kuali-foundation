@@ -146,7 +146,15 @@ $section = '';
                     </tr>
 
                 </table>
-            </div>    <!--//summary  -->
+                
+                  </div>
+                <div class="pull-right">
+
+<button class="btn btn-default btn-xs">Recalculate</button>
+</div>
+                
+                
+              <!--//summary  -->
   
 </main>
 </div> 
