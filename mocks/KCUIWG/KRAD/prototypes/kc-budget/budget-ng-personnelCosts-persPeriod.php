@@ -182,7 +182,7 @@ $page = 'personnel-assign';
                             </div>
                         </div>
                         <h4 class="pull-left" >Assigned Personnel</h4>
-                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default"  data-toggle="" data-target="">Expand All Panels</a> <a href="#" class="btn btn-xs btn-default"  data-toggle="modal" data-target="#applyRates">Copy Personnel to All Periods...</a></div>
+                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default"  data-toggle="" data-target="">Expand All Panels</a></div>
                         <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example1">
                             <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for="u1qq592w">
                                 <h3 class="uif-headerText"><a data-role="disclosureLink" data-linkfor="facSalTen" href="#" id="u1qq592w_toggle" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Faculty Salaries - Tenured</span></a></h3>
@@ -1004,7 +1004,7 @@ return false;
     <!-- MODAL -- Apply Rates  -->
     
     
-    
+    <!--
     
     <div class="modal fade in" id="applyRates" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display:;">
     <div class="modal-dialog">
@@ -1019,6 +1019,9 @@ return false;
             <div class="modal-footer"> <a href="" class="btn btn-default" data-dismiss="modal">Cancel</a> <a href="prop-basics-details.php" class="btn btn-primary">Yes, Apply to All Periods</a> </div>
         </div>
     </div>
+
+    -->
+
 </div>
 
 
