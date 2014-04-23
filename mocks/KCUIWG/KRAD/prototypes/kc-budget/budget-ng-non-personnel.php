@@ -127,12 +127,12 @@ $section = '';
                                             <option>Fabricated Equipment</option>
                                             <option>Reactor User</option>
                                         </select>
-                                        <!--
+
                                         <span class="input-group-btn">
                                         <a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-sponsor-startpage.php" data-modal-height="500"></a>
                                         </span>
-                                        <span class="icon-book">  
-                                        -->
+                                        <span class="icon-book">
+
                                     </div>
                                 </div>
                                 <div class="col-md-2">

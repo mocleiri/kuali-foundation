@@ -1,10 +1,4 @@
 <!-- Modal -->
-<style>
-#modal-budget-versions .modal-dialog
-{
-  width: 720px;/* increased width for new table cells*/
-}
-</style>
 <div class="modal fade" id="modal-budget-versions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -17,8 +11,8 @@
                    <!-- BUDGET VERSIONS -->
 
                    <a href="" data-toggle="modal" data-dismiss="modal" data-target="#createNew" class="btn btn-primary btn-xs pull-right"> Create New</a><br /><br />
-                   
-                   
+
+
                     <table id="u569ish_line0" class="table table-condensed table-bordered" role="presentation">
                         <tbody>
                             <tr>
@@ -47,7 +41,7 @@
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="#summary"><span aria-hidden="true" class="icon-eye-open"></span> View Summary</a> </li>
                                             <li><a href=""  data-toggle="modal" data-target="#copyNew" class=""><span aria-hidden="true" class="icon-copy"></span> Copy</a></li>
-                                            <li><a href="#"><span aria-hidden="true" class="icon-print"></span> Print</a></li>
+                                            <li><a href="#" data-toggle="modal" data-target="#printModal"><span aria-hidden="true" class="icon-print"></span> Print</a></li>
                                             <li class="divider"></li>
                                             <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>
                                         </ul>
@@ -75,7 +69,7 @@
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="#summary"><span aria-hidden="true" class="icon-eye-open"></span> View Summary</a> </li>
                                             <li><a href=""  data-toggle="modal" data-target="#copyNew" class=""><span aria-hidden="true" class="icon-copy"></span> Copy</a></li>
-                                            <li><a href="#"><span aria-hidden="true" class="icon-print"></span> Print</a></li>
+                                            <li><a href="#" data-toggle="modal" data-target="#printModal"><span aria-hidden="true" class="icon-print"></span> Print</a></li>
                                             <li class="divider"></li>
                                             <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>
                                         </ul>
@@ -103,7 +97,7 @@
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="#summary"><span aria-hidden="true" class="icon-eye-open"></span> View Summary</a> </li>
                                             <li><a href=""  data-toggle="modal" data-target="#copyNew" class=""><span aria-hidden="true" class="icon-copy"></span> Copy</a></li>
-                                            <li><a href="#"><span aria-hidden="true" class="icon-print"></span> Print</a></li>
+                                            <li><a href="#" data-toggle="modal" data-target="#printModal"><span aria-hidden="true" class="icon-print"></span> Print</a></li>
                                             <li class="divider"></li>
                                             <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>
                                         </ul>
@@ -131,7 +125,7 @@
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a id="uotglr8" class="uif-actionLink" data-toggle="modal" data-target="#summary"><span aria-hidden="true" class="icon-eye-open"></span> View Summary</a> </li>
                                             <li><a href=""  data-toggle="modal" data-target="#copyNew" class=""><span aria-hidden="true" class="icon-copy"></span> Copy</a></li>
-                                            <li><a href="#"><span aria-hidden="true" class="icon-print"></span> Print</a></li>
+                                            <li><a href="#" data-toggle="modal" data-target="#printModal"><span aria-hidden="true" class="icon-print"></span> Print</a></li>
                                             <li class="divider"></li>
                                             <li><a href="#"><span aria-hidden="true" class="icon-ok"></span> Submit with Proposal</a></li>
                                         </ul>
@@ -164,8 +158,12 @@
         });
        $("#u569ish_line0 td").removeClass("showMe");
        $(".success").find('td').next().addClass("showMe");
+    });
 
-
+    $('input[type="checkbox"]').on('click', 'printModal', function() {
+        alert('asdf');
+        var num_selected = $('#printModal').find('input[type="checkbox"]:checked');
+        $('#printModal #count').text(num_selected);
     });
 }(jQuery))
 </script> 
@@ -197,25 +195,61 @@
         </div>
     </div>
 </div>
-<!-- end Modal --> 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="printModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="printModalTitle">Print budget documents</h4>
+            </div>
+            <div class="modal-body">
+                <p>Select the documents below you wish to print:</p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width: 20px"></th>
+                            <th>Document</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox" id="d001" value="1"></td>
+                            <td><label for="d001">Document name here</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" id="d002" value="1"></td>
+                            <td><label for="d002">Document name here</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" id="d003" value="1"></td>
+                            <td><label for="d003">Document name here</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" id="d004" value="1"></td>
+                            <td><label for="d004">Document name here</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" id="d005" value="1"></td>
+                            <td><label for="d005">Document name here</label></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2">
+                                <strong><span id="count">0</span> documents selected</strong>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-link" data-dismiss="modal">Cancel</a>
+                <a href="#" class="btn btn-primary">Print selected documents</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end Modal -->
