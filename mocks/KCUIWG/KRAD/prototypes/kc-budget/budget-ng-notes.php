@@ -94,27 +94,26 @@ $section = '';
                         <h2 class="uif-headerText"><span class="uif-headerText-span">Budget Notes</span></h2>
                     </div>
                 </header>
-             <section>
-                
-                        <div class="row">
-                          
+                <section>              
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>This area contains a consolidated list of justification notes that have been added to items in your budget. The last user to add a justification
+                                is listed above the text box. To bring in the latest updates, click <strong>Consolidate Expense Justifications</strong>.</p>
+                        </div> 
+                    </div>
+                    <div class="row">                        
+                        <div class="col-md-12 clearfix">
+                            <div class="col-md-3 pull-right text-right"><strong>Last updated:</strong> 01/22/2014</div>                   
+                            <div class="col-md-3 pull-right text-right"><strong>Updated by:</strong>  mdiaz  </div>
+                            <label for="budget-notes-area" class=""><strong>Notes</strong></label><br>
+                                <textarea id="budget-notes-area"  class="form-control input">This microscope is essential to performing the research.</textarea> 
                         </div>
-                        <div class="row">
-                          
-                            <div class="col-md-12 clearfix">
-                              <div class="col-md-3 pull-right text-right"><strong>Last updated:</strong> 01/22/2014</div>
-                      
-                            <div class="col-md-3 pull-right text-right"><strong>Updated by:</strong>  quickstart  </div>
-                           
-                             <label for="budget-notes-area" class=""><strong>Notes</strong></label><br><textarea id="budget-notes-area"  class="form-control input">Praesent laoreet dui nec arcu rhoncus pellentesque. Pellentesque quam nulla, congue in velit et, varius blandit risus. Integer pretium velit velit, et ultrices quam rhoncus sed. Praesent pretium velit a egestas bibendum. Fusce commodo justo quis lacus sollicitudin varius. In in ipsum ut justo tristique tincidunt id quis quam. Vivamus mattis tempus urna a ornare. Vestibulum lectus velit, dapibus quis mauris a, porta luctus ante. In hac habitasse platea dictumst.
-                           </textarea> </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-default btn-xs pull-right">Consolidate Expense Justifications</button>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button class="btn btn-default btn-xs pull-right">Consolidate expense justifications</button>
-                            </div>
-                        </div>
-               
+                    </div>               
                 </section>
             </main>
         </div> 
