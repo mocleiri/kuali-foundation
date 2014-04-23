@@ -1,4 +1,10 @@
 <!-- Modal -->
+<style>
+#modal-budget-versions .modal-dialog
+{
+  width: 720px;/* increased width for new table cells*/
+}
+</style>
 <div class="modal fade" id="modal-budget-versions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
