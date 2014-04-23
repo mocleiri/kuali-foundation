@@ -13,8 +13,8 @@
                 <p id="u4ch8dm" class="uif-message"> 1/25/14 </p>
             </div>
             <div id="u1f206jn" class="uif-messageField uif-boxLayoutVerticalItem clearfix" data-label="Doc Nbr">
-                <label id="uj8x9wj" for="uauh5yk_span" class="uif-label" data-label_for="u1f206jn"> Parent Proposal: </label>
-                <p id="uauh5yk" class="uif-message"><a id="uotglr8" class="uif-actionLink"  data-toggle="modal" data-target="#switchdoc">Return to Proposal </a>#23533</p>
+                <label id="uj8x9wj" for="uauh5yk_span" class="uif-label" data-label_for="u1f206jn"> <a id="uotglr8" class="uif-actionLink"  data-toggle="modal" data-target="#switchdoc">Return to Proposal</a> </label>
+                <p id="uauh5yk" class="uif-message"> #23533</p>
             </div>
             <div id="LabsProposal-MoreDocInfo" class="dropdown uif-boxLayoutVerticalItem clearfix"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> more info... </a>
                 <section id="uhlixhs" class="dropdown-menu uif-gridGroup">
