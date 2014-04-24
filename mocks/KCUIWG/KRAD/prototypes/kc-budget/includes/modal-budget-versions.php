@@ -18,7 +18,13 @@
                             <tr>
                                 <th style="width:20px">&nbsp;</th>
                                 <th>Name</th>
-                                <th colspan="7">Details</th>
+                                <th>Direct Cost</th>
+                                <th>F&amp;A</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Last updated</th>
+                                <th>Updated by</th>
+                                <th></th>
                             </tr>
                             <tr>
                                 <td scope="row" valign="middle">
@@ -29,12 +35,12 @@
                                     <a href="" data-toggle="modal" data-target="#switchdoc"  class="versions">Version 1</a> <small>(for submission)</small><br>
                                     KC-00001
                                 </td>
-                                <td><label for="v1_directcost">Direct Cost</label>22,835.00</td>
-                                <td><label for="v1_fa">F&amp;A</label>6,170.00</td>
-                                <td><label for="v1_total">Total</label>29,005.00</td>
-                                <td><label for="v1_status">Status</label>Complete</td>
-                                <td><label for="v1_updateddate">Last updated</label>Apr 10, 2014 9:11 AM</td>
-                                <td><label for="v1_udpatedby">Updated by</label>quickstart</td>
+                                <td><label for="v1_directcost" class="sr-only">Direct Cost</label>22,835.00</td>
+                                <td><label for="v1_fa" class="sr-only">F&amp;A</label>6,170.00</td>
+                                <td><label for="v1_total" class="sr-only">Total</label>29,005.00</td>
+                                <td><label for="v1_status" class="sr-only">Status</label>Complete</td>
+                                <td><label for="v1_updateddate" class="sr-only">Last updated</label>Apr 10, 2014 9:11 AM</td>
+                                <td><label for="v1_udpatedby" class="sr-only">Updated by</label>quickstart</td>
                                 <td valign="middle">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Action <span class="caret"></span> </button>
@@ -57,12 +63,12 @@
                                     <a href="" data-toggle="modal" data-target="#switchdoc"  class="versions">Version 2</a> <small>(for submission)</small><br>
                                     KC-00002
                                 </td>
-                                <td><label for="v2_directcost">Direct Cost</label>22,835.00</td>
-                                <td><label for="v2_fa">F&amp;A</label>6,170.00</td>
-                                <td><label for="v2_total">Total</label>29,005.00</td>
-                                <td><label for="v2_status">Status</label>Complete</td>
-                                <td><label for="v1_updateddate">Last updated</label>Apr 10, 2014 9:11 AM</td>
-                                <td><label for="v1_udpatedby">Updated by</label>quickstart</td>
+                                <td><label for="v2_directcost" class="sr-only">Direct Cost</label>22,835.00</td>
+                                <td><label for="v2_fa" class="sr-only">F&amp;A</label>6,170.00</td>
+                                <td><label for="v2_total" class="sr-only">Total</label>29,005.00</td>
+                                <td><label for="v2_status" class="sr-only">Status</label>Complete</td>
+                                <td><label for="v1_updateddate" class="sr-only">Last updated</label>Apr 10, 2014 9:11 AM</td>
+                                <td><label for="v1_udpatedby" class="sr-only">Updated by</label>quickstart</td>
                                 <td valign="middle">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Action <span class="caret"></span> </button>
@@ -85,12 +91,12 @@
                                     <a href="" data-toggle="modal" data-target="#switchdoc"  class="versions">Version 3</a> <small>(for submission)</small><br>
                                     KC-00003
                                 </td>
-                                <td><label for="v3_directcost">Direct Cost</label>22,835.00</td>
-                                <td><label for="v3_fa">F&amp;A</label>6,170.00</td>
-                                <td><label for="v3_total">Total</label>29,005.00</td>
-                                <td><label for="v3_status">Status</label>Complete</td>
-                                <td><label for="v1_updateddate">Last updated</label>Apr 10, 2014 9:11 AM</td>
-                                <td><label for="v1_udpatedby">Updated by</label>quickstart</td>
+                                <td><label for="v3_directcost" class="sr-only">Direct Cost</label>22,835.00</td>
+                                <td><label for="v3_fa" class="sr-only">F&amp;A</label>6,170.00</td>
+                                <td><label for="v3_total" class="sr-only">Total</label>29,005.00</td>
+                                <td><label for="v3_status" class="sr-only">Status</label>Complete</td>
+                                <td><label for="v1_updateddate" class="sr-only">Last updated</label>Apr 10, 2014 9:11 AM</td>
+                                <td><label for="v1_udpatedby" class="sr-only">Updated by</label>quickstart</td>
                                 <td valign="middle">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Action <span class="caret"></span> </button>
@@ -113,12 +119,12 @@
                                     <a href="" data-toggle="modal" data-target="#switchdoc"  class="versions">Version 4</a> <small>(for submission)</small><br>
                                     KC-00004
                                 </td>
-                                <td><label for="v4_directcost">Direct Cost</label>22,835.00</td>
-                                <td><label for="v4_fa">F&amp;A</label>6,170.00</td>
-                                <td><label for="v4_total">Total</label>29,005.00</td>
-                                <td><label for="v4_status">Status</label>Complete</td>
-                                <td><label for="v1_updateddate">Last updated</label>Apr 10, 2014 9:11 AM</td>
-                                <td><label for="v1_udpatedby">Updated by</label>quickstart</td>
+                                <td><label for="v4_directcost" class="sr-only">Direct Cost</label>22,835.00</td>
+                                <td><label for="v4_fa" class="sr-only">F&amp;A</label>6,170.00</td>
+                                <td><label for="v4_total" class="sr-only">Total</label>29,005.00</td>
+                                <td><label for="v4_status" class="sr-only">Status</label>Complete</td>
+                                <td><label for="v1_updateddate" class="sr-only">Last updated</label>Apr 10, 2014 9:11 AM</td>
+                                <td><label for="v1_udpatedby" class="sr-only">Updated by</label>quickstart</td>
                                 <td valign="middle">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Action <span class="caret"></span> </button>
