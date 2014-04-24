@@ -39,3 +39,5 @@ Thursday
 --------
 
 - Responded to Skype chat question about Rice jobs appearing to hang on ci.rice
+- Fixed issue with KS AFT's where single quotes vs double quotes prevented FIREFOX_PATH from getting substituted correctly
+- Built template job for KS AFT's
