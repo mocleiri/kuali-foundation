@@ -41,3 +41,10 @@ Thursday
 - Responded to Skype chat question about Rice jobs appearing to hang on ci.rice
 - Fixed issue with KS AFT's where single quotes vs double quotes prevented FIREFOX_PATH from getting substituted correctly
 - Built template job for KS AFT's
+
+Rice
+- While troubleshooting an "environment issue" tracked things back to a Java source file that had been deleted during a merge.
+- There needs to be a baseline set of Subversion skills people need if they are going to be taking these kind of actions on the Rice code base.
+- There is no reason for it.  The tooling (when used correctly) will protect Rice from this kind of issue 100% of the time without exception.
+
+ 
