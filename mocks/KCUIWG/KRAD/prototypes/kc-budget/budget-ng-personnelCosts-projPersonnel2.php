@@ -169,16 +169,17 @@ $page = 'personnel-costs';
             <?php include ('includes/uif-navigation-budget.php') ?>
             <div id="Uif-BreadcrumbUpdate" style="display:;"></div>
             <main id="LabsProposal-Page" class="uif-page uif-hasLeftNav" data-server_messages="false" data-role="Page" data-parent="LabsProposal" style="margin-left: 235px;">
-                <header class="clearfix uif-header-contentWrapper">
+				<header class="clearfix uif-header-contentWrapper">
                     <div id="u148pgf0" class="uif-pageHeader clearfix" data-header_for="LabsProposal-Page">
-                       <h2 class="uif-headerText"><span class="uif-headerText-span">Project Personnel </span>
-                        
-                        <a href="#" class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#modal-add-personnel1"><span aria-hidden="true" class="icon-plus"></span> Add People</a> 
-                        
-                        </h2>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h2 class="uif-headerText"> <span class="uif-headerText-span"> Project Personnel </span> </h2>
+                            </div>
+                            <div class="col-md-6 uif-pagetools"> <a href="#" class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#modal-add-personnel1"><span aria-hidden="true" class="icon-plus"></span> Add People</a> </div>
+                        </div>
                     </div>
                 </header>
-                <p id="u1iaxrzf" class="uif-message uif-boxLayoutVerticalItem clearfix">Personnel added to the proposal are shown below. Review, configure, and add additional personnel to the budget.</p>
+<p id="u1iaxrzf" class="uif-message uif-boxLayoutVerticalItem clearfix">Personnel added to the proposal are shown below. Review, configure, and add additional personnel to the budget.</p>
                 <br>
 
                 <!-- User feedback messaging -->
@@ -213,76 +214,197 @@ $page = 'personnel-costs';
                             <td>12 month</td>
                             <td class="text-right">$247,457</td>
                             <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
-                                    <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -808px;top: 26px;width: 890px;padding:15px; background:#fcf8e3;">
-                                        <p class="lead">Ward Cleaver</p>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-horizontal" role="form">
-                                                    <div class="form-group">
-                                                        <label for="inputEmail3" class="col-sm-3 control-label">Role:</label>
-                                                        <div class="col-sm-9">
-                                                            <p class="form-control-static">Principle Investigator</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Job Code:</label>
-                                                        <div class="col-sm-9">
-                                                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                                <div class="input-group">
-                                                                    <input id="u11k8c4j_control" type="text" name="field3" value="Associate Provost (AA014)" size="30" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-search" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a> </span> </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Appointment Type:</label>
-                                                        <div class="col-sm-9">
-                                                            <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
-                                                                <option value="1">TEMPORARY EMPLOYEE</option>
-                                                                <option value="2">SUMMER EMPLOYEE</option>
-                                                                <option value="3">9M DURATION</option>
-                                                                <option value="4">10M DURATION</option>
-                                                                <option value="5">11M DURATION</option>
-                                                                <option value="6" selected="selected">12M DURATION</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Salary Effective Date:</label>
-                                                        <div class="col-sm-9">
-                                                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                                <div class="input-group">
-                                                                    <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a> </span> </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Salary Annivesary Date:</label>
-                                                        <div class="col-sm-9">
-                                                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                                <div class="input-group">
-                                                                    <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a> </span> </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Base Salary:</label>
-                                                        <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
-                                                        </div>
-                                                    </div>
-                                                    <hr>
-                                                    <div class="form-group">
-                                                        <div class="col-sm-offset-3 col-sm-9"> <a href="#" class="btn btn-primary btn-sm">Save Changes</a> <a href="#" class="btn btn-default btn-sm">Cancel</a> </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div></td>
+                                    <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;
+left: -808px;
+top: 26px;
+width: 890px;
+padding: 15px;
+background: #ffffff;">
+        <p class="lead">Ward Cleaver</p>
+        <hr>
+        <div class="row">
+        
+        
+        
+        
+            <div class="col-md-6">
+                <div class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-6 control-label">Role:</label>
+                        <div class="col-sm-6">
+                            <p class="form-control-static">Principle Investigator</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Job Code:</label>
+                        <div class="col-sm-6">
+                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
+                                <div class="input-group">
+                                    <input id="u11k8c4j_control" type="text" name="field3" value="Associate Provost (AA014)" size="30" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
+                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-search" tabindex="0" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act"></a> </span> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Appointment Type:</label>
+                        <div class="col-sm-6">
+                            <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
+                                <option value="1">TEMPORARY EMPLOYEE</option>
+                                <option value="2">SUMMER EMPLOYEE</option>
+                                <option value="3">9M DURATION</option>
+                                <option value="4">10M DURATION</option>
+                                <option value="5">11M DURATION</option>
+                                <option value="6" selected="selected">12M DURATION</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Salary Effective Date:</label>
+                        <div class="col-sm-6">
+                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
+                                <div class="input-group">
+                                    <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
+                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act"></a> </span> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Salary Annivesary Date:</label>
+                        <div class="col-sm-6">
+                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
+                                <div class="input-group">
+                                    <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
+                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act"></a> </span> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Base Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            
+            
+            
+            
+            
+            <div class="col-md-6">
+                <div class="form-horizontal" role="form">
+                
+                
+                      
+                 <!--        <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                    
+                    
+                      
+                         <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                      
+                         <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                      
+                         <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                      
+                         <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                    -->
+                    
+                    
+                    
+                    
+                    <div class="form-group by-period">
+                        <div class="col-sm-6 control-label"> <strong>Salary by period</strong> <br>
+<small class="uif-disabled">(optional) </small></div><small class="uif-disabled">
+                        <div class="col-sm-6">
+                        
+                        
+                        
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                            <table class="table">
+                                <tbody><tr>
+                                    <th scope="col">Period</th>
+                                    <th scope="col">Salary</th>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td><label for="period_p1_s1"><span class="sr-only">Period one salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><label for="period_p1_s2"><span class="sr-only">Period two salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td><label for="period_p1_s3"><span class="sr-only">Period three salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td><label for="period_p1_s4"><span class="sr-only">Period four salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td><label for="period_p1_s5"><span class="sr-only">Period five salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                
+                                 <tr> <td colspan="2"><a href="#" class="btn btn-xs btn-default pull-right">Calculate</a></td>
+                                    
+                                </tr></tbody></table>
+                        </div>
+                    </small></div><small class="uif-disabled">
+                    
+                    
+                </small></div><small class="uif-disabled">
+                
+                    
+            </small></div><small class="uif-disabled">                
+               
+                    
+
+        </small></div><small class="uif-disabled">
+
+<hr>
+                   <div class="text-center"> <a href="#" class="btn btn-default btn-sm">Cancel</a> <a href="#" class="btn btn-primary btn-sm">Save Changes</a> </div>
+    </small></div><small class="uif-disabled">
+                                </small></div></td>
                         </tr>
                         <tr class="not-deletable">
                             <td>John Coltrane <small class="text-muted">(Co-PI)</small></td>
@@ -290,306 +412,786 @@ $page = 'personnel-costs';
                             <td>12 month</td>
                             <td class="text-right">$163,771</td>
                             <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
-                                    <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -808px;top: 26px;width: 890px;padding:15px; background:#fcf8e3;">
-                                        <p class="lead">John Coltrane</p>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-horizontal" role="form">
-                                                    <div class="form-group">
-                                                        <label for="inputEmail3" class="col-sm-3 control-label">Role:</label>
-                                                        <div class="col-sm-9">
-                                                           <p class="form-control-static">Co-Investigator</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Job Code:</label>
-                                                        <div class="col-sm-9">
-                                                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                                <div class="input-group">
-                                                                    <input id="u11k8c4j_control" type="text" name="field3" value="Associate Provost (AA014)" size="30" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-search" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Appointment Type:</label>
-                                                        <div class="col-sm-9">
-                                                            <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
-                                                                <option value="1">TEMPORARY EMPLOYEE</option>
-                                                                <option value="2">SUMMER EMPLOYEE</option>
-                                                                <option value="3">9M DURATION</option>
-                                                                <option value="4">10M DURATION</option>
-                                                                <option value="5">11M DURATION</option>
-                                                                <option value="6" selected="selected">12M DURATION</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Salary Effective Date:</label>
-                                                        <div class="col-sm-9">
-                                                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                                <div class="input-group">
-                                                                    <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Salary Annivesary Date:</label>
-                                                        <div class="col-sm-9">
-                                                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                                <div class="input-group">
-                                                                    <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Base Salary:</label>
-                                                        <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
-                                                        </div>
-                                                    </div>
-                                                    <hr>
-                                                    <div class="form-group">
-                                                        <div class="col-sm-offset-3 col-sm-9"> <a href="#" class="btn btn-primary btn-sm">Save Changes</a> <a href="#" class="btn btn-default btn-sm">Cancel</a> </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;
+left: -808px;
+top: 26px;
+width: 890px;
+padding: 15px;
+background: #ffffff;">
+        <p class="lead">John Coltrane</p>
+        <hr>
+        <div class="row">
+        
+        
+        
+        
+            <div class="col-md-6">
+                <div class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-6 control-label">Role:</label>
+                        <div class="col-sm-6">
+                            <p class="form-control-static">Principle Investigator</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Job Code:</label>
+                        <div class="col-sm-6">
+                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
+                                <div class="input-group">
+                                    <input id="u11k8c4j_control" type="text" name="field3" value="Associate Provost (AA014)" size="30" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
+                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-search" tabindex="0" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act"></a> </span> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Appointment Type:</label>
+                        <div class="col-sm-6">
+                            <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
+                                <option value="1">TEMPORARY EMPLOYEE</option>
+                                <option value="2">SUMMER EMPLOYEE</option>
+                                <option value="3">9M DURATION</option>
+                                <option value="4">10M DURATION</option>
+                                <option value="5">11M DURATION</option>
+                                <option value="6" selected="selected">12M DURATION</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Salary Effective Date:</label>
+                        <div class="col-sm-6">
+                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
+                                <div class="input-group">
+                                    <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
+                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act"></a> </span> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Salary Annivesary Date:</label>
+                        <div class="col-sm-6">
+                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
+                                <div class="input-group">
+                                    <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
+                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act"></a> </span> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Base Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            
+            
+            
+            
+            
+            <div class="col-md-6">
+                <div class="form-horizontal" role="form">
+                
+                
+                      
+                 <!--        <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                    
+                    
+                      
+                         <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                      
+                         <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                      
+                         <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                      
+                         <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                    -->
+                    
+                    
+                    
+                    
+                    <div class="form-group by-period">
+                        <div class="col-sm-6 control-label"> <strong>Salary by period</strong> <br>
+<small class="uif-disabled">(optional) </small></div><small class="uif-disabled">
+                        <div class="col-sm-6">
+                        
+                        
+                        
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                            <table class="table">
+                                <tbody><tr>
+                                    <th scope="col">Period</th>
+                                    <th scope="col">Salary</th>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td><label for="period_p1_s1"><span class="sr-only">Period one salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><label for="period_p1_s2"><span class="sr-only">Period two salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td><label for="period_p1_s3"><span class="sr-only">Period three salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td><label for="period_p1_s4"><span class="sr-only">Period four salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td><label for="period_p1_s5"><span class="sr-only">Period five salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                
+                                 <tr>  <td colspan="2"><a href="#" class="btn btn-xs btn-default pull-right">Calculate</a></td>
+                                </tr></tbody></table>
+                        </div>
+                    </small></div><small class="uif-disabled">
+                    
+                    
+                </small></div><small class="uif-disabled">
+                
+                    
+            </small></div><small class="uif-disabled">                
+               
+                    
+
+        </small></div><small class="uif-disabled">
+
+<hr>
+                   <div class="text-center"> <a href="#" class="btn btn-default btn-sm">Cancel</a> <a href="#" class="btn btn-primary btn-sm">Save Changes</a> </div>
+    </small></div>
                                 </div></td>
                         </tr>
                         <tr class="not-deletable active">
                             <td colspan="5"><strong class="pull-left">Additional Personnel</strong></td>
                         </tr>
                         <tr class="hilite">
-                            <td>OLIVER ELGIN <small class="text-muted">(Research Assistant)</small></td>
+                            <td>Oliver Elgin <small class="text-muted">(Research Assistant)</small></td>
                             <td>Dean/Faculty <small class="text-muted">(AA042)</small></td>
                             <td>Summer</td>
                             <td class="text-right">$73,734</td>
                             <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
-                                    <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -808px;top: 26px;width: 890px;padding:15px; background:#fcf8e3;">
-                                        <p class="lead">OLIVER ELGIN</p>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-horizontal" role="form">
-                                                    <div class="form-group"> <label for="inputEmail3" class="col-sm-3 control-label">Title:</label>
-                                                        <div class="col-sm-9">
+                                    <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;
+left: -808px;
+top: 26px;
+width: 890px;
+padding: 15px;
+background: #ffffff;">
+        <p class="lead">Oliver Elgin</p>
+        <hr>
+        <div class="row">
+        
+        
+        
+        
+            <div class="col-md-6">
+                <div class="form-horizontal" role="form">
+                    <div class="form-group"> <label for="inputEmail3" class="col-sm-6 control-label">Title:</label>
+                                                        <div class="col-sm-6">
                                                              <input type="text" class="form-control" id="" value="Research Assistant">
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Job Code:</label>
-                                                        <div class="col-sm-9">
-                                                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                                <div class="input-group">
-                                                                    <input id="u11k8c4j_control" type="text" name="field3" value="Associate Provost (AA014)" size="30" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-search" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Appointment Type:</label>
-                                                        <div class="col-sm-9">
-                                                            <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
-                                                                <option value="1">TEMPORARY EMPLOYEE</option>
-                                                                <option value="2">SUMMER EMPLOYEE</option>
-                                                                <option value="3">9M DURATION</option>
-                                                                <option value="4">10M DURATION</option>
-                                                                <option value="5">11M DURATION</option>
-                                                                <option value="6" selected="selected">12M DURATION</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Salary Effective Date:</label>
-                                                        <div class="col-sm-9">
-                                                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                                <div class="input-group">
-                                                                    <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Salary Annivesary Date:</label>
-                                                        <div class="col-sm-9">
-                                                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                                <div class="input-group">
-                                                                    <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Base Salary:</label>
-                                                        <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
-                                                        </div>
-                                                    </div>
-                                                    <hr>
-                                                    <div class="form-group">
-                                                        <div class="col-sm-offset-3 col-sm-9"> <a href="#" class="btn btn-primary btn-sm">Save Changes</a> <a href="#" class="btn btn-default btn-sm">Cancel</a> </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Job Code:</label>
+                        <div class="col-sm-6">
+                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
+                                <div class="input-group">
+                                    <input id="u11k8c4j_control" type="text" name="field3" value="Associate Provost (AA014)" size="30" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
+                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-search" tabindex="0" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act"></a> </span> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Appointment Type:</label>
+                        <div class="col-sm-6">
+                            <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
+                                <option value="1">TEMPORARY EMPLOYEE</option>
+                                <option value="2">SUMMER EMPLOYEE</option>
+                                <option value="3">9M DURATION</option>
+                                <option value="4">10M DURATION</option>
+                                <option value="5">11M DURATION</option>
+                                <option value="6" selected="selected">12M DURATION</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Salary Effective Date:</label>
+                        <div class="col-sm-6">
+                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
+                                <div class="input-group">
+                                    <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
+                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act"></a> </span> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Salary Annivesary Date:</label>
+                        <div class="col-sm-6">
+                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
+                                <div class="input-group">
+                                    <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
+                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act"></a> </span> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Base Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            
+            
+            
+            
+            
+            <div class="col-md-6">
+                <div class="form-horizontal" role="form">
+                
+                
+                      
+                 <!--        <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                    
+                    
+                      
+                         <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                      
+                         <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                      
+                         <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                      
+                         <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                    -->
+                    
+                    
+                    
+                    
+                    <div class="form-group by-period">
+                        <div class="col-sm-6 control-label"> <strong>Salary by period</strong> <br>
+<small class="uif-disabled">(optional) </small></div><small class="uif-disabled">
+                        <div class="col-sm-6">
+                        
+                        
+                        
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                            <table class="table">
+                                <tbody><tr>
+                                    <th scope="col">Period</th>
+                                    <th scope="col">Salary</th>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td><label for="period_p1_s1"><span class="sr-only">Period one salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><label for="period_p1_s2"><span class="sr-only">Period two salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td><label for="period_p1_s3"><span class="sr-only">Period three salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td><label for="period_p1_s4"><span class="sr-only">Period four salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td><label for="period_p1_s5"><span class="sr-only">Period five salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                
+                                 <tr>  <td colspan="2"><a href="#" class="btn btn-xs btn-default pull-right">Calculate</a></td>
+                                </tr></tbody></table>
+                        </div>
+                    </small></div><small class="uif-disabled">
+                    
+                    
+                </small></div><small class="uif-disabled">
+                
+                    
+            </small></div><small class="uif-disabled">                
+               
+                    
+
+        </small></div><small class="uif-disabled">
+
+<hr>
+                   <div class="text-center"> <a href="#" class="btn btn-default btn-sm">Cancel</a> <a href="#" class="btn btn-primary btn-sm">Save Changes</a> </div>
+    </small></div>
                                 </div></td>
                         </tr>
                         <tr class="hilite">
-                            <td>DARREN DEVANEY <small class="text-muted">(Research Assistant)</small></td>
+                            <td>Darren Devaney <small class="text-muted">(Research Assistant)</small></td>
                             <td>Dean/Faculty <small class="text-muted">(AA042)</small></td>
                             <td>9 Month</td>
                             <td class="text-right">$82,832</td>
                             <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
-                                    <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -808px;top: 26px;width: 890px;padding:15px; background:#fcf8e3;">
-                                        <p class="lead">DARREN DEVANEY</p>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-horizontal" role="form">
-                                                    <div class="form-group"> <label for="inputEmail3" class="col-sm-3 control-label">Title:</label>
-                                                        <div class="col-sm-9">
+                                    <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;
+left: -808px;
+top: 26px;
+width: 890px;
+padding: 15px;
+background: #ffffff;">
+        <p class="lead">Darren Devaney</p>
+        <hr>
+        <div class="row">
+        
+        
+        
+        
+            <div class="col-md-6">
+                <div class="form-horizontal" role="form">
+                    <div class="form-group"> <label for="inputEmail3" class="col-sm-6 control-label">Title:</label>
+                                                        <div class="col-sm-6">
                                                              <input type="text" class="form-control" id="" value="Research Assistant">
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Job Code:</label>
-                                                        <div class="col-sm-9">
-                                                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                                <div class="input-group">
-                                                                    <input id="u11k8c4j_control" type="text" name="field3" value="Associate Provost (AA014)" size="30" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-search" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Appointment Type:</label>
-                                                        <div class="col-sm-9">
-                                                            <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
-                                                                <option value="1">TEMPORARY EMPLOYEE</option>
-                                                                <option value="2">SUMMER EMPLOYEE</option>
-                                                                <option value="3">9M DURATION</option>
-                                                                <option value="4">10M DURATION</option>
-                                                                <option value="5">11M DURATION</option>
-                                                                <option value="6" selected="selected">12M DURATION</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Salary Effective Date:</label>
-                                                        <div class="col-sm-9">
-                                                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                                <div class="input-group">
-                                                                    <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Salary Annivesary Date:</label>
-                                                        <div class="col-sm-9">
-                                                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                                <div class="input-group">
-                                                                    <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Base Salary:</label>
-                                                        <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
-                                                        </div>
-                                                    </div>
-                                                    <hr>
-                                                    <div class="form-group">
-                                                        <div class="col-sm-offset-3 col-sm-9"> <a href="#" class="btn btn-primary btn-sm">Save Changes</a> <a href="#" class="btn btn-default btn-sm">Cancel</a> </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Job Code:</label>
+                        <div class="col-sm-6">
+                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
+                                <div class="input-group">
+                                    <input id="u11k8c4j_control" type="text" name="field3" value="Associate Provost (AA014)" size="30" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
+                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-search" tabindex="0" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act"></a> </span> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Appointment Type:</label>
+                        <div class="col-sm-6">
+                            <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
+                                <option value="1">TEMPORARY EMPLOYEE</option>
+                                <option value="2">SUMMER EMPLOYEE</option>
+                                <option value="3">9M DURATION</option>
+                                <option value="4">10M DURATION</option>
+                                <option value="5">11M DURATION</option>
+                                <option value="6" selected="selected">12M DURATION</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Salary Effective Date:</label>
+                        <div class="col-sm-6">
+                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
+                                <div class="input-group">
+                                    <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
+                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act"></a> </span> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Salary Annivesary Date:</label>
+                        <div class="col-sm-6">
+                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
+                                <div class="input-group">
+                                    <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
+                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act"></a> </span> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Base Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            
+            
+            
+            
+            
+            <div class="col-md-6">
+                <div class="form-horizontal" role="form">
+                
+                
+                      
+                 <!--        <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                    
+                    
+                      
+                         <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                      
+                         <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                      
+                         <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                      
+                         <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                    -->
+                    
+                    
+                    
+                    
+                    <div class="form-group by-period">
+                        <div class="col-sm-6 control-label"> <strong>Salary by period</strong> <br>
+<small class="uif-disabled">(optional) </small></div><small class="uif-disabled">
+                        <div class="col-sm-6">
+                        
+                        
+                        
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                            <table class="table">
+                                <tbody><tr>
+                                    <th scope="col">Period</th>
+                                    <th scope="col">Salary</th>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td><label for="period_p1_s1"><span class="sr-only">Period one salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><label for="period_p1_s2"><span class="sr-only">Period two salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td><label for="period_p1_s3"><span class="sr-only">Period three salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td><label for="period_p1_s4"><span class="sr-only">Period four salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td><label for="period_p1_s5"><span class="sr-only">Period five salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                
+                                 <tr>  <td colspan="2"><a href="#" class="btn btn-xs btn-default pull-right">Calculate</a></td>
+                                </tr></tbody></table>
+                        </div>
+                    </small></div><small class="uif-disabled">
+                    
+                    
+                </small></div><small class="uif-disabled">
+                
+                    
+            </small></div><small class="uif-disabled">                
+               
+                    
+
+        </small></div><small class="uif-disabled">
+
+<hr>
+                   <div class="text-center"> <a href="#" class="btn btn-default btn-sm">Cancel</a> <a href="#" class="btn btn-primary btn-sm">Save Changes</a> </div>
+    </small></div>
                                 </div></td>
                         </tr>
                         <tr class="hilite">
-                            <td>EMORY EAGLE <small class="text-muted">(Research Assistant)</small></td>
+                            <td>Emory Eagle <small class="text-muted">(Research Assistant)</small></td>
                             <td>Associate Provost <small class="text-muted">(AA014)</small></td>
                             <td>Temporary</td>
                             <td class="text-right">$42,777</td>
                             <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
-                                    <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -808px;top: 26px;width: 890px;padding:15px; background:#fcf8e3;">
-                                        <p class="lead">EMORY EAGLE</p>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-horizontal" role="form">
-                                                   <div class="form-group"> <label for="inputEmail3" class="col-sm-3 control-label">Title:</label>
-                                                        <div class="col-sm-9">
+                                    <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;
+left: -808px;
+top: 26px;
+width: 890px;
+padding: 15px;
+background: #ffffff;">
+        <p class="lead">Emory Eagle</p>
+        <hr>
+        <div class="row">
+        
+        
+        
+        
+            <div class="col-md-6">
+                <div class="form-horizontal" role="form">
+                    <div class="form-group"> <label for="inputEmail3" class="col-sm-6 control-label">Title:</label>
+                                                        <div class="col-sm-6">
                                                              <input type="text" class="form-control" id="" value="Research Assistant">
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Job Code:</label>
-                                                        <div class="col-sm-9">
-                                                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                                <div class="input-group">
-                                                                    <input id="u11k8c4j_control" type="text" name="field3" value="Associate Provost (AA014)" size="30" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-search" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Appointment Type:</label>
-                                                        <div class="col-sm-9">
-                                                            <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
-                                                                <option value="1">TEMPORARY EMPLOYEE</option>
-                                                                <option value="2">SUMMER EMPLOYEE</option>
-                                                                <option value="3">9M DURATION</option>
-                                                                <option value="4">10M DURATION</option>
-                                                                <option value="5">11M DURATION</option>
-                                                                <option value="6" selected="selected">12M DURATION</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Salary Effective Date:</label>
-                                                        <div class="col-sm-9">
-                                                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                                <div class="input-group">
-                                                                    <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Salary Annivesary Date:</label>
-                                                        <div class="col-sm-9">
-                                                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
-                                                                <div class="input-group">
-                                                                    <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
-                                                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-onclick="createLightBoxPost(&quot;u11k8c4j_quickfinder_act&quot;,{autoSize:true,openEffect:&quot;fade&quot;,closeEffect:&quot;fade&quot;,openSpeed:200,closeSpeed:200,helpers:{overlay:{css:{cursor:'arrow'},closeClick:false}},type:&quot;iframe&quot;},true);" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act" data-submit_data="{&quot;actionParameters[conversionFields]&quot;:&quot;number:field3&quot;,&quot;actionParameters[viewName]&quot;:&quot;LabsProposal-Lookup&quot;,&quot;methodToCall&quot;:&quot;performLookup&quot;,&quot;actionParameters[quickfinderId]&quot;:&quot;u11k8c4j_quickfinder&quot;,&quot;actionParameters[multipleValuesSelect]&quot;:&quot;false&quot;,&quot;actionParameters[hideCriteriaOnSearch]&quot;:&quot;true&quot;,&quot;actionParameters[dataObjectClassName]&quot;:&quot;org.kuali.rice.krad.demo.travel.dataobject.TravelAccount&quot;,&quot;actionParameters[baseLookupUrl]&quot;:&quot;../kr-krad/lookup&quot;}"></a></span></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword3" class="col-sm-3 control-label">Base Salary:</label>
-                                                        <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
-                                                        </div>
-                                                    </div>
-                                                    <hr>
-                                                    <div class="form-group">
-                                                        <div class="col-sm-offset-3 col-sm-9"> <a href="#" class="btn btn-primary btn-sm">Save Changes</a> <a href="#" class="btn btn-default btn-sm">Cancel</a> </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Job Code:</label>
+                        <div class="col-sm-6">
+                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
+                                <div class="input-group">
+                                    <input id="u11k8c4j_control" type="text" name="field3" value="Associate Provost (AA014)" size="30" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
+                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-search" tabindex="0" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act"></a> </span> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Appointment Type:</label>
+                        <div class="col-sm-6">
+                            <select id="u11k8c5e_control" name="field4" size="1" class="form-control input-sm uif-dropdownControl " data-role="Control" data-control_for="u11k8c5e">
+                                <option value="1">TEMPORARY EMPLOYEE</option>
+                                <option value="2">SUMMER EMPLOYEE</option>
+                                <option value="3">9M DURATION</option>
+                                <option value="4">10M DURATION</option>
+                                <option value="5">11M DURATION</option>
+                                <option value="6" selected="selected">12M DURATION</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Salary Effective Date:</label>
+                        <div class="col-sm-6">
+                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
+                                <div class="input-group">
+                                    <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
+                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act"></a> </span> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Salary Annivesary Date:</label>
+                        <div class="col-sm-6">
+                            <div id="u11k8c4j" class="uif-inputField" data-parent="u14jg6xp" data-role="InputField" data-label="Award ID">
+                                <div class="input-group">
+                                    <input id="u11k8c4j_control" type="text" name="field3" value="12/15/2013" size="" class="form-control input-sm uif-textControl has-helper valid" data-role="Control" data-control_for="u11k8c4j">
+                                    <span class="input-group-btn"> <a id="u11k8c4j_quickfinder_act" class="uif-actionLink icon-calendar" tabindex="0" data-role="Action" data-focusid="NEXT_INPUT:u11k8c4j_quickfinder_act"></a> </span> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">Base Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            
+            
+            
+            
+            
+            <div class="col-md-6">
+                <div class="form-horizontal" role="form">
+                
+                
+                      
+                 <!--        <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                    
+                    
+                      
+                         <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                      
+                         <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                      
+                         <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                      
+                         <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-6 control-label">P1 Salary:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="inputPassword3" value="247457.00">
+                        </div>
+                    </div>
+                    -->
+                    
+                    
+                    
+                    
+                    <div class="form-group by-period">
+                        <div class="col-sm-6 control-label"> <strong>Salary by period</strong> <br>
+<small class="uif-disabled">(optional) </small></div><small class="uif-disabled">
+                        <div class="col-sm-6">
+                        
+                        
+                        
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                            <table class="table">
+                                <tbody><tr>
+                                    <th scope="col">Period</th>
+                                    <th scope="col">Salary</th>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td><label for="period_p1_s1"><span class="sr-only">Period one salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><label for="period_p1_s2"><span class="sr-only">Period two salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td><label for="period_p1_s3"><span class="sr-only">Period three salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td><label for="period_p1_s4"><span class="sr-only">Period four salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td><label for="period_p1_s5"><span class="sr-only">Period five salary</span></label>
+                                        <input type="text" class="input-sm" value="$0.00"></td>
+                                </tr>
+                                
+                                 <tr>  <td colspan="2"><a href="#" class="btn btn-xs btn-default pull-right">Calculate</a></td>
+                                </tr></tbody></table>
+                        </div>
+                    </small></div><small class="uif-disabled">
+                    
+                    
+                </small></div><small class="uif-disabled">
+                
+                    
+            </small></div><small class="uif-disabled">                
+               
+                    
+
+        </small></div><small class="uif-disabled">
+
+<hr>
+                   <div class="text-center"> <a href="#" class="btn btn-default btn-sm">Cancel</a> <a href="#" class="btn btn-primary btn-sm">Save Changes</a> </div>
+    </small></div>
                                 </div></td>
                         </tr>
 
