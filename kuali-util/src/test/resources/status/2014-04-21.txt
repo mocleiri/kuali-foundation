@@ -38,3 +38,5 @@ Wednesday
 
 Thursday
 --------
+
+- Responded to Skype chat question about Rice jobs appearing to hang on ci.rice
