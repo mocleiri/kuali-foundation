@@ -222,11 +222,24 @@ $page = 'unrecovered';
                 </div> 
 			</section>
 			</main> 
-		</div> 
-<!-- VIEW FOOTER --> <div id="" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;"> <div class="global-actions"> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save </a> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Reload </a> <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Complete Budget </a> </div>
-            
-			<a href="budget-ng-subawards.php" id="ufuknm4" class="btn btn-default uif-primaryActionButton uif-boxLayoutHorizontalItem"><span class="icon-chevron-left"></span> Back</a> <a href="budget-ng-income.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Continue <span class="icon-chevron-right"></span></a> 
 		</div>
+
+
+        <div id="" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;">
+            <div class="uif-footer-centered-control-group clearfix">
+                <div class="global-navigate btn-group">
+                    <button type="button" href="budget-ng-income.php" id="save-continue" class="btn btn-primary">Continue</button>
+                </div>
+
+                <div class="global-actions btn-group">
+                    <button type="button" href="budget-ng-cost-sharing.php" id="" class="btn btn-default">Back</button>
+                    <button type="button" id="" class="btn btn-default">Save</button>
+                    <button type="button" id="" class="btn btn-default">Reload</button>
+                    <button type="button" id="" class="btn btn-default">Complete Budget</button>
+                </div>
+            </div>
+        </div>
+
 
 <!-- DIALOGS/Placeholders -->
 	</div>

@@ -118,7 +118,7 @@ $section = '';
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="input-group">
+                                    <div class="input-group" style="position: relative;">
                                         <label for="">Object Code Name</label>
                                         <select class="form-control">
                                             <option value="">select</option>
@@ -127,11 +127,9 @@ $section = '';
                                             <option>Fabricated Equipment</option>
                                             <option>Reactor User</option>
                                         </select>
-                                        <div class="input-group-addon">
-                                        <a href="#" class="icon-search launch-modal" data-modal-page="" data-modal-height="500"></a>
-                                        </div>
-                                        <div class="input-group-addon">
-                                        <a href="#" class="icon-book launch-modal" data-modal-page="" data-modal-height="500"></a>
+                                        <div class="btn-group" style="position: absolute; top: 20px; right: 21px">
+                                            <button type="button" class="btn btn-default icon-search launch-modal" data-modal-page="" data-modal-height="500"></button>
+                                            <button type="button" class="btn btn-default icon-book launch-modal" data-modal-page="" data-modal-height="500"></button>
                                         </div>
                                     </div>
                                 </div>
@@ -591,11 +589,26 @@ $section = '';
                 </div>
             </main>
         </div> 
-<!-- VIEW FOOTER --> <div id="" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;"> <div class="global-actions"> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save </a> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Reload </a> <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Complete Budget </a> </div>
-            
-           <div class="global-navigate"> <a href="budget-ng-personnelCosts-persPeriod.php" id="ufuknm4" class="btn btn-default uif-primaryActionButton uif-boxLayoutHorizontalItem"><span class="icon-chevron-left"></span> Back</a>
-            <a href="#" id="save-modal-button" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem" data-toggle="modal" data-target="#save-modal">Continue <span class="icon-chevron-right"></span></a></div>
+<!-- VIEW FOOTER -->
+
+        <div id="" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;">
+            <div class="uif-footer-centered-control-group clearfix">
+                <div class="global-navigate btn-group">
+                    <button type="button" href="budget-ng-rates.php" id="save-continue" class="btn btn-primary">Continue</button>
+                </div>
+
+                <div class="global-actions btn-group">
+                    <button type="button" href="budget-ng-personnelCosts-persPeriod.php" id="" class="btn btn-default">Back</button>
+                    <button type="button" id="" class="btn btn-default">Save</button>
+                    <button type="button" id="" class="btn btn-default">Reload</button>
+                    <button type="button" id="" class="btn btn-default">Complete Budget</button>
+                </div>
+            </div>
         </div>
+<!--    <div id="" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;"> <div class="global-actions"> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save </a> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Reload </a> <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Complete Budget </a> </div>-->
+<!--           <div class="global-navigate"> <a href="budget-ng-personnelCosts-persPeriod.php" id="ufuknm4" class="btn btn-default uif-primaryActionButton uif-boxLayoutHorizontalItem"><span class="icon-chevron-left"></span> Back</a>-->
+<!--            <a href="#" id="save-modal-button" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem" data-toggle="modal" data-target="#save-modal">Continue <span class="icon-chevron-right"></span></a></div>-->
+<!--        </div>-->
         <!-- DIALOGS/Placeholders --></div>
     <span id="formInfo">
     <input type=hidden name="viewId" value=LabsProposal>
