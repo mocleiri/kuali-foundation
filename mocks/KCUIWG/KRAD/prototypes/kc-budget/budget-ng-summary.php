@@ -351,8 +351,7 @@ $section = '';
     <input type="hidden" name="renderedInLightBox" value="false">
     <input type="hidden" name="view.singlePageView" value="true">
     <input type="hidden" name="view.disableBrowserCache" value="true">
-    </span>
-    
+    </span> 
 </form>
 <?php include ('includes/footer-scripts.php') ?>
 <!-- MODAL  budget summary -->
@@ -364,7 +363,7 @@ $section = '';
 <!-- MODAL BUDGET VERSIONS -->
 <?php include ('includes/modal-budget-versions.php') ?>
 
-<!-- MODAL budget complete  -->
+<!-- MODAL budget complete buttons -->
 <?php include ('includes/modal-budget-complete.php') ?>
 </body>
 </html>
