@@ -1,0 +1,15 @@
+Monday
+------
+
+- Continued putting finishing touches on ci.kuali.org
+- Coordinated with Peter on triage for a release issue related to Rice 2.4.0
+-- Nobody involved with the release process (QA, Dev, DevOp's etc) had the explicit responsibility of verifying the version # in the pom prior to the release occuring
+-- Because of that, 2 releases happened (2.4.0-M5 followed immediately thereafter by a 2.4.0)
+-- During the process of shortening the version number from 2.4.0-M5 to 2.4.0, another inadvertent change was introduced to the Rice pom 
+-- The version of the parent pom was pre-maturely upgraded from 3.3.44 to 3.4.4 (which should not have happened)
+-- Rice Dev now has the explicit responsibility of verifying that the version number in the pom is correct
+-- Since the release process finished ok, environments came up ok, builds, unit tests, and integration tests run ok, the impact of the 
+-- inadvertent change was determined to be contained to developers spinning up the app inside of an IDE
+
+- Upgraded demo.rice.kuali.org to 2.4.0
+- 
