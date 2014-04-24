@@ -28,4 +28,5 @@ Wednesday
 - Troubleshooting / support for KS on ci.kuali
 -- CAS was not configured correctly so auth information was not flowing to Jenkins
 -- Updated KS AFT jobs to use Mike Wyers FIREFOX_PATH switch to get them pointed at the proper version of Firefox 
--- Supported KS throughout the day to resolve
+-- Supported KS throughout the day with items related to the cutover
+--- Perm's for a few people, tweaking of various jobs
