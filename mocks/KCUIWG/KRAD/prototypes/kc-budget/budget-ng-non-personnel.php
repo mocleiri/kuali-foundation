@@ -188,8 +188,8 @@ $section = '';
                                             <td>1</td>
                                             <td class="text-right">$0.00</td>
                                             <td>
-                                                <div class="dropdown dropdown-large">
-                                                    <a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs uif-delete" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a> 
+                                                <div class="dropdown dropdown-large pull-right">
+                                                    <a href="#" class=" dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs uif-delete" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a> 
                                                     <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -746px;top: 26px;width: 858px;padding:15px; background:#fcf8e3;">
                                                         <p class="lead">
                                                             Microscope
