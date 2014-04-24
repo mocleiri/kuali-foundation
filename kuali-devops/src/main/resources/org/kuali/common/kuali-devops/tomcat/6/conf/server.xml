@@ -23,10 +23,10 @@
   <Listener className="org.apache.catalina.mbeans.ServerLifecycleListener" />
   <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
   <Service name="Catalina">
-    <Connector URIEncoding="UTF-8" port="8080" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="443" compression="force" />
-    <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true" connectionTimeout="20000"
-      maxThreads="200" scheme="https"
-      URIEncoding="UTF-8"
+    <Connector URIEncoding="UTF-8" port="8080" protocol="HTTP/1.1" connectionTimeout="20000" compression="force" redirectPort="443"/>
+    <Connector URIEncoding="UTF-8" port="8443" protocol="HTTP/1.1" connectionTimeout="20000" compression="force" SSLEnabled="true" 
+      maxThreads="200" 
+      scheme="https"
       SSLCertificateKeyFile="${catalina.base}/conf/ssl/SSLCertificateKeyFile.pem"
       SSLCertificateFile="${catalina.base}/conf/ssl/SSLCertificateFile.pem"
       SSLCertificateChainFile="${catalina.base}/conf/ssl/SSLCertificateChainFile.pem"
