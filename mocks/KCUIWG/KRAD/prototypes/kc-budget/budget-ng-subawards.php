@@ -19,7 +19,7 @@ $section = '';
 <body id="Uif-Application" style="padding-bottom: 570px;">
 <!-- APPLICATION HEADER -->
 <header id="Uif-ApplicationHeader-Wrapper" data-sticky="true" class="uif-sticky" style="position:fixed; left: 0; top: 0px;">
-<header id="u1xj79g4" class="uif-applicationHeader">
+<div id="u1xj79g4" class="uif-applicationHeader">
 	<div class="container">
 		<nav id="u1osy4lo" class="navbar" role="navigation"> 
 		<div class="navbar-header">
@@ -78,7 +78,7 @@ $section = '';
 		</div>
 	</div>
 </div>
-</header>
+</div>
 
 <!-- Backdoor info (here to inherit stickyness with the header, if set) -->
 </header>
@@ -96,7 +96,7 @@ $section = '';
 <?php include ('includes/uif-navigation-budget.php') ?>
 			<div id="Uif-BreadcrumbUpdate" style="display:;">
 			</div>
-			<main id="LabsProposal-Page" class="uif-page uif-hasLeftNav" data-server_messages="false" data-role="Page" data-parent="LabsProposal" style="margin-left: 235px;"> 
+			<main id="LabsProposal-Page" class="uif-page uif-hasLeftNav" data-server_messages="false" data-role="Page" data-parent="LabsProposal" style="margin-left:235px;"> 
 			<header class="clearfix uif-header-contentWrapper pull-left">
 				<div id="u148pgf0" class="uif-pageHeader clearfix" data-header_for="LabsProposal-Page">
 					<h2 class="uif-headerText">
@@ -128,33 +128,24 @@ $section = '';
 						<label>Organization Name</label> 
 						<div class="input-group">
 							<input id="rate-4" class="form-control text-right" type="text" value="" name="rate-4" placeholder="search">
-							<span class="input-group-addon"> <button style="border:none;padding:0;" type="submit"><span  class="icon-search" style="padding:5px 0; background:#eee;"><span class="sr-only"search organizations</span></span></button></span> 
-						</div>
+							<div class="input-group-addon"> <button style="border:none;padding:0;" type="submit">
+							<span class="icon-search" style="padding:5px 0; background:#eee;">
+							<span class="sr-only">search organizations</span></span></div> 
+						</button></div>
 					</div>
 					<div class="col-sm-5">
 						<label>Search for a PDF 
-						<input type="file" title="Search for a file to add" class="btn" style="margin-left:0;padding-left:0;">
+						<input type="file" title="Search for a file to add" class="btn" style="margin-left:0;padding-left:0;box-shadow:none;">
 						</label> 
 					</div>
 					<div class="col-sm-2" style="border:1px dotted #fff;padding:20px 0 0;">
 						<a class="btn btn-default btn-xs pull-right" data-target="#modal-add-personnel1" data-toggle="modal" href="#"><span class="icon-plus" aria-hidden="true"></span>Add</a> 
 					</div>
-					
-					
-					
-								<div class="col-sm-12 clearfix" style="margin-top:-25px;padding-right:0;">
-												<label class="pull-left">Comments: </label> 
-											<textarea style="width:100%; height:55px;" class="form-control">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</textarea>
-											
-									
-									
-	
-</div>
-					
+					<div class="col-sm-12 clearfix" style="margin-top:-25px;padding-right:0;">
+						<label class="pull-left">Comments: </label> 
+						<textarea style="width:100%; height:55px;" class="form-control">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</textarea>
+					</div>
 				</div>
-		
-				
-				
 			</section>
 
 <!-- // -->
@@ -162,10 +153,10 @@ $section = '';
 			<section class="uif-disclosure uif-boxLayoutVerticalItem clearfix">
 				<header class="uif-sectionHeader">
 					<h3 class="uif-headerText">
-						<a data-role="disclosureLink" data-linkfor="modular-f-a-4b" href="#" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span class="icon-caret-down"></span> <span style="display:none;" class="icon-caret-right"></span>Existing Subaward Attachments</span></a> 
+						<a data-role="disclosureLink"  data-linkfor="modular-f-a-4b2" href="#" data-open="true" data-widgetid="modular-d" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span class="icon-caret-down"></span> <span style="display:none;" class="icon-caret-right"></span>Existing Subaward Attachments</span></a> 
 					</h3>
 				</header>
-				<div id="modular-f-a-4b" data-role="disclosureContent" data-open="true" class="uif-disclosureContent">
+				<div id="modular-f-a-4b2" data-role="disclosureContent" data-open="true" data-backdrop="static" class="uif-disclosureContent">
 					<table class=" pad5 table table-condensed table-bordered">
 						<thead>
 							<tr>
@@ -180,22 +171,12 @@ $section = '';
 								<td>uploaded-budget-1_33-v3.pdf</td>
 								<td> 
 								<div class="dropdown dropdown-large pull-right">
-									 <a href="#" class="btn btn-default btn-xs uif-delete" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a> <a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> 
+									<a href="#" class="btn btn-default btn-xs uif-delete" data-toggle="true "><span class="sr-only">Delete</span>
+									<span aria-hidden="true" class="icon-trash"></span></a> <a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> 
 									<div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -759px;top: 26px;width: 858px;padding:15px; background:#fcf8e3;">
-										
-										
 										<div style="position:absolute;top:20px;right:-50px;width:400px;">
-										<a href="#" class="btn btn-default btn-xs">View PDF</a>
-										<a href="#" class="btn btn-default btn-xs">View XML</a>
-											<a href="#" class="btn btn-default btn-xs " >Sync from PDF</a>
-											<a href="" class="btn btn-default btn-xs">Replace</a>
-											<a href="#" class="btn btn-default btn-xs" >Delete</a>
-									
-									</div>
-										
-										
-										
-										
+											<a href="#" class="btn btn-default btn-xs">View PDF</a> <a href="#" class="btn btn-default btn-xs">View XML</a> <a href="#" class="btn btn-default btn-xs ">Sync from PDF</a> <a href="" class="btn btn-default btn-xs">Replace</a> <a href="#" class="btn btn-default btn-xs">Delete</a> 
+										</div>
 										<p class="lead">
 											Attachment Details 
 										</p>
@@ -211,23 +192,20 @@ $section = '';
 											<li class="col-sm-6"><strong>Namespace:</strong> http://apply.grants.gov/forms/RR_Budget_1_#-v13</li>
 
 <!-- -->
-										</ul>	
+										</ul>
 										<div class="col-sm-12" style="margin-left:7px;">
 											<label>Comments: 
 											<textarea style="width:100%; height:55px;" class="form-control">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</textarea>
-											</label> 
-									
-									
-								
-									<a class="btn btn-default btn-xs pull-right" style="margin:10px 0 ;" href="#">
-Edit Comments	
-</a>
-								
-									
-										<p class="col-sm-10 clearfix"><strong>Details</strong></p>
+											</label> <a class="btn btn-default btn-xs pull-right" style="margin:10px 0 ;" href="#"> Edit Comments </a> 
+											<p class="col-sm-10 clearfix">
+												<strong>Details</strong>
+											</p>
 											<table class=" pad5 table table-condensed table-bordered">
 												<thead>
-													<tr><th><!-- numbers --></th>
+													<tr>
+														<th>
+<!-- numbers -->
+														</th>
 														<th>Direct Cost</th>
 														<th>F&amp;A Cost</th>
 														<th>Cost Sharing</th>
@@ -235,7 +213,8 @@ Edit Comments
 													</tr>
 												</thead>
 												<tbody>
-													<tr><td>1</td>
+													<tr>
+														<td>1</td>
 														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
 														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
 														</label> </td>
@@ -249,63 +228,69 @@ Edit Comments
 														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" readonly placeholder="0.00" />
 														</label> </td>
 													</tr>
-														<tr><td>2</td>
-														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
-														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
-														</label> </td>
-														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
-														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
-														</label> </td>
-														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
-														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
-														</label> </td>
-														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
-														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" readonly placeholder="0.00" />
-														</label> </td>
-													</tr>
-														<tr><td>3</td>
-														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
-														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
-														</label> </td>
-														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
-														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
-														</label> </td>
-														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
-														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
-														</label> </td>
-														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
-														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" readonly placeholder="0.00" />
-														</label> </td>
-													</tr>
-														<tr><td>4</td>
-														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
-														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
-														</label> </td>
-														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
-														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
-														</label> </td>
-														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
-														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
-														</label> </td>
-														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
-														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" readonly placeholder="0.00" />
-														</label> </td>
-													</tr>
-														<tr><td>5</td>
-														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
-														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
-														</label> </td>
-														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
-														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
-														</label> </td>
-														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
-														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" placeholder="0.00" />
-														</label> </td>
-														<td> <label class="input-group" for="base-4"> <span class="input-group-addon">$</span> 
-														<input name="base-4" id="base-4" type="text" value="" class="form-control text-right" readonly placeholder="0.00" />
-														</label> </td>
-													</tr>
-												
+												<tr>
+	<td>2</td>
+	<td> <label class="input-group" for="base-5"> <span class="input-group-addon">$</span> 
+	<input name="base-5" id="base-5" type="text" value="" class="form-control text-right" placeholder="0.00" />
+	</label> </td>
+	<td> <label class="input-group" for="base-5"> <span class="input-group-addon">$</span> 
+	<input name="base-5" id="base-5" type="text" value="" class="form-control text-right" placeholder="0.00" />
+	</label> </td>
+	<td> <label class="input-group" for="base-5"> <span class="input-group-addon">$</span> 
+	<input name="base-5" id="base-5" type="text" value="" class="form-control text-right" placeholder="0.00" />
+	</label> </td>
+	<td> <label class="input-group" for="base-5"> <span class="input-group-addon">$</span> 
+	<input name="base-5" id="base-5" type="text" value="" class="form-control text-right" readonly placeholder="0.00" />
+	</label> </td>
+</tr>
+
+													<tr>
+	<td>2</td>
+	<td> <label class="input-group" for="base-6"> <span class="input-group-addon">$</span> 
+	<input name="base-6" id="base-6" type="text" value="" class="form-control text-right" placeholder="0.00" />
+	</label> </td>
+	<td> <label class="input-group" for="base-6"> <span class="input-group-addon">$</span> 
+	<input name="base-6" id="base-6" type="text" value="" class="form-control text-right" placeholder="0.00" />
+	</label> </td>
+	<td> <label class="input-group" for="base-6"> <span class="input-group-addon">$</span> 
+	<input name="base-6" id="base-6" type="text" value="" class="form-control text-right" placeholder="0.00" />
+	</label> </td>
+	<td> <label class="input-group" for="base-6"> <span class="input-group-addon">$</span> 
+	<input name="base-6" id="base-6" type="text" value="" class="form-control text-right" readonly placeholder="0.00" />
+	</label> </td>
+</tr>
+
+<tr>
+	<td>2</td>
+	<td> <label class="input-group" for="base-7"> <span class="input-group-addon">$</span> 
+	<input name="base-7" id="base-7" type="text" value="" class="form-control text-right" placeholder="0.00" />
+	</label> </td>
+	<td> <label class="input-group" for="base-7"> <span class="input-group-addon">$</span> 
+	<input name="base-7" id="base-7" type="text" value="" class="form-control text-right" placeholder="0.00" />
+	</label> </td>
+	<td> <label class="input-group" for="base-7"> <span class="input-group-addon">$</span> 
+	<input name="base-7" id="base-7" type="text" value="" class="form-control text-right" placeholder="0.00" />
+	</label> </td>
+	<td> <label class="input-group" for="base-7"> <span class="input-group-addon">$</span> 
+	<input name="base-7" id="base-7" type="text" value="" class="form-control text-right" readonly placeholder="0.00" />
+	</label> </td>
+</tr>
+<tr>
+	<td>2</td>
+	<td> <label class="input-group" for="base-8"> <span class="input-group-addon">$</span> 
+	<input name="base-8" id="base-8" type="text" value="" class="form-control text-right" placeholder="0.00" />
+	</label> </td>
+	<td> <label class="input-group" for="base-8"> <span class="input-group-addon">$</span> 
+	<input name="base-8" id="base-8" type="text" value="" class="form-control text-right" placeholder="0.00" />
+	</label> </td>
+	<td> <label class="input-group" for="base-8"> <span class="input-group-addon">$</span> 
+	<input name="base-8" id="base-8" type="text" value="" class="form-control text-right" placeholder="0.00" />
+	</label> </td>
+	<td> <label class="input-group" for="base-8"> <span class="input-group-addon">$</span> 
+	<input name="base-8" id="base-8" type="text" value="" class="form-control text-right" readonly placeholder="0.00" />
+	</label> </td>
+</tr>
+
 												</tbody>
 											</table>
 										</div>
@@ -360,6 +345,7 @@ if ($currentPage == "generate=no") {
 ?>
 <!-- Note that screens such as cost-sharing, unrecovered F&A, and modular will display messages indicating that no data entry is required, if that is the case. -->
 <script>
+
 
 
 
