@@ -149,24 +149,6 @@
  #u569ish_line0 label { display: block; }
  /*#u569ish_line0 tr.success + tr { background-color: #dff0d8; border-color: #d6e9c6; }*/
 </style>
-<script>
-(function($){
-    var $radioButtons = $('#u569ish_line0 input[type="radio"]');
-    $radioButtons.click(function() {
-        $radioButtons.each(function() {
-            $(this).parent().parent().toggleClass("success", this.checked);
-        });
-       $("#u569ish_line0 td").removeClass("showMe");
-       $(".success").find('td').next().addClass("showMe");
-    });
-
-    $('input[type="checkbox"]').on('click', 'printModal', function() {
-        alert('asdf');
-        var num_selected = $('#printModal').find('input[type="checkbox"]:checked');
-        $('#printModal #count').text(num_selected);
-    });
-}(jQuery))
-</script> 
 <!-- end Modal --> 
 
 
@@ -216,30 +198,30 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="checkbox" id="d001" value="1"></td>
+                            <td><input type="checkbox" id="d001" value="1" name="" class="uif-checkbox-count"></td>
                             <td><label for="d001">Document name here</label></td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" id="d002" value="1"></td>
+                            <td><input type="checkbox" id="d002" value="1" name="" class="uif-checkbox-count"></td>
                             <td><label for="d002">Document name here</label></td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" id="d003" value="1"></td>
+                            <td><input type="checkbox" id="d003" value="1" name="" class="uif-checkbox-count"></td>
                             <td><label for="d003">Document name here</label></td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" id="d004" value="1"></td>
+                            <td><input type="checkbox" id="d004" value="1" name="" class="uif-checkbox-count"></td>
                             <td><label for="d004">Document name here</label></td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" id="d005" value="1"></td>
+                            <td><input type="checkbox" id="d005" value="1" name="" class="uif-checkbox-count"></td>
                             <td><label for="d005">Document name here</label></td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
                             <td colspan="2">
-                                <strong><span id="count">0</span> documents selected</strong>
+                                <strong><span class="count">0</span> documents selected</strong>
                             </td>
                         </tr>
                     </tfoot>
@@ -253,3 +235,28 @@
     </div>
 </div>
 <!-- end Modal -->
+
+
+
+<script>
+    (function($){
+        var $radioButtons = $('#u569ish_line0 input[type="radio"]');
+        $radioButtons.click(function() {
+            $radioButtons.each(function() {
+                $(this).parent().parent().toggleClass("success", this.checked);
+            });
+            $("#u569ish_line0 td").removeClass("showMe");
+            $(".success").find('td').next().addClass("showMe");
+        });
+    }(jQuery))
+
+
+    var count_checked = function() {
+        var n = jQuery('input.uif-checkbox-count:checked').length;
+        jQuery('#printModal .count').text(n);
+    }
+    count_checked();
+
+    jQuery('.uif-checkbox-count').on('click', count_checked);
+
+</script>
