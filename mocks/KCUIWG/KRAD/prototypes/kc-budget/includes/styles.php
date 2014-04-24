@@ -43,15 +43,15 @@ header{position:relative;}
 #page-help .dropdown-menu li a{ width:100%;min-width:150px;padding:5px;}
 /* END HELP ICON */
 
-.global-actions {
-	display: inline;
-	padding-right: 10px;
-	border-right: 1px solid #ccc;
-}
-.global-navigate {
-	display: inline;
-	padding-left: 20px;
-}
+/*.global-actions {*/
+	/*display: inline;*/
+	/*padding-right: 10px;*/
+	/*border-right: 1px solid #ccc;*/
+/*}*/
+/*.global-navigate {*/
+	/*display: inline;*/
+	/*padding-left: 20px;*/
+/*}*/
 
 .uif-pagetools {margin-top:12px; text-align:right}
 
