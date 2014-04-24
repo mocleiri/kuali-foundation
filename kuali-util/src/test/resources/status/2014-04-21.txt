@@ -13,6 +13,10 @@ Monday
 
 - Upgraded demo.rice.kuali.org to 2.4.0
 
+- SVN checkout issues for some important KS people
+-- Seems to be isolated around geographic boundaries
+-- Folks in Toronto have no issues
+-- Folks at UMD and few other spots have horrendous issues (90 minutes to checkout the project, should take 3-4 minutes)
 
 Tuesday
 -------
@@ -30,3 +34,6 @@ Wednesday
 -- Updated KS AFT jobs to use Mike Wyers FIREFOX_PATH switch to get them pointed at the proper version of Firefox 
 -- Supported KS throughout the day with items related to the cutover
 --- Perm's for a few people, tweaking of various jobs
+
+Thursday
+--------
