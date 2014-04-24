@@ -53,6 +53,6 @@ header{position:relative;}
 	padding-left: 20px;
 }
 
-
+.uif-pagetools {margin-top:12px; text-align:right}
 
 </style>

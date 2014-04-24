@@ -84,13 +84,16 @@ $section = '';
             <main id="LabsProposal-Page" class="uif-page uif-hasLeftNav" data-server_messages=false data-role=Page data-parent=LabsProposal style="margin-left: 235px;">
                 <header class="clearfix uif-header-contentWrapper">
                     <div id="u148pgf0" class="uif-pageHeader clearfix" data-header_for=LabsProposal-Page>
-                        <h2 class="uif-headerText"> <span class="uif-headerText-span"> Rates </span>  <a href="#" class="btn btn-default btn-xs pull-right">Refresh All Rates</a> </h2>
-                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h2 class="uif-headerText"> <span class="uif-headerText-span"> Rates </span> </h2>
+                            </div>
+                            <div class="col-md-6 uif-pagetools"> <a href="#" class="btn btn-default btn-xs">Refresh All Rates</a> <a href="#" class="btn btn-default btn-xs">Sync All Rates</a> </div>
+                        </div>
                     </div>
                 </header>
-                <p id="u1iaxrzf" class="uif-message uif-boxLayoutVerticalItem clearfix">Verify the default rates set by your institution. You can override them if necessary by clicking the "edit" icon to the right of each row.</p>
-                <br>
-                <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent=Demo-Disclosure-Example1>
+                <p id="u1iaxrzf" class="uif-message uif-boxLayoutVerticalItem clearfix" style="margin-bottom:12px;">Verify the default rates set by your institution. You can override them if necessary by clicking the "edit" icon to the right of each row.</p>
+<section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent=Demo-Disclosure-Example1>
                     <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for=u1qq592w>
                         <h3 class="uif-headerText"><a data-role=disclosureLink data-linkfor=reserachFA href="#" id="u1qq592w_toggle" data-open=true data-widgetid=u1vpenbn data-speed=500 data-ajax=false><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Research F&amp;A</span></a></h3>
                     </header>
