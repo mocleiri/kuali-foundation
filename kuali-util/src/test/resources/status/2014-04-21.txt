@@ -2,7 +2,7 @@ Monday
 ------
 
 - Continued putting finishing touches on ci.kuali.org
-- Coordinated with Peter on triage for a release issue related to Rice 2.4.0
+- Coordinated with Kristina/Peter on triage for a release issue related to Rice 2.4.0
 -- Nobody involved with the release process (QA, Dev, DevOp's etc) had the explicit responsibility of verifying the version # in the pom prior to the release occuring
 -- Because of that, 2 releases happened (2.4.0-M5 followed immediately thereafter by a 2.4.0)
 -- During the process of shortening the version number from 2.4.0-M5 to 2.4.0, another inadvertent change was introduced to the Rice pom 
@@ -12,4 +12,20 @@ Monday
 -- inadvertent change was determined to be contained to developers spinning up the app inside of an IDE
 
 - Upgraded demo.rice.kuali.org to 2.4.0
-- 
+
+
+Tuesday
+-------
+- Fixed bug in Jenkins spin up procedure related to AWS region selection
+- Brought https://ci.kuali.org/ online
+-- Migrated KS off of ci.rice to ci.kuali
+-- Brought 47 jobs over from ci.rice
+-- Minor tuning/touchup of most jobs as that was done
+
+Wednesday
+---------
+
+- Troubleshooting / support for KS on ci.kuali
+-- CAS was not configured correctly so auth information was not flowing to Jenkins
+-- Updated KS AFT jobs to use Mike Wyers FIREFOX_PATH switch to get them pointed at the proper version of Firefox 
+-- Supported KS throughout the day to resolve
