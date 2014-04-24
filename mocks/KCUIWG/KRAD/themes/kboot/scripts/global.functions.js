@@ -12,12 +12,8 @@ jQuery(document).ready(function($) {
      * Notes: 1) To prevent editing of a field, add .not-editable to the parent <td>
      *        2) Requires the icons .icon-save and .icon-edit
      *
-     * Original: clrux
-     *
-     * TODO:  1) Add column totaling
-     * TODO:  2) Get row highlighting for editing
+     * clrux
      */
-
 
     $('table').on('click keydown', '.icon-edit', function(e) {
 
@@ -202,7 +198,7 @@ jQuery(document).ready(function($) {
      *           krad.widgets.js
      *           (and jQuery, of course)
      *
-     * Original: clrux
+     * clrux
      */
 
     setupSidebarNavMenu('uif_budget_navigation_menu', 'icon-angle-down', 'icon-angle-right');
@@ -212,10 +208,8 @@ jQuery(document).ready(function($) {
      * Select listener
      * This is specifically for the personnel addition modal
      *
-     * Original: thrclark
-     * Update: clrux
+     * thrclark, clrux
      */
-
 
     $('select#personType').on('change', function() {
 
@@ -266,6 +260,59 @@ jQuery(document).ready(function($) {
 
      });
 
+
+
+    /*
+     * Radio button toggling
+     * Specifically for budget versions modal at this point
+     *
+     * thrclark, clrux
+     */
+
+    var radio_buttons = $('#u569ish_line0 input[type="radio"]');
+    radio_buttons.click(function() {
+        radio_buttons.each(function() {
+            $(this).parent().parent().toggleClass("success", this.checked);
+        });
+        $("#u569ish_line0 td").removeClass("showMe");
+        $(".success").find('td').next().addClass("showMe");
+    });
+
+
+
+    /*
+     * Count checkboxes
+     * Init specifically for the Print modal, but can be used anywhere
+     *
+     * clrux
+     */
+
+
+    var count_checked = function() {
+        var n = $('input.uif-checkbox-count:checked').length;
+        $('#printModal .count').text(n);
+    }
+    count_checked();
+
+    $('.uif-checkbox-count').on('click', count_checked);
+
+
+
+    /*
+     * Tooltips
+     * Listens for 'hover' on uif-help and then initiates Bootstraps popover functionality
+     *
+     * clrux
+     */
+
+    $('.uif-help').popover({
+        animation: false,
+        html: false,
+        placement: 'right',
+        trigger: 'click,focus',
+        title: 'Information',
+        delay: 250
+    });
 
 });
 

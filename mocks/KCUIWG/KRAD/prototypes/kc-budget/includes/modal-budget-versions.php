@@ -235,28 +235,3 @@
     </div>
 </div>
 <!-- end Modal -->
-
-
-
-<script>
-    (function($){
-        var $radioButtons = $('#u569ish_line0 input[type="radio"]');
-        $radioButtons.click(function() {
-            $radioButtons.each(function() {
-                $(this).parent().parent().toggleClass("success", this.checked);
-            });
-            $("#u569ish_line0 td").removeClass("showMe");
-            $(".success").find('td').next().addClass("showMe");
-        });
-    }(jQuery))
-
-
-    var count_checked = function() {
-        var n = jQuery('input.uif-checkbox-count:checked').length;
-        jQuery('#printModal .count').text(n);
-    }
-    count_checked();
-
-    jQuery('.uif-checkbox-count').on('click', count_checked);
-
-</script>

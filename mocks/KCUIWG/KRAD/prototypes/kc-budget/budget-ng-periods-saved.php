@@ -258,8 +258,6 @@ $section = '';
     </span>
 
 </form>
-<?php include ('includes/footer-scripts.php') ?>
-
 
 <!-- MODAL -- budget summary -->
 <?php include ('includes/modal-budget-summary.php') ?>
@@ -267,9 +265,9 @@ $section = '';
 <?php include ('includes/modal-budget-settings.php') ?>
 <!-- MODAL -- budget open propsal -->
 <?php include ('includes/modal-budget-open-prop.php') ?>
-
 <!-- MODAL BUDGET VERSIONS -->
 <?php include ('includes/modal-budget-versions.php') ?>
 
+<?php include ('includes/footer-scripts.php') ?>
 </body>
 </html>

@@ -9,25 +9,33 @@
             <div class="modal-body">
                 <div class="form-horizontal uif-cssGridGroup" role="form">
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Project Start</label>
+                        <label for="inputEmail3" class="col-sm-3 control-label">Project Start
+                            <span tabindex="0" class="uif-help icon-question-sign" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."><span class="sr-only">Help</span></span>
+                        </label>
                         <div class="col-sm-9">
                             <p class="form-control-static">10/21/2014</p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Project End</label>
+                        <label for="inputEmail3" class="col-sm-3 control-label">Project End
+                            <span tabindex="0" class="uif-help icon-question-sign" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."><span class="sr-only">Help</span></span>
+                        </label>
                         <div class="col-sm-9">
                             <p class="form-control-static">10/20/2019</p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Total Direct Cost Limit</label>
+                        <label for="inputEmail3" class="col-sm-3 control-label">Total Direct Cost Limit
+                            <span tabindex="0" class="uif-help icon-question-sign" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."><span class="sr-only">Help</span></span>
+                        </label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="" placeholder="">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Budget Status</label>
+                        <label for="inputEmail3" class="col-sm-3 control-label">Budget Status
+                            <span tabindex="0" class="uif-help icon-question-sign" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."><span class="sr-only">Help</span></span>
+                        </label>
                         <div class="col-sm-9">
                             <select class="form-control">
                                 <option>Complete</option>
@@ -36,7 +44,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">On/Off Campus</label>
+                        <label for="inputEmail3" class="col-sm-3 control-label">On/Off Campus
+                            <span tabindex="0" class="uif-help icon-question-sign" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."><span class="sr-only">Help</span></span>
+                        </label>
                         <div class="col-sm-9">
                             <select class="form-control">
                                 <option>All On</option>
@@ -45,25 +55,33 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Residual Funds</label>
+                        <label for="inputEmail3" class="col-sm-3 control-label">Residual Funds
+                            <span tabindex="0" class="uif-help icon-question-sign" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."><span class="sr-only">Help</span></span>
+                        </label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="" placeholder="">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Total Cost Limit</label>
+                        <label for="inputEmail3" class="col-sm-3 control-label">Total Cost Limit
+                            <span tabindex="0" class="uif-help icon-question-sign" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."><span class="sr-only">Help</span></span>
+                        </label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="" placeholder="">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Unrecovered F&A Rate Type</label>
+                        <label for="inputEmail3" class="col-sm-3 control-label">Unrecovered F&A Rate Type
+                            <span tabindex="0" class="uif-help icon-question-sign" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."><span class="sr-only">Help</span></span>
+                        </label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="" placeholder="">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">F&A Rate Type:</label>
+                        <label for="inputEmail3" class="col-sm-3 control-label">F&A Rate Type:
+                            <span tabindex="0" class="uif-help icon-question-sign" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."><span class="sr-only">Help</span></span>
+                        </label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="" placeholder="">
                         </div>
@@ -71,27 +89,30 @@
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-9">
                             <div class="checkbox">
-                                <label>
+                                <label for="">
                                     <input type="checkbox">
-                                    Modular Budget </label>
+                                    Modular Budget
+                                </label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-9">
                             <div class="checkbox">
-                                <label>
+                                <label for="">
                                     <input type="checkbox">
-                                    Submit Cost Sharing </label>
+                                    Submit Cost Sharing
+                                </label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-9">
                             <div class="checkbox">
-                                <label>
+                                <label for="">
                                     <input type="checkbox">
-                                    Submit this budget with your proposal </label>
+                                    Submit this budget with your proposal
+                                </label>
                             </div>
                         </div>
                     </div>
