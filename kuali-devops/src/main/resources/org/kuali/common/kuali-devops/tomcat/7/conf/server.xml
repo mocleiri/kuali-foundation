@@ -7,9 +7,8 @@
   <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
   <Service name="Catalina">
     <Connector URIEncoding="UTF-8" port="8080" protocol="HTTP/1.1" connectionTimeout="20000" compression="force" redirectPort="443" />
-    <Connector URIEncoding="UTF-8" port="8443" protocol="HTTP/1.1" connectionTimeout="20000" compression="force" secure="true" 
+    <Connector URIEncoding="UTF-8" port="8443" protocol="HTTP/1.1" connectionTimeout="20000" compression="force" secure="true" scheme="https" 
        SSLEnabled="true" 
-       scheme="https" 
        SSLCertificateKeyFile="${catalina.base}/conf/ssl/SSLCertificateKeyFile.pem" 
        SSLCertificateFile="${catalina.base}/conf/ssl/SSLCertificateFile.pem" 
        SSLCertificateChainFile="${catalina.base}/conf/ssl/SSLCertificateChainFile.pem" 
