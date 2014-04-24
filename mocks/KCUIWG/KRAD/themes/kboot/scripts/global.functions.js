@@ -224,6 +224,12 @@ jQuery(document).ready(function($) {
         } else {
             $('.employee').hide();
         }
+		
+  		if ( $(this).filter(':selected') == 'emp1' || $(this).val() == 'emp1' ) {
+            $('.employee1').show();
+        } else {
+            $('.employee1').hide();
+        }
 
         if ( $(this).filter(':selected') == 'nonemp' || $(this).val() == 'nonemp' ) {
             $('.nonemployee').show();
