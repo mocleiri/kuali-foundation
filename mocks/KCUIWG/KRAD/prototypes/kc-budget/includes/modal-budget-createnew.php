@@ -37,14 +37,14 @@
 							<label for="radio-start-summary-budget"> 
 							<input type="radio" name="radio-start-budget" value="summary" id="radio-start-summary-budget">
 							Start a summary budget</label> 
-						</p>
+						</p><!-- The question below only shows up IF SPONSOR = NIH  -->
 						<p class="topMargin1em">
 							Will this be a modular budget? <label> 
 							<input type="radio" name="radio-modular-budget" value="modular" id="radio-modular-budget_yes">
 							Yes</label> <label> 
 							<input type="radio" name="radio-modular-budget" value="periods" id="radio-modular-budget_no">
 							No</label> 
-						</p>
+						</p><!-- The question below only shows up IF SPONSOR = NIH  -->
 					</fieldset>
 				</div>
 			</div>
