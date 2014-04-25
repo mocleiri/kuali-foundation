@@ -169,7 +169,7 @@
                 <h4 class="modal-title" id="myModalLabel">Autocalculate Periods</h4>
             </div>
             <div class="modal-body">
-                <p>You are about to autocalculate data for each period based on the current period (1). This is a one-time action and cannot be undone. You will however, be able to recalculate period data. </p>
+                <p>You are about to autocalculate data for each period based on the current period (1). </p>
 				<P>Are you sure you want to do this?</p>
                 <!--<small>
                 <label style="font-weight:normal">
