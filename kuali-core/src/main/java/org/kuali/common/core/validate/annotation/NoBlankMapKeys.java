@@ -28,7 +28,7 @@ import javax.validation.Payload;
 import org.kuali.common.core.validate.NoBlankMapKeysValidator;
 
 /**
- * 
+ * Any maps that use a {@code String} for the key, cannot contain pure whitespace, or the empty string ("") as a key
  */
 @Target({ TYPE })
 @Retention(RUNTIME)
