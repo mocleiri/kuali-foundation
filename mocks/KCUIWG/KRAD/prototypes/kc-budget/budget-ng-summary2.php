@@ -244,7 +244,10 @@ $section = '';
                 <!--                </div>-->
             </main>
         </div> 
-<!-- VIEW FOOTER --> <div id="" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;"> <div class="global-actions"> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save </a> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Reload </a> <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Complete Budget </a> </div>
+<!-- VIEW FOOTER         <button type="button"  id="complete" class="btn btn-default">Complete Budget</button>--> <div id="" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;"> <div class="global-actions"> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save </a> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Reload </a> 
+
+
+<a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem"  data-toggle="modal" data-target="#modal-budget-complete" >Complete Budget </a> </div>
             
             <a href="budget-ng-periods.php" id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem">Continue <span class="icon-chevron-right"></span></a>
         </div>
@@ -273,6 +276,7 @@ $section = '';
 <?php include ('includes/modal-budget-open-prop.php') ?>
 <!-- MODAL BUDGET VERSIONS -->
 <?php include ('includes/modal-budget-versions.php') ?>
-
+<!-- MODAL budget complete buttons -->
+<?php include ('includes/modal-budget-complete.php') ?>
 </body>
 </html>

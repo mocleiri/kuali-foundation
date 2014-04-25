@@ -602,8 +602,9 @@ $section = '';
 
                     <button type="button" id="" class="btn btn-default">Save</button>
                     <button type="button" id="" class="btn btn-default">Reload</button>
-                    <button type="button" id="" class="btn btn-default">Complete Budget</button>
-                </div>
+                        <button type="button"  id="complete"  data-toggle="modal" data-target="#modal-budget-complete" class="btn btn-default">Complete Budget</button>
+            </div>
+             
             </div>
         </div>
 <!--    <div id="" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;"> <div class="global-actions"> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Save </a> <a id="" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Reload </a> <a id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem">Complete Budget </a> </div>-->
@@ -1081,25 +1082,7 @@ return false;
     </div>
 </div>
 
-<!-- NO QUOTES ?
-<div class="modal fade" id="switchdoc" tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true>
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type=button class="close" data-dismiss=modal aria-hidden=true>&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Open Proposal</h4>
-            </div>
-            <div class="modal-body">
-                <p>You are about to open the proposal doument for this budget. Are you sure you want to do this?</p>
-                <small>
-                <label style=font-weight:normal>
-                    <input type=checkbox>
-                    Dont ask me this again </label>
-                </small></div>
-            <div class="modal-footer"><a href="" class="btn btn-default" data-dismiss=modal>Cancel</a> <a href="prop-basics-details.php" class="btn btn-primary">Open Proposal Development Document</a></div>
-        </div>
-    </div>
-</div>
- end Modal -->
+<!-- MODAL budget complete buttons -->
+<?php include ('includes/modal-budget-complete.php') ?>
 </body>
 </html>

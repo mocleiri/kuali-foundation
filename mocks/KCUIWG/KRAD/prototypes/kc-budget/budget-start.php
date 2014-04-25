@@ -186,7 +186,8 @@ $page = 'asdf';
     
 </form>
 <?php include ('includes/footer-scripts.php') ?>
-
+<!-- MODAL budget complete buttons -->
+<?php include ('includes/modal-budget-complete.php') ?>
 <!-- Modal -->
 <!-- MODAL -- budget summary -->
 <?php include ('includes/modal-budget-summary.php') ?>

@@ -359,5 +359,8 @@ $section = '';
 <!-- MODAL BUDGET VERSIONS -->
 <?php include ('includes/modal-budget-versions.php') ?>
 <!-- end Modal -->
+
+<!-- MODAL budget complete buttons -->
+<?php include ('includes/modal-budget-complete.php') ?>
 </body>
 </html>

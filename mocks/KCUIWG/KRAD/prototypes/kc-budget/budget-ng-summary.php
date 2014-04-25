@@ -331,7 +331,7 @@ $section = '';
             <div class="uif-footer-centered-control-group clearfix">
                 <div class="global-navigate btn-group">
                     <button type="button" href="budget-ng-notes.php" id="" class="btn btn-default"><span class="icon-chevron-left"></span> Back</button>
-                    <button type="button" href="#.php" id="save-continue"  data-toggle="modal" data-target="#modal-budget-complete" class="btn btn-primary">Complete Budget</button>
+                          <button type="button"  id="complete"  data-toggle="modal" data-target="#modal-budget-complete" class="btn btn-default">Complete Budget</button>
                 </div>
 
                 <div class="global-actions btn-group">

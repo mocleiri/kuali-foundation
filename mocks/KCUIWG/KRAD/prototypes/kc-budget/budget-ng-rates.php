@@ -760,7 +760,7 @@ $section = '';
 
                 <button type="button" id="" class="btn btn-default">Save</button>
                 <button type="button" id="" class="btn btn-default">Reload</button>
-                <button type="button" id="" class="btn btn-default">Complete Budget</button>
+              <button type="button"  id="complete"  data-toggle="modal" data-target="#modal-budget-complete" class="btn btn-default">Complete Budget</button>
             </div>
         </div>
     </div>
@@ -792,7 +792,8 @@ $section = '';
 <?php include ('includes/modal-budget-open-prop.php') ?>
 <!-- MODAL BUDGET VERSIONS -->
 <?php include ('includes/modal-budget-versions.php') ?>
- 
+<!-- MODAL budget complete buttons -->
+<?php include ('includes/modal-budget-complete.php') ?> 
 
 <!-- NO QUOTES
 <div class="modal fade" id="summary" tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true>

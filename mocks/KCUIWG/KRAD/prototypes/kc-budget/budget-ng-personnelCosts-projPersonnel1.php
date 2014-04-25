@@ -584,7 +584,7 @@ background: #ffffff;">
 
                 <button type="button" id="" class="btn btn-default">Save</button>
                 <button type="button" id="" class="btn btn-default">Reload</button>
-                <button type="button" id="" class="btn btn-default">Complete Budget</button>
+               <button type="button"  id="complete"  data-toggle="modal" data-target="#modal-budget-complete" class="btn btn-default">Complete Budget</button>
             </div>
         </div>
     </div>
@@ -612,7 +612,8 @@ background: #ffffff;">
 <!-- MODAL  budget open propsal -->
 <?php include ('includes/modal-budget-open-prop.php') ?>
 
-
+<!-- MODAL budget complete buttons -->
+<?php include ('includes/modal-budget-complete.php') ?>
 <script>
 
 //replacing the "version 5"
@@ -647,7 +648,8 @@ background: #ffffff;">
 <?php include ('includes/modal-budget-add-personnel1.php') ?>
 <?php include ('includes/modal-budget-add-personnel1-results.php') ?>
 <?php include ('includes/modal-budget-add-personnel1-results-tbn.php') ?>
-    
+    <!-- MODAL budget complete buttons -->
+<?php include ('includes/modal-budget-complete.php') ?>
 
 <!-- MODAL BUDGET VERSIONS -->
 <?php include ('includes/modal-budget-versions.php') ?>

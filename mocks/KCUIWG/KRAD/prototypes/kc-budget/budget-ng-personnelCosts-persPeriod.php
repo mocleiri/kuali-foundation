@@ -1146,7 +1146,7 @@ $page = 'personnel-assign';
                 <div class="global-actions btn-group">
                         <button type="button" id="" class="btn btn-default">Save</button>
                         <button type="button" id="" class="btn btn-default">Reload</button>
-                        <button type="button" id="" class="btn btn-default">Complete Budget</button>
+<button type="button"  id="complete"  data-toggle="modal" data-target="#modal-budget-complete" class="btn btn-default">Complete Budget</button>
                     </div>
             </div>
             </div>
@@ -1381,7 +1381,8 @@ return false;
     </div>
 
     -->
-
+<!-- MODAL budget complete buttons -->
+<?php include ('includes/modal-budget-complete.php') ?>
 </div>
 </body>
 </html>
