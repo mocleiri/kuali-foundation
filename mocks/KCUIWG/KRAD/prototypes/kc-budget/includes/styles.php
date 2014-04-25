@@ -55,4 +55,6 @@ header{position:relative;}
 
 .uif-pagetools {margin-top:12px; text-align:right}
 
+.icon-chevron-left{ position:relative; top:3px }
+.icon-chevron-right{  position:relative; top:3px  }
 </style>
