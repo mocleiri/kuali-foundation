@@ -1177,7 +1177,13 @@ $page = 'personnel-assign';
     jQuery(document).ready(function ($) {
     
     
+	$(".tabWarning").click(function(e){
 
+  alert("[MODAL WINDOW] --- You are about to enter costs in a later period. Doing so will prevent you from using the generate all periods function to auto-calculate later periods. Do you wish to continue? {{ CANCEL (button)  | CONTINUE (button) }} ---[MODAL WINDOW]");
+return false;
+
+});
+	
 	
 
 	
@@ -1195,13 +1201,7 @@ if ($currentPage == "modular-budget=no&amp;detail=yes") {
 <script>
 (function($){
 	
-	$(".tabWarning").click(function(e){
 
-  alert("[MODAL WINDOW] --- You are about to enter costs in a later period. Doing so will prevent you from using the generate all periods function to auto-calculate later periods. Do you wish to continue? {{ CANCEL (button)  | CONTINUE (button) }} ---[MODAL WINDOW]");
-return false;
-
-});
-	
 	
 	
  $('body').on('click','.save-continue-btn', function(e) {
