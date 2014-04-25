@@ -50,15 +50,15 @@ import com.google.common.base.Joiner;
  *              w     x  y     z
  * </pre>
  */
-public class PropertiesToJsonNodeFunction implements Function<Properties, ObjectNode> {
+public class PropertiesToObjectNodeFunction implements Function<Properties, ObjectNode> {
 
 	private static final JsonNodeFactory FACTORY = new JsonNodeFactory(false);
 
-	public PropertiesToJsonNodeFunction() {
+	public PropertiesToObjectNodeFunction() {
 		this(".");
 	}
 
-	public PropertiesToJsonNodeFunction(String separator) {
+	public PropertiesToObjectNodeFunction(String separator) {
 		this.joiner = Joiner.on(checkNotBlank(separator, "separator"));
 	}
 
