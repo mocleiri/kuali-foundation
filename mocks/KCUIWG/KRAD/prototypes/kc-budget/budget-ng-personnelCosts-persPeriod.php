@@ -179,7 +179,7 @@ $page = 'personnel-assign';
                                         <label for="exampleInputPassword1">Group</label>
                                         <small class="text-muted"> (optional)</small>
                                         <select class="form-control">
-                                                <option value="">select</option>
+                                                <option value="">Default</option>
                                                 <option>My Custom Group 1</option>
                                                 <option>My Custom Group 2</option>
                                                 <option>My Custom Group 3</option>
@@ -191,7 +191,14 @@ $page = 'personnel-assign';
                                     </div>
                             </div>
                                 <div class="row">
-                                <div class="col-md-12 text-right"><a href="budget-ng-personnelCosts-persPeriod2.php" type="submit" class="btn btn-primary btn-xs">Assign to Period 1</a></div>
+                                <div class="col-md-12 text-right">
+                                
+                                
+                                <a class="btn btn-primary btn-xs uif-actionLink" data-toggle="modal" data-target="#persperiod">Assign to Period 1...</a>
+                                
+                                
+                                
+                                </div>
                             </div>
                             </div>
                         <h4 class="pull-left" >Assigned Personnel</h4>
@@ -1231,6 +1238,13 @@ return false;
 <?php include ('includes/modal-budget-open-prop.php') ?>
 <!-- MODAL BUDGET VERSIONS -->
 <?php include ('includes/modal-budget-versions.php') ?>
+
+
+<!-- MODAL add person to period -->
+<?php include ('includes/modal-budget-addPersPeriod.php') ?>
+
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
