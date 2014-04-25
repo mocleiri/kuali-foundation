@@ -16,6 +16,7 @@ Monday
 - SVN checkout issues for some important KS people
 -- Seems to be isolated around geographic boundaries
 -- Folks in Toronto have no issues
+-- Folks in Phoenix have no issues
 -- Folks at UMD and few other spots have horrendous issues (consistently takes more than an hour to checkout the project, should take 3-4 minutes)
 
 Tuesday
