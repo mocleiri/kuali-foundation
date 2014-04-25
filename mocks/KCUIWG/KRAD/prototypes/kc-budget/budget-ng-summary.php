@@ -330,11 +330,12 @@ $section = '';
         <div id="" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;">
             <div class="uif-footer-centered-control-group clearfix">
                 <div class="global-navigate btn-group">
+                    <button type="button" href="budget-ng-notes.php" id="" class="btn btn-default"><span class="icon-chevron-left"></span> Back</button>
                     <button type="button" href="#.php" id="save-continue"  data-toggle="modal" data-target="#modal-budget-complete" class="btn btn-primary">Complete Budget</button>
                 </div>
 
                 <div class="global-actions btn-group">
-                    <button type="button" href="budget-ng-notes.php" id="" class="btn btn-default">Back</button>
+                   
                     <button type="button" id="" class="btn btn-default">Save</button>
                     <button type="button" id="" class="btn btn-default">Reload</button>
                 </div>
