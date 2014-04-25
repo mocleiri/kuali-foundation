@@ -595,7 +595,7 @@ $section = '';
             <div class="uif-footer-centered-control-group clearfix">
                 <div class="global-navigate btn-group">
                     <button type="button" href="budget-ng-personnelCosts-persPeriod.php" id="" class="btn btn-default"><span class="icon-chevron-left"></span> Back</button>
-                    <button type="button" href="budget-ng-rates.php" id="save-continue" class="btn btn-primary">Continue <span class="icon-chevron-right"></span></button>
+                    <button type="button" id="save-continue"  data-toggle="modal" data-target="#save-modal"   class="btn btn-primary">Continue <span class="icon-chevron-right"></span></button>
                 </div>
 
                 <div class="global-actions btn-group">

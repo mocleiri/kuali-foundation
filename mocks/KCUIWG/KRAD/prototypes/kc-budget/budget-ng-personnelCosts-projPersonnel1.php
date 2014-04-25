@@ -614,29 +614,47 @@ background: #ffffff;">
 
 <!-- MODAL budget complete buttons -->
 <?php include ('includes/modal-budget-complete.php') ?>
+
+
+<?php
+$currentPage =  $_SERVER['QUERY_STRING'] ;
+if ($currentPage == "modular-budget=no&amp;detail=yes") {
+?>
+<!--  casual user view -->
 <script>
-
-//replacing the "version 5"
-
 (function($){
-  		
+	
+ $('body').on('click','#save-continue', function(e) {
 
-			
- $("#save-continue").click(function (e) {	
-	  //e.preventDefault();		
-			
-		
-  });
+   document.location.href='budget-ng-personnelCosts-persPeriod.php?modular-budget=no&amp;detail=yes'; 
 
-	  
-
-}(jQuery))
-
-
+});  
+  	  
+}(jQuery))	
 </script>
 
+<?php } ?>
 
 
+
+<?php
+$currentPage =  $_SERVER['QUERY_STRING'] ;
+if ($currentPage == "modular-budget=yes&amp;detail=yes") {
+?>
+<!--  casual user view -->
+<script>
+(function($){
+	
+ $('body').on('click','#save-continue', function(e) {
+
+   document.location.href='budget-ng-personnelCosts-persPeriod.php?modular-budget=yes&amp;detail=yes'; 
+
+});  
+  	  
+}(jQuery))	
+</script>
+
+<?php } ?>
 
 
 

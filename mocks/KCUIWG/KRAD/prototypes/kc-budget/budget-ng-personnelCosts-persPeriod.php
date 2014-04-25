@@ -1141,7 +1141,7 @@ $page = 'personnel-assign';
                 <div class="uif-footer-centered-control-group clearfix">
                 <div class="global-navigate btn-group">
                         <button type="button" href="budget-ng-personnelCosts-projPersonnel1.php" id="" class="btn btn-default"><span class="icon-chevron-left"></span> Back</button>
-                        <button type="button" href="budget-ng-non-personnel.php" id="save-continue" class="btn btn-primary">Continue <span class="icon-chevron-right"></span></button>
+                        <button type="button" href="budget-ng-non-personnel.php" id="save-continue" class="btn btn-primary save-continue-btn">Continue <span class="icon-chevron-right"></span></button>
                     </div>
                 <div class="global-actions btn-group">
                         <button type="button" id="" class="btn btn-default">Save</button>
@@ -1172,15 +1172,56 @@ $page = 'personnel-assign';
     
 
 	
-$(".tabWarning").click(function(e){
+
+	
+        $('#tabs').tab();
+    });</script> 
+
+
+
+
+<?php
+$currentPage =  $_SERVER['QUERY_STRING'] ;
+if ($currentPage == "modular-budget=no&amp;detail=yes") {
+?>
+<!--  casual user functions -->
+<script>
+(function($){
+	
+	$(".tabWarning").click(function(e){
 
   alert("[MODAL WINDOW] --- You are about to enter costs in a later period. Doing so will prevent you from using the generate all periods function to auto-calculate later periods. Do you wish to continue? {{ CANCEL (button)  | CONTINUE (button) }} ---[MODAL WINDOW]");
 return false;
 
 });
 	
-        $('#tabs').tab();
-    });</script> 
+	
+	
+ $('body').on('click','.save-continue-btn', function(e) {
+
+   document.location.href='budget-ng-non-personnel.php?modular-budget=no&amp;detail=yes'; 
+
+});  
+  	  
+}(jQuery))	
+</script>
+
+<?php } ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- MODAL budget summary -->
 <?php include ('includes/modal-budget-summary.php') ?>
