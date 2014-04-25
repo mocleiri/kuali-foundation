@@ -283,6 +283,55 @@ tfoot th[scope="row"] strong{ float:right; margin-top:5px;}
 </form>
 
 <?php include ('includes/footer-scripts.php') ?>
+
+<!-- casual user -->
+<?php
+$currentPage =  $_SERVER['QUERY_STRING'] ;
+if ($currentPage == "modular-budget=no&amp;summary=yes") {
+?>
+
+<script>
+
+(function($){
+	
+		
+ $('body').on('click','#save-continue', function(e) {
+	  e.preventDefault();
+	  
+	 
+  document.location.href='budget-ng-summary.php?modular-budget=no&amp;summary=yes';
+
+  });  
+  	  
+}(jQuery))	
+</script>
+
+<?php } ?>
+
+<!-- casual user -->
+<?php
+$currentPage =  $_SERVER['QUERY_STRING'] ;
+if ($currentPage == "modular-budget=yes&amp;summary=yes") {
+?>
+
+<script>
+
+(function($){
+	
+		
+ $('body').on('click','#save-continue', function(e) {
+	  e.preventDefault();
+	  
+	 
+  document.location.href='budget-ng-modular.php?modular-budget=yes&amp;summary=yes';
+
+  });  
+  	  
+}(jQuery))	
+</script>
+
+<?php } ?>	
+
 <!-- MODAL  budget summary -->
 <?php include ('includes/modal-budget-summary.php') ?>
 <!-- MODAL  budget settings  -->

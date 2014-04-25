@@ -963,7 +963,7 @@ input {
 <!-- MODAL budget complete buttons -->
 <?php include ('includes/modal-budget-complete.php') ?>
 
-
+<!--casual user -->
 <?php
 $currentPage =  $_SERVER['QUERY_STRING'] ;
 if ($currentPage == "modular-budget=yes&amp;detail=yes") {
@@ -982,5 +982,28 @@ if ($currentPage == "modular-budget=yes&amp;detail=yes") {
 </script>
 
 <?php } ?>
+
+
+
+<!--casual user -->
+<?php
+$currentPage =  $_SERVER['QUERY_STRING'] ;
+if ($currentPage == "modular-budget=yes&amp;summary=yes") {
+?>
+<!--  casual user view -->
+<script>
+(function($){
+	
+ $('body').on('click','#save-continue', function(e) {
+
+   document.location.href='budget-ng-summary.php?modular-budget=yes&amp;summary=yes'; 
+
+});  
+  	  
+}(jQuery))	
+</script>
+
+<?php } ?>
+
 </body>
 </html>

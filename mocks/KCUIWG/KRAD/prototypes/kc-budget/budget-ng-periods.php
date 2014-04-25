@@ -398,14 +398,14 @@ If a user selects summary budget and modular = no, then:
 	
 	
 if  (($("input.unrecovered").val() != "") && ($("input.cost-sharing").val() != "")){
- document.location.href='budget-ng-cost-sharing.php?modular-budget=no&amp;detail=yes';
+ document.location.href='budget-ng-cost-sharing.php?modular-budget=no&amp;summary=yes';
 } else if ($("input.unrecovered").val() != "") {
- document.location.href='budget-ng-unrecovered-fa.php?modular-budget=no&amp;detail=yes';
+ document.location.href='budget-ng-unrecovered-fa.php?modular-budget=no&amp;summary=yes';
 } else if  ($("input.cost-sharing").val() != ""){
- document.location.href='budget-ng-cost-sharing.php?modular-budget=no&amp;detail=yes';
+ document.location.href='budget-ng-cost-sharing.php?modular-budget=no&amp;summary=yes';
 }
 else {
-   document.location.href='budget-ng-summary.php?modular-budget=no&amp;detail=yes'
+   document.location.href='budget-ng-summary.php?modular-budget=no&amp;summary=yes'
 } 
 	
 
@@ -422,12 +422,15 @@ else {
 
 
 
+<?php } ?>	
 
 
 
 
-
-<?php } else { ?>
+<?php
+$currentPage =  $_SERVER['QUERY_STRING'] ;
+if ($currentPage == "modular-budget=yes&amp;summary=yes") {
+?>
 		
 
 <script>
@@ -444,14 +447,14 @@ else {
 	
 	
 if  (($("input.unrecovered").val() != "") && ($("input.cost-sharing").val() != "")){
- document.location.href='budget-ng-cost-sharing.php?modular-budget=yes&amp;detail=yes';
+ document.location.href='budget-ng-cost-sharing.php?modular-budget=yes&amp;summary=yes';
 } else if ($("input.unrecovered").val() != "") {
-document.location.href='budget-ng-unrecovered-fa.php?modular-budget=yes&amp;detail=yes';
+document.location.href='budget-ng-unrecovered-fa.php?modular-budget=yes&amp;summary=yes';
 } else if  ($("input.cost-sharing").val() != ""){
-document.location.href='budget-ng-cost-sharing.php?modular-budget=yes&amp;detail=yes';
+document.location.href='budget-ng-cost-sharing.php?modular-budget=yes&amp;summary=yes';
 }
 else {
-   document.location.href='budget-ng-modular.php?modular-budget=yes&amp;detail=yes';
+   document.location.href='budget-ng-modular.php?modular-budget=yes&amp;summary=yes';
 } 
 	  
 	  
