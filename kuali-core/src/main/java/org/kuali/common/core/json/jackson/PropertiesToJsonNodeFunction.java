@@ -22,6 +22,7 @@ import static org.kuali.common.util.base.Precondition.checkNotNull;
 
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import org.kuali.common.util.tree.Node;
 
@@ -66,7 +67,8 @@ public class PropertiesToJsonNodeFunction implements Function<Properties, Object
 	@Override
 	public ObjectNode apply(Properties properties) {
 		checkNotNull(properties, "properties");
-		Node<String> node = new NestedKeysFunction().apply(properties.stringPropertyNames());
+		Set<String> keys = properties.stringPropertyNames();
+		Node<String> node = new NestedKeysFunction().apply(keys);
 		return (ObjectNode) buildTree(node, properties);
 	}
 
