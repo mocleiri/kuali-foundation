@@ -57,3 +57,7 @@ Friday
 - Formed Rice DevOps Skype chat
 - Worked through process for adding an environment into the mix for Rice
 - Quite a few conversations about the purpose of QA Jenkins 
+- Highly improved template job for KS AFT's
+- Mike W. has a way to generate very nice Cucumber reports now demonstrating results of the AFT run
+- jdk7-with-jdk6-bytecode for KS
+- Talked through bumping KS to 3.4.7 of the kuali pom and Maven 3.2.1
