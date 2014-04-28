@@ -17,6 +17,7 @@
 -->
 <!-- Configuration specific to the application deployed to this environment -->
 <config>
+  <!--
   <param name="dev.mode">false</param>
   <param name="rice.ksb.batch.mode">false</param>
   <param name="rice.standalone">true</param>
@@ -32,4 +33,5 @@
   <param name="rice.server.datasource.url">jdbc:oracle:thin:@oracle.rice.kuali.org:1521:ORACLE</param>
   <param name="rice.server.datasource.username">RICEENV5</param>
   <param name="rice.server.datasource.password">RICEENV5</param>
+  -->
 </config>
