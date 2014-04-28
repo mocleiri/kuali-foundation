@@ -33,7 +33,7 @@ $section = '';
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-reorder"></span> </button>
                     <a class="navbar-brand" href="index.php">
                     <div class="logoBrand">
-                        <h1> <img id="u2elq10" src="http://ux.kuali.org/prototypes/kc/p2-devbranch/themes/kc/img/logo.png" alt="" class="uif-image"> </h1>
+                        <h1> <img id="u2elq10" src="../../themes/kboot/images/logo-kc.png" alt="" class="uif-image"> </h1>
                     </div>
                     </a> </div>
                 <div id="u1gk19wq" class="collapse navbar-collapse navbar-ex1-collapse uif-listGroup">
