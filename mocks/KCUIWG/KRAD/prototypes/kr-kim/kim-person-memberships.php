@@ -181,13 +181,24 @@ $page = 'memberships';
 					<div id="u1rttg5q_disclosureContent" data-role="disclosureContent" data-open="false" class="uif-disclosureContent" style="overflow: hidden; display: none;"> asdf </div>
 				</section>
 			</main>
-		</div>
-		<!-- VIEW FOOTER -->
-		<div id="u19v7dpm" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;">		<button id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;saveContinue&quot;}"> Save and Submit </button>
+		</div>        <!-- VIEW FOOTER -->
+        <div id="u19v7dpm" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;">
 
-<button id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;save&quot;}"> Save </button>
-			
-		</div>
+<div class="global-navigate btn-group">
+                    <button type="button" href="asdf.php" id="" class="btn btn-default"><span class="icon-chevron-left"></span> Back</button>
+                    <button type="button" href="asdf.php" id="save-continue" class="btn btn-primary">Continue <span class="icon-chevron-right"></span></button>
+                </div>
+
+
+
+
+<div class="global-actions btn-group">
+
+                    <button type="button" id="" class="btn btn-default">Save</button>
+                   <button type="button" id="" class="btn btn-default">Reload</button>
+                   <button type="button"  id="" class="btn btn-default">Submit Document</button>
+                </div>
+                    </div>
 		<!-- DIALOGS/Placeholders -->
 		<div id="Uif-Dialogs"> </div>
 	</div>

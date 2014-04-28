@@ -139,12 +139,24 @@ $page = 'routinginfo';
                     </div>
                 </div>
             </main>
-        </div>
-        <!-- VIEW FOOTER -->
+        </div>        <!-- VIEW FOOTER -->
         <div id="u19v7dpm" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;">
-            <button id="ufuknm4" class="btn btn-primary uif-primaryActionButton uif-boxLayoutHorizontalItem" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;saveContinue&quot;}"> Save and Submit </button>
-            <button id="ufuknl9" class="btn btn-default uif-secondaryActionButton uif-boxLayoutHorizontalItem" data-role="Action" data-submit_data="{&quot;methodToCall&quot;:&quot;save&quot;}"> Save </button>
-        </div>
+
+<div class="global-navigate btn-group">
+                    <button type="button" href="asdf.php" id="" class="btn btn-default"><span class="icon-chevron-left"></span> Back</button>
+                
+                </div>
+
+
+
+
+<div class="global-actions btn-group">
+
+                    <button type="button" id="" class="btn btn-default">Save</button>
+                   <button type="button" id="" class="btn btn-default">Reload</button>
+                   <button type="button"  id="" class="btn btn-primary">Submit Document</button>
+                </div>
+                    </div>
         <!-- DIALOGS/Placeholders -->
         <div id="Uif-Dialogs"></div>
     </div>

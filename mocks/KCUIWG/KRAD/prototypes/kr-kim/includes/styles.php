@@ -10,3 +10,8 @@
 <link href="../../plugins/tooltip/jquery.bubblepopup.v2.3.1.css" rel="stylesheet" type="text/css"/>
 <!--<link href="../css/kradSampleApp.css" rel="stylesheet" type="text/css"/>
    <link href="../css/labsProposal.css" rel="stylesheet" type="text/css"/>  -->
+      <!-- icon size position-->
+<style type="text/css">
+   .icon-chevron-left{ position:relative; top:3px }
+.icon-chevron-right{  position:relative; top:3px  }
+</style>
