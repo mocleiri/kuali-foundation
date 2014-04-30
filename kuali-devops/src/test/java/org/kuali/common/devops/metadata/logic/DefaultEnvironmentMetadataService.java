@@ -92,7 +92,7 @@ public class DefaultEnvironmentMetadataService implements EnvironmentMetadataSer
 
 	protected void addConfig(MetadataUrlHelper helper, EnvironmentMetadata.Builder builder) {
 		Optional<MetadataUrl<Project>> optionalProjectUrl = builder.getProject();
-		if (!optionalProjectUrl.isPresent()) {
+		if (optionalProjectUrl == null || !optionalProjectUrl.isPresent()) {
 			builder.configIsAbsent();
 			return;
 		}
