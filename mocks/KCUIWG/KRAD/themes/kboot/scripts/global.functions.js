@@ -299,6 +299,24 @@ jQuery(document).ready(function($) {
 
 
     /*
+     * Footer bar button handling
+     * Makes buttons act like links by sending the user to the 'href' indicated on click
+     *
+     * clrux
+     */
+
+    $('.uif-footer button').click(function() {
+       var href = $(this).attr('href');
+       if (href.length) {
+           window.location.href = href;
+       } else {
+           return false;
+       }
+    });
+
+
+
+    /*
      * Tooltips
      * Listens for 'hover' on uif-help and then initiates Bootstraps popover functionality
      *
