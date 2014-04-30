@@ -110,38 +110,39 @@ function install_plugins {
   # We are using a fork of the cas-plugin to work around issues with the infrastructure team being unable to correctly supply group/role information
   install_cas_plugin
 
-  install_plugin credentials           1.10
-  install_plugin cucumber-reports      0.0.23 
-  install_plugin cvs                   2.11 
-  install_plugin dashboard-view        2.9.2
-  install_plugin depgraph-view         0.11
-  install_plugin ec2                   1.21
-  install_plugin email-ext             2.37.2.2
-  install_plugin external-monitor-job  1.2
-  install_plugin git                   2.2.1
-  install_plugin git-client            1.8.0
-  install_plugin greenballs            1.14
-  install_plugin jobConfigHistory      2.6
-  install_plugin jquery                1.7.2-1 
-  install_plugin jquery-ui             1.0.2
-  install_plugin ldap                  1.8
-  install_plugin mailer                1.8
-  install_plugin mask-passwords        2.7.2
-  install_plugin maven-plugin          2.1
-  install_plugin nested-view           1.14
-  install_plugin next-build-number     1.1
-  install_plugin node-iterator-api     1.2
-  install_plugin parameterized-trigger 2.24
-  install_plugin pam-auth              1.1
-  install_plugin performance           1.10
-  install_plugin scm-api               0.2
-  install_plugin ssh-credentials       1.6.1
-  install_plugin ssh-slaves            1.6
+  install_plugin credentials                1.10
+  install_plugin cucumber-reports           0.0.23 
+  install_plugin cucumber-testresult-plugin 0.4
+  install_plugin cvs                        2.11 
+  install_plugin dashboard-view             2.9.2
+  install_plugin depgraph-view              0.11
+  install_plugin ec2                        1.21
+  install_plugin email-ext                  2.37.2.2
+  install_plugin external-monitor-job       1.2
+  install_plugin git                        2.2.1
+  install_plugin git-client                 1.8.0
+  install_plugin greenballs                 1.14
+  install_plugin jobConfigHistory           2.6
+  install_plugin jquery                     1.7.2-1 
+  install_plugin jquery-ui                  1.0.2
+  install_plugin ldap                       1.8
+  install_plugin mailer                     1.8
+  install_plugin mask-passwords             2.7.2
+  install_plugin maven-plugin               2.1
+  install_plugin nested-view                1.14
+  install_plugin next-build-number          1.1
+  install_plugin node-iterator-api          1.2
+  install_plugin parameterized-trigger      2.24
+  install_plugin pam-auth                   1.1
+  install_plugin performance                1.10
+  install_plugin scm-api                    0.2
+  install_plugin ssh-credentials            1.6.1
+  install_plugin ssh-slaves                 1.6
   # Note: Version 1.54 reports the correct revision number, where as 2.2 reports -1 for the revision number on KS svn:externals
-  install_plugin subversion            2.2
-  install_plugin template-project      1.4.1
-  install_plugin token-macro           1.10
-  install_plugin translation           1.11
+  install_plugin subversion                 2.2
+  install_plugin template-project           1.4.1
+  install_plugin token-macro                1.10
+  install_plugin translation                1.11
 
   chown -R $TOMCAT:$TOMCAT $TOMCAT_HOME  
   
