@@ -1,5 +1,7 @@
 package org.kuali.common.devops.metadata.model;
 
+import static com.google.common.base.Optional.absent;
+
 import java.util.Properties;
 
 import org.kuali.common.core.build.ValidatingBuilder;
@@ -39,8 +41,8 @@ public final class EnvironmentMetadata {
 		private MetadataUrl<Optional<Long>> tomcatStartupTime;
 		private MetadataUrl<RemoteEnvironment> remoteEnvironment;
 		private MetadataUrl<Properties> manifest;
-		private Optional<MetadataUrl<Project>> project;
-		private Optional<MetadataUrl<Properties>> config;
+		private Optional<MetadataUrl<Project>> project = absent();
+		private Optional<MetadataUrl<Properties>> config = absent();
 
 		public Builder configIsAbsent() {
 			return config(Optional.<MetadataUrl<Properties>> absent());
