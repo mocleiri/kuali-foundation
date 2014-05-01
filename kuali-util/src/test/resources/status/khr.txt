@@ -1,5 +1,5 @@
 Release process -
- - tighten up work in tandem on first cut (
+ - tighten up work in tandem on first cut
  - Couple weeks 2.0.3 
  - Attempt to take on full release process as independently as possible
 
@@ -15,3 +15,9 @@ Release process -
 - Impex dumps of CI databases
 - https://wiki.kuali.org/display/KPME/KPME+Release+Process 
  
+
+Infrastructure / DevOps
+-----------------------
+ 
+- LDAP/CAS
+-
