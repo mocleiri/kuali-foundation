@@ -1,0 +1,17 @@
+Release process -
+ - tighten up work in tandem on first cut (
+ - Couple weeks 2.0.3 
+ - Attempt to take on full release process as independently as possible
+
+- Sonar test - run unit tests
+
+ - ci.kpme.kuali.org 
+ - migrate off 
+ - deploy process
+ - copy release jobs off ci.rice
+
+
+- Custom Impex based Ant script that grabs an Impex dump off the CI server and pulls it locally
+- Impex dumps of CI databases
+- https://wiki.kuali.org/display/KPME/KPME+Release+Process 
+ 
