@@ -1,7 +1,10 @@
 <header class="container uif-viewHeader-contentWrapper">
     <div id="ueqbqhn" class="uif-viewHeader" data-header_for="LabsProposal">
+        <ul class="uif-structure-breadcrumb">
+            <li><a href="prop-basics-details.php">Proposal #23533</a></li>
+            <li>Budget version 5</li>
+        </ul>
         <h1 class="uif-headerText">
-            <p id="u1p8pc9q" class="uif-viewHeader-areaTitle">Proposal Budget Development</p>
             <span class="uif-headerText-span">Budget: Version 5</span>
         </h1>
         <div id="LabsProposal-DocInfo" class="uif-verticalBoxGroup uif-header-rightGroup uif-documentInfo" data-parent="LabsProposal">
@@ -14,7 +17,7 @@
                 <p id="u4ch8dm" class="uif-message">1/25/14</p>
             </div>
             <div id="u1f206jn" class="uif-messageField uif-boxLayoutVerticalItem clearfix" data-label="Doc Nbr">
-                <label id="uj8x9wj" for="uauh5yk_span" class="uif-label" data-label_for="u1f206jn"> <a id="uotglr8" class="uif-actionLink"  data-toggle="modal" data-target="#switchdoc">Return to Proposal</a></label>
+                <label id="uj8x9wj" for="uauh5yk_span" class="uif-label" data-label_for="u1f206jn">Parent proposal:</a></label>
                 <p id="uauh5yk" class="uif-message">#23533</p>
             </div>
             <div id="LabsProposal-MoreDocInfo" class="dropdown uif-boxLayoutVerticalItem clearfix"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Show more...</a>
