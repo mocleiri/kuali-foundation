@@ -23,7 +23,24 @@ main{margin-top:1.3em}
 
 header{position:relative;}
 
-#LabsProposal-DocActionBar{ position:relative;padding:5px 0 5px 15px;margin-top:1em; background:#fff; border:1px solid #ccc;;border-top-right-radius:10px;border-bottom:none;border-top-left-radius:10px;float:right;}
+#LabsProposal-DocActionBar {
+    padding: 6px;
+    margin-top: 24px;
+    background: transparent;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    float: right;
+    width: 100%;
+    text-align: right;
+}
+
+#LabsProposal-DocActionBar .dropdown-menu {
+    text-align: left;
+}
+
 /* ACTION BAR PLACEMENT CONCEPTS....
 #LabsProposal-DocActionBar.leftTab{ position:relative;padding:5px 0 5px 15px;margin-top:1em; background:#fff; border:1px solid #ccc;;border-top-right-radius:10px;border-bottom:none;float:left; border-left:none;}
 #LabsProposal-DocActionBar.bottom{margin:2em 0 0;padding:5px 0 5px 1em; background:#F5F5F5; position: absolute;right:0;bottom:-30px; border:1px solid #ccc;border-bottom-right-radius:10px;border-bottom-left-radius:10px}

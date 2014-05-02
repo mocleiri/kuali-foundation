@@ -117,7 +117,7 @@ transform:translateX(10px)
 	<div id="LabsProposal" class="clearfix uif-formView" data-role="View" style="margin-top: 75px;">
 <!-- BREADCRUMBS -->
 <!-- VIEW HEADER -->
-<?php include ('includes/uif-viewHeader.php') ?>
+<?php include('includes/uif-viewHeader-budget.php') ?>
 <!-- // VIEW HEADER  -->
 <!-- VIEW CONTENT -->
 		<div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper container">

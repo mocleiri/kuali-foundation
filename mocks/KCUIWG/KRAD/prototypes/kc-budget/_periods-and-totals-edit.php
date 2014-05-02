@@ -20,7 +20,7 @@ $page = 'periods-and-totals';
             <header class="container-fluid uif-viewHeader-contentWrapper">
                 <div id="ueqbqhn" class="uif-viewHeader" data-header_for="LabsProposal" style="padding-top: 30px">
                     
-                    <?php include ('includes/uif-viewHeader.php') ?>
+                    <?php include('includes/uif-viewHeader-budget.php') ?>
 
                 </div>
             </header>
