@@ -15,6 +15,8 @@
  */
 package org.kuali.common.core.system;
 
+import static org.kuali.common.core.system.VirtualSystemHelper.createVirtualSystem;
+
 import java.util.Properties;
 
 import org.kuali.common.core.build.ValidatingBuilder;
@@ -45,7 +47,7 @@ public final class VirtualSystem {
 	 * Create a new immutable VirtualSystem instance representing the current state of the system we are running on.
 	 */
 	public static VirtualSystem create() {
-		return VirtualSystemHelper.createVirtualSystem();
+		return createVirtualSystem();
 	}
 
 	public static Builder builder() {
