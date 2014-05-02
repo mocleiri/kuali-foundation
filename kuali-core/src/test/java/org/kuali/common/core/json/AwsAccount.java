@@ -16,11 +16,14 @@
 package org.kuali.common.core.json;
 
 import org.kuali.common.core.build.ValidatingBuilder;
+import org.kuali.common.core.ssh.KeyPair;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.Optional;
 
 @IdiotProofImmutable
+@JsonDeserialize(builder = KeyPair.Builder.class)
 public final class AwsAccount {
 
 	private final String name;
