@@ -49,6 +49,10 @@ public final class Validation {
 		return VALIDATOR;
 	}
 
+	public static Optional<String> buildValidationErrorMessage(Field field, String suffix) {
+		return errorMessage(field, suffix);
+	}
+
 	public static Optional<String> errorMessage(Field field, String suffix) {
 		return Optional.of(getErrorMessage(field, suffix));
 	}
