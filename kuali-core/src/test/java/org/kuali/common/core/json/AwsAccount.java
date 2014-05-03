@@ -15,6 +15,8 @@
  */
 package org.kuali.common.core.json;
 
+import static com.google.common.base.Optional.fromNullable;
+
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
@@ -58,6 +60,10 @@ public final class AwsAccount {
 		public Builder withDescription(Optional<String> description) {
 			this.description = description;
 			return this;
+		}
+
+		public Builder withDescription(String description) {
+			return withDescription(fromNullable(description));
 		}
 
 		@Override
