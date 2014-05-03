@@ -17,6 +17,8 @@ package org.kuali.common.core.json;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Properties;
+
 import org.junit.Test;
 import org.kuali.common.core.json.api.JsonService;
 import org.kuali.common.core.json.jackson.JacksonJsonService;
@@ -26,6 +28,8 @@ public class AwsAccountTest {
 	@Test
 	public void test() {
 		try {
+			Properties props = new Properties();
+			props.setProperty("aws.name", "jeff");
 			AwsAccount account = AwsAccount.builder().withName("name").withAccountNumber("123").build();
 			JsonService service = new JacksonJsonService();
 			String json1 = service.writeString(account);
