@@ -19,7 +19,6 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.collect.Sets.newHashSet;
 import static com.google.common.collect.Sets.newTreeSet;
 import static org.kuali.common.core.json.jackson.JacksonContext.newDefaultObjectMapper;
-import static org.kuali.common.core.system.VirtualSystemPropertiesFunction.newVirtualSystemPropertiesFunction;
 import static org.kuali.common.util.PropertyUtils.newHashMap;
 
 import java.io.File;
@@ -84,7 +83,7 @@ public class VirtualSystemHelper {
 
 	protected static JsonNode newVirtualSystemJsonNode() {
 		Properties system = System.getProperties();
-		Properties mapped = newVirtualSystemPropertiesFunction().apply(system);
+		Properties mapped = VirtualSystemPropertiesFunction.build().apply(system);
 		Set<String> paths = new SplitterFunction(SEPARATOR).apply(mapped.stringPropertyNames());
 		Node<String> node = new NestedKeysFunction(SEPARATOR).apply(paths);
 		ObjectNode objectNode = new JsonNodeFunction(SEPARATOR, mapped).apply(node);

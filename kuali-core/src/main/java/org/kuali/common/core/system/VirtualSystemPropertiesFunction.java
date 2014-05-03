@@ -68,7 +68,7 @@ public final class VirtualSystemPropertiesFunction implements Function<Propertie
 		this.blanksAllowedKeys = ImmutableSet.copyOf(builder.blanksAllowedKeys);
 	}
 
-	public static VirtualSystemPropertiesFunction newVirtualSystemPropertiesFunction() {
+	public static VirtualSystemPropertiesFunction build() {
 		return builder().build();
 	}
 
