@@ -15,11 +15,13 @@
  */
 package org.kuali.common.core.json;
 
+import static com.google.common.base.Optional.absent;
 import static com.google.common.base.Optional.fromNullable;
 
 import org.kuali.common.core.build.ValidatingBuilder;
 import org.kuali.common.core.validate.annotation.IdiotProofImmutable;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.Optional;
 
@@ -45,7 +47,7 @@ public final class AwsAccount {
 
 		private String name;
 		private String accountNumber;
-		private Optional<String> description;
+		private Optional<String> description = absent();
 
 		public Builder withName(String name) {
 			this.name = name;
@@ -57,6 +59,7 @@ public final class AwsAccount {
 			return this;
 		}
 
+		@JsonSetter
 		public Builder withDescription(Optional<String> description) {
 			this.description = description;
 			return this;

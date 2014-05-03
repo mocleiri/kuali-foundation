@@ -26,7 +26,7 @@ public class AwsAccountTest {
 	@Test
 	public void test() {
 		try {
-			AwsAccount account = AwsAccount.builder().withName("name").withAccountNumber("123").withDescription("description").build();
+			AwsAccount account = AwsAccount.builder().withName("name").withAccountNumber("123").build();
 			JsonService service = new JacksonJsonService();
 			String json1 = service.writeString(account);
 			System.out.println(json1);
