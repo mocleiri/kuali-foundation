@@ -17,20 +17,20 @@ package org.kuali.common.core.build;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.kuali.common.core.validate.Validation.checkConstraints;
+import static org.kuali.common.core.validate.Validation.getDefaultValidator;
 
 import java.util.List;
 
 import javax.validation.Validator;
 
 import org.apache.commons.lang3.builder.Builder;
-import org.kuali.common.core.validate.Validation;
 
 /**
  * Concrete builder that hooks into the {@code javax.validation.Validator} validation framework to enable validating objects before they are built
  */
 public abstract class ValidatingBuilder<T> implements Builder<T> {
 
-	protected Validator validator = Validation.getDefaultValidator();
+	protected Validator validator = getDefaultValidator();
 	protected List<Class<?>> validationGroups = newArrayList();
 
 	protected T validate(T instance) {
