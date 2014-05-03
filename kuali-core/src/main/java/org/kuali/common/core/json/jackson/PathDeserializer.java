@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.google.common.base.Splitter;
 
 /**
- * Used to parse delimited strings into {@code List<File>}. For example, the system property {@code java.class.path} for a JVM running Tomcat is typically something like this:
+ * Parse delimited strings into {@code List<File>}. For example, the system property {@code java.class.path} for a JVM running Tomcat is typically something like this:
  * 
  * <pre>
  * {@code /usr/local/tomcat/bin/bootstrap.jar:/usr/local/tomcat/bin/tomcat-juli.jar}
