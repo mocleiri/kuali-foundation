@@ -29,7 +29,7 @@ public class AwsAccountTest {
 	public void test() {
 		try {
 			Properties props = new Properties();
-			props.setProperty("aws.name", "jeff");
+			props.setProperty("awsAccount.name", "jeff");
 			AwsAccount account = AwsAccount.builder().withName("name").withAccountNumber("123").build();
 			JsonService service = new JacksonJsonService();
 			String json1 = service.writeString(account);
@@ -40,6 +40,11 @@ public class AwsAccountTest {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected static <T> T override(T provided, Properties properties) {
+
+		return null;
 	}
 
 }
