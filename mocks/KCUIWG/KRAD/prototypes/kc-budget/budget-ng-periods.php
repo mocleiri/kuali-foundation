@@ -4,7 +4,6 @@ $section = '';
 ?>
 
 <!DOCTYPE HTML>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -13,16 +12,11 @@ $section = '';
 <!-- GLOBAL STYLES -->
 <?php include ('includes/styles.php') ?>
 
-
-
 <style type="text/css">
 .edit-table input[type="text"]{min-width:100%;}
 .td{max-width:6em;}
-
 </style>
-
 </head>
-
 <body id="Uif-Application" style="padding-bottom: 570px;">
 <!-- APPLICATION HEADER -->
 <header id="Uif-ApplicationHeader-Wrapper" data-sticky="true" class="uif-sticky" style="position:fixed; left: 0; top: 0px;">
