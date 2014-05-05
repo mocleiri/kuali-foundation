@@ -120,7 +120,7 @@ function install_plugins {
   install_plugin email-ext                  2.37.2.2
   install_plugin external-monitor-job       1.2
   install_plugin git                        2.2.1
-  install_plugin git-client                 1.8.0
+  install_plugin git-client                 1.8.1
   install_plugin greenballs                 1.14
   install_plugin jobConfigHistory           2.6
   install_plugin jquery                     1.7.2-1 
@@ -139,7 +139,7 @@ function install_plugins {
   install_plugin ssh-credentials            1.6.1
   install_plugin ssh-slaves                 1.6
   # Note: Version 1.54 reports the correct revision number, where as 2.2 reports -1 for the revision number on KS svn:externals
-  install_plugin subversion                 2.2
+  install_plugin subversion                 2.3
   install_plugin template-project           1.4.1
   install_plugin token-macro                1.10
   install_plugin translation                1.11
