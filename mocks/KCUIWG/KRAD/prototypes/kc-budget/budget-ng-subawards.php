@@ -64,9 +64,27 @@ $section = '';
 			<div class="col-md-12">
 				<div id="u1i3m5yh" class="uif-listGroup" data-parent="upils8b">
 					<ul class="uif-listLayout nav pull-right">
-						<li class="pull-right"><a href="#" class="uif-actionLink" id="u1o09qku" tabindex="0" data-role="Action" data-onclick="redirect(&quot;../kr-krad/labs?methodToCall=start&amp;viewId=Lab-ActionListView&quot;);"> Action List </a></li>
-						<li class="pull-right"><a href="#" class="uif-actionLink" id="u1o09qlp" tabindex="0" data-role="Action" data-onclick="redirect(&quot;../kr-krad/labs?methodToCall=start&amp;viewId=Lab-DocSearchView&quot;);"> Doc Search </a></li>
-						<li class="dropdown pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> Backdoor Login <span class="caret"></span> </a> 
+				<li class="dropdown pull-right"><a href="#" class="">Doc Search</a></li>
+						<li class="dropdown pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Action list <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li class="divider"></li>
+								<li><a href="#"><i class="icon icon-inbox"></i><span>Full Action List</span></a></li>
+							</ul>
+						</li>
+					<li class="dropdown pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> Backdoor Login <span class="caret"></span> </a> 
 						<ul class="dropdown-menu uif-listLayout">
 							<li><a href="#" class="uif-actionLink" id="u101xf6k" tabindex="0" data-role="Action" data-onclick="redirect(&quot;../kr-krad/labs?methodToCall=start&amp;viewId=Lab-BootstrapComponents&quot;);"> Preferences </a></li>
 							<li><a href="#" class="uif-actionLink" id="u101xf7f" tabindex="0" data-role="Action" data-onclick="redirect(&quot;../kr-krad/labs?methodToCall=start&amp;viewId=Lab-BootstrapComponents&quot;);"> Logout </a></li>
