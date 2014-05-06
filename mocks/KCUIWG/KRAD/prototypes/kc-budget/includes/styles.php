@@ -16,7 +16,12 @@
 .edit-table .icon-edit:hover, .edit-table .icon-save:hover{text-decoration:none;}
 .edit-table tr:hover{background:#EEF7FB;; color:#000;}
 .edit-table .icon-edit{padding:0; padding-top:5px;vertical-align:bottom; text-decoration:none; }
-.edit-table tr  td:last-of-type{  text-align:center; }
+
+
+
+.uif-has-actions tr  td:last-of-type{width:1%; white-space:nowrap }
+
+
 .uif-stickyFooter {padding-bottom: 1em; }/* pad the bottom fixed bar */
 /*  relocating the action bar */
 main{margin-top:1.3em}
