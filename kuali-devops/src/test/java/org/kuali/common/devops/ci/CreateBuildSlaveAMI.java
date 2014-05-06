@@ -41,6 +41,7 @@ import static org.kuali.common.util.base.Exceptions.illegalState;
 import static org.kuali.common.util.base.Precondition.checkNotBlank;
 import static org.kuali.common.util.base.Precondition.checkNotNull;
 import static org.kuali.common.util.encrypt.Encryption.getDefaultEncryptor;
+import static org.kuali.common.util.log.Loggers.newLogger;
 
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
@@ -71,7 +72,6 @@ import org.kuali.common.devops.logic.Auth;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.encrypt.Encryptor;
-import org.kuali.common.util.log.Loggers;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.kuali.common.util.wait.DefaultWaitService;
 import org.kuali.common.util.wait.WaitService;
@@ -92,7 +92,7 @@ import com.google.common.collect.ImmutableSet;
 
 public class CreateBuildSlaveAMI {
 
-	private static final Logger logger = Loggers.newLogger();
+	private static final Logger logger = newLogger();
 
 	private final Stopwatch sw = createStarted();
 	private final List<KualiSecurityGroup> securityGroups = ImmutableList.of(CI.getGroup(), CI_BUILD_SLAVE.getGroup());
