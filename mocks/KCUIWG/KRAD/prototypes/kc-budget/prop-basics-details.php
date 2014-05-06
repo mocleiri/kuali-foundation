@@ -301,7 +301,7 @@ $section = 'basics-proposalDetails';
 				<div class="global-actions btn-group">
 					<button type="button" id="" class="btn btn-default">Save</button>
 					 <button type="button" id="" class="btn btn-default">Reload</button> 
-					 <button type="button" id="complete" data-toggle="modal" data-target="#modal-budget-complete" class="btn btn-default">Complete Budget</button> 
+					 <button type="button" id="complete" data-toggle="modal" data-target="#modal-budget-complete" class="btn btn-default">Submit for Review</button> 
 				</div>
     
     
