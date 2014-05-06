@@ -122,7 +122,7 @@ $section = '';
                         </div>
                     </div>
                 </header>
-                <table id="" class="table table-condensed table-bordered" role="presentation">
+                <table class="edit-table table table-condensed table-bordered uif-has-actions uif-lightTable dataTable">
                     <thead>
                         <tr>
                             <th>Start</th>

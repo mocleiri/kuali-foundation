@@ -189,7 +189,7 @@ $page = 'personnel-assign';
     </header>
     <div id="facSalTen" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style="">
         <p class=""><a href="#" class="uif-actionLink"  data-toggle="modal" data-target="#details">Details &amp; Rates</a></p>
-        <table class="table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby="Demo-LightTableGroup1_lightTable_info">
+        <table class="table table-condensed table-bordered uif-has-actions uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby="Demo-LightTableGroup1_lightTable_info">
             <thead>
             <tr role="row">
                 <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
@@ -260,7 +260,7 @@ $page = 'personnel-assign';
                 <td class="text-right">$142,525.00</td>
                 <td class="text-right">$0.00</td>
                 <td>
-                    <!--                                                <div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span><span aria-hidden="true" class="icon-trash"></span></a></div>-->
+                    <!--                                                <div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle="">Delete</a></div>-->
                     <a class="icon icon-edit uif-btn-edit" href="#"><span class="sr-only">Edit</span></a>
                 </td>
             </tr>
@@ -311,7 +311,7 @@ $page = 'personnel-assign';
                 <td class="text-right">$142,525.00</td>
                 <td class="text-right">$0.00</td>
                 <td>
-                    <!--                                                <div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span><span aria-hidden="true" class="icon-trash"></span></a></div>-->
+                    <!--                                                <div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle="">Delete</a></div>-->
                     <a class="icon icon-edit uif-btn-edit" href="#"><span class="sr-only">Edit</span></a>
                 </td>
             </tr>
@@ -325,7 +325,7 @@ $page = 'personnel-assign';
     </header>
     <div id="postDoc" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style="">
         <p class=""><a href="#" class="uif-actionLink"  data-toggle="modal" data-target="#details">Details &amp; Rates</a></p>
-        <table class="table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby="Demo-LightTableGroup1_lightTable_info">
+        <table class="table table-condensed table-bordered uif-has-actions uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby="Demo-LightTableGroup1_lightTable_info">
             <thead>
             <tr role="row">
                 <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
@@ -395,7 +395,7 @@ $page = 'personnel-assign';
                 <td class="text-right">$142,525.00</td>
                 <td class="text-right">$0.00</td>
                 <td>
-                    <!--                                                <div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span><span aria-hidden="true" class="icon-trash"></span></a></div>-->
+                    <!--                                                <div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle="">Delete</a></div>-->
                     <a class="icon icon-edit uif-btn-edit" href="#"><span class="sr-only">Edit</span></a>
                 </td>
             </tr>
@@ -409,7 +409,7 @@ $page = 'personnel-assign';
     </header>
     <div id="summerFac" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style="">
         <p class=""><a href="#" class="uif-actionLink"  data-toggle="modal" data-target="#details">Details &amp; Rates</a></p>
-        <table class="table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby="Demo-LightTableGroup1_lightTable_info">
+        <table class="table table-condensed table-bordered uif-has-actions uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby="Demo-LightTableGroup1_lightTable_info">
             <thead>
             <tr role="row">
                 <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
@@ -479,7 +479,7 @@ $page = 'personnel-assign';
                 <td class="text-right">$142,525.00</td>
                 <td class="text-right">$0.00</td>
                 <td>
-                    <!--                                                <div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span><span aria-hidden="true" class="icon-trash"></span></a></div>-->
+                    <!--                                                <div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Edit</a> <a href="#" class="btn btn-default btn-xs" data-toggle="">Delete</a></div>-->
                     <a class="icon icon-edit uif-btn-edit" href="#"><span class="sr-only">Edit</span></a>
                 </td>
             </tr>

@@ -59,27 +59,27 @@ $page = 'personnel-assign';
                         <div class="col-md-12">
                         <div id="u1i3m5yh" class="uif-listGroup" data-parent="upils8b">
                                 <ul class="uif-listLayout nav pull-right">
-                             <li class="dropdown pull-right"><a href="#" class="">Doc Search</a></li>
-						<li class="dropdown pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Action list <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
-								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
-								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
-								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
-								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
-								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
-								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
-								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
-								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
-								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
-								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
-								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
-								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
-								<li class="divider"></li>
-								<li><a href="#"><i class="icon icon-inbox"></i><span>Full Action List</span></a></li>
-							</ul>
-						</li>
-						 <li class="dropdown pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> Backdoor Login <span class="caret"></span></a>
+                                <li class="dropdown pull-right"><a href="#" class="">Doc Search</a></li>
+                                <li class="dropdown pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Action list <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                        <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                                        <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                                        <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                                        <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                                        <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                                        <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                                        <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                                        <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                                        <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                                        <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                                        <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                                        <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                                        <li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#"><i class="icon icon-inbox"></i><span>Full Action List</span></a></li>
+                                    </ul>
+                                    </li>
+                                <li class="dropdown pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> Backdoor Login <span class="caret"></span></a>
                                         <ul class="dropdown-menu uif-listLayout">
                                         <li><a href="#" class="uif-actionLink" id="u101xf6k" tabindex="0" data-role="Action" data-onclick="redirect(&quot;../kr-krad/labs?methodToCall=start&amp;viewId=Lab-BootstrapComponents&quot;);"> Preferences </a></li>
                                         <li><a href="#" class="uif-actionLink" id="u101xf7f" tabindex="0" data-role="Action" data-onclick="redirect(&quot;../kr-krad/labs?methodToCall=start&amp;viewId=Lab-BootstrapComponents&quot;);"> Logout </a></li>
@@ -119,115 +119,42 @@ $page = 'personnel-assign';
                         <li><a href="#p5" data-toggle="tab" class="tabWarning">Period 5</a></li>
                     </ul>
                 <div id="my-tab-content" class="tab-content">
-                        <div class="tab-pane active" id="p1">
+                        <div class="tab-pane active" id="p1"> <br>
+                       
+                       
+                       
+                       
+                               
                         <header class="clearfix uif-header-contentWrapper">
                                 <div id="u148pgf0" class="uif-pageHeader clearfix" data-header_for="LabsProposal-Page">
                                 <div class="row">
                                         <div class="col-md-6">
                                         <h3 class="">Period 1 <small>(1/12/14 - 1/11/15)</small></h3>
                                     </div>
-                                        <div class="col-md-6 uif-pagetools"> <a href="#" class="btn btn-default btn-xs">Calculate Current Period</a> </div>
+                                        <div class="col-md-6 uif-pagetools"> <a class="btn btn-default btn-xs uif-actionLink" data-toggle="modal" data-target="#persperiod">Assign Personnel...</a>  <a href="#" class="btn btn-default btn-xs">Calculate Current Period</a>  <a href="#" class="btn btn-default btn-xs">Download Salaries</a>  </div>
                                     </div>
                             </div>
                             </header>
-                        <h4>Assign Personnel</h4>
-                        <div class="well " style="margin-top:15px;">
-                                <div class="row">
-                                <div class="col-md-4">
-                                        <div class="form-group">
-                                        <label for="">Person</label>
-                                        <select class="form-control">
-                                                <option value="">select</option>
-                                                <option>Ward Cleaver</option>
-                                                <option>John Coltrane</option>
-                                                <option>Oliver Elgin</option>
-                                                <option>Darren Devaney</option>
-                                                <option>Emory Eagle</option>
-                                                <option>TBN</option>
-                                            </select>
-                                        <!--<p id="u1iaxrzf" class="uif-message text-right"><a href="budget-ng-personnelCosts-projPersonnel1.php">Add Personnel</a></p>--></div>
-                                    </div>
-                                <div class="col-md-4">
-                                        <div class="form-group">
-                                        <label for="">Object Code</label>
-                                        <select class="form-control">
-                                                <option value="">select</option>
-                                                <option value="400255">Administrative Staff - Off</option>
-                                                <option value="400250">Administrative Staff - On</option>
-                                                <option value="421568">CWSP Credit - Not MTDC</option>
-                                                <option value="400550">Electronic Assembly - On</option>
-                                                <option value="400654">Exempt Technical - On</option>
-                                                <option value="400135">Faculty Emeriti</option>
-                                                <option value="400136">Faculty Retired Non-Tenured - On</option>
-                                                <option value="400105">Faculty Salaires Non-Tenured - Off</option>
-                                                <option value="400040">Faculty Salaries Non-Tenured - On</option>
-                                                <option value="400090">Faculty Salaries Tenured - Off</option>
-                                                <option value="400025">Faculty Salaries Tenured - On</option>
-                                                <option value="400315">Fellows - Non-Student- Not MTDC</option>
-                                                <option value="400700">Graduate Student Staff - On</option>
-                                                <option value="400452">Hourly Personnel - Off</option>
-                                                <option value="400450">Hourly Personnel - On</option>
-                                                <option value="400552">Mechanical Assembly - On</option>
-                                                <option value="400756">MIT Students - Off</option>
-                                                <option value="400754">MIT Students - On</option>
-                                                <option value="400155">Other Academic Staff - Off</option>
-                                                <option value="400140">Other Academic Staff - On</option>
-                                                <option value="400390">Post-Doctoral Staff</option>
-                                                <option value="400365">Program Manager</option>
-                                                <option value="400370">Project Engineering Staff - On</option>
-                                                <option value="400601">Project Support Staff - Off</option>
-                                                <option value="400600">Project Support Staff - On</option>
-                                                <option value="400556">Quality Control - On</option>
-                                                <option value="400708">Research Asst - Off</option>
-                                                <option value="400706">Research Asst - On</option>
-                                                <option value="400355">Research Staff - Off</option>
-                                                <option value="400350">Research Staff - On</option>
-                                                <option value="400115">Summer - Other Academic - Off</option>
-                                                <option value="400070">Summer Faculty - Off</option>
-                                                <option value="400005">Summer Faculty - On</option>
-                                                <option value="400050">Summer Other Academic - On</option>
-                                                <option value="420262">Temporary Help</option>
-                                                <option value="400768">Undergrad S&amp;W UROP - Off</option>
-                                                <option value="400770">Undergrad S&amp;W UROP - On</option>
-                                            </select>
-                                    </div>
-                                    </div>
-                                <div class="col-md-4">
-                                        <div class="form-group">
-                                        <label for="exampleInputPassword1">Group</label>
-                                        <small class="text-muted"> (optional)</small>
-                                        <select class="form-control">
-                                                <option value="">Default</option>
-                                                <option>My Custom Group 1</option>
-                                                <option>My Custom Group 2</option>
-                                                <option>My Custom Group 3</option>
-                                                <option>My Custom Group 4</option>
-                                                <option>My Custom Group 5</option>
-                                                <option>Create New Group...</option>
-                                            </select>
-                                    </div>
-                                    </div>
-                            </div>
-                                <div class="row">
-                                <div class="col-md-12 text-right">
-                                
-                                
-                                <a class="btn btn-primary btn-xs uif-actionLink" data-toggle="modal" data-target="#persperiod">Assign to Period 1...</a>
-                                
-                                
-                                
-                                </div>
-                            </div>
-                            </div>
-                        <h4 class="pull-left" >Assigned Personnel</h4>
-                        <div class="pull-right"><a href="#" class="btn btn-xs btn-default"  data-toggle="" data-target="">Download Personnel Salaries</a> <a href="#" class="btn btn-xs btn-default"  data-toggle="" data-target="">Expand All Panels</a></div>
+                            
+                     
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                
+                        
+                       
                         <section id="u1qq592w" class="uif-disclosure uif-boxLayoutVerticalItem clearfix" data-parent="Demo-Disclosure-Example1">
                                 <header id="u1l3ufy3" class="uif-sectionHeader" data-header_for="u1qq592w">
                                 <h3 class="uif-headerText"><a data-role="disclosureLink" data-linkfor="facSalTen" href="#" id="u1qq592w_toggle" data-open="true" data-widgetid="u1vpenbn" data-speed="500" data-ajax="false"><span class="uif-headerText-span"><span id="u1qq592w_toggle_exp" class="icon-caret-down"></span><span style="display:none;" id="u1qq592w_toggle_col" class="icon-caret-right"></span> Faculty Salaries - Tenured</span></a></h3>
                             </header>
                                 <div id="facSalTen" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style="">
                                 <p class=""><a href="#" class="uif-actionLink"  data-toggle="modal" data-target="#details">Details &amp; Rates</a></p>
-                                <table class="table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby="Demo-LightTableGroup1_lightTable_info">
+                                <table class="table table-condensed table-bordered uif-has-actions uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby="Demo-LightTableGroup1_lightTable_info">
                                         <thead>
                                         <tr role="row">
                                                 <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
@@ -298,7 +225,7 @@ $page = 'personnel-assign';
                                                 <td class="text-right">$0.00</td>
                                                 <td><!-- -->
                                                 
-                                                <div class="dropdown dropdown-large"> <a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs uif-delete" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
+                                                <div class="dropdown dropdown-large"> <a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs uif-delete" data-toggle="">Delete</a>
                                                         <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -746px;top: 26px;width: 858px;padding:15px; background:#ffffff;">
                                                         <p class="lead"> Ward Cleaver </p>
                                                         <hr>
@@ -426,7 +353,7 @@ $page = 'personnel-assign';
                             </header>
                                 <div id="postDoc" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style="">
                                 <p class=""><a href="#" class="uif-actionLink"  data-toggle="modal" data-target="#details">Details &amp; Rates</a></p>
-                                <table class="table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby="Demo-LightTableGroup1_lightTable_info">
+                                <table class="table table-condensed table-bordered uif-has-actions uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby="Demo-LightTableGroup1_lightTable_info">
                                         <thead>
                                         <tr role="row">
                                                 <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
@@ -497,7 +424,7 @@ $page = 'personnel-assign';
                                                 <td class="text-right">$0.00</td>
                                                 <td><!-- -->
                                                 
-                                                <div class="dropdown dropdown-large"> <a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs uif-delete" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
+                                                <div class="dropdown dropdown-large"> <a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs uif-delete" data-toggle="">Delete</a>
                                                         <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -746px;top: 26px;width: 858px;padding:15px; background:#ffffff;">
                                                         <p class="lead"> John Coltrane </p>
                                                         <hr>
@@ -625,7 +552,7 @@ $page = 'personnel-assign';
                             </header>
                                 <div id="summerFac" data-role="disclosureContent" data-open="true" class="uif-disclosureContent" style="">
                                 <p class=""><a href="#" class="uif-actionLink"  data-toggle="modal" data-target="#details">Details &amp; Rates</a></p>
-                                <table class="table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby="Demo-LightTableGroup1_lightTable_info">
+                                <table class="table table-condensed table-bordered uif-has-actions uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby="Demo-LightTableGroup1_lightTable_info">
                                         <thead>
                                         <tr role="row">
                                                 <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
@@ -696,7 +623,7 @@ $page = 'personnel-assign';
                                                 <td class="text-right">$0.00</td>
                                                 <td><!-- -->
                                                 
-                                                <div class="dropdown dropdown-large"> <a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs uif-delete" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
+                                                <div class="dropdown dropdown-large"> <a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs uif-delete" data-toggle="">Delete</a>
                                                         <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -746px;top: 26px;width: 858px;padding:15px; background:#ffffff;">
                                                         <p class="lead"> Ward Cleaver </p>
                                                         <hr>
@@ -1171,7 +1098,7 @@ $page = 'personnel-assign';
                 <div class="global-actions btn-group">
                         <button type="button" id="" class="btn btn-default">Save</button>
                         <button type="button" id="" class="btn btn-default">Reload</button>
-<button type="button"  id="complete"  data-toggle="modal" data-target="#modal-budget-complete" class="btn btn-default">Complete Budget</button>
+                        <button type="button"  id="complete"  data-toggle="modal" data-target="#modal-budget-complete" class="btn btn-default">Complete Budget</button>
                     </div>
             </div>
             </div>
@@ -1206,16 +1133,12 @@ return false;
 
 	
         $('#tabs').tab();
-    });</script> 
-
-
-
-
+    });</script>
 <?php
 $currentPage =  $_SERVER['QUERY_STRING'] ;
 if ($currentPage == "modular-budget=no&amp;detail=yes") {
 ?>
-<!--  casual user functions -->
+<!--  casual user functions --> 
 <script>
 (function($){
 	
@@ -1230,23 +1153,7 @@ if ($currentPage == "modular-budget=no&amp;detail=yes") {
   	  
 }(jQuery))	
 </script>
-
 <?php } ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!-- MODAL budget summary -->
 <?php include ('includes/modal-budget-summary.php') ?>
@@ -1257,12 +1164,8 @@ if ($currentPage == "modular-budget=no&amp;detail=yes") {
 <!-- MODAL BUDGET VERSIONS -->
 <?php include ('includes/modal-budget-versions.php') ?>
 
-
 <!-- MODAL add person to period -->
 <?php include ('includes/modal-budget-addPersPeriod.php') ?>
-
-
-
 
 <!-- Modal -->
 <div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -1453,7 +1356,7 @@ if ($currentPage == "modular-budget=no&amp;detail=yes") {
         </div>
     </div>
 
-    -->
+    --> 
 <!-- MODAL budget complete buttons -->
 <?php include ('includes/modal-budget-complete.php') ?>
 </div>

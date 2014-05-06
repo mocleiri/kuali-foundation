@@ -190,7 +190,7 @@ $page = 'personnel-costs';
                 </div>
                 <!-- // -->
 
-                <table class="table table-condensed table-bordered uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby="Demo-LightTableGroup1_lightTable_info">
+                <table class="table table-condensed table-bordered uif-has-actions uif-lightTable dataTable" id="Demo-LightTableGroup1_lightTable" aria-describedby="Demo-LightTableGroup1_lightTable_info">
                     <thead>
                         <tr role="row">
                             <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
@@ -201,7 +201,7 @@ $page = 'personnel-costs';
  Field 3: : activate to sort column ">Appointment Type</th>
                             <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
  Field 4: : activate to sort column ascending">Base Salary</th>
-                            <th class="" style="width:103px" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
+                            <th class="" role="columnheader" tabindex="0" aria-controls="Demo-LightTableGroup1_lightTable" rowspan="1" colspan="1" aria-label="
  Field 4: : activate to sort column "></th>
                     </tr></thead>
                     <tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -213,7 +213,7 @@ $page = 'personnel-costs';
                             <td>Associate Provost <small class="text-muted">(AA014)</small></td>
                             <td>12 month</td>
                             <td class="text-right">$247,457</td>
-                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
+                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle="">Delete</a>
                                     <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;
 left: -808px;
 top: 26px;
@@ -411,7 +411,7 @@ background: #ffffff;">
                             <td>Dean/Faculty <small class="text-muted">(AA042)</small></td>
                             <td>12 month</td>
                             <td class="text-right">$163,771</td>
-                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
+                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle="">Delete</a>
                                     <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;
 left: -808px;
 top: 26px;
@@ -611,7 +611,7 @@ background: #ffffff;">
                             <td>Dean/Faculty <small class="text-muted">(AA042)</small></td>
                             <td>Summer</td>
                             <td class="text-right">$73,734</td>
-                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
+                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle="">Delete</a>
                                     <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;
 left: -808px;
 top: 26px;
@@ -807,7 +807,7 @@ background: #ffffff;">
                             <td>Dean/Faculty <small class="text-muted">(AA042)</small></td>
                             <td>9 Month</td>
                             <td class="text-right">$82,832</td>
-                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
+                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle="">Delete</a>
                                     <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;
 left: -808px;
 top: 26px;
@@ -1003,7 +1003,7 @@ background: #ffffff;">
                             <td>Associate Provost <small class="text-muted">(AA014)</small></td>
                             <td>Temporary</td>
                             <td class="text-right">$42,777</td>
-                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
+                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle="">Delete</a>
                                     <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;
 left: -808px;
 top: 26px;
@@ -1200,7 +1200,7 @@ background: #ffffff;">
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td >&nbsp;</td>
-                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle=""><span class="sr-only">Delete</span> <span aria-hidden="true" class="icon-trash"></span></a>
+                            <td><div class="dropdown dropdown-large"><a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown">Details <b class="caret"></b></a> <a href="#" class="btn btn-default btn-xs" data-toggle="">Delete</a>
                                     <div class="dropdown-menu dropdown-menu-large row" style="position: absolute;left: -808px;top: 26px;width: 890px;padding:15px; background:#fcf8e3;">
                                         <p class="lead">TBA Research </p>
                                         <hr>
