@@ -13,7 +13,7 @@ $section = '';
 <!-- GLOBAL STYLES -->
 <?php include ('includes/styles.php') ?>
 <style type="text/css">
-#export-pdf-excel, #generate-periods {
+#export-pdf-excel, #generate-periods,#more-columns {
 	margin-top: 20px;
 }
 #export-pdf-excel .dropdown-menu {
@@ -132,6 +132,13 @@ $section = '';
                     </div>
                 </header>
                 <div class="pull-right"> 
+                
+                 <div class="btn-group" id="more-columns">
+                 
+                     <button type="button" class="btn btn-default btn-xs dropdown-toggle"><span class="icon-arrow-left text-muted" style="">Previous 5 Periods</button>  
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" style=" color:#0077CC">Next 5 Periods <span class="icon-arrow-right" ></span></button>
+                </div>
+                
                     <!-- export -->
                     <div class="btn-group" id="export-pdf-excel">
                         <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> Export <span class="caret"></span></button>
@@ -146,12 +153,12 @@ $section = '';
                     <tbody>
                         <tr>
                             <th>&nbsp;</th>
-                            <th class=" uif-center-aligned"> <span class="icon-arrow-left text-muted" style=" display:inline-block; margin-right:18px;"></span> P1<span class="sr-only">Period 1</span></th>
+                            <th class=" uif-center-aligned"> </span> P1<span class="sr-only">Period 1</span></th>
                             <th class="uif-center-aligned">P2 <span class="sr-only">Period 2</span></th>
                             <th class="uif-center-aligned">P3 <span class="sr-only">Period 3</span></th>
                             <th class="uif-center-aligned">P4 <span class="sr-only">Period 4</span></th>
-                            <th class="uif-center-aligned"> P5<span class="sr-only">Period 5</span> <a href="#"><span class="icon-arrow-right" style=" display:inline-block; margin-left:18px;"></span> </a></th>
-                            <th class="uif-center-aligned">Totals <span class="sr-only">Period totals</span></th>
+                            <th class="uif-center-aligned"> P5<span class="sr-only">Period 5</span> </th>
+                            <th class="uif-right-aligned">Totals <span class="sr-only">Period totals</span></th>
                         </tr>
                         <tr class="active">
                             <td colspan="7" style=" border-bottom-width: 3px;
