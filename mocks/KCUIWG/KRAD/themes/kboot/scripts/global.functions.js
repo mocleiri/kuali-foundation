@@ -242,6 +242,44 @@ jQuery(document).ready(function($) {
 
 
     /*
+     * Details panels (modals)
+     * Replaces the Bootstrap 'dropdown panel' with something more robust and friendly towards smaller screens.
+     * Inserts overlay when active.
+     * Brings focus to modal and back to button on close for accessibility.
+     *
+     * clrux
+     */
+
+//    $('.uif-details-button').click(function(e) {
+//
+//        e.preventDefault();
+//
+//        var saved_button_state = $(this),
+//            show_this_container = saved_button_state.data('toggle');
+//
+//        if ($('#' + show_this_container).hasClass('not-showing')) {
+//            $('#' + show_this_container).removeClass('not-showing').addClass('showing');
+//            // Create overlay
+//            $('body').prepend('<div class="uif-overlay uif-block"></div>');
+//            $('#' + show_this_container).focus();
+//        } else {
+//            $('#' + show_this_container).removeClass('showing').addClass('not-showing');
+//            $('body .uif-overlay').remove();
+//            saved_button_state.focus();
+//        }
+//
+//    });
+//
+//    $('body').on('click', '.uif-overlay', function(e) {
+//
+//        $('.uif-overlay').remove();
+//        $('.uif-details-addition').removeClass('showing').addClass('not-showing');
+//
+//    });
+
+
+
+    /*
      * Cookie listener
      * Listens for 'set-cookie' class click and sets cookie with type and value
      *
