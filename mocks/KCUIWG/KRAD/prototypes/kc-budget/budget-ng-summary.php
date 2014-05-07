@@ -153,7 +153,7 @@ $section = '';
                     <tbody>
                         <tr>
                             <th>&nbsp;</th>
-                            <th class=" uif-center-aligned"> </span> P1<span class="sr-only">Period 1</span></th>
+                            <th class=" uif-center-aligned"> P1<span class="sr-only">Period 1</span></th>
                             <th class="uif-center-aligned">P2 <span class="sr-only">Period 2</span></th>
                             <th class="uif-center-aligned">P3 <span class="sr-only">Period 3</span></th>
                             <th class="uif-center-aligned">P4 <span class="sr-only">Period 4</span></th>
@@ -164,112 +164,130 @@ $section = '';
                             <td colspan="7" style=" border-bottom-width: 3px;
 "><span class="lead">Personnel</span></td>
                         </tr>
+                        <tr class="active">
+                            <td ><strong>Salary</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$194,279.00</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$194,279.00</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$194,279.00</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$194,279.00</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$194,279.00</strong></td>
+                            <td class="uif-right-aligned active" ><strong>$971,395.00</strong></td>
+                        </tr>
                         <tr class="">
-                            <td ><a href="#"> <span aria-hidden="true" class="icon-chevron-down"></span> Salary: Faculty Salaries Non-Tenured - On</a></td>
-                            <td class=" uif-right-aligned active" >$156,934</td>
-                            <td class=" uif-right-aligned active" >$156,934</td>
-                            <td class=" uif-right-aligned active" >$156,934</td>
-                            <td class=" uif-right-aligned active" >$156,934</td>
-                            <td class=" uif-right-aligned active" >$156,934</td>
-                            <td class="uif-right-aligned active" >$784,670</td>
+                            <td ><a href="#"> <span aria-hidden="true" class="icon-chevron-down"></span> Faculty Salaries Non-Tenured - On</a></td>
+                            <td class=" uif-right-aligned active" >$156,934.00</td>
+                            <td class=" uif-right-aligned active" >$156,934.00</td>
+                            <td class=" uif-right-aligned active" >$156,934.00</td>
+                            <td class=" uif-right-aligned active" >$156,934.00</td>
+                            <td class=" uif-right-aligned active" >$156,934.00</td>
+                            <td class="uif-right-aligned active" >$784,670.00</td>
                         </tr>
                         <tr class="">
                             <td style="padding-left:22px">Andrew Sulsar</td>
-                            <td class=" uif-right-aligned text-muted">$100,000</td>
-                            <td class=" uif-right-aligned text-muted">$100,000</td>
-                            <td class=" uif-right-aligned text-muted">$100,000</td>
-                            <td class=" uif-right-aligned text-muted">$100,000</td>
-                            <td class=" uif-right-aligned text-muted">$100,000</td>
-                            <td class=" uif-right-aligned text-muted">$500,000</td>
+                            <td class=" uif-right-aligned text-muted">$100,000.00</td>
+                            <td class=" uif-right-aligned text-muted">$100,000.00</td>
+                            <td class=" uif-right-aligned text-muted">$100,000.00</td>
+                            <td class=" uif-right-aligned text-muted">$100,000.00</td>
+                            <td class=" uif-right-aligned text-muted">$100,000.00</td>
+                            <td class=" uif-right-aligned text-muted">$500,000.00</td>
                         </tr>
                         <tr class="">
                            <td style="padding-left:22px">Alan Jones</td>
-                            <td class=" uif-right-aligned text-muted">$56,934</td>
-                            <td class=" uif-right-aligned text-muted">$56,934</td>
-                            <td class=" uif-right-aligned text-muted">$56,934</td>
-                            <td class=" uif-right-aligned text-muted">$56,934</td>
-                            <td class=" uif-right-aligned text-muted">$56,934</td>
-                            <td class="uif-right-aligned text-muted">$284,670</td>
+                            <td class=" uif-right-aligned text-muted">$56,934.00</td>
+                            <td class=" uif-right-aligned text-muted">$56,934.00</td>
+                            <td class=" uif-right-aligned text-muted">$56,934.00</td>
+                            <td class=" uif-right-aligned text-muted">$56,934.00</td>
+                            <td class=" uif-right-aligned text-muted">$56,934.00</td>
+                            <td class="uif-right-aligned text-muted">$284,670.00</td>
                         </tr>
                         <tr class="">
-                            <td><a href="#"> <span aria-hidden="true" class="icon-chevron-down"></span> Salary: Administrative Staff - On</a></td>
-                            <td class=" uif-right-aligned active">$37,345</td>
-                            <td class=" uif-right-aligned active">$37,345</td>
-                            <td class=" uif-right-aligned active">$37,345</td>
-                            <td class=" uif-right-aligned active">$37,345</td>
-                            <td class=" uif-right-aligned active">$37,345</td>
-                            <td class="uif-right-aligned active">$186,725</td>
+                            <td><a href="#"> <span aria-hidden="true" class="icon-chevron-down"></span> Administrative Staff - On</a></td>
+                            <td class=" uif-right-aligned active">$37,345.00</td>
+                            <td class=" uif-right-aligned active">$37,345.00</td>
+                            <td class=" uif-right-aligned active">$37,345.00</td>
+                            <td class=" uif-right-aligned active">$37,345.00</td>
+                            <td class=" uif-right-aligned active">$37,345.00</td>
+                            <td class="uif-right-aligned active">$186,725.00</td>
                         </tr>
                         <tr class="">
                            <td style="padding-left:22px">Data Entry Assistant</td>
-                           <td class=" uif-right-aligned text-muted">$37,345</td>
-                           <td class=" uif-right-aligned text-muted">$37,345</td>
-                           <td class=" uif-right-aligned text-muted">$37,345</td>
-                           <td class=" uif-right-aligned text-muted">$37,345</td>
-                           <td class=" uif-right-aligned text-muted">$37,345</td>
-                           <td class=" uif-right-aligned text-muted">$186,725</td>
+                           <td class=" uif-right-aligned text-muted">$37,345.00</td>
+                           <td class=" uif-right-aligned text-muted">$37,345.00</td>
+                           <td class=" uif-right-aligned text-muted">$37,345.00</td>
+                           <td class=" uif-right-aligned text-muted">$37,345.00</td>
+                           <td class=" uif-right-aligned text-muted">$37,345.00</td>
+                           <td class=" uif-right-aligned text-muted">$186,725.00</td>
+                        </tr>
+                        <tr class="active">
+                            <td ><strong>Fringe</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$0.00</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$0.00</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$0.00</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$0.00</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$0.00</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$0.00</strong></td>
                         </tr>
                         <tr class="">
-                            <td><a href="#"> <span aria-hidden="true" class="icon-chevron-down"></span> Fringe: Faculty Salaries Non-Tenured - On</a></td>
-                            <td class=" uif-right-aligned active">$0</td>
-                            <td class=" uif-right-aligned active">$0</td>
-                            <td class=" uif-right-aligned active">$0</td>
-                            <td class=" uif-right-aligned active">$0</td>
-                            <td class=" uif-right-aligned active">$0</td>
-                            <td class="uif-right-aligned active">$0</td>
+                            <td><a href="#"> <span aria-hidden="true" class="icon-chevron-down"></span> Faculty Salaries Non-Tenured - On</a></td>
+                            <td class=" uif-right-aligned active">$0.00</td>
+                            <td class=" uif-right-aligned active">$0.00</td>
+                            <td class=" uif-right-aligned active">$0.00</td>
+                            <td class=" uif-right-aligned active">$0.00</td>
+                            <td class=" uif-right-aligned active">$0.00</td>
+                            <td class=" uif-right-aligned active">$0.00</td>
                         </tr>
                         <tr class="">
                             <td style="padding-left:22px">Andrew Sulsar</td>
-                            <td class=" uif-right-aligned text-muted">$0</td>
-                            <td class=" uif-right-aligned text-muted">$0</td>
-                            <td class=" uif-right-aligned text-muted">$0</td>
-                            <td class=" uif-right-aligned text-muted">$0</td>
-                            <td class=" uif-right-aligned text-muted">$0</td>
-                            <td class=" uif-right-aligned text-muted">$0</td>
+                            <td class=" uif-right-aligned text-muted">$0.00</td>
+                            <td class=" uif-right-aligned text-muted">$0.00</td>
+                            <td class=" uif-right-aligned text-muted">$0.00</td>
+                            <td class=" uif-right-aligned text-muted">$0.00</td>
+                            <td class=" uif-right-aligned text-muted">$0.00</td>
+                            <td class=" uif-right-aligned text-muted">$0.00</td>
                         </tr>
                         <tr class="">
                             <td style="padding-left:22px">Alan Jones</td>
-                            <td class=" uif-right-aligned text-muted">$0</td>
-                            <td class=" uif-right-aligned text-muted">$0</td>
-                            <td class=" uif-right-aligned text-muted">$0</td>
-                            <td class=" uif-right-aligned text-muted">$0</td>
-                            <td class=" uif-right-aligned text-muted">$0</td>
-                            <td class=" uif-right-aligned text-muted">$0</td>
+                            <td class=" uif-right-aligned text-muted">$0.00</td>
+                            <td class=" uif-right-aligned text-muted">$0.00</td>
+                            <td class=" uif-right-aligned text-muted">$0.00</td>
+                            <td class=" uif-right-aligned text-muted">$0.00</td>
+                            <td class=" uif-right-aligned text-muted">$0.00</td>
+                            <td class=" uif-right-aligned text-muted">$0.00</td>
                         </tr>
                         <tr class="">
-                            <td><a href="#"> <span aria-hidden="true" class="icon-chevron-down"></span> Fringe: Administrative Staff - On</a></td>
-                            <td class=" uif-right-aligned active">$0</td>
-                            <td class=" uif-right-aligned active">$0</td>
-                            <td class=" uif-right-aligned active">$0</td>
-                            <td class=" uif-right-aligned active">$0</td>
-                            <td class=" uif-right-aligned active">$0</td>
-                            <td class="uif-right-aligned active">$0</td>
+                            <td><a href="#"> <span aria-hidden="true" class="icon-chevron-down"></span>  Administrative Staff - On</a></td>
+                            <td class=" uif-right-aligned active">$0.00</td>
+                            <td class=" uif-right-aligned active">$0.00</td>
+                            <td class=" uif-right-aligned active">$0.00</td>
+                            <td class=" uif-right-aligned active">$0.00</td>
+                            <td class=" uif-right-aligned active">$0.00</td>
+                            <td class=" uif-right-aligned active">$0.00</td>
                         </tr>
                         <tr class="">
                             <td style="padding-left:22px">Data Entry Assistant</td>
-                            <td class=" uif-right-aligned text-muted">$0</td>
-                            <td class=" uif-right-aligned text-muted">$0</td>
-                            <td class=" uif-right-aligned text-muted">$0</td>
-                            <td class=" uif-right-aligned text-muted">$0</td>
-                            <td class=" uif-right-aligned text-muted">$0</td>
-                            <td class=" uif-right-aligned text-muted">$0</td>
+                            <td class=" uif-right-aligned text-muted">$0.00</td>
+                            <td class=" uif-right-aligned text-muted">$0.00</td>
+                            <td class=" uif-right-aligned text-muted">$0.00</td>
+                            <td class=" uif-right-aligned text-muted">$0.00</td>
+                            <td class=" uif-right-aligned text-muted">$0.00</td>
+                            <td class=" uif-right-aligned text-muted">$0.00</td>
                         </tr>
-                        <tr class="">
-                            <td><a href="#"> <span aria-hidden="true" class="icon-chevron-right"></span> Calculated Direct Costs</a></td>
-                            <td class=" uif-right-aligned active">$28,284</td>
-                            <td class=" uif-right-aligned active">$28,284</td>
-                            <td class=" uif-right-aligned active">$28,284</td>
-                            <td class=" uif-right-aligned active">$28,284</td>
-                            <td class=" uif-right-aligned active">$28,284</td>
-                            <td class="uif-right-aligned active">$141,420</td>
+                        <tr class="active">
+                            <td ><strong>Calculated Direct Costs</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$0.00</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$0.00</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$0.00</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$0.00</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$0.00</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$0.00</strong></td>
                         </tr>
                         <tr class="">
                             <td>Personnel Subtotal</td>
-                            <td class=" uif-right-aligned"><strong>$222,563</strong></td>
-                            <td class="uif-right-aligned"><strong>$222,563</strong></td>
-                            <td class="uif-right-aligned"><strong>$222,563</strong></td>
-                            <td class="uif-right-aligned"><strong>$222,563</strong></td>
-                            <td class="uif-right-aligned"><strong>$222,563</strong></td>
+                            <td class=" uif-right-aligned"><strong>$222,563.00</strong></td>
+                            <td class=" uif-right-aligned"><strong>$222,563.00</strong></td>
+                            <td class=" uif-right-aligned"><strong>$222,563.00</strong></td>
+                            <td class=" uif-right-aligned"><strong>$222,563.00</strong></td>
+                            <td class=" uif-right-aligned"><strong>$222,563.00</strong></td>
                             <td class="uif-right-aligned"><strong>$837,456</strong></td>
                         </tr>
                         <tr class="active">
@@ -285,14 +303,14 @@ $section = '';
                             <td class=" uif-right-aligned active">$38,546</td>
                             <td class="uif-right-aligned active">$219,348</td>
                         </tr>
-                        <tr class="">
-                            <td><a href="#"><span aria-hidden="true" class="icon-chevron-right"></span> Calculated Direct Costs</a></td>
-                            <td class=" uif-right-aligned active">$38,546</td>
-                            <td class=" uif-right-aligned active">$38,546</td>
-                            <td class=" uif-right-aligned active">$38,546</td>
-                            <td class=" uif-right-aligned active">$38,546</td>
-                            <td class=" uif-right-aligned active">$38,546</td>
-                            <td class="uif-right-aligned active">$219,348</td>
+                        <tr class="active">
+                            <td ><strong>Calculated Direct Costs</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$0.00</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$0.00</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$0.00</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$0.00</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$0.00</strong></td>
+                            <td class=" uif-right-aligned active" ><strong>$0.00</strong></td>
                         </tr>
                         <tr class="">
                             <td>Nonpersonnel Subtotal</td>
