@@ -228,6 +228,7 @@ public class SpinUpJenkinsMaster {
 		info("update  -> package indexes");
 		execFormattedCommand(channel, quiet, "apt-get update -y");
 		// Attempting to install the unzip package failed 2 nights in a row with error code 100
+		// Trying a 3 second delay here just to see if that helps 
 		sleep(3000);
 		info("install  -> unzip");
 		execFormattedCommand(channel, quiet, "apt-get install unzip -y");
