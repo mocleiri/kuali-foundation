@@ -27,7 +27,8 @@ $page = 'personnel-assign';
                         <div class="logoBrand">
                             <h1><img id="u2elq10" src="../../themes/kboot/images/logo-kc.png" alt="" class="uif-image"></h1>
                         </div>
-                    </a></div>
+                    </a>
+                </div>
                 <div id="u1gk19wq" class="collapse navbar-collapse navbar-ex1-collapse uif-listGroup">
                     <ul class="nav navbar-nav navbar-right uif-listLayout">
                         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> Researcher </a>
@@ -154,8 +155,8 @@ $page = 'personnel-assign';
             <tbody>
                 <tr class="active">
                     <td colspan="9">
-                        <h4 class="uif-headerText pull-left">Faculty Salaries - Tenured</h4>
-                        <a href="#" class="uif-actionLink pull-right" style="display: inline-block; margin-top: 10px;" data-toggle="modal" data-target="#details">Details &amp; Rates</a>
+                        <p class="uif-headerText pull-left" style="margin: 2px 0 2px 0;"><strong>Faculty Salaries - Tenured</strong></p>
+                        <a href="#" class="uif-actionLink pull-right" data-toggle="modal" data-target="#details">Details &amp; Rates</a>
                     </td>
                 </tr>
                 <tr>
@@ -215,8 +216,8 @@ $page = 'personnel-assign';
                 </tr>
                 <tr class="active">
                     <td colspan="9">
-                        <h4 class="uif-headerText pull-left">Post Doctoral Staff</h4>
-                        <a href="#" class="uif-actionLink pull-right" style="display: inline-block; margin-top: 10px;" data-toggle="modal" data-target="#details">Details &amp; Rates</a>
+                        <p class="uif-headerText pull-left" style="margin: 2px 0 2px 0;"><strong>Post Doctoral Staff</strong></p>
+                        <a href="#" class="uif-actionLink pull-right" data-toggle="modal" data-target="#details">Details &amp; Rates</a>
                     </td>
                 </tr>
                 <tr>
@@ -274,8 +275,8 @@ $page = 'personnel-assign';
                 </tr>
                 <tr class="active">
                     <td colspan="9">
-                        <h4 class="uif-headerText pull-left">Summer Faculty</h4>
-                        <a href="#" class="uif-actionLink pull-right" style="display: inline-block; margin-top: 10px;" data-toggle="modal" data-target="#details">Details &amp; Rates</a>
+                        <p class="uif-headerText pull-left" style="margin: 2px 0 2px 0;"><strong>Summer Faculty</strong></p>
+                        <a href="#" class="uif-actionLink pull-right" data-toggle="modal" data-target="#details">Details &amp; Rates</a>
                     </td>
                 </tr>
                 <tr>
@@ -549,6 +550,7 @@ if ($currentPage == "modular-budget=no&amp;detail=yes") {
                     });
                 </script></div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Apply to Later Periods</button>
             </div>
         </div>
