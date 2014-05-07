@@ -29,14 +29,14 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Income</label>
+                        <label for="inputEmail3" class="col-sm-3 control-label">Income Amount</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" id="" placeholder="">
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer"> <a type="button" class="btn btn-default" data-dismiss="modal">Cancel</a> <a  href="budget-ng-personnelCosts-persPeriod2.php" type="button" class="btn btn-primary" data-dismiss="modal">Assign to Period 1</a> </div>
+            <div class="modal-footer"> <a type="button" class="btn btn-default" data-dismiss="modal">Cancel</a> <a  href="budget-ng-personnelCosts-persPeriod2.php" type="button" class="btn btn-primary" data-dismiss="modal">Add Income</a> </div>
         </div>
     </div>
 </div>
