@@ -141,11 +141,24 @@ $section = '';
                                 <td>634.74</td>
                                 <td><a href="" class="btn btn-default btn-xs">Edit</a> <a href="#" class="btn btn-default btn-xs">Delete</a></td>
                             </tr>
-                        <tr class="not-deletable">
-                                <td>3 <small class="text-muted">(05/14/2016 - 05/13/2017)</small></td>
-                                <td>Delightful unreserved impossible few estimating men favourable see entreaties. She propriety immediate was improving.</td>
-                                <td>2,882.45</td>
-                                <td><a href="" class="btn btn-default btn-xs">Edit</a> <a href="#" class="btn btn-default btn-xs">Delete</a></td>
+                        <tr class="warning">
+                                <td><label for="line_2_period" class="form-label"><span class="sr-only">Period</span></label>
+                                <select name="line_2_period" id="line_2_period" class="form-control input-sm">
+                                        <option>Select</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select></td>
+                                <td>
+                                
+                                <textarea class="form-control" placeholder="Delightful unreserved impossible few estimating men favourable see entreaties. She propriety immediate was improving." rows="3"></textarea>
+                                
+                                
+                               </td>
+                                <td><input type="text" class="form-control" id="" placeholder="2,882.45"></td>
+                                <td><a href="" class="btn btn-primary btn-xs">Save</a> <a href="#" class="btn btn-default btn-xs">Cancel</a></td>
                             </tr>
                         <tr class="not-deletable">
                                 <td>3 <small class="text-muted">(05/14/2016 - 05/13/2017)</small></td>
@@ -173,9 +186,6 @@ $section = '';
                             </tr>
                     </tbody>
                     </table>
-             
-               
-             
             </main>
             </div>
         <div id="" class="uif-footer clearfix uif-stickyFooter uif-stickyButtonFooter" data-sticky_footer="true" data-parent="LabsProposal" style="position:fixed; left: 0; bottom: 0px;">
@@ -224,9 +234,5 @@ $section = '';
 <?php include ('includes/modal-budget-projIncome.php') ?>
 <!-- MODAL Add project income -->
 <?php include ('includes/modal-budget-incomesumary.php') ?>
-
-
-
-
 </body>
 </html>
