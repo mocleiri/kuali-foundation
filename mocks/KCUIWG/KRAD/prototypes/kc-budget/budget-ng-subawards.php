@@ -126,12 +126,12 @@ $section = '';
             </div><br />
 
 			<section>
-                <table class="pad5 table table-condensed table-bordered">
+                <table class="pad5 table table-condensed table-bordered uif-has-actions">
                     <thead>
                         <tr>
-                            <th class="col-sm-4">Organization Name</th>
-                            <th class="col-sm-4">File Name</th>
-                            <th class="col-sm-3">Actions</th>
+                            <th>Organization Name</th>
+                            <th>File Name</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
