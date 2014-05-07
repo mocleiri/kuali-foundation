@@ -23,6 +23,7 @@ import static org.kuali.common.dns.model.CNAMEContext.newCNAMEContext;
 import static org.kuali.common.util.FormatUtils.getMillisAsInt;
 import static org.kuali.common.util.FormatUtils.getTime;
 import static org.kuali.common.util.base.Exceptions.illegalArgument;
+import static org.kuali.common.util.base.Threads.sleep;
 import static org.kuali.common.util.encrypt.Encryption.getDefaultEncryptor;
 import static org.kuali.common.util.log.LoggerLevel.INFO;
 import static org.kuali.common.util.log.LoggerLevel.WARN;
@@ -226,6 +227,8 @@ public class SpinUpJenkinsMaster {
 		channel.scp(jar, remoteJar);
 		info("update  -> package indexes");
 		execFormattedCommand(channel, quiet, "apt-get update -y");
+		// Attempting to install the unzip package failed 2 nights in a row with error code 100
+		sleep(3000);
 		info("install  -> unzip");
 		execFormattedCommand(channel, quiet, "apt-get install unzip -y");
 		info("purge    -> %s", remotePublishDir);
