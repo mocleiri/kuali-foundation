@@ -44,9 +44,6 @@ import org.slf4j.Logger;
 
 public abstract class AbstractSpringMojo extends AbstractMojo {
 
-	// TODO See the comments in the execute() method and fix things so this locking object is no longer needed
-	private static final Object MUTEX = new Object();
-
 	//
 	private static final String SPRING_DEBUG_KEY = "spring.debug";
 	private static final String SLF4J_DEBUG_KEY = "slf4j.debug";
@@ -159,8 +156,15 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	@Parameter(property = "spring.skip", defaultValue = MavenConstants.DEFAULT_SKIP)
 	boolean skip = new Boolean(MavenConstants.DEFAULT_SKIP);
 
+	// Guarantee "thread safety". This forces spring-maven-plugin into single threaded mode by locking out all but one thread at a time.
+	// This is a work around for some kind of issue that appears to be internal to Spring.
+	// The ctx.refresh() call inside DefaultSpringService.load(), locks up and stalls outs if you spin up 8 threads that load the same Config class
+	// Specifically the, "@Autowired Environment env" annotation's return null when Maven runs in multi-threaded parallel build mode.
+	// A much better solution would be to figure out the root cause of the underlying issue and fix it.
+	// This would allow spring-maven-plugin to truly run in multi-threaded mode, instead of merely appearing to run correctly in multi-threaded mode by resorting back to single
+	// threaded mode.
 	@Override
-	public void execute() throws MojoExecutionException {
+	public synchronized void execute() throws MojoExecutionException {
 		// Create a map containing a reference to the mojo
 		Map<String, Object> beans = singletonMap(DEFAULT_MAVEN_MOJO_BEAN_NAME, (Object) this);
 
@@ -176,18 +180,11 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		// Create an executable capable of correctly invoking Spring
 		Executable executable = new SpringExecutable(service, context);
 
-		// Guarantee "thread safety". This forces spring-maven-plugin into single threaded mode by locking out all but one thread at a time.
-		// This is a work around for some kind of issue that appears to be internal to Spring.
-		// The ctx.refresh() call inside DefaultSpringService.load(), locks up and stalls outs if you spin up 8 threads that load the same Config class
-		// Specifically the, "@Autowired Environment env" annotation's return null when Maven runs in multi-threaded parallel build mode.
-		// A much better solution would be to figure out the root cause of the underlying issue and fix it.
-		// This would allow spring-maven-plugin to truly run in multi-threaded mode, instead of merely appearing to run correctly in multi-threaded mode by resorting back to single
-		// threaded mode.
-		synchronized (MUTEX) {
-			configureSpringLogging();
-			// Delegate execution to Spring
-			executable.execute();
-		}
+		// Configure logging
+		configureSpringLogging();
+
+		// Delegate execution to Spring
+		executable.execute();
 	}
 
 	// Maven 3.1+ includes slf4j-simple.jar in /usr/share/maven/lib
